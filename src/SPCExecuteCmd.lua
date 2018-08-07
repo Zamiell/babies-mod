@@ -12,7 +12,6 @@ function SPCExecuteCmd:Main(cmd, params)
 
   if cmd == "baby" then
     SPCGlobals.debug = tonumber(params)
-    Isaac.DebugString("Set debug baby to: " .. params)
   end
 end
 

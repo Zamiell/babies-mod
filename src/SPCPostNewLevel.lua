@@ -27,20 +27,27 @@ end
 function SPCPostNewLevel:NewLevel()
   Isaac.DebugString("MC_POST_NEW_LEVEL2")
 
+  SPCPostNewLevel:RemoveOldBaby()
+  SPCPostNewLevel:GetNewBaby()
+  SPCPostNewLevel:ApplyNewBaby()
+end
+
+function SPCPostNewLevel:RemoveOldBaby()
   -- Local variables
   local game = Game()
-  local level = game:GetLevel()
   local player = game:GetPlayer(0)
-  local itemConfig = Isaac.GetItemConfig()
   local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
 
-  -- If we are on an active item baby, remove the active item
-  if baby ~= nil then -- (we could be on the first floor)
-    local item = baby.item
-    if item ~= nil and itemConfig:GetCollectible(item).Type == ItemType.ITEM_ACTIVE then
-      player:RemoveCollectible(item)
-    end
+  -- We could be on the first floor
+  if baby == nil then
+    return
+  end
+
+  -- If we are on an item baby, remove the item
+  local item = baby.item
+  if item ~= nil then
+    player:RemoveCollectible(item)
   end
 
   -- Give the stored active item back, if any
@@ -51,11 +58,9 @@ function SPCPostNewLevel:NewLevel()
   end
 
   -- If we are on a trinket baby, remove the trinket
-  if baby ~= nil then -- (we could be on the first floor)
-    local trinket = baby.trinket
-    if trinket ~= nil then
-      player:TryRemoveTrinket(trinket)
-    end
+  local trinket = baby.trinket
+  if trinket ~= nil then
+    player:TryRemoveTrinket(trinket)
   end
 
   -- Give the stored trinket back, if any
@@ -64,23 +69,37 @@ function SPCPostNewLevel:NewLevel()
     SPCGlobals.run.storedTrinket = 0
   end
 
+  -- Remove miscellaneous effects
+  --[[
+  if baby.name == "" then
+  end
+  --]]
+end
+
+function SPCPostNewLevel:GetNewBaby()
+  -- Local variables
+  local game = Game()
+  local level = game:GetLevel()
+  local seed = level:GetDungeonPlacementSeed()
+  local stage = level:GetStage()
+  local player = game:GetPlayer(0)
+
   -- Get a random co-op baby based on the seed of the floor
   -- (but reroll the baby if they have any overlapping items)
-  local seed = level:GetDungeonPlacementSeed()
-  local newType
+  local type
   while true do
     seed = SPCGlobals:IncrementRNG(seed)
     math.randomseed(seed)
-    newType = math.random(1, 521)
+    type = math.random(1, 521)
 
     -- Don't randomly choose a co-op baby if we are choosing a specific one for debugging purposes
     if SPCGlobals.debug ~= 0 then
-      newType = SPCGlobals.debug
+      type = SPCGlobals.debug
       break
     end
 
     -- Check for overlapping items or trinkets
-    local newBaby = SPCGlobals.babies[newType]
+    local newBaby = SPCGlobals.babies[type]
     local valid = false
     if newBaby.item ~= nil then
       if player:HasCollectible(newBaby.item) == false then
@@ -99,10 +118,16 @@ function SPCPostNewLevel:NewLevel()
 
     -- Check to see if we got this baby in the recent past
     for i = 1, #SPCGlobals.pastBabies do
-      if SPCGlobals.pastBabies[i] == newType then
+      if SPCGlobals.pastBabies[i] == type then
         valid = false
         break
       end
+    end
+
+    -- Check to see if this baby is banned on the harder floors
+    local baby = SPCGlobals.babies[type]
+    if baby.noEndFloors and stage > 8 then
+      valid = false
     end
 
     if valid then
@@ -110,20 +135,20 @@ function SPCPostNewLevel:NewLevel()
     end
   end
 
-  SPCPostNewLevel:NewBaby(newType)
+  SPCGlobals.run.babyType = type
+  local baby = SPCGlobals.babies[type]
+  Isaac.DebugString("Randomly chose co-op baby: " .. tostring(type) .. " - " .. baby.name)
 end
 
-function SPCPostNewLevel:NewBaby(type)
+function SPCPostNewLevel:ApplyNewBaby()
   -- Local variables
   local game = Game()
   local player = game:GetPlayer(0)
   local activeItem = player:GetActiveItem()
   local activeCharge = player:GetActiveCharge()
   local itemConfig = Isaac.GetItemConfig()
+  local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
-
-  SPCGlobals.run.babyType = type
-  Isaac.DebugString("Randomly chose co-op baby: " .. tostring(type) .. " - " .. baby.name)
 
   -- Draw the kind of baby on the starting room
   SPCGlobals.run.drawIntro = true
@@ -180,12 +205,12 @@ function SPCPostNewLevel:NewBaby(type)
   end
 
   -- Some babies grant extra stats
-  player:AddCacheFlags(CacheFlag.CACHE_LUCK) -- 1024
+  player:AddCacheFlags(CacheFlag.CACHE_ALL) -- 0xFFFFFFFF
   player:EvaluateItems()
 
   -- Miscellaneous other effects
   if baby.name == "Bloat Baby" then
-    player:UsePill(PillEffect.PILLEFFECT_PRETTY_FLY, 0) -- 10
+    player:AddPrettyFly()
   end
 
   -- Reset the player's size

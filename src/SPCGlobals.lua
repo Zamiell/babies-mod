@@ -23,8 +23,9 @@ function SPCGlobals:InitRun()
     end
   end
 
-  -- Reset run-based variables to defaults
+  -- Reset some variables to defaults
   SPCGlobals.run = {
+    -- General run-based variables
     startedTime      = Isaac.GetTime(),
     babyType         = 0,
     drawIntro        = false,
@@ -34,6 +35,9 @@ function SPCGlobals:InitRun()
     queuedItems      = false,
     animation        = "",
     roomClear        = true,
+
+    -- Baby-specific variables
+    waterBabyTears = 0, -- 3
   }
 
 end
@@ -80,13 +84,13 @@ SPCGlobals.babies = {
     name = "Bloat Baby",
     description = "Starts with a Pretty Fly",
     sprite = "002_baby_bloat.png",
-    -- TODO
+    -- Pretty Flies cannot be removed
   },
   {
     name = "Water Baby",
-    description = "Isaac's Tears effect on hit",
+    description = "Starts with Isaac's Tears (improved)",
     sprite = "003_baby_water.png",
-    -- TODO
+    item = CollectibleType.COLLECTIBLE_ISAACS_TEARS, -- 323
   },
   {
     name = "Psy Baby",
@@ -102,9 +106,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Troll Baby",
-    description = "Spawns a troll bomb every 15 seconds",
+    description = "Spawns a Troll Bomb every 3 seconds",
     sprite = "006_baby_troll.png",
-    -- TODO
   },
   {
     name = "Ybab Baby",
@@ -1040,7 +1043,7 @@ SPCGlobals.babies = {
   },
   {
     name = "Digital Baby",
-    description = "Applies a filter that makes the game look like it's being played through a cathode ray tube",
+    description = "B00B T00B",
     sprite = "162_baby_digital.png",
     -- TODO
   },
@@ -1283,7 +1286,7 @@ SPCGlobals.babies = {
     description = "Starts with Incubus and is blindfolded",
     sprite = "202_baby_blindfold.png",
     item = CollectibleType.COLLECTIBLE_INCUBUS, -- 360
-    -- TODO
+    blindfolded = true,
   },
   {
     name = "Pipe Baby",
@@ -1455,9 +1458,9 @@ SPCGlobals.babies = {
   },
   {
     name = "Bawl Baby",
-    description = "Starts with Isaac's Tears",
+    description = "Has constant Isaac's Tears effect",
     sprite = "231_baby_bawl.png",
-    item = CollectibleType.COLLECTIBLE_ISAACS_TEARS, -- 323
+    blindfolded = true,
   },
   {
     name = "Lemon Baby",
@@ -1504,7 +1507,7 @@ SPCGlobals.babies = {
   },
   {
     name = "Beret Baby",
-    description = "All enemies turn into champions",
+    description = "All champions",
     sprite = "239_baby_beret.png",
     -- TODO
   },
@@ -1824,6 +1827,8 @@ SPCGlobals.babies = {
     name = "Lantern Baby",
     description = "Blindfolded + passive Godhead aura",
     sprite = "292_baby_lantern.png",
+    item = CollectibleType.COLLECTIBLE_GODHEAD, -- 331
+    blindfolded = true,
     -- TODO
   },
   {
@@ -1840,8 +1845,9 @@ SPCGlobals.babies = {
   },
   {
     name = "Rider Baby",
-    description = "?",
+    description = "Starts with A Pony (improved) and is blindfolded",
     sprite = "295_baby_rider.png",
+    blindfolded = true
   },
   {
     name = "Choco Baby",
@@ -1893,10 +1899,10 @@ SPCGlobals.babies = {
   },
   {
     name = "Hotdog Baby",
-    description = "Starts with The Bean and is blindfolded",
+    description = "Has constant The Bean effect",
     sprite = "304_baby_hotdog.png",
-    item = CollectibleType.COLLECTIBLE_BEAN, -- 111
-    -- TODO
+    blindfolded = true,
+    noEndFloors = true,
   },
   {
     name = "Nature Baby",
@@ -2317,7 +2323,7 @@ SPCGlobals.babies = {
   },
   {
     name = "Pink Princess Baby",
-    description = "Starts with Broken Shovel",
+    description = "Starts with Broken Shovel 1",
     sprite = "374_baby_pinkprincess.png",
     item = CollectibleType.COLLECTIBLE_BROKEN_SHOVEL, -- 550
   },
@@ -2335,8 +2341,11 @@ SPCGlobals.babies = {
   },
   {
     name = "Elf Baby",
-    description = "?",
+    description = "Starts with Spear of Destiny (improved) and is blindfolded",
     sprite = "377_baby_elf.png",
+    item = CollectibleType.COLLECTIBLE_SPEAR_OF_DESTINY, -- 400
+    blindfolded = true,
+    -- TODO, Custom sprite from Guardian Challenge
   },
   {
     name = "Dark Elf Baby",
@@ -2364,7 +2373,7 @@ SPCGlobals.babies = {
   },
   {
     name = "Blue Pig Baby",
-    description = "?",
+    description = "Spawns a Mega Troll Bomb every 5 seconds",
     sprite = "382_baby_bluepig.png",
   },
   {
@@ -2381,8 +2390,9 @@ SPCGlobals.babies = {
   },
   {
     name = "Fairyman Baby",
-    description = "?",
+    description = "Starts with +3 damage, -1 damage on hit",
     sprite = "385_baby_fairyman.png",
+    -- TODO
   },
   {
     name = "Imp Baby",
@@ -2427,8 +2437,9 @@ SPCGlobals.babies = {
   },
   {
     name = "Dream Knight Baby",
-    description = "?",
+    description = "Starts with Blue Cap",
     sprite = "393_baby_dreamknight.png",
+    item = CollectibleType.COLLECTIBLE_BLUE_CAP, -- 342
   },
   {
     name = "Cowboy Baby",
@@ -2474,7 +2485,7 @@ SPCGlobals.babies = {
   },
   {
     name = "Corgi Baby",
-    description = "?",
+    description = "Spawns a fly every 1.5 seconds",
     sprite = "401_baby_corgi.png",
   },
   {
@@ -2532,8 +2543,9 @@ SPCGlobals.babies = {
   },
   {
     name = "Blue Hat Baby",
-    description = "?",
+    description = "Starts with Blue Map",
     sprite = "411_baby_bluehat.png",
+    item = CollectibleType.COLLECTIBLE_BLUE_MAP, -- 246
   },
   {
     name = "Catsuit Baby",
@@ -2560,8 +2572,9 @@ SPCGlobals.babies = {
   },
   {
     name = "Puncher Baby",
-    description = "?",
+    description = "Starts with Punching Bag",
     sprite = "416_baby_puncher.png",
+    item = CollectibleType.COLLECTIBLE_PUNCHING_BAG, -- 281
   },
   {
     name = "Holy Knight Baby",
@@ -2750,8 +2763,9 @@ SPCGlobals.babies = {
   },
   {
     name = "Nurf Baby",
-    description = "?",
+    description = "Starts with Rune Bag",
     sprite = "448_baby_nurf.png",
+    item = CollectibleType.COLLECTIBLE_RUNE_BAG, -- 389
   },
   {
     name = "Mutated Fish Baby",
@@ -3013,8 +3027,9 @@ SPCGlobals.babies = {
   },
   {
     name = "Gamer Baby",
-    description = "?",
+    description = "Constant Retro Vision pill effect",
     sprite = "492_baby_gamer.png",
+    -- TODO
   },
   {
     name = "Glittery Peach Baby",
@@ -3109,8 +3124,9 @@ SPCGlobals.babies = {
   },
   {
     name = "Sausage Lover Baby",
-    description = "?",
+    description = "Starts with Isaac's Fork",
     sprite = "508_baby_sausagelover.png",
+    trinket = TrinketType.TRINKET_ISAACS_FORK, -- 46
   },
   {
     name = "Scribble Baby",
@@ -3169,8 +3185,9 @@ SPCGlobals.babies = {
   },
   {
     name = "Green Pepper Baby",
-    description = "?",
+    description = "Starts with Serpent's Kiss",
     sprite = "518_baby_greenpepper.png",
+    item = CollectibleType.COLLECTIBLE_SERPENTS_KISS, -- 393
   },
   {
     name = "Baggy Cap Baby",

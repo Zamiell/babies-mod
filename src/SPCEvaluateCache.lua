@@ -12,15 +12,17 @@ function SPCEvaluateCache:Main(player, cacheFlag)
 
   -- Local variables
   local type = SPCGlobals.run.babyType
-  --local baby = SPCGlobals.babies[type]
-
-  --[[
-  if cacheFlag == CacheFlag.CACHE_LUCK and -- 1024
-     type == 277 then -- Spiky Demon Baby
-
-    player.Luck = player.Luck + 13
+  local baby = SPCGlobals.babies[type]
+  if baby == nil then
+    return
   end
-  --]]
+
+  if cacheFlag == CacheFlag.CACHE_FIREDELAY and -- 2
+     baby.blindfolded then
+
+    player.FireDelay = 100000
+    Isaac.DebugString("Set blindfolded.")
+  end
 end
 
 return SPCEvaluateCache

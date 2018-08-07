@@ -57,13 +57,13 @@ function SPCPostRender:TrackPlayerAnimations()
 
     -- Certain animations will mess up the player's sprite when certain items are in the inventory
     -- (Brimstone, Ipecac, etc.)
-    if animation == "" then
-      Isaac.DebugString("Reset the currently playing animation on frame: " .. tostring(frameCount))
-    else
+    if animation ~= "" then
       SPCPostRender:SetPlayerSprite()
       playerSprite:Play(animation, false)
-      Isaac.DebugString("Reverted the sprite (triggered by animation " .. animation ..
-                        " on frame " .. tostring(frameCount) .. ").")
+      --[[
+      Isaac.DebugString("Reverted the sprite. (Triggered by animation " .. animation ..
+                        " on frame " .. tostring(frameCount) .. ".)")
+      --]]
     end
   end
 end

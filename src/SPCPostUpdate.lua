@@ -33,6 +33,9 @@ function SPCPostUpdate:Main()
 
   -- Certain babies do things if the room is cleared
   SPCPostUpdate:CheckRoomCleared()
+
+  -- Do custom baby effects
+  SPCPostUpdate:DoBabyEffects()
 end
 
 -- Check to see if this is a trinket baby and they dropped the trinket
@@ -108,6 +111,48 @@ function SPCPostUpdate:RoomCleared()
   if baby.name == "Love Baby" then
     -- Random Heart - 5.10.0
     game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, player.Position, zeroVelocity, player, 0, roomSeed)
+  end
+end
+
+function SPCPostUpdate:DoBabyEffects()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local player = game:GetPlayer(0)
+  local type = SPCGlobals.run.babyType
+  local baby = SPCGlobals.babies[type]
+  if baby == nil then
+    return
+  end
+
+  if baby.name == "Troll Baby" and -- 6
+     gameFrameCount % 90 == 0 then -- 3 seconds
+
+    -- Spawn a Troll Bomb (4.3)
+    game:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_TROLL, player.Position, Vector(0, 0), nil, 0, 0)
+
+  elseif baby.name == "Bawl Baby" and -- 231
+         gameFrameCount % 3 == 0 then
+
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_ISAACS_TEARS, false, false, false, false) -- 323
+
+  elseif baby.name == "Hotdog Baby" and -- 304
+         gameFrameCount % 3 == 0 then
+
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_BEAN, false, false, false, false) -- 111
+
+  elseif baby.name == "Blue Pig Baby" and -- 382
+         gameFrameCount % 150 == 0 then -- 5 seconds
+
+    -- Spawn a Mega Troll Bomb (4.5)
+    game:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_SUPERTROLL, player.Position, Vector(0, 0), nil, 0, 0)
+
+  elseif baby.name == "Corgi Baby" and -- 401
+         gameFrameCount % 45 == 0 then -- 1.5 seconds
+
+    -- Spawn a Fly (13.0)
+    game:Spawn(EntityType.ENTITY_FLY, 0, player.Position, Vector(0, 0), nil, 0, 0)
+
   end
 end
 
