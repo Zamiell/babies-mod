@@ -1,25 +1,17 @@
 local SPCUseItem = {}
 
---
 -- Includes
---
+local SPCGlobals = require("src/spcglobals")
 
---local SPCGlobals = require("src/spcglobals")
-
---[[
-function SPCUseItem:Item323(collectibleType, RNG)
+-- ModCallbacks.MC_USE_ITEM (3)
+function SPCUseItem:ClockworkAssembly(collectibleType, RNG)
   -- Local variables
-  local type = SPCGlobals.run.babyType
-  local baby = SPCGlobals.babies[type]
-  if baby == nil then
-    return
-  end
+  local game = Game()
+  local player = game:GetPlayer(0)
 
-  if baby.name == "Water Baby" then
-    SPCGlobals.run.waterBabyTears = 8
-    Isaac.DebugString("Getting here 1")
-  end
+  -- Spawn a Restock Machine (6.10)
+  SPCGlobals.run.factoryBabySpawning = true
+  player:UseCard(Card.CARD_WHEEL_OF_FORTUNE) -- 11
 end
---]]
 
 return SPCUseItem

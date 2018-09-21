@@ -1,19 +1,17 @@
 local SPCPostNewLevel  = {}
 
---
 -- Includes
---
-
-local SPCGlobals    = require("src/spcglobals")
-local SPCPostRender = require("src/spcpostrender")
+local SPCGlobals     = require("src/spcglobals")
+local SPCPostRender  = require("src/spcpostrender")
+local SPCPostNewRoom = require("src/spcpostnewroom")
 
 -- ModCallbacks.MC_POST_NEW_LEVEL (18)
 function SPCPostNewLevel:Main()
-  Isaac.DebugString("MC_POST_NEW_LEVEL")
-
   -- Local variables
   local game = Game()
   local gameFrameCount = game:GetFrameCount()
+
+  Isaac.DebugString("MC_POST_NEW_LEVEL (SPC)")
 
   -- Make sure the callbacks run in the right order
   -- (naturally, PostNewLevel gets called before the PostGameStarted callbacks)
@@ -25,17 +23,35 @@ function SPCPostNewLevel:Main()
 end
 
 function SPCPostNewLevel:NewLevel()
-  Isaac.DebugString("MC_POST_NEW_LEVEL2")
+  -- Local variables
+  local game = Game()
+  local level = game:GetLevel()
+  local stage = level:GetStage()
+  local stageType = level:GetStageType()
 
+  Isaac.DebugString("MC_POST_NEW_LEVEL2 (SPC)")
+
+  -- Set the new floor
+  SPCGlobals.run.currentFloor = stage
+  SPCGlobals.run.currentFloorType = stageType
+
+  -- Set the new baby
   SPCPostNewLevel:RemoveOldBaby()
   SPCPostNewLevel:GetNewBaby()
   SPCPostNewLevel:ApplyNewBaby()
+
+  -- Call PostNewRoom manually (they get naturally called out of order)
+  SPCPostNewRoom:NewRoom()
 end
 
 function SPCPostNewLevel:RemoveOldBaby()
   -- Local variables
   local game = Game()
+  local seeds = game:GetSeeds()
+  local room = game:GetRoom()
+  local roomSeed = room:GetSpawnSeed()
   local player = game:GetPlayer(0)
+  local activeItem = player:GetActiveItem()
   local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
 
@@ -45,16 +61,35 @@ function SPCPostNewLevel:RemoveOldBaby()
   end
 
   -- If we are on an item baby, remove the item
-  local item = baby.item
-  if item ~= nil then
-    player:RemoveCollectible(item)
+  if baby.item ~= nil then
+    player:RemoveCollectible(baby.item)
+  end
+  if baby.item2 ~= nil then
+    player:RemoveCollectible(baby.item2)
   end
 
   -- Give the stored active item back, if any
   if SPCGlobals.run.storedItem ~= 0 then
-    player:AddCollectible(SPCGlobals.run.storedItem, SPCGlobals.run.storedItemCharge, false)
-    SPCGlobals.run.storedItem = 0
-    SPCGlobals.run.storedItemCharge = 0
+    if activeItem == 0 then
+      -- We don't have an active item, so just give it back
+      player:AddCollectible(SPCGlobals.run.storedItem, SPCGlobals.run.storedItemCharge, false)
+      SPCGlobals.run.storedItem = 0
+      SPCGlobals.run.storedItemCharge = 0
+
+    elseif RacingPlusGlobals ~= nil and
+           player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
+           RacingPlusGlobals.run.schoolbag.item == 0 then
+
+      -- Put the item in the empty Schoolbag
+      RacingPlusSchoolbag:Put(SPCGlobals.run.storedItem, SPCGlobals.run.storedItemCharge)
+
+    else
+      -- We have both an active item and a full Schoolbag, so spawn the item on the ground
+      local entity = game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, player.Position,
+                                Vector(0, 0), nil, SPCGlobals.run.storedItem, roomSeed)
+      entity:ToPickup().Charge = SPCGlobals.run.storedItemCharge
+      Isaac.DebugString("Spawned the old active item.")
+    end
   end
 
   -- If we are on a trinket baby, remove the trinket
@@ -69,11 +104,26 @@ function SPCPostNewLevel:RemoveOldBaby()
     SPCGlobals.run.storedTrinket = 0
   end
 
-  -- Remove miscellaneous effects
-  --[[
-  if baby.name == "" then
+  -- Remove easter eggs
+  if baby.seed ~= nil then
+    seeds:RemoveSeedEffect(baby.seed)
   end
-  --]]
+
+  -- Remove miscellaneous effects
+  if baby.name == "Butterfly Baby 2" then -- 332
+    player.GridCollisionClass = 5
+  elseif baby.name == "Cyborg Baby" then -- 343
+    Isaac.ExecuteCommand("debug 7")
+  elseif baby.name == "Dino Baby" then -- 376
+    -- Remove any leftover eggs
+    for i, entity in pairs(Isaac.GetRoomEntities()) do
+      if entity.Type == EntityType.ENTITY_FAMILIAR and -- 3
+         entity.Variant == FamiliarVariant.BOBS_BRAIN then -- 59
+
+        entity:Remove()
+      end
+    end
+  end
 end
 
 function SPCPostNewLevel:GetNewBaby()
@@ -100,20 +150,40 @@ function SPCPostNewLevel:GetNewBaby()
 
     -- Check for overlapping items or trinkets
     local newBaby = SPCGlobals.babies[type]
-    local valid = false
-    if newBaby.item ~= nil then
-      if player:HasCollectible(newBaby.item) == false then
-        if newBaby.item2 == nil or player:HasCollectible(newBaby.item2) == false then
-          valid = true
-        end
-      end
-    elseif newBaby.trinket ~= nil then
-      if player:HasTrinket(newBaby.trinket) == false then
-        valid = true
-      end
-    else
-      -- This baby gives a custom effect that is unique from any items that they have already, so nothing will interfere
-      valid = true
+    local valid = true
+
+    if newBaby.item ~= nil and
+       player:HasCollectible(newBaby.item) then
+
+      valid = false
+    end
+
+    if RacingPlusGlobals ~= nil and
+       player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
+       newBaby.item ~= nil and
+       newBaby.item == RacingPlusGlobals.run.schoolbag.item then
+
+      valid = false
+    end
+
+    if newBaby.item2 ~= nil and
+       player:HasCollectible(newBaby.item2) then
+
+      valid = false
+    end
+
+    if RacingPlusGlobals ~= nil and
+       player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
+       newBaby.item2 ~= nil and
+       newBaby.item2 == RacingPlusGlobals.run.schoolbag.item then
+
+      valid = false
+    end
+
+    if newBaby.trinket ~= nil and
+       player:HasTrinket(newBaby.trinket) then
+
+      valid = false
     end
 
     -- Check to see if we got this baby in the recent past
@@ -130,6 +200,13 @@ function SPCPostNewLevel:GetNewBaby()
       valid = false
     end
 
+    -- Check to see if the player has any items that will conflict with this baby
+    if baby.name == "Dino Baby" and
+       player:HasCollectible(CollectibleType.COLLECTIBLE_BOBS_BRAIN) then -- 273
+
+      valid = false
+    end
+
     if valid then
       break
     end
@@ -143,6 +220,7 @@ end
 function SPCPostNewLevel:ApplyNewBaby()
   -- Local variables
   local game = Game()
+  local seeds = game:GetSeeds()
   local player = game:GetPlayer(0)
   local activeItem = player:GetActiveItem()
   local activeCharge = player:GetActiveCharge()
@@ -156,15 +234,26 @@ function SPCPostNewLevel:ApplyNewBaby()
   -- Check if this is an item baby
   local item = baby.item
   if item ~= nil then
-    -- Check to see if it is an active item and we have an active item
-    if itemConfig:GetCollectible(item).Type == ItemType.ITEM_ACTIVE and
-       activeItem ~= 0 then
+    -- Check to see if it is an active item
+    if itemConfig:GetCollectible(item).Type == ItemType.ITEM_ACTIVE then
+      if RacingPlusGlobals ~= nil and
+         player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
+         RacingPlusGlobals.run.schoolbag.item == 0 then
 
-      SPCGlobals.run.storedItem = activeItem
-      SPCGlobals.run.storedItemCharge = activeCharge
+        -- Put it in the Schoolbag if we have room
+        RacingPlusGlobals.run.schoolbag.item = item
+        RacingPlusGlobals.run.schoolbag.charges = SPCGlobals:GetItemMaxCharges(item)
+
+      elseif activeItem ~= 0 then
+        -- Since we don't have room in the Schoolbag, swap it with our current active item
+        SPCGlobals.run.storedItem = activeItem
+        SPCGlobals.run.storedItemCharge = activeCharge
+        player:AddCollectible(item, SPCGlobals:GetItemMaxCharges(item), false)
+      end
+    else
+      -- Give the passive item
+      player:AddCollectible(item, SPCGlobals:GetItemMaxCharges(item), false)
     end
-
-    player:AddCollectible(item, SPCGlobals:GetItemMaxCharges(item), false)
 
     -- Hide it from the item tracker
     Isaac.DebugString("Removing collectible " .. tostring(item))
@@ -208,9 +297,29 @@ function SPCPostNewLevel:ApplyNewBaby()
   player:AddCacheFlags(CacheFlag.CACHE_ALL) -- 0xFFFFFFFF
   player:EvaluateItems()
 
+ -- Some babies give Easter Eggs
+ if baby.seed ~= nil then
+   seeds:AddSeedEffect(baby.seed)
+ end
+
   -- Miscellaneous other effects
-  if baby.name == "Bloat Baby" then
+  if baby.name == "Bloat Baby" then -- 2
     player:AddPrettyFly()
+  elseif baby.name == "Black Baby" then -- 27
+    player:AddBlackHearts(2)
+  elseif baby.name == "White Baby" then -- 29
+    player:AddEternalHearts(1)
+  elseif baby.name == "Blue Baby" then -- 30
+    player:AddSoulHearts(2)
+  elseif baby.name == "Bony Baby" then -- 284
+    player:AddBoneHearts(1)
+  elseif baby.name == "Cyborg Baby" then -- 343
+    Isaac.ExecuteCommand("debug 7")
+  elseif baby.name == "Orange Ghost Baby" then -- 373
+    player:AddGoldenHearts(1)
+  elseif baby.name == "Tomboy Baby" then -- 400
+    -- If the player starts with a fully charged shovel, they will just immediately go to the next floor
+    player:DischargeActiveItem()
   end
 
   -- Reset the player's size

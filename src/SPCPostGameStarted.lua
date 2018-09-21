@@ -1,9 +1,6 @@
 local SPCPostGameStarted  = {}
 
---
 -- Includes
---
-
 local SPCGlobals      = require("src/spcglobals")
 local SPCPostNewLevel = require("src/spcpostnewlevel")
 

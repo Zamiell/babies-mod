@@ -1,11 +1,9 @@
 local SPCPreUseItem = {}
 
---
 -- Includes
---
-
 local SPCGlobals = require("src/spcglobals")
 
+-- ModCallbacks.MC_PRE_USE_ITEM (23)
 function SPCPreUseItem:Item323(collectibleType, RNG)
   -- Local variables
   local type = SPCGlobals.run.babyType

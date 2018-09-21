@@ -9,6 +9,11 @@ SPCGlobals.pastBabies = {}
 SPCGlobals.debug = 0
 
 function SPCGlobals:InitRun()
+  -- Local variables
+  local game = Game()
+  local level = game:GetLevel()
+  local levelSeed = level:GetDungeonPlacementSeed()
+
   -- Add the last baby to the pastBabies table
   if SPCGlobals.run.babyType ~= nil and
      SPCGlobals.run.babyType ~= 0 then
@@ -26,20 +31,53 @@ function SPCGlobals:InitRun()
   -- Reset some variables to defaults
   SPCGlobals.run = {
     -- General run-based variables
-    startedTime      = Isaac.GetTime(),
-    babyType         = 0,
-    drawIntro        = false,
-    storedItem       = 0,
-    storedItemCharge = 0,
-    storedTrinket    = 0,
-    queuedItems      = false,
-    animation        = "",
-    roomClear        = true,
+    startedTime          = Isaac.GetTime(),
+    babyType             = 0,
+    drawIntro            = false,
+    storedItem           = 0,
+    storedItemCharge     = 0,
+    storedTrinket        = 0,
+    queuedItems          = false,
+    animation            = "",
+    randomSeed           = levelSeed,
+    invulnerable         = false, -- Used to make the player temporarily invulnerable
+    invulnerabilityFrame = 0, -- Used to make the player temporarily invulnerable
+    dealingExtraDamage   = false,
+
+    -- Tracking per floor
+    currentFloor     = 0,
+    -- We start at 0 so that we can trigger the PostNewRoom callback after the PostNewLevel callback
+    currentFloorType = 0, -- We need to track this because we can go from Cathedral to Sheol, for example
+
+    -- Tracking per room
+    roomClear = true,
 
     -- Baby-specific variables
-    waterBabyTears = 0, -- 3
+    waterBabyTears     = 0, -- 3
+    cockeyedBabyFiring = false, -- 8
+    wrappedBabyKami    = 0, -- 20
+    halfHeadBabyDD     = false, -- 98
+    aetherBabyRotation = 0, -- 106
+    eyemouthBaby       = {
+      tear     = 1,
+      frame    = 0,
+      velocity = Vector(0, 0),
+    },
+    spikyDemonBabyRot  = 0, -- 277
+    killerBabyCounter  = 0, -- 291
+    explodingBabyFrame = 0, -- 320
+    skinlessBabyDD     = false, -- 322
+    heroBabyEval       = false, -- 336
+    xBabyTears         = 0, -- 339
+    fairymanBabyHits   = 0, -- 385
+    mernBaby           = { -- 500
+      tear     = 1,
+      frame    = 0,
+      velocity = Vector(0, 0),
+    },
+    factoryBabySpawning  = false, -- 489
+    hooliganBabySpawning = false, -- 514
   }
-
 end
 
 --
@@ -68,6 +106,17 @@ function SPCGlobals:IncrementRNG(seed)
   return newSeed
 end
 
+function SPCGlobals:InsideSquare(pos1, pos2, squareSize)
+  if pos1.X >= pos2.X - squareSize and
+     pos1.X <= pos2.X + squareSize and
+     pos1.Y >= pos2.Y - squareSize and
+     pos1.Y <= pos2.Y + squareSize then
+
+    return true
+  else
+    return false
+  end
+end
 
 --
 -- Constants
@@ -117,29 +166,24 @@ SPCGlobals.babies = {
   },
   {
     name = "Cockeyed Baby",
-    description = "Has constant R U a Wizard? pill effect",
+    description = "Shoots extra tears with random velocity",
     sprite = "008_baby_cockeyed.png",
-    -- TODO
   },
   {
     name = "Host Baby",
     description = "Spawns 10 blue spiders on hit",
     sprite = "009_baby_host.png",
-    -- TODO
   },
   {
     name = "Lost Baby",
-    description = "Spawns creep on hit",
+    description = "Spawns creep on hit (improved)",
     sprite = "010_baby_lost.png",
-    -- TODO
   },
   {
     name = "Cute Baby",
     description = "Starts with Maggy's Bow",
     sprite = "011_baby_cute.png",
     item = CollectibleType.COLLECTIBLE_MAGGYS_BOW, -- 312
-    -- The code manually removes the extra heart container
-    -- TODO
   },
   {
     name = "Crow Baby",
@@ -157,7 +201,6 @@ SPCGlobals.babies = {
     name = "Glass Baby",
     description = "Spawns a random pickup on hit",
     sprite = "014_baby_glass.png",
-    -- TODO
   },
   {
     name = "Gold Baby",
@@ -185,15 +228,13 @@ SPCGlobals.babies = {
   },
   {
     name = "Wrath Baby",
-    description = "Spawns a bomb every 15 seconds",
+    description = "Anarchist Cookbook effect every 10 seconds",
     sprite = "019_baby_wrath.png",
-    -- TODO
   },
   {
     name = "Wrapped Baby",
-    description = "Kamikaze! effect on hit",
+    description = "5x Kamikaze! effect on hit",
     sprite = "020_baby_wrapped.png",
-    -- TODO
   },
   {
     name = "Begotten Baby",
@@ -217,7 +258,6 @@ SPCGlobals.babies = {
     name = "-0- Baby",
     description = "Invulnerability",
     sprite = "024_baby_0.png",
-    -- TODO
   },
   {
     name = "Glitch Baby",
@@ -235,7 +275,6 @@ SPCGlobals.babies = {
     name = "Black Baby",
     description = "Starts with an extra black heart",
     sprite = "027_baby_black.png",
-    -- TODO
   },
   {
     name = "Red Baby",
@@ -247,13 +286,11 @@ SPCGlobals.babies = {
     name = "White Baby",
     description = "Starts with an extra eternal heart",
     sprite = "029_baby_white.png",
-    -- TODO
   },
   {
     name = "Blue Baby",
     description = "Starts with an extra soul heart",
     sprite = "030_baby_blue.png",
-    -- TODO
   },
   {
     name = "Rage Baby",
@@ -271,7 +308,6 @@ SPCGlobals.babies = {
     name = "Yellow Baby",
     description = "Lemon Party effect on hit",
     sprite = "033_baby_yellow.png",
-    -- TODO
   },
   {
     name = "Long Baby",
@@ -349,7 +385,6 @@ SPCGlobals.babies = {
     name = "Blinding Baby",
     description = "Spawns a Sun Card on hit",
     sprite = "046_baby_blinding.png",
-    -- TODO
   },
   {
     name = "Sucky Baby",
@@ -373,13 +408,11 @@ SPCGlobals.babies = {
     name = "Revenge Baby",
     description = "Spawns a random heart on hit",
     sprite = "050_baby_revenge.png",
-    -- TODO
   },
   {
     name = "Belial Baby",
     description = "Starts with passive Book of Belial effect",
     sprite = "051_baby_belial.png",
-    -- TODO
   },
   {
     name = "Sale Baby",
@@ -449,9 +482,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Butthole Baby",
-    description = "Spawns a random poop every 15 seconds",
+    description = "Spawns a random poop every 5 seconds",
     sprite = "063_baby_butthole.png",
-    -- TODO
   },
   {
     name = "Eye Patch Baby",
@@ -473,9 +505,9 @@ SPCGlobals.babies = {
   },
   {
     name = "Spittle Baby",
-    description = "Starts with Experimental Treatment",
+    description = "?",
     sprite = "067_baby_spittle.png",
-    item = CollectibleType.COLLECTIBLE_EXPERIMENTAL_TREATMENT, -- 240
+    -- TODO
   },
   {
     name = "Brain Baby",
@@ -499,7 +531,6 @@ SPCGlobals.babies = {
     name = "Blockhead Baby",
     description = "Blocks are destroyed on touch",
     sprite = "071_baby_blockhead.png",
-    -- TODO
   },
   {
     name = "Worm Baby",
@@ -511,7 +542,6 @@ SPCGlobals.babies = {
     name = "Lowface Baby",
     description = "0.5x range",
     sprite = "073_baby_lowface.png",
-    -- TODO
   },
   {
     name = "Alien Hominid Baby",
@@ -661,7 +691,6 @@ SPCGlobals.babies = {
     name = "Half Head Baby",
     description = "Takes 2x damage",
     sprite = "098_baby_halfhead.png",
-    -- TODO
   },
   {
     name = "Makeup Baby",
@@ -709,7 +738,6 @@ SPCGlobals.babies = {
     name = "Aether Baby",
     description = "Each tear shoots outwards in the 8 cardinal directions",
     sprite = "106_baby_aether.png",
-    -- TODO
   },
   {
     name = "Brownie Baby",
@@ -739,7 +767,6 @@ SPCGlobals.babies = {
     name = "Eyemouth Baby",
     description = "Shoots an extra tear every 3rd shot",
     sprite = "111_baby_eyemouth.png",
-    -- TODO
   },
   {
     name = "Weirdo Baby",
@@ -817,7 +844,6 @@ SPCGlobals.babies = {
     name = "Tusks Baby",
     description = "2x damage",
     sprite = "124_baby_tusks.png",
-    -- TODO
   },
   {
     name = "Hopeless Baby",
@@ -858,8 +884,7 @@ SPCGlobals.babies = {
     name = "Bugeyed Baby",
     description = "Starts with Squeezy",
     sprite = "131_baby_bugeyed.png",
-    -- This gives custom stats since we don't want to deal with the pickups
-    -- TODO
+    item = CollectibleType.COLLECTIBLE_SQUEEZY, -- 196
   },
   {
     name = "Freaky Baby",
@@ -871,7 +896,6 @@ SPCGlobals.babies = {
     name = "Crooked Baby",
     description = "Tears angled by 15 degrees to the left",
     sprite = "133_baby_crooked.png",
-    -- TODO
   },
   {
     name = "Spider Legs Baby",
@@ -913,7 +937,6 @@ SPCGlobals.babies = {
     name = "No Arms Baby",
     description = "Pickups are bouncy",
     sprite = "140_baby_noarms.png",
-    -- TODO
   },
   {
     name = "Twin Baby",
@@ -1015,7 +1038,7 @@ SPCGlobals.babies = {
     name = "Attractive Baby",
     description = "All enemies are permanently charmed",
     sprite = "157_baby_attractive.png",
-    -- TODO
+    seed = SeedEffect.SEED_ALWAYS_CHARMED, -- 17
   },
   {
     name = "Pretty Baby",
@@ -1045,7 +1068,7 @@ SPCGlobals.babies = {
     name = "Digital Baby",
     description = "B00B T00B",
     sprite = "162_baby_digital.png",
-    -- TODO
+    seed = SeedEffect.SEED_OLD_TV, -- 8
   },
   {
     name = "Helmet Baby",
@@ -1075,7 +1098,7 @@ SPCGlobals.babies = {
     name = "Worry Baby",
     description = "Every few seconds, all enemies become feared",
     sprite = "167_baby_worry.png",
-    -- TODO
+    seed = SeedEffect.SEED_ALWAYS_ALTERNATING_FEAR, -- 20
   },
   {
     name = "Ears Baby",
@@ -1249,7 +1272,7 @@ SPCGlobals.babies = {
     name = "Spooked Baby",
     description = "All enemies are permanently feared",
     sprite = "196_baby_spooked.png",
-    -- TODO
+    seed = SeedEffect.SEED_ALWAYS_AFRAID, -- 19
   },
   {
     name = "Nice Baby",
@@ -1308,9 +1331,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Monocle Baby",
-    description = "2x tear size",
+    description = "3x tear size",
     sprite = "206_baby_monocle.png",
-    -- TODO
   },
   {
     name = "Belial Baby",
@@ -1406,7 +1428,7 @@ SPCGlobals.babies = {
     name = "Wink Baby",
     description = "All enemies are permanently charmed and scared",
     sprite = "222_baby_wink.png",
-    -- TODO
+    seed = SeedEffect.SEED_ALWAYS_CHARMED_AND_AFRAID, -- 21
   },
   {
     name = "Pox Baby",
@@ -1454,7 +1476,6 @@ SPCGlobals.babies = {
     name = "Tilt Baby",
     description = "Tears angled by 15 degrees to the right",
     sprite = "230_baby_tilt.png",
-    -- TODO
   },
   {
     name = "Bawl Baby",
@@ -1491,13 +1512,12 @@ SPCGlobals.babies = {
     name = "Mask Baby",
     description = "All enemies are permanently confused",
     sprite = "236_baby_mask.png",
-    -- TODO
+    seed = SeedEffect.SEED_ALWAYS_CONFUSED, -- 18
   },
   {
     name = "Gem Baby",
-    description = "All pennies spawned instead as nickels",
+    description = "All pennies spawn instead as nickels",
     sprite = "237_baby_gem.png",
-    -- TODO
   },
   {
     name = "Shark Baby",
@@ -1509,7 +1529,7 @@ SPCGlobals.babies = {
     name = "Beret Baby",
     description = "All champions",
     sprite = "239_baby_beret.png",
-    -- TODO
+    seed = SeedEffect.SEED_ALL_CHAMPIONS, -- 13
   },
   {
     name = "Blisters Baby",
@@ -1539,7 +1559,6 @@ SPCGlobals.babies = {
     name = "Snail Baby",
     description = "0.5x speed",
     sprite = "244_baby_snail.png",
-    -- TODO
   },
   {
     name = "Blood Baby",
@@ -1677,7 +1696,7 @@ SPCGlobals.babies = {
     name = "Hare Baby",
     description = "Takes damage when standing still",
     sprite = "267_baby_hare.png",
-    -- TODO
+    seed = SeedEffect.SEED_DAMAGE_WHEN_STOPPED, -- 26
   },
   {
     name = "Squirrel Baby",
@@ -1735,9 +1754,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Spiky Demon Baby",
-    description = "Starts with Loki's Horns + 7 luck",
+    description = "Each tear shoots in the 4 cardinal directions",
     sprite = "277_baby_spikydemon.png",
-    item = CollectibleType.COLLECTIBLE_LOKIS_HORNS, -- 87
   },
   {
     name = "Red Demon Baby",
@@ -1779,7 +1797,6 @@ SPCGlobals.babies = {
     name = "Bony Baby",
     description = "Starts with an extra bone heart",
     sprite = "284_baby_bony.png",
-    -- TODO
   },
   {
     name = "Big Tongue Baby",
@@ -1801,9 +1818,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Butt Baby",
-    description = "Farts every tear he fires",
+    description = "Farts after shooting",
     sprite = "288_baby_butt.png",
-    -- TODO
   },
   {
     name = "Cupid Baby",
@@ -1819,35 +1835,32 @@ SPCGlobals.babies = {
   },
   {
     name = "Killer Baby",
-    description = "+0.1 damage per enemy killed",
+    description = "+0.2 damage per enemy killed",
     sprite = "291_baby_killer.png",
-    -- TODO
   },
   {
     name = "Lantern Baby",
     description = "Blindfolded + passive Godhead aura",
     sprite = "292_baby_lantern.png",
     item = CollectibleType.COLLECTIBLE_GODHEAD, -- 331
-    blindfolded = true,
-    -- TODO
+    item2 = CollectibleType.COLLECTIBLE_LUDOVICO_TECHNIQUE, -- 329
   },
   {
     name = "Banshee Baby",
     description = "Crack the Sky effect on hit",
     sprite = "293_baby_banshee.png",
-    -- TODO
   },
   {
     name = "Ranger Baby",
     description = "2x range",
     sprite = "294_baby_ranger.png",
-    -- TODO
   },
   {
     name = "Rider Baby",
     description = "Starts with A Pony (improved) and is blindfolded",
     sprite = "295_baby_rider.png",
-    blindfolded = true
+    item = CollectibleType.COLLECTIBLE_PONY, -- 130
+    blindfolded = true,
   },
   {
     name = "Choco Baby",
@@ -1918,7 +1931,7 @@ SPCGlobals.babies = {
   },
   {
     name = "Corrupted Baby",
-    description = "Devil Deals cost more",
+    description = "?",
     sprite = "307_baby_corrupted.png",
     -- TODO
   },
@@ -1938,7 +1951,6 @@ SPCGlobals.babies = {
     name = "Starry Eyed Baby",
     description = "Spawns a Stars Card on hit",
     sprite = "310_baby_stareyes.png",
-    -- TODO
   },
   {
     name = "Surgeon Baby",
@@ -1956,7 +1968,7 @@ SPCGlobals.babies = {
     name = "Monk Baby",
     description = "PAC1F1CM",
     sprite = "313_baby_monk.png",
-    -- TODO
+    seed = SeedEffect.SEED_PACIFIST, -- 25
   },
   {
     name = "Disco Baby",
@@ -1968,7 +1980,6 @@ SPCGlobals.babies = {
     name = "Puzzle Baby",
     description = "D6 effect on hit",
     sprite = "315_baby_puzzle.png",
-    -- TODO
   },
   {
     name = "Speaker Baby",
@@ -1979,7 +1990,7 @@ SPCGlobals.babies = {
   },
   {
     name = "Scary Baby",
-    description = "Close enemies get feared",
+    description = "?",
     sprite = "317_baby_scary.png",
     -- TODO
   },
@@ -1999,7 +2010,6 @@ SPCGlobals.babies = {
     name = "Exploding Baby",
     description = "Kamikaze! effect upon touching an obstacle",
     sprite = "320_baby_exploding.png",
-    -- TODO
   },
   {
     name = "Cupcake Baby",
@@ -2011,7 +2021,6 @@ SPCGlobals.babies = {
     name = "Skinless Baby",
     description = "2x damage, takes 2x damage",
     sprite = "322_baby_skinless.png",
-    -- TODO
   },
   {
     name = "Ballerina Baby",
@@ -2058,7 +2067,6 @@ SPCGlobals.babies = {
     name = "Tortoise Baby",
     description = "0.5x speed, 50% chance to ignore damage",
     sprite = "330_baby_tortoise.png",
-    -- TODO
   },
   {
     name = "Slicer Baby",
@@ -2071,7 +2079,6 @@ SPCGlobals.babies = {
     description = "Has flight, can walk through walls",
     sprite = "332_baby_butterfly.png",
     item = CollectibleType.COLLECTIBLE_TRANSCENDENCE, -- 20
-    -- TODO
   },
   {
     name = "Homeless Baby",
@@ -2095,7 +2102,6 @@ SPCGlobals.babies = {
     name = "Hero Baby",
     description = "3x damage and 3x tear rate when at 1 heart or less",
     sprite = "336_baby_hero.png",
-    -- TODO
   },
   {
     name = "Boxers Baby",
@@ -2114,7 +2120,6 @@ SPCGlobals.babies = {
     name = "X Baby",
     description = "Shoots 4 tears diagonally",
     sprite = "339_baby_x.png",
-    -- TODO
   },
   {
     name = "O Baby 2",
@@ -2130,7 +2135,7 @@ SPCGlobals.babies = {
   },
   {
     name = "Merman Baby",
-    description = "Immunity to creep",
+    description = "?",
     sprite = "342_baby_merman.png",
     -- TODO
   },
@@ -2138,7 +2143,6 @@ SPCGlobals.babies = {
     name = "Cyborg Baby",
     description = "Sees numerical damage values", -- debug 7
     sprite = "343_baby_cyborg.png",
-    -- TODO
   },
   {
     name = "Barbarian Baby",
@@ -2151,7 +2155,6 @@ SPCGlobals.babies = {
     description = "Starts with Soy Milk, all tears are sticky",
     sprite = "345_baby_locust.png",
     item = CollectibleType.COLLECTIBLE_SOY_MILK, -- 330
-    -- TODO
   },
   {
     name = "Twotone Baby",
@@ -2163,13 +2166,13 @@ SPCGlobals.babies = {
     name = "2600 Baby",
     description = "Has backwards tears",
     sprite = "347_baby_2600.png",
-    -- TODO
   },
   {
     name = "Fourtone Baby",
-    description = "Shoots blue fires instead of tears",
+    description = "Starts with The Candle and is blindfolded",
     sprite = "348_baby_fourtone.png",
-    -- TODO
+    item = CollectibleType.COLLECTIBLE_CANDLE, -- 164
+    blindfolded = true,
   },
   {
     name = "Grayscale Baby",
@@ -2257,15 +2260,13 @@ SPCGlobals.babies = {
   },
   {
     name = "Froggy Baby",
-    description = "Immunity from fly damage, kills all flies on touch",
+    description = "Kills all flies on touch",
     sprite = "363_baby_froggy.png",
-    -- TODO
   },
   {
     name = "Turtle Dragon Baby",
-    description = "Shoots red fires instead of tears",
+    description = "Shoots fires instead of tears",
     sprite = "364_baby_turtledragon.png",
-    -- TODO
   },
   {
     name = "Shell Suit Baby",
@@ -2277,7 +2278,6 @@ SPCGlobals.babies = {
     name = "Fiery Baby",
     description = "Spawns a fire on hit",
     sprite = "366_baby_fiery.png",
-    -- TODO
   },
   {
     name = "Mean Mushroom Baby",
@@ -2293,33 +2293,28 @@ SPCGlobals.babies = {
   },
   {
     name = "Scared Ghost Baby",
-    description = "Has green Purity aura",
+    description = "2x speed",
     sprite = "369_baby_scaredghost.png",
-    -- TODO
   },
   {
     name = "Blue Ghost Baby",
-    description = "Has blue Purity aura",
+    description = "Max tear rate",
     sprite = "370_baby_blueghost.png",
-    -- TODO
   },
   {
     name = "Red Ghost Baby",
-    description = "Has red Purity aura",
+    description = "+10 damage",
     sprite = "371_baby_redghost.png",
-    -- TODO
   },
   {
     name = "Pink Ghost Baby",
-    description = "Has yellow Purity aura",
+    description = "Charm tears",
     sprite = "372_baby_pinkghost.png",
-    -- TODO
   },
   {
     name = "Orange Ghost Baby",
     description = "Starts with an additional gold heart",
     sprite = "373_baby_orangeghost.png",
-    -- TODO
   },
   {
     name = "Pink Princess Baby",
@@ -2337,7 +2332,6 @@ SPCGlobals.babies = {
     name = "Dino Baby",
     description = "Gains a explosive egg per enemy killed",
     sprite = "376_baby_dino.png",
-    -- TODO, Bob's Brain, max 6
   },
   {
     name = "Elf Baby",
@@ -2345,7 +2339,6 @@ SPCGlobals.babies = {
     sprite = "377_baby_elf.png",
     item = CollectibleType.COLLECTIBLE_SPEAR_OF_DESTINY, -- 400
     blindfolded = true,
-    -- TODO, Custom sprite from Guardian Challenge
   },
   {
     name = "Dark Elf Baby",
@@ -2363,7 +2356,6 @@ SPCGlobals.babies = {
     name = "Octopus Baby",
     description = "Tears make black creep",
     sprite = "380_baby_octopus.png",
-    -- TODO
   },
   {
     name = "Orange Pig Baby",
@@ -2390,9 +2382,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Fairyman Baby",
-    description = "Starts with +3 damage, -1 damage on hit",
+    description = "-30% damage on hit",
     sprite = "385_baby_fairyman.png",
-    -- TODO
   },
   {
     name = "Imp Baby",
@@ -2416,11 +2407,13 @@ SPCGlobals.babies = {
     name = "Red Wrestler Baby",
     description = "?",
     sprite = "389_baby_redwrestler.png",
+    -- TODO
   },
   {
     name = "Toast Baby",
     description = "?",
     sprite = "390_baby_toast.png",
+    -- TODO
   },
   {
     name = "Roboboy Baby",
@@ -2451,12 +2444,12 @@ SPCGlobals.babies = {
     name = "Mermaid Baby",
     description = "?",
     sprite = "395_baby_mermaid.png",
+    -- TODO
   },
   {
     name = "Plague Baby",
     description = "Leaves a trail of green creep",
     sprite = "396_baby_plague.png",
-    -- TODO
   },
   {
     name = "Space Soldier Baby",
@@ -2481,7 +2474,6 @@ SPCGlobals.babies = {
     description = "Starts with We Need to Go Deeper! (uncharged)",
     sprite = "400_baby_tomboy.png",
     item = CollectibleType.COLLECTIBLE_WE_NEED_GO_DEEPER, -- 84
-    -- TODO
   },
   {
     name = "Corgi Baby",
@@ -2516,7 +2508,6 @@ SPCGlobals.babies = {
     name = "Astronaut Baby",
     description = "Tears have a 5% chance to create a Black Hole effect",
     sprite = "406_baby_astronaut.png",
-    -- TODO
   },
   {
     name = "Blurred Baby",
@@ -2540,6 +2531,7 @@ SPCGlobals.babies = {
     name = "Gills Baby",
     description = "?",
     sprite = "410_baby_gills.png",
+    -- TODO
   },
   {
     name = "Blue Hat Baby",
@@ -2563,6 +2555,7 @@ SPCGlobals.babies = {
     name = "Super Robo Baby",
     description = "?",
     sprite = "414_baby_superrobo.png",
+    -- TODO
   },
   {
     name = "Lightmage Baby",
@@ -2658,6 +2651,7 @@ SPCGlobals.babies = {
     name = "Folder Baby",
     description = "?",
     sprite = "430_baby_folder.png",
+    -- TODO
   },
   {
     name = "Driver Baby",
@@ -2851,6 +2845,7 @@ SPCGlobals.babies = {
     name = "Voxdog Baby",
     description = "?",
     sprite = "462_baby_voxdog.png",
+    -- TODO
   },
   {
     name = "404 Baby",
@@ -2874,7 +2869,6 @@ SPCGlobals.babies = {
     name = "Blindcursed Baby",
     description = "Tears are invisible",
     sprite = "466_baby_blindcursed.png",
-    -- TODO
   },
   {
     name = "Burning Baby",
@@ -2963,8 +2957,9 @@ SPCGlobals.babies = {
   },
   {
     name = "32bit Baby",
-    description = "?",
+    description = "No HUD",
     sprite = "481_baby_32bit.png",
+    seed = SeedEffect.SEED_NO_HUD, -- 10
   },
   {
     name = "Adventure Baby",
@@ -3018,6 +3013,7 @@ SPCGlobals.babies = {
     name = "Falling Baby",
     description = "?",
     sprite = "490_baby_falling.png",
+    -- TODO
   },
   {
     name = "Funny Baby",
@@ -3076,7 +3072,7 @@ SPCGlobals.babies = {
   },
   {
     name = "Mern Baby",
-    description = "?",
+    description = "Double tears",
     sprite = "500_baby_mern.png",
   },
   {
@@ -3163,7 +3159,6 @@ SPCGlobals.babies = {
     name = "Hooligan Baby",
     description = "Double enemies",
     sprite = "514_baby_hooligan.png",
-    -- TODO
   },
   {
     name = "Half Spider Baby",
@@ -3197,8 +3192,9 @@ SPCGlobals.babies = {
   },
   {
     name = "Stylish Baby",
-    description = "?",
+    description = "Starts with Store Credit",
     sprite = "520_baby_stylish.png",
+    trinket = TrinketType.TRINKET_STORE_CREDIT -- 13
   },
   {
     -- Number 0 is moved to 521 since Lua tables are 1-indexed

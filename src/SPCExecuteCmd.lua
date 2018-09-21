@@ -1,9 +1,6 @@
 local SPCExecuteCmd = {}
 
---
 -- Includes
---
-
 local SPCGlobals = require("src/spcglobals")
 
 -- ModCallbacks.MC_EXECUTE_CMD (22)
@@ -12,6 +9,9 @@ function SPCExecuteCmd:Main(cmd, params)
 
   if cmd == "baby" then
     SPCGlobals.debug = tonumber(params)
+    if params ~= "0" then
+      Isaac.ExecuteCommand("restart")
+    end
   end
 end
 

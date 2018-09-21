@@ -1,9 +1,6 @@
 local SPCPostRender  = {}
 
---
 -- Includes
---
-
 local SPCGlobals = require("src/spcglobals")
 
 -- ModCallbacks.MC_POST_RENDER (2)
@@ -20,6 +17,7 @@ function SPCPostRender:Main()
 
   SPCPostRender:TrackPlayerAnimations()
   SPCPostRender:DrawBabyIntro()
+  SPCPostRender:DrawBabyEffects()
 end
 
 function SPCPostRender:TrackPlayerAnimations()
@@ -27,7 +25,6 @@ function SPCPostRender:TrackPlayerAnimations()
   local game = Game()
   local player = game:GetPlayer(0)
   local playerSprite = player:GetSprite()
-  local frameCount = Isaac.GetFrameCount()
 
   -- Get the currently playing animation
   local animations = {
@@ -74,6 +71,7 @@ function SPCPostRender:SetPlayerSprite()
   -- Local variables
   local game = Game()
   local player = game:GetPlayer(0)
+  local activeItem = player:GetActiveItem()
   local playerSprite = player:GetSprite()
   local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
@@ -88,10 +86,26 @@ function SPCPostRender:SetPlayerSprite()
 
   -- We don't want any costumes to apply to co-op babies, since they will appear misaligned
   player:ClearCostumes()
+
+  -- Make exceptions for certain costumes
+  if baby.name == "Rider Baby" and
+     activeItem == CollectibleType.COLLECTIBLE_PONY then -- 130
+
+    player:AddCollectible(CollectibleType.COLLECTIBLE_PONY, 4, false) -- 130
+  end
 end
 
 -- Show what the current baby does in the intro room (or if the player presses Tab)
 function SPCPostRender:DrawBabyIntro()
+  -- Local variables
+  local game = Game()
+  local level = game:GetLevel()
+  local roomIndex = level:GetCurrentRoomDesc().SafeGridIndex
+  if roomIndex < 0 then -- SafeGridIndex is always -1 for rooms outside the grid
+    roomIndex = level:GetCurrentRoomIndex()
+  end
+  local startingRoomIndex = level:GetStartingRoomIndex()
+
   local tabPressed = false
   for i = 0, 3 do -- There are 4 possible inputs/players from 0 to 3
     if Input.IsActionPressed(ButtonAction.ACTION_MAP, i) then -- 13
@@ -100,7 +114,7 @@ function SPCPostRender:DrawBabyIntro()
     end
   end
 
-  if SPCGlobals.run.drawIntro == false and
+  if roomIndex ~= startingRoomIndex and
      tabPressed == false then
 
     return
@@ -123,6 +137,28 @@ function SPCPostRender:DrawBabyIntro()
   x = center.X - 3 * scale * #text
   y = center.Y - 55
   Isaac.RenderScaledText(text, x, y, scale, scale, 2, 2, 2, 2)
+end
+
+function SPCPostRender:DrawBabyEffects()
+  -- Local variables
+  local type = SPCGlobals.run.babyType
+  local baby = SPCGlobals.babies[type]
+
+  if baby.name == "Elf Baby" then -- 377
+    -- The Speak of Destiny effect is not spawned in the POST_NEW_ROOM callback
+    -- Thus, we check for it on every frame instead
+    -- As an unfortunate side effect, the Spear of Destiny will show as the vanilla graphic during room transitions
+    for i, entity in pairs(Isaac.GetRoomEntities()) do
+      if entity.Type == EntityType.ENTITY_EFFECT and -- 1000
+         entity.Variant == EffectVariant.SPEAR_OF_DESTINY and -- 83
+         entity:GetSprite():GetFilename() == "gfx/1000.083_Spear Of Destiny.anm2" then
+
+        local sprite = entity:GetSprite()
+        sprite:Load("gfx/1000.083_spear of destiny2.anm2", true)
+        sprite:Play("Idle", true)
+      end
+    end
+  end
 end
 
 -- Taken from Alphabirth: https://steamcommunity.com/sharedfiles/filedetails/?id=848056541
