@@ -1,0 +1,1 @@
+Some images are not 32x256, which will cause graphical glitches with the "001.000_player_co-op.anm2" file.

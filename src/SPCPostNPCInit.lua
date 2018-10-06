@@ -15,6 +15,12 @@ function SPCPostNPCInit:Main(npc)
     return
   end
 
+  if baby.name == "Moth Baby" then -- 450
+    npc:MakeChampion(npc.InitSeed)
+    npc:Morph(npc.Type, npc.Variant, npc.SubType, 11) -- Purple / Gaping Maw effect
+    return
+  end
+
   if baby.name ~= "Hooligan Baby" then -- 291
     return
   end

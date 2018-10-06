@@ -38,6 +38,7 @@ function SPCGlobals:InitRun()
     storedItemCharge     = 0,
     storedTrinket        = 0,
     queuedItems          = false,
+    passiveItems         = {}, -- Keep track of all of the pedestal items that we pick up over the course of the run
     animation            = "",
     randomSeed           = levelSeed,
     invulnerable         = false, -- Used to make the player temporarily invulnerable
@@ -45,12 +46,15 @@ function SPCGlobals:InitRun()
     dealingExtraDamage   = false,
 
     -- Tracking per floor
-    currentFloor     = 0,
+    currentFloor      = 0,
     -- We start at 0 so that we can trigger the PostNewRoom callback after the PostNewLevel callback
-    currentFloorType = 0, -- We need to track this because we can go from Cathedral to Sheol, for example
+    currentFloorType  = 0, -- We need to track this because we can go from Cathedral to Sheol, for example
+    currentFloorFrame = 0,
+    replacedPedestals = {},
 
     -- Tracking per room
     roomClear = true,
+    roomRNG = 0,
 
     -- Baby-specific variables
     waterBabyTears     = 0, -- 3
@@ -63,26 +67,40 @@ function SPCGlobals:InitRun()
       frame    = 0,
       velocity = Vector(0, 0),
     },
-    spikyDemonBabyRot  = 0, -- 277
-    killerBabyCounter  = 0, -- 291
-    explodingBabyFrame = 0, -- 320
-    skinlessBabyDD     = false, -- 322
-    heroBabyEval       = false, -- 336
-    xBabyTears         = 0, -- 339
-    fairymanBabyHits   = 0, -- 385
-    mernBaby           = { -- 500
+    killerBabyCounter   = 0, -- 291
+    speakerBabyShooting = false, -- 316
+    explodingBabyFrame  = 0, -- 320
+    skinlessBabyDD      = false, -- 322
+    heroBabyEval        = false, -- 336
+    xBabyTears          = 0, -- 339
+    vomitBabyTimer      = 0, -- 341
+    fairymanBabyHits    = 0, -- 385
+    redWresterBabyUse   = false, -- 389
+    sadBunnyCounters    = 0, -- 459
+    robbermaskCounters  = 0, -- 473
+    bubblesBabyCounters = 0, -- 483
+    factoryBabySpawning = false, -- 489
+    mernBaby            = { -- 500
       tear     = 1,
       frame    = 0,
       velocity = Vector(0, 0),
     },
-    factoryBabySpawning  = false, -- 489
     hooliganBabySpawning = false, -- 514
+    sisterMaggyCounter   = 0, -- 523
+    littleStevenTimer    = 0, -- 526
+    lilLokiRot           = 0, -- 539
   }
 end
 
 --
 -- Functions
 --
+
+-- From: http://lua-users.org/wiki/SimpleRound
+function SPCGlobals:Round(num, numDecimalPlaces)
+  local mult = 10 ^ (numDecimalPlaces or 0)
+  return math.floor(num * mult + 0.5) / mult
+end
 
 -- Find out how many charges this item has
 function SPCGlobals:GetItemMaxCharges(itemID)
@@ -118,6 +136,38 @@ function SPCGlobals:InsideSquare(pos1, pos2, squareSize)
   end
 end
 
+function SPCGlobals:GridToPos(x, y)
+  local game = Game()
+  local room = game:GetRoom()
+  x = x + 1
+  y = y + 1
+  return room:GetGridPosition(y * room:GetGridWidth() + x)
+end
+
+function SPCGlobals:IsFly(entity)
+  if entity.Type == EntityType.ENTITY_FLY or -- 13
+     entity.Type == EntityType.ENTITY_POOTER or -- 14
+     entity.Type == EntityType.ENTITY_ATTACKFLY or -- 18
+     -- (this also includes Large Attack Flies)
+     entity.Type == EntityType.ENTITY_BOOMFLY or -- 25
+     entity.Type == EntityType.ENTITY_SUCKER or -- 61
+     (entity.Type == EntityType.ENTITY_DUKE and -- 67
+      entity.Variant == 0) or -- Only the Duke of Flies and not Husk
+     entity.Type == EntityType.ENTITY_MOTER or -- 80
+     entity.Type == EntityType.ENTITY_ETERNALFLY or -- 96
+     entity.Type == EntityType.ENTITY_FLY_L2 or -- 214
+     entity.Type == EntityType.ENTITY_RING_OF_FLIES or -- 222
+     entity.Type == EntityType.ENTITY_FULL_FLY or -- 249
+     entity.Type == EntityType.ENTITY_DART_FLY or -- 256
+     entity.Type == EntityType.ENTITY_SWARM or -- 281
+     entity.Type == EntityType.ENTITY_HUSH_FLY then -- 296
+
+    return true
+  end
+
+  return false
+end
+
 --
 -- Constants
 --
@@ -131,9 +181,10 @@ SPCGlobals.babies = {
   },
   {
     name = "Bloat Baby",
-    description = "Starts with a Pretty Fly",
+    description = "Starts with ???'s Only Friend and is blindfolded",
     sprite = "002_baby_bloat.png",
-    -- Pretty Flies cannot be removed
+    item = CollectibleType.COLLECTIBLE_BLUEBABYS_ONLY_FRIEND, -- 320
+    blindfolded = true,
   },
   {
     name = "Water Baby",
@@ -210,9 +261,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Cy-Baby",
-    description = "Starts with Technology",
+    description = "Has laser ring",
     sprite = "016_baby_cy.png",
-    item = CollectibleType.COLLECTIBLE_TECHNOLOGY, -- 68
   },
   {
     name = "Bean Baby",
@@ -222,9 +272,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Mag Baby",
-    description = "Starts with Iron Bar",
+    description = "Confusion tears",
     sprite = "018_baby_mag.png",
-    item = CollectibleType.COLLECTIBLE_IRON_BAR, -- 201
   },
   {
     name = "Wrath Baby",
@@ -244,9 +293,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Dead Baby",
-    description = "Starts with Euthanasia",
+    description = "Needle tears",
     sprite = "022_baby_dead.png",
-    item = CollectibleType.COLLECTIBLE_EUTHANASIA, -- 496
   },
   {
     name = "Fighting Baby",
@@ -311,9 +359,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Long Baby",
-    description = "Starts with Flat Worm",
+    description = "Flat tears",
     sprite = "034_baby_long.png",
-    trinket = TrinketType.TRINKET_FLAT_WORM, -- 12
   },
   {
     name = "Green Baby",
@@ -335,9 +382,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Brown Baby",
-    description = "Starts with Butt Penny",
+    description = "Spawns a poop per enemy killed",
     sprite = "038_baby_brown.png",
-    trinket = TrinketType.TRINKET_BUTT_PENNY, -- 24
   },
   {
     name = "Noose Baby",
@@ -428,9 +474,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Super Greed Baby",
-    description = "Starts with Head of the Keeper",
+    description = "Midas tears",
     sprite = "054_baby_super greedbaby.png",
-    item = CollectibleType.COLLECTIBLE_HEAD_OF_THE_KEEPER, -- 429
   },
   {
     name = "Mort Baby",
@@ -455,6 +500,7 @@ SPCGlobals.babies = {
     description = "Starts with Telekinesis",
     sprite = "058_baby_bound.png",
     item = CollectibleType.COLLECTIBLE_TELEKINESIS, -- 522
+    -- TODO BORING
   },
   {
     name = "Big Eyes Baby",
@@ -499,15 +545,15 @@ SPCGlobals.babies = {
   },
   {
     name = "Mustache Baby",
-    description = "Starts with 1up!",
+    description = "?",
     sprite = "066_baby_mustache.png",
-    item = CollectibleType.COLLECTIBLE_ONE_UP, -- 11
+    -- TODO
   },
   {
     name = "Spittle Baby",
-    description = "?",
+    description = "Starts with Dead Onion",
     sprite = "067_baby_spittle.png",
-    -- TODO
+    item = CollectibleType.COLLECTIBLE_DEAD_ONION, -- 336
   },
   {
     name = "Brain Baby",
@@ -563,15 +609,15 @@ SPCGlobals.babies = {
   },
   {
     name = "Parasite Baby",
-    description = "Starts with Parasitoid",
+    description = "Balloon tears",
     sprite = "077_baby_parasite.png",
-    item = CollectibleType.COLLECTIBLE_PARASITOID, -- 461
   },
   {
     name = "Derp Baby",
     description = "Starts with Little Baggy",
     sprite = "078_baby_derp.png",
     item = CollectibleType.COLLECTIBLE_LITTLE_BAGGY, -- 252
+    -- TODO BORING
   },
   {
     name = "Lobotomy Baby",
@@ -665,21 +711,22 @@ SPCGlobals.babies = {
   },
   {
     name = "Square Eyes Baby",
-    description = "Starts with Hook Worm",
+    description = "Square tears",
     sprite = "094_baby_squareeyes.png",
-    trinket = TrinketType.TRINKET_HOOK_WORM, -- 26
   },
   {
     name = "Teeth Baby",
     description = "Starts with Black Tooth",
     sprite = "095_baby_teeth.png",
     trinket = TrinketType.TRINKET_BLACK_TOOTH, -- 95
+    -- TODO ALREADY USED
   },
   {
     name = "Frown Baby",
     description = "Starts with Depression",
     sprite = "096_baby_frown.png",
     item = CollectibleType.COLLECTIBLE_DEPRESSION, -- 496
+    -- TODO BORING
   },
   {
     name = "Tongue Baby",
@@ -694,9 +741,9 @@ SPCGlobals.babies = {
   },
   {
     name = "Makeup Baby",
-    description = "Starts with Mom's Purse",
+    description = "?",
     sprite = "099_baby_makeup.png",
-    item = CollectibleType.COLLECTIBLE_MOMS_PURSE, -- 139
+    -- TODO
   },
   {
     name = "Ed Baby",
@@ -733,6 +780,7 @@ SPCGlobals.babies = {
     description = "Starts with Mom's Lipstick",
     sprite = "105_baby_lipstick.png",
     item = CollectibleType.COLLECTIBLE_MOMS_LIPSTICK, -- 31
+    -- TODO BORING
   },
   {
     name = "Aether Baby",
@@ -782,9 +830,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Strange Mouth Baby",
-    description = "Starts with Wiggle Worm",
+    description = "Wiggle tears",
     sprite = "114_baby_strangemouth.png",
-    trinket = TrinketType.TRINKET_WIGGLE_WORM, -- 10
   },
   {
     name = "Masked Baby",
@@ -803,6 +850,7 @@ SPCGlobals.babies = {
     description = "Starts with Notched Axe",
     sprite = "117_baby_axewound.png",
     item = CollectibleType.COLLECTIBLE_NOTCHED_AXE, -- 147
+    -- TODO BORING
   },
   {
     name = "Statue Baby",
@@ -876,9 +924,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Strange Shape Baby",
-    description = "Starts with Pulse Worm",
+    description = "Pulsing tears",
     sprite = "130_baby_strangeshape.png",
-    trinket = TrinketType.TRINKET_PULSE_WORM, -- 9
   },
   {
     name = "Bugeyed Baby",
@@ -902,6 +949,7 @@ SPCGlobals.babies = {
     description = "Starts with Spider Baby",
     sprite = "134_baby_spiderlegs.png",
     item = CollectibleType.COLLECTIBLE_SPIDERBABY, -- 211
+    -- TODO DUPLICATE
   },
   {
     name = "Smiling Baby",
@@ -932,6 +980,7 @@ SPCGlobals.babies = {
     description = "Starts with Rotten Meat",
     sprite = "139_baby_rottenmeat.png",
     item = CollectibleType.COLLECTIBLE_ROTTEN_MEAT, -- 26
+    -- TODO BORING
   },
   {
     name = "No Arms Baby",
@@ -946,9 +995,10 @@ SPCGlobals.babies = {
   },
   {
     name = "Ugly Girl Baby",
-    description = "Starts with Mom's Toenail",
+    description = "Starts with Ipecac and Dr. Fetus",
     sprite = "142_baby_uglygirl.png",
-    trinket = TrinketType.TRINKET_MOMS_TOENAIL, -- 16
+    item = CollectibleType.COLLECTIBLE_IPECAC, -- 149
+    item2 = CollectibleType.COLLECTIBLE_DR_FETUS, -- 52
   },
   {
     name = "Chompers Baby",
@@ -973,6 +1023,7 @@ SPCGlobals.babies = {
     description = "Starts with Tape Worm",
     sprite = "146_baby_sloppy.png",
     trinket = TrinketType.TRINKET_TAPE_WORM, -- 65
+    -- TODO BORING
   },
   {
     name = "Bluebird Baby",
@@ -985,6 +1036,7 @@ SPCGlobals.babies = {
     description = "Starts with Dessert",
     sprite = "148_baby_fat.png",
     item = CollectibleType.COLLECTIBLE_DESSERT, -- 24
+    -- TODO BORING
   },
   {
     name = "Butterfly Baby",
@@ -1003,6 +1055,7 @@ SPCGlobals.babies = {
     description = "Starts with Lazy Worm",
     sprite = "151_baby_apathetic.png",
     trinket = TrinketType.TRINKET_LAZY_WORM, -- 66
+    -- TODO BORING
   },
   {
     name = "Cape Baby",
@@ -1033,6 +1086,7 @@ SPCGlobals.babies = {
     description = "Starts with Mom's Eyeshadow",
     sprite = "156_baby_puff.png",
     item = CollectibleType.COLLECTIBLE_MOMS_EYESHADOW, -- 200
+    -- TODO DUPLICATE
   },
   {
     name = "Attractive Baby",
@@ -1045,6 +1099,7 @@ SPCGlobals.babies = {
     description = "Starts with Pageant Boy",
     sprite = "158_baby_pretty.png",
     item = CollectibleType.COLLECTIBLE_PAGEANT_BOY, -- 141
+    -- TODO BORING
   },
   {
     name = "Cracked Infamy Baby",
@@ -1084,9 +1139,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Lights Baby",
-    description = "Starts with Holy Light",
+    description = "Holy tears",
     sprite = "165_baby_lights.png",
-    item = CollectibleType.COLLECTIBLE_HOLY_LIGHT, -- 374
   },
   {
     name = "Spike Baby",
@@ -1204,9 +1258,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Web Baby",
-    description = "Starts with Spider Bite",
+    description = "Slow tears",
     sprite = "185_baby_web.png",
-    item = CollectibleType.COLLECTIBLE_SPIDER_BITE, -- 89
   },
   {
     name = "Faded Baby",
@@ -1258,9 +1311,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Cold Baby",
-    description = "Starts with Mom's Contacts",
+    description = "Freeze tears",
     sprite = "194_baby_cold.png",
-    item = CollectibleType.COLLECTIBLE_MOMS_CONTACTS, -- 110
   },
   {
     name = "Old Man Baby",
@@ -1369,6 +1421,7 @@ SPCGlobals.babies = {
     description = "Starts with Brother Bobby",
     sprite = "212_baby_conjoined.png",
     item = CollectibleType.COLLECTIBLE_BROTHER_BOBBY, -- 8
+    -- TODO BORING
   },
   {
     name = "Skinny Baby",
@@ -1384,9 +1437,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Shopkeeper Baby",
-    description = "Starts with Greed's Gullet",
+    description = "Free shop items",
     sprite = "215_baby_shopkeeper.png",
-    item = CollectibleType.COLLECTIBLE_GREEDS_GULLET, -- 501
   },
   {
     name = "Fancy Baby",
@@ -1444,9 +1496,9 @@ SPCGlobals.babies = {
   },
   {
     name = "Zipper Baby",
-    description = "Starts with Deep Pockets",
+    description = "?",
     sprite = "225_baby_zipper.png",
-    item = CollectibleType.COLLECTIBLE_DEEP_POCKETS, -- 416
+    -- TODO
   },
   {
     name = "Buckteeth Baby",
@@ -1459,6 +1511,7 @@ SPCGlobals.babies = {
     description = "Starts with Samson's Lock",
     sprite = "227_baby_beard.png",
     trinket = TrinketType.TRINKET_SAMSONS_LOCK, -- 58
+    -- TODO DUPLICATE
   },
   {
     name = "Hanger Baby",
@@ -1485,12 +1538,12 @@ SPCGlobals.babies = {
   },
   {
     name = "Lemon Baby",
-    description = "Starts with Lemon Mishap",
+    description = "Starts with Lemon Mishap (improved)",
     sprite = "232_baby_lemon.png",
     item = CollectibleType.COLLECTIBLE_LEMON_MISHAP, -- 56
   },
   {
-    name = "Punkboy Baby ",
+    name = "Punkboy Baby",
     description = "Starts with The Polaroid",
     sprite = "233_baby_punkboy.png",
     item = CollectibleType.COLLECTIBLE_POLAROID, -- 327
@@ -1524,6 +1577,7 @@ SPCGlobals.babies = {
     description = "Starts with MEAT!",
     sprite = "238_baby_shark.png",
     item = CollectibleType.COLLECTIBLE_MEAT, -- 193
+    -- TODO BORING
   },
   {
     name = "Beret Baby",
@@ -1548,6 +1602,7 @@ SPCGlobals.babies = {
     description = "Starts with Jesus Juice",
     sprite = "242_baby_beast.png",
     item = CollectibleType.COLLECTIBLE_JESUS_JUICE, -- 197
+    -- TODO BORING
   },
   {
     name = "Dark Baby 2",
@@ -1565,12 +1620,14 @@ SPCGlobals.babies = {
     description = "Starts with Blood Clot",
     sprite = "245_baby_blood.png",
     item = CollectibleType.COLLECTIBLE_BLOOD_CLOT, -- 254
+    -- TODO BORING
   },
   {
     name = "8 Ball Baby",
     description = "Starts with Magic 8 Ball",
     sprite = "246_baby_8ball.png",
     item = CollectibleType.COLLECTIBLE_MAGIC_8_BALL, -- 194
+    -- TODO BORING
   },
   {
     name = "Wisp Baby",
@@ -1610,9 +1667,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Wizard Baby",
-    description = "Starts with The Wiz",
+    description = "Cards are face up",
     sprite = "253_baby_wizard.png",
-    item = CollectibleType.COLLECTIBLE_THE_WIZ, -- 358
   },
   {
     name = "Earth Baby",
@@ -1622,15 +1678,16 @@ SPCGlobals.babies = {
   },
   {
     name = "Saturn Baby",
-    description = "Starts with Capricorn",
+    description = "Starts with Continuum",
     sprite = "255_baby_saturn.png",
-    item = CollectibleType.COLLECTIBLE_CAPRICORN, -- 307
+    item = CollectibleType.COLLECTIBLE_CONTINUUM, -- 369
   },
   {
     name = "Cloud Baby",
     description = "Starts with Linger Bean",
     sprite = "256_baby_cloud.png",
     item = CollectibleType.COLLECTIBLE_LINGER_BEAN, -- 447
+    -- TODO BORING
   },
   {
     name = "Tube Baby",
@@ -1667,12 +1724,14 @@ SPCGlobals.babies = {
     description = "Starts with Goat Hoof",
     sprite = "262_baby_panda.png",
     trinket = TrinketType.TRINKET_GOAT_HOOF, -- 37
+    -- TODO DUPLICATE
   },
   {
     name = "Raccoon Baby",
     description = "Starts with Whip Worm",
     sprite = "263_baby_raccoon.png",
     trinket = TrinketType.TRINKET_WHIP_WORM, -- 27
+    -- TODO BORING
   },
   {
     name = "Bear Baby",
@@ -1715,6 +1774,7 @@ SPCGlobals.babies = {
     description = "Starts with Stigmata",
     sprite = "270_baby_porcupine.png",
     item = CollectibleType.COLLECTIBLE_STIGMATA, -- 138
+    -- TODO BORING
   },
   {
     name = "Puppy Baby",
@@ -1751,17 +1811,19 @@ SPCGlobals.babies = {
     description = "Starts with Bat Wing",
     sprite = "276_baby_gargoyle.png",
     trinket = TrinketType.TRINKET_BAT_WING, -- 118
+    -- TODO BORING
   },
   {
     name = "Spiky Demon Baby",
-    description = "Each tear shoots in the 4 cardinal directions",
+    description = "Pre-nerf Mimic Chests",
     sprite = "277_baby_spikydemon.png",
   },
   {
     name = "Red Demon Baby",
-    description = "Starts with Brimstone",
+    description = "Starts with Brimstone and Anti-Gravity",
     sprite = "278_baby_reddemon.png",
     item = CollectibleType.COLLECTIBLE_BRIMSTONE, -- 118
+    item2 = CollectibleType.COLLECTIBLE_ANTI_GRAVITY, -- 222
   },
   {
     name = "Orange Demon Baby",
@@ -1792,6 +1854,7 @@ SPCGlobals.babies = {
     description = "Starts with Bursting Sack",
     sprite = "283_baby_arachnid.png",
     item = CollectibleType.COLLECTIBLE_BURSTING_SACK, -- 377
+    -- TODO BORING
   },
   {
     name = "Bony Baby",
@@ -1803,6 +1866,7 @@ SPCGlobals.babies = {
     description = "Starts with Mom's Pad",
     sprite = "285_baby_bigtongue.png",
     item = CollectibleType.COLLECTIBLE_MOMS_PAD, -- 41
+    -- TODO SUCKS
   },
   {
     name = "3D Baby",
@@ -1832,6 +1896,7 @@ SPCGlobals.babies = {
     description = "Starts with Purple Heart",
     sprite = "290_baby_heart.png",
     trinket = TrinketType.TRINKET_PURPLE_HEART, -- 5
+    -- TODO BORING
   },
   {
     name = "Killer Baby",
@@ -1909,6 +1974,7 @@ SPCGlobals.babies = {
     description = "Starts with Papa Fly",
     sprite = "303_baby_pizza.png",
     item = CollectibleType.COLLECTIBLE_PAPA_FLY, -- 430
+    -- TODO BORING
   },
   {
     name = "Hotdog Baby",
@@ -1931,15 +1997,15 @@ SPCGlobals.babies = {
   },
   {
     name = "Corrupted Baby",
-    description = "?",
+    description = "Taking items/pickups causes damage",
     sprite = "307_baby_corrupted.png",
-    -- TODO
   },
   {
     name = "X Mouth Baby",
     description = "Starts with Gimpy",
     sprite = "308_baby_xmouth.png",
     item = CollectibleType.COLLECTIBLE_GIMPY, -- 225
+    -- TODO BORING
   },
   {
     name = "X Eyed Baby",
@@ -1983,16 +2049,13 @@ SPCGlobals.babies = {
   },
   {
     name = "Speaker Baby",
-    description = "Has soundwave tears",
+    description = "X splitting tears",
     sprite = "316_baby_speaker.png",
-    -- TODO, shoots a cone of soundwaves instead of tears (so they hit more enemies the farther they travel
-    -- https://i.moep.tv/lH80UREo.png
   },
   {
     name = "Scary Baby",
-    description = "?",
+    description = "Items cost hearts",
     sprite = "317_baby_scary.png",
-    -- TODO
   },
   {
     name = "Fireball Baby",
@@ -2073,6 +2136,7 @@ SPCGlobals.babies = {
     description = "Starts with Backstabber",
     sprite = "331_baby_slicer.png",
     item = CollectibleType.COLLECTIBLE_BACKSTABBER, -- 506
+    -- TODO BORING
   },
   {
     name = "Butterfly Baby 2",
@@ -2105,9 +2169,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Boxers Baby",
-    description = "Has boxing glove tears",
+    description = "Boxing glove tears",
     sprite = "337_baby_boxers.png",
-    -- TODO, boxing glove graphic + knockback + sound effect from Antibirth
   },
   {
     name = "Wing Helmet Baby",
@@ -2123,21 +2186,19 @@ SPCGlobals.babies = {
   },
   {
     name = "O Baby 2",
-    description = "Starts with Ouroboros Worm",
+    description = "Spiral tears",
     sprite = "340_baby_o.png",
-    trinket = TrinketType.TRINKET_OUROBOROS_WORM, -- 96
   },
   {
     name = "Vomit Baby",
-    description = "Starts with Monstro's Lung",
+    description = "Must stand still every 6 seconds",
     sprite = "341_baby_vomit.png",
-    item = CollectibleType.COLLECTIBLE_MONSTROS_LUNG, -- 229
+    time = 6 * 30 -- 6 seconds (in game frames)
   },
   {
     name = "Merman Baby",
-    description = "?",
+    description = "Keys spawn as bombs",
     sprite = "342_baby_merman.png",
-    -- TODO
   },
   {
     name = "Cyborg Baby",
@@ -2149,6 +2210,7 @@ SPCGlobals.babies = {
     description = "Starts with Adrenaline",
     sprite = "344_baby_barbarian.png",
     item = CollectibleType.COLLECTIBLE_ADDERLINE, -- 493
+    -- TODO BAD
   },
   {
     name = "Locust Baby",
@@ -2164,7 +2226,7 @@ SPCGlobals.babies = {
   },
   {
     name = "2600 Baby",
-    description = "Has backwards tears",
+    description = "Backwards tears",
     sprite = "347_baby_2600.png",
   },
   {
@@ -2179,6 +2241,7 @@ SPCGlobals.babies = {
     description = "Starts with Shade",
     sprite = "349_baby_grayscale.png",
     item = CollectibleType.COLLECTIBLE_SHADE, -- 468
+    -- TODO DUMB
   },
   {
     name = "Rabbit Baby",
@@ -2239,6 +2302,7 @@ SPCGlobals.babies = {
     description = "Starts with Gnawed Leaf",
     sprite = "359_baby_tanooki.png",
     item = CollectibleType.COLLECTIBLE_GNAWED_LEAF, -- 210
+    -- TODO BORING
   },
   {
     name = "Mushroom Man Baby",
@@ -2265,7 +2329,7 @@ SPCGlobals.babies = {
   },
   {
     name = "Turtle Dragon Baby",
-    description = "Shoots fires instead of tears",
+    description = "Fire tears",
     sprite = "364_baby_turtledragon.png",
   },
   {
@@ -2284,12 +2348,12 @@ SPCGlobals.babies = {
     description = "Starts with Odd Mushroom (Large)",
     sprite = "367_baby_meanmushroom.png",
     item = CollectibleType.COLLECTIBLE_ODD_MUSHROOM_DAMAGE, -- 121
+    -- TODO BORING
   },
   {
     name = "Arcade Baby",
-    description = "Starts with Apple!",
+    description = "Razor blade tears",
     sprite = "368_baby_arcade.png",
-    item = CollectibleType.COLLECTIBLE_APPLE, -- 443
   },
   {
     name = "Scared Ghost Baby",
@@ -2345,12 +2409,14 @@ SPCGlobals.babies = {
     description = "Starts with Black Lipstick",
     sprite = "378_baby_darkelf.png",
     trinket = TrinketType.TRINKET_BLACK_LIPSTICK, -- 17
+    -- TODO BORING
   },
   {
     name = "Dark Knight Baby",
     description = "Starts with Marrow",
     sprite = "379_baby_darkknight.png",
     item = CollectibleType.COLLECTIBLE_MARROW, -- 541
+    -- TODO BORING
   },
   {
     name = "Octopus Baby",
@@ -2402,18 +2468,17 @@ SPCGlobals.babies = {
     description = "Starts with Hushy",
     sprite = "388_baby_bluewrestler.png",
     item = CollectibleType.COLLECTIBLE_HUSHY, -- 470
+    -- TODO BORING
   },
   {
     name = "Red Wrestler Baby",
-    description = "?",
+    description = "Uses pills immediately",
     sprite = "389_baby_redwrestler.png",
-    -- TODO
   },
   {
     name = "Toast Baby",
-    description = "?",
+    description = "Enemies leave a Red Candle fire upon death",
     sprite = "390_baby_toast.png",
-    -- TODO
   },
   {
     name = "Roboboy Baby",
@@ -2442,9 +2507,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Mermaid Baby",
-    description = "?",
+    description = "Bombs spawn as keys",
     sprite = "395_baby_mermaid.png",
-    -- TODO
   },
   {
     name = "Plague Baby",
@@ -2459,9 +2523,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Dark Space Soldier Baby",
-    description = "Starts with Chaos",
+    description = "Chaos card tears",
     sprite = "398_baby_darkspacesoldier.png",
-    item = CollectibleType.COLLECTIBLE_CHAOS, -- 402
   },
   {
     name = "Gas Mask Baby",
@@ -2488,9 +2551,10 @@ SPCGlobals.babies = {
   },
   {
     name = "Pixie Baby",
-    description = "Starts with YO LISTEN!",
+    description = "Starts with 3x YO LISTEN! (improved)",
     sprite = "403_baby_pixie.png",
     item = CollectibleType.COLLECTIBLE_YO_LISTEN, -- 492
+    -- (we also manually give two more later)
   },
   {
     name = "Referee Baby",
@@ -2519,19 +2583,18 @@ SPCGlobals.babies = {
     name = "Censored Baby",
     description = "On hit, enemies get confused",
     sprite = "408_baby_censored.png",
-    -- TODO
   },
   {
     name = "Cool Ghost Baby",
     description = "Starts with Sister Maggy",
     sprite = "409_baby_coolghost.png",
     item = CollectibleType.COLLECTIBLE_SISTER_MAGGY, -- 67
+    -- TODO BORING
   },
   {
     name = "Gills Baby",
-    description = "?",
+    description = "Splash tears",
     sprite = "410_baby_gills.png",
-    -- TODO
   },
   {
     name = "Blue Hat Baby",
@@ -2544,6 +2607,7 @@ SPCGlobals.babies = {
     description = "Starts with Dead Cat",
     sprite = "412_baby_catsuit.png",
     item = CollectibleType.COLLECTIBLE_DEAD_CAT, -- 81
+    -- TODO TOO POWERFUL
   },
   {
     name = "Pirate Baby",
@@ -2553,9 +2617,9 @@ SPCGlobals.babies = {
   },
   {
     name = "Super Robo Baby",
-    description = "?",
+    description = "Starts with Broken Remote",
     sprite = "414_baby_superrobo.png",
-    -- TODO
+    trinket = TrinketType.TRINKET_BROKEN_REMOTE, -- 4
   },
   {
     name = "Lightmage Baby",
@@ -2571,7 +2635,7 @@ SPCGlobals.babies = {
   },
   {
     name = "Holy Knight Baby",
-    description = "Starts with Eden's Soul",
+    description = "Starts with Eucharist",
     sprite = "417_baby_holyknight.png",
     item = CollectibleType.COLLECTIBLE_EUCHARIST, -- 499
   },
@@ -2586,7 +2650,6 @@ SPCGlobals.babies = {
     description = "Starts with Fire Mind and 13 luck",
     sprite = "419_baby_firemage.png",
     item = CollectibleType.COLLECTIBLE_FIRE_MIND, -- 257
-    -- TODO
   },
   {
     name = "Priest Baby",
@@ -2639,25 +2702,21 @@ SPCGlobals.babies = {
     name = "Magiccat Baby",
     description = "Close enemies get charmed",
     sprite = "428_baby_magiccat.png",
-    -- TODO
   },
   {
     name = "Little Horn Baby",
-    description = "Starts with Little Horn",
+    description = "Void tears",
     sprite = "429_baby_littlehorn.png",
-    item = CollectibleType.COLLECTIBLE_LITTLE_HORN, -- 503
   },
   {
     name = "Folder Baby",
-    description = "?",
+    description = "Swaps item/shop pools and devil/angel pools",
     sprite = "430_baby_folder.png",
-    -- TODO
   },
   {
     name = "Driver Baby",
     description = "Slippery movement",
     sprite = "431_baby_driver.png",
-    -- TODO
   },
   {
     name = "Dragon Baby",
@@ -2679,7 +2738,7 @@ SPCGlobals.babies = {
   },
   {
     name = "Cup Baby",
-    description = "On hit, enemies get freezed",
+    description = "Starts with Empty Vessel",
     sprite = "435_baby_cup.png",
     item = CollectibleType.COLLECTIBLE_EMPTY_VESSEL, -- 409
   },
@@ -2721,9 +2780,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Tooth Head Baby",
-    description = "Starts with Tough Love",
+    description = "Tooth tears",
     sprite = "442_baby_tooth.png",
-    item = CollectibleType.COLLECTIBLE_TOUGH_LOVE, -- 150
   },
   {
     name = "Tired Baby",
@@ -2766,12 +2824,13 @@ SPCGlobals.babies = {
     description = "Starts with Fish Head",
     sprite = "449_baby_mutated_fish.png",
     trinket = TrinketType.TRINKET_FISH_HEAD, -- 29
+    -- TODO DUPLICATE
   },
   {
     name = "Moth Baby",
-    description = "All flies have a Gaping Maw effect",
+    description = "Starts with Bloody Penny",
     sprite = "450_baby_moth.png",
-    -- TODO
+    trinket = TrinketType.TRINKET_BLOODY_PENNY, -- 49
   },
   {
     name = "Buttface Baby",
@@ -2800,14 +2859,11 @@ SPCGlobals.babies = {
     name = "Green Koopa Baby",
     description = "Shoots bouncy green shells",
     sprite = "455_baby_green_koopa.png",
-    item = CollectibleType.COLLECTIBLE_RUBBER_CEMENT, -- 221
-    -- TODO turn into Koopa Shell give really long range
   },
   {
     name = "Handsome Mr. Frog Baby",
-    description = "Has a tongue attack",
+    description = "Spawns 10 blue flies on hit",
     sprite = "456_baby_handsome_mrfrog.png",
-    --  TODO, tears are replaced with tongue lick that damages in line
   },
   {
     name = "Pumpkin Guy Baby",
@@ -2819,19 +2875,15 @@ SPCGlobals.babies = {
     name = "Red Koopa Baby",
     description = "Shoots bouncy & homing red shells",
     sprite = "458_baby_red_koopa.png",
-    item = CollectibleType.COLLECTIBLE_RUBBER_CEMENT, -- 221
-    item2 = CollectibleType.COLLECTIBLE_SPOON_BENDER, -- 3
-    -- TODO turn into Koopa Shell give really long range
   },
   {
     name = "Sad Bunny Baby",
-    description = "Max tear rate",
+    description = "Accuracy increases tear rate",
     sprite = "459_baby_sad_bunny.png",
-    -- TODO
   },
   {
     name = "Saturn Baby 2",
-    description = "Starts with Baby Bender",
+    description = "Starts with Baby-Bender",
     sprite = "460_baby_saturn.png",
     trinket = TrinketType.TRINKET_BABY_BENDER, -- 127
   },
@@ -2840,18 +2892,20 @@ SPCGlobals.babies = {
     description = "Starts with Moldy Bread",
     sprite = "461_baby_toast_boy.png",
     item = CollectibleType.COLLECTIBLE_MOLDY_BREAD, -- 456
+    -- TODO BORING
   },
   {
     name = "Voxdog Baby",
-    description = "?",
+    description = "Bomb sack tears",
     sprite = "462_baby_voxdog.png",
-    -- TODO
   },
   {
     name = "404 Baby",
     description = "Starts with Error",
     sprite = "463_baby_404.png",
     item = CollectibleType.TRINKET_ERROR, -- 75
+    -- TODO DUMB
+    -- TODO Change all enemies with random enemies
   },
   {
     name = "Arrowhead Baby",
@@ -2867,7 +2921,7 @@ SPCGlobals.babies = {
   },
   {
     name = "Blindcursed Baby",
-    description = "Tears are invisible",
+    description = "Invisible tears",
     sprite = "466_baby_blindcursed.png",
   },
   {
@@ -2890,9 +2944,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Headphone Baby",
-    description = "Mutes all in-game sound",
+    description = "Soundwave tears",
     sprite = "470_baby_headphone.png",
-    -- TODO
   },
   {
     name = "Knife Baby",
@@ -2904,19 +2957,18 @@ SPCGlobals.babies = {
     name = "Mufflerscarf Baby",
     description = "On hit, enemies get freezed",
     sprite = "472_baby_mufflerscarf.png",
-    -- TODO
   },
   {
     name = "Robbermask Baby",
     description = "+0.5 damage per pickup taken",
     sprite = "473_baby_robbermask.png",
-    -- TODO
   },
   {
     name = "Scoreboard Baby",
-    description = "+ score for each enemy killed, +10 score grants a boost",
+    description = "Starts with Chaos",
     sprite = "474_baby_scoreboard.png",
-    -- TODO
+    item = CollectibleType.COLLECTIBLE_CHAOS, -- 402
+    -- TODO SWAP
   },
   {
     name = "So Many Eyes Baby",
@@ -2929,7 +2981,6 @@ SPCGlobals.babies = {
     name = "Text Baby",
     description = "0.5x damage",
     sprite = "476_baby_text.png",
-    -- TODO
   },
   {
     name = "Wing Baby",
@@ -2951,9 +3002,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Imp Baby 2",
-    description = "Starts with Sulfuric Acid",
+    description = "Acid tears",
     sprite = "480_baby_imp.png",
-    item = CollectibleType.COLLECTIBLE_SULFURIC_ACID, -- 463
   },
   {
     name = "32bit Baby",
@@ -2971,7 +3021,6 @@ SPCGlobals.babies = {
     name = "Bubbles Baby",
     description = "+1 damage per pill used",
     sprite = "483_baby_bubbles.png",
-    -- TODO
   },
   {
     name = "Bulb Baby",
@@ -2983,7 +3032,6 @@ SPCGlobals.babies = {
     name = "Cool Orange Baby",
     description = "Starts with a golden key",
     sprite = "485_baby_coolorange.png",
-    -- TODO
   },
   {
     name = "Crazy Ghost Baby",
@@ -2993,9 +3041,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Cursed Pillow Baby",
-    description = "Has confusion tears",
+    description = "Missed tears cause damage",
     sprite = "487_baby_cursedpillow.png",
-    -- TODO
   },
   {
     name = "Egg Baby",
@@ -3005,15 +3052,15 @@ SPCGlobals.babies = {
   },
   {
     name = "Factory Baby",
-    description = "Starts with Clockwork Assembly (Restock Box)",
+    description = "Starts with Clockwork Assembly",
     sprite = "489_baby_factory.png",
-    -- TODO
+    item = Isaac.GetItemIdByName("Clockwork Assembly")
   },
   {
     name = "Falling Baby",
-    description = "?",
+    description = "Starts with Incubus",
     sprite = "490_baby_falling.png",
-    -- TODO
+    item = CollectibleType.COLLECTIBLE_INCUBUS, -- 360
   },
   {
     name = "Funny Baby",
@@ -3025,19 +3072,16 @@ SPCGlobals.babies = {
     name = "Gamer Baby",
     description = "Constant Retro Vision pill effect",
     sprite = "492_baby_gamer.png",
-    -- TODO
   },
   {
     name = "Glittery Peach Baby",
     description = "Starts with a golden bomb",
     sprite = "493_baby_glitterypeach.png",
-    -- TODO
   },
   {
     name = "Pompadour Baby",
-    description = "Gets stats from Mom's Dressing Table",
+    description = "Shrink tears",
     sprite = "494_baby_pompadour.png",
-    -- TODO
   },
   {
     name = "Head Kick Baby",
@@ -3060,9 +3104,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Ill Baby",
-    description = "Starts with Bloody Penny",
+    description = "Bob's Brain tears",
     sprite = "498_baby_ill.png",
-    trinket = TrinketType.TRINKET_BLOODY_PENNY, -- 49
   },
   {
     name = "Lazy Baby",
@@ -3098,13 +3141,13 @@ SPCGlobals.babies = {
     description = "Starts with Abel; tears come from Abel",
     sprite = "504_baby_psychic.png",
     item = CollectibleType.COLLECTIBLE_ABEL, -- 188
-    -- TODO
   },
   {
     name = "Puppet Baby",
     description = "Starts with Marbles",
     sprite = "505_baby_puppet.png",
     item = CollectibleType.COLLECTIBLE_MARBLES, -- 538
+    -- TODO BORING
   },
   {
     name = "Reaper Baby",
@@ -3123,6 +3166,7 @@ SPCGlobals.babies = {
     description = "Starts with Isaac's Fork",
     sprite = "508_baby_sausagelover.png",
     trinket = TrinketType.TRINKET_ISAACS_FORK, -- 46
+    -- TODO DUPLICATE
   },
   {
     name = "Scribble Baby",
@@ -3141,7 +3185,6 @@ SPCGlobals.babies = {
     description = "Tear rate oscillates",
     -- Between +4 and -4 tear delay over a period of 20 seconds
     sprite = "511_baby_twitchy.png",
-    -- TODO
   },
   {
     name = "Witch Baby",
@@ -3170,13 +3213,11 @@ SPCGlobals.babies = {
     name = "Silly Baby",
     description = "Has constant I'm Excited pill effect",
     sprite = "516_baby_silly.png",
-    -- TODO
   },
   {
     name = "Master Cook Baby",
-    description = "+1 damage per full red heart",
+    description = "Egg tears",
     sprite = "517_baby_mastercook.png",
-    -- TODO
   },
   {
     name = "Green Pepper Baby",
@@ -3186,9 +3227,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Baggy Cap Baby",
-    description = "Starts with Incubus",
+    description = "Can't bomb through rooms",
     sprite = "519_baby_baggycap.png",
-    item = CollectibleType.COLLECTIBLE_INCUBUS, -- 360
   },
   {
     name = "Stylish Baby",
@@ -3197,11 +3237,113 @@ SPCGlobals.babies = {
     trinket = TrinketType.TRINKET_STORE_CREDIT -- 13
   },
   {
-    -- Number 0 is moved to 521 since Lua tables are 1-indexed
+    -- Spider Baby is number 0, but we move it to 521 since Lua tables are 1-indexed
     name = "Spider Baby",
     description = "Starts with Juicy Sack",
     sprite = "000_baby_spider.png",
     item = CollectibleType.COLLECTIBLE_JUICY_SACK, -- 266
+  },
+  {
+    name = "Brother Bobby", -- 522
+    description = "Slings Godhead aura",
+    sprite = "familiar_shooters_01_brotherbobby.png",
+    item = CollectibleType.COLLECTIBLE_MOMS_KNIFE, -- 114
+  },
+  {
+    name = "Sister Maggy", -- 523
+    description = "Loses last item on 2nd hit (per room)",
+    sprite = "familiar_shooters_07_sistermaggie.png",
+  },
+  {
+    name = "Robo-Baby", -- 524
+    description = "Starts with Technology",
+    sprite = "familiar_shooters_06_robobaby.png",
+    item = CollectibleType.COLLECTIBLE_TECHNOLOGY, -- 68
+  },
+  {
+    name = "Little Gish", -- 525
+    description = "All items from the Curse Room pool",
+    sprite = "familiar_shooters_04_littlegish.png",
+  },
+  {
+    name = "Little Steven", -- 526
+    description = "Dies 1 minute after getting hit",
+    sprite = "familiar_shooters_05_littlesteve.png",
+  },
+  {
+    name = "Demon Baby", -- 527
+    description = "Free devil deals",
+    sprite = "familiar_shooters_02_demonbaby.png",
+  },
+  {
+    name = "Ghost Baby", -- 528
+    description = "All items from the Shop pool",
+    sprite = "familiar_shooters_09_ghostbaby.png",
+  },
+  {
+    name = "Harlequin Baby", -- 529
+    description = "V tears",
+    sprite = "familiar_shooters_10_harlequinbaby.png",
+    item = CollectibleType.COLLECTIBLE_THE_WIZ, -- 358
+  },
+  {
+    name = "Rainbow Baby", -- 530
+    description = "Chest per enemy killed",
+    sprite = "familiar_shooters_11_rainbowbaby.png",
+  },
+  {
+    name = "Abel", -- 531
+    description = "Missed tears cause paralysis",
+    sprite = "familiar_shooters_08_abel.png",
+  },
+  {
+    name = "Robo-Baby 2.0", -- 532
+    description = "Starts with Undefined (uncharged)",
+    sprite = "familiar_shooters_267_robobaby20.png",
+    item = CollectibleType.COLLECTIBLE_UNDEFINED, -- 324
+  },
+  {
+    name = "Rotten Baby", -- 533
+    description = "Shoots blue flies",
+    sprite = "costume_268_rottenbaby.png",
+  },
+  {
+    name = "Lil Brimstone", -- 534
+    description = "Starts with Brimstone",
+    sprite = "costume_rebirth_77_lilbrimstone.png",
+    item = CollectibleType.COLLECTIBLE_BRIMSTONE, -- 118
+  },
+  {
+    name = "Mongo Baby", -- 535
+    description = "All items from the Angel Room pool",
+    sprite = "familiar_shooters_322_mongobaby.png",
+  },
+  {
+    name = "Incubus", -- 536
+    description = "All items from the Devil Room pool",
+    sprite = "familiar_shooters_80_incubus.png",
+  },
+  {
+    name = "Fate's Reward", -- 537
+    description = "Items cost money",
+    sprite = "familiar_shooters_81_fatesreward.png",
+  },
+  {
+    name = "Seraphim", -- 538
+    description = "Has Censer aura",
+    sprite = "familiars_shooters_92_seraphim.png",
+    item = CollectibleType.COLLECTIBLE_CENSER, -- 387
+  },
+  {
+    name = "Lil' Loki", -- 539
+    description = "Cross tears",
+    sprite = "familiar_097_shooters_lilloki.png",
+  },
+  {
+    name = "Lil Monstro", -- 540
+    description = "Starts with Monstro's Lung",
+    sprite = "familiar_108_lilmonstro.png",
+    item = CollectibleType.COLLECTIBLE_MONSTROS_LUNG, -- 229
   },
 }
 

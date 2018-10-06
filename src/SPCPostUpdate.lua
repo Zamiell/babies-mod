@@ -6,31 +6,30 @@ local SPCPostRender = require("src/spcpostrender")
 
 -- ModCallbacks.MC_POST_UPDATE (1)
 function SPCPostUpdate:Main()
-  -- Do nothing if we have not initialized the co-op baby yet
+  -- Local variables
+  local game = Game()
+  local player = game:GetPlayer(0)
   local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
   if baby == nil then
     return
   end
 
-  -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
-
-  for i, entity in pairs(Isaac.GetRoomEntities()) do
-    if entity.Type == EntityType.ENTITY_FAMILIAR and
-       entity.Familiar == FamiliarVariant.BOBS_BRAIN then
-
-      local familiar = entity:ToFamiliar()
-      local gameFrameCount = game:GetFrameCount()
-      Isaac.DebugString("FRAME " .. tostring(gameFrameCount) .. ", STATE " .. tostring(familiar.State))
-    end
-  end
-
   -- Reapply the co-op baby sprite after every pedestal item recieved
-  if player:IsItemQueueEmpty() == false then
+  -- (and keep track of our passive items over the course of the run)
+  if player:IsItemQueueEmpty() == false and
+     SPCGlobals.run.queuedItems == false then
+
     SPCGlobals.run.queuedItems = true
-  elseif player:IsItemQueueEmpty() and SPCGlobals.run.queuedItems then
+    if player.QueuedItem.Item.Type == ItemType.ITEM_PASSIVE then -- 1
+      SPCGlobals.run.passiveItems[#SPCGlobals.run.passiveItems + 1] = player.QueuedItem.Item.ID
+      Isaac.DebugString("Added passive item " .. tostring(player.QueuedItem.Item.ID) ..
+                        " (total items: " .. #SPCGlobals.run.passiveItems .. ")")
+    end
+
+  elseif player:IsItemQueueEmpty() and
+         SPCGlobals.run.queuedItems then
+
     SPCGlobals.run.queuedItems = false
     SPCPostRender:SetPlayerSprite()
   end
@@ -132,7 +131,11 @@ function SPCPostUpdate:DoBabyEffects()
   local game = Game()
   local gameFrameCount = game:GetFrameCount()
   local player = game:GetPlayer(0)
+  local room = game:GetRoom()
+  local roomClear = room:IsClear()
   local activeItem = player:GetActiveItem()
+  local pill1 = player:GetPill(0)
+  local pill2 = player:GetPill(1)
   local sfx = SFXManager()
   local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
@@ -207,11 +210,32 @@ function SPCPostUpdate:DoBabyEffects()
     player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY) -- 2
     player:EvaluateItems()
 
+  elseif baby.name == "Corrupted Baby" then -- 307
+    -- Taking items/pickups causes damage (1/2)
+    if player:IsItemQueueEmpty() == false then
+      player:TakeDamage(1, 0, EntityRef(player), 0)
+    end
+
   elseif baby.name == "Exploding Baby" and -- 320
          SPCGlobals.run.explodingBabyFrame ~= 0 and
          gameFrameCount >= SPCGlobals.run.explodingBabyFrame then
 
     SPCGlobals.run.explodingBabyFrame = 0
+
+  elseif baby.name == "Vomit Baby" then -- 341
+    -- Moving when the timer reaches 0 causes damage
+    local remainingTime = SPCGlobals.run.vomitBabyTimer - gameFrameCount
+    if remainingTime <= 0 then
+      SPCGlobals.run.vomitBabyTimer = gameFrameCount + baby.time -- Reset the timer
+
+      if player.Velocity.X > 0.2 or
+         player.Velocity.X < -0.2 or
+         player.Velocity.Y > 0.2 or
+         player.Velocity.Y < -0.2 then
+
+        player:TakeDamage(1, 0, EntityRef(player), 0)
+      end
+    end
 
   elseif baby.name == "Fourtone Baby" and -- 348
          activeItem == CollectibleType.COLLECTIBLE_CANDLE and -- 164
@@ -227,6 +251,13 @@ function SPCPostUpdate:DoBabyEffects()
     -- Spawn a Mega Troll Bomb (4.5)
     game:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_SUPERTROLL, player.Position, Vector(0, 0), nil, 0, 0)
 
+  elseif baby.name == "Red Wrestler Baby" then -- 389
+    if pill1 ~= PillColor.PILL_NULL or -- 0
+       pill2 ~= PillColor.PILL_NULL then -- 0
+
+      SPCGlobals.run.redWresterBabyUse = true
+    end
+
   elseif baby.name == "Plague Baby" and -- 396
          gameFrameCount % 5 == 0 then -- Every 5 frames
 
@@ -241,12 +272,47 @@ function SPCPostUpdate:DoBabyEffects()
     -- Spawn a Fly (13.0)
     game:Spawn(EntityType.ENTITY_FLY, 0, player.Position, Vector(0, 0), nil, 0, 0)
 
+  elseif baby.name == "Driver Baby" then -- 431
+    -- Drip slippery brown creep (but hide it)
+    local creep = game:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.CREEP_SLIPPERY_BROWN, -- 94
+                               player.Position, Vector(0, 0), player, 0, 0)
+    creep.Visible = false
+
   elseif baby.name == "Mern Baby" and -- 500
          SPCGlobals.run.mernBaby.frame ~= 0 and
          gameFrameCount >= SPCGlobals.run.mernBaby.frame then
 
     SPCGlobals.run.mernBaby.frame = 0
     player:FireTear(player.Position, SPCGlobals.run.mernBaby.velocity, false, true, false)
+
+  elseif baby.name == "Baggy Cap Baby" then -- 519
+    -- Check all of the doors
+    if roomClear then
+      return
+    end
+
+    -- Check to see if a door opened before the room was clear
+    for i = 0, 7 do
+      local door = room:GetDoor(i)
+      if door ~= nil and
+         door:IsOpen() then
+
+        door:Close(true)
+      end
+    end
+
+  elseif baby.name == "Twitchy Baby" then -- 511
+    player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY) -- 2
+    player:EvaluateItems()
+
+  elseif baby.name == "Little Steven" and -- 526
+         SPCGlobals.run.littleStevenTimer ~= 0 then
+
+    local remainingTime = SPCGlobals.run.littleStevenTimer - gameFrameCount
+    if remainingTime <= 0 then
+      SPCGlobals.run.littleStevenTimer = 0
+      player:Kill()
+    end
   end
 end
 
@@ -306,6 +372,7 @@ function SPCPostUpdate:CheckEntities()
     "Lantern Baby", -- 292
     "Froggy Baby", -- 363
     "Dino Baby", -- 376
+    "Magiccat Baby", -- 428
   }
   local check = false
   for i = 1, #babiesThatRequireChecking do
@@ -351,21 +418,8 @@ function SPCPostUpdate:CheckEntities()
 
     elseif baby.name == "Froggy Baby" and -- 363
            entity:IsDead() == false and
-           SPCGlobals:InsideSquare(player.Position, entity.Position, 36) and
-           (entity.Type == EntityType.ENTITY_FLY or -- 13
-            entity.Type == EntityType.ENTITY_POOTER or -- 14
-            entity.Type == EntityType.ENTITY_ATTACKFLY or -- 18
-            -- (this also includes Large Attack Flies)
-            entity.Type == EntityType.ENTITY_BOOMFLY or -- 25
-            entity.Type == EntityType.ENTITY_SUCKER or -- 61
-            entity.Type == EntityType.ENTITY_MOTER or -- 80
-            entity.Type == EntityType.ENTITY_ETERNALFLY or -- 96
-            entity.Type == EntityType.ENTITY_FLY_L2 or -- 214
-            entity.Type == EntityType.ENTITY_RING_OF_FLIES or -- 222
-            entity.Type == EntityType.ENTITY_FULL_FLY or -- 249
-            entity.Type == EntityType.ENTITY_DART_FLY or -- 256
-            entity.Type == EntityType.ENTITY_SWARM or -- 281
-            entity.Type == EntityType.ENTITY_HUSH_FLY) then -- 296
+           SPCGlobals:IsFly(entity) and
+           SPCGlobals:InsideSquare(player.Position, entity.Position, 36) then
 
       entity:Kill()
 
@@ -375,6 +429,13 @@ function SPCPostUpdate:CheckEntities()
            entity.SubType == 1 then -- It has a SubType of 1 after it explodes
 
       entity:Remove()
+
+    elseif baby.name == "Magiccat Baby" and -- 428
+           entity:ToNPC() ~= nil and
+           entity:ToNPC():IsVulnerableEnemy() and -- Returns true for enemies that can be damaged
+           SPCGlobals:InsideSquare(entity.Position, player.Position, 100) then
+
+      entity:AddCharmed(150) -- 5 seconds
     end
   end
 end

@@ -11,10 +11,25 @@ function SPCPostGameStarted:Main(saveState)
     return
   end
 
-  Isaac.DebugString("MC_POST_GAME_STARTED")
+  -- Local variables
+  local game = Game()
+  local seeds = game:GetSeeds()
+
+  Isaac.DebugString("MC_POST_GAME_STARTED (SPC)")
 
   -- Reset variables
   SPCGlobals:InitRun()
+
+  -- Easter Eggs from babies are normally removed upon going to the next floor
+  -- We also have to check to see if they reset the game while on a baby with a custom Easter Egg effect
+  for i = 1, #SPCGlobals.babies do
+    local baby = SPCGlobals.babies[i]
+    if baby.seed ~= nil then
+      if seeds:HasSeedEffect(baby.seed) then
+        seeds:RemoveSeedEffect(baby.seed)
+      end
+    end
+  end
 
   -- Call PostNewLevel manually (they get naturally called out of order)
   SPCPostNewLevel:NewLevel()

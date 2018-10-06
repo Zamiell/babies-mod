@@ -12,6 +12,9 @@ function SPCExecuteCmd:Main(cmd, params)
     if params ~= "0" then
       Isaac.ExecuteCommand("restart")
     end
+
+  elseif cmd == "baby2" then
+    SPCGlobals.debug = tonumber(params)
   end
 end
 

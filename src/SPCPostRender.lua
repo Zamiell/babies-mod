@@ -2,22 +2,40 @@ local SPCPostRender  = {}
 
 -- Includes
 local SPCGlobals = require("src/spcglobals")
+local SPCTimer   = require("src/spctimer")
 
 -- ModCallbacks.MC_POST_RENDER (2)
 function SPCPostRender:Main()
   -- Local variables
   local game = Game()
   local gameFrameCount = game:GetFrameCount()
+  local room = game:GetRoom()
+  local roomFrameCount = room:GetFrameCount()
   local player = game:GetPlayer(0)
+  local type = SPCGlobals.run.babyType
+  local baby = SPCGlobals.babies[type]
+  if baby == nil then
+    return
+  end
 
   -- Remove extra costumes while the game is fading in and/or loading
   if gameFrameCount == 0 then
     player:ClearCostumes()
   end
 
+  -- Fix the graphical glitch with Scapular and Purity
+  -- (this won't work in the MC_POST_UPDATE callback)
+  if roomFrameCount <= 1 and
+     (player:HasCollectible(CollectibleType.COLLECTIBLE_SCAPULAR) or -- 142
+      player:HasCollectible(CollectibleType.COLLECTIBLE_PURITY)) then -- 407
+
+    player:ClearCostumes()
+  end
+
   SPCPostRender:TrackPlayerAnimations()
   SPCPostRender:DrawBabyIntro()
   SPCPostRender:DrawBabyEffects()
+  SPCTimer:Display()
 end
 
 function SPCPostRender:TrackPlayerAnimations()
@@ -25,6 +43,9 @@ function SPCPostRender:TrackPlayerAnimations()
   local game = Game()
   local player = game:GetPlayer(0)
   local playerSprite = player:GetSprite()
+  local effects = player:GetEffects()
+  local effectsList = effects:GetEffectsList()
+  local itemConfig = Isaac.GetItemConfig()
 
   -- Get the currently playing animation
   local animations = {
@@ -61,6 +82,17 @@ function SPCPostRender:TrackPlayerAnimations()
       Isaac.DebugString("Reverted the sprite. (Triggered by animation " .. animation ..
                         " on frame " .. tostring(frameCount) .. ".)")
       --]]
+
+      -- Doing this will remove a shield, so detect if there is a shield and then add it back if so
+      for i = 1, effectsList.Size do
+        local effect = effectsList:Get(i - 1)
+        if effect.Item.ID == CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS then -- 58
+          --effects:AddCollectibleEffect(CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS, true) -- 58
+          local configItem = itemConfig:GetCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS) -- 58
+          player:AddCostume(configItem, false)
+          break
+        end
+      end
     end
   end
 end
@@ -99,12 +131,7 @@ end
 function SPCPostRender:DrawBabyIntro()
   -- Local variables
   local game = Game()
-  local level = game:GetLevel()
-  local roomIndex = level:GetCurrentRoomDesc().SafeGridIndex
-  if roomIndex < 0 then -- SafeGridIndex is always -1 for rooms outside the grid
-    roomIndex = level:GetCurrentRoomIndex()
-  end
-  local startingRoomIndex = level:GetStartingRoomIndex()
+  local gameFrameCount = game:GetFrameCount()
 
   local tabPressed = false
   for i = 0, 3 do -- There are 4 possible inputs/players from 0 to 3
@@ -114,7 +141,7 @@ function SPCPostRender:DrawBabyIntro()
     end
   end
 
-  if roomIndex ~= startingRoomIndex and
+  if gameFrameCount >= SPCGlobals.run.currentFloorFrame + 60 and
      tabPressed == false then
 
     return
@@ -166,14 +193,21 @@ function SPCPostRender:GetScreenCenterPosition()
   -- Local variables
   local game = Game()
   local room = game:GetRoom()
+  local shape = room:GetRoomShape()
   local centerOffset = (room:GetCenterPos()) - room:GetTopLeftPos()
   local pos = room:GetCenterPos()
 
   if centerOffset.X > 260 then
-    pos.X = pos.X - 260
+      pos.X = pos.X - 260
+  end
+  if shape == RoomShape.ROOMSHAPE_LBL or shape == RoomShape.ROOMSHAPE_LTL then
+      pos.X = pos.X - 260
   end
   if centerOffset.Y > 140 then
-    pos.Y = pos.Y - 140
+      pos.Y = pos.Y - 140
+  end
+  if shape == RoomShape.ROOMSHAPE_LTR or shape == RoomShape.ROOMSHAPE_LTL then
+      pos.Y = pos.Y - 140
   end
 
   return Isaac.WorldToRenderPosition(pos, false)

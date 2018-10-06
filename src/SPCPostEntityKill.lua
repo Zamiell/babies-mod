@@ -20,7 +20,10 @@ function SPCPostEntityKill:Main(entity)
     return
   end
 
-  if baby.name == "Killer Baby" then -- 291
+  if baby.name == "Brown Baby" then -- 38
+    Isaac.GridSpawn(GridEntityType.GRID_POOP, 0, entity.Position, false) -- 14
+
+  elseif baby.name == "Killer Baby" then -- 291
     SPCGlobals.run.killerBabyCounter = SPCGlobals.run.killerBabyCounter + 1
     player:AddCacheFlags(CacheFlag.CACHE_DAMAGE) -- 1
     player:EvaluateItems()
@@ -47,6 +50,18 @@ function SPCPostEntityKill:Main(entity)
     local brainSprite = brain:GetSprite()
     brainSprite:Load("gfx/003.059_bobs brain2.anm2", true)
     brainSprite:Play("Idle", true)
+
+  elseif baby.name == "Toast Baby" then -- 390
+    -- Enemies leave a Red Candle fire upon death
+    game:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.HOT_BOMB_FIRE, -- 1000.51
+               entity.Position, Vector(0, 0), nil, 0, 0)
+
+  elseif baby.name == "Buttface Baby" then -- 451
+    Isaac.GridSpawn(GridEntityType.GRID_POOP, 5, entity.Position, false) -- 14
+
+  elseif baby.name == "Rainbow Baby" then -- 530
+    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_CHEST, -- 5.50
+               entity.Position, Vector(0, 0), nil, 0, entity.InitSeed)
   end
 end
 
