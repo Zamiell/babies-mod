@@ -6,24 +6,29 @@ local SPCGlobals = require("src/spcglobals")
 -- ModCallbacks.MC_POST_NPC_INIT (27)
 function SPCPostNPCInit:Main(npc)
   -- Local variables
-  local game = Game()
-  local room = game:GetRoom()
-  local player = game:GetPlayer(0)
   local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
   if baby == nil then
     return
   end
 
-  if baby.name == "Moth Baby" then -- 450
+  if baby.name == "Hooligan Baby" then -- 291
+    SPCPostNPCInit:Baby291(npc)
+
+  elseif baby.name == "Moth Baby" then -- 450
     npc:MakeChampion(npc.InitSeed)
     npc:Morph(npc.Type, npc.Variant, npc.SubType, 11) -- Purple / Gaping Maw effect
-    return
-  end
 
-  if baby.name ~= "Hooligan Baby" then -- 291
-    return
+  elseif baby.name == "404 Baby" then -- 463
+    SPCGlobals:SetRandomColor(npc)
   end
+end
+
+function SPCPostNPCInit:Baby291(npc)
+  -- Local variables
+  local game = Game()
+  local room = game:GetRoom()
+  local player = game:GetPlayer(0)
 
   -- Doubling certain enemies leads to bugs
   if npc.Type == EntityType.ENTITY_FIREPLACE or -- 33

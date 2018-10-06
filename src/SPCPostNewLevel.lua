@@ -169,41 +169,53 @@ function SPCPostNewLevel:GetNewBaby()
     end
 
     -- Check for overlapping items or trinkets
-    local newBaby = SPCGlobals.babies[type]
+    local baby = SPCGlobals.babies[type]
     local valid = true
 
-    if newBaby.item ~= nil and
-       player:HasCollectible(newBaby.item) then
+    if baby.item ~= nil and
+       player:HasCollectible(baby.item) then
 
       valid = false
     end
 
     if RacingPlusGlobals ~= nil and
        player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
-       newBaby.item ~= nil and
-       newBaby.item == RacingPlusGlobals.run.schoolbag.item then
+       baby.item ~= nil and
+       baby.item == RacingPlusGlobals.run.schoolbag.item then
 
       valid = false
     end
 
-    if newBaby.item2 ~= nil and
-       player:HasCollectible(newBaby.item2) then
+    if baby.item2 ~= nil and
+       player:HasCollectible(baby.item2) then
 
       valid = false
     end
 
     if RacingPlusGlobals ~= nil and
        player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
-       newBaby.item2 ~= nil and
-       newBaby.item2 == RacingPlusGlobals.run.schoolbag.item then
+       baby.item2 ~= nil and
+       baby.item2 == RacingPlusGlobals.run.schoolbag.item then
 
       valid = false
     end
 
-    if newBaby.trinket ~= nil and
-       player:HasTrinket(newBaby.trinket) then
+    if baby.trinket ~= nil and
+       player:HasTrinket(baby.trinket) then
 
       valid = false
+    end
+
+    -- Check for conflicting items
+    if baby.item ~= nil then
+      if baby.item == CollectibleType.COLLECTIBLE_SOY_MILK and -- 330
+         (player:HasCollectible(CollectibleType.COLLECTIBLE_DR_FETUS) or -- 52
+          player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE) or -- 114
+          player:HasCollectible(CollectibleType.COLLECTIBLE_BRIMSTONE) or -- 118
+          player:HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS)) then -- 168
+
+        valid = false
+      end
     end
 
     -- Check to see if we got this baby in the recent past
@@ -215,12 +227,11 @@ function SPCPostNewLevel:GetNewBaby()
     end
 
     -- Check to see if this baby is banned on the harder floors
-    local baby = SPCGlobals.babies[type]
     if baby.noEndFloors and stage > 8 then
       valid = false
     end
 
-    -- Check to see if the player has any items that will conflict with this baby
+    -- Check to see if the player has any items that will conflict with this specific baby
     if baby.name == "Dino Baby" and
        player:HasCollectible(CollectibleType.COLLECTIBLE_BOBS_BRAIN) then -- 273
 
@@ -362,6 +373,9 @@ function SPCPostNewLevel:ApplyNewBaby()
   elseif baby.name == "Robo-Baby 2.0" then -- 532
     -- If the player starts with a fully charged Undefined, they will just immediately teleport to the next floor
     player:DischargeActiveItem()
+  elseif baby.name == "Invisible Baby" then -- 541
+    -- The sprite is a blank PNG, but we also want to remove the shadow
+    player.Visisble = false
   end
 
   -- Reset the player's size

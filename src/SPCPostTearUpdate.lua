@@ -40,6 +40,11 @@ function SPCPostTearUpdate:Main(tear)
                                tear.Position, Vector(0, 0), tear, 0, 0)
     creep:ToEffect().Timeout = 240
 
+  elseif baby.name == "404 Baby" and -- 463
+         tear.FrameCount == 0 then
+
+    SPCGlobals:SetRandomColor(tear)
+
   elseif baby.name == "Green Koopa Baby" and -- 455
          tear.SubType == 1 then
 

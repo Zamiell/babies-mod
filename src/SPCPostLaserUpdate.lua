@@ -22,6 +22,11 @@ function SPCPostLaserUpdate:Main(laser)
       -- Keep the ring centered on the player
       laser.Position = player.Position
     end
+
+  elseif baby.name == "404 Baby" and -- 463
+         laser.FrameCount == 0 then
+
+    SPCGlobals:SetRandomColor(laser)
   end
 end
 

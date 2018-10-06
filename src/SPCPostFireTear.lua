@@ -57,6 +57,10 @@ function SPCPostFireTear:Main(tear)
   elseif baby.name == "Super Greed Baby" then -- 54
     tear.TearFlags = tear.TearFlags | TearFlags.TEAR_MIDAS -- 1 << 51
 
+  elseif baby.name == "Mustache Baby" then -- 66
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_BOOMERANG, false, false, false, false) -- 388
+    tear:Remove()
+
   elseif baby.name == "Parasite Baby" then -- 77
     tear:ChangeVariant(TearVariant.BALLOON) -- 35
 
@@ -114,6 +118,10 @@ function SPCPostFireTear:Main(tear)
          SPCGlobals.run.speakerBabyShooting == false then
 
     -- We mark it so that we can split it later
+    tear.SubType = 1
+
+  elseif baby.name == "Slicer Baby" then -- 331
+    -- Mark that we shot this tear
     tear.SubType = 1
 
   elseif baby.name == "Boxers Baby" then -- 337

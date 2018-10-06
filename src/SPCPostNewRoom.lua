@@ -84,6 +84,9 @@ function SPCPostNewRoom:ApplyTemporaryEffects()
   elseif baby.name == "Belial Baby" then -- 51
     effects:AddCollectibleEffect(CollectibleType.COLLECTIBLE_BOOK_OF_BELIAL, false) -- 34
 
+  elseif baby.name == "Beast Baby" then -- 242
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_D10, false, false, false, false) -- 285
+
   elseif baby.name == "Butterfly Baby 2" then -- 332
     player.GridCollisionClass = 0
 

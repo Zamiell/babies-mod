@@ -37,6 +37,9 @@ function SPCPostPickupInit:Main(pickup)
     pickup.AutoUpdatePrice = false
     pickup.Price = -1
 
+  elseif baby.name == "404 Baby" then -- 463
+    SPCGlobals:SetRandomColor(pickup)
+
   elseif baby.name == "Demon Baby" and -- 527
          pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE and
          (roomType == RoomType.ROOM_DEVIL or -- 14

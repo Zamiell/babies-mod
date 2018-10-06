@@ -15,6 +15,7 @@ function SPCPreUseItem:Item56(collectibleType, RNG)
 
   if baby.name == "Lemon Baby" then -- 232
     player:UsePill(PillEffect.PILLEFFECT_LEMON_PARTY, PillColor.PILL_NULL) -- 26, 0
+    player:AnimateCollectible(CollectibleType.COLLECTIBLE_LEMON_MISHAP, "UseItem", "PlayerPickup") -- 56
     return true -- Cancel the original effect
   end
 end

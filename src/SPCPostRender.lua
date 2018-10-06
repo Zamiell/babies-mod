@@ -18,18 +18,25 @@ function SPCPostRender:Main()
     return
   end
 
+  player:RenderShadowLayer(Vector(100, 100))
+
   -- Remove extra costumes while the game is fading in and/or loading
   if gameFrameCount == 0 then
     player:ClearCostumes()
   end
 
-  -- Fix the graphical glitch with Scapular and Purity
+  -- Fix the graphical glitch with some items that apply special costumes
   -- (this won't work in the MC_POST_UPDATE callback)
   if roomFrameCount <= 1 and
      (player:HasCollectible(CollectibleType.COLLECTIBLE_SCAPULAR) or -- 142
       player:HasCollectible(CollectibleType.COLLECTIBLE_PURITY)) then -- 407
 
     player:ClearCostumes()
+  end
+  if roomFrameCount == 0 and
+     player:HasCollectible(CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON) then -- 122
+
+    SPCPostRender:SetPlayerSprite()
   end
 
   SPCPostRender:TrackPlayerAnimations()

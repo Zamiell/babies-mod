@@ -222,6 +222,12 @@ function SPCEntityTakeDmg:Player(player, damageAmount, damageFlag, damageCountdo
       end
     end
 
+  elseif baby.name == "Scoreboard Baby" and -- 474
+         SPCGlobals.run.scoreboardBabyTimer == 0 then
+
+    -- Death in 1 minute
+    SPCGlobals.run.scoreboardBabyTimer = gameFrameCount + (60 * 30)
+
   elseif baby.name == "Sister Maggy" then -- 523
     SPCGlobals.run.sisterMaggyCounter = SPCGlobals.run.sisterMaggyCounter + 1
     Isaac.DebugString("Sister Maggy counter: " .. tostring(SPCGlobals.run.sisterMaggyCounter))
@@ -236,12 +242,6 @@ function SPCEntityTakeDmg:Player(player, damageAmount, damageFlag, damageCountdo
         Isaac.DebugString("Removing collectible " .. tostring(itemToTakeAway))
       end
     end
-
-  elseif baby.name == "Little Steven" and -- 526
-         SPCGlobals.run.littleStevenTimer == 0 then
-
-    -- Death in 1 minute
-    SPCGlobals.run.littleStevenTimer = gameFrameCount + (60 * 30)
   end
 end
 
@@ -272,11 +272,30 @@ function SPCEntityTakeDmg:Entity(entity, damageAmount, damageSource, damageCount
     local damage = player.Damage * 2
     entity:TakeDamage(damage, 0, EntityRef(player), damageCountdownFrames)
 
+  elseif baby.name == "Mustache Baby" and -- 66
+         SPCGlobals.run.dealingExtraDamage == false then
+
+    -- By default, the boomerang only does 2x damage, so make it deal extra
+    local damage = player.Damage * 4
+    SPCGlobals.run.dealingExtraDamage = true
+    entity:TakeDamage(damage, 0, EntityRef(player), damageCountdownFrames)
+    SPCGlobals.run.dealingExtraDamage = false
+
   elseif baby.name == "Rider Baby" and -- 295
          SPCGlobals.run.dealingExtraDamage == false then
 
     -- Make the Pony do extra damage
     local damage = player.Damage * 4
+    SPCGlobals.run.dealingExtraDamage = true
+    entity:TakeDamage(damage, 0, EntityRef(player), damageCountdownFrames)
+    SPCGlobals.run.dealingExtraDamage = false
+
+  elseif baby.name == "Slicer Baby" and -- 331
+         damageSource.Type == EntityType.ENTITY_TEAR and -- 2
+         damageSource.Entity.SubType == 1 then
+
+    -- Make the Soy Milk tears do extra damage
+    local damage = player.Damage * 3
     SPCGlobals.run.dealingExtraDamage = true
     entity:TakeDamage(damage, 0, EntityRef(player), damageCountdownFrames)
     SPCGlobals.run.dealingExtraDamage = false
