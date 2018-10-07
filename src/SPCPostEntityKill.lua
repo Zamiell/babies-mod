@@ -24,7 +24,7 @@ function SPCPostEntityKill:Main(entity)
     Isaac.GridSpawn(GridEntityType.GRID_POOP, 0, entity.Position, false) -- 14
 
   elseif baby.name == "Killer Baby" then -- 291
-    SPCGlobals.run.killerBabyCounter = SPCGlobals.run.killerBabyCounter + 1
+    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
     player:AddCacheFlags(CacheFlag.CACHE_DAMAGE) -- 1
     player:EvaluateItems()
 

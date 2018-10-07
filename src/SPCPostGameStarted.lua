@@ -14,6 +14,7 @@ function SPCPostGameStarted:Main(saveState)
   -- Local variables
   local game = Game()
   local seeds = game:GetSeeds()
+  local itemPool = game:GetItemPool()
 
   Isaac.DebugString("MC_POST_GAME_STARTED (SPC)")
 
@@ -30,6 +31,9 @@ function SPCPostGameStarted:Main(saveState)
       end
     end
   end
+
+  -- Remove some items from pools
+  itemPool:RemoveCollectible(CollectibleType.COLLECTIBLE_CLICKER) -- 482
 
   -- Call PostNewLevel manually (they get naturally called out of order)
   SPCPostNewLevel:NewLevel()

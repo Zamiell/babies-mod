@@ -2,6 +2,7 @@ local SPCPostPickupInit = {}
 
 -- Includes
 local SPCGlobals = require("src/spcglobals")
+local SPCMisc    = require("src/spcmisc")
 
 -- ModCallbacks.MC_POST_PICKUP_INIT (34)
 function SPCPostPickupInit:Main(pickup)
@@ -38,7 +39,7 @@ function SPCPostPickupInit:Main(pickup)
     pickup.Price = -1
 
   elseif baby.name == "404 Baby" then -- 463
-    SPCGlobals:SetRandomColor(pickup)
+    SPCMisc:SetRandomColor(pickup)
 
   elseif baby.name == "Demon Baby" and -- 527
          pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE and

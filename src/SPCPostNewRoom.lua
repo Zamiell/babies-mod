@@ -39,7 +39,7 @@ function SPCPostNewRoom:NewRoom()
   -- Reset room variables
   SPCGlobals.run.roomClear = roomClear
   SPCGlobals.run.roomRNG = roomSeed
-  SPCGlobals.run.sisterMaggyCounter = 0
+  SPCGlobals.run.babyCountersRoom = 0
 
   -- Do nothing if we are not a baby
   local type = SPCGlobals.run.babyType

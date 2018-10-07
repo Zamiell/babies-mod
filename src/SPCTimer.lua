@@ -17,10 +17,10 @@ function SPCTimer:Display()
   end
 
   local finishTime
-  if baby.name == "Vomit Baby" then -- 341
-    finishTime = SPCGlobals.run.vomitBabyTimer
-  elseif baby.name == "Scoreboard Baby" then -- 474
-    finishTime = SPCGlobals.run.scoreboardBabyTimer
+  if baby.name == "Vomit Baby" or -- 341
+     baby.name == "Scoreboard Baby" then -- 474
+
+    finishTime = SPCGlobals.run.babyCounters
   end
   if finishTime == nil or finishTime == 0 then
     return

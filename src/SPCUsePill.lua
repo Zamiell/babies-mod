@@ -15,7 +15,7 @@ function SPCUsePill:Main(pillEffect)
   end
 
   if baby.name == "Bubbles Baby" then -- 483
-    SPCGlobals.run.bubblesBabyCounters = SPCGlobals.run.bubblesBabyCounters + 1
+    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
     player:AddCacheFlags(CacheFlag.CACHE_DAMAGE) -- 1
     player:EvaluateItems()
   end

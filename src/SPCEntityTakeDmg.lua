@@ -2,6 +2,7 @@ local SPCEntityTakeDmg = {}
 
 -- Includes
 local SPCGlobals = require("src/spcglobals")
+local SPCMisc    = require("src/spcmisc")
 
 -- ModCallbacks.MC_ENTITY_TAKE_DMG (11)
 -- (this must return nil or false)
@@ -58,71 +59,11 @@ function SPCEntityTakeDmg:Player(player, damageAmount, damageFlag, damageCountdo
     creep:ToEffect().Timeout = 240
 
   elseif baby.name == "Glass Baby" then -- 14
-    -- Spawn a random pickup
-    SPCGlobals.run.randomSeed = SPCGlobals:IncrementRNG(SPCGlobals.run.randomSeed)
-    math.randomseed(SPCGlobals.run.randomSeed)
-    local pickupVariant = math.random(1, 11)
-    SPCGlobals.run.randomSeed = SPCGlobals:IncrementRNG(SPCGlobals.run.randomSeed)
-
-    if pickupVariant == 1 then -- Heart
-      -- Random Heart - 5.10.0
-      game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, player.Position, Vector(0, 0),
-                 player, 0, SPCGlobals.run.randomSeed)
-
-    elseif pickupVariant == 2 then -- Coin
-      -- Random Coin - 5.20.0
-      game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN, player.Position, Vector(0, 0),
-                 player, 0, SPCGlobals.run.randomSeed)
-
-    elseif pickupVariant == 3 then -- Key
-      -- Random Key - 5.30.0
-      game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_KEY, player.Position, Vector(0, 0),
-                 player, 0, SPCGlobals.run.randomSeed)
-
-    elseif pickupVariant == 4 then -- Bomb
-      -- Random Bomb - 5.40.0
-      game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, player.Position, Vector(0, 0),
-                 player, 0, SPCGlobals.run.randomSeed)
-
-    elseif pickupVariant == 5 then -- Chest
-      -- Random Chest - 5.50
-      game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_CHEST, player.Position, Vector(0, 0),
-                 player, 0, SPCGlobals.run.randomSeed)
-
-    elseif pickupVariant == 6 then -- Sack
-      -- Random Chest - 5.69
-      game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_GRAB_BAG, player.Position, Vector(0, 0),
-                 player, 0, SPCGlobals.run.randomSeed)
-
-    elseif pickupVariant == 7 then -- Lil' Battery
-      -- Lil' Battery - 5.90
-      game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_LIL_BATTERY, player.Position, Vector(0, 0),
-                 player, 0, SPCGlobals.run.randomSeed)
-
-    elseif pickupVariant == 8 then -- Pill
-      -- Random Pill - 5.70.0
-      game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_PILL, player.Position, Vector(0, 0),
-                 player, 0, SPCGlobals.run.randomSeed)
-
-    elseif pickupVariant == 9 then -- Card / Rune
-      -- Random Card / Rune - 5.300.0
-      game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, player.Position, Vector(0, 0),
-                 player, 0, SPCGlobals.run.randomSeed)
-
-    elseif pickupVariant == 10 then -- Trinket
-      -- Random Card / Rune - 5.350.0
-      game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, player.Position, Vector(0, 0),
-                 player, 0, SPCGlobals.run.randomSeed)
-
-    elseif pickupVariant == 11 then -- Collectible
-      -- Random Collectible - 5.100.0
-      game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, player.Position, Vector(0, 0),
-                 player, 0, SPCGlobals.run.randomSeed)
-    end
+    SPCMisc:SpawnRandomPickup(player.Position)
 
   elseif baby.name == "Wrapped Baby" then -- 20
     -- Use Kamikaze on the next 5 frames
-    SPCGlobals.run.wrappedBabyKami = 5
+    SPCGlobals.run.babyCounters = 5
 
   elseif baby.name == "-0- Baby" then -- 24
     return false
@@ -141,12 +82,18 @@ function SPCEntityTakeDmg:Player(player, damageAmount, damageFlag, damageCountdo
                player, 0, SPCGlobals.run.randomSeed)
 
   elseif baby.name == "Half Head Baby" and -- 98
-         SPCGlobals.run.halfHeadBabyDD == false then
+         SPCGlobals.run.babyBool == false then
 
     -- Take double damage
-    SPCGlobals.run.halfHeadBabyDD = true
+    SPCGlobals.run.babyBool = true
     player:TakeDamage(damageAmount, 0, EntityRef(player), damageCountdownFrames)
-    SPCGlobals.run.halfHeadBabyDD = false
+    SPCGlobals.run.babyBool = false
+
+  elseif baby.name == "Beard Baby" then -- 227
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_CROOKED_PENNY, false, false, false, false) -- 485
+
+  elseif baby.name == "Gargoyle Baby" then -- 276
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_HEAD_OF_KRAMPUS, false, false, false, false) -- 293
 
   elseif baby.name == "Spiky Demon Baby" then -- 277
     -- Play a custom sound effect if we got hit by a mimic
@@ -160,8 +107,14 @@ function SPCEntityTakeDmg:Player(player, damageAmount, damageFlag, damageCountdo
       end
     end
 
+  elseif baby.name == "Big Tongue Baby" then -- 285
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_FLUSH, false, false, false, false) -- 291
+
   elseif baby.name == "Banshee Baby" then -- 293
     player:UseActiveItem(CollectibleType.COLLECTIBLE_CRACK_THE_SKY, false, false, false, false) -- 160
+
+  elseif baby.name == "X Mouth Baby" then -- 308
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_MOVING_BOX, false, false, false, false) -- 523
 
   elseif baby.name == "Starry Eyed Baby" then -- 310
     -- Stars Card (5.300.18)
@@ -179,23 +132,29 @@ function SPCEntityTakeDmg:Player(player, damageAmount, damageFlag, damageCountdo
     end
 
   elseif baby.name == "Skinless Baby" and -- 322
-         SPCGlobals.run.skinlessBabyDD == false then
+         SPCGlobals.run.babyBool == false then
 
     -- Take double damage
-    SPCGlobals.run.skinlessBabyDD = true
+    SPCGlobals.run.babyBool = true
     player:TakeDamage(damageAmount, 0, EntityRef(player), damageCountdownFrames)
-    SPCGlobals.run.skinlessBabyDD = false
+    SPCGlobals.run.babyBool = false
 
   elseif baby.name == "Hero Baby" then -- 336
     -- We want to evaluate the cache, but we can't do it here because the damage is not applied yet,
     -- so mark to do it later in the PostUpdate callback
-    SPCGlobals.run.heroBabyEval = true
+    SPCGlobals.run.babyBool = true
+
+  elseif baby.name == "Tanooki Baby" then -- 359
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_MR_ME, false, false, false, false) -- 527
 
   elseif baby.name == "Fiery Baby" then -- 366
     player:ShootRedCandle(Vector(0, 0))
 
+  elseif baby.name == "Dark Elf Baby" then -- 378
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_BOOK_OF_THE_DEAD, false, false, false, false) -- 545
+
   elseif baby.name == "Fairyman Baby" then -- 385
-    SPCGlobals.run.fairymanBabyHits = SPCGlobals.run.fairymanBabyHits + 1
+    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
     player:AddCacheFlags(CacheFlag.CACHE_DAMAGE) -- 1
     player:EvaluateItems()
 
@@ -223,15 +182,14 @@ function SPCEntityTakeDmg:Player(player, damageAmount, damageFlag, damageCountdo
     end
 
   elseif baby.name == "Scoreboard Baby" and -- 474
-         SPCGlobals.run.scoreboardBabyTimer == 0 then
+         SPCGlobals.run.babyCounters == 0 then
 
     -- Death in 1 minute
-    SPCGlobals.run.scoreboardBabyTimer = gameFrameCount + (60 * 30)
+    SPCGlobals.run.babyCounters = gameFrameCount + (60 * 30)
 
   elseif baby.name == "Sister Maggy" then -- 523
-    SPCGlobals.run.sisterMaggyCounter = SPCGlobals.run.sisterMaggyCounter + 1
-    Isaac.DebugString("Sister Maggy counter: " .. tostring(SPCGlobals.run.sisterMaggyCounter))
-    if SPCGlobals.run.sisterMaggyCounter >= 2 and
+    SPCGlobals.run.babyCountersRoom = SPCGlobals.run.babyCountersRoom + 1
+    if SPCGlobals.run.babyCountersRoom >= 2 and
        #SPCGlobals.run.passiveItems > 0 then
 
       -- Take away an item

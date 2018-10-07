@@ -15,10 +15,13 @@ function SPCPostPickupUpdate:Main(pickup)
   end
 
   -- Keep track of pickups that are touched
+  local data = pickup:GetData()
   if pickup:GetSprite():IsPlaying("Collect") and
-     pickup.Touched == false then
+     data.touched == nil then
 
-    pickup.Touched = true
+    data.touched = true
+    Isaac.DebugString("Touched pickup: " .. tostring(pickup.Type) .. "." .. tostring(pickup.Variant) .. "." ..
+                      tostring(pickup.SubType) .. " (SPC)")
 
     if baby.name == "Corrupted Baby" then -- 307
       -- Taking items/pickups causes damage (2/2)
@@ -26,7 +29,7 @@ function SPCPostPickupUpdate:Main(pickup)
 
     elseif baby.name == "Robbermask Baby" then -- 473
       -- Taking pickups gives extra damage
-      SPCGlobals.run.robbermaskCounters = SPCGlobals.run.robbermaskCounters + 1
+      SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
       player:AddCacheFlags(CacheFlag.CACHE_DAMAGE) -- 1
       player:EvaluateItems()
     end

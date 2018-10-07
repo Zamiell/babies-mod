@@ -10,7 +10,7 @@ function SPCUseItem:ClockworkAssembly(collectibleType, RNG)
   local player = game:GetPlayer(0)
 
   -- Spawn a Restock Machine (6.10)
-  SPCGlobals.run.factoryBabySpawning = true
+  SPCGlobals.run.babyBool = true
   player:UseCard(Card.CARD_WHEEL_OF_FORTUNE) -- 11
 end
 

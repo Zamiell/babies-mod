@@ -2,6 +2,7 @@ local SPCPostTearUpdate = {}
 
 -- Includes
 local SPCGlobals = require("src/spcglobals")
+local SPCMisc    = require("src/spcmisc")
 
 -- ModCallbacks.MC_POST_TEAR_UPDATE (40)
 function SPCPostTearUpdate:Main(tear)
@@ -23,9 +24,9 @@ function SPCPostTearUpdate:Main(tear)
     for i = 1, 4 do
       rotation = rotation + 90
       local rotatedVelocity = tear.Velocity:Rotated(rotation)
-      SPCGlobals.run.speakerBabyShooting = true
+      SPCGlobals.run.babyBool = true
       local xTear = player:FireTear(player.Position, rotatedVelocity, false, true, false)
-      SPCGlobals.run.speakerBabyShooting = false
+      SPCGlobals.run.babyBool = false
       xTear.Position = tear.Position
       xTear.Height = tear.Height
     end
@@ -43,7 +44,7 @@ function SPCPostTearUpdate:Main(tear)
   elseif baby.name == "404 Baby" and -- 463
          tear.FrameCount == 0 then
 
-    SPCGlobals:SetRandomColor(tear)
+    SPCMisc:SetRandomColor(tear)
 
   elseif baby.name == "Green Koopa Baby" and -- 455
          tear.SubType == 1 then
@@ -102,7 +103,7 @@ function SPCPostTearUpdate:Main(tear)
          tear:IsDead() then -- Tears will not die if they hit an enemy, but they will die if they hit a wall or object
 
     -- The streak ended
-    SPCGlobals.run.sadBunnyCounters = 0
+    SPCGlobals.run.babyCounters = 0
     player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY) -- 2
     player:EvaluateItems()
 

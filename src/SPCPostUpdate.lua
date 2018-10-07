@@ -2,6 +2,7 @@ local SPCPostUpdate = {}
 
 -- Includes
 local SPCGlobals          = require("src/spcglobals")
+local SPCMisc             = require("src/spcmisc")
 local SPCPostRender       = require("src/spcpostrender")
 local SPCPostUpdateBabies = require("src/spcpostupdatebabies")
 
@@ -128,6 +129,11 @@ function SPCPostUpdate:CheckGridEntities()
   -- Local variables
   local game = Game()
   local gameFrameCount = game:GetFrameCount()
+  local level = game:GetLevel()
+  local roomIndex = level:GetCurrentRoomDesc().SafeGridIndex
+  if roomIndex < 0 then -- SafeGridIndex is always -1 for rooms outside the grid
+    roomIndex = level:GetCurrentRoomIndex()
+  end
   local room = game:GetRoom()
   local gridSize = room:GetGridSize()
   local player = game:GetPlayer(0)
@@ -147,8 +153,37 @@ function SPCPostUpdate:CheckGridEntities()
         room:RemoveGridEntity(i, 0, false) -- gridEntity:Destroy() does not work
         sfx:Play(SoundEffect.SOUND_POT_BREAK, 1, 0, false, 1) -- 138
 
+      elseif baby.name == "Ate Poop Baby" and -- 173
+             saveState.Type == GridEntityType.GRID_POOP and -- 14
+             gridEntity.State == 4 then -- Destroyed
+
+        -- First, check to make sure that we have not already destroyed this poop
+        local found = false
+        for j = 1, #SPCGlobals.run.killedPoops do
+          local poop = SPCGlobals.run.killedPoops[j]
+          if poop.roomIndex == roomIndex and
+             poop.gridIndex == i then
+
+            found = true
+            break
+          end
+        end
+        if found == false then
+          -- Second, check to make sure that there is not any existing pickups already on the poop
+          local entities = Isaac.FindInRadius(gridEntity.Position, 25, EntityPartition.PICKUP) -- 1 << 4
+          if #entities == 0 then
+            SPCMisc:SpawnRandomPickup(gridEntity.Position)
+
+            -- Keep track of it so that we don't spawn another pickup on the next frame
+            SPCGlobals.run.killedPoops[#SPCGlobals.run.killedPoops + 1] = {
+              roomIndex = roomIndex,
+              gridIndex = i,
+            }
+          end
+        end
+
       elseif baby.name == "Exploding Baby" and -- 320
-             SPCGlobals.run.explodingBabyFrame == 0 and
+             SPCGlobals.run.babyFrame == 0 and
              ((saveState.Type == GridEntityType.GRID_ROCK and saveState.State == 1) or -- 2
               (saveState.Type == GridEntityType.GRID_ROCKT and saveState.State == 1) or-- 4
               (saveState.Type == GridEntityType.GRID_ROCK_BOMB and saveState.State == 1) or -- 5
@@ -162,7 +197,7 @@ function SPCPostUpdate:CheckGridEntities()
         SPCGlobals.run.invulnerable = true
         player:UseActiveItem(CollectibleType.COLLECTIBLE_KAMIKAZE, false, false, false, false) -- 40
         SPCGlobals.run.invulnerable = false
-        SPCGlobals.run.explodingBabyFrame = gameFrameCount + 10
+        SPCGlobals.run.babyFrame = gameFrameCount + 10
       end
     end
   end

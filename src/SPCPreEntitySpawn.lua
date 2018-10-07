@@ -13,9 +13,9 @@ function SPCPreEntitySpawn:Main(type, variant, subType, position, velocity, spaw
   end
 
   if type == EntityType.ENTITY_SLOT and
-     SPCGlobals.run.factoryBabySpawning then
+     SPCGlobals.run.babyBool then
 
-    SPCGlobals.run.factoryBabySpawning = false
+    SPCGlobals.run.babyBool = false
     return {
       type,
       10,

@@ -2,6 +2,7 @@ local SPCPostEffectInit = {}
 
 -- Includes
 local SPCGlobals = require("src/spcglobals")
+local SPCMisc    = require("src/spcmisc")
 
 -- ModCallbacks.MC_POST_EFFECT_INIT (54)
 function SPCPostEffectInit:Main(effect)
@@ -13,7 +14,7 @@ function SPCPostEffectInit:Main(effect)
   end
 
   if baby.name == "404 Baby" then -- 463
-    SPCGlobals:SetRandomColor(effect)
+    SPCMisc:SetRandomColor(effect)
   end
 end
 

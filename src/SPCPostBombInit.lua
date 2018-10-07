@@ -2,6 +2,7 @@ local SPCPostBombInit = {}
 
 -- Includes
 local SPCGlobals = require("src/spcglobals")
+local SPCMisc    = require("src/spcmisc")
 
 -- ModCallbacks.MC_POST_BOMB_INIT (57)
 function SPCPostBombInit:Main(laser)
@@ -13,7 +14,7 @@ function SPCPostBombInit:Main(laser)
   end
 
   if baby.name == "404 Baby" then -- 463
-    SPCGlobals:SetRandomColor(laser)
+    SPCMisc:SetRandomColor(laser)
   end
 end
 

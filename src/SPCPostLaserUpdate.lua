@@ -2,6 +2,7 @@ local SPCPostLaserUpdate = {}
 
 -- Includes
 local SPCGlobals = require("src/spcglobals")
+local SPCMisc    = require("src/spcmisc")
 
 -- ModCallbacks.MC_POST_LASER_UPDATE (48)
 function SPCPostLaserUpdate:Main(laser)
@@ -26,7 +27,7 @@ function SPCPostLaserUpdate:Main(laser)
   elseif baby.name == "404 Baby" and -- 463
          laser.FrameCount == 0 then
 
-    SPCGlobals:SetRandomColor(laser)
+    SPCMisc:SetRandomColor(laser)
   end
 end
 

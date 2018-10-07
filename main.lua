@@ -8,6 +8,9 @@
 You can read more about this mod at:
 https://bindingofisaacrebirth.gamepedia.com/index.php?title=User:Zamie/Co-op&profile=no
 
+TODO:
+- flock of succubus
+
 --]]
 
 -- Register the mod (the second argument is the API version)
@@ -19,6 +22,7 @@ local SPCPostUpdate           = require("src/spcpostupdate") -- The PostUpdate c
 local SPCPostRender           = require("src/spcpostrender") -- The PostRender callback (2)
 local SPCUseItem              = require("src/spcuseitem") -- The UseItem callback (3)
 local SPCFamiliarUpdate       = require("src/spcfamiliarupdate") -- The FamiliarUpdate callback (6)
+local SPCFamiliarInit         = require("src/spcfamiliarinit") -- The FamiliarInit callback (7)
 local SPCEvaluateCache        = require("src/spcevaluatecache") -- The EvaluateCache callback (8)
 local SPCUsePill              = require("src/spcusepill") -- The UsePill callback (10)
 local SPCEntityTakeDmg        = require("src/spcentitytakedmg") -- The EntityTakeDmg callback (11)
@@ -56,6 +60,7 @@ SPC:AddCallback(ModCallbacks.MC_POST_RENDER,            SPCPostRender.Main) -- 2
 SPC:AddCallback(ModCallbacks.MC_USE_ITEM,               SPCUseItem.ClockworkAssembly, -- 3
                                                         Isaac.GetItemIdByName("Clockwork Assembly"))
 SPC:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE,        SPCFamiliarUpdate.Main) -- 6
+SPC:AddCallback(ModCallbacks.MC_FAMILIAR_INIT,          SPCFamiliarInit.Main) -- 7
 SPC:AddCallback(ModCallbacks.MC_EVALUATE_CACHE,         SPCEvaluateCache.Main) -- 8
 SPC:AddCallback(ModCallbacks.MC_USE_PILL,               SPCUsePill.Main) -- 10
 SPC:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG,        SPCEntityTakeDmg.Main) -- 11
@@ -64,10 +69,14 @@ SPC:AddCallback(ModCallbacks.MC_POST_GAME_STARTED,      SPCPostGameStarted.Main)
 SPC:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL,         SPCPostNewLevel.Main) -- 18
 SPC:AddCallback(ModCallbacks.MC_POST_NEW_ROOM,          SPCPostNewRoom.Main) -- 19
 SPC:AddCallback(ModCallbacks.MC_EXECUTE_CMD,            SPCExecuteCmd.Main) -- 22
+SPC:AddCallback(ModCallbacks.MC_PRE_USE_ITEM,           SPCPreUseItem.Item36, -- 3
+                                                        CollectibleType.COLLECTIBLE_POOP) -- 36
 SPC:AddCallback(ModCallbacks.MC_PRE_USE_ITEM,           SPCPreUseItem.Item56, -- 3
                                                         CollectibleType.COLLECTIBLE_LEMON_MISHAP) -- 56
 SPC:AddCallback(ModCallbacks.MC_PRE_USE_ITEM,           SPCPreUseItem.Item323, -- 23
                                                         CollectibleType.COLLECTIBLE_ISAACS_TEARS) -- 323
+SPC:AddCallback(ModCallbacks.MC_PRE_USE_ITEM,           SPCPreUseItem.Item504, -- 23
+                                                        CollectibleType.COLLECTIBLE_BROWN_NUGGET) -- 504
 SPC:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN,       SPCPreEntitySpawn.Main) -- 24
 SPC:AddCallback(ModCallbacks.MC_POST_NPC_INIT,          SPCPostNPCInit.Main) -- 27
 SPC:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT,       SPCPostPickupInit.Main) -- 34

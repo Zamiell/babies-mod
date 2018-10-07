@@ -2,6 +2,7 @@ local SPCPostNPCInit  = {}
 
 -- Includes
 local SPCGlobals = require("src/spcglobals")
+local SPCMisc    = require("src/spcmisc")
 
 -- ModCallbacks.MC_POST_NPC_INIT (27)
 function SPCPostNPCInit:Main(npc)
@@ -20,7 +21,7 @@ function SPCPostNPCInit:Main(npc)
     npc:Morph(npc.Type, npc.Variant, npc.SubType, 11) -- Purple / Gaping Maw effect
 
   elseif baby.name == "404 Baby" then -- 463
-    SPCGlobals:SetRandomColor(npc)
+    SPCMisc:SetRandomColor(npc)
   end
 end
 
@@ -52,13 +53,13 @@ function SPCPostNPCInit:Baby291(npc)
     return
   end
 
-  if SPCGlobals.run.hooliganBabySpawning == false then
-    SPCGlobals.run.hooliganBabySpawning = true
+  if SPCGlobals.run.babyBool == false then
+    SPCGlobals.run.babyBool = true
     local pos = room:FindFreePickupSpawnPosition(npc.Position, 1, true)
     if SPCGlobals:InsideSquare(pos, player.Position, 15) == false then
       game:Spawn(npc.Type, npc.Variant, pos, npc.Velocity, npc, npc.SubType, npc.InitSeed)
     end
-    SPCGlobals.run.hooliganBabySpawning = false
+    SPCGlobals.run.babyBool = false
   end
 end
 

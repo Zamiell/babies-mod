@@ -18,9 +18,9 @@ function SPCPostFireTear:Main(tear)
   end
 
   if baby.name == "Water Baby" and -- 3
-     SPCGlobals.run.waterBabyTears > 0 then
+     SPCGlobals.run.babyCounters > 0 then
 
-    SPCGlobals.run.waterBabyTears = SPCGlobals.run.waterBabyTears - 1
+    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters - 1
 
     -- Make it look more impressive
     tear.Scale = 5
@@ -32,16 +32,16 @@ function SPCPostFireTear:Main(tear)
     tear.SubType = 1
 
   elseif baby.name == "Cockeyed Baby" and -- 8
-         SPCGlobals.run.cockeyedBabyFiring == false then
+         SPCGlobals.run.babyBool == false then
 
     -- Spawn a new tear with a random velocity
     local seed = tear:GetDropRNG():GetSeed()
     math.randomseed(seed)
     local rotation = math.random(1, 359)
     local vel = tear.Velocity:Rotated(rotation)
-    SPCGlobals.run.cockeyedBabyFiring = true
+    SPCGlobals.run.babyBool = true
     player:FireTear(player.Position, vel, false, true, false)
-    SPCGlobals.run.cockeyedBabyFiring = false
+    SPCGlobals.run.babyBool = false
 
   elseif baby.name == "Mag Baby" then -- 18
     tear:ChangeVariant(TearVariant.METALLIC) -- 3
@@ -69,22 +69,23 @@ function SPCPostFireTear:Main(tear)
 
   elseif baby.name == "Aether Baby" then -- 106
     -- Shoot 8 tears at a time
-    SPCGlobals.run.aetherBabyRotation = SPCGlobals.run.aetherBabyRotation + 45
-    if SPCGlobals.run.aetherBabyRotation < 360 then
-      local vel = tear.Velocity:Rotated(SPCGlobals.run.aetherBabyRotation)
+    -- (we store the rotation angle inside the "babyCounters" variable)
+    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 45
+    if SPCGlobals.run.babyCounters < 360 then
+      local vel = tear.Velocity:Rotated(SPCGlobals.run.babyCounters)
       player:FireTear(player.Position, vel, false, true, false)
     else
-      SPCGlobals.run.aetherBabyRotation = 0
+      SPCGlobals.run.babyCounters = 0
     end
 
   elseif baby.name == "Eyemouth Baby" then -- 111
     -- Shoot an extra tear every 3rd shot
-    SPCGlobals.run.eyemouthBaby.tear = SPCGlobals.run.eyemouthBaby.tear + 1
-    if SPCGlobals.run.eyemouthBaby.tear >= 4 then
+    SPCGlobals.run.babyTearInfo.tear = SPCGlobals.run.babyTearInfo.tear + 1
+    if SPCGlobals.run.babyTearInfo.tear >= 4 then
       -- Mark to fire a tear 1 frame from now
-      SPCGlobals.run.eyemouthBaby.tear = 0
-      SPCGlobals.run.eyemouthBaby.frame = gameFrameCount + 1
-      SPCGlobals.run.eyemouthBaby.velocity = Vector(tear.Velocity.X, tear.Velocity.Y)
+      SPCGlobals.run.babyTearInfo.tear = 0
+      SPCGlobals.run.babyTearInfo.frame = gameFrameCount + 1
+      SPCGlobals.run.babyTearInfo.velocity = Vector(tear.Velocity.X, tear.Velocity.Y)
     end
 
   elseif baby.name == "Strange Mouth Baby" then -- 114
@@ -115,7 +116,7 @@ function SPCPostFireTear:Main(tear)
     player:UseActiveItem(CollectibleType.COLLECTIBLE_BEAN, false, false, false, false) -- 111
 
   elseif baby.name == "Speaker Baby" and -- 316
-         SPCGlobals.run.speakerBabyShooting == false then
+         SPCGlobals.run.babyBool == false then
 
     -- We mark it so that we can split it later
     tear.SubType = 1
@@ -161,12 +162,12 @@ function SPCPostFireTear:Main(tear)
     -- so we have to set the custom knockback in the "SPCEntityTakeDmg:Entity()" function
 
   elseif baby.name == "X Baby" then -- 339
-    SPCGlobals.run.xBabyTears = SPCGlobals.run.xBabyTears + 1
+    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
     tear.Velocity = tear.Velocity:Rotated(45)
-    if SPCGlobals.run.xBabyTears < 4 then
+    if SPCGlobals.run.babyCounters < 4 then
       player:FireTear(player.Position, tear.Velocity:Rotated(45), false, true, false)
     else
-      SPCGlobals.run.xBabyTears = 0
+      SPCGlobals.run.babyCounters = 0
     end
 
   elseif baby.name == "O Baby 2" then -- 340
@@ -293,12 +294,12 @@ function SPCPostFireTear:Main(tear)
     tear:ChangeVariant(TearVariant.BOBS_HEAD) -- 4
 
   elseif baby.name == "Mern Baby" then -- 500
-    SPCGlobals.run.mernBaby.tear = SPCGlobals.run.mernBaby.tear + 1
-    if SPCGlobals.run.mernBaby.tear >= 2 then
+    SPCGlobals.run.babyTearInfo.tear = SPCGlobals.run.babyTearInfo.tear + 1
+    if SPCGlobals.run.babyTearInfo.tear >= 2 then
       -- Mark to fire a tear 1 frame from now
-      SPCGlobals.run.mernBaby.tear = 0
-      SPCGlobals.run.mernBaby.frame = gameFrameCount + 1
-      SPCGlobals.run.mernBaby.velocity = Vector(tear.Velocity.X, tear.Velocity.Y)
+      SPCGlobals.run.babyTearInfo.tear = 0
+      SPCGlobals.run.babyTearInfo.frame = gameFrameCount + 1
+      SPCGlobals.run.babyTearInfo.velocity = Vector(tear.Velocity.X, tear.Velocity.Y)
     end
 
   elseif baby.name == "Psychic Baby" and -- 504
@@ -322,12 +323,13 @@ function SPCPostFireTear:Main(tear)
 
   elseif baby.name == "Lil' Loki" then -- 539
     -- Cross tears
-    SPCGlobals.run.lilLokiRot = SPCGlobals.run.lilLokiRot + 90
-    if SPCGlobals.run.lilLokiRot < 360 then
-      local vel = tear.Velocity:Rotated(SPCGlobals.run.lilLokiRot)
+    -- (we store the rotation angle in the "babyCounters" variable)
+    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 90
+    if SPCGlobals.run.babyCounters < 360 then
+      local vel = tear.Velocity:Rotated(SPCGlobals.run.babyCounters)
       player:FireTear(player.Position, vel, false, true, false)
     else
-      SPCGlobals.run.lilLokiRot = 0
+      SPCGlobals.run.babyCounters = 0
     end
   end
 end

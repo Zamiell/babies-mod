@@ -2,6 +2,7 @@ local SPCPostProjectileUpdate = {}
 
 -- Includes
 local SPCGlobals = require("src/spcglobals")
+local SPCMisc    = require("src/spcmisc")
 
 -- ModCallbacks.MC_POST_PROJECTILE_UPDATE (43)
 function SPCPostProjectileUpdate:Main(projectile)
@@ -17,7 +18,7 @@ function SPCPostProjectileUpdate:Main(projectile)
 
     -- The first frame for a projectile is 1
     -- (frame 0 will happen with a tear, but not a projectile for some reason)
-    SPCGlobals:SetRandomColor(projectile)
+    SPCMisc:SetRandomColor(projectile)
   end
 end
 

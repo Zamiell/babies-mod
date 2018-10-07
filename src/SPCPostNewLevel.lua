@@ -33,10 +33,19 @@ function SPCPostNewLevel:NewLevel()
   Isaac.DebugString("MC_POST_NEW_LEVEL2 (SPC)")
 
   -- Set the new floor
-  SPCGlobals.run.currentFloor = stage
+  SPCGlobals.run.currentFloor     = stage
   SPCGlobals.run.currentFloorType = stageType
   SPCGlobals.run.currentFloorFrame = gameFrameCount
   SPCGlobals.run.replacedPedestals = {}
+  SPCGlobals.run.babyBool          = false
+  SPCGlobals.run.babyCounters      = 0
+  SPCGlobals.run.babyFrame         = 0
+  SPCGlobals.run.babyTearInfo      = {
+    tear     = 1,
+    frame    = 0,
+    velocity = Vector(0, 0),
+  }
+  SPCGlobals.run.killedPoops = {}
 
   -- Set the new baby
   SPCPostNewLevel:RemoveOldBaby()
@@ -88,8 +97,6 @@ function SPCPostNewLevel:RemoveOldBaby()
     if activeItem == 0 then
       -- We don't have an active item, so just give it back
       player:AddCollectible(SPCGlobals.run.storedItem, SPCGlobals.run.storedItemCharge, false)
-      SPCGlobals.run.storedItem = 0
-      SPCGlobals.run.storedItemCharge = 0
 
     elseif RacingPlusGlobals ~= nil and
            player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
@@ -104,8 +111,11 @@ function SPCPostNewLevel:RemoveOldBaby()
       local entity = game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, pos,
                                 Vector(0, 0), nil, SPCGlobals.run.storedItem, roomSeed)
       entity:ToPickup().Charge = SPCGlobals.run.storedItemCharge
-      Isaac.DebugString("Spawned the old active item.")
     end
+
+    -- Clear the variable so that we don't get the item again on the next floor
+    SPCGlobals.run.storedItem = 0
+    SPCGlobals.run.storedItemCharge = 0
   end
 
   -- If we are on a trinket baby, remove the trinket
@@ -353,7 +363,7 @@ function SPCPostNewLevel:ApplyNewBaby()
   elseif baby.name == "Bony Baby" then -- 284
     player:AddBoneHearts(1)
   elseif baby.name == "Vomit Baby" then -- 341
-    SPCGlobals.run.vomitBabyTimer = gameFrameCount + baby.time
+    SPCGlobals.run.babyCounters = gameFrameCount + baby.time
   elseif baby.name == "Cyborg Baby" then -- 343
     Isaac.ExecuteCommand("debug 7")
   elseif baby.name == "Orange Ghost Baby" then -- 373
@@ -373,9 +383,6 @@ function SPCPostNewLevel:ApplyNewBaby()
   elseif baby.name == "Robo-Baby 2.0" then -- 532
     -- If the player starts with a fully charged Undefined, they will just immediately teleport to the next floor
     player:DischargeActiveItem()
-  elseif baby.name == "Invisible Baby" then -- 541
-    -- The sprite is a blank PNG, but we also want to remove the shadow
-    player.Visisble = false
   end
 
   -- Reset the player's size

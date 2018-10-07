@@ -46,10 +46,9 @@ function SPCEvaluateCache:Main(player, cacheFlag)
     player.MoveSpeed = player.MoveSpeed * 0.5
 
   elseif baby.name == "Killer Baby" and -- 291
-         cacheFlag == CacheFlag.CACHE_DAMAGE and -- 1
-         SPCGlobals.run.killerBabyCounter > 0 then
+         cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
 
-    for i = 1, SPCGlobals.run.killerBabyCounter do
+    for i = 1, SPCGlobals.run.babyCounters do
       player.Damage = player.Damage + 0.2
     end
 
@@ -98,7 +97,7 @@ function SPCEvaluateCache:Main(player, cacheFlag)
   elseif baby.name == "Fairyman Baby" and -- 385
          cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
 
-    for i = 1, SPCGlobals.run.fairymanBabyHits do
+    for i = 1, SPCGlobals.run.babyCounters do
       player.Damage = player.Damage * 0.7
     end
 
@@ -110,19 +109,15 @@ function SPCEvaluateCache:Main(player, cacheFlag)
   elseif baby.name == "Sad Bunny Baby" and -- 459
          cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
 
-    if SPCGlobals.run.sadBunnyCounters > 0 then
-      for i = 1, SPCGlobals.run.sadBunnyCounters do
-        player.MaxFireDelay = player.MaxFireDelay - 1
-      end
+    for i = 1, SPCGlobals.run.babyCounters do
+      player.MaxFireDelay = player.MaxFireDelay - 1
     end
 
   elseif baby.name == "Robbermask Baby" and -- 473
          cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
 
-    if SPCGlobals.run.robbermaskCounters > 0 then
-      for i = 1, SPCGlobals.run.robbermaskCounters do
-        player.Damage = player.Damage + 0.5
-      end
+    for i = 1, SPCGlobals.run.babyCounters do
+      player.Damage = player.Damage + 0.5
     end
 
   elseif baby.name == "Text Baby" and -- 476
@@ -133,10 +128,8 @@ function SPCEvaluateCache:Main(player, cacheFlag)
   elseif baby.name == "Bubbles Baby" and -- 483
          cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
 
-    if SPCGlobals.run.bubblesBabyCounters > 0 then
-      for i = 1, SPCGlobals.run.bubblesBabyCounters do
-        player.Damage = player.Damage + 1
-      end
+    for i = 1, SPCGlobals.run.babyCounters do
+      player.Damage = player.Damage + 1
     end
 
   elseif baby.name == "Twitchy Baby" and -- 511

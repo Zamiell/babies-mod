@@ -2,6 +2,7 @@ local SPCPostUpdateBabies = {}
 
 -- Includes
 local SPCGlobals = require("src/spcglobals")
+local SPCMisc    = require("src/spcmisc")
 
 -- The collection of functions for each baby effect
 SPCPostUpdateBabies.functions = {}
@@ -46,11 +47,23 @@ SPCPostUpdateBabies.functions[20] = function()
   local player = game:GetPlayer(0)
 
   if gameFrameCount % 3 == 0 and -- If the explosions happen too fast, it looks buggy
-     SPCGlobals.run.wrappedBabyKami > 0 then
+     SPCGlobals.run.babyCounters > 0 then
 
     -- This should not cause any damage since the player will have invulnerability frames
-    SPCGlobals.run.wrappedBabyKami = SPCGlobals.run.wrappedBabyKami - 1
+    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters - 1
     player:UseActiveItem(CollectibleType.COLLECTIBLE_KAMIKAZE, false, false, false, false) -- 40
+  end
+end
+
+-- Bound Baby
+SPCPostUpdateBabies.functions[58] = function()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local player = game:GetPlayer(0)
+
+  if gameFrameCount % 210 == 0 then -- 7 seconds
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_BOX_OF_FRIENDS, false, false, false, false) -- 357
   end
 end
 
@@ -80,6 +93,18 @@ SPCPostUpdateBabies.functions[63] = function()
   end
 end
 
+-- Frown Baby
+SPCPostUpdateBabies.functions[96] = function()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local player = game:GetPlayer(0)
+
+  if gameFrameCount % 150 == 0 then -- 5 seconds
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_BEST_FRIEND, false, false, false, false) -- 136
+  end
+end
+
 -- Eyemouth Baby
 SPCPostUpdateBabies.functions[111] = function()
   -- Local variables
@@ -87,11 +112,23 @@ SPCPostUpdateBabies.functions[111] = function()
   local gameFrameCount = game:GetFrameCount()
   local player = game:GetPlayer(0)
 
-  if SPCGlobals.run.eyemouthBaby.frame ~= 0 and
-     gameFrameCount >= SPCGlobals.run.eyemouthBaby.frame then
+  if SPCGlobals.run.babyTearInfo.frame ~= 0 and
+     gameFrameCount >= SPCGlobals.run.babyTearInfo.frame then
 
-    SPCGlobals.run.eyemouthBaby.frame = 0
-    player:FireTear(player.Position, SPCGlobals.run.eyemouthBaby.velocity, false, true, false)
+    SPCGlobals.run.babyTearInfo.frame = 0
+    player:FireTear(player.Position, SPCGlobals.run.babyTearInfo.velocity, false, true, false)
+  end
+end
+
+-- Rotten Meat Baby
+SPCPostUpdateBabies.functions[139] = function()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local player = game:GetPlayer(0)
+
+  if gameFrameCount % 30 == 0 then -- 1 second
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_BUTTER_BEAN, false, false, false, false) -- 294
   end
 end
 
@@ -123,6 +160,32 @@ SPCPostUpdateBabies.functions[140] = function()
   end
 end
 
+-- Puff Baby
+SPCPostUpdateBabies.functions[156] = function()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local player = game:GetPlayer(0)
+
+  if gameFrameCount % 150 == 0 then -- 5 seconds
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_MEGA_BEAN, false, false, false, false) -- 351
+  end
+end
+
+-- Pretty Baby
+SPCPostUpdateBabies.functions[158] = function()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local player = game:GetPlayer(0)
+  local sfx = SFXManager()
+
+  if gameFrameCount % 150 == 0 then -- 5 seconds
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_MONSTER_MANUAL, false, false, false, false) -- 123
+    sfx:Stop(SoundEffect.SOUND_SATAN_GROW) -- 241
+  end
+end
+
 -- Bawl Baby
 SPCPostUpdateBabies.functions[231] = function()
   -- Local variables
@@ -132,6 +195,61 @@ SPCPostUpdateBabies.functions[231] = function()
 
   if gameFrameCount % 3 == 0 then
     player:UseActiveItem(CollectibleType.COLLECTIBLE_ISAACS_TEARS, false, false, false, false) -- 323
+  end
+end
+
+-- Cloud Baby
+SPCPostUpdateBabies.functions[256] = function()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local player = game:GetPlayer(0)
+
+  if gameFrameCount % 600 == 0 then -- 20 seconds
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_VENTRICLE_RAZOR, false, false, false, false) -- 396
+  end
+end
+
+-- Raccoon Baby
+SPCPostUpdateBabies.functions[263] = function()
+  -- Local variables
+  local game = Game()
+  local room = game:GetRoom()
+  local roomFrameCount = room:GetFrameCount()
+  local player = game:GetPlayer(0)
+
+  -- Reroll all of the rocks in the room
+  -- (this does not work if we do it in the MC_POST_NEW_ROOM callback or on the 0th frame)
+  if roomFrameCount == 1 and
+     room:IsFirstVisit() then
+
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_D12, false, false, false, false) -- 386
+  end
+end
+
+-- Porcupine Baby
+SPCPostUpdateBabies.functions[270] = function()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local player = game:GetPlayer(0)
+
+  if gameFrameCount % 150 == 0 then -- 5 seconds
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_WAIT_WHAT, false, false, false, false) -- 484
+  end
+end
+
+-- Heart Baby
+SPCPostUpdateBabies.functions[290] = function()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local player = game:GetPlayer(0)
+  local sfx = SFXManager()
+
+  if gameFrameCount % 150 == 0 then -- 5 seconds
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_DULL_RAZOR, false, false, false, false) -- 486
+    sfx:Stop(SoundEffect.SOUND_ISAAC_HURT_GRUNT) -- 55
   end
 end
 
@@ -176,6 +294,26 @@ SPCPostUpdateBabies.functions[295] = function()
   end
 end
 
+-- Pizza Baby
+SPCPostUpdateBabies.functions[303] = function()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local player = game:GetPlayer(0)
+
+  if SPCGlobals.run.babyFrame ~= 0 and
+     gameFrameCount >= SPCGlobals.run.babyFrame then
+
+    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
+    SPCGlobals.run.babyFrame = gameFrameCount + SPCGlobals.babies[303].delay
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_BROWN_NUGGET, false, false, false, false) -- 504
+    if SPCGlobals.run.babyCounters == 19 then -- One is already spawned with the initial trigger
+      SPCGlobals.run.babyCounters = 0
+      SPCGlobals.run.babyFrame = 0
+    end
+  end
+end
+
 -- Hotdog Baby
 SPCPostUpdateBabies.functions[304] = function()
   -- Local variables
@@ -208,12 +346,11 @@ SPCPostUpdateBabies.functions[320] = function()
 
   -- Check to see if we need to reset the cooldown
   -- (after we used the Kamikaze! effect upon touching an obstacle)
-  if SPCGlobals.run.explodingBabyFrame ~= 0 and
-     gameFrameCount >= SPCGlobals.run.explodingBabyFrame then
+  if SPCGlobals.run.babyFrame ~= 0 and
+     gameFrameCount >= SPCGlobals.run.babyFrame then
 
-    SPCGlobals.run.explodingBabyFrame = 0
+    SPCGlobals.run.babyFrame = 0
   end
-
 end
 
 -- Hero Baby
@@ -222,8 +359,8 @@ SPCPostUpdateBabies.functions[336] = function()
   local game = Game()
   local player = game:GetPlayer(0)
 
-  if SPCGlobals.run.heroBabyEval then
-    SPCGlobals.run.heroBabyEval = false
+  if SPCGlobals.run.babyBool then
+    SPCGlobals.run.babyBool = false
     player:AddCacheFlags(CacheFlag.CACHE_DAMAGE) -- 1
     player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY) -- 2
     player:EvaluateItems()
@@ -238,9 +375,9 @@ SPCPostUpdateBabies.functions[341] = function()
   local player = game:GetPlayer(0)
 
   -- Moving when the timer reaches 0 causes damage
-  local remainingTime = SPCGlobals.run.vomitBabyTimer - gameFrameCount
+  local remainingTime = SPCGlobals.run.babyCounters - gameFrameCount
   if remainingTime <= 0 then
-    SPCGlobals.run.vomitBabyTimer = gameFrameCount + SPCGlobals.babies[341].time -- Reset the timer
+    SPCGlobals.run.babyCounters = gameFrameCount + SPCGlobals.babies[341].time -- Reset the timer
 
     if player.Velocity.X > 0.2 or
        player.Velocity.X < -0.2 or
@@ -269,6 +406,18 @@ SPCPostUpdateBabies.functions[348] = function()
   end
 end
 
+-- Grayscale Baby
+SPCPostUpdateBabies.functions[349] = function()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local player = game:GetPlayer(0)
+
+  if gameFrameCount % 300 == 0 then -- 10 seconds
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_DELIRIOUS, false, false, false, false) -- 510
+  end
+end
+
 -- Froggy Baby
 SPCPostUpdateBabies.functions[363] = function()
   -- Local variables
@@ -278,7 +427,7 @@ SPCPostUpdateBabies.functions[363] = function()
   -- Kill flies on touch
   for i, entity in pairs(Isaac.GetRoomEntities()) do
     if entity:IsDead() == false and
-       SPCGlobals:IsFly(entity) and
+       SPCMisc:IsFly(entity) and
        SPCGlobals:InsideSquare(player.Position, entity.Position, 37) then
 
       entity:Kill()
@@ -320,7 +469,7 @@ SPCPostUpdateBabies.functions[389] = function()
   if pill1 ~= PillColor.PILL_NULL or -- 0
      pill2 ~= PillColor.PILL_NULL then -- 0
 
-    SPCGlobals.run.redWresterBabyUse = true
+    SPCGlobals.run.babyBool = true
   end
 end
 
@@ -354,8 +503,12 @@ end
 
 -- Magiccat Baby
 SPCPostUpdateBabies.functions[428] = function()
+  -- Local variables
+  local game = Game()
+  local player = game:GetPlayer(0)
+
   -- Charm close enemies
-  local entities = Isaac.FindInRadius(100)
+  local entities = Isaac.FindInRadius(player.Position, 100, EntityPartition.ENEMY) -- 1 << 3
   for i = 1, #entities do
     local entity = entities[i]
     if entity:ToNPC() ~= nil and
@@ -378,6 +531,18 @@ SPCPostUpdateBabies.functions[431] = function()
   creep.Visible = false
 end
 
+-- Mutated Fish Baby
+SPCPostUpdateBabies.functions[449] = function()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local player = game:GetPlayer(0)
+
+  if gameFrameCount % 210 == 0 then -- 7 seconds
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_SPRINKLER, false, false, false, false) -- 516
+  end
+end
+
 -- Scoreboard Baby
 SPCPostUpdateBabies.functions[474] = function()
   -- Local variables
@@ -385,10 +550,10 @@ SPCPostUpdateBabies.functions[474] = function()
   local gameFrameCount = game:GetFrameCount()
   local player = game:GetPlayer(0)
 
-  if SPCGlobals.run.scoreboardBabyTimer ~= 0 then
-    local remainingTime = SPCGlobals.run.scoreboardBabyTimer - gameFrameCount
+  if SPCGlobals.run.babyCounters ~= 0 then
+    local remainingTime = SPCGlobals.run.babyCounters - gameFrameCount
     if remainingTime <= 0 then
-      SPCGlobals.run.scoreboardBabyTimer = 0
+      SPCGlobals.run.babyCounters = 0
       player:Kill()
     end
   end
@@ -401,11 +566,27 @@ SPCPostUpdateBabies.functions[500] = function()
   local gameFrameCount = game:GetFrameCount()
   local player = game:GetPlayer(0)
 
-  if SPCGlobals.run.mernBaby.frame ~= 0 and
-     gameFrameCount >= SPCGlobals.run.mernBaby.frame then
+  if SPCGlobals.run.babyTearInfo.frame ~= 0 and
+     gameFrameCount >= SPCGlobals.run.babyTearInfo.frame then
 
-    SPCGlobals.run.mernBaby.frame = 0
-    player:FireTear(player.Position, SPCGlobals.run.mernBaby.velocity, false, true, false)
+    SPCGlobals.run.babyTearInfo.frame = 0
+    player:FireTear(player.Position, SPCGlobals.run.babyTearInfo.velocity, false, true, false)
+  end
+end
+
+-- Sausage Lover Baby
+SPCPostUpdateBabies.functions[508] = function()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local room = game:GetRoom()
+  local isClear = room:IsClear()
+  local player = game:GetPlayer(0)
+
+  if gameFrameCount % 150 == 0 and -- 5 seconds
+     isClear == false then -- Monstro is unavoidable if he targets you
+
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_MONSTROS_TOOTH, false, false, false, false) -- 86
   end
 end
 
@@ -441,5 +622,22 @@ SPCPostUpdateBabies.functions[511] = function()
   player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY) -- 2
   player:EvaluateItems()
 end
+
+-- Invisible Baby
+SPCPostUpdateBabies.functions[541] = function()
+  -- Local variables
+  local game = Game()
+  local room = game:GetRoom()
+  local roomFrameCount = room:GetFrameCount()
+  local player = game:GetPlayer(0)
+
+  if roomFrameCount == 1 then
+    -- The sprite is a blank PNG, but we also want to remove the shadow
+    -- Doing this in the MC_POST_NEW_ROOM callback (or on frame 0) won't work
+    player.Visible = false
+  end
+end
+
+
 
 return SPCPostUpdateBabies

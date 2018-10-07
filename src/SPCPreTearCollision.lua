@@ -21,7 +21,7 @@ function SPCPreTearCollision:Main(tear, collider, low)
     creep:ToEffect().Timeout = 120
 
   elseif baby.name == "Sad Bunny Baby" then -- 459
-    SPCGlobals.run.sadBunnyCounters = SPCGlobals.run.sadBunnyCounters + 1
+    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
     player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY) -- 2
     player:EvaluateItems()
   end

@@ -13,12 +13,12 @@ function SPCInputAction:Main(entity, inputHook, buttonAction)
   end
 
   if baby.name == "Red Wrestler Baby" and -- 389
-     SPCGlobals.run.redWresterBabyUse and
+     SPCGlobals.run.babyBool and
      inputHook == InputHook.IS_ACTION_TRIGGERED and -- 1
      buttonAction == ButtonAction.ACTION_PILLCARD then -- 10
 
     -- Automatically use pills
-    SPCGlobals.run.redWresterBabyUse = false
+    SPCGlobals.run.babyBool = false
     return true
   end
 end

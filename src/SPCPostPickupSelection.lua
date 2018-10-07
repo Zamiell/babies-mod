@@ -15,6 +15,13 @@ function SPCPostPickupSelection:Main(pickup, variant, subType)
     return
   end
 
+  -- We don't want to mess with the Checkpoint at all
+  if variant == PickupVariant.PICKUP_COLLECTIBLE and -- 100
+     subType == Isaac.GetItemIdByName("Checkpoint") then
+
+    return
+  end
+
   if baby.name == "Gem Baby" and -- 237
      variant == PickupVariant.PICKUP_COIN and -- 20
      subType == 1 then -- Penny
