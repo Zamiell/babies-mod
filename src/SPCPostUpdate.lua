@@ -59,29 +59,56 @@ function SPCPostUpdate:CheckTrinket()
   local baby = SPCGlobals.babies[type]
 
   -- Check to see if we are on baby that is supposed to have a permanent trinket
-  local trinket = baby.trinket
-  if trinket == nil then
+  if baby.trinket == nil then
     return
   end
 
-  -- Check to see if we dropped the trinket
-  if player:HasTrinket(trinket) then
+  -- Check to see if we still have the trinket
+  if player:HasTrinket(baby.trinket) then
     return
   end
 
-  -- Give it back
-  local pos = room:FindFreePickupSpawnPosition(player.Position, 1, true)
-  player:DropTrinket(pos, true)
-  player:AddTrinket(trinket)
-  Isaac.DebugString("Dropped trinket detected; manually giving it back.")
+  -- Check to see if we smelted / destroyed the trinket
+  if SPCGlobals.run.trinketGone then
+    return
+  end
 
-  -- Delete the dropped trinket
-  for i, entity in pairs(Isaac.GetRoomEntities()) do
-    if entity.Type == EntityType.ENTITY_PICKUP and -- 5
-       entity.Variant == PickupVariant.PICKUP_TRINKET and -- 350
-       entity.SubType == trinket then
+  -- Search the room for the dropped trinket
+  local entities = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, -1, -- 5.350
+                                    false, false)
+  local droppedTrinket
+  for i = 1, #entities do
+    if entities[i].SubType == baby.trinket then
+      droppedTrinket = entities[i]
+      break
+    end
+  end
+  if droppedTrinket ~= nil then
+    -- Delete the dropped trinket
+    droppedTrinket:Remove()
 
-      entity:Remove()
+    -- Give it back
+    local pos = room:FindFreePickupSpawnPosition(player.Position, 1, true)
+    player:DropTrinket(pos, true) -- This will do nothing if the player does not currently have a trinket
+    player:AddTrinket(baby.trinket)
+    player:StopExtraAnimation()
+    Isaac.DebugString("Dropped trinket detected; manually giving it back.")
+    return
+  end
+
+  -- The trinket is gone but it was not found on the floor,
+  -- so the trinket must have been destroyed (e.g. Walnut) or smelted
+  SPCGlobals.run.trinketGone = true
+
+  -- Handle special trinket deletion circumstances
+  if baby.name == "Squirrel Baby" then -- 268
+    -- The Walnut broke, so spawn additional items
+    SPCGlobals.run.babyBool = true
+    for i = 1, 5 do
+      local position = room:FindFreePickupSpawnPosition(player.Position, 1, true)
+      SPCGlobals.run.randomSeed = SPCGlobals:IncrementRNG(SPCGlobals.run.randomSeed)
+      game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
+                 position, Vector(0, 0), nil, 0, SPCGlobals.run.randomSeed)
     end
   end
 end
@@ -111,17 +138,28 @@ function SPCPostUpdate:RoomCleared()
   -- Local variables
   local game = Game()
   local room = game:GetRoom()
+  local roomType = room:GetType()
   local roomSeed = room:GetSpawnSeed() -- Gets a reproducible seed based on the room, something like "2496979501"
   local player = game:GetPlayer(0)
   local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
-  local zeroVelocity = Vector(0, 0)
 
   Isaac.DebugString("Room cleared.")
 
-  if baby.name == "Love Baby" then
+  if baby.name == "Love Baby" then -- 1
     -- Random Heart - 5.10.0
-    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, player.Position, zeroVelocity, player, 0, roomSeed)
+    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, player.Position, Vector(0, 0), player, 0, roomSeed)
+
+  elseif baby.name == "Bandaid Baby" and -- 88
+         roomType ~= RoomType.ROOM_BOSS then -- 5
+
+    -- Random collectible - 5.100.0
+    local position = room:FindFreePickupSpawnPosition(player.Position, 1, true)
+    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, position, Vector(0, 0), player, 0, roomSeed)
+
+  elseif baby.name == "Fishman Baby" then -- 384
+    -- Random Bomb - 5.40.0
+    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, player.Position, Vector(0, 0), player, 0, roomSeed)
   end
 end
 
@@ -170,6 +208,7 @@ function SPCPostUpdate:CheckGridEntities()
         end
         if found == false then
           -- Second, check to make sure that there is not any existing pickups already on the poop
+          -- (the size of a grid square is 40x40)
           local entities = Isaac.FindInRadius(gridEntity.Position, 25, EntityPartition.PICKUP) -- 1 << 4
           if #entities == 0 then
             SPCMisc:SpawnRandomPickup(gridEntity.Position)

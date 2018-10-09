@@ -1,0 +1,8 @@
+<entities anm2root="gfx/" version="5">
+	<entity anm2path="1000.030_Dr. Fetus Target.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="0" collisionRadius="1" friction="0.95" id="1000" name="FetusBossTarget" numGridCollisionPoints="0" shadowSize="0" stageHP="0" variant="1710">
+		<gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+	</entity>
+	<entity anm2path="1000.031_Dr. Fetus Rocket.anm2" baseHP="0" boss="0" champion="0" collisionDamage="0" collisionMass="0" collisionRadius="1" friction="0" id="1000" name="FetusBossRocket" numGridCollisionPoints="0" shadowSize="22" stageHP="0" variant="1711">
+		<gibs amount="0" blood="0" bone="0" eye="0" gut="0" large="0" />
+	</entity>
+</entity>

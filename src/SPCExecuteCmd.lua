@@ -7,14 +7,24 @@ local SPCGlobals = require("src/spcglobals")
 function SPCExecuteCmd:Main(cmd, params)
   Isaac.DebugString("MC_EXECUTE_CMD - " .. tostring(cmd) .. " " .. tostring(params))
 
-  if cmd == "baby" then
-    SPCGlobals.debug = tonumber(params)
-    if params ~= "0" then
-      Isaac.ExecuteCommand("restart")
+  if cmd == "baby" or
+     cmd == "baby2" then
+
+    -- Check to see if this is a valid baby number
+    local babyNum = tonumber(params)
+    if babyNum < 0 or babyNum > #SPCGlobals.babies then
+      babyNum = 0
     end
 
-  elseif cmd == "baby2" then
-    SPCGlobals.debug = tonumber(params)
+    -- Manually set the next baby
+    SPCGlobals.debug = babyNum
+
+    -- Automatically restart the game
+    if cmd ~= "baby2" and
+       params ~= "0" then
+
+      Isaac.ExecuteCommand("restart")
+    end
   end
 end
 

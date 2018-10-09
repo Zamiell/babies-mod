@@ -1,8 +1,8 @@
 local SPCPostUpdateBabies = {}
 
 -- Includes
-local SPCGlobals = require("src/spcglobals")
-local SPCMisc    = require("src/spcmisc")
+local SPCGlobals         = require("src/spcglobals")
+local SPCPseudoRoomClear = require("src/spcpseudoroomclear")
 
 -- The collection of functions for each baby effect
 SPCPostUpdateBabies.functions = {}
@@ -15,7 +15,8 @@ function SPCPostUpdateBabies:Main()
   end
 end
 
-SPCPostUpdateBabies.functions[6] = function() -- Troll Baby
+-- Troll Baby
+SPCPostUpdateBabies.functions[6] = function()
   -- Local variables
   local game = Game()
   local gameFrameCount = game:GetFrameCount()
@@ -53,6 +54,34 @@ SPCPostUpdateBabies.functions[20] = function()
     SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters - 1
     player:UseActiveItem(CollectibleType.COLLECTIBLE_KAMIKAZE, false, false, false, false) -- 40
   end
+end
+
+-- Fighting Baby
+SPCPostUpdateBabies.functions[23] = function()
+  -- Local variables
+  local game = Game()
+
+  -- Broken machines drop pedestal items
+  -- (there is no MC_POST_SLOT_UPDATE callback so we have to do this here)
+  local entities = Isaac.FindByType(EntityType.ENTITY_SLOT, -1, -1, false, false) -- 6
+  for i = 1, #entities do
+    local entity = entities[i]
+    local sprite = entity:GetSprite()
+    local data = entity:GetData()
+    if sprite:IsPlaying("Broken") and
+       data.destroyed == nil then
+
+      data.destroyed = true
+      SPCGlobals.run.randomSeed = SPCGlobals:IncrementRNG(SPCGlobals.run.randomSeed)
+      game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
+                 entity.Position, Vector(0, 0), nil, 0, SPCGlobals.run.randomSeed)
+    end
+  end
+end
+
+-- Black Baby
+SPCPostUpdateBabies.functions[27] = function()
+  SPCPseudoRoomClear:PostUpdate()
 end
 
 -- Bound Baby
@@ -93,6 +122,32 @@ SPCPostUpdateBabies.functions[63] = function()
   end
 end
 
+-- Mustache Baby
+SPCPostUpdateBabies.functions[66] = function()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local player = game:GetPlayer(0)
+  local sfx = SFXManager()
+
+  -- Using the boomerang removes the charge on the current active item for some reason,
+  -- so we have to restore it on the next frame
+  if SPCGlobals.run.babyFrame ~= 0 and
+     gameFrameCount >= SPCGlobals.run.babyFrame then
+
+    SPCGlobals.run.babyFrame = 0
+    player:SetActiveCharge(SPCGlobals.run.babyCounters)
+    sfx:Stop(SoundEffect.SOUND_BATTERYCHARGE) -- 170
+    sfx:Stop(SoundEffect.SOUND_BEEP) -- 171
+    SPCGlobals.run.babyCounters = 0
+  end
+end
+
+-- Nerd Baby
+SPCPostUpdateBabies.functions[90] = function()
+  SPCPseudoRoomClear:PostUpdate()
+end
+
 -- Frown Baby
 SPCPostUpdateBabies.functions[96] = function()
   -- Local variables
@@ -102,6 +157,54 @@ SPCPostUpdateBabies.functions[96] = function()
 
   if gameFrameCount % 150 == 0 then -- 5 seconds
     player:UseActiveItem(CollectibleType.COLLECTIBLE_BEST_FRIEND, false, false, false, false) -- 136
+  end
+end
+
+-- Pubic Baby
+SPCPostUpdateBabies.functions[110] = function()
+  -- Local variables
+  local game = Game()
+  local level = game:GetLevel()
+  local rooms = level:GetRooms()
+  local room = game:GetRoom()
+  local roomClear = room:IsClear()
+
+  -- Don't do anything if we already full cleared the floor
+  if SPCGlobals.run.babyBool then
+    return
+  end
+
+  -- The doors are not open because the room is not yet cleared
+  if roomClear == false then
+    return
+  end
+
+  -- Check to see if the floor is full cleared
+  local allCleared = true
+  for i = 0, rooms.Size - 1 do -- This is 0 indexed
+    local roomDesc = rooms:Get(i)
+    local roomData = roomDesc.Data
+    local roomType2 = roomData.Type
+    if roomType2 == RoomType.ROOM_DEFAULT and -- 1
+       roomDesc.Clear == false then
+
+      allCleared = false
+      break
+    end
+  end
+  if allCleared then
+    SPCGlobals.run.babyBool = true
+    return
+  end
+
+  -- Keep the boss room door closed
+  for i = 0, 7 do
+    local door = room:GetDoor(i)
+    if door ~= nil and
+       door:IsRoomType(RoomType.ROOM_BOSS) then -- 5
+
+      door:Bar()
+    end
   end
 end
 
@@ -120,6 +223,32 @@ SPCPostUpdateBabies.functions[111] = function()
   end
 end
 
+-- Hopeless Baby
+SPCPostUpdateBabies.functions[125] = function()
+  -- Local variables
+  local game = Game()
+  local player = game:GetPlayer(0)
+  local keys = player:GetNumKeys()
+
+  -- Keys are hearts
+  if keys == 0 then
+    player:Kill()
+  end
+end
+
+-- Mohawk Baby
+SPCPostUpdateBabies.functions[138] = function()
+  -- Local variables
+  local game = Game()
+  local player = game:GetPlayer(0)
+  local bombs = player:GetNumBombs()
+
+  -- Bombs are hearts
+  if bombs == 0 then
+    player:Kill()
+  end
+end
+
 -- Rotten Meat Baby
 SPCPostUpdateBabies.functions[139] = function()
   -- Local variables
@@ -132,31 +261,15 @@ SPCPostUpdateBabies.functions[139] = function()
   end
 end
 
--- No Arms Baby
-SPCPostUpdateBabies.functions[140] = function()
+-- Awaken Baby
+SPCPostUpdateBabies.functions[155] = function()
   -- Local variables
   local game = Game()
+  local gameFrameCount = game:GetFrameCount()
   local player = game:GetPlayer(0)
 
-  local entities = Isaac.FindByType(EntityType.ENTITY_PICKUP, -1, -1, false, false) -- 5
-  for i = 1, #entities do
-    local entity = entities[i]
-    if entity.Variant ~= PickupVariant.PICKUP_COLLECTIBLE and -- 100
-       entity.Variant ~= PickupVariant.PICKUP_SHOPITEM and -- 150
-       entity.Variant ~= PickupVariant.PICKUP_BIGCHEST and -- 340
-       entity.Variant ~= PickupVariant.PICKUP_TROPHY and -- 370
-       entity.Variant ~= PickupVariant.PICKUP_BED then -- 380
-
-      -- Make it impossible for the player to pick up this pickup
-      if entity.EntityCollisionClass ~= 0 then
-        entity.EntityCollisionClass = 0
-      end
-      if SPCGlobals:InsideSquare(player.Position, entity.Position, 25) then
-        local x = entity.Position.X - player.Position.X
-        local y = entity.Position.Y - player.Position.Y
-        entity.Velocity = Vector(x / 2, y / 2)
-      end
-    end
+  if gameFrameCount % 30 == 0 then -- 1 second
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_TELEKINESIS, false, false, false, false) -- 522
   end
 end
 
@@ -250,30 +363,6 @@ SPCPostUpdateBabies.functions[290] = function()
   if gameFrameCount % 150 == 0 then -- 5 seconds
     player:UseActiveItem(CollectibleType.COLLECTIBLE_DULL_RAZOR, false, false, false, false) -- 486
     sfx:Stop(SoundEffect.SOUND_ISAAC_HURT_GRUNT) -- 55
-  end
-end
-
--- Lantern Baby
-SPCPostUpdateBabies.functions[292] = function()
-  -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
-
-  local entities = Isaac.FindByType(EntityType.ENTITY_TEAR, -1, -1, false, false) -- 2
-  for i = 1, #entities do
-    local entity = entities[i]
-    if entity.Type == EntityType.ENTITY_TEAR and -- 2
-       entity.Parent ~= nil and
-       entity.Parent.Type == EntityType.ENTITY_PLAYER then -- 1
-
-      -- Emulate having a Godhead aura
-      local pos = Vector(player.Position.X, player.Position.Y + 10)
-      entity.Position = pos
-
-      -- Clear the sprite for the Ludo tear
-      entity:GetSprite():Reset()
-      break
-    end
   end
 end
 
@@ -418,30 +507,21 @@ SPCPostUpdateBabies.functions[349] = function()
   end
 end
 
--- Froggy Baby
-SPCPostUpdateBabies.functions[363] = function()
-  -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
-
-  -- Kill flies on touch
-  for i, entity in pairs(Isaac.GetRoomEntities()) do
-    if entity:IsDead() == false and
-       SPCMisc:IsFly(entity) and
-       SPCGlobals:InsideSquare(player.Position, entity.Position, 37) then
-
-      entity:Kill()
-    end
-  end
+-- Mouse Baby
+SPCPostUpdateBabies.functions[351] = function()
+  SPCPseudoRoomClear:PostUpdate()
 end
 
--- Dino Baby
-SPCPostUpdateBabies.functions[376] = function()
-  local entities = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BOBS_BRAIN, 1, false, false) -- 3.59
-  for i = 1, #entities do
-    -- Bob's Brain familiars have a SubType of 1 after they explodes
-    local entity = entities[i]
-    entity:Remove()
+-- Pink Princess Baby
+SPCPostUpdateBabies.functions[374] = function()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+
+  if gameFrameCount % 120 == 0 then -- 4 second
+    -- Spawn a random stomp
+    game:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.MOM_FOOT_STOMP, -- 1000.29
+               Isaac.GetRandomPosition(), Vector(0, 0), nil, 0, 0)
   end
 end
 
@@ -501,34 +581,16 @@ SPCPostUpdateBabies.functions[401] = function()
   end
 end
 
--- Magiccat Baby
+-- Magic Cat Baby
 SPCPostUpdateBabies.functions[428] = function()
   -- Local variables
   local game = Game()
+  local gameFrameCount = game:GetFrameCount()
   local player = game:GetPlayer(0)
 
-  -- Charm close enemies
-  local entities = Isaac.FindInRadius(player.Position, 100, EntityPartition.ENEMY) -- 1 << 3
-  for i = 1, #entities do
-    local entity = entities[i]
-    if entity:ToNPC() ~= nil and
-       entity:ToNPC():IsVulnerableEnemy() then -- Returns true for enemies that can be damaged
-
-      entity:AddCharmed(150) -- 5 seconds
-    end
+  if gameFrameCount % 30 == 0 then -- 1 second
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_KIDNEY_BEAN, false, false, false, false) -- 421
   end
-end
-
--- Driver Baby
-SPCPostUpdateBabies.functions[431] = function()
-  -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
-
-  -- Drip slippery brown creep (but hide it)
-  local creep = game:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.CREEP_SLIPPERY_BROWN, -- 94
-                           player.Position, Vector(0, 0), player, 0, 0)
-  creep.Visible = false
 end
 
 -- Mutated Fish Baby
@@ -559,6 +621,22 @@ SPCPostUpdateBabies.functions[474] = function()
   end
 end
 
+-- Cool Orange Baby
+SPCPostUpdateBabies.functions[485] = function()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+
+  if gameFrameCount % 30 == 0 then -- 1 second
+    -- Spawn a random rocket target
+    local target = game:Spawn(EntityType.ENTITY_EFFECT, Isaac.GetEntityVariantByName("FetusBossTarget"), -- 1000
+                              Isaac.GetRandomPosition(), Vector(0, 0), nil, 0, 0)
+    local sprite = target:GetSprite()
+    sprite:Play("Blink", true)
+    -- Target and rocket behavior are handled in the MC_POST_EFFECT_UPDATE callback
+  end
+end
+
 -- Mern Baby
 SPCPostUpdateBabies.functions[500] = function()
   -- Local variables
@@ -580,11 +658,11 @@ SPCPostUpdateBabies.functions[508] = function()
   local game = Game()
   local gameFrameCount = game:GetFrameCount()
   local room = game:GetRoom()
-  local isClear = room:IsClear()
+  local roomClear = room:IsClear()
   local player = game:GetPlayer(0)
 
   if gameFrameCount % 150 == 0 and -- 5 seconds
-     isClear == false then -- Monstro is unavoidable if he targets you
+     roomClear == false then -- Monstro is unavoidable if he targets you
 
     player:UseActiveItem(CollectibleType.COLLECTIBLE_MONSTROS_TOOTH, false, false, false, false) -- 86
   end
@@ -618,9 +696,28 @@ SPCPostUpdateBabies.functions[511] = function()
   -- Local variables
   local game = Game()
   local player = game:GetPlayer(0)
+  local gameFrameCount = game:GetFrameCount()
+  local baby = SPCGlobals.babies[511]
 
-  player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY) -- 2
-  player:EvaluateItems()
+  if gameFrameCount >= SPCGlobals.run.babyFrame then
+    SPCGlobals.run.babyFrame = SPCGlobals.run.babyFrame + baby.num
+    if SPCGlobals.run.babyBool then
+      -- Tear rate is increasing
+      SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
+      if SPCGlobals.run.babyCounters == baby.max then
+        SPCGlobals.run.babyBool = false
+      end
+    else
+      -- Tear rate is decreasing
+      SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters - 1
+      if SPCGlobals.run.babyCounters == baby.min then
+        SPCGlobals.run.babyBool = true
+      end
+    end
+
+    player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY) -- 2
+    player:EvaluateItems()
+  end
 end
 
 -- Invisible Baby
@@ -637,7 +734,5 @@ SPCPostUpdateBabies.functions[541] = function()
     player.Visible = false
   end
 end
-
-
 
 return SPCPostUpdateBabies

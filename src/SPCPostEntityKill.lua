@@ -7,6 +7,7 @@ local SPCGlobals = require("src/spcglobals")
 function SPCPostEntityKill:Main(entity)
   -- Local variables
   local game = Game()
+  local gameFrameCount = game:GetFrameCount()
   local player = game:GetPlayer(0)
   local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
@@ -20,8 +21,39 @@ function SPCPostEntityKill:Main(entity)
     return
   end
 
-  if baby.name == "Brown Baby" then -- 38
+  if baby.name == "Black Baby" then -- 27
+    -- We don't want to clear the room too fast after an enemy dies
+    SPCGlobals.run.roomClearDelayFrame = gameFrameCount + 1
+
+  elseif baby.name == "Brown Baby" then -- 38
     Isaac.GridSpawn(GridEntityType.GRID_POOP, 0, entity.Position, false) -- 14
+
+  elseif baby.name == "Nerd Baby" then -- 90
+    -- We don't want to clear the room too fast after an enemy dies
+    SPCGlobals.run.roomClearDelayFrame = gameFrameCount + 1
+
+  elseif baby.name == "Love Eye Baby" and -- 249
+         SPCGlobals.run.babyBool == false then
+
+    SPCGlobals.run.babyBool = true
+
+    -- Store the killed enemy
+    SPCGlobals.run.babyNPC = {
+      type    = npc.Type,
+      variant = npc.Variant,
+      subType = npc.SubType,
+    }
+
+    -- Respawn all of the existing enemies in the room
+    for i, entity2 in pairs(Isaac.GetRoomEntities()) do
+      local npc2 = entity2:ToNPC()
+      if npc2 ~= nil and
+         npc2.Index ~= npc.Index then -- Don't respawn the entity that just died
+
+        game:Spawn(npc.Type, npc.Variant, npc2.Position, npc2.Velocity, nil, npc.SubType, npc2.InitSeed)
+        npc2:Remove()
+      end
+    end
 
   elseif baby.name == "Killer Baby" then -- 291
     SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
@@ -58,6 +90,10 @@ function SPCPostEntityKill:Main(entity)
 
   elseif baby.name == "Buttface Baby" then -- 451
     Isaac.GridSpawn(GridEntityType.GRID_POOP, 5, entity.Position, false) -- 14
+
+  elseif baby.name == "Funny Baby" then -- 491
+    game:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_SUPERTROLL, -- 4.5
+               entity.Position, Vector(0, 0), nil, 0, 0)
 
   elseif baby.name == "Rainbow Baby" then -- 530
     game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_CHEST, -- 5.50

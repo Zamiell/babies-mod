@@ -26,19 +26,14 @@ function SPCPostPickupSelection:Main(pickup, variant, subType)
      variant == PickupVariant.PICKUP_COIN and -- 20
      subType == 1 then -- Penny
 
-    return {
-      PickupVariant.PICKUP_COIN, -- 20
-      2, -- Nickle
-    }
+    -- 5.20.2 - Nickel
+    return { PickupVariant.PICKUP_COIN, 2 }
 
   elseif baby.name == "Merman Baby" and -- 342
          variant == PickupVariant.PICKUP_KEY then -- 30
 
     -- Convert all keys to bombs
-    return {
-      PickupVariant.PICKUP_BOMB, -- 40
-      subType,
-    }
+    return { PickupVariant.PICKUP_BOMB, subType } -- 40
 
   elseif baby.name == "Mermaid Baby" and -- 395
          variant == PickupVariant.PICKUP_BOMB then -- 40
@@ -49,10 +44,7 @@ function SPCPostPickupSelection:Main(pickup, variant, subType)
     end
 
     -- Convert all bombs to keys
-    return {
-      PickupVariant.PICKUP_KEY, -- 30
-      subType,
-    }
+    return { PickupVariant.PICKUP_KEY, subType } -- 30
 
   elseif baby.name == "Folder Baby" and -- 430
          variant == PickupVariant.PICKUP_COLLECTIBLE then -- 100
@@ -120,10 +112,7 @@ function SPCPostPickupSelection:ReplacePedestal(pickup, subType, pool)
                     "(" .. tostring(#SPCGlobals.run.replacedPedestals) .. " total items.)")
   --]]
 
-  return {
-    PickupVariant.PICKUP_COLLECTIBLE, -- 100
-    newSubType,
-  }
+  return { PickupVariant.PICKUP_COLLECTIBLE, newSubType } -- 100
 end
 
 function SPCPostPickupSelection:IsAlreadyReplaced(pickup, subType)

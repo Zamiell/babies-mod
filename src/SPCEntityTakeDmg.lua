@@ -24,15 +24,16 @@ function SPCEntityTakeDmg:Main(tookDamage, damageAmount, damageFlag, damageSourc
 
   local player = tookDamage:ToPlayer()
   if player ~= nil then
-    return SPCEntityTakeDmg:Player(player, damageAmount, damageFlag, damageCountdownFrames)
+    return SPCEntityTakeDmg:Player(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   end
-  return SPCEntityTakeDmg:Entity(tookDamage, damageAmount, damageSource, damageCountdownFrames)
+  return SPCEntityTakeDmg:Entity(tookDamage, damageAmount, damageFlag, damageSource, damageCountdownFrames)
 end
 
-function SPCEntityTakeDmg:Player(player, damageAmount, damageFlag, damageCountdownFrames)
+function SPCEntityTakeDmg:Player(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Local variables
   local game = Game()
   local gameFrameCount = game:GetFrameCount()
+  local room = game:GetRoom()
   local sfx = SFXManager()
   local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
@@ -53,20 +54,33 @@ function SPCEntityTakeDmg:Player(player, damageAmount, damageFlag, damageCountdo
     end
 
   elseif baby.name == "Lost Baby" then -- 10
-    local creep = game:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, -- 46
-                             player.Position, Vector(0, 0), player, 0, 0)
-    creep:ToEffect().Scale = 10
-    creep:ToEffect().Timeout = 240
+    -- Lost-style health
+    player:Kill()
 
   elseif baby.name == "Glass Baby" then -- 14
     SPCMisc:SpawnRandomPickup(player.Position)
+
+  elseif baby.name == "Bean Baby" then -- 17
+    player:UseCard(Card.CARD_FOOL) -- 1
 
   elseif baby.name == "Wrapped Baby" then -- 20
     -- Use Kamikaze on the next 5 frames
     SPCGlobals.run.babyCounters = 5
 
   elseif baby.name == "-0- Baby" then -- 24
+    -- Invulnerability
     return false
+
+  elseif baby.name == "Cry Baby" then -- 32
+    -- Enemies are fully healed on hit
+    for i, entity in pairs(Isaac.GetRoomEntities()) do
+      local npc = entity:ToNPC()
+      if npc ~= nil and
+         npc:IsVulnerableEnemy() then -- Returns true for enemies that can be damaged
+
+        npc.HitPoints = npc.MaxHitPoints
+      end
+    end
 
   elseif baby.name == "Yellow Baby" then -- 33
     player:UsePill(PillEffect.PILLEFFECT_LEMON_PARTY, 0) -- 26
@@ -88,6 +102,78 @@ function SPCEntityTakeDmg:Player(player, damageAmount, damageFlag, damageCountdo
     SPCGlobals.run.babyBool = true
     player:TakeDamage(damageAmount, 0, EntityRef(player), damageCountdownFrames)
     SPCGlobals.run.babyBool = false
+
+  elseif baby.name == "D Baby" then -- 101
+    -- Spawns creep on hit (improved)
+    local creep = game:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, -- 46
+                             player.Position, Vector(0, 0), player, 0, 0)
+    creep:ToEffect().Scale = 10
+    creep:ToEffect().Timeout = 240
+
+  elseif baby.name == "Hopeless Baby" and -- 125
+         SPCGlobals.run.babyBool == false then
+
+    -- Keys are hearts
+    SPCGlobals.run.babyBool = true
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_DULL_RAZOR, false, false, false, false) -- 486
+    SPCGlobals.run.babyBool = false
+    player:AddKeys(-1)
+    return false
+
+  elseif baby.name == "Freaky Baby" then -- 132
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_CONVERTER, false, false, false, false) -- 296
+
+  elseif baby.name == "Mohawk Baby" and -- 138
+         SPCGlobals.run.babyBool == false then
+
+    -- Bombs are hearts
+    SPCGlobals.run.babyBool = true
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_DULL_RAZOR, false, false, false, false) -- 486
+    SPCGlobals.run.babyBool = false
+    player:AddBombs(-1)
+    return false
+
+  elseif baby.name == "Aban Baby" and -- 177
+         SPCGlobals.run.babyBool == false then
+
+    -- Sonic-style health
+    local coins = player:GetNumCoins()
+    if coins == 0 then
+      player:Kill()
+    else
+      SPCGlobals.run.babyBool = true
+      player:UseActiveItem(CollectibleType.COLLECTIBLE_DULL_RAZOR, false, false, false, false) -- 486
+      SPCGlobals.run.babyBool = false
+      player:AddCoins(-99)
+      for i = 1, coins do
+        -- Spawn a Penny (5.20.1)
+        local velocity = player.Position - Isaac.GetRandomPosition()
+        velocity = velocity:Normalized()
+        local modifier = math.random(4, 20)
+        velocity = velocity * modifier
+        local coin = game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN,
+                                player.Position, velocity, player, 1, 0)
+        local data = coin:GetData()
+        data.recovery = true
+      end
+      sfx:Play(SoundEffect.SOUND_GOLD_HEART, 1, 0, false, 1) -- 465
+    end
+    return false
+
+  elseif baby.name == "Small Face Baby" then -- 200
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_MY_LITTLE_UNICORN, false, false, false, false) -- 77
+
+  elseif baby.name == "MeatBoy Baby" then -- 210
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_POTATO_PEELER, false, false, false, false) -- 487
+
+  elseif baby.name == "Conjoined Baby" then -- 212
+    -- Open all of the doors
+    for i = 0, 7 do
+      local door = room:GetDoor(i)
+      if door ~= nil then
+        door:Open(true)
+      end
+    end
 
   elseif baby.name == "Beard Baby" then -- 227
     player:UseActiveItem(CollectibleType.COLLECTIBLE_CROOKED_PENNY, false, false, false, false) -- 485
@@ -122,6 +208,12 @@ function SPCEntityTakeDmg:Player(player, damageAmount, damageFlag, damageCountdo
 
   elseif baby.name == "Puzzle Baby" then -- 315
     player:UseActiveItem(CollectibleType.COLLECTIBLE_D6, false, false, false, false) -- 105
+
+  elseif baby.name == "Fireball Baby" and -- 318
+         damageSource.Type == EntityType.ENTITY_FIREPLACE then -- 33
+
+    -- Immunity from fires
+    return false
 
   elseif baby.name == "Tortoise Baby" then -- 330
     SPCGlobals.run.randomSeed = SPCGlobals:IncrementRNG(SPCGlobals.run.randomSeed)
@@ -168,8 +260,15 @@ function SPCEntityTakeDmg:Player(player, damageAmount, damageFlag, damageCountdo
       end
     end
 
+  elseif baby.name == "Catsuit Baby" then -- 412
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_GUPPYS_PAW, false, false, false, false) -- 133
+
+  elseif baby.name == "Cup Baby" then -- 435
+    player:UseCard(Card.CARD_HUMANITY) -- 45
+    player:StopExtraAnimation()
+
   elseif baby.name == "Handsome Mr. Frog Baby" then -- 456
-    player:AddBlueFlies(10, player.Position, nil)
+    player:AddBlueFlies(baby.num, player.Position, nil)
 
   elseif baby.name == "Mufflerscarf Baby" then -- 472
     for i, entity in pairs(Isaac.GetRoomEntities()) do
@@ -187,6 +286,25 @@ function SPCEntityTakeDmg:Player(player, damageAmount, damageFlag, damageCountdo
     -- Death in 1 minute
     SPCGlobals.run.babyCounters = gameFrameCount + (60 * 30)
 
+  elseif baby.name == "Egg Baby" then -- 488
+    -- Random pill effect on hit
+    SPCGlobals.run.roomRNG = SPCGlobals:IncrementRNG(SPCGlobals.run.roomRNG)
+    math.randomseed(SPCGlobals.run.roomRNG)
+    local pillEffect = math.random(0, 46)
+    player:UsePill(pillEffect, 0)
+    player:StopExtraAnimation()
+
+  elseif baby.name == "Glittery Peach Baby" and -- 493
+         SPCGlobals.run.babyBool == false then
+
+    -- Teleport to the boss room after X hits
+    -- (but only do it once per floor)
+    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
+    if SPCGlobals.run.babyCounters == baby.num then
+      SPCGlobals.run.babyBool = true
+      player:UseCard(Card.CARD_EMPEROR) -- 5
+    end
+
   elseif baby.name == "Sister Maggy" then -- 523
     SPCGlobals.run.babyCountersRoom = SPCGlobals.run.babyCountersRoom + 1
     if SPCGlobals.run.babyCountersRoom >= 2 and
@@ -203,7 +321,7 @@ function SPCEntityTakeDmg:Player(player, damageAmount, damageFlag, damageCountdo
   end
 end
 
-function SPCEntityTakeDmg:Entity(entity, damageAmount, damageSource, damageCountdownFrames)
+function SPCEntityTakeDmg:Entity(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Local variables (2)
   local game = Game()
   local level = game:GetLevel()
@@ -304,6 +422,15 @@ function SPCEntityTakeDmg:Entity(entity, damageAmount, damageSource, damageCount
          SPCGlobals.run.dealingExtraDamage == false then
 
     local damage = player.Damage * 3.2
+    SPCGlobals.run.dealingExtraDamage = true
+    entity:TakeDamage(damage, 0, EntityRef(player), damageCountdownFrames)
+    SPCGlobals.run.dealingExtraDamage = false
+
+  elseif baby.name == "Road Kill Baby" and -- 507
+         SPCGlobals.run.dealingExtraDamage == false then
+
+    -- Give the Pointy Rib extra damage
+    local damage = player.Damage * 3
     SPCGlobals.run.dealingExtraDamage = true
     entity:TakeDamage(damage, 0, EntityRef(player), damageCountdownFrames)
     SPCGlobals.run.dealingExtraDamage = false

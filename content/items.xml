@@ -1,3 +1,4 @@
 <items gfxroot="gfx/items/" version="1">
 	<active description="" gfx="Collectibles_Clockwork_Assembly.png" maxcharges="6" name="Clockwork Assembly" />
+	<active description="" gfx="collectibles_417_succubus.png" maxcharges="6" name="Flock of Succubi" />
 </items>

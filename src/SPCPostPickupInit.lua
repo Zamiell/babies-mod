@@ -17,14 +17,22 @@ function SPCPostPickupInit:Main(pickup)
   end
 
   --[[
-  Isaac.DebugString("MC_POST_PICKUP_INIT - " .. tostring(pickup.Type) .. "." .. tostring(pickup.Variant) .. "." ..
-                    tostring(pickup.SubType))
+  Isaac.DebugString("MC_POST_PICKUP_INIT - " ..
+                    tostring(pickup.Type) .. "." .. tostring(pickup.Variant) .. "." .. tostring(pickup.SubType) ..
+                    " (spawner: " .. pickup.SpawnerType .. "." .. pickup.SpawnerVariant .. ")")
   --]]
+
+  -- All baby effects should ignore the Checkpoint
+  if pickup.SubType == Isaac.GetItemIdByName("Checkpoint") then
+    return
+  end
 
   if baby.name == "Shopkeeper Baby" and -- 215
      pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE and
-     roomType == RoomType.ROOM_SHOP then -- 2
+     (roomType == RoomType.ROOM_SHOP or -- 2
+      roomType == RoomType.ROOM_ERROR) then -- 3
 
+    -- Free items in shops
     pickup.Price = 0
 
   elseif baby.name == "Wizard Baby" and -- 253
@@ -35,6 +43,7 @@ function SPCPostPickupInit:Main(pickup)
   elseif baby.name == "Scary Baby" and -- 317
          pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then
 
+    -- Items cost hearts
     pickup.AutoUpdatePrice = false
     pickup.Price = -1
 
@@ -46,11 +55,13 @@ function SPCPostPickupInit:Main(pickup)
          (roomType == RoomType.ROOM_DEVIL or -- 14
           roomType == RoomType.ROOM_BLACK_MARKET) then -- 22
 
+    -- Free devil deals
     pickup.Price = 0
 
   elseif baby.name == "Fate's Reward" and -- 537
          pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then
 
+    -- Items cost money
     if (roomType == RoomType.ROOM_DEVIL or -- 14
         roomType == RoomType.ROOM_BLACK_MARKET) then -- 22
 

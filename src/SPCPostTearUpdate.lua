@@ -10,15 +10,57 @@ function SPCPostTearUpdate:Main(tear)
   local game = Game()
   local gameFrameCount = game:GetFrameCount()
   local player = game:GetPlayer(0)
+  local sprite = tear:GetSprite()
+  local data = tear:GetData()
   local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
   if baby == nil then
     return
   end
 
-  if baby.name == "Speaker Baby" and -- 316
+  if baby.name == "Skinny Baby" and -- 213
      tear.SubType == 1 and
-     tear.FrameCount >= 20 then -- If we spawn creep on every frame, it becomes too thick
+     tear.FrameCount >= 10 then
+
+    -- Find the nearest enemy
+    local distance = 40000
+    local closestNPC
+    for i, entity in pairs(Isaac.GetRoomEntities()) do
+      local npc = entity:ToNPC()
+      if npc ~= nil and
+         npc:IsVulnerableEnemy() and -- Returns true for enemies that can be damaged
+         npc:IsDead() == false and
+         player.Position:Distance(npc.Position) < distance then
+
+        distance = player.Position:Distance(npc.Position)
+        closestNPC = npc
+      end
+    end
+    if closestNPC == nil then
+      return
+    end
+
+    -- Super homing tears
+    local initialSpeed = tear.Velocity:LengthSquared()
+    tear.Velocity = closestNPC.Position - tear.Position
+    tear.Velocity = tear.Velocity:Normalized()
+    while tear.Velocity:LengthSquared() < initialSpeed do
+      tear.Velocity = tear.Velocity * 1.1
+    end
+
+  elseif baby.name == "Lantern Baby" and -- 292
+         tear.Parent ~= nil and
+         tear.Parent.Type == EntityType.ENTITY_PLAYER then -- 1
+
+    -- Emulate having a Godhead aura
+    tear.Position = Vector(player.Position.X, player.Position.Y + 10)
+
+    -- Clear the sprite for the Ludo tear
+    sprite:Reset()
+
+  elseif baby.name == "Speaker Baby" and -- 316
+         tear.SubType == 1 and
+         tear.FrameCount >= 20 then
 
     local rotation = 45
     for i = 1, 4 do
@@ -52,7 +94,6 @@ function SPCPostTearUpdate:Main(tear)
     if tear.FrameCount <= 120 then -- 4 seconds
       -- The MC_POST_TEAR_UPDATE callback will fire before the MC_POST_FIRE_TEAR callback,
       -- so do nothing if we are in on the first frame
-      local data = tear:GetData()
       if data.Height == nil then
         return
       end
@@ -82,7 +123,6 @@ function SPCPostTearUpdate:Main(tear)
     if tear.FrameCount <= 120 then -- 4 seconds
       -- The MC_POST_TEAR_UPDATE callback will fire before the MC_POST_FIRE_TEAR callback,
       -- so do nothing if we are in on the first frame
-      local data = tear:GetData()
       if data.Height == nil then
         return
       end

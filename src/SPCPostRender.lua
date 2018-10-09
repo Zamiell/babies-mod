@@ -27,16 +27,17 @@ function SPCPostRender:Main()
 
   -- Fix the graphical glitch with some items that apply special costumes
   -- (this won't work in the MC_POST_UPDATE callback)
+  if roomFrameCount == 0 and
+     (player:HasCollectible(CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON) or -- 122
+      player:HasCollectible(CollectibleType.COLLECTIBLE_EMPTY_VESSEL)) then -- 409
+
+    SPCPostRender:SetPlayerSprite()
+  end
   if roomFrameCount <= 1 and
      (player:HasCollectible(CollectibleType.COLLECTIBLE_SCAPULAR) or -- 142
       player:HasCollectible(CollectibleType.COLLECTIBLE_PURITY)) then -- 407
 
     player:ClearCostumes()
-  end
-  if roomFrameCount == 0 and
-     player:HasCollectible(CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON) then -- 122
-
-    SPCPostRender:SetPlayerSprite()
   end
 
   SPCPostRender:TrackPlayerAnimations()
@@ -52,7 +53,6 @@ function SPCPostRender:TrackPlayerAnimations()
   local playerSprite = player:GetSprite()
   local effects = player:GetEffects()
   local effectsList = effects:GetEffectsList()
-  local itemConfig = Isaac.GetItemConfig()
 
   -- Get the currently playing animation
   local animations = {
@@ -94,9 +94,7 @@ function SPCPostRender:TrackPlayerAnimations()
       for i = 1, effectsList.Size do
         local effect = effectsList:Get(i - 1)
         if effect.Item.ID == CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS then -- 58
-          --effects:AddCollectibleEffect(CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS, true) -- 58
-          local configItem = itemConfig:GetCollectible(CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS) -- 58
-          player:AddCostume(configItem, false)
+          player:AddCostume(SPCGlobals:GetItemConfig(CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS), false) -- 58
           break
         end
       end
@@ -120,18 +118,31 @@ function SPCPostRender:SetPlayerSprite()
     return
   end
 
-  -- Replace the player sprite with a co-op baby version
-  playerSprite:Load("gfx/co-op/" .. tostring(type) .. ".anm2", true)
-
   -- We don't want any costumes to apply to co-op babies, since they will appear misaligned
   player:ClearCostumes()
 
   -- Make exceptions for certain costumes
-  if baby.name == "Rider Baby" and
-     activeItem == CollectibleType.COLLECTIBLE_PONY then -- 130
-
-    player:AddCollectible(CollectibleType.COLLECTIBLE_PONY, 4, false) -- 130
+  if activeItem == CollectibleType.COLLECTIBLE_PONY then -- 130
+    player:AddCostume(SPCGlobals:GetItemConfig(CollectibleType.COLLECTIBLE_PONY), false) -- 130
+  elseif activeItem == CollectibleType.COLLECTIBLE_WHITE_PONY then -- 181
+    player:AddCostume(SPCGlobals:GetItemConfig(CollectibleType.COLLECTIBLE_WHITE_PONY), false) -- 181
   end
+  if player:HasCollectible(CollectibleType.COLLECTIBLE_DADS_RING) then -- 546
+    -- This makes the player invisible for some reason
+    player:AddCostume(SPCGlobals:GetItemConfig(CollectibleType.COLLECTIBLE_DADS_RING), false) -- 546
+  end
+
+  -- It is hard to tell that the player can fly with all costumes removed,
+  -- so represent that the player has flight with Fate's wings
+  if player.CanFly and
+     activeItem ~= CollectibleType.COLLECTIBLE_PONY and -- 130
+     activeItem ~= CollectibleType.COLLECTIBLE_WHITE_PONY then -- 181
+
+    player:AddCostume(SPCGlobals:GetItemConfig(CollectibleType.COLLECTIBLE_FATE), false) -- 179
+  end
+
+  -- Replace the player sprite with a co-op baby version
+  playerSprite:Load("gfx/co-op/" .. tostring(type) .. ".anm2", true)
 end
 
 -- Show what the current baby does in the intro room (or if the player presses Tab)

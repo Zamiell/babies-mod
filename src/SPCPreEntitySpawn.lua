@@ -13,15 +13,17 @@ function SPCPreEntitySpawn:Main(type, variant, subType, position, velocity, spaw
   end
 
   if type == EntityType.ENTITY_SLOT and
-     SPCGlobals.run.babyBool then
+     SPCGlobals.run.clockworkAssembly then
 
-    SPCGlobals.run.babyBool = false
-    return {
-      type,
-      10,
-      subType,
-      seed,
-    }
+    SPCGlobals.run.clockworkAssembly = false
+    return { type, 10, subType, seed }
+  end
+
+  if baby.name == "Purple Baby" and -- 252
+     type == EntityType.ENTITY_FIREPLACE and -- 33
+     variant ~= 2 then -- Blue Fire Place
+
+    return { type, 2, subType, seed }
   end
 end
 

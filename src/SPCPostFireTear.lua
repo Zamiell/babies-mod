@@ -11,11 +11,14 @@ function SPCPostFireTear:Main(tear)
   local room = game:GetRoom()
   local roomFrameCount = room:GetFrameCount()
   local player = game:GetPlayer(0)
+  local activeCharge = player:GetActiveCharge()
   local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
   if baby == nil then
     return
   end
+
+  --Isaac.DebugString("MC_POST_FIRE_TEAR")
 
   if baby.name == "Water Baby" and -- 3
      SPCGlobals.run.babyCounters > 0 then
@@ -51,8 +54,16 @@ function SPCPostFireTear:Main(tear)
     tear:ChangeVariant(TearVariant.NEEDLE) -- 31
     tear.TearFlags = tear.TearFlags | TearFlags.TEAR_NEEDLE -- 1 << 52
 
+  elseif baby.name == "Blue Baby" then -- 30
+    -- Sprinkler tears need to originate at the player
+    tear.Position = player.Position
+
   elseif baby.name == "Long Baby" then -- 34
     tear.TearFlags = tear.TearFlags | TearFlags.TEAR_FLAT -- 1 << 27
+
+  elseif baby.name == "Green Baby" then -- 35
+    tear:ChangeVariant(TearVariant.BOOGER) -- 26
+    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_BOOGER -- 1 << 46
 
   elseif baby.name == "Super Greed Baby" then -- 54
     tear.TearFlags = tear.TearFlags | TearFlags.TEAR_MIDAS -- 1 << 51
@@ -60,6 +71,11 @@ function SPCPostFireTear:Main(tear)
   elseif baby.name == "Mustache Baby" then -- 66
     player:UseActiveItem(CollectibleType.COLLECTIBLE_BOOMERANG, false, false, false, false) -- 388
     tear:Remove()
+
+    -- Using the boomerang removes the charge on the current active item for some reason,
+    -- so we have to restore it on the next frame
+    SPCGlobals.run.babyCounters = activeCharge
+    SPCGlobals.run.babyFrame = gameFrameCount + 1
 
   elseif baby.name == "Parasite Baby" then -- 77
     tear:ChangeVariant(TearVariant.BALLOON) -- 35
@@ -100,17 +116,33 @@ function SPCPostFireTear:Main(tear)
   elseif baby.name == "Lights Baby" then -- 165
     tear.TearFlags = tear.TearFlags | TearFlags.TEAR_LIGHT_FROM_HEAVEN -- 1 << 37
 
+  elseif baby.name == "Piece B Baby" then -- 180
+    player:FireTechXLaser(tear.Position, tear.Velocity, 5)
+    tear:Remove()
+
   elseif baby.name == "Web Baby" then -- 185
     tear.TearFlags = tear.TearFlags | TearFlags.TEAR_SLOW -- 1 << 3
 
   elseif baby.name == "Cold Baby" then -- 194
     tear.TearFlags = tear.TearFlags | TearFlags.TEAR_FREEZE -- 1 << 5
 
+  elseif baby.name == "Nice Baby" then -- 197
+    player:FireBrimstone(tear.Velocity)
+    tear:Remove()
+
   elseif baby.name == "Monocle Baby" then -- 206
     tear.Scale = tear.Scale * 3
 
+  elseif baby.name == "Skinny Baby" then -- 213
+    -- Mark that we shot this tear
+    tear.SubType = 1
+
   elseif baby.name == "Tilt Baby" then -- 230
     tear.Velocity = tear.Velocity:Rotated(15)
+
+  elseif baby.name == "Orange Demon Baby" then -- 279
+    tear:ChangeVariant(TearVariant.EXPLOSIVO) -- 19
+    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_STICKY -- 1 << 35
 
   elseif baby.name == "Butt Baby" then -- 288
     player:UseActiveItem(CollectibleType.COLLECTIBLE_BEAN, false, false, false, false) -- 111
@@ -179,6 +211,16 @@ function SPCPostFireTear:Main(tear)
 
   elseif baby.name == "2600 Baby" then -- 347
     tear.Velocity = tear.Velocity:Rotated(180)
+
+  elseif baby.name == "Mushroom Girl Baby" then -- 361
+    -- Extra bomb shots
+    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
+    if SPCGlobals.run.babyCounters == baby.num then
+      SPCGlobals.run.babyCounters = 0
+      game:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_NORMAL, -- 4.1
+                 tear.Position, tear.Velocity, tear.SpawnerEntity, 0, tear.InitSeed)
+      tear:Remove()
+    end
 
   elseif baby.name == "Voxdog Baby" then -- 362
     tear:ChangeVariant(TearVariant.BALLOON_BOMB) -- 38
@@ -273,6 +315,14 @@ function SPCPostFireTear:Main(tear)
   elseif baby.name == "Blindcursed Baby" then -- 466
     tear.Visible = false
 
+  elseif baby.name == "Fly Baby" then -- 469
+    tear:ChangeVariant(TearVariant.GODS_FLESH) -- 16
+    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_PIERCING -- 1 << 1
+    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_SPLIT -- 1 << 6
+    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_WIGGLE -- 1 << 10
+    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_PULSE -- 1 << 25
+    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_BONE -- 1 << 49
+
   elseif baby.name == "Headphone Baby" then -- 470
     -- Soundwave tears
     tear:ChangeVariant(TearVariant.PUPULA)
@@ -293,6 +343,10 @@ function SPCPostFireTear:Main(tear)
   elseif baby.name == "Ill Baby" then -- 498
     tear:ChangeVariant(TearVariant.BOBS_HEAD) -- 4
 
+  elseif baby.name == "Lazy Baby" then -- 499
+    player:DoZitEffect(tear.Velocity:Normalized())
+    tear:Remove()
+
   elseif baby.name == "Mern Baby" then -- 500
     SPCGlobals.run.babyTearInfo.tear = SPCGlobals.run.babyTearInfo.tear + 1
     if SPCGlobals.run.babyTearInfo.tear >= 2 then
@@ -312,6 +366,16 @@ function SPCPostFireTear:Main(tear)
   elseif baby.name == "Master Cook Baby" then -- 517
     tear:ChangeVariant(TearVariant.EGG) -- 27
     tear.TearFlags = tear.TearFlags | TearFlags.TEAR_EGG -- 1 << 47
+
+  elseif baby.name == "Spider Baby" then -- 521
+    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
+    if SPCGlobals.run.babyCounters == 2 then
+      SPCGlobals.run.babyCounters = 0
+
+      -- Every second tear spawns a spider
+      player:ThrowBlueSpider(player.Position, player.Position)
+      tear:Remove()
+    end
 
   elseif baby.name == "Abel" then -- 531
     -- Mark that we shot this tear

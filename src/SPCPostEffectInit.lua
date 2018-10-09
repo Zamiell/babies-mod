@@ -13,7 +13,15 @@ function SPCPostEffectInit:Main(effect)
     return
   end
 
-  if baby.name == "404 Baby" then -- 463
+  if baby.name == "Blue Baby" and -- 30
+     effect.Variant == EffectVariant.POOF01 and -- 15
+     SPCGlobals.run.babyBool then
+
+    -- Get rid of the poof effect that occurs when a Sprinkler is summoned
+    SPCGlobals.run.babyBool = false
+    effect:Remove()
+
+  elseif baby.name == "404 Baby" then -- 463
     SPCMisc:SetRandomColor(effect)
   end
 end

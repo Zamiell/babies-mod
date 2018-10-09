@@ -6,8 +6,6 @@ local SPCGlobals = require("src/spcglobals")
 -- ModCallbacks.MC_EVALUATE_CACHE (8)
 function SPCEvaluateCache:Main(player, cacheFlag)
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
   local hearts = player:GetHearts()
   local soulHearts = player:GetSoulHearts()
   local eternalHearts = player:GetEternalHearts()
@@ -19,11 +17,14 @@ function SPCEvaluateCache:Main(player, cacheFlag)
     return
   end
 
-  if cacheFlag == CacheFlag.CACHE_FIREDELAY and -- 2
-     baby.blindfolded then
-
-    player.FireDelay = 100000
-    Isaac.DebugString("Set blindfolded.")
+  if cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
+    if baby.blindfolded then
+      player.FireDelay = 100000
+      Isaac.DebugString("Set blindfolded.")
+    else
+      -- Attempt to fix the big where the baby after a blindfolded baby is also blindfolded
+      player.FireDelay = 0
+    end
   end
 
   if baby.name == "Lowface Baby" and -- 73
@@ -39,6 +40,12 @@ function SPCEvaluateCache:Main(player, cacheFlag)
          cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
 
     player.Damage = player.Damage * 2
+
+  elseif baby.name == "Blisters Baby" and -- 240
+         cacheFlag == CacheFlag.CACHE_SHOTSPEED then -- 4
+
+    -- This is the minimum shot speed that you can set
+    player.ShotSpeed = 0.6
 
   elseif baby.name == "Snail Baby" and -- 244
          cacheFlag == CacheFlag.CACHE_SPEED then -- 16
@@ -56,6 +63,11 @@ function SPCEvaluateCache:Main(player, cacheFlag)
          cacheFlag == CacheFlag.CACHE_RANGE then -- 8
 
     player.TearHeight = player.TearHeight * 2
+
+  elseif baby.name == "Cupcake Baby" and -- 321
+         cacheFlag == CacheFlag.CACHE_SHOTSPEED then -- 4
+
+    player.ShotSpeed = 4
 
   elseif baby.name == "Skinless Baby" and -- 322
          cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
@@ -117,7 +129,7 @@ function SPCEvaluateCache:Main(player, cacheFlag)
          cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
 
     for i = 1, SPCGlobals.run.babyCounters do
-      player.Damage = player.Damage + 0.5
+      player.Damage = player.Damage + 1
     end
 
   elseif baby.name == "Text Baby" and -- 476
@@ -135,42 +147,8 @@ function SPCEvaluateCache:Main(player, cacheFlag)
   elseif baby.name == "Twitchy Baby" and -- 511
          cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
 
-    local period = (gameFrameCount % 600) + 1
-    local modifier
-    if period <= 37.5 then
-      modifier = -4
-    elseif period <= 75 then
-      modifier = -3
-    elseif period <= 112.5 then
-      modifier = -2
-    elseif period <= 150 then
-      modifier = -1
-    elseif period <= 187.5 then
-      modifier = 0
-    elseif period <= 225 then
-      modifier = 1
-    elseif period <= 262.5 then
-      modifier = 2
-    elseif period <= 300 then
-      modifier = 3
-    elseif period <= 337.5 then
-      modifier = 4
-    elseif period <= 375 then
-      modifier = 3
-    elseif period <= 412.5 then
-      modifier = 2
-    elseif period <= 450 then
-      modifier = 1
-    elseif period <= 487.5 then
-      modifier = 0
-    elseif period <= 525 then
-      modifier = -1
-    elseif period <= 562.5 then
-      modifier = -2
-    elseif period <= 600 then
-      modifier = -3
-    end
-    player.MaxFireDelay = player.MaxFireDelay + modifier
+    -- Tear rate oscillates
+    player.MaxFireDelay = player.MaxFireDelay + SPCGlobals.run.babyCounters
   end
 end
 
