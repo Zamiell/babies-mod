@@ -17,7 +17,7 @@ function SPCPreUseItem:Item36(collectibleType, RNG)
   end
 
   -- Spawn White Poop next to the player
-  Isaac.GridSpawn(GridEntityType.GRID_POOP, 6, player.Position, false) -- 14
+  Isaac.GridSpawn(GridEntityType.GRID_POOP, PoopVariant.POOP_WHITE, player.Position, false) -- 14
 
   -- Playing ID 37 will randomly play one of the three farting sound effects
   sfx:Play(SoundEffect.SOUND_FART, 1, 0, false, 1) -- 37

@@ -12,6 +12,7 @@ function SPCPostFireTear:Main(tear)
   local roomFrameCount = room:GetFrameCount()
   local player = game:GetPlayer(0)
   local activeCharge = player:GetActiveCharge()
+  local data = tear:GetData()
   local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
   if baby == nil then
@@ -113,6 +114,11 @@ function SPCPostFireTear:Main(tear)
   elseif baby.name == "Crooked Baby" then -- 133
     tear.Velocity = tear.Velocity:Rotated(-15)
 
+  elseif baby.name == "Cape Baby" then -- 152
+    local angleModifier = math.random(0, 90) - 45
+    tear.Velocity = tear.Velocity:Rotated(angleModifier)
+    tear:SetColor(Color(2, 2, 0, 0.7, 1, 1, 1), 10000, 10000, false, false) -- Yellow
+
   elseif baby.name == "Lights Baby" then -- 165
     tear.TearFlags = tear.TearFlags | TearFlags.TEAR_LIGHT_FROM_HEAVEN -- 1 << 37
 
@@ -139,6 +145,25 @@ function SPCPostFireTear:Main(tear)
 
   elseif baby.name == "Tilt Baby" then -- 230
     tear.Velocity = tear.Velocity:Rotated(15)
+
+  elseif baby.name == "Bawl Baby" and -- 231
+         SPCGlobals.run.babyBool then
+
+    -- Don't delete these tears, as they are coming from Isaac's Tears
+    -- Non-Isaac's Tears tears will be removed below
+    return
+
+  elseif baby.name == "8 Ball Baby" then -- 251
+    -- Mark that we shot this tear
+    tear.SubType = 1
+
+    -- We need to have spectral for this ability to work properly
+    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_SPECTRAL -- 1
+
+    -- Start with the tears directly above the player and moving towards the right
+    tear.Position = Vector(0, baby.distance * -1)
+    tear.Velocity = Vector(baby.distance / 4, 0)
+    tear.FallingSpeed = 0
 
   elseif baby.name == "Orange Demon Baby" then -- 279
     tear:ChangeVariant(TearVariant.EXPLOSIVO) -- 19
@@ -282,7 +307,6 @@ function SPCPostFireTear:Main(tear)
     tear.SubType = 1
 
     -- Store the initial height and velocity
-    local data = tear:GetData()
     data.Height = tear.Height
     data.Velocity = tear.Velocity
 
@@ -304,7 +328,6 @@ function SPCPostFireTear:Main(tear)
     tear.SubType = 1
 
     -- Store the initial height and velocity
-    local data = tear:GetData()
     data.Height = tear.Height
     data.Velocity = tear.Velocity
 

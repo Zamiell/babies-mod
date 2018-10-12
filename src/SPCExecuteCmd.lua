@@ -25,6 +25,10 @@ function SPCExecuteCmd:Main(cmd, params)
 
       Isaac.ExecuteCommand("restart")
     end
+
+  elseif cmd == "disable" then
+    SPCGlobals.debug = "disable"
+    Isaac.ExecuteCommand("restart")
   end
 end
 

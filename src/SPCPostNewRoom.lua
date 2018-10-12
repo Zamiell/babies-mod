@@ -60,6 +60,7 @@ function SPCPostNewRoom:NewRoom()
   SPCGlobals.run.roomClearDelayFrame = 0
   SPCGlobals.run.lastRoomIndex = SPCGlobals.run.currentRoomIndex
   SPCGlobals.run.currentRoomIndex = roomIndex
+  SPCGlobals.run.shootTears = {}
 
   -- Do nothing if we are not a baby
   local type = SPCGlobals.run.babyType
@@ -82,10 +83,12 @@ end
 function SPCPostNewRoom:ApplyTemporaryEffects()
   -- Local variables
   local game = Game()
+  local itemPool = game:GetItemPool()
   local level = game:GetLevel()
   local rooms = level:GetRooms()
   local room = game:GetRoom()
   local roomType = room:GetType()
+  local roomSeed = room:GetSpawnSeed()
   local player = game:GetPlayer(0)
   local effects = player:GetEffects()
   local type = SPCGlobals.run.babyType
@@ -126,9 +129,6 @@ function SPCPostNewRoom:ApplyTemporaryEffects()
     -- Sprinkler tears
     SPCGlobals.run.babyBool = true
     player:UseActiveItem(CollectibleType.COLLECTIBLE_SPRINKLER, false, false, false, false) -- 516
-
-  elseif baby.name == "Belial Baby" then -- 51
-    effects:AddCollectibleEffect(CollectibleType.COLLECTIBLE_BOOK_OF_BELIAL, false) -- 34
 
   elseif baby.name == "Statue Baby 2" and -- 118
          roomType == RoomType.ROOM_SECRET and -- 7
@@ -210,6 +210,33 @@ function SPCPostNewRoom:ApplyTemporaryEffects()
         break
       end
     end
+
+  elseif baby.name == "Suit Baby" and -- 287
+         roomType ~= RoomType.ROOM_DEFAULT and -- 1
+         roomType ~= RoomType.ROOM_ERROR and -- 3
+         roomType ~= RoomType.ROOM_BOSS and -- 5
+         roomType ~= RoomType.ROOM_DEVIL and -- 14
+         roomType ~= RoomType.ROOM_ANGEL and -- 15
+         roomType ~= RoomType.ROOM_DUNGEON and -- 16
+         roomType ~= RoomType.ROOM_BOSSRUSH and -- 17
+         roomType ~= RoomType.ROOM_BLACK_MARKET then -- 22
+
+    -- All special rooms are Devil Rooms
+    local item = itemPool:GetCollectible(ItemPoolType.POOL_DEVIL, true, roomSeed) -- 3
+    local position = SPCGlobals:GridToPos(6, 4)
+    local pedestal = game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
+                                position, Vector(0, 0), nil, item, roomSeed):ToPickup()
+    pedestal.AutoUpdatePrice = false
+    pedestal.Price = -2
+
+    -- Spawn the Devil Statue
+    room:SpawnGridEntity(52, GridEntityType.GRID_STATUE, 0, 0, 0) -- 21
+
+    -- Spawn the two fires
+    local pos1 = SPCGlobals:GridToPos(3, 1)
+    game:Spawn(EntityType.ENTITY_FIREPLACE, 0, pos1, Vector(0, 0), nil, 0, 0) -- 33
+    local pos2 = SPCGlobals:GridToPos(9, 1)
+    game:Spawn(EntityType.ENTITY_FIREPLACE, 0, pos2, Vector(0, 0), nil, 0, 0) -- 33
 
   elseif baby.name == "Woodsman Baby" then -- 297
     -- Open all of the doors

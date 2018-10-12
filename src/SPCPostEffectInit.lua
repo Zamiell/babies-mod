@@ -23,6 +23,14 @@ function SPCPostEffectInit:Main(effect)
 
   elseif baby.name == "404 Baby" then -- 463
     SPCMisc:SetRandomColor(effect)
+
+  elseif baby.name == "Fang Demon Baby" and -- 281
+         effect.Variant == EffectVariant.TARGET then -- 30
+
+    -- By default, the Marked target spawns at the center of the room,
+    -- and we want it to be spawned at the player instead
+    -- If we change the position here, it won't work, so make the effect invisible in the meantime
+    effect.Visible = false
   end
 end
 

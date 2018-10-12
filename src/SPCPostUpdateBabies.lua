@@ -2,11 +2,10 @@ local SPCPostUpdateBabies = {}
 
 -- Includes
 local SPCGlobals         = require("src/spcglobals")
+local SPCPostRender      = require("src/spcpostrender")
 local SPCPseudoRoomClear = require("src/spcpseudoroomclear")
 
--- The collection of functions for each baby effect
-SPCPostUpdateBabies.functions = {}
-
+-- Called from the MC_POST_UPDATE (1) callback
 function SPCPostUpdateBabies:Main()
   -- Local variables
   local type = SPCGlobals.run.babyType
@@ -14,6 +13,9 @@ function SPCPostUpdateBabies:Main()
     SPCPostUpdateBabies.functions[type]()
   end
 end
+
+-- The collection of functions for each baby effect
+SPCPostUpdateBabies.functions = {}
 
 -- Troll Baby
 SPCPostUpdateBabies.functions[6] = function()
@@ -84,6 +86,27 @@ SPCPostUpdateBabies.functions[27] = function()
   SPCPseudoRoomClear:PostUpdate()
 end
 
+-- Dark Baby
+SPCPostUpdateBabies.functions[48] = function()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+
+  if gameFrameCount % 30 == 0 then -- 1 seconds
+    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
+    if SPCGlobals.run.babyCounters == 2 then
+      -- Put out the lights
+      SPCGlobals.run.babySprite = Sprite()
+      SPCGlobals.run.babySprite:Load("gfx/misc/black.anm2", true)
+      SPCGlobals.run.babySprite:SetFrame("Default", 0)
+    elseif SPCGlobals.run.babyCounters == 3 then
+      -- Turn on the lights
+      SPCGlobals.run.babyCounters = 0
+      SPCGlobals.run.babySprite = nil
+    end
+  end
+end
+
 -- Bound Baby
 SPCPostUpdateBabies.functions[58] = function()
   -- Local variables
@@ -109,8 +132,8 @@ SPCPostUpdateBabies.functions[63] = function()
     SPCGlobals.run.randomSeed = SPCGlobals:IncrementRNG(SPCGlobals.run.randomSeed)
     math.randomseed(SPCGlobals.run.randomSeed)
     local poopVariant = math.random(0, 6)
-    if poopVariant == 1 or -- Red Poop
-       poopVariant == 2 then -- Corn Poop
+    if poopVariant == PoopVariant.POOP_RED or -- 1
+       poopVariant == PoopVariant.POOP_CORN then -- 2
 
       -- If the poop is this type, then it will instantly damage the player, so give them some invulnerability frames
       SPCGlobals.run.invulnerabilityFrame = gameFrameCount + 25
@@ -140,6 +163,20 @@ SPCPostUpdateBabies.functions[66] = function()
     sfx:Stop(SoundEffect.SOUND_BATTERYCHARGE) -- 170
     sfx:Stop(SoundEffect.SOUND_BEEP) -- 171
     SPCGlobals.run.babyCounters = 0
+  end
+end
+
+-- Bloodsucker Baby
+SPCPostUpdateBabies.functions[87] = function()
+  -- Local variables
+  local game = Game()
+  local player = game:GetPlayer(0)
+
+  -- This does not work if we put it in the MC_POST_NEW_LEVEL callback for some reason
+  if player.SpriteScale.X > 0.5 or
+     player.SpriteScale.Y > 0.5 then
+
+    player.SpriteScale = Vector(0.5, 0.5)
   end
 end
 
@@ -299,6 +336,26 @@ SPCPostUpdateBabies.functions[158] = function()
   end
 end
 
+-- Digital Baby
+SPCPostUpdateBabies.functions[162] = function()
+  -- Local variables
+  local game = Game()
+  local room = game:GetRoom()
+  local roomFrameCount = room:GetFrameCount()
+  local seeds = game:GetSeeds()
+
+  if SPCGlobals.run.babyBool == false and
+     roomFrameCount <= 1 then
+
+    SPCGlobals.run.babyBool = true
+
+    -- This baby grants SeedEffect.SEED_OLD_TV (8)
+    -- However, applying this in the MC_POST_NEW_LEVEL callback can cause game crashes
+    -- Instead, we manually apply it in the MC_POST_UPDATE callback
+    seeds:AddSeedEffect(SeedEffect.SEED_OLD_TV) -- 8
+  end
+end
+
 -- Bawl Baby
 SPCPostUpdateBabies.functions[231] = function()
   -- Local variables
@@ -307,7 +364,32 @@ SPCPostUpdateBabies.functions[231] = function()
   local player = game:GetPlayer(0)
 
   if gameFrameCount % 3 == 0 then
+    SPCGlobals.run.babyBool = true
     player:UseActiveItem(CollectibleType.COLLECTIBLE_ISAACS_TEARS, false, false, false, false) -- 323
+    SPCGlobals.run.babyBool = false
+  end
+end
+
+-- Medusa Baby
+SPCPostUpdateBabies.functions[250] = function()
+  -- Local variables
+  local game = Game()
+  local player = game:GetPlayer(0)
+  local bombs = player:GetNumBombs()
+  local keys = player:GetNumKeys()
+
+  -- Coins convert to bombs and keys
+  if bombs == 0 and
+     player:GetNumCoins() > 0 then
+
+    player:AddCoins(-1)
+    player:AddBombs(1)
+  end
+  if keys == 0 and
+    player:GetNumCoins() > 0 then
+
+    player:AddCoins(-1)
+    player:AddKeys(1)
   end
 end
 
@@ -317,8 +399,9 @@ SPCPostUpdateBabies.functions[256] = function()
   local game = Game()
   local gameFrameCount = game:GetFrameCount()
   local player = game:GetPlayer(0)
+  local baby = SPCGlobals.babies[256]
 
-  if gameFrameCount % 600 == 0 then -- 20 seconds
+  if gameFrameCount % baby.num == 0 then
     player:UseActiveItem(CollectibleType.COLLECTIBLE_VENTRICLE_RAZOR, false, false, false, false) -- 396
   end
 end
@@ -504,6 +587,7 @@ SPCPostUpdateBabies.functions[349] = function()
 
   if gameFrameCount % 300 == 0 then -- 10 seconds
     player:UseActiveItem(CollectibleType.COLLECTIBLE_DELIRIOUS, false, false, false, false) -- 510
+    SPCPostRender:SetPlayerSprite()
   end
 end
 
@@ -535,6 +619,47 @@ SPCPostUpdateBabies.functions[382] = function()
   if gameFrameCount % 150 == 0 then -- 5 seconds
     -- Spawn a Mega Troll Bomb (4.5)
     game:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_SUPERTROLL, player.Position, Vector(0, 0), nil, 0, 0)
+  end
+end
+
+-- Imp Baby
+SPCPostUpdateBabies.functions[386] = function()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local baby = SPCGlobals.babies[386]
+
+  -- If we rotate the knives on every frame, then it spins too fast
+  if gameFrameCount < SPCGlobals.run.babyFrame then
+    return
+  end
+
+  SPCGlobals.run.babyFrame = SPCGlobals.run.babyFrame + baby.num
+
+  -- Rotate through the four directions
+  SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
+  if SPCGlobals.run.babyCounters >= 8 then
+    SPCGlobals.run.babyCounters = 4
+  end
+end
+
+-- Blue Wrestler Baby
+SPCPostUpdateBabies.functions[388] = function()
+  -- Local variables
+  local game = Game()
+  local player = game:GetPlayer(0)
+
+  for i = 1, #SPCGlobals.run.shootTears do
+    local tear = SPCGlobals.run.shootTears[i]
+    local velocity = player.Position - tear.position
+    velocity = velocity:Normalized() * 13
+    game:Spawn(EntityType.ENTITY_PROJECTILE, ProjectileVariant.PROJECTILE_NORMAL, -- 9.0
+               tear.position, velocity, nil, 0, 0)
+    tear.num = tear.num - 1
+    if tear.num == 0 then
+      -- The dead enemy has shot all of its tears, so we remove the tracking element for it
+      table.remove(SPCGlobals.run.shootTears, i)
+    end
   end
 end
 

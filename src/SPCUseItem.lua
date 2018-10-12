@@ -3,6 +3,22 @@ local SPCUseItem = {}
 -- Includes
 local SPCGlobals = require("src/spcglobals")
 
+-- CollectibleType.COLLECTIBLE_HOW_TO_JUMP (282)
+function SPCUseItem:Item282(collectibleType, RNG)
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local type = SPCGlobals.run.babyType
+  local baby = SPCGlobals.babies[type]
+  if baby == nil then
+    return
+  end
+
+  if baby.name == "Rabbit Baby" then -- 350
+    SPCGlobals.run.babyFrame = gameFrameCount + baby.num
+  end
+end
+
 function SPCUseItem:ClockworkAssembly(collectibleType, RNG)
   -- Local variables
   local game = Game()

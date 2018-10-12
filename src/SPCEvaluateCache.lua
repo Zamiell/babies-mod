@@ -17,14 +17,18 @@ function SPCEvaluateCache:Main(player, cacheFlag)
     return
   end
 
-  if cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
-    if baby.blindfolded then
-      player.FireDelay = 100000
-      Isaac.DebugString("Set blindfolded.")
-    else
-      -- Attempt to fix the big where the baby after a blindfolded baby is also blindfolded
-      player.FireDelay = 0
-    end
+  if baby.blindfolded and
+     cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
+
+    player.FireDelay = 100000
+    player.MaxFireDelay = 100000
+
+  elseif player.FireDelay > 200 and
+         cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
+
+    -- There is a bug where a baby after a blindfolded baby will also be blindfolded
+    -- So manually compensate for this
+    player.FireDelay = -1
   end
 
   if baby.name == "Lowface Baby" and -- 73
@@ -36,10 +40,20 @@ function SPCEvaluateCache:Main(player, cacheFlag)
       player.TearHeight = -5
     end
 
+  elseif baby.name == "Derp Baby" and -- 78
+         cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
+
+    player.Damage = player.Damage * 0.5
+
   elseif baby.name == "Tusks Baby" and -- 124
          cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
 
     player.Damage = player.Damage * 2
+
+  elseif baby.name == "Cape Baby" and -- 152
+         cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
+
+    player.MaxFireDelay = 1
 
   elseif baby.name == "Blisters Baby" and -- 240
          cacheFlag == CacheFlag.CACHE_SHOTSPEED then -- 4

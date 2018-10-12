@@ -18,7 +18,8 @@ function SPCPostPickupInit:Main(pickup)
 
   --[[
   Isaac.DebugString("MC_POST_PICKUP_INIT - " ..
-                    tostring(pickup.Type) .. "." .. tostring(pickup.Variant) .. "." .. tostring(pickup.SubType) ..
+                    tostring(pickup.Type) .. "." .. tostring(pickup.Variant) .. "." ..
+                    tostring(pickup.SubType) .. "." .. tostring(pickup.State) ..
                     " (spawner: " .. pickup.SpawnerType .. "." .. pickup.SpawnerVariant .. ")")
   --]]
 

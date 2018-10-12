@@ -63,7 +63,12 @@ globals = {
   -- Racing+ global variables
   "RacingPlusGlobals",
   "RacingPlusSchoolbag",
+  "RacingPlusSpeedrun",
+
+  -- The Babies Mod global variables
   "SinglePlayerCoopBabies",
+  "LaserVariant",
+  "PoopVariant",
 
   -- This is used in the True Co-op Mod
   "InfinityTrueCoopInterface",

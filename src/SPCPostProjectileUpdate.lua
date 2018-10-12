@@ -7,6 +7,8 @@ local SPCMisc    = require("src/spcmisc")
 -- ModCallbacks.MC_POST_PROJECTILE_UPDATE (44)
 function SPCPostProjectileUpdate:Main(projectile)
   -- Local variables
+  local game = Game()
+  local player = game:GetPlayer(0)
   local babyType = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[babyType]
   if baby == nil then
@@ -20,8 +22,32 @@ function SPCPostProjectileUpdate:Main(projectile)
                     " (spawner: " .. projectile.SpawnerType .. "." .. projectile.SpawnerVariant .. ")")
   --]]
 
-  if baby.name == "Fireball Baby" and -- 318
-     projectile.FrameCount <= 1 and
+  -- The first frame for a projectile is 1
+  -- (frame 0 will happen with a tear, but not a projectile for some reason)
+
+  if baby.name == "Nosferatu Baby" and -- 109
+     projectile.SpawnerType ~= EntityType.ENTITY_MOMS_HEART and -- 78
+     projectile.SpawnerType ~= EntityType.ENTITY_ISAAC then -- 102
+
+    -- Enemies have homing projectiles
+    projectile:AddProjectileFlags(ProjectileFlags.SMART) -- 1
+
+  elseif baby.name == "Sorrow Baby" and -- 153
+         SPCGlobals:InsideSquare(projectile.Position, player.Position, baby.distance) then
+
+    -- Projectiles are reflected as bombs
+    game:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_NORMAL, -- 4.1
+               projectile.Position, projectile.Velocity * -1, nil, 0, 0)
+    projectile:Remove()
+
+  elseif baby.name == "Eye Demon Baby" and -- 280
+         projectile.SubType == 0 then
+
+    projectile:AddProjectileFlags(ProjectileFlags.CONTINUUM) -- 1 << 30
+    projectile.Height = projectile.Height * 2
+
+  elseif baby.name == "Fireball Baby" and -- 318
+     projectile.FrameCount == 1 and
      projectile.SpawnerType == EntityType.ENTITY_FIREPLACE then -- 33
 
     -- Prevent fires from shooting
@@ -29,10 +55,8 @@ function SPCPostProjectileUpdate:Main(projectile)
     projectile:Remove()
 
   elseif baby.name == "404 Baby" and -- 463
-         projectile.FrameCount <= 1 then
+         projectile.FrameCount == 1 then
 
-    -- The first frame for a projectile is 1
-    -- (frame 0 will happen with a tear, but not a projectile for some reason)
     SPCMisc:SetRandomColor(projectile)
   end
 end

@@ -9,6 +9,8 @@ function SPCPostTearUpdate:Main(tear)
   -- Local variables
   local game = Game()
   local gameFrameCount = game:GetFrameCount()
+  local room = game:GetRoom()
+  local roomFrameCount = room:GetFrameCount()
   local player = game:GetPlayer(0)
   local sprite = tear:GetSprite()
   local data = tear:GetData()
@@ -46,6 +48,38 @@ function SPCPostTearUpdate:Main(tear)
     tear.Velocity = tear.Velocity:Normalized()
     while tear.Velocity:LengthSquared() < initialSpeed do
       tear.Velocity = tear.Velocity * 1.1
+    end
+
+  elseif baby.name == "Hanger Baby" and -- 228
+         tear.FrameCount == 1 and
+         tear.SpawnerType == EntityType.ENTITY_FAMILIAR and -- 3
+         tear.SpawnerVariant == FamiliarVariant.ABEL then -- 8
+
+    -- Abel's tears hurt you
+    if roomFrameCount >= 30 then
+      -- Abel is spawned on top of the player when the player first enters a room;
+      -- don't shoot if this is the case
+      game:Spawn(EntityType.ENTITY_PROJECTILE, ProjectileVariant.PROJECTILE_NORMAL, -- 9.0
+                 tear.Position, tear.Velocity, nil, 0, tear.InitSeed)
+    end
+    tear:Remove()
+
+  elseif baby.name == "8 Ball Baby" and -- 251
+         tear.SubType == 1 then
+
+    -- Orbiting tears
+    local positionMod = Vector(0, baby.distance * -1) -- The tear starts directly above the player
+    local degrees = tear.FrameCount * 8 -- Tears rotate 4 degrees per frame
+    positionMod = positionMod:Rotated(degrees)
+    tear.Position = player.Position + positionMod
+
+    -- We want the tear to be moving perpendicular to the line between the player and the tear
+    tear.Velocity = Vector(baby.distance / 4, 0)
+    tear.Velocity = tear.Velocity:Rotated(degrees)
+
+    -- Keep it in the air for a while
+    if tear.FrameCount < 150 then
+      tear.FallingSpeed = 0
     end
 
   elseif baby.name == "Lantern Baby" and -- 292

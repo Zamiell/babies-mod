@@ -5,6 +5,7 @@ local SPCGlobals          = require("src/spcglobals")
 local SPCMisc             = require("src/spcmisc")
 local SPCPostRender       = require("src/spcpostrender")
 local SPCPostUpdateBabies = require("src/spcpostupdatebabies")
+local SPCChangeCharacter  = require("src/spcchangecharacter")
 
 -- ModCallbacks.MC_POST_UPDATE (1)
 function SPCPostUpdate:Main()
@@ -36,6 +37,12 @@ function SPCPostUpdate:Main()
     SPCPostRender:SetPlayerSprite()
   end
 
+  -- Reapply teh co-op baby sprite if we have set to reload it on this frame
+  if SPCGlobals.run.reloadSprite then
+    SPCGlobals.run.reloadSprite = false
+    SPCPostRender:SetPlayerSprite()
+  end
+
   -- Check to see if this is a trinket baby and they dropped the trinket
   SPCPostUpdate:CheckTrinket()
 
@@ -47,6 +54,9 @@ function SPCPostUpdate:Main()
 
   -- Check grid entities
   SPCPostUpdate:CheckGridEntities()
+
+  -- Check if we need to change the character
+  SPCChangeCharacter:PostUpdate()
 end
 
 -- Check to see if this is a trinket baby and they dropped the trinket
@@ -175,7 +185,6 @@ function SPCPostUpdate:CheckGridEntities()
   local room = game:GetRoom()
   local gridSize = room:GetGridSize()
   local player = game:GetPlayer(0)
-  local sfx = SFXManager()
   local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
 
@@ -183,13 +192,11 @@ function SPCPostUpdate:CheckGridEntities()
     local gridEntity = room:GetGridEntity(i)
     if gridEntity ~= nil then
       local saveState = gridEntity:GetSaveState()
-      if baby.name == "Blockhead Baby" and -- 71
-         saveState.Type == GridEntityType.GRID_ROCKB and -- 3
-         SPCGlobals:InsideSquare(player.Position, gridEntity.Position, 36) then
+      if baby.name == "Gold Baby" and -- 15
+         saveState.Type == GridEntityType.GRID_POOP and -- 14
+         saveState.Variant ~= PoopVariant.POOP_GOLDEN then -- 3
 
-        gridEntity.Sprite = Sprite() -- If we don't do this, it will still show for a frame
-        room:RemoveGridEntity(i, 0, false) -- gridEntity:Destroy() does not work
-        sfx:Play(SoundEffect.SOUND_POT_BREAK, 1, 0, false, 1) -- 138
+        gridEntity:SetVariant(PoopVariant.POOP_GOLDEN) -- 3
 
       elseif baby.name == "Ate Poop Baby" and -- 173
              saveState.Type == GridEntityType.GRID_POOP and -- 14

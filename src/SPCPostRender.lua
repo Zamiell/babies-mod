@@ -18,8 +18,6 @@ function SPCPostRender:Main()
     return
   end
 
-  player:RenderShadowLayer(Vector(100, 100))
-
   -- Remove extra costumes while the game is fading in and/or loading
   if gameFrameCount == 0 then
     player:ClearCostumes()
@@ -27,23 +25,24 @@ function SPCPostRender:Main()
 
   -- Fix the graphical glitch with some items that apply special costumes
   -- (this won't work in the MC_POST_UPDATE callback)
-  if roomFrameCount == 0 and
+  if roomFrameCount <=  1 and
      (player:HasCollectible(CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON) or -- 122
-      player:HasCollectible(CollectibleType.COLLECTIBLE_EMPTY_VESSEL)) then -- 409
+      player:HasCollectible(CollectibleType.COLLECTIBLE_SCAPULAR) or -- 142
+      player:HasCollectible(CollectibleType.COLLECTIBLE_PURITY)) or -- 407
+      player:HasCollectible(CollectibleType.COLLECTIBLE_EMPTY_VESSEL) then -- 409
 
     SPCPostRender:SetPlayerSprite()
-  end
-  if roomFrameCount <= 1 and
-     (player:HasCollectible(CollectibleType.COLLECTIBLE_SCAPULAR) or -- 142
-      player:HasCollectible(CollectibleType.COLLECTIBLE_PURITY)) then -- 407
-
-    player:ClearCostumes()
   end
 
   SPCPostRender:TrackPlayerAnimations()
   SPCPostRender:DrawBabyIntro()
   SPCPostRender:DrawBabyEffects()
   SPCTimer:Display()
+
+  -- Draw the black screen, if necessary
+  if SPCGlobals.run.babySprite ~= nil then
+    SPCGlobals.run.babySprite:RenderLayer(0, Vector(0, 0))
+  end
 end
 
 function SPCPostRender:TrackPlayerAnimations()
@@ -51,8 +50,6 @@ function SPCPostRender:TrackPlayerAnimations()
   local game = Game()
   local player = game:GetPlayer(0)
   local playerSprite = player:GetSprite()
-  local effects = player:GetEffects()
-  local effectsList = effects:GetEffectsList()
 
   -- Get the currently playing animation
   local animations = {
@@ -85,19 +82,6 @@ function SPCPostRender:TrackPlayerAnimations()
     if animation ~= "" then
       SPCPostRender:SetPlayerSprite()
       playerSprite:Play(animation, false)
-      --[[
-      Isaac.DebugString("Reverted the sprite. (Triggered by animation " .. animation ..
-                        " on frame " .. tostring(frameCount) .. ".)")
-      --]]
-
-      -- Doing this will remove a shield, so detect if there is a shield and then add it back if so
-      for i = 1, effectsList.Size do
-        local effect = effectsList:Get(i - 1)
-        if effect.Item.ID == CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS then -- 58
-          player:AddCostume(SPCGlobals:GetItemConfig(CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS), false) -- 58
-          break
-        end
-      end
     end
   end
 end
@@ -108,12 +92,12 @@ function SPCPostRender:SetPlayerSprite()
   -- Local variables
   local game = Game()
   local player = game:GetPlayer(0)
-  local activeItem = player:GetActiveItem()
   local playerSprite = player:GetSprite()
+  local activeItem = player:GetActiveItem()
+  local effects = player:GetEffects()
+  local effectsList = effects:GetEffectsList()
   local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
-
-  -- Since this code is called from various places, we might not have a baby initialized yet
   if baby == nil then
     return
   end
@@ -122,27 +106,31 @@ function SPCPostRender:SetPlayerSprite()
   player:ClearCostumes()
 
   -- Make exceptions for certain costumes
-  if activeItem == CollectibleType.COLLECTIBLE_PONY then -- 130
-    player:AddCostume(SPCGlobals:GetItemConfig(CollectibleType.COLLECTIBLE_PONY), false) -- 130
-  elseif activeItem == CollectibleType.COLLECTIBLE_WHITE_PONY then -- 181
-    player:AddCostume(SPCGlobals:GetItemConfig(CollectibleType.COLLECTIBLE_WHITE_PONY), false) -- 181
-  end
   if player:HasCollectible(CollectibleType.COLLECTIBLE_DADS_RING) then -- 546
-    -- This makes the player invisible for some reason
     player:AddCostume(SPCGlobals:GetItemConfig(CollectibleType.COLLECTIBLE_DADS_RING), false) -- 546
   end
+  -- (for some reason, Empty Vessel makes the sprite flicker when playing certain animations;
+  -- there is no known workaround for this)
 
   -- It is hard to tell that the player can fly with all costumes removed,
   -- so represent that the player has flight with Fate's wings
-  if player.CanFly and
-     activeItem ~= CollectibleType.COLLECTIBLE_PONY and -- 130
-     activeItem ~= CollectibleType.COLLECTIBLE_WHITE_PONY then -- 181
-
+  if player.CanFly then
     player:AddCostume(SPCGlobals:GetItemConfig(CollectibleType.COLLECTIBLE_FATE), false) -- 179
+  end
+
+  -- Doing this will remove a shield, so detect if there is a shield and then add it back if so
+  for i = 1, effectsList.Size do
+    local effect = effectsList:Get(i - 1)
+    if effect.Item.ID == CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS then -- 58
+      player:AddCostume(SPCGlobals:GetItemConfig(CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS), false) -- 58
+      break
+    end
   end
 
   -- Replace the player sprite with a co-op baby version
   playerSprite:Load("gfx/co-op/" .. tostring(type) .. ".anm2", true)
+
+  Isaac.DebugString("Set the baby sprite.")
 end
 
 -- Show what the current baby does in the intro room (or if the player presses Tab)

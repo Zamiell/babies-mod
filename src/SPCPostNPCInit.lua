@@ -13,7 +13,12 @@ function SPCPostNPCInit:Main(npc)
     return
   end
 
-  if baby.name == "Hooligan Baby" then -- 291
+  if baby.name == "Bloodsucker Baby" then -- 87
+    -- Tiny enemies
+    npc.Scale = 0.5
+
+  elseif baby.name == "Hooligan Baby" then -- 291
+    -- Double enemies
     SPCPostNPCInit:Baby291(npc)
 
   elseif baby.name == "Moth Baby" then -- 450

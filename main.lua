@@ -1,5 +1,5 @@
 --
--- The Single Player Co-op Babies Mod
+-- The Babies Mod
 -- by Zamiel
 --
 
@@ -10,34 +10,12 @@ https://bindingofisaacrebirth.gamepedia.com/index.php?title=User:Zamie/Co-op&pro
 
 TODO:
 - n/a
+- bombs release rock waves upon detonation
+- baby shoots rock waves
 
 Boring babies:
-- *84 - Goatee Baby - Starts with Black Candle
-- *375 - Yellow Princess Baby - Starts with Cracked Crown
-- *444 - Steroids Baby - Starts with Growth Hormones
-- 48 - Dark Baby - Starts with Dark Matter
-- 51 - Belial Baby - Starts with passive The Book of Belial effect
-- 62 - Goat Baby - Starts with Pentagram
-- 83 - Ghoul Baby - Starts with The Mark
-- 109 - Nosferatu Baby - Starts with The Pact
-- 152 - Cape Baby - Starts with The Halo
-- 153 - Sorrow Baby - Starts with Razor Blade
-- 179 - Piece A Baby - Starts with The Gamekid
-- 204 - Dented Baby - Starts with The Small Rock
-- 227 - Hanger Baby - Starts with Wire Coat Hanger
-- 250 - Medusa Baby - Starts with Mom's Wig
-- 258 - Rocker Baby - Starts with Cancer (trinket)
-- 260 - Coat Baby - Starts with The Soul
-- 280 - Eye Demon Baby - Starts with Evil Eye
-- 281 - Fang Demon Baby - Starts with Synthoil
-- 327 - Long Beard Baby - Starts with Coupon
-- 346 - Twotone Baby - Starts with Blank Card
-- 350 - Rabbit Baby - Starts with Guppy's Paw
-- 386 - Imp Baby - Starts with Compost
-- 388 - Blue Wrestler Baby - Starts with Capricorn
-- 402 - Unicorn Baby - Starts with My Little Unicorn
-- 407 - Blurred Baby - Starts with Virgo
-- 441 - TV Baby - Starts with Doctor's Remote
+- 136 - Tears Baby - Starts with Toothpicks
+- 203 - Pipe Baby - Starts with Pisces
 
 --]]
 
@@ -45,6 +23,7 @@ Boring babies:
 local SPC = RegisterMod("Single Player Co-op Babies", 1)
 
 -- The Lua code is split up into separate files for organizational purposes
+-- (file names must be in lowercase for Linux compatibility purposes)
 local SPCGlobals              = require("src/spcglobals") -- Global variables
 local SPCPostUpdate           = require("src/spcpostupdate") -- The PostUpdate callback (1)
 local SPCPostRender           = require("src/spcpostrender") -- The PostRender callback (2)
@@ -62,13 +41,15 @@ local SPCPostNewRoom          = require("src/spcpostnewroom") -- The PostNewRoom
 local SPCExecuteCmd           = require("src/spcexecutecmd") -- The ExecuteCmd callback (22)
 local SPCPreUseItem           = require("src/spcpreuseitem") -- The PreUseItem callback (23)
 local SPCPreEntitySpawn       = require("src/spcpreentityspawn") -- The PreEntitySpawn callback (24)
-local SPCPostNPCInit          = require("src/spcpostnpcinit") -- The NPCPostInit callback (27)
+local SPCPostNPCInit          = require("src/spcpostnpcinit") -- The PostNPCInit callback (27)
+local SPCPostPlayerUpdate     = require("src/spcpostplayerupdate") -- The PostPlayerUpdate callback (31)
 local SPCPostPickupInit       = require("src/spcpostpickupinit") -- The PostPickupInit callback (34)
 local SPCPostPickupSelection  = require("src/spcpostpickupselection") -- The PostPickupSelection callback (37)
 local SPCPostPickupUpdate     = require("src/spcpostpickupupdate") -- The PostPickupUpdate callback (38)
 local SPCPostTearUpdate       = require("src/spcposttearupdate") -- The PostTearUpdate callback (40)
 local SPCPreTearCollision     = require("src/spcpretearcollision") -- The PreTearCollision callback (42)
 local SPCPostProjectileUpdate = require("src/spcpostprojectileupdate") -- The PostProjectileUpdate callback (42)
+local SPCPostLaserInit        = require("src/spcpostlaserinit") -- The PostLaserInit callback (47)
 local SPCPostLaserUpdate      = require("src/spcpostlaserupdate") -- The PostLaserUpdate callback (48)
 local SPCPostKnifeInit        = require("src/spcpostknifeinit") -- The PostKnifeInit callback (50)
 local SPCPostEffectInit       = require("src/spcposteffectinit") -- The PostEffectInit callback (54)
@@ -76,8 +57,10 @@ local SPCPostEffectUpdate     = require("src/spcposteffectupdate") -- The PostEf
 local SPCPostBombInit         = require("src/spcpostbombinit") -- The PostBombInit callback (57)
 local SPCPostBombUpdate       = require("src/spcpostbombupdate") -- The PostBombUpdate callback (58)
 local SPCPostFireTear         = require("src/spcpostfiretear") -- The PostFireTear callback (61)
+local SPCPreGetCollectible    = require("src/spcpregetcollectible") -- The PreGetCollectible callback (62)
 local SPCPostEntityKill       = require("src/spcpostentitykill") -- The PostEntityKill callback (68)
 local SPCPreRoomEntitySpawn   = require("src/spcpreroomentityspawn") -- The PreRoomEntitySpawn callback (71)
+local SPCDebug                = require("src/spcdebug") -- Debugging functions
 
 -- Initiailize the "RPGlobals.run" table
 SPCGlobals:InitRun()
@@ -88,12 +71,18 @@ SinglePlayerCoopBabies = SPCGlobals
 -- Define miscellaneous callbacks
 SPC:AddCallback(ModCallbacks.MC_POST_UPDATE,            SPCPostUpdate.Main) -- 1
 SPC:AddCallback(ModCallbacks.MC_POST_RENDER,            SPCPostRender.Main) -- 2
+SPC:AddCallback(ModCallbacks.MC_USE_ITEM,               SPCUseItem.Item282, -- 3
+                                                        CollectibleType.COLLECTIBLE_HOW_TO_JUMP) -- 282
 SPC:AddCallback(ModCallbacks.MC_USE_ITEM,               SPCUseItem.ClockworkAssembly, -- 3
                                                         Isaac.GetItemIdByName("Clockwork Assembly"))
 SPC:AddCallback(ModCallbacks.MC_USE_ITEM,               SPCUseItem.FlockOfSuccubi, -- 3
                                                         Isaac.GetItemIdByName("Flock of Succubi"))
+SPC:AddCallback(ModCallbacks.MC_USE_ITEM,               SPCDebug.Main, -- 3
+                                                        Isaac.GetItemIdByName("Debug"))
 SPC:AddCallback(ModCallbacks.MC_USE_CARD,               SPCUseCard.Card4, -- 5
                                                         Card.CARD_EMPRESS) -- 4
+SPC:AddCallback(ModCallbacks.MC_USE_CARD,               SPCUseCard.Card13, -- 5
+                                                        Card.CARD_HANGED_MAN) -- 13
 SPC:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE,        SPCFamiliarUpdate.Main) -- 6
 SPC:AddCallback(ModCallbacks.MC_FAMILIAR_INIT,          SPCFamiliarInit.Main) -- 7
 SPC:AddCallback(ModCallbacks.MC_EVALUATE_CACHE,         SPCEvaluateCache.Main) -- 8
@@ -114,12 +103,14 @@ SPC:AddCallback(ModCallbacks.MC_PRE_USE_ITEM,           SPCPreUseItem.Item504, -
                                                         CollectibleType.COLLECTIBLE_BROWN_NUGGET) -- 504
 SPC:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN,       SPCPreEntitySpawn.Main) -- 24
 SPC:AddCallback(ModCallbacks.MC_POST_NPC_INIT,          SPCPostNPCInit.Main) -- 27
+SPC:AddCallback(ModCallbacks.MC_POST_PLAYER_UPDATE,     SPCPostPlayerUpdate.Main) -- 31
 SPC:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT,       SPCPostPickupInit.Main) -- 34
 SPC:AddCallback(ModCallbacks.MC_POST_PICKUP_SELECTION,  SPCPostPickupSelection.Main) -- 37
 SPC:AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE,     SPCPostPickupUpdate.Main) -- 38
 SPC:AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE,       SPCPostTearUpdate.Main) -- 40
 SPC:AddCallback(ModCallbacks.MC_PRE_TEAR_COLLISION,     SPCPreTearCollision.Main) -- 42
 SPC:AddCallback(ModCallbacks.MC_POST_PROJECTILE_UPDATE, SPCPostProjectileUpdate.Main) -- 44
+SPC:AddCallback(ModCallbacks.MC_POST_LASER_INIT,        SPCPostLaserInit.Main) -- 47
 SPC:AddCallback(ModCallbacks.MC_POST_LASER_UPDATE,      SPCPostLaserUpdate.Main) -- 48
 SPC:AddCallback(ModCallbacks.MC_POST_KNIFE_INIT,        SPCPostKnifeInit.Main) -- 50
 SPC:AddCallback(ModCallbacks.MC_POST_EFFECT_INIT,       SPCPostEffectInit.Main) -- 54
@@ -127,17 +118,15 @@ SPC:AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE,     SPCPostEffectUpdate.Main
 SPC:AddCallback(ModCallbacks.MC_POST_BOMB_INIT,         SPCPostBombInit.Main) -- 57
 SPC:AddCallback(ModCallbacks.MC_POST_BOMB_UPDATE,       SPCPostBombUpdate.Main) -- 58
 SPC:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR,         SPCPostFireTear.Main) -- 61
+SPC:AddCallback(ModCallbacks.MC_PRE_GET_COLLECTIBLE,    SPCPreGetCollectible.Main) -- 62
 SPC:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL,       SPCPostEntityKill.Main) -- 68
 SPC:AddCallback(ModCallbacks.MC_PRE_ROOM_ENTITY_SPAWN,  SPCPreRoomEntitySpawn.Main) -- 71
 
 -- Welcome banner
-Isaac.DebugString("+---------------------------------------------+")
-Isaac.DebugString("| Single Player Co-op Babies Mod initialized. |")
-Isaac.DebugString("+---------------------------------------------+")
+Isaac.DebugString("+-----------------------------+")
+Isaac.DebugString("| The Babies Mod initialized. |")
+Isaac.DebugString("+-----------------------------+")
 Isaac.DebugString("Total babies: " .. tostring(#SPCGlobals.babies))
-
--- Set a global variable so that other mods know that this mod is running
-SinglePlayerCoopBabies = true -- luacheck: ignore
 
 -- Check to see if any of the babies have a duplciate name
 local nameTable = {}
@@ -157,12 +146,17 @@ local itemExceptions = {
   CollectibleType.COLLECTIBLE_TRANSCENDENCE, -- 20
   CollectibleType.COLLECTIBLE_POOP, -- 36
   CollectibleType.COLLECTIBLE_MOMS_KNIFE, -- 114
+  CollectibleType.COLLECTIBLE_BRIMSTONE, -- 118
   CollectibleType.COLLECTIBLE_PONY, -- 130
   CollectibleType.COLLECTIBLE_CANDLE, -- 164
   CollectibleType.COLLECTIBLE_EPIC_FETUS, -- 168
+  CollectibleType.COLLECTIBLE_ABEL, -- 188
+  CollectibleType.COLLECTIBLE_PYROMANIAC, -- 223
   CollectibleType.COLLECTIBLE_FIRE_MIND, -- 257
+  CollectibleType.COLLECTIBLE_HOW_TO_JUMP, -- 282
   CollectibleType.COLLECTIBLE_GODHEAD, -- 331
   CollectibleType.COLLECTIBLE_INCUBUS, -- 360
+  CollectibleType.COLLECTIBLE_MARKED, -- 394
   CollectibleType.COLLECTIBLE_SPEAR_OF_DESTINY, -- 400
 }
 for i = 1, #SPCGlobals.babies do
@@ -189,6 +183,11 @@ for i = 1, #SPCGlobals.babies do
       trinketTable[baby.trinket] = true
     else
       Isaac.DebugString("ERROR: Baby #" .. tostring(i) .. " has a duplicate trinket.")
+    end
+  end
+  if baby.item2 ~= nil then
+    if SPCGlobals:GetItemConfig(baby.item2).Type == ItemType.ITEM_ACTIVE then
+      Isaac.DebugString("ERROR: Baby #" .. tostring(i) .. " has an active item in the second slot.")
     end
   end
 end

@@ -7,6 +7,7 @@ local SPCGlobals = require("src/spcglobals")
 function SPCPostPickupUpdate:Main(pickup)
   -- Local variables
   local game = Game()
+  local gameFrameCount = game:GetFrameCount()
   local room = game:GetRoom()
   local player = game:GetPlayer(0)
   local data = pickup:GetData()
@@ -20,8 +21,9 @@ function SPCPostPickupUpdate:Main(pickup)
   --[[
   Isaac.DebugString("MC_POST_PICKUP_UPDATE - " ..
                     tostring(pickup.Type) .. "." .. tostring(pickup.Variant) .. "." ..
-                    tostring(pickup.SubType) .. "." .. tostring(pickup.State) ..
-                    " (spawner: " .. pickup.SpawnerType .. "." .. pickup.SpawnerVariant .. ")")
+                    tostring(pickup.SubType) .. "." .. tostring(pickup.State))
+  Isaac.DebugString("  Spawner: " .. tostring(pickup.SpawnerType) .. "." .. tostring(pickup.SpawnerVariant))
+  Isaac.DebugString("  FrameCount: " .. tostring(pickup.FrameCount))
   --]]
 
   -- Keep track of pickups that are touched
@@ -186,7 +188,9 @@ function SPCPostPickupUpdate:Main(pickup)
          pickup.FrameCount == 2 and
          -- Frame 0 does not work
          -- Frame 1 works but we need to wait an extra frame for Racing+ to replace the pedestal
-         pickup.Touched == false then
+         pickup.State ~= 2 and -- We mark a state of 2 to indicate a duplicated pedestal
+         (SPCGlobals.run.babyCountersRoom == 0 or
+          SPCGlobals.run.babyCountersRoom == gameFrameCount) then
 
     -- Double items
     -- (we can't do this in the MC_POST_PICKUP_INIT callback because the position is not set)
@@ -196,7 +200,11 @@ function SPCPostPickupUpdate:Main(pickup)
                                 position, Vector(0, 0), nil, 0, SPCGlobals.run.randomSeed):ToPickup()
     pedestal.Price = pickup.Price -- We don't want it to automatically be bought
     pedestal.TheresOptionsPickup = pickup.TheresOptionsPickup -- We want it to keep the behavior of the room
-    pedestal.Touched = true -- Mark to not double this pedestal
+    pedestal.State = 2 -- Mark it so that we don't duplicate it again
+
+    -- We only want to duplicate pedestals once per room to avoid duplicating rerolled pedestals
+    -- (the state will go back to 0 for a rerolled pedestal)
+    SPCGlobals.run.babyCountersRoom = gameFrameCount
 
   elseif baby.name == "Cowboy Baby" and -- 394
          pickup.FrameCount % 30 == 0 and -- Every second

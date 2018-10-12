@@ -26,7 +26,7 @@ function SPCPostEntityKill:Main(entity)
     SPCGlobals.run.roomClearDelayFrame = gameFrameCount + 1
 
   elseif baby.name == "Brown Baby" then -- 38
-    Isaac.GridSpawn(GridEntityType.GRID_POOP, 0, entity.Position, false) -- 14
+    Isaac.GridSpawn(GridEntityType.GRID_POOP, PoopVariant.POOP_NORMAL, entity.Position, false) -- 14.0
 
   elseif baby.name == "Nerd Baby" then -- 90
     -- We don't want to clear the room too fast after an enemy dies
@@ -83,13 +83,21 @@ function SPCPostEntityKill:Main(entity)
     brainSprite:Load("gfx/003.059_bobs brain2.anm2", true)
     brainSprite:Play("Idle", true)
 
+  elseif baby.name == "Blue Wrestler Baby" then -- 388
+    -- Enemies spawn projectiles upon death
+    -- Mark to fire some tears one frame at a time
+    SPCGlobals.run.shootTears[#SPCGlobals.run.shootTears + 1] = {
+      position = npc.Position,
+      num = baby.num,
+    }
+
   elseif baby.name == "Toast Baby" then -- 390
     -- Enemies leave a Red Candle fire upon death
     game:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.HOT_BOMB_FIRE, -- 1000.51
                entity.Position, Vector(0, 0), nil, 0, 0)
 
   elseif baby.name == "Buttface Baby" then -- 451
-    Isaac.GridSpawn(GridEntityType.GRID_POOP, 5, entity.Position, false) -- 14
+    Isaac.GridSpawn(GridEntityType.GRID_POOP, PoopVariant.POOP_BLACK, entity.Position, false) -- 14.5
 
   elseif baby.name == "Funny Baby" then -- 491
     game:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_SUPERTROLL, -- 4.5

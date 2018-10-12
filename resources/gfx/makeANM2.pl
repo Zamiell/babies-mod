@@ -3,15 +3,11 @@ use strict;
 use warnings;
 
 my $base_anm2 = "001.000_player_co-op.anm2";
-my $base_anm2_familiar = "001.000_player_co-op-familiar.anm2";
 my $gfx_directory = "C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\resources\\gfx\\characters\\player2";
 my $gfx_directory2 = "C:\\Users\\james\\Documents\\My Games\\Binding of Isaac Afterbirth+ Mods\\single_player_coop_babies_dev\\resources\\gfx\\co-op-familiars";
 my $spcglobals = "C:\\Users\\james\\Documents\\My Games\\Binding of Isaac Afterbirth+ Mods\\single_player_coop_babies_dev\\src\\SPCGlobals.lua";
 
 for my $file_name (`ls "$gfx_directory"`) {
-	# DEBUG
-	last;
-
 	chomp($file_name);
 
 	if ($file_name eq "001isaac_2p.png") {
@@ -30,7 +26,14 @@ for my $file_name (`ls "$gfx_directory"`) {
 
 	my $destination = "co-op/$baby_num.anm2";
 	system "cp \"$base_anm2\" \"$destination\"";
-	system "perl -pi.bak -e \"s/001isaac_2p\\.png/$file_name/g\" \"$destination\"";
+
+	# We want the original anm2 file to not have ".." so that the paths stay intact for use in the animation editor
+	my $find = "characters\\/player2\\/001isaac_2p.png";
+	my $replace = "\\.\\.\\/characters\\/player2\\/$file_name";
+	system "perl -pi.bak -e \"s/$find/$replace/g\" \"$destination\"";
+	$find = "characters\\/costumes\\/ghost.png";
+	$replace = "\\.\\.\\/characters\\/costumes\\/ghost.png";
+	system "perl -pi.bak -e \"s/$find/$replace/g\" \"$destination\"";
 	system "rm \"$destination.bak\"";
 }
 
@@ -43,8 +46,14 @@ for my $file_name (`ls "$gfx_directory2"`) {
 	$baby_num += 0; # Convert it to a number
 
 	my $destination = "co-op/$baby_num.anm2";
-	system "cp \"$base_anm2_familiar\" \"$destination\"";
-	system "perl -pi.bak -e \"s/001isaac_2p\\.png/$file_name/g\" \"$destination\"";
-	system "rm \"$destination.bak\"";
+	system "cp \"$base_anm2\" \"$destination\"";
 
+	# We want the original anm2 file to not have ".." so that the paths stay intact for use in the animation editor
+	my $find = "characters\\/player2\\/001isaac_2p.png";
+	my $replace = "\\.\\.\\/co-op-familiars\\/$file_name";
+	system "perl -pi.bak -e \"s/$find/$replace/g\" \"$destination\"";
+	$find = "characters\\/costumes\\/ghost.png";
+	$replace = "\\.\\.\\/characters\\/costumes\\/ghost.png";
+	system "perl -pi.bak -e \"s/$find/$replace/g\" \"$destination\"";
+	system "rm \"$destination.bak\"";
 }
