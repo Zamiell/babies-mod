@@ -39,7 +39,7 @@ function SPCPostEffectUpdate:Main(effect)
         -- Fire the beam
         SPCGlobals.run.babyFrame = gameFrameCount + baby.cooldown
         game:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.CRACK_THE_SKY, -- 1000.19
-                   effect.Position, Vector(0, 0), nil, 0, 0)
+                   effect.Position, Vector(0, 0), player, 0, 0)
       end
     end
 

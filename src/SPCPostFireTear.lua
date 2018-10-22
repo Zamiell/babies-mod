@@ -69,6 +69,14 @@ function SPCPostFireTear:Main(tear)
   elseif baby.name == "Super Greed Baby" then -- 54
     tear.TearFlags = tear.TearFlags | TearFlags.TEAR_MIDAS -- 1 << 51
 
+  elseif baby.name == "Mort Baby" then -- 55
+    -- Mark that we shot this tear
+    tear.SubType = 1
+
+  elseif baby.name == "Big Eyes Baby" then -- 59
+    -- Tears cause self-knockback
+    player.Velocity = player.Velocity + (tear.Velocity * -0.75)
+
   elseif baby.name == "Mustache Baby" then -- 66
     player:UseActiveItem(CollectibleType.COLLECTIBLE_BOOMERANG, false, false, false, false) -- 388
     tear:Remove()
@@ -81,8 +89,16 @@ function SPCPostFireTear:Main(tear)
   elseif baby.name == "Parasite Baby" then -- 77
     tear:ChangeVariant(TearVariant.BALLOON) -- 35
 
+  elseif baby.name == "Scream Baby" then -- 81
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP, false, false, false, false) -- 49
+    tear:Remove()
+
   elseif baby.name == "Square Eyes Baby" then -- 94
     tear.TearFlags = tear.TearFlags | TearFlags.TEAR_SQUARE -- 1 << 31
+
+  elseif baby.name == "Ed Baby" then -- 100
+    -- Mark that we shot this tear
+    tear.SubType = 1
 
   elseif baby.name == "Aether Baby" then -- 106
     -- Shoot 8 tears at a time
@@ -97,13 +113,17 @@ function SPCPostFireTear:Main(tear)
 
   elseif baby.name == "Eyemouth Baby" then -- 111
     -- Shoot an extra tear every 3rd shot
-    SPCGlobals.run.babyTearInfo.tear = SPCGlobals.run.babyTearInfo.tear + 1
-    if SPCGlobals.run.babyTearInfo.tear >= 4 then
+    SPCGlobals.run.babyTears.tear = SPCGlobals.run.babyTears.tear + 1
+    if SPCGlobals.run.babyTears.tear >= 4 then
       -- Mark to fire a tear 1 frame from now
-      SPCGlobals.run.babyTearInfo.tear = 0
-      SPCGlobals.run.babyTearInfo.frame = gameFrameCount + 1
-      SPCGlobals.run.babyTearInfo.velocity = Vector(tear.Velocity.X, tear.Velocity.Y)
+      SPCGlobals.run.babyTears.tear = 0
+      SPCGlobals.run.babyTears.frame = gameFrameCount + 1
+      SPCGlobals.run.babyTears.velocity = Vector(tear.Velocity.X, tear.Velocity.Y)
     end
+
+  elseif baby.name == "V Baby" then -- 113
+    player:FireTechXLaser(tear.Position, tear.Velocity, 5)
+    tear:Remove()
 
   elseif baby.name == "Strange Mouth Baby" then -- 114
     tear.TearFlags = tear.TearFlags | TearFlags.TEAR_WIGGLE -- 1 << 10
@@ -122,18 +142,25 @@ function SPCPostFireTear:Main(tear)
   elseif baby.name == "Lights Baby" then -- 165
     tear.TearFlags = tear.TearFlags | TearFlags.TEAR_LIGHT_FROM_HEAVEN -- 1 << 37
 
-  elseif baby.name == "Piece B Baby" then -- 180
-    player:FireTechXLaser(tear.Position, tear.Velocity, 5)
-    tear:Remove()
-
   elseif baby.name == "Web Baby" then -- 185
     tear.TearFlags = tear.TearFlags | TearFlags.TEAR_SLOW -- 1 << 3
 
+  elseif baby.name == "Sick Baby" then -- 187
+    game:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BLUE_FLY, -- 3.43.1
+               tear.Position, tear.Velocity, tear.SpawnerEntity, BlueFlyVariant.BLUEFLY_RED, tear.InitSeed)
+    tear:Remove()
+
   elseif baby.name == "Cold Baby" then -- 194
     tear.TearFlags = tear.TearFlags | TearFlags.TEAR_FREEZE -- 1 << 5
+    tear:SetColor(Color(0, 0, 2, 0.7, 1, 1, 1), 10000, 10000, false, false) -- Blue
 
   elseif baby.name == "Nice Baby" then -- 197
     player:FireBrimstone(tear.Velocity)
+    tear:Remove()
+
+  elseif baby.name == "Blindfold Baby" then -- 202
+    -- Starts with Incubus + blindfolded
+    -- (we need to manually blindfold the player so that the Incubus works properly)
     tear:Remove()
 
   elseif baby.name == "Monocle Baby" then -- 206
@@ -247,9 +274,6 @@ function SPCPostFireTear:Main(tear)
       tear:Remove()
     end
 
-  elseif baby.name == "Voxdog Baby" then -- 362
-    tear:ChangeVariant(TearVariant.BALLOON_BOMB) -- 38
-
   elseif baby.name == "Turtle Dragon Baby" then -- 364
     -- If we do "player:ShootRedCandle(tear.Velocity)", the fires have enormous speed and are hard to control
     local angle = tear.Velocity:GetAngleDegrees()
@@ -281,7 +305,11 @@ function SPCPostFireTear:Main(tear)
   elseif baby.name == "Gills Baby" then -- 410
     tear:SetColor(Color(0.7, 1.5, 2, 0.7, 1, 1, 1), 10000, 10000, false, false) -- Light cyan
 
+    -- Mark that we shot this tear
+    tear.SubType = 1
+
   elseif baby.name == "Little Horn Baby" then -- 429
+    -- Void tears
     tear.TearFlags = tear.TearFlags | TearFlags.TEAR_HORN -- 1 << 54
 
   elseif baby.name == "Tooth Head Baby" then -- 442
@@ -335,6 +363,15 @@ function SPCPostFireTear:Main(tear)
     -- Mark that we shot this tear
     tear.SubType = 1
 
+  elseif baby.name == "Voxdog Baby" then -- 462
+    -- Shockwave tears
+    SPCGlobals.run.babyTears[#SPCGlobals.run.babyTears + 1] = {
+      frame = gameFrameCount,
+      position = tear.Position,
+      velocity = tear.Velocity:Normalized() * 30,
+    }
+    tear:Remove()
+
   elseif baby.name == "Blindcursed Baby" then -- 466
     tear.Visible = false
 
@@ -366,17 +403,13 @@ function SPCPostFireTear:Main(tear)
   elseif baby.name == "Ill Baby" then -- 498
     tear:ChangeVariant(TearVariant.BOBS_HEAD) -- 4
 
-  elseif baby.name == "Lazy Baby" then -- 499
-    player:DoZitEffect(tear.Velocity:Normalized())
-    tear:Remove()
-
   elseif baby.name == "Mern Baby" then -- 500
-    SPCGlobals.run.babyTearInfo.tear = SPCGlobals.run.babyTearInfo.tear + 1
-    if SPCGlobals.run.babyTearInfo.tear >= 2 then
+    SPCGlobals.run.babyTears.tear = SPCGlobals.run.babyTears.tear + 1
+    if SPCGlobals.run.babyTears.tear >= 2 then
       -- Mark to fire a tear 1 frame from now
-      SPCGlobals.run.babyTearInfo.tear = 0
-      SPCGlobals.run.babyTearInfo.frame = gameFrameCount + 1
-      SPCGlobals.run.babyTearInfo.velocity = Vector(tear.Velocity.X, tear.Velocity.Y)
+      SPCGlobals.run.babyTears.tear = 0
+      SPCGlobals.run.babyTears.frame = gameFrameCount + 1
+      SPCGlobals.run.babyTears.velocity = Vector(tear.Velocity.X, tear.Velocity.Y)
     end
 
   elseif baby.name == "Psychic Baby" and -- 504

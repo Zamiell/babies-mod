@@ -34,6 +34,16 @@ function SPCFamiliarUpdate:Main(familiar)
       end
     end
 
+  elseif baby.name == "Bloodsucker Baby" then -- 87
+    -- Everything is tiny
+    -- For some reason, familiars reset their SpriteScale on every frame, so we have to constantly set it back
+    familiar.SpriteScale = Vector(0.5, 0.5)
+
+  elseif baby.name == "New Jammies Baby" then -- 193
+    -- Everything is giant
+    -- For some reason, familiars reset their SpriteScale on every frame, so we have to constantly set it back
+    familiar.SpriteScale = Vector(2, 2)
+
   elseif baby.name == "Geek Baby" and -- 326
          familiar.Variant == FamiliarVariant.ROBO_BABY_2 then -- 53
 

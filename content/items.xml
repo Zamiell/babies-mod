@@ -1,4 +1,17 @@
 <items gfxroot="gfx/items/" version="1">
-	<active description="" gfx="Collectibles_Clockwork_Assembly.png" maxcharges="6" name="Clockwork Assembly" />
-	<active description="" gfx="collectibles_417_succubus.png" maxcharges="6" name="Flock of Succubi" />
+	<active description="Restock your life" gfx="collectibles_clockwork_assembly.png" maxcharges="6" name="Clockwork Assembly" />
+	<active description="Darkness reigns" gfx="collectibles_flock_of_succubi.png" maxcharges="6" name="Flock of Succubi" />
+	<active description="Recharge your life" gfx="collectibles_charging_station.png" maxcharges="0" name="Charging Station" />
+	<passive description="You seek deals" gfx="teleports/shop.png" name="Shop Teleport" />
+	<passive description="You seek treasure" gfx="teleports/treasure_room.png" name="Treasure Room Teleport" />
+	<passive description="You seek a boss" gfx="teleports/mini-boss_room.png" name="Mini-Boss Room Teleport" />
+	<passive description="You seek fun and games" gfx="teleports/arcade.png" name="Arcade Teleport" />
+	<passive description="You seek pain" gfx="teleports/curse_room.png" name="Curse Room Teleport" />
+	<passive description="You seek challenge" gfx="teleports/challenge_room.png" name="Challenge Room Teleport" />
+	<passive description="You seek knowledge" gfx="teleports/library.png" name="Library Teleport" />
+	<passive description="You seek the divine" gfx="teleports/sacrifice_room.png" name="Sacrifice Room Teleport" />
+	<passive description="You seek sleep" gfx="teleports/bedroom_clean.png" name="Bedroom (Clean) Teleport" />
+	<passive description="You seek a trapdoor" gfx="teleports/bedroom_dirty.png" name="Bedroom (Dirty) Teleport" />
+	<passive description="You seek chests" gfx="teleports/treasure_chest_room.png" name="Treasure Chest Room Teleport" />
+	<passive description="You seek randomness" gfx="teleports/dice_room.png" name="Dice Room Teleport" />
 </items>

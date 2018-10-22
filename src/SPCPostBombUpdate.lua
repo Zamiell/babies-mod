@@ -8,16 +8,63 @@ local SPCMisc    = require("src/spcmisc")
 function SPCPostBombUpdate:Main(bomb)
   -- Local variables
   local game = Game()
+  local gameFrameCount = game:GetFrameCount()
   local room = game:GetRoom()
+  local player = game:GetPlayer(0)
   local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
   if baby == nil then
     return
   end
 
-  if baby.name == "Bony Baby" and -- 284
-     bomb.FrameCount == 1 and -- Frame 0 does not work
-     bomb:GetData().doubled == nil then
+  if baby.name == "Bomb Baby" and -- 75
+     bomb.SpawnerType == EntityType.ENTITY_PLAYER and -- 1
+     bomb.FrameCount == 51 then -- Bombs explode on the 51st frame exactly
+
+    -- 50% chance for bombs to have the D6 effect
+    SPCGlobals.run.roomRNG = SPCGlobals:IncrementRNG(SPCGlobals.run.roomRNG)
+    math.randomseed(SPCGlobals.run.roomRNG)
+    local d6chance = math.random(1, 2)
+    if d6chance == 2 then
+      player:UseActiveItem(CollectibleType.COLLECTIBLE_D6, false, false, false, false) -- 105
+    end
+
+  elseif baby.name == "Tongue Baby" and -- 97
+         bomb.SpawnerType == EntityType.ENTITY_PLAYER and -- 1
+         bomb.FrameCount == 51 then -- Bombs explode on the 51st frame exactly
+
+    -- Recharge bombs
+    SPCMisc:AddCharge()
+    if RacingPlusSchoolbag ~= nil then
+      RacingPlusSchoolbag:AddCharge(true) -- Giving an argument will make it only give 1 charge
+    end
+
+  elseif baby.name == "Skull Baby" and -- 211
+         bomb.SpawnerType == EntityType.ENTITY_PLAYER and -- 1
+         bomb.FrameCount == 51 then -- Bombs explode on the 51st frame exactly
+
+    -- Shockwave bombs
+    for i = 1, 4 do
+      local velocity
+      if i == 1 then
+        velocity = Vector(1, 0) -- Right
+      elseif i == 2 then
+        velocity = Vector(0, 1) -- Up
+      elseif i == 3 then
+        velocity = Vector(-1, 0) -- Left
+      elseif i == 4 then
+        velocity = Vector(0, -1) -- Down
+      end
+      SPCGlobals.run.babyTears[#SPCGlobals.run.babyTears + 1] = {
+        frame = gameFrameCount,
+        position = bomb.Position,
+        velocity = velocity * 30,
+      }
+    end
+
+  elseif baby.name == "Bony Baby" and -- 284
+         bomb.FrameCount == 1 and -- Frame 0 does not work
+         bomb:GetData().doubled == nil then
 
     local position = SPCMisc:GetOffsetPosition(bomb.Position, 15, bomb.InitSeed)
     local doubledBomb = game:Spawn(bomb.Type, bomb.Variant, position, bomb.Velocity,

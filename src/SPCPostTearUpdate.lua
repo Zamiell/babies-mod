@@ -20,7 +20,22 @@ function SPCPostTearUpdate:Main(tear)
     return
   end
 
-  if baby.name == "Skinny Baby" and -- 213
+  if baby.name == "Ed Baby" and -- 100
+     tear.SubType == 1 and
+     tear.FrameCount % 2 == 0 then
+
+    -- Fire trail tears
+    local fire = game:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.HOT_BOMB_FIRE, -- 1000.51
+                            tear.Position, Vector(0, 0), nil, 0, 0)
+    fire.SpriteScale = Vector(0.5, 0.5)
+
+    -- Fade the fire so that it is easier to see everything
+    local color = fire:GetColor()
+    local fadeAmount = 0.5
+    local newColor = Color(color.R, color.G, color.B, fadeAmount, color.RO, color.GO, color.BO)
+    fire:SetColor(newColor, 0, 0, true, true)
+
+  elseif baby.name == "Skinny Baby" and -- 213
      tear.SubType == 1 and
      tear.FrameCount >= 10 then
 
@@ -117,10 +132,8 @@ function SPCPostTearUpdate:Main(tear)
                                tear.Position, Vector(0, 0), tear, 0, 0)
     creep:ToEffect().Timeout = 240
 
-  elseif baby.name == "404 Baby" and -- 463
-         tear.FrameCount == 0 then
-
-    SPCMisc:SetRandomColor(tear)
+  elseif baby.name == "Cylinder Baby" then -- 434
+    tear.SpriteScale = Vector(tear.SpriteScale.X + 0.1, tear.SpriteScale.Y + 0.1)
 
   elseif baby.name == "Green Koopa Baby" and -- 455
          tear.SubType == 1 then
@@ -181,12 +194,22 @@ function SPCPostTearUpdate:Main(tear)
     player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY) -- 2
     player:EvaluateItems()
 
+  elseif baby.name == "404 Baby" and -- 463
+         tear.FrameCount == 0 then
+
+    SPCMisc:SetRandomColor(tear)
+
   elseif baby.name == "Cursed Pillow Baby" and -- 487
          tear.SubType == 1 and
          tear:IsDead() then -- Tears will not die if they hit an enemy, but they will die if they hit a wall or object
 
     -- Missing tears causes damage
-    player:TakeDamage(1, 0, EntityRef(player), 0)
+    -- It only applies to the 2nd missed tear
+    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
+    if SPCGlobals.run.babyCounters == 2 then
+      SPCGlobals.run.babyCounters = 0
+      player:TakeDamage(1, 0, EntityRef(player), 0)
+    end
 
   elseif baby.name == "Brother Bobby" and -- 522
          tear.SubType == 1 then
@@ -207,7 +230,7 @@ function SPCPostTearUpdate:Main(tear)
 
     -- Missing tears causes Paralysis
     player:UsePill(PillEffect.PILLEFFECT_PARALYSIS, PillColor.PILL_NULL) -- 22, 0
-    player:StopExtraAnimation()
+    -- (we can't cancel the animation or it will cause the bug where the player cannot pick up pedestal items)
   end
 end
 

@@ -2,13 +2,22 @@ local SPCPostPickupUpdate = {}
 
 -- Includes
 local SPCGlobals = require("src/spcglobals")
+local SPCMisc    = require("src/spcmisc")
 
 -- ModCallbacks.MC_POST_PICKUP_UPDATE (38)
 function SPCPostPickupUpdate:Main(pickup)
   -- Local variables
   local game = Game()
   local gameFrameCount = game:GetFrameCount()
+  local itemPool = game:GetItemPool()
+  local level = game:GetLevel()
+  local roomIndex = level:GetCurrentRoomDesc().SafeGridIndex
+  if roomIndex < 0 then -- SafeGridIndex is always -1 for rooms outside the grid
+    roomIndex = level:GetCurrentRoomIndex()
+  end
   local room = game:GetRoom()
+  local roomType = room:GetType()
+  local firstVisit = room:IsFirstVisit()
   local player = game:GetPlayer(0)
   local data = pickup:GetData()
   local sprite = pickup:GetSprite()
@@ -25,6 +34,31 @@ function SPCPostPickupUpdate:Main(pickup)
   Isaac.DebugString("  Spawner: " .. tostring(pickup.SpawnerType) .. "." .. tostring(pickup.SpawnerVariant))
   Isaac.DebugString("  FrameCount: " .. tostring(pickup.FrameCount))
   --]]
+  -- (this callback will not fire on the 0th frame for some reason)
+
+  -- All baby effects should ignore the Checkpoint
+  if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE and
+     pickup.SubType == Isaac.GetItemIdByName("Checkpoint") then
+
+    return
+  end
+
+  -- If the player is on a trinket baby, then they will not be able to take any dropped trinkets
+  -- (unless they have Mom's Purse or Belly Button)
+  -- So, if this is the case, replace any trinkets that drop with a random pickup
+  -- (this cannot be in the MC_POST_PICKUP_INIT callback, because the position is not initialized yet)
+  if baby.trinket ~= nil and
+     pickup.Variant == PickupVariant.PICKUP_TRINKET and -- 350
+     pickup.FrameCount == 1 and -- Frame 0 does not work
+     player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_PURSE) == false and -- 139
+     player:HasCollectible(CollectibleType.COLLECTIBLE_BELLY_BUTTON) == false then -- 458
+
+    -- This code will not interfere with the trinket drop detection code;
+    -- that is done on frame 0 in the MC_POST_UPDATE callback (and this is on frame 1)
+    SPCMisc:SpawnRandomPickup(pickup.Position, pickup.Velocity, true) -- The third argument is "noItems"
+    pickup:Remove()
+    return
+  end
 
   -- Keep track of pickups that are touched
   if sprite:IsPlaying("Collect") and
@@ -163,6 +197,15 @@ function SPCPostPickupUpdate:Main(pickup)
       end
     end
 
+  elseif baby.name == "Fancy Baby" and -- 216
+         pickup.Variant == PickupVariant.PICKUP_HEART and -- 10
+         pickup.SubType == HeartSubType.HEART_FULL and -- 1
+         pickup.Price == 3 and
+         roomIndex == level:GetStartingRoomIndex() then
+
+    -- Delete the rerolled teleports
+    pickup:Remove()
+
   elseif baby.name == "Spiky Demon Baby" then -- 277
     if pickup.Variant == PickupVariant.PICKUP_MIMICCHEST and -- 54
        sprite:GetFilename() ~= "gfx/005.054_mimic chest2.anm2" then
@@ -183,8 +226,70 @@ function SPCPostPickupUpdate:Main(pickup)
       end
     end
 
+  elseif baby.name == "Suit Baby" and -- 287
+         roomType ~= RoomType.ROOM_DEFAULT and -- 1
+         roomType ~= RoomType.ROOM_ERROR and -- 3
+         roomType ~= RoomType.ROOM_BOSS and -- 5
+         roomType ~= RoomType.ROOM_DEVIL and -- 14
+         roomType ~= RoomType.ROOM_ANGEL and -- 15
+         roomType ~= RoomType.ROOM_DUNGEON and -- 16
+         roomType ~= RoomType.ROOM_BOSSRUSH and -- 17
+         roomType ~= RoomType.ROOM_BLACK_MARKET then -- 22
+
+    -- All special rooms are Devil Rooms
+    if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE and
+       pickup.FrameCount == 1 then -- Frame 0 does not work
+
+      -- Set the price
+      pickup.AutoUpdatePrice = false
+      pickup.Price = SPCMisc:GetItemHeartPrice(pickup.SubType)
+
+    elseif pickup.Variant == PickupVariant.PICKUP_HEART and -- 10
+           pickup.SubType == HeartSubType.HEART_FULL and -- 1
+           pickup.Price == 3 then
+
+      -- Rerolled items turn into hearts since this is a not an actual Devil Room,
+      -- so delete the heart and manually create another pedestal item
+      SPCGlobals.run.roomRNG = SPCGlobals:IncrementRNG(SPCGlobals.run.roomRNG)
+      local item = itemPool:GetCollectible(ItemPoolType.POOL_DEVIL, true, SPCGlobals.run.roomRNG) -- 3
+      local pedestal = game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
+                                  pickup.Position, Vector(0, 0), nil, item, SPCGlobals.run.roomRNG):ToPickup()
+
+      -- Set the price
+      pedestal.AutoUpdatePrice = false
+      pickup.Price = SPCMisc:GetItemHeartPrice(pickup.SubType)
+
+      pickup:Remove()
+    end
+
+  elseif baby.name == "Scary Baby" then -- 317
+    if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE and
+       pickup.FrameCount == 1 then -- Frame 0 does not work
+
+      -- Set the price
+      pickup.AutoUpdatePrice = false
+      pickup.Price = SPCMisc:GetItemHeartPrice(pickup.SubType)
+
+    elseif pickup.Variant == PickupVariant.PICKUP_HEART and -- 10
+           pickup.SubType == HeartSubType.HEART_FULL and -- 1
+           pickup.Price == 3 and
+           roomType ~= RoomType.ROOM_SHOP then -- 2
+
+      -- Rerolled items turn into hearts since we are not in a Devil Room,
+      -- so delete the heart and manually create another pedestal item
+      local pedestal = game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
+                                  pickup.Position, Vector(0, 0), nil, 0, pickup.InitSeed):ToPickup()
+
+      -- Set the price
+      pedestal.AutoUpdatePrice = false
+      pickup.Price = SPCMisc:GetItemHeartPrice(pickup.SubType)
+
+      pickup:Remove()
+    end
+
   elseif baby.name == "Orange Pig Baby" and -- 381
          pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE and
+         firstVisit and
          pickup.FrameCount == 2 and
          -- Frame 0 does not work
          -- Frame 1 works but we need to wait an extra frame for Racing+ to replace the pedestal
@@ -207,14 +312,29 @@ function SPCPostPickupUpdate:Main(pickup)
     SPCGlobals.run.babyCountersRoom = gameFrameCount
 
   elseif baby.name == "Cowboy Baby" and -- 394
-         pickup.FrameCount % 30 == 0 and -- Every second
+         pickup.FrameCount % 35 == 0 and -- Every 1.17 seconds
          sprite:IsPlaying("Collect") == false then -- Don't shoot if we already picked it up
 
     local velocity = player.Position - pickup.Position
     velocity:Normalize()
-    velocity = velocity * 8
+    velocity = velocity * 7
     game:Spawn(EntityType.ENTITY_PROJECTILE, ProjectileVariant.PROJECTILE_NORMAL,
                pickup.Position, velocity, pickup, 0, 0) -- 9.0
+
+  elseif baby.name == "Fate's Reward" and -- 537
+         roomType ~= RoomType.ROOM_SHOP and -- 2
+         roomType ~= RoomType.ROOM_ERROR and -- 3
+         pickup.Variant == PickupVariant.PICKUP_HEART and -- 10
+         pickup.SubType == HeartSubType.HEART_FULL and -- 1
+         pickup.Price == 3 then
+
+    -- Rerolled items turn into hearts
+    -- so delete the heart and manually create another pedestal item
+     SPCGlobals.run.roomRNG = SPCGlobals:IncrementRNG(SPCGlobals.run.roomRNG)
+     local pedestal = game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100.0
+                                 pickup.Position, Vector(0, 0), nil, 0, SPCGlobals.run.roomRNG):ToPickup()
+     pedestal.Price = 15
+     pickup:Remove()
   end
 end
 
@@ -231,8 +351,12 @@ function SPCPostPickupUpdate:Touched(pickup)
     player:AddCacheFlags(CacheFlag.CACHE_DAMAGE) -- 1
     player:EvaluateItems()
 
+  elseif baby.name == "Bluebird Baby" then -- 147
+    -- Touching pickups causes paralysis (2/2)
+    player:UsePill(PillEffect.PILLEFFECT_PARALYSIS, PillColor.PILL_NULL) -- 22, 0
+
   elseif baby.name == "Worry Baby" then -- 167
-    -- Touching pickups causes teleportation
+    -- Touching pickups causes teleportation (2/2)
     player:UseActiveItem(CollectibleType.COLLECTIBLE_TELEPORT, false, false, false, false) -- 44
 
   elseif baby.name == "Corrupted Baby" then -- 307

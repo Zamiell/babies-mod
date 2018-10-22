@@ -86,6 +86,31 @@ SPCPostUpdateBabies.functions[27] = function()
   SPCPseudoRoomClear:PostUpdate()
 end
 
+-- Noose Baby
+SPCPostUpdateBabies.functions[39] = function()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local player = game:GetPlayer(0)
+
+  -- Shooting when the timer reaches 0 causes damage
+  local remainingTime = SPCGlobals.run.babyCounters - gameFrameCount
+  if remainingTime <= 0 then
+    SPCGlobals.run.babyCounters = gameFrameCount + SPCGlobals.babies[341].time -- Reset the timer
+
+    for i = 0, 3 do -- There are 4 possible inputs/players from 0 to 3
+      if Input.IsActionPressed(ButtonAction.ACTION_SHOOTLEFT, i) or -- 4
+         Input.IsActionPressed(ButtonAction.ACTION_SHOOTRIGHT, i) or -- 5
+         Input.IsActionPressed(ButtonAction.ACTION_SHOOTUP, i) or -- 6
+         Input.IsActionPressed(ButtonAction.ACTION_SHOOTDOWN, i) then -- 7
+
+        player:TakeDamage(1, 0, EntityRef(player), 0)
+        return
+      end
+    end
+  end
+end
+
 -- Dark Baby
 SPCPostUpdateBabies.functions[48] = function()
   -- Local variables
@@ -96,13 +121,13 @@ SPCPostUpdateBabies.functions[48] = function()
     SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
     if SPCGlobals.run.babyCounters == 2 then
       -- Put out the lights
-      SPCGlobals.run.babySprite = Sprite()
-      SPCGlobals.run.babySprite:Load("gfx/misc/black.anm2", true)
-      SPCGlobals.run.babySprite:SetFrame("Default", 0)
+      SPCGlobals.run.blackSprite = Sprite()
+      SPCGlobals.run.blackSprite:Load("gfx/misc/black.anm2", true)
+      SPCGlobals.run.blackSprite:SetFrame("Default", 0)
     elseif SPCGlobals.run.babyCounters == 3 then
       -- Turn on the lights
       SPCGlobals.run.babyCounters = 0
-      SPCGlobals.run.babySprite = nil
+      SPCGlobals.run.blackSprite = nil
     end
   end
 end
@@ -145,6 +170,15 @@ SPCPostUpdateBabies.functions[63] = function()
   end
 end
 
+-- Eye Patch Baby
+SPCPostUpdateBabies.functions[64] = function()
+  -- Local variables
+  local game = Game()
+  local player = game:GetPlayer(0)
+
+  Isaac.GridSpawn(GridEntityType.GRID_SPIKES, 0, player.Position, false) -- 8
+end
+
 -- Mustache Baby
 SPCPostUpdateBabies.functions[66] = function()
   -- Local variables
@@ -172,6 +206,7 @@ SPCPostUpdateBabies.functions[87] = function()
   local game = Game()
   local player = game:GetPlayer(0)
 
+  -- Everything is tiny
   -- This does not work if we put it in the MC_POST_NEW_LEVEL callback for some reason
   if player.SpriteScale.X > 0.5 or
      player.SpriteScale.Y > 0.5 then
@@ -194,6 +229,23 @@ SPCPostUpdateBabies.functions[96] = function()
 
   if gameFrameCount % 150 == 0 then -- 5 seconds
     player:UseActiveItem(CollectibleType.COLLECTIBLE_BEST_FRIEND, false, false, false, false) -- 136
+  end
+end
+
+-- Brownie Baby
+SPCPostUpdateBabies.functions[107] = function()
+  -- Local variables
+  local game = Game()
+  local player = game:GetPlayer(0)
+
+  -- Starts with Level 4 Meatboy + Level 4 Meatgirl
+  -- (if you spawn them in the MC_POST_NEW_LEVEL callback, it does not work for some reason)
+  if SPCGlobals.run.babyBool == false then
+    SPCGlobals.run.babyBool = true
+    game:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.CUBE_OF_MEAT_4, -- 3.47
+               player.Position, Vector(0, 0), nil, 0, 0)
+    game:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BALL_OF_BANDAGES_4, -- 3.72
+               player.Position, Vector(0, 0), nil, 0, 0)
   end
 end
 
@@ -252,11 +304,11 @@ SPCPostUpdateBabies.functions[111] = function()
   local gameFrameCount = game:GetFrameCount()
   local player = game:GetPlayer(0)
 
-  if SPCGlobals.run.babyTearInfo.frame ~= 0 and
-     gameFrameCount >= SPCGlobals.run.babyTearInfo.frame then
+  if SPCGlobals.run.babyTears.frame ~= 0 and
+     gameFrameCount >= SPCGlobals.run.babyTears.frame then
 
-    SPCGlobals.run.babyTearInfo.frame = 0
-    player:FireTear(player.Position, SPCGlobals.run.babyTearInfo.velocity, false, true, false)
+    SPCGlobals.run.babyTears.frame = 0
+    player:FireTear(player.Position, SPCGlobals.run.babyTears.velocity, false, true, false)
   end
 end
 
@@ -271,6 +323,78 @@ SPCPostUpdateBabies.functions[125] = function()
   if keys == 0 then
     player:Kill()
   end
+end
+
+-- Earwig Baby
+SPCPostUpdateBabies.functions[128] = function()
+  -- Local variables
+  local game = Game()
+  local level = game:GetLevel()
+  local startingRoomIndex = level:GetStartingRoomIndex()
+  local rooms = level:GetRooms()
+  local room = game:GetRoom()
+  local centerPos = room:GetCenterPos()
+  local player = game:GetPlayer(0)
+  local sfx = SFXManager()
+  local baby = SPCGlobals.babies[128]
+
+  -- The floor may be reseeded, so we do not want this to be in the MC_POST_NEW_LEVEL callback
+  if SPCGlobals.run.babyBool then
+    return
+  end
+  SPCGlobals.run.babyBool = true
+
+  -- 3 rooms are already explored
+  -- Get the indexes of every room on the floor
+  local floorIndexes = {}
+  for i = 0, rooms.Size - 1 do -- This is 0 indexed
+    floorIndexes[#floorIndexes + 1] = rooms:Get(i).SafeGridIndex
+  end
+
+  -- Get 3 unique random indexes
+  local randomIndexes = {}
+  for i = 1, baby.num do
+    while true do
+      -- Get a random room index on the floor
+      SPCGlobals.run.randomSeed = SPCGlobals:IncrementRNG(SPCGlobals.run.randomSeed)
+      math.randomseed(SPCGlobals.run.randomSeed)
+      local randomIndex = floorIndexes[math.random(1, #floorIndexes)]
+
+      -- Check to see if this is one of the indexes that we are already warping to
+      local valid = true
+      for j = 1, #floorIndexes do
+        if randomIndexes[j] == randomIndex then
+          valid = false
+          break
+        end
+      end
+
+      -- Check to see if this is the starting room
+      -- (we don't want the starting room to count)
+      if randomIndex == startingRoomIndex then
+        valid = false
+      end
+
+      -- Add it
+      if valid then
+        randomIndexes[#randomIndexes + 1] = randomIndex
+        break
+      end
+    end
+  end
+
+  -- Explore these rooms
+  for i = 1, #randomIndexes do
+    local randomIndex = randomIndexes[i]
+    level.LeaveDoor = -1 -- You have to set this before every teleport or else it will send you to the wrong room
+    level:ChangeRoom(randomIndex)
+  end
+  level.LeaveDoor = -1 -- You have to set this before every teleport or else it will send you to the wrong room
+  level:ChangeRoom(startingRoomIndex)
+  player.Position = centerPos
+
+  -- We might have traveled to the Boss Room, so stop the Portcullis sound effect just in case
+  sfx:Stop(SoundEffect.SOUND_CASTLEPORTCULLIS) -- 190
 end
 
 -- Mohawk Baby
@@ -295,6 +419,29 @@ SPCPostUpdateBabies.functions[139] = function()
 
   if gameFrameCount % 30 == 0 then -- 1 second
     player:UseActiveItem(CollectibleType.COLLECTIBLE_BUTTER_BEAN, false, false, false, false) -- 294
+  end
+end
+
+-- Bluebird Baby
+SPCPostUpdateBabies.functions[147] = function()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local player = game:GetPlayer(0)
+
+  if SPCGlobals.run.babyFrame ~= 0 and
+     gameFrameCount >= SPCGlobals.run.babyFrame then
+
+    SPCGlobals.run.babyFrame = 0
+  end
+
+  -- Touching pickups causes paralysis (1/2)
+  if player:IsItemQueueEmpty() == false and
+     SPCGlobals.run.babyFrame == 0 then
+
+    -- Using a pill does not clear the queue, so without a frame check the following code would soflock the player
+    SPCGlobals.run.babyFrame = gameFrameCount + 45
+    player:UsePill(PillEffect.PILLEFFECT_PARALYSIS, PillColor.PILL_NULL) -- 22, 0
   end
 end
 
@@ -353,6 +500,246 @@ SPCPostUpdateBabies.functions[162] = function()
     -- However, applying this in the MC_POST_NEW_LEVEL callback can cause game crashes
     -- Instead, we manually apply it in the MC_POST_UPDATE callback
     seeds:AddSeedEffect(SeedEffect.SEED_OLD_TV) -- 8
+  end
+end
+
+-- Helmet Baby
+SPCPostUpdateBabies.functions[163] = function()
+  -- Local variables
+  local game = Game()
+  local player = game:GetPlayer(0)
+
+  -- Check to see if they are pressing any movement buttons
+  local leftPressed = false
+  for i = 0, 3 do -- There are 4 possible inputs/players from 0 to 3
+    if Input.IsActionPressed(ButtonAction.ACTION_LEFT, i) then -- 0
+      leftPressed = true
+      break
+    end
+  end
+  local rightPressed = false
+  for i = 0, 3 do -- There are 4 possible inputs/players from 0 to 3
+    if Input.IsActionPressed(ButtonAction.ACTION_RIGHT, i) then -- 1
+      rightPressed = true
+      break
+    end
+  end
+  local upPressed = false
+  for i = 0, 3 do -- There are 4 possible inputs/players from 0 to 3
+    if Input.IsActionPressed(ButtonAction.ACTION_UP, i) then -- 2
+      upPressed = true
+      break
+    end
+  end
+  local downPressed = false
+  for i = 0, 3 do -- There are 4 possible inputs/players from 0 to 3
+    if Input.IsActionPressed(ButtonAction.ACTION_DOWN, i) then -- 3
+      downPressed = true
+      break
+    end
+  end
+
+  -- Keep track of whether they are moving or not
+  -- Also, fade the character to indicate that they are invulnerable
+  if SPCGlobals.run.babyBool == false and
+     leftPressed == false and
+     rightPressed == false and
+     upPressed == false and
+     downPressed == false then
+
+    -- They stopped moving
+    SPCGlobals.run.babyBool = true
+    local color = player:GetColor()
+    local fadeAmount = 0.5
+    local newColor = Color(color.R, color.G, color.B, fadeAmount, color.RO, color.GO, color.BO)
+    player:SetColor(newColor, 0, 0, true, true)
+
+  elseif SPCGlobals.run.babyBool and
+         (leftPressed or
+          rightPressed or
+          upPressed or
+          downPressed) then
+
+    -- They started moving
+    SPCGlobals.run.babyBool = false
+    local color = player:GetColor()
+    local fadeAmount = 1
+    local newColor = Color(color.R, color.G, color.B, fadeAmount, color.RO, color.GO, color.BO)
+    player:SetColor(newColor, 0, 0, true, true)
+  end
+end
+
+-- Black Eye Baby
+SPCPostUpdateBabies.functions[164] = function()
+  -- Local variables
+  local game = Game()
+  local player = game:GetPlayer(0)
+
+  -- Starts with Leprosy, +5 damage on Leprosy breaking
+  local entities = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.LEPROCY, -1, false, false) -- 3.121
+  if #entities < SPCGlobals.run.babyCounters then
+    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters - 1
+
+    -- We use the "babyFrame" variable to track how many damage ups we have recieved
+    SPCGlobals.run.babyFrame = SPCGlobals.run.babyFrame + 1
+    player:AddCacheFlags(CacheFlag.CACHE_DAMAGE) -- 1
+    player:EvaluateItems()
+  end
+end
+
+-- Worry Baby
+SPCPostUpdateBabies.functions[167] = function()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local player = game:GetPlayer(0)
+
+  if SPCGlobals.run.babyFrame ~= 0 and
+     gameFrameCount >= SPCGlobals.run.babyFrame then
+
+    SPCGlobals.run.babyFrame = 0
+  end
+
+  -- Touching pickups causes teleportation (1/2)
+  if player:IsItemQueueEmpty() == false then
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_TELEPORT, false, false, false, false) -- 44
+  end
+end
+
+-- New Jammies Baby
+SPCPostUpdateBabies.functions[193] = function()
+  -- Local variables
+  local game = Game()
+  local player = game:GetPlayer(0)
+
+  -- Everything is giant
+  -- This does not work if we put it in the MC_POST_NEW_LEVEL callback for some reason
+  if player.SpriteScale.X < 2 or
+     player.SpriteScale.Y < 2 then
+
+    player.SpriteScale = Vector(2, 2)
+  end
+end
+
+-- Skull Baby
+SPCPostUpdateBabies.functions[211] = function()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local room = game:GetRoom()
+  local player = game:GetPlayer(0)
+  local sfx = SFXManager()
+
+  -- Shockwave bombs
+  for i = 1, #SPCGlobals.run.babyTears do
+    local tear = SPCGlobals.run.babyTears[i]
+    if tear == nil then
+      -- We might move past the final element if we removed one or more things from the table
+      break
+    end
+    if (gameFrameCount - tear.frame) % 2 == 0 then
+      local explosion = game:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.ROCK_EXPLOSION, -- 1000.62
+                                   tear.position, Vector(0, 0), player, 0, 0)
+      local index = room:GetGridIndex(tear.position)
+      room:DestroyGrid(index)
+      tear.position = tear.position + tear.velocity
+      sfx:Play(SoundEffect.SOUND_ROCK_CRUMBLE, 0.5, 0, false, 1) -- 137
+      -- (if the sound effect plays at full volume, it starts to get annoying)
+
+      -- Make the shockwave deal damage to the player
+      if SPCGlobals:InsideSquare(tear.position, player.Position, 40) then
+        player:TakeDamage(1, DamageFlag.DAMAGE_EXPLOSION, EntityRef(explosion), 2)
+      end
+
+      -- Make the shockwave deal damage to NPCs
+      local entities = Isaac.FindInRadius(tear.position, 40, EntityPartition.ENEMY) -- 1 << 3
+      for j = 1, #entities do
+        local damage = player.Damage * 1.5
+        entities[j]:TakeDamage(damage, DamageFlag.DAMAGE_EXPLOSION, EntityRef(explosion), 2)
+       end
+     end
+
+     -- Stop if it gets to a wall
+     if room:IsPositionInRoom(tear.position, 0) == false then
+       table.remove(SPCGlobals.run.babyTears, i)
+     end
+  end
+end
+
+-- Fancy Baby
+SPCPostUpdateBabies.functions[216] = function()
+  -- Local variables
+  local game = Game()
+  local level = game:GetLevel()
+  local rooms = level:GetRooms()
+  local player = game:GetPlayer(0)
+
+  local teleport = 0
+  if player.QueuedItem.Item ~= nil then
+    if player.QueuedItem.Item.ID == Isaac.GetItemIdByName("Shop Teleport") then
+      teleport = RoomType.ROOM_SHOP -- 2
+    elseif player.QueuedItem.Item.ID == Isaac.GetItemIdByName("Treasure Room Teleport") then
+      teleport = RoomType.ROOM_TREASURE -- 4
+    elseif player.QueuedItem.Item.ID == Isaac.GetItemIdByName("Mini-Boss Room Teleport") then
+      teleport = RoomType.ROOM_MINIBOSS -- 6
+    elseif player.QueuedItem.Item.ID == Isaac.GetItemIdByName("Arcade Teleport") then
+      teleport = RoomType.ROOM_ARCADE -- 9
+    elseif player.QueuedItem.Item.ID == Isaac.GetItemIdByName("Curse Room Teleport") then
+      teleport = RoomType.ROOM_CURSE -- 10
+    elseif player.QueuedItem.Item.ID == Isaac.GetItemIdByName("Challenge Room Teleport") then
+      teleport = RoomType.ROOM_CHALLENGE -- 11
+    elseif player.QueuedItem.Item.ID == Isaac.GetItemIdByName("Library Teleport") then
+      teleport = RoomType.ROOM_LIBRARY -- 12
+    elseif player.QueuedItem.Item.ID == Isaac.GetItemIdByName("Sacrifice Room Teleport") then
+      teleport = RoomType.ROOM_SACRIFICE -- 13
+    elseif player.QueuedItem.Item.ID == Isaac.GetItemIdByName("Bedroom (Clean) Teleport") then
+      teleport = RoomType.ROOM_ISAACS -- 18
+    elseif player.QueuedItem.Item.ID == Isaac.GetItemIdByName("Bedroom (Dirty) Teleport") then
+      teleport = RoomType.ROOM_BARREN -- 19
+    elseif player.QueuedItem.Item.ID == Isaac.GetItemIdByName("Treasure Chest Room Teleport") then
+      teleport = RoomType.ROOM_CHEST -- 20
+    elseif player.QueuedItem.Item.ID == Isaac.GetItemIdByName("Dice Room Teleport") then
+      teleport = RoomType.ROOM_DICE -- 21
+    end
+  end
+  if teleport ~= 0 then
+    -- Find the grid index of the intended room
+    for i = 0, rooms.Size - 1 do -- This is 0 indexed
+      local roomDesc = rooms:Get(i)
+      local index = roomDesc.SafeGridIndex -- This is always the top-left index
+      local roomData = roomDesc.Data
+      local roomType = roomData.Type
+      if roomType == teleport then -- 8
+        -- Teleport to the intended room
+        level.LeaveDoor = -1 -- You have to set this before every teleport or else it will send you to the wrong room
+        game:StartRoomTransition(index, Direction.NO_DIRECTION, RoomTransition.TRANSITION_TELEPORT) -- -1, 3
+        break
+      end
+    end
+  end
+end
+
+-- Drool Baby
+SPCPostUpdateBabies.functions[221] = function()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local room = game:GetRoom()
+  local roomClear = room:IsClear()
+  local player = game:GetPlayer(0)
+
+  -- Starts with Monstro's Tooth (improved)
+  if SPCGlobals.run.babyFrame ~= 0 and
+     gameFrameCount >= SPCGlobals.run.babyFrame then
+
+    if roomClear then
+      -- The room might have been cleared since the initial Monstro's Tooth activation
+      -- If so, cancel the remaining Monstro's
+      SPCGlobals.run.babyCounters = 0
+      SPCGlobals.run.babyFrame = 0
+    else
+      player:UseActiveItem(CollectibleType.COLLECTIBLE_MONSTROS_TOOTH, false, false, false, false) -- 86
+    end
   end
 end
 
@@ -551,10 +938,12 @@ SPCPostUpdateBabies.functions[341] = function()
   if remainingTime <= 0 then
     SPCGlobals.run.babyCounters = gameFrameCount + SPCGlobals.babies[341].time -- Reset the timer
 
-    if player.Velocity.X > 0.2 or
-       player.Velocity.X < -0.2 or
-       player.Velocity.Y > 0.2 or
-       player.Velocity.Y < -0.2 then
+
+    local cutoff = 0.2
+    if player.Velocity.X > cutoff or
+       player.Velocity.X < cutoff * -1 or
+       player.Velocity.Y > cutoff or
+       player.Velocity.Y < cutoff * -1 then
 
       player:TakeDamage(1, 0, EntityRef(player), 0)
     end
@@ -649,8 +1038,13 @@ SPCPostUpdateBabies.functions[388] = function()
   local game = Game()
   local player = game:GetPlayer(0)
 
-  for i = 1, #SPCGlobals.run.shootTears do
-    local tear = SPCGlobals.run.shootTears[i]
+  -- Enemies spawn projectiles upon death
+  for i = 1, #SPCGlobals.run.babyTears do
+    local tear = SPCGlobals.run.babyTears[i]
+    if tear == nil then
+      -- We might move past the final element if we removed one or more things from the table
+      break
+    end
     local velocity = player.Position - tear.position
     velocity = velocity:Normalized() * 13
     game:Spawn(EntityType.ENTITY_PROJECTILE, ProjectileVariant.PROJECTILE_NORMAL, -- 9.0
@@ -658,23 +1052,8 @@ SPCPostUpdateBabies.functions[388] = function()
     tear.num = tear.num - 1
     if tear.num == 0 then
       -- The dead enemy has shot all of its tears, so we remove the tracking element for it
-      table.remove(SPCGlobals.run.shootTears, i)
+      table.remove(SPCGlobals.run.babyTears, i)
     end
-  end
-end
-
--- Red Wrestler Baby
-SPCPostUpdateBabies.functions[389] = function()
-  -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
-  local pill1 = player:GetPill(0)
-  local pill2 = player:GetPill(1)
-
-  if pill1 ~= PillColor.PILL_NULL or -- 0
-     pill2 ~= PillColor.PILL_NULL then -- 0
-
-    SPCGlobals.run.babyBool = true
   end
 end
 
@@ -730,6 +1109,46 @@ SPCPostUpdateBabies.functions[449] = function()
   end
 end
 
+-- Voxdog Baby
+SPCPostUpdateBabies.functions[462] = function()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local room = game:GetRoom()
+  local player = game:GetPlayer(0)
+  local sfx = SFXManager()
+
+  -- Shockwave tears
+  for i = 1, #SPCGlobals.run.babyTears do
+    local tear = SPCGlobals.run.babyTears[i]
+    if tear == nil then
+      -- We might move past the final element if we removed one or more things from the table
+      break
+    end
+    if (gameFrameCount - tear.frame) % 2 == 0 then
+      local explosion = game:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.ROCK_EXPLOSION, -- 1000.62
+                                   tear.position, Vector(0, 0), player, 0, 0)
+      local index = room:GetGridIndex(tear.position)
+      room:DestroyGrid(index)
+      tear.position = tear.position + tear.velocity
+      sfx:Play(SoundEffect.SOUND_ROCK_CRUMBLE, 0.5, 0, false, 1) -- 137
+      -- (if the sound effect plays at full volume, it starts to get annoying)
+
+      -- Make the shockwave deal damage to NPCs
+      local entities = Isaac.FindInRadius(tear.position, 40, EntityPartition.ENEMY) -- 1 << 3
+      for j = 1, #entities do
+        local damage = player.Damage * 1.5
+        entities[j]:TakeDamage(damage, DamageFlag.DAMAGE_EXPLOSION, EntityRef(explosion), 2)
+       end
+     end
+
+     -- Stop if it gets to a wall
+     if room:IsPositionInRoom(tear.position, 0) == false then
+       table.remove(SPCGlobals.run.babyTears, i)
+     end
+  end
+end
+
 -- Scoreboard Baby
 SPCPostUpdateBabies.functions[474] = function()
   -- Local variables
@@ -769,11 +1188,11 @@ SPCPostUpdateBabies.functions[500] = function()
   local gameFrameCount = game:GetFrameCount()
   local player = game:GetPlayer(0)
 
-  if SPCGlobals.run.babyTearInfo.frame ~= 0 and
-     gameFrameCount >= SPCGlobals.run.babyTearInfo.frame then
+  if SPCGlobals.run.babyTears.frame ~= 0 and
+     gameFrameCount >= SPCGlobals.run.babyTears.frame then
 
-    SPCGlobals.run.babyTearInfo.frame = 0
-    player:FireTear(player.Position, SPCGlobals.run.babyTearInfo.velocity, false, true, false)
+    SPCGlobals.run.babyTears.frame = 0
+    player:FireTear(player.Position, SPCGlobals.run.babyTears.velocity, false, true, false)
   end
 end
 

@@ -19,19 +19,29 @@ function SPCPostPickupInit:Main(pickup)
   --[[
   Isaac.DebugString("MC_POST_PICKUP_INIT - " ..
                     tostring(pickup.Type) .. "." .. tostring(pickup.Variant) .. "." ..
-                    tostring(pickup.SubType) .. "." .. tostring(pickup.State) ..
-                    " (spawner: " .. pickup.SpawnerType .. "." .. pickup.SpawnerVariant .. ")")
+                    tostring(pickup.SubType) .. "." .. tostring(pickup.State))
   --]]
+  -- "pickup.SpawnerType", pickup.SpawnerVariant", and "pickup.Price" are all empty in this callback
 
   -- All baby effects should ignore the Checkpoint
-  if pickup.SubType == Isaac.GetItemIdByName("Checkpoint") then
+  if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE and
+     pickup.SubType == Isaac.GetItemIdByName("Checkpoint") then
+
     return
   end
 
-  if baby.name == "Shopkeeper Baby" and -- 215
-     pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE and
-     (roomType == RoomType.ROOM_SHOP or -- 2
-      roomType == RoomType.ROOM_ERROR) then -- 3
+  if baby.name == "Bloodsucker Baby" then -- 87
+    -- Everything is tiny
+    pickup.SpriteScale = Vector(0.5, 0.5)
+
+  elseif baby.name == "New Jammies Baby" then -- 193
+    -- Everything is giant
+    pickup.SpriteScale = Vector(2, 2)
+
+  elseif baby.name == "Shopkeeper Baby" and -- 215
+         pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE and
+         (roomType == RoomType.ROOM_SHOP or -- 2
+          roomType == RoomType.ROOM_ERROR) then -- 3
 
     -- Free items in shops
     pickup.Price = 0
@@ -46,7 +56,7 @@ function SPCPostPickupInit:Main(pickup)
 
     -- Items cost hearts
     pickup.AutoUpdatePrice = false
-    pickup.Price = -1
+    pickup.Price = SPCMisc:GetItemHeartPrice(pickup.SubType)
 
   elseif baby.name == "404 Baby" then -- 463
     SPCMisc:SetRandomColor(pickup)

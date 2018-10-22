@@ -11,8 +11,15 @@ function SPCPseudoRoomClear:PostUpdate()
   local roomFrameCount = room:GetFrameCount()
   local roomClear = room:IsClear()
 
-  -- Don't have this ability work in Boss Rooms
-  if roomType == RoomType.ROOM_BOSS then -- 5
+  -- Don't have this ability work in certain room types
+  if roomType == RoomType.ROOM_BOSS or -- 5
+     roomType == RoomType.ROOM_CHALLENGE or -- 11
+     roomType == RoomType.ROOM_DEVIL or -- 14
+     roomType == RoomType.ROOM_ANGEL or -- 15
+     roomType == RoomType.ROOM_DUNGEON or -- 16
+     roomType == RoomType.ROOM_BOSSRUSH or -- 17
+     roomType == RoomType.ROOM_BLACK_MARKET then -- 22
+
     return
   end
 

@@ -40,7 +40,7 @@ function SPCPostLaserUpdate:Main(laser)
       -- Azazel-style Brimstone
       -- The formula for distance is: 32 - 2.5 * player.TearHeight (provided by Nine)
       -- For simplicity and to make it more difficult, we will instead hardcode the default Azazel distance
-      laser:SetMaxDistance(88.25)
+      laser:SetMaxDistance(75.125) -- This is the vanilla Azazel distance
 
       -- Making the laser invisible earlier also muted the sound effect, so play it manually
       sfx:Play(SoundEffect.SOUND_BLOOD_LASER_LARGE, 0.75, 0, false, 1) -- 7

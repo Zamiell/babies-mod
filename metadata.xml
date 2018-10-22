@@ -1,16 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <metadata>
     <name>The Babies Mod</name>
     <directory>babies_mod</directory>
+    <id>1545273881</id>
     <description>[h1][b]The Babies Mod[/b][/h1]
 
 In the current version of the game, there are a whopping 520 different co-op babies. Even though most of the babies are only cosmetic and have no special abilities, there are still 58 babies with special abilities. So a tremendous amount of work has gone into designing and coding the special babies, as well as creating all of the sprites. This is an entire area of the game that is unknown and unused by 99% of the Isaac player-base. It's time for that to change.
 
-This mod randomly lets you play as one of the 520 co-op babies, which are all listed at [url=https://bindingofisaacrebirth.gamepedia.com/User:Zamie/Co-op]this page[/url]. The co-op baby will change on every floor, so don't get too attached! (This allows very strong and very weak co-op babies to be added without greatly affecting the overall balance of a run.)
+This mod randomly lets you play as one of the 541 co-op babies, each of which grants a new, unique ability. The babies are listed at [url=https://bindingofisaacrebirth.gamepedia.com/User:Zamie/Co-op]this page[/url]. The baby will change on every floor, so don't get too attached!
 
-For technical support or general questions, please [b]do not post a comment here[/b]. Instead, post in the Racing+ general chat on the Isaac racing &amp; speedrunning Discord server: https://discord.gg/JzbhWQb
-</description>
-    <version>1.0</version>
-    <visibility/>
+For technical support or general questions, please [b]do not post a comment here[/b]. Instead, post in the Racing+ general chat on the Isaac racing &amp; speedrunning Discord server: https://discord.gg/JzbhWQb </description>
+    <version>1.1</version>
+    <visibility>Public</visibility>
     <tag id="Lua"/>
     <tag id="Player Characters"/>
     <tag id="Babies"/>

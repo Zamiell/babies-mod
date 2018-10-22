@@ -74,6 +74,16 @@ function SPCEntityTakeDmg:Entity(entity, damageAmount, damageFlag, damageSource,
     entity:TakeDamage(damage, 0, EntityRef(player), damageCountdownFrames)
     SPCGlobals.run.dealingExtraDamage = false
 
+  elseif baby.name == "Fang Demon Baby" and -- 281
+         SPCGlobals.run.dealingExtraDamage == false then
+
+    -- Make the light beams do extra damage
+    -- (light beams do 2 damage on every tick and are not based on the player's damage)
+    local damage = player.Damage
+    SPCGlobals.run.dealingExtraDamage = true
+    entity:TakeDamage(damage, 0, EntityRef(player), damageCountdownFrames)
+    SPCGlobals.run.dealingExtraDamage = false
+
   elseif baby.name == "Rider Baby" and -- 295
          SPCGlobals.run.dealingExtraDamage == false then
 

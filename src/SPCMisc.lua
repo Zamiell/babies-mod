@@ -3,69 +3,80 @@ local SPCMisc = {}
 -- Includes
 local SPCGlobals = require("src/spcglobals")
 
-function SPCMisc:SpawnRandomPickup(position)
+function SPCMisc:SpawnRandomPickup(position, velocity, noItems)
   -- Local variables
   local game = Game()
+
+  -- Give no velocity by default
+  if velocity == nil then
+    velocity = Vector(0, 0)
+  end
 
   -- Spawn a random pickup
   SPCGlobals.run.randomSeed = SPCGlobals:IncrementRNG(SPCGlobals.run.randomSeed)
   math.randomseed(SPCGlobals.run.randomSeed)
-  local pickupVariant = math.random(1, 11)
+  local pickupVariant
+  if noItems ~= nil then
+    -- Exclude trinkets and collectibles
+    pickupVariant = math.random(1, 9)
+  else
+    pickupVariant = math.random(1, 11)
+  end
   SPCGlobals.run.randomSeed = SPCGlobals:IncrementRNG(SPCGlobals.run.randomSeed)
 
   if pickupVariant == 1 then -- Heart
     -- Random Heart - 5.10.0
-    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, position, Vector(0, 0),
+    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, position, velocity,
                nil, 0, SPCGlobals.run.randomSeed)
 
   elseif pickupVariant == 2 then -- Coin
     -- Random Coin - 5.20.0
-    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN, position, Vector(0, 0),
+    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN, position, velocity,
                nil, 0, SPCGlobals.run.randomSeed)
 
   elseif pickupVariant == 3 then -- Key
     -- Random Key - 5.30.0
-    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_KEY, position, Vector(0, 0),
+    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_KEY, position, velocity,
                nil, 0, SPCGlobals.run.randomSeed)
 
   elseif pickupVariant == 4 then -- Bomb
     -- Random Bomb - 5.40.0
-    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, position, Vector(0, 0),
+    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, position, velocity,
                nil, 0, SPCGlobals.run.randomSeed)
 
   elseif pickupVariant == 5 then -- Chest
     -- Random Chest - 5.50
-    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_CHEST, position, Vector(0, 0),
+    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_CHEST, position, velocity,
                nil, 0, SPCGlobals.run.randomSeed)
 
   elseif pickupVariant == 6 then -- Sack
     -- Random Chest - 5.69
-    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_GRAB_BAG, position, Vector(0, 0),
+    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_GRAB_BAG, position, velocity,
                nil, 0, SPCGlobals.run.randomSeed)
 
   elseif pickupVariant == 7 then -- Lil' Battery
     -- Lil' Battery - 5.90
-    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_LIL_BATTERY, position, Vector(0, 0),
+    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_LIL_BATTERY, position, velocity,
                nil, 0, SPCGlobals.run.randomSeed)
 
   elseif pickupVariant == 8 then -- Pill
     -- Random Pill - 5.70.0
-    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_PILL, position, Vector(0, 0),
+    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_PILL, position, velocity,
                nil, 0, SPCGlobals.run.randomSeed)
 
   elseif pickupVariant == 9 then -- Card / Rune
     -- Random Card / Rune - 5.300.0
-    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, position, Vector(0, 0),
+    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, position, velocity,
                nil, 0, SPCGlobals.run.randomSeed)
 
   elseif pickupVariant == 10 then -- Trinket
     -- Random Card / Rune - 5.350.0
-    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, position, Vector(0, 0),
+    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, position, velocity,
                nil, 0, SPCGlobals.run.randomSeed)
 
   elseif pickupVariant == 11 then -- Collectible
     -- Random Collectible - 5.100.0
-    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, position, Vector(0, 0),
+    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, position, velocity,
                nil, 0, SPCGlobals.run.randomSeed)
   end
 end
@@ -108,6 +119,69 @@ function SPCMisc:GetOffsetPosition(position, offsetSize, seed)
     offsetY = offsetSize * -1
   end
   return Vector(position.X + offsetX, position.Y + offsetY)
+end
+
+function SPCMisc:GetItemHeartPrice(itemID)
+  -- Local variables
+  local game = Game()
+  local player = game:GetPlayer(0)
+  local maxHearts = player:GetMaxHearts()
+
+  -- Find out how this item should be priced
+  if itemID == 0 then
+    return 0
+  elseif maxHearts == 0 then
+    return -3
+  end
+
+  -- The "DevilPrice" attribute will be 1 by default (for items like Sad Onion, etc.)
+  return SPCGlobals:GetItemConfig(itemID).DevilPrice * -1
+end
+
+function SPCMisc:AddCharge(singleCharge)
+  -- Local variables
+  local game = Game()
+  local room = game:GetRoom()
+  local roomShape = room:GetRoomShape()
+  local player = game:GetPlayer(0)
+  local activeItem = player:GetActiveItem()
+  local activeCharge = player:GetActiveCharge()
+  local batteryCharge = player:GetBatteryCharge()
+
+  -- Copied from the Racing+ mod (RPFastClear.lua)
+  if player:NeedsCharge() == false then
+    return
+  end
+
+  -- Find out if we are in a 2x2 or L room
+  local chargesToAdd = 1
+  if roomShape >= 8 then
+    -- L rooms and 2x2 rooms should grant 2 charges
+    chargesToAdd = 2
+
+  elseif player:HasTrinket(TrinketType.TRINKET_AAA_BATTERY) and -- 3
+         activeCharge == SPCGlobals:GetItemMaxCharges(activeItem) - 2 then
+
+    -- The AAA Battery grants an extra charge when the active item is one away from being fully charged
+    chargesToAdd = 2
+
+  elseif player:HasTrinket(TrinketType.TRINKET_AAA_BATTERY) and -- 3
+         activeCharge == SPCGlobals:GetItemMaxCharges(activeItem) and
+         player:HasCollectible(CollectibleType.COLLECTIBLE_BATTERY) and -- 63
+         batteryCharge == SPCGlobals:GetItemMaxCharges(activeItem) - 2 then
+
+    -- The AAA Battery should grant an extra charge when the active item is one away from being fully charged
+    -- with The Battery (this is bugged in vanilla for The Battery)
+    chargesToAdd = 2
+  end
+  if singleCharge ~= nil then
+    -- We might only want to add a single charge to the active item in certain situations
+    chargesToAdd = 1
+  end
+
+  -- Add the correct amount of charges
+  local currentCharge = player:GetActiveCharge()
+  player:SetActiveCharge(currentCharge + chargesToAdd)
 end
 
 return SPCMisc

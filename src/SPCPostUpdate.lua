@@ -18,6 +18,27 @@ function SPCPostUpdate:Main()
     return
   end
 
+  -- Racing+ will disable the controls while the player is jumping out of the hole,
+  -- so for the FireDelay modification to work properly, we have to wait until this is over
+  -- (the "blindfoldedApplied" is reset in the MC_POST_NEW_LEVEL callback)
+  if SPCGlobals.run.blindfoldedApplied == false and
+     player.ControlsEnabled then
+
+    SPCGlobals.run.blindfoldedApplied = true
+    if baby.blindfolded then
+      -- Make sure the player doesn't have a tear in the queue
+      -- (otherwise, if the player had the tear fire button held down while transitioning between floors,
+      -- they will get one more shot)
+      -- (this will not work in the MC_EVALUATE_CACHE callback because it gets reset to 0 at the end of the frame)
+      player.FireDelay = 1000000 -- 1 million, equal to roughly 9 hours
+    elseif player.FireDelay > 900 then -- 30 seconds
+      -- If we don't check for a large fire delay, then we will get a double tear during the start
+      -- If we are going from a blindfolded baby to a non-blindfolded baby,
+      -- we must restore the fire delay to a normal value
+      player.FireDelay = 0
+    end
+  end
+
   -- Reapply the co-op baby sprite after every pedestal item recieved
   -- (and keep track of our passive items over the course of the run)
   if player:IsItemQueueEmpty() == false and
@@ -37,10 +58,15 @@ function SPCPostUpdate:Main()
     SPCPostRender:SetPlayerSprite()
   end
 
-  -- Reapply teh co-op baby sprite if we have set to reload it on this frame
+  -- Reapply the co-op baby sprite if we have set to reload it on this frame
   if SPCGlobals.run.reloadSprite then
     SPCGlobals.run.reloadSprite = false
     SPCPostRender:SetPlayerSprite()
+  end
+
+  -- Fix the bug where fully charging Maw of the Void will occasionally make the player invisible
+  if player:HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_VOID) then -- 399
+    player:RemoveCostume(SPCGlobals:GetItemConfig(CollectibleType.COLLECTIBLE_MAW_OF_VOID), false) -- 399
   end
 
   -- Check to see if this is a trinket baby and they dropped the trinket
@@ -54,6 +80,9 @@ function SPCPostUpdate:Main()
 
   -- Check grid entities
   SPCPostUpdate:CheckGridEntities()
+
+  -- Check to see if we are going to the next floor
+  SPCPostUpdate:CheckTrapdoor()
 
   -- Check if we need to change the character
   SPCChangeCharacter:PostUpdate()
@@ -101,8 +130,9 @@ function SPCPostUpdate:CheckTrinket()
     local pos = room:FindFreePickupSpawnPosition(player.Position, 1, true)
     player:DropTrinket(pos, true) -- This will do nothing if the player does not currently have a trinket
     player:AddTrinket(baby.trinket)
-    player:StopExtraAnimation()
+    -- (we can't cancel the animation or it will cause the bug where the player cannot pick up pedestal items)
     Isaac.DebugString("Dropped trinket detected; manually giving it back.")
+    Isaac.DebugString("TRINKET FRAME: " .. tostring(droppedTrinket.FrameCount))
     return
   end
 
@@ -166,6 +196,13 @@ function SPCPostUpdate:RoomCleared()
     -- Random collectible - 5.100.0
     local position = room:FindFreePickupSpawnPosition(player.Position, 1, true)
     game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, position, Vector(0, 0), player, 0, roomSeed)
+
+  elseif baby.name == "Jammies Baby" then -- 192
+    -- Extra charge per room cleared
+    SPCMisc:AddCharge()
+    if RacingPlusSchoolbag ~= nil then
+      RacingPlusSchoolbag:AddCharge()
+    end
 
   elseif baby.name == "Fishman Baby" then -- 384
     -- Random Bomb - 5.40.0
@@ -246,6 +283,57 @@ function SPCPostUpdate:CheckGridEntities()
         SPCGlobals.run.babyFrame = gameFrameCount + 10
       end
     end
+  end
+end
+
+function SPCPostUpdate:CheckTrapdoor()
+  -- Local variables
+  local game = Game()
+  local seeds = game:GetSeeds()
+  local player = game:GetPlayer(0)
+  local playerSprite = player:GetSprite()
+  local type = SPCGlobals.run.babyType
+  local baby = SPCGlobals.babies[type]
+  if baby == nil then
+    return
+  end
+
+  -- If this baby gives a mapping item, We can't wait until the next floor to remove because
+  -- its effect will have already been applied
+  -- So, we need to monitor for the trapdoor animation
+  if playerSprite:IsPlaying("Trapdoor") == false and
+     playerSprite:IsPlaying("Trapdoor2") == false and
+     playerSprite:IsPlaying("LightTravel") == false then
+
+    return
+  end
+
+  -- Remove mapping
+  if baby.item == CollectibleType.COLLECTIBLE_COMPASS or -- 21
+     baby.item2 == CollectibleType.COLLECTIBLE_COMPASS then -- 21
+
+    player:RemoveCollectible(CollectibleType.COLLECTIBLE_COMPASS) -- 21
+  end
+  if baby.item == CollectibleType.COLLECTIBLE_TREASURE_MAP or -- 54
+     baby.item2 == CollectibleType.COLLECTIBLE_TREASURE_MAP then -- 54
+
+    player:RemoveCollectible(CollectibleType.COLLECTIBLE_TREASURE_MAP) -- 54
+  end
+  if baby.item == CollectibleType.COLLECTIBLE_BLUE_MAP or -- 246
+     baby.item2 == CollectibleType.COLLECTIBLE_BLUE_MAP then -- 246
+
+    player:RemoveCollectible(CollectibleType.COLLECTIBLE_BLUE_MAP) -- 246
+  end
+  if baby.item == CollectibleType.COLLECTIBLE_MIND or -- 333
+     baby.item2 == CollectibleType.COLLECTIBLE_MIND then -- 333
+
+    player:RemoveCollectible(CollectibleType.COLLECTIBLE_MIND) -- 333
+  end
+
+  -- We may have temporarily disabled the "Total Curse Immunity" easter egg
+  -- So, make sure that it is re-enabled before we head to the next floor
+  if seeds:HasSeedEffect(SeedEffect.SEED_PREVENT_ALL_CURSES) == false then -- 70
+    seeds:AddSeedEffect(SeedEffect.SEED_PREVENT_ALL_CURSES) -- 70
   end
 end
 

@@ -20,20 +20,14 @@ function SPCEvaluateCache:Main(player, cacheFlag)
   if baby.blindfolded and
      cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
 
-    player.FireDelay = 100000
     player.MaxFireDelay = 100000
-
-  elseif player.FireDelay > 200 and
-         cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
-
-    -- There is a bug where a baby after a blindfolded baby will also be blindfolded
-    -- So manually compensate for this
-    player.FireDelay = -1
+    -- (setting "player.FireDelay" here will not work, so do one frame later in the MC_POST_UPDATE callback)
   end
 
   if baby.name == "Lowface Baby" and -- 73
      cacheFlag == CacheFlag.CACHE_RANGE then -- 8
 
+    -- 0.5x range
     player.TearHeight = player.TearHeight / 2
     if player.TearHeight > -5 then
       -- Set an absolute minimum range
@@ -55,6 +49,19 @@ function SPCEvaluateCache:Main(player, cacheFlag)
 
     player.MaxFireDelay = 1
 
+  elseif baby.name == "Black Eye Baby" and -- 164
+         cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
+
+    -- Starts with Leprosy, +5 damage on Leprosy breaking
+    -- We use the "babyFrame" variable to track how many damage ups we have recieved
+    player.Damage = player.Damage + (SPCGlobals.run.babyFrame * baby.num)
+
+  elseif baby.name == "Sick Baby" and -- 187
+         cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
+
+    -- Explosive fly tears
+    player.MaxFireDelay = math.ceil(player.MaxFireDelay * 3)
+
   elseif baby.name == "Blisters Baby" and -- 240
          cacheFlag == CacheFlag.CACHE_SHOTSPEED then -- 4
 
@@ -65,6 +72,11 @@ function SPCEvaluateCache:Main(player, cacheFlag)
          cacheFlag == CacheFlag.CACHE_SPEED then -- 16
 
     player.MoveSpeed = player.MoveSpeed * 0.5
+
+  elseif baby.name == "Tabby Baby" and -- 269
+         cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
+
+    player.MaxFireDelay = math.ceil(player.MaxFireDelay * 2)
 
   elseif baby.name == "Killer Baby" and -- 291
          cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
@@ -138,6 +150,12 @@ function SPCEvaluateCache:Main(player, cacheFlag)
     for i = 1, SPCGlobals.run.babyCounters do
       player.MaxFireDelay = player.MaxFireDelay - 1
     end
+
+  elseif baby.name == "Voxdog Baby" and -- 462
+         cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
+
+    -- Shockwave tears
+    player.MaxFireDelay = math.ceil(player.MaxFireDelay * 2)
 
   elseif baby.name == "Robbermask Baby" and -- 473
          cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1

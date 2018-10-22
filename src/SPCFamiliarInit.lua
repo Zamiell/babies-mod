@@ -3,6 +3,7 @@ local SPCFamiliarInit = {}
 -- Includes
 local SPCGlobals = require("src/spcglobals")
 
+-- ModCallbacks.MC_FAMILIAR_INIT (7)
 function SPCFamiliarInit:Main(familiar)
   -- Local variables
   local game = Game()
@@ -39,6 +40,12 @@ function SPCFamiliarInit:Main(familiar)
       game:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.DEAD_BIRD, player.Position, Vector(0, 0), nil, 0, 0)
     end
     SPCGlobals.run.babyBool = false
+
+  elseif baby.name == "Black Eye Baby" and -- 164
+         familiar.Variant == FamiliarVariant.LEPROCY and -- 121
+         SPCGlobals.run.babyCounters < 3 then
+
+    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
 
   elseif baby.name == "Graven Baby" and -- 453
          familiar.Variant == FamiliarVariant.BUMBO then -- 88

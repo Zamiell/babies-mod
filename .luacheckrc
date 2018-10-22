@@ -26,6 +26,7 @@ globals = {
   "GridCollisionClass",
   "GridEntityType",
   "GridRooms",
+  "HeartSubType",
   "ItemPoolType",
   "Input",
   "InputHook",
@@ -69,6 +70,8 @@ globals = {
   "SinglePlayerCoopBabies",
   "LaserVariant",
   "PoopVariant",
+  "BlueFlyVariant",
+  "RoomTransition",
 
   -- This is used in the True Co-op Mod
   "InfinityTrueCoopInterface",

@@ -17,7 +17,8 @@ function SPCTimer:Display()
   end
 
   local finishTime
-  if baby.name == "Vomit Baby" or -- 341
+  if baby.name == "Noose Baby" or -- 39
+     baby.name == "Vomit Baby" or -- 341
      baby.name == "Scoreboard Baby" then -- 474
 
     finishTime = SPCGlobals.run.babyCounters

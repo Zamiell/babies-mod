@@ -9,6 +9,7 @@ function SPCPostProjectileUpdate:Main(projectile)
   -- Local variables
   local game = Game()
   local player = game:GetPlayer(0)
+  local data = projectile:GetData()
   local babyType = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[babyType]
   if baby == nil then
@@ -40,9 +41,15 @@ function SPCPostProjectileUpdate:Main(projectile)
                projectile.Position, projectile.Velocity * -1, nil, 0, 0)
     projectile:Remove()
 
-  elseif baby.name == "Eye Demon Baby" and -- 280
-         projectile.SubType == 0 then
+  elseif baby.name == "Onion Baby" and -- 224
+         data.spedUp == nil and
+         projectile.SpawnerType ~= EntityType.ENTITY_MOMS_HEART and -- 78
+         projectile.SpawnerType ~= EntityType.ENTITY_ISAAC then -- 102
 
+    data.spedUp = true
+    projectile.Velocity = projectile.Velocity * 2
+
+  elseif baby.name == "Eye Demon Baby" then -- 280
     projectile:AddProjectileFlags(ProjectileFlags.CONTINUUM) -- 1 << 30
     projectile.Height = projectile.Height * 2
 

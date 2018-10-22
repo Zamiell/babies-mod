@@ -50,7 +50,7 @@ function SPCPreGetCollectible:Main(poolType, decrease, seed)
   elseif baby.name == "Mongo Baby" then -- 535
     return SPCPreGetCollectible:GetRandom(ItemPoolType.POOL_ANGEL) -- 4
 
-  elseif baby.name == "Inucbus" then -- 536
+  elseif baby.name == "Incubus" then -- 536
     return SPCPreGetCollectible:GetRandom(ItemPoolType.POOL_DEVIL) -- 3
   end
 end

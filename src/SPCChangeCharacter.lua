@@ -48,9 +48,9 @@ function SPCChangeCharacter:Change(destinationCharacter)
 
   -- Make the screen black before we start to spam The Clicker
   -- (otherwise it will look very buggy as we switch the character constantly)
-  SPCGlobals.run.babySprite = Sprite()
-  SPCGlobals.run.babySprite:Load("gfx/misc/black.anm2", true)
-  SPCGlobals.run.babySprite:SetFrame("Default", 0)
+  SPCGlobals.run.blackSprite = Sprite()
+  SPCGlobals.run.blackSprite:Load("gfx/misc/black.anm2", true)
+  SPCGlobals.run.blackSprite:SetFrame("Default", 0)
   seeds:AddSeedEffect(SeedEffect.SEED_NO_HUD) -- 10
 
   -- Mark to start using The Clicker
@@ -92,7 +92,7 @@ function SPCChangeCharacter:PostUpdate()
   SPCChangeCharacter.changing = false
 
   -- Remove the black screen
-  SPCGlobals.run.babySprite = nil
+  SPCGlobals.run.blackSprite = nil
   seeds:RemoveSeedEffect(SeedEffect.SEED_NO_HUD) -- 10
 
   -- Since changing characters will modify our health, sSet the health back to the way it was before
@@ -133,6 +133,7 @@ function SPCChangeCharacter:RestoreHealth()
   -- Local variables
   local game = Game()
   local player = game:GetPlayer(0)
+  local character = player:GetPlayerType()
   local maxHearts = SPCChangeCharacter.health.maxHearts
   local hearts = SPCChangeCharacter.health.hearts
   local soulHearts = SPCChangeCharacter.health.soulHearts
@@ -149,6 +150,15 @@ function SPCChangeCharacter:RestoreHealth()
   player:AddMaxHearts(-24, true)
   player:AddSoulHearts(-24)
   player:AddBoneHearts(-24)
+
+  -- If the player is on a soul heart build, then The Forgotten will get to this point with no bone heart containers
+  -- Thus, make sure that we give him at least 1 bone heart container
+  if character == PlayerType.PLAYER_THEFORGOTTEN and -- 16
+     maxHearts == 0 then
+
+    maxHearts = 2
+    hearts = 2
+  end
 
   -- Add the old health
   player:AddMaxHearts(maxHearts, true)

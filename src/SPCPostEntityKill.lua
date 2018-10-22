@@ -26,11 +26,36 @@ function SPCPostEntityKill:Main(entity)
     SPCGlobals.run.roomClearDelayFrame = gameFrameCount + 1
 
   elseif baby.name == "Brown Baby" then -- 38
-    Isaac.GridSpawn(GridEntityType.GRID_POOP, PoopVariant.POOP_NORMAL, entity.Position, false) -- 14.0
+    -- Spawns a poop per enemy killed
+    Isaac.GridSpawn(GridEntityType.GRID_POOP, PoopVariant.POOP_NORMAL, npc.Position, false) -- 14.0
+
+  elseif baby.name == "Whore Baby" then -- 43
+    -- All enemies explode
+     Isaac.Explode(npc.Position, nil, 50) -- 49 deals 1 half heart of damage
+
+  elseif baby.name == "Zombie Baby" and -- 61
+         npc:IsBoss() == false and
+         npc.Type ~= EntityType.ENTITY_MOVABLE_TNT and -- 292
+         npc:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) == false then-- 1 << 29
+
+    SPCGlobals.run.babyCounters = 1
+    local friend = game:Spawn(npc.Type, npc.Variant, npc.Position, Vector(0, 0), nil, npc.SubType, npc.InitSeed)
+    friend:AddEntityFlags(EntityFlag.FLAG_CHARM) -- 1 << 8
+    friend:AddEntityFlags(EntityFlag.FLAG_FRIENDLY) -- 1 << 29
+    friend:AddEntityFlags(EntityFlag.FLAG_PERSISTENT) -- 1 << 37
+
+    -- Fade the entity so that it is easier to see everything
+    local color = friend:GetColor()
+    local fadeAmount = 0.25
+    local newColor = Color(color.R, color.G, color.B, fadeAmount, color.RO, color.GO, color.BO)
+    friend:SetColor(newColor, 0, 0, true, true)
 
   elseif baby.name == "Nerd Baby" then -- 90
     -- We don't want to clear the room too fast after an enemy dies
     SPCGlobals.run.roomClearDelayFrame = gameFrameCount + 1
+
+  elseif baby.name == "Turd Baby" then -- 92
+    game:Fart(npc.Position, 80, npc, 1, 0)
 
   elseif baby.name == "Love Eye Baby" and -- 249
          SPCGlobals.run.babyBool == false then
@@ -86,7 +111,7 @@ function SPCPostEntityKill:Main(entity)
   elseif baby.name == "Blue Wrestler Baby" then -- 388
     -- Enemies spawn projectiles upon death
     -- Mark to fire some tears one frame at a time
-    SPCGlobals.run.shootTears[#SPCGlobals.run.shootTears + 1] = {
+    SPCGlobals.run.babyTears[#SPCGlobals.run.babyTears + 1] = {
       position = npc.Position,
       num = baby.num,
     }
@@ -94,18 +119,18 @@ function SPCPostEntityKill:Main(entity)
   elseif baby.name == "Toast Baby" then -- 390
     -- Enemies leave a Red Candle fire upon death
     game:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.HOT_BOMB_FIRE, -- 1000.51
-               entity.Position, Vector(0, 0), nil, 0, 0)
+               npc.Position, Vector(0, 0), nil, 0, 0)
 
   elseif baby.name == "Buttface Baby" then -- 451
-    Isaac.GridSpawn(GridEntityType.GRID_POOP, PoopVariant.POOP_BLACK, entity.Position, false) -- 14.5
+    Isaac.GridSpawn(GridEntityType.GRID_POOP, PoopVariant.POOP_BLACK, npc.Position, false) -- 14.5
 
   elseif baby.name == "Funny Baby" then -- 491
     game:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_SUPERTROLL, -- 4.5
-               entity.Position, Vector(0, 0), nil, 0, 0)
+               npc.Position, Vector(0, 0), nil, 0, 0)
 
   elseif baby.name == "Rainbow Baby" then -- 530
     game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_CHEST, -- 5.50
-               entity.Position, Vector(0, 0), nil, 0, entity.InitSeed)
+               npc.Position, Vector(0, 0), nil, 0, npc.InitSeed)
   end
 end
 

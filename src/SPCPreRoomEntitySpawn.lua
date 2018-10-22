@@ -41,6 +41,12 @@ function SPCPreRoomEntitySpawn:Main(type, variant, subType, gridIndex, seed)
 
     -- All special rooms are Devil Rooms
     return {999, 0, 0} -- Equal to 1000.0, which is a blank effect, which is essentially nothing
+
+  elseif baby.name == "Red Wrestler Baby" and -- 389
+         type >= 1000 then -- We only care about grid entities
+
+    -- Everything is TNT
+    return {1300, 0, 0}
   end
 end
 

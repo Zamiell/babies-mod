@@ -47,21 +47,23 @@ function SPCPostNewLevel:NewLevel()
   SPCGlobals.run.currentFloorFrame        = gameFrameCount
   SPCGlobals.run.currentFloorRoomsEntered = 0
   SPCGlobals.run.trinketGone              = false
+  SPCGlobals.run.blindfoldedApplied       = false
   SPCGlobals.run.babyBool                 = false
   SPCGlobals.run.babyCounters             = 0
+  -- babyCountersRoom are reset in the MC_POST_NEW_ROOM callback
   SPCGlobals.run.babyFrame                = 0
-  SPCGlobals.run.babyTearInfo             = {
-    tear     = 1,
-    frame    = 0,
-    velocity = Vector(0, 0),
-  }
+  -- babyTears are reset in the MC_POST_NEW_ROOM callback
   SPCGlobals.run.babyNPC = {
     type    = 0,
     variant = 0,
     subType = 0,
   }
-  SPCGlobals.run.babySprite  = nil
+  SPCGlobals.run.babySprites = nil
+  SPCGlobals.run.blackSprite = nil
   SPCGlobals.run.killedPoops = {}
+
+  -- Not all curses are disabled, so make sure that there are no curses to start off with on the floor
+  level:RemoveCurse(LevelCurse.CURSE_OF_THE_UNKNOWN, false) -- 1 << 3
 
   -- Store what our current health is at
   SPCChangeCharacter:StoreHealth()
@@ -82,6 +84,7 @@ function SPCPostNewLevel:RemoveOldBaby()
   local room = game:GetRoom()
   local roomSeed = room:GetSpawnSeed()
   local player = game:GetPlayer(0)
+  local activeCharge = player:GetActiveCharge()
   local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
   if baby == nil then
@@ -154,6 +157,15 @@ function SPCPostNewLevel:RemoveOldBaby()
     SPCGlobals.run.storedTrinket = 0
   end
 
+  -- Remove the Dead Eye multiplier
+  if baby.item == CollectibleType.COLLECTIBLE_DEAD_EYE then -- 373
+    for i = 1, 100 do
+      -- Each time this function is called, it only has a chance of working,
+      -- so just call it 100 times to be safe
+      player:ClearDeadEyeCharge()
+    end
+  end
+
   -- Remove easter eggs
   if baby.seed ~= nil then
     seeds:RemoveSeedEffect(baby.seed)
@@ -164,18 +176,64 @@ function SPCPostNewLevel:RemoveOldBaby()
     -- Only one Pretty Fly is removed after removing a Halo of Flies
     -- Thus, after removing 2x Halo of Flies, one fly remains
     player:RemoveCollectible(CollectibleType.COLLECTIBLE_HALO_OF_FLIES) -- 10
+
+  elseif baby.name == "Hive Baby" then -- 40
+    -- Remove all of the Blue Flies and Blue Spiders
+    for i, entity in pairs(Isaac.GetRoomEntities()) do
+      if entity.Type == EntityType.ENTITY_FAMILIAR and -- 3
+         (entity.Variant == FamiliarVariant.BLUE_FLY or -- 43
+          entity.Variant == FamiliarVariant.BLUE_SPIDER) then -- 73
+
+        entity:Remove()
+      end
+    end
+
+  elseif baby.name == "Zombie Baby" then -- 61
+    -- Remove all of the friendly enemies
+    for i, entity in pairs(Isaac.GetRoomEntities()) do
+      if entity:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) then -- 1 << 29
+        entity:Remove()
+      end
+    end
+
   elseif baby.name == "Goat Baby" then -- 62
     player:RemoveCollectible(CollectibleType.COLLECTIBLE_GOAT_HEAD) -- 215
     player:RemoveCollectible(CollectibleType.COLLECTIBLE_DUALITY) -- 498
+
   elseif baby.name == "Ghoul Baby" then -- 83
     SPCChangeCharacter:Return()
+
+  elseif baby.name == "Digital Baby" then -- 162
+    -- B00B T00B
+    seeds:RemoveSeedEffect(SeedEffect.SEED_OLD_TV) -- 8
+
+  elseif baby.name == "Isaac Baby" then -- 219
+    -- Starts with The Battery
+    -- We need to remove any additional charge that has accumulated
+    local activeItem = player:GetActiveItem() -- This has to be after the item removal above
+    if activeItem ~= 0 and
+       activeCharge > SPCGlobals:GetItemMaxCharges(activeItem) then
+
+      player:SetActiveCharge(SPCGlobals:GetItemMaxCharges(activeItem))
+    end
+    if RacingPlusGlobals ~= nil and
+       player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
+       RacingPlusGlobals.run.schoolbag.item ~= 0 and
+       RacingPlusGlobals.run.schoolbag.chargeBattery ~= 0 then
+
+      RacingPlusGlobals.run.schoolbag.chargeBattery = 0
+    end
+
   elseif baby.name == "Butterfly Baby 2" then -- 332
-    player.GridCollisionClass = 5
+    player.GridCollisionClass = GridCollisionClass.COLLISION_WALL_EXCEPT_PLAYER -- 5
+
   elseif baby.name == "Cyborg Baby" then -- 343
     Isaac.ExecuteCommand("debug 7")
+
   elseif baby.name == "Yellow Princess Baby" then -- 375
     -- This is the third item given, so we have to handle it manually
     player:RemoveCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE) -- 540
+
   elseif baby.name == "Dino Baby" then -- 376
     -- Remove any leftover eggs
     for i, entity in pairs(Isaac.GetRoomEntities()) do
@@ -185,11 +243,10 @@ function SPCPostNewLevel:RemoveOldBaby()
         entity:Remove()
       end
     end
-  elseif baby.name == "Imp Baby" then -- 386
-    -- This is the third item given, so we have to handle it manually
-    player:RemoveCollectible(CollectibleType.COLLECTIBLE_TRANSCENDENCE) -- 20
+
   elseif baby.name == "Dream Knight Baby" then -- 393
     player:RemoveCollectible(CollectibleType.COLLECTIBLE_KEY_BUM) -- 388
+
   elseif baby.name == "Blurred Baby" then -- 407
     -- This is the third item given, so we have to handle it manually
     player:RemoveCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE) -- 540
@@ -252,7 +309,21 @@ function SPCPostNewLevel:IsBabyValid(type)
   local level = game:GetLevel()
   local stage = level:GetStage()
   local player = game:GetPlayer(0)
+  local activeItem = player:GetActiveItem()
+  local maxHearts = player:GetMaxHearts()
+  local soulHearts = player:GetSoulHearts()
+  local boneHearts = player:GetBoneHearts()
+  local coins = player:GetNumCoins()
+  local bombs = player:GetNumBombs()
+  local keys = player:GetNumKeys()
   local baby = SPCGlobals.babies[type]
+
+  -- Check to see if we already got this baby in this run / multi-character custom challenge
+  for i = 1, #SPCGlobals.pastBabies do
+    if SPCGlobals.pastBabies[i] == type then
+      return false
+    end
+  end
 
   -- Check for overlapping items
   if baby.item ~= nil and
@@ -278,18 +349,82 @@ function SPCPostNewLevel:IsBabyValid(type)
     return false
   end
 
-  -- Check for overlapping trinkets
+  -- If the player already has a trinket, do not give them a trinket baby
   if baby.trinket ~= nil and
-     player:HasTrinket(baby.trinket) then
+     player:GetTrinket(0) ~= 0 then
 
     return false
   end
 
-  -- Check to see if we already got this baby in this run / multi-character custom challenge
-  for i = 1, #SPCGlobals.pastBabies do
-    if SPCGlobals.pastBabies[i] == type then
+  -- Check to see if they have a slot for the active item
+  if baby.hasActive then
+    if activeItem ~= 0 and
+       RacingPlusGlobals ~= nil and
+       player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
+      RacingPlusGlobals.run.schoolbag.item ~= 0 then
+
+      -- The player has an active item and an item inside of the Schoolbag
       return false
     end
+    if activeItem ~= 0 and
+       (RacingPlusGlobals == nil or
+        player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) == false) then
+
+      -- The player has an active item and does not have the Schoolbag
+      return false
+    end
+  end
+
+  -- Check for conflicting health values
+  local totalHealth = maxHearts + soulHearts + boneHearts
+  if baby.numHits ~= nil and
+     totalHealth < baby.numHits then
+
+    return false
+  end
+  if baby.item == CollectibleType.COLLECTIBLE_POTATO_PEELER and -- 487
+     maxHearts == 0 then
+
+    return false
+  end
+  if (baby.item == Isaac.GetItemIdByName("Soul Jar") or
+      baby.item2 == Isaac.GetItemIdByName("Soul Jar")) and
+     maxHearts == 0 then
+
+    return false
+  end
+
+  -- Check for inventory restrictions
+  if baby.requireCoins and
+     coins == 0 then
+
+    return false
+  end
+  if (baby.item == CollectibleType.COLLECTIBLE_DOLLAR or -- 18
+      baby.item2 == CollectibleType.COLLECTIBLE_DOLLAR) and -- 18
+     coins >= 50 then
+
+    return false
+  end
+  if baby.requireBombs and
+     bombs == 0 then
+
+    return false
+  end
+  if baby.name == "Rage Baby" and
+     bombs >= 50 then
+
+    return false
+  end
+  if baby.requireKeys and
+     keys == 0 then
+
+    return false
+  end
+  if baby.name == "Fancy Baby" and -- 216
+     coins < 10 then
+
+    return false
   end
 
   -- Check for conflicting items
@@ -304,8 +439,25 @@ function SPCPostNewLevel:IsBabyValid(type)
       player:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X)) then -- 395
 
     return false
+  end
+  if (baby.item == CollectibleType.COLLECTIBLE_COMPASS or -- 21
+      baby.item2 == CollectibleType.COLLECTIBLE_COMPASS or -- 21
+      baby.item == CollectibleType.COLLECTIBLE_TREASURE_MAP or -- 54
+      baby.item2 == CollectibleType.COLLECTIBLE_TREASURE_MAP or -- 54
+      baby.item == CollectibleType.COLLECTIBLE_BLUE_MAP or -- 246
+      baby.item2 == CollectibleType.COLLECTIBLE_BLUE_MAP) and -- 246
+     player:HasCollectible(CollectibleType.COLLECTIBLE_MIND) then -- 333
 
-  elseif baby.name == "Belial Baby" and -- 62
+    return false
+  end
+  if baby.item == Isaac.GetItemIdByName("Charging Station") and
+     (RacingPlusGlobals == nil or
+      player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) == false or
+      activeItem == 0) then
+
+    return false
+  end
+  if baby.name == "Belial Baby" and -- 62
          player:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) then -- 395
 
     return false
@@ -313,6 +465,37 @@ function SPCPostNewLevel:IsBabyValid(type)
   elseif baby.name == "Goat Baby" and -- 62
          (player:HasCollectible(CollectibleType.COLLECTIBLE_GOAT_HEAD) or -- 215
           player:HasCollectible(CollectibleType.COLLECTIBLE_DUALITY)) then -- 498
+
+    return false
+
+  elseif baby.name == "Masked Baby" and -- 115
+         (player:HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) or -- 69
+          player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE) or -- 114
+          player:HasCollectible(CollectibleType.COLLECTIBLE_BRIMSTONE) or -- 118
+          player:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) or -- 229
+          player:HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE) or -- 316
+          player:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) or -- 395
+          player:HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_VOID)) then -- 399
+
+    return false
+
+  elseif baby.name == "Earwig Baby" and -- 128
+         (player:HasCollectible(CollectibleType.COLLECTIBLE_COMPASS) or -- 21
+          player:HasCollectible(CollectibleType.COLLECTIBLE_TREASURE_MAP) or -- 54
+          player:HasCollectible(CollectibleType.COLLECTIBLE_MIND)) then -- 333
+
+    -- 3 rooms are already explored
+    -- If the player has mapping, this effect is largely useless
+    -- (but having the Blue Map is okay)
+    return false
+
+  elseif baby.name == "Blindfold Baby" and -- 202
+         player:HasCollectible(CollectibleType.COLLECTIBLE_TECHNOLOGY_2) then -- 152
+
+    return false
+
+  elseif baby.name == "Bawl Baby" and -- 231
+         player:HasCollectible(CollectibleType.COLLECTIBLE_IPECAC) then -- 149
 
     return false
 
@@ -331,6 +514,13 @@ function SPCPostNewLevel:IsBabyValid(type)
          player:HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS) then -- 168
 
     -- High shot speed
+    return false
+
+  elseif baby.name == "Slicer Baby" and -- 331
+         player:HasCollectible(CollectibleType.COLLECTIBLE_IPECAC) then -- 149
+
+    -- Slice tears
+    -- Ipecac causes the tears to explode instantly, which causes unavoidable damage
     return false
 
   elseif baby.name == "Mushroom Girl Baby" and -- 361
@@ -353,55 +543,120 @@ function SPCPostNewLevel:IsBabyValid(type)
 
     return false
 
-  elseif baby.name == "Brother Bobby" and -- 522
-         player:HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS) then -- 168
+  elseif baby.name == "Rojen Whitefox Baby" and -- 446
+         player:HasCollectible(CollectibleType.COLLECTIBLE_POLAROID) then -- 327
 
-    -- Slings Godhead aura
-    -- (Epic Fetus is the only thing that overwrites the knife)
     return false
   end
 
   -- Check to see if there are level restrictions
-  if baby.noEndFloors and stage > 8 then
+  if baby.noEndFloors and stage >= 9 then
+    return false
+  end
+  if baby.item == CollectibleType.COLLECTIBLE_WE_NEED_GO_DEEPER and -- 84
+     (stage <= 2 or stage >= 8) then
+
+    -- Only valid for floors that the shovel will work on
     return false
 
-  elseif baby.item == CollectibleType.COLLECTIBLE_THERES_OPTIONS and -- 249
+  elseif baby.item == CollectibleType.COLLECTIBLE_CRYSTAL_BALL and -- 158
+         stage <= 2 then
+
+    return false
+
+  elseif baby.item == CollectibleType.COLLECTIBLE_UNDEFINED and -- 324
+         stage <= 2 then
+
+    return false
+
+  elseif (baby.item == CollectibleType.COLLECTIBLE_GOAT_HEAD or -- 215
+          baby.item2 == CollectibleType.COLLECTIBLE_GOAT_HEAD or -- 215
+          baby.item == CollectibleType.COLLECTIBLE_DUALITY or -- 498
+          baby.item2 == CollectibleType.COLLECTIBLE_DUALITY or -- 498
+          baby.item == CollectibleType.COLLECTIBLE_EUCHARIST or -- 499
+          baby.item2 == CollectibleType.COLLECTIBLE_EUCHARIST) and -- 499
+         (stage == 1 or stage >= 9) then
+
+    -- Only valid for floors with Devil Rooms
+    return false
+
+  elseif (baby.item == CollectibleType.COLLECTIBLE_THERES_OPTIONS or -- 249
+          baby.item2 == CollectibleType.COLLECTIBLE_THERES_OPTIONS) and -- 249
          (stage == 6 or stage >= 8) then
 
     -- There won't be a boss item on floor 6 or floor 8 and beyond
     return false
 
-  elseif baby.item == CollectibleType.COLLECTIBLE_MORE_OPTIONS and -- 414
+  elseif (baby.item == CollectibleType.COLLECTIBLE_MORE_OPTIONS or -- 414
+          baby.item2 == CollectibleType.COLLECTIBLE_MORE_OPTIONS) and -- 414
          (stage == 1 or stage >= 7) then
 
     -- We always have More Options on Basement 1
     -- There are no Treasure Rooms on floors 7 and beyond
     return false
-
-  elseif baby.name == "Shadow Baby" and -- 13
+  end
+  if baby.name == "Shadow Baby" and -- 13
          (stage == 1 or stage >= 8) then
 
+    -- Devil Rooms / Angel Rooms go to the Black Market instead
     -- Only valid for floors with Devil Rooms
     -- Not valid for floor 8 just in case the Black Market does not have a beam of light to the Cathedral
     return false
 
   elseif baby.name == "Goat Baby" and -- 62
-         (stage == 1 or stage >= 9) then
+         (stage <= 2 or stage >= 9) then
 
     -- Only valid for floors with Devil Rooms
+    -- Also, we are guaranteed a Devil Room on Basement 2, so we don't want to have it there either
     return false
 
   elseif baby.name == "Ghoul Baby" and -- 83
          stage == 1 then
 
-    -- The Clicker will not work on game frame 0
-    -- Furthermore, we don't want to lag the player if they are resetting for a Treasure Room
+    -- Starts with a bone club
+    -- We don't want to lag the player if they are resetting for a Treasure Room
     return false
 
-  elseif baby.name == "Goat Head Baby" and -- 215
+  elseif baby.name == "Earwig Baby" and -- 128
+         stage == 1 then
+
+    -- 3 rooms are already explored
+    -- This can make resetting slower, so don't have this baby on Basement 1
+    return false
+
+  elseif baby.name == "Chompers Baby" and -- 143
+         stage == 11 then
+
+    -- Everything is Red Poop
+    -- There is almost no grid entities on The Chest
+    return false
+
+  elseif baby.name == "Gem Baby" and -- 237
+         stage >= 7 and
+         player:HasCollectible(CollectibleType.COLLECTIBLE_MONEY_IS_POWER) == false then -- 109
+
+    -- Pennies spawn as nickels
+    -- Money is useless past Depths 2 (unless you have Money Equals Power)
+    return false
+
+  elseif baby.name == "Red Wrestler Baby" and -- 389
+         stage == 11 then
+
+    -- Everything is TNT
+    -- There is almost no grid entities on The Chest
+    return false
+
+  elseif baby.name == "Demon Baby" and -- 527
          (stage == 1 or stage >= 9) then
 
     -- Only valid for floors with Devil Rooms
+    return false
+  end
+
+  -- Check to see if there are mod restrictions
+  if baby.name == "Tears Baby" and
+     RacingPlusGlobals ~= nil then
+
     return false
   end
 
@@ -417,6 +672,8 @@ function SPCPostNewLevel:ApplyNewBaby()
   local player = game:GetPlayer(0)
   local activeItem = player:GetActiveItem()
   local activeCharge = player:GetActiveCharge()
+  local soulHearts = player:GetSoulHearts()
+  local blackHearts = player:GetBlackHearts()
   local coins = player:GetNumCoins()
   local bombs = player:GetNumBombs()
   local keys = player:GetNumKeys()
@@ -507,6 +764,24 @@ function SPCPostNewLevel:ApplyNewBaby()
     itemPool:RemoveCollectible(item)
   end
 
+  -- Reset the soul hearts and black hearts to the way it was before we added the items
+  local newSoulHearts = player:GetSoulHearts()
+  local newBlackHearts = player:GetBlackHearts()
+  if newSoulHearts ~= soulHearts or
+     newBlackHearts ~= blackHearts then
+
+    player:AddSoulHearts(-24)
+    for i = 1, soulHearts do
+      local bitPosition = math.floor((i - 1) / 2)
+      local bit = (blackHearts & (1 << bitPosition)) >> bitPosition
+      if bit == 0 then -- Soul heart
+        player:AddSoulHearts(1)
+      else -- Black heart
+        player:AddBlackHearts(1)
+      end
+    end
+  end
+
   -- Reset the coin/bomb/key count to the way it was before we added the items
   player:AddCoins(-99)
   player:AddCoins(coins)
@@ -540,10 +815,6 @@ function SPCPostNewLevel:ApplyNewBaby()
     player:AddTrinket(trinket)
   end
 
-  -- Some babies grant extra stats
-  player:AddCacheFlags(CacheFlag.CACHE_ALL) -- 0xFFFFFFFF
-  player:EvaluateItems()
-
  -- Some babies give Easter Eggs
   if baby.seed ~= nil then
     seeds:AddSeedEffect(baby.seed)
@@ -554,8 +825,7 @@ function SPCPostNewLevel:ApplyNewBaby()
      baby.item2 == CollectibleType.COLLECTIBLE_PHD then -- 75
 
     -- Delete the starting pill
-    local entities = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_PILL, -1, -- 5.70
-                                      false, false)
+    local entities = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_PILL, -1, false, false) -- 5.70
     for i = 1, #entities do
       entities[i]:Remove()
     end
@@ -574,8 +844,7 @@ function SPCPostNewLevel:ApplyNewBaby()
      baby.item2 == CollectibleType.COLLECTIBLE_LITTLE_BAGGY then -- 252
 
     -- Delete the starting pill
-    local entities = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_PILL, -1, -- 5.70
-                                      false, false)
+    local entities = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_PILL, -1, false, false) -- 5.70
     for i = 1, #entities do
       entities[i]:Remove()
     end
@@ -591,74 +860,107 @@ function SPCPostNewLevel:ApplyNewBaby()
       end
     end
   end
+  if baby.item == CollectibleType.COLLECTIBLE_SACK_HEAD or -- 424
+     baby.item2 == CollectibleType.COLLECTIBLE_SACK_HEAD then -- 424
+
+    -- Delete the starting sack
+    local entities = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_GRAB_BAG, -1, false, false) -- 5.69
+    for i = 1, #entities do
+      entities[i]:Remove()
+    end
+  end
   if baby.item == CollectibleType.COLLECTIBLE_LIL_SPEWER or -- 537
      baby.item2 == CollectibleType.COLLECTIBLE_LIL_SPEWER then -- 537
 
     -- Delete the starting pill
-    local entities = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_PILL, -1, -- 5.70
-                                      false, false)
+    local entities = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_PILL, -1, false, false) -- 5.70
     for i = 1, #entities do
       entities[i]:Remove()
     end
   end
 
   -- Miscellaneous other effects
-  if baby.name == "Rage Baby" then -- 31
+  if baby.name == "Gold Baby" then -- 15
+    player:AddGoldenBomb()
+    player:AddGoldenKey()
+    player:AddGoldenHearts(12)
+
+  elseif baby.name == "Rage Baby" then -- 31
     player:AddBombs(99)
+
+  elseif baby.name == "Noose Baby" then -- 39
+    -- Don't shoot when the timer reaches 0
+    -- Set the timer so that we don't take damage immediately upon reaching the floor
+    SPCGlobals.run.babyCounters = gameFrameCount + SPCGlobals.babies[341].time
+
   elseif baby.name == "Hive Baby" then -- 40
     -- The game only allows a maximum of 64 Blue Flies and Blue Spiders at one time
     player:AddBlueFlies(64, player.Position, nil)
     for i = 1, 64 do
       player:AddBlueSpider(player.Position)
     end
+
   elseif baby.name == "Ghoul Baby" then -- 83
     SPCChangeCharacter:Change(PlayerType.PLAYER_THEFORGOTTEN) -- 16
-  elseif baby.name == "Brownie Baby" then -- 107
-    game:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.CUBE_OF_MEAT_4, -- 3.47
-               player.Position, Vector(0, 0), nil, SPCGlobals.run.storedItem, 0)
-    game:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BALL_OF_BANDAGES_4, -- 3.72
-               player.Position, Vector(0, 0), nil, SPCGlobals.run.storedItem, 0)
+
   elseif baby.name == "Hopeless Baby" then -- 125
     -- Keys are hearts
     player:AddKeys(2)
+
+    -- Initialize the sprites
+    SPCGlobals.run.babySprites = Sprite()
+    SPCGlobals.run.babySprites:Load("gfx/custom-health/key.anm2", true)
+    SPCGlobals.run.babySprites:SetFrame("Default", 0)
+
   elseif baby.name == "Mohawk Baby" then -- 138
     -- Bombs are hearts
     player:AddBombs(2)
+
+    -- Initialize the sprites
+    SPCGlobals.run.babySprites = Sprite()
+    SPCGlobals.run.babySprites:Load("gfx/custom-health/bomb.anm2", true)
+    SPCGlobals.run.babySprites:SetFrame("Default", 0)
+
   elseif baby.name == "Aban Baby" then -- 177
     -- Coins are hearts
     player:AddCoins(2)
+
   elseif baby.name == "Vomit Baby" then -- 341
     SPCGlobals.run.babyCounters = gameFrameCount + baby.time
+
   elseif baby.name == "Cyborg Baby" then -- 343
     Isaac.ExecuteCommand("debug 7")
+
   elseif baby.name == "Rabbit Baby" then -- 350
     SPCGlobals.run.babyFrame = gameFrameCount + baby.num
-  elseif baby.name == "Mouse Baby" then -- 351
-    -- Pay to Play gives 5 coins, which we don't want
-    player:AddCoins(-5)
+
   elseif baby.name == "Yellow Princess Baby" then -- 375
     -- This is the third item given, so we have to handle it manually
     player:AddCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE, 0, false) -- 540
     Isaac.DebugString("Removing collectible " .. tostring(CollectibleType.COLLECTIBLE_FLAT_STONE)) -- 540
-  elseif baby.name == "Imp Baby" then -- 386
-    -- This is the third item given, so we have to handle it manually
-    player:AddCollectible(CollectibleType.COLLECTIBLE_TRANSCENDENCE, 0, false) -- 20
-    Isaac.DebugString("Removing collectible " .. tostring(CollectibleType.COLLECTIBLE_TRANSCENDENCE)) -- 20
 
+  elseif baby.name == "Imp Baby" then -- 386
     -- Start the direction at left
     SPCGlobals.run.babyCounters = ButtonAction.ACTION_SHOOTLEFT -- 4
     SPCGlobals.run.babyFrame = gameFrameCount + baby.num
+
   elseif baby.name == "Dream Knight Baby" then -- 393
     player:AddCollectible(CollectibleType.COLLECTIBLE_KEY_BUM, 0, false) -- 388
+
   elseif baby.name == "Blurred Baby" then -- 407
     -- This is the third item given, so we have to handle it manually
     player:AddCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE, 0, false) -- 540
     Isaac.DebugString("Removing collectible " .. tostring(CollectibleType.COLLECTIBLE_FLAT_STONE)) -- 540
+
   elseif baby.name == "Twitchy Baby" then -- 511
     -- Start with the slowest tears and mark to update them on this frame
     SPCGlobals.run.babyCounters = baby.max
     SPCGlobals.run.babyFrame = gameFrameCount
   end
+
+  -- Some babies grant extra stats
+  player:AddCacheFlags(CacheFlag.CACHE_ALL) -- 0xFFFFFFFF
+  player:EvaluateItems()
 
   -- Reset the player's size
   player.SpriteScale = Vector(1, 1)
