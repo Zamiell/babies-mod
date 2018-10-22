@@ -13,11 +13,11 @@ function SPCPostNPCInit:Main(npc)
     return
   end
 
-  if baby.name == "Bloodsucker Baby" then -- 87
+  if baby.name == "Lil' Baby" then -- 36
     -- Tiny enemies
     npc.Scale = 0.5
 
-  elseif baby.name == "New Jammies Baby" then -- 193
+  elseif baby.name == "Big Baby" then -- 37
     -- Everything is giant
     npc.Scale = 2
 

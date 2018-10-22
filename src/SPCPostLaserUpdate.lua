@@ -26,7 +26,7 @@ function SPCPostLaserUpdate:Main(laser)
   Isaac.DebugString("  MaxDistance: " .. tostring(laser.MaxDistance))
   --]]
 
-  if baby.name == "Cy-Baby" and -- 16
+  if baby.name == "Glass Baby" and -- 14
      data ~= nil and
      data.ring == true then
 

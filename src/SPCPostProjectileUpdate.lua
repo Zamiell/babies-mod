@@ -49,7 +49,10 @@ function SPCPostProjectileUpdate:Main(projectile)
     data.spedUp = true
     projectile.Velocity = projectile.Velocity * 2
 
-  elseif baby.name == "Eye Demon Baby" then -- 280
+  elseif baby.name == "Eye Demon Baby" and -- 280
+         data.modified == nil then
+
+    data.modified = true
     projectile:AddProjectileFlags(ProjectileFlags.CONTINUUM) -- 1 << 30
     projectile.Height = projectile.Height * 2
 

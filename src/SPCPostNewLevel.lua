@@ -172,12 +172,7 @@ function SPCPostNewLevel:RemoveOldBaby()
   end
 
   -- Remove miscellaneous effects
-  if baby.name == "Apollyon Baby" then -- 56
-    -- Only one Pretty Fly is removed after removing a Halo of Flies
-    -- Thus, after removing 2x Halo of Flies, one fly remains
-    player:RemoveCollectible(CollectibleType.COLLECTIBLE_HALO_OF_FLIES) -- 10
-
-  elseif baby.name == "Hive Baby" then -- 40
+  if baby.name == "Hive Baby" then -- 40
     -- Remove all of the Blue Flies and Blue Spiders
     for i, entity in pairs(Isaac.GetRoomEntities()) do
       if entity.Type == EntityType.ENTITY_FAMILIAR and -- 3
@@ -250,6 +245,11 @@ function SPCPostNewLevel:RemoveOldBaby()
   elseif baby.name == "Blurred Baby" then -- 407
     -- This is the third item given, so we have to handle it manually
     player:RemoveCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE) -- 540
+
+  elseif baby.name == "Half Spider Baby" then -- 515
+    -- Only one Pretty Fly is removed after removing a Halo of Flies
+    -- Thus, after removing 2x Halo of Flies, one fly remains
+    player:RemoveCollectible(CollectibleType.COLLECTIBLE_HALO_OF_FLIES) -- 10
   end
 end
 
@@ -547,6 +547,17 @@ function SPCPostNewLevel:IsBabyValid(type)
          player:HasCollectible(CollectibleType.COLLECTIBLE_POLAROID) then -- 327
 
     return false
+
+  elseif baby.name == "Cursed Pillow Baby" and -- 487
+         (player:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) or -- 229
+          player:HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE)) then -- 316
+
+    return false
+
+  elseif baby.name == "Abel" and -- 531
+         player:HasCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE) then -- 540
+
+    return false
   end
 
   -- Check to see if there are level restrictions
@@ -610,6 +621,12 @@ function SPCPostNewLevel:IsBabyValid(type)
     -- Also, we are guaranteed a Devil Room on Basement 2, so we don't want to have it there either
     return false
 
+  elseif baby.name == "Bomb Baby" and -- 75
+         stage == 10 then
+
+    -- 50% chance for bombs to have the D6 effect
+    return false
+
   elseif baby.name == "Ghoul Baby" and -- 83
          stage == 1 then
 
@@ -631,12 +648,24 @@ function SPCPostNewLevel:IsBabyValid(type)
     -- There is almost no grid entities on The Chest
     return false
 
+  elseif baby.name == "Shopkeeper Baby" and -- 215
+         stage >= 7 then
+
+    -- Free shop items
+    return false
+
   elseif baby.name == "Gem Baby" and -- 237
          stage >= 7 and
          player:HasCollectible(CollectibleType.COLLECTIBLE_MONEY_IS_POWER) == false then -- 109
 
     -- Pennies spawn as nickels
     -- Money is useless past Depths 2 (unless you have Money Equals Power)
+    return false
+
+  elseif baby.name == "Puzzle Baby" and -- 315
+         stage == 10 then
+
+    -- The D6 effect on hit
     return false
 
   elseif baby.name == "Red Wrestler Baby" and -- 389

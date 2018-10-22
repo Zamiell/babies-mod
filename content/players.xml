@@ -1,0 +1,10 @@
+<players root="gfx/characters/costumes/"
+         portraitroot="gfx/ui/boss/"
+         nameimageroot="gfx/ui/boss/"
+         bigportraitroot="gfx/ui/stage/">
+    <player name="Random Baby" hp="2" armor="1" bombs="1"
+          nameimage="PlayerName_06_BlueBaby.png"
+          portrait="playerportrait_coop_baby.png"
+          bigportrait="playerportraitbig_coop_baby.png"
+          skinColor="-1" />
+</players>

@@ -50,16 +50,6 @@ SPCEntityTakeDmgBabies.functions[10] = function(player, damageAmount, damageFlag
   player:Kill()
 end
 
--- Glass Baby
-SPCEntityTakeDmgBabies.functions[14] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  SPCMisc:SpawnRandomPickup(player.Position)
-end
-
--- Bean Baby
-SPCEntityTakeDmgBabies.functions[17] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  player:UseCard(Card.CARD_FOOL) -- 1
-end
-
 -- Wrapped Baby
 SPCEntityTakeDmgBabies.functions[20] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Use Kamikaze on the next 5 frames
@@ -123,6 +113,11 @@ SPCEntityTakeDmgBabies.functions[50] = function(player, damageAmount, damageFlag
              player, 0, SPCGlobals.run.randomSeed)
 end
 
+-- Apollyon Baby
+SPCEntityTakeDmgBabies.functions[56] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  player:UseCard(Card.RUNE_BLACK) -- 41
+end
+
 -- Goat Baby
 SPCEntityTakeDmgBabies.functions[62] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Local variables
@@ -165,6 +160,11 @@ SPCEntityTakeDmgBabies.functions[101] = function(player, damageAmount, damageFla
   creep:ToEffect().Timeout = 240
 end
 
+-- Cyber Baby
+SPCEntityTakeDmgBabies.functions[116] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  SPCMisc:SpawnRandomPickup(player.Position)
+end
+
 -- Hopeless Baby
 SPCEntityTakeDmgBabies.functions[125] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Keys are hearts
@@ -192,6 +192,11 @@ SPCEntityTakeDmgBabies.functions[138] = function(player, damageAmount, damageFla
     player:AddBombs(-1)
     return false
   end
+end
+
+-- Rotten Meat Baby
+SPCEntityTakeDmgBabies.functions[139] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  player:UseCard(Card.CARD_FOOL) -- 1
 end
 
 -- Fat Baby

@@ -14,8 +14,18 @@ function SPCFamiliarUpdate:Main(familiar)
     return
   end
 
-  if baby.name == "Sucky Baby" and -- 48
-     familiar.Variant == FamiliarVariant.SUCCUBUS then -- 96
+  if baby.name == "Lil' Baby" then -- 36
+    -- Everything is tiny
+    -- For some reason, familiars reset their SpriteScale on every frame, so we have to constantly set it back
+    familiar.SpriteScale = Vector(0.5, 0.5)
+
+  elseif baby.name == "Big Baby" then -- 37
+    -- Everything is giant
+    -- For some reason, familiars reset their SpriteScale on every frame, so we have to constantly set it back
+    familiar.SpriteScale = Vector(2, 2)
+
+  elseif baby.name == "Sucky Baby" and -- 48
+         familiar.Variant == FamiliarVariant.SUCCUBUS then -- 96
 
     -- Keep it locked on the player so emulate a Succubus aura
     familiar.Position = player.Position
@@ -33,16 +43,6 @@ function SPCFamiliarUpdate:Main(familiar)
         familiar2.Position = SPCMisc:GetOffsetPosition(familiar2.Position, 7, familiar2.InitSeed)
       end
     end
-
-  elseif baby.name == "Bloodsucker Baby" then -- 87
-    -- Everything is tiny
-    -- For some reason, familiars reset their SpriteScale on every frame, so we have to constantly set it back
-    familiar.SpriteScale = Vector(0.5, 0.5)
-
-  elseif baby.name == "New Jammies Baby" then -- 193
-    -- Everything is giant
-    -- For some reason, familiars reset their SpriteScale on every frame, so we have to constantly set it back
-    familiar.SpriteScale = Vector(2, 2)
 
   elseif baby.name == "Geek Baby" and -- 326
          familiar.Variant == FamiliarVariant.ROBO_BABY_2 then -- 53

@@ -12,11 +12,11 @@ function SPCPostTearInit:Main(tear)
     return
   end
 
-  if baby.name == "Bloodsucker Baby" then -- 87
+  if baby.name == "Lil' Baby" then -- 36
     -- Everything is tiny
     tear.SpriteScale = Vector(0.5, 0.5)
 
-  elseif baby.name == "New Jammies Baby" then -- 193
+  elseif baby.name == "Big Baby" then -- 37
     -- Everything is giant
     tear.SpriteScale = Vector(2, 2)
   end

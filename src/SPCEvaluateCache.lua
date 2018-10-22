@@ -39,6 +39,11 @@ function SPCEvaluateCache:Main(player, cacheFlag)
 
     player.Damage = player.Damage * 0.5
 
+  elseif baby.name == "Lipstick Baby" and -- 105
+         cacheFlag == CacheFlag.CACHE_RANGE then -- 8
+
+    player.TearHeight = player.TearHeight * 2
+
   elseif baby.name == "Tusks Baby" and -- 124
          cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
 
@@ -84,11 +89,6 @@ function SPCEvaluateCache:Main(player, cacheFlag)
     for i = 1, SPCGlobals.run.babyCounters do
       player.Damage = player.Damage + 0.2
     end
-
-  elseif baby.name == "Ranger Baby" and -- 294
-         cacheFlag == CacheFlag.CACHE_RANGE then -- 8
-
-    player.TearHeight = player.TearHeight * 2
 
   elseif baby.name == "Cupcake Baby" and -- 321
          cacheFlag == CacheFlag.CACHE_SHOTSPEED then -- 4

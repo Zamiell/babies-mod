@@ -30,6 +30,18 @@ SPCPostUpdateBabies.functions[6] = function()
   end
 end
 
+-- Bean Baby
+SPCPostUpdateBabies.functions[17] = function()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local player = game:GetPlayer(0)
+
+  if gameFrameCount % 30 == 0 then -- 1 second
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_BUTTER_BEAN, false, false, false, false) -- 294
+  end
+end
+
 -- Wrath Baby
 SPCPostUpdateBabies.functions[19] = function()
   -- Local variables
@@ -58,32 +70,39 @@ SPCPostUpdateBabies.functions[20] = function()
   end
 end
 
--- Fighting Baby
-SPCPostUpdateBabies.functions[23] = function()
-  -- Local variables
-  local game = Game()
-
-  -- Broken machines drop pedestal items
-  -- (there is no MC_POST_SLOT_UPDATE callback so we have to do this here)
-  local entities = Isaac.FindByType(EntityType.ENTITY_SLOT, -1, -1, false, false) -- 6
-  for i = 1, #entities do
-    local entity = entities[i]
-    local sprite = entity:GetSprite()
-    local data = entity:GetData()
-    if sprite:IsPlaying("Broken") and
-       data.destroyed == nil then
-
-      data.destroyed = true
-      SPCGlobals.run.randomSeed = SPCGlobals:IncrementRNG(SPCGlobals.run.randomSeed)
-      game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-                 entity.Position, Vector(0, 0), nil, 0, SPCGlobals.run.randomSeed)
-    end
-  end
-end
-
 -- Black Baby
 SPCPostUpdateBabies.functions[27] = function()
   SPCPseudoRoomClear:PostUpdate()
+end
+
+-- Lil' Baby
+SPCPostUpdateBabies.functions[36] = function()
+  -- Local variables
+  local game = Game()
+  local player = game:GetPlayer(0)
+
+  -- Everything is tiny
+  -- This does not work if we put it in the MC_POST_NEW_LEVEL callback for some reason
+  if player.SpriteScale.X > 0.5 or
+     player.SpriteScale.Y > 0.5 then
+
+    player.SpriteScale = Vector(0.5, 0.5)
+  end
+end
+
+-- Big Baby
+SPCPostUpdateBabies.functions[37] = function()
+  -- Local variables
+  local game = Game()
+  local player = game:GetPlayer(0)
+
+  -- Everything is giant
+  -- This does not work if we put it in the MC_POST_NEW_LEVEL callback for some reason
+  if player.SpriteScale.X < 2 or
+     player.SpriteScale.Y < 2 then
+
+    player.SpriteScale = Vector(2, 2)
+  end
 end
 
 -- Noose Baby
@@ -140,7 +159,7 @@ SPCPostUpdateBabies.functions[58] = function()
   local player = game:GetPlayer(0)
 
   if gameFrameCount % 210 == 0 then -- 7 seconds
-    player:UseActiveItem(CollectibleType.COLLECTIBLE_BOX_OF_FRIENDS, false, false, false, false) -- 357
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_MONSTER_MANUAL, false, false, false, false) -- 123
   end
 end
 
@@ -197,21 +216,6 @@ SPCPostUpdateBabies.functions[66] = function()
     sfx:Stop(SoundEffect.SOUND_BATTERYCHARGE) -- 170
     sfx:Stop(SoundEffect.SOUND_BEEP) -- 171
     SPCGlobals.run.babyCounters = 0
-  end
-end
-
--- Bloodsucker Baby
-SPCPostUpdateBabies.functions[87] = function()
-  -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
-
-  -- Everything is tiny
-  -- This does not work if we put it in the MC_POST_NEW_LEVEL callback for some reason
-  if player.SpriteScale.X > 0.5 or
-     player.SpriteScale.Y > 0.5 then
-
-    player.SpriteScale = Vector(0.5, 0.5)
   end
 end
 
@@ -410,18 +414,6 @@ SPCPostUpdateBabies.functions[138] = function()
   end
 end
 
--- Rotten Meat Baby
-SPCPostUpdateBabies.functions[139] = function()
-  -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
-
-  if gameFrameCount % 30 == 0 then -- 1 second
-    player:UseActiveItem(CollectibleType.COLLECTIBLE_BUTTER_BEAN, false, false, false, false) -- 294
-  end
-end
-
 -- Bluebird Baby
 SPCPostUpdateBabies.functions[147] = function()
   -- Local variables
@@ -606,18 +598,26 @@ SPCPostUpdateBabies.functions[167] = function()
   end
 end
 
--- New Jammies Baby
-SPCPostUpdateBabies.functions[193] = function()
+-- Gappy Baby
+SPCPostUpdateBabies.functions[171] = function()
   -- Local variables
   local game = Game()
-  local player = game:GetPlayer(0)
 
-  -- Everything is giant
-  -- This does not work if we put it in the MC_POST_NEW_LEVEL callback for some reason
-  if player.SpriteScale.X < 2 or
-     player.SpriteScale.Y < 2 then
+  -- Broken machines drop pedestal items
+  -- (there is no MC_POST_SLOT_UPDATE callback so we have to do this here)
+  local entities = Isaac.FindByType(EntityType.ENTITY_SLOT, -1, -1, false, false) -- 6
+  for i = 1, #entities do
+    local entity = entities[i]
+    local sprite = entity:GetSprite()
+    local data = entity:GetData()
+    if sprite:IsPlaying("Broken") and
+       data.destroyed == nil then
 
-    player.SpriteScale = Vector(2, 2)
+      data.destroyed = true
+      SPCGlobals.run.randomSeed = SPCGlobals:IncrementRNG(SPCGlobals.run.randomSeed)
+      game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
+                 entity.Position, Vector(0, 0), nil, 0, SPCGlobals.run.randomSeed)
+    end
   end
 end
 

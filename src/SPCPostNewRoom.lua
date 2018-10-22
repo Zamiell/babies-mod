@@ -125,10 +125,7 @@ function SPCPostNewRoom:ApplyTemporaryEffects()
     game:StartRoomTransition(GridRooms.ROOM_BLACK_MARKET_IDX, Direction.NO_DIRECTION, -- -6, -1
                              RoomTransition.TRANSITION_NONE) -- 0
 
-  elseif baby.name == "Gold Baby" then -- 15
-    room:TurnGold()
-
-  elseif baby.name == "Cy-Baby" then -- 16
+  elseif baby.name == "Glass Baby" then -- 14
     -- Spawn a laser ring around the player
     local laser = player:FireTechXLaser(player.Position, Vector(0,0), 66):ToLaser() -- The third argument is the radius
     -- (we copy the radius from Samael's Tech X ability)
@@ -140,6 +137,9 @@ function SPCPostNewRoom:ApplyTemporaryEffects()
     laser.CollisionDamage = laser.CollisionDamage * 0.66
     local data = laser:GetData()
     data.ring = true
+
+  elseif baby.name == "Gold Baby" then -- 15
+    room:TurnGold()
 
   elseif baby.name == "Blue Baby" then -- 30
     -- Sprinkler tears

@@ -147,10 +147,9 @@ SPCGlobals.babies = {
   },
   {
     name = "Bloat Baby",
-    description = "Starts with ???'s Only Friend + blindfolded",
+    description = "Needle tears",
     sprite = "002_baby_bloat.png",
-    item = CollectibleType.COLLECTIBLE_BLUEBABYS_ONLY_FRIEND, -- 320
-    blindfolded = true,
+    mustHaveTears = true,
   },
   {
     name = "Water Baby",
@@ -220,7 +219,7 @@ SPCGlobals.babies = {
   },
   {
     name = "Glass Baby",
-    description = "Spawns a random pickup on hit",
+    description = "Oribiting laser ring",
     sprite = "014_baby_glass.png",
   },
   {
@@ -230,12 +229,13 @@ SPCGlobals.babies = {
   },
   {
     name = "Cy-Baby",
-    description = "Oribiting laser ring",
+    description = "Starts with Technology 2",
     sprite = "016_baby_cy.png",
+    item = CollectibleType.COLLECTIBLE_TECHNOLOGY_2, -- 152
   },
   {
     name = "Bean Baby",
-    description = "Teleport to starting room on hit",
+    description = "Constant Butter Bean effect",
     sprite = "017_baby_bean.png",
   },
   {
@@ -262,14 +262,16 @@ SPCGlobals.babies = {
   },
   {
     name = "Dead Baby",
-    description = "Needle tears",
+    description = "Starts with ???'s Only Friend + blindfolded",
     sprite = "022_baby_dead.png",
-    mustHaveTears = true,
+    item = CollectibleType.COLLECTIBLE_BLUEBABYS_ONLY_FRIEND, -- 320
+    blindfolded = true,
   },
   {
     name = "Fighting Baby",
-    description = "Destroying machines gives items",
+    description = "Starts with Bloody Lust",
     sprite = "023_baby_fighting.png",
+    item = CollectibleType.COLLECTIBLE_BLOODY_LUST, -- 157
   },
   {
     name = "-0- Baby",
@@ -344,17 +346,13 @@ SPCGlobals.babies = {
   },
   {
     name = "Lil' Baby",
-    description = "Starts with 3x Lil Delirium",
+    description = "Everything is tiny",
     sprite = "036_baby_lil.png",
-    item = CollectibleType.COLLECTIBLE_LIL_DELIRIUM, -- 519
-    itemNum = 3,
   },
   {
     name = "Big Baby",
-    description = "Starts with 5x Big Chubby",
+    description = "Everything is giant",
     sprite = "037_baby_big.png",
-    item = CollectibleType.COLLECTIBLE_BIG_CHUBBY, -- 473
-    itemNum = 5,
   },
   {
     name = "Brown Baby",
@@ -462,10 +460,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Apollyon Baby",
-    description = "Starts with 3x Pretty Fly",
+    description = "Black rune effect on hit",
     sprite = "056_baby_apollyon.png",
-    item = CollectibleType.COLLECTIBLE_HALO_OF_FLIES, -- 10
-    itemNum = 2,
   },
   {
     name = "Boner Baby",
@@ -475,7 +471,7 @@ SPCGlobals.babies = {
   },
   {
     name = "Bound Baby",
-    description = "Box of Friends effect every 7 seconds",
+    description = "Monster Manual effect every 7 seconds",
     sprite = "058_baby_bound.png",
   },
   {
@@ -654,8 +650,10 @@ SPCGlobals.babies = {
   },
   {
     name = "Bloodsucker Baby",
-    description = "Everything is tiny",
+    description = "Starts with 3x Lil Delirium",
     sprite = "087_baby_bloodsucker.png",
+    item = CollectibleType.COLLECTIBLE_LIL_DELIRIUM, -- 519
+    itemNum = 3,
   },
   {
     name = "Bandaid Baby",
@@ -699,10 +697,9 @@ SPCGlobals.babies = {
   },
   {
     name = "Teeth Baby",
-    description = "Starts with 3x Mystery Sack",
+    description = "Starts with Dog Tooth",
     sprite = "095_baby_teeth.png",
-    item = CollectibleType.COLLECTIBLE_MYSTERY_SACK, -- 271
-    itemNum = 3,
+    item = CollectibleType.COLLECTIBLE_DOG_TOOTH, -- 445
   },
   {
     name = "Frown Baby",
@@ -756,10 +753,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Lipstick Baby",
-    description = "Starts with 3x Lil Chest",
+    description = "2x range",
     sprite = "105_baby_lipstick.png",
-    item = CollectibleType.COLLECTIBLE_LIL_CHEST, -- 362
-    itemNum = 3,
   },
   {
     name = "Aether Baby",
@@ -819,9 +814,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Cyber Baby",
-    description = "Starts with Technology 2",
+    description = "Spawns a random pickup on hit",
     sprite = "116_baby_cyber.png",
-    item = CollectibleType.COLLECTIBLE_TECHNOLOGY_2, -- 152
   },
   {
     name = "Axe Wound Baby",
@@ -962,7 +956,7 @@ SPCGlobals.babies = {
   },
   {
     name = "Rotten Meat Baby",
-    description = "Constant Butter Bean effect",
+    description = "Teleport to starting room on hit",
     sprite = "139_baby_rottenmeat.png",
   },
   {
@@ -1131,9 +1125,10 @@ SPCGlobals.babies = {
   },
   {
     name = "Ears Baby",
-    description = "Starts with Dog Tooth",
+    description = "Starts with 3x Mystery Sack",
     sprite = "168_baby_ears.png",
-    item = CollectibleType.COLLECTIBLE_DOG_TOOTH, -- 445
+    item = CollectibleType.COLLECTIBLE_MYSTERY_SACK, -- 271
+    itemNum = 3,
   },
   {
     name = "Funeral Baby",
@@ -1149,9 +1144,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Gappy Baby",
-    description = "Starts with Bloody Lust",
+    description = "Destroying machines gives items",
     sprite = "171_baby_gappy.png",
-    item = CollectibleType.COLLECTIBLE_BLOODY_LUST, -- 157
   },
   {
     name = "Sunburn Baby",
@@ -1285,8 +1279,10 @@ SPCGlobals.babies = {
   },
   {
     name = "New Jammies Baby",
-    description = "Everything is giant",
+    description = "Starts with 5x Big Chubby",
     sprite = "193_baby_newjammies.png",
+    item = CollectibleType.COLLECTIBLE_BIG_CHUBBY, -- 473
+    itemNum = 5,
   },
   {
     name = "Cold Baby",
@@ -1891,12 +1887,14 @@ SPCGlobals.babies = {
   },
   {
     name = "Lantern Baby",
-    description = "Godhead aura + blindfolded",
+    description = "Godhead aura + flight + blindfolded",
     sprite = "292_baby_lantern.png",
     item = CollectibleType.COLLECTIBLE_GODHEAD, -- 331
     item2 = CollectibleType.COLLECTIBLE_LUDOVICO_TECHNIQUE, -- 329
+    flight = true,
     mustHaveTears = true,
     -- (this baby is not actually blindfolded because we use The Ludovico Technique)
+    blindfolded2 = true,
   },
   {
     name = "Banshee Baby",
@@ -1905,8 +1903,10 @@ SPCGlobals.babies = {
   },
   {
     name = "Ranger Baby",
-    description = "2x range",
+    description = "Starts with 3x Lil Chest",
     sprite = "294_baby_ranger.png",
+    item = CollectibleType.COLLECTIBLE_LIL_CHEST, -- 362
+    itemNum = 3,
   },
   {
     name = "Rider Baby",
@@ -2089,7 +2089,7 @@ SPCGlobals.babies = {
   },
   {
     name = "Ballerina Baby",
-    description = "Fires tears while moving + blindfolded",
+    description = "Fires tears while moving",
     sprite = "323_baby_ballerina.png",
     seed = SeedEffect.SEED_SHOOT_IN_MOVEMENT_DIRECTION, -- 74
     mustHaveTears = true,
@@ -2265,7 +2265,7 @@ SPCGlobals.babies = {
     sprite = "350_baby_rabbit.png",
     item = CollectibleType.COLLECTIBLE_HOW_TO_JUMP, -- 282
     hasActive = true,
-    num = 30 * 2, -- Amount of game frames between forced book uses
+    num = 45 * 2, -- Amount of game frames between forced book uses
   },
   {
     name = "Mouse Baby",
@@ -3296,9 +3296,10 @@ SPCGlobals.babies = {
   },
   {
     name = "Half Spider Baby",
-    description = "Starts with Spider Mod",
+    description = "Starts with 3x Pretty Fly",
     sprite = "515_baby_halfspider.png",
-    item = CollectibleType.COLLECTIBLE_SPIDER_MOD, -- 403
+    item = CollectibleType.COLLECTIBLE_HALO_OF_FLIES, -- 10
+    itemNum = 2,
   },
   {
     name = "Silly Baby",

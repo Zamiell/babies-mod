@@ -21,7 +21,11 @@ function SPCPostFireTear:Main(tear)
 
   --Isaac.DebugString("MC_POST_FIRE_TEAR")
 
-  if baby.name == "Water Baby" and -- 3
+  if baby.name == "Bloat Baby" then -- 2
+    tear:ChangeVariant(TearVariant.NEEDLE) -- 31
+    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_NEEDLE -- 1 << 52
+
+  elseif baby.name == "Water Baby" and -- 3
      SPCGlobals.run.babyCounters > 0 then
 
     SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters - 1
@@ -50,10 +54,6 @@ function SPCPostFireTear:Main(tear)
   elseif baby.name == "Mag Baby" then -- 18
     tear:ChangeVariant(TearVariant.METALLIC) -- 3
     tear.TearFlags = tear.TearFlags | TearFlags.TEAR_CONFUSION -- 1 << 14
-
-  elseif baby.name == "Dead Baby" then -- 22
-    tear:ChangeVariant(TearVariant.NEEDLE) -- 31
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_NEEDLE -- 1 << 52
 
   elseif baby.name == "Blue Baby" then -- 30
     -- Sprinkler tears need to originate at the player
@@ -413,7 +413,7 @@ function SPCPostFireTear:Main(tear)
     end
 
   elseif baby.name == "Psychic Baby" and -- 504
-         roomFrameCount < 1800 then -- Only do it for the first minute of a room to avoid softlocks
+         roomFrameCount < 900 then -- Only do it for the first 30 seconds of a room to avoid softlocks
 
     -- Get Abel's position
     local entities = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ABEL, -1, false, false) -- 5.8

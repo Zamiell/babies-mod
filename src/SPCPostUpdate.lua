@@ -47,8 +47,6 @@ function SPCPostUpdate:Main()
     SPCGlobals.run.queuedItems = true
     if player.QueuedItem.Item.Type == ItemType.ITEM_PASSIVE then -- 1
       SPCGlobals.run.passiveItems[#SPCGlobals.run.passiveItems + 1] = player.QueuedItem.Item.ID
-      Isaac.DebugString("Added passive item " .. tostring(player.QueuedItem.Item.ID) ..
-                        " (total items: " .. #SPCGlobals.run.passiveItems .. ")")
     end
 
   elseif player:IsItemQueueEmpty() and

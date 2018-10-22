@@ -10,6 +10,8 @@ https://bindingofisaacrebirth.gamepedia.com/index.php?title=User:Zamie/Co-op&pro
 
 TODO:
 - n/a
+- make baby character
+- add instant start item system
 
 Boring Babies:
 - 329 - Spartan Baby - Starts with Trinity Shield
