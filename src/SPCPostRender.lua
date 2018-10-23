@@ -126,7 +126,10 @@ function SPCPostRender:SetPlayerSprite()
 
   -- It is hard to tell that the player can fly with all costumes removed,
   -- so represent that the player has flight with Fate's wings
-  if player.CanFly then
+  if player.CanFly and
+     baby.name ~= "Butterfly Baby 2" then -- 332
+     -- (make an exception for Butterfly Baby 2 because it already has wings)
+
     player:AddCostume(SPCGlobals:GetItemConfig(CollectibleType.COLLECTIBLE_FATE), false) -- 179
   end
 

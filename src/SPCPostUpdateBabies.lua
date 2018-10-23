@@ -918,6 +918,16 @@ SPCPostUpdateBabies.functions[320] = function()
   end
 end
 
+-- Butterfly Baby 2
+SPCPostUpdateBabies.functions[332] = function()
+  -- Local variables
+  local game = Game()
+  local player = game:GetPlayer(0)
+
+  -- Flight + can walk through walls
+  player.GridCollisionClass = GridCollisionClass.COLLISION_NONE -- 0
+end
+
 -- Hero Baby
 SPCPostUpdateBabies.functions[336] = function()
   -- Local variables

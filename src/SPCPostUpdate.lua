@@ -31,11 +31,22 @@ function SPCPostUpdate:Main()
       -- they will get one more shot)
       -- (this will not work in the MC_EVALUATE_CACHE callback because it gets reset to 0 at the end of the frame)
       player.FireDelay = 1000000 -- 1 million, equal to roughly 9 hours
-    elseif player.FireDelay > 900 then -- 30 seconds
+    else
       -- If we don't check for a large fire delay, then we will get a double tear during the start
       -- If we are going from a blindfolded baby to a non-blindfolded baby,
       -- we must restore the fire delay to a normal value
-      player.FireDelay = 0
+      if player.FireDelay > 900 then -- 30 seconds
+        player.FireDelay = 0
+      end
+
+      -- We also have to restore the fire delay on Incubus(es), if any
+      local incubi = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.INCUBUS, -1, false, false) -- 7.80
+      for i = 1, #incubi do
+        local incubus = incubi[i]:ToFamiliar()
+        if incubus.FireCooldown > 900 then -- 30 seconds
+          incubus.FireCooldown = 0
+        end
+      end
     end
   end
 

@@ -21,10 +21,6 @@ function SPCPostNPCInit:Main(npc)
     -- Everything is giant
     npc.Scale = 2
 
-  elseif baby.name == "Moth Baby" then -- 450
-    npc:MakeChampion(npc.InitSeed)
-    npc:Morph(npc.Type, npc.Variant, npc.SubType, 11) -- Purple / Gaping Maw effect
-
   elseif baby.name == "404 Baby" then -- 463
     SPCMisc:SetRandomColor(npc)
   end

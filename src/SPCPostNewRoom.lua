@@ -426,9 +426,6 @@ function SPCPostNewRoom:ApplyTemporaryEffects()
       end
     end
 
-  elseif baby.name == "Butterfly Baby 2" then -- 332
-    player.GridCollisionClass = GridCollisionClass.COLLISION_NONE -- 0
-
   elseif baby.name == "Driver Baby" then -- 431
     -- Slippery movement
     -- Prevent softlocks from Gaping Maws and cheap damage by Broken Gaping Maws by deleting them
@@ -439,6 +436,22 @@ function SPCPostNewRoom:ApplyTemporaryEffects()
     local entities2 = Isaac.FindByType(EntityType.ENTITY_BROKEN_GAPING_MAW, -1, -1, false, false) -- 236
     for i = 1, #entities2 do
       entities2[i]:Remove()
+    end
+
+  elseif baby.name == "Mouse Baby" and -- 351
+         roomClear then
+
+    -- Coin doors in uncleared rooms
+    -- If the player leaves and re-enters an uncleared room, a normal door will stay locked
+    -- So, unlock all normal doors if the room is already clear
+    for i = 0, 7 do
+      local door = room:GetDoor(i)
+      if door ~= nil and
+         door.TargetRoomType == RoomType.ROOM_DEFAULT and -- 1
+         door:IsLocked() then
+
+        door:TryUnlock(true) -- This has to be forced
+      end
     end
 
   elseif baby.name == "Gamer Baby" and -- 492
