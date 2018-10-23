@@ -103,6 +103,7 @@ function SPCPostNewRoom:ApplyTemporaryEffects()
   local room = game:GetRoom()
   local roomType = room:GetType()
   local roomFirstVisit = room:IsFirstVisit()
+  local roomClear = room:IsClear()
   local player = game:GetPlayer(0)
   local maxHearts = player:GetMaxHearts()
   local effects = player:GetEffects()
@@ -164,6 +165,22 @@ function SPCPostNewRoom:ApplyTemporaryEffects()
           local newColor = Color(color.R, color.G, color.B, fadeAmount, color.RO, color.GO, color.BO)
           entity:SetColor(newColor, 0, 0, true, true)
         end
+      end
+    end
+
+  elseif baby.name == "Nerd Baby" and -- 90
+         roomClear then
+
+    -- Locked doors in uncleared rooms
+    -- If the player leaves and re-enters an uncleared room, a normal door will stay locked
+    -- So, unlock all normal doors if the room is already clear
+    for i = 0, 7 do
+      local door = room:GetDoor(i)
+      if door ~= nil and
+         door.TargetRoomType == RoomType.ROOM_DEFAULT and -- 1
+         door:IsLocked() then
+
+        door:TryUnlock(true) -- This has to be forced
       end
     end
 

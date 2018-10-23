@@ -41,6 +41,8 @@ function SPCPostRender:Main()
 
   SPCPostRender:TrackPlayerAnimations()
   SPCPostRender:DrawBabyIntro()
+  SPCPostRender:DrawBabyNumber()
+  SPCPostRender:DrawVersion()
   SPCPostRender:DrawBabyEffects()
   SPCPostRender:DrawTempIcon()
   SPCTimer:Display()
@@ -177,19 +179,86 @@ function SPCPostRender:DrawBabyIntro()
 
   -- Render the baby's description
   text = baby.description
-  scale = 1
-  x = center.X - 3 * scale * #text
+  x = center.X - 3 * #text
   y = center.Y - 55
-  Isaac.RenderScaledText(text, x, y, scale, scale, 2, 2, 2, 2)
+  Isaac.RenderText(text, x, y, 2, 2, 2, 2)
 
   -- The description might be really long and spill over onto a second line
   if baby.description2 ~= nil then
     text = baby.description2
-    scale = 1
-    x = center.X - 3 * scale * #text
+    x = center.X - 3 * #text
     y = center.Y - 40
-    Isaac.RenderScaledText(text, x, y, scale, scale, 2, 2, 2, 2)
+    Isaac.RenderText(text, x, y, 2, 2, 2, 2)
   end
+end
+
+-- Draw the baby's number next to the heart count
+function SPCPostRender:DrawBabyNumber()
+  local type = SPCGlobals.run.babyType
+  local baby = SPCGlobals.babies[type]
+  if baby == nil then
+    return
+  end
+
+  local text = "#" .. type
+  local x = 55 + SPCPostRender:GetHeartXOffset()
+  local y = 10
+  Isaac.RenderText(text, x, y, 2, 2, 2, 2)
+end
+
+-- Copied from the Racing+ mod
+function SPCPostRender:GetHeartXOffset()
+  -- Local variables
+  local game = Game()
+  local player = game:GetPlayer(0)
+  local maxHearts = player:GetMaxHearts()
+  local soulHearts = player:GetSoulHearts()
+  local boneHearts = player:GetBoneHearts()
+  local extraLives = player:GetExtraLives()
+
+  local heartLength = 12 -- This is how long each heart is on the UI in the upper left hand corner
+  -- (this is not in pixels, but in draw coordinates; you can see that it is 13 pixels wide in the "ui_hearts.png" file)
+  local combinedHearts = maxHearts + soulHearts + (boneHearts * 2) -- There are no half bone hearts
+  if combinedHearts > 12 then
+    combinedHearts = 12 -- After 6 hearts, it wraps to a second row
+  end
+
+  local offset = (combinedHearts / 2) * heartLength
+  if extraLives > 9 then
+    offset = offset + 20
+    if player:HasCollectible(CollectibleType.COLLECTIBLE_GUPPYS_COLLAR) then -- 212
+      offset = offset + 6
+    end
+  elseif extraLives > 0 then
+    offset = offset + 16
+    if player:HasCollectible(CollectibleType.COLLECTIBLE_GUPPYS_COLLAR) then -- 212
+      offset = offset + 4
+    end
+  end
+
+  return offset
+end
+
+function SPCPostRender:DrawVersion()
+  if Input.IsButtonPressed(Keyboard.KEY_V, 0) == false then -- 86
+    return
+  end
+
+  local center = SPCPostRender:GetScreenCenterPosition()
+  local text, scale, x, y
+
+  -- Render the version of the mod
+  text = "The Babies Mod"
+  scale = 1
+  x = center.X - 3 * scale * #text
+  y = center.Y
+  Isaac.RenderScaledText(text, x, y, scale, scale, 2, 2, 2, 2)
+
+  text = SPCGlobals.version
+  scale = 1
+  x = center.X - 3 * scale * #text
+  y = center.Y + 15
+  Isaac.RenderScaledText(text, x, y, scale, scale, 2, 2, 2, 2)
 end
 
 function SPCPostRender:DrawBabyEffects()

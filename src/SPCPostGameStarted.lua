@@ -15,6 +15,8 @@ function SPCPostGameStarted:Main(saveState)
   local game = Game()
   local seeds = game:GetSeeds()
   local itemPool = game:GetItemPool()
+  local player = game:GetPlayer(0)
+  local character = player:GetPlayerType()
   local challenge = Isaac.GetChallenge()
 
   Isaac.DebugString("MC_POST_GAME_STARTED (SPC)")
@@ -45,6 +47,15 @@ function SPCPostGameStarted:Main(saveState)
         seeds:RemoveSeedEffect(baby.seed)
       end
     end
+  end
+
+  -- Only do the following things if we are not on the Random Baby character
+  if character == Isaac.GetPlayerTypeByName("Random Baby") then
+    -- We want to keep track that we started the run as the "Random Baby" character,
+    -- in case the player changes their character later through Judas' Shadow, etc.
+    SPCGlobals.run.enabled = true
+  else
+    return
   end
 
   -- Remove some items from pools

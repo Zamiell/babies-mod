@@ -749,8 +749,14 @@ SPCPostUpdateBabies.functions[231] = function()
   local game = Game()
   local gameFrameCount = game:GetFrameCount()
   local player = game:GetPlayer(0)
+  local hearts = player:GetHearts()
+  local soulHearts = player:GetSoulHearts()
+  local boneHearts = player:GetBoneHearts()
 
-  if gameFrameCount % 3 == 0 then
+  if gameFrameCount % 3 == 0 and
+     hearts + soulHearts + boneHearts > 0 then
+     -- Prevent the bug where dying with this baby will softlock and not show the game over screen
+
     SPCGlobals.run.babyBool = true
     player:UseActiveItem(CollectibleType.COLLECTIBLE_ISAACS_TEARS, false, false, false, false) -- 323
     SPCGlobals.run.babyBool = false

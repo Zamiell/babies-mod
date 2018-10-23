@@ -17,6 +17,7 @@ function SPCEvaluateCache:Main(player, cacheFlag)
     return
   end
 
+  -- Handle blindfolded characters
   if baby.blindfolded and
      cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
 
@@ -24,6 +25,7 @@ function SPCEvaluateCache:Main(player, cacheFlag)
     -- (setting "player.FireDelay" here will not work, so do one frame later in the MC_POST_UPDATE callback)
   end
 
+  -- Per baby stat changes
   if baby.name == "Lowface Baby" and -- 73
      cacheFlag == CacheFlag.CACHE_RANGE then -- 8
 
@@ -181,6 +183,11 @@ function SPCEvaluateCache:Main(player, cacheFlag)
 
     -- Tear rate oscillates
     player.MaxFireDelay = player.MaxFireDelay + SPCGlobals.run.babyCounters
+  end
+
+  -- The "Random Baby" character has a 1.0 damage multiplier, so emulate Judas' damage multiplier
+  if cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
+    player.Damage = player.Damage * 1.35
   end
 end
 

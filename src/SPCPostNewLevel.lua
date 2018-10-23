@@ -30,6 +30,7 @@ function SPCPostNewLevel:NewLevel()
   local level = game:GetLevel()
   local stage = level:GetStage()
   local stageType = level:GetStageType()
+  local challenge = Isaac.GetChallenge()
 
   Isaac.DebugString("MC_POST_NEW_LEVEL2 (SPC)")
 
@@ -62,8 +63,14 @@ function SPCPostNewLevel:NewLevel()
   SPCGlobals.run.blackSprite = nil
   SPCGlobals.run.killedPoops = {}
 
-  -- Not all curses are disabled, so make sure that there are no curses to start off with on the floor
-  level:RemoveCurse(LevelCurse.CURSE_OF_THE_UNKNOWN, false) -- 1 << 3
+  -- Racing+ removes all curses
+  -- If we are in the R+7 Season 5 custom challenge, then all curses are disabled except for Curse of the Unknown
+  -- Thus, we might naturally get this curse inside the challenge, so make sure it is disabled
+  if (challenge == Isaac.GetChallengeIdByName("R+7 (Season 5 Beta)") or
+      challenge == Isaac.GetChallengeIdByName("R+7 (Season 5)")) then
+
+    level:RemoveCurse(LevelCurse.CURSE_OF_THE_UNKNOWN, false) -- 1 << 3
+  end
 
   -- Store what our current health is at
   SPCChangeCharacter:StoreHealth()
@@ -259,8 +266,9 @@ function SPCPostNewLevel:GetNewBaby()
   local level = game:GetLevel()
   local seed = level:GetDungeonPlacementSeed()
 
-  -- Don't do anything if getting new babies is disabled
-  if SPCGlobals.debug == "disable" then
+  -- Don't get a new baby if we did not start the run as the Random Baby character
+  if SPCGlobals.run.enabled == false then
+    SPCGlobals.run.babyType = 0
     return
   end
 
@@ -548,15 +556,24 @@ function SPCPostNewLevel:IsBabyValid(type)
 
     return false
 
-  elseif baby.name == "Cursed Pillow Baby" and -- 487
-         (player:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) or -- 229
-          player:HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE)) then -- 316
+  elseif (baby.name == "Cursed Pillow Baby" or -- 487
+          baby.name == "Abel") and -- 531
+         (player:HasCollectible(CollectibleType.COLLECTIBLE_INNER_EYE) or -- 2
+          player:HasCollectible(CollectibleType.COLLECTIBLE_CUPIDS_ARROW) or -- 48
+          player:HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER) or -- 153
+          player:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) or -- 229
+          player:HasCollectible(CollectibleType.COLLECTIBLE_DEATHS_TOUCH) or -- 237
+          player:HasCollectible(CollectibleType.COLLECTIBLE_20_20) or -- 245
+          player:HasCollectible(CollectibleType.COLLECTIBLE_SAGITTARIUS) or -- 306
+          player:HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE) or -- 316
+          player:HasCollectible(CollectibleType.COLLECTIBLE_DEAD_ONION) or -- 336
+          player:HasCollectible(CollectibleType.COLLECTIBLE_EYE_OF_BELIAL) or -- 462
+          player:HasCollectible(CollectibleType.COLLECTIBLE_LITTLE_HORN) or -- 503
+          player:HasCollectible(CollectibleType.COLLECTIBLE_TRISAGION) or -- 533
+          player:HasCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE)) then -- 540
 
-    return false
-
-  elseif baby.name == "Abel" and -- 531
-         player:HasCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE) then -- 540
-
+    -- Missed tears cause damage & missed tears cause paralysis
+    -- Piercing, multiple shots, and Flat Stone causes this to mess up
     return false
   end
 
@@ -673,6 +690,11 @@ function SPCPostNewLevel:IsBabyValid(type)
 
     -- Everything is TNT
     -- There is almost no grid entities on The Chest
+    return false
+
+  elseif baby.name == "Folder Baby" and -- 430
+         (stage == 1 or stage == 10) then
+
     return false
 
   elseif baby.name == "Demon Baby" and -- 527

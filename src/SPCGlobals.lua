@@ -4,10 +4,18 @@ local SPCGlobals  = {}
 -- Variables
 --
 
+-- Updated automatically by the "release.py" script
+SPCGlobals.version = "v0.1.0"
+
+-- These are variables that are reset at the beginning of every run
+-- (defaults are set below in the "RPGlobals:InitRun()" function)
 SPCGlobals.run = {}
-SPCGlobals.pastBabies = {}
+
 -- A list of the babies that we have chosen so far on this run / multi-character custom challenge
-SPCGlobals.debug = 0 -- Used for testing specific babies
+SPCGlobals.pastBabies = {}
+
+-- Used for testing specific babies
+SPCGlobals.debug = 0
 
 function SPCGlobals:InitRun()
   -- Local variables
@@ -18,6 +26,7 @@ function SPCGlobals:InitRun()
   -- Reset some variables to defaults
   SPCGlobals.run = {
     -- General run-based variables
+    enabled              = false, -- Set to true in the MC_POST_GAME_STARTED callback if we are on the right character
     babyType             = 0,
     drawIntro            = false,
     storedItem           = 0,

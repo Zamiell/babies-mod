@@ -130,9 +130,13 @@ SPC:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL,       SPCPostEntityKill.Main) 
 SPC:AddCallback(ModCallbacks.MC_PRE_ROOM_ENTITY_SPAWN,  SPCPreRoomEntitySpawn.Main) -- 71
 
 -- Welcome banner
-Isaac.DebugString("+-----------------------------+")
-Isaac.DebugString("| The Babies Mod initialized. |")
-Isaac.DebugString("+-----------------------------+")
+local hyphens = ''
+for i = 1, 31 + string.len(SPCGlobals.version) do
+  hyphens = hyphens .. "-"
+end
+Isaac.DebugString("+" .. hyphens .. "+")
+Isaac.DebugString("| The Babies Mod v" .. tostring(SPCGlobals.version) .. " initialized. |")
+Isaac.DebugString("+" .. hyphens .. "+")
 Isaac.DebugString("Total babies: " .. tostring(#SPCGlobals.babies))
 
 -- Check to see if any of the babies have a duplciate name
