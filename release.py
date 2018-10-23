@@ -43,7 +43,7 @@ if NEW_VERSION == '':
     print("Failed to parse the version.")
     sys.exit(1)
 with open(LUA_FILE, 'w', newline='\n') as file:
-    file.write(VERSION_PREFIX + NEW_VERSION)
+    file.write(NEW_FILE)
 
 # Also write out the version to the "version.txt" file
 VERSION_FILE = os.path.join(MOD_DIR, 'version.txt')
