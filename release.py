@@ -74,4 +74,4 @@ UPLOADER_PATH = 'C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding 
 subprocess.Popen([UPLOADER_PATH], cwd=MOD_DIR) # Popen will run it in the background
 
 # Done
-print('Released version', NUMBER_VERSION, 'successfully.')
+print('Released version', NEW_VERSION, 'successfully.')
