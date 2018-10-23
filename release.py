@@ -48,7 +48,7 @@ with open(LUA_FILE, 'w', newline='\n') as file:
 # Also write out the version to the "version.txt" file
 VERSION_FILE = os.path.join(MOD_DIR, 'version.txt')
 with open(VERSION_FILE, 'w', newline='\n') as file:
-    file.write(NEW_FILE)
+    file.write(VERSION_FILE)
 
 # Remove the "disable.it" file, if present
 DISABLE_IT_PATH = os.path.join(MOD_DIR, 'disable.it')
@@ -70,9 +70,8 @@ if RETURN_CODE != 0:
     error('Failed to git push.')
 
 # Open the mod updater tool from Nicalis
-if not ARGS.skipmod:
-    UPLOADER_PATH = 'C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\tools\\ModUploader\\ModUploader.exe'
-    subprocess.Popen([UPLOADER_PATH], cwd=MOD_DIR) # Popen will run it in the background
+UPLOADER_PATH = 'C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\tools\\ModUploader\\ModUploader.exe'
+subprocess.Popen([UPLOADER_PATH], cwd=MOD_DIR) # Popen will run it in the background
 
 # Done
 print('Released version', NUMBER_VERSION, 'successfully.')
