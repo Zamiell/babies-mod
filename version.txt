@@ -1,1 +1,1 @@
-C:\Users\james\Documents\My Games\Binding of Isaac Afterbirth+ Mods\babies_mod_dev\version.txt
+v0.1.1
