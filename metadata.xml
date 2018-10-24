@@ -7,14 +7,14 @@
 
 In the current version of the game, there are a whopping 520 different co-op babies. Even though most of the babies are only cosmetic and have no special abilities, there are still 58 babies with special abilities. So a tremendous amount of work has gone into designing and coding the special babies, as well as creating all of the sprites. This is an entire area of the game that is unknown and unused by 99% of the Isaac player-base. It's time for that to change.
 
-This mod randomly lets you play as one of the 541 co-op babies, each of which grants a new, unique ability. The babies are listed at [url=https://bindingofisaacrebirth.gamepedia.com/User:Zamie/Co-op]this page[/url]. The baby will change on every floor, so don't get too attached!
+This mod adds a new character - "Random Baby". When playing as Random Baby, you will randomly be assigned one of the 541 babies, each of which grants a new, unique ability. The babies are listed at [url=https://bindingofisaacrebirth.gamepedia.com/User:Zamie/Co-op]this page[/url]. The baby will change on every floor, so don't get too attached! (You will keep your inventory between floors.)
 
-A lot of the babies will make you quite powerful, which can remove the difficulty of a normal Isaac run. Instead, challenge yourself to beat the game as fast as possible! And once you've gotten the hang of that, you can challenge yourself to beat the game as fast as possible 7 times in a row using the [url=https://bindingofisaacrebirth.gamepedia.com/index.php?title=User:Zamie/Co-op&profile=no#R.2B7_Season_5]Season 5 custom challenge[/url].
+A lot of the babies will make you quite powerful, which can remove the difficulty of a normal Isaac run. Instead, challenge yourself to beat the game as fast as possible! And once you've gotten the hang of that, you can challenge yourself to beat the game as fast as possible 7 times in a row using the [url=https://bindingofisaacrebirth.gamepedia.com/index.php?title=User:Zamie/Co-op&amp;profile=no#R.2B7_Season_5]Season 5 custom challenge[/url].
 
 For technical support or general questions, please [b]do not post a comment here[/b]. Instead, post in the &quot;#b-general&quot; channel on the [url=https://discord.gg/JzbhWQb]Isaac racing &amp; speedrunning Discord server[/url].
 
 Comments asking questions will be deleted.</description>
-    <version>1.6</version>
+    <version>1.7</version>
     <visibility>Public</visibility>
     <tag id="Lua"/>
     <tag id="Player Characters"/>

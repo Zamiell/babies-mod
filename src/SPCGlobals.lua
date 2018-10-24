@@ -5,7 +5,7 @@ local SPCGlobals  = {}
 --
 
 -- Updated automatically by the "release.py" script
-SPCGlobals.version = "v0.1.2"
+SPCGlobals.version = "v0.1.3"
 
 -- These are variables that are reset at the beginning of every run
 -- (defaults are set below in the "RPGlobals:InitRun()" function)
@@ -906,9 +906,9 @@ SPCGlobals.babies = {
   },
   {
     name = "Ninkumpoop Baby",
-    description = "Starts with Ring Worm",
+    description = "Starts with Ouroboros Worm",
     sprite = "129_baby_ninkumpoop.png",
-    trinket = TrinketType.TRINKET_RING_WORM, -- 11
+    trinket = TrinketType.TRINKET_OUROBOROS_WORM, -- 96
     mustHaveTears = true,
   },
   {

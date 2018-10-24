@@ -721,6 +721,8 @@ function SPCPostNewLevel:ApplyNewBaby()
   local gameFrameCount = game:GetFrameCount()
   local seeds = game:GetSeeds()
   local itemPool = game:GetItemPool()
+  local level = game:GetLevel()
+  local stage = level:GetStage()
   local player = game:GetPlayer(0)
   local activeItem = player:GetActiveItem()
   local activeCharge = player:GetActiveCharge()
@@ -901,8 +903,9 @@ function SPCPostNewLevel:ApplyNewBaby()
       entities[i]:Remove()
     end
   end
-  if baby.item == CollectibleType.COLLECTIBLE_CHAOS or -- 402
-     baby.item2 == CollectibleType.COLLECTIBLE_CHAOS then -- 402
+  if (baby.item == CollectibleType.COLLECTIBLE_CHAOS or -- 402
+      baby.item2 == CollectibleType.COLLECTIBLE_CHAOS) and -- 402
+     stage ~= 11 then -- Don't delete the pickups on The Chest / Dark Room
 
     -- Delete the starting random pickups
     local entities = Isaac.FindByType(EntityType.ENTITY_PICKUP, -1, -1, false, false) -- 5
