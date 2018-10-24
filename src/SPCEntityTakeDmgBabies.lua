@@ -138,6 +138,11 @@ SPCEntityTakeDmgBabies.functions[62] = function(player, damageAmount, damageFlag
   end
 end
 
+-- Ghoul Baby
+SPCEntityTakeDmgBabies.functions[83] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  player:UseActiveItem(CollectibleType.COLLECTIBLE_BOOK_OF_SECRETS, false, false, false, false) -- 287
+end
+
 -- Half Head Baby
 SPCEntityTakeDmgBabies.functions[98] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Take double damage

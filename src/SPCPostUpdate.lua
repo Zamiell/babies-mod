@@ -5,7 +5,6 @@ local SPCGlobals          = require("src/spcglobals")
 local SPCMisc             = require("src/spcmisc")
 local SPCPostRender       = require("src/spcpostrender")
 local SPCPostUpdateBabies = require("src/spcpostupdatebabies")
-local SPCChangeCharacter  = require("src/spcchangecharacter")
 
 -- ModCallbacks.MC_POST_UPDATE (1)
 function SPCPostUpdate:Main()
@@ -92,9 +91,6 @@ function SPCPostUpdate:Main()
 
   -- Check to see if we are going to the next floor
   SPCPostUpdate:CheckTrapdoor()
-
-  -- Check if we need to change the character
-  SPCChangeCharacter:PostUpdate()
 end
 
 -- Check to see if this is a trinket baby and they dropped the trinket

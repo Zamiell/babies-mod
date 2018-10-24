@@ -850,10 +850,10 @@ SPCPostUpdateBabies.functions[295] = function()
   local activeItem = player:GetActiveItem()
   local sfx = SFXManager()
 
+  -- Keep the pony fully charged
   if activeItem == CollectibleType.COLLECTIBLE_PONY and -- 130
      player:NeedsCharge() then
 
-    -- Keep the pony fully charged
     player:FullCharge()
     sfx:Stop(SoundEffect.SOUND_BATTERYCHARGE) -- 170
   end
@@ -974,10 +974,10 @@ SPCPostUpdateBabies.functions[348] = function()
   local activeItem = player:GetActiveItem()
   local sfx = SFXManager()
 
+  -- Keep the Candle always fully charged
   if activeItem == CollectibleType.COLLECTIBLE_CANDLE and -- 164
      player:NeedsCharge() then
 
-    -- Keep the Candle always fully charged
     player:FullCharge()
     sfx:Stop(SoundEffect.SOUND_BATTERYCHARGE) -- 170
   end

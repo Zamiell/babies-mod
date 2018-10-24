@@ -197,7 +197,8 @@ function SPCPostNewRoom:ApplyTemporaryEffects()
                  position, Vector(0, 0), nil, 0, SPCGlobals.run.randomSeed)
     end
 
-  elseif baby.name == "Hopeless Baby" or -- 125
+  elseif baby.name == "Lost Baby" or -- 10
+         baby.name == "Hopeless Baby" or -- 125
          baby.name == "Mohawk Baby" then -- 138
 
     -- Get rid of the health UI by using Curse of the Unknown

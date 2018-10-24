@@ -4,7 +4,6 @@ local SPCPostNewLevel = {}
 local SPCGlobals         = require("src/spcglobals")
 local SPCPostRender      = require("src/spcpostrender")
 local SPCPostNewRoom     = require("src/spcpostnewroom")
-local SPCChangeCharacter = require("src/spcchangecharacter")
 
 -- ModCallbacks.MC_POST_NEW_LEVEL (18)
 function SPCPostNewLevel:Main()
@@ -71,9 +70,6 @@ function SPCPostNewLevel:NewLevel()
 
     level:RemoveCurse(LevelCurse.CURSE_OF_THE_UNKNOWN, false) -- 1 << 3
   end
-
-  -- Store what our current health is at
-  SPCChangeCharacter:StoreHealth()
 
   -- Set the new baby
   SPCPostNewLevel:RemoveOldBaby()
@@ -201,9 +197,6 @@ function SPCPostNewLevel:RemoveOldBaby()
   elseif baby.name == "Goat Baby" then -- 62
     player:RemoveCollectible(CollectibleType.COLLECTIBLE_GOAT_HEAD) -- 215
     player:RemoveCollectible(CollectibleType.COLLECTIBLE_DUALITY) -- 498
-
-  elseif baby.name == "Ghoul Baby" then -- 83
-    SPCChangeCharacter:Return()
 
   elseif baby.name == "Digital Baby" then -- 162
     -- B00B T00B
@@ -497,6 +490,14 @@ function SPCPostNewLevel:IsBabyValid(type)
     -- (but having the Blue Map is okay)
     return false
 
+  elseif baby.name == "Sloppy Baby" and -- 146
+         (player:HasCollectible(CollectibleType.COLLECTIBLE_INNER_EYE) or -- 2
+          player:HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER) or -- 153
+          player:HasCollectible(CollectibleType.COLLECTIBLE_20_20) or -- 245
+          player:HasPlayerForm(PlayerForm.PLAYERFORM_BOOK_WORM)) then-- 10
+
+    return false
+
   elseif baby.name == "Blindfold Baby" and -- 202
          player:HasCollectible(CollectibleType.COLLECTIBLE_TECHNOLOGY_2) then -- 152
 
@@ -581,7 +582,14 @@ function SPCPostNewLevel:IsBabyValid(type)
   if baby.noEndFloors and stage >= 9 then
     return false
   end
-  if baby.item == CollectibleType.COLLECTIBLE_WE_NEED_GO_DEEPER and -- 84
+  if (baby.item == CollectibleType.COLLECTIBLE_STEAM_SALE or -- 64
+      baby.item2 == CollectibleType.COLLECTIBLE_STEAM_SALE) and -- 64
+     stage >= 7 then
+
+    -- Only valid for floors with shops
+    return false
+
+  elseif baby.item == CollectibleType.COLLECTIBLE_WE_NEED_GO_DEEPER and -- 84
      (stage <= 2 or stage >= 8) then
 
     -- Only valid for floors that the shovel will work on
@@ -642,13 +650,6 @@ function SPCPostNewLevel:IsBabyValid(type)
          stage == 10 then
 
     -- 50% chance for bombs to have the D6 effect
-    return false
-
-  elseif baby.name == "Ghoul Baby" and -- 83
-         stage == 1 then
-
-    -- Starts with a bone club
-    -- We don't want to lag the player if they are resetting for a Treasure Room
     return false
 
   elseif baby.name == "Earwig Baby" and -- 128
@@ -951,9 +952,6 @@ function SPCPostNewLevel:ApplyNewBaby()
       player:AddBlueSpider(player.Position)
     end
 
-  elseif baby.name == "Ghoul Baby" then -- 83
-    SPCChangeCharacter:Change(PlayerType.PLAYER_THEFORGOTTEN) -- 16
-
   elseif baby.name == "Hopeless Baby" then -- 125
     -- Keys are hearts
     player:AddKeys(2)
@@ -1002,6 +1000,9 @@ function SPCPostNewLevel:ApplyNewBaby()
     -- This is the third item given, so we have to handle it manually
     player:AddCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE, 0, false) -- 540
     Isaac.DebugString("Removing collectible " .. tostring(CollectibleType.COLLECTIBLE_FLAT_STONE)) -- 540
+
+  elseif baby.name == "Rich Baby" then -- 424
+    player:AddCoins(99)
 
   elseif baby.name == "Twitchy Baby" then -- 511
     -- Start with the slowest tears and mark to update them on this frame

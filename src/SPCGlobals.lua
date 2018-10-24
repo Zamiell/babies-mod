@@ -5,7 +5,7 @@ local SPCGlobals  = {}
 --
 
 -- Updated automatically by the "release.py" script
-SPCGlobals.version = "v0.1.1"
+SPCGlobals.version = "v0.1.2"
 
 -- These are variables that are reset at the beginning of every run
 -- (defaults are set below in the "RPGlobals:InitRun()" function)
@@ -442,6 +442,7 @@ SPCGlobals.babies = {
     sprite = "051_baby_belial.png",
     item = CollectibleType.COLLECTIBLE_BRIMSTONE, -- 118
     flight = true,
+    mustHaveTears = true,
   },
   {
     name = "Sale Baby",
@@ -634,7 +635,7 @@ SPCGlobals.babies = {
   },
   {
     name = "Ghoul Baby",
-    description = "Starts with a bone club",
+    description = "Book of Secrets effect on hit",
     sprite = "083_baby_ghoul.png",
   },
   {
@@ -1834,6 +1835,7 @@ SPCGlobals.babies = {
     blindfolded = true,
     cooldown = 15, -- In game frames
     noEndFloors = true,
+    mustHaveTears = true,
   },
   {
     name = "Ghost Baby 2",
@@ -2161,7 +2163,7 @@ SPCGlobals.babies = {
     name = "Butterfly Baby 2",
     description = "Flight + can walk through walls",
     sprite = "332_baby_butterfly.png",
-    flight = true,
+    -- (we do not need to explicitly give this character flight, because the grid collision does the same thing)
   },
   {
     name = "Homeless Baby",
@@ -2738,9 +2740,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Rich Baby",
-    description = "Starts with A Dollar",
+    description = "Starts with 99 cents",
     sprite = "424_baby_rich.png",
-    item = CollectibleType.COLLECTIBLE_DOLLAR, -- 18
   },
   {
     name = "Toga Baby",
