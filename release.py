@@ -7,6 +7,7 @@ import sys
 import subprocess
 import os
 import re
+import shutil
 
 # Configuration
 MOD_DIR = 'C:\\Users\\james\\Documents\\My Games\\Binding of Isaac Afterbirth+ Mods\\babies_mod_dev'
@@ -69,6 +70,9 @@ if RETURN_CODE != 0:
 RETURN_CODE = subprocess.call(['git', 'push'])
 if RETURN_CODE != 0:
     error('Failed to git push.')
+
+# Move the .git folder before we upload it to the Steam Workshop
+shutil.move(os.path.join(MOD_DIR, '.git'), os.path.join(MOD_DIR, '..', '.git'))
 
 # Open the mod updater tool from Nicalis
 UPLOADER_PATH = 'C:\\Program Files (x86)\\Steam\\steamapps\\common\\The Binding of Isaac Rebirth\\tools\\ModUploader\\ModUploader.exe'
