@@ -10,36 +10,13 @@ SPCPostRender.clockSprite = nil
 -- ModCallbacks.MC_POST_RENDER (2)
 function SPCPostRender:Main()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local room = game:GetRoom()
-  local roomFrameCount = room:GetFrameCount()
-  local player = game:GetPlayer(0)
   local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
   if baby == nil then
     return
   end
 
-  -- Remove extra costumes while the game is fading in and/or loading
-  if gameFrameCount == 0 then
-    player:ClearCostumes()
-  end
-
-  -- Fix the graphical glitch with some items that apply special costumes
-  -- (this won't work in the MC_POST_UPDATE callback)
-  if roomFrameCount <= 1 and
-     (player:HasCollectible(CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON) or -- 122
-      player:HasCollectible(CollectibleType.COLLECTIBLE_SCAPULAR) or -- 142
-      player:HasCollectible(CollectibleType.COLLECTIBLE_TAURUS) or -- 299
-      player:HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_VOID) or -- 399
-      player:HasCollectible(CollectibleType.COLLECTIBLE_PURITY) or -- 407
-      player:HasCollectible(CollectibleType.COLLECTIBLE_EMPTY_VESSEL)) then -- 409
-
-    SPCPostRender:SetPlayerSprite()
-  end
-
-  SPCPostRender:TrackPlayerAnimations()
+  SPCPostRender:CheckPlayerSprite()
   SPCPostRender:DrawBabyIntro()
   SPCPostRender:DrawBabyNumber()
   SPCPostRender:DrawVersion()
@@ -51,6 +28,61 @@ function SPCPostRender:Main()
   if SPCGlobals.run.blackSprite ~= nil then
     SPCGlobals.run.blackSprite:RenderLayer(0, Vector(0, 0))
   end
+end
+
+-- This function handles redrawing the player's sprite, if necessary
+function SPCPostRender:CheckPlayerSprite()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local room = game:GetRoom()
+  local roomFrameCount = room:GetFrameCount()
+  local player = game:GetPlayer(0)
+
+  -- Remove extra costumes while the game is fading in and/or loading
+  if gameFrameCount == 0 then
+    player:ClearCostumes()
+  end
+
+  -- Fix the bug where fully charging Maw of the Void will occasionally make the player invisible
+  if player:HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_VOID) then -- 399
+    player:RemoveCostume(SPCGlobals:GetItemConfig(CollectibleType.COLLECTIBLE_MAW_OF_VOID), false) -- 399
+  end
+
+  -- Certain costumes are applied one frame after entering a room
+  if roomFrameCount == 0 then
+    if player:HasCollectible(CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON) then -- 122
+      -- Even though we blanked out the costumes for Whore of Babylon,
+      -- we also have to also remove the costume or else the player sprite will be invisible permanently
+      player:RemoveCostume(SPCGlobals:GetItemConfig(CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON), false) -- 122
+    end
+    if player:HasCollectible(CollectibleType.COLLECTIBLE_EMPTY_VESSEL) then -- 409
+      -- Even though we blanked out the costumes for Empty Vessel,
+      -- we also have to also remove the costume or else the player sprite will be invisible permanently
+      player:TryRemoveNullCostume(NullItemID.ID_EMPTY_VESSEL, false) -- 18
+    end
+  end
+
+  --[[
+
+  Certain costumes are loaded immediately after triggering a room transition and then they are locked in to the slide
+  animation. The only way to fix this is to blank out the entire costume. This applies to:
+  - Whore of Babylon (122) - costume_073_whoreofbabylon.png
+  - Fate (179) - costume_179_fate.png & 6 others for each color
+      The costume is not completely blanked out; only the body is removed so that we can add only the wings.
+      We also need to modify the "179_fate.anm2" file so that we can swap the layer that the wings are applied to.
+  - Anemic (214) - costume_214_anemic.png
+  - Taurus (235) - costume_235_taurus.png & 6 others for each color
+      The costume is only applied when entering a room for the first time.
+  - Purity (407) - costume_407_purity.png
+  - Empty Vessel (409) - emptyvessel body.png & emptyvessel head.png
+  - Dad's Ring (546) - costume_546_dadsring.png
+      The costume is applied one frame after entering the room, similar to Whore of Babylon.
+      If we remove the costume in code, it also removes the ring, which we don't want, so we just blank out the costume.
+
+  --]]
+
+  SPCPostRender:TrackPlayerAnimations()
 end
 
 function SPCPostRender:TrackPlayerAnimations()
@@ -106,6 +138,7 @@ function SPCPostRender:SetPlayerSprite()
   local game = Game()
   local player = game:GetPlayer(0)
   local playerSprite = player:GetSprite()
+  local hearts = player:GetHearts()
   local effects = player:GetEffects()
   local effectsList = effects:GetEffectsList()
   local type = SPCGlobals.run.babyType
@@ -126,7 +159,10 @@ function SPCPostRender:SetPlayerSprite()
 
   -- It is hard to tell that the player can fly with all costumes removed,
   -- so represent that the player has flight with Fate's wings
-  if player.CanFly and
+  if (player.CanFly or
+      (player:HasCollectible(CollectibleType.COLLECTIBLE_EMPTY_VESSEL) and -- 409
+       hearts == 0)) and
+      -- Empty Vessel takes a frame to activate after entering a new room, so detect the flight status manually
      baby.name ~= "Butterfly Baby 2" then -- 332
      -- (make an exception for Butterfly Baby 2 because it already has wings)
 
@@ -145,7 +181,7 @@ function SPCPostRender:SetPlayerSprite()
   -- Replace the player sprite with a co-op baby version
   playerSprite:Load("gfx/co-op/" .. tostring(type) .. ".anm2", true)
 
-  --Isaac.DebugString("Set the baby sprite.")
+  Isaac.DebugString("Set the baby sprite.")
 end
 
 -- Show what the current baby does in the intro room (or if the player presses Tab)
@@ -156,17 +192,15 @@ function SPCPostRender:DrawBabyIntro()
   local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
 
-  local tabPressed = false
   for i = 0, 3 do -- There are 4 possible inputs/players from 0 to 3
     if Input.IsActionPressed(ButtonAction.ACTION_MAP, i) then -- 13
-      tabPressed = true
+      -- Make the baby description persist for at least 2 seconds after the player presses tab
+      SPCGlobals.run.showIntroFrame = gameFrameCount + 60
       break
     end
   end
 
-  if gameFrameCount >= SPCGlobals.run.currentFloorFrame + 60 and
-     tabPressed == false then
-
+  if gameFrameCount > SPCGlobals.run.showIntroFrame then
     return
   end
 

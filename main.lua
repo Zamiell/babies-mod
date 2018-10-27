@@ -10,8 +10,6 @@ https://bindingofisaacrebirth.gamepedia.com/index.php?title=User:Zamie/Co-op&pro
 
 TODO:
 - n/a
-- make baby character
-- add instant start item system
 
 Boring Babies:
 - 329 - Spartan Baby - Starts with Trinity Shield
@@ -37,6 +35,7 @@ local SPCUsePill              = require("src/spcusepill") -- The UsePill callbac
 local SPCEntityTakeDmg        = require("src/spcentitytakedmg") -- The EntityTakeDmg callback (11)
 local SPCInputAction          = require("src/spcinputaction") -- The InputAction callback (13)
 local SPCPostGameStarted      = require("src/spcpostgamestarted") -- The PostGameStarted callback (15)
+local SPCPreGameExit          = require("src/spcpregameexit") -- The PreGameExit callback (17)
 local SPCPostNewLevel         = require("src/spcpostnewlevel") -- The PostNewLevel callback (18)
 local SPCPostNewRoom          = require("src/spcpostnewroom") -- The PostNewRoom callback (19)
 local SPCExecuteCmd           = require("src/spcexecutecmd") -- The ExecuteCmd callback (22)
@@ -69,6 +68,9 @@ SPCGlobals:InitRun()
 -- Set a global variable so that other mods can access our scoped global variables
 SinglePlayerCoopBabies = SPCGlobals
 
+-- Make a copy of this object so that we can use it elsewhere
+SPCGlobals.SPC = SPC -- (this is needed for saving and loading the "save.dat" file)
+
 -- Define miscellaneous callbacks
 SPC:AddCallback(ModCallbacks.MC_NPC_UPDATE,             SPCNPCUpdate.Main) -- 0
 SPC:AddCallback(ModCallbacks.MC_POST_UPDATE,            SPCPostUpdate.Main) -- 1
@@ -97,6 +99,7 @@ SPC:AddCallback(ModCallbacks.MC_USE_PILL,               SPCUsePill.Main) -- 10
 SPC:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG,        SPCEntityTakeDmg.Main) -- 11
 SPC:AddCallback(ModCallbacks.MC_INPUT_ACTION,           SPCInputAction.Main) -- 13
 SPC:AddCallback(ModCallbacks.MC_POST_GAME_STARTED,      SPCPostGameStarted.Main) -- 15
+SPC:AddCallback(ModCallbacks.MC_PRE_GAME_EXIT,          SPCPreGameExit.Main) -- 17
 SPC:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL,         SPCPostNewLevel.Main) -- 18
 SPC:AddCallback(ModCallbacks.MC_POST_NEW_ROOM,          SPCPostNewRoom.Main) -- 19
 SPC:AddCallback(ModCallbacks.MC_EXECUTE_CMD,            SPCExecuteCmd.Main) -- 22
@@ -106,8 +109,11 @@ SPC:AddCallback(ModCallbacks.MC_PRE_USE_ITEM,           SPCPreUseItem.Item56, --
                                                         CollectibleType.COLLECTIBLE_LEMON_MISHAP) -- 56
 SPC:AddCallback(ModCallbacks.MC_PRE_USE_ITEM,           SPCPreUseItem.Item323, -- 23
                                                         CollectibleType.COLLECTIBLE_ISAACS_TEARS) -- 323
+SPC:AddCallback(ModCallbacks.MC_PRE_USE_ITEM,           SPCPreUseItem.Item479,
+                                                        CollectibleType.COLLECTIBLE_SMELTER) -- 479
 SPC:AddCallback(ModCallbacks.MC_PRE_USE_ITEM,           SPCPreUseItem.Item504, -- 23
                                                         CollectibleType.COLLECTIBLE_BROWN_NUGGET) -- 504
+
 SPC:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN,       SPCPreEntitySpawn.Main) -- 24
 SPC:AddCallback(ModCallbacks.MC_POST_NPC_INIT,          SPCPostNPCInit.Main) -- 27
 SPC:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT,       SPCPostPickupInit.Main) -- 34
@@ -202,3 +208,17 @@ for i = 1, #SPCGlobals.babies do
     end
   end
 end
+
+pcall(require, "src/statAPI")
+local function characterMultiplier()
+  -- Local variables
+  local game = Game()
+  local player = game:GetPlayer(0)
+  local character = player:GetPlayerType()
+
+  if character == Isaac.GetPlayerTypeByName("Random Baby") then
+    player.Damage = player.Damage * 1.35
+  end
+end
+stats.AddCache(SPCGlobals.SPC, characterMultiplier, CacheFlag.CACHE_DAMAGE, -- 1
+               StatStage.BREAK_MULTI, "characterMultiplier") -- 2

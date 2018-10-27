@@ -5,7 +5,7 @@ local SPCGlobals  = {}
 --
 
 -- Updated automatically by the "release.py" script
-SPCGlobals.version = "v0.1.3"
+SPCGlobals.version = "v0.1.4"
 
 -- These are variables that are reset at the beginning of every run
 -- (defaults are set below in the "RPGlobals:InitRun()" function)
@@ -29,9 +29,6 @@ function SPCGlobals:InitRun()
     enabled              = false, -- Set to true in the MC_POST_GAME_STARTED callback if we are on the right character
     babyType             = 0,
     drawIntro            = false,
-    storedItem           = 0,
-    storedItemCharge     = 0,
-    storedTrinket        = 0,
     queuedItems          = false,
     passiveItems         = {}, -- Keep track of all of the pedestal items that we pick up over the course of the run
     animation            = "",
@@ -60,7 +57,8 @@ function SPCGlobals:InitRun()
     currentRoomIndex    = 0,
 
     -- Temporary variables
-    reloadSprite = false,
+    reloadSprite   = false,
+    showIntroFrame = 0,
 
     -- Baby-specific variables
     babyBool         = false,
@@ -768,7 +766,7 @@ SPCGlobals.babies = {
   },
   {
     name = "Aether Baby",
-    description = "Each tear shoots outwards in the 8 cardinal directions",
+    description = "8-way tears",
     sprite = "106_baby_aether.png",
     mustHaveTears = true,
   },
@@ -821,6 +819,7 @@ SPCGlobals.babies = {
     name = "Masked Baby",
     description = "Can't shoot while moving",
     sprite = "115_baby_masked.png",
+    mustHaveTears = true,
   },
   {
     name = "Cyber Baby",
@@ -1251,7 +1250,7 @@ SPCGlobals.babies = {
   },
   {
     name = "Sick Baby",
-    description = "Explosive fly tears",
+    description = "Shoots explosive flies",
     sprite = "187_baby_sick.png",
     mustHaveTears = true,
   },
@@ -2360,6 +2359,7 @@ SPCGlobals.babies = {
     item = CollectibleType.COLLECTIBLE_LUDOVICO_TECHNIQUE, -- 329
     item2 = CollectibleType.COLLECTIBLE_BRIMSTONE, -- 118
     trinket = TrinketType.TRINKET_WIGGLE_WORM, -- 10
+    mustHaveTears = true,
   },
   {
     name = "Turtle Dragon Baby",
@@ -3417,6 +3417,7 @@ SPCGlobals.babies = {
     name = "Rotten Baby", -- 533
     description = "Shoots Blue Flies",
     sprite = "costume_268_rottenbaby.png",
+    mustHaveTears = true,
   },
   {
     name = "Lil Brimstone", -- 534

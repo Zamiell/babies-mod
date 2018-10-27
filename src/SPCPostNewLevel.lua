@@ -1,9 +1,9 @@
 local SPCPostNewLevel = {}
 
 -- Includes
-local SPCGlobals         = require("src/spcglobals")
-local SPCPostRender      = require("src/spcpostrender")
-local SPCPostNewRoom     = require("src/spcpostnewroom")
+local SPCGlobals     = require("src/spcglobals")
+local SPCPostNewRoom = require("src/spcpostnewroom")
+local SPCPreGameExit = require("src/spcpregameexit")
 
 -- ModCallbacks.MC_POST_NEW_LEVEL (18)
 function SPCPostNewLevel:Main()
@@ -48,6 +48,7 @@ function SPCPostNewLevel:NewLevel()
   SPCGlobals.run.currentFloorRoomsEntered = 0
   SPCGlobals.run.trinketGone              = false
   SPCGlobals.run.blindfoldedApplied       = false
+  SPCGlobals.run.showIntroFrame           = gameFrameCount + 60 -- 2 seconds
   SPCGlobals.run.babyBool                 = false
   SPCGlobals.run.babyCounters             = 0
   -- babyCountersRoom are reset in the MC_POST_NEW_ROOM callback
@@ -61,6 +62,9 @@ function SPCPostNewLevel:NewLevel()
   SPCGlobals.run.babySprites = nil
   SPCGlobals.run.blackSprite = nil
   SPCGlobals.run.killedPoops = {}
+
+  -- Set the Stats API data
+  SPCPreGameExit:SaveStats()
 
   -- Racing+ removes all curses
   -- If we are in the R+7 Season 5 custom challenge, then all curses are disabled except for Curse of the Unknown
@@ -84,10 +88,9 @@ function SPCPostNewLevel:RemoveOldBaby()
   -- Local variables
   local game = Game()
   local seeds = game:GetSeeds()
-  local room = game:GetRoom()
-  local roomSeed = room:GetSpawnSeed()
   local player = game:GetPlayer(0)
-  local activeCharge = player:GetActiveCharge()
+  local batteryCharge = player:GetBatteryCharge()
+  local sfx = SFXManager()
   local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
   if baby == nil then
@@ -121,43 +124,10 @@ function SPCPostNewLevel:RemoveOldBaby()
     end
   end
 
-  -- Give the stored active item back, if any
-  if SPCGlobals.run.storedItem ~= 0 then
-    local activeItem = player:GetActiveItem() -- This has to be after the item removal above
-    if activeItem == 0 then
-      -- We don't have an active item, so just give it back
-      player:AddCollectible(SPCGlobals.run.storedItem, SPCGlobals.run.storedItemCharge, false)
-
-    elseif RacingPlusGlobals ~= nil and
-           player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
-           RacingPlusGlobals.run.schoolbag.item == 0 then
-
-      -- Put the item in the empty Schoolbag
-      RacingPlusSchoolbag:Put(SPCGlobals.run.storedItem, "max")
-
-    else
-      -- We have both an active item and a full Schoolbag, so spawn the item on the ground
-      local position = SPCGlobals:GridToPos(3, 1) -- Up and left of where we spawn
-      local entity = game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE,
-                     position, Vector(0, 0), nil, SPCGlobals.run.storedItem, roomSeed)
-      entity:ToPickup().Charge = SPCGlobals.run.storedItemCharge
-    end
-
-    -- Clear the variable so that we don't get the item again on the next floor
-    SPCGlobals.run.storedItem = 0
-    SPCGlobals.run.storedItemCharge = 0
-  end
-
   -- If we are on a trinket baby, remove the trinket
   local trinket = baby.trinket
   if trinket ~= nil then
     player:TryRemoveTrinket(trinket)
-  end
-
-  -- Give the stored trinket back, if any
-  if SPCGlobals.run.storedTrinket ~= 0 then
-    player:AddTrinket(SPCGlobals.run.storedTrinket)
-    SPCGlobals.run.storedTrinket = 0
   end
 
   -- Remove the Dead Eye multiplier
@@ -202,14 +172,26 @@ function SPCPostNewLevel:RemoveOldBaby()
     -- B00B T00B
     seeds:RemoveSeedEffect(SeedEffect.SEED_OLD_TV) -- 8
 
+  elseif baby.name == "Sick Baby" then -- 187
+    -- Remove all of the explosive Blue Flies
+    for i, entity in pairs(Isaac.GetRoomEntities()) do
+      if entity.Type == EntityType.ENTITY_FAMILIAR and -- 3
+         entity.Variant == FamiliarVariant.BLUE_FLY then -- 43
+
+        entity:Remove()
+      end
+    end
+
   elseif baby.name == "Isaac Baby" then -- 219
     -- Starts with The Battery
     -- We need to remove any additional charge that has accumulated
     local activeItem = player:GetActiveItem() -- This has to be after the item removal above
     if activeItem ~= 0 and
-       activeCharge > SPCGlobals:GetItemMaxCharges(activeItem) then
+       batteryCharge > 0 then
 
-      player:SetActiveCharge(SPCGlobals:GetItemMaxCharges(activeItem))
+      player:DischargeActiveItem()
+      player:FullCharge()
+      sfx:Stop(SoundEffect.SOUND_BATTERYCHARGE) -- 170
     end
     if RacingPlusGlobals ~= nil and
        player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
@@ -250,6 +232,16 @@ function SPCPostNewLevel:RemoveOldBaby()
     -- Only one Pretty Fly is removed after removing a Halo of Flies
     -- Thus, after removing 2x Halo of Flies, one fly remains
     player:RemoveCollectible(CollectibleType.COLLECTIBLE_HALO_OF_FLIES) -- 10
+
+  elseif baby.name == "Rotten Baby" then -- 533
+    -- Remove all of the Blue Flies
+    for i, entity in pairs(Isaac.GetRoomEntities()) do
+      if entity.Type == EntityType.ENTITY_FAMILIAR and -- 3
+         entity.Variant == FamiliarVariant.BLUE_FLY then -- 43
+
+        entity:Remove()
+      end
+    end
   end
 end
 
@@ -451,6 +443,11 @@ function SPCPostNewLevel:IsBabyValid(type)
 
     return false
   end
+  if baby.item == CollectibleType.COLLECTIBLE_ISAACS_TEARS and -- 323
+     player:HasCollectible(CollectibleType.COLLECTIBLE_IPECAC) then -- 149
+
+    return false
+  end
   if baby.item == Isaac.GetItemIdByName("Charging Station") and
      (RacingPlusGlobals == nil or
       player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) == false or
@@ -458,7 +455,12 @@ function SPCPostNewLevel:IsBabyValid(type)
 
     return false
   end
-  if baby.name == "Belial Baby" and -- 62
+  if baby.name == "Whore Baby" and -- 43
+     player:HasCollectible(CollectibleType.COLLECTIBLE_SACRIFICIAL_DAGGER) then -- 172
+
+    return false
+
+  elseif baby.name == "Belial Baby" and -- 51
          player:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) then -- 395
 
     return false
@@ -469,14 +471,15 @@ function SPCPostNewLevel:IsBabyValid(type)
 
     return false
 
+  elseif baby.name == "Aether Baby" and -- 106
+         player:HasCollectible(CollectibleType.COLLECTIBLE_IPECAC) then -- 149
+
+    return false
+
   elseif baby.name == "Masked Baby" and -- 115
          (player:HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) or -- 69
-          player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE) or -- 114
-          player:HasCollectible(CollectibleType.COLLECTIBLE_BRIMSTONE) or -- 118
           player:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) or -- 229
-          player:HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE) or -- 316
-          player:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) or -- 395
-          player:HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_VOID)) then -- 399
+          player:HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE)) then -- 399
 
     return false
 
@@ -680,6 +683,14 @@ function SPCPostNewLevel:IsBabyValid(type)
     -- Money is useless past Depths 2 (unless you have Money Equals Power)
     return false
 
+  elseif baby.name == "Monk Baby" and -- 313
+         stage == 6 then
+
+    -- PAC1F1CM
+    -- If a Devil Room or Angel Room spawns after the Mom fight,
+    -- the Mom doors will cover up the Devil/Angel Room door
+    return false
+
   elseif baby.name == "Puzzle Baby" and -- 315
          stage == 10 then
 
@@ -703,6 +714,22 @@ function SPCPostNewLevel:IsBabyValid(type)
 
     -- Only valid for floors with Devil Rooms
     return false
+
+  elseif baby.name == "Ghost Baby" and -- 528
+         stage == 2 then
+
+    -- All items from the Shop pool
+    -- On stage 2, they will miss a Devil Deal, which is not fair
+    return false
+
+  elseif baby.name == "Fate's Reward" and -- 537
+         (stage <= 2 or stage >= 10) then
+
+    -- Items cost money
+    -- On stage 1, the player does not have 15 cents
+    -- On stage 2, they will miss a Devil Deal, which is not fair
+    -- On stage 10 and 11, there are no items
+    return false
   end
 
   -- Check to see if there are mod restrictions
@@ -724,8 +751,6 @@ function SPCPostNewLevel:ApplyNewBaby()
   local level = game:GetLevel()
   local stage = level:GetStage()
   local player = game:GetPlayer(0)
-  local activeItem = player:GetActiveItem()
-  local activeCharge = player:GetActiveCharge()
   local soulHearts = player:GetSoulHearts()
   local blackHearts = player:GetBlackHearts()
   local coins = player:GetNumCoins()
@@ -757,32 +782,20 @@ function SPCPostNewLevel:ApplyNewBaby()
          RacingPlusGlobals.run.schoolbag.item == 0 then
 
         -- There is room in the Schoolbag for it, so put it there
+        -- (the Racing+ version of the Schoolbag)
         RacingPlusSchoolbag:Put(item, charges)
-        Isaac.DebugString("Added the new baby active item (" .. tostring(item) .. ") to the Schoolbag. " ..
-                          "(The Schoolbag was empty.)")
 
-      elseif RacingPlusGlobals ~= nil and
-             player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
-             RacingPlusGlobals.run.schoolbag.item ~= 0 and
-             activeItem ~= 0 then
+      elseif player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) and -- 534
+             player.SecondaryActiveItem.Item ~= 0 then
 
-        -- We have both an active item and a Schoolbag item, so we need to take one of them away
-        -- By default, take the Schoolbag item away first
-        SPCGlobals.run.storedItem = RacingPlusGlobals.run.schoolbag.item
-        SPCGlobals.run.storedItemCharge = RacingPlusGlobals.run.schoolbag.charge
-        RacingPlusSchoolbag:Put(item, charges)
-        Isaac.DebugString("Added the new baby active item (" .. tostring(item) .. ") to the Schoolbag. " ..
-                          "(The Schoolbag item of " .. tostring(SPCGlobals.run.storedItem) .. " was swapped out).")
+        -- There is room in the Schoolbag for it, so put it there
+        -- (the vanilla version of the Schoolbag)
+        player.SecondaryActiveItem.Item = item
+        player.SecondaryActiveItem.Charge = charges
 
       else
         -- We don't have a Schoolbag, so just give the new active item
-        if activeItem ~= 0 then
-          -- Keep track of the existing active item so we can swap it back later
-          SPCGlobals.run.storedItem = activeItem
-          SPCGlobals.run.storedItemCharge = activeCharge
-        end
         player:AddCollectible(item, charges, false)
-        Isaac.DebugString("Added the new baby active item (" .. tostring(item) .. ") directly.")
       end
     else
       -- Give the passive item
@@ -847,26 +860,8 @@ function SPCPostNewLevel:ApplyNewBaby()
   -- Check if this is a trinket baby
   local trinket = baby.trinket
   if trinket ~= nil then
-    -- First, check to see if they have an open trinket slot
-    local trinket1 = player:GetTrinket(0) -- This is 0-indexed
-    local trinket2 = player:GetTrinket(1) -- This is 0-indexed
-    if player:GetMaxTrinkets() == 1 and
-       trinket1 ~= 0 then
-
-      -- We have to remove the existing trinket (and save it for the next floor)
-      SPCGlobals.run.storedTrinket = trinket1
-      player:TryRemoveTrinket(trinket1)
-
-    elseif player:GetMaxTrinkets() == 2 and
-           trinket2 ~= 0 then
-
-      -- We have to remove the existing trinket (and save it for the next floor)
-      -- (we default to removing the trinket in the back row)
-      SPCGlobals.run.storedTrinket = trinket2
-      player:TryRemoveTrinket(trinket2)
-    end
-
     player:AddTrinket(trinket)
+    itemPool:RemoveTrinket(trinket)
   end
 
  -- Some babies give Easter Eggs
@@ -1020,9 +1015,7 @@ function SPCPostNewLevel:ApplyNewBaby()
   -- Reset the player's size
   player.SpriteScale = Vector(1, 1)
 
-  -- Replace the player sprite with a co-op baby version
-  SPCPostRender:SetPlayerSprite()
-
+  -- We don't have to set the sprite now, because it will be set later on in the MC_POST_NEW_ROOM callback
   Isaac.DebugString("Applied baby: " .. tostring(type) .. " - " .. baby.name)
 end
 

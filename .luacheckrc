@@ -37,6 +37,7 @@ globals = {
   "LevelStage",
   "ModCallbacks",
   "NpcState",
+  "NullItemID",
   "PickupVariant",
   "PillColor",
   "PillEffect",
@@ -73,6 +74,7 @@ globals = {
   "BlueFlyVariant",
   "RoomTransition",
 
-  -- This is used in the True Co-op Mod
-  "InfinityTrueCoopInterface",
+  -- Stats API 2.0
+  "stats",
+  "StatStage",
 }

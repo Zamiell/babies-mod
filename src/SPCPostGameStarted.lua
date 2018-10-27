@@ -8,6 +8,8 @@ local SPCPostNewLevel = require("src/spcpostnewlevel")
 function SPCPostGameStarted:Main(saveState)
   -- Don't do anything if this is not a new run
   if saveState then
+    -- Load the Stats API 2.0 data
+    stats.LoadSave(Isaac.LoadModData(SPCGlobals.SPC))
     return
   end
 
@@ -47,6 +49,11 @@ function SPCPostGameStarted:Main(saveState)
         seeds:RemoveSeedEffect(baby.seed)
       end
     end
+  end
+
+  -- Also remove seeds that are turned on manually in the MC_POST_UPDATE callback
+  if seeds:HasSeedEffect(SeedEffect.SEED_OLD_TV) then -- 8
+    seeds:RemoveSeedEffect(SeedEffect.SEED_OLD_TV) -- 8
   end
 
   -- Only do the following things if we are not on the Random Baby character

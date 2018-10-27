@@ -49,6 +49,17 @@ function SPCPostUpdate:Main()
     end
   end
 
+  --
+  -- Handle the player's sprite
+  --
+
+  -- Reapply the co-op baby sprite if we have set to reload it on this frame
+  -- (this has to be above the below code so that sprites get reloaded on the next frame)
+  if SPCGlobals.run.reloadSprite then
+    SPCGlobals.run.reloadSprite = false
+    SPCPostRender:SetPlayerSprite()
+  end
+
   -- Reapply the co-op baby sprite after every pedestal item recieved
   -- (and keep track of our passive items over the course of the run)
   if player:IsItemQueueEmpty() == false and
@@ -63,18 +74,8 @@ function SPCPostUpdate:Main()
          SPCGlobals.run.queuedItems then
 
     SPCGlobals.run.queuedItems = false
-    SPCPostRender:SetPlayerSprite()
-  end
-
-  -- Reapply the co-op baby sprite if we have set to reload it on this frame
-  if SPCGlobals.run.reloadSprite then
-    SPCGlobals.run.reloadSprite = false
-    SPCPostRender:SetPlayerSprite()
-  end
-
-  -- Fix the bug where fully charging Maw of the Void will occasionally make the player invisible
-  if player:HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_VOID) then -- 399
-    player:RemoveCostume(SPCGlobals:GetItemConfig(CollectibleType.COLLECTIBLE_MAW_OF_VOID), false) -- 399
+    SPCGlobals.run.reloadSprite = true
+    -- (if we reload the sprite right now, it won't work with Empty Vessel)
   end
 
   -- Check to see if this is a trinket baby and they dropped the trinket
@@ -118,18 +119,11 @@ function SPCPostUpdate:CheckTrinket()
   end
 
   -- Search the room for the dropped trinket
-  local entities = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, -1, -- 5.350
-                                    false, false)
-  local droppedTrinket
-  for i = 1, #entities do
-    if entities[i].SubType == baby.trinket then
-      droppedTrinket = entities[i]
-      break
-    end
-  end
-  if droppedTrinket ~= nil then
+  local entities = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, -- 5.350
+                                    baby.trinket, false, false)
+  if #entities > 0 then
     -- Delete the dropped trinket
-    droppedTrinket:Remove()
+    entities[1]:Remove()
 
     -- Give it back
     local pos = room:FindFreePickupSpawnPosition(player.Position, 1, true)
@@ -137,18 +131,18 @@ function SPCPostUpdate:CheckTrinket()
     player:AddTrinket(baby.trinket)
     -- (we can't cancel the animation or it will cause the bug where the player cannot pick up pedestal items)
     Isaac.DebugString("Dropped trinket detected; manually giving it back.")
-    Isaac.DebugString("TRINKET FRAME: " .. tostring(droppedTrinket.FrameCount))
+    Isaac.DebugString("TRINKET FRAME: " .. tostring(entities[1].FrameCount))
     return
   end
 
   -- The trinket is gone but it was not found on the floor,
-  -- so the trinket must have been destroyed (e.g. Walnut) or smelted
+  -- so the trinket must have been destroyed (e.g. Walnut)
   SPCGlobals.run.trinketGone = true
+  Isaac.DebugString("Trinket has been destroyed!")
 
   -- Handle special trinket deletion circumstances
   if baby.name == "Squirrel Baby" then -- 268
     -- The Walnut broke, so spawn additional items
-    SPCGlobals.run.babyBool = true
     for i = 1, 5 do
       local position = room:FindFreePickupSpawnPosition(player.Position, 1, true)
       SPCGlobals.run.randomSeed = SPCGlobals:IncrementRNG(SPCGlobals.run.randomSeed)

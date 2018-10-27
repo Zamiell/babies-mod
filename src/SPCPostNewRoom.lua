@@ -157,13 +157,6 @@ function SPCPostNewRoom:ApplyTemporaryEffects()
         else
           -- Teleport all friendly enemies to where the player is
           entity.Position = player.Position
-
-          -- There is a bug where some friendly enemies may not have the faded color applies,
-          -- so reapply the color at the beginning of every room to compensate
-          local color = entity:GetColor()
-          local fadeAmount = 0.25
-          local newColor = Color(color.R, color.G, color.B, fadeAmount, color.RO, color.GO, color.BO)
-          entity:SetColor(newColor, 0, 0, true, true)
         end
       end
     end

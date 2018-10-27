@@ -26,9 +26,22 @@ function SPCPostProjectileUpdate:Main(projectile)
   -- The first frame for a projectile is 1
   -- (frame 0 will happen with a tear, but not a projectile for some reason)
 
-  if baby.name == "Nosferatu Baby" and -- 109
-     projectile.SpawnerType ~= EntityType.ENTITY_MOMS_HEART and -- 78
-     projectile.SpawnerType ~= EntityType.ENTITY_ISAAC then -- 102
+  if baby.name == "Zombie Baby" and -- 61
+     projectile.Parent ~= nil and
+     projectile.Parent:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) then -- 1 << 29
+
+    -- Brings back enemies from the dead
+    -- Make projectiles from friendly enemies faded to prevent confusion
+    local color = projectile:GetColor()
+    local fadeAmount = 0.25
+    local newColor = Color(color.R, color.G, color.B, fadeAmount, 0, 0, 0)
+    -- (for some reason, in this callback, RO, GO, and BO will be float values,
+    -- but the Color constructor only wants integers, so manually use 0 for these 3 values instead of the existing ones)
+    projectile:SetColor(newColor, 0, 0, true, true)
+
+  elseif baby.name == "Nosferatu Baby" and -- 109
+         projectile.SpawnerType ~= EntityType.ENTITY_MOMS_HEART and -- 78
+         projectile.SpawnerType ~= EntityType.ENTITY_ISAAC then -- 102
 
     -- Enemies have homing projectiles
     projectile:AddProjectileFlags(ProjectileFlags.SMART) -- 1

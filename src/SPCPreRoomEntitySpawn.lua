@@ -24,7 +24,8 @@ function SPCPreRoomEntitySpawn:Main(type, variant, subType, gridIndex, seed)
   end
 
   if baby.name == "Chompers Baby" and -- 143
-     type >= 1000 then -- We only care about grid entities
+     type >= 1000 and -- We only care about grid entities
+     type ~= 4500 then -- Make an exception for Pressure Plates
 
     -- Everything is Red Poop
     return {1490, 0, 0}

@@ -31,20 +31,23 @@ function SPCPostEntityKill:Main(entity)
 
   elseif baby.name == "Whore Baby" then -- 43
     -- All enemies explode
-     Isaac.Explode(npc.Position, nil, 50) -- 49 deals 1 half heart of damage
+    Isaac.DebugString("Explode NPC: " .. tostring(npc.Type) .. "." .. tostring(npc.Variant) .. "." ..
+                      tostring(npc.SubType) .. ", boss: " .. tostring(npc:IsBoss()))
+    Isaac.Explode(npc.Position, nil, 50) -- 49 deals 1 half heart of damage
+    Isaac.DebugString("After explode.")
 
   elseif baby.name == "Zombie Baby" and -- 61
          npc:IsBoss() == false and
          npc.Type ~= EntityType.ENTITY_MOVABLE_TNT and -- 292
          npc:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) == false then-- 1 << 29
 
-    SPCGlobals.run.babyCounters = 1
     local friend = game:Spawn(npc.Type, npc.Variant, npc.Position, Vector(0, 0), nil, npc.SubType, npc.InitSeed)
     friend:AddEntityFlags(EntityFlag.FLAG_CHARM) -- 1 << 8
     friend:AddEntityFlags(EntityFlag.FLAG_FRIENDLY) -- 1 << 29
     friend:AddEntityFlags(EntityFlag.FLAG_PERSISTENT) -- 1 << 37
 
     -- Fade the entity so that it is easier to see everything
+    -- (this is also reapplied on every frame because enemies can be unfaded occasionally)
     local color = friend:GetColor()
     local fadeAmount = 0.25
     local newColor = Color(color.R, color.G, color.B, fadeAmount, color.RO, color.GO, color.BO)

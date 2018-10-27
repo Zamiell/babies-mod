@@ -49,12 +49,11 @@ function SPCPostPickupUpdate:Main(pickup)
   -- (this cannot be in the MC_POST_PICKUP_INIT callback, because the position is not initialized yet)
   if baby.trinket ~= nil and
      pickup.Variant == PickupVariant.PICKUP_TRINKET and -- 350
+     pickup.SubType ~= baby.trinket and -- We don't want to replace a dropped trinket
      pickup.FrameCount == 1 and -- Frame 0 does not work
      player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_PURSE) == false and -- 139
      player:HasCollectible(CollectibleType.COLLECTIBLE_BELLY_BUTTON) == false then -- 458
 
-    -- This code will not interfere with the trinket drop detection code;
-    -- that is done on frame 0 in the MC_POST_UPDATE callback (and this is on frame 1)
     SPCMisc:SpawnRandomPickup(pickup.Position, pickup.Velocity, true) -- The third argument is "noItems"
     pickup:Remove()
     return

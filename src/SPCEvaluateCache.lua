@@ -6,7 +6,6 @@ local SPCGlobals = require("src/spcglobals")
 -- ModCallbacks.MC_EVALUATE_CACHE (8)
 function SPCEvaluateCache:Main(player, cacheFlag)
   -- Local variables
-  local character = player:GetPlayerType()
   local hearts = player:GetHearts()
   local soulHearts = player:GetSoulHearts()
   local eternalHearts = player:GetEternalHearts()
@@ -186,12 +185,16 @@ function SPCEvaluateCache:Main(player, cacheFlag)
     player.MaxFireDelay = player.MaxFireDelay + SPCGlobals.run.babyCounters
   end
 
+  -- The Stats API 2.0 is being used for this part
+  --[[
   -- The "Random Baby" character has a 1.0 damage multiplier, so emulate Judas' damage multiplier
+  local character = player:GetPlayerType()
   if character == Isaac.GetPlayerTypeByName("Random Baby") and
      cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
 
     player.Damage = player.Damage * 1.35
   end
+  --]]
 end
 
 return SPCEvaluateCache

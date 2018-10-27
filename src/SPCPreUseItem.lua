@@ -7,6 +7,7 @@ local SPCGlobals = require("src/spcglobals")
 -- MC_PRE_USE_ITEM (23)
 --
 
+-- CollectibleType.COLLECTIBLE_POOP (36)
 function SPCPreUseItem:Item36(collectibleType, RNG)
   -- Local variables
   local game = Game()
@@ -29,6 +30,7 @@ function SPCPreUseItem:Item36(collectibleType, RNG)
   return true -- Cancel the original effect
 end
 
+-- CollectibleType.COLLECTIBLE_LEMON_MISHAP (56)
 function SPCPreUseItem:Item56(collectibleType, RNG)
   -- Local variables
   local game = Game()
@@ -46,6 +48,7 @@ function SPCPreUseItem:Item56(collectibleType, RNG)
   return true -- Cancel the original effect
 end
 
+-- CollectibleType.COLLECTIBLE_ISAACS_TEARS (323)
 function SPCPreUseItem:Item323(collectibleType, RNG)
   -- Local variables
   local type = SPCGlobals.run.babyType
@@ -59,6 +62,33 @@ function SPCPreUseItem:Item323(collectibleType, RNG)
   SPCGlobals.run.babyCounters = 8
 end
 
+-- CollectibleType.COLLECTIBLE_SMELTER (479)
+-- This callback is used naturally by Gulp! pills
+function SPCPreUseItem:Item479(collectibleType, RNG)
+  -- Local variables
+  local game = Game()
+  local player = game:GetPlayer(0)
+  local type = SPCGlobals.run.babyType
+  local baby = SPCGlobals.babies[type]
+  if baby == nil or
+     baby.trinket == nil then
+
+    return
+  end
+
+  -- We want to keep track if the player smelts the trinket so that we don't give another copy back to them
+  local trinket1 = player:GetTrinket(0) -- This will be 0 if there is no trinket
+  local trinket2 = player:GetTrinket(1) -- This will be 0 if there is no trinket
+  if trinket1 == baby.trinket or
+     trinket2 == baby.trinket then
+
+    SPCGlobals.run.trinketGone = true
+  end
+
+  -- By returning nothing, it will go on to do the Smelter effect
+end
+
+-- CollectibleType.COLLECTIBLE_BROWN_NUGGET (504)
 function SPCPreUseItem:Item504(collectibleType, RNG)
   -- Local variables
   local game = Game()

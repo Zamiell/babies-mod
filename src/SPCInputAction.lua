@@ -29,9 +29,14 @@ function SPCInputAction:Main(entity, inputHook, buttonAction)
     end
 
   elseif baby.name == "Masked Baby" and -- 115
-         inputHook == InputHook.IS_ACTION_PRESSED then -- 0
+         inputHook == InputHook.IS_ACTION_PRESSED and -- 0
          -- (the shoot inputs can be on all 3 of the input hooks)
+         (buttonAction == ButtonAction.ACTION_SHOOTLEFT or -- 4
+          buttonAction == ButtonAction.ACTION_SHOOTRIGHT or -- 5
+          buttonAction == ButtonAction.ACTION_SHOOTUP or -- 6
+          buttonAction == ButtonAction.ACTION_SHOOTDOWN) then
 
+    -- Can't shoot while moving
     -- This ability does not interact well with charged items,
     -- so don't do anything if the player has a charged item
     local player = game:GetPlayer(0)
@@ -46,31 +51,14 @@ function SPCInputAction:Main(entity, inputHook, buttonAction)
       return
     end
 
-    -- Can't shoot while moving
-    if buttonAction == ButtonAction.ACTION_SHOOTLEFT then -- 4
-      for i = 0, 3 do -- There are 4 possible inputs/players from 0 to 3
-        if Input.IsActionPressed(ButtonAction.ACTION_LEFT, i) then -- 0
-          return false
-        end
-      end
-    elseif buttonAction == ButtonAction.ACTION_SHOOTRIGHT then -- 5
-      for i = 0, 3 do -- There are 4 possible inputs/players from 0 to 3
-        if Input.IsActionPressed(ButtonAction.ACTION_RIGHT, i) then -- 1
-          return false
-        end
-      end
-    elseif buttonAction == ButtonAction.ACTION_SHOOTUP then -- 6
-      for i = 0, 3 do -- There are 4 possible inputs/players from 0 to 3
-        if Input.IsActionPressed(ButtonAction.ACTION_UP, i) then -- 2
-          return false
-        end
-      end
-    elseif buttonAction == ButtonAction.ACTION_SHOOTDOWN then -- 7
-      for i = 0, 3 do -- There are 4 possible inputs/players from 0 to 3
-        if Input.IsActionPressed(ButtonAction.ACTION_DOWN, i) then -- 3
-          return false
-        end
-      end
+    -- Find out if we are moving
+    local threshold = 0.75
+    if player.Velocity.X > threshold or
+       player.Velocity.X < threshold * -1 or
+       player.Velocity.Y > threshold or
+       player.Velocity.Y < threshold * -1 then
+
+      return false
     end
 
   elseif baby.name == "Piece A Baby" then -- 179
