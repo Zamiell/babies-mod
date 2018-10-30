@@ -5,7 +5,8 @@ local SPCGlobals = require("src/spcglobals")
 
 -- ModCallbacks.MC_PRE_GAME_EXIT (17)
 function SPCPreGameExit:Main()
-  SPCPreGameExit:SaveStats()
+  -- Commented out because we are using the "save#.dat" file for baby descriptions
+  --SPCPreGameExit:SaveStats()
 end
 
 function SPCPreGameExit:SaveStats()

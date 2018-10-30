@@ -9,7 +9,8 @@ function SPCPostGameStarted:Main(saveState)
   -- Don't do anything if this is not a new run
   if saveState then
     -- Load the Stats API 2.0 data
-    stats.LoadSave(Isaac.LoadModData(SPCGlobals.SPC))
+    -- Commented out because we are using the "save#.dat" file for baby descriptions
+    --stats.LoadSave(Isaac.LoadModData(SPCGlobals.SPC))
     return
   end
 

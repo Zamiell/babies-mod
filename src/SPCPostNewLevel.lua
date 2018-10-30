@@ -765,6 +765,9 @@ function SPCPostNewLevel:ApplyNewBaby()
   -- Draw the kind of baby on the starting room
   SPCGlobals.run.drawIntro = true
 
+  -- Put the baby description into the "save#.dat" file so that it can be shown on OBS
+  Isaac.SaveModData(SPCGlobals.SPC, baby.description)
+
   -- Check if this is an item baby
   local item = baby.item
   if item ~= nil then
