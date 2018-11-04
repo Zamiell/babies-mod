@@ -5,7 +5,7 @@ local SPCGlobals  = {}
 --
 
 -- Updated automatically by the "release.py" script
-SPCGlobals.version = "v0.1.8"
+SPCGlobals.version = "v0.1.9"
 
 -- These are variables that are reset at the beginning of every run
 -- (defaults are set below in the "RPGlobals:InitRun()" function)
@@ -78,7 +78,6 @@ function SPCGlobals:InitRun()
       subType = 0,
     },
     babySprites = nil,
-    blackSprite = nil,
     killedPoops = {},
 
     -- Item-specific variables
@@ -422,6 +421,7 @@ SPCGlobals.babies = {
     name = "Dark Baby",
     description = "Temporary blindness",
     sprite = "048_baby_dark.png",
+    num = 110,
   },
   {
     name = "Picky Baby",
@@ -1250,8 +1250,9 @@ SPCGlobals.babies = {
   },
   {
     name = "Sick Baby",
-    description = "Shoots explosive flies",
+    description = "Shoots explosive flies + flight",
     sprite = "187_baby_sick.png",
+    flight = true,
     mustHaveTears = true,
   },
   {
@@ -1642,7 +1643,7 @@ SPCGlobals.babies = {
   },
   {
     name = "Medusa Baby",
-    description = "Coins convert to bombs and keys",
+    description = "Coins refill bombs and keys",
     sprite = "250_baby_medusa.png",
     requireCoins = true,
   },
@@ -1877,6 +1878,7 @@ SPCGlobals.babies = {
     name = "Butt Baby",
     description = "Farts after shooting",
     sprite = "288_baby_butt.png",
+    mustHaveTears = true,
   },
   {
     name = "Cupid Baby",
@@ -3415,8 +3417,9 @@ SPCGlobals.babies = {
   },
   {
     name = "Rotten Baby", -- 533
-    description = "Shoots Blue Flies",
+    description = "Shoots Blue Flies + flight",
     sprite = "costume_268_rottenbaby.png",
+    flight = true,
     mustHaveTears = true,
   },
   {

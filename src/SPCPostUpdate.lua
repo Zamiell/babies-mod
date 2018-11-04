@@ -65,6 +65,7 @@ function SPCPostUpdate:Main()
   if player:IsItemQueueEmpty() == false and
      SPCGlobals.run.queuedItems == false then
 
+    Isaac.DebugString("New queued item on frame: " .. tostring(game:GetFrameCount()))
     SPCGlobals.run.queuedItems = true
     if player.QueuedItem.Item.Type == ItemType.ITEM_PASSIVE then -- 1
       SPCGlobals.run.passiveItems[#SPCGlobals.run.passiveItems + 1] = player.QueuedItem.Item.ID

@@ -10,6 +10,7 @@ function SPCPostFireTear:Main(tear)
   local gameFrameCount = game:GetFrameCount()
   local room = game:GetRoom()
   local roomFrameCount = room:GetFrameCount()
+  local roomShape = room:GetRoomShape()
   local player = game:GetPlayer(0)
   local activeCharge = player:GetActiveCharge()
   local data = tear:GetData()
@@ -193,8 +194,14 @@ function SPCPostFireTear:Main(tear)
     tear.FallingSpeed = 0
 
   elseif baby.name == "Orange Demon Baby" then -- 279
-    tear:ChangeVariant(TearVariant.EXPLOSIVO) -- 19
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_STICKY -- 1 << 35
+    -- Explosivo tears
+    -- Only do every other tear to avoid softlocks
+    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
+    if SPCGlobals.run.babyCounters == 2 then
+      SPCGlobals.run.babyCounters = 0
+      tear:ChangeVariant(TearVariant.EXPLOSIVO) -- 19
+      tear.TearFlags = tear.TearFlags | TearFlags.TEAR_STICKY -- 1 << 35
+    end
 
   elseif baby.name == "Butt Baby" then -- 288
     player:UseActiveItem(CollectibleType.COLLECTIBLE_BEAN, false, false, false, false) -- 111
@@ -413,11 +420,17 @@ function SPCPostFireTear:Main(tear)
     end
 
   elseif baby.name == "Psychic Baby" and -- 504
-         roomFrameCount < 900 then -- Only do it for the first 30 seconds of a room to avoid softlocks
+         roomFrameCount < 900 and -- Only do it for the first 30 seconds of a room to avoid softlocks
+         roomShape < RoomShape.ROOMSHAPE_2x2 then -- 8 (the L room shapes are 9, 10, 11, and 12)
 
+    -- Starts with Abel; tears come from Abel
     -- Get Abel's position
     local entities = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ABEL, -1, false, false) -- 5.8
-    tear.Position = entities[1].Position
+    if #entities > 0 then
+      tear.Position = entities[1].Position
+    else
+      Isaac.DebugString("Error: Abel was not found.")
+    end
 
   elseif baby.name == "Master Cook Baby" then -- 517
     tear:ChangeVariant(TearVariant.EGG) -- 27

@@ -9,6 +9,11 @@ import os
 import re
 import shutil
 
+# This script is written for Pyhton 3
+if (sys.version_info < (3, 0)):
+     print('This script requires Python 3.')
+     sys.exit(1)
+
 # Configuration
 MOD_DIR = 'C:\\Users\\james\\Documents\\My Games\\Binding of Isaac Afterbirth+ Mods\\babies_mod_dev'
 os.chdir(MOD_DIR)

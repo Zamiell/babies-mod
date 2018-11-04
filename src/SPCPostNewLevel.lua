@@ -60,7 +60,6 @@ function SPCPostNewLevel:NewLevel()
     subType = 0,
   }
   SPCGlobals.run.babySprites = nil
-  SPCGlobals.run.blackSprite = nil
   SPCGlobals.run.killedPoops = {}
 
   -- Set the Stats API data
@@ -349,7 +348,7 @@ function SPCPostNewLevel:IsBabyValid(type)
     return false
   end
 
-  -- Check to see if they have a slot for the active item
+  -- If the player does not have a slot for an active item, do not give them an active item baby
   if baby.hasActive then
     if activeItem ~= 0 and
        RacingPlusGlobals ~= nil and
@@ -393,6 +392,16 @@ function SPCPostNewLevel:IsBabyValid(type)
 
     return false
   end
+  if baby.name == "Fancy Baby" and -- 216
+     coins < 10 then
+
+    return false
+  end
+  if baby.name == "Fate's Reward" and -- 537
+     coins < 15 then
+
+    return false
+  end
   if (baby.item == CollectibleType.COLLECTIBLE_DOLLAR or -- 18
       baby.item2 == CollectibleType.COLLECTIBLE_DOLLAR) and -- 18
      coins >= 50 then
@@ -414,13 +423,14 @@ function SPCPostNewLevel:IsBabyValid(type)
 
     return false
   end
-  if baby.name == "Fancy Baby" and -- 216
-     coins < 10 then
-
-    return false
-  end
 
   -- Check for conflicting items
+  if baby.blindfolded and
+     player:HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) then -- 69
+
+    -- Even with very high tear delay, you can still spam tears with Chocolate Milk
+    return false
+  end
   if (baby.mustHaveTears or
       baby.item == CollectibleType.COLLECTIBLE_SOY_MILK or -- 330
       baby.item2 == CollectibleType.COLLECTIBLE_SOY_MILK) and -- 330
@@ -497,6 +507,7 @@ function SPCPostNewLevel:IsBabyValid(type)
          (player:HasCollectible(CollectibleType.COLLECTIBLE_INNER_EYE) or -- 2
           player:HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER) or -- 153
           player:HasCollectible(CollectibleType.COLLECTIBLE_20_20) or -- 245
+          player:HasPlayerForm(PlayerForm.PLAYERFORM_BABY) or -- 7
           player:HasPlayerForm(PlayerForm.PLAYERFORM_BOOK_WORM)) then-- 10
 
     return false
@@ -550,6 +561,13 @@ function SPCPostNewLevel:IsBabyValid(type)
 
     return false
 
+  elseif baby.name == "Imp Baby" and -- 386
+         player:HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS) then -- 168
+
+    -- Blender + flight + explosion immunity + blindfolded
+    -- Epic Fetus overwrites Mom's Knife, which makes the baby not work properly
+    return false
+
   elseif baby.name == "Blurred Baby" and -- 407
          player:HasCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE) then -- 540
 
@@ -564,6 +582,8 @@ function SPCPostNewLevel:IsBabyValid(type)
           baby.name == "Abel") and -- 531
          (player:HasCollectible(CollectibleType.COLLECTIBLE_INNER_EYE) or -- 2
           player:HasCollectible(CollectibleType.COLLECTIBLE_CUPIDS_ARROW) or -- 48
+          player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_EYE) or -- 55
+          player:HasCollectible(CollectibleType.COLLECTIBLE_LOKIS_HORNS) or -- 87
           player:HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER) or -- 153
           player:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) or -- 229
           player:HasCollectible(CollectibleType.COLLECTIBLE_DEATHS_TOUCH) or -- 237
@@ -574,7 +594,9 @@ function SPCPostNewLevel:IsBabyValid(type)
           player:HasCollectible(CollectibleType.COLLECTIBLE_EYE_OF_BELIAL) or -- 462
           player:HasCollectible(CollectibleType.COLLECTIBLE_LITTLE_HORN) or -- 503
           player:HasCollectible(CollectibleType.COLLECTIBLE_TRISAGION) or -- 533
-          player:HasCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE)) then -- 540
+          player:HasCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE) or -- 540
+          player:HasPlayerForm(PlayerForm.PLAYERFORM_BABY) or -- 7
+          player:HasPlayerForm(PlayerForm.PLAYERFORM_BOOK_WORM)) then-- 10
 
     -- Missed tears cause damage & missed tears cause paralysis
     -- Piercing, multiple shots, and Flat Stone causes this to mess up
@@ -697,6 +719,13 @@ function SPCPostNewLevel:IsBabyValid(type)
     -- The D6 effect on hit
     return false
 
+  elseif baby.name == "Scary Baby" and -- 317
+         stage == 6 then
+
+    -- Items cost hearts
+    -- The player may not be able to take The Polaroid (when playing a normal run)
+    return false
+
   elseif baby.name == "Red Wrestler Baby" and -- 389
          stage == 11 then
 
@@ -723,11 +752,12 @@ function SPCPostNewLevel:IsBabyValid(type)
     return false
 
   elseif baby.name == "Fate's Reward" and -- 537
-         (stage <= 2 or stage >= 10) then
+         (stage <= 2 or stage == 6 or stage >= 10) then
 
     -- Items cost money
     -- On stage 1, the player does not have 15 cents
     -- On stage 2, they will miss a Devil Deal, which is not fair
+    -- On stage 6, they might not be able to buy the Polaroid (when playing on a normal run)
     -- On stage 10 and 11, there are no items
     return false
   end
@@ -952,6 +982,12 @@ function SPCPostNewLevel:ApplyNewBaby()
     for i = 1, 64 do
       player:AddBlueSpider(player.Position)
     end
+
+  elseif baby.name == "Dark Baby" then -- 48
+    -- Temporary blindness
+    SPCGlobals.run.babySprites = Sprite()
+    SPCGlobals.run.babySprites:Load("gfx/misc/black.anm2", true)
+    SPCGlobals.run.babySprites:SetFrame("Default", 0)
 
   elseif baby.name == "Hopeless Baby" then -- 125
     -- Keys are hearts

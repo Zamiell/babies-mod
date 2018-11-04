@@ -23,11 +23,6 @@ function SPCPostRender:Main()
   SPCPostRender:DrawBabyEffects()
   SPCPostRender:DrawTempIcon()
   SPCTimer:Display()
-
-  -- Draw the black screen, if necessary
-  if SPCGlobals.run.blackSprite ~= nil then
-    SPCGlobals.run.blackSprite:RenderLayer(0, Vector(0, 0))
-  end
 end
 
 -- This function handles redrawing the player's sprite, if necessary
@@ -239,6 +234,12 @@ function SPCPostRender:DrawBabyNumber()
 
   local text = "#" .. type
   local x = 55 + SPCPostRender:GetHeartXOffset()
+  if baby.name == "Hopeless Baby" or -- 125
+     baby.name == "Mohawk Baby" then -- 138
+
+    -- These babies draw text next to the hearts, so account for this so that the number text does not overlap
+    x = x + 20
+  end
   local y = 10
   Isaac.RenderText(text, x, y, 2, 2, 2, 2)
 end
@@ -311,8 +312,23 @@ function SPCPostRender:DrawBabyEffects()
   local keys = player:GetNumKeys()
   local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
+  if baby == nil then
+    return
+  end
 
-  if baby.name == "Hopeless Baby" and -- 125
+  if baby.name == "Dark Baby" and -- 48
+     SPCGlobals.run.babySprites ~= nil then
+
+    -- Temporary blindness
+    -- Set the current fade (which is based on the game's frame count and set in the MC_POST_UPDATE callback)
+    local opacity = SPCGlobals.run.babyCounters / 90
+    if opacity > 1 then
+      opacity = 1
+    end
+    SPCGlobals.run.babySprites.Color = Color(1, 1, 1, opacity, 0, 0, 0)
+    SPCGlobals.run.babySprites:RenderLayer(0, Vector(0, 0))
+
+  elseif baby.name == "Hopeless Baby" and -- 125
      roomType ~= RoomType.ROOM_DEVIL and -- 14
      roomType ~= RoomType.ROOM_BLACK_MARKET and -- 22
      roomVariant ~= 2300 and -- Krampus
@@ -323,8 +339,10 @@ function SPCPostRender:DrawBabyEffects()
      roomVariant ~= 2305 and -- Krampus
      roomVariant ~= 2306 then -- Krampus
 
-    SPCGlobals.run.babySprites:RenderLayer(0, Vector(65, 12))
-    Isaac.RenderText("x" .. tostring(keys), 70, 12, 2, 2, 2, 2)
+    -- Draw the key count next to the hearts
+    local x = 65
+    SPCGlobals.run.babySprites:RenderLayer(0, Vector(x, 12))
+    Isaac.RenderText("x" .. tostring(keys), x + 5, 12, 2, 2, 2, 2)
 
   elseif baby.name == "Mohawk Baby" and -- 138
          roomType ~= RoomType.ROOM_DEVIL and -- 14
@@ -337,8 +355,10 @@ function SPCPostRender:DrawBabyEffects()
          roomVariant ~= 2305 and -- Krampus
          roomVariant ~= 2306 then -- Krampus
 
-    SPCGlobals.run.babySprites:RenderLayer(0, Vector(65, 12))
-    Isaac.RenderText("x" .. tostring(bombs), 70, 12, 2, 2, 2, 2)
+    -- Draw the bomb count next to the hearts
+    local x = 65
+    SPCGlobals.run.babySprites:RenderLayer(0, Vector(x, 12))
+    Isaac.RenderText("x" .. tostring(bombs), x + 5, 12, 2, 2, 2, 2)
 
   elseif baby.name == "Elf Baby" then -- 377
     -- The Speak of Destiny effect is not spawned in the POST_NEW_ROOM callback

@@ -133,20 +133,19 @@ end
 -- Dark Baby
 SPCPostUpdateBabies.functions[48] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
+  local baby = SPCGlobals.babies[48]
 
-  if gameFrameCount % 30 == 0 then -- 1 seconds
+  -- Temporary blindness
+  -- Make the counters tick from 0 --> max --> 0, etc.
+  if SPCGlobals.run.babyBool == false then
     SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
-    if SPCGlobals.run.babyCounters == 2 then
-      -- Put out the lights
-      SPCGlobals.run.blackSprite = Sprite()
-      SPCGlobals.run.blackSprite:Load("gfx/misc/black.anm2", true)
-      SPCGlobals.run.blackSprite:SetFrame("Default", 0)
-    elseif SPCGlobals.run.babyCounters == 3 then
-      -- Turn on the lights
-      SPCGlobals.run.babyCounters = 0
-      SPCGlobals.run.blackSprite = nil
+    if SPCGlobals.run.babyCounters == baby.num then
+      SPCGlobals.run.babyBool = true
+    end
+  else
+    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters - 1
+    if SPCGlobals.run.babyCounters == 0 then
+      SPCGlobals.run.babyBool = false
     end
   end
 end
@@ -216,6 +215,26 @@ SPCPostUpdateBabies.functions[66] = function()
     sfx:Stop(SoundEffect.SOUND_BATTERYCHARGE) -- 170
     sfx:Stop(SoundEffect.SOUND_BEEP) -- 171
     SPCGlobals.run.babyCounters = 0
+  end
+end
+
+-- Scream Baby
+SPCPostUpdateBabies.functions[81] = function()
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local player = game:GetPlayer(0)
+  local activeCharge = player:GetActiveCharge()
+  local sfx = SFXManager()
+
+  if SPCGlobals.run.babyFrame ~= 0 and
+     gameFrameCount <= SPCGlobals.run.babyFrame + 1 and
+     activeCharge ~= SPCGlobals.run.babyCounters then
+
+    player:SetActiveCharge(SPCGlobals.run.babyCounters)
+    sfx:Stop(SoundEffect.SOUND_BATTERYCHARGE) -- 170
+    sfx:Stop(SoundEffect.SOUND_BEEP) -- 171
+    Isaac.DebugString("Reset the active item charge.")
   end
 end
 
@@ -610,8 +629,9 @@ SPCPostUpdateBabies.functions[171] = function()
     local entity = entities[i]
     local sprite = entity:GetSprite()
     local data = entity:GetData()
-    if sprite:IsPlaying("Broken") and
-       data.destroyed == nil then
+    if data.destroyed == nil and
+       (sprite:IsPlaying("Broken") or -- Normal machines
+        sprite:IsPlaying("Death")) then -- Restock machines
 
       data.destroyed = true
       SPCGlobals.run.randomSeed = SPCGlobals:IncrementRNG(SPCGlobals.run.randomSeed)
@@ -753,6 +773,12 @@ SPCPostUpdateBabies.functions[231] = function()
   local soulHearts = player:GetSoulHearts()
   local boneHearts = player:GetBoneHearts()
 
+  -- Prevent softlocks that occur if you try to jump into a Big Chest
+  local chests = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BIGCHEST, -1, false, false) -- 5.340
+  if #chests > 0 then
+    return
+  end
+
   if gameFrameCount % 3 == 0 and
      hearts + soulHearts + boneHearts > 0 then
      -- Prevent the bug where dying with this baby will softlock and not show the game over screen
@@ -813,6 +839,26 @@ SPCPostUpdateBabies.functions[263] = function()
      room:IsFirstVisit() then
 
     player:UseActiveItem(CollectibleType.COLLECTIBLE_D12, false, false, false, false) -- 386
+  end
+end
+
+-- Hare Baby
+SPCPostUpdateBabies.functions[267] = function()
+  local game = Game()
+  local player = game:GetPlayer(0)
+  local playerSprite = player:GetSprite()
+  local sfx = SFXManager()
+
+  -- Takes damage when standing still
+  -- Prevent the (vanilla) bug where the player will take damage upon jumping into a trapdoor
+  if player:HasInvincibility() == false and
+     (playerSprite:IsPlaying("Trapdoor") or
+      playerSprite:IsPlaying("Trapdoor2") or
+      playerSprite:IsPlaying("Jump") or
+      playerSprite:IsPlaying("LightTravel")) then
+
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_DULL_RAZOR, false, false, false, false) -- 486
+    sfx:Stop(SoundEffect.SOUND_ISAAC_HURT_GRUNT) -- 55
   end
 end
 

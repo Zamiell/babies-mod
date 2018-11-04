@@ -5,9 +5,35 @@ local SPCGlobals = require("src/spcglobals")
 
 -- ModCallbacks.MC_USE_ITEM (3)
 function SPCUseItem:Main(collectibleType, RNG)
+  -- Local variables
+  local type = SPCGlobals.run.babyType
+  local baby = SPCGlobals.babies[type]
+  if baby == nil then
+    return
+  end
+
   -- Certain items like The Nail mess up the player sprite (if they are standing still)
   -- If we reload the sprite in this callback, it won't work, so mark to update it in the MC_POST_UPDATE callback
   SPCGlobals.run.reloadSprite = true
+end
+
+-- CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP (49)
+function SPCUseItem:Item49(collectibleType, RNG)
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+  local player = game:GetPlayer(0)
+  local activeCharge = player:GetActiveCharge()
+  local type = SPCGlobals.run.babyType
+  local baby = SPCGlobals.babies[type]
+  if baby == nil then
+    return
+  end
+
+  if baby.name == "Scream Baby" then -- 81
+    SPCGlobals.run.babyFrame = gameFrameCount
+    SPCGlobals.run.babyCounters = activeCharge
+  end
 end
 
 -- CollectibleType.COLLECTIBLE_MONSTROS_TOOTH (86)

@@ -31,8 +31,56 @@ function SPCPostEntityKill:Main(entity)
 
   elseif baby.name == "Whore Baby" then -- 43
     -- All enemies explode
+    -- There is a random crash, so check for a bunch of values for debugging purposes
+    -- https://clips.twitch.tv/HelplessLongManateeDogFace
+    -- https://clips.twitch.tv/ObliquePrettiestDadYouWHY
+    -- If this still crashes, we can instead try spawning a bomb entity with no collision,
+    -- not visible, and explodes next frame
+    --[[
+    function skulls:SpiteSkull(entity)
+    local player = Isaac.GetPlayer(0)
+    if player:HasCollectible(spite) then
+        local bomb = Isaac.Spawn(EntityType.ENTITY_BOMBDROP, 0, 0, entity.Position, skulls.zeroV, entity):ToBomb()
+        bomb:SetExplosionCountdown(0)
+        bomb.RadiusMultiplier = entity.Size/15
+        bomb.Visible = false
+    end
+    end
+    --]]
+    if npc.Type == nil then
+      Isaac.DebugString("Explode NPC - type missing.")
+      return
+    end
+    if npc.Variant == nil then
+      Isaac.DebugString("Explode NPC - variant missing.")
+      return
+    end
+    if npc.SubType == nil then
+      Isaac.DebugString("Explode NPC - subtype missing.")
+      return
+    end
+    if npc.SubType == nil then
+      Isaac.DebugString("Explode NPC - subtype missing.")
+      return
+    end
+    if npc.State == nil then
+      Isaac.DebugString("Explode NPC - state missing.")
+      return
+    end
+    if npc.Position == nil then
+      Isaac.DebugString("Explode NPC - position missing.")
+      return
+    end
+    if npc.Position.X == nil then
+      Isaac.DebugString("Explode NPC - position X missing.")
+      return
+    end
+    if npc.Position.Y == nil then
+      Isaac.DebugString("Explode NPC - position Y missing.")
+      return
+    end
     Isaac.DebugString("Explode NPC: " .. tostring(npc.Type) .. "." .. tostring(npc.Variant) .. "." ..
-                      tostring(npc.SubType) .. ", boss: " .. tostring(npc:IsBoss()))
+                      tostring(npc.SubType) .. "." .. tostring(npc.State))
     Isaac.Explode(npc.Position, nil, 50) -- 49 deals 1 half heart of damage
     Isaac.DebugString("After explode.")
 

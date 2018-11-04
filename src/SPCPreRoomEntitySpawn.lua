@@ -10,6 +10,7 @@ function SPCPreRoomEntitySpawn:Main(type, variant, subType, gridIndex, seed)
   local room = game:GetRoom()
   local roomType = room:GetType()
   local roomFrameCount = room:GetFrameCount()
+  local roomFirstVisit = room:IsFirstVisit()
   local babyType = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[babyType]
   if baby == nil then
@@ -17,13 +18,12 @@ function SPCPreRoomEntitySpawn:Main(type, variant, subType, gridIndex, seed)
   end
 
   -- We only care about replacing things when the room is first loading and on the first visit
-  if roomFrameCount ~= -1 or
-     room:IsFirstVisit() == false then
-
+  if roomFrameCount ~= -1 then
     return
   end
 
   if baby.name == "Chompers Baby" and -- 143
+     roomFirstVisit and
      type >= 1000 and -- We only care about grid entities
      type ~= 4500 then -- Make an exception for Pressure Plates
 
@@ -44,7 +44,9 @@ function SPCPreRoomEntitySpawn:Main(type, variant, subType, gridIndex, seed)
     return {999, 0, 0} -- Equal to 1000.0, which is a blank effect, which is essentially nothing
 
   elseif baby.name == "Red Wrestler Baby" and -- 389
-         type >= 1000 then -- We only care about grid entities
+         roomFirstVisit and
+         type >= 1000 and -- We only care about grid entities
+         type ~= 4500 then -- Make an exception for Pressure Plates
 
     -- Everything is TNT
     return {1300, 0, 0}

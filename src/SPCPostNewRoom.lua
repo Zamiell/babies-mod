@@ -375,6 +375,7 @@ function SPCPostNewRoom:ApplyTemporaryEffects()
     player:SpawnMawOfVoid(30 * 60 * 60) -- 1 hour
 
   elseif baby.name == "Suit Baby" and -- 287
+         roomFirstVisit and
          roomType ~= RoomType.ROOM_DEFAULT and -- 1
          roomType ~= RoomType.ROOM_ERROR and -- 3
          roomType ~= RoomType.ROOM_BOSS and -- 5
@@ -404,10 +405,16 @@ function SPCPostNewRoom:ApplyTemporaryEffects()
     room:SpawnGridEntity(52, GridEntityType.GRID_STATUE, 0, 0, 0) -- 21
 
     -- Spawn the two fires
-    local pos1 = SPCGlobals:GridToPos(3, 1)
-    game:Spawn(EntityType.ENTITY_FIREPLACE, 0, pos1, Vector(0, 0), nil, 0, 0) -- 33
-    local pos2 = SPCGlobals:GridToPos(9, 1)
-    game:Spawn(EntityType.ENTITY_FIREPLACE, 0, pos2, Vector(0, 0), nil, 0, 0) -- 33
+    for i = 1, 2 do
+      local pos
+      if i == 1 then
+        pos = SPCGlobals:GridToPos(3, 1)
+      elseif i == 2 then
+        pos = SPCGlobals:GridToPos(9, 1)
+      end
+      SPCGlobals.run.roomRNG = SPCGlobals:IncrementRNG(SPCGlobals.run.roomRNG)
+      game:Spawn(EntityType.ENTITY_FIREPLACE, 0, pos, Vector(0, 0), nil, 0, SPCGlobals.run.roomRNG) -- 33
+    end
 
   elseif baby.name == "Woodsman Baby" and -- 297
          roomIndex ~= startingRoomIndex then

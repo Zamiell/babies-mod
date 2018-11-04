@@ -76,6 +76,8 @@ SPC:AddCallback(ModCallbacks.MC_NPC_UPDATE,             SPCNPCUpdate.Main) -- 0
 SPC:AddCallback(ModCallbacks.MC_POST_UPDATE,            SPCPostUpdate.Main) -- 1
 SPC:AddCallback(ModCallbacks.MC_POST_RENDER,            SPCPostRender.Main) -- 2
 SPC:AddCallback(ModCallbacks.MC_USE_ITEM,               SPCUseItem.Main) -- 3
+SPC:AddCallback(ModCallbacks.MC_USE_ITEM,               SPCUseItem.Item49, -- 3
+                                                        CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP) -- 49
 SPC:AddCallback(ModCallbacks.MC_USE_ITEM,               SPCUseItem.Item86, -- 3
                                                         CollectibleType.COLLECTIBLE_MONSTROS_TOOTH) -- 86
 SPC:AddCallback(ModCallbacks.MC_USE_ITEM,               SPCUseItem.Item282, -- 3
@@ -208,17 +210,3 @@ for i = 1, #SPCGlobals.babies do
     end
   end
 end
-
-pcall(require, "src/statAPI")
-local function characterMultiplier()
-  -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
-  local character = player:GetPlayerType()
-
-  if character == Isaac.GetPlayerTypeByName("Random Baby") then
-    player.Damage = player.Damage * 1.35
-  end
-end
-stats.AddCache(SPCGlobals.SPC, characterMultiplier, CacheFlag.CACHE_DAMAGE, -- 1
-               StatStage.BREAK_MULTI, "characterMultiplier") -- 2

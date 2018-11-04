@@ -71,6 +71,8 @@ function SPCPostGameStarted:Main(saveState)
   -- (this item will not properly display and there is no good way to fix it)
   itemPool:RemoveCollectible(CollectibleType.COLLECTIBLE_CLICKER) -- 482
   -- (there is no way to know which character that you Clicker to, so just remove this item)
+  itemPool:RemoveTrinket(TrinketType.TRINKET_BAT_WING) -- 118
+  -- (Bat Wing causes graphical bugs which are annoying to fix, so just remove this trinket)
 
   -- Call PostNewLevel manually (they get naturally called out of order)
   SPCPostNewLevel:NewLevel()
