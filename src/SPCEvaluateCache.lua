@@ -25,6 +25,8 @@ stats.AddCache(SPCGlobals.SPC, SPCEvaluateCache.CharacterMultiplier, CacheFlag.C
 -- ModCallbacks.MC_EVALUATE_CACHE (8)
 function SPCEvaluateCache:Main(player, cacheFlag)
   -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
   local hearts = player:GetHearts()
   local soulHearts = player:GetSoulHearts()
   local eternalHearts = player:GetEternalHearts()
@@ -137,6 +139,14 @@ function SPCEvaluateCache:Main(player, cacheFlag)
          totalHearts <= 2 then
 
     player.MaxFireDelay = math.ceil(player.MaxFireDelay / 3)
+
+  elseif baby.name == "Rabbit Baby" and -- 350
+         cacheFlag == CacheFlag.CACHE_SPEED and -- 16
+         gameFrameCount >= SPCGlobals.run.babyFrame then
+
+    -- Starts with How to Jump; must jump often
+    -- Speed has a lower bound of 0.1, so we cannot set it lower than this
+    player.MoveSpeed = 0.1
 
   elseif baby.name == "Scared Ghost Baby" and -- 369
          cacheFlag == CacheFlag.CACHE_SPEED then -- 16

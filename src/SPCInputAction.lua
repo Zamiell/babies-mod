@@ -88,17 +88,6 @@ function SPCInputAction:Main(entity, inputHook, buttonAction)
       return 0
     end
 
-  elseif baby.name == "Rabbit Baby" and -- 350
-         gameFrameCount >= SPCGlobals.run.babyFrame and
-         (buttonAction == ButtonAction.ACTION_LEFT or -- 0
-          buttonAction == ButtonAction.ACTION_RIGHT or -- 1
-          buttonAction == ButtonAction.ACTION_UP or -- 2
-          buttonAction == ButtonAction.ACTION_DOWN) then -- 3
-
-    -- Starts with How to Jump; must jump often
-    -- These actions are part of InputHook.GET_ACTION_VALUE (2)
-    return 0
-
   elseif baby.name == "Imp Baby" then -- 386
     -- ButtonAction.ACTION_SHOOTLEFT (4)
     -- ButtonAction.ACTION_SHOOTRIGHT (5)

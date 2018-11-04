@@ -1042,6 +1042,17 @@ SPCPostUpdateBabies.functions[349] = function()
   end
 end
 
+-- Rabbit Baby
+SPCPostUpdateBabies.functions[350] = function()
+  -- Local variables
+  local game = Game()
+  local player = game:GetPlayer(0)
+
+  -- Starts with How to Jump; must jump often
+  player:AddCacheFlags(CacheFlag.CACHE_SPEED) -- 16
+  player:EvaluateItems()
+end
+
 -- Mouse Baby
 SPCPostUpdateBabies.functions[351] = function()
   SPCPseudoRoomClear:PostUpdate()

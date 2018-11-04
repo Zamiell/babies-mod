@@ -5,7 +5,7 @@ local SPCGlobals  = {}
 --
 
 -- Updated automatically by the "release.py" script
-SPCGlobals.version = "v0.1.9"
+SPCGlobals.version = "v0.1.12"
 
 -- These are variables that are reset at the beginning of every run
 -- (defaults are set below in the "RPGlobals:InitRun()" function)
@@ -727,8 +727,11 @@ SPCGlobals.babies = {
   },
   {
     name = "Makeup Baby",
-    description = "Backwards movement",
+    description = "8-shot",
     sprite = "099_baby_makeup.png",
+    item = CollectibleType.COLLECTIBLE_THE_WIZ, -- 358
+    itemNum = 4,
+    mustHaveTears = true,
   },
   {
     name = "Ed Baby",
@@ -766,7 +769,7 @@ SPCGlobals.babies = {
   },
   {
     name = "Aether Baby",
-    description = "8-way tears",
+    description = "All direction tears",
     sprite = "106_baby_aether.png",
     mustHaveTears = true,
   },
@@ -2143,9 +2146,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Spartan Baby",
-    description = "Starts with Trinity Shield",
+    description = "Spawns a pedestal item after 6 hits",
     sprite = "329_baby_spartan.png",
-    item = CollectibleType.COLLECTIBLE_TRINITY_SHIELD, -- 243
   },
   {
     name = "Tortoise Baby",

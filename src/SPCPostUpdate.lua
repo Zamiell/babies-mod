@@ -65,7 +65,6 @@ function SPCPostUpdate:Main()
   if player:IsItemQueueEmpty() == false and
      SPCGlobals.run.queuedItems == false then
 
-    Isaac.DebugString("New queued item on frame: " .. tostring(game:GetFrameCount()))
     SPCGlobals.run.queuedItems = true
     if player.QueuedItem.Item.Type == ItemType.ITEM_PASSIVE then -- 1
       SPCGlobals.run.passiveItems[#SPCGlobals.run.passiveItems + 1] = player.QueuedItem.Item.ID
@@ -127,12 +126,11 @@ function SPCPostUpdate:CheckTrinket()
     entities[1]:Remove()
 
     -- Give it back
-    local pos = room:FindFreePickupSpawnPosition(player.Position, 1, true)
-    player:DropTrinket(pos, true) -- This will do nothing if the player does not currently have a trinket
+    local position = room:FindFreePickupSpawnPosition(player.Position, 1, true)
+    player:DropTrinket(position, true) -- This will do nothing if the player does not currently have a trinket
     player:AddTrinket(baby.trinket)
     -- (we can't cancel the animation or it will cause the bug where the player cannot pick up pedestal items)
     Isaac.DebugString("Dropped trinket detected; manually giving it back.")
-    Isaac.DebugString("TRINKET FRAME: " .. tostring(entities[1].FrameCount))
     return
   end
 

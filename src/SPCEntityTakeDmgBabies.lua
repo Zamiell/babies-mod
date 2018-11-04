@@ -406,6 +406,23 @@ SPCEntityTakeDmgBabies.functions[318] = function(player, damageAmount, damageFla
   end
 end
 
+-- Spartan Baby
+SPCEntityTakeDmgBabies.functions[329] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  -- Local variables
+  local game = Game()
+  local room = game:GetRoom()
+
+  -- Spawns a pedestal item after 6 hits
+  SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
+  if SPCGlobals.run.babyCounters == 6 then
+    SPCGlobals.run.babyCounters = 0
+    SPCGlobals.run.randomSeed = SPCGlobals:IncrementRNG(SPCGlobals.run.randomSeed)
+    local position = room:FindFreePickupSpawnPosition(player.Position, 1, true)
+    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
+               position, Vector(0, 0), nil, 0, SPCGlobals.run.randomSeed)
+  end
+end
+
 -- Tortoise Baby
 SPCEntityTakeDmgBabies.functions[330] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- 0.5x speed + 50% chance to ignore damage

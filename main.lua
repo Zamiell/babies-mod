@@ -13,7 +13,7 @@ TODO:
 
 Boring Babies:
 - 329 - Spartan Baby - Starts with Trinity Shield
-- 515 - Half Spider Baby - Starts with Spider Mod
+- 515 - Half Spider Baby - Starts with 3x Pretty Fly
 
 --]]
 
@@ -174,6 +174,7 @@ local itemExceptions = {
   CollectibleType.COLLECTIBLE_FIRE_MIND, -- 257
   CollectibleType.COLLECTIBLE_HOW_TO_JUMP, -- 282
   CollectibleType.COLLECTIBLE_GODHEAD, -- 331
+  CollectibleType.COLLECTIBLE_THE_WIZ, -- 358
   CollectibleType.COLLECTIBLE_INCUBUS, -- 360
   CollectibleType.COLLECTIBLE_MARKED, -- 394
   CollectibleType.COLLECTIBLE_SPEAR_OF_DESTINY, -- 400

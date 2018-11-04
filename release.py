@@ -65,6 +65,15 @@ try:
 except Exception as err:
     error('Failed to remove the "' + DISABLE_IT_PATH + '" file:', err)
 
+# Remove any "save#.dat" files, if present
+for i in range(1, 4):
+    SAVE_DAT_PATH = os.path.join(MOD_DIR, 'save' + str(i) + '.dat')
+    try:
+        if os.path.exists(SAVE_DAT_PATH):
+            os.remove(SAVE_DAT_PATH)
+    except Exception as err:
+        error('Failed to remove the "' + SAVE_DAT_PATH + '" file:', err)
+
 # Commit to the client repository
 RETURN_CODE = subprocess.call(['git', 'add', '-A'])
 if RETURN_CODE != 0:

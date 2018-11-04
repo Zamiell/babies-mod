@@ -70,9 +70,9 @@ function SPCNPCUpdate:Baby514(npc)
 
   if SPCGlobals.run.babyBool == false then
     SPCGlobals.run.babyBool = true
-    local pos = room:FindFreePickupSpawnPosition(npc.Position, 1, true)
-    if SPCGlobals:InsideSquare(pos, player.Position, 15) == false then
-      local newNPC = game:Spawn(npc.Type, npc.Variant, pos, npc.Velocity, npc, npc.SubType, npc.InitSeed)
+    local position = room:FindFreePickupSpawnPosition(npc.Position, 1, true)
+    if SPCGlobals:InsideSquare(position, player.Position, 15) == false then
+      local newNPC = game:Spawn(npc.Type, npc.Variant, position, npc.Velocity, npc, npc.SubType, npc.InitSeed)
       newNPC:GetData().duplicated = true
     end
     SPCGlobals.run.babyBool = false
