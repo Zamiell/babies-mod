@@ -7,34 +7,19 @@ local SPCGlobals = require("src/spcglobals")
 function SPCInputAction:Main(entity, inputHook, buttonAction)
   -- Local variables
   local game = Game()
-  local gameFrameCount = game:GetFrameCount()
   local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
   if baby == nil then
     return
   end
 
-  if baby.name == "Makeup Baby" and -- 99
-     (buttonAction == ButtonAction.ACTION_LEFT or -- 0
-      buttonAction == ButtonAction.ACTION_RIGHT or -- 1
-      buttonAction == ButtonAction.ACTION_UP or -- 2
-      buttonAction == ButtonAction.ACTION_DOWN) then -- 3
-
-    -- Backwards movement
-    for i = 0, 3 do -- There are 4 possible inputs/players from 0 to 3
-      local value = Input.GetActionValue(buttonAction, i)
-      if value ~= 0 then
-        return value * -1
-      end
-    end
-
-  elseif baby.name == "Masked Baby" and -- 115
-         inputHook == InputHook.IS_ACTION_PRESSED and -- 0
-         -- (the shoot inputs can be on all 3 of the input hooks)
-         (buttonAction == ButtonAction.ACTION_SHOOTLEFT or -- 4
-          buttonAction == ButtonAction.ACTION_SHOOTRIGHT or -- 5
-          buttonAction == ButtonAction.ACTION_SHOOTUP or -- 6
-          buttonAction == ButtonAction.ACTION_SHOOTDOWN) then
+  if baby.name == "Masked Baby" and -- 115
+     inputHook == InputHook.IS_ACTION_PRESSED and -- 0
+     -- (the shoot inputs can be on all 3 of the input hooks)
+     (buttonAction == ButtonAction.ACTION_SHOOTLEFT or -- 4
+      buttonAction == ButtonAction.ACTION_SHOOTRIGHT or -- 5
+      buttonAction == ButtonAction.ACTION_SHOOTUP or -- 6
+      buttonAction == ButtonAction.ACTION_SHOOTDOWN) then
 
     -- Can't shoot while moving
     -- This ability does not interact well with charged items,
@@ -89,6 +74,7 @@ function SPCInputAction:Main(entity, inputHook, buttonAction)
     end
 
   elseif baby.name == "Imp Baby" then -- 386
+    -- Blender + flight + explosion immunity + blindfolded
     -- ButtonAction.ACTION_SHOOTLEFT (4)
     -- ButtonAction.ACTION_SHOOTRIGHT (5)
     -- ButtonAction.ACTION_SHOOTUP (6)
