@@ -5,7 +5,7 @@ local SPCGlobals  = {}
 --
 
 -- Updated automatically by the "release.py" script
-SPCGlobals.version = "v0.1.14"
+SPCGlobals.version = "v0.1.15"
 
 -- These are variables that are reset at the beginning of every run
 -- (defaults are set below in the "RPGlobals:InitRun()" function)
@@ -53,6 +53,7 @@ function SPCGlobals:InitRun()
     roomDoorsModified   = {},
     roomButtonsPushed   = false,
     roomClearDelayFrame = 0,
+    roomSoftlock        = false,
     lastRoomIndex       = 0,
     currentRoomIndex    = 0,
 
@@ -1579,6 +1580,7 @@ SPCGlobals.babies = {
     name = "Blisters Baby",
     description = "Low shot speed",
     sprite = "240_baby_blisters.png",
+    mustHaveTears = true,
   },
   {
     name = "Radioactive Baby",
@@ -1824,6 +1826,7 @@ SPCGlobals.babies = {
     cooldown = 15, -- In game frames
     noEndFloors = true,
     mustHaveTears = true,
+    softlockPrevention = true,
   },
   {
     name = "Ghost Baby 2",
@@ -2073,6 +2076,7 @@ SPCGlobals.babies = {
     name = "Cupcake Baby",
     description = "High shot speed",
     sprite = "321_baby_cupcake.png",
+    mustHaveTears = true,
   },
   {
     name = "Skinless Baby",
@@ -2106,6 +2110,7 @@ SPCGlobals.babies = {
     item = CollectibleType.COLLECTIBLE_ROBO_BABY_2, -- 267
     itemNum = 20,
     blindfolded = true,
+    softlockPrevention = true,
   },
   {
     name = "Long Beard Baby",
@@ -2243,6 +2248,7 @@ SPCGlobals.babies = {
     sprite = "348_baby_fourtone.png",
     item = CollectibleType.COLLECTIBLE_CANDLE, -- 164
     blindfolded = true,
+    softlockPrevention = true,
   },
   {
     name = "Grayscale Baby",

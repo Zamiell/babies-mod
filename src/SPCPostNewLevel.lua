@@ -167,6 +167,13 @@ function SPCPostNewLevel:RemoveOldBaby()
     -- B00B T00B
     seeds:RemoveSeedEffect(SeedEffect.SEED_OLD_TV) -- 8
 
+  elseif baby.name == "Helmet Baby" then -- 163
+    -- Make sure that the fade is removed
+    -- (or else it will persist to the next character)
+    local color = player:GetColor()
+    local newColor = Color(color.R, color.G, color.B, 1, color.RO, color.GO, color.BO)
+    player:SetColor(newColor, 0, 0, true, true)
+
   elseif baby.name == "Sick Baby" then -- 187
     -- Remove all of the explosive Blue Flies
     for i, entity in pairs(Isaac.GetRoomEntities()) do
@@ -369,6 +376,12 @@ function SPCPostNewLevel:IsBabyValid(type)
       baby.item2 == Isaac.GetItemIdByName("Soul Jar")) and
      maxHearts == 0 then
 
+    return false
+  end
+  if baby.name == "MeatBoy Baby" and -- 210
+     maxHearts == 0 then
+
+    -- Potato Peeler effect on hit
     return false
   end
 

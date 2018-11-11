@@ -1016,9 +1016,6 @@ end
 SPCPostUpdateBabies.functions[348] = function()
   -- Local variables
   local game = Game()
-  local room = game:GetRoom()
-  local roomFrameCount = room:GetFrameCount()
-  local gridSize = room:GetGridSize()
   local player = game:GetPlayer(0)
   local activeItem = player:GetActiveItem()
   local sfx = SFXManager()
@@ -1029,25 +1026,6 @@ SPCPostUpdateBabies.functions[348] = function()
 
     player:FullCharge()
     sfx:Stop(SoundEffect.SOUND_BATTERYCHARGE) -- 170
-  end
-
-  if SPCGlobals.run.babyCountersRoom == 0 and
-     roomFrameCount >= 450 then -- 15 seconds
-
-    SPCGlobals.run.babyCountersRoom = 0
-
-    -- Kill all poops in the room to prevent softlocks in specific rooms
-    -- (Fireplaces will not cause softlocks since they are killable with The Candle)
-    for i = 1, gridSize do
-      local gridEntity = room:GetGridEntity(i)
-      if gridEntity ~= nil then
-        local saveState = gridEntity:GetSaveState()
-        if saveState.Type == GridEntityType.GRID_POOP then -- 14
-          gridEntity:Destroy(true) -- Immediate
-        end
-      end
-    end
-    Isaac.DebugString("Destroyed all poops to prevent a softlock.")
   end
 end
 
@@ -1141,7 +1119,7 @@ SPCPostUpdateBabies.functions[388] = function()
       break
     end
     local velocity = player.Position - tear.position
-    velocity = velocity:Normalized() * 13
+    velocity = velocity:Normalized() * 12
     game:Spawn(EntityType.ENTITY_PROJECTILE, ProjectileVariant.PROJECTILE_NORMAL, -- 9.0
                tear.position, velocity, nil, 0, 0)
     tear.num = tear.num - 1

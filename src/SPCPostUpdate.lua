@@ -87,6 +87,9 @@ function SPCPostUpdate:Main()
   -- Do custom baby effects
   SPCPostUpdateBabies:Main()
 
+  -- Check for softlocks
+  SPCPostUpdate:CheckSoftlock()
+
   -- Check grid entities
   SPCPostUpdate:CheckGridEntities()
 
@@ -206,6 +209,52 @@ function SPCPostUpdate:RoomCleared()
     -- Random Bomb - 5.40.0
     game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, player.Position, Vector(0, 0), player, 0, roomSeed)
   end
+end
+
+function SPCPostUpdate:CheckSoftlock()
+  -- Local variables
+  local game = Game()
+  local room = game:GetRoom()
+  local roomFrameCount = room:GetFrameCount()
+  local gridSize = room:GetGridSize()
+  local type = SPCGlobals.run.babyType
+  local baby = SPCGlobals.babies[type]
+  if baby == nil then
+    return
+  end
+
+  -- Check to see if this baby needs the softlock prevention
+  if baby.softlockPrevention == false then
+    return
+  end
+
+  -- Check to see if we already destroyed the grid entities in the room
+  if SPCGlobals.run.roomSoftlock then
+    return
+  end
+
+  -- Check to see if they have been in the room long enough
+  if roomFrameCount < 450 then -- 15 seconds
+    return
+  end
+
+  -- Prevent softlocks with poops and TNT barrels on certain babies that are blindfolded
+  SPCGlobals.run.roomSoftlock = true
+
+  -- Kill all poops in the room to prevent softlocks in specific rooms
+  -- (Fireplaces will not cause softlocks since they are killable with The Candle)
+  for i = 1, gridSize do
+    local gridEntity = room:GetGridEntity(i)
+    if gridEntity ~= nil then
+      local saveState = gridEntity:GetSaveState()
+      if saveState.Type == GridEntityType.GRID_TNT or -- 12
+         saveState.Type == GridEntityType.GRID_POOP then -- 14
+
+        gridEntity:Destroy(true) -- Immediate
+      end
+    end
+  end
+  Isaac.DebugString("Destroyed all poops to prevent a softlock.")
 end
 
 function SPCPostUpdate:CheckGridEntities()
