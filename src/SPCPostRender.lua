@@ -387,7 +387,7 @@ function SPCPostRender:DrawTempIcon()
   -- We want to draw a temporary icon next to the baby's active item
   -- to signify that it will go away at the end of the floor
   if baby.item == nil or
-     SPCGlobals:GetItemConfig(baby.item).Type ~= ItemType.ITEM_ACTIVE then
+     SPCGlobals:GetItemConfig(baby.item).Type ~= ItemType.ITEM_ACTIVE then -- 3
 
     return
   end

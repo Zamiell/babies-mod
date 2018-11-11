@@ -3,7 +3,6 @@ local SPCPostNewLevel = {}
 -- Includes
 local SPCGlobals     = require("src/spcglobals")
 local SPCPostNewRoom = require("src/spcpostnewroom")
-local SPCPreGameExit = require("src/spcpregameexit")
 
 -- ModCallbacks.MC_POST_NEW_LEVEL (18)
 function SPCPostNewLevel:Main()
@@ -61,9 +60,6 @@ function SPCPostNewLevel:NewLevel()
   }
   SPCGlobals.run.babySprites = nil
   SPCGlobals.run.killedPoops = {}
-
-  -- Set the Stats API data
-  SPCPreGameExit:SaveStats()
 
   -- Racing+ removes all curses
   -- If we are in the R+7 Season 5 custom challenge, then all curses are disabled except for Curse of the Unknown
@@ -323,37 +319,20 @@ function SPCPostNewLevel:IsBabyValid(type)
 
     return false
   end
-  if RacingPlusGlobals ~= nil and
-     player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
-     baby.item == RacingPlusGlobals.run.schoolbag.item then
-
-    return false
-  end
   if baby.item2 ~= nil and
      player:HasCollectible(baby.item2) then
 
     return false
   end
-  if RacingPlusGlobals ~= nil and
-     player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
-     baby.item2 == RacingPlusGlobals.run.schoolbag.item then
-
-    return false
-  end
-
-  -- If the player already has a trinket, do not give them a trinket baby
-  if baby.trinket ~= nil and
-     player:GetTrinket(0) ~= 0 then
-
-    return false
-  end
 
   -- If the player does not have a slot for an active item, do not give them an active item baby
-  if baby.hasActive then
+  if baby.item ~= nil and
+     SPCGlobals:GetItemConfig(baby.item).Type == ItemType.ITEM_ACTIVE then -- 3
+
     if activeItem ~= 0 and
        RacingPlusGlobals ~= nil and
        player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
-      RacingPlusGlobals.run.schoolbag.item ~= 0 then
+       RacingPlusGlobals.run.schoolbag.item ~= 0 then
 
       -- The player has an active item and an item inside of the Schoolbag
       return false
@@ -365,6 +344,13 @@ function SPCPostNewLevel:IsBabyValid(type)
       -- The player has an active item and does not have the Schoolbag
       return false
     end
+  end
+
+  -- If the player already has a trinket, do not give them a trinket baby
+  if baby.trinket ~= nil and
+     player:GetTrinket(0) ~= 0 then
+
+    return false
   end
 
   -- Check for conflicting health values
@@ -426,9 +412,12 @@ function SPCPostNewLevel:IsBabyValid(type)
 
   -- Check for conflicting items
   if baby.blindfolded and
-     player:HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) then -- 69
+     (player:HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) or -- 69
+      player:HasCollectible(CollectibleType.COLLECTIBLE_LIBRA)) then -- 304
 
     -- Even with very high tear delay, you can still spam tears with Chocolate Milk
+    -- With Libra, the extra tear delay from the blindfold is redistributed,
+    -- so the player will be able to shoot after saving and quitting
     return false
   end
   if (baby.mustHaveTears or
@@ -507,6 +496,7 @@ function SPCPostNewLevel:IsBabyValid(type)
          (player:HasCollectible(CollectibleType.COLLECTIBLE_INNER_EYE) or -- 2
           player:HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER) or -- 153
           player:HasCollectible(CollectibleType.COLLECTIBLE_20_20) or -- 245
+          player:HasCollectible(CollectibleType.COLLECTIBLE_THE_WIZ) or -- 358
           player:HasPlayerForm(PlayerForm.PLAYERFORM_BABY) or -- 7
           player:HasPlayerForm(PlayerForm.PLAYERFORM_BOOK_WORM)) then-- 10
 
@@ -530,6 +520,16 @@ function SPCPostNewLevel:IsBabyValid(type)
   elseif baby.name == "Red Demon Baby" and -- 278
          (player:HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS) or -- 168
           player:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X)) then -- 395
+
+    return false
+
+  elseif baby.name == "Fang Demon Baby" and -- 281
+         player:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) then -- 229
+
+    return false
+
+  elseif baby.name == "Lantern Baby" and -- 292
+         player:HasCollectible(CollectibleType.COLLECTIBLE_TRISAGION ) then -- 533
 
     return false
 
@@ -684,6 +684,12 @@ function SPCPostNewLevel:IsBabyValid(type)
     -- This can make resetting slower, so don't have this baby on Basement 1
     return false
 
+  elseif baby.name == "Twin Baby" and -- 141
+         stage == 8 then
+
+    -- If they mess up and go past the Boss Room, then they can get the wrong path
+    return false
+
   elseif baby.name == "Chompers Baby" and -- 143
          stage == 11 then
 
@@ -802,7 +808,7 @@ function SPCPostNewLevel:ApplyNewBaby()
   local item = baby.item
   if item ~= nil then
     -- Check to see if it is an active item
-    if SPCGlobals:GetItemConfig(item).Type == ItemType.ITEM_ACTIVE then
+    if SPCGlobals:GetItemConfig(item).Type == ItemType.ITEM_ACTIVE then -- 3
       -- Find out how many charges it should have
       local charges = SPCGlobals:GetItemMaxCharges(item)
       if baby.uncharged ~= nil then

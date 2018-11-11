@@ -23,8 +23,12 @@ function SPCPostFireTear:Main(tear)
   --Isaac.DebugString("MC_POST_FIRE_TEAR")
 
   if baby.name == "Bloat Baby" then -- 2
-    tear:ChangeVariant(TearVariant.NEEDLE) -- 31
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_NEEDLE -- 1 << 52
+    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
+    if SPCGlobals.run.babyCounters == baby.num then
+      SPCGlobals.run.babyCounters = 0
+      tear:ChangeVariant(TearVariant.NEEDLE) -- 31
+      tear.TearFlags = tear.TearFlags | TearFlags.TEAR_NEEDLE -- 1 << 52
+    end
 
   elseif baby.name == "Water Baby" and -- 3
      SPCGlobals.run.babyCounters > 0 then
@@ -141,7 +145,11 @@ function SPCPostFireTear:Main(tear)
     tear:SetColor(Color(2, 2, 0, 0.7, 1, 1, 1), 10000, 10000, false, false) -- Yellow
 
   elseif baby.name == "Lights Baby" then -- 165
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_LIGHT_FROM_HEAVEN -- 1 << 37
+    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
+    if SPCGlobals.run.babyCounters == baby.num then
+      SPCGlobals.run.babyCounters = 0
+      tear.TearFlags = tear.TearFlags | TearFlags.TEAR_LIGHT_FROM_HEAVEN -- 1 << 37
+    end
 
   elseif baby.name == "Web Baby" then -- 185
     tear.TearFlags = tear.TearFlags | TearFlags.TEAR_SLOW -- 1 << 3
@@ -289,10 +297,14 @@ function SPCPostFireTear:Main(tear)
     tear:Remove()
 
   elseif baby.name == "Arcade Baby" then -- 368
-    tear:ChangeVariant(TearVariant.RAZOR) -- 28
+    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
+    if SPCGlobals.run.babyCounters == baby.num then
+      SPCGlobals.run.babyCounters = 0
+      tear:ChangeVariant(TearVariant.RAZOR) -- 28
 
-    -- Mark it so that we can increase the damage later
-    tear.SubType = 1
+      -- Mark it so that we can increase the damage later
+      tear.SubType = 1
+    end
 
   elseif baby.name == "Pink Ghost Baby" then -- 372
     tear:SetColor(Color(2, 0.05, 1, 0.7, 1, 1, 1), 10000, 10000, false, false) -- Hot pink
@@ -303,7 +315,11 @@ function SPCPostFireTear:Main(tear)
     tear.SubType = 1
 
   elseif baby.name == "Dark Space Soldier Baby" then -- 398
-    tear:ChangeVariant(TearVariant.CHAOS_CARD) -- 9
+    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
+    if SPCGlobals.run.babyCounters == baby.num then
+      SPCGlobals.run.babyCounters = 0
+      tear:ChangeVariant(TearVariant.CHAOS_CARD) -- 9
+    end
 
   elseif baby.name == "Astronaut Baby" then -- 406
     -- Mark that we shot this tear
@@ -317,13 +333,21 @@ function SPCPostFireTear:Main(tear)
 
   elseif baby.name == "Little Horn Baby" then -- 429
     -- Void tears
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_HORN -- 1 << 54
+    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
+    if SPCGlobals.run.babyCounters == baby.num then
+      SPCGlobals.run.babyCounters = 0
+      tear.TearFlags = tear.TearFlags | TearFlags.TEAR_HORN -- 1 << 54
+    end
 
   elseif baby.name == "Tooth Head Baby" then -- 442
-    tear:ChangeVariant(TearVariant.TOOTH) -- 2
+    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
+    if SPCGlobals.run.babyCounters == baby.num then
+      SPCGlobals.run.babyCounters = 0
+      tear:ChangeVariant(TearVariant.TOOTH) -- 2
 
-    -- Mark it so that we can increase the damage later
-    tear.SubType = 1
+      -- Mark it so that we can increase the damage later
+      tear.SubType = 1
+    end
 
   elseif baby.name == "Green Koopa Baby" then -- 455
     -- Turn all tears into green shell tears

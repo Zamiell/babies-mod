@@ -3,6 +3,8 @@ local SPCEvaluateCache = {}
 -- Includes
 local SPCGlobals = require("src/spcglobals")
 
+-- Don't use the Stat API for now because of unfixed bugs
+--[[
 -- First, we use the Stat API to emulate a character multiplier of Judas,
 -- since there is no trivial way to do this with the game's base API
 -- Requiring it below will register its MC_EVALUATE_CACHE callback
@@ -21,6 +23,7 @@ function SPCEvaluateCache:CharacterMultiplier()
 end
 stats.AddCache(SPCGlobals.SPC, SPCEvaluateCache.CharacterMultiplier, CacheFlag.CACHE_DAMAGE, -- 1
                StatStage.BREAK_MULTI, "characterMultiplier") -- 2
+--]]
 
 -- ModCallbacks.MC_EVALUATE_CACHE (8)
 function SPCEvaluateCache:Main(player, cacheFlag)

@@ -10,7 +10,8 @@ function SPCPreGameExit:Main()
 end
 
 function SPCPreGameExit:SaveStats()
-  Isaac.SaveModData(SPCGlobals.SPC, stats.GenerateSave())
+  -- Commented out because we are no longer using the Stat API 2.0
+  --Isaac.SaveModData(SPCGlobals.SPC, stats.GenerateSave())
 end
 
 return SPCPreGameExit
