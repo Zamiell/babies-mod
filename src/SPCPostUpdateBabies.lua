@@ -225,13 +225,15 @@ SPCPostUpdateBabies.functions[81] = function()
   local gameFrameCount = game:GetFrameCount()
   local player = game:GetPlayer(0)
   local activeCharge = player:GetActiveCharge()
+  local batteryCharge = player:GetBatteryCharge()
   local sfx = SFXManager()
 
   if SPCGlobals.run.babyFrame ~= 0 and
      gameFrameCount <= SPCGlobals.run.babyFrame + 1 and
-     activeCharge ~= SPCGlobals.run.babyCounters then
+     (activeCharge ~= SPCGlobals.run.babyCounters or -- We store the main charge in the "babyCounters" variable
+      batteryCharge ~= SPCGlobals.run.babyNPC.type) then -- We store the Battery charge in the "babyNPC.type" variable
 
-    player:SetActiveCharge(SPCGlobals.run.babyCounters)
+    player:SetActiveCharge(SPCGlobals.run.babyCounters + SPCGlobals.run.babyNPC.type)
     sfx:Stop(SoundEffect.SOUND_BATTERYCHARGE) -- 170
     sfx:Stop(SoundEffect.SOUND_BEEP) -- 171
     Isaac.DebugString("Reset the active item charge.")
@@ -474,6 +476,20 @@ SPCPostUpdateBabies.functions[156] = function()
   local game = Game()
   local gameFrameCount = game:GetFrameCount()
   local player = game:GetPlayer(0)
+  local hearts = player:GetHearts()
+  local soulHearts = player:GetSoulHearts()
+  local boneHearts = player:GetBoneHearts()
+
+  -- Prevent softlocks that occur if you try to jump into a Big Chest
+  local chests = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BIGCHEST, -1, false, false) -- 5.340
+  if #chests > 0 then
+    return
+  end
+
+  -- Prevent dying animation softlocks
+  if hearts + soulHearts + boneHearts == 0 then
+    return
+  end
 
   if gameFrameCount % 150 == 0 then -- 5 seconds
     player:UseActiveItem(CollectibleType.COLLECTIBLE_MEGA_BEAN, false, false, false, false) -- 351
@@ -779,10 +795,13 @@ SPCPostUpdateBabies.functions[231] = function()
     return
   end
 
-  if gameFrameCount % 3 == 0 and
-     hearts + soulHearts + boneHearts > 0 then
-     -- Prevent the bug where dying with this baby will softlock and not show the game over screen
+  -- Prevent dying animation softlocks
+  if hearts + soulHearts + boneHearts == 0 then
+    return
+  end
 
+  -- Constant Isaac's Tears effect + blindfolded
+  if gameFrameCount % 3 == 0 then
     SPCGlobals.run.babyBool = true
     player:UseActiveItem(CollectibleType.COLLECTIBLE_ISAACS_TEARS, false, false, false, false) -- 323
     SPCGlobals.run.babyBool = false
@@ -931,7 +950,22 @@ SPCPostUpdateBabies.functions[304] = function()
   local game = Game()
   local gameFrameCount = game:GetFrameCount()
   local player = game:GetPlayer(0)
+  local hearts = player:GetHearts()
+  local soulHearts = player:GetSoulHearts()
+  local boneHearts = player:GetBoneHearts()
 
+  -- Prevent softlocks that occur if you try to jump into a Big Chest
+  local chests = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BIGCHEST, -1, false, false) -- 5.340
+  if #chests > 0 then
+    return
+  end
+
+  -- Prevent dying animation softlocks
+  if hearts + soulHearts + boneHearts == 0 then
+    return
+  end
+
+  -- Constant The Bean effect + flight + explosion immunity + blindfolded
   if gameFrameCount % 3 == 0 then
     player:UseActiveItem(CollectibleType.COLLECTIBLE_BEAN, false, false, false, false) -- 111
   end

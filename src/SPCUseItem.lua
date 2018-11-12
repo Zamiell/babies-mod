@@ -24,6 +24,7 @@ function SPCUseItem:Item49(collectibleType, RNG)
   local gameFrameCount = game:GetFrameCount()
   local player = game:GetPlayer(0)
   local activeCharge = player:GetActiveCharge()
+  local batteryCharge = player:GetBatteryCharge()
   local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
   if baby == nil then
@@ -33,6 +34,7 @@ function SPCUseItem:Item49(collectibleType, RNG)
   if baby.name == "Scream Baby" then -- 81
     SPCGlobals.run.babyFrame = gameFrameCount
     SPCGlobals.run.babyCounters = activeCharge
+    SPCGlobals.run.babyNPC.type = batteryCharge
   end
 end
 

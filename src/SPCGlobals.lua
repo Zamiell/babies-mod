@@ -5,7 +5,7 @@ local SPCGlobals  = {}
 --
 
 -- Updated automatically by the "release.py" script
-SPCGlobals.version = "v0.1.15"
+SPCGlobals.version = "v0.1.16"
 
 -- These are variables that are reset at the beginning of every run
 -- (defaults are set below in the "RPGlobals:InitRun()" function)
@@ -2085,7 +2085,7 @@ SPCGlobals.babies = {
   },
   {
     name = "Ballerina Baby",
-    description = "Fires tears while moving",
+    description = "Only fires tears while moving",
     sprite = "323_baby_ballerina.png",
     seed = SeedEffect.SEED_SHOOT_IN_MOVEMENT_DIRECTION, -- 74
     mustHaveTears = true,

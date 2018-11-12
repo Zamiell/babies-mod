@@ -582,8 +582,11 @@ function SPCPostNewLevel:IsBabyValid(type)
     return false
 
   elseif baby.name == "Blurred Baby" and -- 407
-         player:HasCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE) then -- 540
+         (player:HasCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE) or -- 540
+          player:HasCollectible(CollectibleType.COLLECTIBLE_INCUBUS)) then -- 360
 
+    -- Flat Stone is manually given, so we have to explicitly code a restriction
+    -- Incubus will not fire the Ludo tears, ruining the build
     return false
 
   elseif baby.name == "Rojen Whitefox Baby" and -- 446
