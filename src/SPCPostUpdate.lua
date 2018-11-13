@@ -224,7 +224,7 @@ function SPCPostUpdate:CheckSoftlock()
   end
 
   -- Check to see if this baby needs the softlock prevention
-  if baby.softlockPrevention == false then
+  if baby.softlockPrevention == nil then
     return
   end
 
