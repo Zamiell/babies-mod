@@ -13,6 +13,7 @@ function SPCPostFireTear:Main(tear)
   local roomShape = room:GetRoomShape()
   local player = game:GetPlayer(0)
   local activeCharge = player:GetActiveCharge()
+  local batteryCharge = player:GetBatteryCharge()
   local data = tear:GetData()
   local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
@@ -89,6 +90,7 @@ function SPCPostFireTear:Main(tear)
     -- Using the boomerang removes the charge on the current active item for some reason,
     -- so we have to restore it on the next frame
     SPCGlobals.run.babyCounters = activeCharge
+    SPCGlobals.run.babyNPC.type = batteryCharge
     SPCGlobals.run.babyFrame = gameFrameCount + 1
 
   elseif baby.name == "Parasite Baby" then -- 77

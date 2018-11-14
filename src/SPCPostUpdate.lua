@@ -377,9 +377,12 @@ function SPCPostUpdate:CheckTrapdoor()
     player:RemoveCollectible(CollectibleType.COLLECTIBLE_MIND) -- 333
   end
 
-  -- We may have temporarily disabled the "Total Curse Immunity" easter egg
-  -- So, make sure that it is re-enabled before we head to the next floor
-  if seeds:HasSeedEffect(SeedEffect.SEED_PREVENT_ALL_CURSES) == false then -- 70
+  -- Racing+ uses the "Total Curse Immunity" easter egg to remove all curses from the game
+  -- We may have temporarily disabled the Easter Egg,
+  -- so make sure that it is re-enabled before we head to the next floor
+  if RacingPlusGlobals ~= nil and
+     seeds:HasSeedEffect(SeedEffect.SEED_PREVENT_ALL_CURSES) == false then -- 70
+
     seeds:AddSeedEffect(SeedEffect.SEED_PREVENT_ALL_CURSES) -- 70
   end
 end

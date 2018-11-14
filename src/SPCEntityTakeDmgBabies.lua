@@ -444,6 +444,16 @@ SPCEntityTakeDmgBabies.functions[322] = function(player, damageAmount, damageFla
   end
 end
 
+-- Ballerina Baby
+SPCEntityTakeDmgBabies.functions[323] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  -- Summons a Restock Machine after 6 hits
+  SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
+  if SPCGlobals.run.babyCounters == 6 then
+    SPCGlobals.run.babyCounters = 0
+    player:UseActiveItem(Isaac.GetItemIdByName("Clockwork Assembly"), false, false, false, false)
+  end
+end
+
 -- Hero Baby
 SPCEntityTakeDmgBabies.functions[336] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- We want to evaluate the cache, but we can't do it here because the damage is not applied yet,

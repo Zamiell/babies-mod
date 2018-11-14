@@ -320,6 +320,14 @@ function SPCPostNewLevel:IsBabyValid(type)
     end
   end
 
+  -- Check to see if this baby requires a separate mod
+  if baby.requiresRacingPlus ~= nil and
+     RacingPlusGlobals == nil then
+
+    -- We don't have Racing+ enabled
+    return false
+  end
+
   -- Check for overlapping items
   if baby.item ~= nil and
      player:HasCollectible(baby.item) then
@@ -781,13 +789,6 @@ function SPCPostNewLevel:IsBabyValid(type)
     -- On stage 2, they will miss a Devil Deal, which is not fair
     -- On stage 6, they might not be able to buy the Polaroid (when playing on a normal run)
     -- On stage 10 and 11, there are no items
-    return false
-  end
-
-  -- Check to see if there are mod restrictions
-  if baby.name == "Tears Baby" and
-     RacingPlusGlobals ~= nil then
-
     return false
   end
 

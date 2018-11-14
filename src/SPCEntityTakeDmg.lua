@@ -65,15 +65,6 @@ function SPCEntityTakeDmg:Entity(entity, damageAmount, damageFlag, damageSource,
     entity:TakeDamage(damage, 0, EntityRef(player), damageCountdownFrames)
     SPCGlobals.run.dealingExtraDamage = false
 
-  elseif baby.name == "Pipe Baby" and -- 203
-         SPCGlobals.run.dealingExtraDamage == false then
-
-    -- Make Black Powder do extra damage
-    local damage = player.Damage * 10
-    SPCGlobals.run.dealingExtraDamage = true
-    entity:TakeDamage(damage, 0, EntityRef(player), damageCountdownFrames)
-    SPCGlobals.run.dealingExtraDamage = false
-
   elseif baby.name == "Fang Demon Baby" and -- 281
          SPCGlobals.run.dealingExtraDamage == false then
 

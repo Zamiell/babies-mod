@@ -211,7 +211,8 @@ SPCPostUpdateBabies.functions[66] = function()
      gameFrameCount >= SPCGlobals.run.babyFrame then
 
     SPCGlobals.run.babyFrame = 0
-    player:SetActiveCharge(SPCGlobals.run.babyCounters)
+    -- We store the main charge in the "babyCounters" variable and The Battery charge in the "babyNPC.type" variable
+    player:SetActiveCharge(SPCGlobals.run.babyCounters + SPCGlobals.run.babyNPC.type)
     sfx:Stop(SoundEffect.SOUND_BATTERYCHARGE) -- 170
     sfx:Stop(SoundEffect.SOUND_BEEP) -- 171
     SPCGlobals.run.babyCounters = 0

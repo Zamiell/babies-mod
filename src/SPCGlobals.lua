@@ -5,7 +5,7 @@ local SPCGlobals  = {}
 --
 
 -- Updated automatically by the "release.py" script
-SPCGlobals.version = "v0.1.18"
+SPCGlobals.version = "v0.1.19"
 
 -- These are variables that are reset at the beginning of every run
 -- (defaults are set below in the "RPGlobals:InitRun()" function)
@@ -952,6 +952,7 @@ SPCGlobals.babies = {
     description = "Starts with the Soul Jar",
     sprite = "136_baby_tears.png",
     item = Isaac.GetItemIdByName("Soul Jar"),
+    requiresRacingPlus = true,
   },
   {
     name = "Bowling Baby",
@@ -1637,7 +1638,7 @@ SPCGlobals.babies = {
   },
   {
     name = "Medusa Baby",
-    description = "Coins refill bombs and keys",
+    description = "Coins refill bombs and keys when depleted",
     sprite = "250_baby_medusa.png",
     requireCoins = true,
   },
@@ -2085,10 +2086,8 @@ SPCGlobals.babies = {
   },
   {
     name = "Ballerina Baby",
-    description = "Only fires tears while moving",
+    description = "Summons a Restock Machine after 6 hits",
     sprite = "323_baby_ballerina.png",
-    seed = SeedEffect.SEED_SHOOT_IN_MOVEMENT_DIRECTION, -- 74
-    mustHaveTears = true,
   },
   {
     name = "Goblin Baby",

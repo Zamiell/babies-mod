@@ -12,7 +12,6 @@ TODO:
 - n/a
 
 Boring Babies:
-- 329 - Spartan Baby - Starts with Trinity Shield
 - 515 - Half Spider Baby - Starts with 3x Pretty Fly
 
 --]]
@@ -72,50 +71,59 @@ SinglePlayerCoopBabies = SPCGlobals
 SPCGlobals.SPC = SPC -- (this is needed for saving and loading the "save.dat" file)
 
 -- Define miscellaneous callbacks
-SPC:AddCallback(ModCallbacks.MC_NPC_UPDATE,             SPCNPCUpdate.Main) -- 0
-SPC:AddCallback(ModCallbacks.MC_POST_UPDATE,            SPCPostUpdate.Main) -- 1
-SPC:AddCallback(ModCallbacks.MC_POST_RENDER,            SPCPostRender.Main) -- 2
-SPC:AddCallback(ModCallbacks.MC_USE_ITEM,               SPCUseItem.Main) -- 3
-SPC:AddCallback(ModCallbacks.MC_USE_ITEM,               SPCUseItem.Item49, -- 3
-                                                        CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP) -- 49
-SPC:AddCallback(ModCallbacks.MC_USE_ITEM,               SPCUseItem.Item86, -- 3
-                                                        CollectibleType.COLLECTIBLE_MONSTROS_TOOTH) -- 86
-SPC:AddCallback(ModCallbacks.MC_USE_ITEM,               SPCUseItem.Item282, -- 3
-                                                        CollectibleType.COLLECTIBLE_HOW_TO_JUMP) -- 282
-SPC:AddCallback(ModCallbacks.MC_USE_ITEM,               SPCUseItem.ClockworkAssembly, -- 3
-                                                        Isaac.GetItemIdByName("Clockwork Assembly"))
-SPC:AddCallback(ModCallbacks.MC_USE_ITEM,               SPCUseItem.FlockOfSuccubi, -- 3
-                                                        Isaac.GetItemIdByName("Flock of Succubi"))
-SPC:AddCallback(ModCallbacks.MC_USE_ITEM,               SPCUseItem.ChargingStation, -- 3
-                                                        Isaac.GetItemIdByName("Charging Station"))
-SPC:AddCallback(ModCallbacks.MC_USE_ITEM,               SPCDebug.Main, -- 3
-                                                        Isaac.GetItemIdByName("Debug"))
-SPC:AddCallback(ModCallbacks.MC_USE_CARD,               SPCUseCard.Card4, -- 5
-                                                        Card.CARD_EMPRESS) -- 4
-SPC:AddCallback(ModCallbacks.MC_USE_CARD,               SPCUseCard.Card13, -- 5
-                                                        Card.CARD_HANGED_MAN) -- 13
-SPC:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE,        SPCFamiliarUpdate.Main) -- 6
-SPC:AddCallback(ModCallbacks.MC_FAMILIAR_INIT,          SPCFamiliarInit.Main) -- 7
-SPC:AddCallback(ModCallbacks.MC_EVALUATE_CACHE,         SPCEvaluateCache.Main) -- 8
-SPC:AddCallback(ModCallbacks.MC_USE_PILL,               SPCUsePill.Main) -- 10
-SPC:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG,        SPCEntityTakeDmg.Main) -- 11
-SPC:AddCallback(ModCallbacks.MC_INPUT_ACTION,           SPCInputAction.Main) -- 13
-SPC:AddCallback(ModCallbacks.MC_POST_GAME_STARTED,      SPCPostGameStarted.Main) -- 15
-SPC:AddCallback(ModCallbacks.MC_PRE_GAME_EXIT,          SPCPreGameExit.Main) -- 17
-SPC:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL,         SPCPostNewLevel.Main) -- 18
-SPC:AddCallback(ModCallbacks.MC_POST_NEW_ROOM,          SPCPostNewRoom.Main) -- 19
-SPC:AddCallback(ModCallbacks.MC_EXECUTE_CMD,            SPCExecuteCmd.Main) -- 22
-SPC:AddCallback(ModCallbacks.MC_PRE_USE_ITEM,           SPCPreUseItem.Item36, -- 3
-                                                        CollectibleType.COLLECTIBLE_POOP) -- 36
-SPC:AddCallback(ModCallbacks.MC_PRE_USE_ITEM,           SPCPreUseItem.Item56, -- 3
-                                                        CollectibleType.COLLECTIBLE_LEMON_MISHAP) -- 56
-SPC:AddCallback(ModCallbacks.MC_PRE_USE_ITEM,           SPCPreUseItem.Item323, -- 23
-                                                        CollectibleType.COLLECTIBLE_ISAACS_TEARS) -- 323
-SPC:AddCallback(ModCallbacks.MC_PRE_USE_ITEM,           SPCPreUseItem.Item479,
-                                                        CollectibleType.COLLECTIBLE_SMELTER) -- 479
-SPC:AddCallback(ModCallbacks.MC_PRE_USE_ITEM,           SPCPreUseItem.Item504, -- 23
-                                                        CollectibleType.COLLECTIBLE_BROWN_NUGGET) -- 504
+SPC:AddCallback(ModCallbacks.MC_NPC_UPDATE,  SPCNPCUpdate.Main) -- 0
+SPC:AddCallback(ModCallbacks.MC_POST_UPDATE, SPCPostUpdate.Main) -- 1
+SPC:AddCallback(ModCallbacks.MC_POST_RENDER, SPCPostRender.Main) -- 2
 
+-- Define post-use item callbacks (3)
+SPC:AddCallback(ModCallbacks.MC_USE_ITEM, SPCUseItem.Main) -- 3
+SPC:AddCallback(ModCallbacks.MC_USE_ITEM, SPCUseItem.Item49, -- 3
+                                          CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP) -- 49
+SPC:AddCallback(ModCallbacks.MC_USE_ITEM, SPCUseItem.Item86, -- 3
+                                          CollectibleType.COLLECTIBLE_MONSTROS_TOOTH) -- 86
+SPC:AddCallback(ModCallbacks.MC_USE_ITEM, SPCUseItem.Item282, -- 3
+                                          CollectibleType.COLLECTIBLE_HOW_TO_JUMP) -- 282
+SPC:AddCallback(ModCallbacks.MC_USE_ITEM, SPCUseItem.ClockworkAssembly, -- 3
+                                          Isaac.GetItemIdByName("Clockwork Assembly"))
+SPC:AddCallback(ModCallbacks.MC_USE_ITEM, SPCUseItem.FlockOfSuccubi, -- 3
+                                          Isaac.GetItemIdByName("Flock of Succubi"))
+SPC:AddCallback(ModCallbacks.MC_USE_ITEM, SPCUseItem.ChargingStation, -- 3
+                                          Isaac.GetItemIdByName("Charging Station"))
+if Isaac.GetItemIdByName("Debug") ~= -1 then -- This is in the Racing+ mod
+  SPC:AddCallback(ModCallbacks.MC_USE_ITEM, SPCDebug.Main, -- 3
+                                            Isaac.GetItemIdByName("Debug"))
+end
+
+-- Define card callbacks (5)
+SPC:AddCallback(ModCallbacks.MC_USE_CARD, SPCUseCard.Card4, Card.CARD_EMPRESS) -- 5
+SPC:AddCallback(ModCallbacks.MC_USE_CARD, SPCUseCard.Card13, Card.CARD_HANGED_MAN) -- 5
+
+-- Define miscellaneous callbacks
+SPC:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE,   SPCFamiliarUpdate.Main) -- 6
+SPC:AddCallback(ModCallbacks.MC_FAMILIAR_INIT,     SPCFamiliarInit.Main) -- 7
+SPC:AddCallback(ModCallbacks.MC_EVALUATE_CACHE,    SPCEvaluateCache.Main) -- 8
+SPC:AddCallback(ModCallbacks.MC_USE_PILL,          SPCUsePill.Main) -- 10
+SPC:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG,   SPCEntityTakeDmg.Main) -- 11
+SPC:AddCallback(ModCallbacks.MC_INPUT_ACTION,      SPCInputAction.Main) -- 13
+SPC:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, SPCPostGameStarted.Main) -- 15
+SPC:AddCallback(ModCallbacks.MC_PRE_GAME_EXIT,     SPCPreGameExit.Main) -- 17
+--SPC:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL,    SPCPostNewLevel.Main) -- 18
+--SPC:AddCallback(ModCallbacks.MC_POST_NEW_ROOM,     SPCPostNewRoom.Main) -- 19
+SPC:AddCallback(ModCallbacks.MC_EXECUTE_CMD,       SPCExecuteCmd.Main) -- 22
+
+-- Define pre-use item callbacks (23)
+SPC:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, SPCPreUseItem.Item36, -- 23
+                                              CollectibleType.COLLECTIBLE_POOP) -- 36
+SPC:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, SPCPreUseItem.Item56, -- 23
+                                              CollectibleType.COLLECTIBLE_LEMON_MISHAP) -- 56
+SPC:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, SPCPreUseItem.Item323, -- 23
+                                              CollectibleType.COLLECTIBLE_ISAACS_TEARS) -- 323
+SPC:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, SPCPreUseItem.Item479, -- 23
+                                              CollectibleType.COLLECTIBLE_SMELTER) -- 479
+SPC:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, SPCPreUseItem.Item504, -- 23
+                                              CollectibleType.COLLECTIBLE_BROWN_NUGGET) -- 504
+
+-- Define miscellaneous callbacks
 SPC:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN,       SPCPreEntitySpawn.Main) -- 24
 SPC:AddCallback(ModCallbacks.MC_POST_NPC_INIT,          SPCPostNPCInit.Main) -- 27
 SPC:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT,       SPCPostPickupInit.Main) -- 34
@@ -177,7 +185,6 @@ local itemExceptions = {
   CollectibleType.COLLECTIBLE_THE_WIZ, -- 358
   CollectibleType.COLLECTIBLE_INCUBUS, -- 360
   CollectibleType.COLLECTIBLE_MARKED, -- 394
-  CollectibleType.COLLECTIBLE_SPEAR_OF_DESTINY, -- 400
 }
 for i = 1, #SPCGlobals.babies do
   local baby = SPCGlobals.babies[i]
