@@ -107,8 +107,8 @@ SPC:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG,   SPCEntityTakeDmg.Main) -- 11
 SPC:AddCallback(ModCallbacks.MC_INPUT_ACTION,      SPCInputAction.Main) -- 13
 SPC:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, SPCPostGameStarted.Main) -- 15
 SPC:AddCallback(ModCallbacks.MC_PRE_GAME_EXIT,     SPCPreGameExit.Main) -- 17
---SPC:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL,    SPCPostNewLevel.Main) -- 18
---SPC:AddCallback(ModCallbacks.MC_POST_NEW_ROOM,     SPCPostNewRoom.Main) -- 19
+SPC:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL,    SPCPostNewLevel.Main) -- 18
+SPC:AddCallback(ModCallbacks.MC_POST_NEW_ROOM,     SPCPostNewRoom.Main) -- 19
 SPC:AddCallback(ModCallbacks.MC_EXECUTE_CMD,       SPCExecuteCmd.Main) -- 22
 
 -- Define pre-use item callbacks (23)
@@ -151,7 +151,7 @@ for i = 1, 31 + string.len(SPCGlobals.version) do
   hyphens = hyphens .. "-"
 end
 Isaac.DebugString("+" .. hyphens .. "+")
-Isaac.DebugString("| The Babies Mod v" .. tostring(SPCGlobals.version) .. " initialized. |")
+Isaac.DebugString("| The Babies Mod " .. tostring(SPCGlobals.version) .. " initialized. |")
 Isaac.DebugString("+" .. hyphens .. "+")
 Isaac.DebugString("Total babies: " .. tostring(#SPCGlobals.babies))
 
