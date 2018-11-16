@@ -128,12 +128,10 @@ function SPCPostPickupUpdate:Main(pickup)
         pickup.Variant == PickupVariant.PICKUP_ETERNALCHEST or -- 53
         pickup.Variant == PickupVariant.PICKUP_LOCKEDCHEST or -- 60
         pickup.Variant == PickupVariant.PICKUP_REDCHEST) and -- 360
-       pickup.TheresOptionsPickup == false and
-       -- Racing+ will change Spiked Chests / Mimic Chests to variant 50 during the "Appear" animation
-       -- to prevent unavoidable damage; it sets "pickup.TheresOptionsPickup" when it does this
        data.unavoidableReplacement == nil then
-       -- Racing+ will change some Spiked Chests / Mimic Chests to normal chests to prevent unavoidable damage
-       -- It will set "unavoidableReplacement" when it does this
+       -- Racing+ will change some Spiked Chests / Mimic Chests to normal chests
+       -- to prevent unavoidable damage in rooms with a 1x1 path
+       -- It will set "data.unavoidableReplacement = true" when it does this
 
       -- Replace all chests with Mimics (5.54)
       -- (this does not work in the MC_POST_PICKUP_SELECTION callback because

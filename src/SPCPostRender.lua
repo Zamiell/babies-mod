@@ -278,7 +278,18 @@ function SPCPostRender:GetHeartXOffset()
 end
 
 function SPCPostRender:DrawVersion()
-  if Input.IsButtonPressed(Keyboard.KEY_V, 0) == false then -- 86
+  -- Local variables
+  local game = Game()
+  local gameFrameCount = game:GetFrameCount()
+
+  -- Make the baby description persist for at least 2 seconds after the player presses "v"
+  if Input.IsButtonPressed(Keyboard.KEY_V, 0) then -- 86
+    SPCGlobals.run.showVersionFrame = gameFrameCount + 60
+  end
+
+  if SPCGlobals.run.showVersionFrame == 0 or
+     gameFrameCount > SPCGlobals.run.showVersionFrame then
+
     return
   end
 

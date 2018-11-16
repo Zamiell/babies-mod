@@ -5,7 +5,7 @@ local SPCGlobals  = {}
 --
 
 -- Updated automatically by the "release.py" script
-SPCGlobals.version = "v0.1.20"
+SPCGlobals.version = "v0.1.21"
 
 -- These are variables that are reset at the beginning of every run
 -- (defaults are set below in the "RPGlobals:InitRun()" function)
@@ -58,8 +58,9 @@ function SPCGlobals:InitRun()
     currentRoomIndex    = 0,
 
     -- Temporary variables
-    reloadSprite   = false,
-    showIntroFrame = 0,
+    reloadSprite     = false,
+    showIntroFrame   = 0,
+    showVersionFrame = 0,
 
     -- Baby-specific variables
     babyBool         = false,

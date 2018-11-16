@@ -268,8 +268,10 @@ SPCEntityTakeDmgBabies.functions[204] = function(player, damageAmount, damageFla
   -- Local variables
   local game = Game()
 
-  -- Random Key (5.30.0)
-  game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_KEY, player.Position, Vector(0, 0), player, 0, 0)
+  -- Spawns a random key on hit
+  SPCGlobals.run.randomSeed = SPCGlobals:IncrementRNG(SPCGlobals.run.randomSeed)
+  game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_KEY, -- 5.30
+             player.Position, Vector(0, 0), player, 0, SPCGlobals.run.randomSeed)
 end
 
 -- MeatBoy Baby
@@ -338,8 +340,10 @@ SPCEntityTakeDmgBabies.functions[258] = function(player, damageAmount, damageFla
   -- Local variables
   local game = Game()
 
-  -- Random Bomb (5.40.0)
-  game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, player.Position, Vector(0, 0), player, 0, 0)
+  -- Spawns a random bomb on hit
+  SPCGlobals.run.randomSeed = SPCGlobals:IncrementRNG(SPCGlobals.run.randomSeed)
+  game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, -- 5.40
+             player.Position, Vector(0, 0), player, 0, SPCGlobals.run.randomSeed)
 end
 
 -- Coat Baby

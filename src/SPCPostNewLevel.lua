@@ -491,6 +491,15 @@ function SPCPostNewLevel:IsBabyValid(type)
 
     return false
 
+  elseif baby.name == "Mustache Baby" and -- 66
+         (player:HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) or -- 69
+          player:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) or -- 229
+          player:HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE)) then -- 399
+
+  -- Boomerang tears
+  -- This messes up with charge items
+  return false
+
   elseif baby.name == "Aether Baby" and -- 106
          player:HasCollectible(CollectibleType.COLLECTIBLE_IPECAC) then -- 149
 
@@ -501,6 +510,8 @@ function SPCPostNewLevel:IsBabyValid(type)
           player:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) or -- 229
           player:HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE)) then -- 399
 
+    -- Can't shoot while moving
+    -- This messes up with charge items
     return false
 
   elseif baby.name == "Earwig Baby" and -- 128
