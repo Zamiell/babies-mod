@@ -299,14 +299,11 @@ function SPCPostFireTear:Main(tear)
     tear:Remove()
 
   elseif baby.name == "Arcade Baby" then -- 368
-    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
-    if SPCGlobals.run.babyCounters == baby.num then
-      SPCGlobals.run.babyCounters = 0
-      tear:ChangeVariant(TearVariant.RAZOR) -- 28
+    SPCGlobals.run.babyCounters = 0
+    tear:ChangeVariant(TearVariant.RAZOR) -- 28
 
-      -- Mark it so that we can increase the damage later
-      tear.SubType = 1
-    end
+    -- Mark it so that we can increase the damage later
+    tear.SubType = 1
 
   elseif baby.name == "Pink Ghost Baby" then -- 372
     tear:SetColor(Color(2, 0.05, 1, 0.7, 1, 1, 1), 10000, 10000, false, false) -- Hot pink
@@ -342,14 +339,10 @@ function SPCPostFireTear:Main(tear)
     end
 
   elseif baby.name == "Tooth Head Baby" then -- 442
-    SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
-    if SPCGlobals.run.babyCounters == baby.num then
-      SPCGlobals.run.babyCounters = 0
-      tear:ChangeVariant(TearVariant.TOOTH) -- 2
+    tear:ChangeVariant(TearVariant.TOOTH) -- 2
 
-      -- Mark it so that we can increase the damage later
-      tear.SubType = 1
-    end
+    -- Mark it so that we can increase the damage later
+    tear.SubType = 1
 
   elseif baby.name == "Green Koopa Baby" then -- 455
     -- Turn all tears into green shell tears

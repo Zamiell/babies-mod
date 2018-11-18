@@ -30,6 +30,7 @@ function SPCEvaluateCache:Main(player, cacheFlag)
   -- Local variables
   local game = Game()
   local gameFrameCount = game:GetFrameCount()
+  local character = player:GetPlayerType()
   local hearts = player:GetHearts()
   local soulHearts = player:GetSoulHearts()
   local eternalHearts = player:GetEternalHearts()
@@ -39,6 +40,13 @@ function SPCEvaluateCache:Main(player, cacheFlag)
   local baby = SPCGlobals.babies[type]
   if baby == nil then
     return
+  end
+
+  -- Give the character a flat +1 damage as a bonus, similar to Samael
+  if character == Isaac.GetPlayerTypeByName("Random Baby") and
+     cacheFlag == CacheFlag.CACHE_DAMAGE then -- 2
+
+     player.Damage = player.Damage + 1
   end
 
   -- Handle blindfolded characters
