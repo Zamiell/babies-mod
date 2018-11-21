@@ -5,7 +5,7 @@ local SPCGlobals  = {}
 --
 
 -- Updated automatically by the "release.py" script
-SPCGlobals.version = "v0.1.22"
+SPCGlobals.version = "v0.1.23"
 
 -- These are variables that are reset at the beginning of every run
 -- (defaults are set below in the "RPGlobals:InitRun()" function)
@@ -529,6 +529,7 @@ SPCGlobals.babies = {
     description = "Boomerang tears",
     sprite = "066_baby_mustache.png",
     mustHaveTears = true,
+    softlockPrevention = true, -- Boomerangs cannot kill poops
   },
   {
     name = "Spittle Baby",
@@ -1828,7 +1829,7 @@ SPCGlobals.babies = {
     cooldown = 15, -- In game frames
     noEndFloors = true,
     mustHaveTears = true,
-    softlockPrevention = true,
+    softlockPrevention = true, -- Light beams cannot kill poops
   },
   {
     name = "Ghost Baby 2",
@@ -2110,7 +2111,7 @@ SPCGlobals.babies = {
     item = CollectibleType.COLLECTIBLE_ROBO_BABY_2, -- 267
     itemNum = 20,
     blindfolded = true,
-    softlockPrevention = true,
+    softlockPrevention = true, -- Robo Baby 2.0 will not kill poops
   },
   {
     name = "Long Beard Baby",
@@ -2133,7 +2134,7 @@ SPCGlobals.babies = {
   },
   {
     name = "Tortoise Baby",
-    description = "0.5x speed + 50% chance to ignore damage",
+    description = "50% chance to ignore damage",
     sprite = "330_baby_tortoise.png",
   },
   {
@@ -2248,7 +2249,7 @@ SPCGlobals.babies = {
     sprite = "348_baby_fourtone.png",
     item = CollectibleType.COLLECTIBLE_CANDLE, -- 164
     blindfolded = true,
-    softlockPrevention = true,
+    softlockPrevention = true, -- The Candle cannot kill poops
   },
   {
     name = "Grayscale Baby",
@@ -3103,8 +3104,9 @@ SPCGlobals.babies = {
   },
   {
     name = "Cursed Pillow Baby",
-    description = "Missed tears cause damage",
+    description = "Every 3rd missed tear causes damage",
     sprite = "487_baby_cursedpillow.png",
+    num = 3,
     mustHaveTears = true,
   },
   {
@@ -3371,8 +3373,9 @@ SPCGlobals.babies = {
   },
   {
     name = "Abel", -- 531
-    description = "Missed tears cause paralysis",
+    description = "Every 3rd missed tear causes paralysis",
     sprite = "familiar_shooters_08_abel.png",
+    num = 3,
     mustHaveTears = true,
   },
   {

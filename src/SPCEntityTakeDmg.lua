@@ -56,15 +56,6 @@ function SPCEntityTakeDmg:Entity(entity, damageAmount, damageFlag, damageSource,
     local damage = player.Damage * 2
     entity:TakeDamage(damage, 0, EntityRef(player), damageCountdownFrames)
 
-  elseif baby.name == "Mustache Baby" and -- 66
-         SPCGlobals.run.dealingExtraDamage == false then
-
-    -- By default, the boomerang only does 2x damage, so make it deal extra
-    local damage = player.Damage * 4
-    SPCGlobals.run.dealingExtraDamage = true
-    entity:TakeDamage(damage, 0, EntityRef(player), damageCountdownFrames)
-    SPCGlobals.run.dealingExtraDamage = false
-
   elseif baby.name == "Fang Demon Baby" and -- 281
          SPCGlobals.run.dealingExtraDamage == false then
 

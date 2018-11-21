@@ -58,8 +58,16 @@ function SPCEvaluateCache:Main(player, cacheFlag)
   end
 
   -- Per baby stat changes
-  if baby.name == "Lowface Baby" and -- 73
-     cacheFlag == CacheFlag.CACHE_RANGE then -- 8
+  if baby.name == "Cute Baby" and -- 11
+     cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
+
+    -- -1 damage per pickup taken
+    for i = 1, SPCGlobals.run.babyCounters do
+      player.Damage = player.Damage - 1
+    end
+
+  elseif baby.name == "Lowface Baby" and -- 73
+         cacheFlag == CacheFlag.CACHE_RANGE then -- 8
 
     -- 0.5x range
     player.TearHeight = player.TearHeight / 2
@@ -133,11 +141,6 @@ function SPCEvaluateCache:Main(player, cacheFlag)
          cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
 
     player.Damage = player.Damage * 2
-
-  elseif baby.name == "Tortoise Baby" and -- 330
-         cacheFlag == CacheFlag.CACHE_SPEED then -- 16
-
-    player.MoveSpeed = player.MoveSpeed * 0.5
 
   elseif baby.name == "Hero Baby" and -- 336
          cacheFlag == CacheFlag.CACHE_DAMAGE and -- 1

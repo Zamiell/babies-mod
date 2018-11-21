@@ -14,6 +14,7 @@ function SPCPreGetCollectible:Main(poolType, decrease, seed)
   if baby == nil then
     return
   end
+  Isaac.DebugString("GETTING HERE")
 
   -- This callback is called when the game needs to get a new random item from an item pool
   -- It is undocumented, but you can return an integer from this callback in order to change the returned item pool type

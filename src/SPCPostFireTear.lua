@@ -12,8 +12,6 @@ function SPCPostFireTear:Main(tear)
   local roomFrameCount = room:GetFrameCount()
   local roomShape = room:GetRoomShape()
   local player = game:GetPlayer(0)
-  local activeCharge = player:GetActiveCharge()
-  local batteryCharge = player:GetBatteryCharge()
   local data = tear:GetData()
   local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
@@ -84,14 +82,12 @@ function SPCPostFireTear:Main(tear)
     player.Velocity = player.Velocity + (tear.Velocity * -0.75)
 
   elseif baby.name == "Mustache Baby" then -- 66
-    player:UseActiveItem(CollectibleType.COLLECTIBLE_BOOMERANG, false, false, false, false) -- 388
+    -- Boomerang tears
+    -- We can't just use The Boomerang item because there is no way to avoid a long cooldown
+    -- So we spawn an effect instead
+    game:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BOOMERANG, -- 1000.60
+               tear.Position, tear.Velocity, tear.SpawnerEntity, 0, tear.InitSeed)
     tear:Remove()
-
-    -- Using the boomerang removes the charge on the current active item for some reason,
-    -- so we have to restore it on the next frame
-    SPCGlobals.run.babyCounters = activeCharge
-    SPCGlobals.run.babyNPC.type = batteryCharge
-    SPCGlobals.run.babyFrame = gameFrameCount + 1
 
   elseif baby.name == "Parasite Baby" then -- 77
     tear:ChangeVariant(TearVariant.BALLOON) -- 35

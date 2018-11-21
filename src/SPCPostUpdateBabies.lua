@@ -197,28 +197,6 @@ SPCPostUpdateBabies.functions[64] = function()
   Isaac.GridSpawn(GridEntityType.GRID_SPIKES, 0, player.Position, false) -- 8
 end
 
--- Mustache Baby
-SPCPostUpdateBabies.functions[66] = function()
-  -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
-  local sfx = SFXManager()
-
-  -- Using the boomerang removes the charge on the current active item for some reason,
-  -- so we have to restore it on the next frame
-  if SPCGlobals.run.babyFrame ~= 0 and
-     gameFrameCount >= SPCGlobals.run.babyFrame then
-
-    SPCGlobals.run.babyFrame = 0
-    -- We store the main charge in the "babyCounters" variable and The Battery charge in the "babyNPC.type" variable
-    player:SetActiveCharge(SPCGlobals.run.babyCounters + SPCGlobals.run.babyNPC.type)
-    sfx:Stop(SoundEffect.SOUND_BATTERYCHARGE) -- 170
-    sfx:Stop(SoundEffect.SOUND_BEEP) -- 171
-    SPCGlobals.run.babyCounters = 0
-  end
-end
-
 -- Scream Baby
 SPCPostUpdateBabies.functions[81] = function()
   -- Local variables
@@ -642,8 +620,7 @@ SPCPostUpdateBabies.functions[171] = function()
   -- Broken machines drop pedestal items
   -- (there is no MC_POST_SLOT_UPDATE callback so we have to do this here)
   local entities = Isaac.FindByType(EntityType.ENTITY_SLOT, -1, -1, false, false) -- 6
-  for i = 1, #entities do
-    local entity = entities[i]
+  for i, entity in pairs(entities) do
     local sprite = entity:GetSprite()
     local data = entity:GetData()
     if data.destroyed == nil and
@@ -690,9 +667,9 @@ SPCPostUpdateBabies.functions[211] = function()
 
       -- Make the shockwave deal damage to NPCs
       local entities = Isaac.FindInRadius(tear.position, 40, EntityPartition.ENEMY) -- 1 << 3
-      for j = 1, #entities do
-        local damage = player.Damage * 1.5
-        entities[j]:TakeDamage(damage, DamageFlag.DAMAGE_EXPLOSION, EntityRef(explosion), 2)
+      for j, entity in pairs(entities) do
+        local damageAmount = player.Damage * 1.5
+        entity:TakeDamage(damageAmount, DamageFlag.DAMAGE_EXPLOSION, EntityRef(explosion), 2)
        end
      end
 

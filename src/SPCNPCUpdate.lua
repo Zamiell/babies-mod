@@ -29,6 +29,8 @@ function SPCNPCUpdate:Main(npc)
 
   elseif baby.name == "Hooligan Baby" and -- 514
          npc.FrameCount == 0 and
+         npc.Type ~= EntityType.ENTITY_FIREPLACE and -- 33
+         npc.Type ~= EntityType.ENTITY_SHOPKEEPER and -- 17
          data.duplicated == nil then
 
     -- Double enemies

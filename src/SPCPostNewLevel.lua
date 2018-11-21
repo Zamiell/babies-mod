@@ -491,15 +491,6 @@ function SPCPostNewLevel:IsBabyValid(type)
 
     return false
 
-  elseif baby.name == "Mustache Baby" and -- 66
-         (player:HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) or -- 69
-          player:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) or -- 229
-          player:HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE)) then -- 399
-
-  -- Boomerang tears
-  -- This messes up with charge items
-  return false
-
   elseif baby.name == "Aether Baby" and -- 106
          player:HasCollectible(CollectibleType.COLLECTIBLE_IPECAC) then -- 149
 
@@ -620,6 +611,7 @@ function SPCPostNewLevel:IsBabyValid(type)
           player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_EYE) or -- 55
           player:HasCollectible(CollectibleType.COLLECTIBLE_LOKIS_HORNS) or -- 87
           player:HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER) or -- 153
+          player:HasCollectible(CollectibleType.COLLECTIBLE_POLYPHEMUS) or -- 169
           player:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) or -- 229
           player:HasCollectible(CollectibleType.COLLECTIBLE_DEATHS_TOUCH) or -- 237
           player:HasCollectible(CollectibleType.COLLECTIBLE_20_20) or -- 245
@@ -719,6 +711,13 @@ function SPCPostNewLevel:IsBabyValid(type)
     -- This can make resetting slower, so don't have this baby on Basement 1
     return false
 
+  elseif baby.name == "Tears Baby" and -- 136
+         stage == 2 then
+
+    -- Starts with the Soul Jar
+    -- Getting this on Basement 2 would cause a missed devil deal
+    return false
+
   elseif baby.name == "Twin Baby" and -- 141
          stage == 8 then
 
@@ -730,6 +729,13 @@ function SPCPostNewLevel:IsBabyValid(type)
 
     -- Everything is Red Poop
     -- There is almost no grid entities on The Chest
+    return false
+
+  elseif baby.name == "Ate Poop Baby" and -- 173
+         stage == 11 then
+
+    -- Destroying poops spawns random pickups
+    -- There are hardly any poops on The Chest
     return false
 
   elseif baby.name == "Shopkeeper Baby" and -- 215
@@ -772,6 +778,13 @@ function SPCPostNewLevel:IsBabyValid(type)
 
     -- Everything is TNT
     -- There is almost no grid entities on The Chest
+    return false
+
+  elseif baby.name == "Rich Baby" and -- 424
+         stage >= 7 then
+
+    -- Starts with 99 cents
+    -- Money is useless past Depths
     return false
 
   elseif baby.name == "Folder Baby" and -- 430

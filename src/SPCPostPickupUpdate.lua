@@ -343,7 +343,7 @@ function SPCPostPickupUpdate:Touched(pickup)
   local baby = SPCGlobals.babies[type]
 
   if baby.name == "Cute Baby" then -- 11
-    -- Touching pickups takes away damage
+    -- -1 damage per pickup taken
     SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
     player:AddCacheFlags(CacheFlag.CACHE_DAMAGE) -- 1
     player:EvaluateItems()

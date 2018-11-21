@@ -204,9 +204,9 @@ function SPCPostTearUpdate:Main(tear)
          tear:IsDead() then -- Tears will not die if they hit an enemy, but they will die if they hit a wall or object
 
     -- Missing tears causes damage
-    -- It only applies to the 3rd missed tear
+    -- It only applies to the Nth missed tear
     SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
-    if SPCGlobals.run.babyCounters == 3 then
+    if SPCGlobals.run.babyCounters == baby.num then
       SPCGlobals.run.babyCounters = 0
       player:TakeDamage(1, 0, EntityRef(player), 0)
     end
@@ -229,9 +229,9 @@ function SPCPostTearUpdate:Main(tear)
          tear:IsDead() then -- Tears will not die if they hit an enemy, but they will die if they hit a wall or object
 
     -- Missing tears causes Paralysis
-    -- It only applies to the 3rd missed tear
+    -- It only applies to the Nth missed tear
     SPCGlobals.run.babyCounters = SPCGlobals.run.babyCounters + 1
-    if SPCGlobals.run.babyCounters == 3 then
+    if SPCGlobals.run.babyCounters == baby.num then
       SPCGlobals.run.babyCounters = 0
       player:UsePill(PillEffect.PILLEFFECT_PARALYSIS, PillColor.PILL_NULL) -- 22, 0
       -- (we can't cancel the animation or it will cause the bug where the player cannot pick up pedestal items)

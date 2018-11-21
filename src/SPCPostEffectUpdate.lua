@@ -15,7 +15,36 @@ function SPCPostEffectUpdate:Main(effect)
     return
   end
 
-  if baby.name == "Sloppy Baby" and -- 146
+  if baby.name == "Mustache Baby" and
+     effect.Variant == EffectVariant.BOOMERANG then -- 60
+
+    -- Check for NPC collision
+    local entities = Isaac.FindInRadius(effect.Position, 30, EntityPartition.ENEMY) -- 1 << 3
+    if #entities > 0 then
+      entities[1]:TakeDamage(player.Damage, DamageFlag.DAMAGE_EXPLOSION, EntityRef(effect), 2)
+      effect:Remove()
+    end
+
+    -- Check for player collision
+    local players = Isaac.FindInRadius(effect.Position, 30, EntityPartition.PLAYER) -- 1 << 5
+    if #players > 0 and
+       effect.FrameCount > 20 then
+
+      effect:Remove()
+    end
+
+    -- Make boomerangs return to the player
+    if effect.FrameCount >= 26 then
+      -- "effect:FollowParent(player)" does not work
+      local initialSpeed = effect.Velocity:LengthSquared()
+      effect.Velocity = player.Position - effect.Position
+      effect.Velocity = effect.Velocity:Normalized()
+      while effect.Velocity:LengthSquared() < initialSpeed do
+        effect.Velocity = effect.Velocity * 1.1
+      end
+    end
+
+  elseif baby.name == "Sloppy Baby" and -- 146
      effect.Variant == EffectVariant.TARGET and -- 30
      effect.FrameCount == 1 then
 
