@@ -25,7 +25,9 @@ function SPCPreRoomEntitySpawn:Main(type, variant, subType, gridIndex, seed)
   if baby.name == "Chompers Baby" and -- 143
      roomFirstVisit and
      type >= 1000 and -- We only care about grid entities
-     type ~= 4500 then -- Make an exception for Pressure Plates
+     type ~= 4500 and -- Make an exception for Pressure Plates
+     type ~= 9000 and -- Make an exception for trapdoors
+     type ~= 9100 then -- Make an exception for crawlspaces
 
     -- Everything is Red Poop
     return {1490, 0, 0}
@@ -46,7 +48,9 @@ function SPCPreRoomEntitySpawn:Main(type, variant, subType, gridIndex, seed)
   elseif baby.name == "Red Wrestler Baby" and -- 389
          roomFirstVisit and
          type >= 1000 and -- We only care about grid entities
-         type ~= 4500 then -- Make an exception for Pressure Plates
+         type ~= 4500 and -- Make an exception for Pressure Plates
+         type ~= 9000 and -- Make an exception for trapdoors
+         type ~= 9100 then -- Make an exception for crawlspaces
 
     -- Everything is TNT
     return {1300, 0, 0}
