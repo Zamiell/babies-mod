@@ -298,7 +298,8 @@ SPCPostUpdateBabies.functions[110] = function()
     local roomDesc = rooms:Get(i)
     local roomData = roomDesc.Data
     local roomType2 = roomData.Type
-    if roomType2 == RoomType.ROOM_DEFAULT and -- 1
+    if (roomType2 == RoomType.ROOM_DEFAULT or -- 1
+        roomType2 == RoomType.ROOM_MINIBOSS) and -- 6
        roomDesc.Clear == false then
 
       allCleared = false
