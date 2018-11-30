@@ -222,34 +222,27 @@ SPCEntityTakeDmgBabies.functions[177] = function(player, damageAmount, damageFla
   -- Local variables
   local game = Game()
   local sfx = SFXManager()
+  local coins = player:GetNumCoins()
 
-  if SPCGlobals.run.babyBool then
+  -- Sonic-style health
+  if coins == 0 then
+    player:Kill()
     return
   end
 
-  -- Sonic-style health
-  local coins = player:GetNumCoins()
-  if coins == 0 then
-    player:Kill()
-  else
-    SPCGlobals.run.babyBool = true
-    player:UseActiveItem(CollectibleType.COLLECTIBLE_DULL_RAZOR, false, false, false, false) -- 486
-    SPCGlobals.run.babyBool = false
-    player:AddCoins(-99)
-    for i = 1, coins do
-      -- Spawn a Penny (5.20.1)
-      local velocity = player.Position - Isaac.GetRandomPosition()
-      velocity = velocity:Normalized()
-      local modifier = math.random(4, 20)
-      velocity = velocity * modifier
-      local coin = game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN,
-                              player.Position, velocity, player, 1, 0)
-      local data = coin:GetData()
-      data.recovery = true
-    end
-    sfx:Play(SoundEffect.SOUND_GOLD_HEART, 1, 0, false, 1) -- 465
+  player:AddCoins(-99)
+  for i = 1, coins do
+    -- Spawn a Penny (5.20.1)
+    local velocity = player.Position - Isaac.GetRandomPosition()
+    velocity = velocity:Normalized()
+    local modifier = math.random(4, 20)
+    velocity = velocity * modifier
+    local coin = game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN,
+                            player.Position, velocity, player, 1, 0)
+    local data = coin:GetData()
+    data.recovery = true
   end
-  return false
+  sfx:Play(SoundEffect.SOUND_GOLD_HEART, 1, 0, false, 1) -- 465
 end
 
 -- Faded Baby
