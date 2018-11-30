@@ -8,9 +8,6 @@ local SPCPostNewLevel = require("src/spcpostnewlevel")
 function SPCPostGameStarted:Main(saveState)
   -- Don't do anything if this is not a new run
   if saveState then
-    -- Load the Stats API 2.0 data
-    -- Commented out because we are using the "save#.dat" file for baby descriptions
-    --stats.LoadSave(Isaac.LoadModData(SPCGlobals.SPC))
     return
   end
 
@@ -30,8 +27,7 @@ function SPCPostGameStarted:Main(saveState)
   -- Also reset the list of past babies that have been chosen
   -- (but don't do this if we are in the middle of a multi-character custom challenge)
   local resetPastBabies = true
-  if (challenge == Isaac.GetChallengeIdByName("R+7 (Season 5 Beta)") or
-      challenge == Isaac.GetChallengeIdByName("R+7 (Season 5)")) and
+  if challenge == Isaac.GetChallengeIdByName("R+7 (Season 5)") and
      RacingPlusSpeedrun ~= nil and
      RacingPlusSpeedrun.charNum >= 2 then
 

@@ -64,9 +64,7 @@ function SPCPostNewLevel:NewLevel()
   -- Racing+ removes all curses
   -- If we are in the R+7 Season 5 custom challenge, then all curses are disabled except for Curse of the Unknown
   -- Thus, we might naturally get this curse inside the challenge, so make sure it is disabled
-  if (challenge == Isaac.GetChallengeIdByName("R+7 (Season 5 Beta)") or
-      challenge == Isaac.GetChallengeIdByName("R+7 (Season 5)")) then
-
+  if challenge == Isaac.GetChallengeIdByName("R+7 (Season 5)") then
     level:RemoveCurse(LevelCurse.CURSE_OF_THE_UNKNOWN, false) -- 1 << 3
   end
 
@@ -234,6 +232,16 @@ function SPCPostNewLevel:RemoveOldBaby()
     -- Only one Pretty Fly is removed after removing a Halo of Flies
     -- Thus, after removing 2x Halo of Flies, one fly remains
     player:RemoveCollectible(CollectibleType.COLLECTIBLE_HALO_OF_FLIES) -- 10
+
+  elseif baby.name == "Spider Baby" then -- 521
+    -- Remove all of the Blue Spiders
+    for i, entity in pairs(Isaac.GetRoomEntities()) do
+      if entity.Type == EntityType.ENTITY_FAMILIAR and -- 3
+         entity.Variant == FamiliarVariant.BLUE_SPIDER then -- 73
+
+        entity:Remove()
+      end
+    end
 
   elseif baby.name == "Rotten Baby" then -- 533
     -- Remove all of the Blue Flies
@@ -453,6 +461,11 @@ function SPCPostNewLevel:IsBabyValid(type)
 
     return false
   end
+  if baby.item == CollectibleType.COLLECTIBLE_ISAACS_TEARS and -- 323
+     player:HasCollectible(CollectibleType.COLLECTIBLE_IPECAC) then -- 149
+
+    return false
+  end
   if (baby.item == CollectibleType.COLLECTIBLE_COMPASS or -- 21
       baby.item2 == CollectibleType.COLLECTIBLE_COMPASS or -- 21
       baby.item == CollectibleType.COLLECTIBLE_TREASURE_MAP or -- 54
@@ -463,8 +476,15 @@ function SPCPostNewLevel:IsBabyValid(type)
 
     return false
   end
-  if baby.item == CollectibleType.COLLECTIBLE_ISAACS_TEARS and -- 323
-     player:HasCollectible(CollectibleType.COLLECTIBLE_IPECAC) then -- 149
+  if (baby.item == CollectibleType.COLLECTIBLE_TECH_X or -- 395
+      baby.item2 == CollectibleType.COLLECTIBLE_TECH_X) and -- 395
+     player:HasCollectible(CollectibleType.COLLECTIBLE_DEAD_EYE) then -- 373
+
+    return false
+  end
+  if (baby.item == CollectibleType.COLLECTIBLE_DEAD_EYE or -- 373
+      baby.item2 == CollectibleType.COLLECTIBLE_DEAD_EYE) and -- 373
+     player:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) then -- 395
 
     return false
   end
@@ -630,6 +650,13 @@ function SPCPostNewLevel:IsBabyValid(type)
     return false
   end
 
+  -- Check for conflicting trinkets
+  if baby.name == "Spike Baby" and -- 166
+     player:HasTrinket(TrinketType.TRINKET_LEFT_HAND) then -- 61
+
+    return false
+  end
+
   -- Check to see if there are level restrictions
   if baby.noEndFloors and stage >= 9 then
     return false
@@ -645,6 +672,12 @@ function SPCPostNewLevel:IsBabyValid(type)
      (stage <= 2 or stage >= 8) then
 
     -- Only valid for floors that the shovel will work on
+    return false
+
+  elseif (baby.item == CollectibleType.COLLECTIBLE_SCAPULAR or -- 142
+          baby.item2 == CollectibleType.COLLECTIBLE_SCAPULAR) and -- 142
+         stage >= 7 then
+
     return false
 
   elseif baby.item == CollectibleType.COLLECTIBLE_CRYSTAL_BALL and -- 158
@@ -789,6 +822,11 @@ function SPCPostNewLevel:IsBabyValid(type)
 
   elseif baby.name == "Folder Baby" and -- 430
          (stage == 1 or stage == 10) then
+
+    return false
+
+  elseif baby.name == "Baggy Cap Baby" and -- 519
+         stage == 11 then
 
     return false
 
@@ -1029,6 +1067,10 @@ function SPCPostNewLevel:ApplyNewBaby()
     for i = 1, 64 do
       player:AddBlueSpider(player.Position)
     end
+
+  elseif baby.name == "Whore Baby" then -- 43
+    -- We will use the counters variable to store explosions
+    SPCGlobals.run.babyCounters = {}
 
   elseif baby.name == "Dark Baby" then -- 48
     -- Temporary blindness

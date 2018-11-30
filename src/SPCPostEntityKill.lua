@@ -8,6 +8,11 @@ function SPCPostEntityKill:Main(entity)
   -- Local variables
   local game = Game()
   local gameFrameCount = game:GetFrameCount()
+  local level = game:GetLevel()
+  local roomIndex = level:GetCurrentRoomDesc().SafeGridIndex
+  if roomIndex < 0 then -- SafeGridIndex is always -1 for rooms outside the grid
+    roomIndex = level:GetCurrentRoomIndex()
+  end
   local player = game:GetPlayer(0)
   local type = SPCGlobals.run.babyType
   local baby = SPCGlobals.babies[type]
@@ -31,58 +36,12 @@ function SPCPostEntityKill:Main(entity)
 
   elseif baby.name == "Whore Baby" then -- 43
     -- All enemies explode
-    -- There is a random crash, so check for a bunch of values for debugging purposes
-    -- https://clips.twitch.tv/HelplessLongManateeDogFace
-    -- https://clips.twitch.tv/ObliquePrettiestDadYouWHY
-    -- If this still crashes, we can instead try spawning a bomb entity with no collision,
-    -- not visible, and explodes next frame
-    --[[
-    function skulls:SpiteSkull(entity)
-    local player = Isaac.GetPlayer(0)
-    if player:HasCollectible(spite) then
-        local bomb = Isaac.Spawn(EntityType.ENTITY_BOMBDROP, 0, 0, entity.Position, skulls.zeroV, entity):ToBomb()
-        bomb:SetExplosionCountdown(0)
-        bomb.RadiusMultiplier = entity.Size/15
-        bomb.Visible = false
-    end
-    end
-    --]]
-    if npc.Type == nil then
-      Isaac.DebugString("Explode NPC - type missing.")
-      return
-    end
-    if npc.Variant == nil then
-      Isaac.DebugString("Explode NPC - variant missing.")
-      return
-    end
-    if npc.SubType == nil then
-      Isaac.DebugString("Explode NPC - subtype missing.")
-      return
-    end
-    if npc.SubType == nil then
-      Isaac.DebugString("Explode NPC - subtype missing.")
-      return
-    end
-    if npc.State == nil then
-      Isaac.DebugString("Explode NPC - state missing.")
-      return
-    end
-    if npc.Position == nil then
-      Isaac.DebugString("Explode NPC - position missing.")
-      return
-    end
-    if npc.Position.X == nil then
-      Isaac.DebugString("Explode NPC - position X missing.")
-      return
-    end
-    if npc.Position.Y == nil then
-      Isaac.DebugString("Explode NPC - position Y missing.")
-      return
-    end
-    Isaac.DebugString("Explode NPC: " .. tostring(npc.Type) .. "." .. tostring(npc.Variant) .. "." ..
-                      tostring(npc.SubType) .. "." .. tostring(npc.State))
-    Isaac.Explode(npc.Position, nil, 50) -- 49 deals 1 half heart of damage
-    Isaac.DebugString("After explode.")
+    -- We cannot explode enemies in the MC_POST_ENTITY_KILL callback due to a crash having to do with black hearts
+    -- So, mark to explode in the MC_POST_UPDATE callback
+    SPCGlobals.run.babyCounters[#SPCGlobals.run.babyCounters + 1] = {
+      roomIndex = roomIndex,
+      position  = npc.Position,
+    }
 
   elseif baby.name == "Zombie Baby" and -- 61
          npc:IsBoss() == false and

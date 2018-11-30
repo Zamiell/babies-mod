@@ -3,28 +3,6 @@ local SPCEvaluateCache = {}
 -- Includes
 local SPCGlobals = require("src/spcglobals")
 
--- Don't use the Stat API for now because of unfixed bugs
---[[
--- First, we use the Stat API to emulate a character multiplier of Judas,
--- since there is no trivial way to do this with the game's base API
--- Requiring it below will register its MC_EVALUATE_CACHE callback
--- This needs to happen before we register our MC_EVALUATE_CACHE callback, because they will run in order,
--- and we want our stats to apply afterward
-pcall(require, "src/statAPI") -- This has to be a pcall or it will throw an error
-function SPCEvaluateCache:CharacterMultiplier()
-  -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
-  local character = player:GetPlayerType()
-
-  if character == Isaac.GetPlayerTypeByName("Random Baby") then
-    player.Damage = player.Damage * 1.35 -- Same multiplier as Judas
-  end
-end
-stats.AddCache(SPCGlobals.SPC, SPCEvaluateCache.CharacterMultiplier, CacheFlag.CACHE_DAMAGE, -- 1
-               StatStage.BREAK_MULTI, "characterMultiplier") -- 2
---]]
-
 -- ModCallbacks.MC_EVALUATE_CACHE (8)
 function SPCEvaluateCache:Main(player, cacheFlag)
   -- Local variables

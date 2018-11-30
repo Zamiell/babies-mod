@@ -14,11 +14,10 @@ function SPCPreGetCollectible:Main(poolType, decrease, seed)
   if baby == nil then
     return
   end
-  Isaac.DebugString("GETTING HERE")
 
   -- This callback is called when the game needs to get a new random item from an item pool
   -- It is undocumented, but you can return an integer from this callback in order to change the returned item pool type
-  -- It is not called when specific items are placed (like the "Checkpoint" in Racing+)
+  -- It is not called for set drops (like Mr. Boom from Wrath) and manually spawned items (like the Checkpoint)
 
   --[[
   Isaac.DebugString("MC_PRE_GET_COLLECTIBLE - " .. tostring(poolType) .. ", " .. tostring(decrease) .. ", " ..

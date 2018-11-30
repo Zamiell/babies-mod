@@ -130,6 +130,26 @@ SPCPostUpdateBabies.functions[39] = function()
   end
 end
 
+-- Whore Baby
+SPCPostUpdateBabies.functions[43] = function()
+  -- Local variables
+  local game = Game()
+  local level = game:GetLevel()
+  local roomIndex = level:GetCurrentRoomDesc().SafeGridIndex
+  if roomIndex < 0 then -- SafeGridIndex is always -1 for rooms outside the grid
+    roomIndex = level:GetCurrentRoomIndex()
+  end
+
+  -- All enemies explode
+  -- Perform the explosion that was initiated in the MC_POST_ENTITY_KILL callback
+  for i, explosion in pairs(SPCGlobals.run.babyCounters) do
+    if explosion.roomIndex == roomIndex then
+      Isaac.Explode(explosion.position, nil, 50) -- 49 deals 1 half heart of damage
+    end
+    table.remove(SPCGlobals.run.babyCounters, i)
+  end
+end
+
 -- Dark Baby
 SPCPostUpdateBabies.functions[48] = function()
   -- Local variables
@@ -392,13 +412,13 @@ SPCPostUpdateBabies.functions[128] = function()
     local randomIndex = randomIndexes[i]
     level.LeaveDoor = -1 -- You have to set this before every teleport or else it will send you to the wrong room
     level:ChangeRoom(randomIndex)
+
+    -- We might have traveled to the Boss Room, so stop the Portcullis sound effect just in case
+    sfx:Stop(SoundEffect.SOUND_CASTLEPORTCULLIS) -- 190
   end
   level.LeaveDoor = -1 -- You have to set this before every teleport or else it will send you to the wrong room
   level:ChangeRoom(startingRoomIndex)
   player.Position = centerPos
-
-  -- We might have traveled to the Boss Room, so stop the Portcullis sound effect just in case
-  sfx:Stop(SoundEffect.SOUND_CASTLEPORTCULLIS) -- 190
 end
 
 -- Mohawk Baby

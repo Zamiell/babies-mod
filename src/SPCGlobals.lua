@@ -5,7 +5,7 @@ local SPCGlobals  = {}
 --
 
 -- Updated automatically by the "release.py" script
-SPCGlobals.version = "v0.1.24"
+SPCGlobals.version = "v0.1.25"
 
 -- These are variables that are reset at the beginning of every run
 -- (defaults are set below in the "RPGlobals:InitRun()" function)
@@ -274,6 +274,7 @@ SPCGlobals.babies = {
     sprite = "022_baby_dead.png",
     item = CollectibleType.COLLECTIBLE_BLUEBABYS_ONLY_FRIEND, -- 320
     blindfolded = true,
+    softlockPrevention = true, -- ???'s Only Friend cannot kill poops
   },
   {
     name = "Fighting Baby",

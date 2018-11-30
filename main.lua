@@ -8,9 +8,6 @@
 You can read more about this mod at:
 https://bindingofisaacrebirth.gamepedia.com/index.php?title=User:Zamie/Co-op&profile=no
 
-TODO:
-- n/a
-
 Boring Babies:
 - 515 - Half Spider Baby - Starts with 3x Pretty Fly
 
@@ -34,7 +31,6 @@ local SPCUsePill              = require("src/spcusepill") -- The UsePill callbac
 local SPCEntityTakeDmg        = require("src/spcentitytakedmg") -- The EntityTakeDmg callback (11)
 local SPCInputAction          = require("src/spcinputaction") -- The InputAction callback (13)
 local SPCPostGameStarted      = require("src/spcpostgamestarted") -- The PostGameStarted callback (15)
-local SPCPreGameExit          = require("src/spcpregameexit") -- The PreGameExit callback (17)
 local SPCPostNewLevel         = require("src/spcpostnewlevel") -- The PostNewLevel callback (18)
 local SPCPostNewRoom          = require("src/spcpostnewroom") -- The PostNewRoom callback (19)
 local SPCExecuteCmd           = require("src/spcexecutecmd") -- The ExecuteCmd callback (22)
@@ -106,7 +102,6 @@ SPC:AddCallback(ModCallbacks.MC_USE_PILL,          SPCUsePill.Main) -- 10
 SPC:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG,   SPCEntityTakeDmg.Main) -- 11
 SPC:AddCallback(ModCallbacks.MC_INPUT_ACTION,      SPCInputAction.Main) -- 13
 SPC:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, SPCPostGameStarted.Main) -- 15
-SPC:AddCallback(ModCallbacks.MC_PRE_GAME_EXIT,     SPCPreGameExit.Main) -- 17
 SPC:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL,    SPCPostNewLevel.Main) -- 18
 SPC:AddCallback(ModCallbacks.MC_POST_NEW_ROOM,     SPCPostNewRoom.Main) -- 19
 SPC:AddCallback(ModCallbacks.MC_EXECUTE_CMD,       SPCExecuteCmd.Main) -- 22
