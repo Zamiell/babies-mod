@@ -234,12 +234,14 @@ function SPCPostPickupUpdate:Main(pickup)
          roomType ~= RoomType.ROOM_BLACK_MARKET then -- 22
 
     -- All special rooms are Devil Rooms
-    if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE and
-       pickup.FrameCount == 1 then -- Frame 0 does not work
-
-      -- Set the price
-      pickup.AutoUpdatePrice = false
-      pickup.Price = SPCMisc:GetItemHeartPrice(pickup.SubType)
+    if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then
+      -- If the price is not correct, update it
+      -- (we have to check on every frame in case the health situation changes)
+      local price = SPCMisc:GetItemHeartPrice(pickup.SubType)
+      if pickup.Price ~= price then
+        pickup.AutoUpdatePrice = false
+        pickup.Price = price
+      end
 
     elseif pickup.Variant == PickupVariant.PICKUP_HEART and -- 10
            pickup.SubType == HeartSubType.HEART_FULL and -- 1
@@ -250,22 +252,26 @@ function SPCPostPickupUpdate:Main(pickup)
       SPCGlobals.run.roomRNG = SPCGlobals:IncrementRNG(SPCGlobals.run.roomRNG)
       local item = itemPool:GetCollectible(ItemPoolType.POOL_DEVIL, true, SPCGlobals.run.roomRNG) -- 3
       local pedestal = game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-                                  pickup.Position, Vector(0, 0), nil, item, SPCGlobals.run.roomRNG):ToPickup()
+                                  pickup.Position, Vector(0, 0), nil, item, pickup.InitSeed):ToPickup()
 
       -- Set the price
       pedestal.AutoUpdatePrice = false
       pickup.Price = SPCMisc:GetItemHeartPrice(pickup.SubType)
 
+      -- Remove the heart
       pickup:Remove()
     end
 
   elseif baby.name == "Scary Baby" then -- 317
-    if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE and
-       pickup.FrameCount == 1 then -- Frame 0 does not work
-
-      -- Set the price
-      pickup.AutoUpdatePrice = false
-      pickup.Price = SPCMisc:GetItemHeartPrice(pickup.SubType)
+    -- Items cost hearts
+    if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then
+      -- If the price is not correct, update it
+      -- (we have to check on every frame in case the health situation changes)
+      local price = SPCMisc:GetItemHeartPrice(pickup.SubType)
+      if pickup.Price ~= price then
+        pickup.AutoUpdatePrice = false
+        pickup.Price = price
+      end
 
     elseif pickup.Variant == PickupVariant.PICKUP_HEART and -- 10
            pickup.SubType == HeartSubType.HEART_FULL and -- 1
@@ -281,6 +287,7 @@ function SPCPostPickupUpdate:Main(pickup)
       pedestal.AutoUpdatePrice = false
       pickup.Price = SPCMisc:GetItemHeartPrice(pickup.SubType)
 
+      -- Remove the heart
       pickup:Remove()
     end
 

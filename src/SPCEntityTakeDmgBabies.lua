@@ -86,9 +86,13 @@ SPCEntityTakeDmgBabies.functions[41] = function(player, damageAmount, damageFlag
   local maxHearts = player:GetMaxHearts()
 
   -- Removes a heart container on hit
-  if maxHearts >= 2 then
+  if SPCGlobals.run.babyBool == false and
+     maxHearts >= 2 then
+
     player:AddMaxHearts(-2, true)
+    SPCGlobals.run.babyBool = true
     player:UseActiveItem(CollectibleType.COLLECTIBLE_DULL_RAZOR, false, false, false, false) -- 486
+    SPCGlobals.run.babyBool = false
     return false
   end
 end
@@ -342,6 +346,31 @@ end
 -- Coat Baby
 SPCEntityTakeDmgBabies.functions[260] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   player:UseActiveItem(CollectibleType.COLLECTIBLE_DECK_OF_CARDS, false, false, false, false) -- 85
+end
+
+-- Hare Baby
+SPCEntityTakeDmgBabies.functions[267] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  -- Local variables
+  local game = Game()
+  local room = game:GetRoom()
+  local gridSize = room:GetGridSize()
+
+  -- Check to see if there are vanilla trapdoors in the room, as those will cause unavoidable damage
+  for i = 1, gridSize do
+    local gridEntity = room:GetGridEntity(i)
+    if gridEntity ~= nil then
+      local saveState = gridEntity:GetSaveState()
+      if saveState.Type == GridEntityType.GRID_TRAPDOOR then -- 17
+        return false
+      end
+    end
+  end
+
+  -- Check to see if there are Big Chests in the room, as those will cause unavoidable damage
+  local bigChests = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BIGCHEST, -1, false, false) -- 5.340
+  if #bigChests > 0 then
+    return false
+  end
 end
 
 -- Gargoyle Baby
@@ -624,6 +653,20 @@ SPCEntityTakeDmgBabies.functions[506] = function(player, damageAmount, damageFla
   local runeSubType = math.random(32, 41)
   game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, -- 5.300
              player.Position, Vector(0, 0), player, runeSubType, SPCGlobals.run.randomSeed)
+end
+
+-- Hooligan Baby
+SPCEntityTakeDmgBabies.functions[514] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  -- Local variables
+  local game = Game()
+  local room = game:GetRoom()
+  local roomFrameCount = room:GetFrameCount()
+
+  -- Double enemies
+  -- Fix the bug where an enemy can sometimes spawn next to where the player spawns
+  if roomFrameCount == 0 then
+    return false
+  end
 end
 
 -- Sister Maggy

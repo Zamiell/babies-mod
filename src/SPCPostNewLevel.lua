@@ -92,7 +92,10 @@ function SPCPostNewLevel:RemoveOldBaby()
 
   -- If we are on an item baby, remove the item
   if baby.item ~= nil then
+    -- If the item is in the vanilla Schoolbag, this will successfully remove it
     player:RemoveCollectible(baby.item)
+
+    -- We have to handle the Racing+ Schoolbag explicitly
     if RacingPlusGlobals ~= nil and
        player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
        RacingPlusGlobals.run.schoolbag.item == baby.item then
@@ -101,7 +104,10 @@ function SPCPostNewLevel:RemoveOldBaby()
     end
   end
   if baby.item2 ~= nil then
+    -- If the item is in the vanilla Schoolbag, this will successfully remove it
     player:RemoveCollectible(baby.item2)
+
+    -- We have to handle the Racing+ Schoolbag explicitly
     if RacingPlusGlobals ~= nil and
        player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
        RacingPlusGlobals.run.schoolbag.item == baby.item2 then
@@ -353,16 +359,20 @@ function SPCPostNewLevel:IsBabyValid(type)
      SPCGlobals:GetItemConfig(baby.item).Type == ItemType.ITEM_ACTIVE then -- 3
 
     if activeItem ~= 0 and
-       RacingPlusGlobals ~= nil and
-       player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
-       RacingPlusGlobals.run.schoolbag.item ~= 0 then
+       ((RacingPlusGlobals ~= nil and
+         player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
+         RacingPlusGlobals.run.schoolbag.item ~= 0) or
+        (player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) and -- 534
+         player.SecondaryActiveItem.Item ~= 0)) then
 
       -- The player has an active item and an item inside of the Schoolbag
       return false
     end
+
     if activeItem ~= 0 and
        (RacingPlusGlobals == nil or
-        player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) == false) then
+        player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) == false) and
+       player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) == false then -- 534
 
       -- The player has an active item and does not have the Schoolbag
       return false
@@ -485,13 +495,6 @@ function SPCPostNewLevel:IsBabyValid(type)
   if (baby.item == CollectibleType.COLLECTIBLE_DEAD_EYE or -- 373
       baby.item2 == CollectibleType.COLLECTIBLE_DEAD_EYE) and -- 373
      player:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) then -- 395
-
-    return false
-  end
-  if baby.item == Isaac.GetItemIdByName("Charging Station") and
-     (RacingPlusGlobals == nil or
-      player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) == false or
-      activeItem == 0) then
 
     return false
   end
@@ -899,17 +902,16 @@ function SPCPostNewLevel:ApplyNewBaby()
          player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
          RacingPlusGlobals.run.schoolbag.item == 0 then
 
-        -- There is room in the Schoolbag for it, so put it there
-        -- (the Racing+ version of the Schoolbag)
+        -- There is room in the Racing+ Schoolbag for it, so put it there
         RacingPlusSchoolbag:Put(item, charges)
 
       elseif player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) and -- 534
-             player.SecondaryActiveItem.Item ~= 0 then
+             player.SecondaryActiveItem.Item == 0 then
 
-        -- There is room in the Schoolbag for it, so put it there
-        -- (the vanilla version of the Schoolbag)
-        player.SecondaryActiveItem.Item = item
-        player.SecondaryActiveItem.Charge = charges
+        -- There is room in the vanilla Schoolbag for it, so put it there
+        -- (getting new active items will automatically put the existing active item inside the Schoolbag)
+        player:AddCollectible(item, charges, false)
+        player:SwapActiveItems()
 
       else
         -- We don't have a Schoolbag, so just give the new active item

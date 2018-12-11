@@ -8,6 +8,10 @@ local SPCMisc    = require("src/spcmisc")
 function SPCPostPickupInit:Main(pickup)
   -- Local variables
   local game = Game()
+  local level = game:GetLevel()
+  local stage = level:GetStage()
+  local roomIndex = level:GetCurrentRoomIndex()
+  local startingRoomIndex = level:GetStartingRoomIndex()
   local room = game:GetRoom()
   local roomType = room:GetType()
   local type = SPCGlobals.run.babyType
@@ -34,7 +38,11 @@ function SPCPostPickupInit:Main(pickup)
     -- Everything is tiny
     pickup.SpriteScale = Vector(0.5, 0.5)
 
-  elseif baby.name == "Big Baby" then -- 37
+  elseif baby.name == "Big Baby" and -- 37
+         -- Make an exception for the 4 Golden Chests, as those will be made giant before the babies effect is removed
+         (stage ~= 11 or
+          roomIndex ~= startingRoomIndex) then
+
     -- Everything is giant
     pickup.SpriteScale = Vector(2, 2)
 

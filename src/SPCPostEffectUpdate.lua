@@ -21,7 +21,7 @@ function SPCPostEffectUpdate:Main(effect)
     -- Check for NPC collision
     local entities = Isaac.FindInRadius(effect.Position, 30, EntityPartition.ENEMY) -- 1 << 3
     if #entities > 0 then
-      entities[1]:TakeDamage(player.Damage, DamageFlag.DAMAGE_EXPLOSION, EntityRef(effect), 2)
+      entities[1]:TakeDamage(player.Damage, 0, EntityRef(effect), 2)
       effect:Remove()
     end
 
@@ -45,8 +45,15 @@ function SPCPostEffectUpdate:Main(effect)
     end
 
   elseif baby.name == "Sloppy Baby" and -- 146
-     effect.Variant == EffectVariant.TARGET and -- 30
-     effect.FrameCount == 1 then
+         effect.Variant == EffectVariant.TARGET and -- 30
+         effect.FrameCount == 1 and
+         -- There is a bug where the target will disappear if you have multiple shots
+         player:HasCollectible(CollectibleType.COLLECTIBLE_INNER_EYE) == false and -- 2
+         player:HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER) == false and -- 153
+         player:HasCollectible(CollectibleType.COLLECTIBLE_20_20) == false and -- 245
+         player:HasCollectible(CollectibleType.COLLECTIBLE_THE_WIZ) == false and -- 358
+         player:HasPlayerForm(PlayerForm.PLAYERFORM_BABY) == false and -- 7
+         player:HasPlayerForm(PlayerForm.PLAYERFORM_BOOK_WORM) == false then-- 10
 
     -- Shorten the lag time of the missiles
     -- (this is not possible in the MC_POST_EFFECT_INIT callback since effect.Timeout is -1)

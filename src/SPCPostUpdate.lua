@@ -89,6 +89,7 @@ function SPCPostUpdate:Main()
 
   -- Check for softlocks
   SPCPostUpdate:CheckSoftlock()
+  SPCPostUpdate:CheckSoftlock2()
 
   -- Check grid entities
   SPCPostUpdate:CheckGridEntities()
@@ -255,6 +256,45 @@ function SPCPostUpdate:CheckSoftlock()
     end
   end
   Isaac.DebugString("Destroyed all poops to prevent a softlock.")
+end
+
+function SPCPostUpdate:CheckSoftlock2()
+  -- Local variables
+  local game = Game()
+  local room = game:GetRoom()
+  local roomFrameCount = room:GetFrameCount()
+  local type = SPCGlobals.run.babyType
+  local baby = SPCGlobals.babies[type]
+  if baby == nil then
+    return
+  end
+
+  -- Check to see if this baby needs the softlock prevention
+  if baby.softlockPrevention2 == nil then
+    return
+  end
+
+  -- Check to see if we already opened the doors in the room
+  if SPCGlobals.run.roomSoftlock then
+    return
+  end
+
+  -- Check to see if they have been in the room long enough
+  if roomFrameCount < 900 then -- 30 seconds
+    return
+  end
+
+  -- Prevent softlocks with Hosts
+  SPCGlobals.run.roomSoftlock = true
+  room:SetClear(true)
+
+  -- Open the doors
+  for i = 0, 7 do
+    local door = room:GetDoor(i)
+    if door ~= nil then
+      door:Open()
+    end
+  end
 end
 
 function SPCPostUpdate:CheckGridEntities()

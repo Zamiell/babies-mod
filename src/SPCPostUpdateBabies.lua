@@ -37,6 +37,12 @@ SPCPostUpdateBabies.functions[17] = function()
   local gameFrameCount = game:GetFrameCount()
   local player = game:GetPlayer(0)
 
+  -- Prevent softlocks that occur if you try to jump into a Big Chest
+  local bigChests = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BIGCHEST, -1, false, false) -- 5.340
+  if #bigChests > 0 then
+    return
+  end
+
   if gameFrameCount % 30 == 0 then -- 1 second
     player:UseActiveItem(CollectibleType.COLLECTIBLE_BUTTER_BEAN, false, false, false, false) -- 294
   end
@@ -481,8 +487,8 @@ SPCPostUpdateBabies.functions[156] = function()
   local boneHearts = player:GetBoneHearts()
 
   -- Prevent softlocks that occur if you try to jump into a Big Chest
-  local chests = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BIGCHEST, -1, false, false) -- 5.340
-  if #chests > 0 then
+  local bigChests = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BIGCHEST, -1, false, false) -- 5.340
+  if #bigChests > 0 then
     return
   end
 
@@ -789,8 +795,8 @@ SPCPostUpdateBabies.functions[231] = function()
   local boneHearts = player:GetBoneHearts()
 
   -- Prevent softlocks that occur if you try to jump into a Big Chest
-  local chests = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BIGCHEST, -1, false, false) -- 5.340
-  if #chests > 0 then
+  local bigChests = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BIGCHEST, -1, false, false) -- 5.340
+  if #bigChests > 0 then
     return
   end
 
@@ -954,8 +960,8 @@ SPCPostUpdateBabies.functions[304] = function()
   local boneHearts = player:GetBoneHearts()
 
   -- Prevent softlocks that occur if you try to jump into a Big Chest
-  local chests = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BIGCHEST, -1, false, false) -- 5.340
-  if #chests > 0 then
+  local bigChests = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BIGCHEST, -1, false, false) -- 5.340
+  if #bigChests > 0 then
     return
   end
 
