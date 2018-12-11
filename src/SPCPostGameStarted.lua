@@ -64,6 +64,7 @@ function SPCPostGameStarted:Main(saveState)
 
   -- Random Baby always starts with the Schoolbag
   player:AddCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG, 0, false) -- 534
+  itemPool:RemoveCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) -- 534
 
   -- Remove some items from pools
   itemPool:RemoveCollectible(CollectibleType.COLLECTIBLE_GUILLOTINE) -- 206
