@@ -5,7 +5,7 @@ local SPCGlobals  = {}
 --
 
 -- Updated automatically by the "release.py" script
-SPCGlobals.version = "v0.1.31"
+SPCGlobals.version = "v0.1.32"
 
 -- These are variables that are reset at the beginning of every run
 -- (defaults are set below in the "RPGlobals:InitRun()" function)
@@ -1622,6 +1622,7 @@ SPCGlobals.babies = {
     sprite = "246_baby_8ball.png",
     mustHaveTears = true,
     distance = 90,
+    softlockPrevention2 = true,
   },
   {
     name = "Wisp Baby",
@@ -2786,6 +2787,7 @@ SPCGlobals.babies = {
     name = "Cylinder Baby",
     description = "Tear size increases with distance",
     sprite = "434_baby_cylinder.png",
+    mustHaveTears = true,
   },
   {
     name = "Cup Baby",

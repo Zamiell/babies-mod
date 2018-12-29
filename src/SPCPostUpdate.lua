@@ -212,6 +212,7 @@ function SPCPostUpdate:RoomCleared()
   end
 end
 
+-- On certain babies, destroy all poops and TNT barrels after a certain amount of time
 function SPCPostUpdate:CheckSoftlock()
   -- Local variables
   local game = Game()
@@ -255,9 +256,10 @@ function SPCPostUpdate:CheckSoftlock()
       end
     end
   end
-  Isaac.DebugString("Destroyed all poops to prevent a softlock.")
+  Isaac.DebugString("Destroyed all poops & TNT barrels to prevent a softlock.")
 end
 
+-- On certain babies, open the doors after 30 seconds to prevent softlocks with Hosts and island enemies
 function SPCPostUpdate:CheckSoftlock2()
   -- Local variables
   local game = Game()
@@ -284,7 +286,6 @@ function SPCPostUpdate:CheckSoftlock2()
     return
   end
 
-  -- Prevent softlocks with Hosts
   SPCGlobals.run.roomSoftlock = true
   room:SetClear(true)
 

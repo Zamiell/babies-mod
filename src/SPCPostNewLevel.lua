@@ -549,7 +549,8 @@ function SPCPostNewLevel:IsBabyValid(type)
     return false
 
   elseif baby.name == "Blindfold Baby" and -- 202
-         player:HasCollectible(CollectibleType.COLLECTIBLE_TECHNOLOGY_2) then -- 152
+         (player:HasCollectible(CollectibleType.COLLECTIBLE_TECHNOLOGY_2) or -- 152
+          player:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG)) then -- 229
 
     return false
 
@@ -594,6 +595,11 @@ function SPCPostNewLevel:IsBabyValid(type)
 
   elseif baby.name == "Mushroom Girl Baby" and -- 361
          player:HasCollectible(CollectibleType.COLLECTIBLE_DR_FETUS) then -- 52
+
+    return false
+
+  elseif baby.name == "Blue Ghost Baby" and -- 370
+         player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE) then -- 114
 
     return false
 
