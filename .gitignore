@@ -1,3 +1,14 @@
+# --------------
+# The Babies Mod
+# --------------
+
+.DS_Store
+
+# -------------------------------------------------------------
+# gitignore template for Lua from GitHub
+# https://github.com/github/gitignore/blob/master/Lua.gitignore
+# -------------------------------------------------------------
+
 # Compiled Lua sources
 luac.out
 

@@ -26,9 +26,9 @@ def error(message, exception=None):
         print(message, exception)
     sys.exit(1)
 
-# Increment the version in the "SPCGlobals.lua" file
+# Increment the version in the "Globals.lua" file
 # http://stackoverflow.com/questions/17140886/how-to-search-and-replace-text-in-a-file-using-python
-LUA_FILE = os.path.join(MOD_DIR, 'src', 'SPCGlobals.lua')
+LUA_FILE = os.path.join(MOD_DIR, 'src', 'Globals.lua')
 with open(LUA_FILE, 'r') as file_handle:
     FILE_DATA = file_handle.read()
 
@@ -37,11 +37,11 @@ NEW_FILE = ''
 VERSION_PREFIX = 'v0.1.'
 VERSION = ''
 for line in iter(FILE_DATA.splitlines()):
-    match = re.search(r'SPCGlobals.version = "' + VERSION_PREFIX + '(\d+)"', line)
+    match = re.search(r'g.version = "' + VERSION_PREFIX + '(\d+)"', line)
     if match:
         FINAL_DIGIT = str(int(match.group(1)) + 1)
         VERSION = VERSION_PREFIX + FINAL_DIGIT
-        NEW_FILE += 'SPCGlobals.version = "' + VERSION + '"\n'
+        NEW_FILE += 'g.version = "' + VERSION + '"\n'
     else:
         NEW_FILE += line + '\n'
 
