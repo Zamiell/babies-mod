@@ -99,7 +99,7 @@ function UseItem:ChargingStation(collectibleType, RNG)
   if coins == 0 or
      RacingPlusGlobals == nil or
      RacingPlusSchoolbag == nil or
-     g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) == false or
+     not g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) or
      RacingPlusGlobals.run.schoolbag.item == 0 then
 
     return

@@ -141,7 +141,7 @@ function Misc:AddCharge(singleCharge)
   local batteryCharge = g.p:GetBatteryCharge()
 
   -- Copied from the Racing+ mod (RPFastClear.lua)
-  if g.p:NeedsCharge() == false then
+  if not g.p:NeedsCharge() then
     return
   end
 

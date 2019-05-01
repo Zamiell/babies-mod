@@ -43,7 +43,7 @@ function PostTearUpdate:Main(tear)
       local npc = entity:ToNPC()
       if npc ~= nil and
          npc:IsVulnerableEnemy() and -- Returns true for enemies that can be damaged
-         npc:IsDead() == false and
+         not npc:IsDead() and
          g.p.Position:Distance(npc.Position) < distance then
 
         distance = g.p.Position:Distance(npc.Position)

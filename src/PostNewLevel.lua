@@ -213,12 +213,9 @@ function PostNewLevel:RemoveOldBaby()
 
   elseif baby.name == "Dino Baby" then -- 376
     -- Remove any leftover eggs
-    for i, entity in pairs(Isaac.GetRoomEntities()) do
-      if entity.Type == EntityType.ENTITY_FAMILIAR and -- 3
-         entity.Variant == FamiliarVariant.BOBS_BRAIN then -- 59
-
-        entity:Remove()
-      end
+    local brains = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BOBS_BRAIN, -1, false, false) -- 3.59
+    for i, brain in pairs(brains) do
+      brain:Remove()
     end
 
   elseif baby.name == "Dream Knight Baby" then -- 393
@@ -260,7 +257,7 @@ function PostNewLevel:GetNewBaby()
   local seed = g.l:GetDungeonPlacementSeed()
 
   -- Don't get a new baby if we did not start the run as the Random Baby character
-  if g.run.enabled == false then
+  if not g.run.enabled then
     g.run.babyType = 0
     return
   end
@@ -360,8 +357,8 @@ function PostNewLevel:IsBabyValid(type)
 
     if activeItem ~= 0 and
        (RacingPlusGlobals == nil or
-        g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) == false) and
-       g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) == false then -- 534
+        not g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM)) and
+       not g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) then -- 534
 
       -- The player has an active item and does not have the Schoolbag
       return false
@@ -777,7 +774,7 @@ function PostNewLevel:IsBabyValid(type)
 
   elseif baby.name == "Gem Baby" and -- 237
          stage >= 7 and
-         g.p:HasCollectible(CollectibleType.COLLECTIBLE_MONEY_IS_POWER) == false then -- 109
+         not g.p:HasCollectible(CollectibleType.COLLECTIBLE_MONEY_IS_POWER) then -- 109
 
     -- Pennies spawn as nickels
     -- Money is useless past Depths 2 (unless you have Money Equals Power)

@@ -143,7 +143,7 @@ PostUpdateBabies.functions[48] = function()
 
   -- Temporary blindness
   -- Make the counters tick from 0 --> max --> 0, etc.
-  if g.run.babyBool == false then
+  if not g.run.babyBool then
     g.run.babyCounters = g.run.babyCounters + 1
     if g.run.babyCounters == baby.num then
       g.run.babyBool = true
@@ -232,7 +232,7 @@ end
 PostUpdateBabies.functions[107] = function()
   -- Starts with Level 4 Meatboy + Level 4 Meatgirl
   -- (if you spawn them in the MC_POST_NEW_LEVEL callback, it does not work for some reason)
-  if g.run.babyBool == false then
+  if not g.run.babyBool then
     g.run.babyBool = true
     g.g:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.CUBE_OF_MEAT_4, -- 3.47
               g.p.Position, Vector(0, 0), nil, 0, 0)
@@ -253,7 +253,7 @@ PostUpdateBabies.functions[110] = function()
   end
 
   -- The doors are not open because the room is not yet cleared
-  if roomClear == false then
+  if not roomClear then
     return
   end
 
@@ -265,7 +265,7 @@ PostUpdateBabies.functions[110] = function()
     local roomType2 = roomData.Type
     if (roomType2 == RoomType.ROOM_DEFAULT or -- 1
         roomType2 == RoomType.ROOM_MINIBOSS) and -- 6
-       roomDesc.Clear == false then
+       not roomDesc.Clear then
 
       allCleared = false
       break
@@ -401,7 +401,7 @@ PostUpdateBabies.functions[147] = function()
   end
 
   -- Touching pickups causes paralysis (1/2)
-  if g.p:IsItemQueueEmpty() == false and
+  if not g.p:IsItemQueueEmpty() and
      g.run.babyFrame == 0 then
 
     -- Using a pill does not clear the queue, so without a frame check the following code would soflock the player
@@ -461,7 +461,7 @@ PostUpdateBabies.functions[162] = function()
   local roomFrameCount = g.r:GetFrameCount()
   local seeds = g.g:GetSeeds()
 
-  if g.run.babyBool == false and
+  if not g.run.babyBool and
      roomFrameCount <= 1 then
 
     g.run.babyBool = true
@@ -507,11 +507,11 @@ PostUpdateBabies.functions[163] = function()
 
   -- Keep track of whether they are moving or not
   -- Also, fade the character to indicate that they are invulnerable
-  if g.run.babyBool == false and
-     leftPressed == false and
-     rightPressed == false and
-     upPressed == false and
-     downPressed == false then
+  if not g.run.babyBool and
+     not leftPressed and
+     not rightPressed and
+     not upPressed and
+     not downPressed then
 
     -- They stopped moving
     g.run.babyBool = true
@@ -561,7 +561,7 @@ PostUpdateBabies.functions[167] = function()
   end
 
   -- Touching pickups causes teleportation (1/2)
-  if g.p:IsItemQueueEmpty() == false then
+  if not g.p:IsItemQueueEmpty() then
     g.p:UseActiveItem(CollectibleType.COLLECTIBLE_TELEPORT, false, false, false, false) -- 44
   end
 end
@@ -621,7 +621,7 @@ PostUpdateBabies.functions[211] = function()
      end
 
      -- Stop if it gets to a wall
-     if g.r:IsPositionInRoom(tear.position, 0) == false then
+     if not g.r:IsPositionInRoom(tear.position, 0) then
        table.remove(g.run.babyTears, i)
      end
   end
@@ -779,7 +779,7 @@ PostUpdateBabies.functions[267] = function()
 
   -- Takes damage when standing still
   -- Prevent the (vanilla) bug where the player will take damage upon jumping into a trapdoor
-  if g.p:HasInvincibility() == false and
+  if not g.p:HasInvincibility() and
      (playerSprite:IsPlaying("Trapdoor") or
       playerSprite:IsPlaying("Trapdoor2") or
       playerSprite:IsPlaying("Jump") or
@@ -871,7 +871,7 @@ end
 -- Corrupted Baby
 PostUpdateBabies.functions[307] = function()
   -- Taking items/pickups causes damage (1/2)
-  if g.p:IsItemQueueEmpty() == false then
+  if not g.p:IsItemQueueEmpty() then
     g.p:TakeDamage(1, 0, EntityRef(g.p), 0)
   end
 end
@@ -1103,7 +1103,7 @@ PostUpdateBabies.functions[462] = function()
      end
 
      -- Stop if it gets to a wall
-     if g.r:IsPositionInRoom(tear.position, 0) == false then
+     if not g.r:IsPositionInRoom(tear.position, 0) then
        table.remove(g.run.babyTears, i)
      end
   end
@@ -1158,7 +1158,7 @@ PostUpdateBabies.functions[508] = function()
   local roomClear = g.r:IsClear()
 
   if gameFrameCount % 150 == 0 and -- 5 seconds
-     roomClear == false then -- Monstro is unavoidable if he targets you
+     not roomClear then -- Monstro is unavoidable if he targets you
 
     g.p:UseActiveItem(CollectibleType.COLLECTIBLE_MONSTROS_TOOTH, false, false, false, false) -- 86
   end

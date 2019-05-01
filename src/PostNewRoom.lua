@@ -103,7 +103,7 @@ function PostNewRoom:ApplyTemporaryEffects()
 
   -- Some babies have flight
   if baby.flight and
-     g.p.CanFly == false then
+     not g.p.CanFly then
 
     effects:AddCollectibleEffect(CollectibleType.COLLECTIBLE_BIBLE, true) -- 33
   end

@@ -29,7 +29,7 @@ function PseudoRoomClear:PostUpdate()
   -- Customize the doors and initiate the pseudo clear feature
   -- (this does not work in the MC_POST_NEW_ROOM callback or on frame 0)
   if roomFrameCount == 1 and
-     roomClear == false then
+     not roomClear then
 
     PseudoRoomClear:InitializeDoors()
     return
@@ -91,11 +91,11 @@ function PseudoRoomClear:CheckPseudoClear()
     local npc = entity:ToNPC()
     if npc ~= nil and
        npc.CanShutDoors and -- This is a battle NPC
-       npc:IsDead() == false and
+       not npc:IsDead() and
        (npc.Type ~= EntityType.ENTITY_RAGLING or
         npc.Variant ~= 1 or -- 246.1
         npc.State ~= NpcState.STATE_UNIQUE_DEATH) and -- Rag Man Raglings don't actually die
-       PseudoRoomClear:AttachedNPC(npc) == false then
+       not PseudoRoomClear:AttachedNPC(npc) then
 
       aliveEnemiesCount = aliveEnemiesCount + 1
     end
@@ -136,7 +136,7 @@ end
 
 function PseudoRoomClear:CheckAllPressurePlatesPushed()
   -- If we are in a puzzle room, check to see if all of the plates have been pressed
-  if g.r:HasTriggerPressurePlates() == false or
+  if not g.r:HasTriggerPressurePlates() or
      g.run.roomButtonsPushed then
 
     return true

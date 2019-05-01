@@ -85,7 +85,7 @@ EntityTakeDmgBabies.functions[41] = function(player, damageAmount, damageFlag, d
   local maxHearts = player:GetMaxHearts()
 
   -- Removes a heart container on hit
-  if g.run.babyBool == false and
+  if not g.run.babyBool and
      maxHearts >= 2 then
 
     player:AddMaxHearts(-2, true)
@@ -123,7 +123,7 @@ EntityTakeDmgBabies.functions[62] = function(player, damageAmount, damageFlag, d
   -- Guaranteed Devil Room + Angel Room after X hits
   g.run.babyCounters = g.run.babyCounters + 1
   if g.run.babyCounters >= baby.numHits and
-     g.run.babyBool == false then
+     not g.run.babyBool then
 
     g.run.babyBool = true
     g.s:Play(SoundEffect.SOUND_SATAN_GROW, 1, 0, false, 1) -- 241
@@ -142,7 +142,7 @@ end
 -- Half Head Baby
 EntityTakeDmgBabies.functions[98] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Take double damage
-  if g.run.babyBool == false then
+  if not g.run.babyBool then
     g.run.babyBool = true
     player:TakeDamage(damageAmount, 0, EntityRef(player), damageCountdownFrames)
     g.run.babyBool = false
@@ -166,7 +166,7 @@ end
 -- Hopeless Baby
 EntityTakeDmgBabies.functions[125] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Keys are hearts
-  if g.run.babyBool == false then
+  if not g.run.babyBool then
     g.run.babyBool = true
     player:UseActiveItem(CollectibleType.COLLECTIBLE_DULL_RAZOR, false, false, false, false) -- 486
     g.run.babyBool = false
@@ -183,7 +183,7 @@ end
 -- Mohawk Baby
 EntityTakeDmgBabies.functions[138] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Bombs are hearts
-  if g.run.babyBool == false then
+  if not g.run.babyBool then
     g.run.babyBool = true
     player:UseActiveItem(CollectibleType.COLLECTIBLE_DULL_RAZOR, false, false, false, false) -- 486
     g.run.babyBool = false
@@ -281,7 +281,7 @@ EntityTakeDmgBabies.functions[225] = function(player, damageAmount, damageFlag, 
   for i, entity in pairs(Isaac.GetRoomEntities()) do
     local npc = entity:ToNPC()
     if npc ~= nil and
-       npc:IsBoss() == false then
+       not npc:IsBoss() then
 
       dupeEnemy = {
         type = npc.Type,
@@ -425,7 +425,7 @@ end
 -- Skinless Baby
 EntityTakeDmgBabies.functions[322] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Take double damage
-  if g.run.babyBool == false then
+  if not g.run.babyBool then
     g.run.babyBool = true
     player:TakeDamage(damageAmount, 0, EntityRef(player), damageCountdownFrames)
     g.run.babyBool = false

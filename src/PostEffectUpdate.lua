@@ -46,12 +46,12 @@ function PostEffectUpdate:Main(effect)
          effect.Variant == EffectVariant.TARGET and -- 30
          effect.FrameCount == 1 and
          -- There is a bug where the target will disappear if you have multiple shots
-         g.p:HasCollectible(CollectibleType.COLLECTIBLE_INNER_EYE) == false and -- 2
-         g.p:HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER) == false and -- 153
-         g.p:HasCollectible(CollectibleType.COLLECTIBLE_20_20) == false and -- 245
-         g.p:HasCollectible(CollectibleType.COLLECTIBLE_THE_WIZ) == false and -- 358
-         g.p:HasPlayerForm(PlayerForm.PLAYERFORM_BABY) == false and -- 7
-         g.p:HasPlayerForm(PlayerForm.PLAYERFORM_BOOK_WORM) == false then-- 10
+         not g.p:HasCollectible(CollectibleType.COLLECTIBLE_INNER_EYE) and -- 2
+         not g.p:HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER) and -- 153
+         not g.p:HasCollectible(CollectibleType.COLLECTIBLE_20_20) and -- 245
+         not g.p:HasCollectible(CollectibleType.COLLECTIBLE_THE_WIZ) and -- 358
+         not g.p:HasPlayerForm(PlayerForm.PLAYERFORM_BABY) and -- 7
+         not g.p:HasPlayerForm(PlayerForm.PLAYERFORM_BOOK_WORM) then-- 10
 
     -- Shorten the lag time of the missiles
     -- (this is not possible in the MC_POST_EFFECT_INIT callback since effect.Timeout is -1)

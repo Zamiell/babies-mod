@@ -53,7 +53,7 @@ function EntityTakeDmg:Entity(entity, damageAmount, damageFlag, damageSource, da
     entity:TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames)
 
   elseif baby.name == "Fang Demon Baby" and -- 281
-         g.run.dealingExtraDamage == false then
+         not g.run.dealingExtraDamage then
 
     -- Make the light beams do extra damage
     -- (light beams do 2 damage on every tick and are not based on the player's damage)
@@ -63,7 +63,7 @@ function EntityTakeDmg:Entity(entity, damageAmount, damageFlag, damageSource, da
     g.run.dealingExtraDamage = false
 
   elseif baby.name == "Rider Baby" and -- 295
-         g.run.dealingExtraDamage == false then
+         not g.run.dealingExtraDamage then
 
     -- Make the Pony do extra damage
     local damage = g.p.Damage * 4
@@ -93,7 +93,7 @@ function EntityTakeDmg:Entity(entity, damageAmount, damageFlag, damageSource, da
     entity.Velocity = entity.Velocity + damageSource.Entity.Velocity * 5
 
   elseif baby.name == "Arcade Baby" and -- 368
-         g.run.dealingExtraDamage == false then
+         not g.run.dealingExtraDamage then
 
     local damage = g.p.Damage * 3
     g.run.dealingExtraDamage = true
@@ -101,7 +101,7 @@ function EntityTakeDmg:Entity(entity, damageAmount, damageFlag, damageSource, da
     g.run.dealingExtraDamage = false
 
   elseif baby.name == "Elf Baby" and -- 377
-         g.run.dealingExtraDamage == false then
+         not g.run.dealingExtraDamage then
 
     -- Make the Spear of Destiny do extra damage
     local damage = g.p.Damage * 4
@@ -124,7 +124,7 @@ function EntityTakeDmg:Entity(entity, damageAmount, damageFlag, damageSource, da
   elseif baby.name == "Tooth Head Baby" and -- 442
          damageSource.Type == EntityType.ENTITY_TEAR and -- 2
          damageSource.Entity.SubType == 1 and
-         g.run.dealingExtraDamage == false then
+         not g.run.dealingExtraDamage then
 
     local damage = g.p.Damage * 3.2
     g.run.dealingExtraDamage = true
@@ -132,7 +132,7 @@ function EntityTakeDmg:Entity(entity, damageAmount, damageFlag, damageSource, da
     g.run.dealingExtraDamage = false
 
   elseif baby.name == "Road Kill Baby" and -- 507
-         g.run.dealingExtraDamage == false then
+         not g.run.dealingExtraDamage then
 
     -- Give the Pointy Rib extra damage
     local damage = g.p.Damage * 3

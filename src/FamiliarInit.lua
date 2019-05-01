@@ -30,7 +30,7 @@ function FamiliarInit:Main(familiar)
 
   elseif baby.name == "Crow Baby" and -- 117
      familiar.Variant == FamiliarVariant.DEAD_BIRD and -- 14
-     g.run.babyBool == false then
+     not g.run.babyBool then
 
     -- Spawn 5 bird familiars instead of 4
     g.run.babyBool = true

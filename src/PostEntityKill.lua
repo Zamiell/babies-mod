@@ -41,9 +41,9 @@ function PostEntityKill:Main(entity)
     }
 
   elseif baby.name == "Zombie Baby" and -- 61
-         npc:IsBoss() == false and
+         not npc:IsBoss() and
          npc.Type ~= EntityType.ENTITY_MOVABLE_TNT and -- 292
-         npc:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) == false then-- 1 << 29
+         not npc:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) then-- 1 << 29
 
     local friend = g.g:Spawn(npc.Type, npc.Variant, npc.Position, Vector(0, 0), nil, npc.SubType, npc.InitSeed)
     friend:AddEntityFlags(EntityFlag.FLAG_CHARM) -- 1 << 8
@@ -65,7 +65,7 @@ function PostEntityKill:Main(entity)
     g.g:Fart(npc.Position, 80, npc, 1, 0)
 
   elseif baby.name == "Love Eye Baby" and -- 249
-         g.run.babyBool == false then
+         not g.run.babyBool then
 
     g.run.babyBool = true
 
@@ -94,17 +94,8 @@ function PostEntityKill:Main(entity)
 
   elseif baby.name == "Dino Baby" then -- 376
     -- Don't bother giving another egg if we already have a bunch
-    local numBrains = 0
-    for i, entity2 in pairs(Isaac.GetRoomEntities()) do
-      if entity2.Type == EntityType.ENTITY_FAMILIAR and -- 3
-         entity2.Variant == FamiliarVariant.BOBS_BRAIN and -- 59
-         entity2.SubType ~= 1 then -- It has a SubType of 1 after it explodes
-         -- (don't count Bob's Brains that are already exploded since they will be removed on the next frame)
-
-        numBrains = numBrains + 1
-      end
-    end
-    if numBrains >= 6 then
+    local brains = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BOBS_BRAIN, -1, false, false) -- 3.59
+    if #brains >= 6 then
       return
     end
 

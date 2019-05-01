@@ -47,8 +47,8 @@ function PostPickupUpdate:Main(pickup)
      pickup.Variant == PickupVariant.PICKUP_TRINKET and -- 350
      pickup.SubType ~= baby.trinket and -- We don't want to replace a dropped trinket
      pickup.FrameCount == 1 and -- Frame 0 does not work
-     g.p:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_PURSE) == false and -- 139
-     g.p:HasCollectible(CollectibleType.COLLECTIBLE_BELLY_BUTTON) == false then -- 458
+     not g.p:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_PURSE) and -- 139
+     not g.p:HasCollectible(CollectibleType.COLLECTIBLE_BELLY_BUTTON) then -- 458
 
     Misc:SpawnRandomPickup(pickup.Position, pickup.Velocity, true) -- The third argument is "noItems"
     pickup:Remove()
@@ -165,7 +165,7 @@ function PostPickupUpdate:Main(pickup)
       end
 
       -- Play the custom "Blink" animation
-      if sprite:IsPlaying("Blink") == false then
+      if not sprite:IsPlaying("Blink") then
         sprite:Play("Blink", true)
       end
     else
@@ -175,7 +175,7 @@ function PostPickupUpdate:Main(pickup)
       end
 
       -- Stop the custom "Blink" animation
-      if sprite:IsPlaying("Idle") == false then
+      if not sprite:IsPlaying("Idle") then
         sprite:Play("Idle", true)
       end
 
@@ -313,7 +313,7 @@ function PostPickupUpdate:Main(pickup)
 
   elseif baby.name == "Cowboy Baby" and -- 394
          pickup.FrameCount % 35 == 0 and -- Every 1.17 seconds
-         sprite:IsPlaying("Collect") == false then -- Don't shoot if we already picked it up
+         not sprite:IsPlaying("Collect") then -- Don't shoot if we already picked it up
 
     local velocity = g.p.Position - pickup.Position
     velocity:Normalize()

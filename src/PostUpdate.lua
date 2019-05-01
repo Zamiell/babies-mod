@@ -18,7 +18,7 @@ function PostUpdate:Main()
   -- Racing+ will disable the controls while the player is jumping out of the hole,
   -- so for the FireDelay modification to work properly, we have to wait until this is over
   -- (the "blindfoldedApplied" is reset in the MC_POST_NEW_LEVEL callback)
-  if g.run.blindfoldedApplied == false and
+  if not g.run.blindfoldedApplied and
      g.p.ControlsEnabled then
 
     g.run.blindfoldedApplied = true
@@ -60,8 +60,8 @@ function PostUpdate:Main()
 
   -- Reapply the co-op baby sprite after every pedestal item recieved
   -- (and keep track of our passive items over the course of the run)
-  if g.p:IsItemQueueEmpty() == false and
-     g.run.queuedItems == false then
+  if not g.p:IsItemQueueEmpty() and
+     not g.run.queuedItems then
 
     g.run.queuedItems = true
     if g.p.QueuedItem.Item.Type == ItemType.ITEM_PASSIVE then -- 1
@@ -162,7 +162,7 @@ function PostUpdate:CheckRoomCleared()
 
   g.run.roomClear = roomClear
 
-  if roomClear == false then
+  if not roomClear then
     return
   end
 
@@ -320,7 +320,7 @@ function PostUpdate:CheckGridEntities()
             break
           end
         end
-        if found == false then
+        if not found then
           -- Second, check to make sure that there is not any existing pickups already on the poop
           -- (the size of a grid square is 40x40)
           local entities = Isaac.FindInRadius(gridEntity.Position, 25, EntityPartition.PICKUP) -- 1 << 4
@@ -369,9 +369,9 @@ function PostUpdate:CheckTrapdoor()
   -- If this baby gives a mapping item, We can't wait until the next floor to remove because
   -- its effect will have already been applied
   -- So, we need to monitor for the trapdoor animation
-  if playerSprite:IsPlaying("Trapdoor") == false and
-     playerSprite:IsPlaying("Trapdoor2") == false and
-     playerSprite:IsPlaying("LightTravel") == false then
+  if not playerSprite:IsPlaying("Trapdoor") and
+     not playerSprite:IsPlaying("Trapdoor2") and
+     not playerSprite:IsPlaying("LightTravel") then
 
     return
   end
@@ -402,7 +402,7 @@ function PostUpdate:CheckTrapdoor()
   -- We may have temporarily disabled the Easter Egg,
   -- so make sure that it is re-enabled before we head to the next floor
   if RacingPlusGlobals ~= nil and
-     seeds:HasSeedEffect(SeedEffect.SEED_PREVENT_ALL_CURSES) == false then -- 70
+     not seeds:HasSeedEffect(SeedEffect.SEED_PREVENT_ALL_CURSES) then -- 70
 
     seeds:AddSeedEffect(SeedEffect.SEED_PREVENT_ALL_CURSES) -- 70
   end

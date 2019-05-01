@@ -41,7 +41,7 @@ function PostFireTear:Main(tear)
     tear.SubType = 1
 
   elseif baby.name == "Cockeyed Baby" and -- 8
-         g.run.babyBool == false then
+         not g.run.babyBool then
 
     -- Spawn a new tear with a random velocity
     local seed = tear:GetDropRNG():GetSeed()
@@ -210,7 +210,7 @@ function PostFireTear:Main(tear)
     g.p:UseActiveItem(CollectibleType.COLLECTIBLE_BEAN, false, false, false, false) -- 111
 
   elseif baby.name == "Speaker Baby" and -- 316
-         g.run.babyBool == false then
+         not g.run.babyBool then
 
     -- We mark it so that we can split it later
     tear.SubType = 1

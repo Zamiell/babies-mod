@@ -197,7 +197,7 @@ for i = 1, #g.babies do
           break
         end
       end
-      if exception == false then
+      if not exception then
         Isaac.DebugString("ERROR: Baby #" .. tostring(i) .. " has a duplicate item: " .. tostring(baby.item))
       end
     end

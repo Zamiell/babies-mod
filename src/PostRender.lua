@@ -360,12 +360,11 @@ function PostRender:DrawBabyEffects()
     -- The Speak of Destiny effect is not spawned in the POST_NEW_ROOM callback
     -- Thus, we check for it on every frame instead
     -- As an unfortunate side effect, the Spear of Destiny will show as the vanilla graphic during room transitions
-    for i, entity in pairs(Isaac.GetRoomEntities()) do
-      if entity.Type == EntityType.ENTITY_EFFECT and -- 1000
-         entity.Variant == EffectVariant.SPEAR_OF_DESTINY and -- 83
-         entity:GetSprite():GetFilename() == "gfx/1000.083_Spear Of Destiny.anm2" then
-
-        local sprite = entity:GetSprite()
+    local spears = Isaac.FindByType(EntityType.ENTITY_EFFECT, -- 1000
+                                    EffectVariant.SPEAR_OF_DESTINY, -1, false, false) -- 83
+    for i, spear in pairs(spears) do
+      if spear:GetSprite():GetFilename() == "gfx/1000.083_Spear Of Destiny.anm2" then
+        local sprite = spear:GetSprite()
         sprite:Load("gfx/1000.083_spear of destiny2.anm2", true)
         sprite:Play("Idle", true)
       end
