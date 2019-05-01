@@ -6,9 +6,8 @@ local g = require("src/globals")
 -- ModCallbacks.MC_POST_EFFECT_UPDATE (55)
 function PostEffectUpdate:Main(effect)
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
@@ -74,8 +73,8 @@ function PostEffectUpdate:Main(effect)
       if #entities > 0 then
         -- Fire the beam
         g.run.babyFrame = gameFrameCount + baby.cooldown
-        game:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.CRACK_THE_SKY, -- 1000.19
-                   effect.Position, Vector(0, 0), player, 0, 0)
+        g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.CRACK_THE_SKY, -- 1000.19
+                  effect.Position, Vector(0, 0), player, 0, 0)
       end
     end
 
@@ -83,8 +82,8 @@ function PostEffectUpdate:Main(effect)
     if effect.Variant == Isaac.GetEntityVariantByName("FetusBossTarget") and
        effect.FrameCount == 30 then -- 1 second
 
-      local rocket = game:Spawn(EntityType.ENTITY_EFFECT, Isaac.GetEntityVariantByName("FetusBossRocket"),
-                                effect.Position, Vector(0, 0), nil, 0, 0)
+      local rocket = g.g:Spawn(EntityType.ENTITY_EFFECT, Isaac.GetEntityVariantByName("FetusBossRocket"),
+                               effect.Position, Vector(0, 0), nil, 0, 0)
       local rocketHeightOffset = Vector(0, -300)
       rocket.SpriteOffset = rocket.SpriteOffset + rocketHeightOffset
 

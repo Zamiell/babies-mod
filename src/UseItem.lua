@@ -20,9 +20,8 @@ end
 -- CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP (49)
 function UseItem:Item49(collectibleType, RNG)
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
   local activeCharge = player:GetActiveCharge()
   local batteryCharge = player:GetBatteryCharge()
   local type = g.run.babyType
@@ -41,8 +40,7 @@ end
 -- CollectibleType.COLLECTIBLE_MONSTROS_TOOTH (86)
 function UseItem:Item86(collectibleType, RNG)
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
+  local gameFrameCount = g.g:GetFrameCount()
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
@@ -64,8 +62,7 @@ end
 -- CollectibleType.COLLECTIBLE_HOW_TO_JUMP (282)
 function UseItem:Item282(collectibleType, RNG)
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
+  local gameFrameCount = g.g:GetFrameCount()
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
@@ -79,8 +76,7 @@ end
 
 function UseItem:ClockworkAssembly(collectibleType, RNG)
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
 
   -- Spawn a Restock Machine (6.10)
   g.run.clockworkAssembly = true
@@ -90,8 +86,7 @@ end
 
 function UseItem:FlockOfSuccubi(collectibleType, RNG)
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
   local effects = player:GetEffects()
 
   -- Spawn 10 temporary Succubi
@@ -104,10 +99,8 @@ end
 
 function UseItem:ChargingStation(collectibleType, RNG)
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
   local coins = player:GetNumCoins()
-  local sfx = SFXManager()
 
   if coins == 0 or
      RacingPlusGlobals == nil or
@@ -121,7 +114,7 @@ function UseItem:ChargingStation(collectibleType, RNG)
   player:AddCoins(-1)
   RacingPlusSchoolbag:AddCharge(true) -- Giving an argument will make it only give 1 charge
   player:AnimateCollectible(Isaac.GetItemIdByName("Charging Station"), "UseItem", "PlayerPickup")
-  sfx:Play(SoundEffect.SOUND_BEEP, 1, 0, false, 1) -- 171
+  g.s:Play(SoundEffect.SOUND_BEEP, 1, 0, false, 1) -- 171
 end
 
 return UseItem

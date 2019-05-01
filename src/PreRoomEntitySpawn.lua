@@ -6,11 +6,9 @@ local g = require("src/globals")
 -- ModCallbacks.MC_PRE_ROOM_ENTITY_SPAWN (71)
 function PreRoomEntitySpawn:Main(type, variant, subType, gridIndex, seed)
   -- Local variables
-  local game = Game()
-  local room = game:GetRoom()
-  local roomType = room:GetType()
-  local roomFrameCount = room:GetFrameCount()
-  local roomFirstVisit = room:IsFirstVisit()
+  local roomType = g.r:GetType()
+  local roomFrameCount = g.r:GetFrameCount()
+  local roomFirstVisit = g.r:IsFirstVisit()
   local babyType = g.run.babyType
   local baby = g.babies[babyType]
   if baby == nil then

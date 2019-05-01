@@ -8,8 +8,7 @@ Timer.sprites = {}
 
 function Timer:Display()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
+  local gameFrameCount = g.g:GetFrameCount()
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then

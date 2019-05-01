@@ -6,9 +6,7 @@ local g = require("src/globals")
 -- ModCallbacks.MC_PRE_GET_COLLECTIBLE (62)
 function PreGetCollectible:Main(poolType, decrease, seed)
   -- Local variables
-  local game = Game()
-  local room = game:GetRoom()
-  local roomType = room:GetType()
+  local roomType = g.r:GetType()
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
@@ -57,8 +55,7 @@ end
 
 function PreGetCollectible:GetRandom(poolType)
   -- Local variables
-  local game = Game()
-  local itemPool = game:GetItemPool()
+  local itemPool = g.g:GetItemPool()
 
   -- Get a new item from this pool
   g.run.roomRNG = g:IncrementRNG(g.run.roomRNG)

@@ -6,8 +6,7 @@ local g = require("src/globals")
 -- ModCallbacks.MC_FAMILIAR_INIT (7)
 function FamiliarInit:Main(familiar)
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
@@ -37,7 +36,7 @@ function FamiliarInit:Main(familiar)
     -- Spawn 5 bird familiars instead of 4
     g.run.babyBool = true
     for i = 1, 4 do
-      game:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.DEAD_BIRD, player.Position, Vector(0, 0), nil, 0, 0)
+      g.g:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.DEAD_BIRD, player.Position, Vector(0, 0), nil, 0, 0)
     end
     g.run.babyBool = false
 

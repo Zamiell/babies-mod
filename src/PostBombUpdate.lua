@@ -7,10 +7,8 @@ local Misc = require("src/misc")
 -- ModCallbacks.MC_POST_BOMB_UPDATE (58)
 function PostBombUpdate:Main(bomb)
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local room = game:GetRoom()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
@@ -67,8 +65,8 @@ function PostBombUpdate:Main(bomb)
          bomb:GetData().doubled == nil then
 
     local position = Misc:GetOffsetPosition(bomb.Position, 15, bomb.InitSeed)
-    local doubledBomb = game:Spawn(bomb.Type, bomb.Variant, position, bomb.Velocity,
-                                   bomb.SpawnerEntity, bomb.SubType, bomb.InitSeed):ToBomb()
+    local doubledBomb = g.g:Spawn(bomb.Type, bomb.Variant, position, bomb.Velocity,
+                                  bomb.SpawnerEntity, bomb.SubType, bomb.InitSeed):ToBomb()
     doubledBomb.Flags = bomb.Flags
     doubledBomb.IsFetus = bomb.IsFetus
     if bomb.IsFetus then
@@ -83,14 +81,14 @@ function PostBombUpdate:Main(bomb)
          bomb.SpawnerType == EntityType.ENTITY_PLAYER and -- 1
          bomb.FrameCount == 51 then -- Bombs explode on the 51st frame exactly
 
-    room:MamaMegaExplossion()
+    g.r:MamaMegaExplossion()
 
   elseif baby.name == "Orange Ghost Baby" and -- 373
          bomb.FrameCount == 1 and
          bomb.Variant ~= BombVariant.BOMB_SUPERTROLL then -- 5
 
-    game:Spawn(bomb.Type, BombVariant.BOMB_SUPERTROLL,
-               bomb.Position, bomb.Velocity, bomb.SpawnerEntity, bomb.SubType, bomb.InitSeed)
+    g.g:Spawn(bomb.Type, BombVariant.BOMB_SUPERTROLL,
+              bomb.Position, bomb.Velocity, bomb.SpawnerEntity, bomb.SubType, bomb.InitSeed)
     bomb:Remove()
   end
 end

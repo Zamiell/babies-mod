@@ -12,10 +12,9 @@ function PostGameStarted:Main(saveState)
   end
 
   -- Local variables
-  local game = Game()
-  local seeds = game:GetSeeds()
-  local itemPool = game:GetItemPool()
-  local player = game:GetPlayer(0)
+  local seeds = g.g:GetSeeds()
+  local itemPool = g.g:GetItemPool()
+  local player = g.g:GetPlayer(0)
   local character = player:GetPlayerType()
   local challenge = Isaac.GetChallenge()
 

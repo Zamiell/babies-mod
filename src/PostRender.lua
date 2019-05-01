@@ -28,11 +28,9 @@ end
 -- This function handles redrawing the player's sprite, if necessary
 function PostRender:CheckPlayerSprite()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local room = game:GetRoom()
-  local roomFrameCount = room:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local roomFrameCount = g.r:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   -- Remove extra costumes while the game is fading in and/or loading
   if gameFrameCount == 0 then
@@ -82,8 +80,7 @@ end
 
 function PostRender:TrackPlayerAnimations()
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
   local playerSprite = player:GetSprite()
 
   -- Get the currently playing animation
@@ -130,8 +127,7 @@ end
 -- and after an animation is played
 function PostRender:SetPlayerSprite()
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
   local playerSprite = player:GetSprite()
   local hearts = player:GetHearts()
   local effects = player:GetEffects()
@@ -182,8 +178,7 @@ end
 -- Show what the current baby does in the intro room (or if the player presses Tab)
 function PostRender:DrawBabyIntro()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
+  local gameFrameCount = g.g:GetFrameCount()
   local type = g.run.babyType
   local baby = g.babies[type]
 
@@ -247,8 +242,7 @@ end
 -- Copied from the Racing+ mod
 function PostRender:GetHeartXOffset()
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
   local maxHearts = player:GetMaxHearts()
   local soulHearts = player:GetSoulHearts()
   local boneHearts = player:GetBoneHearts()
@@ -279,8 +273,7 @@ end
 
 function PostRender:DrawVersion()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
+  local gameFrameCount = g.g:GetFrameCount()
 
   -- Make the baby description persist for at least 2 seconds after the player presses "v"
   if Input.IsButtonPressed(Keyboard.KEY_V, 0) then -- 86
@@ -312,13 +305,10 @@ end
 
 function PostRender:DrawBabyEffects()
   -- Local variables
-  local game = Game()
-  local level = game:GetLevel()
-  local roomDesc = level:GetCurrentRoomDesc()
+  local roomDesc = g.l:GetCurrentRoomDesc()
   local roomVariant = roomDesc.Data.Variant
-  local room = game:GetRoom()
-  local roomType = room:GetType()
-  local player = game:GetPlayer(0)
+  local roomType = g.r:GetType()
+  local player = g.g:GetPlayer(0)
   local bombs = player:GetNumBombs()
   local keys = player:GetNumKeys()
   local type = g.run.babyType
@@ -390,8 +380,7 @@ end
 
 function PostRender:DrawTempIcon()
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
 
@@ -430,11 +419,9 @@ end
 -- Taken from Alphabirth: https://steamcommunity.com/sharedfiles/filedetails/?id=848056541
 function PostRender:GetScreenCenterPosition()
   -- Local variables
-  local game = Game()
-  local room = game:GetRoom()
-  local shape = room:GetRoomShape()
-  local centerOffset = (room:GetCenterPos()) - room:GetTopLeftPos()
-  local pos = room:GetCenterPos()
+  local shape = g.r:GetRoomShape()
+  local centerOffset = (g.r:GetCenterPos()) - g.r:GetTopLeftPos()
+  local pos = g.r:GetCenterPos()
 
   if centerOffset.X > 260 then
       pos.X = pos.X - 260

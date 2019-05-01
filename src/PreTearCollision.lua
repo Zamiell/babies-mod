@@ -6,8 +6,7 @@ local g = require("src/globals")
 -- ModCallbacks.MC_PRE_TEAR_COLLISION (42)
 function PreTearCollision:Main(tear, collider, low)
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then

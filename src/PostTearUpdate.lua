@@ -7,11 +7,9 @@ local Misc = require("src/misc")
 -- ModCallbacks.MC_POST_TEAR_UPDATE (40)
 function PostTearUpdate:Main(tear)
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local room = game:GetRoom()
-  local roomFrameCount = room:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local roomFrameCount = g.r:GetFrameCount()
+  local player = g.g:GetPlayer(0)
   local sprite = tear:GetSprite()
   local data = tear:GetData()
   local type = g.run.babyType
@@ -25,8 +23,8 @@ function PostTearUpdate:Main(tear)
      tear.FrameCount % 2 == 0 then
 
     -- Fire trail tears
-    local fire = game:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.HOT_BOMB_FIRE, -- 1000.51
-                            tear.Position, Vector(0, 0), nil, 0, 0)
+    local fire = g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.HOT_BOMB_FIRE, -- 1000.51
+                           tear.Position, Vector(0, 0), nil, 0, 0)
     fire.SpriteScale = Vector(0.5, 0.5)
 
     -- Fade the fire so that it is easier to see everything
@@ -74,8 +72,8 @@ function PostTearUpdate:Main(tear)
     if roomFrameCount >= 30 then
       -- Abel is spawned on top of the player when the player first enters a room;
       -- don't shoot if this is the case
-      game:Spawn(EntityType.ENTITY_PROJECTILE, ProjectileVariant.PROJECTILE_NORMAL, -- 9.0
-                 tear.Position, tear.Velocity, nil, 0, tear.InitSeed)
+      g.g:Spawn(EntityType.ENTITY_PROJECTILE, ProjectileVariant.PROJECTILE_NORMAL, -- 9.0
+                tear.Position, tear.Velocity, nil, 0, tear.InitSeed)
     end
     tear:Remove()
 
@@ -128,8 +126,8 @@ function PostTearUpdate:Main(tear)
          gameFrameCount % 5 == 0 then -- If we spawn creep on every frame, it becomes too thick
 
     -- Make the tear drip black creep
-    local creep = game:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_BLACK, -- 45
-                               tear.Position, Vector(0, 0), tear, 0, 0)
+    local creep = g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_BLACK, -- 45
+                            tear.Position, Vector(0, 0), tear, 0, 0)
     creep:ToEffect().Timeout = 240
 
   elseif baby.name == "Cylinder Baby" then -- 434

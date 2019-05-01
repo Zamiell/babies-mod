@@ -6,14 +6,12 @@ local g = require("src/globals")
 -- ModCallbacks.MC_POST_ENTITY_KILL (68)
 function PostEntityKill:Main(entity)
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local level = game:GetLevel()
-  local roomIndex = level:GetCurrentRoomDesc().SafeGridIndex
+  local gameFrameCount = g.g:GetFrameCount()
+  local roomIndex = g.l:GetCurrentRoomDesc().SafeGridIndex
   if roomIndex < 0 then -- SafeGridIndex is always -1 for rooms outside the grid
-    roomIndex = level:GetCurrentRoomIndex()
+    roomIndex = g.l:GetCurrentRoomIndex()
   end
-  local player = game:GetPlayer(0)
+  local player = g.l:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
@@ -48,7 +46,7 @@ function PostEntityKill:Main(entity)
          npc.Type ~= EntityType.ENTITY_MOVABLE_TNT and -- 292
          npc:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) == false then-- 1 << 29
 
-    local friend = game:Spawn(npc.Type, npc.Variant, npc.Position, Vector(0, 0), nil, npc.SubType, npc.InitSeed)
+    local friend = g.g:Spawn(npc.Type, npc.Variant, npc.Position, Vector(0, 0), nil, npc.SubType, npc.InitSeed)
     friend:AddEntityFlags(EntityFlag.FLAG_CHARM) -- 1 << 8
     friend:AddEntityFlags(EntityFlag.FLAG_FRIENDLY) -- 1 << 29
     friend:AddEntityFlags(EntityFlag.FLAG_PERSISTENT) -- 1 << 37
@@ -65,7 +63,7 @@ function PostEntityKill:Main(entity)
     g.run.roomClearDelayFrame = gameFrameCount + 1
 
   elseif baby.name == "Turd Baby" then -- 92
-    game:Fart(npc.Position, 80, npc, 1, 0)
+    g.g:Fart(npc.Position, 80, npc, 1, 0)
 
   elseif baby.name == "Love Eye Baby" and -- 249
          g.run.babyBool == false then
@@ -85,7 +83,7 @@ function PostEntityKill:Main(entity)
       if npc2 ~= nil and
          npc2.Index ~= npc.Index then -- Don't respawn the entity that just died
 
-        game:Spawn(npc.Type, npc.Variant, npc2.Position, npc2.Velocity, nil, npc.SubType, npc2.InitSeed)
+        g.g:Spawn(npc.Type, npc.Variant, npc2.Position, npc2.Velocity, nil, npc.SubType, npc2.InitSeed)
         npc2:Remove()
       end
     end
@@ -112,7 +110,7 @@ function PostEntityKill:Main(entity)
     end
 
     -- Spawn a new Bob's Brain familiar that we will reskin to look like an egg
-    local brain = game:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BOBS_BRAIN, -- 3.59
+    local brain = g.g:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BOBS_BRAIN, -- 3.59
                   player.Position, Vector(0, 0), nil, 0, 0)
     local brainSprite = brain:GetSprite()
     brainSprite:Load("gfx/003.059_bobs brain2.anm2", true)
@@ -128,19 +126,19 @@ function PostEntityKill:Main(entity)
 
   elseif baby.name == "Toast Baby" then -- 390
     -- Enemies leave a Red Candle fire upon death
-    game:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.HOT_BOMB_FIRE, -- 1000.51
-               npc.Position, Vector(0, 0), nil, 0, 0)
+    g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.HOT_BOMB_FIRE, -- 1000.51
+              npc.Position, Vector(0, 0), nil, 0, 0)
 
   elseif baby.name == "Buttface Baby" then -- 451
     Isaac.GridSpawn(GridEntityType.GRID_POOP, PoopVariant.POOP_BLACK, npc.Position, false) -- 14.5
 
   elseif baby.name == "Funny Baby" then -- 491
-    game:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_SUPERTROLL, -- 4.5
-               npc.Position, Vector(0, 0), nil, 0, 0)
+    g.g:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_SUPERTROLL, -- 4.5
+              npc.Position, Vector(0, 0), nil, 0, 0)
 
   elseif baby.name == "Rainbow Baby" then -- 530
-    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_CHEST, -- 5.50
-               npc.Position, Vector(0, 0), nil, 0, npc.InitSeed)
+    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_CHEST, -- 5.50
+              npc.Position, Vector(0, 0), nil, 0, npc.InitSeed)
   end
 end
 

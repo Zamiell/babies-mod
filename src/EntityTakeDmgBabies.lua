@@ -7,8 +7,7 @@ local Misc = require("src/misc")
 -- Called from the MC_ENTITY_TAKE_DMG (11) callback
 function EntityTakeDmgBabies:Player(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
+  local gameFrameCount = g.g:GetFrameCount()
   local type = g.run.babyType
   local baby = g.babies[type]
 
@@ -99,21 +98,15 @@ end
 
 -- Blinding Baby
 EntityTakeDmgBabies.functions[46] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  -- Local variables
-  local game = Game()
-
   -- Sun Card - 5.300.20
-  game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, player.Position, Vector(0, 0), player, 20, 0)
+  g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, player.Position, Vector(0, 0), player, 20, 0)
 end
 
 -- Revenge Baby
 EntityTakeDmgBabies.functions[50] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  -- Local variables
-  local game = Game()
-
   -- Random Heart - 5.10.0
   g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
-  game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, player.Position, Vector(0, 0),
+  g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, player.Position, Vector(0, 0),
              player, 0, g.run.randomSeed)
 end
 
@@ -125,7 +118,6 @@ end
 -- Goat Baby
 EntityTakeDmgBabies.functions[62] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Local variables
-  local sfx = SFXManager()
   local baby = g.babies[62]
 
   -- Guaranteed Devil Room + Angel Room after X hits
@@ -134,7 +126,7 @@ EntityTakeDmgBabies.functions[62] = function(player, damageAmount, damageFlag, d
      g.run.babyBool == false then
 
     g.run.babyBool = true
-    sfx:Play(SoundEffect.SOUND_SATAN_GROW, 1, 0, false, 1) -- 241
+    g.s:Play(SoundEffect.SOUND_SATAN_GROW, 1, 0, false, 1) -- 241
     player:AddCollectible(CollectibleType.COLLECTIBLE_GOAT_HEAD, 0, false) -- 215
     Isaac.DebugString("Removing collectible " .. tostring(CollectibleType.COLLECTIBLE_GOAT_HEAD)) -- 215
     player:AddCollectible(CollectibleType.COLLECTIBLE_DUALITY, 0, false) -- 498
@@ -159,12 +151,9 @@ end
 
 -- D Baby
 EntityTakeDmgBabies.functions[101] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  -- Local variables
-  local game = Game()
-
   -- Spawns creep on hit (improved)
-  local creep = game:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, -- 46
-                           player.Position, Vector(0, 0), player, 0, 0)
+  local creep = g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, -- 46
+                          player.Position, Vector(0, 0), player, 0, 0)
   creep:ToEffect().Scale = 10
   creep:ToEffect().Timeout = 240
 end
@@ -224,8 +213,6 @@ end
 -- Aban Baby
 EntityTakeDmgBabies.functions[177] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Local variables
-  local game = Game()
-  local sfx = SFXManager()
   local coins = player:GetNumCoins()
 
   -- Sonic-style health
@@ -241,12 +228,12 @@ EntityTakeDmgBabies.functions[177] = function(player, damageAmount, damageFlag, 
     velocity = velocity:Normalized()
     local modifier = math.random(4, 20)
     velocity = velocity * modifier
-    local coin = game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN,
-                            player.Position, velocity, player, 1, 0)
+    local coin = g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN,
+                           player.Position, velocity, player, 1, 0)
     local data = coin:GetData()
     data.recovery = true
   end
-  sfx:Play(SoundEffect.SOUND_GOLD_HEART, 1, 0, false, 1) -- 465
+  g.s:Play(SoundEffect.SOUND_GOLD_HEART, 1, 0, false, 1) -- 465
 end
 
 -- Faded Baby
@@ -262,13 +249,10 @@ end
 
 -- Dented Baby
 EntityTakeDmgBabies.functions[204] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  -- Local variables
-  local game = Game()
-
   -- Spawns a random key on hit
   g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
-  game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_KEY, -- 5.30
-             player.Position, Vector(0, 0), player, 0, g.run.randomSeed)
+  g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_KEY, -- 5.30
+            player.Position, Vector(0, 0), player, 0, g.run.randomSeed)
 end
 
 -- MeatBoy Baby
@@ -278,13 +262,9 @@ end
 
 -- Conjoined Baby
 EntityTakeDmgBabies.functions[212] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  -- Local variables
-  local game = Game()
-  local room = game:GetRoom()
-
   -- Open all of the doors
   for i = 0, 7 do
-    local door = room:GetDoor(i)
+    local door = g.r:GetDoor(i)
     if door ~= nil then
       door:Open(true)
     end
@@ -293,10 +273,7 @@ end
 
 -- Zipper Baby
 EntityTakeDmgBabies.functions[225] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  -- Local variables
-  local game = Game()
-  local room = game:GetRoom()
-  local roomSeed = room:GetSpawnSeed()
+  local roomSeed = g.r:GetSpawnSeed()
 
   -- Extra enemies spawn on hit
   -- Find an existing enemy in the room
@@ -323,8 +300,8 @@ EntityTakeDmgBabies.functions[225] = function(player, damageAmount, damageFlag, 
   end
 
   -- Spawn a new enemy
-  local position = room:FindFreePickupSpawnPosition(player.Position, 1, true)
-  game:Spawn(dupeEnemy.type, dupeEnemy.variant, position, Vector(0, 0), nil, 0, roomSeed)
+  local position = g.r:FindFreePickupSpawnPosition(player.Position, 1, true)
+  g.g:Spawn(dupeEnemy.type, dupeEnemy.variant, position, Vector(0, 0), nil, 0, roomSeed)
 end
 
 -- Beard Baby
@@ -334,13 +311,10 @@ end
 
 -- Rocker Baby
 EntityTakeDmgBabies.functions[258] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  -- Local variables
-  local game = Game()
-
   -- Spawns a random bomb on hit
   g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
-  game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, -- 5.40
-             player.Position, Vector(0, 0), player, 0, g.run.randomSeed)
+  g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, -- 5.40
+            player.Position, Vector(0, 0), player, 0, g.run.randomSeed)
 end
 
 -- Coat Baby
@@ -351,13 +325,11 @@ end
 -- Hare Baby
 EntityTakeDmgBabies.functions[267] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Local variables
-  local game = Game()
-  local room = game:GetRoom()
-  local gridSize = room:GetGridSize()
+  local gridSize = g.r:GetGridSize()
 
   -- Check to see if there are vanilla trapdoors in the room, as those will cause unavoidable damage
   for i = 1, gridSize do
-    local gridEntity = room:GetGridEntity(i)
+    local gridEntity = g.r:GetGridEntity(i)
     if gridEntity ~= nil then
       local saveState = gridEntity:GetSaveState()
       if saveState.Type == GridEntityType.GRID_TRAPDOOR then -- 17
@@ -380,16 +352,13 @@ end
 
 -- Spiky Demon Baby
 EntityTakeDmgBabies.functions[277] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  -- Local variables
-  local sfx = SFXManager()
-
   -- Play a custom sound effect if we got hit by a mimic
   for i = 0, 21 do -- There are 21 damage flags
     local bit = (damageFlag & (1 << i)) >> i
 
     -- Mimic damage tracking
     if i == 20 and bit == 1 then -- DAMAGE_CHEST
-      sfx:Play(Isaac.GetSoundIdByName("Laugh"), 0.75, 0, false, 1)
+      g.s:Play(Isaac.GetSoundIdByName("Laugh"), 0.75, 0, false, 1)
       break
     end
   end
@@ -412,11 +381,8 @@ end
 
 -- Starry Eyed Baby
 EntityTakeDmgBabies.functions[310] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  -- Local variables
-  local game = Game()
-
   -- Stars Card (5.300.18)
-  game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, player.Position, Vector(0, 0), player, 18, 0)
+  g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, player.Position, Vector(0, 0), player, 18, 0)
 end
 
 -- Puzzle Baby
@@ -434,18 +400,14 @@ end
 
 -- Spartan Baby
 EntityTakeDmgBabies.functions[329] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  -- Local variables
-  local game = Game()
-  local room = game:GetRoom()
-
   -- Spawns a pedestal item after 6 hits
   g.run.babyCounters = g.run.babyCounters + 1
   if g.run.babyCounters == 6 then
     g.run.babyCounters = 0
     g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
-    local position = room:FindFreePickupSpawnPosition(player.Position, 1, true)
-    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-               position, Vector(0, 0), nil, 0, g.run.randomSeed)
+    local position = g.r:FindFreePickupSpawnPosition(player.Position, 1, true)
+    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
+              position, Vector(0, 0), nil, 0, g.run.randomSeed)
   end
 end
 
@@ -588,8 +550,7 @@ end
 -- Scoreboard Baby
 EntityTakeDmgBabies.functions[474] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
+  local gameFrameCount = g.g:GetFrameCount()
 
   -- Death in 1 minute
   if g.run.babyCounters == 0 then
@@ -644,23 +605,18 @@ end
 
 -- Reaper Baby
 EntityTakeDmgBabies.functions[506] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  -- Local variables
-  local game = Game()
-
   -- Spawns a random rune on hit
   g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
   math.randomseed(g.run.randomSeed)
   local runeSubType = math.random(32, 41)
-  game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, -- 5.300
-             player.Position, Vector(0, 0), player, runeSubType, g.run.randomSeed)
+  g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, -- 5.300
+            player.Position, Vector(0, 0), player, runeSubType, g.run.randomSeed)
 end
 
 -- Hooligan Baby
 EntityTakeDmgBabies.functions[514] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Local variables
-  local game = Game()
-  local room = game:GetRoom()
-  local roomFrameCount = room:GetFrameCount()
+  local roomFrameCount = g.r:GetFrameCount()
 
   -- Double enemies
   -- Fix the bug where an enemy can sometimes spawn next to where the player spawns

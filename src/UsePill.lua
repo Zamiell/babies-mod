@@ -6,8 +6,7 @@ local g = require("src/globals")
 -- ModCallbacks.MC_USE_PILL (11)
 function UsePill:Main(pillEffect)
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
   local babyType = g.run.babyType
   local baby = g.babies[babyType]
   if baby == nil then

@@ -6,12 +6,10 @@ local g = require("src/globals")
 -- ModCallbacks.MC_POST_FIRE_TEAR (61)
 function PostFireTear:Main(tear)
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local room = game:GetRoom()
-  local roomFrameCount = room:GetFrameCount()
-  local roomShape = room:GetRoomShape()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local roomFrameCount = g.r:GetFrameCount()
+  local roomShape = g.r:GetRoomShape()
+  local player = g.g:GetPlayer(0)
   local data = tear:GetData()
   local type = g.run.babyType
   local baby = g.babies[type]
@@ -85,8 +83,8 @@ function PostFireTear:Main(tear)
     -- Boomerang tears
     -- We can't just use The Boomerang item because there is no way to avoid a long cooldown
     -- So we spawn an effect instead
-    game:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BOOMERANG, -- 1000.60
-               tear.Position, tear.Velocity, tear.SpawnerEntity, 0, tear.InitSeed)
+    g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BOOMERANG, -- 1000.60
+              tear.Position, tear.Velocity, tear.SpawnerEntity, 0, tear.InitSeed)
     tear:Remove()
 
   elseif baby.name == "Parasite Baby" then -- 77
@@ -153,8 +151,8 @@ function PostFireTear:Main(tear)
     tear.TearFlags = tear.TearFlags | TearFlags.TEAR_SLOW -- 1 << 3
 
   elseif baby.name == "Sick Baby" then -- 187
-    game:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BLUE_FLY, -- 3.43.1
-               tear.Position, tear.Velocity, tear.SpawnerEntity, BlueFlyVariant.BLUEFLY_RED, tear.InitSeed)
+    g.g:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BLUE_FLY, -- 3.43.1
+              tear.Position, tear.Velocity, tear.SpawnerEntity, BlueFlyVariant.BLUEFLY_RED, tear.InitSeed)
     tear:Remove()
 
   elseif baby.name == "Cold Baby" then -- 194
@@ -282,8 +280,8 @@ function PostFireTear:Main(tear)
     g.run.babyCounters = g.run.babyCounters + 1
     if g.run.babyCounters == baby.num then
       g.run.babyCounters = 0
-      game:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_NORMAL, -- 4.1
-                 tear.Position, tear.Velocity, tear.SpawnerEntity, 0, tear.InitSeed)
+      g.g:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_NORMAL, -- 4.1
+                tear.Position, tear.Velocity, tear.SpawnerEntity, 0, tear.InitSeed)
       tear:Remove()
     end
 

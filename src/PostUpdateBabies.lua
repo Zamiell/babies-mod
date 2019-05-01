@@ -20,22 +20,20 @@ PostUpdateBabies.functions = {}
 -- Troll Baby
 PostUpdateBabies.functions[6] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   if gameFrameCount % 90 == 0 then -- 3 seconds
     -- Spawn a Troll Bomb (4.3)
-    game:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_TROLL, player.Position, Vector(0, 0), nil, 0, 0)
+    g.g:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_TROLL, player.Position, Vector(0, 0), nil, 0, 0)
   end
 end
 
 -- Bean Baby
 PostUpdateBabies.functions[17] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   -- Prevent softlocks that occur if you try to jump into a Big Chest
   local bigChests = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BIGCHEST, -1, false, false) -- 5.340
@@ -51,9 +49,8 @@ end
 -- Wrath Baby
 PostUpdateBabies.functions[19] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   if gameFrameCount % 210 == 0 then -- 7 seconds
     player:UseActiveItem(CollectibleType.COLLECTIBLE_ANARCHIST_COOKBOOK, false, false, false, false) -- 65
@@ -63,9 +60,8 @@ end
 -- Wrapped Baby
 PostUpdateBabies.functions[20] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   if gameFrameCount % 3 == 0 and -- If the explosions happen too fast, it looks buggy
      g.run.babyCounters > 0 then
@@ -84,8 +80,7 @@ end
 -- Lil' Baby
 PostUpdateBabies.functions[36] = function()
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
 
   -- Everything is tiny
   -- This does not work if we put it in the MC_POST_NEW_LEVEL callback for some reason
@@ -99,8 +94,7 @@ end
 -- Big Baby
 PostUpdateBabies.functions[37] = function()
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
 
   -- Everything is giant
   -- This does not work if we put it in the MC_POST_NEW_LEVEL callback for some reason
@@ -114,9 +108,8 @@ end
 -- Noose Baby
 PostUpdateBabies.functions[39] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   -- Shooting when the timer reaches 0 causes damage
   local remainingTime = g.run.babyCounters - gameFrameCount
@@ -139,11 +132,9 @@ end
 -- Whore Baby
 PostUpdateBabies.functions[43] = function()
   -- Local variables
-  local game = Game()
-  local level = game:GetLevel()
-  local roomIndex = level:GetCurrentRoomDesc().SafeGridIndex
+  local roomIndex = g.l:GetCurrentRoomDesc().SafeGridIndex
   if roomIndex < 0 then -- SafeGridIndex is always -1 for rooms outside the grid
-    roomIndex = level:GetCurrentRoomIndex()
+    roomIndex = g.l:GetCurrentRoomIndex()
   end
 
   -- All enemies explode
@@ -179,9 +170,8 @@ end
 -- Bound Baby
 PostUpdateBabies.functions[58] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   if gameFrameCount % 210 == 0 then -- 7 seconds
     player:UseActiveItem(CollectibleType.COLLECTIBLE_MONSTER_MANUAL, false, false, false, false) -- 123
@@ -191,10 +181,8 @@ end
 -- Butthole Baby
 PostUpdateBabies.functions[63] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
-  local sfx = SFXManager()
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   if gameFrameCount % 150 == 0 then -- 5 seconds
     -- Spawn a random poop
@@ -210,15 +198,14 @@ PostUpdateBabies.functions[63] = function()
     Isaac.GridSpawn(GridEntityType.GRID_POOP, poopVariant, player.Position, false) -- 14
 
     -- Playing ID 37 will randomly play one of the three farting sound effects
-    sfx:Play(SoundEffect.SOUND_FART, 1, 0, false, 1) -- 37
+    g.s:Play(SoundEffect.SOUND_FART, 1, 0, false, 1) -- 37
   end
 end
 
 -- Eye Patch Baby
 PostUpdateBabies.functions[64] = function()
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
 
   Isaac.GridSpawn(GridEntityType.GRID_SPIKES, 0, player.Position, false) -- 8
 end
@@ -226,12 +213,10 @@ end
 -- Scream Baby
 PostUpdateBabies.functions[81] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
   local activeCharge = player:GetActiveCharge()
   local batteryCharge = player:GetBatteryCharge()
-  local sfx = SFXManager()
 
   if g.run.babyFrame ~= 0 and
      gameFrameCount <= g.run.babyFrame + 1 and
@@ -239,8 +224,8 @@ PostUpdateBabies.functions[81] = function()
       batteryCharge ~= g.run.babyNPC.type) then -- We store the Battery charge in the "babyNPC.type" variable
 
     player:SetActiveCharge(g.run.babyCounters + g.run.babyNPC.type)
-    sfx:Stop(SoundEffect.SOUND_BATTERYCHARGE) -- 170
-    sfx:Stop(SoundEffect.SOUND_BEEP) -- 171
+    g.s:Stop(SoundEffect.SOUND_BATTERYCHARGE) -- 170
+    g.s:Stop(SoundEffect.SOUND_BEEP) -- 171
     Isaac.DebugString("Reset the active item charge.")
   end
 end
@@ -253,9 +238,8 @@ end
 -- Frown Baby
 PostUpdateBabies.functions[96] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   if gameFrameCount % 150 == 0 then -- 5 seconds
     player:UseActiveItem(CollectibleType.COLLECTIBLE_BEST_FRIEND, false, false, false, false) -- 136
@@ -265,28 +249,24 @@ end
 -- Brownie Baby
 PostUpdateBabies.functions[107] = function()
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
 
   -- Starts with Level 4 Meatboy + Level 4 Meatgirl
   -- (if you spawn them in the MC_POST_NEW_LEVEL callback, it does not work for some reason)
   if g.run.babyBool == false then
     g.run.babyBool = true
-    game:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.CUBE_OF_MEAT_4, -- 3.47
-               player.Position, Vector(0, 0), nil, 0, 0)
-    game:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BALL_OF_BANDAGES_4, -- 3.72
-               player.Position, Vector(0, 0), nil, 0, 0)
+    g.g:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.CUBE_OF_MEAT_4, -- 3.47
+              player.Position, Vector(0, 0), nil, 0, 0)
+    g.g:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BALL_OF_BANDAGES_4, -- 3.72
+              player.Position, Vector(0, 0), nil, 0, 0)
   end
 end
 
 -- Pubic Baby
 PostUpdateBabies.functions[110] = function()
   -- Local variables
-  local game = Game()
-  local level = game:GetLevel()
-  local rooms = level:GetRooms()
-  local room = game:GetRoom()
-  local roomClear = room:IsClear()
+  local rooms = g.l:GetRooms()
+  local roomClear = g.r:IsClear()
 
   -- Don't do anything if we already full cleared the floor
   if g.run.babyBool then
@@ -319,7 +299,7 @@ PostUpdateBabies.functions[110] = function()
 
   -- Keep the boss room door closed
   for i = 0, 7 do
-    local door = room:GetDoor(i)
+    local door = g.r:GetDoor(i)
     if door ~= nil and
        door:IsRoomType(RoomType.ROOM_BOSS) then -- 5
 
@@ -331,9 +311,8 @@ end
 -- Eyemouth Baby
 PostUpdateBabies.functions[111] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   if g.run.babyTears.frame ~= 0 and
      gameFrameCount >= g.run.babyTears.frame then
@@ -346,8 +325,7 @@ end
 -- Hopeless Baby
 PostUpdateBabies.functions[125] = function()
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
   local keys = player:GetNumKeys()
 
   -- Keys are hearts
@@ -359,14 +337,10 @@ end
 -- Earwig Baby
 PostUpdateBabies.functions[128] = function()
   -- Local variables
-  local game = Game()
-  local level = game:GetLevel()
-  local startingRoomIndex = level:GetStartingRoomIndex()
-  local rooms = level:GetRooms()
-  local room = game:GetRoom()
-  local centerPos = room:GetCenterPos()
-  local player = game:GetPlayer(0)
-  local sfx = SFXManager()
+  local startingRoomIndex = g.l:GetStartingRoomIndex()
+  local rooms = g.l:GetRooms()
+  local centerPos = g.r:GetCenterPos()
+  local player = g.g:GetPlayer(0)
   local baby = g.babies[128]
 
   -- The floor may be reseeded, so we do not want this to be in the MC_POST_NEW_LEVEL callback
@@ -417,22 +391,21 @@ PostUpdateBabies.functions[128] = function()
   -- Explore these rooms
   for i = 1, #randomIndexes do
     local randomIndex = randomIndexes[i]
-    level.LeaveDoor = -1 -- You have to set this before every teleport or else it will send you to the wrong room
-    level:ChangeRoom(randomIndex)
+    g.l.LeaveDoor = -1 -- You have to set this before every teleport or else it will send you to the wrong room
+    g.l:ChangeRoom(randomIndex)
 
     -- We might have traveled to the Boss Room, so stop the Portcullis sound effect just in case
-    sfx:Stop(SoundEffect.SOUND_CASTLEPORTCULLIS) -- 190
+    g.s:Stop(SoundEffect.SOUND_CASTLEPORTCULLIS) -- 190
   end
-  level.LeaveDoor = -1 -- You have to set this before every teleport or else it will send you to the wrong room
-  level:ChangeRoom(startingRoomIndex)
+  g.l.LeaveDoor = -1 -- You have to set this before every teleport or else it will send you to the wrong room
+  g.l:ChangeRoom(startingRoomIndex)
   player.Position = centerPos
 end
 
 -- Mohawk Baby
 PostUpdateBabies.functions[138] = function()
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
   local bombs = player:GetNumBombs()
 
   -- Bombs are hearts
@@ -444,9 +417,8 @@ end
 -- Bluebird Baby
 PostUpdateBabies.functions[147] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   if g.run.babyFrame ~= 0 and
      gameFrameCount >= g.run.babyFrame then
@@ -467,9 +439,8 @@ end
 -- Awaken Baby
 PostUpdateBabies.functions[155] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   if gameFrameCount % 30 == 0 then -- 1 second
     player:UseActiveItem(CollectibleType.COLLECTIBLE_TELEKINESIS, false, false, false, false) -- 522
@@ -479,9 +450,8 @@ end
 -- Puff Baby
 PostUpdateBabies.functions[156] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
   local hearts = player:GetHearts()
   local soulHearts = player:GetSoulHearts()
   local boneHearts = player:GetBoneHearts()
@@ -505,24 +475,20 @@ end
 -- Pretty Baby
 PostUpdateBabies.functions[158] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
-  local sfx = SFXManager()
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   if gameFrameCount % 150 == 0 then -- 5 seconds
     player:UseActiveItem(CollectibleType.COLLECTIBLE_MONSTER_MANUAL, false, false, false, false) -- 123
-    sfx:Stop(SoundEffect.SOUND_SATAN_GROW) -- 241
+    g.s:Stop(SoundEffect.SOUND_SATAN_GROW) -- 241
   end
 end
 
 -- Digital Baby
 PostUpdateBabies.functions[162] = function()
   -- Local variables
-  local game = Game()
-  local room = game:GetRoom()
-  local roomFrameCount = room:GetFrameCount()
-  local seeds = game:GetSeeds()
+  local roomFrameCount = g.r:GetFrameCount()
+  local seeds = g.g:GetSeeds()
 
   if g.run.babyBool == false and
      roomFrameCount <= 1 then
@@ -539,8 +505,7 @@ end
 -- Helmet Baby
 PostUpdateBabies.functions[163] = function()
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
 
   -- Check to see if they are pressing any movement buttons
   local leftPressed = false
@@ -605,8 +570,7 @@ end
 -- Black Eye Baby
 PostUpdateBabies.functions[164] = function()
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
 
   -- Starts with Leprosy, +5 damage on Leprosy breaking
   local entities = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.LEPROCY, -1, false, false) -- 3.121
@@ -623,9 +587,8 @@ end
 -- Worry Baby
 PostUpdateBabies.functions[167] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   if g.run.babyFrame ~= 0 and
      gameFrameCount >= g.run.babyFrame then
@@ -641,9 +604,6 @@ end
 
 -- Gappy Baby
 PostUpdateBabies.functions[171] = function()
-  -- Local variables
-  local game = Game()
-
   -- Broken machines drop pedestal items
   -- (there is no MC_POST_SLOT_UPDATE callback so we have to do this here)
   local entities = Isaac.FindByType(EntityType.ENTITY_SLOT, -1, -1, false, false) -- 6
@@ -656,8 +616,8 @@ PostUpdateBabies.functions[171] = function()
 
       data.destroyed = true
       g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
-      game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-                 entity.Position, Vector(0, 0), nil, 0, g.run.randomSeed)
+      g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
+                entity.Position, Vector(0, 0), nil, 0, g.run.randomSeed)
     end
   end
 end
@@ -665,11 +625,8 @@ end
 -- Skull Baby
 PostUpdateBabies.functions[211] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local room = game:GetRoom()
-  local player = game:GetPlayer(0)
-  local sfx = SFXManager()
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   -- Shockwave bombs
   for i = 1, #g.run.babyTears do
@@ -679,12 +636,12 @@ PostUpdateBabies.functions[211] = function()
       break
     end
     if (gameFrameCount - tear.frame) % 2 == 0 then
-      local explosion = game:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.ROCK_EXPLOSION, -- 1000.62
-                                   tear.position, Vector(0, 0), player, 0, 0)
-      local index = room:GetGridIndex(tear.position)
-      room:DestroyGrid(index)
+      local explosion = g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.ROCK_EXPLOSION, -- 1000.62
+                                  tear.position, Vector(0, 0), player, 0, 0)
+      local index = g.r:GetGridIndex(tear.position)
+      g.r:DestroyGrid(index)
       tear.position = tear.position + tear.velocity
-      sfx:Play(SoundEffect.SOUND_ROCK_CRUMBLE, 0.5, 0, false, 1) -- 137
+      g.s:Play(SoundEffect.SOUND_ROCK_CRUMBLE, 0.5, 0, false, 1) -- 137
       -- (if the sound effect plays at full volume, it starts to get annoying)
 
       -- Make the shockwave deal damage to the player
@@ -701,7 +658,7 @@ PostUpdateBabies.functions[211] = function()
      end
 
      -- Stop if it gets to a wall
-     if room:IsPositionInRoom(tear.position, 0) == false then
+     if g.r:IsPositionInRoom(tear.position, 0) == false then
        table.remove(g.run.babyTears, i)
      end
   end
@@ -710,10 +667,8 @@ end
 -- Fancy Baby
 PostUpdateBabies.functions[216] = function()
   -- Local variables
-  local game = Game()
-  local level = game:GetLevel()
-  local rooms = level:GetRooms()
-  local player = game:GetPlayer(0)
+  local rooms = g.l:GetRooms()
+  local player = g.g:GetPlayer(0)
 
   local teleport = 0
   if player.QueuedItem.Item ~= nil then
@@ -752,8 +707,8 @@ PostUpdateBabies.functions[216] = function()
       local roomType = roomData.Type
       if roomType == teleport then -- 8
         -- Teleport to the intended room
-        level.LeaveDoor = -1 -- You have to set this before every teleport or else it will send you to the wrong room
-        game:StartRoomTransition(index, Direction.NO_DIRECTION, RoomTransition.TRANSITION_TELEPORT) -- -1, 3
+        g.l.LeaveDoor = -1 -- You have to set this before every teleport or else it will send you to the wrong room
+        g.g:StartRoomTransition(index, Direction.NO_DIRECTION, RoomTransition.TRANSITION_TELEPORT) -- -1, 3
         break
       end
     end
@@ -763,11 +718,9 @@ end
 -- Drool Baby
 PostUpdateBabies.functions[221] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local room = game:GetRoom()
-  local roomClear = room:IsClear()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local roomClear = g.r:IsClear()
+  local player = g.g:GetPlayer(0)
 
   -- Starts with Monstro's Tooth (improved)
   if g.run.babyFrame ~= 0 and
@@ -787,9 +740,8 @@ end
 -- Bawl Baby
 PostUpdateBabies.functions[231] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
   local hearts = player:GetHearts()
   local soulHearts = player:GetSoulHearts()
   local boneHearts = player:GetBoneHearts()
@@ -816,8 +768,7 @@ end
 -- Medusa Baby
 PostUpdateBabies.functions[250] = function()
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
   local bombs = player:GetNumBombs()
   local keys = player:GetNumKeys()
 
@@ -839,9 +790,8 @@ end
 -- Cloud Baby
 PostUpdateBabies.functions[256] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
   local baby = g.babies[256]
 
   if gameFrameCount % baby.num == 0 then
@@ -852,15 +802,13 @@ end
 -- Raccoon Baby
 PostUpdateBabies.functions[263] = function()
   -- Local variables
-  local game = Game()
-  local room = game:GetRoom()
-  local roomFrameCount = room:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local roomFrameCount = g.r:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   -- Reroll all of the rocks in the room
   -- (this does not work if we do it in the MC_POST_NEW_ROOM callback or on the 0th frame)
   if roomFrameCount == 1 and
-     room:IsFirstVisit() then
+     g.r:IsFirstVisit() then
 
     player:UseActiveItem(CollectibleType.COLLECTIBLE_D12, false, false, false, false) -- 386
   end
@@ -868,10 +816,8 @@ end
 
 -- Hare Baby
 PostUpdateBabies.functions[267] = function()
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
   local playerSprite = player:GetSprite()
-  local sfx = SFXManager()
 
   -- Takes damage when standing still
   -- Prevent the (vanilla) bug where the player will take damage upon jumping into a trapdoor
@@ -882,16 +828,15 @@ PostUpdateBabies.functions[267] = function()
       playerSprite:IsPlaying("LightTravel")) then
 
     player:UseActiveItem(CollectibleType.COLLECTIBLE_DULL_RAZOR, false, false, false, false) -- 486
-    sfx:Stop(SoundEffect.SOUND_ISAAC_HURT_GRUNT) -- 55
+    g.s:Stop(SoundEffect.SOUND_ISAAC_HURT_GRUNT) -- 55
   end
 end
 
 -- Porcupine Baby
 PostUpdateBabies.functions[270] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   if gameFrameCount % 150 == 0 then -- 5 seconds
     player:UseActiveItem(CollectibleType.COLLECTIBLE_WAIT_WHAT, false, false, false, false) -- 484
@@ -901,40 +846,35 @@ end
 -- Heart Baby
 PostUpdateBabies.functions[290] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
-  local sfx = SFXManager()
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   if gameFrameCount % 150 == 0 then -- 5 seconds
     player:UseActiveItem(CollectibleType.COLLECTIBLE_DULL_RAZOR, false, false, false, false) -- 486
-    sfx:Stop(SoundEffect.SOUND_ISAAC_HURT_GRUNT) -- 55
+    g.s:Stop(SoundEffect.SOUND_ISAAC_HURT_GRUNT) -- 55
   end
 end
 
 -- Rider Baby
 PostUpdateBabies.functions[295] = function()
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
   local activeItem = player:GetActiveItem()
-  local sfx = SFXManager()
 
   -- Keep the pony fully charged
   if activeItem == CollectibleType.COLLECTIBLE_PONY and -- 130
      player:NeedsCharge() then
 
     player:FullCharge()
-    sfx:Stop(SoundEffect.SOUND_BATTERYCHARGE) -- 170
+    g.s:Stop(SoundEffect.SOUND_BATTERYCHARGE) -- 170
   end
 end
 
 -- Pizza Baby
 PostUpdateBabies.functions[303] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   if g.run.babyFrame ~= 0 and
      gameFrameCount >= g.run.babyFrame then
@@ -952,9 +892,8 @@ end
 -- Hotdog Baby
 PostUpdateBabies.functions[304] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
   local hearts = player:GetHearts()
   local soulHearts = player:GetSoulHearts()
   local boneHearts = player:GetBoneHearts()
@@ -979,8 +918,7 @@ end
 -- Corrupted Baby
 PostUpdateBabies.functions[307] = function()
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
 
   -- Taking items/pickups causes damage (1/2)
   if player:IsItemQueueEmpty() == false then
@@ -991,8 +929,7 @@ end
 -- Exploding Baby
 PostUpdateBabies.functions[320] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
+  local gameFrameCount = g.g:GetFrameCount()
 
   -- Check to see if we need to reset the cooldown
   -- (after we used the Kamikaze! effect upon touching an obstacle)
@@ -1006,8 +943,7 @@ end
 -- Butterfly Baby 2
 PostUpdateBabies.functions[332] = function()
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
 
   -- Flight + can walk through walls
   player.GridCollisionClass = GridCollisionClass.COLLISION_NONE -- 0
@@ -1016,8 +952,7 @@ end
 -- Hero Baby
 PostUpdateBabies.functions[336] = function()
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
 
   if g.run.babyBool then
     g.run.babyBool = false
@@ -1030,9 +965,8 @@ end
 -- Vomit Baby
 PostUpdateBabies.functions[341] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   -- Moving when the timer reaches 0 causes damage
   local remainingTime = g.run.babyCounters - gameFrameCount
@@ -1054,26 +988,23 @@ end
 -- Fourtone Baby
 PostUpdateBabies.functions[348] = function()
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
   local activeItem = player:GetActiveItem()
-  local sfx = SFXManager()
 
   -- Keep the Candle always fully charged
   if activeItem == CollectibleType.COLLECTIBLE_CANDLE and -- 164
      player:NeedsCharge() then
 
     player:FullCharge()
-    sfx:Stop(SoundEffect.SOUND_BATTERYCHARGE) -- 170
+    g.s:Stop(SoundEffect.SOUND_BATTERYCHARGE) -- 170
   end
 end
 
 -- Grayscale Baby
 PostUpdateBabies.functions[349] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   if gameFrameCount % 300 == 0 then -- 10 seconds
     player:UseActiveItem(CollectibleType.COLLECTIBLE_DELIRIOUS, false, false, false, false) -- 510
@@ -1084,8 +1015,7 @@ end
 -- Rabbit Baby
 PostUpdateBabies.functions[350] = function()
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
 
   -- Starts with How to Jump; must jump often
   player:AddCacheFlags(CacheFlag.CACHE_SPEED) -- 16
@@ -1100,34 +1030,31 @@ end
 -- Pink Princess Baby
 PostUpdateBabies.functions[374] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
+  local gameFrameCount = g.g:GetFrameCount()
 
   if gameFrameCount % 120 == 0 then -- 4 second
     -- Spawn a random stomp
-    game:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.MOM_FOOT_STOMP, -- 1000.29
-               Isaac.GetRandomPosition(), Vector(0, 0), nil, 0, 0)
+    g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.MOM_FOOT_STOMP, -- 1000.29
+              Isaac.GetRandomPosition(), Vector(0, 0), nil, 0, 0)
   end
 end
 
 -- Blue Pig Baby
 PostUpdateBabies.functions[382] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   if gameFrameCount % 150 == 0 then -- 5 seconds
     -- Spawn a Mega Troll Bomb (4.5)
-    game:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_SUPERTROLL, player.Position, Vector(0, 0), nil, 0, 0)
+    g.g:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_SUPERTROLL, player.Position, Vector(0, 0), nil, 0, 0)
   end
 end
 
 -- Imp Baby
 PostUpdateBabies.functions[386] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
+  local gameFrameCount = g.g:GetFrameCount()
   local baby = g.babies[386]
 
   -- If we rotate the knives on every frame, then it spins too fast
@@ -1147,8 +1074,7 @@ end
 -- Blue Wrestler Baby
 PostUpdateBabies.functions[388] = function()
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
 
   -- Enemies spawn projectiles upon death
   for i = 1, #g.run.babyTears do
@@ -1159,8 +1085,8 @@ PostUpdateBabies.functions[388] = function()
     end
     local velocity = player.Position - tear.position
     velocity = velocity:Normalized() * 12
-    game:Spawn(EntityType.ENTITY_PROJECTILE, ProjectileVariant.PROJECTILE_NORMAL, -- 9.0
-               tear.position, velocity, nil, 0, 0)
+    g.g:Spawn(EntityType.ENTITY_PROJECTILE, ProjectileVariant.PROJECTILE_NORMAL, -- 9.0
+              tear.position, velocity, nil, 0, 0)
     tear.num = tear.num - 1
     if tear.num == 0 then
       -- The dead enemy has shot all of its tears, so we remove the tracking element for it
@@ -1172,13 +1098,12 @@ end
 -- Plague Baby
 PostUpdateBabies.functions[396] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   if gameFrameCount % 5 == 0 then -- Every 5 frames
     -- Drip green creep
-    local creep = game:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_GREEN, -- 53
+    local creep = g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_GREEN, -- 53
                              player.Position, Vector(0, 0), player, 0, 0)
     creep:ToEffect().Timeout = 240
   end
@@ -1187,22 +1112,20 @@ end
 -- Corgi Baby
 PostUpdateBabies.functions[401] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   if gameFrameCount % 45 == 0 then -- 1.5 seconds
     -- Spawn a Fly (13.0)
-    game:Spawn(EntityType.ENTITY_FLY, 0, player.Position, Vector(0, 0), nil, 0, 0)
+    g.g:Spawn(EntityType.ENTITY_FLY, 0, player.Position, Vector(0, 0), nil, 0, 0)
   end
 end
 
 -- Magic Cat Baby
 PostUpdateBabies.functions[428] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   if gameFrameCount % 30 == 0 then -- 1 second
     player:UseActiveItem(CollectibleType.COLLECTIBLE_KIDNEY_BEAN, false, false, false, false) -- 421
@@ -1212,9 +1135,8 @@ end
 -- Mutated Fish Baby
 PostUpdateBabies.functions[449] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   if gameFrameCount % 210 == 0 then -- 7 seconds
     player:UseActiveItem(CollectibleType.COLLECTIBLE_SPRINKLER, false, false, false, false) -- 516
@@ -1224,11 +1146,8 @@ end
 -- Voxdog Baby
 PostUpdateBabies.functions[462] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local room = game:GetRoom()
-  local player = game:GetPlayer(0)
-  local sfx = SFXManager()
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   -- Shockwave tears
   for i = 1, #g.run.babyTears do
@@ -1238,12 +1157,12 @@ PostUpdateBabies.functions[462] = function()
       break
     end
     if (gameFrameCount - tear.frame) % 2 == 0 then
-      local explosion = game:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.ROCK_EXPLOSION, -- 1000.62
-                                   tear.position, Vector(0, 0), player, 0, 0)
-      local index = room:GetGridIndex(tear.position)
-      room:DestroyGrid(index)
+      local explosion = g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.ROCK_EXPLOSION, -- 1000.62
+                                  tear.position, Vector(0, 0), player, 0, 0)
+      local index = g.r:GetGridIndex(tear.position)
+      g.r:DestroyGrid(index)
       tear.position = tear.position + tear.velocity
-      sfx:Play(SoundEffect.SOUND_ROCK_CRUMBLE, 0.5, 0, false, 1) -- 137
+      g.s:Play(SoundEffect.SOUND_ROCK_CRUMBLE, 0.5, 0, false, 1) -- 137
       -- (if the sound effect plays at full volume, it starts to get annoying)
 
       -- Make the shockwave deal damage to NPCs
@@ -1255,7 +1174,7 @@ PostUpdateBabies.functions[462] = function()
      end
 
      -- Stop if it gets to a wall
-     if room:IsPositionInRoom(tear.position, 0) == false then
+     if g.r:IsPositionInRoom(tear.position, 0) == false then
        table.remove(g.run.babyTears, i)
      end
   end
@@ -1264,9 +1183,8 @@ end
 -- Scoreboard Baby
 PostUpdateBabies.functions[474] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   if g.run.babyCounters ~= 0 then
     local remainingTime = g.run.babyCounters - gameFrameCount
@@ -1280,13 +1198,12 @@ end
 -- Cool Orange Baby
 PostUpdateBabies.functions[485] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
+  local gameFrameCount = g.g:GetFrameCount()
 
   if gameFrameCount % 30 == 0 then -- 1 second
     -- Spawn a random rocket target
-    local target = game:Spawn(EntityType.ENTITY_EFFECT, Isaac.GetEntityVariantByName("FetusBossTarget"), -- 1000
-                              Isaac.GetRandomPosition(), Vector(0, 0), nil, 0, 0)
+    local target = g.g:Spawn(EntityType.ENTITY_EFFECT, Isaac.GetEntityVariantByName("FetusBossTarget"), -- 1000
+                             Isaac.GetRandomPosition(), Vector(0, 0), nil, 0, 0)
     local sprite = target:GetSprite()
     sprite:Play("Blink", true)
     -- Target and rocket behavior are handled in the MC_POST_EFFECT_UPDATE callback
@@ -1296,9 +1213,8 @@ end
 -- Mern Baby
 PostUpdateBabies.functions[500] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   if g.run.babyTears.frame ~= 0 and
      gameFrameCount >= g.run.babyTears.frame then
@@ -1311,11 +1227,9 @@ end
 -- Sausage Lover Baby
 PostUpdateBabies.functions[508] = function()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local room = game:GetRoom()
-  local roomClear = room:IsClear()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local roomClear = g.r:IsClear()
+  local player = g.g:GetPlayer(0)
 
   if gameFrameCount % 150 == 0 and -- 5 seconds
      roomClear == false then -- Monstro is unavoidable if he targets you
@@ -1327,9 +1241,7 @@ end
 -- Baggy Cap Baby
 PostUpdateBabies.functions[519] = function()
   -- Local variables
-  local game = Game()
-  local room = game:GetRoom()
-  local roomClear = room:IsClear()
+  local roomClear = g.r:IsClear()
 
   -- Check all of the doors
   if roomClear then
@@ -1338,7 +1250,7 @@ PostUpdateBabies.functions[519] = function()
 
   -- Check to see if a door opened before the room was clear
   for i = 0, 7 do
-    local door = room:GetDoor(i)
+    local door = g.r:GetDoor(i)
     if door ~= nil and
        door:IsOpen() then
 
@@ -1350,9 +1262,8 @@ end
 -- Twitchy Baby
 PostUpdateBabies.functions[511] = function()
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
-  local gameFrameCount = game:GetFrameCount()
+  local gameFrameCount = g.g:GetFrameCount()
+  local player = g.g:GetPlayer(0)
   local baby = g.babies[511]
 
   if gameFrameCount >= g.run.babyFrame then
@@ -1379,10 +1290,8 @@ end
 -- Invisible Baby
 PostUpdateBabies.functions[541] = function()
   -- Local variables
-  local game = Game()
-  local room = game:GetRoom()
-  local roomFrameCount = room:GetFrameCount()
-  local player = game:GetPlayer(0)
+  local roomFrameCount = g.r:GetFrameCount()
+  local player = g.g:GetPlayer(0)
 
   if roomFrameCount == 1 then
     -- The sprite is a blank PNG, but we also want to remove the shadow

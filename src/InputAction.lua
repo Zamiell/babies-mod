@@ -6,7 +6,6 @@ local g = require("src/globals")
 -- ModCallbacks.MC_INPUT_ACTION (13)
 function InputAction:Main(entity, inputHook, buttonAction)
   -- Local variables
-  local game = Game()
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
@@ -24,7 +23,7 @@ function InputAction:Main(entity, inputHook, buttonAction)
     -- Can't shoot while moving
     -- This ability does not interact well with charged items,
     -- so don't do anything if the player has a charged item
-    local player = game:GetPlayer(0)
+    local player = g.g:GetPlayer(0)
     if player:HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) or -- 69
        player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE) or -- 114
        player:HasCollectible(CollectibleType.COLLECTIBLE_BRIMSTONE) or -- 118

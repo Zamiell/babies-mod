@@ -10,9 +10,7 @@ local g = require("src/globals")
 -- CollectibleType.COLLECTIBLE_POOP (36)
 function PreUseItem:Item36(collectibleType, RNG)
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
-  local sfx = SFXManager()
+  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil or
@@ -25,7 +23,7 @@ function PreUseItem:Item36(collectibleType, RNG)
   Isaac.GridSpawn(GridEntityType.GRID_POOP, PoopVariant.POOP_WHITE, player.Position, false) -- 14
 
   -- Playing ID 37 will randomly play one of the three farting sound effects
-  sfx:Play(SoundEffect.SOUND_FART, 1, 0, false, 1) -- 37
+  g.s:Play(SoundEffect.SOUND_FART, 1, 0, false, 1) -- 37
 
   return true -- Cancel the original effect
 end
@@ -33,8 +31,7 @@ end
 -- CollectibleType.COLLECTIBLE_LEMON_MISHAP (56)
 function PreUseItem:Item56(collectibleType, RNG)
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil or
@@ -66,8 +63,7 @@ end
 -- This callback is used naturally by Gulp! pills
 function PreUseItem:Item479(collectibleType, RNG)
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil or
@@ -91,8 +87,7 @@ end
 -- CollectibleType.COLLECTIBLE_BROWN_NUGGET (504)
 function PreUseItem:Item504(collectibleType, RNG)
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
+  local gameFrameCount = g.g:GetFrameCount()
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil or

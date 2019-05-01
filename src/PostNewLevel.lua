@@ -7,8 +7,7 @@ local PostNewRoom = require("src/postnewroom")
 -- ModCallbacks.MC_POST_NEW_LEVEL (18)
 function PostNewLevel:Main()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
+  local gameFrameCount = g.g:GetFrameCount()
 
   Isaac.DebugString("MC_POST_NEW_LEVEL (BM)")
 
@@ -23,11 +22,9 @@ end
 
 function PostNewLevel:NewLevel()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local level = game:GetLevel()
-  local stage = level:GetStage()
-  local stageType = level:GetStageType()
+  local gameFrameCount = g.g:GetFrameCount()
+  local stage = g.l:GetStage()
+  local stageType = g.l:GetStageType()
   local challenge = Isaac.GetChallenge()
 
   Isaac.DebugString("MC_POST_NEW_LEVEL2 (BM)")
@@ -65,7 +62,7 @@ function PostNewLevel:NewLevel()
   -- If we are in the R+7 Season 5 custom challenge, then all curses are disabled except for Curse of the Unknown
   -- Thus, we might naturally get this curse inside the challenge, so make sure it is disabled
   if challenge == Isaac.GetChallengeIdByName("R+7 (Season 5)") then
-    level:RemoveCurse(LevelCurse.CURSE_OF_THE_UNKNOWN, false) -- 1 << 3
+    g.l:RemoveCurse(LevelCurse.CURSE_OF_THE_UNKNOWN, false) -- 1 << 3
   end
 
   -- Set the new baby
@@ -79,11 +76,9 @@ end
 
 function PostNewLevel:RemoveOldBaby()
   -- Local variables
-  local game = Game()
-  local seeds = game:GetSeeds()
-  local player = game:GetPlayer(0)
+  local seeds = g.g:GetSeeds()
+  local player = g.g:GetPlayer(0)
   local batteryCharge = player:GetBatteryCharge()
-  local sfx = SFXManager()
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
@@ -197,7 +192,7 @@ function PostNewLevel:RemoveOldBaby()
 
       player:DischargeActiveItem()
       player:FullCharge()
-      sfx:Stop(SoundEffect.SOUND_BATTERYCHARGE) -- 170
+      g.s:Stop(SoundEffect.SOUND_BATTERYCHARGE) -- 170
     end
     if RacingPlusGlobals ~= nil and
        player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
@@ -263,9 +258,7 @@ end
 
 function PostNewLevel:GetNewBaby()
   -- Local variables
-  local game = Game()
-  local level = game:GetLevel()
-  local seed = level:GetDungeonPlacementSeed()
+  local seed = g.l:GetDungeonPlacementSeed()
 
   -- Don't get a new baby if we did not start the run as the Random Baby character
   if g.run.enabled == false then
@@ -314,10 +307,8 @@ end
 
 function PostNewLevel:IsBabyValid(type)
   -- Local variables
-  local game = Game()
-  local level = game:GetLevel()
-  local stage = level:GetStage()
-  local player = game:GetPlayer(0)
+  local stage = g.l:GetStage()
+  local player = g.g:GetPlayer(0)
   local activeItem = player:GetActiveItem()
   local maxHearts = player:GetMaxHearts()
   local soulHearts = player:GetSoulHearts()
@@ -868,13 +859,11 @@ end
 
 function PostNewLevel:ApplyNewBaby()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local seeds = game:GetSeeds()
-  local itemPool = game:GetItemPool()
-  local level = game:GetLevel()
-  local stage = level:GetStage()
-  local player = game:GetPlayer(0)
+  local gameFrameCount = g.g:GetFrameCount()
+  local seeds = g.g:GetSeeds()
+  local itemPool = g.g:GetItemPool()
+  local stage = g.l:GetStage()
+  local player = g.g:GetPlayer(0)
   local soulHearts = player:GetSoulHearts()
   local blackHearts = player:GetBlackHearts()
   local coins = player:GetNumCoins()

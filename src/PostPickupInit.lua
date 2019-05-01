@@ -7,13 +7,10 @@ local Misc = require("src/misc")
 -- ModCallbacks.MC_POST_PICKUP_INIT (34)
 function PostPickupInit:Main(pickup)
   -- Local variables
-  local game = Game()
-  local level = game:GetLevel()
-  local stage = level:GetStage()
-  local roomIndex = level:GetCurrentRoomIndex()
-  local startingRoomIndex = level:GetStartingRoomIndex()
-  local room = game:GetRoom()
-  local roomType = room:GetType()
+  local stage = g.l:GetStage()
+  local roomIndex = g.l:GetCurrentRoomIndex()
+  local startingRoomIndex = g.l:GetStartingRoomIndex()
+  local roomType = g.r:GetType()
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then

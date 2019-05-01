@@ -7,18 +7,15 @@ local Misc = require("src/misc")
 -- ModCallbacks.MC_POST_PICKUP_UPDATE (38)
 function PostPickupUpdate:Main(pickup)
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local itemPool = game:GetItemPool()
-  local level = game:GetLevel()
-  local roomIndex = level:GetCurrentRoomDesc().SafeGridIndex
+  local gameFrameCount = g.g:GetFrameCount()
+  local itemPool = g.g:GetItemPool()
+  local roomIndex = g.l:GetCurrentRoomDesc().SafeGridIndex
   if roomIndex < 0 then -- SafeGridIndex is always -1 for rooms outside the grid
-    roomIndex = level:GetCurrentRoomIndex()
+    roomIndex = g.l:GetCurrentRoomIndex()
   end
-  local room = game:GetRoom()
-  local roomType = room:GetType()
-  local firstVisit = room:IsFirstVisit()
-  local player = game:GetPlayer(0)
+  local roomType = g.r:GetType()
+  local firstVisit = g.r:IsFirstVisit()
+  local player = g.g:GetPlayer(0)
   local data = pickup:GetData()
   local sprite = pickup:GetSprite()
   local type = g.run.babyType
@@ -137,16 +134,16 @@ function PostPickupUpdate:Main(pickup)
       -- (this does not work in the MC_POST_PICKUP_SELECTION callback because
       -- the chest will not initialize properly for some reason)
       -- (this does not work in the MC_POST_PICKUP_INIT callback because the position is not initialized)
-      game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_MIMICCHEST, -- 5.54
-                 pickup.Position, pickup.Velocity, pickup.Parent, 0, pickup.InitSeed)
+      g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_MIMICCHEST, -- 5.54
+                pickup.Position, pickup.Velocity, pickup.Parent, 0, pickup.InitSeed)
       pickup:Remove()
 
     elseif pickup.Variant == PickupVariant.PICKUP_SPIKEDCHEST and -- 52
            pickup.SubType == 0 then -- SubType of 1 is closed and 0 is opened
 
       -- Replace the contents of the chest with an item
-      game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-                 pickup.Position, Vector(0, 0), nil, 0, pickup.InitSeed)
+      g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
+                pickup.Position, Vector(0, 0), nil, 0, pickup.InitSeed)
       pickup:Remove()
     end
 
@@ -198,7 +195,7 @@ function PostPickupUpdate:Main(pickup)
          pickup.Variant == PickupVariant.PICKUP_HEART and -- 10
          pickup.SubType == HeartSubType.HEART_FULL and -- 1
          pickup.Price == 3 and
-         roomIndex == level:GetStartingRoomIndex() then
+         roomIndex == g.l:GetStartingRoomIndex() then
 
     -- Delete the rerolled teleports
     pickup:Remove()
@@ -251,8 +248,8 @@ function PostPickupUpdate:Main(pickup)
       -- so delete the heart and manually create another pedestal item
       g.run.roomRNG = g:IncrementRNG(g.run.roomRNG)
       local item = itemPool:GetCollectible(ItemPoolType.POOL_DEVIL, true, g.run.roomRNG) -- 3
-      local pedestal = game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-                                  pickup.Position, Vector(0, 0), nil, item, pickup.InitSeed):ToPickup()
+      local pedestal = g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
+                                 pickup.Position, Vector(0, 0), nil, item, pickup.InitSeed):ToPickup()
 
       -- Set the price
       pedestal.AutoUpdatePrice = false
@@ -280,8 +277,8 @@ function PostPickupUpdate:Main(pickup)
 
       -- Rerolled items turn into hearts since we are not in a Devil Room,
       -- so delete the heart and manually create another pedestal item
-      local pedestal = game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-                                  pickup.Position, Vector(0, 0), nil, 0, pickup.InitSeed):ToPickup()
+      local pedestal = g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
+                                 pickup.Position, Vector(0, 0), nil, 0, pickup.InitSeed):ToPickup()
 
       -- Set the price
       pedestal.AutoUpdatePrice = false
@@ -303,10 +300,10 @@ function PostPickupUpdate:Main(pickup)
 
     -- Double items
     -- (we can't do this in the MC_POST_PICKUP_INIT callback because the position is not set)
-    local position = room:FindFreePickupSpawnPosition(pickup.Position, 1, true)
+    local position = g.r:FindFreePickupSpawnPosition(pickup.Position, 1, true)
     g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
-    local pedestal = game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-                                position, Vector(0, 0), nil, 0, g.run.randomSeed):ToPickup()
+    local pedestal = g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
+                               position, Vector(0, 0), nil, 0, g.run.randomSeed):ToPickup()
     pedestal.Price = pickup.Price -- We don't want it to automatically be bought
     pedestal.TheresOptionsPickup = pickup.TheresOptionsPickup -- We want it to keep the behavior of the room
     pedestal.State = 2 -- Mark it so that we don't duplicate it again
@@ -322,8 +319,8 @@ function PostPickupUpdate:Main(pickup)
     local velocity = player.Position - pickup.Position
     velocity:Normalize()
     velocity = velocity * 7
-    game:Spawn(EntityType.ENTITY_PROJECTILE, ProjectileVariant.PROJECTILE_NORMAL,
-               pickup.Position, velocity, pickup, 0, 0) -- 9.0
+    g.g:Spawn(EntityType.ENTITY_PROJECTILE, ProjectileVariant.PROJECTILE_NORMAL,
+              pickup.Position, velocity, pickup, 0, 0) -- 9.0
 
   elseif baby.name == "Fate's Reward" and -- 537
          roomType ~= RoomType.ROOM_SHOP and -- 2
@@ -335,8 +332,8 @@ function PostPickupUpdate:Main(pickup)
     -- Rerolled items turn into hearts
     -- so delete the heart and manually create another pedestal item
      g.run.roomRNG = g:IncrementRNG(g.run.roomRNG)
-     local pedestal = game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100.0
-                                 pickup.Position, Vector(0, 0), nil, 0, g.run.roomRNG):ToPickup()
+     local pedestal = g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100.0
+                                pickup.Position, Vector(0, 0), nil, 0, g.run.roomRNG):ToPickup()
      pedestal.Price = 15
      pickup:Remove()
   end
@@ -344,8 +341,7 @@ end
 
 function PostPickupUpdate:Touched(pickup)
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
 

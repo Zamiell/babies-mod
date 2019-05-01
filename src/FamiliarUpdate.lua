@@ -6,8 +6,7 @@ local Misc = require("src/misc")
 
 function FamiliarUpdate:Main(familiar)
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then

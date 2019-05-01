@@ -7,11 +7,9 @@ local Misc = require("src/misc")
 -- ModCallbacks.MC_POST_LASER_UPDATE (48)
 function PostLaserUpdate:Main(laser)
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
   local sprite = laser:GetSprite()
   local data = laser:GetData()
-  local sfx = SFXManager()
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
@@ -43,7 +41,7 @@ function PostLaserUpdate:Main(laser)
       laser:SetMaxDistance(75.125) -- This is the vanilla Azazel distance
 
       -- Making the laser invisible earlier also muted the sound effect, so play it manually
-      sfx:Play(SoundEffect.SOUND_BLOOD_LASER_LARGE, 0.75, 0, false, 1) -- 7
+      g.s:Play(SoundEffect.SOUND_BLOOD_LASER_LARGE, 0.75, 0, false, 1) -- 7
       -- (Azazel brimstone is the "large" sound effect instead of the normal one for some reason)
       -- (a volume of 1 is a bit too loud)
     end

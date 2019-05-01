@@ -42,9 +42,7 @@ end
 
 function NPCUpdate:Baby514(npc)
   -- Local variables
-  local game = Game()
-  local room = game:GetRoom()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
 
   -- Doubling certain enemies leads to bugs
   if npc.Type == EntityType.ENTITY_CHUB or -- 28
@@ -72,9 +70,9 @@ function NPCUpdate:Baby514(npc)
 
   if g.run.babyBool == false then
     g.run.babyBool = true
-    local position = room:FindFreePickupSpawnPosition(npc.Position, 1, true)
+    local position = g.r:FindFreePickupSpawnPosition(npc.Position, 1, true)
     if g:InsideSquare(position, player.Position, 15) == false then
-      local newNPC = game:Spawn(npc.Type, npc.Variant, position, npc.Velocity, npc, npc.SubType, npc.InitSeed)
+      local newNPC = g.g:Spawn(npc.Type, npc.Variant, position, npc.Velocity, npc, npc.SubType, npc.InitSeed)
       newNPC:GetData().duplicated = true
     end
     g.run.babyBool = false

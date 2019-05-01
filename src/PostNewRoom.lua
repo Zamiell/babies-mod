@@ -7,11 +7,9 @@ local PostRender = require("src/postrender")
 -- ModCallbacks.MC_POST_NEW_ROOM (19)
 function PostNewRoom:Main()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local level = game:GetLevel()
-  local stage = level:GetStage()
-  local stageType = level:GetStageType()
+  local gameFrameCount = g.g:GetFrameCount()
+  local stage = g.l:GetStage()
+  local stageType = g.l:GetStageType()
 
   Isaac.DebugString("MC_POST_NEW_ROOM (BM)")
 
@@ -29,16 +27,13 @@ end
 
 function PostNewRoom:NewRoom()
   -- Local variabbles
-  local game = Game()
-  local level = game:GetLevel()
-  local roomIndex = level:GetCurrentRoomDesc().SafeGridIndex
+  local roomIndex = g.l:GetCurrentRoomDesc().SafeGridIndex
   if roomIndex < 0 then -- SafeGridIndex is always -1 for rooms outside the grid
-    roomIndex = level:GetCurrentRoomIndex()
+    roomIndex = g.l:GetCurrentRoomIndex()
   end
-  local startingRoomIndex = level:GetStartingRoomIndex()
-  local room = game:GetRoom()
-  local roomClear = room:IsClear()
-  local roomSeed = room:GetSpawnSeed()
+  local startingRoomIndex = g.l:GetStartingRoomIndex()
+  local roomClear = g.r:IsClear()
+  local roomSeed = g.r:GetSpawnSeed()
 
   Isaac.DebugString("MC_POST_NEW_ROOM2 (BM)")
 
@@ -88,23 +83,20 @@ end
 
 function PostNewRoom:ApplyTemporaryEffects()
   -- Local variables
-  local game = Game()
-  local itemPool = game:GetItemPool()
-  local seeds = game:GetSeeds()
-  local level = game:GetLevel()
-  local rooms = level:GetRooms()
-  local roomIndex = level:GetCurrentRoomDesc().SafeGridIndex
+  local itemPool = g.g:GetItemPool()
+  local seeds = g.g:GetSeeds()
+  local rooms = g.l:GetRooms()
+  local roomIndex = g.l:GetCurrentRoomDesc().SafeGridIndex
   if roomIndex < 0 then -- SafeGridIndex is always -1 for rooms outside the grid
-    roomIndex = level:GetCurrentRoomIndex()
+    roomIndex = g.l:GetCurrentRoomIndex()
   end
-  local startingRoomIndex = level:GetStartingRoomIndex()
-  local roomDesc = level:GetCurrentRoomDesc()
+  local startingRoomIndex = g.l:GetStartingRoomIndex()
+  local roomDesc = g.l:GetCurrentRoomDesc()
   local roomVariant = roomDesc.Data.Variant
-  local room = game:GetRoom()
-  local roomType = room:GetType()
-  local roomFirstVisit = room:IsFirstVisit()
-  local roomClear = room:IsClear()
-  local player = game:GetPlayer(0)
+  local roomType = g.r:GetType()
+  local roomFirstVisit = g.r:IsFirstVisit()
+  local roomClear = g.r:IsClear()
+  local player = g.g:GetPlayer(0)
   local maxHearts = player:GetMaxHearts()
   local effects = player:GetEffects()
   local type = g.run.babyType
@@ -122,9 +114,9 @@ function PostNewRoom:ApplyTemporaryEffects()
      (roomType == RoomType.ROOM_DEVIL or -- 14
       roomType == RoomType.ROOM_ANGEL) then -- 15
 
-    level.LeaveDoor = -1 -- You have to set this before every teleport or else it will send you to the wrong room
-    game:StartRoomTransition(GridRooms.ROOM_BLACK_MARKET_IDX, Direction.NO_DIRECTION, -- -6, -1
-                             RoomTransition.TRANSITION_NONE) -- 0
+    g.l.LeaveDoor = -1 -- You have to set this before every teleport or else it will send you to the wrong room
+    g.g:StartRoomTransition(GridRooms.ROOM_BLACK_MARKET_IDX, Direction.NO_DIRECTION, -- -6, -1
+                            RoomTransition.TRANSITION_NONE) -- 0
 
   elseif baby.name == "Glass Baby" then -- 14
     -- Spawn a laser ring around the player
@@ -140,7 +132,7 @@ function PostNewRoom:ApplyTemporaryEffects()
     data.ring = true
 
   elseif baby.name == "Gold Baby" then -- 15
-    room:TurnGold()
+    g.r:TurnGold()
 
   elseif baby.name == "Blue Baby" then -- 30
     -- Sprinkler tears
@@ -168,7 +160,7 @@ function PostNewRoom:ApplyTemporaryEffects()
     -- If the player leaves and re-enters an uncleared room, a normal door will stay locked
     -- So, unlock all normal doors if the room is already clear
     for i = 0, 7 do
-      local door = room:GetDoor(i)
+      local door = g.r:GetDoor(i)
       if door ~= nil and
          door.TargetRoomType == RoomType.ROOM_DEFAULT and -- 1
          door:IsLocked() then
@@ -183,11 +175,11 @@ function PostNewRoom:ApplyTemporaryEffects()
 
     -- Improved Secret Rooms
     for i = 1, 4 do
-      local center = room:GetCenterPos()
-      local position = room:FindFreePickupSpawnPosition(center, 1, true)
+      local center = g.r:GetCenterPos()
+      local position = g.r:FindFreePickupSpawnPosition(center, 1, true)
       g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
-      game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-                 position, Vector(0, 0), nil, 0, g.run.randomSeed)
+      g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
+                position, Vector(0, 0), nil, 0, g.run.randomSeed)
     end
 
   elseif baby.name == "Lost Baby" or -- 10
@@ -207,9 +199,9 @@ function PostNewRoom:ApplyTemporaryEffects()
         roomVariant ~= 2305 and -- Krampus
         roomVariant ~= 2306) then -- Krampus
 
-      level:RemoveCurse(LevelCurse.CURSE_OF_THE_UNKNOWN, false) -- 1 << 3
+      g.l:RemoveCurse(LevelCurse.CURSE_OF_THE_UNKNOWN, false) -- 1 << 3
     else
-      level:AddCurse(LevelCurse.CURSE_OF_THE_UNKNOWN, false) -- 1 << 3
+      g.l:AddCurse(LevelCurse.CURSE_OF_THE_UNKNOWN, false) -- 1 << 3
     end
 
   elseif baby.name == "Twin Baby" and -- 141
@@ -232,11 +224,11 @@ function PostNewRoom:ApplyTemporaryEffects()
 
     -- Improved Super Secret Rooms
     for i = 1, 5 do
-      local center = room:GetCenterPos()
-      local position = room:FindFreePickupSpawnPosition(center, 1, true)
+      local center = g.r:GetCenterPos()
+      local position = g.r:FindFreePickupSpawnPosition(center, 1, true)
       g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
-      game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-                 position, Vector(0, 0), nil, 0, g.run.randomSeed)
+      g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
+                position, Vector(0, 0), nil, 0, g.run.randomSeed)
       end
 
   elseif baby.name == "Spelunker Baby" and -- 181
@@ -244,9 +236,9 @@ function PostNewRoom:ApplyTemporaryEffects()
          g.run.lastRoomIndex ~= GridRooms.ROOM_BLACK_MARKET_IDX then -- -6
          -- (we want to be able to backtrack from a Black Market to a Crawlspace)
 
-    level.LeaveDoor = -1 -- You have to set this before every teleport or else it will send you to the wrong room
-    game:StartRoomTransition(GridRooms.ROOM_BLACK_MARKET_IDX, Direction.NO_DIRECTION, -- -6, -1
-                             RoomTransition.TRANSITION_NONE) -- 0
+    g.l.LeaveDoor = -1 -- You have to set this before every teleport or else it will send you to the wrong room
+    g.g:StartRoomTransition(GridRooms.ROOM_BLACK_MARKET_IDX, Direction.NO_DIRECTION, -- -6, -1
+                            RoomTransition.TRANSITION_NONE) -- 0
 
   elseif baby.name == "Fancy Baby" and -- 216
          roomIndex == startingRoomIndex and
@@ -319,8 +311,8 @@ function PostNewRoom:ApplyTemporaryEffects()
         end
         local xy = positions[positionIndex]
         local position = g:GridToPos(xy[1], xy[2])
-        local pedestal = game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-                                    position, Vector(0, 0), nil, itemID, g.run.roomRNG):ToPickup()
+        local pedestal = g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
+                                   position, Vector(0, 0), nil, itemID, g.run.roomRNG):ToPickup()
         pedestal.AutoUpdatePrice = false
         pedestal.Price = price
       end
@@ -347,8 +339,8 @@ function PostNewRoom:ApplyTemporaryEffects()
          npc.Type ~= EntityType.ENTITY_FIREPLACE then -- 33
          -- Make an exception for fires
 
-        game:Spawn(g.run.babyNPC.type, g.run.babyNPC.variant,
-                   npc.Position, npc.Velocity, nil, g.run.babyNPC.subType, npc.InitSeed)
+        g.g:Spawn(g.run.babyNPC.type, g.run.babyNPC.variant,
+                  npc.Position, npc.Velocity, nil, g.run.babyNPC.subType, npc.InitSeed)
         npc:Remove()
       end
     end
@@ -364,8 +356,8 @@ function PostNewRoom:ApplyTemporaryEffects()
       local thisRoomType = thisRoomData.Type
       if thisRoomType == RoomType.ROOM_SUPERSECRET then -- 8
         -- Teleport to the Super Secret Room
-        level.LeaveDoor = -1 -- You have to set this before every teleport or else it will send you to the wrong room
-        game:StartRoomTransition(index, Direction.NO_DIRECTION, RoomTransition.TRANSITION_TELEPORT) -- -1, 3
+        g.l.LeaveDoor = -1 -- You have to set this before every teleport or else it will send you to the wrong room
+        g.g:StartRoomTransition(index, Direction.NO_DIRECTION, RoomTransition.TRANSITION_TELEPORT) -- -1, 3
         break
       end
     end
@@ -389,8 +381,8 @@ function PostNewRoom:ApplyTemporaryEffects()
     g.run.roomRNG = g:IncrementRNG(g.run.roomRNG)
     local item = itemPool:GetCollectible(ItemPoolType.POOL_DEVIL, true, g.run.roomRNG) -- 3
     local position = g:GridToPos(6, 4)
-    local pedestal = game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-                                position, Vector(0, 0), nil, item, g.run.roomRNG):ToPickup()
+    local pedestal = g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
+                               position, Vector(0, 0), nil, item, g.run.roomRNG):ToPickup()
     pedestal.AutoUpdatePrice = false
 
     -- Find out how this item should be priced
@@ -402,7 +394,7 @@ function PostNewRoom:ApplyTemporaryEffects()
     -- (the price will also be set on every frame in the MC_POST_PICKUP_INIT callback)
 
     -- Spawn the Devil Statue
-    room:SpawnGridEntity(52, GridEntityType.GRID_STATUE, 0, 0, 0) -- 21
+    g.r:SpawnGridEntity(52, GridEntityType.GRID_STATUE, 0, 0, 0) -- 21
 
     -- Spawn the two fires
     for i = 1, 2 do
@@ -413,7 +405,7 @@ function PostNewRoom:ApplyTemporaryEffects()
         pos = g:GridToPos(9, 1)
       end
       g.run.roomRNG = g:IncrementRNG(g.run.roomRNG)
-      game:Spawn(EntityType.ENTITY_FIREPLACE, 0, pos, Vector(0, 0), nil, 0, g.run.roomRNG) -- 33
+      g.g:Spawn(EntityType.ENTITY_FIREPLACE, 0, pos, Vector(0, 0), nil, 0, g.run.roomRNG) -- 33
     end
 
   elseif baby.name == "Woodsman Baby" and -- 297
@@ -421,7 +413,7 @@ function PostNewRoom:ApplyTemporaryEffects()
 
     -- Open all of the doors
     for i = 0, 7 do
-      local door = room:GetDoor(i)
+      local door = g.r:GetDoor(i)
       if door ~= nil then
         door:Open(true)
       end
@@ -446,7 +438,7 @@ function PostNewRoom:ApplyTemporaryEffects()
     -- If the player leaves and re-enters an uncleared room, a normal door will stay locked
     -- So, unlock all normal doors if the room is already clear
     for i = 0, 7 do
-      local door = room:GetDoor(i)
+      local door = g.r:GetDoor(i)
       if door ~= nil and
          door.TargetRoomType == RoomType.ROOM_DEFAULT and -- 1
          door:IsLocked() then

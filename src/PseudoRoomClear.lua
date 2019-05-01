@@ -5,11 +5,9 @@ local g = require("src/globals")
 
 function PseudoRoomClear:PostUpdate()
   -- Local variables
-  local game = Game()
-  local room = game:GetRoom()
-  local roomType = room:GetType()
-  local roomFrameCount = room:GetFrameCount()
-  local roomClear = room:IsClear()
+  local roomType = g.r:GetType()
+  local roomFrameCount = g.r:GetFrameCount()
+  local roomClear = g.r:IsClear()
 
   -- Don't have this ability work in certain room types
   if roomType == RoomType.ROOM_BOSS or -- 5
@@ -42,15 +40,13 @@ end
 
 function PseudoRoomClear:InitializeDoors()
   -- Local variables
-  local game = Game()
-  local room = game:GetRoom()
   local type = g.run.babyType
   local baby = g.babies[type]
 
-  room:SetClear(true)
+  g.r:SetClear(true)
   g.run.roomPseudoClear = false
   for i = 0, 7 do
-    local door = room:GetDoor(i)
+    local door = g.r:GetDoor(i)
     if door ~= nil and
        (door.TargetRoomType == RoomType.ROOM_DEFAULT or -- 0
         door.TargetRoomType == RoomType.ROOM_MINIBOSS or -- 6
@@ -75,8 +71,7 @@ end
 
 function PseudoRoomClear:CheckPseudoClear()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
+  local gameFrameCount = g.g:GetFrameCount()
 
   -- Don't do anything if the room is already cleared
   if g.run.roomPseudoClear then
@@ -140,21 +135,17 @@ function PseudoRoomClear:AttachedNPC(npc)
 end
 
 function PseudoRoomClear:CheckAllPressurePlatesPushed()
-  -- Local variables
-  local game = Game()
-  local room = game:GetRoom()
-
   -- If we are in a puzzle room, check to see if all of the plates have been pressed
-  if room:HasTriggerPressurePlates() == false or
+  if g.r:HasTriggerPressurePlates() == false or
      g.run.roomButtonsPushed then
 
     return true
   end
 
   -- Check all the grid entities in the room
-  local num = room:GetGridSize()
+  local num = g.r:GetGridSize()
   for i = 1, num do
-    local gridEntity = room:GetGridEntity(i)
+    local gridEntity = g.r:GetGridEntity(i)
     if gridEntity ~= nil then
       local saveState = gridEntity:GetSaveState();
       if saveState.Type == GridEntityType.GRID_PRESSURE_PLATE and -- 20
@@ -172,9 +163,6 @@ end
 -- This roughly emulates what happens when you normally clear a room
 function PseudoRoomClear:ClearRoom()
   -- Local variables
-  local game = Game()
-  local room = game:GetRoom()
-  local sfx = SFXManager()
   local type = g.run.babyType
   local baby = g.babies[type]
 
@@ -182,12 +170,12 @@ function PseudoRoomClear:ClearRoom()
   Isaac.DebugString("Room is now pseudo-cleared.")
 
   -- This takes into account their luck and so forth
-  room:SpawnClearAward()
+  g.r:SpawnClearAward()
 
   -- Reset all of the doors that we previously modified
   for i = 1, #g.run.roomDoorsModified do
     local doorNum = g.run.roomDoorsModified[i]
-    local door = room:GetDoor(doorNum)
+    local door = g.r:GetDoor(doorNum)
 
     if baby.name == "Black Baby" then -- 27
       door:SetRoomTypes(door.CurrentRoomType, RoomType.ROOM_DEFAULT) -- 1
@@ -200,7 +188,7 @@ function PseudoRoomClear:ClearRoom()
 
   -- Give a charge to the player's active item
   -- (and handle co-op players, if present)
-  for i = 1, game:GetNumPlayers() do
+  for i = 1, g.g:GetNumPlayers() do
     local player = Isaac.GetPlayer(i - 1)
     local activeItem = player:GetActiveItem()
     local activeCharge = player:GetActiveCharge()
@@ -209,7 +197,7 @@ function PseudoRoomClear:ClearRoom()
     if player:NeedsCharge() == true then
       -- Find out if we are in a 2x2 or L room
       local chargesToAdd = 1
-      local shape = room:GetRoomShape()
+      local shape = g.r:GetRoomShape()
       if shape >= 8 then
         -- L rooms and 2x2 rooms should grant 2 charges
         chargesToAdd = 2
@@ -235,8 +223,8 @@ function PseudoRoomClear:ClearRoom()
   end
 
   -- Play the sound effect for the doors opening
-  if room:GetType() ~= RoomType.ROOM_DUNGEON then -- 16
-    sfx:Play(SoundEffect.SOUND_DOOR_HEAVY_OPEN, 1, 0, false, 1) -- 36
+  if g.r:GetType() ~= RoomType.ROOM_DUNGEON then -- 16
+    g.s:Play(SoundEffect.SOUND_DOOR_HEAVY_OPEN, 1, 0, false, 1) -- 36
   end
 end
 

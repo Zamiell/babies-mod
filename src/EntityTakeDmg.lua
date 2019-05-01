@@ -31,11 +31,8 @@ end
 
 function EntityTakeDmg:Entity(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Local variables (2)
-  local game = Game()
-  local level = game:GetLevel()
-  local stage = level:GetStage()
-  local player = game:GetPlayer(0)
-  local sfx = SFXManager()
+  local stage = g.l:GetStage()
+  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
 
@@ -90,7 +87,7 @@ function EntityTakeDmg:Entity(entity, damageAmount, damageFlag, damageSource, da
          damageSource.Entity.SubType == 1 then
 
     -- Play a random punching-related sound effect
-    sfx:Play(Isaac.GetSoundIdByName("Fist"), 1, 0, false, 1) -- 37
+    g.s:Play(Isaac.GetSoundIdByName("Fist"), 1, 0, false, 1) -- 37
 
     -- Give the tear extra knockback
     -- ("damageSource.Velocity" doesn't exist, so we have to find it manually)
@@ -121,8 +118,8 @@ function EntityTakeDmg:Entity(entity, damageAmount, damageFlag, damageSource, da
     math.randomseed(damageSource.Entity.InitSeed)
     local chance = math.random(1, 100)
     if chance <= 5 then
-      game:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BLACK_HOLE, -- 107
-                 damageSource.Position, damageSource.Entity.Velocity, nil, 0, 0)
+      g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BLACK_HOLE, -- 107
+                damageSource.Position, damageSource.Entity.Velocity, nil, 0, 0)
     end
 
   elseif baby.name == "Tooth Head Baby" and -- 442

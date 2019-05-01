@@ -9,8 +9,7 @@ local PostUpdateBabies = require("src/postupdatebabies")
 -- ModCallbacks.MC_POST_UPDATE (1)
 function PostUpdate:Main()
   -- Local variables
-  local game = Game()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
@@ -101,9 +100,7 @@ end
 -- Check to see if this is a trinket baby and they dropped the trinket
 function PostUpdate:CheckTrinket()
   -- Local variables
-  local game = Game()
-  local room = game:GetRoom()
-  local player = game:GetPlayer(0)
+  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
 
@@ -130,7 +127,7 @@ function PostUpdate:CheckTrinket()
     entities[1]:Remove()
 
     -- Give it back
-    local position = room:FindFreePickupSpawnPosition(player.Position, 1, true)
+    local position = g.r:FindFreePickupSpawnPosition(player.Position, 1, true)
     player:DropTrinket(position, true) -- This will do nothing if the player does not currently have a trinket
     player:AddTrinket(baby.trinket)
     -- (we can't cancel the animation or it will cause the bug where the player cannot pick up pedestal items)
@@ -147,10 +144,10 @@ function PostUpdate:CheckTrinket()
   if baby.name == "Squirrel Baby" then -- 268
     -- The Walnut broke, so spawn additional items
     for i = 1, 5 do
-      local position = room:FindFreePickupSpawnPosition(player.Position, 1, true)
+      local position = g.r:FindFreePickupSpawnPosition(player.Position, 1, true)
       g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
-      game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-                 position, Vector(0, 0), nil, 0, g.run.randomSeed)
+      g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
+                position, Vector(0, 0), nil, 0, g.run.randomSeed)
     end
   end
 end
@@ -158,9 +155,7 @@ end
 -- Certain babies do things if the room is cleared
 function PostUpdate:CheckRoomCleared()
   -- Local variables
-  local game = Game()
-  local room = game:GetRoom()
-  local roomClear = room:IsClear()
+  local roomClear = g.r:IsClear()
 
   -- Check the clear status of the room and compare it to what it was a frame ago
   if roomClear == g.run.roomClear then
@@ -178,11 +173,9 @@ end
 
 function PostUpdate:RoomCleared()
   -- Local variables
-  local game = Game()
-  local room = game:GetRoom()
-  local roomType = room:GetType()
-  local roomSeed = room:GetSpawnSeed() -- Gets a reproducible seed based on the room, something like "2496979501"
-  local player = game:GetPlayer(0)
+  local roomType = g.r:GetType()
+  local roomSeed = g.r:GetSpawnSeed() -- Gets a reproducible seed based on the room, something like "2496979501"
+  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
 
@@ -190,14 +183,14 @@ function PostUpdate:RoomCleared()
 
   if baby.name == "Love Baby" then -- 1
     -- Random Heart - 5.10.0
-    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, player.Position, Vector(0, 0), player, 0, roomSeed)
+    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, player.Position, Vector(0, 0), player, 0, roomSeed)
 
   elseif baby.name == "Bandaid Baby" and -- 88
          roomType ~= RoomType.ROOM_BOSS then -- 5
 
     -- Random collectible - 5.100.0
-    local position = room:FindFreePickupSpawnPosition(player.Position, 1, true)
-    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, position, Vector(0, 0), player, 0, roomSeed)
+    local position = g.r:FindFreePickupSpawnPosition(player.Position, 1, true)
+    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, position, Vector(0, 0), player, 0, roomSeed)
 
   elseif baby.name == "Jammies Baby" then -- 192
     -- Extra charge per room cleared
@@ -208,17 +201,15 @@ function PostUpdate:RoomCleared()
 
   elseif baby.name == "Fishman Baby" then -- 384
     -- Random Bomb - 5.40.0
-    game:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, player.Position, Vector(0, 0), player, 0, roomSeed)
+    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, player.Position, Vector(0, 0), player, 0, roomSeed)
   end
 end
 
 -- On certain babies, destroy all poops and TNT barrels after a certain amount of time
 function PostUpdate:CheckSoftlock()
   -- Local variables
-  local game = Game()
-  local room = game:GetRoom()
-  local roomFrameCount = room:GetFrameCount()
-  local gridSize = room:GetGridSize()
+  local roomFrameCount = g.r:GetFrameCount()
+  local gridSize = g.r:GetGridSize()
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
@@ -246,7 +237,7 @@ function PostUpdate:CheckSoftlock()
   -- Kill all poops in the room to prevent softlocks in specific rooms
   -- (Fireplaces will not cause softlocks since they are killable with The Candle)
   for i = 1, gridSize do
-    local gridEntity = room:GetGridEntity(i)
+    local gridEntity = g.r:GetGridEntity(i)
     if gridEntity ~= nil then
       local saveState = gridEntity:GetSaveState()
       if saveState.Type == GridEntityType.GRID_TNT or -- 12
@@ -262,9 +253,7 @@ end
 -- On certain babies, open the doors after 30 seconds to prevent softlocks with Hosts and island enemies
 function PostUpdate:CheckSoftlock2()
   -- Local variables
-  local game = Game()
-  local room = game:GetRoom()
-  local roomFrameCount = room:GetFrameCount()
+  local roomFrameCount = g.r:GetFrameCount()
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
@@ -287,11 +276,11 @@ function PostUpdate:CheckSoftlock2()
   end
 
   g.run.roomSoftlock = true
-  room:SetClear(true)
+  g.r:SetClear(true)
 
   -- Open the doors
   for i = 0, 7 do
-    local door = room:GetDoor(i)
+    local door = g.r:GetDoor(i)
     if door ~= nil then
       door:Open()
     end
@@ -300,21 +289,18 @@ end
 
 function PostUpdate:CheckGridEntities()
   -- Local variables
-  local game = Game()
-  local gameFrameCount = game:GetFrameCount()
-  local level = game:GetLevel()
-  local roomIndex = level:GetCurrentRoomDesc().SafeGridIndex
+  local gameFrameCount = g.g:GetFrameCount()
+  local roomIndex = g.l:GetCurrentRoomDesc().SafeGridIndex
   if roomIndex < 0 then -- SafeGridIndex is always -1 for rooms outside the grid
-    roomIndex = level:GetCurrentRoomIndex()
+    roomIndex = g.l:GetCurrentRoomIndex()
   end
-  local room = game:GetRoom()
-  local gridSize = room:GetGridSize()
-  local player = game:GetPlayer(0)
+  local gridSize = g.r:GetGridSize()
+  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
 
   for i = 1, gridSize do
-    local gridEntity = room:GetGridEntity(i)
+    local gridEntity = g.r:GetGridEntity(i)
     if gridEntity ~= nil then
       local saveState = gridEntity:GetSaveState()
       if baby.name == "Gold Baby" and -- 15
@@ -376,9 +362,8 @@ end
 
 function PostUpdate:CheckTrapdoor()
   -- Local variables
-  local game = Game()
-  local seeds = game:GetSeeds()
-  local player = game:GetPlayer(0)
+  local seeds = g.g:GetSeeds()
+  local player = g.g:GetPlayer(0)
   local playerSprite = player:GetSprite()
   local type = g.run.babyType
   local baby = g.babies[type]

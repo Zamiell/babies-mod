@@ -17,11 +17,15 @@ g.pastBabies = {}
 -- Used for testing specific babies
 g.debug = 0
 
+-- Cached API functions
+g.g = Game()
+g.l = g.g:GetLevel()
+g.r = g.g:GetRoom()
+g.s = SFXManager()
+
 function g:InitRun()
   -- Local variables
-  local game = Game()
-  local level = game:GetLevel()
-  local levelSeed = level:GetDungeonPlacementSeed()
+  local levelSeed = g.l:GetDungeonPlacementSeed()
 
   -- Reset some variables to defaults
   g.run = {
@@ -135,11 +139,9 @@ function g:InsideSquare(pos1, pos2, squareSize)
 end
 
 function g:GridToPos(x, y)
-  local game = Game()
-  local room = game:GetRoom()
   x = x + 1
   y = y + 1
-  return room:GetGridPosition(y * room:GetGridWidth() + x)
+  return g.r:GetGridPosition(y * g.r:GetGridWidth() + x)
 end
 
 --
