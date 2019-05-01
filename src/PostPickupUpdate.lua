@@ -15,7 +15,6 @@ function PostPickupUpdate:Main(pickup)
   end
   local roomType = g.r:GetType()
   local firstVisit = g.r:IsFirstVisit()
-  local player = g.g:GetPlayer(0)
   local data = pickup:GetData()
   local sprite = pickup:GetSprite()
   local type = g.run.babyType
@@ -48,8 +47,8 @@ function PostPickupUpdate:Main(pickup)
      pickup.Variant == PickupVariant.PICKUP_TRINKET and -- 350
      pickup.SubType ~= baby.trinket and -- We don't want to replace a dropped trinket
      pickup.FrameCount == 1 and -- Frame 0 does not work
-     player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_PURSE) == false and -- 139
-     player:HasCollectible(CollectibleType.COLLECTIBLE_BELLY_BUTTON) == false then -- 458
+     g.p:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_PURSE) == false and -- 139
+     g.p:HasCollectible(CollectibleType.COLLECTIBLE_BELLY_BUTTON) == false then -- 458
 
     Misc:SpawnRandomPickup(pickup.Position, pickup.Velocity, true) -- The third argument is "noItems"
     pickup:Remove()
@@ -81,7 +80,7 @@ function PostPickupUpdate:Main(pickup)
     for i = 1, 3 do
       -- We want to space out the spiders so that you can see each individual one
       local position = Vector(pickup.Position.X + 15 * i, pickup.Position.X + 15 * i)
-      player:ThrowBlueSpider(position, player.Position)
+      g.p:ThrowBlueSpider(position, g.p.Position)
     end
 
   elseif baby.name == "No Arms Baby" and -- 140
@@ -97,9 +96,9 @@ function PostPickupUpdate:Main(pickup)
     end
 
     -- Make it bounce off the player if they get too close
-    if g:InsideSquare(player.Position, pickup.Position, 25) then
-      local x = pickup.Position.X - player.Position.X
-      local y = pickup.Position.Y - player.Position.Y
+    if g:InsideSquare(g.p.Position, pickup.Position, 25) then
+      local x = pickup.Position.X - g.p.Position.X
+      local y = pickup.Position.Y - g.p.Position.Y
       pickup.Velocity = Vector(x / 2, y / 2)
     end
 
@@ -110,10 +109,10 @@ function PostPickupUpdate:Main(pickup)
          pickup.Variant ~= PickupVariant.PICKUP_TROPHY and -- 370
          pickup.Variant ~= PickupVariant.PICKUP_BED and -- 380
          pickup.Price == 0 and -- We don't want it to affect shop items
-         g:InsideSquare(pickup.Position, player.Position, 80) then
+         g:InsideSquare(pickup.Position, g.p.Position, 80) then
 
     -- Scared pickups
-    local velocity = pickup.Position - player.Position
+    local velocity = pickup.Position - g.p.Position
     velocity:Normalize()
     velocity = velocity * 8
     pickup.Velocity = velocity
@@ -159,9 +158,9 @@ function PostPickupUpdate:Main(pickup)
       end
 
       -- Make it bounce off the player if they get too close
-      if g:InsideSquare(player.Position, pickup.Position, 25) then
-        local x = pickup.Position.X - player.Position.X
-        local y = pickup.Position.Y - player.Position.Y
+      if g:InsideSquare(g.p.Position, pickup.Position, 25) then
+        local x = pickup.Position.X - g.p.Position.X
+        local y = pickup.Position.Y - g.p.Position.Y
         pickup.Velocity = Vector(x / 2, y / 2)
       end
 
@@ -316,7 +315,7 @@ function PostPickupUpdate:Main(pickup)
          pickup.FrameCount % 35 == 0 and -- Every 1.17 seconds
          sprite:IsPlaying("Collect") == false then -- Don't shoot if we already picked it up
 
-    local velocity = player.Position - pickup.Position
+    local velocity = g.p.Position - pickup.Position
     velocity:Normalize()
     velocity = velocity * 7
     g.g:Spawn(EntityType.ENTITY_PROJECTILE, ProjectileVariant.PROJECTILE_NORMAL,
@@ -341,33 +340,32 @@ end
 
 function PostPickupUpdate:Touched(pickup)
   -- Local variables
-  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
 
   if baby.name == "Cute Baby" then -- 11
     -- -1 damage per pickup taken
     g.run.babyCounters = g.run.babyCounters + 1
-    player:AddCacheFlags(CacheFlag.CACHE_DAMAGE) -- 1
-    player:EvaluateItems()
+    g.p:AddCacheFlags(CacheFlag.CACHE_DAMAGE) -- 1
+    g.p:EvaluateItems()
 
   elseif baby.name == "Bluebird Baby" then -- 147
     -- Touching pickups causes paralysis (2/2)
-    player:UsePill(PillEffect.PILLEFFECT_PARALYSIS, PillColor.PILL_NULL) -- 22, 0
+    g.p:UsePill(PillEffect.PILLEFFECT_PARALYSIS, PillColor.PILL_NULL) -- 22, 0
 
   elseif baby.name == "Worry Baby" then -- 167
     -- Touching pickups causes teleportation (2/2)
-    player:UseActiveItem(CollectibleType.COLLECTIBLE_TELEPORT, false, false, false, false) -- 44
+    g.p:UseActiveItem(CollectibleType.COLLECTIBLE_TELEPORT, false, false, false, false) -- 44
 
   elseif baby.name == "Corrupted Baby" then -- 307
     -- Touching items/pickups causes damage (2/2)
-    player:TakeDamage(1, 0, EntityRef(player), 0)
+    g.p:TakeDamage(1, 0, EntityRef(g.p), 0)
 
   elseif baby.name == "Robbermask Baby" then -- 473
     -- Touching pickups gives extra damage
     g.run.babyCounters = g.run.babyCounters + 1
-    player:AddCacheFlags(CacheFlag.CACHE_DAMAGE) -- 1
-    player:EvaluateItems()
+    g.p:AddCacheFlags(CacheFlag.CACHE_DAMAGE) -- 1
+    g.p:EvaluateItems()
   end
 end
 

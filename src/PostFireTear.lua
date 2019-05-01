@@ -9,7 +9,6 @@ function PostFireTear:Main(tear)
   local gameFrameCount = g.g:GetFrameCount()
   local roomFrameCount = g.r:GetFrameCount()
   local roomShape = g.r:GetRoomShape()
-  local player = g.g:GetPlayer(0)
   local data = tear:GetData()
   local type = g.run.babyType
   local baby = g.babies[type]
@@ -50,7 +49,7 @@ function PostFireTear:Main(tear)
     local rotation = math.random(1, 359)
     local vel = tear.Velocity:Rotated(rotation)
     g.run.babyBool = true
-    player:FireTear(player.Position, vel, false, true, false)
+    g.p:FireTear(g.p.Position, vel, false, true, false)
     g.run.babyBool = false
 
   elseif baby.name == "Mag Baby" then -- 18
@@ -59,7 +58,7 @@ function PostFireTear:Main(tear)
 
   elseif baby.name == "Blue Baby" then -- 30
     -- Sprinkler tears need to originate at the player
-    tear.Position = player.Position
+    tear.Position = g.p.Position
 
   elseif baby.name == "Long Baby" then -- 34
     tear.TearFlags = tear.TearFlags | TearFlags.TEAR_FLAT -- 1 << 27
@@ -77,7 +76,7 @@ function PostFireTear:Main(tear)
 
   elseif baby.name == "Big Eyes Baby" then -- 59
     -- Tears cause self-knockback
-    player.Velocity = player.Velocity + (tear.Velocity * -0.75)
+    g.p.Velocity = g.p.Velocity + (tear.Velocity * -0.75)
 
   elseif baby.name == "Mustache Baby" then -- 66
     -- Boomerang tears
@@ -91,7 +90,7 @@ function PostFireTear:Main(tear)
     tear:ChangeVariant(TearVariant.BALLOON) -- 35
 
   elseif baby.name == "Scream Baby" then -- 81
-    player:UseActiveItem(CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP, false, false, false, false) -- 49
+    g.p:UseActiveItem(CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP, false, false, false, false) -- 49
     tear:Remove()
 
   elseif baby.name == "Square Eyes Baby" then -- 94
@@ -107,7 +106,7 @@ function PostFireTear:Main(tear)
     g.run.babyCounters = g.run.babyCounters + 45
     if g.run.babyCounters < 360 then
       local vel = tear.Velocity:Rotated(g.run.babyCounters)
-      player:FireTear(player.Position, vel, false, true, false)
+      g.p:FireTear(g.p.Position, vel, false, true, false)
     else
       g.run.babyCounters = 0
     end
@@ -123,7 +122,7 @@ function PostFireTear:Main(tear)
     end
 
   elseif baby.name == "V Baby" then -- 113
-    player:FireTechXLaser(tear.Position, tear.Velocity, 5)
+    g.p:FireTechXLaser(tear.Position, tear.Velocity, 5)
     tear:Remove()
 
   elseif baby.name == "Strange Mouth Baby" then -- 114
@@ -160,7 +159,7 @@ function PostFireTear:Main(tear)
     tear:SetColor(Color(0, 0, 2, 0.7, 1, 1, 1), 10000, 10000, false, false) -- Blue
 
   elseif baby.name == "Nice Baby" then -- 197
-    player:FireBrimstone(tear.Velocity)
+    g.p:FireBrimstone(tear.Velocity)
     tear:Remove()
 
   elseif baby.name == "Blindfold Baby" then -- 202
@@ -208,7 +207,7 @@ function PostFireTear:Main(tear)
     end
 
   elseif baby.name == "Butt Baby" then -- 288
-    player:UseActiveItem(CollectibleType.COLLECTIBLE_BEAN, false, false, false, false) -- 111
+    g.p:UseActiveItem(CollectibleType.COLLECTIBLE_BEAN, false, false, false, false) -- 111
 
   elseif baby.name == "Speaker Baby" and -- 316
          g.run.babyBool == false then
@@ -260,7 +259,7 @@ function PostFireTear:Main(tear)
     g.run.babyCounters = g.run.babyCounters + 1
     tear.Velocity = tear.Velocity:Rotated(45)
     if g.run.babyCounters < 4 then
-      player:FireTear(player.Position, tear.Velocity:Rotated(45), false, true, false)
+      g.p:FireTear(g.p.Position, tear.Velocity:Rotated(45), false, true, false)
     else
       g.run.babyCounters = 0
     end
@@ -289,7 +288,7 @@ function PostFireTear:Main(tear)
     -- If we do "player:ShootRedCandle(tear.Velocity)", the fires have enormous speed and are hard to control
     local angle = tear.Velocity:GetAngleDegrees()
     local normalizedVelocity = Vector.FromAngle(angle)
-    player:ShootRedCandle(normalizedVelocity)
+    g.p:ShootRedCandle(normalizedVelocity)
     tear:Remove()
 
   elseif baby.name == "Arcade Baby" then -- 368
@@ -455,7 +454,7 @@ function PostFireTear:Main(tear)
       g.run.babyCounters = 0
 
       -- Every second tear spawns a spider
-      player:ThrowBlueSpider(player.Position, player.Position)
+      g.p:ThrowBlueSpider(g.p.Position, g.p.Position)
       tear:Remove()
     end
 
@@ -465,7 +464,7 @@ function PostFireTear:Main(tear)
 
   elseif baby.name == "Rotten Baby" then -- 533
     tear:Remove()
-    player:AddBlueFlies(1, player.Position, nil)
+    g.p:AddBlueFlies(1, g.p.Position, nil)
 
   elseif baby.name == "Lil' Loki" then -- 539
     -- Cross tears
@@ -473,7 +472,7 @@ function PostFireTear:Main(tear)
     g.run.babyCounters = g.run.babyCounters + 90
     if g.run.babyCounters < 360 then
       local vel = tear.Velocity:Rotated(g.run.babyCounters)
-      player:FireTear(player.Position, vel, false, true, false)
+      g.p:FireTear(g.p.Position, vel, false, true, false)
     else
       g.run.babyCounters = 0
     end

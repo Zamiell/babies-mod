@@ -7,7 +7,6 @@ local Misc = require("src/misc")
 -- ModCallbacks.MC_POST_PROJECTILE_UPDATE (44)
 function PostProjectileUpdate:Main(projectile)
   -- Local variables
-  local player = g.g:GetPlayer(0)
   local data = projectile:GetData()
   local babyType = g.run.babyType
   local baby = g.babies[babyType]
@@ -46,7 +45,7 @@ function PostProjectileUpdate:Main(projectile)
     projectile:AddProjectileFlags(ProjectileFlags.SMART) -- 1
 
   elseif baby.name == "Sorrow Baby" and -- 153
-         g:InsideSquare(projectile.Position, player.Position, baby.distance) then
+         g:InsideSquare(projectile.Position, g.p.Position, baby.distance) then
 
     -- Projectiles are reflected as bombs
     g.g:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_NORMAL, -- 4.1

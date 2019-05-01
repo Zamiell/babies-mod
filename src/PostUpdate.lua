@@ -9,7 +9,6 @@ local PostUpdateBabies = require("src/postupdatebabies")
 -- ModCallbacks.MC_POST_UPDATE (1)
 function PostUpdate:Main()
   -- Local variables
-  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
@@ -20,7 +19,7 @@ function PostUpdate:Main()
   -- so for the FireDelay modification to work properly, we have to wait until this is over
   -- (the "blindfoldedApplied" is reset in the MC_POST_NEW_LEVEL callback)
   if g.run.blindfoldedApplied == false and
-     player.ControlsEnabled then
+     g.p.ControlsEnabled then
 
     g.run.blindfoldedApplied = true
     if baby.blindfolded then
@@ -28,13 +27,13 @@ function PostUpdate:Main()
       -- (otherwise, if the player had the tear fire button held down while transitioning between floors,
       -- they will get one more shot)
       -- (this will not work in the MC_EVALUATE_CACHE callback because it gets reset to 0 at the end of the frame)
-      player.FireDelay = 1000000 -- 1 million, equal to roughly 9 hours
+      g.p.FireDelay = 1000000 -- 1 million, equal to roughly 9 hours
     else
       -- If we don't check for a large fire delay, then we will get a double tear during the start
       -- If we are going from a blindfolded baby to a non-blindfolded baby,
       -- we must restore the fire delay to a normal value
-      if player.FireDelay > 900 then -- 30 seconds
-        player.FireDelay = 0
+      if g.p.FireDelay > 900 then -- 30 seconds
+        g.p.FireDelay = 0
       end
 
       -- We also have to restore the fire delay on Incubus(es), if any
@@ -61,15 +60,15 @@ function PostUpdate:Main()
 
   -- Reapply the co-op baby sprite after every pedestal item recieved
   -- (and keep track of our passive items over the course of the run)
-  if player:IsItemQueueEmpty() == false and
+  if g.p:IsItemQueueEmpty() == false and
      g.run.queuedItems == false then
 
     g.run.queuedItems = true
-    if player.QueuedItem.Item.Type == ItemType.ITEM_PASSIVE then -- 1
-      g.run.passiveItems[#g.run.passiveItems + 1] = player.QueuedItem.Item.ID
+    if g.p.QueuedItem.Item.Type == ItemType.ITEM_PASSIVE then -- 1
+      g.run.passiveItems[#g.run.passiveItems + 1] = g.p.QueuedItem.Item.ID
     end
 
-  elseif player:IsItemQueueEmpty() and
+  elseif g.p:IsItemQueueEmpty() and
          g.run.queuedItems then
 
     g.run.queuedItems = false
@@ -100,7 +99,6 @@ end
 -- Check to see if this is a trinket baby and they dropped the trinket
 function PostUpdate:CheckTrinket()
   -- Local variables
-  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
 
@@ -110,7 +108,7 @@ function PostUpdate:CheckTrinket()
   end
 
   -- Check to see if we still have the trinket
-  if player:HasTrinket(baby.trinket) then
+  if g.p:HasTrinket(baby.trinket) then
     return
   end
 
@@ -127,9 +125,9 @@ function PostUpdate:CheckTrinket()
     entities[1]:Remove()
 
     -- Give it back
-    local position = g.r:FindFreePickupSpawnPosition(player.Position, 1, true)
-    player:DropTrinket(position, true) -- This will do nothing if the player does not currently have a trinket
-    player:AddTrinket(baby.trinket)
+    local position = g.r:FindFreePickupSpawnPosition(g.p.Position, 1, true)
+    g.p:DropTrinket(position, true) -- This will do nothing if the player does not currently have a trinket
+    g.p:AddTrinket(baby.trinket)
     -- (we can't cancel the animation or it will cause the bug where the player cannot pick up pedestal items)
     Isaac.DebugString("Dropped trinket detected; manually giving it back.")
     return
@@ -144,7 +142,7 @@ function PostUpdate:CheckTrinket()
   if baby.name == "Squirrel Baby" then -- 268
     -- The Walnut broke, so spawn additional items
     for i = 1, 5 do
-      local position = g.r:FindFreePickupSpawnPosition(player.Position, 1, true)
+      local position = g.r:FindFreePickupSpawnPosition(g.p.Position, 1, true)
       g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
       g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
                 position, Vector(0, 0), nil, 0, g.run.randomSeed)
@@ -175,7 +173,6 @@ function PostUpdate:RoomCleared()
   -- Local variables
   local roomType = g.r:GetType()
   local roomSeed = g.r:GetSpawnSeed() -- Gets a reproducible seed based on the room, something like "2496979501"
-  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
 
@@ -183,14 +180,14 @@ function PostUpdate:RoomCleared()
 
   if baby.name == "Love Baby" then -- 1
     -- Random Heart - 5.10.0
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, player.Position, Vector(0, 0), player, 0, roomSeed)
+    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, g.p.Position, Vector(0, 0), g.p, 0, roomSeed)
 
   elseif baby.name == "Bandaid Baby" and -- 88
          roomType ~= RoomType.ROOM_BOSS then -- 5
 
     -- Random collectible - 5.100.0
-    local position = g.r:FindFreePickupSpawnPosition(player.Position, 1, true)
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, position, Vector(0, 0), player, 0, roomSeed)
+    local position = g.r:FindFreePickupSpawnPosition(g.p.Position, 1, true)
+    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, position, Vector(0, 0), g.p, 0, roomSeed)
 
   elseif baby.name == "Jammies Baby" then -- 192
     -- Extra charge per room cleared
@@ -201,7 +198,7 @@ function PostUpdate:RoomCleared()
 
   elseif baby.name == "Fishman Baby" then -- 384
     -- Random Bomb - 5.40.0
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, player.Position, Vector(0, 0), player, 0, roomSeed)
+    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, g.p.Position, Vector(0, 0), g.p, 0, roomSeed)
   end
 end
 
@@ -295,7 +292,6 @@ function PostUpdate:CheckGridEntities()
     roomIndex = g.l:GetCurrentRoomIndex()
   end
   local gridSize = g.r:GetGridSize()
-  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
 
@@ -349,10 +345,10 @@ function PostUpdate:CheckGridEntities()
               (saveState.Type == GridEntityType.GRID_TNT and saveState.State ~= 4) or -- 12
               (saveState.Type == GridEntityType.GRID_POOP and saveState.State ~= 4) or -- 14
               (saveState.Type == GridEntityType.GRID_ROCK_SS and saveState.State ~= 3)) and -- 22
-             g:InsideSquare(player.Position, gridEntity.Position, 36) then
+             g:InsideSquare(g.p.Position, gridEntity.Position, 36) then
 
         g.run.invulnerable = true
-        player:UseActiveItem(CollectibleType.COLLECTIBLE_KAMIKAZE, false, false, false, false) -- 40
+        g.p:UseActiveItem(CollectibleType.COLLECTIBLE_KAMIKAZE, false, false, false, false) -- 40
         g.run.invulnerable = false
         g.run.babyFrame = gameFrameCount + 10
       end
@@ -363,8 +359,7 @@ end
 function PostUpdate:CheckTrapdoor()
   -- Local variables
   local seeds = g.g:GetSeeds()
-  local player = g.g:GetPlayer(0)
-  local playerSprite = player:GetSprite()
+  local playerSprite = g.p:GetSprite()
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
@@ -385,22 +380,22 @@ function PostUpdate:CheckTrapdoor()
   if baby.item == CollectibleType.COLLECTIBLE_COMPASS or -- 21
      baby.item2 == CollectibleType.COLLECTIBLE_COMPASS then -- 21
 
-    player:RemoveCollectible(CollectibleType.COLLECTIBLE_COMPASS) -- 21
+    g.p:RemoveCollectible(CollectibleType.COLLECTIBLE_COMPASS) -- 21
   end
   if baby.item == CollectibleType.COLLECTIBLE_TREASURE_MAP or -- 54
      baby.item2 == CollectibleType.COLLECTIBLE_TREASURE_MAP then -- 54
 
-    player:RemoveCollectible(CollectibleType.COLLECTIBLE_TREASURE_MAP) -- 54
+    g.p:RemoveCollectible(CollectibleType.COLLECTIBLE_TREASURE_MAP) -- 54
   end
   if baby.item == CollectibleType.COLLECTIBLE_BLUE_MAP or -- 246
      baby.item2 == CollectibleType.COLLECTIBLE_BLUE_MAP then -- 246
 
-    player:RemoveCollectible(CollectibleType.COLLECTIBLE_BLUE_MAP) -- 246
+    g.p:RemoveCollectible(CollectibleType.COLLECTIBLE_BLUE_MAP) -- 246
   end
   if baby.item == CollectibleType.COLLECTIBLE_MIND or -- 333
      baby.item2 == CollectibleType.COLLECTIBLE_MIND then -- 333
 
-    player:RemoveCollectible(CollectibleType.COLLECTIBLE_MIND) -- 333
+    g.p:RemoveCollectible(CollectibleType.COLLECTIBLE_MIND) -- 333
   end
 
   -- Racing+ uses the "Total Curse Immunity" easter egg to remove all curses from the game

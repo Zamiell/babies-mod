@@ -27,6 +27,7 @@ local UseCard              = require("src/usecard") -- 5
 local FamiliarUpdate       = require("src/familiarupdate") -- 6
 local FamiliarInit         = require("src/familiarinit") -- 7
 local EvaluateCache        = require("src/evaluatecache") -- 8
+local PostPlayerInit       = require("src/postplayerinit") -- 9
 local UsePill              = require("src/usepill") -- 10
 local EntityTakeDmg        = require("src/entitytakedmg") -- 11
 local InputAction          = require("src/inputaction") -- 13
@@ -98,6 +99,7 @@ BM:AddCallback(ModCallbacks.MC_USE_CARD, UseCard.Card13, Card.CARD_HANGED_MAN) -
 BM:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE,   FamiliarUpdate.Main) -- 6
 BM:AddCallback(ModCallbacks.MC_FAMILIAR_INIT,     FamiliarInit.Main) -- 7
 BM:AddCallback(ModCallbacks.MC_EVALUATE_CACHE,    EvaluateCache.Main) -- 8
+BM:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT,  PostPlayerInit.Main) -- 9
 BM:AddCallback(ModCallbacks.MC_USE_PILL,          UsePill.Main) -- 10
 BM:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG,   EntityTakeDmg.Main) -- 11
 BM:AddCallback(ModCallbacks.MC_INPUT_ACTION,      InputAction.Main) -- 13

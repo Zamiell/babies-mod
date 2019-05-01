@@ -9,7 +9,6 @@ function PostTearUpdate:Main(tear)
   -- Local variables
   local gameFrameCount = g.g:GetFrameCount()
   local roomFrameCount = g.r:GetFrameCount()
-  local player = g.g:GetPlayer(0)
   local sprite = tear:GetSprite()
   local data = tear:GetData()
   local type = g.run.babyType
@@ -45,9 +44,9 @@ function PostTearUpdate:Main(tear)
       if npc ~= nil and
          npc:IsVulnerableEnemy() and -- Returns true for enemies that can be damaged
          npc:IsDead() == false and
-         player.Position:Distance(npc.Position) < distance then
+         g.p.Position:Distance(npc.Position) < distance then
 
-        distance = player.Position:Distance(npc.Position)
+        distance = g.p.Position:Distance(npc.Position)
         closestNPC = npc
       end
     end
@@ -84,7 +83,7 @@ function PostTearUpdate:Main(tear)
     local positionMod = Vector(0, baby.distance * -1) -- The tear starts directly above the player
     local degrees = tear.FrameCount * 8 -- Tears rotate 4 degrees per frame
     positionMod = positionMod:Rotated(degrees)
-    tear.Position = player.Position + positionMod
+    tear.Position = g.p.Position + positionMod
 
     -- We want the tear to be moving perpendicular to the line between the player and the tear
     tear.Velocity = Vector(baby.distance / 4, 0)
@@ -100,7 +99,7 @@ function PostTearUpdate:Main(tear)
          tear.Parent.Type == EntityType.ENTITY_PLAYER then -- 1
 
     -- Emulate having a Godhead aura
-    tear.Position = Vector(player.Position.X, player.Position.Y + 10)
+    tear.Position = Vector(g.p.Position.X, g.p.Position.Y + 10)
 
     -- Clear the sprite for the Ludo tear
     sprite:Reset()
@@ -114,7 +113,7 @@ function PostTearUpdate:Main(tear)
       rotation = rotation + 90
       local rotatedVelocity = tear.Velocity:Rotated(rotation)
       g.run.babyBool = true
-      local xTear = player:FireTear(player.Position, rotatedVelocity, false, true, false)
+      local xTear = g.p:FireTear(g.p.Position, rotatedVelocity, false, true, false)
       g.run.babyBool = false
       xTear.Position = tear.Position
       xTear.Height = tear.Height
@@ -189,8 +188,8 @@ function PostTearUpdate:Main(tear)
 
     -- The streak ended
     g.run.babyCounters = 0
-    player:AddCacheFlags(CacheFlag.CACHE_FIREDELAY) -- 2
-    player:EvaluateItems()
+    g.p:AddCacheFlags(CacheFlag.CACHE_FIREDELAY) -- 2
+    g.p:EvaluateItems()
 
   elseif baby.name == "404 Baby" and -- 463
          tear.FrameCount == 0 then
@@ -206,7 +205,7 @@ function PostTearUpdate:Main(tear)
     g.run.babyCounters = g.run.babyCounters + 1
     if g.run.babyCounters == baby.num then
       g.run.babyCounters = 0
-      player:TakeDamage(1, 0, EntityRef(player), 0)
+      g.p:TakeDamage(1, 0, EntityRef(g.p), 0)
     end
 
   elseif baby.name == "Brother Bobby" and -- 522
@@ -231,7 +230,7 @@ function PostTearUpdate:Main(tear)
     g.run.babyCounters = g.run.babyCounters + 1
     if g.run.babyCounters == baby.num then
       g.run.babyCounters = 0
-      player:UsePill(PillEffect.PILLEFFECT_PARALYSIS, PillColor.PILL_NULL) -- 22, 0
+      g.p:UsePill(PillEffect.PILLEFFECT_PARALYSIS, PillColor.PILL_NULL) -- 22, 0
       -- (we can't cancel the animation or it will cause the bug where the player cannot pick up pedestal items)
     end
   end

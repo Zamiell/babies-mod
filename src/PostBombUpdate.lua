@@ -8,7 +8,6 @@ local Misc = require("src/misc")
 function PostBombUpdate:Main(bomb)
   -- Local variables
   local gameFrameCount = g.g:GetFrameCount()
-  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
@@ -24,7 +23,7 @@ function PostBombUpdate:Main(bomb)
     math.randomseed(g.run.roomRNG)
     local d6chance = math.random(1, 2)
     if d6chance == 2 then
-      player:UseActiveItem(CollectibleType.COLLECTIBLE_D6, false, false, false, false) -- 105
+      g.p:UseActiveItem(CollectibleType.COLLECTIBLE_D6, false, false, false, false) -- 105
     end
 
   elseif baby.name == "Tongue Baby" and -- 97

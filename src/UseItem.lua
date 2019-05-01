@@ -21,9 +21,8 @@ end
 function UseItem:Item49(collectibleType, RNG)
   -- Local variables
   local gameFrameCount = g.g:GetFrameCount()
-  local player = g.g:GetPlayer(0)
-  local activeCharge = player:GetActiveCharge()
-  local batteryCharge = player:GetBatteryCharge()
+  local activeCharge = g.p:GetActiveCharge()
+  local batteryCharge = g.p:GetBatteryCharge()
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
@@ -75,45 +74,40 @@ function UseItem:Item282(collectibleType, RNG)
 end
 
 function UseItem:ClockworkAssembly(collectibleType, RNG)
-  -- Local variables
-  local player = g.g:GetPlayer(0)
-
   -- Spawn a Restock Machine (6.10)
   g.run.clockworkAssembly = true
-  player:UseCard(Card.CARD_WHEEL_OF_FORTUNE) -- 11
-  player:AnimateCollectible(Isaac.GetItemIdByName("Clockwork Assembly"), "UseItem", "PlayerPickup")
+  g.p:UseCard(Card.CARD_WHEEL_OF_FORTUNE) -- 11
+  g.p:AnimateCollectible(Isaac.GetItemIdByName("Clockwork Assembly"), "UseItem", "PlayerPickup")
 end
 
 function UseItem:FlockOfSuccubi(collectibleType, RNG)
   -- Local variables
-  local player = g.g:GetPlayer(0)
-  local effects = player:GetEffects()
+  local effects = g.p:GetEffects()
 
   -- Spawn 10 temporary Succubi
   -- (for some reason, adding 7 actually adds 28)
   for i = 1, 7 do
     effects:AddCollectibleEffect(CollectibleType.COLLECTIBLE_SUCCUBUS, false)
   end
-  player:AnimateCollectible(Isaac.GetItemIdByName("Flock of Succubi"), "UseItem", "PlayerPickup")
+  g.p:AnimateCollectible(Isaac.GetItemIdByName("Flock of Succubi"), "UseItem", "PlayerPickup")
 end
 
 function UseItem:ChargingStation(collectibleType, RNG)
   -- Local variables
-  local player = g.g:GetPlayer(0)
-  local coins = player:GetNumCoins()
+  local coins = g.p:GetNumCoins()
 
   if coins == 0 or
      RacingPlusGlobals == nil or
      RacingPlusSchoolbag == nil or
-     player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) == false or
+     g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) == false or
      RacingPlusGlobals.run.schoolbag.item == 0 then
 
     return
   end
 
-  player:AddCoins(-1)
+  g.p:AddCoins(-1)
   RacingPlusSchoolbag:AddCharge(true) -- Giving an argument will make it only give 1 charge
-  player:AnimateCollectible(Isaac.GetItemIdByName("Charging Station"), "UseItem", "PlayerPickup")
+  g.p:AnimateCollectible(Isaac.GetItemIdByName("Charging Station"), "UseItem", "PlayerPickup")
   g.s:Play(SoundEffect.SOUND_BEEP, 1, 0, false, 1) -- 171
 end
 

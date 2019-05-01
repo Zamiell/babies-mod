@@ -7,7 +7,6 @@ local Misc = require("src/misc")
 -- ModCallbacks.MC_POST_LASER_UPDATE (48)
 function PostLaserUpdate:Main(laser)
   -- Local variables
-  local player = g.g:GetPlayer(0)
   local sprite = laser:GetSprite()
   local data = laser:GetData()
   local type = g.run.babyType
@@ -29,7 +28,7 @@ function PostLaserUpdate:Main(laser)
      data.ring == true then
 
     -- Keep the ring centered on the player
-    laser.Position = player.Position
+    laser.Position = g.p.Position
 
   elseif baby.name == "Belial Baby" then -- 51
     if laser.SpawnerType == EntityType.ENTITY_PLAYER and -- 1

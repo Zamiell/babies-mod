@@ -77,8 +77,7 @@ end
 function PostNewLevel:RemoveOldBaby()
   -- Local variables
   local seeds = g.g:GetSeeds()
-  local player = g.g:GetPlayer(0)
-  local batteryCharge = player:GetBatteryCharge()
+  local batteryCharge = g.p:GetBatteryCharge()
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
@@ -88,11 +87,11 @@ function PostNewLevel:RemoveOldBaby()
   -- If we are on an item baby, remove the item
   if baby.item ~= nil then
     -- If the item is in the vanilla Schoolbag, this will successfully remove it
-    player:RemoveCollectible(baby.item)
+    g.p:RemoveCollectible(baby.item)
 
     -- We have to handle the Racing+ Schoolbag explicitly
     if RacingPlusGlobals ~= nil and
-       player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
+       g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
        RacingPlusGlobals.run.schoolbag.item == baby.item then
 
       RacingPlusSchoolbag:Remove()
@@ -100,11 +99,11 @@ function PostNewLevel:RemoveOldBaby()
   end
   if baby.item2 ~= nil then
     -- If the item is in the vanilla Schoolbag, this will successfully remove it
-    player:RemoveCollectible(baby.item2)
+    g.p:RemoveCollectible(baby.item2)
 
     -- We have to handle the Racing+ Schoolbag explicitly
     if RacingPlusGlobals ~= nil and
-       player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
+       g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
        RacingPlusGlobals.run.schoolbag.item == baby.item2 then
 
       RacingPlusSchoolbag:Remove()
@@ -114,14 +113,14 @@ function PostNewLevel:RemoveOldBaby()
   -- If we are on a multiple item baby, remove the extra items
   if baby.itemNum ~= nil then
     for i = 1, baby.itemNum - 1 do
-      player:RemoveCollectible(baby.item)
+      g.p:RemoveCollectible(baby.item)
     end
   end
 
   -- If we are on a trinket baby, remove the trinket
   local trinket = baby.trinket
   if trinket ~= nil then
-    player:TryRemoveTrinket(trinket)
+    g.p:TryRemoveTrinket(trinket)
   end
 
   -- Remove the Dead Eye multiplier
@@ -129,7 +128,7 @@ function PostNewLevel:RemoveOldBaby()
     for i = 1, 100 do
       -- Each time this function is called, it only has a chance of working,
       -- so just call it 100 times to be safe
-      player:ClearDeadEyeCharge()
+      g.p:ClearDeadEyeCharge()
     end
   end
 
@@ -159,8 +158,8 @@ function PostNewLevel:RemoveOldBaby()
     end
 
   elseif baby.name == "Goat Baby" then -- 62
-    player:RemoveCollectible(CollectibleType.COLLECTIBLE_GOAT_HEAD) -- 215
-    player:RemoveCollectible(CollectibleType.COLLECTIBLE_DUALITY) -- 498
+    g.p:RemoveCollectible(CollectibleType.COLLECTIBLE_GOAT_HEAD) -- 215
+    g.p:RemoveCollectible(CollectibleType.COLLECTIBLE_DUALITY) -- 498
 
   elseif baby.name == "Digital Baby" then -- 162
     -- B00B T00B
@@ -169,9 +168,9 @@ function PostNewLevel:RemoveOldBaby()
   elseif baby.name == "Helmet Baby" then -- 163
     -- Make sure that the fade is removed
     -- (or else it will persist to the next character)
-    local color = player:GetColor()
+    local color = g.p:GetColor()
     local newColor = Color(color.R, color.G, color.B, 1, color.RO, color.GO, color.BO)
-    player:SetColor(newColor, 0, 0, true, true)
+    g.p:SetColor(newColor, 0, 0, true, true)
 
   elseif baby.name == "Sick Baby" then -- 187
     -- Remove all of the explosive Blue Flies
@@ -186,16 +185,16 @@ function PostNewLevel:RemoveOldBaby()
   elseif baby.name == "Isaac Baby" then -- 219
     -- Starts with The Battery
     -- We need to remove any additional charge that has accumulated
-    local activeItem = player:GetActiveItem() -- This has to be after the item removal above
+    local activeItem = g.p:GetActiveItem() -- This has to be after the item removal above
     if activeItem ~= 0 and
        batteryCharge > 0 then
 
-      player:DischargeActiveItem()
-      player:FullCharge()
+      g.p:DischargeActiveItem()
+      g.p:FullCharge()
       g.s:Stop(SoundEffect.SOUND_BATTERYCHARGE) -- 170
     end
     if RacingPlusGlobals ~= nil and
-       player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
+       g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
        RacingPlusGlobals.run.schoolbag.item ~= 0 and
        RacingPlusGlobals.run.schoolbag.chargeBattery ~= 0 then
 
@@ -203,14 +202,14 @@ function PostNewLevel:RemoveOldBaby()
     end
 
   elseif baby.name == "Butterfly Baby 2" then -- 332
-    player.GridCollisionClass = GridCollisionClass.COLLISION_WALL_EXCEPT_PLAYER -- 5
+    g.p.GridCollisionClass = GridCollisionClass.COLLISION_WALL_EXCEPT_PLAYER -- 5
 
   elseif baby.name == "Cyborg Baby" then -- 343
     Isaac.ExecuteCommand("debug 7")
 
   elseif baby.name == "Yellow Princess Baby" then -- 375
     -- This is the third item given, so we have to handle it manually
-    player:RemoveCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE) -- 540
+    g.p:RemoveCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE) -- 540
 
   elseif baby.name == "Dino Baby" then -- 376
     -- Remove any leftover eggs
@@ -223,16 +222,16 @@ function PostNewLevel:RemoveOldBaby()
     end
 
   elseif baby.name == "Dream Knight Baby" then -- 393
-    player:RemoveCollectible(CollectibleType.COLLECTIBLE_KEY_BUM) -- 388
+    g.p:RemoveCollectible(CollectibleType.COLLECTIBLE_KEY_BUM) -- 388
 
   elseif baby.name == "Blurred Baby" then -- 407
     -- This is the third item given, so we have to handle it manually
-    player:RemoveCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE) -- 540
+    g.p:RemoveCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE) -- 540
 
   elseif baby.name == "Half Spider Baby" then -- 515
     -- Only one Pretty Fly is removed after removing a Halo of Flies
     -- Thus, after removing 2x Halo of Flies, one fly remains
-    player:RemoveCollectible(CollectibleType.COLLECTIBLE_HALO_OF_FLIES) -- 10
+    g.p:RemoveCollectible(CollectibleType.COLLECTIBLE_HALO_OF_FLIES) -- 10
 
   elseif baby.name == "Spider Baby" then -- 521
     -- Remove all of the Blue Spiders
@@ -308,14 +307,13 @@ end
 function PostNewLevel:IsBabyValid(type)
   -- Local variables
   local stage = g.l:GetStage()
-  local player = g.g:GetPlayer(0)
-  local activeItem = player:GetActiveItem()
-  local maxHearts = player:GetMaxHearts()
-  local soulHearts = player:GetSoulHearts()
-  local boneHearts = player:GetBoneHearts()
-  local coins = player:GetNumCoins()
-  local bombs = player:GetNumBombs()
-  local keys = player:GetNumKeys()
+  local activeItem = g.p:GetActiveItem()
+  local maxHearts = g.p:GetMaxHearts()
+  local soulHearts = g.p:GetSoulHearts()
+  local boneHearts = g.p:GetBoneHearts()
+  local coins = g.p:GetNumCoins()
+  local bombs = g.p:GetNumBombs()
+  local keys = g.p:GetNumKeys()
   local baby = g.babies[type]
 
   -- Check to see if we already got this baby in this run / multi-character custom challenge
@@ -335,12 +333,12 @@ function PostNewLevel:IsBabyValid(type)
 
   -- Check for overlapping items
   if baby.item ~= nil and
-     player:HasCollectible(baby.item) then
+     g.p:HasCollectible(baby.item) then
 
     return false
   end
   if baby.item2 ~= nil and
-     player:HasCollectible(baby.item2) then
+     g.p:HasCollectible(baby.item2) then
 
     return false
   end
@@ -351,10 +349,10 @@ function PostNewLevel:IsBabyValid(type)
 
     if activeItem ~= 0 and
        ((RacingPlusGlobals ~= nil and
-         player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
+         g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
          RacingPlusGlobals.run.schoolbag.item ~= 0) or
-        (player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) and -- 534
-         player.SecondaryActiveItem.Item ~= 0)) then
+        (g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) and -- 534
+         g.p.SecondaryActiveItem.Item ~= 0)) then
 
       -- The player has an active item and an item inside of the Schoolbag
       return false
@@ -362,8 +360,8 @@ function PostNewLevel:IsBabyValid(type)
 
     if activeItem ~= 0 and
        (RacingPlusGlobals == nil or
-        player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) == false) and
-       player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) == false then -- 534
+        g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) == false) and
+       g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) == false then -- 534
 
       -- The player has an active item and does not have the Schoolbag
       return false
@@ -372,7 +370,7 @@ function PostNewLevel:IsBabyValid(type)
 
   -- If the player already has a trinket, do not give them a trinket baby
   if baby.trinket ~= nil and
-     player:GetTrinket(0) ~= 0 then
+     g.p:GetTrinket(0) ~= 0 then
 
     return false
   end
@@ -442,8 +440,8 @@ function PostNewLevel:IsBabyValid(type)
 
   -- Check for conflicting items
   if baby.blindfolded and
-     (player:HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) or -- 69
-      player:HasCollectible(CollectibleType.COLLECTIBLE_LIBRA)) then -- 304
+     (g.p:HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) or -- 69
+      g.p:HasCollectible(CollectibleType.COLLECTIBLE_LIBRA)) then -- 304
 
     -- Even with very high tear delay, you can still spam tears with Chocolate Milk
     -- With Libra, the extra tear delay from the blindfold is redistributed,
@@ -453,17 +451,17 @@ function PostNewLevel:IsBabyValid(type)
   if (baby.mustHaveTears or
       baby.item == CollectibleType.COLLECTIBLE_SOY_MILK or -- 330
       baby.item2 == CollectibleType.COLLECTIBLE_SOY_MILK) and -- 330
-     (player:HasCollectible(CollectibleType.COLLECTIBLE_DR_FETUS) or -- 52
-      player:HasCollectible(CollectibleType.COLLECTIBLE_TECHNOLOGY) or -- 68
-      player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE) or -- 114
-      player:HasCollectible(CollectibleType.COLLECTIBLE_BRIMSTONE) or -- 118
-      player:HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS) or -- 168
-      player:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X)) then -- 395
+     (g.p:HasCollectible(CollectibleType.COLLECTIBLE_DR_FETUS) or -- 52
+      g.p:HasCollectible(CollectibleType.COLLECTIBLE_TECHNOLOGY) or -- 68
+      g.p:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE) or -- 114
+      g.p:HasCollectible(CollectibleType.COLLECTIBLE_BRIMSTONE) or -- 118
+      g.p:HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS) or -- 168
+      g.p:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X)) then -- 395
 
     return false
   end
   if baby.item == CollectibleType.COLLECTIBLE_ISAACS_TEARS and -- 323
-     player:HasCollectible(CollectibleType.COLLECTIBLE_IPECAC) then -- 149
+     g.p:HasCollectible(CollectibleType.COLLECTIBLE_IPECAC) then -- 149
 
     return false
   end
@@ -473,56 +471,56 @@ function PostNewLevel:IsBabyValid(type)
       baby.item2 == CollectibleType.COLLECTIBLE_TREASURE_MAP or -- 54
       baby.item == CollectibleType.COLLECTIBLE_BLUE_MAP or -- 246
       baby.item2 == CollectibleType.COLLECTIBLE_BLUE_MAP) and -- 246
-     player:HasCollectible(CollectibleType.COLLECTIBLE_MIND) then -- 333
+     g.p:HasCollectible(CollectibleType.COLLECTIBLE_MIND) then -- 333
 
     return false
   end
   if (baby.item == CollectibleType.COLLECTIBLE_TECH_X or -- 395
       baby.item2 == CollectibleType.COLLECTIBLE_TECH_X) and -- 395
-     player:HasCollectible(CollectibleType.COLLECTIBLE_DEAD_EYE) then -- 373
+     g.p:HasCollectible(CollectibleType.COLLECTIBLE_DEAD_EYE) then -- 373
 
     return false
   end
   if (baby.item == CollectibleType.COLLECTIBLE_DEAD_EYE or -- 373
       baby.item2 == CollectibleType.COLLECTIBLE_DEAD_EYE) and -- 373
-     player:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) then -- 395
+     g.p:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) then -- 395
 
     return false
   end
   if baby.name == "Whore Baby" and -- 43
-     player:HasCollectible(CollectibleType.COLLECTIBLE_SACRIFICIAL_DAGGER) then -- 172
+     g.p:HasCollectible(CollectibleType.COLLECTIBLE_SACRIFICIAL_DAGGER) then -- 172
 
     return false
 
   elseif baby.name == "Belial Baby" and -- 51
-         player:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) then -- 395
+         g.p:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) then -- 395
 
     return false
 
   elseif baby.name == "Goat Baby" and -- 62
-         (player:HasCollectible(CollectibleType.COLLECTIBLE_GOAT_HEAD) or -- 215
-          player:HasCollectible(CollectibleType.COLLECTIBLE_DUALITY)) then -- 498
+         (g.p:HasCollectible(CollectibleType.COLLECTIBLE_GOAT_HEAD) or -- 215
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_DUALITY)) then -- 498
 
     return false
 
   elseif baby.name == "Aether Baby" and -- 106
-         player:HasCollectible(CollectibleType.COLLECTIBLE_IPECAC) then -- 149
+         g.p:HasCollectible(CollectibleType.COLLECTIBLE_IPECAC) then -- 149
 
     return false
 
   elseif baby.name == "Masked Baby" and -- 115
-         (player:HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) or -- 69
-          player:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) or -- 229
-          player:HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE)) then -- 399
+         (g.p:HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) or -- 69
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) or -- 229
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE)) then -- 399
 
     -- Can't shoot while moving
     -- This messes up with charge items
     return false
 
   elseif baby.name == "Earwig Baby" and -- 128
-         (player:HasCollectible(CollectibleType.COLLECTIBLE_COMPASS) or -- 21
-          player:HasCollectible(CollectibleType.COLLECTIBLE_TREASURE_MAP) or -- 54
-          player:HasCollectible(CollectibleType.COLLECTIBLE_MIND)) then -- 333
+         (g.p:HasCollectible(CollectibleType.COLLECTIBLE_COMPASS) or -- 21
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_TREASURE_MAP) or -- 54
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_MIND)) then -- 333
 
     -- 3 rooms are already explored
     -- If the player has mapping, this effect is largely useless
@@ -530,120 +528,120 @@ function PostNewLevel:IsBabyValid(type)
     return false
 
   elseif baby.name == "Sloppy Baby" and -- 146
-         (player:HasCollectible(CollectibleType.COLLECTIBLE_INNER_EYE) or -- 2
-          player:HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER) or -- 153
-          player:HasCollectible(CollectibleType.COLLECTIBLE_20_20) or -- 245
-          player:HasCollectible(CollectibleType.COLLECTIBLE_THE_WIZ) or -- 358
-          player:HasPlayerForm(PlayerForm.PLAYERFORM_BABY) or -- 7
-          player:HasPlayerForm(PlayerForm.PLAYERFORM_BOOK_WORM)) then-- 10
+         (g.p:HasCollectible(CollectibleType.COLLECTIBLE_INNER_EYE) or -- 2
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER) or -- 153
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_20_20) or -- 245
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_THE_WIZ) or -- 358
+          g.p:HasPlayerForm(PlayerForm.PLAYERFORM_BABY) or -- 7
+          g.p:HasPlayerForm(PlayerForm.PLAYERFORM_BOOK_WORM)) then-- 10
 
     return false
 
   elseif baby.name == "Blindfold Baby" and -- 202
-         (player:HasCollectible(CollectibleType.COLLECTIBLE_TECHNOLOGY_2) or -- 152
-          player:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG)) then -- 229
+         (g.p:HasCollectible(CollectibleType.COLLECTIBLE_TECHNOLOGY_2) or -- 152
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG)) then -- 229
 
     return false
 
   elseif baby.name == "Bawl Baby" and -- 231
-         player:HasCollectible(CollectibleType.COLLECTIBLE_IPECAC) then -- 149
+         g.p:HasCollectible(CollectibleType.COLLECTIBLE_IPECAC) then -- 149
 
     return false
 
   elseif baby.name == "Tabby Baby" and -- 269
-         player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE) then -- 114
+         g.p:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE) then -- 114
 
     return false
 
   elseif baby.name == "Red Demon Baby" and -- 278
-         (player:HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS) or -- 168
-          player:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X)) then -- 395
+         (g.p:HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS) or -- 168
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X)) then -- 395
 
     return false
 
   elseif baby.name == "Fang Demon Baby" and -- 281
-         player:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) then -- 229
+         g.p:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) then -- 229
 
     return false
 
   elseif baby.name == "Lantern Baby" and -- 292
-         player:HasCollectible(CollectibleType.COLLECTIBLE_TRISAGION ) then -- 533
+         g.p:HasCollectible(CollectibleType.COLLECTIBLE_TRISAGION ) then -- 533
 
     return false
 
   elseif baby.name == "Cupcake Baby" and -- 321
-         player:HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS) then -- 168
+         g.p:HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS) then -- 168
 
     -- High shot speed
     return false
 
   elseif baby.name == "Slicer Baby" and -- 331
-         player:HasCollectible(CollectibleType.COLLECTIBLE_IPECAC) then -- 149
+         g.p:HasCollectible(CollectibleType.COLLECTIBLE_IPECAC) then -- 149
 
     -- Slice tears
     -- Ipecac causes the tears to explode instantly, which causes unavoidable damage
     return false
 
   elseif baby.name == "Mushroom Girl Baby" and -- 361
-         player:HasCollectible(CollectibleType.COLLECTIBLE_DR_FETUS) then -- 52
+         g.p:HasCollectible(CollectibleType.COLLECTIBLE_DR_FETUS) then -- 52
 
     return false
 
   elseif baby.name == "Blue Ghost Baby" and -- 370
-         player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE) then -- 114
+         g.p:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE) then -- 114
 
     return false
 
   elseif baby.name == "Yellow Princess Baby" and -- 375
-         player:HasCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE) then -- 540
+         g.p:HasCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE) then -- 540
 
     return false
 
   elseif baby.name == "Dino Baby" and -- 376
-         player:HasCollectible(CollectibleType.COLLECTIBLE_BOBS_BRAIN) then -- 273
+         g.p:HasCollectible(CollectibleType.COLLECTIBLE_BOBS_BRAIN) then -- 273
 
     return false
 
   elseif baby.name == "Imp Baby" and -- 386
-         player:HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS) then -- 168
+         g.p:HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS) then -- 168
 
     -- Blender + flight + explosion immunity + blindfolded
     -- Epic Fetus overwrites Mom's Knife, which makes the baby not work properly
     return false
 
   elseif baby.name == "Blurred Baby" and -- 407
-         (player:HasCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE) or -- 540
-          player:HasCollectible(CollectibleType.COLLECTIBLE_INCUBUS)) then -- 360
+         (g.p:HasCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE) or -- 540
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_INCUBUS)) then -- 360
 
     -- Flat Stone is manually given, so we have to explicitly code a restriction
     -- Incubus will not fire the Ludo tears, ruining the build
     return false
 
   elseif baby.name == "Rojen Whitefox Baby" and -- 446
-         player:HasCollectible(CollectibleType.COLLECTIBLE_POLAROID) then -- 327
+         g.p:HasCollectible(CollectibleType.COLLECTIBLE_POLAROID) then -- 327
 
     return false
 
   elseif (baby.name == "Cursed Pillow Baby" or -- 487
           baby.name == "Abel") and -- 531
-         (player:HasCollectible(CollectibleType.COLLECTIBLE_INNER_EYE) or -- 2
-          player:HasCollectible(CollectibleType.COLLECTIBLE_CUPIDS_ARROW) or -- 48
-          player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_EYE) or -- 55
-          player:HasCollectible(CollectibleType.COLLECTIBLE_LOKIS_HORNS) or -- 87
-          player:HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER) or -- 153
-          player:HasCollectible(CollectibleType.COLLECTIBLE_POLYPHEMUS) or -- 169
-          player:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) or -- 229
-          player:HasCollectible(CollectibleType.COLLECTIBLE_DEATHS_TOUCH) or -- 237
-          player:HasCollectible(CollectibleType.COLLECTIBLE_20_20) or -- 245
-          player:HasCollectible(CollectibleType.COLLECTIBLE_SAGITTARIUS) or -- 306
-          player:HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE) or -- 316
-          player:HasCollectible(CollectibleType.COLLECTIBLE_DEAD_ONION) or -- 336
-          player:HasCollectible(CollectibleType.COLLECTIBLE_EYE_OF_BELIAL) or -- 462
-          player:HasCollectible(CollectibleType.COLLECTIBLE_LITTLE_HORN) or -- 503
-          player:HasCollectible(CollectibleType.COLLECTIBLE_TRISAGION) or -- 533
-          player:HasCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE) or -- 540
-          player:HasPlayerForm(PlayerForm.PLAYERFORM_BABY) or -- 7
-          player:HasPlayerForm(PlayerForm.PLAYERFORM_BOOK_WORM)) then-- 10
+         (g.p:HasCollectible(CollectibleType.COLLECTIBLE_INNER_EYE) or -- 2
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_CUPIDS_ARROW) or -- 48
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_EYE) or -- 55
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_LOKIS_HORNS) or -- 87
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER) or -- 153
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_POLYPHEMUS) or -- 169
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) or -- 229
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_DEATHS_TOUCH) or -- 237
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_20_20) or -- 245
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_SAGITTARIUS) or -- 306
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE) or -- 316
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_DEAD_ONION) or -- 336
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_EYE_OF_BELIAL) or -- 462
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_LITTLE_HORN) or -- 503
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_TRISAGION) or -- 533
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE) or -- 540
+          g.p:HasPlayerForm(PlayerForm.PLAYERFORM_BABY) or -- 7
+          g.p:HasPlayerForm(PlayerForm.PLAYERFORM_BOOK_WORM)) then-- 10
 
     -- Missed tears cause damage & missed tears cause paralysis
     -- Piercing, multiple shots, and Flat Stone causes this to mess up
@@ -652,7 +650,7 @@ function PostNewLevel:IsBabyValid(type)
 
   -- Check for conflicting trinkets
   if baby.name == "Spike Baby" and -- 166
-     player:HasTrinket(TrinketType.TRINKET_LEFT_HAND) then -- 61
+     g.p:HasTrinket(TrinketType.TRINKET_LEFT_HAND) then -- 61
 
     return false
   end
@@ -779,7 +777,7 @@ function PostNewLevel:IsBabyValid(type)
 
   elseif baby.name == "Gem Baby" and -- 237
          stage >= 7 and
-         player:HasCollectible(CollectibleType.COLLECTIBLE_MONEY_IS_POWER) == false then -- 109
+         g.p:HasCollectible(CollectibleType.COLLECTIBLE_MONEY_IS_POWER) == false then -- 109
 
     -- Pennies spawn as nickels
     -- Money is useless past Depths 2 (unless you have Money Equals Power)
@@ -863,12 +861,11 @@ function PostNewLevel:ApplyNewBaby()
   local seeds = g.g:GetSeeds()
   local itemPool = g.g:GetItemPool()
   local stage = g.l:GetStage()
-  local player = g.g:GetPlayer(0)
-  local soulHearts = player:GetSoulHearts()
-  local blackHearts = player:GetBlackHearts()
-  local coins = player:GetNumCoins()
-  local bombs = player:GetNumBombs()
-  local keys = player:GetNumKeys()
+  local soulHearts = g.p:GetSoulHearts()
+  local blackHearts = g.p:GetBlackHearts()
+  local coins = g.p:GetNumCoins()
+  local bombs = g.p:GetNumBombs()
+  local keys = g.p:GetNumKeys()
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
@@ -894,27 +891,27 @@ function PostNewLevel:ApplyNewBaby()
 
       -- Find out where to put it
       if RacingPlusGlobals ~= nil and
-         player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
+         g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
          RacingPlusGlobals.run.schoolbag.item == 0 then
 
         -- There is room in the Racing+ Schoolbag for it, so put it there
         RacingPlusSchoolbag:Put(item, charges)
 
-      elseif player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) and -- 534
-             player.SecondaryActiveItem.Item == 0 then
+      elseif g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) and -- 534
+             g.p.SecondaryActiveItem.Item == 0 then
 
         -- There is room in the vanilla Schoolbag for it, so put it there
         -- (getting new active items will automatically put the existing active item inside the Schoolbag)
-        player:AddCollectible(item, charges, false)
-        player:SwapActiveItems()
+        g.p:AddCollectible(item, charges, false)
+        g.p:SwapActiveItems()
 
       else
         -- We don't have a Schoolbag, so just give the new active item
-        player:AddCollectible(item, charges, false)
+        g.p:AddCollectible(item, charges, false)
       end
     else
       -- Give the passive item
-      player:AddCollectible(item, 0, false)
+      g.p:AddCollectible(item, 0, false)
       Isaac.DebugString("Added the new baby passive item (" .. tostring(item) .. ").")
     end
 
@@ -928,7 +925,7 @@ function PostNewLevel:ApplyNewBaby()
   -- Check if this is a multiple item baby
   if baby.itemNum ~= nil then
     for i = 1, baby.itemNum - 1 do
-      player:AddCollectible(baby.item, 0, false)
+      g.p:AddCollectible(baby.item, 0, false)
       Isaac.DebugString("Removing collectible " .. tostring(baby.item))
     end
   end
@@ -937,7 +934,7 @@ function PostNewLevel:ApplyNewBaby()
   -- (this should always be a passive item)
   local item2 = baby.item2
   if item2 ~= nil then
-    player:AddCollectible(item2, g:GetItemMaxCharges(item2), false)
+    g.p:AddCollectible(item2, g:GetItemMaxCharges(item2), false)
 
     -- Hide it from the item tracker
     Isaac.DebugString("Removing collectible " .. tostring(item2))
@@ -947,35 +944,35 @@ function PostNewLevel:ApplyNewBaby()
   end
 
   -- Reset the soul hearts and black hearts to the way it was before we added the items
-  local newSoulHearts = player:GetSoulHearts()
-  local newBlackHearts = player:GetBlackHearts()
+  local newSoulHearts = g.p:GetSoulHearts()
+  local newBlackHearts = g.p:GetBlackHearts()
   if newSoulHearts ~= soulHearts or
      newBlackHearts ~= blackHearts then
 
-    player:AddSoulHearts(-24)
+    g.p:AddSoulHearts(-24)
     for i = 1, soulHearts do
       local bitPosition = math.floor((i - 1) / 2)
       local bit = (blackHearts & (1 << bitPosition)) >> bitPosition
       if bit == 0 then -- Soul heart
-        player:AddSoulHearts(1)
+        g.p:AddSoulHearts(1)
       else -- Black heart
-        player:AddBlackHearts(1)
+        g.p:AddBlackHearts(1)
       end
     end
   end
 
   -- Reset the coin/bomb/key count to the way it was before we added the items
-  player:AddCoins(-99)
-  player:AddCoins(coins)
-  player:AddBombs(-99)
-  player:AddBombs(bombs)
-  player:AddKeys(-99)
-  player:AddKeys(keys)
+  g.p:AddCoins(-99)
+  g.p:AddCoins(coins)
+  g.p:AddBombs(-99)
+  g.p:AddBombs(bombs)
+  g.p:AddKeys(-99)
+  g.p:AddKeys(keys)
 
   -- Check if this is a trinket baby
   local trinket = baby.trinket
   if trinket ~= nil then
-    player:AddTrinket(trinket)
+    g.p:AddTrinket(trinket)
     itemPool:RemoveTrinket(trinket)
   end
 
@@ -1046,12 +1043,12 @@ function PostNewLevel:ApplyNewBaby()
 
   -- Miscellaneous other effects
   if baby.name == "Gold Baby" then -- 15
-    player:AddGoldenBomb()
-    player:AddGoldenKey()
-    player:AddGoldenHearts(12)
+    g.p:AddGoldenBomb()
+    g.p:AddGoldenKey()
+    g.p:AddGoldenHearts(12)
 
   elseif baby.name == "Rage Baby" then -- 31
-    player:AddBombs(99)
+    g.p:AddBombs(99)
 
   elseif baby.name == "Noose Baby" then -- 39
     -- Don't shoot when the timer reaches 0
@@ -1060,9 +1057,9 @@ function PostNewLevel:ApplyNewBaby()
 
   elseif baby.name == "Hive Baby" then -- 40
     -- The game only allows a maximum of 64 Blue Flies and Blue Spiders at one time
-    player:AddBlueFlies(64, player.Position, nil)
+    g.p:AddBlueFlies(64, g.p.Position, nil)
     for i = 1, 64 do
-      player:AddBlueSpider(player.Position)
+      g.p:AddBlueSpider(g.p.Position)
     end
 
   elseif baby.name == "Whore Baby" then -- 43
@@ -1077,7 +1074,7 @@ function PostNewLevel:ApplyNewBaby()
 
   elseif baby.name == "Hopeless Baby" then -- 125
     -- Keys are hearts
-    player:AddKeys(2)
+    g.p:AddKeys(2)
 
     -- Initialize the sprites
     g.run.babySprites = Sprite()
@@ -1086,7 +1083,7 @@ function PostNewLevel:ApplyNewBaby()
 
   elseif baby.name == "Mohawk Baby" then -- 138
     -- Bombs are hearts
-    player:AddBombs(2)
+    g.p:AddBombs(2)
 
     -- Initialize the sprites
     g.run.babySprites = Sprite()
@@ -1095,7 +1092,7 @@ function PostNewLevel:ApplyNewBaby()
 
   elseif baby.name == "Aban Baby" then -- 177
     -- Coins are hearts
-    player:AddCoins(2)
+    g.p:AddCoins(2)
 
   elseif baby.name == "Vomit Baby" then -- 341
     g.run.babyCounters = gameFrameCount + baby.time
@@ -1108,7 +1105,7 @@ function PostNewLevel:ApplyNewBaby()
 
   elseif baby.name == "Yellow Princess Baby" then -- 375
     -- This is the third item given, so we have to handle it manually
-    player:AddCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE, 0, false) -- 540
+    g.p:AddCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE, 0, false) -- 540
     Isaac.DebugString("Removing collectible " .. tostring(CollectibleType.COLLECTIBLE_FLAT_STONE)) -- 540
 
   elseif baby.name == "Imp Baby" then -- 386
@@ -1117,15 +1114,15 @@ function PostNewLevel:ApplyNewBaby()
     g.run.babyFrame = gameFrameCount + baby.num
 
   elseif baby.name == "Dream Knight Baby" then -- 393
-    player:AddCollectible(CollectibleType.COLLECTIBLE_KEY_BUM, 0, false) -- 388
+    g.p:AddCollectible(CollectibleType.COLLECTIBLE_KEY_BUM, 0, false) -- 388
 
   elseif baby.name == "Blurred Baby" then -- 407
     -- This is the third item given, so we have to handle it manually
-    player:AddCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE, 0, false) -- 540
+    g.p:AddCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE, 0, false) -- 540
     Isaac.DebugString("Removing collectible " .. tostring(CollectibleType.COLLECTIBLE_FLAT_STONE)) -- 540
 
   elseif baby.name == "Rich Baby" then -- 424
-    player:AddCoins(99)
+    g.p:AddCoins(99)
 
   elseif baby.name == "Twitchy Baby" then -- 511
     -- Start with the slowest tears and mark to update them on this frame
@@ -1134,11 +1131,11 @@ function PostNewLevel:ApplyNewBaby()
   end
 
   -- Some babies grant extra stats
-  player:AddCacheFlags(CacheFlag.CACHE_ALL) -- 0xFFFFFFFF
-  player:EvaluateItems()
+  g.p:AddCacheFlags(CacheFlag.CACHE_ALL) -- 0xFFFFFFFF
+  g.p:EvaluateItems()
 
   -- Reset the player's size
-  player.SpriteScale = Vector(1, 1)
+  g.p.SpriteScale = Vector(1, 1)
 
   -- We don't have to set the sprite now, because it will be set later on in the MC_POST_NEW_ROOM callback
   Isaac.DebugString("Applied baby: " .. tostring(type) .. " - " .. baby.name)

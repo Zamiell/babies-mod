@@ -6,7 +6,6 @@ local Misc = require("src/misc")
 
 function FamiliarUpdate:Main(familiar)
   -- Local variables
-  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
@@ -26,8 +25,8 @@ function FamiliarUpdate:Main(familiar)
   elseif baby.name == "Sucky Baby" and -- 48
          familiar.Variant == FamiliarVariant.SUCCUBUS then -- 96
 
-    -- Keep it locked on the player so emulate a Succubus aura
-    familiar.Position = player.Position
+    -- Keep it locked on the player to emulate a Succubus aura
+    familiar.Position = g.p.Position
 
   elseif baby.name == "Gurdy Baby" and -- 82
          familiar.Variant == FamiliarVariant.LIL_GURDY then -- 87
@@ -73,7 +72,7 @@ function FamiliarUpdate:Main(familiar)
   elseif baby.name == "Seraphim" and -- 538
          familiar.Variant == FamiliarVariant.CENSER then -- 89
 
-    familiar.Position = player.Position
+    familiar.Position = g.p.Position
     local sprite = familiar:GetSprite()
     sprite:Load("gfx/003.089_censer_invisible.anm2", true)
     sprite:Play("Idle")

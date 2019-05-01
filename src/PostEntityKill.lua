@@ -11,7 +11,6 @@ function PostEntityKill:Main(entity)
   if roomIndex < 0 then -- SafeGridIndex is always -1 for rooms outside the grid
     roomIndex = g.l:GetCurrentRoomIndex()
   end
-  local player = g.l:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
@@ -90,8 +89,8 @@ function PostEntityKill:Main(entity)
 
   elseif baby.name == "Killer Baby" then -- 291
     g.run.babyCounters = g.run.babyCounters + 1
-    player:AddCacheFlags(CacheFlag.CACHE_DAMAGE) -- 1
-    player:EvaluateItems()
+    g.p:AddCacheFlags(CacheFlag.CACHE_DAMAGE) -- 1
+    g.p:EvaluateItems()
 
   elseif baby.name == "Dino Baby" then -- 376
     -- Don't bother giving another egg if we already have a bunch
@@ -111,7 +110,7 @@ function PostEntityKill:Main(entity)
 
     -- Spawn a new Bob's Brain familiar that we will reskin to look like an egg
     local brain = g.g:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BOBS_BRAIN, -- 3.59
-                  player.Position, Vector(0, 0), nil, 0, 0)
+                  g.p.Position, Vector(0, 0), nil, 0, 0)
     local brainSprite = brain:GetSprite()
     brainSprite:Load("gfx/003.059_bobs brain2.anm2", true)
     brainSprite:Play("Idle", true)

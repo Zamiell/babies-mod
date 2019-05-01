@@ -120,8 +120,7 @@ end
 
 function Misc:GetItemHeartPrice(itemID)
   -- Local variables
-  local player = g.g:GetPlayer(0)
-  local maxHearts = player:GetMaxHearts()
+  local maxHearts = g.p:GetMaxHearts()
 
   -- Find out how this item should be priced
   if itemID == 0 then
@@ -137,13 +136,12 @@ end
 function Misc:AddCharge(singleCharge)
   -- Local variables
   local roomShape = g.r:GetRoomShape()
-  local player = g.g:GetPlayer(0)
-  local activeItem = player:GetActiveItem()
-  local activeCharge = player:GetActiveCharge()
-  local batteryCharge = player:GetBatteryCharge()
+  local activeItem = g.p:GetActiveItem()
+  local activeCharge = g.p:GetActiveCharge()
+  local batteryCharge = g.p:GetBatteryCharge()
 
   -- Copied from the Racing+ mod (RPFastClear.lua)
-  if player:NeedsCharge() == false then
+  if g.p:NeedsCharge() == false then
     return
   end
 
@@ -153,15 +151,15 @@ function Misc:AddCharge(singleCharge)
     -- L rooms and 2x2 rooms should grant 2 charges
     chargesToAdd = 2
 
-  elseif player:HasTrinket(TrinketType.TRINKET_AAA_BATTERY) and -- 3
+  elseif g.p:HasTrinket(TrinketType.TRINKET_AAA_BATTERY) and -- 3
          activeCharge == g:GetItemMaxCharges(activeItem) - 2 then
 
     -- The AAA Battery grants an extra charge when the active item is one away from being fully charged
     chargesToAdd = 2
 
-  elseif player:HasTrinket(TrinketType.TRINKET_AAA_BATTERY) and -- 3
+  elseif g.p:HasTrinket(TrinketType.TRINKET_AAA_BATTERY) and -- 3
          activeCharge == g:GetItemMaxCharges(activeItem) and
-         player:HasCollectible(CollectibleType.COLLECTIBLE_BATTERY) and -- 63
+         g.p:HasCollectible(CollectibleType.COLLECTIBLE_BATTERY) and -- 63
          batteryCharge == g:GetItemMaxCharges(activeItem) - 2 then
 
     -- The AAA Battery should grant an extra charge when the active item is one away from being fully charged
@@ -174,8 +172,8 @@ function Misc:AddCharge(singleCharge)
   end
 
   -- Add the correct amount of charges
-  local currentCharge = player:GetActiveCharge()
-  player:SetActiveCharge(currentCharge + chargesToAdd)
+  local currentCharge = g.p:GetActiveCharge()
+  g.p:SetActiveCharge(currentCharge + chargesToAdd)
 end
 
 return Misc

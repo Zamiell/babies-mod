@@ -1,14 +1,14 @@
-local g  = {}
+local g = {}
 
 --
 -- Variables
 --
 
--- Updated automatically by the "release.py" script
+-- The version is updated automatically by the "release.py" script
 g.version = "v0.1.32"
 
 -- These are variables that are reset at the beginning of every run
--- (defaults are set below in the "RPGlobals:InitRun()" function)
+-- (defaults are set below in the "g:InitRun()" function)
 g.run = {}
 
 -- A list of the babies that we have chosen so far on this run / multi-character custom challenge
@@ -22,6 +22,7 @@ g.g = Game()
 g.l = g.g:GetLevel()
 g.r = g.g:GetRoom()
 g.s = SFXManager()
+g.p = nil -- This is set in the PostPlayerInit callback
 
 function g:InitRun()
   -- Local variables

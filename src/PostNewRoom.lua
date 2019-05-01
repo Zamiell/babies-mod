@@ -96,15 +96,14 @@ function PostNewRoom:ApplyTemporaryEffects()
   local roomType = g.r:GetType()
   local roomFirstVisit = g.r:IsFirstVisit()
   local roomClear = g.r:IsClear()
-  local player = g.g:GetPlayer(0)
-  local maxHearts = player:GetMaxHearts()
-  local effects = player:GetEffects()
+  local maxHearts = g.p:GetMaxHearts()
+  local effects = g.p:GetEffects()
   local type = g.run.babyType
   local baby = g.babies[type]
 
   -- Some babies have flight
   if baby.flight and
-     player.CanFly == false then
+     g.p.CanFly == false then
 
     effects:AddCollectibleEffect(CollectibleType.COLLECTIBLE_BIBLE, true) -- 33
   end
@@ -120,7 +119,7 @@ function PostNewRoom:ApplyTemporaryEffects()
 
   elseif baby.name == "Glass Baby" then -- 14
     -- Spawn a laser ring around the player
-    local laser = player:FireTechXLaser(player.Position, Vector(0,0), 66):ToLaser() -- The third argument is the radius
+    local laser = g.p:FireTechXLaser(g.p.Position, Vector(0,0), 66):ToLaser() -- The third argument is the radius
     -- (we copy the radius from Samael's Tech X ability)
     if laser.Variant ~= 2 then
       laser.Variant = 2
@@ -137,7 +136,7 @@ function PostNewRoom:ApplyTemporaryEffects()
   elseif baby.name == "Blue Baby" then -- 30
     -- Sprinkler tears
     g.run.babyBool = true
-    player:UseActiveItem(CollectibleType.COLLECTIBLE_SPRINKLER, false, false, false, false) -- 516
+    g.p:UseActiveItem(CollectibleType.COLLECTIBLE_SPRINKLER, false, false, false, false) -- 516
 
   elseif baby.name == "Zombie Baby" then -- 61
     for i, entity in pairs(Isaac.GetRoomEntities()) do
@@ -148,7 +147,7 @@ function PostNewRoom:ApplyTemporaryEffects()
           entity:Remove()
         else
           -- Teleport all friendly enemies to where the player is
-          entity.Position = player.Position
+          entity.Position = g.p.Position
         end
       end
     end
@@ -215,7 +214,7 @@ function PostNewRoom:ApplyTemporaryEffects()
       -- We are entering a new room
       g.run.babyBool = true
       --player:UseActiveItem(CollectibleType.COLLECTIBLE_TELEPORT, false, false, false, false) -- 44
-      player:UseActiveItem(CollectibleType.COLLECTIBLE_TELEPORT_2, false, false, false, false) -- 419
+      g.p:UseActiveItem(CollectibleType.COLLECTIBLE_TELEPORT_2, false, false, false, false) -- 419
     end
 
   elseif baby.name == "Butterfly Baby" and -- 149
@@ -321,7 +320,7 @@ function PostNewRoom:ApplyTemporaryEffects()
   elseif baby.name == "Beast Baby" and -- 242
          roomIndex ~= startingRoomIndex then
 
-    player:UseActiveItem(CollectibleType.COLLECTIBLE_D10, false, false, false, false) -- 285
+    g.p:UseActiveItem(CollectibleType.COLLECTIBLE_D10, false, false, false, false) -- 285
 
   elseif baby.name == "Love Eye Baby" and -- 249
          g.run.babyBool and
@@ -364,7 +363,7 @@ function PostNewRoom:ApplyTemporaryEffects()
 
   elseif baby.name == "Ghost Baby 2" then -- 282
     -- Constant Maw of the Void effect + flight
-    player:SpawnMawOfVoid(30 * 60 * 60) -- 1 hour
+    g.p:SpawnMawOfVoid(30 * 60 * 60) -- 1 hour
 
   elseif baby.name == "Suit Baby" and -- 287
          roomFirstVisit and
@@ -450,7 +449,7 @@ function PostNewRoom:ApplyTemporaryEffects()
   elseif baby.name == "Gamer Baby" and -- 492
          roomIndex ~= startingRoomIndex then -- This can prevent crashes when reseeding happens
 
-    player:UsePill(PillEffect.PILLEFFECT_RETRO_VISION, PillColor.PILL_NULL) -- 37, 0
+    g.p:UsePill(PillEffect.PILLEFFECT_RETRO_VISION, PillColor.PILL_NULL) -- 37, 0
     -- If we try to cancel the animation now, it will bug out the player such that
     -- they will not be able to take pocket items or pedestal items
     -- This still happens even if we cancel the animation in the MC_POST_UPDATE callback,
@@ -466,14 +465,14 @@ function PostNewRoom:ApplyTemporaryEffects()
   elseif baby.name == "Silly Baby" and -- 516
          roomIndex ~= startingRoomIndex then -- This can prevent crashes when reseeding happens
 
-    player:UsePill(PillEffect.PILLEFFECT_IM_EXCITED, PillColor.PILL_NULL) -- 42, 0
+    g.p:UsePill(PillEffect.PILLEFFECT_IM_EXCITED, PillColor.PILL_NULL) -- 42, 0
     -- If we try to cancel the animation now, it will bug out the player such that
     -- they will not be able to take pocket items or pedestal items
     -- This still happens even if we cancel the animation in the MC_POST_UPDATE callback,
     -- so don't bother canceling it
 
   elseif baby.name == "Brother Bobby" then -- 522
-    local godheadTear = player:FireTear(player.Position, Vector(0, 0), false, true, false)
+    local godheadTear = g.p:FireTear(g.p.Position, Vector(0, 0), false, true, false)
     godheadTear.TearFlags = TearFlags.TEAR_GLOW -- 1 << 32
     godheadTear.SubType = 1
     local sprite = godheadTear:GetSprite()

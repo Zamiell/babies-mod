@@ -30,29 +30,28 @@ function PostRender:CheckPlayerSprite()
   -- Local variables
   local gameFrameCount = g.g:GetFrameCount()
   local roomFrameCount = g.r:GetFrameCount()
-  local player = g.g:GetPlayer(0)
 
   -- Remove extra costumes while the game is fading in and/or loading
   if gameFrameCount == 0 then
-    player:ClearCostumes()
+    g.p:ClearCostumes()
   end
 
   -- Fix the bug where fully charging Maw of the Void will occasionally make the player invisible
-  if player:HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_VOID) then -- 399
-    player:RemoveCostume(g:GetItemConfig(CollectibleType.COLLECTIBLE_MAW_OF_VOID), false) -- 399
+  if g.p:HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_VOID) then -- 399
+    g.p:RemoveCostume(g:GetItemConfig(CollectibleType.COLLECTIBLE_MAW_OF_VOID), false) -- 399
   end
 
   -- Certain costumes are applied one frame after entering a room
   if roomFrameCount == 0 then
-    if player:HasCollectible(CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON) then -- 122
+    if g.p:HasCollectible(CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON) then -- 122
       -- Even though we blanked out the costumes for Whore of Babylon,
       -- we also have to also remove the costume or else the player sprite will be invisible permanently
-      player:RemoveCostume(g:GetItemConfig(CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON), false) -- 122
+      g.p:RemoveCostume(g:GetItemConfig(CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON), false) -- 122
     end
-    if player:HasCollectible(CollectibleType.COLLECTIBLE_EMPTY_VESSEL) then -- 409
+    if g.p:HasCollectible(CollectibleType.COLLECTIBLE_EMPTY_VESSEL) then -- 409
       -- Even though we blanked out the costumes for Empty Vessel,
       -- we also have to also remove the costume or else the player sprite will be invisible permanently
-      player:TryRemoveNullCostume(NullItemID.ID_EMPTY_VESSEL, false) -- 18
+      g.p:TryRemoveNullCostume(NullItemID.ID_EMPTY_VESSEL, false) -- 18
     end
   end
 
@@ -80,8 +79,7 @@ end
 
 function PostRender:TrackPlayerAnimations()
   -- Local variables
-  local player = g.g:GetPlayer(0)
-  local playerSprite = player:GetSprite()
+  local playerSprite = g.p:GetSprite()
 
   -- Get the currently playing animation
   local animations = {
@@ -127,10 +125,9 @@ end
 -- and after an animation is played
 function PostRender:SetPlayerSprite()
   -- Local variables
-  local player = g.g:GetPlayer(0)
-  local playerSprite = player:GetSprite()
-  local hearts = player:GetHearts()
-  local effects = player:GetEffects()
+  local playerSprite = g.p:GetSprite()
+  local hearts = g.p:GetHearts()
+  local effects = g.p:GetEffects()
   local effectsList = effects:GetEffectsList()
   local type = g.run.babyType
   local baby = g.babies[type]
@@ -139,32 +136,32 @@ function PostRender:SetPlayerSprite()
   end
 
   -- We don't want any costumes to apply to co-op babies, since they will appear misaligned
-  player:ClearCostumes()
+  g.p:ClearCostumes()
 
   -- Make exceptions for certain costumes
-  if player:HasCollectible(CollectibleType.COLLECTIBLE_DADS_RING) then -- 546
-    player:AddCostume(g:GetItemConfig(CollectibleType.COLLECTIBLE_DADS_RING), false) -- 546
+  if g.p:HasCollectible(CollectibleType.COLLECTIBLE_DADS_RING) then -- 546
+    g.p:AddCostume(g:GetItemConfig(CollectibleType.COLLECTIBLE_DADS_RING), false) -- 546
   end
   -- (for some reason, Empty Vessel makes the sprite flicker when playing certain animations;
   -- there is no known workaround for this)
 
   -- It is hard to tell that the player can fly with all costumes removed,
   -- so represent that the player has flight with Fate's wings
-  if (player.CanFly or
-      (player:HasCollectible(CollectibleType.COLLECTIBLE_EMPTY_VESSEL) and -- 409
+  if (g.p.CanFly or
+      (g.p:HasCollectible(CollectibleType.COLLECTIBLE_EMPTY_VESSEL) and -- 409
        hearts == 0)) and
       -- Empty Vessel takes a frame to activate after entering a new room, so detect the flight status manually
      baby.name ~= "Butterfly Baby 2" then -- 332
      -- (make an exception for Butterfly Baby 2 because it already has wings)
 
-    player:AddCostume(g:GetItemConfig(CollectibleType.COLLECTIBLE_FATE), false) -- 179
+     g.p:AddCostume(g:GetItemConfig(CollectibleType.COLLECTIBLE_FATE), false) -- 179
   end
 
   -- Doing this will remove a shield, so detect if there is a shield and then add it back if so
   for i = 1, effectsList.Size do
     local effect = effectsList:Get(i - 1)
     if effect.Item.ID == CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS then -- 58
-      player:AddCostume(g:GetItemConfig(CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS), false) -- 58
+      g.p:AddCostume(g:GetItemConfig(CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS), false) -- 58
       break
     end
   end
@@ -242,11 +239,10 @@ end
 -- Copied from the Racing+ mod
 function PostRender:GetHeartXOffset()
   -- Local variables
-  local player = g.g:GetPlayer(0)
-  local maxHearts = player:GetMaxHearts()
-  local soulHearts = player:GetSoulHearts()
-  local boneHearts = player:GetBoneHearts()
-  local extraLives = player:GetExtraLives()
+  local maxHearts = g.p:GetMaxHearts()
+  local soulHearts = g.p:GetSoulHearts()
+  local boneHearts = g.p:GetBoneHearts()
+  local extraLives = g.p:GetExtraLives()
 
   local heartLength = 12 -- This is how long each heart is on the UI in the upper left hand corner
   -- (this is not in pixels, but in draw coordinates; you can see that it is 13 pixels wide in the "ui_hearts.png" file)
@@ -258,12 +254,12 @@ function PostRender:GetHeartXOffset()
   local offset = (combinedHearts / 2) * heartLength
   if extraLives > 9 then
     offset = offset + 20
-    if player:HasCollectible(CollectibleType.COLLECTIBLE_GUPPYS_COLLAR) then -- 212
+    if g.p:HasCollectible(CollectibleType.COLLECTIBLE_GUPPYS_COLLAR) then -- 212
       offset = offset + 6
     end
   elseif extraLives > 0 then
     offset = offset + 16
-    if player:HasCollectible(CollectibleType.COLLECTIBLE_GUPPYS_COLLAR) then -- 212
+    if g.p:HasCollectible(CollectibleType.COLLECTIBLE_GUPPYS_COLLAR) then -- 212
       offset = offset + 4
     end
   end
@@ -308,9 +304,8 @@ function PostRender:DrawBabyEffects()
   local roomDesc = g.l:GetCurrentRoomDesc()
   local roomVariant = roomDesc.Data.Variant
   local roomType = g.r:GetType()
-  local player = g.g:GetPlayer(0)
-  local bombs = player:GetNumBombs()
-  local keys = player:GetNumKeys()
+  local bombs = g.p:GetNumBombs()
+  local keys = g.p:GetNumKeys()
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
@@ -380,7 +375,6 @@ end
 
 function PostRender:DrawTempIcon()
   -- Local variables
-  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
 
@@ -401,13 +395,13 @@ function PostRender:DrawTempIcon()
 
   local clockX = 30
   local clockY = 30
-  if player:HasCollectible(baby.item) then
+  if g.p:HasCollectible(baby.item) then
     -- The player has the item in their main active slot
     -- Draw the icon in the bottom-right hand corner
     PostRender.clockSprite:RenderLayer(0, Vector(clockX, clockY))
 
   elseif RacingPlusGlobals ~= nil and
-         player:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
+         g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
          RacingPlusGlobals.run.schoolbag.item == baby.item then
 
     -- The player has the item in the Schoolbag

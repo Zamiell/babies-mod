@@ -10,7 +10,6 @@ local g = require("src/globals")
 -- CollectibleType.COLLECTIBLE_POOP (36)
 function PreUseItem:Item36(collectibleType, RNG)
   -- Local variables
-  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil or
@@ -20,7 +19,7 @@ function PreUseItem:Item36(collectibleType, RNG)
   end
 
   -- Spawn White Poop next to the player
-  Isaac.GridSpawn(GridEntityType.GRID_POOP, PoopVariant.POOP_WHITE, player.Position, false) -- 14
+  Isaac.GridSpawn(GridEntityType.GRID_POOP, PoopVariant.POOP_WHITE, g.p.Position, false) -- 14
 
   -- Playing ID 37 will randomly play one of the three farting sound effects
   g.s:Play(SoundEffect.SOUND_FART, 1, 0, false, 1) -- 37
@@ -31,7 +30,6 @@ end
 -- CollectibleType.COLLECTIBLE_LEMON_MISHAP (56)
 function PreUseItem:Item56(collectibleType, RNG)
   -- Local variables
-  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil or
@@ -40,8 +38,8 @@ function PreUseItem:Item56(collectibleType, RNG)
     return
   end
 
-  player:UsePill(PillEffect.PILLEFFECT_LEMON_PARTY, PillColor.PILL_NULL) -- 26, 0
-  player:AnimateCollectible(CollectibleType.COLLECTIBLE_LEMON_MISHAP, "UseItem", "PlayerPickup") -- 56
+  g.p:UsePill(PillEffect.PILLEFFECT_LEMON_PARTY, PillColor.PILL_NULL) -- 26, 0
+  g.p:AnimateCollectible(CollectibleType.COLLECTIBLE_LEMON_MISHAP, "UseItem", "PlayerPickup") -- 56
   return true -- Cancel the original effect
 end
 
@@ -63,7 +61,6 @@ end
 -- This callback is used naturally by Gulp! pills
 function PreUseItem:Item479(collectibleType, RNG)
   -- Local variables
-  local player = g.g:GetPlayer(0)
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil or
@@ -73,8 +70,8 @@ function PreUseItem:Item479(collectibleType, RNG)
   end
 
   -- We want to keep track if the player smelts the trinket so that we don't give another copy back to them
-  local trinket1 = player:GetTrinket(0) -- This will be 0 if there is no trinket
-  local trinket2 = player:GetTrinket(1) -- This will be 0 if there is no trinket
+  local trinket1 = g.p:GetTrinket(0) -- This will be 0 if there is no trinket
+  local trinket2 = g.p:GetTrinket(1) -- This will be 0 if there is no trinket
   if trinket1 == baby.trinket or
      trinket2 == baby.trinket then
 

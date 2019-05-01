@@ -23,24 +23,23 @@ function InputAction:Main(entity, inputHook, buttonAction)
     -- Can't shoot while moving
     -- This ability does not interact well with charged items,
     -- so don't do anything if the player has a charged item
-    local player = g.g:GetPlayer(0)
-    if player:HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) or -- 69
-       player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE) or -- 114
-       player:HasCollectible(CollectibleType.COLLECTIBLE_BRIMSTONE) or -- 118
-       player:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) or -- 229
-       player:HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE) or -- 316
-       player:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) or -- 395
-       player:HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_VOID) then -- 399
+    if g.p:HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) or -- 69
+       g.p:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE) or -- 114
+       g.p:HasCollectible(CollectibleType.COLLECTIBLE_BRIMSTONE) or -- 118
+       g.p:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) or -- 229
+       g.p:HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE) or -- 316
+       g.p:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) or -- 395
+       g.p:HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_VOID) then -- 399
 
       return
     end
 
     -- Find out if we are moving
     local threshold = 0.75
-    if player.Velocity.X > threshold or
-       player.Velocity.X < threshold * -1 or
-       player.Velocity.Y > threshold or
-       player.Velocity.Y < threshold * -1 then
+    if g.p.Velocity.X > threshold or
+       g.p.Velocity.X < threshold * -1 or
+       g.p.Velocity.Y > threshold or
+       g.p.Velocity.Y < threshold * -1 then
 
       return false
     end

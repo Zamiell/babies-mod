@@ -14,8 +14,7 @@ function PostGameStarted:Main(saveState)
   -- Local variables
   local seeds = g.g:GetSeeds()
   local itemPool = g.g:GetItemPool()
-  local player = g.g:GetPlayer(0)
-  local character = player:GetPlayerType()
+  local character = g.p:GetPlayerType()
   local challenge = Isaac.GetChallenge()
 
   Isaac.DebugString("MC_POST_GAME_STARTED (BM)")
@@ -63,10 +62,10 @@ function PostGameStarted:Main(saveState)
 
   -- Random Baby always starts with the Schoolbag
   if RacingPlusGlobals == nil then
-    player:AddCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG, 0, false) -- 534
+    g.p:AddCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG, 0, false) -- 534
     itemPool:RemoveCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) -- 534
   else
-    player:AddCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM, 0, false)
+    g.p:AddCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM, 0, false)
     itemPool:RemoveCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM)
   end
 

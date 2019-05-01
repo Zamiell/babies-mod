@@ -41,9 +41,6 @@ function NPCUpdate:Main(npc)
 end
 
 function NPCUpdate:Baby514(npc)
-  -- Local variables
-  local player = g.g:GetPlayer(0)
-
   -- Doubling certain enemies leads to bugs
   if npc.Type == EntityType.ENTITY_CHUB or -- 28
      npc.Type == EntityType.ENTITY_FIREPLACE or -- 33
@@ -71,7 +68,7 @@ function NPCUpdate:Baby514(npc)
   if g.run.babyBool == false then
     g.run.babyBool = true
     local position = g.r:FindFreePickupSpawnPosition(npc.Position, 1, true)
-    if g:InsideSquare(position, player.Position, 15) == false then
+    if g:InsideSquare(position, g.p.Position, 15) == false then
       local newNPC = g.g:Spawn(npc.Type, npc.Variant, position, npc.Velocity, npc, npc.SubType, npc.InitSeed)
       newNPC:GetData().duplicated = true
     end
