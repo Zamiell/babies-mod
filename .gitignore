@@ -3,6 +3,9 @@
 # --------------
 
 .DS_Store
+save1.dat
+save2.dat
+save3.dat
 
 # -------------------------------------------------------------
 # gitignore template for Lua from GitHub
