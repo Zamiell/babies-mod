@@ -17,46 +17,48 @@ Boring Babies:
 local BM = RegisterMod("The Babies Mod", 1)
 
 -- The Lua code is split up into separate files for organizational purposes
--- (file names must be in lowercase for Linux compatibility purposes)
-local g                    = require("src/globals") -- Global variables
-local NPCUpdate            = require("src/npcupdate") -- 0
-local PostUpdate           = require("src/postupdate") -- 1
-local PostRender           = require("src/postrender") -- 2
-local UseItem              = require("src/useitem") -- 3
-local UseCard              = require("src/usecard") -- 5
-local FamiliarUpdate       = require("src/familiarupdate") -- 6
-local FamiliarInit         = require("src/familiarinit") -- 7
-local EvaluateCache        = require("src/evaluatecache") -- 8
-local PostPlayerInit       = require("src/postplayerinit") -- 9
-local UsePill              = require("src/usepill") -- 10
-local EntityTakeDmg        = require("src/entitytakedmg") -- 11
-local InputAction          = require("src/inputaction") -- 13
-local PostGameStarted      = require("src/postgamestarted") -- 15
-local PostNewLevel         = require("src/postnewlevel") -- 18
-local PostNewRoom          = require("src/newroom") -- 19
-local ExecuteCmd           = require("src/executecmd") -- 22
-local PreUseItem           = require("src/preuseitem") -- 23
-local PreEntitySpawn       = require("src/preentityspawn") -- 24
-local PostNPCInit          = require("src/postnpcinit") -- 27
-local PostPickupInit       = require("src/postpickupinit") -- 34
-local PostPickupSelection  = require("src/postpickupselection") -- 37
-local PostPickupUpdate     = require("src/postpickupupdate") -- 38
-local PostTearInit         = require("src/posttearinit") -- 39
-local PostTearUpdate       = require("src/posttearupdate") -- 40
-local PreTearCollision     = require("src/pretearcollision") -- 42
-local PostProjectileUpdate = require("src/postprojectileupdate") -- 42
-local PostLaserInit        = require("src/postlaserinit") -- 47
-local PostLaserUpdate      = require("src/postlaserupdate") -- 48
-local PostKnifeInit        = require("src/postknifeinit") -- 50
-local PostEffectInit       = require("src/posteffectinit") -- 54
-local PostEffectUpdate     = require("src/posteffectupdate") -- 55
-local PostBombInit         = require("src/postbombinit") -- 57
-local PostBombUpdate       = require("src/postbombupdate") -- 58
-local PostFireTear         = require("src/postfiretear") -- 61
-local PreGetCollectible    = require("src/pregetcollectible") -- 62
-local PostEntityKill       = require("src/postentitykill") -- 68
-local PreRoomEntitySpawn   = require("src/preroomentityspawn") -- 71
-local Debug                = require("src/debug") -- Debugging functions
+-- (file names must be in a uniquely named directory because no two mods can have the same require path)
+-- (in the code, file names must be in lowercase for Linux compatibility purposes;
+-- the actual files themselves can have capital letters)
+local g                    = require("babies_mod/globals") -- Global variables
+local NPCUpdate            = require("babies_mod/npcupdate") -- 0
+local PostUpdate           = require("babies_mod/postupdate") -- 1
+local PostRender           = require("babies_mod/postrender") -- 2
+local UseItem              = require("babies_mod/useitem") -- 3
+local UseCard              = require("babies_mod/usecard") -- 5
+local FamiliarUpdate       = require("babies_mod/familiarupdate") -- 6
+local FamiliarInit         = require("babies_mod/familiarinit") -- 7
+local EvaluateCache        = require("babies_mod/evaluatecache") -- 8
+local PostPlayerInit       = require("babies_mod/postplayerinit") -- 9
+local UsePill              = require("babies_mod/usepill") -- 10
+local EntityTakeDmg        = require("babies_mod/entitytakedmg") -- 11
+local InputAction          = require("babies_mod/inputaction") -- 13
+local PostGameStarted      = require("babies_mod/postgamestarted") -- 15
+local PostNewLevel         = require("babies_mod/postnewlevel") -- 18
+local PostNewRoom          = require("babies_mod/postnewroom") -- 19
+local ExecuteCmd           = require("babies_mod/executecmd") -- 22
+local PreUseItem           = require("babies_mod/preuseitem") -- 23
+local PreEntitySpawn       = require("babies_mod/preentityspawn") -- 24
+local PostNPCInit          = require("babies_mod/postnpcinit") -- 27
+local PostPickupInit       = require("babies_mod/postpickupinit") -- 34
+local PostPickupSelection  = require("babies_mod/postpickupselection") -- 37
+local PostPickupUpdate     = require("babies_mod/postpickupupdate") -- 38
+local PostTearInit         = require("babies_mod/posttearinit") -- 39
+local PostTearUpdate       = require("babies_mod/posttearupdate") -- 40
+local PreTearCollision     = require("babies_mod/pretearcollision") -- 42
+local PostProjectileUpdate = require("babies_mod/postprojectileupdate") -- 42
+local PostLaserInit        = require("babies_mod/postlaserinit") -- 47
+local PostLaserUpdate      = require("babies_mod/postlaserupdate") -- 48
+local PostKnifeInit        = require("babies_mod/postknifeinit") -- 50
+local PostEffectInit       = require("babies_mod/posteffectinit") -- 54
+local PostEffectUpdate     = require("babies_mod/posteffectupdate") -- 55
+local PostBombInit         = require("babies_mod/postbombinit") -- 57
+local PostBombUpdate       = require("babies_mod/postbombupdate") -- 58
+local PostFireTear         = require("babies_mod/postfiretear") -- 61
+local PreGetCollectible    = require("babies_mod/pregetcollectible") -- 62
+local PostEntityKill       = require("babies_mod/postentitykill") -- 68
+local PreRoomEntitySpawn   = require("babies_mod/preroomentityspawn") -- 71
+local Debug                = require("babies_mod/debug") -- Debugging functions
 
 -- Initiailize the "RPGlobals.run" table
 g:InitRun()
