@@ -76,7 +76,6 @@ end
 
 function PostNewLevel:RemoveOldBaby()
   -- Local variables
-  local seeds = g.g:GetSeeds()
   local batteryCharge = g.p:GetBatteryCharge()
   local type = g.run.babyType
   local baby = g.babies[type]
@@ -134,7 +133,7 @@ function PostNewLevel:RemoveOldBaby()
 
   -- Remove easter eggs
   if baby.seed ~= nil then
-    seeds:RemoveSeedEffect(baby.seed)
+    g.seeds:RemoveSeedEffect(baby.seed)
   end
 
   -- Remove miscellaneous effects
@@ -161,9 +160,17 @@ function PostNewLevel:RemoveOldBaby()
     g.p:RemoveCollectible(CollectibleType.COLLECTIBLE_GOAT_HEAD) -- 215
     g.p:RemoveCollectible(CollectibleType.COLLECTIBLE_DUALITY) -- 498
 
+  elseif baby.name == "Attractive Baby" then -- 157
+    -- Remove all of the friendly enemies
+    for _, entity in ipairs(Isaac.GetRoomEntities()) do
+      if entity:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) then -- 1 << 29
+        entity:Remove()
+      end
+    end
+
   elseif baby.name == "Digital Baby" then -- 162
     -- B00B T00B
-    seeds:RemoveSeedEffect(SeedEffect.SEED_OLD_TV) -- 8
+    g.seeds:RemoveSeedEffect(SeedEffect.SEED_OLD_TV) -- 8
 
   elseif baby.name == "Helmet Baby" then -- 163
     -- Make sure that the fade is removed
@@ -557,7 +564,9 @@ function PostNewLevel:IsBabyValid(type)
     return false
 
   elseif baby.name == "Fang Demon Baby" and -- 281
-         g.p:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) then -- 229
+         (g.p:HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS) or -- 168
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) or -- 229
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X)) then -- 395
 
     return false
 
@@ -604,6 +613,11 @@ function PostNewLevel:IsBabyValid(type)
 
     -- Blender + flight + explosion immunity + blindfolded
     -- Epic Fetus overwrites Mom's Knife, which makes the baby not work properly
+    return false
+
+  elseif baby.name == "Dark Space Soldier Baby" and -- 398
+         g.p:HasCollectible(CollectibleType.COLLECTIBLE_IPECAC) then -- 149
+
     return false
 
   elseif baby.name == "Blurred Baby" and -- 407
@@ -855,8 +869,6 @@ end
 function PostNewLevel:ApplyNewBaby()
   -- Local variables
   local gameFrameCount = g.g:GetFrameCount()
-  local seeds = g.g:GetSeeds()
-  local itemPool = g.g:GetItemPool()
   local stage = g.l:GetStage()
   local soulHearts = g.p:GetSoulHearts()
   local blackHearts = g.p:GetBlackHearts()
@@ -916,7 +928,7 @@ function PostNewLevel:ApplyNewBaby()
     Isaac.DebugString("Removing collectible " .. tostring(item))
 
     -- Also remove this item from all pools
-    itemPool:RemoveCollectible(item)
+    g.itemPool:RemoveCollectible(item)
   end
 
   -- Check if this is a multiple item baby
@@ -937,7 +949,7 @@ function PostNewLevel:ApplyNewBaby()
     Isaac.DebugString("Removing collectible " .. tostring(item2))
 
     -- Also remove this item from all pools
-    itemPool:RemoveCollectible(item)
+    g.itemPool:RemoveCollectible(item)
   end
 
   -- Reset the soul hearts and black hearts to the way it was before we added the items
@@ -970,12 +982,12 @@ function PostNewLevel:ApplyNewBaby()
   local trinket = baby.trinket
   if trinket ~= nil then
     g.p:AddTrinket(trinket)
-    itemPool:RemoveTrinket(trinket)
+    g.itemPool:RemoveTrinket(trinket)
   end
 
  -- Some babies give Easter Eggs
   if baby.seed ~= nil then
-    seeds:AddSeedEffect(baby.seed)
+    g.seeds:AddSeedEffect(baby.seed)
   end
 
   -- Don't grant extra pickups
@@ -1090,6 +1102,12 @@ function PostNewLevel:ApplyNewBaby()
   elseif baby.name == "Aban Baby" then -- 177
     -- Coins are hearts
     g.p:AddCoins(2)
+
+  elseif baby.name == "Fang Demon Baby" then -- 281
+    -- These items will cause a softlock, so just remove them from all pools as a quick fix
+    g.itemPool:RemoveCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS) -- 168
+    g.itemPool:RemoveCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) -- 229
+    g.itemPool:RemoveCollectible(CollectibleType.COLLECTIBLE_TECH_X) -- 395
 
   elseif baby.name == "Vomit Baby" then -- 341
     g.run.babyCounters = gameFrameCount + baby.time

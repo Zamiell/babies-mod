@@ -1,5 +1,3 @@
-#! C:\Python34\python.exe
-
 """ This script handles some miscellaneous tasks when releasing a new version of The Babies Mod. """
 
 # Standard imports
@@ -15,7 +13,7 @@ if (sys.version_info < (3, 0)):
      sys.exit(1)
 
 # Configuration
-MOD_DIR = 'C:\\Users\\james\\Documents\\My Games\\Binding of Isaac Afterbirth+ Mods\\babies_mod_dev'
+MOD_DIR = 'C:\\Users\\james\\Documents\\My Games\\Binding of Isaac Afterbirth+ Mods\\babies_mod'
 os.chdir(MOD_DIR)
 
 # Subroutines
@@ -28,16 +26,16 @@ def error(message, exception=None):
 
 # Increment the version in the "Globals.lua" file
 # http://stackoverflow.com/questions/17140886/how-to-search-and-replace-text-in-a-file-using-python
-LUA_FILE = os.path.join(MOD_DIR, 'src', 'Globals.lua')
+LUA_FILE = os.path.join(MOD_DIR, 'babies_mod', 'Globals.lua')
 with open(LUA_FILE, 'r') as file_handle:
     FILE_DATA = file_handle.read()
 
 # Replace the target string
 NEW_FILE = ''
-VERSION_PREFIX = 'v0.1.'
+VERSION_PREFIX = 'v1.0.'
 VERSION = ''
 for line in iter(FILE_DATA.splitlines()):
-    match = re.search(r'g.version = "' + VERSION_PREFIX + '(\d+)"', line)
+    match = re.search(r'g.version = "' + VERSION_PREFIX + r'(\d+)"', line)
     if match:
         FINAL_DIGIT = str(int(match.group(1)) + 1)
         VERSION = VERSION_PREFIX + FINAL_DIGIT

@@ -5,7 +5,7 @@ local g = {}
 --
 
 -- The version is updated automatically by the "release.py" script
-g.version = "v0.1.32"
+g.version = "v1.0.1"
 
 -- These are variables that are reset at the beginning of every run
 -- (defaults are set below in the "g:InitRun()" function)
@@ -22,6 +22,9 @@ g.g = Game()
 g.l = g.g:GetLevel()
 g.r = g.g:GetRoom()
 g.p = nil -- This is set in the PostPlayerInit callback
+g.seeds = g.g:GetSeeds()
+g.itemPool = g.g:GetItemPool()
+g.itemConfig = Isaac.GetItemConfig()
 g.sfx = SFXManager()
 
 function g:InitRun()
@@ -103,13 +106,10 @@ function g:Round(num, numDecimalPlaces)
 end
 
 function g:GetItemConfig(itemID)
-  -- Local variables
-  local itemConfig = Isaac.GetItemConfig()
-
   if itemID == 0 then
     return 0
   end
-  return itemConfig:GetCollectible(itemID)
+  return g.itemConfig:GetCollectible(itemID)
 end
 
 -- Find out how many charges this item has

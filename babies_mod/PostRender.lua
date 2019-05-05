@@ -1,3 +1,4 @@
+
 local PostRender  = {}
 
 -- Includes
@@ -9,6 +10,13 @@ PostRender.clockSprite = nil
 
 -- ModCallbacks.MC_POST_RENDER (2)
 function PostRender:Main()
+  -- Update some cached API functions to avoid crashing
+  g.l = g.g:GetLevel()
+  g.r = g.g:GetRoom()
+  g.p = g.g:GetPlayer(0)
+  g.seeds = g.g:GetSeeds()
+  g.itemPool = g.g:GetItemPool()
+
   -- Local variables
   local type = g.run.babyType
   local baby = g.babies[type]
@@ -233,7 +241,10 @@ function PostRender:DrawBabyNumber()
     x = x + 20
   end
   local y = 10
-  Isaac.RenderText(text, x, y, 2, 2, 2, 2)
+  local f = Font()
+  f:Load("font/teammeatfont10.fnt")
+  local color = KColor(1, 1, 1, 1, 0, 0, 0)
+  f:DrawString(text, x, y, color, 0, true)
 end
 
 -- Copied from the Racing+ mod
@@ -271,7 +282,7 @@ function PostRender:DrawVersion()
   -- Local variables
   local gameFrameCount = g.g:GetFrameCount()
 
-  -- Make the baby description persist for at least 2 seconds after the player presses "v"
+  -- Make the version persist for at least 2 seconds after the player presses "v"
   if Input.IsButtonPressed(Keyboard.KEY_V, 0) then -- 86
     g.run.showVersionFrame = gameFrameCount + 60
   end
@@ -338,7 +349,9 @@ function PostRender:DrawBabyEffects()
     -- Draw the key count next to the hearts
     local x = 65
     g.run.babySprites:RenderLayer(0, Vector(x, 12))
-    Isaac.RenderText("x" .. tostring(keys), x + 5, 12, 2, 2, 2, 2)
+    local text = "x" .. tostring(keys)
+    Isaac.RenderText(text, x + 5, 12, 2, 2, 2, 2)
+    -- (this looks better without a Droid font)
 
   elseif baby.name == "Mohawk Baby" and -- 138
          roomType ~= RoomType.ROOM_DEVIL and -- 14
@@ -355,6 +368,7 @@ function PostRender:DrawBabyEffects()
     local x = 65
     g.run.babySprites:RenderLayer(0, Vector(x, 12))
     Isaac.RenderText("x" .. tostring(bombs), x + 5, 12, 2, 2, 2, 2)
+    -- (this looks better without a Droid font)
 
   elseif baby.name == "Elf Baby" then -- 377
     -- The Speak of Destiny effect is not spawned in the POST_NEW_ROOM callback

@@ -12,8 +12,6 @@ function PostGameStarted:Main(saveState)
   end
 
   -- Local variables
-  local seeds = g.g:GetSeeds()
-  local itemPool = g.g:GetItemPool()
   local character = g.p:GetPlayerType()
   local challenge = Isaac.GetChallenge()
 
@@ -40,15 +38,15 @@ function PostGameStarted:Main(saveState)
   for i = 1, #g.babies do
     local baby = g.babies[i]
     if baby.seed ~= nil then
-      if seeds:HasSeedEffect(baby.seed) then
-        seeds:RemoveSeedEffect(baby.seed)
+      if g.seeds:HasSeedEffect(baby.seed) then
+        g.seeds:RemoveSeedEffect(baby.seed)
       end
     end
   end
 
   -- Also remove seeds that are turned on manually in the MC_POST_UPDATE callback
-  if seeds:HasSeedEffect(SeedEffect.SEED_OLD_TV) then -- 8
-    seeds:RemoveSeedEffect(SeedEffect.SEED_OLD_TV) -- 8
+  if g.seeds:HasSeedEffect(SeedEffect.SEED_OLD_TV) then -- 8
+    g.seeds:RemoveSeedEffect(SeedEffect.SEED_OLD_TV) -- 8
   end
 
   -- Only do the following things if we are not on the Random Baby character
@@ -63,18 +61,20 @@ function PostGameStarted:Main(saveState)
   -- Random Baby always starts with the Schoolbag
   if RacingPlusGlobals == nil then
     g.p:AddCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG, 0, false) -- 534
-    itemPool:RemoveCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) -- 534
+    g.itemPool:RemoveCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) -- 534
   else
     g.p:AddCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM, 0, false)
-    itemPool:RemoveCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM)
+    g.itemPool:RemoveCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM)
   end
 
   -- Remove some items from pools
-  itemPool:RemoveCollectible(CollectibleType.COLLECTIBLE_GUILLOTINE) -- 206
+  g.itemPool:RemoveCollectible(CollectibleType.COLLECTIBLE_GUILLOTINE) -- 206
   -- (this item will not properly display and there is no good way to fix it)
-  itemPool:RemoveCollectible(CollectibleType.COLLECTIBLE_CLICKER) -- 482
+  g.itemPool:RemoveCollectible(CollectibleType.COLLECTIBLE_SCISSORS) -- 325
+  -- (this item will not properly display and there is no good way to fix it)
+  g.itemPool:RemoveCollectible(CollectibleType.COLLECTIBLE_CLICKER) -- 482
   -- (there is no way to know which character that you Clicker to, so just remove this item)
-  itemPool:RemoveTrinket(TrinketType.TRINKET_BAT_WING) -- 118
+  g.itemPool:RemoveTrinket(TrinketType.TRINKET_BAT_WING) -- 118
   -- (Bat Wing causes graphical bugs which are annoying to fix, so just remove this trinket)
 
   -- Call PostNewLevel manually (they get naturally called out of order)

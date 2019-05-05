@@ -6,6 +6,13 @@ local PostRender = require("babies_mod/postrender")
 
 -- ModCallbacks.MC_POST_NEW_ROOM (19)
 function PostNewRoom:Main()
+  -- Update some cached API functions to avoid crashing
+  g.l = g.g:GetLevel()
+  g.r = g.g:GetRoom()
+  g.p = g.g:GetPlayer(0)
+  g.seeds = g.g:GetSeeds()
+  g.itemPool = g.g:GetItemPool()
+
   -- Local variables
   local gameFrameCount = g.g:GetFrameCount()
   local stage = g.l:GetStage()
@@ -83,8 +90,6 @@ end
 
 function PostNewRoom:ApplyTemporaryEffects()
   -- Local variables
-  local itemPool = g.g:GetItemPool()
-  local seeds = g.g:GetSeeds()
   local rooms = g.l:GetRooms()
   local roomIndex = g.l:GetCurrentRoomDesc().SafeGridIndex
   if roomIndex < 0 then -- SafeGridIndex is always -1 for rooms outside the grid
@@ -187,7 +192,7 @@ function PostNewRoom:ApplyTemporaryEffects()
 
     -- Get rid of the health UI by using Curse of the Unknown
     -- (but not in Devil Rooms or Black Markets)
-    seeds:RemoveSeedEffect(SeedEffect.SEED_PREVENT_ALL_CURSES) -- 70
+    g.seeds:RemoveSeedEffect(SeedEffect.SEED_PREVENT_ALL_CURSES) -- 70
     if (roomType == RoomType.ROOM_DEVIL or -- 14
         roomType == RoomType.ROOM_BLACK_MARKET) and -- 22
        (roomVariant ~= 2300 and -- Krampus
@@ -378,7 +383,7 @@ function PostNewRoom:ApplyTemporaryEffects()
 
     -- All special rooms are Devil Rooms
     g.run.roomRNG = g:IncrementRNG(g.run.roomRNG)
-    local item = itemPool:GetCollectible(ItemPoolType.POOL_DEVIL, true, g.run.roomRNG) -- 3
+    local item = g.itemPool:GetCollectible(ItemPoolType.POOL_DEVIL, true, g.run.roomRNG) -- 3
     local position = g:GridToPos(6, 4)
     local pedestal = g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
                                position, Vector(0, 0), nil, item, g.run.roomRNG):ToPickup()

@@ -358,7 +358,6 @@ end
 
 function PostUpdate:CheckTrapdoor()
   -- Local variables
-  local seeds = g.g:GetSeeds()
   local playerSprite = g.p:GetSprite()
   local type = g.run.babyType
   local baby = g.babies[type]
@@ -402,9 +401,9 @@ function PostUpdate:CheckTrapdoor()
   -- We may have temporarily disabled the Easter Egg,
   -- so make sure that it is re-enabled before we head to the next floor
   if RacingPlusGlobals ~= nil and
-     not seeds:HasSeedEffect(SeedEffect.SEED_PREVENT_ALL_CURSES) then -- 70
+     not g.seeds:HasSeedEffect(SeedEffect.SEED_PREVENT_ALL_CURSES) then -- 70
 
-    seeds:AddSeedEffect(SeedEffect.SEED_PREVENT_ALL_CURSES) -- 70
+    g.seeds:AddSeedEffect(SeedEffect.SEED_PREVENT_ALL_CURSES) -- 70
   end
 end
 

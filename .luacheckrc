@@ -21,6 +21,7 @@ globals = {
   "EntityRef",
   "EntityType",
   "FamiliarVariant",
+  "Font",
   "Game",
   "GetPtrHash",
   "GridCollisionClass",
@@ -32,6 +33,7 @@ globals = {
   "InputHook",
   "Isaac",
   "ItemType",
+  "KColor",
   "Keyboard",
   "LevelCurse",
   "LevelStage",
@@ -66,6 +68,7 @@ globals = {
   "RacingPlusGlobals",
   "RacingPlusSchoolbag",
   "RacingPlusSpeedrun",
+  "VanillaStreakText",
 
   -- The Babies Mod global variables
   "SinglePlayerCoopBabies",

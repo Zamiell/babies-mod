@@ -8,7 +8,6 @@ local Misc = require("babies_mod/misc")
 function PostPickupUpdate:Main(pickup)
   -- Local variables
   local gameFrameCount = g.g:GetFrameCount()
-  local itemPool = g.g:GetItemPool()
   local roomIndex = g.l:GetCurrentRoomDesc().SafeGridIndex
   if roomIndex < 0 then -- SafeGridIndex is always -1 for rooms outside the grid
     roomIndex = g.l:GetCurrentRoomIndex()
@@ -246,7 +245,7 @@ function PostPickupUpdate:Main(pickup)
       -- Rerolled items turn into hearts since this is a not an actual Devil Room,
       -- so delete the heart and manually create another pedestal item
       g.run.roomRNG = g:IncrementRNG(g.run.roomRNG)
-      local item = itemPool:GetCollectible(ItemPoolType.POOL_DEVIL, true, g.run.roomRNG) -- 3
+      local item = g.itemPool:GetCollectible(ItemPoolType.POOL_DEVIL, true, g.run.roomRNG) -- 3
       local pedestal = g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
                                  pickup.Position, Vector(0, 0), nil, item, pickup.InitSeed):ToPickup()
 

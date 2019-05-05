@@ -54,13 +54,10 @@ function PreGetCollectible:Main(poolType, decrease, seed)
 end
 
 function PreGetCollectible:GetRandom(poolType)
-  -- Local variables
-  local itemPool = g.g:GetItemPool()
-
   -- Get a new item from this pool
   g.run.roomRNG = g:IncrementRNG(g.run.roomRNG)
   g.run.babyBool = true -- The next line will cause this callback to be re-entered
-  local item = itemPool:GetCollectible(poolType, true, g.run.roomRNG) -- The second argument is "decrease"
+  local item = g.itemPool:GetCollectible(poolType, true, g.run.roomRNG) -- The second argument is "decrease"
   g.run.babyBool = false
   return item
 end

@@ -459,7 +459,6 @@ end
 PostUpdateBabies.functions[162] = function()
   -- Local variables
   local roomFrameCount = g.r:GetFrameCount()
-  local seeds = g.g:GetSeeds()
 
   if not g.run.babyBool and
      roomFrameCount <= 1 then
@@ -469,7 +468,7 @@ PostUpdateBabies.functions[162] = function()
     -- This baby grants SeedEffect.SEED_OLD_TV (8)
     -- However, applying this in the MC_POST_NEW_LEVEL callback can cause game crashes
     -- Instead, we manually apply it in the MC_POST_UPDATE callback
-    seeds:AddSeedEffect(SeedEffect.SEED_OLD_TV) -- 8
+    g.seeds:AddSeedEffect(SeedEffect.SEED_OLD_TV) -- 8
   end
 end
 
