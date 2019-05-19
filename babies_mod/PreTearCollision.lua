@@ -30,7 +30,7 @@ function PreTearCollision:Main(tear, collider, low)
          tear.SubType == 1 then
 
     -- Splash tears
-    local creep = g.p:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_HOLYWATER, -- 37
+    local creep = g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_HOLYWATER, -- 37
                              collider.Position, Vector(0, 0), g.p, 0, 0)
     creep:ToEffect().Timeout = 120
 

@@ -46,7 +46,7 @@ function PostRender:CheckPlayerSprite()
 
   -- Fix the bug where fully charging Maw of the Void will occasionally make the player invisible
   if g.p:HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_VOID) then -- 399
-    g.p:RemoveCostume(g:GetItemConfig(CollectibleType.COLLECTIBLE_MAW_OF_VOID), false) -- 399
+    g.p:RemoveCostume(g:GetItemConfig(CollectibleType.COLLECTIBLE_MAW_OF_VOID)) -- 399
   end
 
   -- Certain costumes are applied one frame after entering a room
@@ -54,12 +54,12 @@ function PostRender:CheckPlayerSprite()
     if g.p:HasCollectible(CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON) then -- 122
       -- Even though we blanked out the costumes for Whore of Babylon,
       -- we also have to also remove the costume or else the player sprite will be invisible permanently
-      g.p:RemoveCostume(g:GetItemConfig(CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON), false) -- 122
+      g.p:RemoveCostume(g:GetItemConfig(CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON)) -- 122
     end
     if g.p:HasCollectible(CollectibleType.COLLECTIBLE_EMPTY_VESSEL) then -- 409
       -- Even though we blanked out the costumes for Empty Vessel,
       -- we also have to also remove the costume or else the player sprite will be invisible permanently
-      g.p:TryRemoveNullCostume(NullItemID.ID_EMPTY_VESSEL, false) -- 18
+      g.p:TryRemoveNullCostume(NullItemID.ID_EMPTY_VESSEL) -- 18
     end
   end
 

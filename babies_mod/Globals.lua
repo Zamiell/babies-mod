@@ -5,7 +5,7 @@ local g = {}
 --
 
 -- The version is updated automatically by the "release.py" script
-g.version = "v1.0.1"
+g.version = "v1.0.2"
 
 -- These are variables that are reset at the beginning of every run
 -- (defaults are set below in the "g:InitRun()" function)
