@@ -31,7 +31,7 @@ function PreTearCollision:Main(tear, collider, low)
 
     -- Splash tears
     local creep = g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_HOLYWATER, -- 37
-                             collider.Position, Vector(0, 0), g.p, 0, 0)
+                            collider.Position, g.zeroVector, g.p, 0, 0)
     creep:ToEffect().Timeout = 120
 
   elseif baby.name == "Sad Bunny Baby" and -- 459

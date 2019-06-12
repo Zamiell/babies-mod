@@ -24,7 +24,7 @@ PostUpdateBabies.functions[6] = function()
 
   if gameFrameCount % 90 == 0 then -- 3 seconds
     -- Spawn a Troll Bomb (4.3)
-    g.g:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_TROLL, g.p.Position, Vector(0, 0), nil, 0, 0)
+    g.g:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_TROLL, g.p.Position, g.zeroVector, nil, 0, 0)
   end
 end
 
@@ -235,9 +235,9 @@ PostUpdateBabies.functions[107] = function()
   if not g.run.babyBool then
     g.run.babyBool = true
     g.g:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.CUBE_OF_MEAT_4, -- 3.47
-              g.p.Position, Vector(0, 0), nil, 0, 0)
+              g.p.Position, g.zeroVector, nil, 0, 0)
     g.g:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BALL_OF_BANDAGES_4, -- 3.72
-              g.p.Position, Vector(0, 0), nil, 0, 0)
+              g.p.Position, g.zeroVector, nil, 0, 0)
   end
 end
 
@@ -537,8 +537,8 @@ end
 -- Black Eye Baby
 PostUpdateBabies.functions[164] = function()
   -- Starts with Leprosy, +5 damage on Leprosy breaking
-  local entities = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.LEPROCY, -1, false, false) -- 3.121
-  if #entities < g.run.babyCounters then
+  local leprocyChunks = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.LEPROCY, -1, false, false) -- 3.121
+  if #leprocyChunks < g.run.babyCounters then
     g.run.babyCounters = g.run.babyCounters - 1
 
     -- We use the "babyFrame" variable to track how many damage ups we have recieved
@@ -580,7 +580,7 @@ PostUpdateBabies.functions[171] = function()
       data.destroyed = true
       g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
       g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-                slot.Position, Vector(0, 0), nil, 0, g.run.randomSeed)
+                slot.Position, g.zeroVector, nil, 0, g.run.randomSeed)
     end
   end
 end
@@ -599,7 +599,7 @@ PostUpdateBabies.functions[211] = function()
     end
     if (gameFrameCount - tear.frame) % 2 == 0 then
       local explosion = g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.ROCK_EXPLOSION, -- 1000.62
-                                  tear.position, Vector(0, 0), g.p, 0, 0)
+                                  tear.position, g.zeroVector, g.p, 0, 0)
       local index = g.r:GetGridIndex(tear.position)
       g.r:DestroyGrid(index)
       tear.position = tear.position + tear.velocity
@@ -607,7 +607,7 @@ PostUpdateBabies.functions[211] = function()
       -- (if the sound effect plays at full volume, it starts to get annoying)
 
       -- Make the shockwave deal damage to the player
-      if g:InsideSquare(tear.position, g.p.Position, 40) then
+      if tear.position:Distance(g.p.Position) <= 40 then
         g.p:TakeDamage(1, DamageFlag.DAMAGE_EXPLOSION, EntityRef(explosion), 2)
       end
 
@@ -972,7 +972,7 @@ PostUpdateBabies.functions[374] = function()
   if gameFrameCount % 120 == 0 then -- 4 second
     -- Spawn a random stomp
     g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.MOM_FOOT_STOMP, -- 1000.29
-              Isaac.GetRandomPosition(), Vector(0, 0), nil, 0, 0)
+              Isaac.GetRandomPosition(), g.zeroVector, nil, 0, 0)
   end
 end
 
@@ -983,7 +983,7 @@ PostUpdateBabies.functions[382] = function()
 
   if gameFrameCount % 150 == 0 then -- 5 seconds
     -- Spawn a Mega Troll Bomb (4.5)
-    g.g:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_SUPERTROLL, g.p.Position, Vector(0, 0), nil, 0, 0)
+    g.g:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_SUPERTROLL, g.p.Position, g.zeroVector, nil, 0, 0)
   end
 end
 
@@ -1036,7 +1036,7 @@ PostUpdateBabies.functions[396] = function()
   if gameFrameCount % 5 == 0 then -- Every 5 frames
     -- Drip green creep
     local creep = g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_GREEN, -- 53
-                            g.p.Position, Vector(0, 0), g.p, 0, 0)
+                            g.p.Position, g.zeroVector, g.p, 0, 0)
     creep:ToEffect().Timeout = 240
   end
 end
@@ -1048,7 +1048,7 @@ PostUpdateBabies.functions[401] = function()
 
   if gameFrameCount % 45 == 0 then -- 1.5 seconds
     -- Spawn a Fly (13.0)
-    g.g:Spawn(EntityType.ENTITY_FLY, 0, g.p.Position, Vector(0, 0), nil, 0, 0)
+    g.g:Spawn(EntityType.ENTITY_FLY, 0, g.p.Position, g.zeroVector, nil, 0, 0)
   end
 end
 
@@ -1086,7 +1086,7 @@ PostUpdateBabies.functions[462] = function()
     end
     if (gameFrameCount - tear.frame) % 2 == 0 then
       local explosion = g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.ROCK_EXPLOSION, -- 1000.62
-                                  tear.position, Vector(0, 0), g.p, 0, 0)
+                                  tear.position, g.zeroVector, g.p, 0, 0)
       local index = g.r:GetGridIndex(tear.position)
       g.r:DestroyGrid(index)
       tear.position = tear.position + tear.velocity
@@ -1130,7 +1130,7 @@ PostUpdateBabies.functions[485] = function()
   if gameFrameCount % 30 == 0 then -- 1 second
     -- Spawn a random rocket target
     local target = g.g:Spawn(EntityType.ENTITY_EFFECT, Isaac.GetEntityVariantByName("FetusBossTarget"), -- 1000
-                             Isaac.GetRandomPosition(), Vector(0, 0), nil, 0, 0)
+                             Isaac.GetRandomPosition(), g.zeroVector, nil, 0, 0)
     local sprite = target:GetSprite()
     sprite:Play("Blink", true)
     -- Target and rocket behavior are handled in the MC_POST_EFFECT_UPDATE callback

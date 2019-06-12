@@ -437,9 +437,9 @@ function PostFireTear:Main(tear)
 
     -- Starts with Abel; tears come from Abel
     -- Get Abel's position
-    local entities = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ABEL, -1, false, false) -- 5.8
-    if #entities > 0 then
-      tear.Position = entities[1].Position
+    local abels = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ABEL, -1, false, false) -- 5.8
+    if #abels > 0 then
+      tear.Position = abels[1].Position
     else
       Isaac.DebugString("Error: Abel was not found.")
     end

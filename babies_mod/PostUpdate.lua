@@ -36,10 +36,10 @@ function PostUpdate:Main()
         g.p.FireDelay = 0
       end
 
-      -- We also have to restore the fire delay on Incubus(es), if any
+      -- We also have to restore the fire delay on Incubus, if any
       local incubi = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.INCUBUS, -1, false, false) -- 7.80
-      for i = 1, #incubi do
-        local incubus = incubi[i]:ToFamiliar()
+      for _, entity in ipairs(incubi) do
+        local incubus = entity:ToFamiliar()
         if incubus.FireCooldown > 900 then -- 30 seconds
           incubus.FireCooldown = 0
         end
@@ -118,11 +118,11 @@ function PostUpdate:CheckTrinket()
   end
 
   -- Search the room for the dropped trinket
-  local entities = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, -- 5.350
+  local trinkets = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, -- 5.350
                                     baby.trinket, false, false)
-  if #entities > 0 then
+  if #trinkets > 0 then
     -- Delete the dropped trinket
-    entities[1]:Remove()
+    trinkets[1]:Remove()
 
     -- Give it back
     local position = g.r:FindFreePickupSpawnPosition(g.p.Position, 1, true)
@@ -145,7 +145,7 @@ function PostUpdate:CheckTrinket()
       local position = g.r:FindFreePickupSpawnPosition(g.p.Position, 1, true)
       g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
       g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-                position, Vector(0, 0), nil, 0, g.run.randomSeed)
+                position, g.zeroVector, nil, 0, g.run.randomSeed)
     end
   end
 end
@@ -172,7 +172,7 @@ end
 function PostUpdate:RoomCleared()
   -- Local variables
   local roomType = g.r:GetType()
-  local roomSeed = g.r:GetSpawnSeed() -- Gets a reproducible seed based on the room, something like "2496979501"
+  local roomSeed = g.r:GetSpawnSeed() -- Gets a reproducible seed based on the room, e.g. "2496979501"
   local type = g.run.babyType
   local baby = g.babies[type]
 
@@ -180,14 +180,14 @@ function PostUpdate:RoomCleared()
 
   if baby.name == "Love Baby" then -- 1
     -- Random Heart - 5.10.0
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, g.p.Position, Vector(0, 0), g.p, 0, roomSeed)
+    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, g.p.Position, g.zeroVector, g.p, 0, roomSeed)
 
   elseif baby.name == "Bandaid Baby" and -- 88
          roomType ~= RoomType.ROOM_BOSS then -- 5
 
     -- Random collectible - 5.100.0
     local position = g.r:FindFreePickupSpawnPosition(g.p.Position, 1, true)
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, position, Vector(0, 0), g.p, 0, roomSeed)
+    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, position, g.zeroVector, g.p, 0, roomSeed)
 
   elseif baby.name == "Jammies Baby" then -- 192
     -- Extra charge per room cleared
@@ -198,7 +198,7 @@ function PostUpdate:RoomCleared()
 
   elseif baby.name == "Fishman Baby" then -- 384
     -- Random Bomb - 5.40.0
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, g.p.Position, Vector(0, 0), g.p, 0, roomSeed)
+    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, g.p.Position, g.zeroVector, g.p, 0, roomSeed)
   end
 end
 
@@ -345,7 +345,7 @@ function PostUpdate:CheckGridEntities()
               (saveState.Type == GridEntityType.GRID_TNT and saveState.State ~= 4) or -- 12
               (saveState.Type == GridEntityType.GRID_POOP and saveState.State ~= 4) or -- 14
               (saveState.Type == GridEntityType.GRID_ROCK_SS and saveState.State ~= 3)) and -- 22
-             g:InsideSquare(g.p.Position, gridEntity.Position, 36) then
+             g.p.Position:Distance(gridEntity.Position) <= 36 then
 
         g.run.invulnerable = true
         g.p:UseActiveItem(CollectibleType.COLLECTIBLE_KAMIKAZE, false, false, false, false) -- 40

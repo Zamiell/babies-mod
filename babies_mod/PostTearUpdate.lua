@@ -23,7 +23,7 @@ function PostTearUpdate:Main(tear)
 
     -- Fire trail tears
     local fire = g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.HOT_BOMB_FIRE, -- 1000.51
-                           tear.Position, Vector(0, 0), nil, 0, 0)
+                           tear.Position, g.zeroVector, nil, 0, 0)
     fire.SpriteScale = Vector(0.5, 0.5)
 
     -- Fade the fire so that it is easier to see everything
@@ -126,7 +126,7 @@ function PostTearUpdate:Main(tear)
 
     -- Make the tear drip black creep
     local creep = g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_BLACK, -- 45
-                            tear.Position, Vector(0, 0), tear, 0, 0)
+                            tear.Position, g.zeroVector, tear, 0, 0)
     creep:ToEffect().Timeout = 240
 
   elseif baby.name == "Cylinder Baby" then -- 434
@@ -212,9 +212,9 @@ function PostTearUpdate:Main(tear)
          tear.SubType == 1 then
 
     -- This tear is supposed to be attached to the knife
-    local entities = Isaac.FindByType(EntityType.ENTITY_KNIFE, -1, -1, false, false) -- 8
-    if #entities > 0 then
-      local knife = entities[1]
+    local knives = Isaac.FindByType(EntityType.ENTITY_KNIFE, -1, -1, false, false) -- 8
+    if #knives > 0 then
+      local knife = knives[1]
       tear.Height = -10 -- Keep it in the air forever
       tear.Position = knife.Position
       tear.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE -- 0

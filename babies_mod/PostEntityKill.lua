@@ -45,7 +45,7 @@ function PostEntityKill:Main(entity)
          npc.Type ~= EntityType.ENTITY_MOVABLE_TNT and -- 292
          not npc:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) then-- 1 << 29
 
-    local friend = g.g:Spawn(npc.Type, npc.Variant, npc.Position, Vector(0, 0), nil, npc.SubType, npc.InitSeed)
+    local friend = g.g:Spawn(npc.Type, npc.Variant, npc.Position, g.zeroVector, nil, npc.SubType, npc.InitSeed)
     friend:AddEntityFlags(EntityFlag.FLAG_CHARM) -- 1 << 8
     friend:AddEntityFlags(EntityFlag.FLAG_FRIENDLY) -- 1 << 29
     friend:AddEntityFlags(EntityFlag.FLAG_PERSISTENT) -- 1 << 37
@@ -101,7 +101,7 @@ function PostEntityKill:Main(entity)
 
     -- Spawn a new Bob's Brain familiar that we will reskin to look like an egg
     local brain = g.g:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BOBS_BRAIN, -- 3.59
-                  g.p.Position, Vector(0, 0), nil, 0, 0)
+                  g.p.Position, g.zeroVector, nil, 0, 0)
     local brainSprite = brain:GetSprite()
     brainSprite:Load("gfx/003.059_bobs brain2.anm2", true)
     brainSprite:Play("Idle", true)
@@ -117,18 +117,18 @@ function PostEntityKill:Main(entity)
   elseif baby.name == "Toast Baby" then -- 390
     -- Enemies leave a Red Candle fire upon death
     g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.HOT_BOMB_FIRE, -- 1000.51
-              npc.Position, Vector(0, 0), nil, 0, 0)
+              npc.Position, g.zeroVector, nil, 0, 0)
 
   elseif baby.name == "Buttface Baby" then -- 451
     Isaac.GridSpawn(GridEntityType.GRID_POOP, PoopVariant.POOP_BLACK, npc.Position, false) -- 14.5
 
   elseif baby.name == "Funny Baby" then -- 491
     g.g:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_SUPERTROLL, -- 4.5
-              npc.Position, Vector(0, 0), nil, 0, 0)
+              npc.Position, g.zeroVector, nil, 0, 0)
 
   elseif baby.name == "Rainbow Baby" then -- 530
     g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_CHEST, -- 5.50
-              npc.Position, Vector(0, 0), nil, 0, npc.InitSeed)
+              npc.Position, g.zeroVector, nil, 0, npc.InitSeed)
   end
 end
 

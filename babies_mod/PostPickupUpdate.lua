@@ -61,7 +61,7 @@ function PostPickupUpdate:Main(pickup)
     data.touched = true
     Isaac.DebugString("Touched pickup: " .. tostring(pickup.Type) .. "." .. tostring(pickup.Variant) .. "." ..
                       tostring(pickup.SubType) .. " (BM)")
-    PostPickupUpdate:Touched()
+    PostPickupUpdate:Touched(pickup)
   end
 
   if baby.name == "Bugeyed Baby" and -- 131
@@ -95,7 +95,7 @@ function PostPickupUpdate:Main(pickup)
     end
 
     -- Make it bounce off the player if they get too close
-    if g:InsideSquare(g.p.Position, pickup.Position, 25) then
+    if g.p.Position:Distance(pickup.Position) <= 25 then
       local x = pickup.Position.X - g.p.Position.X
       local y = pickup.Position.Y - g.p.Position.Y
       pickup.Velocity = Vector(x / 2, y / 2)
@@ -108,7 +108,7 @@ function PostPickupUpdate:Main(pickup)
          pickup.Variant ~= PickupVariant.PICKUP_TROPHY and -- 370
          pickup.Variant ~= PickupVariant.PICKUP_BED and -- 380
          pickup.Price == 0 and -- We don't want it to affect shop items
-         g:InsideSquare(pickup.Position, g.p.Position, 80) then
+         pickup.Position:Distance(g.p.Position) <= 80 then
 
     -- Scared pickups
     local velocity = pickup.Position - g.p.Position
@@ -141,7 +141,7 @@ function PostPickupUpdate:Main(pickup)
 
       -- Replace the contents of the chest with an item
       g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-                pickup.Position, Vector(0, 0), nil, 0, pickup.InitSeed)
+                pickup.Position, g.zeroVector, nil, 0, pickup.InitSeed)
       pickup:Remove()
     end
 
@@ -157,7 +157,7 @@ function PostPickupUpdate:Main(pickup)
       end
 
       -- Make it bounce off the player if they get too close
-      if g:InsideSquare(g.p.Position, pickup.Position, 25) then
+      if g.p.Position:Distance(pickup.Position) <= 25 then
         local x = pickup.Position.X - g.p.Position.X
         local y = pickup.Position.Y - g.p.Position.Y
         pickup.Velocity = Vector(x / 2, y / 2)
@@ -247,7 +247,7 @@ function PostPickupUpdate:Main(pickup)
       g.run.roomRNG = g:IncrementRNG(g.run.roomRNG)
       local item = g.itemPool:GetCollectible(ItemPoolType.POOL_DEVIL, true, g.run.roomRNG) -- 3
       local pedestal = g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-                                 pickup.Position, Vector(0, 0), nil, item, pickup.InitSeed):ToPickup()
+                                 pickup.Position, g.zeroVector, nil, item, pickup.InitSeed):ToPickup()
 
       -- Set the price
       pedestal.AutoUpdatePrice = false
@@ -276,7 +276,7 @@ function PostPickupUpdate:Main(pickup)
       -- Rerolled items turn into hearts since we are not in a Devil Room,
       -- so delete the heart and manually create another pedestal item
       local pedestal = g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-                                 pickup.Position, Vector(0, 0), nil, 0, pickup.InitSeed):ToPickup()
+                                 pickup.Position, g.zeroVector, nil, 0, pickup.InitSeed):ToPickup()
 
       -- Set the price
       pedestal.AutoUpdatePrice = false
@@ -301,7 +301,7 @@ function PostPickupUpdate:Main(pickup)
     local position = g.r:FindFreePickupSpawnPosition(pickup.Position, 1, true)
     g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
     local pedestal = g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-                               position, Vector(0, 0), nil, 0, g.run.randomSeed):ToPickup()
+                               position, g.zeroVector, nil, 0, g.run.randomSeed):ToPickup()
     pedestal.Price = pickup.Price -- We don't want it to automatically be bought
     pedestal.TheresOptionsPickup = pickup.TheresOptionsPickup -- We want it to keep the behavior of the room
     pedestal.State = 2 -- Mark it so that we don't duplicate it again
@@ -331,7 +331,7 @@ function PostPickupUpdate:Main(pickup)
     -- so delete the heart and manually create another pedestal item
      g.run.roomRNG = g:IncrementRNG(g.run.roomRNG)
      local pedestal = g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100.0
-                                pickup.Position, Vector(0, 0), nil, 0, g.run.roomRNG):ToPickup()
+                                pickup.Position, g.zeroVector, nil, 0, g.run.roomRNG):ToPickup()
      pedestal.Price = 15
      pickup:Remove()
   end

@@ -70,59 +70,20 @@ SinglePlayerCoopBabies = g
 g.BM = BM -- (this is needed for saving and loading the "save.dat" file)
 
 -- Define miscellaneous callbacks
-BM:AddCallback(ModCallbacks.MC_NPC_UPDATE,  NPCUpdate.Main) -- 0
-BM:AddCallback(ModCallbacks.MC_POST_UPDATE, PostUpdate.Main) -- 1
-BM:AddCallback(ModCallbacks.MC_POST_RENDER, PostRender.Main) -- 2
-
--- Define post-use item callbacks (3)
-BM:AddCallback(ModCallbacks.MC_USE_ITEM, UseItem.Main) -- 3
-BM:AddCallback(ModCallbacks.MC_USE_ITEM, UseItem.Item49, -- 3
-                                          CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP) -- 49
-BM:AddCallback(ModCallbacks.MC_USE_ITEM, UseItem.Item86, -- 3
-                                          CollectibleType.COLLECTIBLE_MONSTROS_TOOTH) -- 86
-BM:AddCallback(ModCallbacks.MC_USE_ITEM, UseItem.Item282, -- 3
-                                          CollectibleType.COLLECTIBLE_HOW_TO_JUMP) -- 282
-BM:AddCallback(ModCallbacks.MC_USE_ITEM, UseItem.ClockworkAssembly, -- 3
-                                          Isaac.GetItemIdByName("Clockwork Assembly"))
-BM:AddCallback(ModCallbacks.MC_USE_ITEM, UseItem.FlockOfSuccubi, -- 3
-                                          Isaac.GetItemIdByName("Flock of Succubi"))
-BM:AddCallback(ModCallbacks.MC_USE_ITEM, UseItem.ChargingStation, -- 3
-                                          Isaac.GetItemIdByName("Charging Station"))
-if Isaac.GetItemIdByName("Debug") ~= -1 then -- This is in the Racing+ mod
-  BM:AddCallback(ModCallbacks.MC_USE_ITEM, Debug.Main, -- 3
-                                            Isaac.GetItemIdByName("Debug"))
-end
-
--- Define card callbacks (5)
-BM:AddCallback(ModCallbacks.MC_USE_CARD, UseCard.Card4, Card.CARD_EMPRESS) -- 5
-BM:AddCallback(ModCallbacks.MC_USE_CARD, UseCard.Card13, Card.CARD_HANGED_MAN) -- 5
-
--- Define miscellaneous callbacks
-BM:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE,   FamiliarUpdate.Main) -- 6
-BM:AddCallback(ModCallbacks.MC_FAMILIAR_INIT,     FamiliarInit.Main) -- 7
-BM:AddCallback(ModCallbacks.MC_EVALUATE_CACHE,    EvaluateCache.Main) -- 8
-BM:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT,  PostPlayerInit.Main) -- 9
-BM:AddCallback(ModCallbacks.MC_USE_PILL,          UsePill.Main) -- 10
-BM:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG,   EntityTakeDmg.Main) -- 11
-BM:AddCallback(ModCallbacks.MC_INPUT_ACTION,      InputAction.Main) -- 13
-BM:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, PostGameStarted.Main) -- 15
-BM:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL,    PostNewLevel.Main) -- 18
-BM:AddCallback(ModCallbacks.MC_POST_NEW_ROOM,     PostNewRoom.Main) -- 19
-BM:AddCallback(ModCallbacks.MC_EXECUTE_CMD,       ExecuteCmd.Main) -- 22
-
--- Define pre-use item callbacks (23)
-BM:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, PreUseItem.Item36, -- 23
-                                              CollectibleType.COLLECTIBLE_POOP) -- 36
-BM:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, PreUseItem.Item56, -- 23
-                                              CollectibleType.COLLECTIBLE_LEMON_MISHAP) -- 56
-BM:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, PreUseItem.Item323, -- 23
-                                              CollectibleType.COLLECTIBLE_ISAACS_TEARS) -- 323
-BM:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, PreUseItem.Item479, -- 23
-                                              CollectibleType.COLLECTIBLE_SMELTER) -- 479
-BM:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, PreUseItem.Item504, -- 23
-                                              CollectibleType.COLLECTIBLE_BROWN_NUGGET) -- 504
-
--- Define miscellaneous callbacks
+BM:AddCallback(ModCallbacks.MC_NPC_UPDATE,             NPCUpdate.Main) -- 0
+BM:AddCallback(ModCallbacks.MC_POST_UPDATE,            PostUpdate.Main) -- 1
+BM:AddCallback(ModCallbacks.MC_POST_RENDER,            PostRender.Main) -- 2
+BM:AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE,        FamiliarUpdate.Main) -- 6
+BM:AddCallback(ModCallbacks.MC_FAMILIAR_INIT,          FamiliarInit.Main) -- 7
+BM:AddCallback(ModCallbacks.MC_EVALUATE_CACHE,         EvaluateCache.Main) -- 8
+BM:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT,       PostPlayerInit.Main) -- 9
+BM:AddCallback(ModCallbacks.MC_USE_PILL,               UsePill.Main) -- 10
+BM:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG,        EntityTakeDmg.Main) -- 11
+BM:AddCallback(ModCallbacks.MC_INPUT_ACTION,           InputAction.Main) -- 13
+BM:AddCallback(ModCallbacks.MC_POST_GAME_STARTED,      PostGameStarted.Main) -- 15
+BM:AddCallback(ModCallbacks.MC_POST_NEW_LEVEL,         PostNewLevel.Main) -- 18
+BM:AddCallback(ModCallbacks.MC_POST_NEW_ROOM,          PostNewRoom.Main) -- 19
+BM:AddCallback(ModCallbacks.MC_EXECUTE_CMD,            ExecuteCmd.Main) -- 22
 BM:AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN,       PreEntitySpawn.Main) -- 24
 BM:AddCallback(ModCallbacks.MC_POST_NPC_INIT,          PostNPCInit.Main) -- 27
 BM:AddCallback(ModCallbacks.MC_POST_PICKUP_INIT,       PostPickupInit.Main) -- 34
@@ -143,6 +104,41 @@ BM:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR,         PostFireTear.Main) -- 61
 BM:AddCallback(ModCallbacks.MC_PRE_GET_COLLECTIBLE,    PreGetCollectible.Main) -- 62
 BM:AddCallback(ModCallbacks.MC_POST_ENTITY_KILL,       PostEntityKill.Main) -- 68
 BM:AddCallback(ModCallbacks.MC_PRE_ROOM_ENTITY_SPAWN,  PreRoomEntitySpawn.Main) -- 71
+
+-- Define post-use item callbacks (3)
+BM:AddCallback(ModCallbacks.MC_USE_ITEM, UseItem.Main) -- 3
+BM:AddCallback(ModCallbacks.MC_USE_ITEM, UseItem.Item49, -- 3
+               CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP) -- 49
+BM:AddCallback(ModCallbacks.MC_USE_ITEM, UseItem.Item86, -- 3
+               CollectibleType.COLLECTIBLE_MONSTROS_TOOTH) -- 86
+BM:AddCallback(ModCallbacks.MC_USE_ITEM, UseItem.Item282, -- 3
+               CollectibleType.COLLECTIBLE_HOW_TO_JUMP) -- 282
+BM:AddCallback(ModCallbacks.MC_USE_ITEM, UseItem.ClockworkAssembly, -- 3
+               Isaac.GetItemIdByName("Clockwork Assembly"))
+BM:AddCallback(ModCallbacks.MC_USE_ITEM, UseItem.FlockOfSuccubi, -- 3
+               Isaac.GetItemIdByName("Flock of Succubi"))
+BM:AddCallback(ModCallbacks.MC_USE_ITEM, UseItem.ChargingStation, -- 3
+               Isaac.GetItemIdByName("Charging Station"))
+if Isaac.GetItemIdByName("Debug") ~= -1 then -- This is in the Racing+ mod
+  BM:AddCallback(ModCallbacks.MC_USE_ITEM, Debug.Main, -- 3
+                 Isaac.GetItemIdByName("Debug"))
+end
+
+-- Define card callbacks (5)
+BM:AddCallback(ModCallbacks.MC_USE_CARD, UseCard.Card4,  Card.CARD_EMPRESS) -- 5
+BM:AddCallback(ModCallbacks.MC_USE_CARD, UseCard.Card13, Card.CARD_HANGED_MAN) -- 5
+
+-- Define pre-use item callbacks (23)
+BM:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, PreUseItem.Item36, -- 23
+               CollectibleType.COLLECTIBLE_POOP) -- 36
+BM:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, PreUseItem.Item56, -- 23
+               CollectibleType.COLLECTIBLE_LEMON_MISHAP) -- 56
+BM:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, PreUseItem.Item323, -- 23
+               CollectibleType.COLLECTIBLE_ISAACS_TEARS) -- 323
+BM:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, PreUseItem.Item479, -- 23
+               CollectibleType.COLLECTIBLE_SMELTER) -- 479
+BM:AddCallback(ModCallbacks.MC_PRE_USE_ITEM, PreUseItem.Item504, -- 23
+               CollectibleType.COLLECTIBLE_BROWN_NUGGET) -- 504
 
 -- Welcome banner
 local hyphens = ''

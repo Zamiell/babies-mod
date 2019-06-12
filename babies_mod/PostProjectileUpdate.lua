@@ -45,7 +45,7 @@ function PostProjectileUpdate:Main(projectile)
     projectile:AddProjectileFlags(ProjectileFlags.SMART) -- 1
 
   elseif baby.name == "Sorrow Baby" and -- 153
-         g:InsideSquare(projectile.Position, g.p.Position, baby.distance) then
+         projectile.Position:Distance(g.p.Position) <= baby.distance then
 
     -- Projectiles are reflected as bombs
     g.g:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_NORMAL, -- 4.1

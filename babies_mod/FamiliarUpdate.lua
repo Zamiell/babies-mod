@@ -32,13 +32,12 @@ function FamiliarUpdate:Main(familiar)
          familiar.Variant == FamiliarVariant.LIL_GURDY then -- 87
 
     -- All of the familiars will stack on top of each other, so manually keep them spread apart
-    local entities = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.LIL_GURDY, -1, false, false) -- 3.87
-    for i = 1, #entities do
-      local familiar2 = entities[i]
-      if g:InsideSquare(familiar.Position, familiar2.Position, 1) and
-         familiar.Index < familiar2.Index then -- Use the index as a priority of which familiar is forced to move away
+    local gurdies = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.LIL_GURDY, -1, false, false) -- 3.87
+    for _, gurdy in ipairs(gurdies) do
+      if familiar.Position:Distance(gurdy.Position) <= 1 and
+         familiar.Index < gurdy.Index then -- Use the index as a priority of which familiar is forced to move away
 
-        familiar2.Position = Misc:GetOffsetPosition(familiar2.Position, 7, familiar2.InitSeed)
+          gurdy.Position = Misc:GetOffsetPosition(gurdy.Position, 7, gurdy.InitSeed)
       end
     end
 
@@ -46,13 +45,13 @@ function FamiliarUpdate:Main(familiar)
          familiar.Variant == FamiliarVariant.ROBO_BABY_2 then -- 53
 
     -- All of the familiars will stack on top of each other, so manually keep them spread apart
-    local entities = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ROBO_BABY_2, -1, false, false) -- 3.53
-    for i = 1, #entities do
-      local familiar2 = entities[i]
-      if g:InsideSquare(familiar.Position, familiar2.Position, 1) and
-         familiar.Index < familiar2.Index then -- Use the index as a priority of which Gurdy is forced to move away
+    local roboBabies = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ROBO_BABY_2, -- 3.53
+                                        -1, false, false)
+    for _, roboBaby in ipairs(roboBabies) do
+      if familiar.Position:Distance(roboBaby.Position) <= 1 and
+         familiar.Index < roboBaby.Index then -- Use the index as a priority of which Gurdy is forced to move away
 
-        familiar2.Position = Misc:GetOffsetPosition(familiar2.Position, 7, familiar2.InitSeed)
+          roboBaby.Position = Misc:GetOffsetPosition(roboBaby.Position, 7, roboBaby.InitSeed)
       end
     end
 

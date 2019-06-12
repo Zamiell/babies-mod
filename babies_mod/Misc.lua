@@ -6,7 +6,7 @@ local g = require("babies_mod/globals")
 function Misc:SpawnRandomPickup(position, velocity, noItems)
   -- Give no velocity by default
   if velocity == nil then
-    velocity = Vector(0, 0)
+    velocity = g.zeroVector
   end
 
   -- Spawn a random pickup

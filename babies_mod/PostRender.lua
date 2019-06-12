@@ -241,10 +241,7 @@ function PostRender:DrawBabyNumber()
     x = x + 20
   end
   local y = 10
-  local f = Font()
-  f:Load("font/teammeatfont10.fnt")
-  local color = KColor(1, 1, 1, 1, 0, 0, 0)
-  f:DrawString(text, x, y, color, 0, true)
+  g.font:DrawString(text, x, y, g.kcolor, 0, true)
 end
 
 -- Copied from the Racing+ mod
@@ -333,7 +330,7 @@ function PostRender:DrawBabyEffects()
       opacity = 1
     end
     g.run.babySprites.Color = Color(1, 1, 1, opacity, 0, 0, 0)
-    g.run.babySprites:RenderLayer(0, Vector(0, 0))
+    g.run.babySprites:RenderLayer(0, g.zeroVector)
 
   elseif baby.name == "Hopeless Baby" and -- 125
      roomType ~= RoomType.ROOM_DEVIL and -- 14
@@ -374,8 +371,8 @@ function PostRender:DrawBabyEffects()
     -- The Speak of Destiny effect is not spawned in the POST_NEW_ROOM callback
     -- Thus, we check for it on every frame instead
     -- As an unfortunate side effect, the Spear of Destiny will show as the vanilla graphic during room transitions
-    local spears = Isaac.FindByType(EntityType.ENTITY_EFFECT, -- 1000
-                                    EffectVariant.SPEAR_OF_DESTINY, -1, false, false) -- 83
+    local spears = Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.SPEAR_OF_DESTINY, -- 1000.83
+                                    -1, false, false)
     for _, spear in ipairs(spears) do
       if spear:GetSprite():GetFilename() == "gfx/1000.083_Spear Of Destiny.anm2" then
         local sprite = spear:GetSprite()

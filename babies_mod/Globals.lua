@@ -26,6 +26,10 @@ g.seeds = g.g:GetSeeds()
 g.itemPool = g.g:GetItemPool()
 g.itemConfig = Isaac.GetItemConfig()
 g.sfx = SFXManager()
+g.zeroVector = Vector(0, 0)
+g.font = Font()
+g.font:Load("font/teammeatfont10.fnt")
+g.kcolor = KColor(1, 1, 1, 1)
 
 function g:InitRun()
   -- Local variables
@@ -78,8 +82,8 @@ function g:InitRun()
     babyTears        = {
       tear     = 1,
       frame    = 0,
-      position = Vector(0, 0),
-      velocity = Vector(0, 0),
+      position = g.zeroVector,
+      velocity = g.zeroVector,
       num      = 0,
     },
     babyNPC = {
@@ -125,18 +129,6 @@ function g:IncrementRNG(seed)
   rng:Next()
   local newSeed = rng:GetSeed()
   return newSeed
-end
-
-function g:InsideSquare(pos1, pos2, squareSize)
-  if pos1.X >= pos2.X - squareSize and
-     pos1.X <= pos2.X + squareSize and
-     pos1.Y >= pos2.Y - squareSize and
-     pos1.Y <= pos2.Y + squareSize then
-
-    return true
-  else
-    return false
-  end
 end
 
 function g:GridToPos(x, y)

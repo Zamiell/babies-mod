@@ -995,28 +995,28 @@ function PostNewLevel:ApplyNewBaby()
      baby.item2 == CollectibleType.COLLECTIBLE_PHD then -- 75
 
     -- Delete the starting pill
-    local entities = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_PILL, -1, false, false) -- 5.70
-    for i = 1, #entities do
-      entities[i]:Remove()
+    local pills = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_PILL, -1, false, false) -- 5.70
+    for _, pill in ipairs(pills) do
+      pill:Remove()
     end
   end
   if baby.item == CollectibleType.COLLECTIBLE_STARTER_DECK or -- 251
      baby.item2 == CollectibleType.COLLECTIBLE_STARTER_DECK then -- 251
 
     -- Delete the starting card
-    local entities = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, -1, -- 5.300
-                                      false, false)
-    for i = 1, #entities do
-      entities[i]:Remove()
+    local cards = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, -- 5.300
+                                   -1, false, false)
+    for _, card in ipairs(cards) do
+      card:Remove()
     end
   end
   if baby.item == CollectibleType.COLLECTIBLE_LITTLE_BAGGY or -- 252
      baby.item2 == CollectibleType.COLLECTIBLE_LITTLE_BAGGY then -- 252
 
     -- Delete the starting pill
-    local entities = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_PILL, -1, false, false) -- 5.70
-    for i = 1, #entities do
-      entities[i]:Remove()
+    local pills = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_PILL, -1, false, false) -- 5.70
+    for _, pill in ipairs(pills) do
+      pill:Remove()
     end
   end
   if (baby.item == CollectibleType.COLLECTIBLE_CHAOS or -- 402
@@ -1024,10 +1024,10 @@ function PostNewLevel:ApplyNewBaby()
      stage ~= 11 then -- Don't delete the pickups on The Chest / Dark Room
 
     -- Delete the starting random pickups
-    local entities = Isaac.FindByType(EntityType.ENTITY_PICKUP, -1, -1, false, false) -- 5
-    for i = 1, #entities do
-      if entities[i].Variant ~= PickupVariant.PICKUP_COLLECTIBLE then -- 100
-        entities[i]:Remove()
+    local pickups = Isaac.FindByType(EntityType.ENTITY_PICKUP, -1, -1, false, false) -- 5
+    for _, pickup in ipairs(pickups) do
+      if pickup.Variant ~= PickupVariant.PICKUP_COLLECTIBLE then -- 100
+        pickup:Remove()
       end
     end
   end
@@ -1035,18 +1035,18 @@ function PostNewLevel:ApplyNewBaby()
      baby.item2 == CollectibleType.COLLECTIBLE_SACK_HEAD then -- 424
 
     -- Delete the starting sack
-    local entities = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_GRAB_BAG, -1, false, false) -- 5.69
-    for i = 1, #entities do
-      entities[i]:Remove()
+    local sacks = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_GRAB_BAG, -1, false, false) -- 5.69
+    for _, sack in ipairs(sacks) do
+      sack:Remove()
     end
   end
   if baby.item == CollectibleType.COLLECTIBLE_LIL_SPEWER or -- 537
      baby.item2 == CollectibleType.COLLECTIBLE_LIL_SPEWER then -- 537
 
     -- Delete the starting pill
-    local entities = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_PILL, -1, false, false) -- 5.70
-    for i = 1, #entities do
-      entities[i]:Remove()
+    local pills = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_PILL, -1, false, false) -- 5.70
+    for _, pill in ipairs(pills) do
+      pill:Remove()
     end
   end
 

@@ -23,8 +23,8 @@ function PostNewRoom:Main()
   -- Make sure the callbacks run in the right order
   -- (naturally, PostNewRoom gets called before the PostNewLevel and PostGameStarted callbacks)
   if gameFrameCount == 0 or
-     (g.run.currentFloor ~= stage or
-      g.run.currentFloorType ~= stageType) then
+     g.run.currentFloor ~= stage or
+     g.run.currentFloorType ~= stageType then
 
     return
   end
@@ -40,7 +40,7 @@ function PostNewRoom:NewRoom()
   end
   local startingRoomIndex = g.l:GetStartingRoomIndex()
   local roomClear = g.r:IsClear()
-  local roomSeed = g.r:GetSpawnSeed()
+  local roomSeed = g.r:GetSpawnSeed() -- Gets a reproducible seed based on the room, e.g. "2496979501"
 
   Isaac.DebugString("MC_POST_NEW_ROOM2 (BM)")
 
@@ -60,8 +60,8 @@ function PostNewRoom:NewRoom()
   g.run.babyTears = {
     tear     = 1,
     frame    = 0,
-    position = Vector(0, 0),
-    velocity = Vector(0, 0),
+    position = g.zeroVector,
+    velocity = g.zeroVector,
   }
   g.run.roomPseudoClear = true
   g.run.roomDoorsModified = {}
@@ -124,7 +124,7 @@ function PostNewRoom:ApplyTemporaryEffects()
 
   elseif baby.name == "Glass Baby" then -- 14
     -- Spawn a laser ring around the player
-    local laser = g.p:FireTechXLaser(g.p.Position, Vector(0,0), 66):ToLaser() -- The third argument is the radius
+    local laser = g.p:FireTechXLaser(g.p.Position, g.zeroVector, 66):ToLaser() -- The third argument is the radius
     -- (we copy the radius from Samael's Tech X ability)
     if laser.Variant ~= 2 then
       laser.Variant = 2
@@ -183,7 +183,7 @@ function PostNewRoom:ApplyTemporaryEffects()
       local position = g.r:FindFreePickupSpawnPosition(center, 1, true)
       g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
       g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-                position, Vector(0, 0), nil, 0, g.run.randomSeed)
+                position, g.zeroVector, nil, 0, g.run.randomSeed)
     end
 
   elseif baby.name == "Lost Baby" or -- 10
@@ -232,7 +232,7 @@ function PostNewRoom:ApplyTemporaryEffects()
       local position = g.r:FindFreePickupSpawnPosition(center, 1, true)
       g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
       g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-                position, Vector(0, 0), nil, 0, g.run.randomSeed)
+                position, g.zeroVector, nil, 0, g.run.randomSeed)
       end
 
   elseif baby.name == "Spelunker Baby" and -- 181
@@ -316,7 +316,7 @@ function PostNewRoom:ApplyTemporaryEffects()
         local xy = positions[positionIndex]
         local position = g:GridToPos(xy[1], xy[2])
         local pedestal = g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-                                   position, Vector(0, 0), nil, itemID, g.run.roomRNG):ToPickup()
+                                   position, g.zeroVector, nil, itemID, g.run.roomRNG):ToPickup()
         pedestal.AutoUpdatePrice = false
         pedestal.Price = price
       end
@@ -386,7 +386,7 @@ function PostNewRoom:ApplyTemporaryEffects()
     local item = g.itemPool:GetCollectible(ItemPoolType.POOL_DEVIL, true, g.run.roomRNG) -- 3
     local position = g:GridToPos(6, 4)
     local pedestal = g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-                               position, Vector(0, 0), nil, item, g.run.roomRNG):ToPickup()
+                               position, g.zeroVector, nil, item, g.run.roomRNG):ToPickup()
     pedestal.AutoUpdatePrice = false
 
     -- Find out how this item should be priced
@@ -409,7 +409,7 @@ function PostNewRoom:ApplyTemporaryEffects()
         pos = g:GridToPos(9, 1)
       end
       g.run.roomRNG = g:IncrementRNG(g.run.roomRNG)
-      g.g:Spawn(EntityType.ENTITY_FIREPLACE, 0, pos, Vector(0, 0), nil, 0, g.run.roomRNG) -- 33
+      g.g:Spawn(EntityType.ENTITY_FIREPLACE, 0, pos, g.zeroVector, nil, 0, g.run.roomRNG) -- 33
     end
 
   elseif baby.name == "Woodsman Baby" and -- 297
@@ -426,13 +426,13 @@ function PostNewRoom:ApplyTemporaryEffects()
   elseif baby.name == "Driver Baby" then -- 431
     -- Slippery movement
     -- Prevent softlocks from Gaping Maws and cheap damage by Broken Gaping Maws by deleting them
-    local entities1 = Isaac.FindByType(EntityType.ENTITY_GAPING_MAW, -1, -1, false, false) -- 235
-    for i = 1, #entities1 do
-      entities1[i]:Remove()
+    local maws = Isaac.FindByType(EntityType.ENTITY_GAPING_MAW, -1, -1, false, false) -- 235
+    for _, maw in ipairs(maws) do
+      maw:Remove()
     end
-    local entities2 = Isaac.FindByType(EntityType.ENTITY_BROKEN_GAPING_MAW, -1, -1, false, false) -- 236
-    for i = 1, #entities2 do
-      entities2[i]:Remove()
+    local brokenMaws = Isaac.FindByType(EntityType.ENTITY_BROKEN_GAPING_MAW, -1, -1, false, false) -- 236
+    for _, brokenMaw in ipairs(brokenMaws) do
+      brokenMaw:Remove()
     end
 
   elseif baby.name == "Mouse Baby" and -- 351
@@ -461,11 +461,11 @@ function PostNewRoom:ApplyTemporaryEffects()
     -- so don't bother canceling it
 
   elseif baby.name == "Psychic Baby" then -- 504
-    -- Get Abel
-    local entities = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ABEL, -1, false, false) -- 5.8
-
     -- Disable the vanilla shooting behavior
-    entities[1]:ToFamiliar().FireCooldown = 1000000
+    local abels = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ABEL, -1, false, false) -- 5.8
+    for _, abel in ipairs(abels) do
+      abel:ToFamiliar().FireCooldown = 1000000
+    end
 
   elseif baby.name == "Silly Baby" and -- 516
          roomIndex ~= startingRoomIndex then -- This can prevent crashes when reseeding happens
@@ -477,7 +477,7 @@ function PostNewRoom:ApplyTemporaryEffects()
     -- so don't bother canceling it
 
   elseif baby.name == "Brother Bobby" then -- 522
-    local godheadTear = g.p:FireTear(g.p.Position, Vector(0, 0), false, true, false)
+    local godheadTear = g.p:FireTear(g.p.Position, g.zeroVector, false, true, false)
     godheadTear.TearFlags = TearFlags.TEAR_GLOW -- 1 << 32
     godheadTear.SubType = 1
     local sprite = godheadTear:GetSprite()

@@ -68,7 +68,7 @@ function NPCUpdate:Baby514(npc)
   if not g.run.babyBool then
     g.run.babyBool = true
     local position = g.r:FindFreePickupSpawnPosition(npc.Position, 1, true)
-    if not g:InsideSquare(position, g.p.Position, 15) then
+    if position:Distance(g.p.Position) > 40 then
       local newNPC = g.g:Spawn(npc.Type, npc.Variant, position, npc.Velocity, npc, npc.SubType, npc.InitSeed)
       newNPC:GetData().duplicated = true
     end

@@ -99,14 +99,14 @@ end
 -- Blinding Baby
 EntityTakeDmgBabies.functions[46] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Sun Card - 5.300.20
-  g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, player.Position, Vector(0, 0), player, 20, 0)
+  g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, player.Position, g.zeroVector, player, 20, 0)
 end
 
 -- Revenge Baby
 EntityTakeDmgBabies.functions[50] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Random Heart - 5.10.0
   g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
-  g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, player.Position, Vector(0, 0),
+  g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, player.Position, g.zeroVector,
              player, 0, g.run.randomSeed)
 end
 
@@ -153,7 +153,7 @@ end
 EntityTakeDmgBabies.functions[101] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Spawns creep on hit (improved)
   local creep = g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, -- 46
-                          player.Position, Vector(0, 0), player, 0, 0)
+                          player.Position, g.zeroVector, player, 0, 0)
   creep:ToEffect().Scale = 10
   creep:ToEffect().Timeout = 240
 end
@@ -252,7 +252,7 @@ EntityTakeDmgBabies.functions[204] = function(player, damageAmount, damageFlag, 
   -- Spawns a random key on hit
   g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
   g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_KEY, -- 5.30
-            player.Position, Vector(0, 0), player, 0, g.run.randomSeed)
+            player.Position, g.zeroVector, player, 0, g.run.randomSeed)
 end
 
 -- MeatBoy Baby
@@ -273,7 +273,7 @@ end
 
 -- Zipper Baby
 EntityTakeDmgBabies.functions[225] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  local roomSeed = g.r:GetSpawnSeed()
+  local roomSeed = g.r:GetSpawnSeed() -- Gets a reproducible seed based on the room, e.g. "2496979501"
 
   -- Extra enemies spawn on hit
   -- Find an existing enemy in the room
@@ -301,7 +301,7 @@ EntityTakeDmgBabies.functions[225] = function(player, damageAmount, damageFlag, 
 
   -- Spawn a new enemy
   local position = g.r:FindFreePickupSpawnPosition(player.Position, 1, true)
-  g.g:Spawn(dupeEnemy.type, dupeEnemy.variant, position, Vector(0, 0), nil, 0, roomSeed)
+  g.g:Spawn(dupeEnemy.type, dupeEnemy.variant, position, g.zeroVector, nil, 0, roomSeed)
 end
 
 -- Beard Baby
@@ -314,7 +314,7 @@ EntityTakeDmgBabies.functions[258] = function(player, damageAmount, damageFlag, 
   -- Spawns a random bomb on hit
   g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
   g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, -- 5.40
-            player.Position, Vector(0, 0), player, 0, g.run.randomSeed)
+            player.Position, g.zeroVector, player, 0, g.run.randomSeed)
 end
 
 -- Coat Baby
@@ -382,7 +382,7 @@ end
 -- Starry Eyed Baby
 EntityTakeDmgBabies.functions[310] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Stars Card (5.300.18)
-  g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, player.Position, Vector(0, 0), player, 18, 0)
+  g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, player.Position, g.zeroVector, player, 18, 0)
 end
 
 -- Puzzle Baby
@@ -407,7 +407,7 @@ EntityTakeDmgBabies.functions[329] = function(player, damageAmount, damageFlag, 
     g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
     local position = g.r:FindFreePickupSpawnPosition(player.Position, 1, true)
     g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-              position, Vector(0, 0), nil, 0, g.run.randomSeed)
+              position, g.zeroVector, nil, 0, g.run.randomSeed)
   end
 end
 
@@ -461,7 +461,7 @@ end
 
 -- Fiery Baby
 EntityTakeDmgBabies.functions[366] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  player:ShootRedCandle(Vector(0, 0))
+  player:ShootRedCandle(g.zeroVector)
 end
 
 -- Dark Elf Baby
@@ -610,7 +610,7 @@ EntityTakeDmgBabies.functions[506] = function(player, damageAmount, damageFlag, 
   math.randomseed(g.run.randomSeed)
   local runeSubType = math.random(32, 41)
   g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, -- 5.300
-            player.Position, Vector(0, 0), player, runeSubType, g.run.randomSeed)
+            player.Position, g.zeroVector, player, runeSubType, g.run.randomSeed)
 end
 
 -- Hooligan Baby

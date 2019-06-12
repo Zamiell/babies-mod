@@ -73,7 +73,7 @@ function PostEffectUpdate:Main(effect)
         -- Fire the beam
         g.run.babyFrame = gameFrameCount + baby.cooldown
         g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.CRACK_THE_SKY, -- 1000.19
-                  effect.Position, Vector(0, 0), g.p, 0, 0)
+                  effect.Position, g.zeroVector, g.p, 0, 0)
       end
     end
 
@@ -82,7 +82,7 @@ function PostEffectUpdate:Main(effect)
        effect.FrameCount == 30 then -- 1 second
 
       local rocket = g.g:Spawn(EntityType.ENTITY_EFFECT, Isaac.GetEntityVariantByName("FetusBossRocket"),
-                               effect.Position, Vector(0, 0), nil, 0, 0)
+                               effect.Position, g.zeroVector, nil, 0, 0)
       local rocketHeightOffset = Vector(0, -300)
       rocket.SpriteOffset = rocket.SpriteOffset + rocketHeightOffset
 
@@ -93,9 +93,9 @@ function PostEffectUpdate:Main(effect)
       if effect.SpriteOffset.Y >= 0 then
         Isaac.Explode(effect.Position, nil, 50) -- 49 deals 1 half heart of damage
         effect:Remove()
-        local entities = Isaac.FindByType(EntityType.ENTITY_EFFECT, Isaac.GetEntityVariantByName("FetusBossTarget"),
-                                          -1, false, false) -- 1000
-        entities[1]:Remove()
+        local targets = Isaac.FindByType(EntityType.ENTITY_EFFECT, Isaac.GetEntityVariantByName("FetusBossTarget"),
+                                         -1, false, false) -- 1000
+        targets[1]:Remove()
       end
     end
   end
