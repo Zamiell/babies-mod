@@ -4,6 +4,7 @@ local FamiliarUpdate = {}
 local g    = require("babies_mod/globals")
 local Misc = require("babies_mod/misc")
 
+-- ModCallbacks.MC_FAMILIAR_UPDATE (6)
 function FamiliarUpdate:Main(familiar)
   -- Local variables
   local type = g.run.babyType

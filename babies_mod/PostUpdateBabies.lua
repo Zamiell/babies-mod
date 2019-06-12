@@ -5,7 +5,6 @@ local g               = require("babies_mod/globals")
 local PostRender      = require("babies_mod/postrender")
 local PseudoRoomClear = require("babies_mod/pseudoroomclear")
 
--- Called from the MC_POST_UPDATE (1) callback
 function PostUpdateBabies:Main()
   -- Local variables
   local type = g.run.babyType

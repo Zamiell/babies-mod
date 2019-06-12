@@ -4,7 +4,6 @@ local EntityTakeDmgBabies = {}
 local g    = require("babies_mod/globals")
 local Misc = require("babies_mod/misc")
 
--- Called from the MC_ENTITY_TAKE_DMG (11) callback
 function EntityTakeDmgBabies:Player(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Local variables
   local gameFrameCount = g.g:GetFrameCount()

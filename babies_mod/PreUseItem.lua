@@ -3,10 +3,6 @@ local PreUseItem = {}
 -- Includes
 local g = require("babies_mod/globals")
 
---
--- MC_PRE_USE_ITEM (23)
---
-
 -- CollectibleType.COLLECTIBLE_POOP (36)
 function PreUseItem:Item36(collectibleType, RNG)
   -- Local variables
