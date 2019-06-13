@@ -5,27 +5,27 @@ local g    = require("babies_mod/globals")
 local Misc = require("babies_mod/misc")
 
 -- ModCallbacks.MC_POST_PROJECTILE_UPDATE (44)
+-- This callback will fire on frame 1
 function PostProjectileUpdate:Main(projectile)
   -- Local variables
-  local data = projectile:GetData()
   local babyType = g.run.babyType
   local baby = g.babies[babyType]
   if baby == nil then
     return
   end
 
-  --[[
-  Isaac.DebugString("MC_POST_PROJECTILE_UPDATE - " ..
-                    tostring(projectile.Type) .. "." .. tostring(projectile.Variant) .. "." ..
-                    tostring(projectile.SubType) ..
-                    " (spawner: " .. projectile.SpawnerType .. "." .. projectile.SpawnerVariant .. ")")
-  --]]
+  local babyFunc = PostProjectileUpdate.functions[type]
+  if babyFunc ~= nil then
+    babyFunc(projectile)
+  end
+end
 
-  -- The first frame for a projectile is 1
-  -- (frame 0 will happen with a tear, but not a projectile for some reason)
+-- The collection of functions for each baby
+PostProjectileUpdate.functions = {}
 
-  if baby.name == "Zombie Baby" and -- 61
-     projectile.Parent ~= nil and
+-- Zombie Baby
+PostProjectileUpdate.functions[61] = function(projectile)
+  if projectile.Parent ~= nil and
      projectile.Parent:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) then -- 1 << 29
 
     -- Brings back enemies from the dead
@@ -36,48 +36,65 @@ function PostProjectileUpdate:Main(projectile)
     -- (for some reason, in this callback, RO, GO, and BO will be float values,
     -- but the Color constructor only wants integers, so manually use 0 for these 3 values instead of the existing ones)
     projectile:SetColor(newColor, 0, 0, true, true)
+  end
+end
 
-  elseif baby.name == "Nosferatu Baby" and -- 109
-         projectile.SpawnerType ~= EntityType.ENTITY_MOMS_HEART and -- 78
-         projectile.SpawnerType ~= EntityType.ENTITY_ISAAC then -- 102
+-- Nosferatu Baby
+PostProjectileUpdate.functions[109] = function(projectile)
+  -- Enemies have homing projectiles
+  if projectile.SpawnerType ~= EntityType.ENTITY_MOMS_HEART and -- 78
+     projectile.SpawnerType ~= EntityType.ENTITY_ISAAC then -- 102
 
-    -- Enemies have homing projectiles
     projectile:AddProjectileFlags(ProjectileFlags.SMART) -- 1
+  end
+end
 
-  elseif baby.name == "Sorrow Baby" and -- 153
-         projectile.Position:Distance(g.p.Position) <= baby.distance then
-
-    -- Projectiles are reflected as bombs
+-- Sorrow Baby
+PostProjectileUpdate.functions[153] = function(projectile)
+  -- Projectiles are reflected as bombs
+  if projectile.Position:Distance(g.p.Position) <= g.babies[153].distance then
     g.g:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_NORMAL, -- 4.1
               projectile.Position, projectile.Velocity * -1, nil, 0, 0)
     projectile:Remove()
+  end
+end
 
-  elseif baby.name == "Onion Baby" and -- 224
-         data.spedUp == nil and
-         projectile.SpawnerType ~= EntityType.ENTITY_MOMS_HEART and -- 78
-         projectile.SpawnerType ~= EntityType.ENTITY_ISAAC then -- 102
+-- Onion Baby
+PostProjectileUpdate.functions[224] = function(projectile)
+  local data = projectile:GetData()
+  if data.spedUp == nil and
+     projectile.SpawnerType ~= EntityType.ENTITY_MOMS_HEART and -- 78
+     projectile.SpawnerType ~= EntityType.ENTITY_ISAAC then -- 102
 
     data.spedUp = true
     projectile.Velocity = projectile.Velocity * 2
+  end
+end
 
-  elseif baby.name == "Eye Demon Baby" and -- 280
-         data.modified == nil then
-
+-- Eye Demon Baby
+PostProjectileUpdate.functions[280] = function(projectile)
+  local data = projectile:GetData()
+  if data.modified == nil then
     data.modified = true
     projectile:AddProjectileFlags(ProjectileFlags.CONTINUUM) -- 1 << 30
     projectile.Height = projectile.Height * 2
+  end
+end
 
-  elseif baby.name == "Fireball Baby" and -- 318
-     projectile.FrameCount == 1 and
+-- Fireball Baby
+PostProjectileUpdate.functions[318] = function(projectile)
+  -- Prevent fires from shooting
+  -- (this cannot be done in the MC_POST_PROJECTILE_INIT callback since "projectile.SpawnerType" is empty)
+  if projectile.FrameCount == 1 and
      projectile.SpawnerType == EntityType.ENTITY_FIREPLACE then -- 33
 
-    -- Prevent fires from shooting
-    -- (this cannot be done in the MC_POST_PROJECTILE_INIT callback since "projectile.SpawnerType" is empty)
     projectile:Remove()
+  end
+end
 
-  elseif baby.name == "404 Baby" and -- 463
-         projectile.FrameCount == 1 then
-
+-- 404 Baby
+PostProjectileUpdate.functions[463] = function(projectile)
+  if projectile.FrameCount == 1 then
     Misc:SetRandomColor(projectile)
   end
 end

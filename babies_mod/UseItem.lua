@@ -93,10 +93,7 @@ function UseItem:FlockOfSuccubi(collectibleType, RNG)
 end
 
 function UseItem:ChargingStation(collectibleType, RNG)
-  -- Local variables
-  local coins = g.p:GetNumCoins()
-
-  if coins == 0 or
+  if g.p:GetNumCoins() == 0 or
      RacingPlusGlobals == nil or
      RacingPlusSchoolbag == nil or
      not g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) or

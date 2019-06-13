@@ -6,16 +6,24 @@ local g = require("babies_mod/globals")
 -- ModCallbacks.MC_POST_EFFECT_UPDATE (55)
 function PostEffectUpdate:Main(effect)
   -- Local variables
-  local gameFrameCount = g.g:GetFrameCount()
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
     return
   end
 
-  if baby.name == "Mustache Baby" and
-     effect.Variant == EffectVariant.BOOMERANG then -- 60
+  local babyFunc = PostEffectUpdate.functions[type]
+  if babyFunc ~= nil then
+    babyFunc(effect)
+  end
+end
 
+-- The collection of functions for each baby
+PostEffectUpdate.functions = {}
+
+-- Mustache Baby
+PostEffectUpdate.functions[66] = function(effect)
+  if effect.Variant == EffectVariant.BOOMERANG then -- 60
     -- Check for NPC collision
     local entities = Isaac.FindInRadius(effect.Position, 30, EntityPartition.ENEMY) -- 1 << 3
     if #entities > 0 then
@@ -41,62 +49,76 @@ function PostEffectUpdate:Main(effect)
         effect.Velocity = effect.Velocity * 1.1
       end
     end
+  end
+end
 
-  elseif baby.name == "Sloppy Baby" and -- 146
-         effect.Variant == EffectVariant.TARGET and -- 30
-         effect.FrameCount == 1 and
-         -- There is a bug where the target will disappear if you have multiple shots
-         not g.p:HasCollectible(CollectibleType.COLLECTIBLE_INNER_EYE) and -- 2
-         not g.p:HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER) and -- 153
-         not g.p:HasCollectible(CollectibleType.COLLECTIBLE_20_20) and -- 245
-         not g.p:HasCollectible(CollectibleType.COLLECTIBLE_THE_WIZ) and -- 358
-         not g.p:HasPlayerForm(PlayerForm.PLAYERFORM_BABY) and -- 7
-         not g.p:HasPlayerForm(PlayerForm.PLAYERFORM_BOOK_WORM) then-- 10
+-- Sloppy Baby
+PostEffectUpdate.functions[146] = function(effect)
+  -- Shorten the lag time of the missiles
+  -- (this is not possible in the MC_POST_EFFECT_INIT callback since effect.Timeout is -1)
+  if effect.Variant == EffectVariant.TARGET and -- 30
+     effect.FrameCount == 1 and
+     -- There is a bug where the target will disappear if you have multiple shots
+     not g.p:HasCollectible(CollectibleType.COLLECTIBLE_INNER_EYE) and -- 2
+     not g.p:HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER) and -- 153
+     not g.p:HasCollectible(CollectibleType.COLLECTIBLE_20_20) and -- 245
+     not g.p:HasCollectible(CollectibleType.COLLECTIBLE_THE_WIZ) and -- 358
+     not g.p:HasPlayerForm(PlayerForm.PLAYERFORM_BABY) and -- 7
+     not g.p:HasPlayerForm(PlayerForm.PLAYERFORM_BOOK_WORM) then-- 10
 
-    -- Shorten the lag time of the missiles
-    -- (this is not possible in the MC_POST_EFFECT_INIT callback since effect.Timeout is -1)
     effect.Timeout = 10 -- 9 doesn't result in a missile coming out
+  end
+end
 
-  elseif baby.name == "Fang Demon Baby" and -- 281
-         effect.Variant == EffectVariant.TARGET then -- 30
+-- Fang Demon Baby
+PostEffectUpdate.functions[281] = function(effect)
+  -- Directed light beams
+  if effect.Variant ~= EffectVariant.TARGET then -- 30
+    return
+  end
 
-    -- Directed light beams
-    if effect.FrameCount == 1 then
-      -- By default, the Marked target spawns at the center of the room,
-      -- and we want it to be spawned at the player instead
-      effect.Position = g.p.Position
-      effect.Visible = true
-    elseif gameFrameCount >= g.run.babyFrame then
-      -- Check to see if there is a nearby NPC
-      local entities = Isaac.FindInRadius(effect.Position, 30, EntityPartition.ENEMY) -- 1 << 3
-      if #entities > 0 then
-        -- Fire the beam
-        g.run.babyFrame = gameFrameCount + baby.cooldown
-        g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.CRACK_THE_SKY, -- 1000.19
-                  effect.Position, g.zeroVector, g.p, 0, 0)
-      end
+  -- Local variables
+  local type = g.run.babyType
+  local baby = g.babies[type]
+  local gameFrameCount = g.g:GetFrameCount()
+
+  if effect.FrameCount == 1 then
+    -- By default, the Marked target spawns at the center of the room,
+    -- and we want it to be spawned at the player instead
+    effect.Position = g.p.Position
+    effect.Visible = true
+  elseif gameFrameCount >= g.run.babyFrame then
+    -- Check to see if there is a nearby NPC
+    local entities = Isaac.FindInRadius(effect.Position, 30, EntityPartition.ENEMY) -- 1 << 3
+    if #entities > 0 then
+      -- Fire the beam
+      g.run.babyFrame = gameFrameCount + baby.cooldown
+      g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.CRACK_THE_SKY, -- 1000.19
+                effect.Position, g.zeroVector, g.p, 0, 0)
     end
+  end
+end
 
-  elseif baby.name == "Cool Orange Baby" then -- 485
-    if effect.Variant == Isaac.GetEntityVariantByName("FetusBossTarget") and
-       effect.FrameCount == 30 then -- 1 second
+-- Cool Orange Baby
+PostEffectUpdate.functions[485] = function(effect)
+  if effect.Variant == Isaac.GetEntityVariantByName("FetusBossTarget") and
+      effect.FrameCount == 30 then -- 1 second
 
-      local rocket = g.g:Spawn(EntityType.ENTITY_EFFECT, Isaac.GetEntityVariantByName("FetusBossRocket"),
-                               effect.Position, g.zeroVector, nil, 0, 0)
-      local rocketHeightOffset = Vector(0, -300)
-      rocket.SpriteOffset = rocket.SpriteOffset + rocketHeightOffset
+    local rocket = g.g:Spawn(EntityType.ENTITY_EFFECT, Isaac.GetEntityVariantByName("FetusBossRocket"),
+                              effect.Position, g.zeroVector, nil, 0, 0)
+    local rocketHeightOffset = Vector(0, -300)
+    rocket.SpriteOffset = rocket.SpriteOffset + rocketHeightOffset
 
-    elseif effect.Variant == Isaac.GetEntityVariantByName("FetusBossRocket") then
+  elseif effect.Variant == Isaac.GetEntityVariantByName("FetusBossRocket") then
 
-      local rocketFallSpeed = Vector(0, 30)
-      effect.SpriteOffset = effect.SpriteOffset + rocketFallSpeed
-      if effect.SpriteOffset.Y >= 0 then
-        Isaac.Explode(effect.Position, nil, 50) -- 49 deals 1 half heart of damage
-        effect:Remove()
-        local targets = Isaac.FindByType(EntityType.ENTITY_EFFECT, Isaac.GetEntityVariantByName("FetusBossTarget"),
-                                         -1, false, false) -- 1000
-        targets[1]:Remove()
-      end
+    local rocketFallSpeed = Vector(0, 30)
+    effect.SpriteOffset = effect.SpriteOffset + rocketFallSpeed
+    if effect.SpriteOffset.Y >= 0 then
+      Isaac.Explode(effect.Position, nil, 50) -- 49 deals 1 half heart of damage
+      effect:Remove()
+      local targets = Isaac.FindByType(EntityType.ENTITY_EFFECT, Isaac.GetEntityVariantByName("FetusBossTarget"),
+                                        -1, false, false) -- 1000
+      targets[1]:Remove()
     end
   end
 end

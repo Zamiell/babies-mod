@@ -16,8 +16,18 @@ function InputAction:Main(entity, inputHook, buttonAction)
     return
   end
 
-  if baby.name == "Masked Baby" and -- 115
-     inputHook == InputHook.IS_ACTION_PRESSED and -- 0
+  local babyFunc = InputAction.functions[type]
+  if babyFunc ~= nil then
+    return babyFunc(inputHook, buttonAction)
+  end
+end
+
+-- The collection of functions for each baby
+InputAction.functions = {}
+
+-- Masked Baby
+InputAction.functions[115] = function(inputHook, buttonAction)
+  if inputHook == InputHook.IS_ACTION_PRESSED and -- 0
      -- (the shoot inputs can be on all 3 of the input hooks)
      (buttonAction == ButtonAction.ACTION_SHOOTLEFT or -- 4
       buttonAction == ButtonAction.ACTION_SHOOTRIGHT or -- 5
@@ -48,53 +58,57 @@ function InputAction:Main(entity, inputHook, buttonAction)
 
       return false
     end
+  end
+end
 
-  elseif baby.name == "Piece A Baby" then -- 179
-    -- Can only move up + down + left + right
-    if buttonAction == ButtonAction.ACTION_LEFT and -- 0
-       (InputAction:IsPressed(ButtonAction.ACTION_UP) or -- 2
-        InputAction:IsPressed(ButtonAction.ACTION_DOWN)) then -- 3
+-- Piece A Baby
+InputAction.functions[179] = function(inputHook, buttonAction)
+  -- Can only move up + down + left + right
+  if buttonAction == ButtonAction.ACTION_LEFT and -- 0
+      (InputAction:IsPressed(ButtonAction.ACTION_UP) or -- 2
+      InputAction:IsPressed(ButtonAction.ACTION_DOWN)) then -- 3
 
-      return 0
+    return 0
 
-    elseif buttonAction == ButtonAction.ACTION_RIGHT and -- 1
-           (InputAction:IsPressed(ButtonAction.ACTION_UP) or -- 2
-            InputAction:IsPressed(ButtonAction.ACTION_DOWN)) then -- 3
+  elseif buttonAction == ButtonAction.ACTION_RIGHT and -- 1
+         (InputAction:IsPressed(ButtonAction.ACTION_UP) or -- 2
+          InputAction:IsPressed(ButtonAction.ACTION_DOWN)) then -- 3
 
-      return 0
+    return 0
 
-    elseif buttonAction == ButtonAction.ACTION_UP and -- 2
-           (InputAction:IsPressed(ButtonAction.ACTION_LEFT) or -- 0
-            InputAction:IsPressed(ButtonAction.ACTION_RIGHT)) then -- 1
+  elseif buttonAction == ButtonAction.ACTION_UP and -- 2
+         (InputAction:IsPressed(ButtonAction.ACTION_LEFT) or -- 0
+          InputAction:IsPressed(ButtonAction.ACTION_RIGHT)) then -- 1
 
-      return 0
+    return 0
 
-    elseif buttonAction == ButtonAction.ACTION_DOWN and -- 3
-           (InputAction:IsPressed(ButtonAction.ACTION_LEFT) or -- 0
-            InputAction:IsPressed(ButtonAction.ACTION_RIGHT)) then -- 1
+  elseif buttonAction == ButtonAction.ACTION_DOWN and -- 3
+         (InputAction:IsPressed(ButtonAction.ACTION_LEFT) or -- 0
+          InputAction:IsPressed(ButtonAction.ACTION_RIGHT)) then -- 1
 
-      return 0
-    end
+    return 0
+  end
+end
 
-  elseif baby.name == "Imp Baby" then -- 386
-    -- Blender + flight + explosion immunity + blindfolded
-    -- ButtonAction.ACTION_SHOOTLEFT (4)
-    -- ButtonAction.ACTION_SHOOTRIGHT (5)
-    -- ButtonAction.ACTION_SHOOTUP (6)
-    -- ButtonAction.ACTION_SHOOTDOWN (7)
-    local direction = g.run.babyCounters
+-- Imp Baby
+InputAction.functions[386] = function(inputHook, buttonAction)
+  -- Blender + flight + explosion immunity + blindfolded
+  -- ButtonAction.ACTION_SHOOTLEFT (4)
+  -- ButtonAction.ACTION_SHOOTRIGHT (5)
+  -- ButtonAction.ACTION_SHOOTUP (6)
+  -- ButtonAction.ACTION_SHOOTDOWN (7)
+  local direction = g.run.babyCounters
 
-    -- We need to swap right and up
-    if direction == 5 then
-      direction = 6
-    elseif direction == 6 then
-      direction = 5
-    end
+  -- We need to swap right and up
+  if direction == 5 then
+    direction = 6
+  elseif direction == 6 then
+    direction = 5
+  end
 
-    -- Make the player face in this direction
-    if buttonAction == direction then
-      return 1
-    end
+  -- Make the player face in this direction
+  if buttonAction == direction then
+    return 1
   end
 end
 

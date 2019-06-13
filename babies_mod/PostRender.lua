@@ -28,8 +28,8 @@ function PostRender:Main()
   PostRender:DrawBabyIntro()
   PostRender:DrawBabyNumber()
   PostRender:DrawVersion()
-  PostRender:DrawBabyEffects()
   PostRender:DrawTempIcon()
+  PostRender:DrawBabyEffects()
   Timer:Display()
 end
 
@@ -307,82 +307,6 @@ function PostRender:DrawVersion()
   Isaac.RenderScaledText(text, x, y, scale, scale, 2, 2, 2, 2)
 end
 
-function PostRender:DrawBabyEffects()
-  -- Local variables
-  local roomDesc = g.l:GetCurrentRoomDesc()
-  local roomVariant = roomDesc.Data.Variant
-  local roomType = g.r:GetType()
-  local bombs = g.p:GetNumBombs()
-  local keys = g.p:GetNumKeys()
-  local type = g.run.babyType
-  local baby = g.babies[type]
-  if baby == nil then
-    return
-  end
-
-  if baby.name == "Dark Baby" and -- 48
-     g.run.babySprites ~= nil then
-
-    -- Temporary blindness
-    -- Set the current fade (which is based on the game's frame count and set in the MC_POST_UPDATE callback)
-    local opacity = g.run.babyCounters / 90
-    if opacity > 1 then
-      opacity = 1
-    end
-    g.run.babySprites.Color = Color(1, 1, 1, opacity, 0, 0, 0)
-    g.run.babySprites:RenderLayer(0, g.zeroVector)
-
-  elseif baby.name == "Hopeless Baby" and -- 125
-     roomType ~= RoomType.ROOM_DEVIL and -- 14
-     roomType ~= RoomType.ROOM_BLACK_MARKET and -- 22
-     roomVariant ~= 2300 and -- Krampus
-     roomVariant ~= 2301 and -- Krampus
-     roomVariant ~= 2302 and -- Krampus
-     roomVariant ~= 2303 and -- Krampus
-     roomVariant ~= 2304 and -- Krampus
-     roomVariant ~= 2305 and -- Krampus
-     roomVariant ~= 2306 then -- Krampus
-
-    -- Draw the key count next to the hearts
-    local x = 65
-    g.run.babySprites:RenderLayer(0, Vector(x, 12))
-    local text = "x" .. tostring(keys)
-    Isaac.RenderText(text, x + 5, 12, 2, 2, 2, 2)
-    -- (this looks better without a Droid font)
-
-  elseif baby.name == "Mohawk Baby" and -- 138
-         roomType ~= RoomType.ROOM_DEVIL and -- 14
-         roomType ~= RoomType.ROOM_BLACK_MARKET and -- 22
-         roomVariant ~= 2300 and -- Krampus
-         roomVariant ~= 2301 and -- Krampus
-         roomVariant ~= 2302 and -- Krampus
-         roomVariant ~= 2303 and -- Krampus
-         roomVariant ~= 2304 and -- Krampus
-         roomVariant ~= 2305 and -- Krampus
-         roomVariant ~= 2306 then -- Krampus
-
-    -- Draw the bomb count next to the hearts
-    local x = 65
-    g.run.babySprites:RenderLayer(0, Vector(x, 12))
-    Isaac.RenderText("x" .. tostring(bombs), x + 5, 12, 2, 2, 2, 2)
-    -- (this looks better without a Droid font)
-
-  elseif baby.name == "Elf Baby" then -- 377
-    -- The Speak of Destiny effect is not spawned in the POST_NEW_ROOM callback
-    -- Thus, we check for it on every frame instead
-    -- As an unfortunate side effect, the Spear of Destiny will show as the vanilla graphic during room transitions
-    local spears = Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.SPEAR_OF_DESTINY, -- 1000.83
-                                    -1, false, false)
-    for _, spear in ipairs(spears) do
-      if spear:GetSprite():GetFilename() == "gfx/1000.083_Spear Of Destiny.anm2" then
-        local sprite = spear:GetSprite()
-        sprite:Load("gfx/1000.083_spear of destiny2.anm2", true)
-        sprite:Play("Idle", true)
-      end
-    end
-  end
-end
-
 function PostRender:DrawTempIcon()
   -- Local variables
   local type = g.run.babyType
@@ -441,6 +365,100 @@ function PostRender:GetScreenCenterPosition()
   end
 
   return Isaac.WorldToRenderPosition(pos, false)
+end
+
+function PostRender:DrawBabyEffects()
+  -- Local variables
+  local type = g.run.babyType
+  local baby = g.babies[type]
+  if baby == nil then
+    return
+  end
+
+  local babyFunc = PostRender.functions[type]
+  if babyFunc ~= nil then
+    babyFunc()
+  end
+end
+
+-- The collection of functions for each baby
+PostRender.functions = {}
+
+-- Dark Baby
+PostRender.functions[48] = function()
+  -- Temporary blindness
+  -- Set the current fade (which is based on the game's frame count and set in the MC_POST_UPDATE callback)
+  if g.run.babySprites ~= nil then
+    local opacity = g.run.babyCounters / 90
+    if opacity > 1 then
+      opacity = 1
+    end
+    g.run.babySprites.Color = Color(1, 1, 1, opacity, 0, 0, 0)
+    g.run.babySprites:RenderLayer(0, g.zeroVector)
+  end
+end
+
+-- Hopeless Baby
+PostRender.functions[125] = function()
+  local roomType = g.r:GetType()
+  local roomDesc = g.l:GetCurrentRoomDesc()
+  local roomVariant = roomDesc.Data.Variant
+  if roomType ~= RoomType.ROOM_DEVIL and -- 14
+     roomType ~= RoomType.ROOM_BLACK_MARKET and -- 22
+     roomVariant ~= 2300 and -- Krampus
+     roomVariant ~= 2301 and -- Krampus
+     roomVariant ~= 2302 and -- Krampus
+     roomVariant ~= 2303 and -- Krampus
+     roomVariant ~= 2304 and -- Krampus
+     roomVariant ~= 2305 and -- Krampus
+     roomVariant ~= 2306 then -- Krampus
+
+    -- Draw the key count next to the hearts
+    local x = 65
+    g.run.babySprites:RenderLayer(0, Vector(x, 12))
+    local text = "x" .. tostring(g.p:GetNumKeys())
+    Isaac.RenderText(text, x + 5, 12, 2, 2, 2, 2)
+    -- (this looks better without a Droid font)
+  end
+end
+
+-- Mohawk Baby
+PostRender.functions[138] = function()
+  local roomType = g.r:GetType()
+  local roomDesc = g.l:GetCurrentRoomDesc()
+  local roomVariant = roomDesc.Data.Variant
+  if roomType ~= RoomType.ROOM_DEVIL and -- 14
+     roomType ~= RoomType.ROOM_BLACK_MARKET and -- 22
+     roomVariant ~= 2300 and -- Krampus
+     roomVariant ~= 2301 and -- Krampus
+     roomVariant ~= 2302 and -- Krampus
+     roomVariant ~= 2303 and -- Krampus
+     roomVariant ~= 2304 and -- Krampus
+     roomVariant ~= 2305 and -- Krampus
+     roomVariant ~= 2306 then -- Krampus
+
+    -- Draw the bomb count next to the hearts
+    local x = 65
+    g.run.babySprites:RenderLayer(0, Vector(x, 12))
+    Isaac.RenderText("x" .. tostring(g.p:GetNumBombs()), x + 5, 12, 2, 2, 2, 2)
+    -- (this looks better without a Droid font)
+  end
+end
+
+-- Elf Baby
+PostRender.functions[377] = function()
+  -- The Speak of Destiny effect is not spawned in the POST_NEW_ROOM callback
+  -- Thus, we check for it on every frame instead
+  -- As an unfortunate side effect, the Spear of Destiny will show as the vanilla graphic during room transitions
+  local spears = Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.SPEAR_OF_DESTINY, -- 1000.83
+                                  -1, false, false)
+  for _, spear in ipairs(spears) do
+    if spear:GetSprite():GetFilename() == "gfx/1000.083_Spear Of Destiny.anm2" then
+      local sprite = spear:GetSprite()
+      sprite:Load("gfx/1000.083_spear of destiny2.anm2", true)
+      sprite:Play("Idle", true)
+    end
+  end
 end
 
 return PostRender

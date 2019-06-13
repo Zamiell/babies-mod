@@ -27,12 +27,13 @@ function EntityTakeDmgBabies:Player(player, damageAmount, damageFlag, damageSour
     return false
   end
 
-  if EntityTakeDmgBabies.functions[type] ~= nil then
-    return EntityTakeDmgBabies.functions[type](player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  local babyFunc = EntityTakeDmgBabies.functions[type]
+  if babyFunc ~= nil then
+    return babyFunc(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   end
 end
 
--- The collection of functions for each baby effect
+-- The collection of functions for each baby
 EntityTakeDmgBabies.functions = {}
 
 -- Host Baby

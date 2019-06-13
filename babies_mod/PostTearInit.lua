@@ -12,14 +12,25 @@ function PostTearInit:Main(tear)
     return
   end
 
-  if baby.name == "Lil' Baby" then -- 36
-    -- Everything is tiny
-    tear.SpriteScale = Vector(0.5, 0.5)
-
-  elseif baby.name == "Big Baby" then -- 37
-    -- Everything is giant
-    tear.SpriteScale = Vector(2, 2)
+  local babyFunc = PostTearInit.functions[type]
+  if babyFunc ~= nil then
+    babyFunc(tear)
   end
+end
+
+-- The collection of functions for each baby
+PostTearInit.functions = {}
+
+-- Lil' Baby
+PostTearInit.functions[36] = function(tear)
+  -- Everything is tiny
+  tear.SpriteScale = Vector(0.5, 0.5)
+end
+
+-- Big Baby
+PostTearInit.functions[37] = function(tear)
+  -- Everything is giant
+  tear.SpriteScale = Vector(2, 2)
 end
 
 return PostTearInit

@@ -13,17 +13,30 @@ function PostBombInit:Main(bomb)
     return
   end
 
-  if baby.name == "Lil' Baby" then -- 36
-    -- Everything is tiny
-    bomb.SpriteScale = Vector(0.5, 0.5)
-
-  elseif baby.name == "Big Baby" then -- 37
-    -- Everything is giant
-    bomb.SpriteScale = Vector(2, 2)
-
-  elseif baby.name == "404 Baby" then -- 463
-    Misc:SetRandomColor(bomb)
+  local babyFunc = PostBombInit.functions[type]
+  if babyFunc ~= nil then
+    babyFunc(bomb)
   end
+end
+
+-- The collection of functions for each baby
+PostBombInit.functions = {}
+
+-- Lil' Baby
+PostBombInit.functions[36] = function(bomb)
+  -- Everything is tiny
+  bomb.SpriteScale = Vector(0.5, 0.5)
+end
+
+-- Big Baby
+PostBombInit.functions[37] = function(bomb)
+  -- Everything is giant
+  bomb.SpriteScale = Vector(2, 2)
+end
+
+-- 404 Baby
+PostBombInit.functions[463] = function(bomb)
+  Misc:SetRandomColor(bomb)
 end
 
 return PostBombInit

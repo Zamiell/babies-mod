@@ -6,9 +6,6 @@ local g = require("babies_mod/globals")
 -- ModCallbacks.MC_PRE_ROOM_ENTITY_SPAWN (71)
 function PreRoomEntitySpawn:Main(type, variant, subType, gridIndex, seed)
   -- Local variables
-  local roomType = g.r:GetType()
-  local roomFrameCount = g.r:GetFrameCount()
-  local roomFirstVisit = g.r:IsFirstVisit()
   local babyType = g.run.babyType
   local baby = g.babies[babyType]
   if baby == nil then
@@ -16,12 +13,22 @@ function PreRoomEntitySpawn:Main(type, variant, subType, gridIndex, seed)
   end
 
   -- We only care about replacing things when the room is first loading and on the first visit
-  if roomFrameCount ~= -1 then
+  if g.r:GetFrameCount() ~= -1 then
     return
   end
 
-  if baby.name == "Chompers Baby" and -- 143
-     roomFirstVisit and
+  local babyFunc = PreRoomEntitySpawn.functions[type]
+  if babyFunc ~= nil then
+    return babyFunc()
+  end
+end
+
+-- The collection of functions for each baby
+PreRoomEntitySpawn.functions = {}
+
+-- Chompers Baby
+PreRoomEntitySpawn.functions[143] = function()
+  if g.r:IsFirstVisit() and
      type >= 1000 and -- We only care about grid entities
      type ~= 4500 and -- Make an exception for Pressure Plates
      type ~= 9000 and -- Make an exception for trapdoors
@@ -29,26 +36,34 @@ function PreRoomEntitySpawn:Main(type, variant, subType, gridIndex, seed)
 
     -- Everything is Red Poop
     return {1490, 0, 0}
+  end
+end
 
-  elseif baby.name == "Suit Baby" and -- 287
-         roomType ~= RoomType.ROOM_DEFAULT and -- 1
-         roomType ~= RoomType.ROOM_ERROR and -- 3
-         roomType ~= RoomType.ROOM_BOSS and -- 5
-         roomType ~= RoomType.ROOM_DEVIL and -- 14
-         roomType ~= RoomType.ROOM_ANGEL and -- 15
-         roomType ~= RoomType.ROOM_DUNGEON and -- 16
-         roomType ~= RoomType.ROOM_BOSSRUSH and -- 17
-         roomType ~= RoomType.ROOM_BLACK_MARKET then -- 22
+-- Suit Baby
+PreRoomEntitySpawn.functions[287] = function()
+  -- All special rooms are Devil Rooms
+  -- Ignore some select special rooms
+  local roomType = g.r:GetType()
+  if roomType ~= RoomType.ROOM_DEFAULT and -- 1
+     roomType ~= RoomType.ROOM_ERROR and -- 3
+     roomType ~= RoomType.ROOM_BOSS and -- 5
+     roomType ~= RoomType.ROOM_DEVIL and -- 14
+     roomType ~= RoomType.ROOM_ANGEL and -- 15
+     roomType ~= RoomType.ROOM_DUNGEON and -- 16
+     roomType ~= RoomType.ROOM_BOSSRUSH and -- 17
+     roomType ~= RoomType.ROOM_BLACK_MARKET then -- 22
 
-    -- All special rooms are Devil Rooms
     return {999, 0, 0} -- Equal to 1000.0, which is a blank effect, which is essentially nothing
+  end
+end
 
-  elseif baby.name == "Red Wrestler Baby" and -- 389
-         roomFirstVisit and
-         type >= 1000 and -- We only care about grid entities
-         type ~= 4500 and -- Make an exception for Pressure Plates
-         type ~= 9000 and -- Make an exception for trapdoors
-         type ~= 9100 then -- Make an exception for crawlspaces
+-- Red Wrestler Baby
+PreRoomEntitySpawn.functions[389] = function()
+  if g.r:IsFirstVisit() and
+     type >= 1000 and -- We only care about grid entities
+     type ~= 4500 and -- Make an exception for Pressure Plates
+     type ~= 9000 and -- Make an exception for trapdoors
+     type ~= 9100 then -- Make an exception for crawlspaces
 
     -- Everything is TNT
     return {1300, 0, 0}

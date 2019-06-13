@@ -7,40 +7,55 @@ local Misc = require("babies_mod/misc")
 -- ModCallbacks.MC_POST_BOMB_UPDATE (58)
 function PostBombUpdate:Main(bomb)
   -- Local variables
-  local gameFrameCount = g.g:GetFrameCount()
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
     return
   end
 
-  if baby.name == "Bomb Baby" and -- 75
-     bomb.SpawnerType == EntityType.ENTITY_PLAYER and -- 1
+  local babyFunc = PostBombUpdate.functions[type]
+  if babyFunc ~= nil then
+    babyFunc(bomb)
+  end
+end
+
+-- The collection of functions for each baby
+PostBombUpdate.functions = {}
+
+-- Bomb Baby
+PostBombUpdate.functions[75] = function(bomb)
+  -- 50% chance for bombs to have the D6 effect
+  if bomb.SpawnerType == EntityType.ENTITY_PLAYER and -- 1
      bomb.FrameCount == 51 then -- Bombs explode on the 51st frame exactly
 
-    -- 50% chance for bombs to have the D6 effect
     g.run.roomRNG = g:IncrementRNG(g.run.roomRNG)
     math.randomseed(g.run.roomRNG)
     local d6chance = math.random(1, 2)
     if d6chance == 2 then
       g.p:UseActiveItem(CollectibleType.COLLECTIBLE_D6, false, false, false, false) -- 105
     end
+  end
+end
 
-  elseif baby.name == "Tongue Baby" and -- 97
-         bomb.SpawnerType == EntityType.ENTITY_PLAYER and -- 1
-         bomb.FrameCount == 51 then -- Bombs explode on the 51st frame exactly
+-- Tongue Baby
+PostBombUpdate.functions[75] = function(bomb)
+  -- Recharge bombs
+  if bomb.SpawnerType == EntityType.ENTITY_PLAYER and -- 1
+     bomb.FrameCount == 51 then -- Bombs explode on the 51st frame exactly
 
-    -- Recharge bombs
     Misc:AddCharge()
     if RacingPlusSchoolbag ~= nil then
       RacingPlusSchoolbag:AddCharge(true) -- Giving an argument will make it only give 1 charge
     end
+  end
+end
 
-  elseif baby.name == "Skull Baby" and -- 211
-         bomb.SpawnerType == EntityType.ENTITY_PLAYER and -- 1
-         bomb.FrameCount == 51 then -- Bombs explode on the 51st frame exactly
+-- Skull Baby
+PostBombUpdate.functions[211] = function(bomb)
+  -- Shockwave bombs
+  if bomb.SpawnerType == EntityType.ENTITY_PLAYER and -- 1
+     bomb.FrameCount == 51 then -- Bombs explode on the 51st frame exactly
 
-    -- Shockwave bombs
     for i = 1, 4 do
       local velocity
       if i == 1 then
@@ -53,15 +68,18 @@ function PostBombUpdate:Main(bomb)
         velocity = Vector(0, -1) -- Down
       end
       g.run.babyTears[#g.run.babyTears + 1] = {
-        frame = gameFrameCount,
+        frame = g.g:GetFrameCount(),
         position = bomb.Position,
         velocity = velocity * 30,
       }
     end
+  end
+end
 
-  elseif baby.name == "Bony Baby" and -- 284
-         bomb.FrameCount == 1 and -- Frame 0 does not work
-         bomb:GetData().doubled == nil then
+-- Bony Baby
+PostBombUpdate.functions[284] = function(bomb)
+  if bomb.FrameCount == 1 and -- Frame 0 does not work
+     bomb:GetData().doubled == nil then
 
     local position = Misc:GetOffsetPosition(bomb.Position, 15, bomb.InitSeed)
     local doubledBomb = g.g:Spawn(bomb.Type, bomb.Variant, position, bomb.Velocity,
@@ -75,16 +93,22 @@ function PostBombUpdate:Main(bomb)
     doubledBomb.ExplosionDamage = bomb.ExplosionDamage
     doubledBomb.RadiusMultiplier = bomb.RadiusMultiplier
     doubledBomb:GetData().doubled = true
+  end
+end
 
-  elseif baby.name == "Barbarian Baby" and -- 344
-         bomb.SpawnerType == EntityType.ENTITY_PLAYER and -- 1
-         bomb.FrameCount == 51 then -- Bombs explode on the 51st frame exactly
+-- Barbarian Baby
+PostBombUpdate.functions[344] = function(bomb)
+  if bomb.SpawnerType == EntityType.ENTITY_PLAYER and -- 1
+     bomb.FrameCount == 51 then -- Bombs explode on the 51st frame exactly
 
     g.r:MamaMegaExplossion()
+  end
+end
 
-  elseif baby.name == "Orange Ghost Baby" and -- 373
-         bomb.FrameCount == 1 and
-         bomb.Variant ~= BombVariant.BOMB_SUPERTROLL then -- 5
+-- Orange Ghost Baby
+PostBombUpdate.functions[373] = function(bomb)
+  if bomb.FrameCount == 1 and
+     bomb.Variant ~= BombVariant.BOMB_SUPERTROLL then -- 5
 
     g.g:Spawn(bomb.Type, BombVariant.BOMB_SUPERTROLL,
               bomb.Position, bomb.Velocity, bomb.SpawnerEntity, bomb.SubType, bomb.InitSeed)

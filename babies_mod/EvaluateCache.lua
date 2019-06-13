@@ -6,13 +6,7 @@ local g = require("babies_mod/globals")
 -- ModCallbacks.MC_EVALUATE_CACHE (8)
 function EvaluateCache:Main(player, cacheFlag)
   -- Local variables
-  local gameFrameCount = g.g:GetFrameCount()
   local character = player:GetPlayerType()
-  local hearts = player:GetHearts()
-  local soulHearts = player:GetSoulHearts()
-  local eternalHearts = player:GetEternalHearts()
-  local boneHearts = player:GetBoneHearts()
-  local totalHearts = hearts + soulHearts + eternalHearts + (boneHearts * 2)
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
@@ -34,174 +28,241 @@ function EvaluateCache:Main(player, cacheFlag)
     -- (setting "player.FireDelay" here will not work, so do one frame later in the MC_POST_UPDATE callback)
   end
 
-  -- Per baby stat changes
-  if baby.name == "Cute Baby" and -- 11
-     cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
+  local babyFunc = EvaluateCache.functions[type]
+  if babyFunc ~= nil then
+    return babyFunc(player, cacheFlag)
+  end
+end
 
+  -- The collection of functions for each baby
+  EvaluateCache.functions = {}
+
+-- Cute Baby
+EvaluateCache.functions[11] = function(player, cacheFlag)
+  if cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
     -- -1 damage per pickup taken
     for i = 1, g.run.babyCounters do
       player.Damage = player.Damage - 1
     end
+  end
+end
 
-  elseif baby.name == "Lowface Baby" and -- 73
-         cacheFlag == CacheFlag.CACHE_RANGE then -- 8
-
-    -- 0.5x range
+-- Lowface Baby
+EvaluateCache.functions[73] = function(player, cacheFlag)
+  -- 0.5x range
+  if cacheFlag == CacheFlag.CACHE_RANGE then -- 8
     player.TearHeight = player.TearHeight / 2
     if player.TearHeight > -5 then
       -- Set an absolute minimum range
       player.TearHeight = -5
     end
+  end
+end
 
-  elseif baby.name == "Derp Baby" and -- 78
-         cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
-
+-- Derp Baby
+EvaluateCache.functions[78] = function(player, cacheFlag)
+  if cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
     player.Damage = player.Damage * 0.5
+  end
+end
 
-  elseif baby.name == "Lipstick Baby" and -- 105
-         cacheFlag == CacheFlag.CACHE_RANGE then -- 8
-
+-- Lipstick Baby
+EvaluateCache.functions[105] = function(player, cacheFlag)
+  if cacheFlag == CacheFlag.CACHE_RANGE then -- 8
     player.TearHeight = player.TearHeight * 2
+  end
+end
 
-  elseif baby.name == "Tusks Baby" and -- 124
-         cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
-
+-- Tusks Baby
+EvaluateCache.functions[124] = function(player, cacheFlag)
+  if cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
     player.Damage = player.Damage * 2
+  end
+end
 
-  elseif baby.name == "Cape Baby" and -- 152
-         cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
-
+-- Cape Baby
+EvaluateCache.functions[152] = function(player, cacheFlag)
+  if cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
     player.MaxFireDelay = 1
+  end
+end
 
-  elseif baby.name == "Black Eye Baby" and -- 164
-         cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
+-- Black Eye Baby
+EvaluateCache.functions[164] = function(player, cacheFlag)
+  -- Starts with Leprosy, +5 damage on Leprosy breaking
+  -- We use the "babyFrame" variable to track how many damage ups we have recieved
+  if cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
+      local type = g.run.babyType
+      local baby = g.babies[type]
+      player.Damage = player.Damage + (g.run.babyFrame * baby.num)
+  end
+end
 
-    -- Starts with Leprosy, +5 damage on Leprosy breaking
-    -- We use the "babyFrame" variable to track how many damage ups we have recieved
-    player.Damage = player.Damage + (g.run.babyFrame * baby.num)
-
-  elseif baby.name == "Sick Baby" and -- 187
-         cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
-
-    -- Explosive fly tears
+-- Sick Baby
+EvaluateCache.functions[187] = function(player, cacheFlag)
+  -- Explosive fly tears
+  if cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
     player.MaxFireDelay = math.ceil(player.MaxFireDelay * 3)
+  end
+end
 
-  elseif baby.name == "Blisters Baby" and -- 240
-         cacheFlag == CacheFlag.CACHE_SHOTSPEED then -- 4
-
-    -- This is the minimum shot speed that you can set
+-- Blisters Baby
+EvaluateCache.functions[240] = function(player, cacheFlag)
+  -- This is the minimum shot speed that you can set
+  if cacheFlag == CacheFlag.CACHE_SHOTSPEED then -- 4
     player.ShotSpeed = 0.6
+  end
+end
 
-  elseif baby.name == "Snail Baby" and -- 244
-         cacheFlag == CacheFlag.CACHE_SPEED then -- 16
-
+-- Snail Baby
+EvaluateCache.functions[244] = function(player, cacheFlag)
+  if cacheFlag == CacheFlag.CACHE_SPEED then -- 16
     player.MoveSpeed = player.MoveSpeed * 0.5
+  end
+end
 
-  elseif baby.name == "Tabby Baby" and -- 269
-         cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
-
+-- Tabby Baby
+EvaluateCache.functions[269] = function(player, cacheFlag)
+  if cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
     player.MaxFireDelay = math.ceil(player.MaxFireDelay * 2)
+  end
+end
 
-  elseif baby.name == "Killer Baby" and -- 291
-         cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
-
+-- Killer Baby
+EvaluateCache.functions[291] = function(player, cacheFlag)
+  if cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
     for i = 1, g.run.babyCounters do
       player.Damage = player.Damage + 0.2
     end
+  end
+end
 
-  elseif baby.name == "Cupcake Baby" and -- 321
-         cacheFlag == CacheFlag.CACHE_SHOTSPEED then -- 4
-
+-- Cupcake Baby
+EvaluateCache.functions[321] = function(player, cacheFlag)
+  if cacheFlag == CacheFlag.CACHE_SHOTSPEED then -- 4
     player.ShotSpeed = 4
+  end
+end
 
-  elseif baby.name == "Skinless Baby" and -- 322
-         cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
-
+-- Skinless Baby
+EvaluateCache.functions[322] = function(player, cacheFlag)
+  if cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
     player.Damage = player.Damage * 2
+  end
+end
 
-  elseif baby.name == "Hero Baby" and -- 336
-         cacheFlag == CacheFlag.CACHE_DAMAGE and -- 1
-         totalHearts <= 2 then
+-- Hero Baby
+EvaluateCache.functions[336] = function(player, cacheFlag)
+  -- Local variables
+  local hearts = player:GetHearts()
+  local soulHearts = player:GetSoulHearts()
+  local eternalHearts = player:GetEternalHearts()
+  local boneHearts = player:GetBoneHearts()
+  local totalHearts = hearts + soulHearts + eternalHearts + (boneHearts * 2)
 
-    player.Damage = player.Damage * 3
+  if totalHearts <= 2 then
+    if cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
+      player.Damage = player.Damage * 3
+    elseif cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
+      player.MaxFireDelay = math.ceil(player.MaxFireDelay / 3)
+    end
+  end
+end
 
-  elseif baby.name == "Hero Baby" and -- 336
-         cacheFlag == CacheFlag.CACHE_FIREDELAY and -- 2
-         totalHearts <= 2 then
+-- Rabbit Baby
+EvaluateCache.functions[350] = function(player, cacheFlag)
+  -- Starts with How to Jump; must jump often
+  -- Speed has a lower bound of 0.1, so we cannot set it lower than this
+  if cacheFlag == CacheFlag.CACHE_SPEED and -- 16
+     g.g:GetFrameCount() >= g.run.babyFrame then
 
-    player.MaxFireDelay = math.ceil(player.MaxFireDelay / 3)
-
-  elseif baby.name == "Rabbit Baby" and -- 350
-         cacheFlag == CacheFlag.CACHE_SPEED and -- 16
-         gameFrameCount >= g.run.babyFrame then
-
-    -- Starts with How to Jump; must jump often
-    -- Speed has a lower bound of 0.1, so we cannot set it lower than this
     player.MoveSpeed = 0.1
+  end
+end
 
-  elseif baby.name == "Scared Ghost Baby" and -- 369
-         cacheFlag == CacheFlag.CACHE_SPEED then -- 16
-
+-- Scared Ghost Baby
+EvaluateCache.functions[369] = function(player, cacheFlag)
+  if cacheFlag == CacheFlag.CACHE_SPEED then -- 16
     player.MoveSpeed = player.MoveSpeed * 2
+  end
+end
 
-  elseif baby.name == "Blue Ghost Baby" and -- 370
-         cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
-
+-- Blue Ghost Baby
+EvaluateCache.functions[370] = function(player, cacheFlag)
+  if cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
     player.MaxFireDelay = 1
+  end
+end
 
-  elseif baby.name == "Red Ghost Baby" and -- 371
-         cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
-
+-- Red Ghost Baby
+EvaluateCache.functions[371] = function(player, cacheFlag)
+  if cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
     player.Damage = player.Damage + 10
+  end
+end
 
-  elseif baby.name == "Fairyman Baby" and -- 385
-         cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
-
+-- Fairyman Baby
+EvaluateCache.functions[385] = function(player, cacheFlag)
+  if cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
     for i = 1, g.run.babyCounters do
       player.Damage = player.Damage * 0.7
     end
+  end
+end
 
-  elseif baby.name == "Firemage Baby" and -- 419
-         cacheFlag == CacheFlag.CACHE_LUCK then -- 1024
-
+-- Firemage Baby
+EvaluateCache.functions[419] = function(player, cacheFlag)
+  if cacheFlag == CacheFlag.CACHE_LUCK then -- 1024
     player.Luck = player.Luck + 13
+  end
+end
 
-  elseif baby.name == "Sad Bunny Baby" and -- 459
-         cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
-
+-- Sad Bunny Baby
+EvaluateCache.functions[459] = function(player, cacheFlag)
+  if cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
     for i = 1, g.run.babyCounters do
       player.MaxFireDelay = player.MaxFireDelay - 1
     end
+  end
+end
 
-  elseif baby.name == "Voxdog Baby" and -- 462
-         cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
-
-    -- Shockwave tears
+-- Voxdog Baby
+EvaluateCache.functions[462] = function(player, cacheFlag)
+  -- Shockwave tears
+  if cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
     player.MaxFireDelay = math.ceil(player.MaxFireDelay * 2)
+  end
+end
 
-  elseif baby.name == "Robbermask Baby" and -- 473
-         cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
-
+-- Robbermask Baby
+EvaluateCache.functions[473] = function(player, cacheFlag)
+  if cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
     for i = 1, g.run.babyCounters do
       player.Damage = player.Damage + 1
     end
+  end
+end
 
-  elseif baby.name == "Text Baby" and -- 476
-         cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
-
+-- Text Baby
+EvaluateCache.functions[476] = function(player, cacheFlag)
+  if cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
     player.Damage = player.Damage / 2
+  end
+end
 
-  elseif baby.name == "Bubbles Baby" and -- 483
-         cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
-
+-- Bubbles Baby
+EvaluateCache.functions[483] = function(player, cacheFlag)
+  if cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
     for i = 1, g.run.babyCounters do
       player.Damage = player.Damage + 1
     end
+  end
+end
 
-  elseif baby.name == "Twitchy Baby" and -- 511
-         cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
-
-    -- Tear rate oscillates
+-- Twitchy Baby
+EvaluateCache.functions[511] = function(player, cacheFlag)
+  -- Tear rate oscillates
+  if cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
     player.MaxFireDelay = player.MaxFireDelay + g.run.babyCounters
   end
 end

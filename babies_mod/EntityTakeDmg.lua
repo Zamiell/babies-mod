@@ -30,60 +30,79 @@ function EntityTakeDmg:Main(tookDamage, damageAmount, damageFlag, damageSource, 
 end
 
 function EntityTakeDmg:Entity(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  -- Local variables
-  local stage = g.l:GetStage()
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  if g.run.dealingExtraDamage then
+    return
+  end
 
-  if baby.name == "Water Baby" and -- 3
-     damageSource.Type == EntityType.ENTITY_TEAR and -- 2
+  local babyFunc = EntityTakeDmg.functions[g.run.babyType]
+  if babyFunc ~= nil then
+    return babyFunc(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  end
+end
+
+-- The collection of functions for each baby
+EntityTakeDmg.functions = {}
+
+-- Water Baby
+EntityTakeDmgBabies.functions[3] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  if damageSource.Type == EntityType.ENTITY_TEAR and -- 2
      damageSource.Entity.SubType == 1 then
 
     -- Make the tears from Isaac's Tears do a lot of damage,
     -- like a Polyphemus tear (that scales with the floor)
+    local stage = g.l:GetStage()
     local damage = damageAmount * 10 * (1 + stage * 0.1)
     entity:TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames)
+  end
+end
 
-  elseif baby.name == "Lost Baby" and -- 10
-         damageSource.Type == EntityType.ENTITY_EFFECT and -- 1000
-         damageSource.Variant == EffectVariant.PLAYER_CREEP_RED then -- 46
+-- Lost Baby
+EntityTakeDmgBabies.functions[10] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  if damageSource.Type == EntityType.ENTITY_EFFECT and -- 1000
+     damageSource.Variant == EffectVariant.PLAYER_CREEP_RED then -- 46
 
     -- By default, player creep only deals 2 damage per tick, so increase the damage
     local damage = g.p.Damage * 2
     entity:TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames)
+  end
+end
 
-  elseif baby.name == "Fang Demon Baby" and -- 281
-         not g.run.dealingExtraDamage then
+-- Fang Demon Baby
+EntityTakeDmgBabies.functions[281] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  -- Make the light beams do extra damage
+  -- (light beams do 2 damage on every tick and are not based on the player's damage)
+  local damage = g.p.Damage
+  g.run.dealingExtraDamage = true
+  entity:TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames)
+  g.run.dealingExtraDamage = false
+end
 
-    -- Make the light beams do extra damage
-    -- (light beams do 2 damage on every tick and are not based on the player's damage)
-    local damage = g.p.Damage
-    g.run.dealingExtraDamage = true
-    entity:TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames)
-    g.run.dealingExtraDamage = false
+-- Rider Baby
+EntityTakeDmgBabies.functions[295] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  -- Make the Pony do extra damage
+  local damage = g.p.Damage * 4
+  g.run.dealingExtraDamage = true
+  entity:TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames)
+  g.run.dealingExtraDamage = false
+end
 
-  elseif baby.name == "Rider Baby" and -- 295
-         not g.run.dealingExtraDamage then
-
-    -- Make the Pony do extra damage
-    local damage = g.p.Damage * 4
-    g.run.dealingExtraDamage = true
-    entity:TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames)
-    g.run.dealingExtraDamage = false
-
-  elseif baby.name == "Slicer Baby" and -- 331
-         damageSource.Type == EntityType.ENTITY_TEAR and -- 2
-         damageSource.Entity.SubType == 1 then
+-- Slicer Baby
+EntityTakeDmgBabies.functions[295] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  if damageSource.Type == EntityType.ENTITY_TEAR and -- 2
+     damageSource.Entity.SubType == 1 then
 
     -- Make the Soy Milk tears do extra damage
     local damage = g.p.Damage * 3
     g.run.dealingExtraDamage = true
     entity:TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames)
     g.run.dealingExtraDamage = false
+  end
+end
 
-  elseif baby.name == "Boxers Baby" and -- 337
-         damageSource.Type == EntityType.ENTITY_TEAR and -- 2
-         damageSource.Entity.SubType == 1 then
+-- Boxers Baby
+EntityTakeDmgBabies.functions[337] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  if damageSource.Type == EntityType.ENTITY_TEAR and -- 2
+     damageSource.Entity.SubType == 1 then
 
     -- Play a random punching-related sound effect
     g.sfx:Play(Isaac.GetSoundIdByName("Fist"), 1, 0, false, 1) -- 37
@@ -91,55 +110,60 @@ function EntityTakeDmg:Entity(entity, damageAmount, damageFlag, damageSource, da
     -- Give the tear extra knockback
     -- ("damageSource.Velocity" doesn't exist, so we have to find it manually)
     entity.Velocity = entity.Velocity + damageSource.Entity.Velocity * 5
+  end
+end
 
-  elseif baby.name == "Arcade Baby" and -- 368
-         not g.run.dealingExtraDamage then
+-- Arcade Baby
+EntityTakeDmgBabies.functions[368] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  local damage = g.p.Damage * 3
+  g.run.dealingExtraDamage = true
+  entity:TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames)
+  g.run.dealingExtraDamage = false
+end
 
-    local damage = g.p.Damage * 3
-    g.run.dealingExtraDamage = true
-    entity:TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames)
-    g.run.dealingExtraDamage = false
+-- Elf Baby
+EntityTakeDmgBabies.functions[377] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  -- Make the Spear of Destiny do extra damage
+  local damage = g.p.Damage * 4
+  g.run.dealingExtraDamage = true
+  entity:TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames)
+  g.run.dealingExtraDamage = false
+end
 
-  elseif baby.name == "Elf Baby" and -- 377
-         not g.run.dealingExtraDamage then
-
-    -- Make the Spear of Destiny do extra damage
-    local damage = g.p.Damage * 4
-    g.run.dealingExtraDamage = true
-    entity:TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames)
-    g.run.dealingExtraDamage = false
-
-  elseif baby.name == "Astronaut Baby" and -- 406
-         damageSource.Type == EntityType.ENTITY_TEAR and -- 2
-         damageSource.Entity.SubType == 1 then
+-- Astronaut Baby
+EntityTakeDmgBabies.functions[406] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  if damageSource.Type == EntityType.ENTITY_TEAR and -- 2
+     damageSource.Entity.SubType == 1 then
 
     -- 5% chance for a black hole to spawn
     math.randomseed(damageSource.Entity.InitSeed)
     local chance = math.random(1, 100)
     if chance <= 5 then
-      g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BLACK_HOLE, -- 107
-                damageSource.Position, damageSource.Entity.Velocity, nil, 0, 0)
+    g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BLACK_HOLE, -- 107
+              damageSource.Position, damageSource.Entity.Velocity, nil, 0, 0)
     end
+  end
+end
 
-  elseif baby.name == "Tooth Head Baby" and -- 442
-         damageSource.Type == EntityType.ENTITY_TEAR and -- 2
-         damageSource.Entity.SubType == 1 and
-         not g.run.dealingExtraDamage then
+-- Tooth Head Baby
+EntityTakeDmgBabies.functions[442] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  if damageSource.Type == EntityType.ENTITY_TEAR and -- 2
+     damageSource.Entity.SubType == 1 then
 
     local damage = g.p.Damage * 3.2
     g.run.dealingExtraDamage = true
     entity:TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames)
     g.run.dealingExtraDamage = false
-
-  elseif baby.name == "Road Kill Baby" and -- 507
-         not g.run.dealingExtraDamage then
-
-    -- Give the Pointy Rib extra damage
-    local damage = g.p.Damage * 3
-    g.run.dealingExtraDamage = true
-    entity:TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames)
-    g.run.dealingExtraDamage = false
   end
+end
+
+-- Road Kill Baby
+EntityTakeDmgBabies.functions[507] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  -- Give the Pointy Rib extra damage
+  local damage = g.p.Damage * 3
+  g.run.dealingExtraDamage = true
+  entity:TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames)
+  g.run.dealingExtraDamage = false
 end
 
 return EntityTakeDmg

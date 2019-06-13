@@ -13,19 +13,30 @@ function PostNPCInit:Main(npc)
     return
   end
 
-  if baby.name == "Lil' Baby" then -- 36
-    -- Tiny enemies
-    npc.Scale = 0.5
-
-  elseif baby.name == "Big Baby" then -- 37
-    -- Everything is giant
-    npc.Scale = 2
-
-  elseif baby.name == "404 Baby" then -- 463
-    Misc:SetRandomColor(npc)
+  local babyFunc = PostNPCInit.functions[type]
+  if babyFunc ~= nil then
+    babyFunc(npc)
   end
 end
 
+-- The collection of functions for each baby
+PostNPCInit.functions = {}
 
+-- Lil' Baby
+PostNPCInit.functions[36] = function(npc)
+  -- Tiny enemies
+  npc.Scale = 0.5
+end
+
+-- Big Baby
+PostNPCInit.functions[37] = function(npc)
+  -- Everything is giant
+  npc.Scale = 2
+end
+
+-- 404 Baby
+PostNPCInit.functions[463] = function(npc)
+  Misc:SetRandomColor(npc)
+end
 
 return PostNPCInit

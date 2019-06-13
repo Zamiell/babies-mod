@@ -4,45 +4,48 @@ local NPCUpdate = {}
 local g = require("babies_mod/globals")
 
 -- ModCallbacks.MC_NPC_UPDATE (0)
+-- This callback will fire on frame 0
 function NPCUpdate:Main(npc)
   -- Local variables
-  local data = npc:GetData()
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
     return
   end
 
-  -- This callback will see NPCs on frame 0
+  local babyFunc = NPCUpdate.functions[type]
+  if babyFunc ~= nil then
+    babyFunc(npc)
+  end
+end
 
-  if baby.name == "Zombie Baby" and -- 61
-     npc:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) then -- 1 << 29
+-- The collection of functions for each baby
+NPCUpdate.functions = {}
 
-    -- Brings back enemies from the dead
-    -- Reapply the fade on every frame because enemies can be unfaded occasionally
+-- Zombie Baby
+NPCUpdate.functions[61] = function(npc)
+  -- Brings back enemies from the dead
+  -- Reapply the fade on every frame because enemies can be unfaded occasionally
+  if npc:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) then -- 1 << 29
     local color = npc:GetColor()
     local fadeAmount = 0.25
     local newColor = Color(color.R, color.G, color.B, fadeAmount, 0, 0, 0)
     -- (for some reason, in this callback, RO, GO, and BO will be float values,
     -- but the Color constructor only wants integers, so manually use 0 for these 3 values instead of the existing ones)
     npc:SetColor(newColor, 0, 0, true, true)
-
-  elseif baby.name == "Hooligan Baby" and -- 514
-         npc.FrameCount == 0 and
-         npc.Type ~= EntityType.ENTITY_FIREPLACE and -- 33
-         npc.Type ~= EntityType.ENTITY_SHOPKEEPER and -- 17
-         data.duplicated == nil then
-
-    -- Double enemies
-    -- (if we do this in the MC_POST_NPC_INIT callback, some positions are not yet initialized,
-    -- so we do it here instead)
-    NPCUpdate:Baby514(npc)
   end
 end
 
-function NPCUpdate:Baby514(npc)
-  -- Doubling certain enemies leads to bugs
-  if npc.Type == EntityType.ENTITY_CHUB or -- 28
+-- Hooligan Baby
+NPCUpdate.functions[514] = function(npc)
+  -- Double enemies
+  -- (if we do this in the MC_POST_NPC_INIT callback, some positions are not yet initialized,
+  -- so we do it here instead)
+  if npc.FrameCount ~= 0 or
+     npc:GetData().duplicated ~= nil or
+     -- Doubling certain enemies leads to bugs
+     npc.Type == EntityType.ENTITY_SHOPKEEPER or -- 17
+     npc.Type == EntityType.ENTITY_CHUB or -- 28
      npc.Type == EntityType.ENTITY_FIREPLACE or -- 33
      npc.Type == EntityType.ENTITY_STONEHEAD or -- 42
      npc.Type == EntityType.ENTITY_POKY or -- 44

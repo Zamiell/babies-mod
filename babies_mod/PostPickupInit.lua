@@ -5,24 +5,14 @@ local g    = require("babies_mod/globals")
 local Misc = require("babies_mod/misc")
 
 -- ModCallbacks.MC_POST_PICKUP_INIT (34)
+-- "pickup.SpawnerType", pickup.SpawnerVariant", and "pickup.Price" are not initialized yet in this callback
 function PostPickupInit:Main(pickup)
   -- Local variables
-  local stage = g.l:GetStage()
-  local roomIndex = g.l:GetCurrentRoomIndex()
-  local startingRoomIndex = g.l:GetStartingRoomIndex()
-  local roomType = g.r:GetType()
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
     return
   end
-
-  --[[
-  Isaac.DebugString("MC_POST_PICKUP_INIT - " ..
-                    tostring(pickup.Type) .. "." .. tostring(pickup.Variant) .. "." ..
-                    tostring(pickup.SubType) .. "." .. tostring(pickup.State))
-  --]]
-  -- "pickup.SpawnerType", pickup.SpawnerVariant", and "pickup.Price" are all empty in this callback
 
   -- All baby effects should ignore the Checkpoint
   if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE and
@@ -31,67 +21,50 @@ function PostPickupInit:Main(pickup)
     return
   end
 
-  if baby.name == "Lil' Baby" then -- 36
-    -- Everything is tiny
-    pickup.SpriteScale = Vector(0.5, 0.5)
+  local babyFunc = PostPickupInit.functions[type]
+  if babyFunc ~= nil then
+    babyFunc(pickup)
+  end
+end
 
-  elseif baby.name == "Big Baby" and -- 37
-         -- Make an exception for the 4 Golden Chests, as those will be made giant before the babies effect is removed
-         (stage ~= 11 or
-          roomIndex ~= startingRoomIndex) then
+-- The collection of functions for each baby
+PostPickupInit.functions = {}
 
-    -- Everything is giant
+-- Lil' Baby
+PostPickupInit.functions[36] = function(pickup)
+  -- Everything is tiny
+  pickup.SpriteScale = Vector(0.5, 0.5)
+end
+
+-- Big Baby
+PostPickupInit.functions[37] = function(pickup)
+  -- Everything is giant
+  -- Make an exception for the 4 Golden Chests, as those will be made giant before the babies effect is removed
+  if g.l:GetStage() ~= 11 or
+     g.l:GetCurrentRoomIndex() ~= g.l:GetStartingRoomIndex() then
+
     pickup.SpriteScale = Vector(2, 2)
+  end
+end
 
-  elseif baby.name == "Shopkeeper Baby" and -- 215
-         pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE and
-         (roomType == RoomType.ROOM_SHOP or -- 2
-          roomType == RoomType.ROOM_ERROR) then -- 3
+-- Shopkeeper Baby
+PostPickupInit.functions[215] = function(pickup)
+  -- Free items in shops
+  if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then
+    local roomType = g.r:GetType()
+    if roomType == RoomType.ROOM_SHOP or -- 2
+       roomType == RoomType.ROOM_ERROR then -- 3
 
-    -- Free items in shops
-    pickup.Price = 0
-
-  elseif baby.name == "Wizard Baby" and -- 253
-     pickup.Variant == PickupVariant.PICKUP_TAROTCARD then -- 300
-
-    PostPickupInit:CardFaceUp(pickup)
-
-  elseif baby.name == "Scary Baby" and -- 317
-         pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then
-
-    -- Items cost hearts
-    pickup.AutoUpdatePrice = false
-    pickup.Price = Misc:GetItemHeartPrice(pickup.SubType)
-
-  elseif baby.name == "404 Baby" then -- 463
-    Misc:SetRandomColor(pickup)
-
-  elseif baby.name == "Demon Baby" and -- 527
-         pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE and
-         (roomType == RoomType.ROOM_DEVIL or -- 14
-          roomType == RoomType.ROOM_BLACK_MARKET) then -- 22
-
-    -- Free devil deals
-    pickup.Price = 0
-
-  elseif baby.name == "Fate's Reward" and -- 537
-         pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then
-
-    -- Items cost money
-    if (roomType == RoomType.ROOM_DEVIL or -- 14
-        roomType == RoomType.ROOM_BLACK_MARKET) then -- 22
-
-      pickup.AutoUpdatePrice = false
-    end
-    if pickup.Price <= 0 then
-      pickup.Price = 15
+      pickup.Price = 0
     end
   end
 end
 
-function PostPickupInit:CardFaceUp(pickup)
+-- Wizard Baby
+PostPickupInit.functions[253] = function(pickup)
   -- Make all cards and runes face-up
-  if (pickup.SubType >= Card.CARD_FOOL and -- 1
+  if pickup.Variant == PickupVariant.PICKUP_TAROTCARD and -- 300
+     (pickup.SubType >= Card.CARD_FOOL and -- 1
       pickup.SubType <= Card.RUNE_ALGIZ) or -- 39
      -- Blank Rune (40) and Black Rune (41) are handled in Racing+
      pickup.SubType == Card.CARD_CHAOS or -- 42
@@ -111,7 +84,50 @@ function PostPickupInit:CardFaceUp(pickup)
     local sprite = pickup:GetSprite()
     sprite:ReplaceSpritesheet(0, "gfx/cards/" .. tostring(pickup.SubType) .. ".png")
     sprite:LoadGraphics()
-   end
+  end
+end
+
+-- Scary Baby
+PostPickupInit.functions[317] = function(pickup)
+  -- Items cost hearts
+  if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then
+    pickup.AutoUpdatePrice = false
+    pickup.Price = Misc:GetItemHeartPrice(pickup.SubType)
+  end
+end
+
+-- 404 Baby
+PostPickupInit.functions[463] = function(pickup)
+  Misc:SetRandomColor(pickup)
+end
+
+-- Demon Baby
+PostPickupInit.functions[527] = function(pickup)
+  -- Free devil deals
+  if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then
+    local roomType = g.r:GetType()
+    if roomType == RoomType.ROOM_DEVIL or -- 14
+       roomType == RoomType.ROOM_BLACK_MARKET then -- 22
+
+      pickup.Price = 0
+    end
+  end
+end
+
+-- Fate's Reward
+PostPickupInit.functions[537] = function(pickup)
+  -- Items cost money
+  if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE then
+    local roomType = g.r:GetType()
+    if roomType == RoomType.ROOM_DEVIL or -- 14
+       roomType == RoomType.ROOM_BLACK_MARKET then -- 22
+
+      pickup.AutoUpdatePrice = false
+    end
+    if pickup.Price <= 0 then
+      pickup.Price = 15
+    end
+  end
 end
 
 return PostPickupInit

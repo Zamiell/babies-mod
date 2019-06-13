@@ -6,434 +6,586 @@ local g = require("babies_mod/globals")
 -- ModCallbacks.MC_POST_FIRE_TEAR (61)
 function PostFireTear:Main(tear)
   -- Local variables
-  local gameFrameCount = g.g:GetFrameCount()
-  local roomFrameCount = g.r:GetFrameCount()
-  local roomShape = g.r:GetRoomShape()
-  local data = tear:GetData()
   local type = g.run.babyType
   local baby = g.babies[type]
   if baby == nil then
     return
   end
 
-  --Isaac.DebugString("MC_POST_FIRE_TEAR")
+  local babyFunc = PostFireTear.functions[type]
+  if babyFunc ~= nil then
+    babyFunc(tear)
+  end
+end
 
-  if baby.name == "Bloat Baby" then -- 2
-    g.run.babyCounters = g.run.babyCounters + 1
-    if g.run.babyCounters == baby.num then
-      g.run.babyCounters = 0
-      tear:ChangeVariant(TearVariant.NEEDLE) -- 31
-      tear.TearFlags = tear.TearFlags | TearFlags.TEAR_NEEDLE -- 1 << 52
-    end
+-- The collection of functions for each baby
+PostFireTear.functions = {}
 
-  elseif baby.name == "Water Baby" and -- 3
-     g.run.babyCounters > 0 then
+-- Bloat Baby
+PostFireTear.functions[2] = function(tear)
+  -- Local variables
+  local type = g.run.babyType
+  local baby = g.babies[type]
 
-    g.run.babyCounters = g.run.babyCounters - 1
+  g.run.babyCounters = g.run.babyCounters + 1
+  if g.run.babyCounters == baby.num then
+    g.run.babyCounters = 0
+    tear:ChangeVariant(TearVariant.NEEDLE) -- 31
+    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_NEEDLE -- 1 << 52
+  end
+end
 
-    -- Make it look more impressive
-    tear.Scale = 5
-    tear.KnockbackMultiplier = 20
+-- Water Baby
+PostFireTear.functions[3] = function(tear)
+  if g.run.babyCounters == 0 then
+    return
+  end
+  g.run.babyCounters = g.run.babyCounters - 1
 
-    -- We can't modify the damage ("BaseDamage" is a constant)
-    -- We can improve the damage in the EntityTakeDmg callback
-    -- Mark the tear for later (tears do not usually use SubTypes and we cannot use the "GetData()" function)
-    tear.SubType = 1
+  -- Make it look more impressive
+  tear.Scale = 5
+  tear.KnockbackMultiplier = 20
 
-  elseif baby.name == "Cockeyed Baby" and -- 8
-         not g.run.babyBool then
+  -- We can't modify the damage ("BaseDamage" is a constant)
+  -- We can improve the damage in the EntityTakeDmg callback
+  -- Mark the tear for later (tears do not usually use SubTypes and we cannot use the "GetData()" function)
+  tear.SubType = 1
+end
 
-    -- Spawn a new tear with a random velocity
-    local seed = tear:GetDropRNG():GetSeed()
-    math.randomseed(seed)
-    local rotation = math.random(1, 359)
-    local vel = tear.Velocity:Rotated(rotation)
-    g.run.babyBool = true
+-- Cockeyed Baby
+PostFireTear.functions[8] = function(tear)
+  if g.run.babyBool then
+    return
+  end
+
+  -- Spawn a new tear with a random velocity
+  local seed = tear:GetDropRNG():GetSeed()
+  math.randomseed(seed)
+  local rotation = math.random(1, 359)
+  local vel = tear.Velocity:Rotated(rotation)
+  g.run.babyBool = true
+  g.p:FireTear(g.p.Position, vel, false, true, false)
+  g.run.babyBool = false
+end
+
+-- Mag Baby
+PostFireTear.functions[18] = function(tear)
+  tear:ChangeVariant(TearVariant.METALLIC) -- 3
+  tear.TearFlags = tear.TearFlags | TearFlags.TEAR_CONFUSION -- 1 << 14
+end
+
+-- Blue Baby
+PostFireTear.functions[30] = function(tear)
+  -- Sprinkler tears need to originate at the player
+  tear.Position = g.p.Position
+end
+
+-- Long Baby
+PostFireTear.functions[34] = function(tear)
+  tear.TearFlags = tear.TearFlags | TearFlags.TEAR_FLAT -- 1 << 27
+end
+
+-- Green Baby
+PostFireTear.functions[35] = function(tear)
+  tear:ChangeVariant(TearVariant.BOOGER) -- 26
+  tear.TearFlags = tear.TearFlags | TearFlags.TEAR_BOOGER -- 1 << 46
+end
+
+-- Super Greed Baby
+PostFireTear.functions[54] = function(tear)
+  tear.TearFlags = tear.TearFlags | TearFlags.TEAR_MIDAS -- 1 << 51
+end
+
+-- Mort Baby
+PostFireTear.functions[55] = function(tear)
+  -- Mark that we shot this tear
+  tear.SubType = 1
+end
+
+-- Big Eyes Baby
+PostFireTear.functions[59] = function(tear)
+  -- Tears cause self-knockback
+  g.p.Velocity = g.p.Velocity + (tear.Velocity * -0.75)
+end
+
+-- Mustache Baby
+PostFireTear.functions[66] = function(tear)
+  -- Boomerang tears
+  -- We can't just use The Boomerang item because there is no way to avoid a long cooldown
+  -- So we spawn an effect instead
+  g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BOOMERANG, -- 1000.60
+            tear.Position, tear.Velocity, tear.SpawnerEntity, 0, tear.InitSeed)
+  tear:Remove()
+end
+
+-- Parasite Baby
+PostFireTear.functions[77] = function(tear)
+  tear:ChangeVariant(TearVariant.BALLOON) -- 35
+end
+
+-- Scream Baby
+PostFireTear.functions[81] = function(tear)
+  g.p:UseActiveItem(CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP, false, false, false, false) -- 49
+  tear:Remove()
+end
+
+-- Square Eyes Baby
+PostFireTear.functions[94] = function(tear)
+  tear.TearFlags = tear.TearFlags | TearFlags.TEAR_SQUARE -- 1 << 31
+end
+
+-- Ed Baby
+PostFireTear.functions[100] = function(tear)
+  -- Mark that we shot this tear
+  tear.SubType = 1
+end
+
+-- Aether Baby
+PostFireTear.functions[106] = function(tear)
+  -- Shoot 8 tears at a time
+  -- (we store the rotation angle inside the "babyCounters" variable)
+  g.run.babyCounters = g.run.babyCounters + 45
+  if g.run.babyCounters < 360 then
+    local vel = tear.Velocity:Rotated(g.run.babyCounters)
     g.p:FireTear(g.p.Position, vel, false, true, false)
-    g.run.babyBool = false
+  else
+    g.run.babyCounters = 0
+  end
+end
 
-  elseif baby.name == "Mag Baby" then -- 18
-    tear:ChangeVariant(TearVariant.METALLIC) -- 3
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_CONFUSION -- 1 << 14
+-- Eyemouth Baby
+PostFireTear.functions[111] = function(tear)
+  -- Shoot an extra tear every 3rd shot
+  g.run.babyTears.tear = g.run.babyTears.tear + 1
+  if g.run.babyTears.tear >= 4 then
+    -- Mark to fire a tear 1 frame from now
+    g.run.babyTears.tear = 0
+    g.run.babyTears.frame = g.g:GetFrameCount() + 1
+    g.run.babyTears.velocity = Vector(tear.Velocity.X, tear.Velocity.Y)
+  end
+end
 
-  elseif baby.name == "Blue Baby" then -- 30
-    -- Sprinkler tears need to originate at the player
-    tear.Position = g.p.Position
+-- V Baby
+PostFireTear.functions[113] = function(tear)
+  g.p:FireTechXLaser(tear.Position, tear.Velocity, 5)
+  tear:Remove()
+end
 
-  elseif baby.name == "Long Baby" then -- 34
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_FLAT -- 1 << 27
+-- Strange Mouth Baby
+PostFireTear.functions[114] = function(tear)
+  tear.TearFlags = tear.TearFlags | TearFlags.TEAR_WIGGLE -- 1 << 10
+end
 
-  elseif baby.name == "Green Baby" then -- 35
-    tear:ChangeVariant(TearVariant.BOOGER) -- 26
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_BOOGER -- 1 << 46
+-- Strange Shape Baby
+PostFireTear.functions[130] = function(tear)
+  tear.TearFlags = tear.TearFlags | TearFlags.TEAR_PULSE -- 1 << 25
+end
 
-  elseif baby.name == "Super Greed Baby" then -- 54
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_MIDAS -- 1 << 51
+-- Crooked Baby
+PostFireTear.functions[133] = function(tear)
+  tear.Velocity = tear.Velocity:Rotated(-15)
+end
 
-  elseif baby.name == "Mort Baby" then -- 55
-    -- Mark that we shot this tear
+-- Cape Baby
+PostFireTear.functions[152] = function(tear)
+  local angleModifier = math.random(0, 90) - 45
+  tear.Velocity = tear.Velocity:Rotated(angleModifier)
+  tear:SetColor(Color(2, 2, 0, 0.7, 1, 1, 1), 10000, 10000, false, false) -- Yellow
+end
+
+-- Lights Baby
+PostFireTear.functions[165] = function(tear)
+  -- Local variables
+  local type = g.run.babyType
+  local baby = g.babies[type]
+
+  g.run.babyCounters = g.run.babyCounters + 1
+  if g.run.babyCounters == baby.num then
+    g.run.babyCounters = 0
+    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_LIGHT_FROM_HEAVEN -- 1 << 37
+  end
+end
+
+-- Web Baby
+PostFireTear.functions[185] = function(tear)
+  tear.TearFlags = tear.TearFlags | TearFlags.TEAR_SLOW -- 1 << 3
+end
+
+-- Sick Baby
+PostFireTear.functions[187] = function(tear)
+  g.g:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BLUE_FLY, -- 3.43.1
+            tear.Position, tear.Velocity, tear.SpawnerEntity, BlueFlyVariant.BLUEFLY_RED, tear.InitSeed)
+  tear:Remove()
+end
+
+-- Cold Baby
+PostFireTear.functions[194] = function(tear)
+  tear.TearFlags = tear.TearFlags | TearFlags.TEAR_FREEZE -- 1 << 5
+  tear:SetColor(Color(0, 0, 2, 0.7, 1, 1, 1), 10000, 10000, false, false) -- Blue
+end
+
+-- Nice Baby
+PostFireTear.functions[197] = function(tear)
+  g.p:FireBrimstone(tear.Velocity)
+  tear:Remove()
+end
+
+-- Blindfold Baby
+PostFireTear.functions[202] = function(tear)
+  -- Starts with Incubus + blindfolded
+  -- (we need to manually blindfold the player so that the Incubus works properly)
+  tear:Remove()
+end
+
+-- Monocle Baby
+PostFireTear.functions[206] = function(tear)
+  tear.Scale = tear.Scale * 3
+end
+
+-- Skinny Baby
+PostFireTear.functions[213] = function(tear)
+  -- Mark that we shot this tear
+  tear.SubType = 1
+end
+
+-- Tilt Baby
+PostFireTear.functions[230] = function(tear)
+  tear.Velocity = tear.Velocity:Rotated(15)
+end
+
+-- 8 Ball Baby
+PostFireTear.functions[251] = function(tear)
+  -- Local variables
+  local type = g.run.babyType
+  local baby = g.babies[type]
+
+  -- Mark that we shot this tear
+  tear.SubType = 1
+
+  -- We need to have spectral for this ability to work properly
+  tear.TearFlags = tear.TearFlags | TearFlags.TEAR_SPECTRAL -- 1
+
+  -- Start with the tears directly above the player and moving towards the right
+  tear.Position = Vector(0, baby.distance * -1)
+  tear.Velocity = Vector(baby.distance / 4, 0)
+  tear.FallingSpeed = 0
+end
+
+-- Orange Demon Baby
+PostFireTear.functions[279] = function(tear)
+  -- Explosivo tears
+  -- Only do every other tear to avoid softlocks
+  g.run.babyCounters = g.run.babyCounters + 1
+  if g.run.babyCounters == 2 then
+    g.run.babyCounters = 0
+    tear:ChangeVariant(TearVariant.EXPLOSIVO) -- 19
+    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_STICKY -- 1 << 35
+  end
+end
+
+-- Butt Baby
+PostFireTear.functions[288] = function(tear)
+  g.p:UseActiveItem(CollectibleType.COLLECTIBLE_BEAN, false, false, false, false) -- 111
+end
+
+-- Speaker Baby
+PostFireTear.functions[316] = function(tear)
+  -- We mark it so that we can split it later
+  if not g.run.babyBool then
     tear.SubType = 1
+  end
+end
 
-  elseif baby.name == "Big Eyes Baby" then -- 59
-    -- Tears cause self-knockback
-    g.p.Velocity = g.p.Velocity + (tear.Velocity * -0.75)
+-- Slicer Baby
+PostFireTear.functions[331] = function(tear)
+  -- Mark that we shot this tear
+  tear.SubType = 1
+end
 
-  elseif baby.name == "Mustache Baby" then -- 66
-    -- Boomerang tears
-    -- We can't just use The Boomerang item because there is no way to avoid a long cooldown
-    -- So we spawn an effect instead
-    g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BOOMERANG, -- 1000.60
+-- Boxers Baby
+PostFireTear.functions[337] = function(tear)
+  -- Turn all tears into boxing glove / punch tears similar to Antibirth's Knockout Drops
+  -- Find out the size of the tear, which will determine the corresponding frame/animation for the new sprite
+  local sprite = tear:GetSprite()
+  local tearSize = "RegularTear6" -- Use the 6th one by default
+  for i = 1, 13 do
+    local animationName = "RegularTear" .. tostring(i)
+    if sprite:IsPlaying(animationName) then
+      tearSize = animationName
+      break
+    end
+  end
+
+  -- Change the sprite
+  sprite:Load("gfx/fist_tears.anm2", true)
+  sprite:Play(tearSize, false)
+
+  -- By default, the sprite is facing to the right
+  local tearAngle = tear.Velocity:GetAngleDegrees()
+  if (tearAngle > 90 and tearAngle <= 180) or
+      (tearAngle >= -180 and tearAngle < -90) then
+
+    -- If the tear is shooting to the left, then we need to rotate it and flip the sprite
+    sprite.FlipY = true
+    sprite.Rotation = tearAngle * -1
+  else
+    -- If the tear is shooting to the right, then just rotate it
+    sprite.Rotation = tearAngle
+  end
+
+  -- Mark it as a special tear so that we can play a sound effect later
+  tear.SubType = 1
+
+  -- Apparently, the "tear:SetKnockbackMultiplier()" function does not work,
+  -- so we have to set the custom knockback in the "EntityTakeDmg:Entity()" function
+end
+
+-- X Baby
+PostFireTear.functions[339] = function(tear)
+  g.run.babyCounters = g.run.babyCounters + 1
+  tear.Velocity = tear.Velocity:Rotated(45)
+  if g.run.babyCounters < 4 then
+    g.p:FireTear(g.p.Position, tear.Velocity:Rotated(45), false, true, false)
+  else
+    g.run.babyCounters = 0
+  end
+end
+
+-- O Baby 2
+PostFireTear.functions[340] = function(tear)
+  tear.TearFlags = tear.TearFlags | TearFlags.TEAR_SPIRAL -- 1 << 26
+end
+
+-- Locust Baby
+PostFireTear.functions[345] = function(tear)
+  tear:ChangeVariant(TearVariant.BOOGER) -- 26
+  tear.TearFlags = tear.TearFlags | TearFlags.TEAR_BOOGER -- 1 << 46
+end
+
+-- 2600 Baby
+PostFireTear.functions[347] = function(tear)
+  tear.Velocity = tear.Velocity:Rotated(180)
+end
+
+-- Mushroom Girl Baby
+PostFireTear.functions[361] = function(tear)
+  -- Local variables
+  local type = g.run.babyType
+  local baby = g.babies[type]
+
+  -- Extra bomb shots
+  g.run.babyCounters = g.run.babyCounters + 1
+  if g.run.babyCounters == baby.num then
+    g.run.babyCounters = 0
+    g.g:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_NORMAL, -- 4.1
               tear.Position, tear.Velocity, tear.SpawnerEntity, 0, tear.InitSeed)
     tear:Remove()
+  end
+end
 
-  elseif baby.name == "Parasite Baby" then -- 77
-    tear:ChangeVariant(TearVariant.BALLOON) -- 35
+-- Turtle Dragon Baby
+PostFireTear.functions[364] = function(tear)
+  -- If we do "player:ShootRedCandle(tear.Velocity)", the fires have enormous speed and are hard to control
+  local angle = tear.Velocity:GetAngleDegrees()
+  local normalizedVelocity = Vector.FromAngle(angle)
+  g.p:ShootRedCandle(normalizedVelocity)
+  tear:Remove()
+end
 
-  elseif baby.name == "Scream Baby" then -- 81
-    g.p:UseActiveItem(CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP, false, false, false, false) -- 49
-    tear:Remove()
+-- Arcade Baby
+PostFireTear.functions[368] = function(tear)
+  g.run.babyCounters = 0
+  tear:ChangeVariant(TearVariant.RAZOR) -- 28
 
-  elseif baby.name == "Square Eyes Baby" then -- 94
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_SQUARE -- 1 << 31
+  -- Mark it so that we can increase the damage later
+  tear.SubType = 1
+end
 
-  elseif baby.name == "Ed Baby" then -- 100
-    -- Mark that we shot this tear
-    tear.SubType = 1
+-- Pink Ghost Baby
+PostFireTear.functions[372] = function(tear)
+  tear:SetColor(Color(2, 0.05, 1, 0.7, 1, 1, 1), 10000, 10000, false, false) -- Hot pink
+  tear.TearFlags = tear.TearFlags | TearFlags.TEAR_CHARM -- 1 << 13
+end
 
-  elseif baby.name == "Aether Baby" then -- 106
-    -- Shoot 8 tears at a time
-    -- (we store the rotation angle inside the "babyCounters" variable)
-    g.run.babyCounters = g.run.babyCounters + 45
-    if g.run.babyCounters < 360 then
-      local vel = tear.Velocity:Rotated(g.run.babyCounters)
-      g.p:FireTear(g.p.Position, vel, false, true, false)
-    else
-      g.run.babyCounters = 0
-    end
+-- Octopus Baby
+PostFireTear.functions[380] = function(tear)
+  -- Mark that we shot this tear
+  tear.SubType = 1
+end
 
-  elseif baby.name == "Eyemouth Baby" then -- 111
-    -- Shoot an extra tear every 3rd shot
-    g.run.babyTears.tear = g.run.babyTears.tear + 1
-    if g.run.babyTears.tear >= 4 then
-      -- Mark to fire a tear 1 frame from now
-      g.run.babyTears.tear = 0
-      g.run.babyTears.frame = gameFrameCount + 1
-      g.run.babyTears.velocity = Vector(tear.Velocity.X, tear.Velocity.Y)
-    end
+-- Dark Space Soldier Baby
+PostFireTear.functions[398] = function(tear)
+  -- Local variables
+  local type = g.run.babyType
+  local baby = g.babies[type]
 
-  elseif baby.name == "V Baby" then -- 113
-    g.p:FireTechXLaser(tear.Position, tear.Velocity, 5)
-    tear:Remove()
-
-  elseif baby.name == "Strange Mouth Baby" then -- 114
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_WIGGLE -- 1 << 10
-
-  elseif baby.name == "Strange Shape Baby" then -- 130
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_PULSE -- 1 << 25
-
-  elseif baby.name == "Crooked Baby" then -- 133
-    tear.Velocity = tear.Velocity:Rotated(-15)
-
-  elseif baby.name == "Cape Baby" then -- 152
-    local angleModifier = math.random(0, 90) - 45
-    tear.Velocity = tear.Velocity:Rotated(angleModifier)
-    tear:SetColor(Color(2, 2, 0, 0.7, 1, 1, 1), 10000, 10000, false, false) -- Yellow
-
-  elseif baby.name == "Lights Baby" then -- 165
-    g.run.babyCounters = g.run.babyCounters + 1
-    if g.run.babyCounters == baby.num then
-      g.run.babyCounters = 0
-      tear.TearFlags = tear.TearFlags | TearFlags.TEAR_LIGHT_FROM_HEAVEN -- 1 << 37
-    end
-
-  elseif baby.name == "Web Baby" then -- 185
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_SLOW -- 1 << 3
-
-  elseif baby.name == "Sick Baby" then -- 187
-    g.g:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BLUE_FLY, -- 3.43.1
-              tear.Position, tear.Velocity, tear.SpawnerEntity, BlueFlyVariant.BLUEFLY_RED, tear.InitSeed)
-    tear:Remove()
-
-  elseif baby.name == "Cold Baby" then -- 194
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_FREEZE -- 1 << 5
-    tear:SetColor(Color(0, 0, 2, 0.7, 1, 1, 1), 10000, 10000, false, false) -- Blue
-
-  elseif baby.name == "Nice Baby" then -- 197
-    g.p:FireBrimstone(tear.Velocity)
-    tear:Remove()
-
-  elseif baby.name == "Blindfold Baby" then -- 202
-    -- Starts with Incubus + blindfolded
-    -- (we need to manually blindfold the player so that the Incubus works properly)
-    tear:Remove()
-
-  elseif baby.name == "Monocle Baby" then -- 206
-    tear.Scale = tear.Scale * 3
-
-  elseif baby.name == "Skinny Baby" then -- 213
-    -- Mark that we shot this tear
-    tear.SubType = 1
-
-  elseif baby.name == "Tilt Baby" then -- 230
-    tear.Velocity = tear.Velocity:Rotated(15)
-
-  elseif baby.name == "Bawl Baby" and -- 231
-         g.run.babyBool then
-
-    -- Don't delete these tears, as they are coming from Isaac's Tears
-    -- Non-Isaac's Tears tears will be removed below
-    return
-
-  elseif baby.name == "8 Ball Baby" then -- 251
-    -- Mark that we shot this tear
-    tear.SubType = 1
-
-    -- We need to have spectral for this ability to work properly
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_SPECTRAL -- 1
-
-    -- Start with the tears directly above the player and moving towards the right
-    tear.Position = Vector(0, baby.distance * -1)
-    tear.Velocity = Vector(baby.distance / 4, 0)
-    tear.FallingSpeed = 0
-
-  elseif baby.name == "Orange Demon Baby" then -- 279
-    -- Explosivo tears
-    -- Only do every other tear to avoid softlocks
-    g.run.babyCounters = g.run.babyCounters + 1
-    if g.run.babyCounters == 2 then
-      g.run.babyCounters = 0
-      tear:ChangeVariant(TearVariant.EXPLOSIVO) -- 19
-      tear.TearFlags = tear.TearFlags | TearFlags.TEAR_STICKY -- 1 << 35
-    end
-
-  elseif baby.name == "Butt Baby" then -- 288
-    g.p:UseActiveItem(CollectibleType.COLLECTIBLE_BEAN, false, false, false, false) -- 111
-
-  elseif baby.name == "Speaker Baby" and -- 316
-         not g.run.babyBool then
-
-    -- We mark it so that we can split it later
-    tear.SubType = 1
-
-  elseif baby.name == "Slicer Baby" then -- 331
-    -- Mark that we shot this tear
-    tear.SubType = 1
-
-  elseif baby.name == "Boxers Baby" then -- 337
-    -- Turn all tears into boxing glove / punch tears similar to Antibirth's Knockout Drops
-    -- Find out the size of the tear, which will determine the corresponding frame/animation for the new sprite
-    local sprite = tear:GetSprite()
-    local tearSize = "RegularTear6" -- Use the 6th one by default
-    for i = 1, 13 do
-      local animationName = "RegularTear" .. tostring(i)
-      if sprite:IsPlaying(animationName) then
-        tearSize = animationName
-        break
-      end
-    end
-
-    -- Change the sprite
-    sprite:Load("gfx/fist_tears.anm2", true)
-    sprite:Play(tearSize, false)
-
-    -- By default, the sprite is facing to the right
-    local tearAngle = tear.Velocity:GetAngleDegrees()
-    if (tearAngle > 90 and tearAngle <= 180) or
-       (tearAngle >= -180 and tearAngle < -90) then
-
-      -- If the tear is shooting to the left, then we need to rotate it and flip the sprite
-      sprite.FlipY = true
-      sprite.Rotation = tearAngle * -1
-    else
-      -- If the tear is shooting to the right, then just rotate it
-      sprite.Rotation = tearAngle
-    end
-
-    -- Mark it as a special tear so that we can play a sound effect later
-    tear.SubType = 1
-
-    -- Apparently, the "tear:SetKnockbackMultiplier()" function does not work,
-    -- so we have to set the custom knockback in the "EntityTakeDmg:Entity()" function
-
-  elseif baby.name == "X Baby" then -- 339
-    g.run.babyCounters = g.run.babyCounters + 1
-    tear.Velocity = tear.Velocity:Rotated(45)
-    if g.run.babyCounters < 4 then
-      g.p:FireTear(g.p.Position, tear.Velocity:Rotated(45), false, true, false)
-    else
-      g.run.babyCounters = 0
-    end
-
-  elseif baby.name == "O Baby 2" then -- 340
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_SPIRAL -- 1 << 26
-
-  elseif baby.name == "Locust Baby" then -- 345
-    tear:ChangeVariant(TearVariant.BOOGER) -- 26
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_BOOGER -- 1 << 46
-
-  elseif baby.name == "2600 Baby" then -- 347
-    tear.Velocity = tear.Velocity:Rotated(180)
-
-  elseif baby.name == "Mushroom Girl Baby" then -- 361
-    -- Extra bomb shots
-    g.run.babyCounters = g.run.babyCounters + 1
-    if g.run.babyCounters == baby.num then
-      g.run.babyCounters = 0
-      g.g:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_NORMAL, -- 4.1
-                tear.Position, tear.Velocity, tear.SpawnerEntity, 0, tear.InitSeed)
-      tear:Remove()
-    end
-
-  elseif baby.name == "Turtle Dragon Baby" then -- 364
-    -- If we do "player:ShootRedCandle(tear.Velocity)", the fires have enormous speed and are hard to control
-    local angle = tear.Velocity:GetAngleDegrees()
-    local normalizedVelocity = Vector.FromAngle(angle)
-    g.p:ShootRedCandle(normalizedVelocity)
-    tear:Remove()
-
-  elseif baby.name == "Arcade Baby" then -- 368
+  g.run.babyCounters = g.run.babyCounters + 1
+  if g.run.babyCounters == baby.num then
     g.run.babyCounters = 0
-    tear:ChangeVariant(TearVariant.RAZOR) -- 28
+    tear:ChangeVariant(TearVariant.CHAOS_CARD) -- 9
+  end
+end
 
-    -- Mark it so that we can increase the damage later
-    tear.SubType = 1
+-- Astronaut Baby
+PostFireTear.functions[406] = function(tear)
+  -- Mark that we shot this tear
+  tear.SubType = 1
+end
 
-  elseif baby.name == "Pink Ghost Baby" then -- 372
-    tear:SetColor(Color(2, 0.05, 1, 0.7, 1, 1, 1), 10000, 10000, false, false) -- Hot pink
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_CHARM -- 1 << 13
+-- Gills Baby
+PostFireTear.functions[410] = function(tear)
+  tear:SetColor(Color(0.7, 1.5, 2, 0.7, 1, 1, 1), 10000, 10000, false, false) -- Light cyan
 
-  elseif baby.name == "Octopus Baby" then -- 380
-    -- Mark that we shot this tear
-    tear.SubType = 1
+  -- Mark that we shot this tear
+  tear.SubType = 1
+end
 
-  elseif baby.name == "Dark Space Soldier Baby" then -- 398
-    g.run.babyCounters = g.run.babyCounters + 1
-    if g.run.babyCounters == baby.num then
-      g.run.babyCounters = 0
-      tear:ChangeVariant(TearVariant.CHAOS_CARD) -- 9
-    end
+-- Little Horn Baby
+PostFireTear.functions[429] = function(tear)
+  -- Local variables
+  local type = g.run.babyType
+  local baby = g.babies[type]
 
-  elseif baby.name == "Astronaut Baby" then -- 406
-    -- Mark that we shot this tear
-    tear.SubType = 1
+  -- Void tears
+  g.run.babyCounters = g.run.babyCounters + 1
+  if g.run.babyCounters == baby.num then
+    g.run.babyCounters = 0
+    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_HORN -- 1 << 54
+  end
+end
 
-  elseif baby.name == "Gills Baby" then -- 410
-    tear:SetColor(Color(0.7, 1.5, 2, 0.7, 1, 1, 1), 10000, 10000, false, false) -- Light cyan
+-- Tooth Head Baby
+PostFireTear.functions[442] = function(tear)
+  tear:ChangeVariant(TearVariant.TOOTH) -- 2
 
-    -- Mark that we shot this tear
-    tear.SubType = 1
+  -- Mark it so that we can increase the damage later
+  tear.SubType = 1
+end
 
-  elseif baby.name == "Little Horn Baby" then -- 429
-    -- Void tears
-    g.run.babyCounters = g.run.babyCounters + 1
-    if g.run.babyCounters == baby.num then
-      g.run.babyCounters = 0
-      tear.TearFlags = tear.TearFlags | TearFlags.TEAR_HORN -- 1 << 54
-    end
+-- Green Koopa Baby
+PostFireTear.functions[455] = function(tear)
+  -- Turn all tears into green shell tears
+  local sprite = tear:GetSprite()
+  sprite:Load("gfx/shell_green_tears.anm2", true)
+  sprite:Play("RegularTear1", false)
 
-  elseif baby.name == "Tooth Head Baby" then -- 442
-    tear:ChangeVariant(TearVariant.TOOTH) -- 2
+  -- Make it bouncy
+  tear.TearFlags = TearFlags.TEAR_BOUNCE | -- 1 << 19
+                   TearFlags.TEAR_POP -- 1 << 56
 
-    -- Mark it so that we can increase the damage later
-    tear.SubType = 1
+  -- Make it lower to the ground
+  tear.Height = -5
 
-  elseif baby.name == "Green Koopa Baby" then -- 455
-    -- Turn all tears into green shell tears
-    local sprite = tear:GetSprite()
-    sprite:Load("gfx/shell_green_tears.anm2", true)
-    sprite:Play("RegularTear1", false)
+  -- Mark it as a special tear so that we can keep it updated
+  tear.SubType = 1
 
-    -- Make it bouncy
-    tear.TearFlags = TearFlags.TEAR_BOUNCE | -- 1 << 19
-                     TearFlags.TEAR_POP -- 1 << 56
+  -- Store the initial height and velocity
+  local data = tear:GetData()
+  data.Height = tear.Height
+  data.Velocity = tear.Velocity
+end
 
-    -- Make it lower to the ground
-    tear.Height = -5
+-- Red Koopa Baby
+PostFireTear.functions[458] = function(tear)
+  -- Turn all tears into red shell tears
+  local sprite = tear:GetSprite()
+  sprite:Load("gfx/shell_red_tears.anm2", true)
+  sprite:Play("RegularTear1", false)
 
-    -- Mark it as a special tear so that we can keep it updated
-    tear.SubType = 1
+  -- Make it bouncy and homing
+  tear.TearFlags = TearFlags.TEAR_HOMING | -- 1 << 2
+                   TearFlags.TEAR_BOUNCE | -- 1 << 19
+                   TearFlags.TEAR_POP -- 1 << 56
 
-    -- Store the initial height and velocity
-    data.Height = tear.Height
-    data.Velocity = tear.Velocity
+  -- Make it lower to the ground
+  tear.Height = -5
 
-  elseif baby.name == "Red Koopa Baby" then -- 458
-    -- Turn all tears into green shell tears
-    local sprite = tear:GetSprite()
-    sprite:Load("gfx/shell_red_tears.anm2", true)
-    sprite:Play("RegularTear1", false)
+  -- Mark it as a special tear so that we can keep it updated
+  tear.SubType = 1
 
-    -- Make it bouncy
-    tear.TearFlags = TearFlags.TEAR_HOMING | -- 1 << 2
-                     TearFlags.TEAR_BOUNCE | -- 1 << 19
-                     TearFlags.TEAR_POP -- 1 << 56
+  -- Store the initial height and velocity
+  local data = tear:GetData()
+  data.Height = tear.Height
+  data.Velocity = tear.Velocity
+end
 
-    -- Make it lower to the ground
-    tear.Height = -5
+-- Sad Bunny Baby
+PostFireTear.functions[459] = function(tear)
+  -- Mark that we shot this tear
+  tear.SubType = 1
+end
 
-    -- Mark it as a special tear so that we can keep it updated
-    tear.SubType = 1
+-- Voxdog Baby
+PostFireTear.functions[462] = function(tear)
+  -- Shockwave tears
+  g.run.babyTears[#g.run.babyTears + 1] = {
+    frame = g.g:GetFrameCount(),
+    position = tear.Position,
+    velocity = tear.Velocity:Normalized() * 30,
+  }
+  tear:Remove()
+end
 
-    -- Store the initial height and velocity
-    data.Height = tear.Height
-    data.Velocity = tear.Velocity
+-- Blindcursed Baby
+PostFireTear.functions[466] = function(tear)
+  tear.Visible = false
+end
 
-  elseif baby.name == "Sad Bunny Baby" then -- 459
-    -- Mark that we shot this tear
-    tear.SubType = 1
+-- Fly Baby
+PostFireTear.functions[469] = function(tear)
+  tear:ChangeVariant(TearVariant.GODS_FLESH) -- 16
+  tear.TearFlags = tear.TearFlags | TearFlags.TEAR_PIERCING -- 1 << 1
+  tear.TearFlags = tear.TearFlags | TearFlags.TEAR_SPLIT -- 1 << 6
+  tear.TearFlags = tear.TearFlags | TearFlags.TEAR_WIGGLE -- 1 << 10
+  tear.TearFlags = tear.TearFlags | TearFlags.TEAR_PULSE -- 1 << 25
+  tear.TearFlags = tear.TearFlags | TearFlags.TEAR_BONE -- 1 << 49
+end
 
-  elseif baby.name == "Voxdog Baby" then -- 462
-    -- Shockwave tears
-    g.run.babyTears[#g.run.babyTears + 1] = {
-      frame = gameFrameCount,
-      position = tear.Position,
-      velocity = tear.Velocity:Normalized() * 30,
-    }
-    tear:Remove()
+-- Headphone Baby
+PostFireTear.functions[470] = function(tear)
+  -- Soundwave tears
+  tear:ChangeVariant(TearVariant.PUPULA)
+  -- Giving a tear flag of TEAR_FLAT makes it look worse
+  tear.Scale = tear.Scale * 10
+end
 
-  elseif baby.name == "Blindcursed Baby" then -- 466
-    tear.Visible = false
+-- Imp Baby 2
+PostFireTear.functions[480] = function(tear)
+  tear.TearFlags = tear.TearFlags | TearFlags.TEAR_ACID -- 1 << 48
+end
 
-  elseif baby.name == "Fly Baby" then -- 469
-    tear:ChangeVariant(TearVariant.GODS_FLESH) -- 16
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_PIERCING -- 1 << 1
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_SPLIT -- 1 << 6
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_WIGGLE -- 1 << 10
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_PULSE -- 1 << 25
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_BONE -- 1 << 49
+-- Cursed Pillow Baby
+PostFireTear.functions[487] = function(tear)
+  -- Mark that we shot this tear
+  tear.SubType = 1
+end
 
-  elseif baby.name == "Headphone Baby" then -- 470
-    -- Soundwave tears
-    tear:ChangeVariant(TearVariant.PUPULA)
-    -- Giving a tear flag of TEAR_FLAT makes it look worse
-    tear.Scale = tear.Scale * 10
+-- Pompadour Baby
+PostFireTear.functions[494] = function(tear)
+  tear:ChangeVariant(TearVariant.GODS_FLESH) -- 16
+  tear.TearFlags = tear.TearFlags | TearFlags.TEAR_GODS_FLESH -- 1 << 41
+end
 
-  elseif baby.name == "Imp Baby 2" then -- 480
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_ACID -- 1 << 48
+-- Ill Baby
+PostFireTear.functions[498] = function(tear)
+  tear:ChangeVariant(TearVariant.BOBS_HEAD) -- 4
+end
 
-  elseif baby.name == "Cursed Pillow Baby" then -- 487
-    -- Mark that we shot this tear
-    tear.SubType = 1
+-- Mern Baby
+PostFireTear.functions[500] = function(tear)
+  g.run.babyTears.tear = g.run.babyTears.tear + 1
+  if g.run.babyTears.tear >= 2 then
+    -- Mark to fire a tear 1 frame from now
+    g.run.babyTears.tear = 0
+    g.run.babyTears.frame = g.g:GetFrameCount() + 1
+    g.run.babyTears.velocity = Vector(tear.Velocity.X, tear.Velocity.Y)
+  end
+end
 
-  elseif baby.name == "Pompadour Baby" then -- 494
-    tear:ChangeVariant(TearVariant.GODS_FLESH) -- 16
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_GODS_FLESH -- 1 << 41
-
-  elseif baby.name == "Ill Baby" then -- 498
-    tear:ChangeVariant(TearVariant.BOBS_HEAD) -- 4
-
-  elseif baby.name == "Mern Baby" then -- 500
-    g.run.babyTears.tear = g.run.babyTears.tear + 1
-    if g.run.babyTears.tear >= 2 then
-      -- Mark to fire a tear 1 frame from now
-      g.run.babyTears.tear = 0
-      g.run.babyTears.frame = gameFrameCount + 1
-      g.run.babyTears.velocity = Vector(tear.Velocity.X, tear.Velocity.Y)
-    end
-
-  elseif baby.name == "Psychic Baby" and -- 504
-         roomFrameCount < 900 and -- Only do it for the first 30 seconds of a room to avoid softlocks
-         roomShape < RoomShape.ROOMSHAPE_2x2 then -- 8 (the L room shapes are 9, 10, 11, and 12)
+-- Psychic Baby
+PostFireTear.functions[504] = function(tear)
+  if g.r:GetFrameCount() < 900 and -- Only do it for the first 30 seconds of a room to avoid softlocks
+     g.r:GetRoomShape() < RoomShape.ROOMSHAPE_2x2 then -- 8 (the L room shapes are 9, 10, 11, and 12)
 
     -- Starts with Abel; tears come from Abel
     -- Get Abel's position
@@ -443,39 +595,49 @@ function PostFireTear:Main(tear)
     else
       Isaac.DebugString("Error: Abel was not found.")
     end
+  end
+end
 
-  elseif baby.name == "Master Cook Baby" then -- 517
-    tear:ChangeVariant(TearVariant.EGG) -- 27
-    tear.TearFlags = tear.TearFlags | TearFlags.TEAR_EGG -- 1 << 47
+-- Master Cook Baby
+PostFireTear.functions[517] = function(tear)
+  tear:ChangeVariant(TearVariant.EGG) -- 27
+  tear.TearFlags = tear.TearFlags | TearFlags.TEAR_EGG -- 1 << 47
+end
 
-  elseif baby.name == "Spider Baby" then -- 521
-    g.run.babyCounters = g.run.babyCounters + 1
-    if g.run.babyCounters == 2 then
-      g.run.babyCounters = 0
+-- Spider Baby
+PostFireTear.functions[521] = function(tear)
+  g.run.babyCounters = g.run.babyCounters + 1
+  if g.run.babyCounters == 2 then
+    g.run.babyCounters = 0
 
-      -- Every second tear spawns a spider
-      g.p:ThrowBlueSpider(g.p.Position, g.p.Position)
-      tear:Remove()
-    end
-
-  elseif baby.name == "Abel" then -- 531
-    -- Mark that we shot this tear
-    tear.SubType = 1
-
-  elseif baby.name == "Rotten Baby" then -- 533
+    -- Every second tear spawns a spider
+    g.p:ThrowBlueSpider(g.p.Position, g.p.Position)
     tear:Remove()
-    g.p:AddBlueFlies(1, g.p.Position, nil)
+  end
+end
 
-  elseif baby.name == "Lil' Loki" then -- 539
-    -- Cross tears
-    -- (we store the rotation angle in the "babyCounters" variable)
-    g.run.babyCounters = g.run.babyCounters + 90
-    if g.run.babyCounters < 360 then
-      local vel = tear.Velocity:Rotated(g.run.babyCounters)
-      g.p:FireTear(g.p.Position, vel, false, true, false)
-    else
-      g.run.babyCounters = 0
-    end
+-- Abel
+PostFireTear.functions[531] = function(tear)
+  -- Mark that we shot this tear
+  tear.SubType = 1
+end
+
+-- Rotten Baby
+PostFireTear.functions[533] = function(tear)
+  tear:Remove()
+  g.p:AddBlueFlies(1, g.p.Position, nil)
+end
+
+-- Lil' Loki
+PostFireTear.functions[539] = function(tear)
+  -- Cross tears
+  -- (we store the rotation angle in the "babyCounters" variable)
+  g.run.babyCounters = g.run.babyCounters + 90
+  if g.run.babyCounters < 360 then
+    local vel = tear.Velocity:Rotated(g.run.babyCounters)
+    g.p:FireTear(g.p.Position, vel, false, true, false)
+  else
+    g.run.babyCounters = 0
   end
 end
 

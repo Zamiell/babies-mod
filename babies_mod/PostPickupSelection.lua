@@ -12,30 +12,42 @@ function PostPickupSelection:Main(pickup, variant, subType)
     return
   end
 
-  --Isaac.DebugString("MC_POST_PICKUP_SELECTION - " .. tostring(variant) .. "." .. tostring(subType))
+  local babyFunc = PostPickupSelection.functions[type]
+  if babyFunc ~= nil then
+    babyFunc(pickup, variant, subType)
+  end
+end
 
-  if baby.name == "Gem Baby" and -- 237
-     variant == PickupVariant.PICKUP_COIN and -- 20
+-- The collection of functions for each baby
+PostPickupSelection.functions = {}
+
+-- Gem Baby
+PostPickupSelection.functions[237] = function(pickup, variant, subType)
+  if variant == PickupVariant.PICKUP_COIN and -- 20
      subType == 1 then -- Penny
 
     -- 5.20.2 - Nickel
     return { PickupVariant.PICKUP_COIN, 2 }
+  end
+end
 
-  elseif baby.name == "Merman Baby" and -- 342
-         variant == PickupVariant.PICKUP_KEY then -- 30
-
-    -- Convert all keys to bombs
+-- Merman Baby
+PostPickupSelection.functions[342] = function(pickup, variant, subType)
+  -- Convert all keys to bombs
+  if variant == PickupVariant.PICKUP_KEY then -- 30
     return { PickupVariant.PICKUP_BOMB, subType } -- 40
+  end
+end
 
-  elseif baby.name == "Mermaid Baby" and -- 395
-         variant == PickupVariant.PICKUP_BOMB then -- 40
-
-    -- There is a subType of 5 for bombs but not for keys
+-- Mermaid Baby
+PostPickupSelection.functions[395] = function(pickup, variant, subType)
+  -- Convert all bombs to keys
+  if variant == PickupVariant.PICKUP_BOMB then -- 40
     if subType == 5 then
+      -- There is a subType of 5 for bombs but not for keys
       subType = 1
     end
 
-    -- Convert all bombs to keys
     return { PickupVariant.PICKUP_KEY, subType } -- 30
   end
 end

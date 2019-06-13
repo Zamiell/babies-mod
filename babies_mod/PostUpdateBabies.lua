@@ -8,12 +8,13 @@ local PseudoRoomClear = require("babies_mod/pseudoroomclear")
 function PostUpdateBabies:Main()
   -- Local variables
   local type = g.run.babyType
-  if PostUpdateBabies.functions[type] ~= nil then
-    PostUpdateBabies.functions[type]()
+  local babyFunc = PostUpdateBabies.functions[type]
+  if babyFunc ~= nil then
+    babyFunc()
   end
 end
 
--- The collection of functions for each baby effect
+-- The collection of functions for each baby
 PostUpdateBabies.functions = {}
 
 -- Troll Baby
