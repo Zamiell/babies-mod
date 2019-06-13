@@ -1,11 +1,12 @@
 local PostProjectileUpdate = {}
 
+-- Note: This callback will fire on frame 1 and onwards
+
 -- Includes
 local g    = require("babies_mod/globals")
 local Misc = require("babies_mod/misc")
 
 -- ModCallbacks.MC_POST_PROJECTILE_UPDATE (44)
--- This callback will fire on frame 1
 function PostProjectileUpdate:Main(projectile)
   -- Local variables
   local babyType = g.run.babyType

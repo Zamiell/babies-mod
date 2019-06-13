@@ -1,10 +1,11 @@
 local PreTearCollision = {}
 
+-- Note: This callback fires when a tear hits an enemy
+
 -- Includes
 local g = require("babies_mod/globals")
 
 -- ModCallbacks.MC_PRE_TEAR_COLLISION (42)
--- This callback fires when a tear hits an enemy
 function PreTearCollision:Main(tear, collider, low)
   -- Local variables
   local type = g.run.babyType

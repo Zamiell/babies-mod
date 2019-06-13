@@ -1,5 +1,7 @@
 local NPCUpdate = {}
 
+-- Note: This callback only fires on frame 1 and onwards
+
 -- Includes
 local g = require("babies_mod/globals")
 

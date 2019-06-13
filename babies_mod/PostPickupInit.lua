@@ -1,11 +1,12 @@
 local PostPickupInit = {}
 
+-- Note: SpawnerType, SpawnerVariant, and Price are not initialized yet in this callback
+
 -- Includes
 local g    = require("babies_mod/globals")
 local Misc = require("babies_mod/misc")
 
 -- ModCallbacks.MC_POST_PICKUP_INIT (34)
--- "pickup.SpawnerType", pickup.SpawnerVariant", and "pickup.Price" are not initialized yet in this callback
 function PostPickupInit:Main(pickup)
   -- Local variables
   local type = g.run.babyType

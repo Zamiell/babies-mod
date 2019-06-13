@@ -1,11 +1,12 @@
 local PostPickupUpdate = {}
 
+-- Note: This callback only fires on frame 1 and onwards
+
 -- Includes
 local g    = require("babies_mod/globals")
 local Misc = require("babies_mod/misc")
 
 -- ModCallbacks.MC_POST_PICKUP_UPDATE (38)
--- This callback will fire on frame 1
 function PostPickupUpdate:Main(pickup)
   -- Local variables
   local data = pickup:GetData()

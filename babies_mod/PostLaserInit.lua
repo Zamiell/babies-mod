@@ -1,10 +1,11 @@
 local PostLaserInit = {}
 
+-- Note: SpawnerType, SpawnerVariant, and MaxDistance are not initialized yet in this callback.
+
 -- Includes
 local g = require("babies_mod/globals")
 
 -- ModCallbacks.MC_POST_LASER_INIT (47)
--- "laser.SpawnerType" and "laser.MaxDistance" are not initialized yet in this callback
 function PostLaserInit:Main(laser)
   -- Local variables
   local type = g.run.babyType
