@@ -31,6 +31,77 @@ g.font = Font()
 g.font:Load("font/teammeatfont10.fnt")
 g.kcolor = KColor(1, 1, 1, 1)
 
+--
+-- Enums
+--
+
+EffectVariant.FETUS_BOSS_TARGET = Isaac.GetEntityVariantByName("FetusBossTarget")
+EffectVariant.FETUS_BOSS_ROCKET = Isaac.GetEntityVariantByName("FetusBossRocket")
+
+CollectibleType.COLLECTIBLE_CLOCKWORK_ASSEMBLY           = Isaac.GetItemIdByName("Clockwork Assembly")
+CollectibleType.COLLECTIBLE_FLOCK_OF_SUCCUBI             = Isaac.GetItemIdByName("Flock of Succubi")
+CollectibleType.COLLECTIBLE_CHARGING_STATION             = Isaac.GetItemIdByName("Charging Station")
+CollectibleType.COLLECTIBLE_SHOP_TELEPORT                = Isaac.GetItemIdByName("Shop Teleport")
+CollectibleType.COLLECTIBLE_TREASURE_ROOM_TELEPORT       = Isaac.GetItemIdByName("Treasure Room Teleport")
+CollectibleType.COLLECTIBLE_MINIBOSS_ROOM_TELEPORT       = Isaac.GetItemIdByName("Mini-Boss Room Teleport")
+CollectibleType.COLLECTIBLE_ARCADE_TELEPORT              = Isaac.GetItemIdByName("Arcade Teleport")
+CollectibleType.COLLECTIBLE_CURSE_ROOM_TELEPORT          = Isaac.GetItemIdByName("Curse Room Teleport")
+CollectibleType.COLLECTIBLE_CHALLENGE_ROOM_TELEPORT      = Isaac.GetItemIdByName("Challenge Room Teleport")
+CollectibleType.COLLECTIBLE_LIBRARY_TELEPORT             = Isaac.GetItemIdByName("Library Teleport")
+CollectibleType.COLLECTIBLE_SACRIFICE_ROOM_TELEPORT      = Isaac.GetItemIdByName("Sacrifice Room Teleport")
+CollectibleType.COLLECTIBLE_BEDROOM_CLEAN_TELEPORT       = Isaac.GetItemIdByName("Bedroom (Clean) Teleport")
+CollectibleType.COLLECTIBLE_BEDROOM_DIRTY_TELEPORT       = Isaac.GetItemIdByName("Bedroom (Dirty) Teleport")
+CollectibleType.COLLECTIBLE_TREASURE_CHEST_ROOM_TELEPORT = Isaac.GetItemIdByName("Treasure Chest Room Teleport")
+CollectibleType.COLLECTIBLE_DICE_ROOM_TELEPORT           = Isaac.GetItemIdByName("Dice Room Teleport")
+
+LaserVariant = {
+  LASER_THICK     = 1, -- Brimstone
+  LASER_THIN      = 2, -- Technology
+  LASER_SHOOP     = 3, -- Shoop Da Whoop!
+  LASER_PRIDE     = 4, -- Pride (looks like a squiggly line)
+  LASER_LIGHT     = 5, -- Angel lasers
+  LASER_GIANT     = 6, -- Mega Blast
+  LASER_TRACTOR   = 7, -- Tractor Beam
+  LASER_LIGHTRING = 8, -- ? (looks like pulsating Angel laser)
+  LASER_BRIMTECH  = 9, -- Brimstone + Technology
+}
+
+PoopVariant = {
+  POOP_NORMAL  = 0,
+  POOP_RED     = 1,
+  POOP_CORN    = 2,
+  POOP_GOLDEN  = 3,
+  POOP_RAINBOW = 4,
+  POOP_BLACK   = 5,
+  POOP_WHITE   = 6,
+}
+
+BlueFlyVariant = {
+  BLUEFLY_NORMAL = 0,
+  BLUEFLY_RED    = 1,
+  BLUEFLY_GREEN  = 2,
+  BLUEFLY_YELLOW = 3,
+  BLUEFLY_BLACK  = 4,
+  BLUEFLY_WHITE  = 5,
+}
+
+-- Spaded by ilise rose (@yatboim)
+RoomTransition = {
+  TRANSITION_NONE              = 0,
+  TRANSITION_DEFAULT           = 1,
+  TRANSITION_STAGE             = 2,
+  TRANSITION_TELEPORT          = 3,
+  TRANSITION_ANKH              = 5,
+  TRANSITION_DEAD_CAT          = 6,
+  TRANSITION_1UP               = 7,
+  TRANSITION_GUPPYS_COLLAR     = 8,
+  TRANSITION_JUDAS_SHADOW      = 9,
+  TRANSITION_LAZARUS_RAGS      = 10,
+  TRANSITION_GLOWING_HOURGLASS = 12,
+  TRANSITION_D7                = 13,
+  TRANSITION_MISSING_POSTER    = 14,
+}
+
 function g:InitRun()
   -- Local variables
   local levelSeed = g.l:GetDungeonPlacementSeed()
@@ -138,7 +209,7 @@ function g:GridToPos(x, y)
 end
 
 --
--- Constants
+-- Baby definitions
 --
 
 -- The sprite value is not currently used, but it can be used as a quick reference to see what number the co-op baby is
@@ -949,7 +1020,7 @@ g.babies = {
     name = "Tears Baby",
     description = "Starts with the Soul Jar",
     sprite = "136_baby_tears.png",
-    item = Isaac.GetItemIdByName("Soul Jar"),
+    item = CollectibleType.COLLECTIBLE_SOUL_JAR,
     requiresRacingPlus = true,
   },
   {
@@ -1208,7 +1279,7 @@ g.babies = {
     name = "Piece B Baby",
     description = "Starts with Charging Station",
     sprite = "180_baby_pieceb.png",
-    item = Isaac.GetItemIdByName("Charging Station"),
+    item = CollectibleType.COLLECTIBLE_CHARGING_STATION,
     requireCoins = true,
   },
   {
@@ -2629,7 +2700,7 @@ g.babies = {
     name = "Cool Ghost Baby",
     description = "Starts with Flock of Succubi",
     sprite = "409_baby_coolghost.png",
-    item = Isaac.GetItemIdByName("Flock of Succubi"),
+    item = CollectibleType.COLLECTIBLE_FLOCK_OF_SUCCUBI,
   },
   {
     name = "Gills Baby",
@@ -3117,7 +3188,7 @@ g.babies = {
     name = "Factory Baby",
     description = "Starts with Clockwork Assembly",
     sprite = "489_baby_factory.png",
-    item = Isaac.GetItemIdByName("Clockwork Assembly"),
+    item = CollectibleType.COLLECTIBLE_CLOCKWORK_ASSEMBLY,
   },
   {
     name = "Falling Baby",
@@ -3435,58 +3506,6 @@ g.babies = {
     description = "Invisibility",
     sprite = "n/a",
   },
-}
-
---
--- Enums
---
-
-LaserVariant = {
-  LASER_THICK     = 1, -- Brimstone
-  LASER_THIN      = 2, -- Technology
-  LASER_SHOOP     = 3, -- Shoop Da Whoop!
-  LASER_PRIDE     = 4, -- Pride (looks like a squiggly line)
-  LASER_LIGHT     = 5, -- Angel lasers
-  LASER_GIANT     = 6, -- Mega Blast
-  LASER_TRACTOR   = 7, -- Tractor Beam
-  LASER_LIGHTRING = 8, -- ? (looks like pulsating Angel laser)
-  LASER_BRIMTECH  = 9, -- Brimstone + Technology
-}
-
-PoopVariant = {
-  POOP_NORMAL  = 0,
-  POOP_RED     = 1,
-  POOP_CORN    = 2,
-  POOP_GOLDEN  = 3,
-  POOP_RAINBOW = 4,
-  POOP_BLACK   = 5,
-  POOP_WHITE   = 6,
-}
-
-BlueFlyVariant = {
-  BLUEFLY_NORMAL = 0,
-  BLUEFLY_RED    = 1,
-  BLUEFLY_GREEN  = 2,
-  BLUEFLY_YELLOW = 3,
-  BLUEFLY_BLACK  = 4,
-  BLUEFLY_WHITE  = 5,
-}
-
--- Spaded by ilise rose (@yatboim)
-RoomTransition = {
-  TRANSITION_NONE              = 0,
-  TRANSITION_DEFAULT           = 1,
-  TRANSITION_STAGE             = 2,
-  TRANSITION_TELEPORT          = 3,
-  TRANSITION_ANKH              = 5,
-  TRANSITION_DEAD_CAT          = 6,
-  TRANSITION_1UP               = 7,
-  TRANSITION_GUPPYS_COLLAR     = 8,
-  TRANSITION_JUDAS_SHADOW      = 9,
-  TRANSITION_LAZARUS_RAGS      = 10,
-  TRANSITION_GLOWING_HOURGLASS = 12,
-  TRANSITION_D7                = 13,
-  TRANSITION_MISSING_POSTER    = 14,
 }
 
 return g

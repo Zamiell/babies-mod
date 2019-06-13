@@ -438,7 +438,7 @@ EntityTakeDmgBabies.functions[323] = function(player, damageAmount, damageFlag, 
   g.run.babyCounters = g.run.babyCounters + 1
   if g.run.babyCounters == 6 then
     g.run.babyCounters = 0
-    player:UseActiveItem(Isaac.GetItemIdByName("Clockwork Assembly"), false, false, false, false)
+    player:UseActiveItem(CollectibleType.COLLECTIBLE_CLOCKWORK_ASSEMBLY, false, false, false, false)
   end
 end
 

@@ -293,40 +293,40 @@ PostNewRoom.functions[216] = function()
     local itemID = 0
     local price = 0
     if thisRoomType == RoomType.ROOM_SHOP then -- 2
-      itemID = Isaac.GetItemIdByName("Shop Teleport")
+      itemID = CollectibleType.COLLECTIBLE_SHOP_TELEPORT
       price = 10
     elseif thisRoomType == RoomType.ROOM_TREASURE then -- 4
-      itemID = Isaac.GetItemIdByName("Treasure Room Teleport")
+      itemID = CollectibleType.COLLECTIBLE_TREASURE_ROOM_TELEPORT
       price = 10
     elseif thisRoomType == RoomType.ROOM_MINIBOSS then -- 6
-      itemID = Isaac.GetItemIdByName("Mini-Boss Room Teleport")
+      itemID = CollectibleType.COLLECTIBLE_MINIBOSS_ROOM_TELEPORT
       price = 10
     elseif thisRoomType == RoomType.ROOM_ARCADE then -- 9
-      itemID = Isaac.GetItemIdByName("Arcade Teleport")
+      itemID = CollectibleType.COLLECTIBLE_ARCADE_TELEPORT
       price = 10
     elseif thisRoomType == RoomType.ROOM_CURSE then -- 10
-      itemID = Isaac.GetItemIdByName("Curse Room Teleport")
+      itemID = CollectibleType.COLLECTIBLE_CURSE_ROOM_TELEPORT
       price = 10
     elseif thisRoomType == RoomType.ROOM_CHALLENGE then -- 11
-      itemID = Isaac.GetItemIdByName("Challenge Room Teleport")
+      itemID = CollectibleType.COLLECTIBLE_CHALLENGE_ROOM_TELEPORT
       price = 10
     elseif thisRoomType == RoomType.ROOM_LIBRARY then -- 12
-      itemID = Isaac.GetItemIdByName("Library Teleport")
+      itemID = CollectibleType.COLLECTIBLE_LIBRARY_TELEPORT
       price = 15
     elseif thisRoomType == RoomType.ROOM_SACRIFICE then -- 13
-      itemID = Isaac.GetItemIdByName("Sacrifice Room Teleport")
+      itemID = CollectibleType.COLLECTIBLE_SACRIFICE_ROOM_TELEPORT
       price = 10
     elseif thisRoomType == RoomType.ROOM_ISAACS then -- 18
-      itemID = Isaac.GetItemIdByName("Bedroom (Clean) Teleport")
+      itemID = CollectibleType.COLLECTIBLE_BEDROOM_CLEAN_TELEPORT
       price = 10
     elseif thisRoomType == RoomType.ROOM_BARREN then -- 19
-      itemID = Isaac.GetItemIdByName("Bedroom (Dirty) Teleport")
+      itemID = CollectibleType.COLLECTIBLE_BEDROOM_DIRTY_TELEPORT
       price = 20
     elseif thisRoomType == RoomType.ROOM_CHEST then -- 20
-      itemID = Isaac.GetItemIdByName("Treasure Chest Room Teleport")
+      itemID = CollectibleType.COLLECTIBLE_TREASURE_CHEST_ROOM_TELEPORT
       price = 15
     elseif thisRoomType == RoomType.ROOM_DICE then -- 21
-      itemID = Isaac.GetItemIdByName("Dice Room Teleport")
+      itemID = CollectibleType.COLLECTIBLE_DICE_ROOM_TELEPORT
       price = 10
     end
 

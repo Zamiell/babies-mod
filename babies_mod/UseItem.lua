@@ -77,7 +77,7 @@ function UseItem:ClockworkAssembly(collectibleType, RNG)
   -- Spawn a Restock Machine (6.10)
   g.run.clockworkAssembly = true
   g.p:UseCard(Card.CARD_WHEEL_OF_FORTUNE) -- 11
-  g.p:AnimateCollectible(Isaac.GetItemIdByName("Clockwork Assembly"), "UseItem", "PlayerPickup")
+  g.p:AnimateCollectible(CollectibleType.COLLECTIBLE_CLOCKWORK_ASSEMBLY, "UseItem", "PlayerPickup")
 end
 
 function UseItem:FlockOfSuccubi(collectibleType, RNG)
@@ -89,7 +89,7 @@ function UseItem:FlockOfSuccubi(collectibleType, RNG)
   for i = 1, 7 do
     effects:AddCollectibleEffect(CollectibleType.COLLECTIBLE_SUCCUBUS, false)
   end
-  g.p:AnimateCollectible(Isaac.GetItemIdByName("Flock of Succubi"), "UseItem", "PlayerPickup")
+  g.p:AnimateCollectible(CollectibleType.COLLECTIBLE_FLOCK_OF_SUCCUBI, "UseItem", "PlayerPickup")
 end
 
 function UseItem:ChargingStation(collectibleType, RNG)
@@ -104,7 +104,7 @@ function UseItem:ChargingStation(collectibleType, RNG)
 
   g.p:AddCoins(-1)
   RacingPlusSchoolbag:AddCharge(true) -- Giving an argument will make it only give 1 charge
-  g.p:AnimateCollectible(Isaac.GetItemIdByName("Charging Station"), "UseItem", "PlayerPickup")
+  g.p:AnimateCollectible(CollectibleType.COLLECTIBLE_CHARGING_STATION, "UseItem", "PlayerPickup")
   g.sfx:Play(SoundEffect.SOUND_BEEP, 1, 0, false, 1) -- 171
 end
 

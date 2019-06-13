@@ -114,14 +114,14 @@ BM:AddCallback(ModCallbacks.MC_USE_ITEM, UseItem.Item86, -- 3
 BM:AddCallback(ModCallbacks.MC_USE_ITEM, UseItem.Item282, -- 3
                CollectibleType.COLLECTIBLE_HOW_TO_JUMP) -- 282
 BM:AddCallback(ModCallbacks.MC_USE_ITEM, UseItem.ClockworkAssembly, -- 3
-               Isaac.GetItemIdByName("Clockwork Assembly"))
+               CollectibleType.COLLECTIBLE_CLOCKWORK_ASSEMBLY)
 BM:AddCallback(ModCallbacks.MC_USE_ITEM, UseItem.FlockOfSuccubi, -- 3
-               Isaac.GetItemIdByName("Flock of Succubi"))
+               CollectibleType.COLLECTIBLE_FLOCK_OF_SUCCUBI)
 BM:AddCallback(ModCallbacks.MC_USE_ITEM, UseItem.ChargingStation, -- 3
-               Isaac.GetItemIdByName("Charging Station"))
-if Isaac.GetItemIdByName("Debug") ~= -1 then -- This is in the Racing+ mod
+               CollectibleType.COLLECTIBLE_CHARGING_STATION)
+if CollectibleType.COLLECTIBLE_DEBUG ~= nil then -- This is in the Racing+ mod
   BM:AddCallback(ModCallbacks.MC_USE_ITEM, Debug.Main, -- 3
-                 Isaac.GetItemIdByName("Debug"))
+                 CollectibleType.COLLECTIBLE_DEBUG)
 end
 
 -- Define card callbacks (5)

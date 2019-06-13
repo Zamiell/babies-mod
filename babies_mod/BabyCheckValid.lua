@@ -86,8 +86,8 @@ function BabyCheckValid:Main(type)
 
     return false
   end
-  if (baby.item == Isaac.GetItemIdByName("Soul Jar") or
-      baby.item2 == Isaac.GetItemIdByName("Soul Jar")) and
+  if (baby.item == CollectibleType.COLLECTIBLE_SOUL_JAR or
+      baby.item2 == CollectibleType.COLLECTIBLE_SOUL_JAR) and
      maxHearts == 0 then
 
     return false

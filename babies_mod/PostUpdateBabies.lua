@@ -635,29 +635,29 @@ PostUpdateBabies.functions[216] = function()
   local item = g.p.QueuedItem.Item
   if item ~= nil then
     local itemID = item.ID
-    if itemID == Isaac.GetItemIdByName("Shop Teleport") then
+    if itemID == CollectibleType.COLLECTIBLE_SHOP_TELEPORT then
       teleport = RoomType.ROOM_SHOP -- 2
-    elseif itemID == Isaac.GetItemIdByName("Treasure Room Teleport") then
+    elseif itemID == CollectibleType.COLLECTIBLE_TREASURE_ROOM_TELEPORT then
       teleport = RoomType.ROOM_TREASURE -- 4
-    elseif itemID == Isaac.GetItemIdByName("Mini-Boss Room Teleport") then
+    elseif itemID == CollectibleType.COLLECTIBLE_MINIBOSS_ROOM_TELEPORT then
       teleport = RoomType.ROOM_MINIBOSS -- 6
-    elseif itemID == Isaac.GetItemIdByName("Arcade Teleport") then
+    elseif itemID == CollectibleType.COLLECTIBLE_ARCADE_TELEPORT then
       teleport = RoomType.ROOM_ARCADE -- 9
-    elseif itemID == Isaac.GetItemIdByName("Curse Room Teleport") then
+    elseif itemID == CollectibleType.COLLECTIBLE_CURSE_ROOM_TELEPORT then
       teleport = RoomType.ROOM_CURSE -- 10
-    elseif itemID == Isaac.GetItemIdByName("Challenge Room Teleport") then
+    elseif itemID == CollectibleType.COLLECTIBLE_CHALLENGE_ROOM_TELEPORT then
       teleport = RoomType.ROOM_CHALLENGE -- 11
-    elseif itemID == Isaac.GetItemIdByName("Library Teleport") then
+    elseif itemID == CollectibleType.COLLECTIBLE_LIBRARY_TELEPORT then
       teleport = RoomType.ROOM_LIBRARY -- 12
-    elseif itemID == Isaac.GetItemIdByName("Sacrifice Room Teleport") then
+    elseif itemID == CollectibleType.COLLECTIBLE_SACRIFICE_ROOM_TELEPORT then
       teleport = RoomType.ROOM_SACRIFICE -- 13
-    elseif itemID == Isaac.GetItemIdByName("Bedroom (Clean) Teleport") then
+    elseif itemID == CollectibleType.COLLECTIBLE_BEDROOM_CLEAN_TELEPORT then
       teleport = RoomType.ROOM_ISAACS -- 18
-    elseif itemID == Isaac.GetItemIdByName("Bedroom (Dirty) Teleport") then
+    elseif itemID == CollectibleType.COLLECTIBLE_BEDROOM_DIRTY_TELEPORT then
       teleport = RoomType.ROOM_BARREN -- 19
-    elseif itemID == Isaac.GetItemIdByName("Treasure Chest Room Teleport") then
+    elseif itemID == CollectibleType.COLLECTIBLE_TREASURE_CHEST_ROOM_TELEPORT then
       teleport = RoomType.ROOM_CHEST -- 20
-    elseif itemID == Isaac.GetItemIdByName("Dice Room Teleport") then
+    elseif itemID == CollectibleType.COLLECTIBLE_DICE_ROOM_TELEPORT then
       teleport = RoomType.ROOM_DICE -- 21
     end
   end
@@ -1129,7 +1129,7 @@ PostUpdateBabies.functions[485] = function()
 
   if gameFrameCount % 30 == 0 then -- 1 second
     -- Spawn a random rocket target
-    local target = g.g:Spawn(EntityType.ENTITY_EFFECT, Isaac.GetEntityVariantByName("FetusBossTarget"), -- 1000
+    local target = g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.FETUS_BOSS_TARGET, -- 1000
                              Isaac.GetRandomPosition(), g.zeroVector, nil, 0, 0)
     local sprite = target:GetSprite()
     sprite:Play("Blink", true)

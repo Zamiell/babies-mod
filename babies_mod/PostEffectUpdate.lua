@@ -101,23 +101,22 @@ end
 
 -- Cool Orange Baby
 PostEffectUpdate.functions[485] = function(effect)
-  if effect.Variant == Isaac.GetEntityVariantByName("FetusBossTarget") and
-      effect.FrameCount == 30 then -- 1 second
+  if effect.Variant == EffectVariant.FETUS_BOSS_TARGET and
+     effect.FrameCount == 30 then -- 1 second
 
-    local rocket = g.g:Spawn(EntityType.ENTITY_EFFECT, Isaac.GetEntityVariantByName("FetusBossRocket"),
-                              effect.Position, g.zeroVector, nil, 0, 0)
+    local rocket = g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.FETUS_BOSS_ROCKET, -- 1000
+                             effect.Position, g.zeroVector, nil, 0, 0)
     local rocketHeightOffset = Vector(0, -300)
     rocket.SpriteOffset = rocket.SpriteOffset + rocketHeightOffset
 
-  elseif effect.Variant == Isaac.GetEntityVariantByName("FetusBossRocket") then
-
+  elseif effect.Variant == EffectVariant.FETUS_BOSS_ROCKET then
     local rocketFallSpeed = Vector(0, 30)
     effect.SpriteOffset = effect.SpriteOffset + rocketFallSpeed
     if effect.SpriteOffset.Y >= 0 then
       Isaac.Explode(effect.Position, nil, 50) -- 49 deals 1 half heart of damage
       effect:Remove()
-      local targets = Isaac.FindByType(EntityType.ENTITY_EFFECT, Isaac.GetEntityVariantByName("FetusBossTarget"),
-                                        -1, false, false) -- 1000
+      local targets = Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.FETUS_BOSS_TARGET, -- 1000
+                                       -1, false, false) -- 1000
       targets[1]:Remove()
     end
   end

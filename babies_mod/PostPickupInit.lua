@@ -16,8 +16,8 @@ function PostPickupInit:Main(pickup)
   end
 
   -- All baby effects should ignore the Checkpoint
-  if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE and
-     pickup.SubType == Isaac.GetItemIdByName("Checkpoint") then
+  if pickup.Variant == PickupVariant.PICKUP_COLLECTIBLE and -- 100
+     pickup.SubType == CollectibleType.COLLECTIBLE_CHECKPOINT then
 
     return
   end
