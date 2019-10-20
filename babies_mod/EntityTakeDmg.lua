@@ -2,7 +2,7 @@ local EntityTakeDmg = {}
 
 -- Includes
 local g                   = require("babies_mod/globals")
-local EntityTakeDmgBabies = require("babies_mod/entitytakedmgbabies")
+local EntityTakeDmgPlayer = require("babies_mod/entitytakedmgplayer")
 
 -- ModCallbacks.MC_ENTITY_TAKE_DMG (11)
 -- (this must return nil or false)
@@ -24,7 +24,7 @@ function EntityTakeDmg:Main(tookDamage, damageAmount, damageFlag, damageSource, 
 
   local player = tookDamage:ToPlayer()
   if player ~= nil then
-    return EntityTakeDmgBabies:Player(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+    return EntityTakeDmgPlayer:Main(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   end
   return EntityTakeDmg:Entity(tookDamage, damageAmount, damageFlag, damageSource, damageCountdownFrames)
 end
@@ -43,21 +43,8 @@ end
 -- The collection of functions for each baby
 EntityTakeDmg.functions = {}
 
--- Water Baby
-EntityTakeDmgBabies.functions[3] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  if damageSource.Type == EntityType.ENTITY_TEAR and -- 2
-     damageSource.Entity.SubType == 1 then
-
-    -- Make the tears from Isaac's Tears do a lot of damage,
-    -- like a Polyphemus tear (that scales with the floor)
-    local stage = g.l:GetStage()
-    local damage = damageAmount * 10 * (1 + stage * 0.1)
-    entity:TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames)
-  end
-end
-
 -- Lost Baby
-EntityTakeDmgBabies.functions[10] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmg.functions[10] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   if damageSource.Type == EntityType.ENTITY_EFFECT and -- 1000
      damageSource.Variant == EffectVariant.PLAYER_CREEP_RED then -- 46
 
@@ -68,39 +55,36 @@ EntityTakeDmgBabies.functions[10] = function(entity, damageAmount, damageFlag, d
 end
 
 -- Fang Demon Baby
-EntityTakeDmgBabies.functions[281] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  -- Make the light beams do extra damage
-  -- (light beams do 2 damage on every tick and are not based on the player's damage)
-  local damage = g.p.Damage
-  g.run.dealingExtraDamage = true
-  entity:TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames)
-  g.run.dealingExtraDamage = false
-end
+EntityTakeDmg.functions[281] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  -- Make the light beam damage be based on the player's damage
+  -- (normally, light beams do 2 damage on every tick and are not based on the player's damage)
+  if damageSource.Type == EntityType.ENTITY_EFFECT and -- 1000
+     damageSource.Variant == EffectVariant.CRACK_THE_SKY then -- 19
 
--- Rider Baby
-EntityTakeDmgBabies.functions[295] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  -- Make the Pony do extra damage
-  local damage = g.p.Damage * 4
-  g.run.dealingExtraDamage = true
-  entity:TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames)
-  g.run.dealingExtraDamage = false
-end
-
--- Slicer Baby
-EntityTakeDmgBabies.functions[295] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  if damageSource.Type == EntityType.ENTITY_TEAR and -- 2
-     damageSource.Entity.SubType == 1 then
-
-    -- Make the Soy Milk tears do extra damage
-    local damage = g.p.Damage * 3
+    local damage = g.p.Damage
     g.run.dealingExtraDamage = true
     entity:TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames)
     g.run.dealingExtraDamage = false
+    return false
+  end
+end
+
+-- Rider Baby
+EntityTakeDmg.functions[295] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  -- Make the Pony do extra damage
+  if damageSource.Type == EntityType.ENTITY_PLAYER and -- 1
+     damageSource.Variant == 0 then
+
+    local damage = g.p.Damage * 4
+    g.run.dealingExtraDamage = true
+    entity:TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames)
+    g.run.dealingExtraDamage = false
+    return false
   end
 end
 
 -- Boxers Baby
-EntityTakeDmgBabies.functions[337] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmg.functions[337] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   if damageSource.Type == EntityType.ENTITY_TEAR and -- 2
      damageSource.Entity.SubType == 1 then
 
@@ -113,25 +97,24 @@ EntityTakeDmgBabies.functions[337] = function(entity, damageAmount, damageFlag, 
   end
 end
 
--- Arcade Baby
-EntityTakeDmgBabies.functions[368] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  local damage = g.p.Damage * 3
-  g.run.dealingExtraDamage = true
-  entity:TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames)
-  g.run.dealingExtraDamage = false
-end
-
 -- Elf Baby
-EntityTakeDmgBabies.functions[377] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmg.functions[377] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Make the Spear of Destiny do extra damage
-  local damage = g.p.Damage * 4
-  g.run.dealingExtraDamage = true
-  entity:TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames)
-  g.run.dealingExtraDamage = false
+  -- (this does not work if we set effect.CollisionDamage in the PostEffectInit callback;
+  -- the damage appears to be hard-coded)
+  if damageSource.Type == EntityType.ENTITY_EFFECT and -- 1000
+     damageSource.Variant == EffectVariant.SPEAR_OF_DESTINY then -- 83
+
+    local damage = g.p.Damage * 4
+    g.run.dealingExtraDamage = true
+    entity:TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames)
+    g.run.dealingExtraDamage = false
+    return false
+  end
 end
 
 -- Astronaut Baby
-EntityTakeDmgBabies.functions[406] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmg.functions[406] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   if damageSource.Type == EntityType.ENTITY_TEAR and -- 2
      damageSource.Entity.SubType == 1 then
 
@@ -139,31 +122,24 @@ EntityTakeDmgBabies.functions[406] = function(entity, damageAmount, damageFlag, 
     math.randomseed(damageSource.Entity.InitSeed)
     local chance = math.random(1, 100)
     if chance <= 5 then
-    g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BLACK_HOLE, -- 107
-              damageSource.Position, damageSource.Entity.Velocity, nil, 0, 0)
+      Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BLACK_HOLE, 0, -- 107
+                  damageSource.Position, damageSource.Entity.Velocity, nil)
     end
   end
 end
 
--- Tooth Head Baby
-EntityTakeDmgBabies.functions[442] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  if damageSource.Type == EntityType.ENTITY_TEAR and -- 2
-     damageSource.Entity.SubType == 1 then
+-- Road Kill Baby
+EntityTakeDmg.functions[507] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  -- Give the Pointy Rib extra damage
+  if damageSource.Type == EntityType.ENTITY_FAMILIAR and -- 3
+     damageSource.Variant == FamiliarVariant.POINTY_RIB then -- 127
 
-    local damage = g.p.Damage * 3.2
+    local damage = g.p.Damage * 3
     g.run.dealingExtraDamage = true
     entity:TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames)
     g.run.dealingExtraDamage = false
+    return false
   end
-end
-
--- Road Kill Baby
-EntityTakeDmgBabies.functions[507] = function(entity, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  -- Give the Pointy Rib extra damage
-  local damage = g.p.Damage * 3
-  g.run.dealingExtraDamage = true
-  entity:TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames)
-  g.run.dealingExtraDamage = false
 end
 
 return EntityTakeDmg

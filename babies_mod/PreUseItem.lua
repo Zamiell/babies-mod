@@ -50,7 +50,22 @@ function PreUseItem:Item323(collectibleType, RNG)
     return
   end
 
-  g.run.babyCounters = 8
+  local vel = Vector(10, 0)
+  for i = 1, 8 do
+    vel = vel:Rotated(45)
+    local tear = g.p:FireTear(g.p.Position, vel, false, false, false)
+
+    -- Increase the damage and make it look more impressive
+    tear.CollisionDamage = g.p.Damage * 2
+    tear.Scale = 2
+    tear.KnockbackMultiplier = 20
+  end
+
+  -- When we return from the function below, no animation will play, so we have to explitily perform one
+  g.p:AnimateCollectible(CollectibleType.COLLECTIBLE_ISAACS_TEARS, "UseItem", "PlayerPickup") -- 323
+
+  -- Cancel the original effect
+  return true
 end
 
 -- CollectibleType.COLLECTIBLE_SMELTER (479)

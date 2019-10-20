@@ -128,8 +128,8 @@ PostEntityKill.functions[376] = function(npc)
   end
 
   -- Spawn a new Bob's Brain familiar that we will reskin to look like an egg
-  local brain = g.g:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BOBS_BRAIN, -- 3.59
-                g.p.Position, g.zeroVector, nil, 0, 0)
+  local brain = Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BOBS_BRAIN, 0, -- 3.59
+                            g.p.Position, g.zeroVector, nil)
   local brainSprite = brain:GetSprite()
   brainSprite:Load("gfx/003.059_bobs brain2.anm2", true)
   brainSprite:Play("Idle", true)
@@ -152,8 +152,8 @@ end
 -- Toast Baby
 PostEntityKill.functions[390] = function(npc)
   -- Enemies leave a Red Candle fire upon death
-  g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.HOT_BOMB_FIRE, -- 1000.51
-            npc.Position, g.zeroVector, nil, 0, 0)
+  Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.HOT_BOMB_FIRE, 0, -- 1000.51
+              npc.Position, g.zeroVector, nil)
 end
 
 -- Buttface Baby
@@ -163,8 +163,8 @@ end
 
 -- Funny Baby
 PostEntityKill.functions[491] = function(npc)
-  g.g:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_SUPERTROLL, -- 4.5
-            npc.Position, g.zeroVector, nil, 0, 0)
+  Isaac.Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_SUPERTROLL, 0, -- 4.5
+              npc.Position, g.zeroVector, nil)
 end
 
 -- Rainbow Baby

@@ -352,14 +352,15 @@ end
 
 -- Cowboy Baby
 PostPickupUpdate.functions[394] = function(pickup)
+  -- Pickups shoot
   if pickup.FrameCount % 35 == 0 and -- Every 1.17 seconds
      not pickup:GetSprite():IsPlaying("Collect") then -- Don't shoot if we already picked it up
 
     local velocity = g.p.Position - pickup.Position
     velocity:Normalize()
     velocity = velocity * 7
-    g.g:Spawn(EntityType.ENTITY_PROJECTILE, ProjectileVariant.PROJECTILE_NORMAL,
-              pickup.Position, velocity, pickup, 0, 0) -- 9.0
+    Isaac.Spawn(EntityType.ENTITY_PROJECTILE, ProjectileVariant.PROJECTILE_NORMAL, 0, -- 9.0
+                pickup.Position, velocity, pickup)
   end
 end
 

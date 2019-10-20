@@ -187,9 +187,9 @@ function PostRender:DrawBabyIntro()
   local type = g.run.babyType
   local baby = g.babies[type]
 
+  -- Make the baby description persist for at least 2 seconds after the player presses tab
   for i = 0, 3 do -- There are 4 possible inputs/players from 0 to 3
     if Input.IsActionPressed(ButtonAction.ACTION_MAP, i) then -- 13
-      -- Make the baby description persist for at least 2 seconds after the player presses tab
       g.run.showIntroFrame = gameFrameCount + 60
       break
     end

@@ -210,7 +210,8 @@ function BabyCheckValid:Main(type)
   elseif baby.name == "Masked Baby" and -- 115
          (g.p:HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) or -- 69
           g.p:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) or -- 229
-          g.p:HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE)) then -- 399
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE) or -- 316
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_VOID)) then -- 399
 
     -- Can't shoot while moving
     -- This messes up with charge items

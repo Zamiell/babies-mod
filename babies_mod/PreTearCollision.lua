@@ -35,8 +35,8 @@ end
 PreTearCollision.functions[410] = function(tear, collider)
   -- Splash tears
   if tear.SubType == 1 then
-    local creep = g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_HOLYWATER, -- 37
-                            collider.Position, g.zeroVector, g.p, 0, 0)
+    local creep = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_HOLYWATER, 0, -- 37
+                              collider.Position, g.zeroVector, g.p)
     creep:ToEffect().Timeout = 120
   end
 end

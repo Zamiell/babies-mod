@@ -1,6 +1,6 @@
 local PostLaserInit = {}
 
--- Note: SpawnerType, SpawnerVariant, and MaxDistance are not initialized yet in this callback.
+-- Note: Position, SpawnerType, SpawnerVariant, and MaxDistance are not initialized yet in this callback
 
 -- Includes
 local g = require("babies_mod/globals")

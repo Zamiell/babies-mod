@@ -23,58 +23,58 @@ function Misc:SpawnRandomPickup(position, velocity, noItems)
 
   if pickupVariant == 1 then -- Heart
     -- Random Heart - 5.10.0
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, position, velocity,
-              nil, 0, g.run.randomSeed)
+    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART,
+              position, velocity, nil, 0, g.run.randomSeed)
 
   elseif pickupVariant == 2 then -- Coin
     -- Random Coin - 5.20.0
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN, position, velocity,
-              nil, 0, g.run.randomSeed)
+    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN,
+              position, velocity, nil, 0, g.run.randomSeed)
 
   elseif pickupVariant == 3 then -- Key
     -- Random Key - 5.30.0
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_KEY, position, velocity,
-              nil, 0, g.run.randomSeed)
+    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_KEY,
+              position, velocity, nil, 0, g.run.randomSeed)
 
   elseif pickupVariant == 4 then -- Bomb
     -- Random Bomb - 5.40.0
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, position, velocity,
-              nil, 0, g.run.randomSeed)
+    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB,
+              position, velocity, nil, 0, g.run.randomSeed)
 
   elseif pickupVariant == 5 then -- Chest
     -- Random Chest - 5.50
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_CHEST, position, velocity,
-              nil, 0, g.run.randomSeed)
+    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_CHEST,
+              position, velocity, nil, 0, g.run.randomSeed)
 
   elseif pickupVariant == 6 then -- Sack
     -- Random Chest - 5.69
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_GRAB_BAG, position, velocity,
-              nil, 0, g.run.randomSeed)
+    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_GRAB_BAG,
+              position, velocity, nil, 0, g.run.randomSeed)
 
   elseif pickupVariant == 7 then -- Lil' Battery
     -- Lil' Battery - 5.90
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_LIL_BATTERY, position, velocity,
-              nil, 0, g.run.randomSeed)
+    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_LIL_BATTERY,
+              position, velocity, nil, 0, g.run.randomSeed)
 
   elseif pickupVariant == 8 then -- Pill
     -- Random Pill - 5.70.0
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_PILL, position, velocity,
-              nil, 0, g.run.randomSeed)
+    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_PILL,
+              position, velocity, nil, 0, g.run.randomSeed)
 
   elseif pickupVariant == 9 then -- Card / Rune
     -- Random Card / Rune - 5.300.0
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, position, velocity,
-              nil, 0, g.run.randomSeed)
+    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD,
+              position, velocity, nil, 0, g.run.randomSeed)
 
   elseif pickupVariant == 10 then -- Trinket
     -- Random Card / Rune - 5.350.0
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, position, velocity,
-              nil, 0, g.run.randomSeed)
+    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET,
+              position, velocity, nil, 0, g.run.randomSeed)
 
   elseif pickupVariant == 11 then -- Collectible
     -- Random Collectible - 5.100.0
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, position, velocity,
-              nil, 0, g.run.randomSeed)
+    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE,
+              position, velocity, nil, 0, g.run.randomSeed)
   end
 end
 

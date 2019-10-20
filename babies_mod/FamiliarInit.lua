@@ -49,7 +49,8 @@ FamiliarInit.functions[117] = function(familiar)
     -- Spawn 5 bird familiars instead of 4
     g.run.babyBool = true
     for i = 1, 4 do
-      g.g:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.DEAD_BIRD, g.p.Position, g.zeroVector, nil, 0, 0)
+      Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.DEAD_BIRD, 0, -- 3.14
+                  g.p.Position, g.zeroVector, nil)
     end
     g.run.babyBool = false
   end

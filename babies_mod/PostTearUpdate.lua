@@ -28,8 +28,8 @@ PostTearUpdate.functions[100] = function(tear)
   if tear.SubType == 1 and
      tear.FrameCount % 2 == 0 then
 
-    local fire = g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.HOT_BOMB_FIRE, -- 1000.51
-                           tear.Position, g.zeroVector, nil, 0, 0)
+    local fire = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.HOT_BOMB_FIRE, 0, -- 1000.51
+                             tear.Position, g.zeroVector, nil)
     fire.SpriteScale = Vector(0.5, 0.5)
 
     -- Fade the fire so that it is easier to see everything
@@ -150,8 +150,8 @@ PostTearUpdate.functions[380] = function(tear)
      g.g:GetFrameCount() % 5 == 0 then -- If we spawn creep on every frame, it becomes too thick
 
     -- Make the tear drip black creep
-    local creep = g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_BLACK, -- 45
-                            tear.Position, g.zeroVector, tear, 0, 0)
+    local creep = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_BLACK, 0, -- 1000.45
+                              tear.Position, g.zeroVector, tear)
     creep:ToEffect().Timeout = 240
   end
 end

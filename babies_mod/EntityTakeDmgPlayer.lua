@@ -1,10 +1,10 @@
-local EntityTakeDmgBabies = {}
+local EntityTakeDmgPlayer = {}
 
 -- Includes
 local g    = require("babies_mod/globals")
 local Misc = require("babies_mod/misc")
 
-function EntityTakeDmgBabies:Player(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+function EntityTakeDmgPlayer:Main(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Local variables
   local gameFrameCount = g.g:GetFrameCount()
   local type = g.run.babyType
@@ -27,42 +27,42 @@ function EntityTakeDmgBabies:Player(player, damageAmount, damageFlag, damageSour
     return false
   end
 
-  local babyFunc = EntityTakeDmgBabies.functions[type]
+  local babyFunc = EntityTakeDmgPlayer.functions[type]
   if babyFunc ~= nil then
     return babyFunc(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   end
 end
 
 -- The collection of functions for each baby
-EntityTakeDmgBabies.functions = {}
+EntityTakeDmgPlayer.functions = {}
 
 -- Host Baby
-EntityTakeDmgBabies.functions[9] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[9] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   for i = 1, 10 do
     player:AddBlueSpider(player.Position)
   end
 end
 
 -- Lost Baby
-EntityTakeDmgBabies.functions[10] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[10] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Lost-style health
   player:Kill()
 end
 
 -- Wrapped Baby
-EntityTakeDmgBabies.functions[20] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[20] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Use Kamikaze on the next 5 frames
   g.run.babyCounters = 5
 end
 
 -- -0- Baby
-EntityTakeDmgBabies.functions[24] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[24] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Invulnerability
   return false
 end
 
 -- Cry Baby
-EntityTakeDmgBabies.functions[32] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[32] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Enemies are fully healed on hit
   for _, entity in ipairs(Isaac.GetRoomEntities()) do
     local npc = entity:ToNPC()
@@ -75,12 +75,12 @@ EntityTakeDmgBabies.functions[32] = function(player, damageAmount, damageFlag, d
 end
 
 -- Yellow Baby
-EntityTakeDmgBabies.functions[33] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[33] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   player:UsePill(PillEffect.PILLEFFECT_LEMON_PARTY, 0) -- 26
 end
 
 -- Buddy Baby
-EntityTakeDmgBabies.functions[41] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[41] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Local variables
   local maxHearts = player:GetMaxHearts()
 
@@ -97,26 +97,26 @@ EntityTakeDmgBabies.functions[41] = function(player, damageAmount, damageFlag, d
 end
 
 -- Blinding Baby
-EntityTakeDmgBabies.functions[46] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  -- Sun Card - 5.300.20
-  g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, player.Position, g.zeroVector, player, 20, 0)
+EntityTakeDmgPlayer.functions[46] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, Card.CARD_SUN, -- 5.300.20
+              player.Position, g.zeroVector, player)
 end
 
 -- Revenge Baby
-EntityTakeDmgBabies.functions[50] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  -- Random Heart - 5.10.0
+EntityTakeDmgPlayer.functions[50] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  -- Spawns a random heart on hit
   g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
-  g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, player.Position, g.zeroVector,
-             player, 0, g.run.randomSeed)
+  g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, -- 5.10
+            player.Position, g.zeroVector, player, 0, g.run.randomSeed)
 end
 
 -- Apollyon Baby
-EntityTakeDmgBabies.functions[56] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[56] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   player:UseCard(Card.RUNE_BLACK) -- 41
 end
 
 -- Goat Baby
-EntityTakeDmgBabies.functions[62] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[62] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Local variables
   local baby = g.babies[62]
 
@@ -135,12 +135,12 @@ EntityTakeDmgBabies.functions[62] = function(player, damageAmount, damageFlag, d
 end
 
 -- Ghoul Baby
-EntityTakeDmgBabies.functions[83] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[83] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   player:UseActiveItem(CollectibleType.COLLECTIBLE_BOOK_OF_SECRETS, false, false, false, false) -- 287
 end
 
 -- Half Head Baby
-EntityTakeDmgBabies.functions[98] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[98] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Take double damage
   if not g.run.babyBool then
     g.run.babyBool = true
@@ -150,21 +150,21 @@ EntityTakeDmgBabies.functions[98] = function(player, damageAmount, damageFlag, d
 end
 
 -- D Baby
-EntityTakeDmgBabies.functions[101] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[101] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Spawns creep on hit (improved)
-  local creep = g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, -- 46
-                          player.Position, g.zeroVector, player, 0, 0)
+  local creep = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, 0, -- 46
+                            player.Position, g.zeroVector, player)
   creep:ToEffect().Scale = 10
   creep:ToEffect().Timeout = 240
 end
 
 -- Cyber Baby
-EntityTakeDmgBabies.functions[116] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[116] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   Misc:SpawnRandomPickup(player.Position)
 end
 
 -- Hopeless Baby
-EntityTakeDmgBabies.functions[125] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[125] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Keys are hearts
   if not g.run.babyBool then
     g.run.babyBool = true
@@ -176,12 +176,12 @@ EntityTakeDmgBabies.functions[125] = function(player, damageAmount, damageFlag, 
 end
 
 -- Freaky Baby
-EntityTakeDmgBabies.functions[132] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[132] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   player:UseActiveItem(CollectibleType.COLLECTIBLE_CONVERTER, false, false, false, false) -- 296
 end
 
 -- Mohawk Baby
-EntityTakeDmgBabies.functions[138] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[138] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Bombs are hearts
   if not g.run.babyBool then
     g.run.babyBool = true
@@ -193,17 +193,17 @@ EntityTakeDmgBabies.functions[138] = function(player, damageAmount, damageFlag, 
 end
 
 -- Rotten Meat Baby
-EntityTakeDmgBabies.functions[139] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[139] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   player:UseCard(Card.CARD_FOOL) -- 1
 end
 
 -- Fat Baby
-EntityTakeDmgBabies.functions[148] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[148] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   player:UseActiveItem(CollectibleType.COLLECTIBLE_NECRONOMICON , false, false, false, false) -- 35
 end
 
 -- Helmet Baby
-EntityTakeDmgBabies.functions[163] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[163] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Invulnerability when standing still
   if g.run.babyBool then
     return false
@@ -211,7 +211,7 @@ EntityTakeDmgBabies.functions[163] = function(player, damageAmount, damageFlag, 
 end
 
 -- Aban Baby
-EntityTakeDmgBabies.functions[177] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[177] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Local variables
   local coins = player:GetNumCoins()
 
@@ -223,13 +223,13 @@ EntityTakeDmgBabies.functions[177] = function(player, damageAmount, damageFlag, 
 
   player:AddCoins(-99)
   for i = 1, coins do
-    -- Spawn a Penny (5.20.1)
+    -- Spawn a Penny
     local velocity = player.Position - Isaac.GetRandomPosition()
     velocity = velocity:Normalized()
     local modifier = math.random(4, 20)
     velocity = velocity * modifier
-    local coin = g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN,
-                           player.Position, velocity, player, 1, 0)
+    local coin = Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN, CoinSubType.COIN_PENNY, -- 5.20.1
+                             player.Position, velocity, player)
     local data = coin:GetData()
     data.recovery = true
   end
@@ -237,18 +237,18 @@ EntityTakeDmgBabies.functions[177] = function(player, damageAmount, damageFlag, 
 end
 
 -- Faded Baby
-EntityTakeDmgBabies.functions[186] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[186] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Random teleport on hit
   player:UseActiveItem(CollectibleType.COLLECTIBLE_TELEPORT , false, false, false, false) -- 44
 end
 
 -- Small Face Baby
-EntityTakeDmgBabies.functions[200] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[200] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   player:UseActiveItem(CollectibleType.COLLECTIBLE_MY_LITTLE_UNICORN, false, false, false, false) -- 77
 end
 
 -- Dented Baby
-EntityTakeDmgBabies.functions[204] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[204] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Spawns a random key on hit
   g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
   g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_KEY, -- 5.30
@@ -256,12 +256,12 @@ EntityTakeDmgBabies.functions[204] = function(player, damageAmount, damageFlag, 
 end
 
 -- MeatBoy Baby
-EntityTakeDmgBabies.functions[210] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[210] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   player:UseActiveItem(CollectibleType.COLLECTIBLE_POTATO_PEELER, false, false, false, false) -- 487
 end
 
 -- Conjoined Baby
-EntityTakeDmgBabies.functions[212] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[212] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Open all of the doors
   for i = 0, 7 do
     local door = g.r:GetDoor(i)
@@ -272,9 +272,7 @@ EntityTakeDmgBabies.functions[212] = function(player, damageAmount, damageFlag, 
 end
 
 -- Zipper Baby
-EntityTakeDmgBabies.functions[225] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  local roomSeed = g.r:GetSpawnSeed() -- Gets a reproducible seed based on the room, e.g. "2496979501"
-
+EntityTakeDmgPlayer.functions[225] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Extra enemies spawn on hit
   -- Find an existing enemy in the room
   local dupeEnemy
@@ -301,16 +299,16 @@ EntityTakeDmgBabies.functions[225] = function(player, damageAmount, damageFlag, 
 
   -- Spawn a new enemy
   local position = g.r:FindFreePickupSpawnPosition(player.Position, 1, true)
-  g.g:Spawn(dupeEnemy.type, dupeEnemy.variant, position, g.zeroVector, nil, 0, roomSeed)
+  Isaac.Spawn(dupeEnemy.type, dupeEnemy.variant, 0, position, g.zeroVector, nil)
 end
 
 -- Beard Baby
-EntityTakeDmgBabies.functions[227] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[227] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   player:UseActiveItem(CollectibleType.COLLECTIBLE_CROOKED_PENNY, false, false, false, false) -- 485
 end
 
 -- Rocker Baby
-EntityTakeDmgBabies.functions[258] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[258] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Spawns a random bomb on hit
   g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
   g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, -- 5.40
@@ -318,12 +316,12 @@ EntityTakeDmgBabies.functions[258] = function(player, damageAmount, damageFlag, 
 end
 
 -- Coat Baby
-EntityTakeDmgBabies.functions[260] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[260] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   player:UseActiveItem(CollectibleType.COLLECTIBLE_DECK_OF_CARDS, false, false, false, false) -- 85
 end
 
 -- Hare Baby
-EntityTakeDmgBabies.functions[267] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[267] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Local variables
   local gridSize = g.r:GetGridSize()
 
@@ -346,12 +344,12 @@ EntityTakeDmgBabies.functions[267] = function(player, damageAmount, damageFlag, 
 end
 
 -- Gargoyle Baby
-EntityTakeDmgBabies.functions[276] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[276] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   player:UseActiveItem(CollectibleType.COLLECTIBLE_HEAD_OF_KRAMPUS, false, false, false, false) -- 293
 end
 
 -- Spiky Demon Baby
-EntityTakeDmgBabies.functions[277] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[277] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Play a custom sound effect if we got hit by a mimic
   for i = 0, 21 do -- There are 21 damage flags
     local bit = (damageFlag & (1 << i)) >> i
@@ -365,33 +363,34 @@ EntityTakeDmgBabies.functions[277] = function(player, damageAmount, damageFlag, 
 end
 
 -- Big Tongue Baby
-EntityTakeDmgBabies.functions[285] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[285] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   player:UseActiveItem(CollectibleType.COLLECTIBLE_FLUSH, false, false, false, false) -- 291
 end
 
 -- Banshee Baby
-EntityTakeDmgBabies.functions[293] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[293] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   player:UseActiveItem(CollectibleType.COLLECTIBLE_CRACK_THE_SKY, false, false, false, false) -- 160
 end
 
 -- X Mouth Baby
-EntityTakeDmgBabies.functions[308] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[308] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   player:UseActiveItem(CollectibleType.COLLECTIBLE_MOVING_BOX, false, false, false, false) -- 523
 end
 
 -- Starry Eyed Baby
-EntityTakeDmgBabies.functions[310] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
-  -- Stars Card (5.300.18)
-  g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, player.Position, g.zeroVector, player, 18, 0)
+EntityTakeDmgPlayer.functions[310] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+  -- Stars Card
+  Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, Card.CARD_STARS, -- 5.300.18
+              player.Position, g.zeroVector, player)
 end
 
 -- Puzzle Baby
-EntityTakeDmgBabies.functions[315] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[315] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   player:UseActiveItem(CollectibleType.COLLECTIBLE_D6, false, false, false, false) -- 105
 end
 
 -- Fireball Baby
-EntityTakeDmgBabies.functions[318] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[318] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Immunity from fires
   if damageSource.Type == EntityType.ENTITY_FIREPLACE then -- 33
     return false
@@ -399,7 +398,7 @@ EntityTakeDmgBabies.functions[318] = function(player, damageAmount, damageFlag, 
 end
 
 -- Spartan Baby
-EntityTakeDmgBabies.functions[329] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[329] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Spawns a pedestal item after 6 hits
   g.run.babyCounters = g.run.babyCounters + 1
   if g.run.babyCounters == 6 then
@@ -412,7 +411,7 @@ EntityTakeDmgBabies.functions[329] = function(player, damageAmount, damageFlag, 
 end
 
 -- Tortoise Baby
-EntityTakeDmgBabies.functions[330] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[330] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- 0.5x speed + 50% chance to ignore damage
   g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
   math.randomseed(g.run.randomSeed)
@@ -423,7 +422,7 @@ EntityTakeDmgBabies.functions[330] = function(player, damageAmount, damageFlag, 
 end
 
 -- Skinless Baby
-EntityTakeDmgBabies.functions[322] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[322] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Take double damage
   if not g.run.babyBool then
     g.run.babyBool = true
@@ -433,7 +432,7 @@ EntityTakeDmgBabies.functions[322] = function(player, damageAmount, damageFlag, 
 end
 
 -- Ballerina Baby
-EntityTakeDmgBabies.functions[323] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[323] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Summons a Restock Machine after 6 hits
   g.run.babyCounters = g.run.babyCounters + 1
   if g.run.babyCounters == 6 then
@@ -443,41 +442,41 @@ EntityTakeDmgBabies.functions[323] = function(player, damageAmount, damageFlag, 
 end
 
 -- Hero Baby
-EntityTakeDmgBabies.functions[336] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[336] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- We want to evaluate the cache, but we can't do it here because the damage is not applied yet,
   -- so mark to do it later in the PostUpdate callback
   g.run.babyBool = true
 end
 
 -- Twotone Baby
-EntityTakeDmgBabies.functions[346] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[346] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   player:UseActiveItem(CollectibleType.COLLECTIBLE_DATAMINER, false, false, false, false) -- 481
 end
 
 -- Tanooki Baby
-EntityTakeDmgBabies.functions[359] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[359] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   player:UseActiveItem(CollectibleType.COLLECTIBLE_MR_ME, false, false, false, false) -- 527
 end
 
 -- Fiery Baby
-EntityTakeDmgBabies.functions[366] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[366] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   player:ShootRedCandle(g.zeroVector)
 end
 
 -- Dark Elf Baby
-EntityTakeDmgBabies.functions[378] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[378] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   player:UseActiveItem(CollectibleType.COLLECTIBLE_BOOK_OF_THE_DEAD, false, false, false, false) -- 545
 end
 
 -- Fairyman Baby
-EntityTakeDmgBabies.functions[385] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[385] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   g.run.babyCounters = g.run.babyCounters + 1
   player:AddCacheFlags(CacheFlag.CACHE_DAMAGE) -- 1
   player:EvaluateItems()
 end
 
 -- Censored Baby
-EntityTakeDmgBabies.functions[408] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[408] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- All enemies get confused on hit
   for _, entity in ipairs(Isaac.GetRoomEntities()) do
     local npc = entity:ToNPC()
@@ -490,18 +489,18 @@ EntityTakeDmgBabies.functions[408] = function(player, damageAmount, damageFlag, 
 end
 
 -- Catsuit Baby
-EntityTakeDmgBabies.functions[412] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[412] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   player:UseActiveItem(CollectibleType.COLLECTIBLE_GUPPYS_PAW, false, false, false, false) -- 133
 end
 
 -- Cup Baby
-EntityTakeDmgBabies.functions[435] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[435] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   player:UseCard(Card.CARD_HUMANITY) -- 45
   -- (the animation will automatically be canceled by the damage)
 end
 
 -- TV Baby
-EntityTakeDmgBabies.functions[441] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[441] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Local variables
   local baby = g.babies[441]
 
@@ -513,7 +512,7 @@ EntityTakeDmgBabies.functions[441] = function(player, damageAmount, damageFlag, 
 end
 
 -- Steroids Baby
-EntityTakeDmgBabies.functions[444] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[444] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Forget Me Now on 2nd hit (per room)
   g.run.babyCountersRoom = g.run.babyCountersRoom + 1
   if g.run.babyCountersRoom >= 2 then
@@ -522,12 +521,12 @@ EntityTakeDmgBabies.functions[444] = function(player, damageAmount, damageFlag, 
 end
 
 -- Rojen Whitefox Baby
-EntityTakeDmgBabies.functions[446] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[446] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   player:UseActiveItem(CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS, false, false, false, false) -- 58
 end
 
 -- Handsome Mr. Frog Baby
-EntityTakeDmgBabies.functions[456] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[456] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Local variables
   local baby = g.babies[456]
 
@@ -535,7 +534,7 @@ EntityTakeDmgBabies.functions[456] = function(player, damageAmount, damageFlag, 
 end
 
 -- Mufflerscarf Baby
-EntityTakeDmgBabies.functions[472] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[472] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- All enemies get freezed on hit
   for _, entity in ipairs(Isaac.GetRoomEntities()) do
     local npc = entity:ToNPC()
@@ -548,7 +547,7 @@ EntityTakeDmgBabies.functions[472] = function(player, damageAmount, damageFlag, 
 end
 
 -- Scoreboard Baby
-EntityTakeDmgBabies.functions[474] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[474] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Local variables
   local gameFrameCount = g.g:GetFrameCount()
 
@@ -559,17 +558,26 @@ EntityTakeDmgBabies.functions[474] = function(player, damageAmount, damageFlag, 
 end
 
 -- Egg Baby
-EntityTakeDmgBabies.functions[488] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[488] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Random pill effect on hit
-  g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
-  math.randomseed(g.run.randomSeed)
-  local pillEffect = math.random(0, 46)
+  -- (but exclude the pills that Racing+ removes)
+  local pillEffect
+  while true do
+    g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
+    math.randomseed(g.run.randomSeed)
+    pillEffect = math.random(0, 46)
+    if pillEffect ~= PillEffect.PILLEFFECT_AMNESIA and -- 25
+       pillEffect ~= PillEffect.PILLEFFECT_QUESTIONMARK then -- 31
+
+      break
+    end
+  end
   player:UsePill(pillEffect, 0)
   -- (the animation will automatically be canceled by the damage)
 end
 
 -- Glittery Peach Baby
-EntityTakeDmgBabies.functions[493] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[493] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Local variables
   local baby = g.babies[493]
 
@@ -587,7 +595,7 @@ EntityTakeDmgBabies.functions[493] = function(player, damageAmount, damageFlag, 
 end
 
 -- Lazy Baby
-EntityTakeDmgBabies.functions[499] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[499] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Random card effect on hit
   local cardType
   while true do
@@ -604,7 +612,7 @@ EntityTakeDmgBabies.functions[499] = function(player, damageAmount, damageFlag, 
 end
 
 -- Reaper Baby
-EntityTakeDmgBabies.functions[506] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[506] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Spawns a random rune on hit
   g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
   math.randomseed(g.run.randomSeed)
@@ -614,7 +622,7 @@ EntityTakeDmgBabies.functions[506] = function(player, damageAmount, damageFlag, 
 end
 
 -- Hooligan Baby
-EntityTakeDmgBabies.functions[514] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[514] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Local variables
   local roomFrameCount = g.r:GetFrameCount()
 
@@ -626,7 +634,7 @@ EntityTakeDmgBabies.functions[514] = function(player, damageAmount, damageFlag, 
 end
 
 -- Sister Maggy
-EntityTakeDmgBabies.functions[523] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
+EntityTakeDmgPlayer.functions[523] = function(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Loses last item on 2nd hit (per room)
   g.run.babyCountersRoom = g.run.babyCountersRoom + 1
   if g.run.babyCountersRoom >= 2 and
@@ -642,4 +650,4 @@ EntityTakeDmgBabies.functions[523] = function(player, damageAmount, damageFlag, 
   end
 end
 
-return EntityTakeDmgBabies
+return EntityTakeDmgPlayer

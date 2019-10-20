@@ -112,7 +112,7 @@ end
 PostNewRoom.functions = {}
 
 -- Lost Baby
-PostNewRoom.functions[10] = PostNewRoom.NoHealth()
+PostNewRoom.functions[10] = PostNewRoom.NoHealth
 
 -- Shadow Baby
 PostNewRoom.functions[13] = function()
@@ -208,10 +208,10 @@ PostNewRoom.functions[118] = function()
 end
 
 -- Hopeless Baby
-PostNewRoom.functions[125] = PostNewRoom.NoHealth()
+PostNewRoom.functions[125] = PostNewRoom.NoHealth
 
 -- Mohawk Baby
-PostNewRoom.functions[138] = PostNewRoom.NoHealth()
+PostNewRoom.functions[138] = PostNewRoom.NoHealth
 
 -- Twin Baby
 PostNewRoom.functions[141] = function()

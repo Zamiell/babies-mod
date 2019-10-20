@@ -1,5 +1,7 @@
 local PostEffectUpdate = {}
 
+-- Note: Distance, SpawnerType, and SpawnerVariant are not initialized yet in this callback
+
 -- Includes
 local g = require("babies_mod/globals")
 
@@ -93,8 +95,8 @@ PostEffectUpdate.functions[281] = function(effect)
     if #entities > 0 then
       -- Fire the beam
       g.run.babyFrame = gameFrameCount + baby.cooldown
-      g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.CRACK_THE_SKY, -- 1000.19
-                effect.Position, g.zeroVector, g.p, 0, 0)
+      Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.CRACK_THE_SKY, 0, -- 1000.19
+                  effect.Position, g.zeroVector, g.p)
     end
   end
 end
@@ -104,8 +106,8 @@ PostEffectUpdate.functions[485] = function(effect)
   if effect.Variant == EffectVariant.FETUS_BOSS_TARGET and
      effect.FrameCount == 30 then -- 1 second
 
-    local rocket = g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.FETUS_BOSS_ROCKET, -- 1000
-                             effect.Position, g.zeroVector, nil, 0, 0)
+    local rocket = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.FETUS_BOSS_ROCKET, 0, -- 1000
+                               effect.Position, g.zeroVector, nil)
     local rocketHeightOffset = Vector(0, -300)
     rocket.SpriteOffset = rocket.SpriteOffset + rocketHeightOffset
 

@@ -3,10 +3,11 @@ local PreGetCollectible = {}
 -- Includes
 local g = require("babies_mod/globals")
 
--- ModCallbacks.MC_PRE_GET_COLLECTIBLE (62)
 -- This callback is called when the game needs to get a new random item from an item pool
 -- It is undocumented, but you can return an integer from this callback in order to change the returned item pool type
 -- It is not called for "set" drops (like Mr. Boom from Wrath) and manually spawned items (like the Checkpoint)
+
+-- ModCallbacks.MC_PRE_GET_COLLECTIBLE (62)
 function PreGetCollectible:Main(poolType, decrease, seed)
   -- Local variables
   local type = g.run.babyType

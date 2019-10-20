@@ -5,7 +5,7 @@ local g = {}
 --
 
 -- The version is updated automatically by the "release.py" script
-g.version = "v1.0.2"
+g.version = "v1.0.3"
 
 -- These are variables that are reset at the beginning of every run
 -- (defaults are set below in the "g:InitRun()" function)
@@ -2616,7 +2616,7 @@ g.babies = {
   },
   {
     name = "Plague Baby",
-    description = "Leaves a trail of green creep",
+    description = "Leaves a trail of creep",
     sprite = "396_baby_plague.png",
   },
   {

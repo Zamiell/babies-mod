@@ -35,23 +35,6 @@ PostFireTear.functions[2] = function(tear)
   end
 end
 
--- Water Baby
-PostFireTear.functions[3] = function(tear)
-  if g.run.babyCounters == 0 then
-    return
-  end
-  g.run.babyCounters = g.run.babyCounters - 1
-
-  -- Make it look more impressive
-  tear.Scale = 5
-  tear.KnockbackMultiplier = 20
-
-  -- We can't modify the damage ("BaseDamage" is a constant)
-  -- We can improve the damage in the EntityTakeDmg callback
-  -- Mark the tear for later (tears do not usually use SubTypes and we cannot use the "GetData()" function)
-  tear.SubType = 1
-end
-
 -- Cockeyed Baby
 PostFireTear.functions[8] = function(tear)
   if g.run.babyBool then
@@ -253,6 +236,11 @@ PostFireTear.functions[230] = function(tear)
   tear.Velocity = tear.Velocity:Rotated(15)
 end
 
+-- Bawl Baby
+PostFireTear.functions[231] = function(tear)
+  tear.CollisionDamage = g.p.Damage / 2
+end
+
 -- 8 Ball Baby
 PostFireTear.functions[251] = function(tear)
   -- Local variables
@@ -298,8 +286,8 @@ end
 
 -- Slicer Baby
 PostFireTear.functions[331] = function(tear)
-  -- Mark that we shot this tear
-  tear.SubType = 1
+  -- Make the Soy Milk tears do extra damage
+  tear.CollisionDamage = g.p.Damage * 3
 end
 
 -- Boxers Baby
@@ -394,11 +382,9 @@ end
 
 -- Arcade Baby
 PostFireTear.functions[368] = function(tear)
-  g.run.babyCounters = 0
+  -- Changing the variant does not actually increase the damage, only the appearance
   tear:ChangeVariant(TearVariant.RAZOR) -- 28
-
-  -- Mark it so that we can increase the damage later
-  tear.SubType = 1
+  tear.CollisionDamage = g.p.Damage * 3
 end
 
 -- Pink Ghost Baby
@@ -456,10 +442,9 @@ end
 
 -- Tooth Head Baby
 PostFireTear.functions[442] = function(tear)
+  -- Changing the variant does not actually increase the damage, only the appearance
   tear:ChangeVariant(TearVariant.TOOTH) -- 2
-
-  -- Mark it so that we can increase the damage later
-  tear.SubType = 1
+  tear.CollisionDamage = g.p.Damage * 3.2
 end
 
 -- Green Koopa Baby

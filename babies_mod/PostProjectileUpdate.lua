@@ -54,8 +54,8 @@ end
 PostProjectileUpdate.functions[153] = function(projectile)
   -- Projectiles are reflected as bombs
   if projectile.Position:Distance(g.p.Position) <= g.babies[153].distance then
-    g.g:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_NORMAL, -- 4.1
-              projectile.Position, projectile.Velocity * -1, nil, 0, 0)
+    Isaac.Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_NORMAL, 0, -- 4.1
+                projectile.Position, projectile.Velocity * -1, nil)
     projectile:Remove()
   end
 end
