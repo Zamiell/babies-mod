@@ -4,7 +4,7 @@ local PreRoomEntitySpawn = {}
 local g = require("babies_mod/globals")
 
 -- ModCallbacks.MC_PRE_ROOM_ENTITY_SPAWN (71)
-function PreRoomEntitySpawn:Main(type, variant, subType, gridIndex, seed)
+function PreRoomEntitySpawn:Main(entityType, variant, subType, gridIndex, seed)
   -- Local variables
   local babyType = g.run.babyType
   local baby = g.babies[babyType]
@@ -17,9 +17,9 @@ function PreRoomEntitySpawn:Main(type, variant, subType, gridIndex, seed)
     return
   end
 
-  local babyFunc = PreRoomEntitySpawn.functions[type]
+  local babyFunc = PreRoomEntitySpawn.functions[babyType]
   if babyFunc ~= nil then
-    return babyFunc()
+    return babyFunc(entityType)
   end
 end
 
@@ -27,12 +27,12 @@ end
 PreRoomEntitySpawn.functions = {}
 
 -- Chompers Baby
-PreRoomEntitySpawn.functions[143] = function()
+PreRoomEntitySpawn.functions[143] = function(entityType)
   if g.r:IsFirstVisit() and
-     type >= 1000 and -- We only care about grid entities
-     type ~= 4500 and -- Make an exception for Pressure Plates
-     type ~= 9000 and -- Make an exception for trapdoors
-     type ~= 9100 then -- Make an exception for crawlspaces
+     entityType >= 1000 and -- We only care about grid entities
+     entityType ~= 4500 and -- Make an exception for Pressure Plates
+     entityType ~= 9000 and -- Make an exception for trapdoors
+     entityType ~= 9100 then -- Make an exception for crawlspaces
 
     -- Everything is Red Poop
     return {1490, 0, 0}
@@ -40,7 +40,7 @@ PreRoomEntitySpawn.functions[143] = function()
 end
 
 -- Suit Baby
-PreRoomEntitySpawn.functions[287] = function()
+PreRoomEntitySpawn.functions[287] = function(entityType)
   -- All special rooms are Devil Rooms
   -- Ignore some select special rooms
   local roomType = g.r:GetType()
@@ -58,12 +58,12 @@ PreRoomEntitySpawn.functions[287] = function()
 end
 
 -- Red Wrestler Baby
-PreRoomEntitySpawn.functions[389] = function()
+PreRoomEntitySpawn.functions[389] = function(entityType)
   if g.r:IsFirstVisit() and
-     type >= 1000 and -- We only care about grid entities
-     type ~= 4500 and -- Make an exception for Pressure Plates
-     type ~= 9000 and -- Make an exception for trapdoors
-     type ~= 9100 then -- Make an exception for crawlspaces
+     entityType >= 1000 and -- We only care about grid entities
+     entityType ~= 4500 and -- Make an exception for Pressure Plates
+     entityType ~= 9000 and -- Make an exception for trapdoors
+     entityType ~= 9100 then -- Make an exception for crawlspaces
 
     -- Everything is TNT
     return {1300, 0, 0}

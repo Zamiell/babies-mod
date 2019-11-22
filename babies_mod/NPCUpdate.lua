@@ -17,7 +17,7 @@ function NPCUpdate:Main(npc)
 
   local babyFunc = NPCUpdate.functions[type]
   if babyFunc ~= nil then
-    babyFunc(npc)
+    return babyFunc(npc)
   end
 end
 

@@ -15,9 +15,9 @@ function PostProjectileUpdate:Main(projectile)
     return
   end
 
-  local babyFunc = PostProjectileUpdate.functions[type]
+  local babyFunc = PostProjectileUpdate.functions[babyType]
   if babyFunc ~= nil then
-    babyFunc(projectile)
+    return babyFunc(projectile)
   end
 end
 

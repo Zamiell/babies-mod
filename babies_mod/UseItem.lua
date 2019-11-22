@@ -6,8 +6,8 @@ local g = require("babies_mod/globals")
 -- ModCallbacks.MC_USE_ITEM (3)
 function UseItem:Main(collectibleType, RNG)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
@@ -23,8 +23,8 @@ function UseItem:Item49(collectibleType, RNG)
   local gameFrameCount = g.g:GetFrameCount()
   local activeCharge = g.p:GetActiveCharge()
   local batteryCharge = g.p:GetBatteryCharge()
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
@@ -40,8 +40,8 @@ end
 function UseItem:Item86(collectibleType, RNG)
   -- Local variables
   local gameFrameCount = g.g:GetFrameCount()
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
@@ -62,8 +62,8 @@ end
 function UseItem:Item282(collectibleType, RNG)
   -- Local variables
   local gameFrameCount = g.g:GetFrameCount()
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end

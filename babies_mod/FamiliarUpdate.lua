@@ -7,15 +7,15 @@ local Misc = require("babies_mod/misc")
 -- ModCallbacks.MC_FAMILIAR_UPDATE (6)
 function FamiliarUpdate:Main(familiar)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
 
-  local babyFunc = FamiliarUpdate.functions[type]
+  local babyFunc = FamiliarUpdate.functions[babyType]
   if babyFunc ~= nil then
-    babyFunc(familiar)
+    return babyFunc(familiar)
   end
 end
 
@@ -37,7 +37,7 @@ FamiliarUpdate.functions[37] = function(familiar)
 end
 
 -- Sucky Baby
-FamiliarUpdate.functions[48] = function(familiar)
+FamiliarUpdate.functions[47] = function(familiar)
   -- Keep it locked on the player to emulate a Succubus aura
   if familiar.Variant == FamiliarVariant.SUCCUBUS then -- 96
     familiar.Position = g.p.Position
@@ -76,7 +76,7 @@ FamiliarUpdate.functions[326] = function(familiar)
 end
 
 -- Dino Baby
-FamiliarUpdate.functions[327] = function(familiar)
+FamiliarUpdate.functions[376] = function(familiar)
   if familiar.Variant == FamiliarVariant.BOBS_BRAIN and -- 59
      familiar.SubType == 1 then -- Bob's Brain familiars have a SubType of 1 after they explode
 

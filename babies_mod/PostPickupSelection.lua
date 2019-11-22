@@ -6,15 +6,15 @@ local g = require("babies_mod/globals")
 -- ModCallbacks.MC_POST_PICKUP_SELECTION (37)
 function PostPickupSelection:Main(pickup, variant, subType)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
 
-  local babyFunc = PostPickupSelection.functions[type]
+  local babyFunc = PostPickupSelection.functions[babyType]
   if babyFunc ~= nil then
-    babyFunc(pickup, variant, subType)
+    return babyFunc(pickup, variant, subType)
   end
 end
 

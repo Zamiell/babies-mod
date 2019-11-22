@@ -8,15 +8,15 @@ local g = require("babies_mod/globals")
 -- ModCallbacks.MC_POST_LASER_INIT (47)
 function PostLaserInit:Main(laser)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
 
-  local babyFunc = PostLaserInit.functions[type]
+  local babyFunc = PostLaserInit.functions[babyType]
   if babyFunc ~= nil then
-    babyFunc(laser)
+    return babyFunc(laser)
   end
 end
 

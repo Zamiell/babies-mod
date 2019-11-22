@@ -7,15 +7,15 @@ local Misc = require("babies_mod/misc")
 -- ModCallbacks.MC_POST_LASER_UPDATE (48)
 function PostLaserUpdate:Main(laser)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
 
-  local babyFunc = PostLaserUpdate.functions[type]
+  local babyFunc = PostLaserUpdate.functions[babyType]
   if babyFunc ~= nil then
-    babyFunc(laser)
+    return babyFunc(laser)
   end
 end
 

@@ -9,8 +9,8 @@ local Misc = require("babies_mod/misc")
 -- ModCallbacks.MC_POST_PICKUP_INIT (34)
 function PostPickupInit:Main(pickup)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
@@ -22,9 +22,9 @@ function PostPickupInit:Main(pickup)
     return
   end
 
-  local babyFunc = PostPickupInit.functions[type]
+  local babyFunc = PostPickupInit.functions[babyType]
   if babyFunc ~= nil then
-    babyFunc(pickup)
+    return babyFunc(pickup)
   end
 end
 

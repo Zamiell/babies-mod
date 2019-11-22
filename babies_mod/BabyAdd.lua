@@ -11,8 +11,8 @@ function BabyAdd:Main()
   local coins = g.p:GetNumCoins()
   local bombs = g.p:GetNumBombs()
   local keys = g.p:GetNumKeys()
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
@@ -187,7 +187,7 @@ function BabyAdd:Main()
   end
 
   -- Add miscellaneous other effects
-  local babyFunc = BabyAdd.functions[type]
+  local babyFunc = BabyAdd.functions[babyType]
   if babyFunc ~= nil then
     babyFunc()
   end
@@ -200,7 +200,7 @@ function BabyAdd:Main()
   g.p.SpriteScale = Vector(1, 1)
 
   -- We don't have to set the sprite now, because it will be set later on in the MC_POST_NEW_ROOM callback
-  Isaac.DebugString("Applied baby: " .. tostring(type) .. " - " .. baby.name)
+  Isaac.DebugString("Applied baby: " .. tostring(babyType) .. " - " .. baby.name)
 end
 
 -- The collection of functions for each baby

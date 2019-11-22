@@ -377,7 +377,7 @@ function PostRender:DrawBabyEffects()
 
   local babyFunc = PostRender.functions[type]
   if babyFunc ~= nil then
-    babyFunc()
+    return babyFunc()
   end
 end
 

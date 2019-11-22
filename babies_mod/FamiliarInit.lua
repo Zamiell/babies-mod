@@ -6,15 +6,15 @@ local g = require("babies_mod/globals")
 -- ModCallbacks.MC_FAMILIAR_INIT (7)
 function FamiliarInit:Main(familiar)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
 
-  local babyFunc = FamiliarInit.functions[type]
+  local babyFunc = FamiliarInit.functions[babyType]
   if babyFunc ~= nil then
-    babyFunc(familiar)
+    return babyFunc(familiar)
   end
 end
 
@@ -31,7 +31,7 @@ FamiliarInit.functions[30] = function(familiar)
 end
 
 -- Sucky Baby
-FamiliarInit.functions[48] = function(familiar)
+FamiliarInit.functions[47] = function(familiar)
   -- Make the Sucubus invisible
   -- (setting "familiar.Visible = false" does not work because it will also make the aura invisible)
   if familiar.Variant == FamiliarVariant.SUCCUBUS then -- 96
@@ -56,20 +56,20 @@ FamiliarInit.functions[117] = function(familiar)
   end
 end
 
--- Black Eye Baby
-FamiliarInit.functions[164] = function(familiar)
-  if familiar.Variant == FamiliarVariant.LEPROCY and -- 121
-     g.run.babyCounters < 3 then
-
-    g.run.babyCounters = g.run.babyCounters + 1
-  end
-end
-
 -- Graven Baby
 FamiliarInit.functions[453] = function(familiar)
   -- Bumbo needs 25 coins to reach the max level
   if familiar.Variant == FamiliarVariant.BUMBO then -- 88
     familiar.Coins = 25
+  end
+end
+
+-- Black Eye Baby
+FamiliarInit.functions[525] = function(familiar)
+  if familiar.Variant == FamiliarVariant.LEPROCY and -- 121
+     g.run.babyCounters < 3 then
+
+    g.run.babyCounters = g.run.babyCounters + 1
   end
 end
 

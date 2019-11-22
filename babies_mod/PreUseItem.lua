@@ -6,8 +6,8 @@ local g = require("babies_mod/globals")
 -- CollectibleType.COLLECTIBLE_POOP (36)
 function PreUseItem:Item36(collectibleType, RNG)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil or
      baby.name ~= "Panda Baby" then -- 262
 
@@ -26,8 +26,8 @@ end
 -- CollectibleType.COLLECTIBLE_LEMON_MISHAP (56)
 function PreUseItem:Item56(collectibleType, RNG)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil or
      baby.name ~= "Lemon Baby" then -- 232
 
@@ -42,8 +42,8 @@ end
 -- CollectibleType.COLLECTIBLE_ISAACS_TEARS (323)
 function PreUseItem:Item323(collectibleType, RNG)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil or
      baby.name ~= "Water Baby" then -- 3
 
@@ -72,8 +72,8 @@ end
 -- This callback is used naturally by Gulp! pills
 function PreUseItem:Item479(collectibleType, RNG)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil or
      baby.trinket == nil then
 
@@ -96,8 +96,8 @@ end
 function PreUseItem:Item504(collectibleType, RNG)
   -- Local variables
   local gameFrameCount = g.g:GetFrameCount()
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil or
      baby.name ~= "Pizza Baby" then -- 303
 

@@ -7,15 +7,15 @@ local Misc = require("babies_mod/misc")
 -- ModCallbacks.MC_POST_NPC_INIT (27)
 function PostNPCInit:Main(npc)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
 
-  local babyFunc = PostNPCInit.functions[type]
+  local babyFunc = PostNPCInit.functions[babyType]
   if babyFunc ~= nil then
-    babyFunc(npc)
+    return babyFunc(npc)
   end
 end
 

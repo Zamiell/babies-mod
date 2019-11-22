@@ -8,15 +8,15 @@ local g = require("babies_mod/globals")
 -- ModCallbacks.MC_POST_EFFECT_UPDATE (55)
 function PostEffectUpdate:Main(effect)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
 
-  local babyFunc = PostEffectUpdate.functions[type]
+  local babyFunc = PostEffectUpdate.functions[babyType]
   if babyFunc ~= nil then
-    babyFunc(effect)
+    return babyFunc(effect)
   end
 end
 
@@ -80,8 +80,8 @@ PostEffectUpdate.functions[281] = function(effect)
   end
 
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   local gameFrameCount = g.g:GetFrameCount()
 
   if effect.FrameCount == 1 then

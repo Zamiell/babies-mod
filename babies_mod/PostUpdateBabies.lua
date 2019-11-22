@@ -7,10 +7,10 @@ local PseudoRoomClear = require("babies_mod/pseudoroomclear")
 
 function PostUpdateBabies:Main()
   -- Local variables
-  local type = g.run.babyType
-  local babyFunc = PostUpdateBabies.functions[type]
+  local babyType = g.run.babyType
+  local babyFunc = PostUpdateBabies.functions[babyType]
   if babyFunc ~= nil then
-    babyFunc()
+    return babyFunc()
   end
 end
 

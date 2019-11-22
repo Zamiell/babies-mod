@@ -7,8 +7,8 @@ local g = require("babies_mod/globals")
 function EvaluateCache:Main(player, cacheFlag)
   -- Local variables
   local character = player:GetPlayerType()
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
@@ -28,7 +28,7 @@ function EvaluateCache:Main(player, cacheFlag)
     -- (setting "player.FireDelay" here will not work, so do one frame later in the MC_POST_UPDATE callback)
   end
 
-  local babyFunc = EvaluateCache.functions[type]
+  local babyFunc = EvaluateCache.functions[babyType]
   if babyFunc ~= nil then
     return babyFunc(player, cacheFlag)
   end
@@ -92,8 +92,8 @@ EvaluateCache.functions[164] = function(player, cacheFlag)
   -- Starts with Leprosy, +5 damage on Leprosy breaking
   -- We use the "babyFrame" variable to track how many damage ups we have recieved
   if cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
-      local type = g.run.babyType
-      local baby = g.babies[type]
+      local babyType = g.run.babyType
+      local baby = g.babies[babyType]
       player.Damage = player.Damage + (g.run.babyFrame * baby.num)
   end
 end

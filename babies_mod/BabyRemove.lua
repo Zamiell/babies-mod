@@ -5,8 +5,8 @@ local g = require("babies_mod/globals")
 
 function BabyRemove:Main()
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
@@ -65,7 +65,7 @@ function BabyRemove:Main()
   end
 
   -- Remove miscellaneous effects
-  local babyFunc = BabyRemove.functions[type]
+  local babyFunc = BabyRemove.functions[babyType]
   if babyFunc ~= nil then
     babyFunc()
   end

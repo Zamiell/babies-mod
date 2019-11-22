@@ -6,15 +6,15 @@ local g = require("babies_mod/globals")
 -- ModCallbacks.MC_POST_TEAR_INIT (39)
 function PostTearInit:Main(tear)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
 
-  local babyFunc = PostTearInit.functions[type]
+  local babyFunc = PostTearInit.functions[babyType]
   if babyFunc ~= nil then
-    babyFunc(tear)
+    return babyFunc(tear)
   end
 end
 

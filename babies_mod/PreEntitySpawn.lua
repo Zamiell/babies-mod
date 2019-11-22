@@ -4,7 +4,7 @@ local PreEntitySpawn = {}
 local g = require("babies_mod/globals")
 
 -- ModCallbacks.MC_PRE_ENTITY_SPAWN (24)
-function PreEntitySpawn:Main(type, variant, subType, position, velocity, spawner, seed)
+function PreEntitySpawn:Main(entityType, variant, subType, position, velocity, spawner, seed)
   -- Local variables
   local babyType = g.run.babyType
   local baby = g.babies[babyType]
@@ -12,18 +12,18 @@ function PreEntitySpawn:Main(type, variant, subType, position, velocity, spawner
     return
   end
 
-  if type == EntityType.ENTITY_SLOT and
+  if entityType == EntityType.ENTITY_SLOT and
      g.run.clockworkAssembly then
 
     g.run.clockworkAssembly = false
-    return { type, 10, subType, seed }
+    return { entityType, 10, subType, seed }
   end
 
   if baby.name == "Purple Baby" and -- 252
-     type == EntityType.ENTITY_FIREPLACE and -- 33
+     entityType == EntityType.ENTITY_FIREPLACE and -- 33
      variant ~= 2 then -- Blue Fire Place
 
-    return { type, 2, subType, seed }
+    return { entityType, 2, subType, seed }
   end
 end
 

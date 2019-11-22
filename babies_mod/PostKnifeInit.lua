@@ -12,9 +12,9 @@ function PostKnifeInit:Main(knife)
     return
   end
 
-  local babyFunc = PostKnifeInit.functions[type]
+  local babyFunc = PostKnifeInit.functions[babyType]
   if babyFunc ~= nil then
-    babyFunc(knife)
+    return babyFunc(knife)
   end
 end
 

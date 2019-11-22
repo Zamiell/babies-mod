@@ -7,15 +7,15 @@ local Misc = require("babies_mod/misc")
 -- ModCallbacks.MC_POST_BOMB_INIT (57)
 function PostBombInit:Main(bomb)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
 
-  local babyFunc = PostBombInit.functions[type]
+  local babyFunc = PostBombInit.functions[babyType]
   if babyFunc ~= nil then
-    babyFunc(bomb)
+    return babyFunc(bomb)
   end
 end
 

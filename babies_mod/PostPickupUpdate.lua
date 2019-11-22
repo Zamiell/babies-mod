@@ -11,8 +11,8 @@ function PostPickupUpdate:Main(pickup)
   -- Local variables
   local data = pickup:GetData()
   local sprite = pickup:GetSprite()
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
@@ -48,15 +48,15 @@ function PostPickupUpdate:Main(pickup)
     Isaac.DebugString("Touched pickup: " .. tostring(pickup.Type) .. "." .. tostring(pickup.Variant) .. "." ..
                       tostring(pickup.SubType) .. " (BM)")
 
-    local babyFunc = PostPickupUpdate.touchedFunctions[type]
+    local babyFunc = PostPickupUpdate.touchedFunctions[babyType]
     if babyFunc ~= nil then
       babyFunc()
     end
   end
 
-  local babyFunc = PostPickupUpdate.functions[type]
+  local babyFunc = PostPickupUpdate.functions[babyType]
   if babyFunc ~= nil then
-    babyFunc(pickup)
+    return babyFunc(pickup)
   end
 end
 
@@ -107,7 +107,7 @@ PostPickupUpdate.functions[140] = function(pickup)
 end
 
 -- Rictus Baby
-PostPickupUpdate.functions[153] = function(pickup)
+PostPickupUpdate.functions[154] = function(pickup)
   if pickup.Variant ~= PickupVariant.PICKUP_COLLECTIBLE and -- 100
      pickup.Variant ~= PickupVariant.PICKUP_SHOPITEM and -- 150
      pickup.Variant ~= PickupVariant.PICKUP_BIGCHEST and -- 340

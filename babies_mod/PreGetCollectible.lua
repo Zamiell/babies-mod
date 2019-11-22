@@ -10,8 +10,8 @@ local g = require("babies_mod/globals")
 -- ModCallbacks.MC_PRE_GET_COLLECTIBLE (62)
 function PreGetCollectible:Main(poolType, decrease, seed)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
@@ -22,7 +22,7 @@ function PreGetCollectible:Main(poolType, decrease, seed)
     return
   end
 
-  local babyFunc = PreGetCollectible.functions[type]
+  local babyFunc = PreGetCollectible.functions[babyType]
   if babyFunc ~= nil then
     return babyFunc()
   end

@@ -7,15 +7,15 @@ local Misc = require("babies_mod/misc")
 -- ModCallbacks.MC_POST_TEAR_UPDATE (40)
 function PostTearUpdate:Main(tear)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
 
-  local babyFunc = PostTearUpdate.functions[type]
+  local babyFunc = PostTearUpdate.functions[babyType]
   if babyFunc ~= nil then
-    babyFunc(tear)
+    return babyFunc(tear)
   end
 end
 
@@ -91,7 +91,7 @@ PostTearUpdate.functions[228] = function(tear)
 end
 
 -- 8 Ball Baby
-PostTearUpdate.functions[251] = function(tear)
+PostTearUpdate.functions[246] = function(tear)
   -- Orbiting tears
   if tear.SubType ~= 1 then
     return
@@ -113,7 +113,7 @@ PostTearUpdate.functions[251] = function(tear)
 end
 
 -- Lantern Baby
-PostTearUpdate.functions[251] = function(tear)
+PostTearUpdate.functions[292] = function(tear)
   -- Emulate having a Godhead aura
   if tear.Parent ~= nil and
      tear.Parent.Type == EntityType.ENTITY_PLAYER then -- 1

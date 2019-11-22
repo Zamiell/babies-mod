@@ -9,8 +9,8 @@ local PostUpdateBabies = require("babies_mod/postupdatebabies")
 -- ModCallbacks.MC_POST_UPDATE (1)
 function PostUpdate:Main()
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
@@ -99,8 +99,8 @@ end
 -- Check to see if this is a trinket baby and they dropped the trinket
 function PostUpdate:CheckTrinket()
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
 
   -- Check to see if we are on baby that is supposed to have a permanent trinket
   if baby.trinket == nil then
@@ -173,8 +173,8 @@ function PostUpdate:RoomCleared()
   -- Local variables
   local roomType = g.r:GetType()
   local roomSeed = g.r:GetSpawnSeed() -- Gets a reproducible seed based on the room, e.g. "2496979501"
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
 
   Isaac.DebugString("Room cleared.")
 
@@ -207,8 +207,8 @@ function PostUpdate:CheckSoftlock()
   -- Local variables
   local roomFrameCount = g.r:GetFrameCount()
   local gridSize = g.r:GetGridSize()
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
@@ -251,8 +251,8 @@ end
 function PostUpdate:CheckSoftlock2()
   -- Local variables
   local roomFrameCount = g.r:GetFrameCount()
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
@@ -292,8 +292,8 @@ function PostUpdate:CheckGridEntities()
     roomIndex = g.l:GetCurrentRoomIndex()
   end
   local gridSize = g.r:GetGridSize()
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
 
   for i = 1, gridSize do
     local gridEntity = g.r:GetGridEntity(i)
@@ -359,8 +359,8 @@ end
 function PostUpdate:CheckTrapdoor()
   -- Local variables
   local playerSprite = g.p:GetSprite()
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end

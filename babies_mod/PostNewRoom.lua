@@ -104,7 +104,7 @@ function PostNewRoom:ApplyTemporaryEffects()
   -- Apply baby-specific temporary effects
   local babyFunc = PostNewRoom.functions[type]
   if babyFunc ~= nil then
-    babyFunc()
+    return babyFunc()
   end
 end
 

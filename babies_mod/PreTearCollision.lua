@@ -8,13 +8,13 @@ local g = require("babies_mod/globals")
 -- ModCallbacks.MC_PRE_TEAR_COLLISION (42)
 function PreTearCollision:Main(tear, collider, low)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
 
-  local babyFunc = PreTearCollision.functions[type]
+  local babyFunc = PreTearCollision.functions[babyType]
   if babyFunc ~= nil then
     return babyFunc(tear, collider)
   end

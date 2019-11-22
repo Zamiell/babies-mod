@@ -8,8 +8,8 @@ local EntityTakeDmgPlayer = require("babies_mod/entitytakedmgplayer")
 -- (this must return nil or false)
 function EntityTakeDmg:Main(tookDamage, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end

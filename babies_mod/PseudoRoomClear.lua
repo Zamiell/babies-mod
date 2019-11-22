@@ -40,8 +40,8 @@ end
 
 function PseudoRoomClear:InitializeDoors()
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
 
   g.r:SetClear(true)
   g.run.roomPseudoClear = false
@@ -163,8 +163,8 @@ end
 -- This roughly emulates what happens when you normally clear a room
 function PseudoRoomClear:ClearRoom()
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
 
   g.run.roomPseudoClear = true
   Isaac.DebugString("Room is now pseudo-cleared.")

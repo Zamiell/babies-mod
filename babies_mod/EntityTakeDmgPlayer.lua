@@ -7,8 +7,8 @@ local Misc = require("babies_mod/misc")
 function EntityTakeDmgPlayer:Main(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   -- Local variables
   local gameFrameCount = g.g:GetFrameCount()
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
 
   -- Check to see if the player is supposed to be temporarily invulnerable
   if g.run.invulnerabilityFrame ~= 0 and
@@ -27,7 +27,7 @@ function EntityTakeDmgPlayer:Main(player, damageAmount, damageFlag, damageSource
     return false
   end
 
-  local babyFunc = EntityTakeDmgPlayer.functions[type]
+  local babyFunc = EntityTakeDmgPlayer.functions[babyType]
   if babyFunc ~= nil then
     return babyFunc(player, damageAmount, damageFlag, damageSource, damageCountdownFrames)
   end

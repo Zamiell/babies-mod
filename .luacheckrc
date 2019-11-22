@@ -76,8 +76,4 @@ globals = {
   "PoopVariant",
   "BlueFlyVariant",
   "RoomTransition",
-
-  -- Stats API 2.0
-  "stats",
-  "StatStage",
 }

@@ -3,7 +3,7 @@ local BabyCheckValid = {}
 -- Includes
 local g = require("babies_mod/globals")
 
-function BabyCheckValid:Main(type)
+function BabyCheckValid:Main(babyType)
   -- Local variables
   local stage = g.l:GetStage()
   local activeItem = g.p:GetActiveItem()
@@ -13,11 +13,11 @@ function BabyCheckValid:Main(type)
   local coins = g.p:GetNumCoins()
   local bombs = g.p:GetNumBombs()
   local keys = g.p:GetNumKeys()
-  local baby = g.babies[type]
+  local baby = g.babies[babyType]
 
   -- Check to see if we already got this baby in this run / multi-character custom challenge
   for i = 1, #g.pastBabies do
-    if g.pastBabies[i] == type then
+    if g.pastBabies[i] == babyType then
       return false
     end
   end
@@ -515,7 +515,7 @@ function BabyCheckValid:Main(type)
          stage == 11 then
 
     -- Everything is TNT
-    -- There is almost no grid entities on The Chest
+    -- There are almost no grid entities on The Chest / Dark Room
     return false
 
   elseif baby.name == "Rich Baby" and -- 424

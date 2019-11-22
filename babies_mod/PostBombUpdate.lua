@@ -7,15 +7,15 @@ local Misc = require("babies_mod/misc")
 -- ModCallbacks.MC_POST_BOMB_UPDATE (58)
 function PostBombUpdate:Main(bomb)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
 
-  local babyFunc = PostBombUpdate.functions[type]
+  local babyFunc = PostBombUpdate.functions[babyType]
   if babyFunc ~= nil then
-    babyFunc(bomb)
+    return babyFunc(bomb)
   end
 end
 
@@ -38,7 +38,7 @@ PostBombUpdate.functions[75] = function(bomb)
 end
 
 -- Tongue Baby
-PostBombUpdate.functions[75] = function(bomb)
+PostBombUpdate.functions[97] = function(bomb)
   -- Recharge bombs
   if bomb.SpawnerType == EntityType.ENTITY_PLAYER and -- 1
      bomb.FrameCount == 51 then -- Bombs explode on the 51st frame exactly

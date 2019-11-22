@@ -6,15 +6,15 @@ local g = require("babies_mod/globals")
 -- ModCallbacks.MC_POST_FIRE_TEAR (61)
 function PostFireTear:Main(tear)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
 
-  local babyFunc = PostFireTear.functions[type]
+  local babyFunc = PostFireTear.functions[babyType]
   if babyFunc ~= nil then
-    babyFunc(tear)
+    return babyFunc(tear)
   end
 end
 
@@ -24,8 +24,8 @@ PostFireTear.functions = {}
 -- Bloat Baby
 PostFireTear.functions[2] = function(tear)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
 
   g.run.babyCounters = g.run.babyCounters + 1
   if g.run.babyCounters == baby.num then
@@ -179,8 +179,8 @@ end
 -- Lights Baby
 PostFireTear.functions[165] = function(tear)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
 
   g.run.babyCounters = g.run.babyCounters + 1
   if g.run.babyCounters == baby.num then
@@ -242,10 +242,10 @@ PostFireTear.functions[231] = function(tear)
 end
 
 -- 8 Ball Baby
-PostFireTear.functions[251] = function(tear)
+PostFireTear.functions[246] = function(tear)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
 
   -- Mark that we shot this tear
   tear.SubType = 1
@@ -358,8 +358,8 @@ end
 -- Mushroom Girl Baby
 PostFireTear.functions[361] = function(tear)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
 
   -- Extra bomb shots
   g.run.babyCounters = g.run.babyCounters + 1
@@ -402,8 +402,8 @@ end
 -- Dark Space Soldier Baby
 PostFireTear.functions[398] = function(tear)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
 
   g.run.babyCounters = g.run.babyCounters + 1
   if g.run.babyCounters == baby.num then
@@ -429,8 +429,8 @@ end
 -- Little Horn Baby
 PostFireTear.functions[429] = function(tear)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
 
   -- Void tears
   g.run.babyCounters = g.run.babyCounters + 1

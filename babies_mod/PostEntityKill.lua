@@ -5,8 +5,8 @@ local g = require("babies_mod/globals")
 
 -- ModCallbacks.MC_POST_ENTITY_KILL (68)
 function PostEntityKill:Main(entity)
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
   if baby == nil then
     return
   end
@@ -17,9 +17,9 @@ function PostEntityKill:Main(entity)
     return
   end
 
-  local babyFunc = PostEntityKill.functions[type]
+  local babyFunc = PostEntityKill.functions[babyType]
   if babyFunc ~= nil then
-    babyFunc(npc)
+    return babyFunc(npc)
   end
 end
 
@@ -138,8 +138,8 @@ end
 -- Blue Wrestler Baby
 PostEntityKill.functions[388] = function(npc)
   -- Local variables
-  local type = g.run.babyType
-  local baby = g.babies[type]
+  local babyType = g.run.babyType
+  local baby = g.babies[babyType]
 
   -- Enemies spawn projectiles upon death
   -- Mark to fire some tears one frame at a time
