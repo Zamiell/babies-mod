@@ -209,6 +209,7 @@ function BabyCheckValid:Main(babyType)
 
   elseif baby.name == "Masked Baby" and -- 115
          (g.p:HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) or -- 69
+          g.p:HasCollectible(CollectibleType.COLLECTIBLE_BRIMSTONE) or -- 118
           g.p:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) or -- 229
           g.p:HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE) or -- 316
           g.p:HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_VOID)) then -- 399
@@ -491,11 +492,14 @@ function BabyCheckValid:Main(babyType)
     return false
 
   elseif baby.name == "Monk Baby" and -- 313
-         stage == 6 then
+         (stage == 6 or
+          stage == 8) then
 
     -- PAC1F1CM
     -- If a Devil Room or Angel Room spawns after the Mom fight,
     -- the Mom doors will cover up the Devil/Angel Room door
+    -- On floor 8, The exits will not spawn correctly
+    -- (On floor 11, the end of the run seems to spawn correctly)
     return false
 
   elseif baby.name == "Puzzle Baby" and -- 315

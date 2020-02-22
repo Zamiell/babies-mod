@@ -97,13 +97,14 @@ PostTearUpdate.functions[246] = function(tear)
     return
   end
 
-  local positionMod = Vector(0, g.babies[251].distance * -1) -- The tear starts directly above the player
+  local distance = g.babies[246].distance
+  local positionMod = Vector(0, distance * -1) -- The tear starts directly above the player
   local degrees = tear.FrameCount * 8 -- Tears rotate 4 degrees per frame
   positionMod = positionMod:Rotated(degrees)
   tear.Position = g.p.Position + positionMod
 
   -- We want the tear to be moving perpendicular to the line between the player and the tear
-  tear.Velocity = Vector(g.babies[251].distance / 4, 0)
+  tear.Velocity = Vector(distance / 4, 0)
   tear.Velocity = tear.Velocity:Rotated(degrees)
 
   -- Keep it in the air for a while

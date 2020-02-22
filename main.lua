@@ -208,7 +208,7 @@ for i = 1, #g.babies do
     end
   end
   if baby.item2 ~= nil then
-    if g:GetItemConfig(baby.item2).Type == ItemType.ITEM_ACTIVE then
+    if g:GetItemConfig(baby.item2).Type == ItemType.ITEM_ACTIVE then -- 3
       Isaac.DebugString("ERROR: Baby #" .. tostring(i) .. " has an active item in the second slot.")
     end
   end

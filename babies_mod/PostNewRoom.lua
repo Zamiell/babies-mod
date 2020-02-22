@@ -358,7 +358,7 @@ PostNewRoom.functions[249] = function()
   local roomType = g.r:GetType()
   if not g.run.babyBool or
      roomType == RoomType.ROOM_BOSS or -- 5
-     roomType ~= RoomType.ROOM_DEVIL then -- 14
+     roomType == RoomType.ROOM_DEVIL then -- 14
 
      -- Make an exception for Boss Rooms and Devil Rooms
      return
