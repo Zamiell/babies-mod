@@ -43,16 +43,34 @@ end
 
 -- Crow Baby
 FamiliarInit.functions[117] = function(familiar)
-  if familiar.Variant == FamiliarVariant.DEAD_BIRD and -- 14
-     not g.run.babyBool then
-
+  if (
+    familiar.Variant == FamiliarVariant.DEAD_BIRD -- 14
+    and not g.run.babyBool
+  ) then
     -- Spawn 5 bird familiars instead of 4
     g.run.babyBool = true
     for i = 1, 4 do
-      Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.DEAD_BIRD, 0, -- 3.14
-                  g.p.Position, g.zeroVector, nil)
+      Isaac.Spawn(
+        EntityType.ENTITY_FAMILIAR, -- 3
+        FamiliarVariant.DEAD_BIRD, -- 14
+        0,
+        g.p.Position,
+        g.zeroVector,
+        nil
+      )
     end
     g.run.babyBool = false
+  end
+end
+
+-- Black Eye Baby
+FamiliarInit.functions[164] = function(familiar)
+  if (
+    familiar.Variant == FamiliarVariant.LEPROCY -- 121
+    and g.run.babyCounters < 3
+  ) then
+    -- We use the "babyCounters" variable to track how Leprocy familiars are in the room
+    g.run.babyCounters = g.run.babyCounters + 1
   end
 end
 
@@ -61,15 +79,6 @@ FamiliarInit.functions[453] = function(familiar)
   -- Bumbo needs 25 coins to reach the max level
   if familiar.Variant == FamiliarVariant.BUMBO then -- 88
     familiar.Coins = 25
-  end
-end
-
--- Black Eye Baby
-FamiliarInit.functions[525] = function(familiar)
-  if familiar.Variant == FamiliarVariant.LEPROCY and -- 121
-     g.run.babyCounters < 3 then
-
-    g.run.babyCounters = g.run.babyCounters + 1
   end
 end
 

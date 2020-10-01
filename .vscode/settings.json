@@ -1,0 +1,20 @@
+// These are Visual Studio Code settings that should apply to this particular repository
+{
+  "editor.rulers": [100],
+
+  "files.associations": {
+    "*.anm2": "xml", // anm2 files are just XML files
+  },
+
+  // Linux line endings are used in this project
+  "files.eol": "\n",
+
+  // Automatically removing all trailing whitespace when saving a file
+  "files.trimTrailingWhitespace": true,
+
+  // We want luacheck errors to supersede luaparse errors
+  "lua.preferLuaCheckErrors": true,
+
+  // The default value is 5.1, but Isaac uses 5.3
+  "lua.targetVersion": "5.3",
+}

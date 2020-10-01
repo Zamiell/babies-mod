@@ -17,10 +17,11 @@ function BabyRemove:Main()
     g.p:RemoveCollectible(baby.item)
 
     -- We have to handle the Racing+ Schoolbag explicitly
-    if RacingPlusGlobals ~= nil and
-       g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
-       RacingPlusGlobals.run.schoolbag.item == baby.item then
-
+    if (
+      RacingPlusGlobals ~= nil
+      and g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM)
+      and RacingPlusGlobals.run.schoolbag.item == baby.item
+    ) then
       RacingPlusSchoolbag:Remove()
     end
   end
@@ -29,10 +30,11 @@ function BabyRemove:Main()
     g.p:RemoveCollectible(baby.item2)
 
     -- We have to handle the Racing+ Schoolbag explicitly
-    if RacingPlusGlobals ~= nil and
-       g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
-       RacingPlusGlobals.run.schoolbag.item == baby.item2 then
-
+    if (
+      RacingPlusGlobals ~= nil
+      and g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM)
+      and RacingPlusGlobals.run.schoolbag.item == baby.item2
+    ) then
       RacingPlusSchoolbag:Remove()
     end
   end
@@ -78,10 +80,13 @@ BabyRemove.functions = {}
 BabyRemove.functions[40] = function()
   -- Remove all of the Blue Flies and Blue Spiders
   for _, entity in ipairs(Isaac.GetRoomEntities()) do
-    if entity.Type == EntityType.ENTITY_FAMILIAR and -- 3
-        (entity.Variant == FamiliarVariant.BLUE_FLY or -- 43
-        entity.Variant == FamiliarVariant.BLUE_SPIDER) then -- 73
-
+    if (
+      entity.Type == EntityType.ENTITY_FAMILIAR -- 3
+      and (
+        entity.Variant == FamiliarVariant.BLUE_FLY -- 43
+        or entity.Variant == FamiliarVariant.BLUE_SPIDER -- 73
+      )
+    ) then
       entity:Remove()
     end
   end
@@ -132,9 +137,10 @@ end
 BabyRemove.functions[187] = function()
   -- Remove all of the explosive Blue Flies
   for _, entity in ipairs(Isaac.GetRoomEntities()) do
-    if entity.Type == EntityType.ENTITY_FAMILIAR and -- 3
-        entity.Variant == FamiliarVariant.BLUE_FLY then -- 43
-
+    if (
+      entity.Type == EntityType.ENTITY_FAMILIAR -- 3
+      and entity.Variant == FamiliarVariant.BLUE_FLY -- 43
+    ) then
       entity:Remove()
     end
   end
@@ -144,18 +150,20 @@ end
 BabyRemove.functions[219] = function()
   -- Starts with The Battery
   -- We need to remove any additional charge that has accumulated
-  if g.p:GetActiveItem() ~= 0 and
-     g.p:GetBatteryCharge() > 0 then
-
+  if (
+    g.p:GetActiveItem() ~= 0
+    and g.p:GetBatteryCharge() > 0
+  ) then
     g.p:DischargeActiveItem()
     g.p:FullCharge()
     g.sfx:Stop(SoundEffect.SOUND_BATTERYCHARGE) -- 170
   end
-  if RacingPlusGlobals ~= nil and
-      g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
-      RacingPlusGlobals.run.schoolbag.item ~= 0 and
-      RacingPlusGlobals.run.schoolbag.chargeBattery ~= 0 then
-
+  if (
+    RacingPlusGlobals ~= nil
+    and g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM)
+    and RacingPlusGlobals.run.schoolbag.item ~= 0
+    and RacingPlusGlobals.run.schoolbag.chargeBattery ~= 0
+  ) then
     RacingPlusGlobals.run.schoolbag.chargeBattery = 0
   end
 end
@@ -179,7 +187,13 @@ end
 -- Dino Baby
 BabyRemove.functions[376] = function()
   -- Remove any leftover eggs
-  local brains = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BOBS_BRAIN, -1, false, false) -- 3.59
+  local brains = Isaac.FindByType(
+    EntityType.ENTITY_FAMILIAR, -- 3
+    FamiliarVariant.BOBS_BRAIN, -- 59
+    -1,
+    false,
+    false
+  )
   for _, brain in ipairs(brains) do
     brain:Remove()
   end
@@ -207,9 +221,10 @@ end
 BabyRemove.functions[521] = function()
   -- Remove all of the Blue Spiders
   for _, entity in ipairs(Isaac.GetRoomEntities()) do
-    if entity.Type == EntityType.ENTITY_FAMILIAR and -- 3
-        entity.Variant == FamiliarVariant.BLUE_SPIDER then -- 73
-
+    if (
+      entity.Type == EntityType.ENTITY_FAMILIAR -- 3
+      and entity.Variant == FamiliarVariant.BLUE_SPIDER -- 73
+    ) then
       entity:Remove()
     end
   end
@@ -219,9 +234,10 @@ end
 BabyRemove.functions[533] = function()
   -- Remove all of the Blue Flies
   for _, entity in ipairs(Isaac.GetRoomEntities()) do
-    if entity.Type == EntityType.ENTITY_FAMILIAR and -- 3
-        entity.Variant == FamiliarVariant.BLUE_FLY then -- 43
-
+    if (
+      entity.Type == EntityType.ENTITY_FAMILIAR -- 3
+      and entity.Variant == FamiliarVariant.BLUE_FLY -- 43
+    ) then
       entity:Remove()
     end
   end

@@ -13,7 +13,8 @@ function UseItem:Main(collectibleType, RNG)
   end
 
   -- Certain items like The Nail mess up the player sprite (if they are standing still)
-  -- If we reload the sprite in this callback, it won't work, so mark to update it in the MC_POST_UPDATE callback
+  -- If we reload the sprite in this callback, it won't work,
+  -- so mark to update it in the MC_POST_UPDATE callback
   g.run.reloadSprite = true
 end
 
@@ -93,12 +94,13 @@ function UseItem:FlockOfSuccubi(collectibleType, RNG)
 end
 
 function UseItem:ChargingStation(collectibleType, RNG)
-  if g.p:GetNumCoins() == 0 or
-     RacingPlusGlobals == nil or
-     RacingPlusSchoolbag == nil or
-     not g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) or
-     RacingPlusGlobals.run.schoolbag.item == 0 then
-
+  if (
+    g.p:GetNumCoins() == 0
+    or RacingPlusGlobals == nil
+    or RacingPlusSchoolbag == nil
+    or not g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM)
+    or RacingPlusGlobals.run.schoolbag.item == 0
+  ) then
     return
   end
 

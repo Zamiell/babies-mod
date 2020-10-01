@@ -22,59 +22,124 @@ function Misc:SpawnRandomPickup(position, velocity, noItems)
   g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
 
   if pickupVariant == 1 then -- Heart
-    -- Random Heart - 5.10.0
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART,
-              position, velocity, nil, 0, g.run.randomSeed)
-
+    -- Random Heart
+    g.g:Spawn(
+      EntityType.ENTITY_PICKUP, -- 5
+      PickupVariant.PICKUP_HEART, -- 10
+      position,
+      velocity,
+      nil,
+      0,
+      g.run.randomSeed
+    )
   elseif pickupVariant == 2 then -- Coin
-    -- Random Coin - 5.20.0
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN,
-              position, velocity, nil, 0, g.run.randomSeed)
-
+    -- Random Coin
+    g.g:Spawn(
+      EntityType.ENTITY_PICKUP, -- 5
+      PickupVariant.PICKUP_COIN, -- 20
+      position,
+      velocity,
+      nil,
+      0,
+      g.run.randomSeed
+    )
   elseif pickupVariant == 3 then -- Key
-    -- Random Key - 5.30.0
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_KEY,
-              position, velocity, nil, 0, g.run.randomSeed)
-
+    -- Random Key
+    g.g:Spawn(
+      EntityType.ENTITY_PICKUP, -- 5
+      PickupVariant.PICKUP_KEY, -- 30
+      position,
+      velocity,
+      nil,
+      0,
+      g.run.randomSeed
+    )
   elseif pickupVariant == 4 then -- Bomb
-    -- Random Bomb - 5.40.0
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB,
-              position, velocity, nil, 0, g.run.randomSeed)
-
+    -- Random Bomb
+    g.g:Spawn(
+      EntityType.ENTITY_PICKUP, -- 5
+      PickupVariant.PICKUP_BOMB, -- 40
+      position,
+      velocity,
+      nil,
+      0,
+      g.run.randomSeed
+    )
   elseif pickupVariant == 5 then -- Chest
-    -- Random Chest - 5.50
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_CHEST,
-              position, velocity, nil, 0, g.run.randomSeed)
-
+    -- Random Chest
+    g.g:Spawn(
+      EntityType.ENTITY_PICKUP, -- 5
+      PickupVariant.PICKUP_CHEST, -- 50
+      position,
+      velocity,
+      nil,
+      0,
+      g.run.randomSeed
+    )
   elseif pickupVariant == 6 then -- Sack
-    -- Random Chest - 5.69
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_GRAB_BAG,
-              position, velocity, nil, 0, g.run.randomSeed)
-
+    g.g:Spawn(
+      EntityType.ENTITY_PICKUP, -- 5
+      PickupVariant.PICKUP_GRAB_BAG, -- 69
+      position,
+      velocity,
+      nil,
+      0,
+      g.run.randomSeed
+    )
   elseif pickupVariant == 7 then -- Lil' Battery
-    -- Lil' Battery - 5.90
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_LIL_BATTERY,
-              position, velocity, nil, 0, g.run.randomSeed)
-
+    g.g:Spawn(
+      EntityType.ENTITY_PICKUP, -- 5
+      PickupVariant.PICKUP_LIL_BATTERY, -- 90
+      position,
+      velocity,
+      nil,
+      0,
+      g.run.randomSeed
+    )
   elseif pickupVariant == 8 then -- Pill
-    -- Random Pill - 5.70.0
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_PILL,
-              position, velocity, nil, 0, g.run.randomSeed)
-
+    -- Random Pill
+    g.g:Spawn(
+      EntityType.ENTITY_PICKUP, -- 5
+      PickupVariant.PICKUP_PILL, -- 70
+      position,
+      velocity,
+      nil,
+      0,
+      g.run.randomSeed
+    )
   elseif pickupVariant == 9 then -- Card / Rune
-    -- Random Card / Rune - 5.300.0
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD,
-              position, velocity, nil, 0, g.run.randomSeed)
-
+    -- Random Card / Rune
+    g.g:Spawn(
+      EntityType.ENTITY_PICKUP, -- 5
+      PickupVariant.PICKUP_TAROTCARD, -- 300
+      position,
+      velocity,
+      nil,
+      0,
+      g.run.randomSeed
+    )
   elseif pickupVariant == 10 then -- Trinket
-    -- Random Card / Rune - 5.350.0
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET,
-              position, velocity, nil, 0, g.run.randomSeed)
-
+    -- Random Trinket
+    g.g:Spawn(
+      EntityType.ENTITY_PICKUP, -- 5
+      PickupVariant.PICKUP_TRINKET, -- 350
+      position,
+      velocity,
+      nil,
+      0,
+      g.run.randomSeed
+    )
   elseif pickupVariant == 11 then -- Collectible
-    -- Random Collectible - 5.100.0
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE,
-              position, velocity, nil, 0, g.run.randomSeed)
+    -- Random Collectible
+    g.g:Spawn(
+      EntityType.ENTITY_PICKUP, -- 5
+      PickupVariant.PICKUP_COLLECTIBLE, -- 100
+      position,
+      velocity,
+      nil,
+      0,
+      g.run.randomSeed
+    )
   end
 end
 
@@ -115,6 +180,7 @@ function Misc:GetOffsetPosition(position, offsetSize, seed)
     offsetX = offsetSize * -1
     offsetY = offsetSize * -1
   end
+
   return Vector(position.X + offsetX, position.Y + offsetY)
 end
 
@@ -150,20 +216,21 @@ function Misc:AddCharge(singleCharge)
   if roomShape >= 8 then
     -- L rooms and 2x2 rooms should grant 2 charges
     chargesToAdd = 2
-
-  elseif g.p:HasTrinket(TrinketType.TRINKET_AAA_BATTERY) and -- 3
-         activeCharge == g:GetItemMaxCharges(activeItem) - 2 then
-
-    -- The AAA Battery grants an extra charge when the active item is one away from being fully charged
+  elseif (
+    g.p:HasTrinket(TrinketType.TRINKET_AAA_BATTERY) -- 3
+    and activeCharge == g:GetItemMaxCharges(activeItem) - 2
+  ) then
+    -- The AAA Battery grants an extra charge when the active item is one away from being fully
+    -- charged
     chargesToAdd = 2
-
-  elseif g.p:HasTrinket(TrinketType.TRINKET_AAA_BATTERY) and -- 3
-         activeCharge == g:GetItemMaxCharges(activeItem) and
-         g.p:HasCollectible(CollectibleType.COLLECTIBLE_BATTERY) and -- 63
-         batteryCharge == g:GetItemMaxCharges(activeItem) - 2 then
-
-    -- The AAA Battery should grant an extra charge when the active item is one away from being fully charged
-    -- with The Battery (this is bugged in vanilla for The Battery)
+  elseif (
+    g.p:HasTrinket(TrinketType.TRINKET_AAA_BATTERY) -- 3
+    and activeCharge == g:GetItemMaxCharges(activeItem)
+    and g.p:HasCollectible(CollectibleType.COLLECTIBLE_BATTERY) -- 63
+    and batteryCharge == g:GetItemMaxCharges(activeItem) - 2
+  ) then
+    -- The AAA Battery should grant an extra charge when the active item is one away from being
+    -- fully charged with The Battery (this is bugged in vanilla for The Battery)
     chargesToAdd = 2
   end
   if singleCharge ~= nil then

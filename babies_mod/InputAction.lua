@@ -27,35 +27,40 @@ InputAction.functions = {}
 
 -- Masked Baby
 InputAction.functions[115] = function(inputHook, buttonAction)
-  if inputHook == InputHook.IS_ACTION_PRESSED and -- 0
-     -- (the shoot inputs can be on all 3 of the input hooks)
-     (buttonAction == ButtonAction.ACTION_SHOOTLEFT or -- 4
-      buttonAction == ButtonAction.ACTION_SHOOTRIGHT or -- 5
-      buttonAction == ButtonAction.ACTION_SHOOTUP or -- 6
-      buttonAction == ButtonAction.ACTION_SHOOTDOWN) then
-
+  if (
+    -- The shoot inputs can be on all 3 of the input hooks
+    inputHook == InputHook.IS_ACTION_PRESSED -- 0
+    and (
+      buttonAction == ButtonAction.ACTION_SHOOTLEFT -- 4
+      or buttonAction == ButtonAction.ACTION_SHOOTRIGHT -- 5
+      or buttonAction == ButtonAction.ACTION_SHOOTUP -- 6
+      or buttonAction == ButtonAction.ACTION_SHOOTDOWN -- 7
+    )
+  ) then
     -- Can't shoot while moving
     -- This ability does not interact well with charged items,
     -- so don't do anything if the player has a charged item
     local player = Game():GetPlayer(0)
-    if player:HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) or -- 69
-       player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE) or -- 114
-       player:HasCollectible(CollectibleType.COLLECTIBLE_BRIMSTONE) or -- 118
-       player:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) or -- 229
-       player:HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE) or -- 316
-       player:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) or -- 395
-       player:HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_VOID) then -- 399
-
+    if (
+      player:HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) -- 69
+      or player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE) -- 114
+      or player:HasCollectible(CollectibleType.COLLECTIBLE_BRIMSTONE) -- 118
+      or player:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) -- 229
+      or player:HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE) -- 316
+      or player:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) -- 395
+      or player:HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_VOID) -- 399
+    ) then
       return
     end
 
     -- Find out if we are moving
     local threshold = 0.75
-    if player.Velocity.X > threshold or
-       player.Velocity.X < threshold * -1 or
-       player.Velocity.Y > threshold or
-       player.Velocity.Y < threshold * -1 then
-
+    if (
+      player.Velocity.X > threshold
+      or player.Velocity.X < threshold * -1
+      or player.Velocity.Y > threshold
+      or player.Velocity.Y < threshold * -1
+    ) then
       return false
     end
   end
@@ -64,28 +69,37 @@ end
 -- Piece A Baby
 InputAction.functions[179] = function(inputHook, buttonAction)
   -- Can only move up + down + left + right
-  if buttonAction == ButtonAction.ACTION_LEFT and -- 0
-      (InputAction:IsPressed(ButtonAction.ACTION_UP) or -- 2
-      InputAction:IsPressed(ButtonAction.ACTION_DOWN)) then -- 3
-
+  if (
+    buttonAction == ButtonAction.ACTION_LEFT -- 0
+    and (
+      InputAction:IsPressed(ButtonAction.ACTION_UP) -- 2
+      or InputAction:IsPressed(ButtonAction.ACTION_DOWN) -- 3
+    )
+  ) then
     return 0
-
-  elseif buttonAction == ButtonAction.ACTION_RIGHT and -- 1
-         (InputAction:IsPressed(ButtonAction.ACTION_UP) or -- 2
-          InputAction:IsPressed(ButtonAction.ACTION_DOWN)) then -- 3
-
+  elseif (
+    buttonAction == ButtonAction.ACTION_RIGHT -- 1
+    and (
+      InputAction:IsPressed(ButtonAction.ACTION_UP) -- 2
+      or InputAction:IsPressed(ButtonAction.ACTION_DOWN) -- 3
+    )
+  ) then
     return 0
-
-  elseif buttonAction == ButtonAction.ACTION_UP and -- 2
-         (InputAction:IsPressed(ButtonAction.ACTION_LEFT) or -- 0
-          InputAction:IsPressed(ButtonAction.ACTION_RIGHT)) then -- 1
-
+  elseif (
+    buttonAction == ButtonAction.ACTION_UP -- 2
+    and (
+      InputAction:IsPressed(ButtonAction.ACTION_LEFT) -- 0
+      or InputAction:IsPressed(ButtonAction.ACTION_RIGHT) -- 1
+    )
+  ) then
     return 0
-
-  elseif buttonAction == ButtonAction.ACTION_DOWN and -- 3
-         (InputAction:IsPressed(ButtonAction.ACTION_LEFT) or -- 0
-          InputAction:IsPressed(ButtonAction.ACTION_RIGHT)) then -- 1
-
+  elseif (
+    buttonAction == ButtonAction.ACTION_DOWN -- 3
+    and (
+      InputAction:IsPressed(ButtonAction.ACTION_LEFT) -- 0
+      or InputAction:IsPressed(ButtonAction.ACTION_RIGHT) -- 1
+    )
+  ) then
     return 0
   end
 end

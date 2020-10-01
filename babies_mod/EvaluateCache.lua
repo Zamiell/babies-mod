@@ -14,18 +14,22 @@ function EvaluateCache:Main(player, cacheFlag)
   end
 
   -- Give the character a flat +1 damage as a bonus, similar to Samael
-  if character == Isaac.GetPlayerTypeByName("Random Baby") and
-     cacheFlag == CacheFlag.CACHE_DAMAGE then -- 2
-
+  if (
+    character == Isaac.GetPlayerTypeByName("Random Baby")
+    and cacheFlag == CacheFlag.CACHE_DAMAGE -- 2
+  ) then
      player.Damage = player.Damage + 1
   end
 
   -- Handle blindfolded characters
-  if baby.blindfolded and
-     cacheFlag == CacheFlag.CACHE_FIREDELAY then -- 2
+  if (
+    baby.blindfolded
+    and cacheFlag == CacheFlag.CACHE_FIREDELAY -- 2
+  ) then
 
     player.MaxFireDelay = 100000
-    -- (setting "player.FireDelay" here will not work, so do one frame later in the MC_POST_UPDATE callback)
+    -- (setting "player.FireDelay" here will not work,
+    -- so do one frame later in the MC_POST_UPDATE callback)
   end
 
   local babyFunc = EvaluateCache.functions[babyType]
@@ -92,9 +96,9 @@ EvaluateCache.functions[164] = function(player, cacheFlag)
   -- Starts with Leprosy, +5 damage on Leprosy breaking
   -- We use the "babyFrame" variable to track how many damage ups we have recieved
   if cacheFlag == CacheFlag.CACHE_DAMAGE then -- 1
-      local babyType = g.run.babyType
-      local baby = g.babies[babyType]
-      player.Damage = player.Damage + (g.run.babyFrame * baby.num)
+    local babyType = g.run.babyType
+    local baby = g.babies[babyType]
+    player.Damage = player.Damage + (g.run.babyFrame * baby.num)
   end
 end
 
@@ -173,9 +177,10 @@ end
 EvaluateCache.functions[350] = function(player, cacheFlag)
   -- Starts with How to Jump; must jump often
   -- Speed has a lower bound of 0.1, so we cannot set it lower than this
-  if cacheFlag == CacheFlag.CACHE_SPEED and -- 16
-     g.g:GetFrameCount() >= g.run.babyFrame then
-
+  if (
+    cacheFlag == CacheFlag.CACHE_SPEED -- 16
+    and g.g:GetFrameCount() >= g.run.babyFrame
+  ) then
     player.MoveSpeed = 0.1
   end
 end

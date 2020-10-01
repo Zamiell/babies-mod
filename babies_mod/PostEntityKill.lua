@@ -35,33 +35,40 @@ end
 -- Brown Baby
 PostEntityKill.functions[38] = function(npc)
   -- Spawns a poop per enemy killed
-  Isaac.GridSpawn(GridEntityType.GRID_POOP, PoopVariant.POOP_NORMAL, npc.Position, false) -- 14.0
+  Isaac.GridSpawn(GridEntityType.GRID_POOP, g.PoopVariant.POOP_NORMAL, npc.Position, false) -- 14.0
 end
 
 -- Whore Baby
 PostEntityKill.functions[43] = function(npc)
   -- Local variables
-  local roomIndex = g.l:GetCurrentRoomDesc().SafeGridIndex
-  if roomIndex < 0 then -- SafeGridIndex is always -1 for rooms outside the grid
-    roomIndex = g.l:GetCurrentRoomIndex()
-  end
+  local roomIndex = g:GetRoomIndex()
 
   -- All enemies explode
-  -- We cannot explode enemies in the MC_POST_ENTITY_KILL callback due to a crash having to do with black hearts
+  -- We cannot explode enemies in the MC_POST_ENTITY_KILL callback due to a crash having to do with
+  -- black hearts
   -- So, mark to explode in the MC_POST_UPDATE callback
   g.run.babyCounters[#g.run.babyCounters + 1] = {
     roomIndex = roomIndex,
-    position  = npc.Position,
+    position = npc.Position,
   }
 end
 
 -- Zombie Baby
 PostEntityKill.functions[61] = function(npc)
-  if not npc:IsBoss() and
-     npc.Type ~= EntityType.ENTITY_MOVABLE_TNT and -- 292
-     not npc:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) then-- 1 << 29
-
-    local friend = g.g:Spawn(npc.Type, npc.Variant, npc.Position, g.zeroVector, nil, npc.SubType, npc.InitSeed)
+  if (
+    not npc:IsBoss()
+    and npc.Type ~= EntityType.ENTITY_MOVABLE_TNT -- 292
+    and not npc:HasEntityFlags(EntityFlag.FLAG_FRIENDLY) -- 1 << 29
+  ) then
+    local friend = g.g:Spawn(
+      npc.Type,
+      npc.Variant,
+      npc.Position,
+      g.zeroVector,
+      nil,
+      npc.SubType,
+      npc.InitSeed
+    )
     friend:AddEntityFlags(EntityFlag.FLAG_CHARM) -- 1 << 8
     friend:AddEntityFlags(EntityFlag.FLAG_FRIENDLY) -- 1 << 29
     friend:AddEntityFlags(EntityFlag.FLAG_PERSISTENT) -- 1 << 37
@@ -95,7 +102,7 @@ PostEntityKill.functions[249] = function(npc)
 
   -- Store the killed enemy
   g.run.babyNPC = {
-    type    = npc.Type,
+    type = npc.Type,
     variant = npc.Variant,
     subType = npc.SubType,
   }
@@ -103,10 +110,16 @@ PostEntityKill.functions[249] = function(npc)
   -- Respawn all of the existing enemies in the room
   for _, entity2 in ipairs(Isaac.GetRoomEntities()) do
     local npc2 = entity2:ToNPC()
-    if npc2 ~= nil and
-        npc2.Index ~= npc.Index then -- Don't respawn the entity that just died
-
-      g.g:Spawn(npc.Type, npc.Variant, npc2.Position, npc2.Velocity, nil, npc.SubType, npc2.InitSeed)
+    if npc2 ~= nil and npc2.Index ~= npc.Index then -- Don't respawn the entity that just died
+      g.g:Spawn(
+        npc.Type,
+        npc.Variant,
+        npc2.Position,
+        npc2.Velocity,
+        nil,
+        npc.SubType,
+        npc2.InitSeed
+      )
       npc2:Remove()
     end
   end
@@ -122,14 +135,26 @@ end
 -- Dino Baby
 PostEntityKill.functions[376] = function(npc)
   -- Don't bother giving another egg if we already have a bunch
-  local brains = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BOBS_BRAIN, -1, false, false) -- 3.59
+  local brains = Isaac.FindByType(
+    EntityType.ENTITY_FAMILIAR, -- 3
+    FamiliarVariant.BOBS_BRAIN, -- 59
+    -1,
+    false,
+    false
+  )
   if #brains >= 6 then
     return
   end
 
   -- Spawn a new Bob's Brain familiar that we will reskin to look like an egg
-  local brain = Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BOBS_BRAIN, 0, -- 3.59
-                            g.p.Position, g.zeroVector, nil)
+  local brain = Isaac.Spawn(
+    EntityType.ENTITY_FAMILIAR, -- 3
+    FamiliarVariant.BOBS_BRAIN, -- 59
+    0,
+    g.p.Position,
+    g.zeroVector,
+    nil
+  )
   local brainSprite = brain:GetSprite()
   brainSprite:Load("gfx/003.059_bobs brain2.anm2", true)
   brainSprite:Play("Idle", true)
@@ -152,25 +177,44 @@ end
 -- Toast Baby
 PostEntityKill.functions[390] = function(npc)
   -- Enemies leave a Red Candle fire upon death
-  Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.HOT_BOMB_FIRE, 0, -- 1000.51
-              npc.Position, g.zeroVector, nil)
+  Isaac.Spawn(
+    EntityType.ENTITY_EFFECT, -- 1000
+    EffectVariant.HOT_BOMB_FIRE, -- 51
+    0,
+    npc.Position,
+    g.zeroVector,
+    nil
+  )
 end
 
 -- Buttface Baby
 PostEntityKill.functions[451] = function(npc)
-  Isaac.GridSpawn(GridEntityType.GRID_POOP, PoopVariant.POOP_BLACK, npc.Position, false) -- 14.5
+  Isaac.GridSpawn(GridEntityType.GRID_POOP, g.PoopVariant.POOP_BLACK, npc.Position, false) -- 14.5
 end
 
 -- Funny Baby
 PostEntityKill.functions[491] = function(npc)
-  Isaac.Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_SUPERTROLL, 0, -- 4.5
-              npc.Position, g.zeroVector, nil)
+  Isaac.Spawn(
+    EntityType.ENTITY_BOMBDROP, -- 4
+    BombVariant.BOMB_SUPERTROLL, -- 5
+    0,
+    npc.Position,
+    g.zeroVector,
+    nil
+  )
 end
 
 -- Rainbow Baby
 PostEntityKill.functions[530] = function(npc)
-  g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_CHEST, -- 5.50
-            npc.Position, g.zeroVector, nil, 0, npc.InitSeed)
+  g.g:Spawn(
+    EntityType.ENTITY_PICKUP, -- 5
+    PickupVariant.PICKUP_CHEST, -- 50
+    npc.Position,
+    g.zeroVector,
+    nil,
+    0,
+    npc.InitSeed
+  )
 end
 
 return PostEntityKill

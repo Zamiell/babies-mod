@@ -1,7 +1,7 @@
 local PostNewRoom = {}
 
 -- Includes
-local g          = require("babies_mod/globals")
+local g = require("babies_mod/globals")
 local PostRender = require("babies_mod/postrender")
 
 -- ModCallbacks.MC_POST_NEW_ROOM (19)
@@ -22,10 +22,11 @@ function PostNewRoom:Main()
 
   -- Make sure the callbacks run in the right order
   -- (naturally, PostNewRoom gets called before the PostNewLevel and PostGameStarted callbacks)
-  if gameFrameCount == 0 or
-     g.run.currentFloor ~= stage or
-     g.run.currentFloorType ~= stageType then
-
+  if (
+    gameFrameCount == 0
+    or g.run.currentFloor ~= stage
+    or g.run.currentFloorType ~= stageType
+  ) then
     return
   end
 
@@ -34,21 +35,19 @@ end
 
 function PostNewRoom:NewRoom()
   -- Local variabbles
-  local roomIndex = g.l:GetCurrentRoomDesc().SafeGridIndex
-  if roomIndex < 0 then -- SafeGridIndex is always -1 for rooms outside the grid
-    roomIndex = g.l:GetCurrentRoomIndex()
-  end
+  local roomIndex = g:GetRoomIndex()
   local startingRoomIndex = g.l:GetStartingRoomIndex()
   local roomClear = g.r:IsClear()
-  local roomSeed = g.r:GetSpawnSeed() -- Gets a reproducible seed based on the room, e.g. "2496979501"
+  local roomSeed = g.r:GetSpawnSeed()
 
   Isaac.DebugString("MC_POST_NEW_ROOM2 (BM)")
 
   -- Increment level variables
   g.run.currentFloorRoomsEntered = g.run.currentFloorRoomsEntered + 1
-  if roomIndex == startingRoomIndex and
-     g.run.currentFloorRoomsEntered == 1 then
-
+  if (
+    roomIndex == startingRoomIndex
+    and g.run.currentFloorRoomsEntered == 1
+  ) then
     -- We don't want the starting room of the floor to count towards the rooms entered
     g.run.currentFloorRoomsEntered = 0
   end
@@ -58,8 +57,8 @@ function PostNewRoom:NewRoom()
   g.run.roomRNG = roomSeed
   g.run.babyCountersRoom = 0
   g.run.babyTears = {
-    tear     = 1,
-    frame    = 0,
+    tear = 1,
+    frame = 0,
     position = g.zeroVector,
     velocity = g.zeroVector,
   }
@@ -95,9 +94,7 @@ function PostNewRoom:ApplyTemporaryEffects()
   local baby = g.babies[type]
 
   -- Some babies have flight
-  if baby.flight and
-     not g.p.CanFly then
-
+  if baby.flight and not g.p.CanFly then
     effects:AddCollectibleEffect(CollectibleType.COLLECTIBLE_BIBLE, true) -- 33
   end
 
@@ -111,25 +108,63 @@ end
 -- The collection of functions for each baby
 PostNewRoom.functions = {}
 
+-- This has to be declared above the assignment
+function PostNewRoom.NoHealth()
+  -- Local variables
+  local roomType = g.r:GetType()
+  local roomDesc = g.l:GetCurrentRoomDesc()
+  local roomVariant = roomDesc.Data.Variant
+
+  -- Get rid of the health UI by using Curse of the Unknown
+  -- (but not in Devil Rooms or Black Markets)
+  if (
+    (
+      roomType == RoomType.ROOM_DEVIL -- 14
+      or roomType == RoomType.ROOM_BLACK_MARKET -- 22
+    )
+    and (
+      roomVariant ~= 2300 -- Krampus
+      and roomVariant ~= 2301 -- Krampus
+      and roomVariant ~= 2302 -- Krampus
+      and roomVariant ~= 2303 -- Krampus
+      and roomVariant ~= 2304 -- Krampus
+      and roomVariant ~= 2305 -- Krampus
+      and roomVariant ~= 2306 -- Krampus
+    )
+  ) then
+    g.l:RemoveCurse(LevelCurse.CURSE_OF_THE_UNKNOWN, false) -- 1 << 3
+    Isaac.DebugString("Removed Curse of the Unknown.")
+  else
+    g.l:AddCurse(LevelCurse.CURSE_OF_THE_UNKNOWN, false) -- 1 << 3
+    Isaac.DebugString("Added Curse of the Unknown.")
+  end
+end
+
 -- Lost Baby
 PostNewRoom.functions[10] = PostNewRoom.NoHealth
 
 -- Shadow Baby
 PostNewRoom.functions[13] = function()
   local roomType = g.r:GetType()
-  if roomType == RoomType.ROOM_DEVIL or -- 14
-     roomType == RoomType.ROOM_ANGEL then -- 15
+  if (
+    roomType == RoomType.ROOM_DEVIL -- 14
+    or roomType == RoomType.ROOM_ANGEL -- 15
+  ) then
+    -- You have to set LeaveDoor before every teleport or else it will send you to the wrong room
+    g.l.LeaveDoor = -1
 
-    g.l.LeaveDoor = -1 -- You have to set this before every teleport or else it will send you to the wrong room
-    g.g:StartRoomTransition(GridRooms.ROOM_BLACK_MARKET_IDX, Direction.NO_DIRECTION, -- -6, -1
-                            RoomTransition.TRANSITION_NONE) -- 0
+    g.g:StartRoomTransition(
+      GridRooms.ROOM_BLACK_MARKET_IDX, -- -6
+      Direction.NO_DIRECTION, -- -1
+      g.RoomTransition.TRANSITION_NONE -- 0
+    )
   end
 end
 
 -- Glass Baby
 PostNewRoom.functions[14] = function()
   -- Spawn a laser ring around the player
-  local laser = g.p:FireTechXLaser(g.p.Position, g.zeroVector, 66):ToLaser() -- The third argument is the radius
+  local laser = g.p:FireTechXLaser(g.p.Position, g.zeroVector, 66):ToLaser()
   -- (we copy the radius from Samael's Tech X ability)
   if laser.Variant ~= 2 then
     laser.Variant = 2
@@ -180,10 +215,11 @@ PostNewRoom.functions[90] = function()
   -- So, unlock all normal doors if the room is already clear
   for i = 0, 7 do
     local door = g.r:GetDoor(i)
-    if door ~= nil and
-        door.TargetRoomType == RoomType.ROOM_DEFAULT and -- 1
-        door:IsLocked() then
-
+    if (
+      door ~= nil
+      and door.TargetRoomType == RoomType.ROOM_DEFAULT -- 1
+      and door:IsLocked()
+    ) then
       door:TryUnlock(true) -- This has to be forced
     end
   end
@@ -191,9 +227,10 @@ end
 
 -- Statue Baby 2
 PostNewRoom.functions[118] = function()
-  if g.r:GetType() ~= RoomType.ROOM_SECRET or -- 7
-     not g.r:IsFirstVisit() then
-
+  if (
+    g.r:GetType() ~= RoomType.ROOM_SECRET -- 7
+    or not g.r:IsFirstVisit()
+  ) then
     return
   end
 
@@ -202,8 +239,15 @@ PostNewRoom.functions[118] = function()
     local center = g.r:GetCenterPos()
     local position = g.r:FindFreePickupSpawnPosition(center, 1, true)
     g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-              position, g.zeroVector, nil, 0, g.run.randomSeed)
+    g.g:Spawn(
+      EntityType.ENTITY_PICKUP, -- 5
+      PickupVariant.PICKUP_COLLECTIBLE, -- 100
+      position,
+      g.zeroVector,
+      nil,
+      0,
+      g.run.randomSeed
+    )
   end
 end
 
@@ -234,9 +278,10 @@ end
 
 -- Butterfly Baby
 PostNewRoom.functions[149] = function()
-  if g.r:GetType() ~= RoomType.ROOM_SUPERSECRET or -- 8
-     not g.r:IsFirstVisit() then
-
+  if (
+    g.r:GetType() ~= RoomType.ROOM_SUPERSECRET -- 8
+    or not g.r:IsFirstVisit()
+  ) then
     return
   end
 
@@ -245,28 +290,42 @@ PostNewRoom.functions[149] = function()
     local center = g.r:GetCenterPos()
     local position = g.r:FindFreePickupSpawnPosition(center, 1, true)
     g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
-    g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-              position, g.zeroVector, nil, 0, g.run.randomSeed)
+    g.g:Spawn(
+      EntityType.ENTITY_PICKUP, -- 5
+      PickupVariant.PICKUP_COLLECTIBLE, -- 100
+      position,
+      g.zeroVector,
+      nil,
+      0,
+      g.run.randomSeed
+    )
   end
 end
 
 -- Spelunker Baby
 PostNewRoom.functions[181] = function()
-  if g.r:GetType() == RoomType.ROOM_DUNGEON and -- 16
-     g.run.lastRoomIndex ~= GridRooms.ROOM_BLACK_MARKET_IDX then -- -6
-     -- (we want to be able to backtrack from a Black Market to a Crawlspace)
+  if (
+    g.r:GetType() == RoomType.ROOM_DUNGEON -- 16
+    -- We want to be able to backtrack from a Black Market to a Crawlspace
+    and g.run.lastRoomIndex ~= GridRooms.ROOM_BLACK_MARKET_IDX -- -6
+  ) then
+    -- You have to set LeaveDoor before every teleport or else it will send you to the wrong room
+    g.l.LeaveDoor = -1
 
-    g.l.LeaveDoor = -1 -- You have to set this before every teleport or else it will send you to the wrong room
-    g.g:StartRoomTransition(GridRooms.ROOM_BLACK_MARKET_IDX, Direction.NO_DIRECTION, -- -6, -1
-                            RoomTransition.TRANSITION_NONE) -- 0
+    g.g:StartRoomTransition(
+      GridRooms.ROOM_BLACK_MARKET_IDX, -- -6
+      Direction.NO_DIRECTION, -- -1
+      g.RoomTransition.TRANSITION_NONE -- 0
+    )
   end
 end
 
 -- Fancy Baby
 PostNewRoom.functions[216] = function()
-  if g.l:GetCurrentRoomIndex() ~= g.l:GetStartingRoomIndex() or
-     not g.r:IsFirstVisit() then
-
+  if (
+    g.l:GetCurrentRoomIndex() ~= g.l:GetStartingRoomIndex()
+    or not g.r:IsFirstVisit()
+  ) then
     return
   end
 
@@ -338,8 +397,15 @@ PostNewRoom.functions[216] = function()
       end
       local xy = positions[positionIndex]
       local position = g:GridToPos(xy[1], xy[2])
-      local pedestal = g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-                                  position, g.zeroVector, nil, itemID, g.run.roomRNG):ToPickup()
+      local pedestal = g.g:Spawn(
+        EntityType.ENTITY_PICKUP, -- 5
+        PickupVariant.PICKUP_COLLECTIBLE, -- 100
+        position,
+        g.zeroVector,
+        nil,
+        itemID,
+        g.run.roomRNG
+      ):ToPickup()
       pedestal.AutoUpdatePrice = false
       pedestal.Price = price
     end
@@ -356,10 +422,11 @@ end
 -- Love Eye Baby
 PostNewRoom.functions[249] = function()
   local roomType = g.r:GetType()
-  if not g.run.babyBool or
-     roomType == RoomType.ROOM_BOSS or -- 5
-     roomType == RoomType.ROOM_DEVIL then -- 14
-
+  if (
+    not g.run.babyBool
+    or roomType == RoomType.ROOM_BOSS -- 5
+    or roomType == RoomType.ROOM_DEVIL -- 14
+  ) then
      -- Make an exception for Boss Rooms and Devil Rooms
      return
   end
@@ -367,14 +434,22 @@ PostNewRoom.functions[249] = function()
   -- Replace all of the existing enemies with the stored one
   for _, entity in ipairs(Isaac.GetRoomEntities()) do
     local npc = entity:ToNPC()
-    if npc ~= nil and
-        npc.Type ~= EntityType.ENTITY_SHOPKEEPER and-- 17
-        -- Make an exception for shopkeepers
-        npc.Type ~= EntityType.ENTITY_FIREPLACE then -- 33
-        -- Make an exception for fires
-
-      g.g:Spawn(g.run.babyNPC.type, g.run.babyNPC.variant,
-                npc.Position, npc.Velocity, nil, g.run.babyNPC.subType, npc.InitSeed)
+    if (
+      npc ~= nil
+      -- Make an exception for shopkeepers
+      and npc.Type ~= EntityType.ENTITY_SHOPKEEPER -- 17
+      -- Make an exception for fires
+      and npc.Type ~= EntityType.ENTITY_FIREPLACE -- 33
+    ) then
+      g.g:Spawn(
+        g.run.babyNPC.type,
+        g.run.babyNPC.variant,
+        npc.Position,
+        npc.Velocity,
+        nil,
+        g.run.babyNPC.subType,
+        npc.InitSeed
+      )
       npc:Remove()
     end
   end
@@ -394,9 +469,15 @@ PostNewRoom.functions[261] = function()
     local thisRoomData = thisRoomDesc.Data
     local thisRoomType = thisRoomData.Type
     if thisRoomType == RoomType.ROOM_SUPERSECRET then -- 8
+      -- You have to set LeaveDoor before every teleport or else it will send you to the wrong room
+      g.l.LeaveDoor = -1
+
       -- Teleport to the Super Secret Room
-      g.l.LeaveDoor = -1 -- You have to set this before every teleport or else it will send you to the wrong room
-      g.g:StartRoomTransition(index, Direction.NO_DIRECTION, RoomTransition.TRANSITION_TELEPORT) -- -1, 3
+      g.g:StartRoomTransition(
+        index,
+        Direction.NO_DIRECTION, -- -1
+        g.RoomTransition.TRANSITION_TELEPORT -- 3
+      )
       break
     end
   end
@@ -412,16 +493,17 @@ end
 PostNewRoom.functions[287] = function()
   -- Ignore some select special rooms
   local roomType = g.r:GetType()
-  if not g.r:IsFirstVisit() or
-     roomType == RoomType.ROOM_DEFAULT or -- 1
-     roomType == RoomType.ROOM_ERROR or -- 3
-     roomType == RoomType.ROOM_BOSS or -- 5
-     roomType == RoomType.ROOM_DEVIL or -- 14
-     roomType == RoomType.ROOM_ANGEL or -- 15
-     roomType == RoomType.ROOM_DUNGEON or -- 16
-     roomType == RoomType.ROOM_BOSSRUSH or -- 17
-     roomType == RoomType.ROOM_BLACK_MARKET then -- 22
-
+  if (
+    not g.r:IsFirstVisit()
+    or roomType == RoomType.ROOM_DEFAULT -- 1
+    or roomType == RoomType.ROOM_ERROR -- 3
+    or roomType == RoomType.ROOM_BOSS -- 5
+    or roomType == RoomType.ROOM_DEVIL -- 14
+    or roomType == RoomType.ROOM_ANGEL -- 15
+    or roomType == RoomType.ROOM_DUNGEON -- 16
+    or roomType == RoomType.ROOM_BOSSRUSH -- 17
+    or roomType == RoomType.ROOM_BLACK_MARKET -- 22
+  ) then
     return
   end
 
@@ -429,8 +511,15 @@ PostNewRoom.functions[287] = function()
   g.run.roomRNG = g:IncrementRNG(g.run.roomRNG)
   local item = g.itemPool:GetCollectible(ItemPoolType.POOL_DEVIL, true, g.run.roomRNG) -- 3
   local position = g:GridToPos(6, 4)
-  local pedestal = g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-                              position, g.zeroVector, nil, item, g.run.roomRNG):ToPickup()
+  local pedestal = g.g:Spawn(
+    EntityType.ENTITY_PICKUP, -- 5
+    PickupVariant.PICKUP_COLLECTIBLE, -- 100
+    position,
+    g.zeroVector,
+    nil,
+    item,
+    g.run.roomRNG
+  ):ToPickup()
   pedestal.AutoUpdatePrice = false
 
   -- Find out how this item should be priced
@@ -483,10 +572,11 @@ PostNewRoom.functions[351] = function()
   -- So, unlock all normal doors if the room is already clear
   for i = 0, 7 do
     local door = g.r:GetDoor(i)
-    if door ~= nil and
-        door.TargetRoomType == RoomType.ROOM_DEFAULT and -- 1
-        door:IsLocked() then
-
+    if (
+      door ~= nil
+      and door.TargetRoomType == RoomType.ROOM_DEFAULT -- 1
+      and door:IsLocked()
+    ) then
       door:TryUnlock(true) -- This has to be forced
     end
   end
@@ -500,7 +590,13 @@ PostNewRoom.functions[431] = function()
   for _, maw in ipairs(maws) do
     maw:Remove()
   end
-  local brokenMaws = Isaac.FindByType(EntityType.ENTITY_BROKEN_GAPING_MAW, -1, -1, false, false) -- 236
+  local brokenMaws = Isaac.FindByType(
+    EntityType.ENTITY_BROKEN_GAPING_MAW, -- 236
+    -1,
+    -1,
+    false,
+    false
+  )
   for _, brokenMaw in ipairs(brokenMaws) do
     brokenMaw:Remove()
   end
@@ -508,10 +604,11 @@ end
 
 -- Gamer Baby
 PostNewRoom.functions[492] = function()
-  if g.l:GetCurrentRoomIndex() ~= g.l:GetStartingRoomIndex() then -- This can prevent crashes when reseeding happens
+  -- Checking for starting room index can prevent crashes when reseeding happens
+  if g.l:GetCurrentRoomIndex() ~= g.l:GetStartingRoomIndex() then
     g.p:UsePill(PillEffect.PILLEFFECT_RETRO_VISION, PillColor.PILL_NULL) -- 37, 0
-    -- If we try to cancel the animation now, it will bug out the player such that
-    -- they will not be able to take pocket items or pedestal items
+    -- If we try to cancel the animation now, it will bug out the player such that they will not be
+    -- able to take pocket items or pedestal items
     -- This still happens even if we cancel the animation in the MC_POST_UPDATE callback,
     -- so don't bother canceling it
   end
@@ -520,7 +617,13 @@ end
 -- Psychic Baby
 PostNewRoom.functions[504] = function()
   -- Disable the vanilla shooting behavior
-  local abels = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ABEL, -1, false, false) -- 5.8
+  local abels = Isaac.FindByType(
+    EntityType.ENTITY_FAMILIAR, -- 3
+    FamiliarVariant.ABEL, -- 8
+    -1,
+    false,
+    false
+  )
   for _, abel in ipairs(abels) do
     abel:ToFamiliar().FireCooldown = 1000000
   end
@@ -528,10 +631,11 @@ end
 
 -- Silly Baby
 PostNewRoom.functions[516] = function()
-  if g.l:GetCurrentRoomIndex() ~= g.l:GetStartingRoomIndex() then -- This can prevent crashes when reseeding happens
+  -- Checking for starting room index can prevent crashes when reseeding happens
+  if g.l:GetCurrentRoomIndex() ~= g.l:GetStartingRoomIndex() then
     g.p:UsePill(PillEffect.PILLEFFECT_IM_EXCITED, PillColor.PILL_NULL) -- 42, 0
-    -- If we try to cancel the animation now, it will bug out the player such that
-    -- they will not be able to take pocket items or pedestal items
+    -- If we try to cancel the animation now, it will bug out the player such that they will not be
+    -- able to take pocket items or pedestal items
     -- This still happens even if we cancel the animation in the MC_POST_UPDATE callback,
     -- so don't bother canceling it
   end
@@ -545,32 +649,6 @@ PostNewRoom.functions[522] = function()
   local sprite = godheadTear:GetSprite()
   sprite:Load("gfx/tear_blank.anm2", true)
   sprite:Play("RegularTear6")
-end
-
-function PostNewRoom.NoHealth()
-  -- Local variables
-  local roomType = g.r:GetType()
-  local roomDesc = g.l:GetCurrentRoomDesc()
-  local roomVariant = roomDesc.Data.Variant
-
-  -- Get rid of the health UI by using Curse of the Unknown
-  -- (but not in Devil Rooms or Black Markets)
-  g.seeds:RemoveSeedEffect(SeedEffect.SEED_PREVENT_ALL_CURSES) -- 70
-
-  if (roomType == RoomType.ROOM_DEVIL or -- 14
-      roomType == RoomType.ROOM_BLACK_MARKET) and -- 22
-      (roomVariant ~= 2300 and -- Krampus
-      roomVariant ~= 2301 and -- Krampus
-      roomVariant ~= 2302 and -- Krampus
-      roomVariant ~= 2303 and -- Krampus
-      roomVariant ~= 2304 and -- Krampus
-      roomVariant ~= 2305 and -- Krampus
-      roomVariant ~= 2306) then -- Krampus
-
-    g.l:RemoveCurse(LevelCurse.CURSE_OF_THE_UNKNOWN, false) -- 1 << 3
-  else
-    g.l:AddCurse(LevelCurse.CURSE_OF_THE_UNKNOWN, false) -- 1 << 3
-  end
 end
 
 return PostNewRoom

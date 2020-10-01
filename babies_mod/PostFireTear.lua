@@ -96,8 +96,15 @@ PostFireTear.functions[66] = function(tear)
   -- Boomerang tears
   -- We can't just use The Boomerang item because there is no way to avoid a long cooldown
   -- So we spawn an effect instead
-  g.g:Spawn(EntityType.ENTITY_EFFECT, EffectVariant.BOOMERANG, -- 1000.60
-            tear.Position, tear.Velocity, tear.SpawnerEntity, 0, tear.InitSeed)
+  g.g:Spawn(
+    EntityType.ENTITY_EFFECT, -- 1000
+    EffectVariant.BOOMERANG, -- 60
+    tear.Position,
+    tear.Velocity,
+    tear.SpawnerEntity,
+    0,
+    tear.InitSeed
+  )
   tear:Remove()
 end
 
@@ -196,8 +203,15 @@ end
 
 -- Sick Baby
 PostFireTear.functions[187] = function(tear)
-  g.g:Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BLUE_FLY, -- 3.43.1
-            tear.Position, tear.Velocity, tear.SpawnerEntity, BlueFlyVariant.BLUEFLY_RED, tear.InitSeed)
+  g.g:Spawn(
+    EntityType.ENTITY_FAMILIAR, -- 3
+    FamiliarVariant.BLUE_FLY, -- 43
+    tear.Position,
+    tear.Velocity,
+    tear.SpawnerEntity,
+    g.BlueFlyVariant.BLUEFLY_RED,
+    tear.InitSeed
+  )
   tear:Remove()
 end
 
@@ -293,7 +307,8 @@ end
 -- Boxers Baby
 PostFireTear.functions[337] = function(tear)
   -- Turn all tears into boxing glove / punch tears similar to Antibirth's Knockout Drops
-  -- Find out the size of the tear, which will determine the corresponding frame/animation for the new sprite
+  -- Find out the size of the tear,
+  -- which will determine the corresponding frame/animation for the new sprite
   local sprite = tear:GetSprite()
   local tearSize = "RegularTear6" -- Use the 6th one by default
   for i = 1, 13 do
@@ -310,9 +325,10 @@ PostFireTear.functions[337] = function(tear)
 
   -- By default, the sprite is facing to the right
   local tearAngle = tear.Velocity:GetAngleDegrees()
-  if (tearAngle > 90 and tearAngle <= 180) or
-      (tearAngle >= -180 and tearAngle < -90) then
-
+  if (
+    (tearAngle > 90 and tearAngle <= 180)
+    or (tearAngle >= -180 and tearAngle < -90)
+  ) then
     -- If the tear is shooting to the left, then we need to rotate it and flip the sprite
     sprite.FlipY = true
     sprite.Rotation = tearAngle * -1
@@ -365,15 +381,23 @@ PostFireTear.functions[361] = function(tear)
   g.run.babyCounters = g.run.babyCounters + 1
   if g.run.babyCounters == baby.num then
     g.run.babyCounters = 0
-    g.g:Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_NORMAL, -- 4.1
-              tear.Position, tear.Velocity, tear.SpawnerEntity, 0, tear.InitSeed)
+    g.g:Spawn(
+      EntityType.ENTITY_BOMBDROP, -- 4
+      BombVariant.BOMB_NORMAL, -- 1
+      tear.Position,
+      tear.Velocity,
+      tear.SpawnerEntity,
+      0,
+      tear.InitSeed
+    )
     tear:Remove()
   end
 end
 
 -- Turtle Dragon Baby
 PostFireTear.functions[364] = function(tear)
-  -- If we do "player:ShootRedCandle(tear.Velocity)", the fires have enormous speed and are hard to control
+  -- If we do "player:ShootRedCandle(tear.Velocity)",
+  -- the fires have enormous speed and are hard to control
   local angle = tear.Velocity:GetAngleDegrees()
   local normalizedVelocity = Vector.FromAngle(angle)
   g.p:ShootRedCandle(normalizedVelocity)
@@ -455,8 +479,10 @@ PostFireTear.functions[455] = function(tear)
   sprite:Play("RegularTear1", false)
 
   -- Make it bouncy
-  tear.TearFlags = TearFlags.TEAR_BOUNCE | -- 1 << 19
-                   TearFlags.TEAR_POP -- 1 << 56
+  tear.TearFlags = (
+    TearFlags.TEAR_BOUNCE -- 1 << 19
+    | TearFlags.TEAR_POP -- 1 << 56
+  )
 
   -- Make it lower to the ground
   tear.Height = -5
@@ -478,9 +504,11 @@ PostFireTear.functions[458] = function(tear)
   sprite:Play("RegularTear1", false)
 
   -- Make it bouncy and homing
-  tear.TearFlags = TearFlags.TEAR_HOMING | -- 1 << 2
-                   TearFlags.TEAR_BOUNCE | -- 1 << 19
-                   TearFlags.TEAR_POP -- 1 << 56
+  tear.TearFlags = (
+    TearFlags.TEAR_HOMING -- 1 << 2
+    | TearFlags.TEAR_BOUNCE -- 1 << 19
+    | TearFlags.TEAR_POP -- 1 << 56
+  )
 
   -- Make it lower to the ground
   tear.Height = -5
@@ -569,12 +597,19 @@ end
 
 -- Psychic Baby
 PostFireTear.functions[504] = function(tear)
-  if g.r:GetFrameCount() < 900 and -- Only do it for the first 30 seconds of a room to avoid softlocks
-     g.r:GetRoomShape() < RoomShape.ROOMSHAPE_2x2 then -- 8 (the L room shapes are 9, 10, 11, and 12)
-
+  if (
+    g.r:GetFrameCount() < 900 -- Only do it for the first 30 seconds of a room to avoid softlocks
+    and g.r:GetRoomShape() < RoomShape.ROOMSHAPE_2x2 -- 8 (the L room shapes are 9, 10, 11, and 12)
+  ) then
     -- Starts with Abel; tears come from Abel
     -- Get Abel's position
-    local abels = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.ABEL, -1, false, false) -- 5.8
+    local abels = Isaac.FindByType(
+      EntityType.ENTITY_FAMILIAR, -- 3
+      FamiliarVariant.ABEL, -- 8
+      -1,
+      false,
+      false
+    )
     if #abels > 0 then
       tear.Position = abels[1].Position
     else

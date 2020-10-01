@@ -1,7 +1,7 @@
 local PostBombUpdate = {}
 
 -- Includes
-local g    = require("babies_mod/globals")
+local g = require("babies_mod/globals")
 local Misc = require("babies_mod/misc")
 
 -- ModCallbacks.MC_POST_BOMB_UPDATE (58)
@@ -25,9 +25,10 @@ PostBombUpdate.functions = {}
 -- Bomb Baby
 PostBombUpdate.functions[75] = function(bomb)
   -- 50% chance for bombs to have the D6 effect
-  if bomb.SpawnerType == EntityType.ENTITY_PLAYER and -- 1
-     bomb.FrameCount == 51 then -- Bombs explode on the 51st frame exactly
-
+  if (
+    bomb.SpawnerType == EntityType.ENTITY_PLAYER -- 1
+    and bomb.FrameCount == 51 -- Bombs explode on the 51st frame exactly
+  ) then
     g.run.roomRNG = g:IncrementRNG(g.run.roomRNG)
     math.randomseed(g.run.roomRNG)
     local d6chance = math.random(1, 2)
@@ -40,9 +41,10 @@ end
 -- Tongue Baby
 PostBombUpdate.functions[97] = function(bomb)
   -- Recharge bombs
-  if bomb.SpawnerType == EntityType.ENTITY_PLAYER and -- 1
-     bomb.FrameCount == 51 then -- Bombs explode on the 51st frame exactly
-
+  if (
+    bomb.SpawnerType == EntityType.ENTITY_PLAYER -- 1
+    and bomb.FrameCount == 51 -- Bombs explode on the 51st frame exactly
+  ) then
     Misc:AddCharge()
     if RacingPlusSchoolbag ~= nil then
       RacingPlusSchoolbag:AddCharge(true) -- Giving an argument will make it only give 1 charge
@@ -53,9 +55,10 @@ end
 -- Skull Baby
 PostBombUpdate.functions[211] = function(bomb)
   -- Shockwave bombs
-  if bomb.SpawnerType == EntityType.ENTITY_PLAYER and -- 1
-     bomb.FrameCount == 51 then -- Bombs explode on the 51st frame exactly
-
+  if (
+    bomb.SpawnerType == EntityType.ENTITY_PLAYER -- 1
+    and bomb.FrameCount == 51 -- Bombs explode on the 51st frame exactly
+  ) then
     for i = 1, 4 do
       local velocity
       if i == 1 then
@@ -78,12 +81,20 @@ end
 
 -- Bony Baby
 PostBombUpdate.functions[284] = function(bomb)
-  if bomb.FrameCount == 1 and -- Frame 0 does not work
-     bomb:GetData().doubled == nil then
-
+  if (
+    bomb.FrameCount == 1 -- Frame 0 does not work
+    and bomb:GetData().doubled == nil
+  ) then
     local position = Misc:GetOffsetPosition(bomb.Position, 15, bomb.InitSeed)
-    local doubledBomb = g.g:Spawn(bomb.Type, bomb.Variant, position, bomb.Velocity,
-                                  bomb.SpawnerEntity, bomb.SubType, bomb.InitSeed):ToBomb()
+    local doubledBomb = g.g:Spawn(
+      bomb.Type,
+      bomb.Variant,
+      position,
+      bomb.Velocity,
+      bomb.SpawnerEntity,
+      bomb.SubType,
+      bomb.InitSeed
+    ):ToBomb()
     doubledBomb.Flags = bomb.Flags
     doubledBomb.IsFetus = bomb.IsFetus
     if bomb.IsFetus then
@@ -98,20 +109,29 @@ end
 
 -- Barbarian Baby
 PostBombUpdate.functions[344] = function(bomb)
-  if bomb.SpawnerType == EntityType.ENTITY_PLAYER and -- 1
-     bomb.FrameCount == 51 then -- Bombs explode on the 51st frame exactly
-
+  if (
+    bomb.SpawnerType == EntityType.ENTITY_PLAYER -- 1
+    and bomb.FrameCount == 51 -- Bombs explode on the 51st frame exactly
+  ) then
     g.r:MamaMegaExplossion()
   end
 end
 
 -- Orange Ghost Baby
 PostBombUpdate.functions[373] = function(bomb)
-  if bomb.FrameCount == 1 and
-     bomb.Variant ~= BombVariant.BOMB_SUPERTROLL then -- 5
-
-    g.g:Spawn(bomb.Type, BombVariant.BOMB_SUPERTROLL,
-              bomb.Position, bomb.Velocity, bomb.SpawnerEntity, bomb.SubType, bomb.InitSeed)
+  if (
+    bomb.FrameCount == 1
+    and bomb.Variant ~= BombVariant.BOMB_SUPERTROLL -- 5
+  ) then
+    g.g:Spawn(
+      bomb.Type,
+      BombVariant.BOMB_SUPERTROLL, -- 5
+      bomb.Position,
+      bomb.Velocity,
+      bomb.SpawnerEntity,
+      bomb.SubType,
+      bomb.InitSeed
+    )
     bomb:Remove()
   end
 end

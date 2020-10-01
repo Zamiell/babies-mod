@@ -58,16 +58,17 @@ end
 PostEffectUpdate.functions[146] = function(effect)
   -- Shorten the lag time of the missiles
   -- (this is not possible in the MC_POST_EFFECT_INIT callback since effect.Timeout is -1)
-  if effect.Variant == EffectVariant.TARGET and -- 30
-     effect.FrameCount == 1 and
-     -- There is a bug where the target will disappear if you have multiple shots
-     not g.p:HasCollectible(CollectibleType.COLLECTIBLE_INNER_EYE) and -- 2
-     not g.p:HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER) and -- 153
-     not g.p:HasCollectible(CollectibleType.COLLECTIBLE_20_20) and -- 245
-     not g.p:HasCollectible(CollectibleType.COLLECTIBLE_THE_WIZ) and -- 358
-     not g.p:HasPlayerForm(PlayerForm.PLAYERFORM_BABY) and -- 7
-     not g.p:HasPlayerForm(PlayerForm.PLAYERFORM_BOOK_WORM) then-- 10
-
+  if (
+    effect.Variant == EffectVariant.TARGET -- 30
+    and effect.FrameCount == 1
+    -- There is a bug where the target will disappear if you have multiple shots
+    and not g.p:HasCollectible(CollectibleType.COLLECTIBLE_INNER_EYE) -- 2
+    and not g.p:HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER) -- 153
+    and not g.p:HasCollectible(CollectibleType.COLLECTIBLE_20_20) -- 245
+    and not g.p:HasCollectible(CollectibleType.COLLECTIBLE_THE_WIZ) -- 358
+    and not g.p:HasPlayerForm(PlayerForm.PLAYERFORM_BABY) -- 7
+    and not g.p:HasPlayerForm(PlayerForm.PLAYERFORM_BOOK_WORM) -- 10
+  ) then
     effect.Timeout = 10 -- 9 doesn't result in a missile coming out
   end
 end
@@ -95,30 +96,47 @@ PostEffectUpdate.functions[281] = function(effect)
     if #entities > 0 then
       -- Fire the beam
       g.run.babyFrame = gameFrameCount + baby.cooldown
-      Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.CRACK_THE_SKY, 0, -- 1000.19
-                  effect.Position, g.zeroVector, g.p)
+      Isaac.Spawn(
+        EntityType.ENTITY_EFFECT, -- 1000
+        EffectVariant.CRACK_THE_SKY, -- 19
+        0,
+        effect.Position,
+        g.zeroVector,
+        g.p
+      )
     end
   end
 end
 
 -- Cool Orange Baby
 PostEffectUpdate.functions[485] = function(effect)
-  if effect.Variant == EffectVariant.FETUS_BOSS_TARGET and
-     effect.FrameCount == 30 then -- 1 second
-
-    local rocket = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.FETUS_BOSS_ROCKET, 0, -- 1000
-                               effect.Position, g.zeroVector, nil)
+  if (
+    effect.Variant == EffectVariant.FETUS_BOSS_TARGET
+    and effect.FrameCount == 30 -- 1 second
+  ) then
+    local rocket = Isaac.Spawn(
+      EntityType.ENTITY_EFFECT, -- 1000
+      EffectVariant.FETUS_BOSS_ROCKET,
+      0,
+      effect.Position,
+      g.zeroVector,
+      nil
+    )
     local rocketHeightOffset = Vector(0, -300)
     rocket.SpriteOffset = rocket.SpriteOffset + rocketHeightOffset
-
   elseif effect.Variant == EffectVariant.FETUS_BOSS_ROCKET then
     local rocketFallSpeed = Vector(0, 30)
     effect.SpriteOffset = effect.SpriteOffset + rocketFallSpeed
     if effect.SpriteOffset.Y >= 0 then
       Isaac.Explode(effect.Position, nil, 50) -- 49 deals 1 half heart of damage
       effect:Remove()
-      local targets = Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.FETUS_BOSS_TARGET, -- 1000
-                                       -1, false, false) -- 1000
+      local targets = Isaac.FindByType(
+        EntityType.ENTITY_EFFECT, -- 1000
+        EffectVariant.FETUS_BOSS_TARGET,
+        -1,
+        false,
+        false
+      )
       targets[1]:Remove()
     end
   end

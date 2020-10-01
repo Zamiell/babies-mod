@@ -5,7 +5,7 @@ local g = {}
 --
 
 -- The version is updated automatically by the "release.py" script
-g.version = "v1.0.5"
+g.version = "v1.0.7"
 
 -- These are variables that are reset at the beginning of every run
 -- (defaults are set below in the "g:InitRun()" function)
@@ -38,68 +38,62 @@ g.kcolor = KColor(1, 1, 1, 1)
 EffectVariant.FETUS_BOSS_TARGET = Isaac.GetEntityVariantByName("FetusBossTarget")
 EffectVariant.FETUS_BOSS_ROCKET = Isaac.GetEntityVariantByName("FetusBossRocket")
 
-CollectibleType.COLLECTIBLE_CLOCKWORK_ASSEMBLY           = Isaac.GetItemIdByName("Clockwork Assembly")
-CollectibleType.COLLECTIBLE_FLOCK_OF_SUCCUBI             = Isaac.GetItemIdByName("Flock of Succubi")
-CollectibleType.COLLECTIBLE_CHARGING_STATION             = Isaac.GetItemIdByName("Charging Station")
-CollectibleType.COLLECTIBLE_SHOP_TELEPORT                = Isaac.GetItemIdByName("Shop Teleport")
-CollectibleType.COLLECTIBLE_TREASURE_ROOM_TELEPORT       = Isaac.GetItemIdByName("Treasure Room Teleport")
-CollectibleType.COLLECTIBLE_MINIBOSS_ROOM_TELEPORT       = Isaac.GetItemIdByName("Mini-Boss Room Teleport")
-CollectibleType.COLLECTIBLE_ARCADE_TELEPORT              = Isaac.GetItemIdByName("Arcade Teleport")
-CollectibleType.COLLECTIBLE_CURSE_ROOM_TELEPORT          = Isaac.GetItemIdByName("Curse Room Teleport")
-CollectibleType.COLLECTIBLE_CHALLENGE_ROOM_TELEPORT      = Isaac.GetItemIdByName("Challenge Room Teleport")
-CollectibleType.COLLECTIBLE_LIBRARY_TELEPORT             = Isaac.GetItemIdByName("Library Teleport")
-CollectibleType.COLLECTIBLE_SACRIFICE_ROOM_TELEPORT      = Isaac.GetItemIdByName("Sacrifice Room Teleport")
-CollectibleType.COLLECTIBLE_BEDROOM_CLEAN_TELEPORT       = Isaac.GetItemIdByName("Bedroom (Clean) Teleport")
-CollectibleType.COLLECTIBLE_BEDROOM_DIRTY_TELEPORT       = Isaac.GetItemIdByName("Bedroom (Dirty) Teleport")
-CollectibleType.COLLECTIBLE_TREASURE_CHEST_ROOM_TELEPORT = Isaac.GetItemIdByName("Treasure Chest Room Teleport")
-CollectibleType.COLLECTIBLE_DICE_ROOM_TELEPORT           = Isaac.GetItemIdByName("Dice Room Teleport")
+CollectibleType.COLLECTIBLE_CLOCKWORK_ASSEMBLY = Isaac.GetItemIdByName("Clockwork Assembly")
+CollectibleType.COLLECTIBLE_FLOCK_OF_SUCCUBI = Isaac.GetItemIdByName("Flock of Succubi")
+CollectibleType.COLLECTIBLE_CHARGING_STATION = Isaac.GetItemIdByName("Charging Station")
+CollectibleType.COLLECTIBLE_SHOP_TELEPORT = Isaac.GetItemIdByName("Shop Teleport")
+CollectibleType.COLLECTIBLE_TREASURE_ROOM_TELEPORT = Isaac.GetItemIdByName("Treasure Room Teleport")
+local minibossRoomTeleport = Isaac.GetItemIdByName("Mini-Boss Room Teleport")
+CollectibleType.COLLECTIBLE_MINIBOSS_ROOM_TELEPORT = minibossRoomTeleport
+CollectibleType.COLLECTIBLE_ARCADE_TELEPORT = Isaac.GetItemIdByName("Arcade Teleport")
+CollectibleType.COLLECTIBLE_CURSE_ROOM_TELEPORT = Isaac.GetItemIdByName("Curse Room Teleport")
+local challengeRoomTeleport = Isaac.GetItemIdByName("Challenge Room Teleport")
+CollectibleType.COLLECTIBLE_CHALLENGE_ROOM_TELEPORT = challengeRoomTeleport
+CollectibleType.COLLECTIBLE_LIBRARY_TELEPORT = Isaac.GetItemIdByName("Library Teleport")
+local sacrificeRoomTeleport = Isaac.GetItemIdByName("Sacrifice Room Teleport")
+CollectibleType.COLLECTIBLE_SACRIFICE_ROOM_TELEPORT = sacrificeRoomTeleport
+local bedroomCleanTeleport = Isaac.GetItemIdByName("Bedroom (Clean) Teleport")
+CollectibleType.COLLECTIBLE_BEDROOM_CLEAN_TELEPORT = bedroomCleanTeleport
+local bedroomDirtyTeleport = Isaac.GetItemIdByName("Bedroom (Dirty) Teleport")
+CollectibleType.COLLECTIBLE_BEDROOM_DIRTY_TELEPORT = bedroomDirtyTeleport
+local treasureChestRoomTeleport = Isaac.GetItemIdByName("Treasure Chest Room Teleport")
+CollectibleType.COLLECTIBLE_TREASURE_CHEST_ROOM_TELEPORT = treasureChestRoomTeleport
+CollectibleType.COLLECTIBLE_DICE_ROOM_TELEPORT = Isaac.GetItemIdByName("Dice Room Teleport")
 
-LaserVariant = {
-  LASER_THICK     = 1, -- Brimstone
-  LASER_THIN      = 2, -- Technology
-  LASER_SHOOP     = 3, -- Shoop Da Whoop!
-  LASER_PRIDE     = 4, -- Pride (looks like a squiggly line)
-  LASER_LIGHT     = 5, -- Angel lasers
-  LASER_GIANT     = 6, -- Mega Blast
-  LASER_TRACTOR   = 7, -- Tractor Beam
-  LASER_LIGHTRING = 8, -- ? (looks like pulsating Angel laser)
-  LASER_BRIMTECH  = 9, -- Brimstone + Technology
-}
-
-PoopVariant = {
-  POOP_NORMAL  = 0,
-  POOP_RED     = 1,
-  POOP_CORN    = 2,
-  POOP_GOLDEN  = 3,
+g.PoopVariant = {
+  POOP_NORMAL = 0,
+  POOP_RED = 1,
+  POOP_CORN = 2,
+  POOP_GOLDEN = 3,
   POOP_RAINBOW = 4,
-  POOP_BLACK   = 5,
-  POOP_WHITE   = 6,
+  POOP_BLACK = 5,
+  POOP_WHITE = 6,
 }
 
-BlueFlyVariant = {
+g.BlueFlyVariant = {
   BLUEFLY_NORMAL = 0,
-  BLUEFLY_RED    = 1,
-  BLUEFLY_GREEN  = 2,
+  BLUEFLY_RED = 1,
+  BLUEFLY_GREEN = 2,
   BLUEFLY_YELLOW = 3,
-  BLUEFLY_BLACK  = 4,
-  BLUEFLY_WHITE  = 5,
+  BLUEFLY_BLACK = 4,
+  BLUEFLY_WHITE = 5,
 }
 
 -- Spaded by ilise rose (@yatboim)
-RoomTransition = {
-  TRANSITION_NONE              = 0,
-  TRANSITION_DEFAULT           = 1,
-  TRANSITION_STAGE             = 2,
-  TRANSITION_TELEPORT          = 3,
-  TRANSITION_ANKH              = 5,
-  TRANSITION_DEAD_CAT          = 6,
-  TRANSITION_1UP               = 7,
-  TRANSITION_GUPPYS_COLLAR     = 8,
-  TRANSITION_JUDAS_SHADOW      = 9,
-  TRANSITION_LAZARUS_RAGS      = 10,
+g.RoomTransition = {
+  TRANSITION_NONE = 0,
+  TRANSITION_DEFAULT = 1,
+  TRANSITION_STAGE = 2,
+  TRANSITION_TELEPORT = 3,
+  TRANSITION_ANKH = 5,
+  TRANSITION_DEAD_CAT = 6,
+  TRANSITION_1UP = 7,
+  TRANSITION_GUPPYS_COLLAR = 8,
+  TRANSITION_JUDAS_SHADOW = 9,
+  TRANSITION_LAZARUS_RAGS = 10,
   TRANSITION_GLOWING_HOURGLASS = 12,
-  TRANSITION_D7                = 13,
-  TRANSITION_MISSING_POSTER    = 14,
+  TRANSITION_D7 = 13,
+  TRANSITION_MISSING_POSTER = 14,
 }
 
 function g:InitRun()
@@ -109,56 +103,59 @@ function g:InitRun()
   -- Reset some variables to defaults
   g.run = {
     -- General run-based variables
-    enabled              = false, -- Set to true in the MC_POST_GAME_STARTED callback if we are on the right character
-    babyType             = 0,
-    drawIntro            = false,
-    queuedItems          = false,
-    passiveItems         = {}, -- Keep track of all of the pedestal items that we pick up over the course of the run
-    animation            = "",
-    randomSeed           = levelSeed,
-    invulnerable         = false, -- Used to make the player temporarily invulnerable
+    -- Set to true in the MC_POST_GAME_STARTED callback if we are on the right character
+    enabled = false,
+    babyType = 0,
+    drawIntro = false,
+    queuedItems = false,
+    -- Keep track of all of the pedestal items that we pick up over the course of the run
+    passiveItems = {},
+    animation = "",
+    randomSeed = levelSeed,
+    invulnerable = false, -- Used to make the player temporarily invulnerable
     invulnerabilityFrame = 0, -- Used to make the player temporarily invulnerable
-    dealingExtraDamage   = false,
+    dealingExtraDamage = false,
 
     -- Tracking per floor
-    currentFloor             = 0,
     -- We start at 0 so that we can trigger the PostNewRoom callback after the PostNewLevel callback
-    currentFloorType         = 0, -- We need to track this because we can go from Cathedral to Sheol, for example
-    currentFloorFrame        = 0,
+    currentFloor = 0,
+    -- We need to track this because we can go from Cathedral to Sheol, for example
+    currentFloorType = 0,
+    currentFloorFrame = 0,
     currentFloorRoomsEntered = 0,
-    trinketGone              = false,
-    blindfoldedApplied       = false,
+    trinketGone = false,
+    blindfoldedApplied = false,
 
     -- Tracking per room
-    roomClear           = true,
-    roomRNG             = 0,
-    roomPseudoClear     = true,
-    roomDoorsModified   = {},
-    roomButtonsPushed   = false,
+    roomClear = true,
+    roomRNG = 0,
+    roomPseudoClear = true,
+    roomDoorsModified = {},
+    roomButtonsPushed = false,
     roomClearDelayFrame = 0,
-    roomSoftlock        = false,
-    lastRoomIndex       = 0,
-    currentRoomIndex    = 0,
+    roomSoftlock = false,
+    lastRoomIndex = 0,
+    currentRoomIndex = 0,
 
     -- Temporary variables
-    reloadSprite     = false,
-    showIntroFrame   = 0,
+    reloadSprite = false,
+    showIntroFrame = 0,
     showVersionFrame = 0,
 
     -- Baby-specific variables
-    babyBool         = false,
-    babyCounters     = 0,
+    babyBool = false,
+    babyCounters = 0,
     babyCountersRoom = 0,
-    babyFrame        = 0,
-    babyTears        = {
-      tear     = 1,
-      frame    = 0,
+    babyFrame = 0,
+    babyTears = {
+      tear = 1,
+      frame = 0,
       position = g.zeroVector,
       velocity = g.zeroVector,
-      num      = 0,
+      num = 0,
     },
     babyNPC = {
-      type    = 0,
+      type = 0,
       variant = 0,
       subType = 0,
     },
@@ -192,6 +189,14 @@ function g:GetItemMaxCharges(itemID)
   return g:GetItemConfig(itemID).MaxCharges
 end
 
+function g:GetRoomIndex()
+  local roomIndex = g.l:GetCurrentRoomDesc().SafeGridIndex
+  if roomIndex < 0 then -- SafeGridIndex is always -1 for rooms outside the grid
+    return g.l:GetCurrentRoomIndex()
+  end
+  return roomIndex
+end
+
 function g:IncrementRNG(seed)
   -- The game expects seeds in the range of 0 to 4294967295
   local rng = RNG()
@@ -208,11 +213,49 @@ function g:GridToPos(x, y)
   return g.r:GetGridPosition(y * g.r:GetGridWidth() + x)
 end
 
+-- Copied from the Racing+ mod
+function g:GetHeartXOffset()
+  -- Local variables
+  local curses = g.l:GetCurses()
+  local maxHearts = g.p:GetMaxHearts()
+  local soulHearts = g.p:GetSoulHearts()
+  local boneHearts = g.p:GetBoneHearts()
+  local extraLives = g.p:GetExtraLives()
+
+  local heartLength = 12 -- This is how long each heart is on the UI in the upper left hand corner
+  -- (this is not in pixels, but in draw coordinates;
+  -- you can see that it is 13 pixels wide in the "ui_hearts.png" file)
+  local combinedHearts = maxHearts + soulHearts + (boneHearts * 2) -- There are no half bone hearts
+  if combinedHearts > 12 then
+    combinedHearts = 12 -- After 6 hearts, it wraps to a second row
+  end
+
+  if curses == LevelCurse.CURSE_OF_THE_UNKNOWN then -- 1 << 3
+    combinedHearts = 2
+  end
+
+  local offset = (combinedHearts / 2) * heartLength
+  if extraLives > 9 then
+    offset = offset + 20
+    if g.p:HasCollectible(CollectibleType.COLLECTIBLE_GUPPYS_COLLAR) then -- 212
+      offset = offset + 6
+    end
+  elseif extraLives > 0 then
+    offset = offset + 16
+    if g.p:HasCollectible(CollectibleType.COLLECTIBLE_GUPPYS_COLLAR) then -- 212
+      offset = offset + 4
+    end
+  end
+
+  return offset
+end
+
 --
 -- Baby definitions
 --
 
--- The sprite value is not currently used, but it can be used as a quick reference to see what number the co-op baby is
+-- The sprite value is not currently used,
+-- but it can be used as a quick reference to see what number the co-op baby is
 g.babies = {
   {
     name = "Love Baby",
@@ -320,8 +363,9 @@ g.babies = {
   },
   {
     name = "Wrath Baby",
-    description = "Anarchist Cookbook effect every 10 seconds",
+    description = "Anarchist Cookbook effect every 7 seconds",
     sprite = "019_baby_wrath.png",
+    num = 210, -- 7 seconds (in game frames)
   },
   {
     name = "Wrapped Baby",
@@ -1202,6 +1246,7 @@ g.babies = {
     name = "Worry Baby",
     description = "Touching items/pickups causes teleportation",
     sprite = "167_baby_worry.png",
+    num = 1, -- The number of frames in the future to teleport after touching a pickup
   },
   {
     name = "Ears Baby",
@@ -2218,7 +2263,8 @@ g.babies = {
     name = "Butterfly Baby 2",
     description = "Flight + can walk through walls",
     sprite = "332_baby_butterfly.png",
-    -- (we do not need to explicitly give this character flight, because the grid collision does the same thing)
+    -- (we do not need to explicitly give this character flight,
+    -- because the grid collision does the same thing)
   },
   {
     name = "Homeless Baby",

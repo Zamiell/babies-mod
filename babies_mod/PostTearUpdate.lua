@@ -1,7 +1,7 @@
 local PostTearUpdate = {}
 
 -- Includes
-local g    = require("babies_mod/globals")
+local g = require("babies_mod/globals")
 local Misc = require("babies_mod/misc")
 
 -- ModCallbacks.MC_POST_TEAR_UPDATE (40)
@@ -25,11 +25,18 @@ PostTearUpdate.functions = {}
 -- Ed Baby
 PostTearUpdate.functions[100] = function(tear)
   -- Fire trail tears
-  if tear.SubType == 1 and
-     tear.FrameCount % 2 == 0 then
-
-    local fire = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.HOT_BOMB_FIRE, 0, -- 1000.51
-                             tear.Position, g.zeroVector, nil)
+  if (
+    tear.SubType == 1
+    and tear.FrameCount % 2 == 0
+  ) then
+    local fire = Isaac.Spawn(
+      EntityType.ENTITY_EFFECT, -- 1000
+      EffectVariant.HOT_BOMB_FIRE, -- 51
+      0,
+      tear.Position,
+      g.zeroVector,
+      nil
+    )
     fire.SpriteScale = Vector(0.5, 0.5)
 
     -- Fade the fire so that it is easier to see everything
@@ -42,19 +49,21 @@ end
 
 -- Skinny Baby
 PostTearUpdate.functions[213] = function(tear)
-  if tear.SubType == 1 and
-     tear.FrameCount >= 10 then
-
+  if (
+    tear.SubType == 1
+    and tear.FrameCount >= 10
+  ) then
     -- Find the nearest enemy
     local distance = 40000
     local closestNPC
     for _, entity in ipairs(Isaac.GetRoomEntities()) do
       local npc = entity:ToNPC()
-      if npc ~= nil and
-         npc:IsVulnerableEnemy() and -- Returns true for enemies that can be damaged
-         not npc:IsDead() and
-         g.p.Position:Distance(npc.Position) < distance then
-
+      if (
+        npc ~= nil
+        and npc:IsVulnerableEnemy() -- Returns true for enemies that can be damaged
+        and not npc:IsDead()
+        and g.p.Position:Distance(npc.Position) < distance
+      ) then
         distance = g.p.Position:Distance(npc.Position)
         closestNPC = npc
       end
@@ -76,15 +85,23 @@ end
 -- Hanger Baby
 PostTearUpdate.functions[228] = function(tear)
   -- Abel's tears hurt you
-  if tear.FrameCount == 1 and
-     tear.SpawnerType == EntityType.ENTITY_FAMILIAR and -- 3
-     tear.SpawnerVariant == FamiliarVariant.ABEL then -- 8
-
+  if (
+    tear.FrameCount == 1
+    and tear.SpawnerType == EntityType.ENTITY_FAMILIAR -- 3
+    and tear.SpawnerVariant == FamiliarVariant.ABEL -- 8
+  ) then
     if g.r:GetFrameCount() >= 30 then
       -- Abel is spawned on top of the player when the player first enters a room;
       -- don't shoot if this is the case
-      g.g:Spawn(EntityType.ENTITY_PROJECTILE, ProjectileVariant.PROJECTILE_NORMAL, -- 9.0
-                tear.Position, tear.Velocity, nil, 0, tear.InitSeed)
+      g.g:Spawn(
+        EntityType.ENTITY_PROJECTILE, -- 9
+        ProjectileVariant.PROJECTILE_NORMAL, -- 0
+        tear.Position,
+        tear.Velocity,
+        nil,
+        0,
+        tear.InitSeed
+      )
     end
     tear:Remove()
   end
@@ -116,9 +133,10 @@ end
 -- Lantern Baby
 PostTearUpdate.functions[292] = function(tear)
   -- Emulate having a Godhead aura
-  if tear.Parent ~= nil and
-     tear.Parent.Type == EntityType.ENTITY_PLAYER then -- 1
-
+  if (
+    tear.Parent ~= nil
+    and tear.Parent.Type == EntityType.ENTITY_PLAYER -- 1
+  ) then
     tear.Position = Vector(g.p.Position.X, g.p.Position.Y + 10)
 
     -- Clear the sprite for the Ludo tear
@@ -128,9 +146,10 @@ end
 
 -- Speaker Baby
 PostTearUpdate.functions[316] = function(tear)
-  if tear.SubType == 1 and
-     tear.FrameCount >= 20 then
-
+  if (
+    tear.SubType == 1
+    and tear.FrameCount >= 20
+  ) then
     local rotation = 45
     for i = 1, 4 do
       rotation = rotation + 90
@@ -147,12 +166,19 @@ end
 
 -- Octopus Baby
 PostTearUpdate.functions[380] = function(tear)
-  if tear.SubType == 1 and
-     g.g:GetFrameCount() % 5 == 0 then -- If we spawn creep on every frame, it becomes too thick
-
+  if (
+    tear.SubType == 1
+    and g.g:GetFrameCount() % 5 == 0 -- If we spawn creep on every frame, it becomes too thick
+  ) then
     -- Make the tear drip black creep
-    local creep = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_BLACK, 0, -- 1000.45
-                              tear.Position, g.zeroVector, tear)
+    local creep = Isaac.Spawn(
+      EntityType.ENTITY_EFFECT, -- 1000
+      EffectVariant.PLAYER_CREEP_BLACK, -- 45
+      0,
+      tear.Position,
+      g.zeroVector,
+      tear
+    )
     creep:ToEffect().Timeout = 240
   end
 end
@@ -178,18 +204,18 @@ PostTearUpdate.functions[455] = function(tear)
 
     -- If the tear bounced, then we need to update the stored velocity to the new velocity\
     -- ("tear.Bounce" does not ever seem to go to true, so we can't use that)
-    if (tear.Velocity.X > 0 and data.Velocity.X < 0) or
-        (tear.Velocity.X < 0 and data.Velocity.X > 0) or
-        (tear.Velocity.Y > 0 and data.Velocity.Y < 0) or
-        (tear.Velocity.Y < 0 and data.Velocity.Y > 0) then
-
+    if (
+      (tear.Velocity.X > 0 and data.Velocity.X < 0)
+      or (tear.Velocity.X < 0 and data.Velocity.X > 0)
+      or (tear.Velocity.Y > 0 and data.Velocity.Y < 0)
+      or (tear.Velocity.Y < 0 and data.Velocity.Y > 0)
+    ) then
       data.Velocity = tear.Velocity
     end
 
     -- Continue to apply the initial tear conditions for the duration of the tear
     tear.Height = data.Height
     tear.Velocity = data.Velocity
-
   else
     -- The tear has lived long enough, so manually kill it
     tear:Remove()
@@ -215,7 +241,6 @@ PostTearUpdate.functions[458] = function(tear)
 
     -- However, we can't apply a static velocity or else the shells won't home
     tear.Velocity = tear.Velocity:Normalized() * 10
-
   else
     -- The tear has lived long enough, so manually kill it
     tear:Remove()
@@ -224,9 +249,11 @@ end
 
 -- Sad Bunny Baby
 PostTearUpdate.functions[459] = function(tear)
-  if tear.SubType == 1 and
-     tear:IsDead() then -- Tears will not die if they hit an enemy, but they will die if they hit a wall or object
-
+  if (
+    tear.SubType == 1
+    -- Tears will not die if they hit an enemy, but they will die if they hit a wall or object
+    and tear:IsDead()
+  ) then
     -- The streak ended
     g.run.babyCounters = 0
     g.p:AddCacheFlags(CacheFlag.CACHE_FIREDELAY) -- 2
@@ -243,9 +270,11 @@ end
 
 -- Cursed Pillow Baby
 PostTearUpdate.functions[487] = function(tear)
-  if tear.SubType == 1 and
-     tear:IsDead() then -- Tears will not die if they hit an enemy, but they will die if they hit a wall or object
-
+  if (
+    tear.SubType == 1
+     -- Tears will not die if they hit an enemy, but they will die if they hit a wall or object
+    and tear:IsDead()
+  ) then
     -- Missing tears causes damage
     -- It only applies to the Nth missed tear
     g.run.babyCounters = g.run.babyCounters + 1
@@ -275,16 +304,19 @@ end
 
 -- Abel
 PostTearUpdate.functions[531] = function(tear)
-  if tear.SubType == 1 and
-     tear:IsDead() then -- Tears will not die if they hit an enemy, but they will die if they hit a wall or object
-
+  if (
+    tear.SubType == 1
+     -- Tears will not die if they hit an enemy, but they will die if they hit a wall or object
+    and tear:IsDead()
+  ) then
     -- Missing tears causes Paralysis
     -- It only applies to the Nth missed tear
     g.run.babyCounters = g.run.babyCounters + 1
     if g.run.babyCounters == g.babies[531].num then
       g.run.babyCounters = 0
       g.p:UsePill(PillEffect.PILLEFFECT_PARALYSIS, PillColor.PILL_NULL) -- 22, 0
-      -- (we can't cancel the animation or it will cause the bug where the player cannot pick up pedestal items)
+      -- (we can't cancel the animation or it will cause the bug where the player cannot pick up
+      -- pedestal items)
     end
   end
 end

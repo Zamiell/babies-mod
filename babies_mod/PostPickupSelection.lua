@@ -23,11 +23,11 @@ PostPickupSelection.functions = {}
 
 -- Gem Baby
 PostPickupSelection.functions[237] = function(pickup, variant, subType)
-  if variant == PickupVariant.PICKUP_COIN and -- 20
-     subType == 1 then -- Penny
-
-    -- 5.20.2 - Nickel
-    return { PickupVariant.PICKUP_COIN, 2 }
+  if (
+    variant == PickupVariant.PICKUP_COIN -- 20
+    and subType == CoinSubType.COIN_PENNY -- 1
+  ) then
+    return { PickupVariant.PICKUP_COIN, CoinSubType.COIN_NICKEL }
   end
 end
 
@@ -36,6 +36,7 @@ PostPickupSelection.functions[342] = function(pickup, variant, subType)
   -- Convert all keys to bombs
   if variant == PickupVariant.PICKUP_KEY then -- 30
     return { PickupVariant.PICKUP_BOMB, subType } -- 40
+    -- (just use the same SubType, so e.g. a charged key would be converted to a golden bomb)
   end
 end
 
@@ -49,6 +50,7 @@ PostPickupSelection.functions[395] = function(pickup, variant, subType)
     end
 
     return { PickupVariant.PICKUP_KEY, subType } -- 30
+    -- (just use the same SubType, so e.g. a golden bomb would be converted to a charged key)
   end
 end
 

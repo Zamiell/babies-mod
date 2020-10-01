@@ -16,10 +16,11 @@ function Timer:Display()
   end
 
   local finishTime
-  if baby.name == "Noose Baby" or -- 39
-     baby.name == "Vomit Baby" or -- 341
-     baby.name == "Scoreboard Baby" then -- 474
-
+  if (
+    baby.name == "Noose Baby" -- 39
+    or baby.name == "Vomit Baby" -- 341
+    or baby.name == "Scoreboard Baby" -- 474
+  ) then
     finishTime = g.run.babyCounters
   end
   if finishTime == nil or finishTime == 0 then
@@ -69,12 +70,17 @@ function Timer:Display()
   Timer.sprites.digit[3]:SetFrame("Default", timeTable[4])
   Timer.sprites.digit[3]:RenderLayer(0, posSecond1)
 
-  local posSecond2 = Vector(startingX + digitLength + 11 + digitLength + 1 - hourAdjustment2, startingY)
+  local posSecond2 = Vector(
+    startingX + digitLength + 11 + digitLength + 1 - hourAdjustment2,
+    startingY
+  )
   Timer.sprites.digit[4]:SetFrame("Default", timeTable[5])
   Timer.sprites.digit[4]:RenderLayer(0, posSecond2)
 
-  local posTenths = Vector(startingX + digitLength + 11 + digitLength + 1 - hourAdjustment2 + digitLength,
-                           startingY + 1)
+  local posTenths = Vector(
+    startingX + digitLength + 11 + digitLength + 1 - hourAdjustment2 + digitLength,
+    startingY + 1
+  )
   Timer.sprites.digitMini:SetFrame("Default", timeTable[6])
   Timer.sprites.digitMini:RenderLayer(0, posTenths)
 end

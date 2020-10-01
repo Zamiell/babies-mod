@@ -1,7 +1,7 @@
-local PostGameStarted  = {}
+local PostGameStarted = {}
 
 -- Includes
-local g            = require("babies_mod/globals")
+local g = require("babies_mod/globals")
 local PostNewLevel = require("babies_mod/postnewlevel")
 
 -- ModCallbacks.MC_POST_GAME_STARTED (15)
@@ -23,10 +23,11 @@ function PostGameStarted:Main(saveState)
   -- Also reset the list of past babies that have been chosen
   -- (but don't do this if we are in the middle of a multi-character custom challenge)
   local resetPastBabies = true
-  if challenge == Isaac.GetChallengeIdByName("R+7 (Season 5)") and
-     RacingPlusSpeedrun ~= nil and
-     RacingPlusSpeedrun.charNum >= 2 then
-
+  if (
+    challenge == Isaac.GetChallengeIdByName("R+7 (Season 5)")
+    and RacingPlusSpeedrun ~= nil
+    and RacingPlusSpeedrun.charNum >= 2
+  ) then
     resetPastBabies = false
   end
   if resetPastBabies then
@@ -34,7 +35,8 @@ function PostGameStarted:Main(saveState)
   end
 
   -- Easter Eggs from babies are normally removed upon going to the next floor
-  -- We also have to check to see if they reset the game while on a baby with a custom Easter Egg effect
+  -- We also have to check to see if they reset the game while on a baby with a custom Easter Egg
+  -- effect
   for i = 1, #g.babies do
     local baby = g.babies[i]
     if baby.seed ~= nil then

@@ -1,7 +1,7 @@
 local PostEffectInit = {}
 
 -- Includes
-local g    = require("babies_mod/globals")
+local g = require("babies_mod/globals")
 local Misc = require("babies_mod/misc")
 
 -- ModCallbacks.MC_POST_EFFECT_INIT (54)
@@ -25,9 +25,10 @@ PostEffectInit.functions = {}
 -- Blue Baby
 PostEffectInit.functions[30] = function(effect)
   -- Get rid of the poof effect that occurs when a Sprinkler is summoned
-  if effect.Variant == EffectVariant.POOF01 and -- 15
-     g.run.babyBool then
-
+  if (
+    effect.Variant == EffectVariant.POOF01 -- 15
+    and g.run.babyBool
+  ) then
     g.run.babyBool = false
     effect:Remove()
   end

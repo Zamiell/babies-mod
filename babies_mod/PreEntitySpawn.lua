@@ -12,17 +12,19 @@ function PreEntitySpawn:Main(entityType, variant, subType, position, velocity, s
     return
   end
 
-  if entityType == EntityType.ENTITY_SLOT and
-     g.run.clockworkAssembly then
-
+  if (
+    entityType == EntityType.ENTITY_SLOT -- 6
+    and g.run.clockworkAssembly
+  ) then
     g.run.clockworkAssembly = false
     return { entityType, 10, subType, seed }
   end
 
-  if baby.name == "Purple Baby" and -- 252
-     entityType == EntityType.ENTITY_FIREPLACE and -- 33
-     variant ~= 2 then -- Blue Fire Place
-
+  if (
+    baby.name == "Purple Baby" -- 252
+    and entityType == EntityType.ENTITY_FIREPLACE -- 33
+    and variant ~= 2 -- Blue Fire Place
+  ) then
     return { entityType, 2, subType, seed }
   end
 end

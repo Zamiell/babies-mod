@@ -8,14 +8,15 @@ function PreUseItem:Item36(collectibleType, RNG)
   -- Local variables
   local babyType = g.run.babyType
   local baby = g.babies[babyType]
-  if baby == nil or
-     baby.name ~= "Panda Baby" then -- 262
-
+  if (
+    baby == nil
+    or baby.name ~= "Panda Baby" -- 262
+  ) then
     return
   end
 
   -- Spawn White Poop next to the player
-  Isaac.GridSpawn(GridEntityType.GRID_POOP, PoopVariant.POOP_WHITE, g.p.Position, false) -- 14
+  Isaac.GridSpawn(GridEntityType.GRID_POOP, g.PoopVariant.POOP_WHITE, g.p.Position, false) -- 14
 
   -- Playing ID 37 will randomly play one of the three farting sound effects
   g.sfx:Play(SoundEffect.SOUND_FART, 1, 0, false, 1) -- 37
@@ -28,9 +29,10 @@ function PreUseItem:Item56(collectibleType, RNG)
   -- Local variables
   local babyType = g.run.babyType
   local baby = g.babies[babyType]
-  if baby == nil or
-     baby.name ~= "Lemon Baby" then -- 232
-
+  if (
+    baby == nil
+    or baby.name ~= "Lemon Baby" -- 232
+  ) then
     return
   end
 
@@ -44,9 +46,10 @@ function PreUseItem:Item323(collectibleType, RNG)
   -- Local variables
   local babyType = g.run.babyType
   local baby = g.babies[babyType]
-  if baby == nil or
-     baby.name ~= "Water Baby" then -- 3
-
+  if (
+    baby == nil
+    or baby.name ~= "Water Baby" -- 3
+  ) then
     return
   end
 
@@ -61,7 +64,8 @@ function PreUseItem:Item323(collectibleType, RNG)
     tear.KnockbackMultiplier = 20
   end
 
-  -- When we return from the function below, no animation will play, so we have to explitily perform one
+  -- When we return from the function below, no animation will play,
+  -- so we have to explitily perform one
   g.p:AnimateCollectible(CollectibleType.COLLECTIBLE_ISAACS_TEARS, "UseItem", "PlayerPickup") -- 323
 
   -- Cancel the original effect
@@ -74,18 +78,15 @@ function PreUseItem:Item479(collectibleType, RNG)
   -- Local variables
   local babyType = g.run.babyType
   local baby = g.babies[babyType]
-  if baby == nil or
-     baby.trinket == nil then
-
+  if baby == nil or baby.trinket == nil then
     return
   end
 
-  -- We want to keep track if the player smelts the trinket so that we don't give another copy back to them
+  -- We want to keep track if the player smelts the trinket so that we don't give another copy back
+  -- to them
   local trinket1 = g.p:GetTrinket(0) -- This will be 0 if there is no trinket
   local trinket2 = g.p:GetTrinket(1) -- This will be 0 if there is no trinket
-  if trinket1 == baby.trinket or
-     trinket2 == baby.trinket then
-
+  if trinket1 == baby.trinket or trinket2 == baby.trinket then
     g.run.trinketGone = true
   end
 
@@ -98,9 +99,10 @@ function PreUseItem:Item504(collectibleType, RNG)
   local gameFrameCount = g.g:GetFrameCount()
   local babyType = g.run.babyType
   local baby = g.babies[babyType]
-  if baby == nil or
-     baby.name ~= "Pizza Baby" then -- 303
-
+  if (
+    baby == nil
+    or baby.name ~= "Pizza Baby" -- 303
+  ) then
     return
   end
 

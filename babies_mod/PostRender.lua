@@ -1,7 +1,7 @@
-local PostRender  = {}
+local PostRender = {}
 
 -- Includes
-local g     = require("babies_mod/globals")
+local g = require("babies_mod/globals")
 local Timer = require("babies_mod/timer")
 
 -- Variables
@@ -52,24 +52,29 @@ function PostRender:CheckPlayerSprite()
   if roomFrameCount == 0 then
     if g.p:HasCollectible(CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON) then -- 122
       -- Even though we blanked out the costumes for Whore of Babylon,
-      -- we also have to also remove the costume or else the player sprite will be invisible permanently
+      -- we also have to also remove the costume or else the player sprite will be invisible
+      -- permanently
       g.p:RemoveCostume(g:GetItemConfig(CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON)) -- 122
     end
     if g.p:HasCollectible(CollectibleType.COLLECTIBLE_EMPTY_VESSEL) then -- 409
       -- Even though we blanked out the costumes for Empty Vessel,
-      -- we also have to also remove the costume or else the player sprite will be invisible permanently
+      -- we also have to also remove the costume or else the player sprite will be invisible
+      -- permanently
       g.p:TryRemoveNullCostume(NullItemID.ID_EMPTY_VESSEL) -- 18
     end
   end
 
   --[[
 
-  Certain costumes are loaded immediately after triggering a room transition and then they are locked in to the slide
-  animation. The only way to fix this is to blank out the entire costume. This applies to:
+  Certain costumes are loaded immediately after triggering a room transition and then they are
+  locked in to the slide animation. The only way to fix this is to blank out the entire costume.
+  This applies to:
   - Whore of Babylon (122) - costume_073_whoreofbabylon.png
   - Fate (179) - costume_179_fate.png & 6 others for each color
-      The costume is not completely blanked out; only the body is removed so that we can add only the wings.
-      We also need to modify the "179_fate.anm2" file so that we can swap the layer that the wings are applied to.
+      The costume is not completely blanked out;
+      only the body is removed so that we can add only the wings.
+      We also need to modify the "179_fate.anm2" file so that we can swap the layer that the wings
+      are applied to.
   - Anemic (214) - costume_214_anemic.png
   - Taurus (235) - costume_235_taurus.png & 6 others for each color
       The costume is only applied when entering a room for the first time.
@@ -77,7 +82,8 @@ function PostRender:CheckPlayerSprite()
   - Empty Vessel (409) - emptyvessel body.png & emptyvessel head.png
   - Dad's Ring (546) - costume_546_dadsring.png
       The costume is applied one frame after entering the room, similar to Whore of Babylon.
-      If we remove the costume in code, it also removes the ring, which we don't want, so we just blank out the costume.
+      If we remove the costume in code, it also removes the ring, which we don't want,
+      so we just blank out the costume.
 
   --]]
 
@@ -119,8 +125,10 @@ function PostRender:TrackPlayerAnimations()
     if animation ~= "" then
       --[[
       local gameFrameCount = game:GetFrameCount()
-      Isaac.DebugString("Reverting the sprite. (Triggered by animation " .. animation ..
-                        " on frame " .. tostring(gameFrameCount) .. ".)")
+      Isaac.DebugString(
+        "Reverting the sprite. (Triggered by animation " .. animation .. " on frame "
+        .. tostring(gameFrameCount) .. ".)"
+      )
       --]]
       PostRender:SetPlayerSprite()
       playerSprite:Play(animation, false)
@@ -154,13 +162,19 @@ function PostRender:SetPlayerSprite()
 
   -- It is hard to tell that the player can fly with all costumes removed,
   -- so represent that the player has flight with Fate's wings
-  if (g.p.CanFly or
-      (g.p:HasCollectible(CollectibleType.COLLECTIBLE_EMPTY_VESSEL) and -- 409
-       hearts == 0)) and
-      -- Empty Vessel takes a frame to activate after entering a new room, so detect the flight status manually
-     baby.name ~= "Butterfly Baby 2" then -- 332
-     -- (make an exception for Butterfly Baby 2 because it already has wings)
-
+  if (
+    -- Empty Vessel takes a frame to activate after entering a new room,
+    -- so detect the flight status manually
+    (
+      g.p.CanFly
+      or (
+        g.p:HasCollectible(CollectibleType.COLLECTIBLE_EMPTY_VESSEL) -- 409
+        and hearts == 0
+      )
+    )
+    -- Make an exception for Butterfly Baby 2 because it already has wings
+    and baby.name ~= "Butterfly Baby 2" -- 332
+  ) then
      g.p:AddCostume(g:GetItemConfig(CollectibleType.COLLECTIBLE_FATE), false) -- 179
   end
 
@@ -232,46 +246,17 @@ function PostRender:DrawBabyNumber()
   end
 
   local text = "#" .. type
-  local x = 55 + PostRender:GetHeartXOffset()
-  if baby.name == "Hopeless Baby" or -- 125
-     baby.name == "Mohawk Baby" then -- 138
-
-    -- These babies draw text next to the hearts, so account for this so that the number text does not overlap
+  local x = 55 + g:GetHeartXOffset()
+  if (
+    baby.name == "Hopeless Baby" -- 125
+    or baby.name == "Mohawk Baby" -- 138
+  ) then
+    -- These babies draw text next to the hearts,
+    -- so account for this so that the number text does not overlap
     x = x + 20
   end
   local y = 10
   g.font:DrawString(text, x, y, g.kcolor, 0, true)
-end
-
--- Copied from the Racing+ mod
-function PostRender:GetHeartXOffset()
-  -- Local variables
-  local maxHearts = g.p:GetMaxHearts()
-  local soulHearts = g.p:GetSoulHearts()
-  local boneHearts = g.p:GetBoneHearts()
-  local extraLives = g.p:GetExtraLives()
-
-  local heartLength = 12 -- This is how long each heart is on the UI in the upper left hand corner
-  -- (this is not in pixels, but in draw coordinates; you can see that it is 13 pixels wide in the "ui_hearts.png" file)
-  local combinedHearts = maxHearts + soulHearts + (boneHearts * 2) -- There are no half bone hearts
-  if combinedHearts > 12 then
-    combinedHearts = 12 -- After 6 hearts, it wraps to a second row
-  end
-
-  local offset = (combinedHearts / 2) * heartLength
-  if extraLives > 9 then
-    offset = offset + 20
-    if g.p:HasCollectible(CollectibleType.COLLECTIBLE_GUPPYS_COLLAR) then -- 212
-      offset = offset + 6
-    end
-  elseif extraLives > 0 then
-    offset = offset + 16
-    if g.p:HasCollectible(CollectibleType.COLLECTIBLE_GUPPYS_COLLAR) then -- 212
-      offset = offset + 4
-    end
-  end
-
-  return offset
 end
 
 function PostRender:DrawVersion()
@@ -283,9 +268,10 @@ function PostRender:DrawVersion()
     g.run.showVersionFrame = gameFrameCount + 60
   end
 
-  if g.run.showVersionFrame == 0 or
-     gameFrameCount > g.run.showVersionFrame then
-
+  if (
+    g.run.showVersionFrame == 0
+    or gameFrameCount > g.run.showVersionFrame
+  ) then
     return
   end
 
@@ -313,9 +299,10 @@ function PostRender:DrawTempIcon()
 
   -- We want to draw a temporary icon next to the baby's active item
   -- to signify that it will go away at the end of the floor
-  if baby.item == nil or
-     g:GetItemConfig(baby.item).Type ~= ItemType.ITEM_ACTIVE then -- 3
-
+  if (
+    baby.item == nil
+    or g:GetItemConfig(baby.item).Type ~= ItemType.ITEM_ACTIVE -- 3
+  ) then
     return
   end
 
@@ -332,11 +319,11 @@ function PostRender:DrawTempIcon()
     -- The player has the item in their main active slot
     -- Draw the icon in the bottom-right hand corner
     PostRender.clockSprite:RenderLayer(0, Vector(clockX, clockY))
-
-  elseif RacingPlusGlobals ~= nil and
-         g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
-         RacingPlusGlobals.run.schoolbag.item == baby.item then
-
+  elseif (
+    RacingPlusGlobals ~= nil
+    and g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM)
+    and RacingPlusGlobals.run.schoolbag.item == baby.item
+  ) then
     -- The player has the item in the Schoolbag
     -- Draw the icon in the bottom-right hand corner
     PostRender.clockSprite:RenderLayer(0, Vector(clockX + 27, clockY + 32))
@@ -351,16 +338,16 @@ function PostRender:GetScreenCenterPosition()
   local pos = g.r:GetCenterPos()
 
   if centerOffset.X > 260 then
-      pos.X = pos.X - 260
+    pos.X = pos.X - 260
   end
   if shape == RoomShape.ROOMSHAPE_LBL or shape == RoomShape.ROOMSHAPE_LTL then
-      pos.X = pos.X - 260
+    pos.X = pos.X - 260
   end
   if centerOffset.Y > 140 then
-      pos.Y = pos.Y - 140
+    pos.Y = pos.Y - 140
   end
   if shape == RoomShape.ROOMSHAPE_LTR or shape == RoomShape.ROOMSHAPE_LTL then
-      pos.Y = pos.Y - 140
+    pos.Y = pos.Y - 140
   end
 
   return Isaac.WorldToRenderPosition(pos, false)
@@ -386,7 +373,8 @@ PostRender.functions = {}
 -- Dark Baby
 PostRender.functions[48] = function()
   -- Temporary blindness
-  -- Set the current fade (which is based on the game's frame count and set in the MC_POST_UPDATE callback)
+  -- Set the current fade
+  -- (which is based on the game's frame count and set in the MC_POST_UPDATE callback)
   if g.run.babySprites ~= nil then
     local opacity = g.run.babyCounters / 90
     if opacity > 1 then
@@ -402,16 +390,17 @@ PostRender.functions[125] = function()
   local roomType = g.r:GetType()
   local roomDesc = g.l:GetCurrentRoomDesc()
   local roomVariant = roomDesc.Data.Variant
-  if roomType ~= RoomType.ROOM_DEVIL and -- 14
-     roomType ~= RoomType.ROOM_BLACK_MARKET and -- 22
-     roomVariant ~= 2300 and -- Krampus
-     roomVariant ~= 2301 and -- Krampus
-     roomVariant ~= 2302 and -- Krampus
-     roomVariant ~= 2303 and -- Krampus
-     roomVariant ~= 2304 and -- Krampus
-     roomVariant ~= 2305 and -- Krampus
-     roomVariant ~= 2306 then -- Krampus
-
+  if (
+    roomType ~= RoomType.ROOM_DEVIL -- 14
+    and roomType ~= RoomType.ROOM_BLACK_MARKET -- 22
+    and roomVariant ~= 2300 -- Krampus
+    and roomVariant ~= 2301 -- Krampus
+    and roomVariant ~= 2302 -- Krampus
+    and roomVariant ~= 2303 -- Krampus
+    and roomVariant ~= 2304 -- Krampus
+    and roomVariant ~= 2305 -- Krampus
+    and roomVariant ~= 2306 -- Krampus
+  ) then
     -- Draw the key count next to the hearts
     local x = 65
     g.run.babySprites:RenderLayer(0, Vector(x, 12))
@@ -426,16 +415,17 @@ PostRender.functions[138] = function()
   local roomType = g.r:GetType()
   local roomDesc = g.l:GetCurrentRoomDesc()
   local roomVariant = roomDesc.Data.Variant
-  if roomType ~= RoomType.ROOM_DEVIL and -- 14
-     roomType ~= RoomType.ROOM_BLACK_MARKET and -- 22
-     roomVariant ~= 2300 and -- Krampus
-     roomVariant ~= 2301 and -- Krampus
-     roomVariant ~= 2302 and -- Krampus
-     roomVariant ~= 2303 and -- Krampus
-     roomVariant ~= 2304 and -- Krampus
-     roomVariant ~= 2305 and -- Krampus
-     roomVariant ~= 2306 then -- Krampus
-
+  if (
+    roomType ~= RoomType.ROOM_DEVIL -- 14
+    and roomType ~= RoomType.ROOM_BLACK_MARKET -- 22
+    and roomVariant ~= 2300 -- Krampus
+    and roomVariant ~= 2301 -- Krampus
+    and roomVariant ~= 2302 -- Krampus
+    and roomVariant ~= 2303 -- Krampus
+    and roomVariant ~= 2304 -- Krampus
+    and roomVariant ~= 2305 -- Krampus
+    and roomVariant ~= 2306 -- Krampus
+  ) then
     -- Draw the bomb count next to the hearts
     local x = 65
     g.run.babySprites:RenderLayer(0, Vector(x, 12))
@@ -448,9 +438,15 @@ end
 PostRender.functions[377] = function()
   -- The Speak of Destiny effect is not spawned in the POST_NEW_ROOM callback
   -- Thus, we check for it on every frame instead
-  -- As an unfortunate side effect, the Spear of Destiny will show as the vanilla graphic during room transitions
-  local spears = Isaac.FindByType(EntityType.ENTITY_EFFECT, EffectVariant.SPEAR_OF_DESTINY, -- 1000.83
-                                  -1, false, false)
+  -- As an unfortunate side effect,
+  -- the Spear of Destiny will show as the vanilla graphic during room transitions
+  local spears = Isaac.FindByType(
+    EntityType.ENTITY_EFFECT, -- 1000
+    EffectVariant.SPEAR_OF_DESTINY, -- 83
+    -1,
+    false,
+    false
+  )
   for _, spear in ipairs(spears) do
     if spear:GetSprite():GetFilename() == "gfx/1000.083_Spear Of Destiny.anm2" then
       local sprite = spear:GetSprite()

@@ -1,8 +1,8 @@
 local PostUpdateBabies = {}
 
 -- Includes
-local g               = require("babies_mod/globals")
-local PostRender      = require("babies_mod/postrender")
+local g = require("babies_mod/globals")
+local PostRender = require("babies_mod/postrender")
 local PseudoRoomClear = require("babies_mod/pseudoroomclear")
 
 function PostUpdateBabies:Main()
@@ -23,8 +23,15 @@ PostUpdateBabies.functions[6] = function()
   local gameFrameCount = g.g:GetFrameCount()
 
   if gameFrameCount % 90 == 0 then -- 3 seconds
-    -- Spawn a Troll Bomb (4.3)
-    Isaac.Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_TROLL, 0, g.p.Position, g.zeroVector, nil)
+    -- Spawn a Troll Bomb
+    Isaac.Spawn(
+      EntityType.ENTITY_BOMBDROP, -- 4
+      BombVariant.BOMB_TROLL, -- 3
+      0,
+      g.p.Position,
+      g.zeroVector,
+      nil
+    )
   end
 end
 
@@ -34,7 +41,13 @@ PostUpdateBabies.functions[17] = function()
   local gameFrameCount = g.g:GetFrameCount()
 
   -- Prevent softlocks that occur if you try to jump into a Big Chest
-  local bigChests = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BIGCHEST, -1, false, false) -- 5.340
+  local bigChests = Isaac.FindByType(
+    EntityType.ENTITY_PICKUP, -- 5
+    PickupVariant.PICKUP_BIGCHEST, -- 340
+    -1,
+    false,
+    false
+  )
   if #bigChests > 0 then
     return
   end
@@ -47,10 +60,17 @@ end
 -- Wrath Baby
 PostUpdateBabies.functions[19] = function()
   -- Local variables
+  local baby = g.babies[19]
   local gameFrameCount = g.g:GetFrameCount()
 
-  if gameFrameCount % 210 == 0 then -- 7 seconds
-    g.p:UseActiveItem(CollectibleType.COLLECTIBLE_ANARCHIST_COOKBOOK, false, false, false, false) -- 65
+  if gameFrameCount % baby.num == 0 then
+    g.p:UseActiveItem(
+      CollectibleType.COLLECTIBLE_ANARCHIST_COOKBOOK, -- 65
+      false,
+      false,
+      false,
+      false
+    )
   end
 end
 
@@ -59,9 +79,10 @@ PostUpdateBabies.functions[20] = function()
   -- Local variables
   local gameFrameCount = g.g:GetFrameCount()
 
-  if gameFrameCount % 3 == 0 and -- If the explosions happen too fast, it looks buggy
-     g.run.babyCounters > 0 then
-
+  if (
+    gameFrameCount % 3 == 0 -- If the explosions happen too fast, it looks buggy
+    and g.run.babyCounters > 0
+  ) then
     -- This should not cause any damage since the player will have invulnerability frames
     g.run.babyCounters = g.run.babyCounters - 1
     g.p:UseActiveItem(CollectibleType.COLLECTIBLE_KAMIKAZE, false, false, false, false) -- 40
@@ -77,9 +98,7 @@ end
 PostUpdateBabies.functions[36] = function()
   -- Everything is tiny
   -- This does not work if we put it in the MC_POST_NEW_LEVEL callback for some reason
-  if g.p.SpriteScale.X > 0.5 or
-     g.p.SpriteScale.Y > 0.5 then
-
+  if g.p.SpriteScale.X > 0.5 or g.p.SpriteScale.Y > 0.5 then
     g.p.SpriteScale = Vector(0.5, 0.5)
   end
 end
@@ -88,9 +107,7 @@ end
 PostUpdateBabies.functions[37] = function()
   -- Everything is giant
   -- This does not work if we put it in the MC_POST_NEW_LEVEL callback for some reason
-  if g.p.SpriteScale.X < 2 or
-     g.p.SpriteScale.Y < 2 then
-
+  if g.p.SpriteScale.X < 2 or g.p.SpriteScale.Y < 2 then
     g.p.SpriteScale = Vector(2, 2)
   end
 end
@@ -106,11 +123,12 @@ PostUpdateBabies.functions[39] = function()
     g.run.babyCounters = gameFrameCount + g.babies[341].time -- Reset the timer
 
     for i = 0, 3 do -- There are 4 possible inputs/players from 0 to 3
-      if Input.IsActionPressed(ButtonAction.ACTION_SHOOTLEFT, i) or -- 4
-         Input.IsActionPressed(ButtonAction.ACTION_SHOOTRIGHT, i) or -- 5
-         Input.IsActionPressed(ButtonAction.ACTION_SHOOTUP, i) or -- 6
-         Input.IsActionPressed(ButtonAction.ACTION_SHOOTDOWN, i) then -- 7
-
+      if (
+        Input.IsActionPressed(ButtonAction.ACTION_SHOOTLEFT, i) -- 4
+        or Input.IsActionPressed(ButtonAction.ACTION_SHOOTRIGHT, i) -- 5
+        or Input.IsActionPressed(ButtonAction.ACTION_SHOOTUP, i) -- 6
+        or Input.IsActionPressed(ButtonAction.ACTION_SHOOTDOWN, i) -- 7
+      ) then
         g.p:TakeDamage(1, 0, EntityRef(g.p), 0)
         return
       end
@@ -121,10 +139,7 @@ end
 -- Whore Baby
 PostUpdateBabies.functions[43] = function()
   -- Local variables
-  local roomIndex = g.l:GetCurrentRoomDesc().SafeGridIndex
-  if roomIndex < 0 then -- SafeGridIndex is always -1 for rooms outside the grid
-    roomIndex = g.l:GetCurrentRoomIndex()
-  end
+  local roomIndex = g:GetRoomIndex()
 
   -- All enemies explode
   -- Perform the explosion that was initiated in the MC_POST_ENTITY_KILL callback
@@ -176,10 +191,12 @@ PostUpdateBabies.functions[63] = function()
     g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
     math.randomseed(g.run.randomSeed)
     local poopVariant = math.random(0, 6)
-    if poopVariant == PoopVariant.POOP_RED or -- 1
-       poopVariant == PoopVariant.POOP_CORN then -- 2
-
-      -- If the poop is this type, then it will instantly damage the player, so give them some invulnerability frames
+    if (
+      poopVariant == g.PoopVariant.POOP_RED -- 1
+      or poopVariant == g.PoopVariant.POOP_CORN -- 2
+    ) then
+      -- If the poop is this type, then it will instantly damage the player,
+      -- so give them some invulnerability frames
       g.run.invulnerabilityFrame = gameFrameCount + 25
     end
     Isaac.GridSpawn(GridEntityType.GRID_POOP, poopVariant, g.p.Position, false) -- 14
@@ -201,11 +218,15 @@ PostUpdateBabies.functions[81] = function()
   local activeCharge = g.p:GetActiveCharge()
   local batteryCharge = g.p:GetBatteryCharge()
 
-  if g.run.babyFrame ~= 0 and
-     gameFrameCount <= g.run.babyFrame + 1 and
-     (activeCharge ~= g.run.babyCounters or -- We store the main charge in the "babyCounters" variable
-      batteryCharge ~= g.run.babyNPC.type) then -- We store the Battery charge in the "babyNPC.type" variable
-
+  if (
+    g.run.babyFrame ~= 0
+    and gameFrameCount <= g.run.babyFrame + 1
+    and (
+      activeCharge ~= g.run.babyCounters -- We store the main charge in the "babyCounters" variable
+      -- We store the Battery charge in the "babyNPC.type" variable
+      or batteryCharge ~= g.run.babyNPC.type
+    )
+  ) then
     g.p:SetActiveCharge(g.run.babyCounters + g.run.babyNPC.type)
     g.sfx:Stop(SoundEffect.SOUND_BATTERYCHARGE) -- 170
     g.sfx:Stop(SoundEffect.SOUND_BEEP) -- 171
@@ -234,10 +255,22 @@ PostUpdateBabies.functions[107] = function()
   -- (if you spawn them in the MC_POST_NEW_LEVEL callback, it does not work for some reason)
   if not g.run.babyBool then
     g.run.babyBool = true
-    Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.CUBE_OF_MEAT_4, 0, -- 3.47
-                g.p.Position, g.zeroVector, nil)
-    Isaac.Spawn(EntityType.ENTITY_FAMILIAR, FamiliarVariant.BALL_OF_BANDAGES_4, 0, -- 3.72
-                g.p.Position, g.zeroVector, nil)
+    Isaac.Spawn(
+      EntityType.ENTITY_FAMILIAR, -- 3
+      FamiliarVariant.CUBE_OF_MEAT_4, -- 47
+      0,
+      g.p.Position,
+      g.zeroVector,
+      nil
+    )
+    Isaac.Spawn(
+      EntityType.ENTITY_FAMILIAR, -- 3
+      FamiliarVariant.BALL_OF_BANDAGES_4, -- 72
+      0,
+      g.p.Position,
+      g.zeroVector,
+      nil
+    )
   end
 end
 
@@ -263,10 +296,13 @@ PostUpdateBabies.functions[110] = function()
     local roomDesc = rooms:Get(i)
     local roomData = roomDesc.Data
     local roomType2 = roomData.Type
-    if (roomType2 == RoomType.ROOM_DEFAULT or -- 1
-        roomType2 == RoomType.ROOM_MINIBOSS) and -- 6
-       not roomDesc.Clear then
-
+    if (
+      (
+        roomType2 == RoomType.ROOM_DEFAULT -- 1
+        or roomType2 == RoomType.ROOM_MINIBOSS -- 6
+      )
+      and not roomDesc.Clear
+    ) then
       allCleared = false
       break
     end
@@ -279,9 +315,10 @@ PostUpdateBabies.functions[110] = function()
   -- Keep the boss room door closed
   for i = 0, 7 do
     local door = g.r:GetDoor(i)
-    if door ~= nil and
-       door:IsRoomType(RoomType.ROOM_BOSS) then -- 5
-
+    if (
+      door ~= nil
+      and door:IsRoomType(RoomType.ROOM_BOSS) -- 5
+    ) then
       door:Bar()
     end
   end
@@ -292,9 +329,10 @@ PostUpdateBabies.functions[111] = function()
   -- Local variables
   local gameFrameCount = g.g:GetFrameCount()
 
-  if g.run.babyTears.frame ~= 0 and
-     gameFrameCount >= g.run.babyTears.frame then
-
+  if (
+    g.run.babyTears.frame ~= 0
+    and gameFrameCount >= g.run.babyTears.frame
+  ) then
     g.run.babyTears.frame = 0
     g.p:FireTear(g.p.Position, g.run.babyTears.velocity, false, true, false)
   end
@@ -307,7 +345,9 @@ PostUpdateBabies.functions[125] = function()
 
   -- Keys are hearts
   if keys == 0 then
-    g.p:Kill()
+    g.run.dealingExtraDamage = true
+    g.p:TakeDamage(99, 0, EntityRef(g.p), 0)
+    g.run.dealingExtraDamage = false
   end
 end
 
@@ -366,14 +406,19 @@ PostUpdateBabies.functions[128] = function()
 
   -- Explore these rooms
   for i = 1, #randomIndexes do
+    -- You have to set LeaveDoor before every teleport or else it will send you to the wrong room
+    g.l.LeaveDoor = -1
+
     local randomIndex = randomIndexes[i]
-    g.l.LeaveDoor = -1 -- You have to set this before every teleport or else it will send you to the wrong room
     g.l:ChangeRoom(randomIndex)
 
     -- We might have traveled to the Boss Room, so stop the Portcullis sound effect just in case
     g.sfx:Stop(SoundEffect.SOUND_CASTLEPORTCULLIS) -- 190
   end
-  g.l.LeaveDoor = -1 -- You have to set this before every teleport or else it will send you to the wrong room
+
+  -- You have to set LeaveDoor before every teleport or else it will send you to the wrong room
+  g.l.LeaveDoor = -1
+
   g.l:ChangeRoom(startingRoomIndex)
   g.p.Position = centerPos
 end
@@ -385,7 +430,9 @@ PostUpdateBabies.functions[138] = function()
 
   -- Bombs are hearts
   if bombs == 0 then
-    g.p:Kill()
+    g.run.dealingExtraDamage = true
+    g.p:TakeDamage(99, 0, EntityRef(g.p), 0)
+    g.run.dealingExtraDamage = false
   end
 end
 
@@ -394,17 +441,20 @@ PostUpdateBabies.functions[147] = function()
   -- Local variables
   local gameFrameCount = g.g:GetFrameCount()
 
-  if g.run.babyFrame ~= 0 and
-     gameFrameCount >= g.run.babyFrame then
-
+  if (
+    g.run.babyFrame ~= 0
+    and gameFrameCount >= g.run.babyFrame
+  ) then
     g.run.babyFrame = 0
   end
 
   -- Touching pickups causes paralysis (1/2)
-  if not g.p:IsItemQueueEmpty() and
-     g.run.babyFrame == 0 then
-
-    -- Using a pill does not clear the queue, so without a frame check the following code would soflock the player
+  if (
+    not g.p:IsItemQueueEmpty()
+    and g.run.babyFrame == 0
+  ) then
+    -- Using a pill does not clear the queue,
+    -- so without a frame check the following code would soflock the player
     g.run.babyFrame = gameFrameCount + 45
     g.p:UsePill(PillEffect.PILLEFFECT_PARALYSIS, PillColor.PILL_NULL) -- 22, 0
   end
@@ -429,7 +479,13 @@ PostUpdateBabies.functions[156] = function()
   local boneHearts = g.p:GetBoneHearts()
 
   -- Prevent softlocks that occur if you try to jump into a Big Chest
-  local bigChests = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BIGCHEST, -1, false, false) -- 5.340
+  local bigChests = Isaac.FindByType(
+    EntityType.ENTITY_PICKUP, -- 5
+    PickupVariant.PICKUP_BIGCHEST, -- 340
+    -1,
+    false,
+    false
+  )
   if #bigChests > 0 then
     return
   end
@@ -460,9 +516,10 @@ PostUpdateBabies.functions[162] = function()
   -- Local variables
   local roomFrameCount = g.r:GetFrameCount()
 
-  if not g.run.babyBool and
-     roomFrameCount <= 1 then
-
+  if (
+    not g.run.babyBool
+    and roomFrameCount <= 1
+  ) then
     g.run.babyBool = true
 
     -- This baby grants SeedEffect.SEED_OLD_TV (8)
@@ -506,25 +563,28 @@ PostUpdateBabies.functions[163] = function()
 
   -- Keep track of whether they are moving or not
   -- Also, fade the character to indicate that they are invulnerable
-  if not g.run.babyBool and
-     not leftPressed and
-     not rightPressed and
-     not upPressed and
-     not downPressed then
-
+  if (
+    not g.run.babyBool
+    and not leftPressed
+    and not rightPressed
+    and not upPressed
+    and not downPressed
+  ) then
     -- They stopped moving
     g.run.babyBool = true
     local color = g.p:GetColor()
     local fadeAmount = 0.5
     local newColor = Color(color.R, color.G, color.B, fadeAmount, color.RO, color.GO, color.BO)
     g.p:SetColor(newColor, 0, 0, true, true)
-
-  elseif g.run.babyBool and
-         (leftPressed or
-          rightPressed or
-          upPressed or
-          downPressed) then
-
+  elseif (
+    g.run.babyBool
+    and (
+      leftPressed
+      or rightPressed
+      or upPressed
+      or downPressed
+    )
+  ) then
     -- They started moving
     g.run.babyBool = false
     local color = g.p:GetColor()
@@ -537,7 +597,14 @@ end
 -- Black Eye Baby
 PostUpdateBabies.functions[164] = function()
   -- Starts with Leprosy, +5 damage on Leprosy breaking
-  local leprocyChunks = Isaac.FindByType(EntityType.ENTITY_FAMILIAR, FamiliarVariant.LEPROCY, -1, false, false) -- 3.121
+  -- We use the "babyCounters" variable to track how Leprocy familiars are in the room
+  local leprocyChunks = Isaac.FindByType(
+    EntityType.ENTITY_FAMILIAR, -- 3
+    FamiliarVariant.LEPROCY, -- 121
+    -1,
+    false,
+    false
+  )
   if #leprocyChunks < g.run.babyCounters then
     g.run.babyCounters = g.run.babyCounters - 1
 
@@ -552,17 +619,23 @@ end
 PostUpdateBabies.functions[167] = function()
   -- Local variables
   local gameFrameCount = g.g:GetFrameCount()
+  local baby = g.babies[167]
 
-  if g.run.babyFrame ~= 0 and
-     gameFrameCount >= g.run.babyFrame then
-
-    g.run.babyFrame = 0
+  -- Touching pickups causes teleportation (2/2)
+  -- Teleport 2 frames in the future so that we can put an item in the Schoolbag
+  if g.run.babyFrame == 0 and not g.p:IsItemQueueEmpty() then
+    g.run.babyFrame = g.g:GetFrameCount() + baby.num
   end
 
-  -- Touching pickups causes teleportation (1/2)
-  if not g.p:IsItemQueueEmpty() then
-    g.p:UseActiveItem(CollectibleType.COLLECTIBLE_TELEPORT, false, false, false, false) -- 44
+  if (
+    g.run.babyFrame == 0
+    or gameFrameCount < g.run.babyFrame
+  ) then
+    return
   end
+
+  g.run.babyFrame = 0
+  g.p:UseActiveItem(CollectibleType.COLLECTIBLE_TELEPORT, false, false, false, false) -- 44
 end
 
 -- Gappy Baby
@@ -573,14 +646,24 @@ PostUpdateBabies.functions[171] = function()
   for _, slot in ipairs(slots) do
     local sprite = slot:GetSprite()
     local data = slot:GetData()
-    if data.destroyed == nil and
-       (sprite:IsPlaying("Broken") or -- Normal machines
-        sprite:IsPlaying("Death")) then -- Restock machines
-
+    if (
+      data.destroyed == nil
+      and (
+        sprite:IsPlaying("Broken") -- Normal machines
+        or sprite:IsPlaying("Death") -- Restock machines
+      )
+    ) then
       data.destroyed = true
       g.run.randomSeed = g:IncrementRNG(g.run.randomSeed)
-      g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, -- 5.100
-                slot.Position, g.zeroVector, nil, 0, g.run.randomSeed)
+      g.g:Spawn(
+        EntityType.ENTITY_PICKUP, -- 5
+        PickupVariant.PICKUP_COLLECTIBLE, -- 100
+        slot.Position,
+        g.zeroVector,
+        nil,
+        0,
+        g.run.randomSeed
+      )
     end
   end
 end
@@ -598,8 +681,14 @@ PostUpdateBabies.functions[211] = function()
       break
     end
     if (gameFrameCount - tear.frame) % 2 == 0 then
-      local explosion = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.ROCK_EXPLOSION, 0, -- 1000.62
-                                    tear.position, g.zeroVector, g.p)
+      local explosion = Isaac.Spawn(
+        EntityType.ENTITY_EFFECT, -- 1000
+        EffectVariant.ROCK_EXPLOSION, -- 62
+        0,
+        tear.position,
+        g.zeroVector,
+        g.p
+      )
       local index = g.r:GetGridIndex(tear.position)
       g.r:DestroyGrid(index)
       tear.position = tear.position + tear.velocity
@@ -661,6 +750,7 @@ PostUpdateBabies.functions[216] = function()
       teleport = RoomType.ROOM_DICE -- 21
     end
   end
+
   if teleport ~= 0 then
     -- Find the grid index of the intended room
     for i = 0, rooms.Size - 1 do -- This is 0 indexed
@@ -670,8 +760,14 @@ PostUpdateBabies.functions[216] = function()
       local roomType = roomData.Type
       if roomType == teleport then -- 8
         -- Teleport to the intended room
-        g.l.LeaveDoor = -1 -- You have to set this before every teleport or else it will send you to the wrong room
-        g.g:StartRoomTransition(index, Direction.NO_DIRECTION, RoomTransition.TRANSITION_TELEPORT) -- -1, 3
+        -- You have to set LeaveDoor before every teleport or else it will send you to the wrong
+        -- room
+        g.l.LeaveDoor = -1
+        g.g:StartRoomTransition(
+          index,
+          Direction.NO_DIRECTION, -- -1
+          g.RoomTransition.TRANSITION_TELEPORT -- 3
+        )
         break
       end
     end
@@ -694,7 +790,13 @@ PostUpdateBabies.functions[221] = function()
       g.run.babyCounters = 0
       g.run.babyFrame = 0
     else
-      g.p:UseActiveItem(CollectibleType.COLLECTIBLE_MONSTROS_TOOTH, false, false, false, false) -- 86
+      g.p:UseActiveItem(
+        CollectibleType.COLLECTIBLE_MONSTROS_TOOTH, -- 86
+        false,
+        false,
+        false,
+        false
+      )
     end
   end
 end
@@ -708,7 +810,13 @@ PostUpdateBabies.functions[231] = function()
   local boneHearts = g.p:GetBoneHearts()
 
   -- Prevent softlocks that occur if you try to jump into a Big Chest
-  local bigChests = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BIGCHEST, -1, false, false) -- 5.340
+  local bigChests = Isaac.FindByType(
+    EntityType.ENTITY_PICKUP, -- 5
+    PickupVariant.PICKUP_BIGCHEST, -- 340
+    -1,
+    false,
+    false
+  )
   if #bigChests > 0 then
     return
   end
@@ -731,17 +839,18 @@ PostUpdateBabies.functions[250] = function()
   -- Local variables
   local bombs = g.p:GetNumBombs()
   local keys = g.p:GetNumKeys()
+  local coins = g.p:GetNumCoins()
 
   -- Coins convert to bombs and keys
-  if bombs == 0 and
-     g.p:GetNumCoins() > 0 then
-
+  if bombs == 0 and coins > 0 then
     g.p:AddCoins(-1)
     g.p:AddBombs(1)
   end
-  if keys == 0 and
-     g.p:GetNumCoins() > 0 then
 
+  -- Re-get the coin count
+  coins = g.p:GetNumCoins()
+
+  if keys == 0 and coins > 0 then
     g.p:AddCoins(-1)
     g.p:AddKeys(1)
   end
@@ -754,7 +863,13 @@ PostUpdateBabies.functions[256] = function()
   local baby = g.babies[256]
 
   if gameFrameCount % baby.num == 0 then
-    g.p:UseActiveItem(CollectibleType.COLLECTIBLE_VENTRICLE_RAZOR, false, false, false, false) -- 396
+    g.p:UseActiveItem(
+      CollectibleType.COLLECTIBLE_VENTRICLE_RAZOR, -- 396
+      false,
+      false,
+      false,
+      false
+    )
   end
 end
 
@@ -765,9 +880,10 @@ PostUpdateBabies.functions[263] = function()
 
   -- Reroll all of the rocks in the room
   -- (this does not work if we do it in the MC_POST_NEW_ROOM callback or on the 0th frame)
-  if roomFrameCount == 1 and
-     g.r:IsFirstVisit() then
-
+  if (
+    roomFrameCount == 1
+    and g.r:IsFirstVisit()
+  ) then
     g.p:UseActiveItem(CollectibleType.COLLECTIBLE_D12, false, false, false, false) -- 386
   end
 end
@@ -778,12 +894,15 @@ PostUpdateBabies.functions[267] = function()
 
   -- Takes damage when standing still
   -- Prevent the (vanilla) bug where the player will take damage upon jumping into a trapdoor
-  if not g.p:HasInvincibility() and
-     (playerSprite:IsPlaying("Trapdoor") or
-      playerSprite:IsPlaying("Trapdoor2") or
-      playerSprite:IsPlaying("Jump") or
-      playerSprite:IsPlaying("LightTravel")) then
-
+  if (
+    not g.p:HasInvincibility()
+    and (
+      playerSprite:IsPlaying("Trapdoor")
+      or playerSprite:IsPlaying("Trapdoor2")
+      or playerSprite:IsPlaying("Jump")
+      or playerSprite:IsPlaying("LightTravel")
+    )
+  ) then
     g.p:UseActiveItem(CollectibleType.COLLECTIBLE_DULL_RAZOR, false, false, false, false) -- 486
     g.sfx:Stop(SoundEffect.SOUND_ISAAC_HURT_GRUNT) -- 55
   end
@@ -816,9 +935,10 @@ PostUpdateBabies.functions[295] = function()
   local activeItem = g.p:GetActiveItem()
 
   -- Keep the pony fully charged
-  if activeItem == CollectibleType.COLLECTIBLE_PONY and -- 130
-     g.p:NeedsCharge() then
-
+  if (
+    activeItem == CollectibleType.COLLECTIBLE_PONY -- 130
+    and g.p:NeedsCharge()
+  ) then
     g.p:FullCharge()
     g.sfx:Stop(SoundEffect.SOUND_BATTERYCHARGE) -- 170
   end
@@ -829,9 +949,10 @@ PostUpdateBabies.functions[303] = function()
   -- Local variables
   local gameFrameCount = g.g:GetFrameCount()
 
-  if g.run.babyFrame ~= 0 and
-     gameFrameCount >= g.run.babyFrame then
-
+  if (
+    g.run.babyFrame ~= 0
+    and gameFrameCount >= g.run.babyFrame
+  ) then
     g.run.babyCounters = g.run.babyCounters + 1
     g.run.babyFrame = gameFrameCount + g.babies[303].delay
     g.p:UseActiveItem(CollectibleType.COLLECTIBLE_BROWN_NUGGET, false, false, false, false) -- 504
@@ -851,7 +972,13 @@ PostUpdateBabies.functions[304] = function()
   local boneHearts = g.p:GetBoneHearts()
 
   -- Prevent softlocks that occur if you try to jump into a Big Chest
-  local bigChests = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BIGCHEST, -1, false, false) -- 5.340
+  local bigChests = Isaac.FindByType(
+    EntityType.ENTITY_PICKUP, -- 5
+    PickupVariant.PICKUP_BIGCHEST, -- 340
+    -1,
+    false,
+    false
+  )
   if #bigChests > 0 then
     return
   end
@@ -882,9 +1009,10 @@ PostUpdateBabies.functions[320] = function()
 
   -- Check to see if we need to reset the cooldown
   -- (after we used the Kamikaze! effect upon touching an obstacle)
-  if g.run.babyFrame ~= 0 and
-     gameFrameCount >= g.run.babyFrame then
-
+  if (
+    g.run.babyFrame ~= 0
+    and gameFrameCount >= g.run.babyFrame
+  ) then
     g.run.babyFrame = 0
   end
 end
@@ -917,11 +1045,12 @@ PostUpdateBabies.functions[341] = function()
 
 
     local cutoff = 0.2
-    if g.p.Velocity.X > cutoff or
-       g.p.Velocity.X < cutoff * -1 or
-       g.p.Velocity.Y > cutoff or
-       g.p.Velocity.Y < cutoff * -1 then
-
+    if (
+      g.p.Velocity.X > cutoff
+      or g.p.Velocity.X < cutoff * -1
+      or g.p.Velocity.Y > cutoff
+      or g.p.Velocity.Y < cutoff * -1
+    ) then
       g.p:TakeDamage(1, 0, EntityRef(g.p), 0)
     end
   end
@@ -933,9 +1062,10 @@ PostUpdateBabies.functions[348] = function()
   local activeItem = g.p:GetActiveItem()
 
   -- Keep the Candle always fully charged
-  if activeItem == CollectibleType.COLLECTIBLE_CANDLE and -- 164
-     g.p:NeedsCharge() then
-
+  if (
+    activeItem == CollectibleType.COLLECTIBLE_CANDLE -- 164
+    and g.p:NeedsCharge()
+  ) then
     g.p:FullCharge()
     g.sfx:Stop(SoundEffect.SOUND_BATTERYCHARGE) -- 170
   end
@@ -971,8 +1101,14 @@ PostUpdateBabies.functions[374] = function()
 
   if gameFrameCount % 120 == 0 then -- 4 second
     -- Spawn a random stomp
-    Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.MOM_FOOT_STOMP, 0, -- 1000.29
-                Isaac.GetRandomPosition(), g.zeroVector, nil)
+    Isaac.Spawn(
+      EntityType.ENTITY_EFFECT, -- 1000
+      EffectVariant.MOM_FOOT_STOMP, -- 29
+      0,
+      Isaac.GetRandomPosition(),
+      g.zeroVector,
+      nil
+    )
   end
 end
 
@@ -982,8 +1118,15 @@ PostUpdateBabies.functions[382] = function()
   local gameFrameCount = g.g:GetFrameCount()
 
   if gameFrameCount % 150 == 0 then -- 5 seconds
-    -- Spawn a Mega Troll Bomb (4.5)
-    Isaac.Spawn(EntityType.ENTITY_BOMBDROP, BombVariant.BOMB_SUPERTROLL, 0, g.p.Position, g.zeroVector, nil)
+    -- Spawn a Mega Troll Bomb
+    Isaac.Spawn(
+      EntityType.ENTITY_BOMBDROP, -- 4
+      BombVariant.BOMB_SUPERTROLL, -- 5
+      0,
+      g.p.Position,
+      g.zeroVector,
+      nil
+    )
   end
 end
 
@@ -1018,8 +1161,14 @@ PostUpdateBabies.functions[388] = function()
     end
     local velocity = g.p.Position - tear.position
     velocity = velocity:Normalized() * 12
-    Isaac.Spawn(EntityType.ENTITY_PROJECTILE, ProjectileVariant.PROJECTILE_NORMAL, 0, -- 9.0
-                tear.position, velocity, nil)
+    Isaac.Spawn(
+      EntityType.ENTITY_PROJECTILE, -- 9
+      ProjectileVariant.PROJECTILE_NORMAL, -- 0
+      0,
+      tear.position,
+      velocity,
+      nil
+    )
     tear.num = tear.num - 1
     if tear.num == 0 then
       -- The dead enemy has shot all of its tears, so we remove the tracking element for it
@@ -1035,9 +1184,15 @@ PostUpdateBabies.functions[396] = function()
 
   if gameFrameCount % 5 == 0 then -- Every 5 frames
     -- Drip creep
-    local creep = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.PLAYER_CREEP_RED, 0, -- 46
-                              g.p.Position, g.zeroVector, g.p)
-    creep:ToEffect().Timeout = 240
+    local creep = Isaac.Spawn(
+      EntityType.ENTITY_EFFECT, -- 1000
+      EffectVariant.PLAYER_CREEP_RED, -- 46
+      0,
+      g.p.Position,
+      g.zeroVector,
+      g.p
+    ):ToEffect()
+    creep.Timeout = 240
   end
 end
 
@@ -1047,8 +1202,8 @@ PostUpdateBabies.functions[401] = function()
   local gameFrameCount = g.g:GetFrameCount()
 
   if gameFrameCount % 45 == 0 then -- 1.5 seconds
-    -- Spawn a Fly (13.0)
-    Isaac.Spawn(EntityType.ENTITY_FLY, 0, 0, g.p.Position, g.zeroVector, nil)
+    -- Spawn a Fly
+    Isaac.Spawn(EntityType.ENTITY_FLY, 0, 0, g.p.Position, g.zeroVector, nil) -- 13
   end
 end
 
@@ -1085,8 +1240,14 @@ PostUpdateBabies.functions[462] = function()
       break
     end
     if (gameFrameCount - tear.frame) % 2 == 0 then
-      local explosion = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.ROCK_EXPLOSION, 0, -- 1000.62
-                                    tear.position, g.zeroVector, g.p)
+      local explosion = Isaac.Spawn(
+        EntityType.ENTITY_EFFECT, -- 1000
+        EffectVariant.ROCK_EXPLOSION, -- 62
+        0,
+        tear.position,
+        g.zeroVector,
+        g.p
+      )
       local index = g.r:GetGridIndex(tear.position)
       g.r:DestroyGrid(index)
       tear.position = tear.position + tear.velocity
@@ -1117,8 +1278,11 @@ PostUpdateBabies.functions[474] = function()
     local remainingTime = g.run.babyCounters - gameFrameCount
     if remainingTime <= 0 then
       g.run.babyCounters = 0
-      g.p:Kill()
-    end
+
+      g.run.dealingExtraDamage = true
+      g.p:TakeDamage(99, 0, EntityRef(g.p), 0)
+      g.run.dealingExtraDamage = false
+      end
   end
 end
 
@@ -1129,8 +1293,14 @@ PostUpdateBabies.functions[485] = function()
 
   if gameFrameCount % 30 == 0 then -- 1 second
     -- Spawn a random rocket target
-    local target = Isaac.Spawn(EntityType.ENTITY_EFFECT, EffectVariant.FETUS_BOSS_TARGET, 0, -- 1000
-                               Isaac.GetRandomPosition(), g.zeroVector, nil)
+    local target = Isaac.Spawn(
+      EntityType.ENTITY_EFFECT, -- 1000
+      EffectVariant.FETUS_BOSS_TARGET,
+      0,
+      Isaac.GetRandomPosition(),
+      g.zeroVector,
+      nil
+    )
     local sprite = target:GetSprite()
     sprite:Play("Blink", true)
     -- Target and rocket behavior are handled in the MC_POST_EFFECT_UPDATE callback
@@ -1142,9 +1312,10 @@ PostUpdateBabies.functions[500] = function()
   -- Local variables
   local gameFrameCount = g.g:GetFrameCount()
 
-  if g.run.babyTears.frame ~= 0 and
-     gameFrameCount >= g.run.babyTears.frame then
-
+  if (
+    g.run.babyTears.frame ~= 0
+    and gameFrameCount >= g.run.babyTears.frame
+  ) then
     g.run.babyTears.frame = 0
     g.p:FireTear(g.p.Position, g.run.babyTears.velocity, false, true, false)
   end
@@ -1156,9 +1327,11 @@ PostUpdateBabies.functions[508] = function()
   local gameFrameCount = g.g:GetFrameCount()
   local roomClear = g.r:IsClear()
 
-  if gameFrameCount % 150 == 0 and -- 5 seconds
-     not roomClear then -- Monstro is unavoidable if he targets you
-
+  if (
+    gameFrameCount % 150 == 0 -- 5 seconds
+    -- Monstro will target you if there are no enemies in the room (and this is unavoidable)
+    and not roomClear
+  ) then
     g.p:UseActiveItem(CollectibleType.COLLECTIBLE_MONSTROS_TOOTH, false, false, false, false) -- 86
   end
 end
@@ -1176,9 +1349,7 @@ PostUpdateBabies.functions[519] = function()
   -- Check to see if a door opened before the room was clear
   for i = 0, 7 do
     local door = g.r:GetDoor(i)
-    if door ~= nil and
-       door:IsOpen() then
-
+    if door ~= nil and door:IsOpen() then
       door:Close(true)
     end
   end

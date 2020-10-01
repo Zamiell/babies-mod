@@ -1,7 +1,7 @@
-local PostNPCInit  = {}
+local PostNPCInit = {}
 
 -- Includes
-local g    = require("babies_mod/globals")
+local g = require("babies_mod/globals")
 local Misc = require("babies_mod/misc")
 
 -- ModCallbacks.MC_POST_NPC_INIT (27)

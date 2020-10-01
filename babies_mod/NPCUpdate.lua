@@ -33,7 +33,8 @@ NPCUpdate.functions[61] = function(npc)
     local fadeAmount = 0.25
     local newColor = Color(color.R, color.G, color.B, fadeAmount, 0, 0, 0)
     -- (for some reason, in this callback, RO, GO, and BO will be float values,
-    -- but the Color constructor only wants integers, so manually use 0 for these 3 values instead of the existing ones)
+    -- but the Color constructor only wants integers,
+    -- so manually use 0 for these 3 values instead of the existing ones)
     npc:SetColor(newColor, 0, 0, true, true)
   end
 end
@@ -43,30 +44,29 @@ NPCUpdate.functions[514] = function(npc)
   -- Double enemies
   -- (if we do this in the MC_POST_NPC_INIT callback, some positions are not yet initialized,
   -- so we do it here instead)
-  if npc.FrameCount ~= 0 or
-     npc:GetData().duplicated ~= nil or
-     -- Doubling certain enemies leads to bugs
-     npc.Type == EntityType.ENTITY_SHOPKEEPER or -- 17
-     npc.Type == EntityType.ENTITY_CHUB or -- 28
-     npc.Type == EntityType.ENTITY_FIREPLACE or -- 33
-     npc.Type == EntityType.ENTITY_STONEHEAD or -- 42
-     npc.Type == EntityType.ENTITY_POKY or -- 44
-     npc.Type == EntityType.ENTITY_MOM or -- 45
-     npc.Type == EntityType.ENTITY_MOMS_HEART or -- 78
-     (npc.Type == EntityType.ENTITY_GEMINI and -- 79
-      npc.Variant >= 10) or
-     npc.Type == EntityType.ENTITY_ETERNALFLY or -- 96
-     npc.Type == EntityType.ENTITY_ISAAC or -- 102
-     npc.Type == EntityType.ENTITY_CONSTANT_STONE_SHOOTER or -- 202
-     npc.Type == EntityType.ENTITY_BRIMSTONE_HEAD or -- 203
-     (npc.Type == EntityType.ENTITY_SWINGER and -- 216
-      npc.Variant > 0) or
-     npc.Type == EntityType.ENTITY_WALL_HUGGER or -- 218
-     npc.Type == EntityType.ENTITY_GAPING_MAW or -- 235
-     npc.Type == EntityType.ENTITY_BROKEN_GAPING_MAW or -- 236
-     npc.Type == EntityType.ENTITY_SWARM or -- 281
-     npc.Type == EntityType.ENTITY_PITFALL then -- 291
-
+  if (
+    npc.FrameCount ~= 0
+    or npc:GetData().duplicated ~= nil
+    -- Doubling certain enemies leads to bugs
+    or npc.Type == EntityType.ENTITY_SHOPKEEPER -- 17
+    or npc.Type == EntityType.ENTITY_CHUB -- 28
+    or npc.Type == EntityType.ENTITY_FIREPLACE -- 33
+    or npc.Type == EntityType.ENTITY_STONEHEAD -- 42
+    or npc.Type == EntityType.ENTITY_POKY -- 44
+    or npc.Type == EntityType.ENTITY_MOM -- 45
+    or npc.Type == EntityType.ENTITY_MOMS_HEART -- 78
+    or (npc.Type == EntityType.ENTITY_GEMINI and npc.Variant >= 10) -- 79
+    or npc.Type == EntityType.ENTITY_ETERNALFLY -- 96
+    or npc.Type == EntityType.ENTITY_ISAAC -- 102
+    or npc.Type == EntityType.ENTITY_CONSTANT_STONE_SHOOTER -- 202
+    or npc.Type == EntityType.ENTITY_BRIMSTONE_HEAD -- 203
+    or (npc.Type == EntityType.ENTITY_SWINGER and npc.Variant > 0) -- 216
+    or npc.Type == EntityType.ENTITY_WALL_HUGGER -- 218
+    or npc.Type == EntityType.ENTITY_GAPING_MAW -- 235
+    or npc.Type == EntityType.ENTITY_BROKEN_GAPING_MAW -- 236
+    or npc.Type == EntityType.ENTITY_SWARM -- 281
+    or npc.Type == EntityType.ENTITY_PITFALL -- 291
+  ) then
     return
   end
 
@@ -74,7 +74,15 @@ NPCUpdate.functions[514] = function(npc)
     g.run.babyBool = true
     local position = g.r:FindFreePickupSpawnPosition(npc.Position, 1, true)
     if position:Distance(g.p.Position) > 40 then
-      local newNPC = g.g:Spawn(npc.Type, npc.Variant, position, npc.Velocity, npc, npc.SubType, npc.InitSeed)
+      local newNPC = g.g:Spawn(
+        npc.Type,
+        npc.Variant,
+        position,
+        npc.Velocity,
+        npc,
+        npc.SubType,
+        npc.InitSeed
+      )
       newNPC:GetData().duplicated = true
     end
     g.run.babyBool = false

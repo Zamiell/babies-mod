@@ -35,21 +35,22 @@ function BabyAdd:Main()
       end
 
       -- Find out where to put it
-      if RacingPlusGlobals ~= nil and
-         g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM) and
-         RacingPlusGlobals.run.schoolbag.item == 0 then
-
+      if (
+        RacingPlusGlobals ~= nil
+        and g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG_CUSTOM)
+        and RacingPlusGlobals.run.schoolbag.item == 0
+      ) then
         -- There is room in the Racing+ Schoolbag for it, so put it there
         RacingPlusSchoolbag:Put(item, charges)
-
-      elseif g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) and -- 534
-             g.p.SecondaryActiveItem.Item == 0 then
-
+      elseif (
+        g.p:HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) -- 534
+        and g.p.SecondaryActiveItem.Item == 0
+      ) then
         -- There is room in the vanilla Schoolbag for it, so put it there
-        -- (getting new active items will automatically put the existing active item inside the Schoolbag)
+        -- (getting new active items will automatically put the existing active item inside the
+        -- Schoolbag)
         g.p:AddCollectible(item, charges, false)
         g.p:SwapActiveItems()
-
       else
         -- We don't have a Schoolbag, so just give the new active item
         g.p:AddCollectible(item, charges, false)
@@ -91,9 +92,10 @@ function BabyAdd:Main()
   -- Reset the soul hearts and black hearts to the way it was before we added the items
   local newSoulHearts = g.p:GetSoulHearts()
   local newBlackHearts = g.p:GetBlackHearts()
-  if newSoulHearts ~= soulHearts or
-     newBlackHearts ~= blackHearts then
-
+  if (
+    newSoulHearts ~= soulHearts
+    or newBlackHearts ~= blackHearts
+  ) then
     g.p:AddSoulHearts(-24)
     for i = 1, soulHearts do
       local bitPosition = math.floor((i - 1) / 2)
@@ -127,38 +129,61 @@ function BabyAdd:Main()
   end
 
   -- Don't grant extra pickups
-  if baby.item == CollectibleType.COLLECTIBLE_PHD or -- 75
-     baby.item2 == CollectibleType.COLLECTIBLE_PHD then -- 75
-
+  if (
+    baby.item == CollectibleType.COLLECTIBLE_PHD -- 75
+    or baby.item2 == CollectibleType.COLLECTIBLE_PHD -- 75
+  ) then
     -- Delete the starting pill
-    local pills = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_PILL, -1, false, false) -- 5.70
+    local pills = Isaac.FindByType(
+      EntityType.ENTITY_PICKUP, -- 5
+      PickupVariant.PICKUP_PILL, -- 70
+      -1,
+      false,
+      false
+    )
     for _, pill in ipairs(pills) do
       pill:Remove()
     end
   end
-  if baby.item == CollectibleType.COLLECTIBLE_STARTER_DECK or -- 251
-     baby.item2 == CollectibleType.COLLECTIBLE_STARTER_DECK then -- 251
-
+  if (
+    baby.item == CollectibleType.COLLECTIBLE_STARTER_DECK -- 251
+    or baby.item2 == CollectibleType.COLLECTIBLE_STARTER_DECK -- 251
+  ) then
     -- Delete the starting card
-    local cards = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, -- 5.300
-                                   -1, false, false)
+    local cards = Isaac.FindByType(
+      EntityType.ENTITY_PICKUP, -- 5
+      PickupVariant.PICKUP_TAROTCARD, -- 300
+      -1,
+      false,
+      false
+    )
     for _, card in ipairs(cards) do
       card:Remove()
     end
   end
-  if baby.item == CollectibleType.COLLECTIBLE_LITTLE_BAGGY or -- 252
-     baby.item2 == CollectibleType.COLLECTIBLE_LITTLE_BAGGY then -- 252
-
+  if (
+    baby.item == CollectibleType.COLLECTIBLE_LITTLE_BAGGY -- 252
+    or baby.item2 == CollectibleType.COLLECTIBLE_LITTLE_BAGGY -- 252
+  ) then
     -- Delete the starting pill
-    local pills = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_PILL, -1, false, false) -- 5.70
+    local pills = Isaac.FindByType(
+      EntityType.ENTITY_PICKUP, -- 5
+      PickupVariant.PICKUP_PILL, -- 70
+      -1,
+      false,
+      false
+    )
     for _, pill in ipairs(pills) do
       pill:Remove()
     end
   end
-  if (baby.item == CollectibleType.COLLECTIBLE_CHAOS or -- 402
-      baby.item2 == CollectibleType.COLLECTIBLE_CHAOS) and -- 402
-     stage ~= 11 then -- Don't delete the pickups on The Chest / Dark Room
-
+  if (
+    (
+      baby.item == CollectibleType.COLLECTIBLE_CHAOS -- 402
+      or baby.item2 == CollectibleType.COLLECTIBLE_CHAOS -- 402
+    )
+    and stage ~= 11 -- Don't delete the pickups on The Chest / Dark Room
+  ) then
     -- Delete the starting random pickups
     local pickups = Isaac.FindByType(EntityType.ENTITY_PICKUP, -1, -1, false, false) -- 5
     for _, pickup in ipairs(pickups) do
@@ -167,20 +192,34 @@ function BabyAdd:Main()
       end
     end
   end
-  if baby.item == CollectibleType.COLLECTIBLE_SACK_HEAD or -- 424
-     baby.item2 == CollectibleType.COLLECTIBLE_SACK_HEAD then -- 424
-
+  if (
+    baby.item == CollectibleType.COLLECTIBLE_SACK_HEAD -- 424
+    or baby.item2 == CollectibleType.COLLECTIBLE_SACK_HEAD -- 424
+  ) then
     -- Delete the starting sack
-    local sacks = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_GRAB_BAG, -1, false, false) -- 5.69
+    local sacks = Isaac.FindByType(
+      EntityType.ENTITY_PICKUP, -- 5
+      PickupVariant.PICKUP_GRAB_BAG, -- 69
+      -1,
+      false,
+      false
+    )
     for _, sack in ipairs(sacks) do
       sack:Remove()
     end
   end
-  if baby.item == CollectibleType.COLLECTIBLE_LIL_SPEWER or -- 537
-     baby.item2 == CollectibleType.COLLECTIBLE_LIL_SPEWER then -- 537
-
+  if (
+    baby.item == CollectibleType.COLLECTIBLE_LIL_SPEWER -- 537
+    or baby.item2 == CollectibleType.COLLECTIBLE_LIL_SPEWER -- 537
+  ) then
     -- Delete the starting pill
-    local pills = Isaac.FindByType(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_PILL, -1, false, false) -- 5.70
+    local pills = Isaac.FindByType(
+      EntityType.ENTITY_PICKUP, -- 5
+      PickupVariant.PICKUP_PILL, -- 70
+      -1,
+      false,
+      false
+    )
     for _, pill in ipairs(pills) do
       pill:Remove()
     end
@@ -199,7 +238,8 @@ function BabyAdd:Main()
   -- Reset the player's size
   g.p.SpriteScale = Vector(1, 1)
 
-  -- We don't have to set the sprite now, because it will be set later on in the MC_POST_NEW_ROOM callback
+  -- We don't have to set the sprite now,
+  -- because it will be set later on in the MC_POST_NEW_ROOM callback
   Isaac.DebugString("Applied baby: " .. tostring(babyType) .. " - " .. baby.name)
 end
 
@@ -279,6 +319,7 @@ end
 -- Fang Demon Baby
 BabyAdd.functions[281] = function()
   -- These items will cause a softlock, so just remove them from all pools as a quick fix
+  g.itemPool:RemoveCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE) -- 114
   g.itemPool:RemoveCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS) -- 168
   g.itemPool:RemoveCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) -- 229
   g.itemPool:RemoveCollectible(CollectibleType.COLLECTIBLE_TECH_X) -- 395
@@ -303,7 +344,9 @@ end
 BabyAdd.functions[375] = function()
   -- This is the third item given, so we have to handle it manually
   g.p:AddCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE, 0, false) -- 540
-  Isaac.DebugString("Removing collectible " .. tostring(CollectibleType.COLLECTIBLE_FLAT_STONE)) -- 540
+  Isaac.DebugString(
+    "Removing collectible " .. tostring(CollectibleType.COLLECTIBLE_FLAT_STONE) -- 540
+  )
 end
 
 -- Imp Baby
@@ -322,7 +365,9 @@ end
 BabyAdd.functions[407] = function()
   -- This is the third item given, so we have to handle it manually
   g.p:AddCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE, 0, false) -- 540
-  Isaac.DebugString("Removing collectible " .. tostring(CollectibleType.COLLECTIBLE_FLAT_STONE)) -- 540
+  Isaac.DebugString(
+    "Removing collectible " .. tostring(CollectibleType.COLLECTIBLE_FLAT_STONE) -- 540
+  )
 end
 
 -- Rich Baby

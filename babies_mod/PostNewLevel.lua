@@ -1,11 +1,11 @@
 local PostNewLevel = {}
 
 -- Includes
-local g              = require("babies_mod/globals")
-local BabyRemove     = require("babies_mod/babyremove")
+local g = require("babies_mod/globals")
+local BabyRemove = require("babies_mod/babyremove")
 local BabyCheckValid = require("babies_mod/babycheckvalid")
-local BabyAdd        = require("babies_mod/babyadd")
-local PostNewRoom    = require("babies_mod/postnewroom")
+local BabyAdd = require("babies_mod/babyadd")
+local PostNewRoom = require("babies_mod/postnewroom")
 
 -- ModCallbacks.MC_POST_NEW_LEVEL (18)
 function PostNewLevel:Main()
@@ -32,29 +32,31 @@ function PostNewLevel:NewLevel()
 
   Isaac.DebugString("MC_POST_NEW_LEVEL2 (BM)")
 
-  -- Racing+ has a feature to remove duplicate rooms, so it may reseed the floor immediately upon reach it
+  -- Racing+ has a feature to remove duplicate rooms,
+  -- so it may reseed the floor immediately upon reach it
   -- If so, then we don't want to do anything, since this isn't really a new level
-  if gameFrameCount ~= 0 and
-     gameFrameCount == g.run.currentFloorFrame then
-
+  if (
+    gameFrameCount ~= 0
+    and gameFrameCount == g.run.currentFloorFrame
+  ) then
     return
   end
 
   -- Set the new floor
-  g.run.currentFloor             = stage
-  g.run.currentFloorType         = stageType
-  g.run.currentFloorFrame        = gameFrameCount
+  g.run.currentFloor = stage
+  g.run.currentFloorType = stageType
+  g.run.currentFloorFrame = gameFrameCount
   g.run.currentFloorRoomsEntered = 0
-  g.run.trinketGone              = false
-  g.run.blindfoldedApplied       = false
-  g.run.showIntroFrame           = gameFrameCount + 60 -- 2 seconds
-  g.run.babyBool                 = false
-  g.run.babyCounters             = 0
+  g.run.trinketGone = false
+  g.run.blindfoldedApplied = false
+  g.run.showIntroFrame = gameFrameCount + 60 -- 2 seconds
+  g.run.babyBool = false
+  g.run.babyCounters = 0
   -- babyCountersRoom are reset in the MC_POST_NEW_ROOM callback
-  g.run.babyFrame                = 0
+  g.run.babyFrame = 0
   -- babyTears are reset in the MC_POST_NEW_ROOM callback
   g.run.babyNPC = {
-    type    = 0,
+    type = 0,
     variant = 0,
     subType = 0,
   }
@@ -62,7 +64,8 @@ function PostNewLevel:NewLevel()
   g.run.killedPoops = {}
 
   -- Racing+ removes all curses
-  -- If we are in the R+7 Season 5 custom challenge, then all curses are disabled except for Curse of the Unknown
+  -- If we are in the R+7 Season 5 custom challenge,
+  -- then all curses are disabled except for Curse of the Unknown
   -- Thus, we might naturally get this curse inside the challenge, so make sure it is disabled
   if challenge == Isaac.GetChallengeIdByName("R+7 (Season 5)") then
     g.l:RemoveCurse(LevelCurse.CURSE_OF_THE_UNKNOWN, false) -- 1 << 3
@@ -88,7 +91,8 @@ function PostNewLevel:GetNewBaby()
   end
 
   -- It will become impossible to find a new baby if the list of past babies grows too large
-  -- (when experimenting, it crashed upon reaching a size of 538, so reset it when it gets over 500 just in case)
+  -- (when experimenting, it crashed upon reaching a size of 538,
+  -- so reset it when it gets over 500 just in case)
   if #g.pastBabies > 500 then
     g.pastBabies = {}
   end
@@ -121,8 +125,10 @@ function PostNewLevel:GetNewBaby()
   -- on the same run / multi-character custom challenge
   g.pastBabies[#g.pastBabies + 1] = type
 
-  Isaac.DebugString("Randomly chose co-op baby: " .. tostring(type) .. " - " ..
-                    g.babies[type].name .. " - " .. g.babies[type].description)
+  Isaac.DebugString(
+    "Randomly chose co-op baby: " .. tostring(type) .. " - "
+    .. g.babies[type].name .. " - " .. g.babies[type].description
+  )
   Isaac.DebugString("Tries: " .. tostring(i) .. ", total past babies: " .. tostring(#g.pastBabies))
 end
 

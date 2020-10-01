@@ -72,8 +72,6 @@ globals = {
 
   -- The Babies Mod global variables
   "SinglePlayerCoopBabies",
-  "LaserVariant",
-  "PoopVariant",
-  "BlueFlyVariant",
-  "RoomTransition",
 }
+
+max_line_length = 100

@@ -1,7 +1,7 @@
 local PostBombInit = {}
 
 -- Includes
-local g    = require("babies_mod/globals")
+local g = require("babies_mod/globals")
 local Misc = require("babies_mod/misc")
 
 -- ModCallbacks.MC_POST_BOMB_INIT (57)
