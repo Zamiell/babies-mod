@@ -1,0 +1,60 @@
+import g from "../globals";
+
+const functionMap = new Map<
+  int,
+  (entityType: EntityType) => [int, int, int] | null
+>();
+export default functionMap;
+
+// Chompers Baby
+functionMap.set(143, (entityType: EntityType) => {
+  if (
+    g.r.IsFirstVisit() &&
+    entityType >= 1000 && // We only care about grid entities
+    entityType !== 4500 && // Make an exception for Pressure Plates
+    entityType !== 9000 && // Make an exception for trapdoors
+    entityType !== 9100 // Make an exception for crawlspaces
+  ) {
+    // Everything is Red Poop
+    return [1490, 0, 0];
+  }
+
+  return null;
+});
+
+// Suit Baby
+functionMap.set(287, (_entityType: EntityType) => {
+  // All special rooms are Devil Rooms
+  // Ignore some select special rooms
+  const roomType = g.r.GetType();
+  if (
+    roomType !== RoomType.ROOM_DEFAULT && // 1
+    roomType !== RoomType.ROOM_ERROR && // 3
+    roomType !== RoomType.ROOM_BOSS && // 5
+    roomType !== RoomType.ROOM_DEVIL && // 14
+    roomType !== RoomType.ROOM_ANGEL && // 15
+    roomType !== RoomType.ROOM_DUNGEON && // 16
+    roomType !== RoomType.ROOM_BOSSRUSH && // 17
+    roomType !== RoomType.ROOM_BLACK_MARKET // 22
+  ) {
+    return [999, 0, 0]; // Equal to 1000.0, which is a blank effect, which is essentially nothing
+  }
+
+  return null;
+});
+
+// Red Wrestler Baby
+functionMap.set(389, (entityType: EntityType) => {
+  if (
+    g.r.IsFirstVisit() &&
+    entityType >= 1000 && // We only care about grid entities
+    entityType !== 4500 && // Make an exception for Pressure Plates
+    entityType !== 9000 && // Make an exception for trapdoors
+    entityType !== 9100 // Make an exception for crawlspaces
+  ) {
+    // Everything is TNT
+    return [1300, 0, 0];
+  }
+
+  return null;
+});

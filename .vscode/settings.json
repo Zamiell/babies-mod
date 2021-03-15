@@ -1,10 +1,12 @@
 // These are Visual Studio Code settings that should apply to this particular repository
 {
-  "editor.rulers": [100],
+  // ----------------
+  // Vanilla settings
+  // ----------------
 
-  "files.associations": {
-    "*.anm2": "xml", // anm2 files are just XML files
-  },
+  // This matches the Airbnb JavaScript style guide
+  "editor.rulers": [100],
+  "editor.tabSize": 2,
 
   // Linux line endings are used in this project
   "files.eol": "\n",
@@ -12,9 +14,49 @@
   // Automatically removing all trailing whitespace when saving a file
   "files.trimTrailingWhitespace": true,
 
-  // We want luacheck errors to supersede luaparse errors
-  "lua.preferLuaCheckErrors": true,
+  // Configure glob patterns for excluding files and folders in full text searches and quick open
+  "search.exclude": {
+    "**/dist/**/*.js": true,
+  },
 
-  // The default value is 5.1, but Isaac uses 5.3
-  "lua.targetVersion": "5.3",
+  // -----------------------
+  // JavaScript / TypeScript
+  // -----------------------
+
+  // By default, VSCode will not automatically fill-in function arguments
+  "javascript.suggest.completeFunctionCalls": true,
+  "typescript.suggest.completeFunctionCalls": true,
+
+  // Automatically run the formatter when a JavaScript or TypeScript file is saved
+  // "Organize Imports" must be before ESLint because it will delete trailing commas
+  "[javascript]": {
+    "editor.codeActionsOnSave": [
+      "source.organizeImports",
+      "source.fixAll.eslint",
+    ],
+    "editor.tabSize": 2,
+  },
+  "[typescript]": {
+    "editor.codeActionsOnSave": [
+      "source.organizeImports",
+      "source.fixAll.eslint",
+    ],
+    "editor.tabSize": 2,
+  },
+
+  // ------
+  // Python
+  // ------
+
+  // Use "black" to automatically format Python files
+  // https://github.com/psf/black
+  "python.formatting.provider": "black",
+  "python.linting.pylintEnabled": true,
+  "python.linting.enabled": true,
+
+  // Automatically run the formatter when a Python file is saved
+  "[python]": {
+    "editor.formatOnSave": true,
+    "editor.tabSize": 4,
+  },
 }
