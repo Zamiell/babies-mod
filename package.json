@@ -1,6 +1,6 @@
 {
   "name": "babies-mod",
-  "version": "0.0.1",
+  "version": "1.1.0",
   "description": "A mod for The Binding of Isaac: Afterbirth+",
   "keywords": [
     "isaac",
@@ -11,6 +11,6 @@
   ],
   "license": "GPL-3.0",
   "devDependencies": {
-    "isaacscript": "^1.0.44"
+    "isaacscript": "^1.0.45"
   }
 }

@@ -9,16 +9,17 @@ export default functionMap;
 functionMap.set(1, () => {
   // Local variables
   const roomSeed = g.r.GetSpawnSeed();
+  math.randomseed(roomSeed);
+  const heartSubType = math.random(1, 11); // From "Heart" to "Bone Heart"
 
   // Random Heart
-  g.g.Spawn(
+  Isaac.Spawn(
     EntityType.ENTITY_PICKUP,
     PickupVariant.PICKUP_HEART,
+    heartSubType,
     g.p.Position,
     ZERO_VECTOR,
     g.p,
-    0,
-    roomSeed,
   );
 });
 

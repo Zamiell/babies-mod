@@ -1906,7 +1906,7 @@ require("lualib_bundle");
 local ____exports = {}
 local ____enums_2Ecustom = require("types.enums.custom")
 local CollectibleTypeCustom = ____enums_2Ecustom.CollectibleTypeCustom
-____exports.VERSION = "v1.1.0"
+____exports.VERSION = "1.1.0"
 ____exports.R7_SEASON_5 = "R+7 (Season 5)"
 ____exports.ZERO_VECTOR = Vector(0, 0)
 ____exports.DEFAULT_KCOLOR = KColor(1, 1, 1, 1)
@@ -3593,7 +3593,9 @@ functionMap:set(
     50,
     function(____, player, _damageAmount, _damageFlags, _damageSource, _damageCountdownFrames)
         g.run.randomSeed = misc:incrementRNG(g.run.randomSeed)
-        g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, player.Position, ZERO_VECTOR, player, 0, g.run.randomSeed)
+        math.randomseed(g.run.randomSeed)
+        local heartSubType = math.random(1, 11)
+        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, heartSubType, player.Position, ZERO_VECTOR, player)
         return nil
     end
 )
@@ -8458,7 +8460,9 @@ functionMap:set(
     1,
     function()
         local roomSeed = g.r:GetSpawnSeed()
-        g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, g.p.Position, ZERO_VECTOR, g.p, 0, roomSeed)
+        math.randomseed(roomSeed)
+        local heartSubType = math.random(1, 11)
+        Isaac.Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, heartSubType, g.p.Position, ZERO_VECTOR, g.p)
     end
 )
 functionMap:set(

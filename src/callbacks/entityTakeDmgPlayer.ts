@@ -238,14 +238,15 @@ functionMap.set(
   ) => {
     // Spawns a random heart on hit
     g.run.randomSeed = misc.incrementRNG(g.run.randomSeed);
-    g.g.Spawn(
+    math.randomseed(g.run.randomSeed);
+    const heartSubType = math.random(1, 11); // From "Heart" to "Bone Heart"
+    Isaac.Spawn(
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_HEART,
+      heartSubType,
       player.Position,
       ZERO_VECTOR,
       player,
-      0,
-      g.run.randomSeed,
     );
 
     return null;

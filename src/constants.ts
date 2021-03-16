@@ -1,7 +1,7 @@
 import { CollectibleTypeCustom } from "./types/enums.custom";
 
 // The version is updated automatically by the "release.py" script
-export const VERSION = "v1.1.0";
+export const VERSION = "1.1.0";
 
 export const R7_SEASON_5 = "R+7 (Season 5)";
 export const ZERO_VECTOR = Vector(0, 0);
