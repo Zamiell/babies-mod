@@ -1,6 +1,6 @@
 import { R7_SEASON_5 } from "../constants";
 import g from "../globals";
-import { CollectibleTypeCustom } from "../types/enums.custom";
+import { CollectibleTypeCustom, PlayerTypeCustom } from "../types/enums.custom";
 import GlobalsRun from "../types/GlobalsRun";
 import * as postNewLevel from "./postNewLevel";
 
@@ -50,7 +50,7 @@ export function main(isContinued: boolean): void {
 
   // We want to keep track that we started the run as the "Random Baby" character,
   // in case the player changes their character later through Judas' Shadow, etc.
-  if (character === Isaac.GetPlayerTypeByName("Random Baby")) {
+  if (character === PlayerTypeCustom.PLAYER_RANDOM_BABY) {
     g.run.enabled = true;
   } else {
     return;
