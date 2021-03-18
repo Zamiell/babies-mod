@@ -371,7 +371,7 @@ functionMap.set(125, () => {
   // Keys are hearts
   if (keys === 0) {
     g.run.dealingExtraDamage = true;
-    g.p.TakeDamage(99, 0, EntityRef(g.p), 0);
+    g.p.Kill();
     g.run.dealingExtraDamage = false;
   }
 });
@@ -455,7 +455,7 @@ functionMap.set(138, () => {
   // Bombs are hearts
   if (bombs === 0) {
     g.run.dealingExtraDamage = true;
-    g.p.TakeDamage(99, 0, EntityRef(g.p), 0);
+    g.p.Kill();
     g.run.dealingExtraDamage = false;
   }
 });
@@ -1367,7 +1367,7 @@ functionMap.set(474, () => {
       g.run.babyCounters = 0;
 
       g.run.dealingExtraDamage = true;
-      g.p.TakeDamage(99, 0, EntityRef(g.p), 0);
+      g.p.Kill();
       g.run.dealingExtraDamage = false;
     }
   }

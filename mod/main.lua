@@ -1906,7 +1906,7 @@ require("lualib_bundle");
 local ____exports = {}
 local ____enums_2Ecustom = require("types.enums.custom")
 local CollectibleTypeCustom = ____enums_2Ecustom.CollectibleTypeCustom
-____exports.VERSION = "1.1.0"
+____exports.VERSION = "1.1.1"
 ____exports.R7_SEASON_5 = "R+7 (Season 5)"
 ____exports.ZERO_VECTOR = Vector(0, 0)
 ____exports.DEFAULT_KCOLOR = KColor(1, 1, 1, 1)
@@ -2847,7 +2847,7 @@ function checkItem(self, baby)
     if (baby.name == "Whore Baby") and g.p:HasCollectible(CollectibleType.COLLECTIBLE_SACRIFICIAL_DAGGER) then
         return false
     end
-    if (baby.name == "Belial Baby") and ((g.p:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) or g.p:HasCollectible(CollectibleType.COLLECTIBLE_MEGA_SATANS_BREATH)) or (RacingPlusGlobals.run.schoolbag.item == CollectibleType.COLLECTIBLE_MEGA_SATANS_BREATH)) then
+    if (baby.name == "Belial Baby") and (g.p:HasCollectible(CollectibleType.COLLECTIBLE_MEGA_SATANS_BREATH) or (RacingPlusGlobals.run.schoolbag.item == CollectibleType.COLLECTIBLE_MEGA_SATANS_BREATH)) then
         return false
     end
     if (baby.name == "Goat Baby") and (g.p:HasCollectible(CollectibleType.COLLECTIBLE_GOAT_HEAD) or g.p:HasCollectible(CollectibleType.COLLECTIBLE_DUALITY)) then
@@ -3527,9 +3527,9 @@ functionMap:set(
 )
 functionMap:set(
     10,
-    function(____, player, _damageAmount, _damageFlags, damageSource, damageCountdownFrames)
+    function(____, player, _damageAmount, _damageFlags, _damageSource, _damageCountdownFrames)
         g.run.dealingExtraDamage = true
-        player:TakeDamage(99, 0, damageSource, damageCountdownFrames)
+        player:Kill()
         g.run.dealingExtraDamage = false
         return false
     end
@@ -3731,11 +3731,11 @@ functionMap:set(
 )
 functionMap:set(
     177,
-    function(____, player, _damageAmount, _damageFlags, damageSource, damageCountdownFrames)
+    function(____, player, _damageAmount, _damageFlags, _damageSource, _damageCountdownFrames)
         local coins = player:GetNumCoins()
         if coins == 0 then
             g.run.dealingExtraDamage = true
-            player:TakeDamage(99, 0, damageSource, damageCountdownFrames)
+            player:Kill()
             g.run.dealingExtraDamage = false
             return nil
         end
@@ -8941,12 +8941,7 @@ functionMap:set(
         local keys = g.p:GetNumKeys()
         if keys == 0 then
             g.run.dealingExtraDamage = true
-            g.p:TakeDamage(
-                99,
-                0,
-                EntityRef(g.p),
-                0
-            )
+            g.p:Kill()
             g.run.dealingExtraDamage = false
         end
     end
@@ -9017,12 +9012,7 @@ functionMap:set(
         local bombs = g.p:GetNumBombs()
         if bombs == 0 then
             g.run.dealingExtraDamage = true
-            g.p:TakeDamage(
-                99,
-                0,
-                EntityRef(g.p),
-                0
-            )
+            g.p:Kill()
             g.run.dealingExtraDamage = false
         end
     end
@@ -9639,12 +9629,7 @@ functionMap:set(
             if remainingTime <= 0 then
                 g.run.babyCounters = 0
                 g.run.dealingExtraDamage = true
-                g.p:TakeDamage(
-                    99,
-                    0,
-                    EntityRef(g.p),
-                    0
-                )
+                g.p:Kill()
                 g.run.dealingExtraDamage = false
             end
         end

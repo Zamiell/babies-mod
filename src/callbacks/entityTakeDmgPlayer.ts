@@ -90,12 +90,12 @@ functionMap.set(
     player,
     _damageAmount,
     _damageFlags,
-    damageSource,
-    damageCountdownFrames,
+    _damageSource,
+    _damageCountdownFrames,
   ) => {
     // Lost-style health
     g.run.dealingExtraDamage = true;
-    player.TakeDamage(99, 0, damageSource, damageCountdownFrames);
+    player.Kill();
     g.run.dealingExtraDamage = false;
 
     return false;
@@ -538,8 +538,8 @@ functionMap.set(
     player,
     _damageAmount,
     _damageFlags,
-    damageSource,
-    damageCountdownFrames,
+    _damageSource,
+    _damageCountdownFrames,
   ) => {
     // Local variables
     const coins = player.GetNumCoins();
@@ -547,7 +547,7 @@ functionMap.set(
     // Sonic-style health
     if (coins === 0) {
       g.run.dealingExtraDamage = true;
-      player.TakeDamage(99, 0, damageSource, damageCountdownFrames);
+      player.Kill();
       g.run.dealingExtraDamage = false;
       return null;
     }

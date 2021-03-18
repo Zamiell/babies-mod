@@ -8,6 +8,10 @@
   "editor.rulers": [100],
   "editor.tabSize": 2,
 
+  "files.associations": {
+    "*.anm2": "xml", // anm2 files are just XML files
+  },
+
   // Linux line endings are used in this project
   "files.eol": "\n",
 
@@ -16,7 +20,7 @@
 
   // Configure glob patterns for excluding files and folders in full text searches and quick open
   "search.exclude": {
-    "**/dist/**/*.js": true,
+    "**/mod/main.lua": true,
   },
 
   // -----------------------
@@ -42,21 +46,5 @@
       "source.fixAll.eslint",
     ],
     "editor.tabSize": 2,
-  },
-
-  // ------
-  // Python
-  // ------
-
-  // Use "black" to automatically format Python files
-  // https://github.com/psf/black
-  "python.formatting.provider": "black",
-  "python.linting.pylintEnabled": true,
-  "python.linting.enabled": true,
-
-  // Automatically run the formatter when a Python file is saved
-  "[python]": {
-    "editor.formatOnSave": true,
-    "editor.tabSize": 4,
   },
 }

@@ -255,8 +255,7 @@ function checkItem(baby: BabyDescription) {
 
   if (
     baby.name === "Belial Baby" && // 51
-    (g.p.HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) || // 395
-      g.p.HasCollectible(CollectibleType.COLLECTIBLE_MEGA_SATANS_BREATH) || // 441
+    (g.p.HasCollectible(CollectibleType.COLLECTIBLE_MEGA_SATANS_BREATH) || // 441
       RacingPlusGlobals.run.schoolbag.item ===
         CollectibleType.COLLECTIBLE_MEGA_SATANS_BREATH) // 441
   ) {

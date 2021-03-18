@@ -5,7 +5,6 @@
   "recommendations": [
     "dbaeumer.vscode-eslint", // The TypeScript linter
     "ark120202.vscode-typescript-to-lua", // Support for the TypeScriptToLua language
-    "ms-python.python", // The Python linter
     "streetsidesoftware.code-spell-checker", // A spell-checker extension based on cspell is used
   ]
 }
