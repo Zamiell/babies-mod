@@ -133,10 +133,10 @@ functionMap.set(39, () => {
 
     for (let i = 0; i <= 3; i++) {
       if (
-        misc.isButtonPressed(ButtonAction.ACTION_SHOOTLEFT) || // 4
-        misc.isButtonPressed(ButtonAction.ACTION_SHOOTRIGHT) || // 5
-        misc.isButtonPressed(ButtonAction.ACTION_SHOOTUP) || // 6
-        misc.isButtonPressed(ButtonAction.ACTION_SHOOTDOWN) // 7
+        misc.isActionPressed(ButtonAction.ACTION_SHOOTLEFT) || // 4
+        misc.isActionPressed(ButtonAction.ACTION_SHOOTRIGHT) || // 5
+        misc.isActionPressed(ButtonAction.ACTION_SHOOTUP) || // 6
+        misc.isActionPressed(ButtonAction.ACTION_SHOOTDOWN) // 7
       ) {
         g.p.TakeDamage(1, 0, EntityRef(g.p), 0);
         return;
@@ -568,10 +568,10 @@ functionMap.set(162, () => {
 // Helmet Baby
 functionMap.set(163, () => {
   // Check to see if they are pressing any movement buttons
-  const leftPressed = misc.isButtonPressed(ButtonAction.ACTION_LEFT);
-  const rightPressed = misc.isButtonPressed(ButtonAction.ACTION_RIGHT);
-  const upPressed = misc.isButtonPressed(ButtonAction.ACTION_UP);
-  const downPressed = misc.isButtonPressed(ButtonAction.ACTION_DOWN);
+  const leftPressed = misc.isActionPressed(ButtonAction.ACTION_LEFT);
+  const rightPressed = misc.isActionPressed(ButtonAction.ACTION_RIGHT);
+  const upPressed = misc.isActionPressed(ButtonAction.ACTION_UP);
+  const downPressed = misc.isActionPressed(ButtonAction.ACTION_DOWN);
 
   // Keep track of whether they are moving or not
   // Also, fade the character to indicate that they are invulnerable

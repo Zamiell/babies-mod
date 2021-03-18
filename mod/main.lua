@@ -2257,7 +2257,7 @@ function ____exports.gridToPos(self, x, y)
         (y * g.r:GetGridWidth()) + x
     )
 end
-function ____exports.isButtonPressed(self, buttonAction)
+function ____exports.isActionPressed(self, buttonAction)
     do
         local i = 0
         while i <= 3 do
@@ -4848,16 +4848,16 @@ functionMap:set(
 functionMap:set(
     179,
     function(____, _inputHook, buttonAction)
-        if (buttonAction == ButtonAction.ACTION_LEFT) and (misc:isButtonPressed(ButtonAction.ACTION_UP) or misc:isButtonPressed(ButtonAction.ACTION_DOWN)) then
+        if (buttonAction == ButtonAction.ACTION_LEFT) and (misc:isActionPressed(ButtonAction.ACTION_UP) or misc:isActionPressed(ButtonAction.ACTION_DOWN)) then
             return 0
         end
-        if (buttonAction == ButtonAction.ACTION_RIGHT) and (misc:isButtonPressed(ButtonAction.ACTION_UP) or misc:isButtonPressed(ButtonAction.ACTION_DOWN)) then
+        if (buttonAction == ButtonAction.ACTION_RIGHT) and (misc:isActionPressed(ButtonAction.ACTION_UP) or misc:isActionPressed(ButtonAction.ACTION_DOWN)) then
             return 0
         end
-        if (buttonAction == ButtonAction.ACTION_UP) and (misc:isButtonPressed(ButtonAction.ACTION_LEFT) or misc:isButtonPressed(ButtonAction.ACTION_RIGHT)) then
+        if (buttonAction == ButtonAction.ACTION_UP) and (misc:isActionPressed(ButtonAction.ACTION_LEFT) or misc:isActionPressed(ButtonAction.ACTION_RIGHT)) then
             return 0
         end
-        if (buttonAction == ButtonAction.ACTION_DOWN) and (misc:isButtonPressed(ButtonAction.ACTION_LEFT) or misc:isButtonPressed(ButtonAction.ACTION_RIGHT)) then
+        if (buttonAction == ButtonAction.ACTION_DOWN) and (misc:isActionPressed(ButtonAction.ACTION_LEFT) or misc:isActionPressed(ButtonAction.ACTION_RIGHT)) then
             return 0
         end
         return nil
@@ -6984,7 +6984,7 @@ function drawBabyIntro(self)
     if not valid then
         return
     end
-    if misc:isButtonPressed(ButtonAction.ACTION_MAP) then
+    if misc:isActionPressed(ButtonAction.ACTION_MAP) then
         g.run.showIntroFrame = gameFrameCount + 60
     end
     if gameFrameCount > g.run.showIntroFrame then
@@ -7298,6 +7298,7 @@ local ____globals = require("globals")
 local g = ____globals.default
 local ____enums_2Ecustom = require("types.enums.custom")
 local CollectibleTypeCustom = ____enums_2Ecustom.CollectibleTypeCustom
+local PlayerTypeCustom = ____enums_2Ecustom.PlayerTypeCustom
 local ____GlobalsRun = require("types.GlobalsRun")
 local GlobalsRun = ____GlobalsRun.default
 local postNewLevel = require("callbacks.postNewLevel")
@@ -7326,7 +7327,7 @@ function ____exports.main(self, isContinued)
     if g.seeds:HasSeedEffect(SeedEffect.SEED_OLD_TV) then
         g.seeds:RemoveSeedEffect(SeedEffect.SEED_OLD_TV)
     end
-    if character == Isaac.GetPlayerTypeByName("Random Baby") then
+    if character == PlayerTypeCustom.PLAYER_RANDOM_BABY then
         g.run.enabled = true
     else
         return
@@ -8751,7 +8752,7 @@ functionMap:set(
             do
                 local i = 0
                 while i <= 3 do
-                    if ((misc:isButtonPressed(ButtonAction.ACTION_SHOOTLEFT) or misc:isButtonPressed(ButtonAction.ACTION_SHOOTRIGHT)) or misc:isButtonPressed(ButtonAction.ACTION_SHOOTUP)) or misc:isButtonPressed(ButtonAction.ACTION_SHOOTDOWN) then
+                    if ((misc:isActionPressed(ButtonAction.ACTION_SHOOTLEFT) or misc:isActionPressed(ButtonAction.ACTION_SHOOTRIGHT)) or misc:isActionPressed(ButtonAction.ACTION_SHOOTUP)) or misc:isActionPressed(ButtonAction.ACTION_SHOOTDOWN) then
                         g.p:TakeDamage(
                             1,
                             0,
@@ -9081,10 +9082,10 @@ functionMap:set(
 functionMap:set(
     163,
     function()
-        local leftPressed = misc:isButtonPressed(ButtonAction.ACTION_LEFT)
-        local rightPressed = misc:isButtonPressed(ButtonAction.ACTION_RIGHT)
-        local upPressed = misc:isButtonPressed(ButtonAction.ACTION_UP)
-        local downPressed = misc:isButtonPressed(ButtonAction.ACTION_DOWN)
+        local leftPressed = misc:isActionPressed(ButtonAction.ACTION_LEFT)
+        local rightPressed = misc:isActionPressed(ButtonAction.ACTION_RIGHT)
+        local upPressed = misc:isActionPressed(ButtonAction.ACTION_UP)
+        local downPressed = misc:isActionPressed(ButtonAction.ACTION_DOWN)
         if ((((not g.run.babyBool) and (not leftPressed)) and (not rightPressed)) and (not upPressed)) and (not downPressed) then
             g.run.babyBool = true
             local color = g.p:GetColor()

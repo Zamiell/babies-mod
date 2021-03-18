@@ -53,29 +53,29 @@ functionMap.set(179, (_inputHook: InputHook, buttonAction: ButtonAction) => {
   // Can only move up + down + left + right
   if (
     buttonAction === ButtonAction.ACTION_LEFT && // 0
-    (misc.isButtonPressed(ButtonAction.ACTION_UP) || // 2
-      misc.isButtonPressed(ButtonAction.ACTION_DOWN)) // 3
+    (misc.isActionPressed(ButtonAction.ACTION_UP) || // 2
+      misc.isActionPressed(ButtonAction.ACTION_DOWN)) // 3
   ) {
     return 0;
   }
   if (
     buttonAction === ButtonAction.ACTION_RIGHT && // 1
-    (misc.isButtonPressed(ButtonAction.ACTION_UP) || // 2
-      misc.isButtonPressed(ButtonAction.ACTION_DOWN)) // 3
+    (misc.isActionPressed(ButtonAction.ACTION_UP) || // 2
+      misc.isActionPressed(ButtonAction.ACTION_DOWN)) // 3
   ) {
     return 0;
   }
   if (
     buttonAction === ButtonAction.ACTION_UP && // 2
-    (misc.isButtonPressed(ButtonAction.ACTION_LEFT) || // 0
-      misc.isButtonPressed(ButtonAction.ACTION_RIGHT)) // 1
+    (misc.isActionPressed(ButtonAction.ACTION_LEFT) || // 0
+      misc.isActionPressed(ButtonAction.ACTION_RIGHT)) // 1
   ) {
     return 0;
   }
   if (
     buttonAction === ButtonAction.ACTION_DOWN && // 3
-    (misc.isButtonPressed(ButtonAction.ACTION_LEFT) || // 0
-      misc.isButtonPressed(ButtonAction.ACTION_RIGHT)) // 1
+    (misc.isActionPressed(ButtonAction.ACTION_LEFT) || // 0
+      misc.isActionPressed(ButtonAction.ACTION_RIGHT)) // 1
   ) {
     return 0;
   }

@@ -206,7 +206,7 @@ function drawBabyIntro() {
   }
 
   // Make the baby description persist on the screen after the player presses the map button
-  if (misc.isButtonPressed(ButtonAction.ACTION_MAP)) {
+  if (misc.isActionPressed(ButtonAction.ACTION_MAP)) {
     g.run.showIntroFrame = gameFrameCount + 60; // 2 seconds
   }
 

@@ -18,8 +18,8 @@ export default class GlobalsRun {
   randomSeed: int;
 
   // Tracking per level
-  // We start at 0 instead of 1 so that we can trigger the PostNewRoom callback after the
-  // PostNewLevel callback
+  // We start at stage 0 instead of stage 1 so that we can trigger the PostNewRoom callback after
+  // the PostNewLevel callback
   level = new GlobalsRunLevel(0, 0, 0);
 
   // Tracking per room

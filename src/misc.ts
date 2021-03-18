@@ -208,7 +208,7 @@ export function incrementRNG(seed: number): number {
   return newSeed;
 }
 
-export function isButtonPressed(buttonAction: ButtonAction): boolean {
+export function isActionPressed(buttonAction: ButtonAction): boolean {
   // There are 4 possible inputs/players from 0 to 3
   for (let i = 0; i <= 3; i++) {
     if (Input.IsActionPressed(buttonAction, i)) {
