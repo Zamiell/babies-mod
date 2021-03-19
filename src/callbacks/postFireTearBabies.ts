@@ -636,7 +636,7 @@ functionMap.set(504, (tear: EntityTear) => {
       const abel = abels[0];
       tear.Position = abel.Position;
     } else {
-      Isaac.DebugString("Error. Abel was not found.");
+      Isaac.DebugString("Error: Abel was not found.");
     }
   }
 });

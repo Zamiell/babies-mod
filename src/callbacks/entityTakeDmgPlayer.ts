@@ -679,14 +679,7 @@ functionMap.set(
     _damageSource,
     _damageCountdownFrames,
   ) => {
-    // Open all of the doors
-    for (let i = 0; i <= 7; i++) {
-      const door = g.r.GetDoor(i);
-      if (door !== null) {
-        door.Open();
-      }
-    }
-
+    misc.openAllDoors();
     return null;
   },
 );

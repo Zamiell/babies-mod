@@ -360,7 +360,7 @@ functionMap.set(216, () => {
       positionIndex += 1;
       if (positionIndex > positions.length) {
         Isaac.DebugString(
-          "Error. This floor has too many special rooms for Fancy Baby.",
+          "Error: This floor has too many special rooms for Fancy Baby.",
         );
         return;
       }
@@ -562,13 +562,7 @@ functionMap.set(297, () => {
     return;
   }
 
-  // Open all of the doors
-  for (let i = 0; i <= 7; i++) {
-    const door = g.r.GetDoor(i);
-    if (door !== null) {
-      door.Open();
-    }
-  }
+  misc.openAllDoors();
 });
 
 // Mouse Baby

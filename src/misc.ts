@@ -219,10 +219,15 @@ export function isActionPressed(buttonAction: ButtonAction): boolean {
   return false;
 }
 
-// From: http.//lua-users.org/wiki/SimpleRound
-export function round(num: number, numDecimalPlaces: int): int {
-  const mult = 10 ^ (numDecimalPlaces || 0);
-  return math.floor(num * mult + 0.5) / mult;
+export function openAllDoors(): void {
+  for (let i = 0; i <= 7; i++) {
+    const door = g.r.GetDoor(i);
+    if (door !== null) {
+      // If we try to open a hidden secret room door (or super secret room door),
+      // then nothing will happen
+      door.Open();
+    }
+  }
 }
 
 // Set the entity to a random color

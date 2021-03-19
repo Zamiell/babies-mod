@@ -194,7 +194,7 @@ for (let i = 0; i < g.babies.length; i++) {
   const baby = g.babies[i];
 
   if (nameMap.has(baby.name)) {
-    Isaac.DebugString(`ERROR. Baby #${i} has a duplicate name: ${baby.name}`);
+    Isaac.DebugString(`ERROR: Baby #${i} has a duplicate name: ${baby.name}`);
   } else {
     nameMap.set(baby.name, true);
   }
@@ -227,7 +227,7 @@ for (let i = 0; i < g.babies.length; i++) {
       // Make exceptions for items that are deliberately used multiple times
       if (!itemExceptions.includes(baby.item)) {
         Isaac.DebugString(
-          `ERROR. Baby #${i} has a duplicate item: ${baby.item}`,
+          `ERROR: Baby #${i} has a duplicate item: ${baby.item}`,
         );
       }
     } else {
@@ -240,7 +240,7 @@ for (let i = 0; i < g.babies.length; i++) {
       // Make exceptions for items that are deliberately used multiple times
       if (!itemExceptions.includes(baby.item2)) {
         Isaac.DebugString(
-          `ERROR. Baby #${i} has a duplicate item: ${baby.item2}`,
+          `ERROR: Baby #${i} has a duplicate item: ${baby.item2}`,
         );
       }
     } else {
@@ -249,7 +249,7 @@ for (let i = 0; i < g.babies.length; i++) {
 
     if (misc.getItemConfig(baby.item2).Type === ItemType.ITEM_ACTIVE) {
       Isaac.DebugString(
-        `ERROR. Baby #${i.toString()} has an active item in the second slot.`,
+        `ERROR: Baby #${i.toString()} has an active item in the second slot.`,
       );
     }
   }
@@ -263,7 +263,7 @@ for (let i = 0; i < g.babies.length; i++) {
   if (baby.trinket !== undefined) {
     if (trinketMap.has(baby.trinket)) {
       Isaac.DebugString(
-        `ERROR. Baby #${i} has a duplicate trinket: ${baby.trinket}`,
+        `ERROR: Baby #${i} has a duplicate trinket: ${baby.trinket}`,
       );
     } else {
       trinketMap.set(baby.trinket, true);

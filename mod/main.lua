@@ -2269,9 +2269,17 @@ function ____exports.isActionPressed(self, buttonAction)
     end
     return false
 end
-function ____exports.round(self, num, numDecimalPlaces)
-    local mult = 10 ~ (numDecimalPlaces or 0)
-    return math.floor((num * mult) + 0.5) / mult
+function ____exports.openAllDoors(self)
+    do
+        local i = 0
+        while i <= 7 do
+            local door = g.r:GetDoor(i)
+            if door ~= nil then
+                door:Open()
+            end
+            i = i + 1
+        end
+    end
 end
 function ____exports.setRandomColor(self, entity)
     local colorValues = {}
@@ -2306,109 +2314,109 @@ function ____exports.spawnRandomPickup(self, position, velocity, noItems)
         pickupVariant = math.random(1, 11)
     end
     g.run.randomSeed = ____exports.incrementRNG(nil, g.run.randomSeed)
-    local ____switch44 = pickupVariant
-    if ____switch44 == 1 then
-        goto ____switch44_case_0
-    elseif ____switch44 == 2 then
-        goto ____switch44_case_1
-    elseif ____switch44 == 3 then
-        goto ____switch44_case_2
-    elseif ____switch44 == 4 then
-        goto ____switch44_case_3
-    elseif ____switch44 == 5 then
-        goto ____switch44_case_4
-    elseif ____switch44 == 6 then
-        goto ____switch44_case_5
-    elseif ____switch44 == 7 then
-        goto ____switch44_case_6
-    elseif ____switch44 == 8 then
-        goto ____switch44_case_7
-    elseif ____switch44 == 9 then
-        goto ____switch44_case_8
-    elseif ____switch44 == 10 then
-        goto ____switch44_case_9
-    elseif ____switch44 == 11 then
-        goto ____switch44_case_10
+    local ____switch46 = pickupVariant
+    if ____switch46 == 1 then
+        goto ____switch46_case_0
+    elseif ____switch46 == 2 then
+        goto ____switch46_case_1
+    elseif ____switch46 == 3 then
+        goto ____switch46_case_2
+    elseif ____switch46 == 4 then
+        goto ____switch46_case_3
+    elseif ____switch46 == 5 then
+        goto ____switch46_case_4
+    elseif ____switch46 == 6 then
+        goto ____switch46_case_5
+    elseif ____switch46 == 7 then
+        goto ____switch46_case_6
+    elseif ____switch46 == 8 then
+        goto ____switch46_case_7
+    elseif ____switch46 == 9 then
+        goto ____switch46_case_8
+    elseif ____switch46 == 10 then
+        goto ____switch46_case_9
+    elseif ____switch46 == 11 then
+        goto ____switch46_case_10
     end
-    goto ____switch44_case_default
-    ::____switch44_case_0::
+    goto ____switch46_case_default
+    ::____switch46_case_0::
     do
         do
             g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_HEART, position, velocity, nil, 0, g.run.randomSeed)
-            goto ____switch44_end
+            goto ____switch46_end
         end
     end
-    ::____switch44_case_1::
+    ::____switch46_case_1::
     do
         do
             g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN, position, velocity, nil, 0, g.run.randomSeed)
-            goto ____switch44_end
+            goto ____switch46_end
         end
     end
-    ::____switch44_case_2::
+    ::____switch46_case_2::
     do
         do
             g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_KEY, position, velocity, nil, 0, g.run.randomSeed)
-            goto ____switch44_end
+            goto ____switch46_end
         end
     end
-    ::____switch44_case_3::
+    ::____switch46_case_3::
     do
         do
             g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, position, velocity, nil, 0, g.run.randomSeed)
-            goto ____switch44_end
+            goto ____switch46_end
         end
     end
-    ::____switch44_case_4::
+    ::____switch46_case_4::
     do
         do
             g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_CHEST, position, velocity, nil, 0, g.run.randomSeed)
-            goto ____switch44_end
+            goto ____switch46_end
         end
     end
-    ::____switch44_case_5::
+    ::____switch46_case_5::
     do
         do
             g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_GRAB_BAG, position, velocity, nil, 0, g.run.randomSeed)
-            goto ____switch44_end
+            goto ____switch46_end
         end
     end
-    ::____switch44_case_6::
+    ::____switch46_case_6::
     do
         do
             g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_LIL_BATTERY, position, velocity, nil, 0, g.run.randomSeed)
-            goto ____switch44_end
+            goto ____switch46_end
         end
     end
-    ::____switch44_case_7::
+    ::____switch46_case_7::
     do
         do
             g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_PILL, position, velocity, nil, 0, g.run.randomSeed)
-            goto ____switch44_end
+            goto ____switch46_end
         end
     end
-    ::____switch44_case_8::
+    ::____switch46_case_8::
     do
         do
             g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TAROTCARD, position, velocity, nil, 0, g.run.randomSeed)
-            goto ____switch44_end
+            goto ____switch46_end
         end
     end
-    ::____switch44_case_9::
+    ::____switch46_case_9::
     do
         do
             g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_TRINKET, position, velocity, nil, 0, g.run.randomSeed)
-            goto ____switch44_end
+            goto ____switch46_end
         end
     end
-    ::____switch44_case_10::
+    ::____switch46_case_10::
     do
         do
             g.g:Spawn(EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COLLECTIBLE, position, velocity, nil, 0, g.run.randomSeed)
-            goto ____switch44_end
+            goto ____switch46_end
         end
     end
-    ::____switch44_case_default::
+    ::____switch46_case_default::
     do
         do
             error(
@@ -2416,7 +2424,7 @@ function ____exports.spawnRandomPickup(self, position, velocity, noItems)
             )
         end
     end
-    ::____switch44_end::
+    ::____switch46_end::
 end
 return ____exports
 end,
@@ -3278,12 +3286,6 @@ function ____exports.default(self)
 end
 return ____exports
 end,
-["debug"] = function() --[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
-local ____exports = {}
-function ____exports.main(self)
-end
-return ____exports
-end,
 ["isaacScriptInit"] = function() --[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
 require("lualib_bundle");
 local ____exports = {}
@@ -3791,16 +3793,7 @@ functionMap:set(
 functionMap:set(
     212,
     function(____, _player, _damageAmount, _damageFlags, _damageSource, _damageCountdownFrames)
-        do
-            local i = 0
-            while i <= 7 do
-                local door = g.r:GetDoor(i)
-                if door ~= nil then
-                    door:Open()
-                end
-                i = i + 1
-            end
-        end
+        misc:openAllDoors()
         return nil
     end
 )
@@ -6049,7 +6042,7 @@ functionMap:set(
                 local abel = abels[1]
                 tear.Position = abel.Position
             else
-                Isaac.DebugString("Error. Abel was not found.")
+                Isaac.DebugString("Error: Abel was not found.")
             end
         end
     end
@@ -6439,7 +6432,7 @@ functionMap:set(
                     if itemID ~= 0 then
                         positionIndex = positionIndex + 1
                         if positionIndex > #positions then
-                            Isaac.DebugString("Error. This floor has too many special rooms for Fancy Baby.")
+                            Isaac.DebugString("Error: This floor has too many special rooms for Fancy Baby.")
                             return
                         end
                         local xy = positions[positionIndex + 1]
@@ -6568,16 +6561,7 @@ functionMap:set(
         if currentRoomIndex == startingRoomIndex then
             return
         end
-        do
-            local i = 0
-            while i <= 7 do
-                local door = g.r:GetDoor(i)
-                if door ~= nil then
-                    door:Open()
-                end
-                i = i + 1
-            end
-        end
+        misc:openAllDoors()
     end
 )
 functionMap:set(
@@ -7311,7 +7295,7 @@ function ____exports.main(self, isContinued)
     end
     g.run = __TS__New(GlobalsRun, randomSeed)
     local resetPastBabies = true
-    if ((challenge == Isaac.GetChallengeIdByName(R7_SEASON_5)) and g.racingPlusEnabled) and (RacingPlusSpeedrun.charNum >= 2) then
+    if ((challenge == Isaac.GetChallengeIdByName(R7_SEASON_5)) and g.racingPlusEnabled) and (RacingPlusGetCharacterNum(nil) >= 2) then
         resetPastBabies = false
     end
     if resetPastBabies then
@@ -9865,16 +9849,7 @@ function checkSoftlockIsland(self)
     end
     g.run.room.softlock = true
     g.r:SetClear(true)
-    do
-        local i = 0
-        while i <= 7 do
-            local door = g.r:GetDoor(i)
-            if door ~= nil then
-                door:Open()
-            end
-            i = i + 1
-        end
-    end
+    misc:openAllDoors()
 end
 function checkGridEntities(self)
     local roomIndex = misc:getRoomIndex()
@@ -10614,7 +10589,7 @@ do
         local baby = g.babies[i + 1]
         if nameMap:has(baby.name) then
             Isaac.DebugString(
-                (("ERROR. Baby #" .. tostring(i)) .. " has a duplicate name: ") .. baby.name
+                (("ERROR: Baby #" .. tostring(i)) .. " has a duplicate name: ") .. baby.name
             )
         else
             nameMap:set(baby.name, true)
@@ -10632,7 +10607,7 @@ do
             if itemMap:has(baby.item) then
                 if not __TS__ArrayIncludes(itemExceptions, baby.item) then
                     Isaac.DebugString(
-                        (("ERROR. Baby #" .. tostring(i)) .. " has a duplicate item: ") .. tostring(baby.item)
+                        (("ERROR: Baby #" .. tostring(i)) .. " has a duplicate item: ") .. tostring(baby.item)
                     )
                 end
             else
@@ -10643,7 +10618,7 @@ do
             if itemMap:has(baby.item2) then
                 if not __TS__ArrayIncludes(itemExceptions, baby.item2) then
                     Isaac.DebugString(
-                        (("ERROR. Baby #" .. tostring(i)) .. " has a duplicate item: ") .. tostring(baby.item2)
+                        (("ERROR: Baby #" .. tostring(i)) .. " has a duplicate item: ") .. tostring(baby.item2)
                     )
                 end
             else
@@ -10651,7 +10626,7 @@ do
             end
             if misc:getItemConfig(baby.item2).Type == ItemType.ITEM_ACTIVE then
                 Isaac.DebugString(
-                    ("ERROR. Baby #" .. tostring(i)) .. " has an active item in the second slot."
+                    ("ERROR: Baby #" .. tostring(i)) .. " has an active item in the second slot."
                 )
             end
         end
@@ -10666,7 +10641,7 @@ do
         if baby.trinket ~= nil then
             if trinketMap:has(baby.trinket) then
                 Isaac.DebugString(
-                    (("ERROR. Baby #" .. tostring(i)) .. " has a duplicate trinket: ") .. tostring(baby.trinket)
+                    (("ERROR: Baby #" .. tostring(i)) .. " has a duplicate trinket: ") .. tostring(baby.trinket)
                 )
             else
                 trinketMap:set(baby.trinket, true)
@@ -10677,7 +10652,7 @@ do
 end
 return ____exports
 end,
-["types.RacingPlusSpeedrun"] = function() --[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
+["types.RacingPlusGetCharacterNum"] = function() --[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
 end,
 }
 return require("main")
