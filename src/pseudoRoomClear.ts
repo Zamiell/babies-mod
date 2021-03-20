@@ -213,8 +213,11 @@ function clearRoom() {
 
   // Give a charge to the player's active item
   // (and handle co-op players, if present)
-  for (let i = 1; i <= g.g.GetNumPlayers(); i++) {
-    const player = Isaac.GetPlayer(i - 1);
+  for (let i = 0; i < g.g.GetNumPlayers(); i++) {
+    const player = Isaac.GetPlayer(i);
+    if (player === null) {
+      continue;
+    }
     const activeItem = player.GetActiveItem();
     const activeCharge = player.GetActiveCharge();
     const batteryCharge = player.GetBatteryCharge();

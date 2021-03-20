@@ -6,6 +6,6 @@ export function main(player: EntityPlayer): void {
     return;
   }
 
-  // Cache the player object so that we don't have to repeatedly call Game().GetPlayer(0)
+  // Cache the player object so that we don't have to repeatedly call Isaac.GetPlayer(0)
   g.p = player;
 }

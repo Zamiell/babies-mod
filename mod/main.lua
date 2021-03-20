@@ -4826,7 +4826,10 @@ functionMap:set(
     115,
     function(____, inputHook, buttonAction)
         if (inputHook == InputHook.IS_ACTION_PRESSED) and ((((buttonAction == ButtonAction.ACTION_SHOOTLEFT) or (buttonAction == ButtonAction.ACTION_SHOOTRIGHT)) or (buttonAction == ButtonAction.ACTION_SHOOTUP)) or (buttonAction == ButtonAction.ACTION_SHOOTDOWN)) then
-            local player = Game(nil):GetPlayer(0)
+            local player = Isaac.GetPlayer(0)
+            if player == nil then
+                return nil
+            end
             if (((((player:HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) or player:HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE)) or player:HasCollectible(CollectibleType.COLLECTIBLE_BRIMSTONE)) or player:HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG)) or player:HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE)) or player:HasCollectible(CollectibleType.COLLECTIBLE_TECH_X)) or player:HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_VOID) then
                 return nil
             end
@@ -7100,7 +7103,10 @@ clockSprite = nil
 function ____exports.main(self)
     g.l = g.g:GetLevel()
     g.r = g.g:GetRoom()
-    g.p = g.g:GetPlayer(0)
+    local player = Isaac.GetPlayer(0)
+    if player ~= nil then
+        g.p = player
+    end
     g.seeds = g.g:GetSeeds()
     g.itemPool = g.g:GetItemPool()
     local ____, ____, valid = table.unpack(
@@ -7175,7 +7181,10 @@ end
 function ____exports.main(self)
     g.l = g.g:GetLevel()
     g.r = g.g:GetRoom()
-    g.p = g.g:GetPlayer(0)
+    local player = Isaac.GetPlayer(0)
+    if player ~= nil then
+        g.p = player
+    end
     g.seeds = g.g:GetSeeds()
     g.itemPool = g.g:GetItemPool()
     local gameFrameCount = g.g:GetFrameCount()
@@ -8591,25 +8600,31 @@ function clearRoom(self)
         ::__continue28::
     end
     do
-        local i = 1
-        while i <= g.g:GetNumPlayers() do
-            local player = Isaac.GetPlayer(i - 1)
-            local activeItem = player:GetActiveItem()
-            local activeCharge = player:GetActiveCharge()
-            local batteryCharge = player:GetBatteryCharge()
-            if player:NeedsCharge() == true then
-                local chargesToAdd = 1
-                local shape = g.r:GetRoomShape()
-                if shape >= 8 then
-                    chargesToAdd = 2
-                elseif player:HasTrinket(TrinketType.TRINKET_AAA_BATTERY) and (activeCharge == (misc:getItemMaxCharges(activeItem) - 2)) then
-                    chargesToAdd = 2
-                elseif ((player:HasTrinket(TrinketType.TRINKET_AAA_BATTERY) and (activeCharge == misc:getItemMaxCharges(activeItem))) and player:HasCollectible(CollectibleType.COLLECTIBLE_BATTERY)) and (batteryCharge == (misc:getItemMaxCharges(activeItem) - 2)) then
-                    chargesToAdd = 2
+        local i = 0
+        while i < g.g:GetNumPlayers() do
+            do
+                local player = Isaac.GetPlayer(i)
+                if player == nil then
+                    goto __continue33
                 end
-                local currentCharge = player:GetActiveCharge()
-                player:SetActiveCharge(currentCharge + chargesToAdd)
+                local activeItem = player:GetActiveItem()
+                local activeCharge = player:GetActiveCharge()
+                local batteryCharge = player:GetBatteryCharge()
+                if player:NeedsCharge() == true then
+                    local chargesToAdd = 1
+                    local shape = g.r:GetRoomShape()
+                    if shape >= 8 then
+                        chargesToAdd = 2
+                    elseif player:HasTrinket(TrinketType.TRINKET_AAA_BATTERY) and (activeCharge == (misc:getItemMaxCharges(activeItem) - 2)) then
+                        chargesToAdd = 2
+                    elseif ((player:HasTrinket(TrinketType.TRINKET_AAA_BATTERY) and (activeCharge == misc:getItemMaxCharges(activeItem))) and player:HasCollectible(CollectibleType.COLLECTIBLE_BATTERY)) and (batteryCharge == (misc:getItemMaxCharges(activeItem) - 2)) then
+                        chargesToAdd = 2
+                    end
+                    local currentCharge = player:GetActiveCharge()
+                    player:SetActiveCharge(currentCharge + chargesToAdd)
+                end
             end
+            ::__continue33::
             i = i + 1
         end
     end

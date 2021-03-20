@@ -9,7 +9,10 @@ export function main(): void {
   // Update some cached API functions to avoid crashing
   g.l = g.g.GetLevel();
   g.r = g.g.GetRoom();
-  g.p = g.g.GetPlayer(0);
+  const player = Isaac.GetPlayer(0);
+  if (player !== null) {
+    g.p = player;
+  }
   g.seeds = g.g.GetSeeds();
   g.itemPool = g.g.GetItemPool();
 
