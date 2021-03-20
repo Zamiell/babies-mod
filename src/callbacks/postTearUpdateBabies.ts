@@ -41,7 +41,7 @@ functionMap.set(213, (tear: EntityTear) => {
   if (tear.SubType === 1 && tear.FrameCount >= 10) {
     // Find the nearest enemy
     let distance = 40000;
-    let closestNPC;
+    let closestNPC: EntityNPC | undefined;
     for (const entity of Isaac.GetRoomEntities()) {
       const npc = entity.ToNPC();
       if (

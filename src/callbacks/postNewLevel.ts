@@ -97,10 +97,7 @@ function getNewBaby() {
     math.randomseed(seed);
 
     // Get a random index for the "babies" array
-    // We have a null element at position 0
-    // We do not have to do "g.babies.length - 1" because then the transpiled range would be invalid
-    // for a Lua array
-    babyType = math.random(1, g.babies.length);
+    babyType = math.random(0, g.babies.length - 1);
 
     // Don't randomly choose a co-op baby if we are choosing a specific one for debugging purposes
     if (g.debugBabyNum !== null) {

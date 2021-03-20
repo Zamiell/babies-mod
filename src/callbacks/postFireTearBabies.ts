@@ -174,6 +174,7 @@ functionMap.set(133, (tear: EntityTear) => {
 
 // Cape Baby
 functionMap.set(152, (tear: EntityTear) => {
+  // Spray tears
   const angleModifier = math.random(0, 90) - 45;
   tear.Velocity = tear.Velocity.Rotated(angleModifier);
   const yellow = Color(2, 2, 0, 0.7, 1, 1, 1);

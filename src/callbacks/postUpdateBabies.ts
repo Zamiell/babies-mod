@@ -404,37 +404,38 @@ functionMap.set(128, () => {
   }
 
   // Get N unique random indexes
-  const randomIndexes: int[] = [];
+  const randomFloorIndexes: int[] = [];
   for (let i = 1; i <= baby.num; i++) {
     // eslint-disable-next-line no-constant-condition
     while (true) {
       // Get a random room index on the floor
       g.run.randomSeed = misc.incrementRNG(g.run.randomSeed);
       math.randomseed(g.run.randomSeed);
-      const randomIndex = floorIndexes[math.random(1, floorIndexes.length)];
+      const randomIndex = math.random(0, floorIndexes.length - 1);
+      const randomFloorIndex = floorIndexes[randomIndex];
 
       // Check to see if this is one of the indexes that we are already warping to
-      if (randomIndexes.includes(randomIndex)) {
+      if (randomFloorIndexes.includes(randomFloorIndex)) {
         continue;
       }
 
       // We don't want the starting room to count
-      if (randomIndex === startingRoomIndex) {
+      if (randomFloorIndex === startingRoomIndex) {
         continue;
       }
 
       // Add it
-      randomIndexes.push(randomIndex);
+      randomFloorIndexes.push(randomFloorIndex);
       break;
     }
   }
 
   // Explore these rooms
-  for (const randomIndex of randomIndexes) {
+  for (const roomIndex of randomFloorIndexes) {
     // You have to set LeaveDoor before every teleport or else it will send you to the wrong room
     g.l.LeaveDoor = -1;
 
-    g.l.ChangeRoom(randomIndex);
+    g.l.ChangeRoom(roomIndex);
 
     // We might have traveled to the Boss Room, so stop the Portcullis sound effect just in case
     g.sfx.Stop(SoundEffect.SOUND_CASTLEPORTCULLIS);

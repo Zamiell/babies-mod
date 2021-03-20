@@ -218,12 +218,12 @@ function drawBabyIntro() {
   }
 
   // Local variables
-  const center = getScreenCenterPosition();
+  const center = misc.getScreenCenterPosition();
   const scale = 1.75;
 
-  let text;
-  let x;
-  let y;
+  let text: string;
+  let x: number;
+  let y: number;
 
   // Render the baby's name
   text = baby.name;
@@ -280,11 +280,11 @@ function drawVersion() {
     return;
   }
 
-  const center = getScreenCenterPosition();
-  let text;
-  let scale;
-  let x;
-  let y;
+  const center = misc.getScreenCenterPosition();
+  let text: string;
+  let scale: int;
+  let x: number;
+  let y: number;
 
   // Render the version of the mod
   text = "The Babies Mod";
@@ -340,32 +340,6 @@ function drawTempIcon() {
     const pos = Vector(clockX + 27, clockY + 32);
     clockSprite.RenderLayer(0, pos);
   }
-}
-
-// Taken from Alphabirth
-// https.//steamcommunity.com/sharedfiles/filedetails/?id=848056541
-function getScreenCenterPosition() {
-  // Local variables
-  const shape = g.r.GetRoomShape();
-  const centerPos = g.r.GetCenterPos();
-  const topLeftPos = g.r.GetTopLeftPos();
-  const centerOffset = centerPos.__sub(topLeftPos);
-  const pos = centerPos;
-
-  if (centerOffset.X > 260) {
-    pos.X -= 260;
-  }
-  if (shape === RoomShape.ROOMSHAPE_LBL || shape === RoomShape.ROOMSHAPE_LTL) {
-    pos.X -= 260;
-  }
-  if (centerOffset.Y > 140) {
-    pos.Y -= 140;
-  }
-  if (shape === RoomShape.ROOMSHAPE_LTR || shape === RoomShape.ROOMSHAPE_LTL) {
-    pos.Y -= 140;
-  }
-
-  return Isaac.WorldToRenderPosition(pos);
 }
 
 function drawBabyEffects() {

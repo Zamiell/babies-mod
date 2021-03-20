@@ -1,6 +1,7 @@
 import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
 import * as misc from "../misc";
+import EntityDescription from "../types/EntityDescription";
 import { CollectibleTypeCustom } from "../types/enums.custom";
 
 export function main(
@@ -696,7 +697,7 @@ functionMap.set(
   ) => {
     // Extra enemies spawn on hit
     // Find an existing enemy in the room
-    let dupeEnemy;
+    let dupeEnemy: EntityDescription | undefined;
     for (const entity of Isaac.GetRoomEntities()) {
       const npc = entity.ToNPC();
       if (npc !== null && !npc.IsBoss()) {

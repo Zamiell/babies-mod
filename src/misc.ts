@@ -131,8 +131,8 @@ export function getOffsetPosition(
   math.randomseed(seed);
   const offsetDirection = math.random(1, 4);
 
-  let offsetX;
-  let offsetY;
+  let offsetX: int;
+  let offsetY: int;
   switch (offsetDirection) {
     case 1: {
       // Bottom right
@@ -188,6 +188,32 @@ export function getRoomIndex(): int {
   }
 
   return roomIndex;
+}
+
+// Taken from Alphabirth
+// https://steamcommunity.com/sharedfiles/filedetails/?id=848056541
+export function getScreenCenterPosition(): Vector {
+  // Local variables
+  const shape = g.r.GetRoomShape();
+  const centerPos = g.r.GetCenterPos();
+  const topLeftPos = g.r.GetTopLeftPos();
+  const centerOffset = centerPos.__sub(topLeftPos);
+  const pos = centerPos;
+
+  if (centerOffset.X > 260) {
+    pos.X -= 260;
+  }
+  if (shape === RoomShape.ROOMSHAPE_LBL || shape === RoomShape.ROOMSHAPE_LTL) {
+    pos.X -= 260;
+  }
+  if (centerOffset.Y > 140) {
+    pos.Y -= 140;
+  }
+  if (shape === RoomShape.ROOMSHAPE_LTR || shape === RoomShape.ROOMSHAPE_LTL) {
+    pos.Y -= 140;
+  }
+
+  return Isaac.WorldToRenderPosition(pos);
 }
 
 export function gridToPos(x: number, y: number): Vector {
@@ -262,7 +288,7 @@ export function spawnRandomPickup(
   // Spawn a random pickup
   g.run.randomSeed = incrementRNG(g.run.randomSeed);
   math.randomseed(g.run.randomSeed);
-  let pickupVariant;
+  let pickupVariant: int;
   if (noItems) {
     // Exclude trinkets and collectibles
     pickupVariant = math.random(1, 9);

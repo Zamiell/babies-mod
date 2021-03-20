@@ -533,7 +533,7 @@ functionMap.set(287, () => {
 
   // Spawn the two fires
   for (let i = 0; i < 2; i++) {
-    let pos;
+    let pos: Vector;
     if (i === 0) {
       pos = misc.gridToPos(3, 1);
     } else {

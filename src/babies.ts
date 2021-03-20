@@ -7,11 +7,6 @@ const babies: BabyDescription[] = [
   // We want a blank element at the 0th position so that the number of the baby will correspond to
   // its array index
   {
-    name: "Null",
-    description: "",
-    sprite: "",
-  },
-  {
     name: "Love Baby",
     description: "Spawns a random heart per room cleared",
     sprite: "001_baby_love.png",

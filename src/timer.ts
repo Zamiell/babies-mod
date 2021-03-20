@@ -23,7 +23,7 @@ export function display(): void {
     return;
   }
 
-  let finishTime;
+  let finishTime: int | undefined;
   if (
     baby.name === "Noose Baby" || // 39
     baby.name === "Vomit Baby" || // 341
@@ -153,7 +153,7 @@ function convertSecondsToStrings(totalSeconds: int) {
   if (hours > 0) {
     minutes -= hours * 60;
   }
-  let minutesString;
+  let minutesString: string;
   if (minutes < 10) {
     minutesString = `0${minutes}`;
   } else {
@@ -170,7 +170,7 @@ function convertSecondsToStrings(totalSeconds: int) {
 
   // Calculate the seconds digits
   const seconds = math.floor(totalSeconds % 60);
-  let secondsString;
+  let secondsString: string;
   if (seconds < 10) {
     secondsString = `0${seconds}`;
   } else {
