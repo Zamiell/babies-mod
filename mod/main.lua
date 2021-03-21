@@ -7308,7 +7308,7 @@ function ____exports.main(self, isContinued)
     end
     g.run = __TS__New(GlobalsRun, randomSeed)
     local resetPastBabies = true
-    if ((challenge == Isaac.GetChallengeIdByName(R7_SEASON_5)) and g.racingPlusEnabled) and (RacingPlusGetCharacterNum(nil) >= 2) then
+    if ((challenge == Isaac.GetChallengeIdByName(R7_SEASON_5)) and g.racingPlusEnabled) and (RacingPlusGlobals.speedrun.characterNum >= 2) then
         resetPastBabies = false
     end
     if resetPastBabies then
@@ -10671,8 +10671,6 @@ do
     end
 end
 return ____exports
-end,
-["types.RacingPlusGetCharacterNum"] = function() --[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
 end,
 }
 return require("main")

@@ -24,7 +24,7 @@ export function main(isContinued: boolean): void {
   if (
     challenge === Isaac.GetChallengeIdByName(R7_SEASON_5) &&
     g.racingPlusEnabled &&
-    RacingPlusGetCharacterNum() >= 2
+    RacingPlusGlobals.speedrun.characterNum >= 2
   ) {
     resetPastBabies = false;
   }

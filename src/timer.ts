@@ -2,16 +2,10 @@ import g from "./globals";
 import * as misc from "./misc";
 
 // Variables
-interface TimerSprites {
-  clock: Sprite;
-  colons: Sprite[]; // colon between minutes & seconds, colon between hours & minutes
-  digits: Sprite[]; // minute1, minute2, second1, second2, hour
-  digitMini: Sprite;
-}
-const sprites: TimerSprites = {
+const sprites = {
   clock: Sprite(),
-  colons: [],
-  digits: [],
+  colons: [] as Sprite[], // colon between minutes & seconds, colon between hours & minutes
+  digits: [] as Sprite[], // minute1, minute2, second1, second2, hour
   digitMini: Sprite(),
 };
 
