@@ -2,7 +2,7 @@ import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
 import * as misc from "../misc";
 import EntityDescription from "../types/EntityDescription";
-import { CollectibleTypeCustom } from "../types/enums.custom";
+import { CollectibleTypeCustom } from "../types/enums";
 
 export function main(
   player: EntityPlayer,

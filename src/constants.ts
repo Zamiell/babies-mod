@@ -1,4 +1,4 @@
-import { CollectibleTypeCustom } from "./types/enums.custom";
+import { CollectibleTypeCustom } from "./types/enums";
 
 // The version is updated automatically by IsaacScript
 export const VERSION = "1.1.1";

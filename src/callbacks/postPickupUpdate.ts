@@ -3,7 +3,7 @@
 import g from "../globals";
 import * as misc from "../misc";
 import pickupTouchedFunctions from "../pickupTouchedFunctions";
-import { CollectibleTypeCustom } from "../types/enums.custom";
+import { CollectibleTypeCustom } from "../types/enums";
 import postPickupUpdateBabyFunctions from "./postPickupUpdateBabies";
 
 export function main(pickup: EntityPickup): void {

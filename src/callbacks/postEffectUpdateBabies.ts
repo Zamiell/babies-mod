@@ -1,7 +1,7 @@
 import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
 import * as misc from "../misc";
-import { EffectVariantCustom } from "../types/enums.custom";
+import { EffectVariantCustom } from "../types/enums";
 
 const functionMap = new Map<int, (effect: EntityEffect) => void>();
 export default functionMap;

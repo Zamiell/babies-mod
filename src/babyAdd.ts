@@ -1,7 +1,7 @@
 import babyAddFunctions from "./babyAddFunctions";
 import g from "./globals";
 import * as misc from "./misc";
-import { CollectibleTypeCustom } from "./types/enums.custom";
+import { CollectibleTypeCustom } from "./types/enums";
 
 export default function babyAdd(): void {
   // Local variables

@@ -39,7 +39,7 @@ import { VERSION } from "./constants";
 import g from "./globals";
 import isaacScriptInit from "./isaacScriptInit";
 import * as misc from "./misc";
-import { CollectibleTypeCustom } from "./types/enums.custom";
+import { CollectibleTypeCustom } from "./types/enums";
 
 // Initialize some IsaacScript-specific functions
 isaacScriptInit();

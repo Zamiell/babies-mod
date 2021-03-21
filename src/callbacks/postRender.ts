@@ -2,7 +2,7 @@ import { DEFAULT_KCOLOR, VERSION } from "../constants";
 import g from "../globals";
 import * as misc from "../misc";
 import * as timer from "../timer";
-import { CollectibleTypeCustom } from "../types/enums.custom";
+import { CollectibleTypeCustom } from "../types/enums";
 import postRenderBabyFunctions from "./postRenderBabies";
 
 // Variables

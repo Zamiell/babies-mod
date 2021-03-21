@@ -1,7 +1,7 @@
 import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
 import * as misc from "../misc";
-import { CollectibleTypeCustom } from "../types/enums.custom";
+import { CollectibleTypeCustom } from "../types/enums";
 
 const functionMap = new Map<int, () => void>();
 export default functionMap;

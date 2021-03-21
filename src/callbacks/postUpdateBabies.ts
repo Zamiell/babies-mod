@@ -2,7 +2,7 @@ import { TELEPORT_TO_ROOM_TYPE_MAP, ZERO_VECTOR } from "../constants";
 import g from "../globals";
 import * as misc from "../misc";
 import * as pseudoRoomClear from "../pseudoRoomClear";
-import { EffectVariantCustom } from "../types/enums.custom";
+import { EffectVariantCustom } from "../types/enums";
 import * as postRender from "./postRender";
 
 const functionMap = new Map<int, () => void>();

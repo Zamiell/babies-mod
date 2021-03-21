@@ -1,6 +1,6 @@
 import g from "../globals";
 import * as misc from "../misc";
-import { CollectibleTypeCustom } from "../types/enums.custom";
+import { CollectibleTypeCustom } from "../types/enums";
 
 export function main(_collectibleType: CollectibleType, _RNG: RNG): boolean {
   // Local variables

@@ -1,5 +1,5 @@
 import * as misc from "../misc";
-import { PlayerTypeCustom } from "../types/enums.custom";
+import { PlayerTypeCustom } from "../types/enums";
 import evaluateCacheBabyFunctions from "./evaluateCacheBabies";
 
 export function main(player: EntityPlayer, cacheFlag: CacheFlag): void {

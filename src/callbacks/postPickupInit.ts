@@ -1,7 +1,7 @@
 // Note: Position, SpawnerType, SpawnerVariant, and Price are not initialized yet in this callback
 
 import * as misc from "../misc";
-import { CollectibleTypeCustom } from "../types/enums.custom";
+import { CollectibleTypeCustom } from "../types/enums";
 import postPickupInitBabyFunctions from "./postPickupInitBabies";
 
 export function main(pickup: EntityPickup): void {

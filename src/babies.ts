@@ -1,5 +1,5 @@
 import BabyDescription from "./types/BabyDescription";
-import { CollectibleTypeCustom } from "./types/enums.custom";
+import { CollectibleTypeCustom } from "./types/enums";
 
 // The sprite property is not currently used,
 // but it can be used as a quick reference to see what number the co-op baby is

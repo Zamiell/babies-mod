@@ -1,7 +1,7 @@
 import g from "./globals";
 import * as misc from "./misc";
 import BabyDescription from "./types/BabyDescription";
-import { CollectibleTypeCustom } from "./types/enums.custom";
+import { CollectibleTypeCustom } from "./types/enums";
 
 export default function babyCheckValid(babyType: int): boolean {
   // Local variables

@@ -1,6 +1,6 @@
 import { R7_SEASON_5 } from "../constants";
 import g from "../globals";
-import { CollectibleTypeCustom, PlayerTypeCustom } from "../types/enums.custom";
+import { CollectibleTypeCustom, PlayerTypeCustom } from "../types/enums";
 import GlobalsRun from "../types/GlobalsRun";
 import * as postNewLevel from "./postNewLevel";
 

@@ -53,12 +53,12 @@ export function display(): void {
   const startingY = 79;
 
   const posClock = Vector(startingX + 34, startingY + 45);
-  sprites.clock?.RenderLayer(0, posClock);
+  sprites.clock.RenderLayer(0, posClock);
 
   if (hours > 0) {
     // The format of the time will be "#.##.##" (instead of "##.##", which is the default)
     hourAdjustment2 = 2;
-    startingX = startingX + digitLength + hourAdjustment;
+    startingX += digitLength + hourAdjustment;
     const posHours = Vector(
       startingX - digitLength - hourAdjustment,
       startingY,

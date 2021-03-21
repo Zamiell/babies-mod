@@ -1,5 +1,5 @@
 import g from "./globals";
-import { CollectibleTypeCustom } from "./types/enums.custom";
+import { CollectibleTypeCustom } from "./types/enums";
 
 const functionMap = new Map<int, () => void>();
 export default functionMap;
