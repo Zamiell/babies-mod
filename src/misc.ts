@@ -9,6 +9,7 @@ export function addCharge(singleCharge = false): void {
   const activeItem = g.p.GetActiveItem();
   const activeCharge = g.p.GetActiveCharge();
   const batteryCharge = g.p.GetBatteryCharge();
+  const activeItemMaxCharges = getItemMaxCharges(activeItem);
 
   if (!g.p.NeedsCharge()) {
     return;
@@ -21,16 +22,16 @@ export function addCharge(singleCharge = false): void {
     chargesToAdd = 2;
   } else if (
     g.p.HasTrinket(TrinketType.TRINKET_AAA_BATTERY) &&
-    activeCharge === getItemMaxCharges(activeItem) - 2
+    activeCharge === activeItemMaxCharges - 2
   ) {
     // The AAA Battery grants an extra charge when the active item is one away from being fully
     // charged
     chargesToAdd = 2;
   } else if (
     g.p.HasTrinket(TrinketType.TRINKET_AAA_BATTERY) &&
-    activeCharge === getItemMaxCharges(activeItem) &&
+    activeCharge === activeItemMaxCharges &&
     g.p.HasCollectible(CollectibleType.COLLECTIBLE_BATTERY) &&
-    batteryCharge === getItemMaxCharges(activeItem) - 2
+    batteryCharge === activeItemMaxCharges - 2
   ) {
     // The AAA Battery should grant an extra charge when the active item is one away from being
     // fully charged with The Battery (this is bugged in vanilla for The Battery)

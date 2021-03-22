@@ -221,6 +221,7 @@ function clearRoom() {
     const activeItem = player.GetActiveItem();
     const activeCharge = player.GetActiveCharge();
     const batteryCharge = player.GetBatteryCharge();
+    const activeItemMaxCharges = misc.getItemMaxCharges(activeItem);
 
     if (player.NeedsCharge() === true) {
       // Find out if we are in a 2x2 or L room
@@ -231,16 +232,16 @@ function clearRoom() {
         chargesToAdd = 2;
       } else if (
         player.HasTrinket(TrinketType.TRINKET_AAA_BATTERY) &&
-        activeCharge === misc.getItemMaxCharges(activeItem) - 2
+        activeCharge === activeItemMaxCharges - 2
       ) {
         // The AAA Battery grants an extra charge when the active item is one away from being fully
         // charged
         chargesToAdd = 2;
       } else if (
         player.HasTrinket(TrinketType.TRINKET_AAA_BATTERY) &&
-        activeCharge === misc.getItemMaxCharges(activeItem) &&
+        activeCharge === activeItemMaxCharges &&
         player.HasCollectible(CollectibleType.COLLECTIBLE_BATTERY) &&
-        batteryCharge === misc.getItemMaxCharges(activeItem) - 2
+        batteryCharge === activeItemMaxCharges - 2
       ) {
         // The AAA Battery should grant an extra charge when the active item is one away from being
         // fully charged
