@@ -1,6 +1,7 @@
 import { ZERO_VECTOR } from "./constants";
 import g from "./globals";
 import BabyDescription from "./types/BabyDescription";
+import { CollectibleTypeCustom } from "./types/enums";
 
 // Copied from the Racing+ mod (RPFastClear.lua)
 export function addCharge(singleCharge = false): void {
@@ -255,6 +256,15 @@ export function openAllDoors(): void {
       door.Open();
     }
   }
+}
+
+export function removeItemFromItemTracker(
+  collectibleType: CollectibleType | CollectibleTypeCustom,
+): void {
+  const itemConfig = g.itemConfig.GetCollectible(collectibleType);
+  Isaac.DebugString(
+    `Removing collectible ${collectibleType} (${itemConfig.Name})`,
+  );
 }
 
 // Set the entity to a random color

@@ -249,7 +249,7 @@ for (let i = 0; i < g.babies.length; i++) {
 
     if (misc.getItemConfig(baby.item2).Type === ItemType.ITEM_ACTIVE) {
       Isaac.DebugString(
-        `ERROR: Baby #${i.toString()} has an active item in the second slot.`,
+        `ERROR: Baby #${i} has an active item in the second slot.`,
       );
     }
   }

@@ -60,13 +60,11 @@ export default function babyAdd(): void {
     } else {
       // Give the passive item
       g.p.AddCollectible(baby.item, 0, false);
-      Isaac.DebugString(
-        `Added the new baby passive item (${baby.item.toString()}).`,
-      );
+      Isaac.DebugString(`Added the new baby passive item (${baby.item}).`);
     }
 
     // Hide it from the item tracker
-    Isaac.DebugString(`Removing collectible ${baby.item.toString()}`);
+    misc.removeItemFromItemTracker(baby.item);
 
     // Also remove this item from all pools
     g.itemPool.RemoveCollectible(baby.item);
@@ -76,7 +74,7 @@ export default function babyAdd(): void {
   if (baby.item !== undefined && baby.itemNum !== undefined) {
     for (let i = 2; i <= baby.itemNum; i++) {
       g.p.AddCollectible(baby.item, 0, false);
-      Isaac.DebugString(`Removing collectible ${baby.item.toString()}`);
+      misc.removeItemFromItemTracker(baby.item);
     }
   }
 
@@ -84,11 +82,7 @@ export default function babyAdd(): void {
   // (this should always be a passive item; we explicitly check for this in "main.ts")
   if (baby.item2 !== undefined) {
     g.p.AddCollectible(baby.item2, 0, false);
-
-    // Hide it from the item tracker
-    Isaac.DebugString(`Removing collectible ${baby.item2}`);
-
-    // Also remove this item from all pools
+    misc.removeItemFromItemTracker(baby.item2);
     g.itemPool.RemoveCollectible(baby.item2);
   }
 

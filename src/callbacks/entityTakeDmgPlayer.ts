@@ -286,19 +286,15 @@ functionMap.set(
       error(`The "numHits" attribute was not defined for ${baby.name}.`);
     }
 
-    // Guaranteed Devil Room + Angel Room after X hits
+    // Guaranteed Devil Room + Angel Room after N hits
     g.run.babyCounters += 1;
     if (g.run.babyCounters >= baby.numHits && !g.run.babyBool) {
       g.run.babyBool = true;
       g.sfx.Play(SoundEffect.SOUND_SATAN_GROW, 1, 0, false, 1);
       player.AddCollectible(CollectibleType.COLLECTIBLE_GOAT_HEAD, 0, false);
-      Isaac.DebugString(
-        `Removing collectible ${CollectibleType.COLLECTIBLE_GOAT_HEAD}`,
-      );
+      misc.removeItemFromItemTracker(CollectibleType.COLLECTIBLE_GOAT_HEAD);
       player.AddCollectible(CollectibleType.COLLECTIBLE_DUALITY, 0, false);
-      Isaac.DebugString(
-        `Removing collectible ${CollectibleType.COLLECTIBLE_DUALITY}`,
-      );
+      misc.removeItemFromItemTracker(CollectibleType.COLLECTIBLE_DUALITY);
     }
 
     return null;
@@ -1622,7 +1618,7 @@ functionMap.set(
         player.HasCollectible(itemToTakeAway)
       ) {
         player.RemoveCollectible(itemToTakeAway);
-        Isaac.DebugString(`Removing collectible ${itemToTakeAway}`);
+        misc.removeItemFromItemTracker(itemToTakeAway);
       }
     }
 

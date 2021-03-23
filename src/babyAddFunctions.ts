@@ -119,9 +119,7 @@ functionMap.set(350, () => {
 functionMap.set(375, () => {
   // This is the third item given, so we have to handle it manually
   g.p.AddCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE, 0, false);
-  Isaac.DebugString(
-    `Removing collectible ${CollectibleType.COLLECTIBLE_FLAT_STONE}`,
-  );
+  misc.removeItemFromItemTracker(CollectibleType.COLLECTIBLE_FLAT_STONE);
 });
 
 // Imp Baby
@@ -146,9 +144,7 @@ functionMap.set(393, () => {
 functionMap.set(407, () => {
   // This is the third item given, so we have to handle it manually
   g.p.AddCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE, 0, false);
-  Isaac.DebugString(
-    `Removing collectible ${CollectibleType.COLLECTIBLE_FLAT_STONE}`,
-  );
+  misc.removeItemFromItemTracker(CollectibleType.COLLECTIBLE_FLAT_STONE);
 });
 
 // Rich Baby
