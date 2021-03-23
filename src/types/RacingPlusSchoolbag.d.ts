@@ -1,6 +1,6 @@
 declare const RacingPlusSchoolbag: {
-  AddCharge(onlyOneCharge: boolean): void;
-  IsItemFullyCharged(): boolean;
-  Put(collectibleType: int, charge: int): void;
-  Remove(): void;
+  addCharge(onlyOneCharge: boolean): void;
+  isItemFullyCharged(): boolean;
+  put(collectibleType: int, charge: int): void;
+  remove(): void;
 };

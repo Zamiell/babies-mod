@@ -148,7 +148,7 @@ export function chargingStation(
   }
 
   g.p.AddCoins(-1);
-  RacingPlusSchoolbag.AddCharge(true);
+  RacingPlusSchoolbag.addCharge(true);
   g.p.AnimateCollectible(
     CollectibleTypeCustom.COLLECTIBLE_CHARGING_STATION,
     "UseItem",

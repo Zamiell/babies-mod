@@ -52,7 +52,7 @@ functionMap.set(192, () => {
   misc.addCharge();
   if (g.racingPlusEnabled) {
     // This is a no-op if the player does not have the Schoolbag or if the Schoolbag is empty
-    RacingPlusSchoolbag.AddCharge(true);
+    RacingPlusSchoolbag.addCharge(true);
   }
 });
 

@@ -21,7 +21,7 @@ export default function babyRemove(): void {
       g.p.HasCollectible(CollectibleTypeCustom.COLLECTIBLE_SCHOOLBAG_CUSTOM) &&
       RacingPlusGlobals.run.schoolbag.item === baby.item
     ) {
-      RacingPlusSchoolbag.Remove();
+      RacingPlusSchoolbag.remove();
     }
   }
   if (baby.item2 !== undefined) {
@@ -34,7 +34,7 @@ export default function babyRemove(): void {
       g.p.HasCollectible(CollectibleTypeCustom.COLLECTIBLE_SCHOOLBAG_CUSTOM) &&
       RacingPlusGlobals.run.schoolbag.item === baby.item2
     ) {
-      RacingPlusSchoolbag.Remove();
+      RacingPlusSchoolbag.remove();
     }
   }
 

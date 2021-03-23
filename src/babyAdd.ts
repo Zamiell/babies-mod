@@ -29,9 +29,10 @@ export default function babyAdd(): void {
     // Check to see if it is an active item
     if (misc.getItemConfig(baby.item).Type === ItemType.ITEM_ACTIVE) {
       // Find out how many charges it should have
-      let itemMaxCharges = misc.getItemMaxCharges(baby.item);
+      // By default, items are given with a maximum charge
+      let itemCharges = misc.getItemMaxCharges(baby.item);
       if (baby.uncharged !== undefined) {
-        itemMaxCharges = 0;
+        itemCharges = 0;
       }
 
       // Find out where to put it
@@ -43,19 +44,19 @@ export default function babyAdd(): void {
         RacingPlusGlobals.run.schoolbag.item === 0
       ) {
         // There is room in the Racing+ Schoolbag for it, so put it there
-        RacingPlusSchoolbag.Put(baby.item, itemMaxCharges);
+        RacingPlusSchoolbag.put(baby.item, itemCharges);
       } else if (
-        g.p.HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) && // 534
+        g.p.HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) &&
         g.p.SecondaryActiveItem.Item === 0
       ) {
         // There is room in the vanilla Schoolbag for it, so put it there
         // (getting new active items will automatically put the existing active item inside the
         // Schoolbag)
-        g.p.AddCollectible(baby.item, itemMaxCharges, false);
+        g.p.AddCollectible(baby.item, itemCharges, false);
         g.p.SwapActiveItems();
       } else {
         // We don't have a Schoolbag, so just give the new active item
-        g.p.AddCollectible(baby.item, itemMaxCharges, false);
+        g.p.AddCollectible(baby.item, itemCharges, false);
       }
     } else {
       // Give the passive item
