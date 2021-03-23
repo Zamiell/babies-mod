@@ -1,5 +1,6 @@
 import { R7_SEASON_5 } from "../constants";
 import g from "../globals";
+import * as misc from "../misc";
 import { CollectibleTypeCustom, PlayerTypeCustom } from "../types/enums";
 import GlobalsRun from "../types/GlobalsRun";
 import * as postNewLevel from "./postNewLevel";
@@ -59,16 +60,9 @@ export function main(isContinued: boolean): void {
 
   // Random Baby always starts with the Schoolbag
   if (!g.racingPlusEnabled) {
-    g.p.AddCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG, 0, false);
-    g.itemPool.RemoveCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG);
+    misc.giveItemAndRemoveFromPools(CollectibleType.COLLECTIBLE_SCHOOLBAG);
   } else {
-    g.p.AddCollectible(
-      CollectibleTypeCustom.COLLECTIBLE_SCHOOLBAG_CUSTOM,
-      0,
-      false,
-    );
-    g.itemPool.RemoveCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG);
-    g.itemPool.RemoveCollectible(
+    misc.giveItemAndRemoveFromPools(
       CollectibleTypeCustom.COLLECTIBLE_SCHOOLBAG_CUSTOM,
     );
   }

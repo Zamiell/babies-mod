@@ -64,10 +64,7 @@ export default function babyAdd(): void {
       Isaac.DebugString(`Added the new baby passive item (${baby.item}).`);
     }
 
-    // Hide it from the item tracker
     misc.removeItemFromItemTracker(baby.item);
-
-    // Also remove this item from all pools
     g.itemPool.RemoveCollectible(baby.item);
   }
 
@@ -82,9 +79,8 @@ export default function babyAdd(): void {
   // Check if this is a baby that grants a second item
   // (this should always be a passive item; we explicitly check for this in "main.ts")
   if (baby.item2 !== undefined) {
-    g.p.AddCollectible(baby.item2, 0, false);
+    misc.giveItemAndRemoveFromPools(baby.item2);
     misc.removeItemFromItemTracker(baby.item2);
-    g.itemPool.RemoveCollectible(baby.item2);
   }
 
   // Reset the soul hearts and black hearts to the way it was before we added the items

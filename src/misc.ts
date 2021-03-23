@@ -218,6 +218,14 @@ export function getScreenCenterPosition(): Vector {
   return Isaac.WorldToRenderPosition(pos);
 }
 
+export function giveItemAndRemoveFromPools(
+  collectibleType: CollectibleType | CollectibleTypeCustom,
+): void {
+  const maxCharges = getItemMaxCharges(collectibleType);
+  g.p.AddCollectible(collectibleType, maxCharges, false);
+  g.itemPool.RemoveCollectible(collectibleType);
+}
+
 export function gridToPos(x: number, y: number): Vector {
   x += 1;
   y += 1;
