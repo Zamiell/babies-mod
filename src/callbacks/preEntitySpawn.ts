@@ -1,5 +1,5 @@
 import g from "../globals";
-import * as misc from "../misc";
+import { getCurrentBaby } from "../misc";
 
 export function main(
   entityType: int,
@@ -9,11 +9,10 @@ export function main(
   _velocity: Vector,
   _spawner: Entity,
   initSeed: int,
-): [int, int, int, int] | null {
-  // Local variables
-  const [, baby, valid] = misc.getCurrentBaby();
+): [int, int, int, int] | void {
+  const [, baby, valid] = getCurrentBaby();
   if (!valid) {
-    return null;
+    return undefined;
   }
 
   if (entityType === EntityType.ENTITY_SLOT && g.run.clockworkAssembly) {
@@ -29,5 +28,5 @@ export function main(
     return [entityType, 2, subType, initSeed];
   }
 
-  return null;
+  return undefined;
 }

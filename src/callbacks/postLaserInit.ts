@@ -1,12 +1,8 @@
-// Note: Position, SpawnerType, SpawnerVariant, and MaxDistance are not initialized yet in this
-// callback
-
-import * as misc from "../misc";
+import { getCurrentBaby } from "../misc";
 import postLaserInitBabyFunctions from "./postLaserInitBabies";
 
 export function main(laser: EntityLaser): void {
-  // Local variables
-  const [babyType, , valid] = misc.getCurrentBaby();
+  const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return;
   }

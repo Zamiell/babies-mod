@@ -2,12 +2,12 @@ import g from "../globals";
 
 const functionMap = new Map<
   int,
-  (entityType: EntityType) => [int, int, int] | null
+  (entityType: EntityType) => [int, int, int] | void
 >();
 export default functionMap;
 
 // Chompers Baby
-functionMap.set(143, (entityType: EntityType) => {
+functionMap.set(143, (entityType: int) => {
   if (
     g.r.IsFirstVisit() &&
     entityType >= 1000 && // We only care about grid entities
@@ -19,7 +19,7 @@ functionMap.set(143, (entityType: EntityType) => {
     return [1490, 0, 0];
   }
 
-  return null;
+  return undefined;
 });
 
 // Suit Baby
@@ -40,11 +40,11 @@ functionMap.set(287, (_entityType: EntityType) => {
     return [999, 0, 0]; // Equal to 1000.0, which is a blank effect, which is essentially nothing
   }
 
-  return null;
+  return undefined;
 });
 
 // Red Wrestler Baby
-functionMap.set(389, (entityType: EntityType) => {
+functionMap.set(389, (entityType: int) => {
   if (
     g.r.IsFirstVisit() &&
     entityType >= 1000 && // We only care about grid entities
@@ -56,5 +56,5 @@ functionMap.set(389, (entityType: EntityType) => {
     return [1300, 0, 0];
   }
 
-  return null;
+  return undefined;
 });

@@ -5,7 +5,6 @@ import { CollectibleTypeCustom } from "./types/enums";
 
 // Copied from the Racing+ mod (RPFastClear.lua)
 export function addCharge(singleCharge = false): void {
-  // Local variables
   const roomShape = g.r.GetRoomShape();
   const activeItem = g.p.GetActiveItem();
   const activeCharge = g.p.GetActiveCharge();
@@ -61,7 +60,6 @@ export function getCurrentBaby(): [int, BabyDescription, boolean] {
 
 // Copied from the Racing+ mod
 export function getHeartXOffset(): number {
-  // Local variables
   const curses = g.l.GetCurses();
   const maxHearts = g.p.GetMaxHearts();
   const soulHearts = g.p.GetSoulHearts();
@@ -105,7 +103,6 @@ export function getItemConfig(itemID: number): Readonly<ItemConfigItem> {
 }
 
 export function getItemHeartPrice(itemID: int): int {
-  // Local variables
   const maxHearts = g.p.GetMaxHearts();
 
   // Find out how this item should be priced
@@ -195,7 +192,6 @@ export function getRoomIndex(): int {
 // Taken from Alphabirth
 // https://steamcommunity.com/sharedfiles/filedetails/?id=848056541
 export function getScreenCenterPosition(): Vector {
-  // Local variables
   const shape = g.r.GetRoomShape();
   const centerPos = g.r.GetCenterPos();
   const topLeftPos = g.r.GetTopLeftPos();
@@ -231,6 +227,10 @@ export function gridToPos(x: number, y: number): Vector {
   y += 1;
 
   return g.r.GetGridPosition(y * g.r.GetGridWidth() + x);
+}
+
+export function hasFlag(flags: int, flag: int): boolean {
+  return (flags & flag) === flag;
 }
 
 export function incrementRNG(seed: number): number {

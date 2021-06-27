@@ -1,5 +1,5 @@
 import g from "../globals";
-import * as misc from "../misc";
+import { getCurrentBaby } from "../misc";
 
 const functionMap = new Map<
   int,
@@ -64,8 +64,7 @@ functionMap.set(164, (player: EntityPlayer, cacheFlag: CacheFlag) => {
     return;
   }
 
-  // Local variables
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for ${baby.name}.`);
   }
@@ -129,7 +128,6 @@ functionMap.set(322, (player: EntityPlayer, cacheFlag: CacheFlag) => {
 
 // Hero Baby
 functionMap.set(336, (player: EntityPlayer, cacheFlag: CacheFlag) => {
-  // Local variables
   const hearts = player.GetHearts();
   const soulHearts = player.GetSoulHearts();
   const eternalHearts = player.GetEternalHearts();

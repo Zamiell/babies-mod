@@ -1,9 +1,8 @@
-import * as misc from "../misc";
+import { getCurrentBaby } from "../misc";
 import postNPCInitBabyFunctions from "./postNPCInitBabies";
 
 export function main(npc: EntityNPC): void {
-  // Local variables
-  const [babyType, , valid] = misc.getCurrentBaby();
+  const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return;
   }

@@ -1,11 +1,8 @@
-// Note: This callback will fire on frame 1 and onwards
-
-import * as misc from "../misc";
+import { getCurrentBaby } from "../misc";
 import postProjectileUpdateBabyFunctions from "./postProjectileUpdateBabies";
 
 export function main(projectile: EntityProjectile): void {
-  // Local variables
-  const [babyType, , valid] = misc.getCurrentBaby();
+  const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return;
   }

@@ -45,7 +45,7 @@ functionMap.set(117, (familiar: EntityFamiliar) => {
 
 // Black Eye Baby
 functionMap.set(164, (familiar: EntityFamiliar) => {
-  if (familiar.Variant === FamiliarVariant.LEPROCY && g.run.babyCounters < 3) {
+  if (familiar.Variant === FamiliarVariant.LEPROSY && g.run.babyCounters < 3) {
     // We use the "babyCounters" variable to track how Leprocy familiars are in the room
     g.run.babyCounters += 1;
   }

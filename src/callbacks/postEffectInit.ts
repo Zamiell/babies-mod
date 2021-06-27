@@ -1,9 +1,8 @@
-import * as misc from "../misc";
+import { getCurrentBaby } from "../misc";
 import postEffectInitBabyFunctions from "./postEffectInitBabies";
 
 export function main(effect: EntityEffect): void {
-  // Local variables
-  const [babyType, , valid] = misc.getCurrentBaby();
+  const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return;
   }

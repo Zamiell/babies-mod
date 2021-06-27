@@ -1,5 +1,5 @@
 import g from "../globals";
-import * as misc from "../misc";
+import { getCurrentBaby } from "../misc";
 
 export function main(
   entity: Entity,
@@ -7,15 +7,14 @@ export function main(
   damageFlags: int,
   damageSource: EntityRef,
   damageCountdownFrames: int,
-): boolean | null {
-  // Local variables
-  const [babyType, , valid] = misc.getCurrentBaby();
+): boolean | void {
+  const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
-    return null;
+    return undefined;
   }
 
   if (g.run.dealingExtraDamage) {
-    return null;
+    return undefined;
   }
 
   const babyFunc = functionMap.get(babyType);
@@ -29,7 +28,7 @@ export function main(
     );
   }
 
-  return null;
+  return undefined;
 }
 
 const functionMap = new Map<
@@ -40,7 +39,7 @@ const functionMap = new Map<
     damageFlags: int,
     damageSource: EntityRef,
     damageCountdownFrames: int,
-  ) => boolean | null
+  ) => boolean | void
 >();
 
 // D Baby
@@ -64,7 +63,7 @@ functionMap.set(
       return false;
     }
 
-    return null;
+    return undefined;
   },
 );
 
@@ -91,7 +90,7 @@ functionMap.set(
       return false;
     }
 
-    return null;
+    return undefined;
   },
 );
 
@@ -117,34 +116,7 @@ functionMap.set(
       return false;
     }
 
-    return null;
-  },
-);
-
-// Boxers Baby
-functionMap.set(
-  337,
-  (
-    entity,
-    _damageAmount,
-    _damageFlags,
-    damageSource,
-    _damageCountdownFrames,
-  ) => {
-    if (
-      damageSource.Type === EntityType.ENTITY_TEAR &&
-      damageSource.Entity.SubType === 1
-    ) {
-      // Play a random punching-related sound effect
-      g.sfx.Play(Isaac.GetSoundIdByName("Fist"), 1, 0, false, 1);
-
-      // Give the tear extra knockback
-      // ("damageSource.Velocity" doesn't exist)
-      const extraVelocity = damageSource.Entity.Velocity.__mul(5);
-      entity.Velocity = entity.Velocity.__add(extraVelocity);
-    }
-
-    return null;
+    return undefined;
   },
 );
 
@@ -172,7 +144,7 @@ functionMap.set(
       return false;
     }
 
-    return null;
+    return undefined;
   },
 );
 
@@ -204,8 +176,6 @@ functionMap.set(
         );
       }
     }
-
-    return null;
   },
 );
 
@@ -231,6 +201,6 @@ functionMap.set(
       return false;
     }
 
-    return null;
+    return undefined;
   },
 );

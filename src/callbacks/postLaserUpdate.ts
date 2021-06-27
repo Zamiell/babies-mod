@@ -1,9 +1,8 @@
-import * as misc from "../misc";
+import { getCurrentBaby } from "../misc";
 import postLaserUpdateBabyFunctions from "./postLaserUpdateBabies";
 
 export function main(laser: EntityLaser): void {
-  // Local variables
-  const [babyType, , valid] = misc.getCurrentBaby();
+  const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return;
   }

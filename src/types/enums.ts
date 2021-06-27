@@ -41,7 +41,9 @@ export enum CollectibleTypeCustom {
   COLLECTIBLE_DICE_ROOM_TELEPORT = Isaac.GetItemIdByName("Dice Room Teleport"),
 
   // Racing+ items
-  COLLECTIBLE_SCHOOLBAG_CUSTOM = Isaac.GetItemIdByName("Schoolbag"),
-  COLLECTIBLE_SOUL_JAR = Isaac.GetItemIdByName("Soul Jar"),
   COLLECTIBLE_CHECKPOINT = Isaac.GetItemIdByName("Checkpoint"),
+}
+
+export enum SoundEffectCustom {
+  LAUGH = Isaac.GetSoundIdByName("Laugh"),
 }

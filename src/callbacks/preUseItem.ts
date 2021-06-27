@@ -1,10 +1,9 @@
 import g from "../globals";
-import * as misc from "../misc";
+import { getCurrentBaby } from "../misc";
 
 // CollectibleType.COLLECTIBLE_POOP (36)
 export function poop(_collectibleType: number, _rng: RNG): boolean {
-  // Local variables
-  const [, baby, valid] = misc.getCurrentBaby();
+  const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return false;
   }
@@ -18,21 +17,20 @@ export function poop(_collectibleType: number, _rng: RNG): boolean {
   // Spawn White Poop next to the player
   Isaac.GridSpawn(
     GridEntityType.GRID_POOP,
-    PoopVariant.POOP_WHITE,
+    PoopVariant.WHITE,
     g.p.Position,
     false,
   );
 
   // Playing "SoundEffect.SOUND_FART" will randomly play one of the three farting sound effects
-  g.sfx.Play(SoundEffect.SOUND_FART, 1, 0, false, 1);
+  g.sfx.Play(SoundEffect.SOUND_FART, 1, 0);
 
   return true; // Cancel the original effect
 }
 
 // CollectibleType.COLLECTIBLE_LEMON_MISHAP (56)
 export function lemonMishap(_collectibleType: number, _rng: RNG): boolean {
-  // Local variables
-  const [, baby, valid] = misc.getCurrentBaby();
+  const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return false;
   }
@@ -54,8 +52,7 @@ export function lemonMishap(_collectibleType: number, _rng: RNG): boolean {
 
 // CollectibleType.COLLECTIBLE_ISAACS_TEARS (323)
 export function isaacsTears(_collectibleType: number, _rng: RNG): boolean {
-  // Local variables
-  const [, baby, valid] = misc.getCurrentBaby();
+  const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return false;
   }
@@ -92,8 +89,7 @@ export function isaacsTears(_collectibleType: number, _rng: RNG): boolean {
 // CollectibleType.COLLECTIBLE_SMELTER (479)
 // This callback is used naturally by Gulp! pills
 export function smelter(_collectibleType: number, _rng: RNG): boolean {
-  // Local variables
-  const [, baby, valid] = misc.getCurrentBaby();
+  const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return false;
   }
@@ -116,9 +112,8 @@ export function smelter(_collectibleType: number, _rng: RNG): boolean {
 
 // CollectibleType.COLLECTIBLE_BROWN_NUGGET (504)
 export function brownNugget(_collectibleType: number, _rng: RNG): boolean {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
-  const [, baby, valid] = misc.getCurrentBaby();
+  const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return false;
   }

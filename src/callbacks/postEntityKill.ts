@@ -1,9 +1,8 @@
-import * as misc from "../misc";
+import { getCurrentBaby } from "../misc";
 import postEntityKillBabyFunctions from "./postEntityKillBabies";
 
 export function main(entity: Entity): void {
-  // Local variables
-  const [babyType, , valid] = misc.getCurrentBaby();
+  const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return;
   }

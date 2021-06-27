@@ -3,7 +3,7 @@ import g from "../globals";
 
 const functionMap = new Map<
   int,
-  (tear: EntityTear, collider: Entity) => null | boolean
+  (tear: EntityTear, collider: Entity) => boolean | void
 >();
 export default functionMap;
 
@@ -13,8 +13,6 @@ functionMap.set(55, (tear: EntityTear, _collider: Entity) => {
   if (tear.SubType === 1) {
     g.p.AddBlueFlies(1, g.p.Position, null);
   }
-
-  return null;
 });
 
 // Gills Baby
@@ -33,8 +31,6 @@ functionMap.set(410, (tear: EntityTear, collider: Entity) => {
       creep.Timeout = 120;
     }
   }
-
-  return null;
 });
 
 // Sad Bunny Baby
@@ -45,6 +41,4 @@ functionMap.set(459, (tear: EntityTear, _collider: Entity) => {
     g.p.AddCacheFlags(CacheFlag.CACHE_FIREDELAY);
     g.p.EvaluateItems();
   }
-
-  return null;
 });

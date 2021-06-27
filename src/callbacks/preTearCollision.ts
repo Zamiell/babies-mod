@@ -1,13 +1,10 @@
-// Note: This callback fires when a tear hits an enemy
-
-import * as misc from "../misc";
+import { getCurrentBaby } from "../misc";
 import preTearCollisionBabyFunctions from "./preTearCollisionBabies";
 
-export function main(tear: EntityTear, collider: Entity): null | boolean {
-  // Local variables
-  const [babyType, , valid] = misc.getCurrentBaby();
+export function main(tear: EntityTear, collider: Entity): boolean | void {
+  const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
-    return null;
+    return undefined;
   }
 
   const babyFunc = preTearCollisionBabyFunctions.get(babyType);
@@ -15,5 +12,5 @@ export function main(tear: EntityTear, collider: Entity): null | boolean {
     return babyFunc(tear, collider);
   }
 
-  return null;
+  return undefined;
 }

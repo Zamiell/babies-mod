@@ -1,8 +1,7 @@
 import g from "./globals";
-import * as misc from "./misc";
+import { getCurrentBaby, getItemMaxCharges } from "./misc";
 
 export function postUpdate(): void {
-  // Local variables
   const roomType = g.r.GetType();
   const roomFrameCount = g.r.GetFrameCount();
   const roomClear = g.r.IsClear();
@@ -36,8 +35,7 @@ export function postUpdate(): void {
 }
 
 function initializeDoors() {
-  // Local variables
-  const [, baby, valid] = misc.getCurrentBaby();
+  const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
   }
@@ -73,7 +71,6 @@ function initializeDoors() {
 }
 
 function checkPseudoClear() {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   // Don't do anything if the room is already cleared
@@ -180,11 +177,11 @@ function checkAllPressurePlatesPushed() {
 
 // This roughly emulates what happens when you normally clear a room
 function clearRoom() {
-  // Local variables
-  const [, baby, valid] = misc.getCurrentBaby();
+  const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
   }
+  const player0 = Isaac.GetPlayer();
 
   g.run.room.pseudoClear = true;
   Isaac.DebugString("Room is now pseudo-cleared.");
@@ -204,10 +201,10 @@ function clearRoom() {
       door.SetRoomTypes(door.CurrentRoomType, RoomType.ROOM_DEFAULT);
     } else if (baby.name === "Nerd Baby") {
       // 90
-      door.TryUnlock(true); // This has to be forced
+      door.TryUnlock(player0, true); // This has to be forced
     } else if (baby.name === "Mouse Baby") {
       // 351
-      door.TryUnlock(true); // This has to be forced
+      door.TryUnlock(player0, true); // This has to be forced
     }
   }
 
@@ -221,9 +218,9 @@ function clearRoom() {
     const activeItem = player.GetActiveItem();
     const activeCharge = player.GetActiveCharge();
     const batteryCharge = player.GetBatteryCharge();
-    const activeItemMaxCharges = misc.getItemMaxCharges(activeItem);
+    const activeItemMaxCharges = getItemMaxCharges(activeItem);
 
-    if (player.NeedsCharge() === true) {
+    if (player.NeedsCharge()) {
       // Find out if we are in a 2x2 or L room
       let chargesToAdd = 1;
       const shape = g.r.GetRoomShape();
@@ -258,6 +255,6 @@ function clearRoom() {
   // Play the sound effect for the doors opening
   // (but there are no doors in a crawlspace)
   if (g.r.GetType() !== RoomType.ROOM_DUNGEON) {
-    g.sfx.Play(SoundEffect.SOUND_DOOR_HEAVY_OPEN, 1, 0, false, 1);
+    g.sfx.Play(SoundEffect.SOUND_DOOR_HEAVY_OPEN, 1, 0);
   }
 }

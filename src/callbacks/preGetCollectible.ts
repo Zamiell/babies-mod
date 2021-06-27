@@ -5,24 +5,23 @@
 // (like the Checkpoint)
 
 import g from "../globals";
-import * as misc from "../misc";
+import { getCurrentBaby } from "../misc";
 import preGetCollectibleBabyFunctions from "./preGetCollectibleBabies";
 
 export function main(
   _itemPoolType: ItemPoolType,
   _decrease: boolean,
   _seed: int,
-): number | null {
-  // Local variables
-  const [babyType, , valid] = misc.getCurrentBaby();
+): number | void {
+  const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
-    return null;
+    return undefined;
   }
 
   // Below, we will need to call the "itemPool.GetCollectible()" function,
   // which will cause this callback to be re-entered
   if (g.run.babyBool) {
-    return null;
+    return undefined;
   }
 
   const babyFunc = preGetCollectibleBabyFunctions.get(babyType);
@@ -30,5 +29,5 @@ export function main(
     return babyFunc();
   }
 
-  return null;
+  return undefined;
 }

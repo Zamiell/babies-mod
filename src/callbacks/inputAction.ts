@@ -2,18 +2,17 @@
 // Thus, each action's particular inputHook must be determined through trial and error
 // Also note that we can't use cached API functions in this callback or else the game will crash
 
-import * as misc from "../misc";
+import { getCurrentBaby } from "../misc";
 import inputActionBabyFunctions from "./inputActionBabies";
 
 export function main(
   _entityPlayer: EntityPlayer,
   inputHook: InputHook,
   buttonAction: ButtonAction,
-): number | boolean | null {
-  // Local variables
-  const [babyType, , valid] = misc.getCurrentBaby();
+): number | boolean | void {
+  const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
-    return null;
+    return undefined;
   }
 
   const babyFunc = inputActionBabyFunctions.get(babyType);
@@ -21,5 +20,5 @@ export function main(
     return babyFunc(inputHook, buttonAction);
   }
 
-  return null;
+  return undefined;
 }

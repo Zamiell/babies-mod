@@ -39,7 +39,6 @@ functionMap.set(125, () => {
     roomVariant !== 2305 && // Krampus
     roomVariant !== 2306 // Krampus
   ) {
-    // Local variables
     const keys = g.p.GetNumKeys();
 
     // Draw the key count next to the hearts
@@ -71,7 +70,6 @@ functionMap.set(138, () => {
     roomVariant !== 2305 && // Krampus
     roomVariant !== 2306 // Krampus
   ) {
-    // Local variables
     const bombs = g.p.GetNumBombs();
 
     // Draw the bomb count next to the hearts
@@ -92,9 +90,6 @@ functionMap.set(377, () => {
   const spears = Isaac.FindByType(
     EntityType.ENTITY_EFFECT,
     EffectVariant.SPEAR_OF_DESTINY,
-    -1,
-    false,
-    false,
   );
   for (const spear of spears) {
     if (

@@ -1,6 +1,6 @@
 import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
-import * as misc from "../misc";
+import { getCurrentBaby, setRandomColor } from "../misc";
 import TearData from "../types/TearData";
 
 const functionMap = new Map<int, (tear: EntityTear) => void>();
@@ -100,8 +100,7 @@ functionMap.set(246, (tear: EntityTear) => {
     return;
   }
 
-  // Local variables
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.distance === undefined) {
     error(`The "distance" attribute was not defined for ${baby.name}.`);
   }
@@ -194,7 +193,7 @@ functionMap.set(455, (tear: EntityTear) => {
     if (data.Height === undefined || data.Velocity === undefined) {
       return;
     }
-    const tearData = (data as unknown) as TearData;
+    const tearData = data as unknown as TearData;
 
     // If the tear bounced, then we need to update the stored velocity to the new velocity
     // ("tear.Bounce" does not ever seem to go to true, so we can't use that)
@@ -230,7 +229,7 @@ functionMap.set(458, (tear: EntityTear) => {
     if (data.Height === undefined) {
       return;
     }
-    const tearData = (data as unknown) as TearData;
+    const tearData = data as unknown as TearData;
 
     // Continue to apply the initial tear conditions for the duration of the tear
     tear.Height = tearData.Height;
@@ -261,14 +260,13 @@ functionMap.set(459, (tear: EntityTear) => {
 // 404 Baby
 functionMap.set(463, (tear: EntityTear) => {
   if (tear.FrameCount === 0) {
-    misc.setRandomColor(tear);
+    setRandomColor(tear);
   }
 });
 
 // Cursed Pillow Baby
 functionMap.set(487, (tear: EntityTear) => {
-  // Local variables
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for ${baby.name}.`);
   }
@@ -295,13 +293,7 @@ functionMap.set(522, (tear: EntityTear) => {
   }
 
   // This tear is supposed to be attached to the knife
-  const knives = Isaac.FindByType(
-    EntityType.ENTITY_KNIFE,
-    -1,
-    -1,
-    false,
-    false,
-  );
+  const knives = Isaac.FindByType(EntityType.ENTITY_KNIFE);
   if (knives.length > 0) {
     const knife = knives[0];
     tear.Height = -10; // Keep it in the air forever
@@ -313,8 +305,7 @@ functionMap.set(522, (tear: EntityTear) => {
 
 // Abel
 functionMap.set(531, (tear: EntityTear) => {
-  // Local variables
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for ${baby.name}.`);
   }

@@ -1,9 +1,8 @@
-import * as misc from "../misc";
+import { getCurrentBaby } from "../misc";
 import usePillBabyFunctions from "./usePillBabies";
 
 export function main(_pillEffect: PillEffect): void {
-  // Local variables
-  const [babyType, , valid] = misc.getCurrentBaby();
+  const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return;
   }

@@ -1,4 +1,4 @@
-import * as misc from "../misc";
+import { setRandomColor } from "../misc";
 
 const functionMap = new Map<int, (bomb: EntityBomb) => void>();
 export default functionMap;
@@ -17,5 +17,5 @@ functionMap.set(37, (bomb: EntityBomb) => {
 
 // 404 Baby
 functionMap.set(463, (bomb: EntityBomb) => {
-  misc.setRandomColor(bomb);
+  setRandomColor(bomb);
 });

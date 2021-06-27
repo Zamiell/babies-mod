@@ -1,5 +1,5 @@
 import g from "./globals";
-import * as misc from "./misc";
+import { getCurrentBaby } from "./misc";
 
 const functionMap = new Map<int, () => void>();
 export default functionMap;
@@ -20,9 +20,8 @@ functionMap.set(147, () => {
 
 // Worry Baby
 functionMap.set(167, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for ${baby.name}.`);
   }

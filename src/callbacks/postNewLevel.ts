@@ -3,12 +3,11 @@ import babyCheckValid from "../babyCheckValid";
 import babyRemove from "../babyRemove";
 import { R7_SEASON_5 } from "../constants";
 import g from "../globals";
-import * as misc from "../misc";
+import { getCurrentBaby, incrementRNG } from "../misc";
 import GlobalsRunLevel from "../types/GlobalsRunLevel";
 import * as postNewRoom from "./postNewRoom";
 
 export function main(): void {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   // Make sure the callbacks run in the right order
@@ -21,7 +20,6 @@ export function main(): void {
 }
 
 export function newLevel(): void {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
   const stage = g.l.GetStage();
   const stageType = g.l.GetStageType();
@@ -58,7 +56,7 @@ export function newLevel(): void {
   // then all curses are disabled except for Curse of the Unknown
   // Thus, we might naturally get this curse inside the challenge, so make sure it is disabled
   if (challenge === Isaac.GetChallengeIdByName(R7_SEASON_5)) {
-    g.l.RemoveCurse(LevelCurse.CURSE_OF_THE_UNKNOWN);
+    g.l.RemoveCurses(LevelCurse.CURSE_OF_THE_UNKNOWN);
   }
 
   // Set the new baby
@@ -71,7 +69,6 @@ export function newLevel(): void {
 }
 
 function getNewBaby() {
-  // Local variables
   let seed = g.l.GetDungeonPlacementSeed();
 
   // Don't get a new baby if we did not start the run as the Random Baby character
@@ -93,7 +90,7 @@ function getNewBaby() {
   let i = 0;
   do {
     i += 1;
-    seed = misc.incrementRNG(seed);
+    seed = incrementRNG(seed);
     math.randomseed(seed);
 
     // Get a random index for the "babies" array
@@ -113,7 +110,7 @@ function getNewBaby() {
   // on the same run / multi-character custom challenge
   g.pastBabies.push(babyType);
 
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   Isaac.DebugString(
     `Randomly chose co-op baby. ${babyType} - ${baby.name} - ${baby.description}`,
   );

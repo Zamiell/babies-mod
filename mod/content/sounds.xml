@@ -1,9 +1,4 @@
 <sounds root="sfx/">
-	<sound name="Fist">
-		<sample weight="1" path="punch1.wav" />
-		<sample weight="1" path="punch2.wav" />
-		<sample weight="1" path="punch3.wav" />
-	</sound>
 	<sound name="Laugh">
 		<sample weight="1" path="laugh.wav" />
 	</sound>

@@ -1,6 +1,6 @@
 import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
-import * as misc from "../misc";
+import { getCurrentBaby } from "../misc";
 import { EffectVariantCustom } from "../types/enums";
 
 const functionMap = new Map<int, (effect: EntityEffect) => void>();
@@ -70,9 +70,8 @@ functionMap.set(281, (effect: EntityEffect) => {
     return;
   }
 
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.cooldown === undefined) {
     error(`The "cooldown" attribute was not defined for ${baby.name}.`);
   }
@@ -129,9 +128,6 @@ functionMap.set(485, (effect: EntityEffect) => {
       const targets = Isaac.FindByType(
         EntityType.ENTITY_EFFECT,
         EffectVariantCustom.FETUS_BOSS_TARGET,
-        -1,
-        false,
-        false,
       );
       if (targets.length > 0) {
         const target = targets[0];

@@ -1,5 +1,5 @@
 import g from "../globals";
-import * as misc from "../misc";
+import { getItemHeartPrice, setRandomColor } from "../misc";
 
 const functionMap = new Map<int, (pickup: EntityPickup) => void>();
 export default functionMap;
@@ -73,13 +73,13 @@ functionMap.set(317, (pickup: EntityPickup) => {
   // Items cost hearts
   if (pickup.Variant === PickupVariant.PICKUP_COLLECTIBLE) {
     pickup.AutoUpdatePrice = false;
-    pickup.Price = misc.getItemHeartPrice(pickup.SubType);
+    pickup.Price = getItemHeartPrice(pickup.SubType);
   }
 });
 
 // 404 Baby
 functionMap.set(463, (pickup: EntityPickup) => {
-  misc.setRandomColor(pickup);
+  setRandomColor(pickup);
 });
 
 // Demon Baby

@@ -1,11 +1,8 @@
-// Note: Distance, SpawnerType, and SpawnerVariant are not initialized yet in this callback
-
-import * as misc from "../misc";
+import { getCurrentBaby } from "../misc";
 import postEffectUpdateBabyFunctions from "./postEffectUpdateBabies";
 
 export function main(effect: EntityEffect): void {
-  // Local variables
-  const [babyType, , valid] = misc.getCurrentBaby();
+  const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return;
   }

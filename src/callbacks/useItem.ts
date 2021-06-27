@@ -1,10 +1,9 @@
 import g from "../globals";
-import * as misc from "../misc";
+import { getCurrentBaby, getItemMaxCharges } from "../misc";
 import { CollectibleTypeCustom } from "../types/enums";
 
 export function main(_collectibleType: CollectibleType, _RNG: RNG): boolean {
-  // Local variables
-  const [, , valid] = misc.getCurrentBaby();
+  const [, , valid] = getCurrentBaby();
   if (!valid) {
     return false;
   }
@@ -22,11 +21,10 @@ export function shoopDaWhoop(
   _collectibleType: CollectibleType,
   _RNG: RNG,
 ): boolean {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
   const activeCharge = g.p.GetActiveCharge();
   const batteryCharge = g.p.GetBatteryCharge();
-  const [, baby, valid] = misc.getCurrentBaby();
+  const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return false;
   }
@@ -46,9 +44,8 @@ export function monstrosTooth(
   _collectibleType: CollectibleType,
   _RNG: RNG,
 ): boolean {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
-  const [, baby, valid] = misc.getCurrentBaby();
+  const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return false;
   }
@@ -73,9 +70,8 @@ export function howToJump(
   _collectibleType: CollectibleType,
   _RNG: RNG,
 ): boolean {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
-  const [, baby, valid] = misc.getCurrentBaby();
+  const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return false;
   }
@@ -113,7 +109,6 @@ export function flockOfSuccubi(
   _collectibleType: CollectibleType,
   _RNG: RNG,
 ): boolean {
-  // Local variables
   const effects = g.p.GetEffects();
 
   // Spawn 10 temporary Succubi
@@ -135,26 +130,38 @@ export function chargingStation(
   _collectibleType: CollectibleType,
   _RNG: RNG,
 ): boolean {
-  // Local variables
   const numCoins = g.p.GetNumCoins();
+  const schoolbagItem = g.p.GetActiveItem(ActiveSlot.SLOT_SECONDARY);
 
   if (
     numCoins === 0 ||
-    !g.racingPlusEnabled ||
-    !g.p.HasCollectible(CollectibleTypeCustom.COLLECTIBLE_SCHOOLBAG_CUSTOM) ||
-    RacingPlusGlobals.run.schoolbag.item === 0
+    !g.p.HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) ||
+    schoolbagItem === 0
   ) {
     return false;
   }
 
+  const currentCharges = g.p.GetActiveCharge(ActiveSlot.SLOT_SECONDARY);
+  const currentBatteryCharges = g.p.GetBatteryCharge(ActiveSlot.SLOT_SECONDARY);
+  const totalCharges = currentCharges + currentBatteryCharges;
+  const maxCharges = getItemMaxCharges(schoolbagItem);
+  const hasBattery = g.p.HasCollectible(CollectibleType.COLLECTIBLE_BATTERY);
+  if (hasBattery && totalCharges >= maxCharges * 2) {
+    return false;
+  }
+  if (!hasBattery && totalCharges >= maxCharges) {
+    return false;
+  }
+
   g.p.AddCoins(-1);
-  RacingPlusSchoolbag.addCharge(true);
+  const incrementedCharge = currentCharges + 1;
+  g.p.SetActiveCharge(incrementedCharge, ActiveSlot.SLOT_SECONDARY);
   g.p.AnimateCollectible(
     CollectibleTypeCustom.COLLECTIBLE_CHARGING_STATION,
     "UseItem",
     "PlayerPickup",
   );
-  g.sfx.Play(SoundEffect.SOUND_BEEP, 1, 0, false, 1);
+  g.sfx.Play(SoundEffect.SOUND_BEEP, 1, 0);
 
   return false;
 }

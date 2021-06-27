@@ -1,4 +1,4 @@
-import * as misc from "../misc";
+import { getCurrentBaby } from "../misc";
 import * as entityTakeDmgEntity from "./entityTakeDmgEntity";
 import * as entityTakeDmgPlayer from "./entityTakeDmgPlayer";
 
@@ -8,11 +8,10 @@ export function main(
   damageFlags: int,
   damageSource: EntityRef,
   damageCountdownFrames: int,
-): boolean | null {
-  // Local variables
-  const [, , valid] = misc.getCurrentBaby();
+): boolean | void {
+  const [, , valid] = getCurrentBaby();
   if (!valid) {
-    return null;
+    return undefined;
   }
 
   const player = entity.ToPlayer();

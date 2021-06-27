@@ -1,6 +1,6 @@
 import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
-import * as misc from "../misc";
+import { getItemConfig, gridToPos, incrementRNG, openAllDoors } from "../misc";
 import { CollectibleTypeCustom } from "../types/enums";
 
 const functionMap = new Map<int, () => void>();
@@ -8,7 +8,6 @@ export default functionMap;
 
 // This is used for several babies
 function noHealth() {
-  // Local variables
   const roomType = g.r.GetType();
   const roomDesc = g.l.GetCurrentRoomDesc();
   const roomVariant = roomDesc.Data.Variant;
@@ -26,7 +25,7 @@ function noHealth() {
     roomVariant !== 2305 && // Krampus
     roomVariant !== 2306 // Krampus
   ) {
-    g.l.RemoveCurse(LevelCurse.CURSE_OF_THE_UNKNOWN);
+    g.l.RemoveCurses(LevelCurse.CURSE_OF_THE_UNKNOWN);
   } else {
     g.l.AddCurse(LevelCurse.CURSE_OF_THE_UNKNOWN, false);
   }
@@ -48,7 +47,7 @@ functionMap.set(13, () => {
     g.g.StartRoomTransition(
       GridRooms.ROOM_BLACK_MARKET_IDX,
       Direction.NO_DIRECTION,
-      RoomTransition.TRANSITION_NONE,
+      RoomTransitionAnim.WALK,
     );
   }
 });
@@ -121,14 +120,13 @@ functionMap.set(90, () => {
       door.TargetRoomType === RoomType.ROOM_DEFAULT &&
       door.IsLocked()
     ) {
-      door.TryUnlock(true); // This has to be forced
+      door.TryUnlock(g.p, true); // This has to be forced
     }
   }
 });
 
 // Statue Baby 2
 functionMap.set(118, () => {
-  // Local variables
   const roomType = g.r.GetType();
   const isFirstVisit = g.r.IsFirstVisit();
   const center = g.r.GetCenterPos();
@@ -140,7 +138,7 @@ functionMap.set(118, () => {
   // Improved Secret Rooms
   for (let i = 0; i < 4; i++) {
     const position = g.r.FindFreePickupSpawnPosition(center, 1, true);
-    g.run.randomSeed = misc.incrementRNG(g.run.randomSeed);
+    g.run.randomSeed = incrementRNG(g.run.randomSeed);
     g.g.Spawn(
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_COLLECTIBLE,
@@ -185,7 +183,6 @@ functionMap.set(141, () => {
 
 // Butterfly Baby
 functionMap.set(149, () => {
-  // Local variables
   const roomType = g.r.GetType();
   const isFirstVisit = g.r.IsFirstVisit();
   const center = g.r.GetCenterPos();
@@ -197,7 +194,7 @@ functionMap.set(149, () => {
   // Improved Super Secret Rooms
   for (let i = 0; i < 5; i++) {
     const position = g.r.FindFreePickupSpawnPosition(center, 1, true);
-    g.run.randomSeed = misc.incrementRNG(g.run.randomSeed);
+    g.run.randomSeed = incrementRNG(g.run.randomSeed);
     g.g.Spawn(
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_COLLECTIBLE,
@@ -223,14 +220,13 @@ functionMap.set(181, () => {
     g.g.StartRoomTransition(
       GridRooms.ROOM_BLACK_MARKET_IDX,
       Direction.NO_DIRECTION,
-      RoomTransition.TRANSITION_NONE,
+      RoomTransitionAnim.WALK,
     );
   }
 });
 
 // Fancy Baby
 functionMap.set(216, () => {
-  // Local variables
   const currentRoomIndex = g.l.GetCurrentRoomIndex();
   const startingRoomIndex = g.l.GetStartingRoomIndex();
   const isFirstVisit = g.r.IsFirstVisit();
@@ -365,7 +361,7 @@ functionMap.set(216, () => {
         return;
       }
       const xy = positions[positionIndex];
-      const position = misc.gridToPos(xy[0], xy[1]);
+      const position = gridToPos(xy[0], xy[1]);
       const pedestal = g.g
         .Spawn(
           EntityType.ENTITY_PICKUP,
@@ -387,7 +383,6 @@ functionMap.set(216, () => {
 
 // Beast Baby
 functionMap.set(242, () => {
-  // Local variables
   const currentRoomIndex = g.l.GetCurrentRoomIndex();
   const startingRoomIndex = g.l.GetStartingRoomIndex();
 
@@ -461,7 +456,7 @@ functionMap.set(261, () => {
       g.g.StartRoomTransition(
         index,
         Direction.NO_DIRECTION,
-        RoomTransition.TRANSITION_TELEPORT,
+        RoomTransitionAnim.TELEPORT,
       );
       break;
     }
@@ -476,7 +471,6 @@ functionMap.set(282, () => {
 
 // Suit Baby
 functionMap.set(287, () => {
-  // Local variables
   const roomType = g.r.GetType();
   const isFirstVisit = g.r.IsFirstVisit();
   const maxHearts = g.p.GetMaxHearts();
@@ -497,13 +491,13 @@ functionMap.set(287, () => {
   }
 
   // All special rooms are Devil Rooms
-  g.run.room.RNG = misc.incrementRNG(g.run.room.RNG);
+  g.run.room.RNG = incrementRNG(g.run.room.RNG);
   const item = g.itemPool.GetCollectible(
     ItemPoolType.POOL_DEVIL,
     true,
     g.run.room.RNG,
   );
-  const position = misc.gridToPos(6, 4);
+  const position = gridToPos(6, 4);
   const pedestal = g.g
     .Spawn(
       EntityType.ENTITY_PICKUP,
@@ -522,7 +516,7 @@ functionMap.set(287, () => {
     if (maxHearts === 0) {
       pedestal.Price = -3;
     } else {
-      const itemConfig = misc.getItemConfig(item);
+      const itemConfig = getItemConfig(item);
       pedestal.Price = itemConfig.DevilPrice * -1;
     }
     // (the price will also be set on every frame in the PostPickupInit callback)
@@ -535,11 +529,11 @@ functionMap.set(287, () => {
   for (let i = 0; i < 2; i++) {
     let pos: Vector;
     if (i === 0) {
-      pos = misc.gridToPos(3, 1);
+      pos = gridToPos(3, 1);
     } else {
-      pos = misc.gridToPos(9, 1);
+      pos = gridToPos(9, 1);
     }
-    g.run.room.RNG = misc.incrementRNG(g.run.room.RNG);
+    g.run.room.RNG = incrementRNG(g.run.room.RNG);
     g.g.Spawn(
       EntityType.ENTITY_FIREPLACE,
       0,
@@ -554,7 +548,6 @@ functionMap.set(287, () => {
 
 // Woodsman Baby
 functionMap.set(297, () => {
-  // Local variables
   const currentRoomIndex = g.l.GetCurrentRoomIndex();
   const startingRoomIndex = g.l.GetStartingRoomIndex();
 
@@ -562,17 +555,18 @@ functionMap.set(297, () => {
     return;
   }
 
-  misc.openAllDoors();
+  openAllDoors();
 });
 
 // Mouse Baby
 functionMap.set(351, () => {
-  // Local variables
   const roomClear = g.r.IsClear();
 
   if (!roomClear) {
     return;
   }
+
+  const player = Isaac.GetPlayer();
 
   // Coin doors in uncleared rooms
   // If the player leaves and re-enters an uncleared room, a normal door will stay locked
@@ -584,7 +578,7 @@ functionMap.set(351, () => {
       door.TargetRoomType === RoomType.ROOM_DEFAULT &&
       door.IsLocked()
     ) {
-      door.TryUnlock(true); // This has to be forced
+      door.TryUnlock(player, true); // This has to be forced
     }
   }
 });
@@ -593,23 +587,11 @@ functionMap.set(351, () => {
 functionMap.set(431, () => {
   // Slippery movement
   // Prevent softlocks from Gaping Maws and cheap damage by Broken Gaping Maws by deleting them
-  const maws = Isaac.FindByType(
-    EntityType.ENTITY_GAPING_MAW,
-    -1,
-    -1,
-    false,
-    false,
-  );
+  const maws = Isaac.FindByType(EntityType.ENTITY_GAPING_MAW);
   for (const maw of maws) {
     maw.Remove();
   }
-  const brokenMaws = Isaac.FindByType(
-    EntityType.ENTITY_BROKEN_GAPING_MAW,
-    -1,
-    -1,
-    false,
-    false,
-  );
+  const brokenMaws = Isaac.FindByType(EntityType.ENTITY_BROKEN_GAPING_MAW);
   for (const brokenMaw of brokenMaws) {
     brokenMaw.Remove();
   }
@@ -617,7 +599,6 @@ functionMap.set(431, () => {
 
 // Gamer Baby
 functionMap.set(492, () => {
-  // Local variables
   const currentRoomIndex = g.l.GetCurrentRoomIndex();
   const startingRoomIndex = g.l.GetStartingRoomIndex();
 
@@ -637,9 +618,6 @@ functionMap.set(504, () => {
   const abels = Isaac.FindByType(
     EntityType.ENTITY_FAMILIAR,
     FamiliarVariant.ABEL,
-    -1,
-    false,
-    false,
   );
   for (const abel of abels) {
     const familiar = abel.ToFamiliar();
@@ -651,7 +629,6 @@ functionMap.set(504, () => {
 
 // Silly Baby
 functionMap.set(516, () => {
-  // Local variables
   const currentRoomIndex = g.l.GetCurrentRoomIndex();
   const startingRoomIndex = g.l.GetStartingRoomIndex();
 

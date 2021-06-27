@@ -1,5 +1,5 @@
 import g from "../globals";
-import * as misc from "../misc";
+import { getCurrentBaby, setRandomColor } from "../misc";
 
 const functionMap = new Map<int, (projectile: EntityProjectile) => void>();
 export default functionMap;
@@ -35,8 +35,7 @@ functionMap.set(109, (projectile: EntityProjectile) => {
 
 // Sorrow Baby
 functionMap.set(153, (projectile: EntityProjectile) => {
-  // Local variables
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.distance === undefined) {
     error(`The "distance" attribute was not defined for ${baby.name}.`);
   }
@@ -94,6 +93,6 @@ functionMap.set(318, (projectile: EntityProjectile) => {
 // 404 Baby
 functionMap.set(463, (projectile: EntityProjectile) => {
   if (projectile.FrameCount === 1) {
-    misc.setRandomColor(projectile);
+    setRandomColor(projectile);
   }
 });

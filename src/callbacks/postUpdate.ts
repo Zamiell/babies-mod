@@ -1,13 +1,18 @@
 import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
-import * as misc from "../misc";
+import {
+  getCurrentBaby,
+  getRoomIndex,
+  incrementRNG,
+  openAllDoors,
+  spawnRandomPickup,
+} from "../misc";
 import roomClearedBabyFunctions from "../roomClearedBabies";
 import * as postRender from "./postRender";
 import postUpdateBabyFunctions from "./postUpdateBabies";
 
 export function main(): void {
-  // Local variables
-  const [babyType, baby, valid] = misc.getCurrentBaby();
+  const [babyType, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
   }
@@ -17,7 +22,7 @@ export function main(): void {
   // (the "blindfoldedApplied" is reset in the PostNewLevel callback)
   if (!g.run.level.blindfoldedApplied && g.p.ControlsEnabled) {
     g.run.level.blindfoldedApplied = true;
-    if (baby.blindfolded) {
+    if (baby.blindfolded === true) {
       // Make sure the player does not have a tear in the queue
       // (otherwise, if the player had the tear fire button held down while transitioning between
       // floors, they will get one more shot)
@@ -37,9 +42,6 @@ export function main(): void {
       const incubi = Isaac.FindByType(
         EntityType.ENTITY_FAMILIAR,
         FamiliarVariant.INCUBUS,
-        -1,
-        false,
-        false,
       );
       for (const entity of incubi) {
         const incubus = entity.ToFamiliar();
@@ -97,8 +99,7 @@ export function main(): void {
 }
 
 function checkTrinket() {
-  // Local variables
-  const [, baby, valid] = misc.getCurrentBaby();
+  const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
   }
@@ -123,8 +124,6 @@ function checkTrinket() {
     EntityType.ENTITY_PICKUP,
     PickupVariant.PICKUP_TRINKET,
     baby.trinket,
-    false,
-    false,
   );
   if (trinkets.length > 0) {
     // Delete the dropped trinket
@@ -153,7 +152,7 @@ function checkTrinket() {
     // The Walnut broke, so spawn additional items
     for (let i = 0; i < 5; i++) {
       const position = g.r.FindFreePickupSpawnPosition(g.p.Position, 1, true);
-      g.run.randomSeed = misc.incrementRNG(g.run.randomSeed);
+      g.run.randomSeed = incrementRNG(g.run.randomSeed);
       g.g.Spawn(
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_COLLECTIBLE,
@@ -168,7 +167,6 @@ function checkTrinket() {
 }
 
 function checkRoomCleared() {
-  // Local variables
   const roomClear = g.r.IsClear();
 
   // Check the clear status of the room and compare it to what it was a frame ago
@@ -186,8 +184,7 @@ function checkRoomCleared() {
 }
 
 function roomCleared() {
-  // Local variables
-  const [babyType, , valid] = misc.getCurrentBaby();
+  const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return;
   }
@@ -200,10 +197,9 @@ function roomCleared() {
 
 // On certain babies, destroy all poops and TNT barrels after a certain amount of time
 function checkSoftlockDestroyPoops() {
-  // Local variables
   const roomFrameCount = g.r.GetFrameCount();
   const gridSize = g.r.GetGridSize();
-  const [, baby, valid] = misc.getCurrentBaby();
+  const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
   }
@@ -247,9 +243,8 @@ function checkSoftlockDestroyPoops() {
 // On certain babies, open the doors after 30 seconds to prevent softlocks with Hosts and island
 // enemies
 function checkSoftlockIsland() {
-  // Local variables
   const roomFrameCount = g.r.GetFrameCount();
-  const [, baby, valid] = misc.getCurrentBaby();
+  const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
   }
@@ -272,15 +267,14 @@ function checkSoftlockIsland() {
 
   g.run.room.softlock = true;
   g.r.SetClear(true);
-  misc.openAllDoors();
+  openAllDoors();
 }
 
 function checkGridEntities() {
-  // Local variables
-  const roomIndex = misc.getRoomIndex();
+  const roomIndex = getRoomIndex();
   const gameFrameCount = g.g.GetFrameCount();
   const gridSize = g.r.GetGridSize();
-  const [, baby, valid] = misc.getCurrentBaby();
+  const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
   }
@@ -292,9 +286,9 @@ function checkGridEntities() {
       if (
         baby.name === "Gold Baby" && // 15
         saveState.Type === GridEntityType.GRID_POOP &&
-        saveState.Variant !== PoopVariant.POOP_GOLDEN
+        saveState.Variant !== PoopVariant.GOLDEN
       ) {
-        gridEntity.SetVariant(PoopVariant.POOP_GOLDEN);
+        gridEntity.SetVariant(PoopVariant.GOLDEN);
       } else if (
         baby.name === "Ate Poop Baby" && // 173
         saveState.Type === GridEntityType.GRID_POOP &&
@@ -320,7 +314,7 @@ function checkGridEntities() {
             EntityPartition.PICKUP,
           );
           if (entities.length === 0) {
-            misc.spawnRandomPickup(gridEntity.Position);
+            spawnRandomPickup(gridEntity.Position);
 
             // Keep track of it so that we don't spawn another pickup on the next frame
             g.run.level.killedPoops.push({
@@ -366,9 +360,8 @@ function checkGridEntities() {
 }
 
 function checkTrapdoor() {
-  // Local variables
   const playerSprite = g.p.GetSprite();
-  const [, baby, valid] = misc.getCurrentBaby();
+  const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
   }

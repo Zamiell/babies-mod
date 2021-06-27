@@ -1,6 +1,6 @@
 import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
-import * as misc from "../misc";
+import { getItemHeartPrice, incrementRNG } from "../misc";
 
 const functionMap = new Map<int, (pickup: EntityPickup) => void>();
 export default functionMap;
@@ -185,7 +185,6 @@ functionMap.set(177, (pickup: EntityPickup) => {
 
 // Fancy Baby
 functionMap.set(216, (pickup: EntityPickup) => {
-  // Local variables
   const currentRoomIndex = g.l.GetCurrentRoomIndex();
   const startingRoomIndex = g.l.GetStartingRoomIndex();
 
@@ -249,7 +248,7 @@ functionMap.set(287, (pickup: EntityPickup) => {
   if (pickup.Variant === PickupVariant.PICKUP_COLLECTIBLE) {
     // If the price is not correct, update it
     // (we have to check on every frame in case the health situation changes)
-    const price = misc.getItemHeartPrice(pickup.SubType);
+    const price = getItemHeartPrice(pickup.SubType);
     if (pickup.Price !== price) {
       pickup.AutoUpdatePrice = false;
       pickup.Price = price;
@@ -261,7 +260,7 @@ functionMap.set(287, (pickup: EntityPickup) => {
   ) {
     // Rerolled items turn into hearts since this is a not an actual Devil Room,
     // so delete the heart and manually create another pedestal item
-    g.run.room.RNG = misc.incrementRNG(g.run.room.RNG);
+    g.run.room.RNG = incrementRNG(g.run.room.RNG);
     const item = g.itemPool.GetCollectible(
       ItemPoolType.POOL_DEVIL,
       true,
@@ -281,7 +280,7 @@ functionMap.set(287, (pickup: EntityPickup) => {
     if (pedestal !== null) {
       // Set the price
       pedestal.AutoUpdatePrice = false;
-      pedestal.Price = misc.getItemHeartPrice(pedestal.SubType);
+      pedestal.Price = getItemHeartPrice(pedestal.SubType);
     }
 
     // Remove the heart
@@ -291,14 +290,13 @@ functionMap.set(287, (pickup: EntityPickup) => {
 
 // Scary Baby
 functionMap.set(317, (pickup: EntityPickup) => {
-  // Local variables
   const roomType = g.r.GetType();
 
   // Items cost hearts
   if (pickup.Variant === PickupVariant.PICKUP_COLLECTIBLE) {
     // If the price is not correct, update it
     // (we have to check on every frame in case the health situation changes)
-    const price = misc.getItemHeartPrice(pickup.SubType);
+    const price = getItemHeartPrice(pickup.SubType);
     if (pickup.Price !== price) {
       pickup.AutoUpdatePrice = false;
       pickup.Price = price;
@@ -325,7 +323,7 @@ functionMap.set(317, (pickup: EntityPickup) => {
     if (pedestal !== null) {
       // Set the price
       pedestal.AutoUpdatePrice = false;
-      pedestal.Price = misc.getItemHeartPrice(pedestal.SubType);
+      pedestal.Price = getItemHeartPrice(pedestal.SubType);
     }
 
     // Remove the heart
@@ -335,7 +333,6 @@ functionMap.set(317, (pickup: EntityPickup) => {
 
 // Orange Pig Baby
 functionMap.set(381, (pickup: EntityPickup) => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
   const isFirstVisit = g.r.IsFirstVisit();
 
@@ -351,7 +348,7 @@ functionMap.set(381, (pickup: EntityPickup) => {
     (g.run.babyCountersRoom === 0 || g.run.babyCountersRoom === gameFrameCount)
   ) {
     const position = g.r.FindFreePickupSpawnPosition(pickup.Position, 1, true);
-    g.run.randomSeed = misc.incrementRNG(g.run.randomSeed);
+    g.run.randomSeed = incrementRNG(g.run.randomSeed);
     const pedestal = g.g
       .Spawn(
         EntityType.ENTITY_PICKUP,
@@ -367,7 +364,7 @@ functionMap.set(381, (pickup: EntityPickup) => {
       // We don't want it to automatically be bought
       pedestal.Price = pickup.Price;
       // We want it to keep the behavior of the room
-      pedestal.TheresOptionsPickup = pickup.TheresOptionsPickup;
+      pedestal.OptionsPickupIndex = pickup.OptionsPickupIndex;
       // Mark it so that we don't duplicate it again
       pedestal.State = 2;
     }
@@ -411,7 +408,7 @@ functionMap.set(537, (pickup: EntityPickup) => {
     pickup.SubType === HeartSubType.HEART_FULL &&
     pickup.Price === 3
   ) {
-    g.run.room.RNG = misc.incrementRNG(g.run.room.RNG);
+    g.run.room.RNG = incrementRNG(g.run.room.RNG);
     const pedestal = g.g
       .Spawn(
         EntityType.ENTITY_PICKUP,

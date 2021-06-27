@@ -1,9 +1,9 @@
 import g from "../globals";
-import * as misc from "../misc";
+import { isActionPressed } from "../misc";
 
 const functionMap = new Map<
   int,
-  (inputHook: InputHook, buttonAction: ButtonAction) => number | boolean | null
+  (inputHook: InputHook, buttonAction: ButtonAction) => number | boolean | void
 >();
 export default functionMap;
 
@@ -20,10 +20,7 @@ functionMap.set(115, (inputHook: InputHook, buttonAction: ButtonAction) => {
     // Can't shoot while moving
     // This ability does not interact well with charged items,
     // so don't do anything if the player has a charged item
-    const player = Isaac.GetPlayer(0);
-    if (player === null) {
-      return null;
-    }
+    const player = Isaac.GetPlayer();
 
     if (
       player.HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) || // 69
@@ -32,9 +29,9 @@ functionMap.set(115, (inputHook: InputHook, buttonAction: ButtonAction) => {
       player.HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) || // 229
       player.HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE) || // 316
       player.HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) || // 395
-      player.HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_VOID) // 399
+      player.HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_THE_VOID) // 399
     ) {
-      return null;
+      return undefined;
     }
 
     // Find out if we are moving
@@ -49,7 +46,7 @@ functionMap.set(115, (inputHook: InputHook, buttonAction: ButtonAction) => {
     }
   }
 
-  return null;
+  return undefined;
 });
 
 // Piece A Baby
@@ -57,34 +54,34 @@ functionMap.set(179, (_inputHook: InputHook, buttonAction: ButtonAction) => {
   // Can only move up + down + left + right
   if (
     buttonAction === ButtonAction.ACTION_LEFT && // 0
-    (misc.isActionPressed(ButtonAction.ACTION_UP) || // 2
-      misc.isActionPressed(ButtonAction.ACTION_DOWN)) // 3
+    (isActionPressed(ButtonAction.ACTION_UP) || // 2
+      isActionPressed(ButtonAction.ACTION_DOWN)) // 3
   ) {
     return 0;
   }
   if (
     buttonAction === ButtonAction.ACTION_RIGHT && // 1
-    (misc.isActionPressed(ButtonAction.ACTION_UP) || // 2
-      misc.isActionPressed(ButtonAction.ACTION_DOWN)) // 3
+    (isActionPressed(ButtonAction.ACTION_UP) || // 2
+      isActionPressed(ButtonAction.ACTION_DOWN)) // 3
   ) {
     return 0;
   }
   if (
     buttonAction === ButtonAction.ACTION_UP && // 2
-    (misc.isActionPressed(ButtonAction.ACTION_LEFT) || // 0
-      misc.isActionPressed(ButtonAction.ACTION_RIGHT)) // 1
+    (isActionPressed(ButtonAction.ACTION_LEFT) || // 0
+      isActionPressed(ButtonAction.ACTION_RIGHT)) // 1
   ) {
     return 0;
   }
   if (
     buttonAction === ButtonAction.ACTION_DOWN && // 3
-    (misc.isActionPressed(ButtonAction.ACTION_LEFT) || // 0
-      misc.isActionPressed(ButtonAction.ACTION_RIGHT)) // 1
+    (isActionPressed(ButtonAction.ACTION_LEFT) || // 0
+      isActionPressed(ButtonAction.ACTION_RIGHT)) // 1
   ) {
     return 0;
   }
 
-  return null;
+  return undefined;
 });
 
 // Imp Baby
@@ -111,5 +108,5 @@ functionMap.set(386, (_inputHook: InputHook, buttonAction: ButtonAction) => {
     return 1;
   }
 
-  return null;
+  return undefined;
 });

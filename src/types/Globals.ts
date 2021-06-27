@@ -14,15 +14,12 @@ export default class Globals {
   // assertions everywhere
   // In reality, the value will be set in the PostPlayerInit callback, which will happen before any
   // other code gets run
-  p = Isaac.GetPlayer(0) as EntityPlayer;
+  p = Isaac.GetPlayer();
   seeds = Game().GetSeeds();
   itemPool = Game().GetItemPool();
   itemConfig = Isaac.GetItemConfig();
   sfx = SFXManager();
   font = Font();
-
-  // Check for Racing+
-  racingPlusEnabled = RacingPlusGlobals !== undefined;
 
   // Variables per-run
   run: GlobalsRun;
@@ -37,7 +34,6 @@ export default class Globals {
   debugBabyNum: number | null = null;
 
   constructor() {
-    // Local variables
     const randomSeed = this.l.GetDungeonPlacementSeed();
 
     // Load the font

@@ -1,12 +1,9 @@
-// Note: Position, SpawnerType, SpawnerVariant, and Price are not initialized yet in this callback
-
-import * as misc from "../misc";
+import { getCurrentBaby } from "../misc";
 import { CollectibleTypeCustom } from "../types/enums";
 import postPickupInitBabyFunctions from "./postPickupInitBabies";
 
 export function main(pickup: EntityPickup): void {
-  // Local variables
-  const [babyType, , valid] = misc.getCurrentBaby();
+  const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return;
   }

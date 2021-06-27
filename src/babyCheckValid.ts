@@ -1,10 +1,8 @@
 import g from "./globals";
-import * as misc from "./misc";
+import { getItemConfig } from "./misc";
 import BabyDescription from "./types/BabyDescription";
-import { CollectibleTypeCustom } from "./types/enums";
 
 export default function babyCheckValid(babyType: int): boolean {
-  // Local variables
   const baby = g.babies[babyType];
   if (baby === undefined) {
     error(`Baby ${babyType} not found.`);
@@ -12,11 +10,6 @@ export default function babyCheckValid(babyType: int): boolean {
 
   // Check to see if we already got this baby in this run / multi-character custom challenge
   if (g.pastBabies.includes(babyType)) {
-    return false;
-  }
-
-  // Check to see if this baby requires a separate mod
-  if (baby.requiresRacingPlus !== undefined && !g.racingPlusEnabled) {
     return false;
   }
 
@@ -70,31 +63,25 @@ export default function babyCheckValid(babyType: int): boolean {
 }
 
 function checkActiveItem(baby: BabyDescription) {
-  // Local variables
   const activeItem = g.p.GetActiveItem();
 
   if (
     baby.item !== undefined &&
-    misc.getItemConfig(baby.item).Type === ItemType.ITEM_ACTIVE &&
+    getItemConfig(baby.item).Type === ItemType.ITEM_ACTIVE &&
     activeItem !== 0
   ) {
-    const hasRacingPlusSchoolbag =
-      g.racingPlusEnabled &&
-      g.p.HasCollectible(CollectibleTypeCustom.COLLECTIBLE_SCHOOLBAG_CUSTOM);
-    const hasVanillaSchoolbag =
-      !g.racingPlusEnabled &&
-      g.p.HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG);
-    if (!hasRacingPlusSchoolbag && !hasVanillaSchoolbag) {
+    const hasSchoolbag = g.p.HasCollectible(
+      CollectibleType.COLLECTIBLE_SCHOOLBAG,
+    );
+    if (!hasSchoolbag) {
       // Since the player already has an active item, there is no room for another active item
       return false;
     }
 
-    const hasItemInRacingPlusSchoolbag =
-      hasRacingPlusSchoolbag && RacingPlusGlobals.run.schoolbag.item !== 0;
-    const hasItemInVanillaSchoolbag =
-      hasVanillaSchoolbag && g.p.SecondaryActiveItem.Item !== 0;
-    if (hasItemInRacingPlusSchoolbag || hasItemInVanillaSchoolbag) {
-      // The player has an active item and an item inside of the Schoolbag
+    const hasItemInSchoolbag =
+      hasSchoolbag && g.p.SecondaryActiveItem.Item !== 0;
+    if (hasItemInSchoolbag) {
+      // The player has both an active item and an item inside of the Schoolbag
       return false;
     }
   }
@@ -103,28 +90,22 @@ function checkActiveItem(baby: BabyDescription) {
 }
 
 function checkHealth(baby: BabyDescription) {
-  // Local variables
   const maxHearts = g.p.GetMaxHearts();
   const soulHearts = g.p.GetSoulHearts();
   const boneHearts = g.p.GetBoneHearts();
-
   const totalHealth = maxHearts + soulHearts + boneHearts;
+
   if (baby.numHits !== undefined && totalHealth < baby.numHits) {
     return false;
   }
+
   if (
     baby.item === CollectibleType.COLLECTIBLE_POTATO_PEELER &&
     maxHearts === 0
   ) {
     return false;
   }
-  if (
-    (baby.item === CollectibleTypeCustom.COLLECTIBLE_SOUL_JAR ||
-      baby.item2 === CollectibleTypeCustom.COLLECTIBLE_SOUL_JAR) &&
-    maxHearts === 0
-  ) {
-    return false;
-  }
+
   if (
     baby.name === "MeatBoy Baby" && // 210
     maxHearts === 0
@@ -137,7 +118,6 @@ function checkHealth(baby: BabyDescription) {
 }
 
 function checkInventory(baby: BabyDescription) {
-  // Local variables
   const coins = g.p.GetNumCoins();
   const bombs = g.p.GetNumBombs();
   const keys = g.p.GetNumKeys();
@@ -168,7 +148,7 @@ function checkInventory(baby: BabyDescription) {
     return false;
   }
 
-  if (baby.requireBombs && bombs === 0) {
+  if (baby.requireBombs === true && bombs === 0) {
     return false;
   }
 
@@ -176,7 +156,7 @@ function checkInventory(baby: BabyDescription) {
     return false;
   }
 
-  if (baby.requireKeys && keys === 0) {
+  if (baby.requireKeys === true && keys === 0) {
     return false;
   }
 
@@ -185,7 +165,7 @@ function checkInventory(baby: BabyDescription) {
 
 function checkItem(baby: BabyDescription) {
   if (
-    baby.blindfolded &&
+    baby.blindfolded === true &&
     (g.p.HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) || // 69
       g.p.HasCollectible(CollectibleType.COLLECTIBLE_TECH_5) || // 244
       g.p.HasCollectible(CollectibleType.COLLECTIBLE_LIBRA)) // 304
@@ -198,7 +178,7 @@ function checkItem(baby: BabyDescription) {
   }
 
   if (
-    (baby.mustHaveTears ||
+    (baby.mustHaveTears === true ||
       baby.item === CollectibleType.COLLECTIBLE_SOY_MILK || // 330
       baby.item2 === CollectibleType.COLLECTIBLE_SOY_MILK) && // 330
     (g.p.HasCollectible(CollectibleType.COLLECTIBLE_DR_FETUS) || // 52
@@ -255,9 +235,7 @@ function checkItem(baby: BabyDescription) {
 
   if (
     baby.name === "Belial Baby" && // 51
-    (g.p.HasCollectible(CollectibleType.COLLECTIBLE_MEGA_SATANS_BREATH) || // 441
-      RacingPlusGlobals.run.schoolbag.item ===
-        CollectibleType.COLLECTIBLE_MEGA_SATANS_BREATH) // 441
+    g.p.HasCollectible(CollectibleType.COLLECTIBLE_MEGA_BLAST)
   ) {
     return false;
   }
@@ -283,7 +261,7 @@ function checkItem(baby: BabyDescription) {
       g.p.HasCollectible(CollectibleType.COLLECTIBLE_BRIMSTONE) || // 118
       g.p.HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) || // 229
       g.p.HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE) || // 316
-      g.p.HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_VOID)) // 399
+      g.p.HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_THE_VOID)) // 399
   ) {
     // Can't shoot while moving
     // This messes up with charge items
@@ -470,11 +448,10 @@ function checkItem(baby: BabyDescription) {
 }
 
 function checkLevel(baby: BabyDescription) {
-  // Local variables
   const stage = g.l.GetStage();
   const stageType = g.l.GetStageType();
 
-  if (baby.noEndFloors && stage >= 9) {
+  if (baby.noEndFloors === true && stage >= 9) {
     return false;
   }
 
@@ -488,7 +465,7 @@ function checkLevel(baby: BabyDescription) {
   }
 
   if (
-    baby.item === CollectibleType.COLLECTIBLE_WE_NEED_GO_DEEPER &&
+    baby.item === CollectibleType.COLLECTIBLE_WE_NEED_TO_GO_DEEPER &&
     (stage <= 2 || stage >= 8)
   ) {
     // Only valid for floors that the shovel will work on
@@ -626,7 +603,7 @@ function checkLevel(baby: BabyDescription) {
   if (
     baby.name === "Gem Baby" && // 237
     stage >= 7 &&
-    !g.p.HasCollectible(CollectibleType.COLLECTIBLE_MONEY_IS_POWER)
+    !g.p.HasCollectible(CollectibleType.COLLECTIBLE_MONEY_EQUALS_POWER)
   ) {
     // Pennies spawn as nickels
     // Money is useless past Depths 2 (unless you have Money Equals Power)

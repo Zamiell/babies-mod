@@ -1,14 +1,11 @@
-import { R7_SEASON_5 } from "../constants";
 import g from "../globals";
-import * as misc from "../misc";
-import { CollectibleTypeCustom, PlayerTypeCustom } from "../types/enums";
+import { giveItemAndRemoveFromPools } from "../misc";
+import { PlayerTypeCustom } from "../types/enums";
 import GlobalsRun from "../types/GlobalsRun";
 import * as postNewLevel from "./postNewLevel";
 
 export function main(isContinued: boolean): void {
-  // Local variables
   const character = g.p.GetPlayerType();
-  const challenge = Isaac.GetChallenge();
   const randomSeed = g.l.GetDungeonPlacementSeed();
 
   // Don't do anything if this is not a new run
@@ -20,18 +17,7 @@ export function main(isContinued: boolean): void {
   g.run = new GlobalsRun(randomSeed);
 
   // Also reset the list of past babies that have been chosen
-  // (but don't do this if we are in the middle of a multi-character custom challenge)
-  let resetPastBabies = true;
-  if (
-    challenge === Isaac.GetChallengeIdByName(R7_SEASON_5) &&
-    g.racingPlusEnabled &&
-    RacingPlusGlobals.speedrun.characterNum >= 2
-  ) {
-    resetPastBabies = false;
-  }
-  if (resetPastBabies) {
-    g.pastBabies = [];
-  }
+  g.pastBabies = [];
 
   // Easter Eggs from babies are normally removed upon going to the next floor
   // We also have to check to see if they reset the game while on a baby with a custom Easter Egg
@@ -59,13 +45,7 @@ export function main(isContinued: boolean): void {
   // (only do the following things if we are on the Random Baby character)
 
   // Random Baby always starts with the Schoolbag
-  if (!g.racingPlusEnabled) {
-    misc.giveItemAndRemoveFromPools(CollectibleType.COLLECTIBLE_SCHOOLBAG);
-  } else {
-    misc.giveItemAndRemoveFromPools(
-      CollectibleTypeCustom.COLLECTIBLE_SCHOOLBAG_CUSTOM,
-    );
-  }
+  giveItemAndRemoveFromPools(CollectibleType.COLLECTIBLE_SCHOOLBAG);
 
   // Remove some items from pools
   g.itemPool.RemoveCollectible(CollectibleType.COLLECTIBLE_GUILLOTINE); // 206

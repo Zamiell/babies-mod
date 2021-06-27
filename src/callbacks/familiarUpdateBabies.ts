@@ -1,5 +1,5 @@
 import g from "../globals";
-import * as misc from "../misc";
+import { getOffsetPosition } from "../misc";
 
 const functionMap = new Map<int, (familiar: EntityFamiliar) => void>();
 export default functionMap;
@@ -35,9 +35,6 @@ functionMap.set(82, (familiar: EntityFamiliar) => {
     const lilGurdies = Isaac.FindByType(
       EntityType.ENTITY_FAMILIAR,
       FamiliarVariant.LIL_GURDY,
-      -1,
-      false,
-      false,
     );
     for (const lilGurdy of lilGurdies) {
       if (
@@ -45,7 +42,7 @@ functionMap.set(82, (familiar: EntityFamiliar) => {
         // Use the index as a priority of which familiar is forced to move away
         familiar.Index < lilGurdy.Index
       ) {
-        lilGurdy.Position = misc.getOffsetPosition(
+        lilGurdy.Position = getOffsetPosition(
           lilGurdy.Position,
           7,
           lilGurdy.InitSeed,
@@ -62,9 +59,6 @@ functionMap.set(326, (familiar: EntityFamiliar) => {
     const roboBabies = Isaac.FindByType(
       EntityType.ENTITY_FAMILIAR,
       FamiliarVariant.ROBO_BABY_2,
-      -1,
-      false,
-      false,
     );
     for (const roboBaby of roboBabies) {
       if (
@@ -72,7 +66,7 @@ functionMap.set(326, (familiar: EntityFamiliar) => {
         // Use the index as a priority of which Gurdy is forced to move away
         familiar.Index < roboBaby.Index
       ) {
-        roboBaby.Position = misc.getOffsetPosition(
+        roboBaby.Position = getOffsetPosition(
           roboBaby.Position,
           7,
           roboBaby.InitSeed,

@@ -1,5 +1,5 @@
 import g from "../globals";
-import * as misc from "../misc";
+import { getCurrentBaby, getRoomIndex } from "../misc";
 import GlobalsRunBabyTears from "../types/GlobalsRunBabyTears";
 import GlobalsRunRoom from "../types/GlobalsRunRoom";
 import postNewRoomBabyFunctions from "./postNewRoomBabies";
@@ -9,14 +9,13 @@ export function main(): void {
   // Update some cached API functions to avoid crashing
   g.l = g.g.GetLevel();
   g.r = g.g.GetRoom();
-  const player = Isaac.GetPlayer(0);
+  const player = Isaac.GetPlayer();
   if (player !== null) {
     g.p = player;
   }
   g.seeds = g.g.GetSeeds();
   g.itemPool = g.g.GetItemPool();
 
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
   const stage = g.l.GetStage();
   const stageType = g.l.GetStageType();
@@ -35,8 +34,7 @@ export function main(): void {
 }
 
 export function newRoom(): void {
-  // Local variables
-  const roomIndex = misc.getRoomIndex();
+  const roomIndex = getRoomIndex();
   const startingRoomIndex = g.l.GetStartingRoomIndex();
   const roomClear = g.r.IsClear();
   const roomSeed = g.r.GetSpawnSeed();
@@ -56,7 +54,7 @@ export function newRoom(): void {
   g.run.babyTears = new GlobalsRunBabyTears();
 
   // Do nothing if we are not a baby
-  const [, , valid] = misc.getCurrentBaby();
+  const [, , valid] = getCurrentBaby();
   if (!valid) {
     return;
   }
@@ -73,13 +71,12 @@ export function newRoom(): void {
 }
 
 function applyTemporaryEffects() {
-  // Local variables
   const effects = g.p.GetEffects();
   const canFly = g.p.CanFly;
-  const [babyType, baby] = misc.getCurrentBaby();
+  const [babyType, baby] = getCurrentBaby();
 
   // Some babies have flight
-  if (baby.flight && !canFly) {
+  if (baby.flight === true && !canFly) {
     effects.AddCollectibleEffect(CollectibleType.COLLECTIBLE_BIBLE, true);
   }
 

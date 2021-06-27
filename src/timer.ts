@@ -1,5 +1,5 @@
 import g from "./globals";
-import * as misc from "./misc";
+import { getCurrentBaby } from "./misc";
 
 // Variables
 const sprites = {
@@ -10,9 +10,8 @@ const sprites = {
 };
 
 export function display(): void {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
-  const [, baby, valid] = misc.getCurrentBaby();
+  const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
   }
@@ -37,14 +36,8 @@ export function display(): void {
   // Find out how much time has passed since we got hit
   const remainingFrames = finishTime - gameFrameCount;
   const remainingSeconds = remainingFrames / 30;
-  const [
-    hours,
-    minute1,
-    minute2,
-    second1,
-    second2,
-    tenths,
-  ] = convertSecondsToStrings(remainingSeconds);
+  const [hours, minute1, minute2, second1, second2, tenths] =
+    convertSecondsToStrings(remainingSeconds);
 
   const digitLength = 7.25;
   const hourAdjustment = 2;

@@ -1,8 +1,16 @@
 import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
-import * as misc from "../misc";
+import {
+  getCurrentBaby,
+  getRoomIndex,
+  hasFlag,
+  incrementRNG,
+  openAllDoors,
+  removeItemFromItemTracker,
+  spawnRandomPickup,
+} from "../misc";
 import EntityDescription from "../types/EntityDescription";
-import { CollectibleTypeCustom } from "../types/enums";
+import { CollectibleTypeCustom, SoundEffectCustom } from "../types/enums";
 
 export function main(
   player: EntityPlayer,
@@ -10,16 +18,15 @@ export function main(
   damageFlags: int,
   damageSource: EntityRef,
   damageCountdownFrames: int,
-): boolean | null {
-  // Local variables
+): boolean | void {
   const gameFrameCount = g.g.GetFrameCount();
-  const [babyType, baby, valid] = misc.getCurrentBaby();
+  const [babyType, baby, valid] = getCurrentBaby();
   if (!valid) {
-    return null;
+    return undefined;
   }
 
   if (g.run.dealingExtraDamage) {
-    return null;
+    return undefined;
   }
 
   // Check to see if the player is supposed to be temporarily invulnerable
@@ -35,7 +42,7 @@ export function main(
 
   // Check to see if this baby is immune to explosive damage
   if (
-    baby.explosionImmunity &&
+    baby.explosionImmunity === true &&
     (damageFlags & DamageFlag.DAMAGE_EXPLOSION) !== 0
   ) {
     return false;
@@ -52,7 +59,7 @@ export function main(
     );
   }
 
-  return null;
+  return undefined;
 }
 
 const functionMap = new Map<
@@ -63,7 +70,7 @@ const functionMap = new Map<
     damageFlags: int,
     damageSource: EntityRef,
     damageCountdownFrames: int,
-  ) => boolean | null
+  ) => boolean | void
 >();
 
 // Host Baby
@@ -79,8 +86,6 @@ functionMap.set(
     for (let i = 0; i < 10; i++) {
       player.AddBlueSpider(player.Position);
     }
-
-    return null;
   },
 );
 
@@ -115,7 +120,6 @@ functionMap.set(
   ) => {
     // Use Kamikaze on the next 5 frames
     g.run.babyCounters = 5;
-    return null;
   },
 );
 
@@ -152,8 +156,6 @@ functionMap.set(
         npc.HitPoints = npc.MaxHitPoints;
       }
     }
-
-    return null;
   },
 );
 
@@ -168,7 +170,6 @@ functionMap.set(
     _damageCountdownFrames,
   ) => {
     player.UsePill(PillEffect.PILLEFFECT_LEMON_PARTY, 0);
-    return null;
   },
 );
 
@@ -182,7 +183,6 @@ functionMap.set(
     _damageSource,
     _damageCountdownFrames,
   ) => {
-    // Local variables
     const maxHearts = player.GetMaxHearts();
 
     // Removes a heart container on hit
@@ -200,7 +200,7 @@ functionMap.set(
       return false;
     }
 
-    return null;
+    return undefined;
   },
 );
 
@@ -222,8 +222,6 @@ functionMap.set(
       ZERO_VECTOR,
       player,
     );
-
-    return null;
   },
 );
 
@@ -238,7 +236,7 @@ functionMap.set(
     _damageCountdownFrames,
   ) => {
     // Spawns a random heart on hit
-    g.run.randomSeed = misc.incrementRNG(g.run.randomSeed);
+    g.run.randomSeed = incrementRNG(g.run.randomSeed);
     math.randomseed(g.run.randomSeed);
     const heartSubType = math.random(1, 11); // From "Heart" to "Bone Heart"
     Isaac.Spawn(
@@ -249,8 +247,6 @@ functionMap.set(
       ZERO_VECTOR,
       player,
     );
-
-    return null;
   },
 );
 
@@ -265,8 +261,6 @@ functionMap.set(
     _damageCountdownFrames,
   ) => {
     player.UseCard(Card.RUNE_BLACK);
-
-    return null;
   },
 );
 
@@ -280,8 +274,7 @@ functionMap.set(
     _damageSource,
     _damageCountdownFrames,
   ) => {
-    // Local variables
-    const [, baby] = misc.getCurrentBaby();
+    const [, baby] = getCurrentBaby();
     if (baby.numHits === undefined) {
       error(`The "numHits" attribute was not defined for ${baby.name}.`);
     }
@@ -290,14 +283,12 @@ functionMap.set(
     g.run.babyCounters += 1;
     if (g.run.babyCounters >= baby.numHits && !g.run.babyBool) {
       g.run.babyBool = true;
-      g.sfx.Play(SoundEffect.SOUND_SATAN_GROW, 1, 0, false, 1);
-      player.AddCollectible(CollectibleType.COLLECTIBLE_GOAT_HEAD, 0, false);
-      misc.removeItemFromItemTracker(CollectibleType.COLLECTIBLE_GOAT_HEAD);
-      player.AddCollectible(CollectibleType.COLLECTIBLE_DUALITY, 0, false);
-      misc.removeItemFromItemTracker(CollectibleType.COLLECTIBLE_DUALITY);
+      g.sfx.Play(SoundEffect.SOUND_SATAN_GROW, 1, 0);
+      player.AddCollectible(CollectibleType.COLLECTIBLE_GOAT_HEAD);
+      removeItemFromItemTracker(CollectibleType.COLLECTIBLE_GOAT_HEAD);
+      player.AddCollectible(CollectibleType.COLLECTIBLE_DUALITY);
+      removeItemFromItemTracker(CollectibleType.COLLECTIBLE_DUALITY);
     }
-
-    return null;
   },
 );
 
@@ -318,8 +309,6 @@ functionMap.set(
       false,
       false,
     );
-
-    return null;
   },
 );
 
@@ -344,8 +333,6 @@ functionMap.set(
       );
       g.run.babyBool = false;
     }
-
-    return null;
   },
 );
 
@@ -372,8 +359,6 @@ functionMap.set(
       creep.Scale = 10;
       creep.Timeout = 240;
     }
-
-    return null;
   },
 );
 
@@ -387,8 +372,7 @@ functionMap.set(
     _damageSource,
     _damageCountdownFrames,
   ) => {
-    misc.spawnRandomPickup(player.Position);
-    return null;
+    spawnRandomPickup(player.Position);
   },
 );
 
@@ -417,7 +401,7 @@ functionMap.set(
       return false;
     }
 
-    return null;
+    return undefined;
   },
 );
 
@@ -438,8 +422,6 @@ functionMap.set(
       false,
       false,
     );
-
-    return null;
   },
 );
 
@@ -468,7 +450,7 @@ functionMap.set(
       return false;
     }
 
-    return null;
+    return undefined;
   },
 );
 
@@ -483,7 +465,6 @@ functionMap.set(
     _damageCountdownFrames,
   ) => {
     player.UseCard(Card.CARD_FOOL);
-    return null;
   },
 );
 
@@ -504,8 +485,6 @@ functionMap.set(
       false,
       false,
     );
-
-    return null;
   },
 );
 
@@ -524,7 +503,7 @@ functionMap.set(
       return false;
     }
 
-    return null;
+    return undefined;
   },
 );
 
@@ -538,7 +517,6 @@ functionMap.set(
     _damageSource,
     _damageCountdownFrames,
   ) => {
-    // Local variables
     const coins = player.GetNumCoins();
 
     // Sonic-style health
@@ -546,7 +524,7 @@ functionMap.set(
       g.run.dealingExtraDamage = true;
       player.Kill();
       g.run.dealingExtraDamage = false;
-      return null;
+      return;
     }
 
     player.AddCoins(-99);
@@ -567,9 +545,7 @@ functionMap.set(
       const data = coin.GetData();
       data.recovery = true;
     }
-    g.sfx.Play(SoundEffect.SOUND_GOLD_HEART, 1, 0, false, 1);
-
-    return null;
+    g.sfx.Play(SoundEffect.SOUND_GOLD_HEART, 1, 0);
   },
 );
 
@@ -591,8 +567,6 @@ functionMap.set(
       false,
       false,
     );
-
-    return null;
   },
 );
 
@@ -613,8 +587,6 @@ functionMap.set(
       false,
       false,
     );
-
-    return null;
   },
 );
 
@@ -629,7 +601,7 @@ functionMap.set(
     _damageCountdownFrames,
   ) => {
     // Spawns a random key on hit
-    g.run.randomSeed = misc.incrementRNG(g.run.randomSeed);
+    g.run.randomSeed = incrementRNG(g.run.randomSeed);
     g.g.Spawn(
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_KEY,
@@ -639,8 +611,6 @@ functionMap.set(
       0,
       g.run.randomSeed,
     );
-
-    return null;
   },
 );
 
@@ -661,8 +631,6 @@ functionMap.set(
       false,
       false,
     );
-
-    return null;
   },
 );
 
@@ -676,8 +644,7 @@ functionMap.set(
     _damageSource,
     _damageCountdownFrames,
   ) => {
-    misc.openAllDoors();
-    return null;
+    openAllDoors();
   },
 );
 
@@ -723,8 +690,6 @@ functionMap.set(
       ZERO_VECTOR,
       null,
     );
-
-    return null;
   },
 );
 
@@ -745,8 +710,6 @@ functionMap.set(
       false,
       false,
     );
-
-    return null;
   },
 );
 
@@ -761,7 +724,7 @@ functionMap.set(
     _damageCountdownFrames,
   ) => {
     // Spawns a random bomb on hit
-    g.run.randomSeed = misc.incrementRNG(g.run.randomSeed);
+    g.run.randomSeed = incrementRNG(g.run.randomSeed);
     g.g.Spawn(
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_BOMB,
@@ -771,8 +734,6 @@ functionMap.set(
       0,
       g.run.randomSeed,
     );
-
-    return null;
   },
 );
 
@@ -793,8 +754,6 @@ functionMap.set(
       false,
       false,
     );
-
-    return null;
   },
 );
 
@@ -811,8 +770,7 @@ functionMap.set(
     // Takes damage when standing still
     // In this function, we return false instead of null because the damage is from the seed
 
-    // Local variables
-    const roomIndex = misc.getRoomIndex();
+    const roomIndex = getRoomIndex();
     const startingRoomIndex = g.l.GetStartingRoomIndex();
     const gridSize = g.r.GetGridSize();
 
@@ -837,15 +795,12 @@ functionMap.set(
     const bigChests = Isaac.FindByType(
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_BIGCHEST,
-      -1,
-      false,
-      false,
     );
     if (bigChests.length > 0) {
       return false;
     }
 
-    return null;
+    return undefined;
   },
 );
 
@@ -866,8 +821,6 @@ functionMap.set(
       false,
       false,
     );
-
-    return null;
   },
 );
 
@@ -881,19 +834,10 @@ functionMap.set(
     _damageSource,
     _damageCountdownFrames,
   ) => {
-    // Play a custom sound effect if we got hit by a mimic
-    // There are 21 damage flags
-    for (let i = 0; i <= 21; i++) {
-      const bit = (damageFlags & (1 << i)) >>> i;
-
-      // Bit 20 is DAMAGE_CHEST
-      if (i === 20 && bit === 1) {
-        g.sfx.Play(Isaac.GetSoundIdByName("Laugh"), 0.75, 0, false, 1);
-        break;
-      }
+    if (hasFlag(damageFlags, DamageFlag.DAMAGE_CHEST)) {
+      // Play a custom sound effect if we got hit by a mimic
+      g.sfx.Play(SoundEffectCustom.LAUGH, 0.75, 0);
     }
-
-    return null;
   },
 );
 
@@ -914,8 +858,6 @@ functionMap.set(
       false,
       false,
     );
-
-    return null;
   },
 );
 
@@ -936,8 +878,6 @@ functionMap.set(
       false,
       false,
     );
-
-    return null;
   },
 );
 
@@ -958,8 +898,6 @@ functionMap.set(
       false,
       false,
     );
-
-    return null;
   },
 );
 
@@ -982,8 +920,6 @@ functionMap.set(
       ZERO_VECTOR,
       player,
     );
-
-    return null;
   },
 );
 
@@ -1004,8 +940,6 @@ functionMap.set(
       false,
       false,
     );
-
-    return null;
   },
 );
 
@@ -1024,7 +958,7 @@ functionMap.set(
       return false;
     }
 
-    return null;
+    return undefined;
   },
 );
 
@@ -1042,7 +976,7 @@ functionMap.set(
     g.run.babyCounters += 1;
     if (g.run.babyCounters === 6) {
       g.run.babyCounters = 0;
-      g.run.randomSeed = misc.incrementRNG(g.run.randomSeed);
+      g.run.randomSeed = incrementRNG(g.run.randomSeed);
       const position = g.r.FindFreePickupSpawnPosition(
         player.Position,
         1,
@@ -1058,8 +992,6 @@ functionMap.set(
         g.run.randomSeed,
       );
     }
-
-    return null;
   },
 );
 
@@ -1074,14 +1006,14 @@ functionMap.set(
     _damageCountdownFrames,
   ) => {
     // 0.5x speed + 50% chance to ignore damage
-    g.run.randomSeed = misc.incrementRNG(g.run.randomSeed);
+    g.run.randomSeed = incrementRNG(g.run.randomSeed);
     math.randomseed(g.run.randomSeed);
     const avoidChance = math.random(1, 2);
     if (avoidChance === 2) {
       return false;
     }
 
-    return null;
+    return undefined;
   },
 );
 
@@ -1106,8 +1038,6 @@ functionMap.set(
       );
       g.run.babyBool = false;
     }
-
-    return null;
   },
 );
 
@@ -1133,8 +1063,6 @@ functionMap.set(
         false,
       );
     }
-
-    return null;
   },
 );
 
@@ -1151,7 +1079,6 @@ functionMap.set(
     // We want to evaluate the cache, but we can't do it here because the damage is not applied yet,
     // so mark to do it later in the PostUpdate callback
     g.run.babyBool = true;
-    return null;
   },
 );
 
@@ -1172,8 +1099,6 @@ functionMap.set(
       false,
       false,
     );
-
-    return null;
   },
 );
 
@@ -1194,8 +1119,6 @@ functionMap.set(
       false,
       false,
     );
-
-    return null;
   },
 );
 
@@ -1210,7 +1133,6 @@ functionMap.set(
     _damageCountdownFrames,
   ) => {
     player.ShootRedCandle(ZERO_VECTOR);
-    return null;
   },
 );
 
@@ -1231,8 +1153,6 @@ functionMap.set(
       false,
       false,
     );
-
-    return null;
   },
 );
 
@@ -1249,7 +1169,6 @@ functionMap.set(
     g.run.babyCounters += 1;
     player.AddCacheFlags(CacheFlag.CACHE_DAMAGE);
     player.EvaluateItems();
-    return null;
   },
 );
 
@@ -1271,8 +1190,6 @@ functionMap.set(
         npc.AddConfusion(EntityRef(player), 150, false); // 5 seconds
       }
     }
-
-    return null;
   },
 );
 
@@ -1293,8 +1210,6 @@ functionMap.set(
       false,
       false,
     );
-
-    return null;
   },
 );
 
@@ -1310,7 +1225,6 @@ functionMap.set(
   ) => {
     player.UseCard(Card.CARD_HUMANITY);
     // (the animation will automatically be canceled by the damage)
-    return null;
   },
 );
 
@@ -1324,8 +1238,7 @@ functionMap.set(
     _damageSource,
     _damageCountdownFrames,
   ) => {
-    // Local variables
-    const [, baby] = misc.getCurrentBaby();
+    const [, baby] = getCurrentBaby();
     if (baby.numHits === undefined) {
       error(`The "numHits" attribute was not defined for ${baby.name}.`);
     }
@@ -1334,15 +1247,13 @@ functionMap.set(
     if (g.run.babyCounters === baby.numHits) {
       g.run.babyCounters = 0;
       player.UseActiveItem(
-        CollectibleType.COLLECTIBLE_MEGA_SATANS_BREATH,
+        CollectibleType.COLLECTIBLE_MEGA_BLAST,
         false,
         false,
         false,
         false,
       );
     }
-
-    return null;
   },
 );
 
@@ -1367,8 +1278,6 @@ functionMap.set(
         false,
       );
     }
-
-    return null;
   },
 );
 
@@ -1389,8 +1298,6 @@ functionMap.set(
       false,
       false,
     );
-
-    return null;
   },
 );
 
@@ -1404,14 +1311,12 @@ functionMap.set(
     _damageSource,
     _damageCountdownFrames,
   ) => {
-    // Local variables
-    const [, baby] = misc.getCurrentBaby();
+    const [, baby] = getCurrentBaby();
     if (baby.num === undefined) {
       error(`The "num" attribute was not defined for ${baby.name}.`);
     }
 
     player.AddBlueFlies(baby.num, player.Position, null);
-    return null;
   },
 );
 
@@ -1433,8 +1338,6 @@ functionMap.set(
         npc.AddFreeze(EntityRef(player), 150); // 5 seconds
       }
     }
-
-    return null;
   },
 );
 
@@ -1448,15 +1351,12 @@ functionMap.set(
     _damageSource,
     _damageCountdownFrames,
   ) => {
-    // Local variables
     const gameFrameCount = g.g.GetFrameCount();
 
     // Death in 1 minute
     if (g.run.babyCounters === 0) {
       g.run.babyCounters = gameFrameCount + 60 * 30;
     }
-
-    return null;
   },
 );
 
@@ -1473,7 +1373,7 @@ functionMap.set(
     // Random pill effect on hit
     let pillEffect = -1;
     do {
-      g.run.randomSeed = misc.incrementRNG(g.run.randomSeed);
+      g.run.randomSeed = incrementRNG(g.run.randomSeed);
       math.randomseed(g.run.randomSeed);
       pillEffect = math.random(0, PillEffect.NUM_PILL_EFFECTS - 1);
     } while (
@@ -1484,7 +1384,6 @@ functionMap.set(
 
     player.UsePill(pillEffect, 0);
     // (the animation will automatically be canceled by the damage)
-    return null;
   },
 );
 
@@ -1498,14 +1397,13 @@ functionMap.set(
     _damageSource,
     _damageCountdownFrames,
   ) => {
-    // Local variables
-    const [, baby] = misc.getCurrentBaby();
+    const [, baby] = getCurrentBaby();
     if (baby.numHits === undefined) {
       error(`The "numHits" attribute was not defined for ${baby.name}.`);
     }
 
     if (g.run.babyBool) {
-      return null;
+      return;
     }
 
     // Teleport to the boss room after X hits
@@ -1515,8 +1413,6 @@ functionMap.set(
       g.run.babyBool = true;
       player.UseCard(Card.CARD_EMPEROR);
     }
-
-    return null;
   },
 );
 
@@ -1533,7 +1429,7 @@ functionMap.set(
     // Random card effect on hit
     let cardType = -1;
     do {
-      g.run.randomSeed = misc.incrementRNG(g.run.randomSeed);
+      g.run.randomSeed = incrementRNG(g.run.randomSeed);
       math.randomseed(g.run.randomSeed);
       cardType = math.random(1, 54);
     } while (
@@ -1543,7 +1439,6 @@ functionMap.set(
     );
 
     player.UseCard(cardType);
-    return null;
   },
 );
 
@@ -1558,7 +1453,7 @@ functionMap.set(
     _damageCountdownFrames,
   ) => {
     // Spawns a random rune on hit
-    g.run.randomSeed = misc.incrementRNG(g.run.randomSeed);
+    g.run.randomSeed = incrementRNG(g.run.randomSeed);
     math.randomseed(g.run.randomSeed);
     const runeSubType = math.random(Card.RUNE_HAGALAZ, Card.RUNE_BLACK);
     g.g.Spawn(
@@ -1570,8 +1465,6 @@ functionMap.set(
       runeSubType,
       g.run.randomSeed,
     );
-
-    return null;
   },
 );
 
@@ -1585,7 +1478,6 @@ functionMap.set(
     _damageSource,
     _damageCountdownFrames,
   ) => {
-    // Local variables
     const roomFrameCount = g.r.GetFrameCount();
 
     // Double enemies
@@ -1594,7 +1486,7 @@ functionMap.set(
       return false;
     }
 
-    return null;
+    return undefined;
   },
 );
 
@@ -1618,10 +1510,8 @@ functionMap.set(
         player.HasCollectible(itemToTakeAway)
       ) {
         player.RemoveCollectible(itemToTakeAway);
-        misc.removeItemFromItemTracker(itemToTakeAway);
+        removeItemFromItemTracker(itemToTakeAway);
       }
     }
-
-    return null;
   },
 );

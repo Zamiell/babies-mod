@@ -1,11 +1,10 @@
-import * as misc from "../misc";
+import { getCurrentBaby } from "../misc";
 import { PlayerTypeCustom } from "../types/enums";
 import evaluateCacheBabyFunctions from "./evaluateCacheBabies";
 
 export function main(player: EntityPlayer, cacheFlag: CacheFlag): void {
-  // Local variables
   const character = player.GetPlayerType();
-  const [babyType, baby, valid] = misc.getCurrentBaby();
+  const [babyType, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
   }
@@ -19,7 +18,7 @@ export function main(player: EntityPlayer, cacheFlag: CacheFlag): void {
   }
 
   // Handle blindfolded characters
-  if (baby.blindfolded && cacheFlag === CacheFlag.CACHE_FIREDELAY) {
+  if (baby.blindfolded === true && cacheFlag === CacheFlag.CACHE_FIREDELAY) {
     player.MaxFireDelay = 100000;
     // (setting "player.FireDelay" here will not work,
     // so do it one frame later in the PostUpdate callback)

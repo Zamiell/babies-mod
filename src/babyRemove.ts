@@ -1,41 +1,21 @@
 import babyRemoveFunctions from "./babyRemoveFunctions";
 import g from "./globals";
-import * as misc from "./misc";
-import { CollectibleTypeCustom } from "./types/enums";
+import { getCurrentBaby } from "./misc";
 
 export default function babyRemove(): void {
-  // Local variables
-  const [babyType, baby, valid] = misc.getCurrentBaby();
+  const [babyType, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
   }
 
   // If we are on an item baby, remove the item
   if (baby.item !== undefined) {
-    // If the item is in the vanilla Schoolbag, this will successfully remove it
+    // If the item is in the Schoolbag, this will successfully remove it
     g.p.RemoveCollectible(baby.item);
-
-    // We have to handle the Racing+ Schoolbag explicitly
-    if (
-      g.racingPlusEnabled &&
-      g.p.HasCollectible(CollectibleTypeCustom.COLLECTIBLE_SCHOOLBAG_CUSTOM) &&
-      RacingPlusGlobals.run.schoolbag.item === baby.item
-    ) {
-      RacingPlusSchoolbag.remove();
-    }
   }
   if (baby.item2 !== undefined) {
-    // If the item is in the vanilla Schoolbag, this will successfully remove it
+    // If the item is in the Schoolbag, this will successfully remove it
     g.p.RemoveCollectible(baby.item2);
-
-    // We have to handle the Racing+ Schoolbag explicitly
-    if (
-      g.racingPlusEnabled &&
-      g.p.HasCollectible(CollectibleTypeCustom.COLLECTIBLE_SCHOOLBAG_CUSTOM) &&
-      RacingPlusGlobals.run.schoolbag.item === baby.item2
-    ) {
-      RacingPlusSchoolbag.remove();
-    }
   }
 
   // If we are on a multiple item baby, remove the extra items

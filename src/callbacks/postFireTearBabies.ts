@@ -1,5 +1,5 @@
 import g from "../globals";
-import * as misc from "../misc";
+import { getCurrentBaby } from "../misc";
 import TearData from "../types/TearData";
 
 const functionMap = new Map<int, (tear: EntityTear) => void>();
@@ -7,8 +7,7 @@ export default functionMap;
 
 // Bloat Baby
 functionMap.set(2, (tear: EntityTear) => {
-  // Local variables
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for ${baby.name}.`);
   }
@@ -138,7 +137,6 @@ functionMap.set(106, (tear: EntityTear) => {
 
 // Eyemouth Baby
 functionMap.set(111, (tear: EntityTear) => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   // Shoot an extra tear every 3rd shot
@@ -183,8 +181,7 @@ functionMap.set(152, (tear: EntityTear) => {
 
 // Lights Baby
 functionMap.set(165, (tear: EntityTear) => {
-  // Local variables
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for ${baby.name}.`);
   }
@@ -209,7 +206,7 @@ functionMap.set(187, (tear: EntityTear) => {
     tear.Position,
     tear.Velocity,
     tear.SpawnerEntity,
-    BlueFlySubType.BLUEFLY_RED,
+    LocustSubtypes.LOCUST_OF_WRATH,
     tear.InitSeed,
   );
   tear.Remove();
@@ -258,8 +255,7 @@ functionMap.set(231, (tear: EntityTear) => {
 
 // 8 Ball Baby
 functionMap.set(246, (tear: EntityTear) => {
-  // Local variables
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.distance === undefined) {
     error(`The "distance" attribute was not defined for ${baby.name}.`);
   }
@@ -315,42 +311,8 @@ functionMap.set(331, (tear: EntityTear) => {
 
 // Boxers Baby
 functionMap.set(337, (tear: EntityTear) => {
-  // Turn all tears into boxing glove / punch tears similar to Antibirth's Knockout Drops
-  // Find out the size of the tear,
-  // which will determine the corresponding frame/animation for the new sprite
-  const sprite = tear.GetSprite();
-  let tearSize = "RegularTear6"; // Use the 6th one by default
-  for (let i = 0; i < 13; i++) {
-    const animationName = `RegularTear${i}`;
-    if (sprite.IsPlaying(animationName)) {
-      tearSize = animationName;
-      break;
-    }
-  }
-
-  // Change the sprite
-  sprite.Load("gfx/fist_tears.anm2", true);
-  sprite.Play(tearSize, false);
-
-  // By default, the sprite is facing to the right
-  const tearAngle = tear.Velocity.GetAngleDegrees();
-  if (
-    (tearAngle > 90 && tearAngle <= 180) ||
-    (tearAngle >= -180 && tearAngle < -90)
-  ) {
-    // If the tear is shooting to the left, then we need to rotate it and flip the sprite
-    sprite.FlipY = true;
-    sprite.Rotation = tearAngle * -1;
-  } else {
-    // If the tear is shooting to the right, then just rotate it
-    sprite.Rotation = tearAngle;
-  }
-
-  // Mark it as a special tear so that we can play a sound effect later
-  tear.SubType = 1;
-
-  // Apparently, the "tear.SetKnockbackMultiplier()" function does not work,
-  // so we have to set the custom knockback in the "EntityTakeDmg.Entity()" function
+  // Turn all tears into Knockout Drops tears
+  tear.ChangeVariant(TearVariant.FIST);
 });
 
 // X Baby
@@ -382,8 +344,7 @@ functionMap.set(347, (tear: EntityTear) => {
 
 // Mushroom Girl Baby
 functionMap.set(361, (tear: EntityTear) => {
-  // Local variables
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for ${baby.name}.`);
   }
@@ -437,8 +398,7 @@ functionMap.set(380, (tear: EntityTear) => {
 
 // Dark Space Soldier Baby
 functionMap.set(398, (tear: EntityTear) => {
-  // Local variables
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for ${baby.name}.`);
   }
@@ -467,8 +427,7 @@ functionMap.set(410, (tear: EntityTear) => {
 
 // Little Horn Baby
 functionMap.set(429, (tear: EntityTear) => {
-  // Local variables
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for ${baby.name}.`);
   }
@@ -533,7 +492,7 @@ functionMap.set(458, (tear: EntityTear) => {
 
   // Store the initial height
   // (unlike Green Koopa Baby, we do not need to store the velocity)
-  const data = (tear.GetData() as unknown) as TearData;
+  const data = tear.GetData() as unknown as TearData;
   data.Height = tear.Height;
 });
 
@@ -545,7 +504,6 @@ functionMap.set(459, (tear: EntityTear) => {
 
 // Voxdog Baby
 functionMap.set(462, (tear: EntityTear) => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   // Shockwave tears
@@ -606,7 +564,6 @@ functionMap.set(498, (tear: EntityTear) => {
 
 // Mern Baby
 functionMap.set(500, (tear: EntityTear) => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   g.run.babyTears.numFired += 1;
@@ -629,9 +586,6 @@ functionMap.set(504, (tear: EntityTear) => {
     const abels = Isaac.FindByType(
       EntityType.ENTITY_FAMILIAR,
       FamiliarVariant.ABEL,
-      -1,
-      false,
-      false,
     );
     if (abels.length > 0) {
       const abel = abels[0];

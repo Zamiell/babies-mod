@@ -1,5 +1,4 @@
 import g from "./globals";
-import { CollectibleTypeCustom } from "./types/enums";
 
 const functionMap = new Map<int, () => void>();
 export default functionMap;
@@ -83,18 +82,12 @@ functionMap.set(187, () => {
 functionMap.set(219, () => {
   // Starts with The Battery
   // We need to remove any additional charge that has accumulated
-  if (g.p.GetActiveItem() !== 0 && g.p.GetBatteryCharge() > 0) {
-    g.p.DischargeActiveItem();
-    g.p.FullCharge();
-    g.sfx.Stop(SoundEffect.SOUND_BATTERYCHARGE);
-  }
-  if (
-    g.racingPlusEnabled &&
-    g.p.HasCollectible(CollectibleTypeCustom.COLLECTIBLE_SCHOOLBAG_CUSTOM) &&
-    RacingPlusGlobals.run.schoolbag.item !== 0 &&
-    RacingPlusGlobals.run.schoolbag.chargeBattery !== 0
-  ) {
-    RacingPlusGlobals.run.schoolbag.chargeBattery = 0;
+  for (const slot of [ActiveSlot.SLOT_PRIMARY, ActiveSlot.SLOT_SECONDARY]) {
+    if (g.p.GetActiveItem(slot) !== 0 && g.p.GetBatteryCharge(slot) > 0) {
+      g.p.DischargeActiveItem();
+      g.p.FullCharge();
+      g.sfx.Stop(SoundEffect.SOUND_BATTERYCHARGE);
+    }
   }
 });
 
@@ -120,9 +113,6 @@ functionMap.set(376, () => {
   const brains = Isaac.FindByType(
     EntityType.ENTITY_FAMILIAR,
     FamiliarVariant.BOBS_BRAIN,
-    -1,
-    false,
-    false,
   );
   for (const brain of brains) {
     brain.Remove();

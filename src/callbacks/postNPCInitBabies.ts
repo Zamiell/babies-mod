@@ -1,4 +1,4 @@
-import * as misc from "../misc";
+import { setRandomColor } from "../misc";
 
 const functionMap = new Map<int, (npc: EntityNPC) => void>();
 export default functionMap;
@@ -17,5 +17,5 @@ functionMap.set(37, (npc: EntityNPC) => {
 
 // 404 Baby
 functionMap.set(463, (npc: EntityNPC) => {
-  misc.setRandomColor(npc);
+  setRandomColor(npc);
 });

@@ -37,236 +37,266 @@ import * as useItem from "./callbacks/useItem";
 import * as usePill from "./callbacks/usePill";
 import { VERSION } from "./constants";
 import g from "./globals";
-import isaacScriptInit from "./isaacScriptInit";
-import * as misc from "./misc";
+import log from "./log";
+import { getItemConfig } from "./misc";
 import { CollectibleTypeCustom } from "./types/enums";
 
-// Initialize some IsaacScript-specific functions
-isaacScriptInit();
+main();
 
-// Register the mod (the second argument is the API version)
-const babiesMod = RegisterMod("The Babies Mod", 1);
+function main() {
+  const babiesMod = RegisterMod("The Babies Mod", 1);
+  welcomeBanner();
 
-// Make a copy of this object so that we can use it elsewhere
-g.babiesMod = babiesMod; // (this is needed for saving and loading the "save.dat" file)
+  // Make a copy of this object so that we can use it elsewhere
+  g.babiesMod = babiesMod; // (this is needed for saving and loading the "save.dat" file)
 
-// Define miscellaneous callbacks
-babiesMod.AddCallback(ModCallbacks.MC_NPC_UPDATE, NPCUpdate.main); // 0
-babiesMod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate.main); // 1
-babiesMod.AddCallback(ModCallbacks.MC_POST_RENDER, postRender.main); // 2
-babiesMod.AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, familiarUpdate.main); // 6
-babiesMod.AddCallback(ModCallbacks.MC_FAMILIAR_INIT, familiarInit.main); // 7
-babiesMod.AddCallback(ModCallbacks.MC_EVALUATE_CACHE, evaluateCache.main); // 8
-babiesMod.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit.main); // 9
-babiesMod.AddCallback(ModCallbacks.MC_USE_PILL, usePill.main); // 10
-babiesMod.AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, entityTakeDmg.main); // 11
-babiesMod.AddCallback(ModCallbacks.MC_INPUT_ACTION, inputAction.main); // 13
-babiesMod.AddCallback(ModCallbacks.MC_POST_GAME_STARTED, postGameStarted.main); // 15
-babiesMod.AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, postNewLevel.main); // 18
-babiesMod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom.main); // 19
-babiesMod.AddCallback(ModCallbacks.MC_EXECUTE_CMD, executeCmd.main); // 22
-babiesMod.AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, preEntitySpawn.main); // 24
-babiesMod.AddCallback(ModCallbacks.MC_POST_NPC_INIT, postNPCInit.main); // 27
-babiesMod.AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, postPickupInit.main); // 34
-babiesMod.AddCallback(
-  ModCallbacks.MC_POST_PICKUP_SELECTION,
-  postPickupSelection.main,
-); // 37
-babiesMod.AddCallback(
-  ModCallbacks.MC_POST_PICKUP_UPDATE,
-  postPickupUpdate.main,
-); // 38
-babiesMod.AddCallback(ModCallbacks.MC_POST_TEAR_INIT, postTearInit.main); // 39
-babiesMod.AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, postTearUpdate.main); // 40
-babiesMod.AddCallback(
-  ModCallbacks.MC_PRE_TEAR_COLLISION,
-  preTearCollision.main,
-); // 42
-babiesMod.AddCallback(
-  ModCallbacks.MC_POST_PROJECTILE_UPDATE,
-  postProjectileUpdate.main,
-); // 44
-babiesMod.AddCallback(ModCallbacks.MC_POST_LASER_INIT, postLaserInit.main); // 47
-babiesMod.AddCallback(ModCallbacks.MC_POST_LASER_UPDATE, postLaserUpdate.main); // 48
-babiesMod.AddCallback(ModCallbacks.MC_POST_KNIFE_INIT, postKnifeInit.main); // 50
-babiesMod.AddCallback(ModCallbacks.MC_POST_EFFECT_INIT, postEffectInit.main); // 54
-babiesMod.AddCallback(
-  ModCallbacks.MC_POST_EFFECT_UPDATE,
-  postEffectUpdate.main,
-); // 55
-babiesMod.AddCallback(ModCallbacks.MC_POST_BOMB_INIT, postBombInit.main); // 57
-babiesMod.AddCallback(ModCallbacks.MC_POST_BOMB_UPDATE, postBombUpdate.main); // 58
-babiesMod.AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, postFireTear.main); // 61
-babiesMod.AddCallback(
-  ModCallbacks.MC_PRE_GET_COLLECTIBLE,
-  preGetCollectible.main,
-); // 62
-babiesMod.AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, postEntityKill.main); // 68
-babiesMod.AddCallback(
-  ModCallbacks.MC_PRE_ROOM_ENTITY_SPAWN,
-  preRoomEntitySpawn.main,
-); // 71
+  checkBabiesDuplicateName();
+  checkBabiesDuplicateItem();
+  checkBabiesDuplicateTrinket();
 
-// Define post-use item callbacks (3)
-babiesMod.AddCallback(ModCallbacks.MC_USE_ITEM, useItem.main); // 3
-babiesMod.AddCallback(
-  ModCallbacks.MC_USE_ITEM,
-  useItem.shoopDaWhoop,
-  CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP,
-); // 49
-babiesMod.AddCallback(
-  ModCallbacks.MC_USE_ITEM,
-  useItem.monstrosTooth,
-  CollectibleType.COLLECTIBLE_MONSTROS_TOOTH,
-); // 86
-babiesMod.AddCallback(
-  ModCallbacks.MC_USE_ITEM,
-  useItem.howToJump,
-  CollectibleType.COLLECTIBLE_HOW_TO_JUMP,
-); // 282
-babiesMod.AddCallback(
-  ModCallbacks.MC_USE_ITEM,
-  useItem.clockworkAssembly,
-  CollectibleTypeCustom.COLLECTIBLE_CLOCKWORK_ASSEMBLY,
-);
-babiesMod.AddCallback(
-  ModCallbacks.MC_USE_ITEM,
-  useItem.flockOfSuccubi,
-  CollectibleTypeCustom.COLLECTIBLE_FLOCK_OF_SUCCUBI,
-);
-babiesMod.AddCallback(
-  ModCallbacks.MC_USE_ITEM,
-  useItem.chargingStation,
-  CollectibleTypeCustom.COLLECTIBLE_CHARGING_STATION,
-);
-
-// Define card callbacks (5)
-babiesMod.AddCallback(
-  ModCallbacks.MC_USE_CARD,
-  useCard.empress,
-  Card.CARD_EMPRESS,
-); // 4
-babiesMod.AddCallback(
-  ModCallbacks.MC_USE_CARD,
-  useCard.hangedMan,
-  Card.CARD_HANGED_MAN,
-); // 5
-
-// Define pre-use item callbacks (23)
-babiesMod.AddCallback(
-  ModCallbacks.MC_PRE_USE_ITEM,
-  preUseItem.poop,
-  CollectibleType.COLLECTIBLE_POOP, // 36
-);
-babiesMod.AddCallback(
-  ModCallbacks.MC_PRE_USE_ITEM,
-  preUseItem.lemonMishap,
-  CollectibleType.COLLECTIBLE_LEMON_MISHAP, // 56
-);
-babiesMod.AddCallback(
-  ModCallbacks.MC_PRE_USE_ITEM,
-  preUseItem.isaacsTears,
-  CollectibleType.COLLECTIBLE_ISAACS_TEARS, // 323
-);
-babiesMod.AddCallback(
-  ModCallbacks.MC_PRE_USE_ITEM,
-  preUseItem.smelter,
-  CollectibleType.COLLECTIBLE_SMELTER, // 479
-);
-babiesMod.AddCallback(
-  ModCallbacks.MC_PRE_USE_ITEM,
-  preUseItem.brownNugget,
-  CollectibleType.COLLECTIBLE_BROWN_NUGGET, // 504
-);
-
-// Welcome banner
-const modName = "The Babies Mod";
-const welcomeText = `${modName} ${VERSION} initialized.`;
-const hyphens = "-".repeat(welcomeText.length);
-const welcomeTextBorder = `+-${hyphens}-+`;
-Isaac.DebugString(welcomeTextBorder);
-Isaac.DebugString(`| ${welcomeText} |`);
-Isaac.DebugString(welcomeTextBorder);
-
-// Check to see if any of the babies have a duplicate name
-const nameMap = new Map<string, boolean>();
-for (let i = 0; i < g.babies.length; i++) {
-  const baby = g.babies[i];
-
-  if (nameMap.has(baby.name)) {
-    Isaac.DebugString(`ERROR: Baby #${i} has a duplicate name: ${baby.name}`);
-  } else {
-    nameMap.set(baby.name, true);
-  }
+  registerCallbacks(babiesMod);
 }
 
-// Check to see if any of the babies have a duplicate item
-const itemMap = new Map<CollectibleType | CollectibleTypeCustom, boolean>();
-const itemExceptions: Array<CollectibleType | CollectibleTypeCustom> = [
-  CollectibleType.COLLECTIBLE_POOP, // 36
-  CollectibleType.COLLECTIBLE_MOMS_KNIFE, // 114
-  CollectibleType.COLLECTIBLE_BRIMSTONE, // 118
-  CollectibleType.COLLECTIBLE_PONY, // 130
-  CollectibleType.COLLECTIBLE_CANDLE, // 164
-  CollectibleType.COLLECTIBLE_EPIC_FETUS, // 168
-  CollectibleType.COLLECTIBLE_SACRIFICIAL_DAGGER, // 172
-  CollectibleType.COLLECTIBLE_ABEL, // 188
-  CollectibleType.COLLECTIBLE_SAD_BOMBS, // 220
-  CollectibleType.COLLECTIBLE_FIRE_MIND, // 257
-  CollectibleType.COLLECTIBLE_HOW_TO_JUMP, // 282
-  CollectibleType.COLLECTIBLE_GODHEAD, // 331
-  CollectibleType.COLLECTIBLE_THE_WIZ, // 358
-  CollectibleType.COLLECTIBLE_INCUBUS, // 360
-  CollectibleType.COLLECTIBLE_MARKED, // 394
-];
-for (let i = 0; i < g.babies.length; i++) {
-  const baby = g.babies[i];
+function welcomeBanner() {
+  const modName = "The Babies Mod";
+  const welcomeText = `${modName} ${VERSION} initialized.`;
+  const hyphens = "-".repeat(welcomeText.length);
+  const welcomeTextBorder = `+-${hyphens}-+`;
+  log(welcomeTextBorder);
+  log(`| ${welcomeText} |`);
+  log(welcomeTextBorder);
+}
 
-  if (baby.item !== undefined) {
-    if (itemMap.has(baby.item)) {
-      // Make exceptions for items that are deliberately used multiple times
-      if (!itemExceptions.includes(baby.item)) {
-        Isaac.DebugString(
-          `ERROR: Baby #${i} has a duplicate item: ${baby.item}`,
-        );
-      }
+function checkBabiesDuplicateName() {
+  const nameMap = new Map<string, boolean>();
+  for (let i = 0; i < g.babies.length; i++) {
+    const baby = g.babies[i];
+
+    if (nameMap.has(baby.name)) {
+      Isaac.DebugString(`ERROR: Baby #${i} has a duplicate name: ${baby.name}`);
     } else {
       nameMap.set(baby.name, true);
     }
   }
+}
 
-  if (baby.item2 !== undefined) {
-    if (itemMap.has(baby.item2)) {
-      // Make exceptions for items that are deliberately used multiple times
-      if (!itemExceptions.includes(baby.item2)) {
-        Isaac.DebugString(
-          `ERROR: Baby #${i} has a duplicate item: ${baby.item2}`,
-        );
+function checkBabiesDuplicateItem() {
+  const itemMap = new Map<CollectibleType | CollectibleTypeCustom, boolean>();
+  const itemExceptions: Array<CollectibleType | CollectibleTypeCustom> = [
+    CollectibleType.COLLECTIBLE_POOP, // 36
+    CollectibleType.COLLECTIBLE_MOMS_KNIFE, // 114
+    CollectibleType.COLLECTIBLE_BRIMSTONE, // 118
+    CollectibleType.COLLECTIBLE_PONY, // 130
+    CollectibleType.COLLECTIBLE_CANDLE, // 164
+    CollectibleType.COLLECTIBLE_EPIC_FETUS, // 168
+    CollectibleType.COLLECTIBLE_SACRIFICIAL_DAGGER, // 172
+    CollectibleType.COLLECTIBLE_ABEL, // 188
+    CollectibleType.COLLECTIBLE_SAD_BOMBS, // 220
+    CollectibleType.COLLECTIBLE_FIRE_MIND, // 257
+    CollectibleType.COLLECTIBLE_HOW_TO_JUMP, // 282
+    CollectibleType.COLLECTIBLE_GODHEAD, // 331
+    CollectibleType.COLLECTIBLE_THE_WIZ, // 358
+    CollectibleType.COLLECTIBLE_INCUBUS, // 360
+    CollectibleType.COLLECTIBLE_MARKED, // 394
+  ];
+  for (let i = 0; i < g.babies.length; i++) {
+    const baby = g.babies[i];
+
+    if (baby.item !== undefined) {
+      if (itemMap.has(baby.item)) {
+        // Make exceptions for items that are deliberately used multiple times
+        if (!itemExceptions.includes(baby.item)) {
+          Isaac.DebugString(
+            `ERROR: Baby #${i} has a duplicate item: ${baby.item}`,
+          );
+        }
+      } else {
+        itemMap.set(baby.item, true);
       }
-    } else {
-      nameMap.set(baby.name, true);
     }
 
-    if (misc.getItemConfig(baby.item2).Type === ItemType.ITEM_ACTIVE) {
-      Isaac.DebugString(
-        `ERROR: Baby #${i} has an active item in the second slot.`,
-      );
+    if (baby.item2 !== undefined) {
+      if (itemMap.has(baby.item2)) {
+        // Make exceptions for items that are deliberately used multiple times
+        if (!itemExceptions.includes(baby.item2)) {
+          Isaac.DebugString(
+            `ERROR: Baby #${i} has a duplicate item: ${baby.item2}`,
+          );
+        }
+      } else {
+        itemMap.set(baby.item2, true);
+      }
+
+      if (getItemConfig(baby.item2).Type === ItemType.ITEM_ACTIVE) {
+        Isaac.DebugString(
+          `ERROR: Baby #${i} has an active item in the second slot.`,
+        );
+      }
     }
   }
 }
 
-// Check to see if any of the babies have a duplicate trinket
-const trinketMap = new Map<TrinketType, boolean>();
-for (let i = 0; i < g.babies.length; i++) {
-  const baby = g.babies[i];
+function checkBabiesDuplicateTrinket() {
+  const trinketMap = new Map<TrinketType, boolean>();
+  for (let i = 0; i < g.babies.length; i++) {
+    const baby = g.babies[i];
 
-  if (baby.trinket !== undefined) {
-    if (trinketMap.has(baby.trinket)) {
-      Isaac.DebugString(
-        `ERROR: Baby #${i} has a duplicate trinket: ${baby.trinket}`,
-      );
-    } else {
-      trinketMap.set(baby.trinket, true);
+    if (baby.trinket !== undefined) {
+      if (trinketMap.has(baby.trinket)) {
+        Isaac.DebugString(
+          `ERROR: Baby #${i} has a duplicate trinket: ${baby.trinket}`,
+        );
+      } else {
+        trinketMap.set(baby.trinket, true);
+      }
     }
   }
+}
+
+function registerCallbacks(babiesMod: Mod) {
+  registerMiscCallbacks(babiesMod);
+
+  // Register callbacks that take a 3rd argument for a specific thing
+  registerUseItemCallbacks(babiesMod); // 3
+  registerUseCardCallbacks(babiesMod); // 5
+  registerPreUseItemCallbacks(babiesMod); // 23
+}
+
+function registerMiscCallbacks(babiesMod: Mod) {
+  babiesMod.AddCallback(ModCallbacks.MC_NPC_UPDATE, NPCUpdate.main); // 0
+  babiesMod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate.main); // 1
+  babiesMod.AddCallback(ModCallbacks.MC_POST_RENDER, postRender.main); // 2
+  babiesMod.AddCallback(ModCallbacks.MC_USE_ITEM, useItem.main); // 3
+  babiesMod.AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, familiarUpdate.main); // 6
+  babiesMod.AddCallback(ModCallbacks.MC_FAMILIAR_INIT, familiarInit.main); // 7
+  babiesMod.AddCallback(ModCallbacks.MC_EVALUATE_CACHE, evaluateCache.main); // 8
+  babiesMod.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit.main); // 9
+  babiesMod.AddCallback(ModCallbacks.MC_USE_PILL, usePill.main); // 10
+  babiesMod.AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, entityTakeDmg.main); // 11
+  babiesMod.AddCallback(ModCallbacks.MC_INPUT_ACTION, inputAction.main); // 13
+  babiesMod.AddCallback(
+    ModCallbacks.MC_POST_GAME_STARTED,
+    postGameStarted.main,
+  ); // 15
+  babiesMod.AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, postNewLevel.main); // 18
+  babiesMod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom.main); // 19
+  babiesMod.AddCallback(ModCallbacks.MC_EXECUTE_CMD, executeCmd.main); // 22
+  babiesMod.AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, preEntitySpawn.main); // 24
+  babiesMod.AddCallback(ModCallbacks.MC_POST_NPC_INIT, postNPCInit.main); // 27
+  babiesMod.AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, postPickupInit.main); // 34
+  babiesMod.AddCallback(
+    ModCallbacks.MC_POST_PICKUP_SELECTION,
+    postPickupSelection.main,
+  ); // 37
+  babiesMod.AddCallback(
+    ModCallbacks.MC_POST_PICKUP_UPDATE,
+    postPickupUpdate.main,
+  ); // 38
+  babiesMod.AddCallback(ModCallbacks.MC_POST_TEAR_INIT, postTearInit.main); // 39
+  babiesMod.AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, postTearUpdate.main); // 40
+  babiesMod.AddCallback(
+    ModCallbacks.MC_PRE_TEAR_COLLISION,
+    preTearCollision.main,
+  ); // 42
+  babiesMod.AddCallback(
+    ModCallbacks.MC_POST_PROJECTILE_UPDATE,
+    postProjectileUpdate.main,
+  ); // 44
+  babiesMod.AddCallback(ModCallbacks.MC_POST_LASER_INIT, postLaserInit.main); // 47
+  babiesMod.AddCallback(
+    ModCallbacks.MC_POST_LASER_UPDATE,
+    postLaserUpdate.main,
+  ); // 48
+  babiesMod.AddCallback(ModCallbacks.MC_POST_KNIFE_INIT, postKnifeInit.main); // 50
+  babiesMod.AddCallback(ModCallbacks.MC_POST_EFFECT_INIT, postEffectInit.main); // 54
+  babiesMod.AddCallback(
+    ModCallbacks.MC_POST_EFFECT_UPDATE,
+    postEffectUpdate.main,
+  ); // 55
+  babiesMod.AddCallback(ModCallbacks.MC_POST_BOMB_INIT, postBombInit.main); // 57
+  babiesMod.AddCallback(ModCallbacks.MC_POST_BOMB_UPDATE, postBombUpdate.main); // 58
+  babiesMod.AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, postFireTear.main); // 61
+  babiesMod.AddCallback(
+    ModCallbacks.MC_PRE_GET_COLLECTIBLE,
+    preGetCollectible.main,
+  ); // 62
+  babiesMod.AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, postEntityKill.main); // 68
+  babiesMod.AddCallback(
+    ModCallbacks.MC_PRE_ROOM_ENTITY_SPAWN,
+    preRoomEntitySpawn.main,
+  ); // 71
+}
+
+function registerUseItemCallbacks(babiesMod: Mod) {
+  babiesMod.AddCallback(
+    ModCallbacks.MC_USE_ITEM,
+    useItem.shoopDaWhoop,
+    CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP,
+  ); // 49
+  babiesMod.AddCallback(
+    ModCallbacks.MC_USE_ITEM,
+    useItem.monstrosTooth,
+    CollectibleType.COLLECTIBLE_MONSTROS_TOOTH,
+  ); // 86
+  babiesMod.AddCallback(
+    ModCallbacks.MC_USE_ITEM,
+    useItem.howToJump,
+    CollectibleType.COLLECTIBLE_HOW_TO_JUMP,
+  ); // 282
+  babiesMod.AddCallback(
+    ModCallbacks.MC_USE_ITEM,
+    useItem.clockworkAssembly,
+    CollectibleTypeCustom.COLLECTIBLE_CLOCKWORK_ASSEMBLY,
+  );
+  babiesMod.AddCallback(
+    ModCallbacks.MC_USE_ITEM,
+    useItem.flockOfSuccubi,
+    CollectibleTypeCustom.COLLECTIBLE_FLOCK_OF_SUCCUBI,
+  );
+  babiesMod.AddCallback(
+    ModCallbacks.MC_USE_ITEM,
+    useItem.chargingStation,
+    CollectibleTypeCustom.COLLECTIBLE_CHARGING_STATION,
+  );
+}
+
+function registerUseCardCallbacks(babiesMod: Mod) {
+  babiesMod.AddCallback(
+    ModCallbacks.MC_USE_CARD,
+    useCard.empress,
+    Card.CARD_EMPRESS,
+  ); // 4
+  babiesMod.AddCallback(
+    ModCallbacks.MC_USE_CARD,
+    useCard.hangedMan,
+    Card.CARD_HANGED_MAN,
+  ); // 5
+}
+
+function registerPreUseItemCallbacks(babiesMod: Mod) {
+  babiesMod.AddCallback(
+    ModCallbacks.MC_PRE_USE_ITEM,
+    preUseItem.poop,
+    CollectibleType.COLLECTIBLE_POOP, // 36
+  );
+  babiesMod.AddCallback(
+    ModCallbacks.MC_PRE_USE_ITEM,
+    preUseItem.lemonMishap,
+    CollectibleType.COLLECTIBLE_LEMON_MISHAP, // 56
+  );
+  babiesMod.AddCallback(
+    ModCallbacks.MC_PRE_USE_ITEM,
+    preUseItem.isaacsTears,
+    CollectibleType.COLLECTIBLE_ISAACS_TEARS, // 323
+  );
+  babiesMod.AddCallback(
+    ModCallbacks.MC_PRE_USE_ITEM,
+    preUseItem.smelter,
+    CollectibleType.COLLECTIBLE_SMELTER, // 479
+  );
+  babiesMod.AddCallback(
+    ModCallbacks.MC_PRE_USE_ITEM,
+    preUseItem.brownNugget,
+    CollectibleType.COLLECTIBLE_BROWN_NUGGET, // 504
+  );
 }

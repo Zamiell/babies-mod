@@ -1,5 +1,5 @@
 import g from "./globals";
-import * as misc from "./misc";
+import { getCurrentBaby, removeItemFromItemTracker } from "./misc";
 
 const functionMap = new Map<int, () => void>();
 export default functionMap;
@@ -18,8 +18,7 @@ functionMap.set(31, () => {
 
 // Noose Baby
 functionMap.set(39, () => {
-  // Local variables
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.time === undefined) {
     error(`The "time" attribute was not defined for ${baby.name}.`);
   }
@@ -90,8 +89,7 @@ functionMap.set(281, () => {
 
 // Vomit Baby
 functionMap.set(341, () => {
-  // Local variables
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.time === undefined) {
     error(`The "time" attribute was not defined for ${baby.name}.`);
   }
@@ -106,8 +104,7 @@ functionMap.set(343, () => {
 
 // Rabbit Baby
 functionMap.set(350, () => {
-  // Local variables
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for ${baby.name}.`);
   }
@@ -118,14 +115,13 @@ functionMap.set(350, () => {
 // Yellow Princess Baby
 functionMap.set(375, () => {
   // This is the third item given, so we have to handle it manually
-  g.p.AddCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE, 0, false);
-  misc.removeItemFromItemTracker(CollectibleType.COLLECTIBLE_FLAT_STONE);
+  g.p.AddCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE);
+  removeItemFromItemTracker(CollectibleType.COLLECTIBLE_FLAT_STONE);
 });
 
 // Imp Baby
 functionMap.set(386, () => {
-  // Local variables
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for ${baby.name}.`);
   }
@@ -137,14 +133,14 @@ functionMap.set(386, () => {
 
 // Dream Knight Baby
 functionMap.set(393, () => {
-  g.p.AddCollectible(CollectibleType.COLLECTIBLE_KEY_BUM, 0, false);
+  g.p.AddCollectible(CollectibleType.COLLECTIBLE_KEY_BUM);
 });
 
 // Blurred Baby
 functionMap.set(407, () => {
   // This is the third item given, so we have to handle it manually
-  g.p.AddCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE, 0, false);
-  misc.removeItemFromItemTracker(CollectibleType.COLLECTIBLE_FLAT_STONE);
+  g.p.AddCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE);
+  removeItemFromItemTracker(CollectibleType.COLLECTIBLE_FLAT_STONE);
 });
 
 // Rich Baby
@@ -154,8 +150,7 @@ functionMap.set(424, () => {
 
 // Twitchy Baby
 functionMap.set(511, () => {
-  // Local variables
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.max === undefined) {
     error(`The "max" attribute was not defined for ${baby.name}.`);
   }

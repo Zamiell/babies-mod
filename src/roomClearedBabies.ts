@@ -1,13 +1,12 @@
 import { ZERO_VECTOR } from "./constants";
 import g from "./globals";
-import * as misc from "./misc";
+import { addCharge } from "./misc";
 
 const functionMap = new Map<int, () => void>();
 export default functionMap;
 
 // Love Baby
 functionMap.set(1, () => {
-  // Local variables
   const roomSeed = g.r.GetSpawnSeed();
   math.randomseed(roomSeed);
   const heartSubType = math.random(1, 11); // From "Heart" to "Bone Heart"
@@ -25,7 +24,6 @@ functionMap.set(1, () => {
 
 // Bandaid Baby
 functionMap.set(88, () => {
-  // Local variables
   const roomType = g.r.GetType();
   const roomSeed = g.r.GetSpawnSeed();
 
@@ -49,16 +47,11 @@ functionMap.set(88, () => {
 // Jammies Baby
 functionMap.set(192, () => {
   // Extra charge per room cleared
-  misc.addCharge();
-  if (g.racingPlusEnabled) {
-    // This is a no-op if the player does not have the Schoolbag or if the Schoolbag is empty
-    RacingPlusSchoolbag.addCharge(true);
-  }
+  addCharge();
 });
 
 // Fishman Baby
 functionMap.set(384, () => {
-  // Local variables
   const roomSeed = g.r.GetSpawnSeed();
 
   // Random Bomb

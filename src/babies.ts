@@ -131,7 +131,7 @@ const babies: BabyDescription[] = [
     name: "Dead Baby",
     description: "Starts with ???'s Only Friend + blindfolded",
     sprite: "022_baby_dead.png",
-    item: CollectibleType.COLLECTIBLE_BLUEBABYS_ONLY_FRIEND,
+    item: CollectibleType.COLLECTIBLE_BLUE_BABYS_ONLY_FRIEND,
     blindfolded: true,
     softlockPreventionDestroyPoops: true, // ???'s Only Friend cannot kill poops
   },
@@ -811,10 +811,9 @@ const babies: BabyDescription[] = [
   },
   {
     name: "Tears Baby",
-    description: "Starts with the Soul Jar",
+    description: "Starts with the Paschal Candle",
     sprite: "136_baby_tears.png",
-    item: CollectibleTypeCustom.COLLECTIBLE_SOUL_JAR,
-    requiresRacingPlus: true,
+    item: CollectibleType.COLLECTIBLE_PASCHAL_CANDLE,
   },
   {
     name: "Bowling Baby",
@@ -976,7 +975,7 @@ const babies: BabyDescription[] = [
     name: "Black Eye Baby",
     description: "Starts with Leprosy, +5 damage on Leprosy breaking",
     sprite: "164_baby_blackeye.png",
-    item: CollectibleType.COLLECTIBLE_LEPROCY,
+    item: CollectibleType.COLLECTIBLE_LEPROSY,
     num: 5,
   },
   {
@@ -1628,7 +1627,7 @@ const babies: BabyDescription[] = [
     name: "Puppy Baby",
     description: "Starts with Cricket's Head",
     sprite: "271_baby_puppy.png",
-    item: CollectibleType.COLLECTIBLE_MAXS_HEAD,
+    item: CollectibleType.COLLECTIBLE_CRICKETS_HEAD,
   },
   {
     name: "Parrot Baby",
@@ -1931,7 +1930,7 @@ const babies: BabyDescription[] = [
     name: "Maw Baby",
     description: "Starts with Maw of the Void",
     sprite: "319_baby_maw.png",
-    item: CollectibleType.COLLECTIBLE_MAW_OF_VOID,
+    item: CollectibleType.COLLECTIBLE_MAW_OF_THE_VOID,
   },
   {
     name: "Exploding Baby",
@@ -2044,7 +2043,7 @@ const babies: BabyDescription[] = [
   },
   {
     name: "Boxers Baby",
-    description: "Boxing glove tears",
+    description: "Knockout Drops tears",
     sprite: "337_baby_boxers.png",
     mustHaveTears: true,
   },
@@ -2438,7 +2437,7 @@ const babies: BabyDescription[] = [
     name: "Tomboy Baby",
     description: "Starts with We Need to Go Deeper! (uncharged)",
     sprite: "400_baby_tomboy.png",
-    item: CollectibleType.COLLECTIBLE_WE_NEED_GO_DEEPER,
+    item: CollectibleType.COLLECTIBLE_WE_NEED_TO_GO_DEEPER,
     uncharged: true,
   },
   {
@@ -2551,7 +2550,7 @@ const babies: BabyDescription[] = [
     name: "Shadowmage Baby",
     description: "Starts with Death's List",
     sprite: "418_baby_shadowmage.png",
-    item: CollectibleType.COLLECTIBLE_DEATH_LIST,
+    item: CollectibleType.COLLECTIBLE_DEATHS_LIST,
   },
   {
     name: "Firemage Baby",
@@ -2600,7 +2599,7 @@ const babies: BabyDescription[] = [
     name: "Knight Baby",
     description: "Starts with 5x 7 Seals",
     sprite: "426_baby_knight.png",
-    item: CollectibleType.COLLECTIBLE_LIL_HARBINGERS,
+    item: CollectibleType.COLLECTIBLE_7_SEALS,
     itemNum: 5,
   },
   {
@@ -2673,7 +2672,7 @@ const babies: BabyDescription[] = [
     name: "Big Mouth Baby 2",
     description: "Starts with Mega Blast",
     sprite: "438_baby_bigmouth.png",
-    item: CollectibleType.COLLECTIBLE_MEGA_SATANS_BREATH,
+    item: CollectibleType.COLLECTIBLE_MEGA_BLAST,
   },
   {
     name: "Afro Rainbow Baby",

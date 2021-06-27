@@ -1,6 +1,6 @@
 const functionMap = new Map<
   int,
-  (pickup: EntityPickup, variant: int, subType: int) => [int, int] | null
+  (pickup: EntityPickup, variant: int, subType: int) => [int, int] | void
 >();
 export default functionMap;
 
@@ -13,7 +13,7 @@ functionMap.set(237, (_pickup: EntityPickup, variant: int, subType: int) => {
     return [PickupVariant.PICKUP_COIN, CoinSubType.COIN_NICKEL];
   }
 
-  return null;
+  return undefined;
 });
 
 // Merman Baby
@@ -24,7 +24,7 @@ functionMap.set(342, (_pickup: EntityPickup, variant: int, subType: int) => {
     // (use the same SubType, so e.g. a charged key would be converted to a golden bomb)
   }
 
-  return null;
+  return undefined;
 });
 
 // Mermaid Baby
@@ -40,5 +40,5 @@ functionMap.set(395, (_pickup: EntityPickup, variant: int, subType: int) => {
     // (use the same SubType, so e.g. a golden bomb would be converted to a charged key)
   }
 
-  return null;
+  return undefined;
 });

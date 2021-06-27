@@ -1,6 +1,6 @@
 import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
-import * as misc from "../misc";
+import { getCurrentBaby, getRoomIndex } from "../misc";
 
 const functionMap = new Map<int, (npc: EntityNPC) => void>();
 export default functionMap;
@@ -16,7 +16,7 @@ functionMap.set(38, (npc: EntityNPC) => {
   // Spawns a poop per enemy killed
   Isaac.GridSpawn(
     GridEntityType.GRID_POOP,
-    PoopVariant.POOP_NORMAL,
+    PoopVariant.NORMAL,
     npc.Position,
     false,
   );
@@ -24,8 +24,7 @@ functionMap.set(38, (npc: EntityNPC) => {
 
 // Whore Baby
 functionMap.set(43, (npc: EntityNPC) => {
-  // Local variables
-  const roomIndex = misc.getRoomIndex();
+  const roomIndex = getRoomIndex();
 
   // All enemies explode
   // We cannot explode enemies in the PostEntityKill callback due to a crash having to do with black
@@ -131,9 +130,6 @@ functionMap.set(376, (_npc: EntityNPC) => {
   const brains = Isaac.FindByType(
     EntityType.ENTITY_FAMILIAR,
     FamiliarVariant.BOBS_BRAIN,
-    -1,
-    false,
-    false,
   );
   if (brains.length >= 6) {
     return;
@@ -155,8 +151,7 @@ functionMap.set(376, (_npc: EntityNPC) => {
 
 // Blue Wrestler Baby
 functionMap.set(388, (npc: EntityNPC) => {
-  // Local variables
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for ${baby.name}.`);
   }
@@ -188,7 +183,7 @@ functionMap.set(390, (npc: EntityNPC) => {
 functionMap.set(451, (npc: EntityNPC) => {
   Isaac.GridSpawn(
     GridEntityType.GRID_POOP,
-    PoopVariant.POOP_BLACK,
+    PoopVariant.BLACK,
     npc.Position,
     false,
   );

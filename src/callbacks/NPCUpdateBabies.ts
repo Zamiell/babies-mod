@@ -20,7 +20,6 @@ functionMap.set(61, (npc: EntityNPC) => {
 
 // Hooligan Baby
 functionMap.set(514, (npc: EntityNPC) => {
-  // Local variables
   const data = npc.GetData();
 
   // Double enemies

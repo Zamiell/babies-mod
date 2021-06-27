@@ -1,15 +1,14 @@
-import * as misc from "../misc";
+import { getCurrentBaby } from "../misc";
 import postPickupSelectionBabyFunctions from "./postPickupSelectionBabies";
 
 export function main(
   pickup: EntityPickup,
   variant: int,
   subType: int,
-): [int, int] | null {
-  // Local variables
-  const [babyType, , valid] = misc.getCurrentBaby();
+): [int, int] | void {
+  const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
-    return null;
+    return undefined;
   }
 
   const babyFunc = postPickupSelectionBabyFunctions.get(babyType);
@@ -17,5 +16,5 @@ export function main(
     return babyFunc(pickup, variant, subType);
   }
 
-  return null;
+  return undefined;
 }

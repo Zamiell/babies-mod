@@ -1,5 +1,5 @@
 import g from "../globals";
-import * as misc from "../misc";
+import { setRandomColor } from "../misc";
 
 const functionMap = new Map<int, (laser: EntityLaser) => void>();
 export default functionMap;
@@ -27,7 +27,7 @@ functionMap.set(51, (laser: EntityLaser) => {
     laser.SetMaxDistance(75.125); // This is the vanilla Azazel distance
 
     // Making the laser invisible earlier also muted the sound effect, so play it manually
-    g.sfx.Play(SoundEffect.SOUND_BLOOD_LASER_LARGE, 0.75, 0, false, 1);
+    g.sfx.Play(SoundEffect.SOUND_BLOOD_LASER_LARGE, 0.75, 0);
     // (Azazel brimstone is the "large" sound effect instead of the normal one for some reason)
     // (a volume of 1 is a bit too loud)
   }
@@ -46,6 +46,6 @@ functionMap.set(51, (laser: EntityLaser) => {
 functionMap.set(463, (laser: EntityLaser) => {
   // This does not work in the PostLaserInit callback for some reason
   if (laser.FrameCount === 0) {
-    misc.setRandomColor(laser);
+    setRandomColor(laser);
   }
 });

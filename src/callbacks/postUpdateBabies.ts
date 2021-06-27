@@ -1,6 +1,11 @@
 import { TELEPORT_TO_ROOM_TYPE_MAP, ZERO_VECTOR } from "../constants";
 import g from "../globals";
-import * as misc from "../misc";
+import {
+  getCurrentBaby,
+  getRoomIndex,
+  incrementRNG,
+  isActionPressed,
+} from "../misc";
 import * as pseudoRoomClear from "../pseudoRoomClear";
 import { EffectVariantCustom } from "../types/enums";
 import * as postRender from "./postRender";
@@ -10,7 +15,6 @@ export default functionMap;
 
 // Troll Baby
 functionMap.set(6, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   // Every 3 seconds
@@ -28,16 +32,12 @@ functionMap.set(6, () => {
 
 // Bean Baby
 functionMap.set(17, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   // Prevent softlocks that occur if you try to jump into a Big Chest
   const bigChests = Isaac.FindByType(
     EntityType.ENTITY_PICKUP,
     PickupVariant.PICKUP_BIGCHEST,
-    -1,
-    false,
-    false,
   );
   if (bigChests.length > 0) {
     return;
@@ -57,9 +57,8 @@ functionMap.set(17, () => {
 
 // Wrath Baby
 functionMap.set(19, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for ${baby.name}.`);
   }
@@ -77,7 +76,6 @@ functionMap.set(19, () => {
 
 // Wrapped Baby
 functionMap.set(20, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   // If the explosions happen too fast, it looks buggy, so do it instead every 3 frames
@@ -119,9 +117,8 @@ functionMap.set(37, () => {
 
 // Noose Baby
 functionMap.set(39, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.time === undefined) {
     error(`The "time" attribute was not defined for ${baby.name}.`);
   }
@@ -133,10 +130,10 @@ functionMap.set(39, () => {
 
     for (let i = 0; i <= 3; i++) {
       if (
-        misc.isActionPressed(ButtonAction.ACTION_SHOOTLEFT) || // 4
-        misc.isActionPressed(ButtonAction.ACTION_SHOOTRIGHT) || // 5
-        misc.isActionPressed(ButtonAction.ACTION_SHOOTUP) || // 6
-        misc.isActionPressed(ButtonAction.ACTION_SHOOTDOWN) // 7
+        isActionPressed(ButtonAction.ACTION_SHOOTLEFT) || // 4
+        isActionPressed(ButtonAction.ACTION_SHOOTRIGHT) || // 5
+        isActionPressed(ButtonAction.ACTION_SHOOTUP) || // 6
+        isActionPressed(ButtonAction.ACTION_SHOOTDOWN) // 7
       ) {
         g.p.TakeDamage(1, 0, EntityRef(g.p), 0);
         return;
@@ -147,8 +144,7 @@ functionMap.set(39, () => {
 
 // Whore Baby
 functionMap.set(43, () => {
-  // Local variables
-  const roomIndex = misc.getRoomIndex();
+  const roomIndex = getRoomIndex();
 
   // All enemies explode
   // Perform the explosion that was initiated in the PostEntityKill callback
@@ -164,8 +160,7 @@ functionMap.set(43, () => {
 
 // Dark Baby
 functionMap.set(48, () => {
-  // Local variables
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for ${baby.name}.`);
   }
@@ -187,7 +182,6 @@ functionMap.set(48, () => {
 
 // Bound Baby
 functionMap.set(58, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   // Every 7 seconds
@@ -204,19 +198,15 @@ functionMap.set(58, () => {
 
 // Butthole Baby
 functionMap.set(63, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   // Every 5 seconds
   if (gameFrameCount % 150 === 0) {
     // Spawn a random poop
-    g.run.randomSeed = misc.incrementRNG(g.run.randomSeed);
+    g.run.randomSeed = incrementRNG(g.run.randomSeed);
     math.randomseed(g.run.randomSeed);
     const poopVariant = math.random(0, 6);
-    if (
-      poopVariant === PoopVariant.POOP_RED || // 1
-      poopVariant === PoopVariant.POOP_CORN // 2
-    ) {
+    if (poopVariant === PoopVariant.RED || poopVariant === PoopVariant.CORN) {
       // If the poop is this type, it will instantly damage the player,
       // so give them some invulnerability frames
       g.run.invulnerabilityFrame = gameFrameCount + 25;
@@ -224,7 +214,7 @@ functionMap.set(63, () => {
     Isaac.GridSpawn(GridEntityType.GRID_POOP, poopVariant, g.p.Position, false);
 
     // Playing "SoundEffect.SOUND_FART" will randomly play one of the three farting sound effects
-    g.sfx.Play(SoundEffect.SOUND_FART, 1, 0, false, 1);
+    g.sfx.Play(SoundEffect.SOUND_FART, 1, 0);
   }
 });
 
@@ -235,7 +225,6 @@ functionMap.set(64, () => {
 
 // Scream Baby
 functionMap.set(81, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
   const activeCharge = g.p.GetActiveCharge();
   const batteryCharge = g.p.GetBatteryCharge();
@@ -262,7 +251,6 @@ functionMap.set(90, () => {
 
 // Frown Baby
 functionMap.set(96, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   // Every 5 seconds
@@ -306,7 +294,6 @@ functionMap.set(107, () => {
 
 // Pubic Baby
 functionMap.set(110, () => {
-  // Local variables
   const rooms = g.l.GetRooms();
   const roomClear = g.r.IsClear();
 
@@ -354,7 +341,6 @@ functionMap.set(110, () => {
 
 // Eyemouth Baby
 functionMap.set(111, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   if (g.run.babyTears.frame !== 0 && gameFrameCount >= g.run.babyTears.frame) {
@@ -365,7 +351,6 @@ functionMap.set(111, () => {
 
 // Hopeless Baby
 functionMap.set(125, () => {
-  // Local variables
   const keys = g.p.GetNumKeys();
 
   // Keys are hearts
@@ -378,11 +363,10 @@ functionMap.set(125, () => {
 
 // Earwig Baby
 functionMap.set(128, () => {
-  // Local variables
   const startingRoomIndex = g.l.GetStartingRoomIndex();
   const rooms = g.l.GetRooms();
   const centerPos = g.r.GetCenterPos();
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for ${baby.name}.`);
   }
@@ -409,7 +393,7 @@ functionMap.set(128, () => {
     // eslint-disable-next-line no-constant-condition
     while (true) {
       // Get a random room index on the floor
-      g.run.randomSeed = misc.incrementRNG(g.run.randomSeed);
+      g.run.randomSeed = incrementRNG(g.run.randomSeed);
       math.randomseed(g.run.randomSeed);
       const randomIndex = math.random(0, floorIndexes.length - 1);
       const randomFloorIndex = floorIndexes[randomIndex];
@@ -450,7 +434,6 @@ functionMap.set(128, () => {
 
 // Mohawk Baby
 functionMap.set(138, () => {
-  // Local variables
   const bombs = g.p.GetNumBombs();
 
   // Bombs are hearts
@@ -463,7 +446,6 @@ functionMap.set(138, () => {
 
 // Bluebird Baby
 functionMap.set(147, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   if (g.run.babyFrame !== 0 && gameFrameCount >= g.run.babyFrame) {
@@ -481,7 +463,6 @@ functionMap.set(147, () => {
 
 // Awaken Baby
 functionMap.set(155, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   // Every 1 second
@@ -498,7 +479,6 @@ functionMap.set(155, () => {
 
 // Puff Baby
 functionMap.set(156, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
   const hearts = g.p.GetHearts();
   const soulHearts = g.p.GetSoulHearts();
@@ -508,9 +488,6 @@ functionMap.set(156, () => {
   const bigChests = Isaac.FindByType(
     EntityType.ENTITY_PICKUP,
     PickupVariant.PICKUP_BIGCHEST,
-    -1,
-    false,
-    false,
   );
   if (bigChests.length > 0) {
     return;
@@ -535,7 +512,6 @@ functionMap.set(156, () => {
 
 // Pretty Baby
 functionMap.set(158, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   // Every 5 seconds
@@ -553,7 +529,6 @@ functionMap.set(158, () => {
 
 // Digital Baby
 functionMap.set(162, () => {
-  // Local variables
   const roomFrameCount = g.r.GetFrameCount();
 
   if (!g.run.babyBool && roomFrameCount <= 1) {
@@ -569,10 +544,10 @@ functionMap.set(162, () => {
 // Helmet Baby
 functionMap.set(163, () => {
   // Check to see if they are pressing any movement buttons
-  const leftPressed = misc.isActionPressed(ButtonAction.ACTION_LEFT);
-  const rightPressed = misc.isActionPressed(ButtonAction.ACTION_RIGHT);
-  const upPressed = misc.isActionPressed(ButtonAction.ACTION_UP);
-  const downPressed = misc.isActionPressed(ButtonAction.ACTION_DOWN);
+  const leftPressed = isActionPressed(ButtonAction.ACTION_LEFT);
+  const rightPressed = isActionPressed(ButtonAction.ACTION_RIGHT);
+  const upPressed = isActionPressed(ButtonAction.ACTION_UP);
+  const downPressed = isActionPressed(ButtonAction.ACTION_DOWN);
 
   // Keep track of whether they are moving or not
   // Also, fade the character to indicate that they are invulnerable
@@ -624,10 +599,7 @@ functionMap.set(164, () => {
   // We use the "babyCounters" variable to track how Leprocy familiars are in the room
   const leprocyChunks = Isaac.FindByType(
     EntityType.ENTITY_FAMILIAR,
-    FamiliarVariant.LEPROCY,
-    -1,
-    false,
-    false,
+    FamiliarVariant.LEPROSY,
   );
   if (leprocyChunks.length < g.run.babyCounters) {
     g.run.babyCounters -= 1;
@@ -641,9 +613,8 @@ functionMap.set(164, () => {
 
 // Worry Baby
 functionMap.set(167, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for ${baby.name}.`);
   }
@@ -672,7 +643,7 @@ functionMap.set(167, () => {
 functionMap.set(171, () => {
   // Broken machines drop pedestal items
   // (there is no PostSlotUpdate callback so we have to do this here)
-  const slots = Isaac.FindByType(EntityType.ENTITY_SLOT, -1, -1, false, false);
+  const slots = Isaac.FindByType(EntityType.ENTITY_SLOT);
   for (const slot of slots) {
     const sprite = slot.GetSprite();
     const data = slot.GetData();
@@ -682,7 +653,7 @@ functionMap.set(171, () => {
         sprite.IsPlaying("Death")) // Restock machines
     ) {
       data.destroyed = true;
-      g.run.randomSeed = misc.incrementRNG(g.run.randomSeed);
+      g.run.randomSeed = incrementRNG(g.run.randomSeed);
       g.g.Spawn(
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_COLLECTIBLE,
@@ -698,7 +669,6 @@ functionMap.set(171, () => {
 
 // Skull Baby
 functionMap.set(211, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   // Shockwave bombs
@@ -717,7 +687,7 @@ functionMap.set(211, () => {
       const index = g.r.GetGridIndex(tear.position);
       g.r.DestroyGrid(index, true);
       tear.position = tear.position.__add(tear.velocity);
-      g.sfx.Play(SoundEffect.SOUND_ROCK_CRUMBLE, 0.5, 0, false, 1);
+      g.sfx.Play(SoundEffect.SOUND_ROCK_CRUMBLE, 0.5, 0);
       // (if the sound effect plays at full volume, it starts to get annoying)
 
       // Make the shockwave deal damage to the player
@@ -751,7 +721,6 @@ functionMap.set(211, () => {
 
 // Fancy Baby
 functionMap.set(216, () => {
-  // Local variables
   const rooms = g.l.GetRooms();
 
   const item = g.p.QueuedItem.Item;
@@ -780,7 +749,7 @@ functionMap.set(216, () => {
       g.g.StartRoomTransition(
         index,
         Direction.NO_DIRECTION,
-        RoomTransition.TRANSITION_TELEPORT,
+        RoomTransitionAnim.TELEPORT,
       );
       break;
     }
@@ -789,7 +758,6 @@ functionMap.set(216, () => {
 
 // Drool Baby
 functionMap.set(221, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
   const roomClear = g.r.IsClear();
 
@@ -814,7 +782,6 @@ functionMap.set(221, () => {
 
 // Bawl Baby
 functionMap.set(231, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
   const hearts = g.p.GetHearts();
   const soulHearts = g.p.GetSoulHearts();
@@ -824,9 +791,6 @@ functionMap.set(231, () => {
   const bigChests = Isaac.FindByType(
     EntityType.ENTITY_PICKUP,
     PickupVariant.PICKUP_BIGCHEST,
-    -1,
-    false,
-    false,
   );
   if (bigChests.length > 0) {
     return;
@@ -853,7 +817,6 @@ functionMap.set(231, () => {
 
 // Medusa Baby
 functionMap.set(250, () => {
-  // Local variables
   const bombs = g.p.GetNumBombs();
   const keys = g.p.GetNumKeys();
   const coins = g.p.GetNumCoins();
@@ -875,9 +838,8 @@ functionMap.set(250, () => {
 
 // Cloud Baby
 functionMap.set(256, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for ${baby.name}.`);
   }
@@ -895,7 +857,6 @@ functionMap.set(256, () => {
 
 // Raccoon Baby
 functionMap.set(263, () => {
-  // Local variables
   const roomFrameCount = g.r.GetFrameCount();
   const isFirstVisit = g.r.IsFirstVisit();
 
@@ -940,7 +901,6 @@ functionMap.set(267, () => {
 
 // Porcupine Baby
 functionMap.set(270, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   if (gameFrameCount % 150 === 0) {
@@ -957,7 +917,6 @@ functionMap.set(270, () => {
 
 // Heart Baby
 functionMap.set(290, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   if (gameFrameCount % 150 === 0) {
@@ -975,7 +934,6 @@ functionMap.set(290, () => {
 
 // Rider Baby
 functionMap.set(295, () => {
-  // Local variables
   const activeItem = g.p.GetActiveItem();
 
   // Keep the pony fully charged
@@ -987,9 +945,8 @@ functionMap.set(295, () => {
 
 // Pizza Baby
 functionMap.set(303, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.delay === undefined) {
     error(`The "delay" attribute was not defined for ${baby.name}.`);
   }
@@ -1014,7 +971,6 @@ functionMap.set(303, () => {
 
 // Hotdog Baby
 functionMap.set(304, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
   const hearts = g.p.GetHearts();
   const soulHearts = g.p.GetSoulHearts();
@@ -1024,9 +980,6 @@ functionMap.set(304, () => {
   const bigChests = Isaac.FindByType(
     EntityType.ENTITY_PICKUP,
     PickupVariant.PICKUP_BIGCHEST,
-    -1,
-    false,
-    false,
   );
   if (bigChests.length > 0) {
     return;
@@ -1059,7 +1012,6 @@ functionMap.set(307, () => {
 
 // Exploding Baby
 functionMap.set(320, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   // Check to see if we need to reset the cooldown
@@ -1087,9 +1039,8 @@ functionMap.set(336, () => {
 
 // Vomit Baby
 functionMap.set(341, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.time === undefined) {
     error(`The "time" attribute was not defined for ${baby.name}.`);
   }
@@ -1113,7 +1064,6 @@ functionMap.set(341, () => {
 
 // Fourtone Baby
 functionMap.set(348, () => {
-  // Local variables
   const activeItem = g.p.GetActiveItem();
 
   // Keep the Candle always fully charged
@@ -1125,7 +1075,6 @@ functionMap.set(348, () => {
 
 // Grayscale Baby
 functionMap.set(349, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   if (gameFrameCount % 300 === 0) {
@@ -1155,7 +1104,6 @@ functionMap.set(351, () => {
 
 // Pink Princess Baby
 functionMap.set(374, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   if (gameFrameCount % 120 === 0) {
@@ -1174,7 +1122,6 @@ functionMap.set(374, () => {
 
 // Blue Pig Baby
 functionMap.set(382, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   // Every 5 seconds
@@ -1193,9 +1140,8 @@ functionMap.set(382, () => {
 
 // Imp Baby
 functionMap.set(386, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for ${baby.name}.`);
   }
@@ -1243,7 +1189,6 @@ functionMap.set(388, () => {
 
 // Plague Baby
 functionMap.set(396, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   // Every 5 frames
@@ -1265,7 +1210,6 @@ functionMap.set(396, () => {
 
 // Corgi Baby
 functionMap.set(401, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   // Every 1.5 seconds
@@ -1277,7 +1221,6 @@ functionMap.set(401, () => {
 
 // Magic Cat Baby
 functionMap.set(428, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   // Every second
@@ -1294,7 +1237,6 @@ functionMap.set(428, () => {
 
 // Mutated Fish Baby
 functionMap.set(449, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   // Every 7 seconds
@@ -1311,7 +1253,6 @@ functionMap.set(449, () => {
 
 // Voxdog Baby
 functionMap.set(462, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   // Shockwave tears
@@ -1330,7 +1271,7 @@ functionMap.set(462, () => {
       const index = g.r.GetGridIndex(tear.position);
       g.r.DestroyGrid(index, true);
       tear.position = tear.position.__add(tear.velocity);
-      g.sfx.Play(SoundEffect.SOUND_ROCK_CRUMBLE, 0.5, 0, false, 1);
+      g.sfx.Play(SoundEffect.SOUND_ROCK_CRUMBLE, 0.5, 0);
       // (if the sound effect plays at full volume, it starts to get annoying)
 
       // Make the shockwave deal damage to NPCs
@@ -1359,7 +1300,6 @@ functionMap.set(462, () => {
 
 // Scoreboard Baby
 functionMap.set(474, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   if (g.run.babyCounters !== 0) {
@@ -1376,7 +1316,6 @@ functionMap.set(474, () => {
 
 // Cool Orange Baby
 functionMap.set(485, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   if (gameFrameCount % 30 === 0) {
@@ -1398,7 +1337,6 @@ functionMap.set(485, () => {
 
 // Mern Baby
 functionMap.set(500, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   if (g.run.babyTears.frame !== 0 && gameFrameCount >= g.run.babyTears.frame) {
@@ -1409,7 +1347,6 @@ functionMap.set(500, () => {
 
 // Sausage Lover Baby
 functionMap.set(508, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
   const roomClear = g.r.IsClear();
 
@@ -1431,7 +1368,6 @@ functionMap.set(508, () => {
 
 // Baggy Cap Baby
 functionMap.set(519, () => {
-  // Local variables
   const roomClear = g.r.IsClear();
 
   // Check all of the doors
@@ -1450,9 +1386,8 @@ functionMap.set(519, () => {
 
 // Twitchy Baby
 functionMap.set(511, () => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
-  const [, baby] = misc.getCurrentBaby();
+  const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for ${baby.name}.`);
   }
@@ -1480,7 +1415,6 @@ functionMap.set(511, () => {
 
 // Invisible Baby
 functionMap.set(541, () => {
-  // Local variables
   const roomFrameCount = g.r.GetFrameCount();
 
   if (roomFrameCount === 1) {

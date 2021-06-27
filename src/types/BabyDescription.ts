@@ -27,7 +27,6 @@ export default interface BabyDescription {
   requireBombs?: boolean;
   requireCoins?: boolean;
   requireKeys?: boolean;
-  requiresRacingPlus?: boolean;
   seed?: SeedEffect;
   softlockPreventionDestroyPoops?: boolean;
   softlockPreventionIsland?: boolean;

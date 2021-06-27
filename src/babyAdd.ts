@@ -1,17 +1,21 @@
 import babyAddFunctions from "./babyAddFunctions";
 import g from "./globals";
-import * as misc from "./misc";
-import { CollectibleTypeCustom } from "./types/enums";
+import {
+  getCurrentBaby,
+  getItemConfig,
+  getItemMaxCharges,
+  giveItemAndRemoveFromPools,
+  removeItemFromItemTracker,
+} from "./misc";
 
 export default function babyAdd(): void {
-  // Local variables
   const stage = g.l.GetStage();
   const soulHearts = g.p.GetSoulHearts();
   const blackHearts = g.p.GetBlackHearts();
   const coins = g.p.GetNumCoins();
   const bombs = g.p.GetNumBombs();
   const keys = g.p.GetNumKeys();
-  const [babyType, baby, valid] = misc.getCurrentBaby();
+  const [babyType, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
   }
@@ -27,29 +31,20 @@ export default function babyAdd(): void {
   // Check if this is an item baby
   if (baby.item !== undefined) {
     // Check to see if it is an active item
-    if (misc.getItemConfig(baby.item).Type === ItemType.ITEM_ACTIVE) {
+    if (getItemConfig(baby.item).Type === ItemType.ITEM_ACTIVE) {
       // Find out how many charges it should have
       // By default, items are given with a maximum charge
-      let itemCharges = misc.getItemMaxCharges(baby.item);
+      let itemCharges = getItemMaxCharges(baby.item);
       if (baby.uncharged !== undefined) {
         itemCharges = 0;
       }
 
       // Find out where to put it
       if (
-        g.racingPlusEnabled &&
-        g.p.HasCollectible(
-          CollectibleTypeCustom.COLLECTIBLE_SCHOOLBAG_CUSTOM,
-        ) &&
-        RacingPlusGlobals.run.schoolbag.item === 0
-      ) {
-        // There is room in the Racing+ Schoolbag for it, so put it there
-        RacingPlusSchoolbag.put(baby.item, itemCharges);
-      } else if (
         g.p.HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) &&
         g.p.SecondaryActiveItem.Item === 0
       ) {
-        // There is room in the vanilla Schoolbag for it, so put it there
+        // There is room in the Schoolbag for it, so put it there
         // (getting new active items will automatically put the existing active item inside the
         // Schoolbag)
         g.p.AddCollectible(baby.item, itemCharges, false);
@@ -60,27 +55,27 @@ export default function babyAdd(): void {
       }
     } else {
       // Give the passive item
-      g.p.AddCollectible(baby.item, 0, false);
+      g.p.AddCollectible(baby.item);
       Isaac.DebugString(`Added the new baby passive item (${baby.item}).`);
     }
 
-    misc.removeItemFromItemTracker(baby.item);
+    removeItemFromItemTracker(baby.item);
     g.itemPool.RemoveCollectible(baby.item);
   }
 
   // Check if this is a multiple item baby
   if (baby.item !== undefined && baby.itemNum !== undefined) {
     for (let i = 2; i <= baby.itemNum; i++) {
-      g.p.AddCollectible(baby.item, 0, false);
-      misc.removeItemFromItemTracker(baby.item);
+      g.p.AddCollectible(baby.item);
+      removeItemFromItemTracker(baby.item);
     }
   }
 
   // Check if this is a baby that grants a second item
   // (this should always be a passive item; we explicitly check for this in "main.ts")
   if (baby.item2 !== undefined) {
-    misc.giveItemAndRemoveFromPools(baby.item2);
-    misc.removeItemFromItemTracker(baby.item2);
+    giveItemAndRemoveFromPools(baby.item2);
+    removeItemFromItemTracker(baby.item2);
   }
 
   // Reset the soul hearts and black hearts to the way it was before we added the items
@@ -129,9 +124,6 @@ export default function babyAdd(): void {
     const pills = Isaac.FindByType(
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_PILL,
-      -1,
-      false,
-      false,
     );
     for (const pill of pills) {
       pill.Remove();
@@ -145,9 +137,6 @@ export default function babyAdd(): void {
     const cards = Isaac.FindByType(
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_TAROTCARD,
-      -1,
-      false,
-      false,
     );
     for (const card of cards) {
       card.Remove();
@@ -161,9 +150,6 @@ export default function babyAdd(): void {
     const pills = Isaac.FindByType(
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_PILL,
-      -1,
-      false,
-      false,
     );
     for (const pill of pills) {
       pill.Remove();
@@ -175,13 +161,7 @@ export default function babyAdd(): void {
     stage !== 11 // Don't delete the pickups on The Chest / Dark Room
   ) {
     // Delete the starting random pickups
-    const pickups = Isaac.FindByType(
-      EntityType.ENTITY_PICKUP,
-      -1,
-      -1,
-      false,
-      false,
-    );
+    const pickups = Isaac.FindByType(EntityType.ENTITY_PICKUP);
     for (const pickup of pickups) {
       if (pickup.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
         pickup.Remove();
@@ -196,9 +176,6 @@ export default function babyAdd(): void {
     const sacks = Isaac.FindByType(
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_GRAB_BAG,
-      -1,
-      false,
-      false,
     );
     for (const sack of sacks) {
       sack.Remove();
@@ -212,9 +189,6 @@ export default function babyAdd(): void {
     const pills = Isaac.FindByType(
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_PILL,
-      -1,
-      false,
-      false,
     );
     for (const pill of pills) {
       pill.Remove();

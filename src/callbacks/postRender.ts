@@ -1,8 +1,13 @@
 import { DEFAULT_KCOLOR, VERSION } from "../constants";
 import g from "../globals";
-import * as misc from "../misc";
+import {
+  getCurrentBaby,
+  getHeartXOffset,
+  getItemConfig,
+  getScreenCenterPosition,
+  isActionPressed,
+} from "../misc";
 import * as timer from "../timer";
-import { CollectibleTypeCustom } from "../types/enums";
 import postRenderBabyFunctions from "./postRenderBabies";
 
 // Variables
@@ -12,15 +17,14 @@ export function main(): void {
   // Update some cached API functions to avoid crashing
   g.l = g.g.GetLevel();
   g.r = g.g.GetRoom();
-  const player = Isaac.GetPlayer(0);
+  const player = Isaac.GetPlayer();
   if (player !== null) {
     g.p = player;
   }
   g.seeds = g.g.GetSeeds();
   g.itemPool = g.g.GetItemPool();
 
-  // Local variables
-  const [, , valid] = misc.getCurrentBaby();
+  const [, , valid] = getCurrentBaby();
   if (!valid) {
     return;
   }
@@ -36,7 +40,6 @@ export function main(): void {
 
 // This function handles redrawing the player's sprite, if necessary
 function checkPlayerSprite() {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
   const roomFrameCount = g.r.GetFrameCount();
 
@@ -46,9 +49,9 @@ function checkPlayerSprite() {
   }
 
   // Fix the bug where fully charging Maw of the Void will occasionally make the player invisible
-  if (g.p.HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_VOID)) {
+  if (g.p.HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_THE_VOID)) {
     g.p.RemoveCostume(
-      misc.getItemConfig(CollectibleType.COLLECTIBLE_MAW_OF_VOID),
+      getItemConfig(CollectibleType.COLLECTIBLE_MAW_OF_THE_VOID),
     );
   }
 
@@ -59,7 +62,7 @@ function checkPlayerSprite() {
       // Even though we blanked out the costumes for Whore of Babylon, we also have to also remove
       // the costume or else the player sprite will be invisible permanently
       g.p.RemoveCostume(
-        misc.getItemConfig(CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON),
+        getItemConfig(CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON),
       );
     }
 
@@ -98,7 +101,6 @@ function checkPlayerSprite() {
 }
 
 function trackPlayerAnimations() {
-  // Local variables
   const playerSprite = g.p.GetSprite();
 
   // Get the currently playing animation
@@ -143,12 +145,11 @@ function trackPlayerAnimations() {
 // - after a death
 // - after an animation is played
 export function setPlayerSprite(): void {
-  // Local variables
   const playerSprite = g.p.GetSprite();
   const hearts = g.p.GetHearts();
   const effects = g.p.GetEffects();
   const effectsList = effects.GetEffectsList();
-  const [babyType, baby, valid] = misc.getCurrentBaby();
+  const [babyType, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
   }
@@ -158,10 +159,7 @@ export function setPlayerSprite(): void {
 
   // Make exceptions for certain costumes
   if (g.p.HasCollectible(CollectibleType.COLLECTIBLE_DADS_RING)) {
-    g.p.AddCostume(
-      misc.getItemConfig(CollectibleType.COLLECTIBLE_DADS_RING),
-      false,
-    );
+    g.p.AddCostume(getItemConfig(CollectibleType.COLLECTIBLE_DADS_RING), false);
   }
   // (for some reason, Empty Vessel makes the sprite flicker when playing certain animations;
   // there is no known workaround for this)
@@ -177,7 +175,7 @@ export function setPlayerSprite(): void {
     // Make an exception for Butterfly Baby 2 because it already has wings
     baby.name !== "Butterfly Baby 2" // 332
   ) {
-    g.p.AddCostume(misc.getItemConfig(CollectibleType.COLLECTIBLE_FATE), false);
+    g.p.AddCostume(getItemConfig(CollectibleType.COLLECTIBLE_FATE), false);
   }
 
   // Doing this will remove a shield, so detect if there is a shield and add it back if so
@@ -188,7 +186,7 @@ export function setPlayerSprite(): void {
       effect.Item.ID === CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS
     ) {
       g.p.AddCostume(
-        misc.getItemConfig(CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS),
+        getItemConfig(CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS),
         false,
       );
       break;
@@ -201,15 +199,14 @@ export function setPlayerSprite(): void {
 
 // Show what the current baby does in the intro room (or if the player presses the map button)
 function drawBabyIntro() {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
-  const [, baby, valid] = misc.getCurrentBaby();
+  const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
   }
 
   // Make the baby description persist on the screen after the player presses the map button
-  if (misc.isActionPressed(ButtonAction.ACTION_MAP)) {
+  if (isActionPressed(ButtonAction.ACTION_MAP)) {
     g.run.showIntroFrame = gameFrameCount + 60; // 2 seconds
   }
 
@@ -217,8 +214,7 @@ function drawBabyIntro() {
     return;
   }
 
-  // Local variables
-  const center = misc.getScreenCenterPosition();
+  const center = getScreenCenterPosition();
   const scale = 1.75;
 
   let text: string;
@@ -248,13 +244,13 @@ function drawBabyIntro() {
 
 // Draw the baby's number next to the heart count
 function drawBabyNumber() {
-  const [babyType, baby, valid] = misc.getCurrentBaby();
+  const [babyType, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
   }
 
   const text = `#${babyType}`;
-  let x = 55 + misc.getHeartXOffset();
+  let x = 55 + getHeartXOffset();
   if (
     baby.name === "Hopeless Baby" || // 125
     baby.name === "Mohawk Baby" // 138
@@ -268,7 +264,6 @@ function drawBabyNumber() {
 }
 
 function drawVersion() {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   // Make the version persist for at least 2 seconds after the player presses "v"
@@ -280,7 +275,7 @@ function drawVersion() {
     return;
   }
 
-  const center = misc.getScreenCenterPosition();
+  const center = getScreenCenterPosition();
   let text: string;
   let scale: int;
   let x: number;
@@ -303,8 +298,7 @@ function drawVersion() {
 // Draw a temporary icon next to the baby's active item to signify that it will go away at the of
 // the floor
 function drawTempIcon() {
-  // Local variables
-  const [, baby, valid] = misc.getCurrentBaby();
+  const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
   }
@@ -312,7 +306,7 @@ function drawTempIcon() {
   if (baby.item === undefined) {
     return;
   }
-  const itemConfig = misc.getItemConfig(baby.item);
+  const itemConfig = getItemConfig(baby.item);
   if (itemConfig.Type !== ItemType.ITEM_ACTIVE) {
     return;
   }
@@ -330,21 +324,11 @@ function drawTempIcon() {
     // The player has the item in their main active slot
     // Draw the icon in the bottom-right hand corner
     clockSprite.RenderLayer(0, Vector(clockX, clockY));
-  } else if (
-    g.racingPlusEnabled &&
-    g.p.HasCollectible(CollectibleTypeCustom.COLLECTIBLE_SCHOOLBAG_CUSTOM) &&
-    RacingPlusGlobals.run.schoolbag.item === baby.item
-  ) {
-    // The player has the item in the Schoolbag
-    // Draw the icon in the bottom-right hand corner
-    const pos = Vector(clockX + 27, clockY + 32);
-    clockSprite.RenderLayer(0, pos);
   }
 }
 
 function drawBabyEffects() {
-  // Local variables
-  const [babyType, , valid] = misc.getCurrentBaby();
+  const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return;
   }

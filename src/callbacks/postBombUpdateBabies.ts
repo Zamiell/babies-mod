@@ -1,5 +1,5 @@
 import g from "../globals";
-import * as misc from "../misc";
+import { addCharge, getOffsetPosition, incrementRNG } from "../misc";
 
 const functionMap = new Map<int, (bomb: EntityBomb) => void>();
 export default functionMap;
@@ -11,7 +11,7 @@ functionMap.set(75, (bomb: EntityBomb) => {
     bomb.SpawnerType === EntityType.ENTITY_PLAYER &&
     bomb.FrameCount === 51 // Bombs explode on the 51st frame exactly
   ) {
-    g.run.room.RNG = misc.incrementRNG(g.run.room.RNG);
+    g.run.room.RNG = incrementRNG(g.run.room.RNG);
     math.randomseed(g.run.room.RNG);
     const d6chance = math.random(1, 2);
     if (d6chance === 2) {
@@ -33,17 +33,12 @@ functionMap.set(97, (bomb: EntityBomb) => {
     bomb.SpawnerType === EntityType.ENTITY_PLAYER &&
     bomb.FrameCount === 51 // Bombs explode on the 51st frame exactly
   ) {
-    misc.addCharge();
-    if (g.racingPlusEnabled) {
-      // This is a no-op if the player does not have the Schoolbag or if the Schoolbag is empty
-      RacingPlusSchoolbag.addCharge(true);
-    }
+    addCharge();
   }
 });
 
 // Skull Baby
 functionMap.set(211, (bomb: EntityBomb) => {
-  // Local variables
   const gameFrameCount = g.g.GetFrameCount();
 
   // Shockwave bombs
@@ -77,14 +72,13 @@ functionMap.set(211, (bomb: EntityBomb) => {
 
 // Bony Baby
 functionMap.set(284, (bomb: EntityBomb) => {
-  // Local variables
   const data = bomb.GetData();
 
   if (
     bomb.FrameCount === 1 && // Frame 0 does not work
     data.doubled === undefined
   ) {
-    const position = misc.getOffsetPosition(bomb.Position, 15, bomb.InitSeed);
+    const position = getOffsetPosition(bomb.Position, 15, bomb.InitSeed);
     const doubledBomb = g.g
       .Spawn(
         bomb.Type,

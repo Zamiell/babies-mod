@@ -1,5 +1,5 @@
 import g from "../globals";
-import * as misc from "../misc";
+import { getCurrentBaby } from "../misc";
 import preRoomEntitySpawnBabyFunctions from "./preRoomEntitySpawnBabies";
 
 export function main(
@@ -8,17 +8,16 @@ export function main(
   _subType: int,
   _gridIndex: int,
   _seed: int,
-): [int, int, int] | null {
-  // Local variables
+): [int, int, int] | void {
   const roomFrameCount = g.r.GetFrameCount();
-  const [babyType, , valid] = misc.getCurrentBaby();
+  const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
-    return null;
+    return undefined;
   }
 
   // We only care about replacing things when the room is first loading and on the first visit
   if (roomFrameCount !== -1) {
-    return null;
+    return undefined;
   }
 
   const babyFunc = preRoomEntitySpawnBabyFunctions.get(babyType);
@@ -26,5 +25,5 @@ export function main(
     return babyFunc(entityType);
   }
 
-  return null;
+  return undefined;
 }

@@ -1,16 +1,13 @@
-// Note: This callback only fires on frame 1 and onwards
-
 import g from "../globals";
-import * as misc from "../misc";
+import { getCurrentBaby, spawnRandomPickup } from "../misc";
 import pickupTouchedFunctions from "../pickupTouchedFunctions";
 import { CollectibleTypeCustom } from "../types/enums";
 import postPickupUpdateBabyFunctions from "./postPickupUpdateBabies";
 
 export function main(pickup: EntityPickup): void {
-  // Local variables
   const data = pickup.GetData();
   const sprite = pickup.GetSprite();
-  const [babyType, baby, valid] = misc.getCurrentBaby();
+  const [babyType, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
   }
@@ -35,7 +32,7 @@ export function main(pickup: EntityPickup): void {
     !g.p.HasCollectible(CollectibleType.COLLECTIBLE_MOMS_PURSE) && // 139
     !g.p.HasCollectible(CollectibleType.COLLECTIBLE_BELLY_BUTTON) // 458
   ) {
-    misc.spawnRandomPickup(pickup.Position, pickup.Velocity, true);
+    spawnRandomPickup(pickup.Position, pickup.Velocity, true);
     pickup.Remove();
     return;
   }
