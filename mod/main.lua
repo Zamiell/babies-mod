@@ -1920,7 +1920,7 @@ require("lualib_bundle");
 local ____exports = {}
 local ____enums = require("types.enums")
 local CollectibleTypeCustom = ____enums.CollectibleTypeCustom
-____exports.VERSION = "1.2.0"
+____exports.VERSION = "1.2.1"
 ____exports.R7_SEASON_5 = "R+7 (Season 5)"
 ____exports.ZERO_VECTOR = Vector(0, 0)
 ____exports.DEFAULT_KCOLOR = KColor(1, 1, 1, 1)
@@ -2089,7 +2089,7 @@ local ____Globals = require("types.Globals")
 local Globals = ____Globals.default
 local globals = __TS__New(Globals)
 ____exports.default = globals
-SinglePlayerCoopBabies = globals
+BabiesModGlobals = globals
 return ____exports
  end,
 ["log"] = function() --[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]

@@ -1,7 +1,7 @@
 import { CollectibleTypeCustom } from "./types/enums";
 
 // The version is updated automatically by IsaacScript
-export const VERSION = "1.2.0";
+export const VERSION = "1.2.1";
 
 export const R7_SEASON_5 = "R+7 (Season 5)";
 export const ZERO_VECTOR = Vector(0, 0);

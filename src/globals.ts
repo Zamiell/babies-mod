@@ -4,5 +4,5 @@ const globals = new Globals();
 export default globals;
 
 // Set a global variable so that other mods can access our scoped global variables
-declare let SinglePlayerCoopBabies: Globals;
-SinglePlayerCoopBabies = globals; // eslint-disable-line
+declare let BabiesModGlobals: Globals;
+BabiesModGlobals = globals; // eslint-disable-line
