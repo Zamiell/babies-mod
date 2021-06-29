@@ -1920,7 +1920,7 @@ require("lualib_bundle");
 local ____exports = {}
 local ____enums = require("types.enums")
 local CollectibleTypeCustom = ____enums.CollectibleTypeCustom
-____exports.VERSION = "1.1.1"
+____exports.VERSION = "1.2.0"
 ____exports.R7_SEASON_5 = "R+7 (Season 5)"
 ____exports.ZERO_VECTOR = Vector(0, 0)
 ____exports.DEFAULT_KCOLOR = KColor(1, 1, 1, 1)
