@@ -1,5 +1,6 @@
 import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
+import log from "../log";
 import { getItemConfig, gridToPos, incrementRNG, openAllDoors } from "../misc";
 import { CollectibleTypeCustom } from "../types/enums";
 
@@ -355,9 +356,7 @@ functionMap.set(216, () => {
     if (itemID !== 0) {
       positionIndex += 1;
       if (positionIndex > positions.length) {
-        Isaac.DebugString(
-          "Error: This floor has too many special rooms for Fancy Baby.",
-        );
+        log("Error: This floor has too many special rooms for Fancy Baby.");
         return;
       }
       const xy = positions[positionIndex];

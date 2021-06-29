@@ -1,4 +1,5 @@
 import g from "../globals";
+import log from "../log";
 import { getCurrentBaby, getRoomIndex } from "../misc";
 import GlobalsRunBabyTears from "../types/GlobalsRunBabyTears";
 import GlobalsRunRoom from "../types/GlobalsRunRoom";
@@ -19,6 +20,14 @@ export function main(): void {
   const gameFrameCount = g.g.GetFrameCount();
   const stage = g.l.GetStage();
   const stageType = g.l.GetStageType();
+  const roomDesc = g.l.GetCurrentRoomDesc();
+  const roomData = roomDesc.Data;
+  const roomStageID = roomData.StageID;
+  const roomVariant = roomData.Variant;
+
+  log(
+    `MC_POST_NEW_ROOM - ${roomStageID}.${roomVariant} (on stage ${stage}.${stageType}) (game frame ${gameFrameCount})`,
+  );
 
   // Make sure the callbacks run in the right order
   // (naturally, PostNewRoom gets called before the PostNewLevel and PostGameStarted callbacks)
@@ -34,10 +43,21 @@ export function main(): void {
 }
 
 export function newRoom(): void {
-  const roomIndex = getRoomIndex();
+  const gameFrameCount = g.g.GetFrameCount();
+  const stage = g.l.GetStage();
+  const stageType = g.l.GetStageType();
   const startingRoomIndex = g.l.GetStartingRoomIndex();
+  const roomDesc = g.l.GetCurrentRoomDesc();
+  const roomData = roomDesc.Data;
+  const roomStageID = roomData.StageID;
+  const roomVariant = roomData.Variant;
   const roomClear = g.r.IsClear();
   const roomSeed = g.r.GetSpawnSeed();
+  const roomIndex = getRoomIndex();
+
+  log(
+    `MC_POST_NEW_ROOM_2 - ${roomStageID}.${roomVariant} (on stage ${stage}.${stageType}) (game frame ${gameFrameCount})`,
+  );
 
   // Increment level variables
   g.run.level.roomsEntered += 1;

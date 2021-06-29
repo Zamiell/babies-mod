@@ -3,12 +3,19 @@ import babyCheckValid from "../babyCheckValid";
 import babyRemove from "../babyRemove";
 import { R7_SEASON_5 } from "../constants";
 import g from "../globals";
+import log from "../log";
 import { getCurrentBaby, incrementRNG } from "../misc";
 import GlobalsRunLevel from "../types/GlobalsRunLevel";
 import * as postNewRoom from "./postNewRoom";
 
 export function main(): void {
   const gameFrameCount = g.g.GetFrameCount();
+  const stage = g.l.GetStage();
+  const stageType = g.l.GetStageType();
+
+  log(
+    `MC_POST_NEW_LEVEL - ${stage}.${stageType} (game frame ${gameFrameCount}) (BM)`,
+  );
 
   // Make sure the callbacks run in the right order
   // (naturally, PostNewLevel gets called before the PostGameStarted callbacks)
@@ -24,6 +31,10 @@ export function newLevel(): void {
   const stage = g.l.GetStage();
   const stageType = g.l.GetStageType();
   const challenge = Isaac.GetChallenge();
+
+  log(
+    `MC_POST_NEW_LEVEL_2 - ${stage}.${stageType} (game frame ${gameFrameCount})`,
+  );
 
   // Racing+ has a feature to remove duplicate rooms,
   // so it may reseed the floor immediately upon reaching it
@@ -73,7 +84,7 @@ function getNewBaby() {
 
   // Don't get a new baby if we did not start the run as the Random Baby character
   if (!g.run.enabled) {
-    g.run.babyType = 0;
+    g.run.babyType = null;
     return;
   }
 
@@ -111,8 +122,6 @@ function getNewBaby() {
   g.pastBabies.push(babyType);
 
   const [, baby] = getCurrentBaby();
-  Isaac.DebugString(
-    `Randomly chose co-op baby. ${babyType} - ${baby.name} - ${baby.description}`,
-  );
-  Isaac.DebugString(`Tries: ${i}, total past babies: ${g.pastBabies.length}`);
+  log(`Randomly chose baby: ${babyType} - ${baby.name} - ${baby.description}`);
+  log(`Tries: ${i}, total past babies: ${g.pastBabies.length}`);
 }

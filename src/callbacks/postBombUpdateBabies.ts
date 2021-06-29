@@ -63,7 +63,7 @@ functionMap.set(211, (bomb: EntityBomb) => {
       g.run.room.tears.push({
         frame: gameFrameCount,
         position: bomb.Position,
-        velocity: velocity.__mul(30),
+        velocity: velocity.mul(30),
         num: 0,
       });
     }

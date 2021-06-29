@@ -1,5 +1,6 @@
 import { ZERO_VECTOR } from "./constants";
 import g from "./globals";
+import log from "./log";
 import BabyDescription from "./types/BabyDescription";
 import { CollectibleTypeCustom } from "./types/enums";
 
@@ -50,12 +51,16 @@ export function addCharge(singleCharge = false): void {
 
 export function getCurrentBaby(): [int, BabyDescription, boolean] {
   const babyType = g.run.babyType;
-  const baby = g.babies[babyType];
-  if (baby === undefined) {
-    error(`Baby ${babyType} not found.`);
+  if (babyType === null) {
+    return [-1, g.babies[0], false];
   }
 
-  return [babyType, baby, babyType !== 0];
+  const baby = g.babies[babyType];
+  if (baby === undefined) {
+    error(`Baby ${babyType} was not found.`);
+  }
+
+  return [babyType, baby, true];
 }
 
 // Copied from the Racing+ mod
@@ -195,7 +200,7 @@ export function getScreenCenterPosition(): Vector {
   const shape = g.r.GetRoomShape();
   const centerPos = g.r.GetCenterPos();
   const topLeftPos = g.r.GetTopLeftPos();
-  const centerOffset = centerPos.__sub(topLeftPos);
+  const centerOffset = centerPos.sub(topLeftPos);
   const pos = centerPos;
 
   if (centerOffset.X > 260) {
@@ -270,9 +275,7 @@ export function removeItemFromItemTracker(
   collectibleType: CollectibleType | CollectibleTypeCustom,
 ): void {
   const itemConfig = g.itemConfig.GetCollectible(collectibleType);
-  Isaac.DebugString(
-    `Removing collectible ${collectibleType} (${itemConfig.Name})`,
-  );
+  log(`Removing collectible ${collectibleType} (${itemConfig.Name})`);
 }
 
 // Set the entity to a random color

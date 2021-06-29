@@ -1,4 +1,5 @@
 import g from "../globals";
+import log from "../log";
 import { getCurrentBaby, spawnRandomPickup } from "../misc";
 import pickupTouchedFunctions from "../pickupTouchedFunctions";
 import { CollectibleTypeCustom } from "../types/enums";
@@ -40,8 +41,8 @@ export function main(pickup: EntityPickup): void {
   // Keep track of pickups that are touched
   if (sprite.IsPlaying("Collect") && data.touched === undefined) {
     data.touched = true;
-    Isaac.DebugString(
-      `Touched pickup. ${pickup.Type}.${pickup.Variant}.${pickup.SubType} (BM)`,
+    log(
+      `Touched pickup: ${pickup.Type}.${pickup.Variant}.${pickup.SubType} (BM)`,
     );
 
     const babyFunc = pickupTouchedFunctions.get(babyType);

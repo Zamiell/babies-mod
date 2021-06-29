@@ -1,12 +1,19 @@
 import g from "../globals";
+import log from "../log";
 import { giveItemAndRemoveFromPools } from "../misc";
 import { PlayerTypeCustom } from "../types/enums";
 import GlobalsRun from "../types/GlobalsRun";
 import * as postNewLevel from "./postNewLevel";
 
 export function main(isContinued: boolean): void {
-  const character = g.p.GetPlayerType();
+  const startSeedString = g.seeds.GetStartSeedString();
   const randomSeed = g.l.GetDungeonPlacementSeed();
+  const character = g.p.GetPlayerType();
+  const isaacFrameCount = Isaac.GetFrameCount();
+
+  log(
+    `MC_POST_GAME_STARTED - Seed: ${startSeedString} - IsaacFrame: ${isaacFrameCount}`,
+  );
 
   // Don't do anything if this is not a new run
   if (isContinued) {

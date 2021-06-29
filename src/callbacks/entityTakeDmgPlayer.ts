@@ -3,14 +3,13 @@ import g from "../globals";
 import {
   getCurrentBaby,
   getRoomIndex,
-  hasFlag,
   incrementRNG,
   openAllDoors,
   removeItemFromItemTracker,
   spawnRandomPickup,
 } from "../misc";
 import EntityDescription from "../types/EntityDescription";
-import { CollectibleTypeCustom, SoundEffectCustom } from "../types/enums";
+import { CollectibleTypeCustom } from "../types/enums";
 
 export function main(
   player: EntityPlayer,
@@ -530,10 +529,10 @@ functionMap.set(
     player.AddCoins(-99);
     for (let i = 1; i <= coins; i++) {
       // Spawn a Penny
-      let velocity = player.Position.__sub(Isaac.GetRandomPosition());
+      let velocity = player.Position.sub(Isaac.GetRandomPosition());
       velocity = velocity.Normalized();
       const modifier = math.random(4, 20);
-      velocity = velocity.__mul(modifier);
+      velocity = velocity.mul(modifier);
       const coin = Isaac.Spawn(
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_COIN,
@@ -821,23 +820,6 @@ functionMap.set(
       false,
       false,
     );
-  },
-);
-
-// Spiky Demon Baby
-functionMap.set(
-  277,
-  (
-    _player,
-    _damageAmount,
-    damageFlags,
-    _damageSource,
-    _damageCountdownFrames,
-  ) => {
-    if (hasFlag(damageFlags, DamageFlag.DAMAGE_CHEST)) {
-      // Play a custom sound effect if we got hit by a mimic
-      g.sfx.Play(SoundEffectCustom.LAUGH, 0.75, 0);
-    }
   },
 );
 

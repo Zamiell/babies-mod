@@ -1,5 +1,6 @@
 import babyAddFunctions from "./babyAddFunctions";
 import g from "./globals";
+import log from "./log";
 import {
   getCurrentBaby,
   getItemConfig,
@@ -42,7 +43,7 @@ export default function babyAdd(): void {
       // Find out where to put it
       if (
         g.p.HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) &&
-        g.p.SecondaryActiveItem.Item === 0
+        g.p.SecondaryActiveItem !== null
       ) {
         // There is room in the Schoolbag for it, so put it there
         // (getting new active items will automatically put the existing active item inside the
@@ -56,7 +57,7 @@ export default function babyAdd(): void {
     } else {
       // Give the passive item
       g.p.AddCollectible(baby.item);
-      Isaac.DebugString(`Added the new baby passive item (${baby.item}).`);
+      log(`Added the new baby passive item (${baby.item}).`);
     }
 
     removeItemFromItemTracker(baby.item);
@@ -210,5 +211,5 @@ export default function babyAdd(): void {
 
   // We don't have to set the sprite now,
   // because it will be set later on in the PostNewRoom callback
-  Isaac.DebugString(`Applied baby: ${babyType} - ${baby.name}`);
+  log(`Applied baby: ${babyType} - ${baby.name}`);
 }

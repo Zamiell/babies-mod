@@ -1,11 +1,13 @@
 import BabyDescription from "./types/BabyDescription";
 import { CollectibleTypeCustom } from "./types/enums";
 
-// The sprite property is not currently used,
-// but it can be used as a quick reference to see what number the co-op baby is
 const babies: BabyDescription[] = [
-  // We want a blank element at the 0th position so that the number of the baby will correspond to
-  // its array index
+  {
+    name: "Spider Baby",
+    description: "Shoots a Blue Spider every 2nd tear",
+    sprite: "000_baby_spider.png",
+    mustHaveTears: true,
+  },
   {
     name: "Love Baby",
     description: "Spawns a random heart per room cleared",
@@ -334,7 +336,8 @@ const babies: BabyDescription[] = [
     sprite: "056_baby_apollyon.png",
   },
   {
-    name: "Boner Baby",
+    // The achievement is called "Bone Baby" while the sprite filename is called "baby_boner"
+    name: "Bone Baby",
     description: "Starts with Brittle Bones",
     sprite: "057_baby_boner.png",
     item: CollectibleType.COLLECTIBLE_BRITTLE_BONES,
@@ -1661,7 +1664,8 @@ const babies: BabyDescription[] = [
   },
   {
     name: "Spiky Demon Baby",
-    description: "Pre-nerf Mimic Chests",
+    description: "Starts with Dark Arts",
+    item: CollectibleType.COLLECTIBLE_DARK_ARTS,
     sprite: "277_baby_spikydemon.png",
   },
   {
@@ -2986,9 +2990,9 @@ const babies: BabyDescription[] = [
     item: CollectibleTypeCustom.COLLECTIBLE_CLOCKWORK_ASSEMBLY,
   },
   {
-    name: "Falling Baby",
+    name: "Ersatz Baby",
     description: "Starts with Incubus",
-    sprite: "490_baby_falling.png",
+    sprite: "490_baby_ersatz.png",
     item: CollectibleType.COLLECTIBLE_INCUBUS,
   },
   {
@@ -3179,11 +3183,12 @@ const babies: BabyDescription[] = [
     trinket: TrinketType.TRINKET_STORE_CREDIT,
   },
   {
-    // Spider Baby is number 0, but we move it to 521 since Lua tables are 1-indexed
-    name: "Spider Baby",
-    description: "Shoots a Blue Spider every 2nd tear",
-    sprite: "000_baby_spider.png",
-    mustHaveTears: true,
+    name: "Falling Baby", // 521
+    description: "?",
+    // There are two sprites with the prefix of "490_" and this is the second one,
+    // so we assign it at the end
+    sprite: "490_baby_falling.png",
+    item: CollectibleType.COLLECTIBLE_TWISTED_PAIR,
   },
   {
     name: "Brother Bobby", // 522
@@ -3299,7 +3304,7 @@ const babies: BabyDescription[] = [
   {
     name: "Invisible Baby", // 541
     description: "Invisibility",
-    sprite: "n/a",
+    sprite: "invisible.png",
   },
 ];
 export default babies;

@@ -65,9 +65,9 @@ functionMap.set(154, (pickup: EntityPickup) => {
     pickup.Position.Distance(g.p.Position) <= 80
   ) {
     // Scared pickups
-    let velocity = pickup.Position.__sub(g.p.Position);
+    let velocity = pickup.Position.sub(g.p.Position);
     velocity = velocity.Normalized();
-    velocity = velocity.__mul(8);
+    velocity = velocity.mul(8);
     pickup.Velocity = velocity;
   }
 });
@@ -196,34 +196,6 @@ functionMap.set(216, (pickup: EntityPickup) => {
   ) {
     // Delete the rerolled teleports
     pickup.Remove();
-  }
-});
-
-// Spiky Demon Baby
-functionMap.set(277, (pickup: EntityPickup) => {
-  const sprite = pickup.GetSprite();
-  if (
-    pickup.Variant === PickupVariant.PICKUP_SPIKEDCHEST && // 52
-    sprite.GetFilename() !== "gfx/005.052_spikedchest2.anm2"
-  ) {
-    // Replace the sprite with the pre-nerf version
-    sprite.Load("gfx/005.052_spikedchest2.anm2", true);
-    if (pickup.FrameCount === 0) {
-      // We have to play an animation for the new sprite to actually appear
-      sprite.Play("Appear", false);
-    } else {
-      // We have to play an animation for the new sprite to actually appear
-      sprite.Play("Idle", false);
-    }
-  } else if (
-    pickup.Variant === PickupVariant.PICKUP_MIMICCHEST && // 54
-    sprite.GetFilename() !== "gfx/005.054_mimic chest2.anm2"
-  ) {
-    // Replace the sprite with the pre-nerf version
-    sprite.Load("gfx/005.054_mimic chest2.anm2", true);
-
-    // We have to play an animation for the new sprite to actually appear
-    sprite.Play("Appear", false);
   }
 });
 
@@ -382,9 +354,9 @@ functionMap.set(394, (pickup: EntityPickup) => {
     pickup.FrameCount % 35 === 0 && // Every 1.17 seconds
     !pickup.GetSprite().IsPlaying("Collect") // Don't shoot if we already picked it up
   ) {
-    let velocity = g.p.Position.__sub(pickup.Position);
+    let velocity = g.p.Position.sub(pickup.Position);
     velocity = velocity.Normalized();
-    velocity = velocity.__mul(7);
+    velocity = velocity.mul(7);
     Isaac.Spawn(
       EntityType.ENTITY_PROJECTILE,
       ProjectileVariant.PROJECTILE_NORMAL,

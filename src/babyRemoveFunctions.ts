@@ -3,6 +3,19 @@ import g from "./globals";
 const functionMap = new Map<int, () => void>();
 export default functionMap;
 
+// Spider Baby
+functionMap.set(0, () => {
+  // Remove all of the Blue Spiders
+  for (const entity of Isaac.GetRoomEntities()) {
+    if (
+      entity.Type === EntityType.ENTITY_FAMILIAR &&
+      entity.Variant === FamiliarVariant.BLUE_SPIDER
+    ) {
+      entity.Remove();
+    }
+  }
+});
+
 // Hive Baby
 functionMap.set(40, () => {
   // Remove all of the Blue Flies and Blue Spiders
@@ -136,19 +149,6 @@ functionMap.set(515, () => {
   // Only one Pretty Fly is removed after removing a Halo of Flies
   // Thus, after removing 2x Halo of Flies, one fly remains
   g.p.RemoveCollectible(CollectibleType.COLLECTIBLE_HALO_OF_FLIES);
-});
-
-// Spider Baby
-functionMap.set(521, () => {
-  // Remove all of the Blue Spiders
-  for (const entity of Isaac.GetRoomEntities()) {
-    if (
-      entity.Type === EntityType.ENTITY_FAMILIAR &&
-      entity.Variant === FamiliarVariant.BLUE_SPIDER
-    ) {
-      entity.Remove();
-    }
-  }
 });
 
 // Rotten Baby

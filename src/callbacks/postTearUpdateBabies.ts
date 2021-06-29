@@ -60,10 +60,10 @@ functionMap.set(213, (tear: EntityTear) => {
 
     // Super homing tears
     const initialSpeed = tear.Velocity.LengthSquared();
-    tear.Velocity = closestNPC.Position.__sub(tear.Position);
+    tear.Velocity = closestNPC.Position.sub(tear.Position);
     tear.Velocity = tear.Velocity.Normalized();
     while (tear.Velocity.LengthSquared() < initialSpeed) {
-      tear.Velocity = tear.Velocity.__mul(1.1);
+      tear.Velocity = tear.Velocity.mul(1.1);
     }
   }
 });
@@ -107,7 +107,7 @@ functionMap.set(246, (tear: EntityTear) => {
   let positionMod = Vector(0, baby.distance * -1); // The tear starts directly above the player
   const degrees = tear.FrameCount * 8; // Tears rotate 4 degrees per frame
   positionMod = positionMod.Rotated(degrees);
-  tear.Position = g.p.Position.__add(positionMod);
+  tear.Position = g.p.Position.add(positionMod);
 
   // We want the tear to be moving perpendicular to the line between the player and the tear
   tear.Velocity = Vector(baby.distance / 4, 0);
@@ -236,7 +236,7 @@ functionMap.set(458, (tear: EntityTear) => {
 
     // However, we can't apply a static velocity or else the shells won't home
     tear.Velocity = tear.Velocity.Normalized();
-    tear.Velocity = tear.Velocity.__mul(10);
+    tear.Velocity = tear.Velocity.mul(10);
   } else {
     // The tear has lived long enough, so manually kill it
     tear.Remove();

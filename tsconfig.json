@@ -1,35 +1,27 @@
+// The configuration file for TypeScript
 {
+  // We extend the standard IsaacScript config
+  // https://github.com/IsaacScript/isaacscript-tsconfig/blob/main/tsconfig.mod.json
+  "extends": "isaacscript-tsconfig/tsconfig.mod.json",
+
   // https://www.typescriptlang.org/docs/handbook/compiler-options.html
   "compilerOptions": {
-    // Recommended as per TypeScriptToLua
-    // https://typescripttolua.github.io/docs/getting-started/
-    "target": "ESNext",
-    "lib": ["ESNext"],
-    "moduleResolution": "Node",
-    "types": ["isaac-typescript-definitions"],
+    // Specifies the root folder within your source files
     "rootDir": "./src",
 
-    // We want the compiler to be as strict as possible to catch all the things
-    // By default, these flags are false
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-
-    // "newLine" specifies the end of line sequence
-    // By default, it is "crlf" on Windows; we want to always use "lf" in order to match the code
-    // base and reduce the file size of the output
-    "newLine": "lf",
+    // Specifies the directory of the output
+    "outDir": "./mod",
   },
 
+  // A list of the TypeScript files to compile
   "include": [
     "./src/**/*.ts",
   ],
 
+  // TypeScriptToLua settings
   "tstl": {
     "luaTarget": "5.3",
-    "luaBundle": "./mod/main.lua", // Will bundle all output Lua files into a single file
+    "luaBundle": "main.lua", // Will bundle all output Lua files into a single file
     "luaBundleEntry": "./src/main.ts",
   },
 }

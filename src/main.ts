@@ -73,7 +73,7 @@ function checkBabiesDuplicateName() {
     const baby = g.babies[i];
 
     if (nameMap.has(baby.name)) {
-      Isaac.DebugString(`ERROR: Baby #${i} has a duplicate name: ${baby.name}`);
+      log(`ERROR: Baby #${i} has a duplicate name: ${baby.name}`);
     } else {
       nameMap.set(baby.name, true);
     }
@@ -81,7 +81,6 @@ function checkBabiesDuplicateName() {
 }
 
 function checkBabiesDuplicateItem() {
-  const itemMap = new Map<CollectibleType | CollectibleTypeCustom, boolean>();
   const itemExceptions: Array<CollectibleType | CollectibleTypeCustom> = [
     CollectibleType.COLLECTIBLE_POOP, // 36
     CollectibleType.COLLECTIBLE_MOMS_KNIFE, // 114
@@ -94,7 +93,6 @@ function checkBabiesDuplicateItem() {
     CollectibleType.COLLECTIBLE_SAD_BOMBS, // 220
     CollectibleType.COLLECTIBLE_FIRE_MIND, // 257
     CollectibleType.COLLECTIBLE_HOW_TO_JUMP, // 282
-    CollectibleType.COLLECTIBLE_GODHEAD, // 331
     CollectibleType.COLLECTIBLE_THE_WIZ, // 358
     CollectibleType.COLLECTIBLE_INCUBUS, // 360
     CollectibleType.COLLECTIBLE_MARKED, // 394
@@ -102,36 +100,49 @@ function checkBabiesDuplicateItem() {
   for (let i = 0; i < g.babies.length; i++) {
     const baby = g.babies[i];
 
-    if (baby.item !== undefined) {
-      if (itemMap.has(baby.item)) {
-        // Make exceptions for items that are deliberately used multiple times
-        if (!itemExceptions.includes(baby.item)) {
-          Isaac.DebugString(
-            `ERROR: Baby #${i} has a duplicate item: ${baby.item}`,
-          );
+    if (baby.item !== undefined && baby.item2 === undefined) {
+      for (let j = 0; j < g.babies.length; j++) {
+        if (i === j) {
+          continue;
         }
-      } else {
-        itemMap.set(baby.item, true);
+
+        const baby2 = g.babies[j];
+        if (
+          baby2.item !== undefined &&
+          baby2.item2 === undefined &&
+          baby2.item === baby.item &&
+          !itemExceptions.includes(baby.item)
+        ) {
+          log(`ERROR: Baby #${i} has a duplicate item: ${baby.item}`);
+        }
       }
     }
 
-    if (baby.item2 !== undefined) {
-      if (itemMap.has(baby.item2)) {
-        // Make exceptions for items that are deliberately used multiple times
-        if (!itemExceptions.includes(baby.item2)) {
-          Isaac.DebugString(
-            `ERROR: Baby #${i} has a duplicate item: ${baby.item2}`,
+    if (baby.item !== undefined && baby.item2 !== undefined) {
+      for (let j = 0; j < g.babies.length; j++) {
+        if (i === j) {
+          continue;
+        }
+
+        const baby2 = g.babies[j];
+        if (
+          baby2.item !== undefined &&
+          baby2.item2 !== undefined &&
+          (baby2.item === baby.item || baby2.item2 === baby.item) &&
+          (baby2.item === baby.item2 || baby2.item2 === baby.item2)
+        ) {
+          log(
+            `ERROR: Baby #${i} has a duplicate pair of items: ${baby.item} & ${baby.item2}`,
           );
         }
-      } else {
-        itemMap.set(baby.item2, true);
       }
+    }
 
-      if (getItemConfig(baby.item2).Type === ItemType.ITEM_ACTIVE) {
-        Isaac.DebugString(
-          `ERROR: Baby #${i} has an active item in the second slot.`,
-        );
-      }
+    if (
+      baby.item2 !== undefined &&
+      getItemConfig(baby.item2).Type === ItemType.ITEM_ACTIVE
+    ) {
+      log(`ERROR: Baby #${i} has an active item in the second slot.`);
     }
   }
 }
@@ -143,9 +154,7 @@ function checkBabiesDuplicateTrinket() {
 
     if (baby.trinket !== undefined) {
       if (trinketMap.has(baby.trinket)) {
-        Isaac.DebugString(
-          `ERROR: Baby #${i} has a duplicate trinket: ${baby.trinket}`,
-        );
+        log(`ERROR: Baby #${i} has a duplicate trinket: ${baby.trinket}`);
       } else {
         trinketMap.set(baby.trinket, true);
       }

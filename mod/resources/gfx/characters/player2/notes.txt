@@ -1,3 +1,2 @@
-Some images are not 32x256, which will cause graphical glitches with the "001.000_player_co-op.anm2" file, so they have been explicitly resized to 32x256 here.
-
-The "220_baby_plug.png" was edited to remove a graphical bug on the 3rd frame.
+- Some images are not 32x256, which will cause graphical glitches with the "001.000_player_co-op.anm2" file, so they have been explicitly resized to 32x256 here.
+- The "220_baby_plug.png" was edited to remove a graphical bug on the 3rd frame.

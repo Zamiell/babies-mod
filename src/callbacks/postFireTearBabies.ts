@@ -5,6 +5,18 @@ import TearData from "../types/TearData";
 const functionMap = new Map<int, (tear: EntityTear) => void>();
 export default functionMap;
 
+// Spider Baby
+functionMap.set(0, (tear: EntityTear) => {
+  g.run.babyCounters += 1;
+  if (g.run.babyCounters === 2) {
+    g.run.babyCounters = 0;
+
+    // Every second tear spawns a spider
+    g.p.ThrowBlueSpider(g.p.Position, g.p.Position);
+    tear.Remove();
+  }
+});
+
 // Bloat Baby
 functionMap.set(2, (tear: EntityTear) => {
   const [, baby] = getCurrentBaby();
@@ -73,8 +85,8 @@ functionMap.set(55, (tear: EntityTear) => {
 // Big Eyes Baby
 functionMap.set(59, (tear: EntityTear) => {
   // Tears cause self-knockback
-  const knockbackVelocity = tear.Velocity.__mul(-0.75);
-  g.p.Velocity = g.p.Velocity.__add(knockbackVelocity);
+  const knockbackVelocity = tear.Velocity.mul(-0.75);
+  g.p.Velocity = g.p.Velocity.add(knockbackVelocity);
 });
 
 // Mustache Baby
@@ -510,7 +522,7 @@ functionMap.set(462, (tear: EntityTear) => {
   g.run.room.tears.push({
     frame: gameFrameCount,
     position: tear.Position,
-    velocity: tear.Velocity.Normalized().__mul(30),
+    velocity: tear.Velocity.Normalized().mul(30),
     num: 0,
   });
   tear.Remove();
@@ -590,8 +602,6 @@ functionMap.set(504, (tear: EntityTear) => {
     if (abels.length > 0) {
       const abel = abels[0];
       tear.Position = abel.Position;
-    } else {
-      Isaac.DebugString("Error: Abel was not found.");
     }
   }
 });
@@ -600,18 +610,6 @@ functionMap.set(504, (tear: EntityTear) => {
 functionMap.set(517, (tear: EntityTear) => {
   tear.ChangeVariant(TearVariant.EGG);
   tear.TearFlags |= TearFlags.TEAR_EGG;
-});
-
-// Spider Baby
-functionMap.set(521, (tear: EntityTear) => {
-  g.run.babyCounters += 1;
-  if (g.run.babyCounters === 2) {
-    g.run.babyCounters = 0;
-
-    // Every second tear spawns a spider
-    g.p.ThrowBlueSpider(g.p.Position, g.p.Position);
-    tear.Remove();
-  }
 });
 
 // Abel

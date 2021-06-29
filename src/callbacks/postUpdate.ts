@@ -1,5 +1,6 @@
 import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
+import log from "../log";
 import {
   getCurrentBaby,
   getRoomIndex,
@@ -137,14 +138,14 @@ function checkTrinket() {
     g.p.AddTrinket(baby.trinket);
     // (we cannot cancel the animation or it will cause a bug where the player cannot pick up
     // pedestal items)
-    Isaac.DebugString("Dropped trinket detected; manually giving it back.");
+    log("Dropped trinket detected; manually giving it back.");
     return;
   }
 
   // The trinket is gone but it was not found on the floor, so the trinket must have been destroyed
   // (e.g. Walnut)
   g.run.level.trinketGone = true;
-  Isaac.DebugString("Trinket has been destroyed!");
+  log("Trinket has been destroyed!");
 
   // Handle special trinket deletion circumstances
   if (baby.name === "Squirrel Baby") {
@@ -237,7 +238,7 @@ function checkSoftlockDestroyPoops() {
       }
     }
   }
-  Isaac.DebugString("Destroyed all poops & TNT barrels to prevent a softlock.");
+  log("Destroyed all poops & TNT barrels to prevent a softlock.");
 }
 
 // On certain babies, open the doors after 30 seconds to prevent softlocks with Hosts and island

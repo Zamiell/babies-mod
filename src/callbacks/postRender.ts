@@ -1,5 +1,6 @@
 import { DEFAULT_KCOLOR, VERSION } from "../constants";
 import g from "../globals";
+import log from "../log";
 import {
   getCurrentBaby,
   getHeartXOffset,
@@ -9,6 +10,11 @@ import {
 } from "../misc";
 import * as timer from "../timer";
 import postRenderBabyFunctions from "./postRenderBabies";
+
+// Constants
+const CUSTOM_PLAYER_ANM2 = "gfx/001.000_player_custom_baby.anm2";
+const PLAYER_SPRITESHEET_LAYERS = 12;
+const LAST_BABY_WITH_SPRITE_IN_PLAYER2_DIRECTORY = 521;
 
 // Variables
 let clockSprite: Sprite | null = null;
@@ -24,6 +30,8 @@ export function main(): void {
   g.seeds = g.g.GetSeeds();
   g.itemPool = g.g.GetItemPool();
 
+  drawVersion();
+
   const [, , valid] = getCurrentBaby();
   if (!valid) {
     return;
@@ -32,7 +40,6 @@ export function main(): void {
   checkPlayerSprite();
   drawBabyIntro();
   drawBabyNumber();
-  drawVersion();
   drawTempIcon();
   drawBabyEffects();
   timer.display();
@@ -194,7 +201,23 @@ export function setPlayerSprite(): void {
   }
 
   // Replace the player sprite with a co-op baby version
-  playerSprite.Load(`gfx/co-op/${babyType}.anm2`, true);
+  const fileName = playerSprite.GetFilename();
+  if (fileName === CUSTOM_PLAYER_ANM2) {
+    return;
+  }
+  // Most of the babies use the vanilla baby sprites
+  // We also make some extra babies that use familiar sprites,
+  // and we insert these at the end of the array
+  const gfxDirectory =
+    babyType <= LAST_BABY_WITH_SPRITE_IN_PLAYER2_DIRECTORY
+      ? "gfx/characters/player2"
+      : "gfx/familiar";
+  playerSprite.Load(CUSTOM_PLAYER_ANM2, false);
+  for (let i = 0; i <= PLAYER_SPRITESHEET_LAYERS; i++) {
+    playerSprite.ReplaceSpritesheet(i, `${gfxDirectory}/${baby.sprite}`);
+  }
+  playerSprite.LoadGraphics();
+  log("Applied custom baby anm2.");
 }
 
 // Show what the current baby does in the intro room (or if the player presses the map button)

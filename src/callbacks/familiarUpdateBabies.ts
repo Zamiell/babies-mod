@@ -93,7 +93,7 @@ functionMap.set(403, (familiar: EntityFamiliar) => {
     familiar.Variant === FamiliarVariant.YO_LISTEN &&
     familiar.FrameCount % 5 === 0
   ) {
-    familiar.Velocity = familiar.Velocity.__mul(2);
+    familiar.Velocity = familiar.Velocity.mul(2);
   }
 });
 
@@ -104,7 +104,7 @@ functionMap.set(453, (familiar: EntityFamiliar) => {
     familiar.Variant === FamiliarVariant.BUMBO &&
     familiar.FrameCount % 5 === 0
   ) {
-    familiar.Velocity = familiar.Velocity.__mul(2);
+    familiar.Velocity = familiar.Velocity.mul(2);
   }
 });
 

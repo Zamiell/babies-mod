@@ -47,7 +47,7 @@ functionMap.set(153, (projectile: EntityProjectile) => {
       BombVariant.BOMB_NORMAL,
       0,
       projectile.Position,
-      projectile.Velocity.__mul(-1),
+      projectile.Velocity.mul(-1),
       null,
     );
     projectile.Remove();
@@ -63,7 +63,7 @@ functionMap.set(224, (projectile: EntityProjectile) => {
     projectile.SpawnerType !== EntityType.ENTITY_ISAAC // 102
   ) {
     data.spedUp = true;
-    projectile.Velocity = projectile.Velocity.__mul(2);
+    projectile.Velocity = projectile.Velocity.mul(2);
   }
 });
 

@@ -5,7 +5,7 @@ import BabyDescription from "./types/BabyDescription";
 export default function babyCheckValid(babyType: int): boolean {
   const baby = g.babies[babyType];
   if (baby === undefined) {
-    error(`Baby ${babyType} not found.`);
+    error(`Baby ${babyType} was not found.`);
   }
 
   // Check to see if we already got this baby in this run / multi-character custom challenge
@@ -78,8 +78,7 @@ function checkActiveItem(baby: BabyDescription) {
       return false;
     }
 
-    const hasItemInSchoolbag =
-      hasSchoolbag && g.p.SecondaryActiveItem.Item !== 0;
+    const hasItemInSchoolbag = hasSchoolbag && g.p.SecondaryActiveItem !== null;
     if (hasItemInSchoolbag) {
       // The player has both an active item and an item inside of the Schoolbag
       return false;

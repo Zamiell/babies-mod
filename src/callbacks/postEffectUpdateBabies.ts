@@ -35,10 +35,10 @@ functionMap.set(66, (effect: EntityEffect) => {
     if (effect.FrameCount >= 26) {
       // "effect.FollowParent(player)" does not work
       const initialSpeed = effect.Velocity.LengthSquared();
-      effect.Velocity = g.p.Position.__sub(effect.Position);
+      effect.Velocity = g.p.Position.sub(effect.Position);
       effect.Velocity = effect.Velocity.Normalized();
       while (effect.Velocity.LengthSquared() < initialSpeed) {
-        effect.Velocity = effect.Velocity.__mul(1.1);
+        effect.Velocity = effect.Velocity.mul(1.1);
       }
     }
   }
@@ -118,10 +118,10 @@ functionMap.set(485, (effect: EntityEffect) => {
       null,
     );
     const rocketHeightOffset = Vector(0, -300);
-    rocket.SpriteOffset = rocket.SpriteOffset.__add(rocketHeightOffset);
+    rocket.SpriteOffset = rocket.SpriteOffset.add(rocketHeightOffset);
   } else if (effect.Variant === EffectVariantCustom.FETUS_BOSS_ROCKET) {
     const rocketFallSpeed = Vector(0, 30);
-    effect.SpriteOffset = effect.SpriteOffset.__add(rocketFallSpeed);
+    effect.SpriteOffset = effect.SpriteOffset.add(rocketFallSpeed);
     if (effect.SpriteOffset.Y >= 0) {
       Isaac.Explode(effect.Position, null, 50); // 49 deals 1 half heart of damage
       effect.Remove();

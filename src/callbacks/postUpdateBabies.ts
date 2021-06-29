@@ -1,5 +1,6 @@
 import { TELEPORT_TO_ROOM_TYPE_MAP, ZERO_VECTOR } from "../constants";
 import g from "../globals";
+import log from "../log";
 import {
   getCurrentBaby,
   getRoomIndex,
@@ -240,7 +241,7 @@ functionMap.set(81, () => {
     g.p.SetActiveCharge(g.run.babyCounters + g.run.babyNPC.type);
     g.sfx.Stop(SoundEffect.SOUND_BATTERYCHARGE);
     g.sfx.Stop(SoundEffect.SOUND_BEEP);
-    Isaac.DebugString("Reset the active item charge.");
+    log("Reset the active item charge (Scream Baby).");
   }
 });
 
@@ -686,7 +687,7 @@ functionMap.set(211, () => {
       );
       const index = g.r.GetGridIndex(tear.position);
       g.r.DestroyGrid(index, true);
-      tear.position = tear.position.__add(tear.velocity);
+      tear.position = tear.position.add(tear.velocity);
       g.sfx.Play(SoundEffect.SOUND_ROCK_CRUMBLE, 0.5, 0);
       // (if the sound effect plays at full volume, it starts to get annoying)
 
@@ -1166,9 +1167,9 @@ functionMap.set(388, () => {
   for (let i = g.run.room.tears.length - 1; i >= 0; i--) {
     const tear = g.run.room.tears[i];
 
-    let velocity = g.p.Position.__sub(tear.position);
+    let velocity = g.p.Position.sub(tear.position);
     velocity = velocity.Normalized();
-    velocity = velocity.__mul(12);
+    velocity = velocity.mul(12);
 
     Isaac.Spawn(
       EntityType.ENTITY_PROJECTILE,
@@ -1270,7 +1271,7 @@ functionMap.set(462, () => {
       );
       const index = g.r.GetGridIndex(tear.position);
       g.r.DestroyGrid(index, true);
-      tear.position = tear.position.__add(tear.velocity);
+      tear.position = tear.position.add(tear.velocity);
       g.sfx.Play(SoundEffect.SOUND_ROCK_CRUMBLE, 0.5, 0);
       // (if the sound effect plays at full volume, it starts to get annoying)
 

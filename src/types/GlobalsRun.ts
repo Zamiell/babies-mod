@@ -9,7 +9,7 @@ export default class GlobalsRun {
   // Tracking per run
   // Set to true in the PostGameStarted callback if we are on the right character
   enabled = false;
-  babyType = 0;
+  babyType: number | null = null;
   drawIntro = false;
   queuedItems = false;
   // Keep track of all of the pedestal items that we pick up over the course of the run

@@ -1,4 +1,5 @@
 import g from "./globals";
+import log from "./log";
 import { getCurrentBaby, getItemMaxCharges } from "./misc";
 
 export function postUpdate(): void {
@@ -184,7 +185,7 @@ function clearRoom() {
   const player0 = Isaac.GetPlayer();
 
   g.run.room.pseudoClear = true;
-  Isaac.DebugString("Room is now pseudo-cleared.");
+  log("Room is now pseudo-cleared.");
 
   // This takes into account their luck and so forth
   g.r.SpawnClearAward();
