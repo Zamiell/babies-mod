@@ -4,7 +4,7 @@ export default function log(msg: string): void {
   Isaac.DebugString(msg);
 }
 
-export function crashLog(callbackName: string, begin: boolean): void {
+export function debugLog(callbackName: string, begin: boolean): void {
   if (!g.crashDebug) {
     return;
   }

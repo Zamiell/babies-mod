@@ -1,6 +1,6 @@
 import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
-import log, { crashLog } from "../log";
+import log, { debugLog } from "../log";
 import {
   getCurrentBaby,
   getRoomIndex,
@@ -14,11 +14,11 @@ import * as postRender from "./postRender";
 import postUpdateBabyFunctions from "./postUpdateBabies";
 
 export function main(): void {
-  crashLog("MC_POST_UPDATE", false);
+  debugLog("MC_POST_UPDATE", false);
 
   const [babyType, baby, valid] = getCurrentBaby();
   if (!valid) {
-    crashLog("MC_POST_UPDATE", true);
+    debugLog("MC_POST_UPDATE", true);
     return;
   }
 
@@ -40,7 +40,7 @@ export function main(): void {
   checkGridEntities();
   checkTrapdoor();
 
-  crashLog("MC_POST_UPDATE", false);
+  debugLog("MC_POST_UPDATE", false);
 }
 
 function checkFixWingsBug(baby: BabyDescription) {

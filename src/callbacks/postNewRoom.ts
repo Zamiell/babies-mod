@@ -1,5 +1,5 @@
 import g from "../globals";
-import log, { crashLog } from "../log";
+import log, { debugLog } from "../log";
 import { getCurrentBaby, getRoomIndex } from "../misc";
 import GlobalsRunBabyTears from "../types/GlobalsRunBabyTears";
 import GlobalsRunRoom from "../types/GlobalsRunRoom";
@@ -7,7 +7,7 @@ import postNewRoomBabyFunctions from "./postNewRoomBabies";
 import * as postRender from "./postRender";
 
 export function main(): void {
-  crashLog("MC_POST_NEW_ROOM", true);
+  debugLog("MC_POST_NEW_ROOM", true);
 
   // Update some cached API functions to avoid crashing
   g.l = g.g.GetLevel();
@@ -38,17 +38,17 @@ export function main(): void {
     g.run.level.stage !== stage ||
     g.run.level.stageType !== stageType
   ) {
-    crashLog("MC_POST_NEW_ROOM", false);
+    debugLog("MC_POST_NEW_ROOM", false);
     return;
   }
 
   newRoom();
 
-  crashLog("MC_POST_NEW_ROOM", false);
+  debugLog("MC_POST_NEW_ROOM", false);
 }
 
 export function newRoom(): void {
-  crashLog("MC_POST_NEW_ROOM2", true);
+  debugLog("MC_POST_NEW_ROOM2", true);
 
   const gameFrameCount = g.g.GetFrameCount();
   const stage = g.l.GetStage();
@@ -83,7 +83,7 @@ export function newRoom(): void {
   // Do nothing if we are not a baby
   const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
-    crashLog("MC_POST_NEW_ROOM2", false);
+    debugLog("MC_POST_NEW_ROOM2", false);
     return;
   }
 
@@ -93,7 +93,7 @@ export function newRoom(): void {
   stopDrawingBabyIntroText();
   applyTemporaryEffects(babyType);
 
-  crashLog("MC_POST_NEW_ROOM2", false);
+  debugLog("MC_POST_NEW_ROOM2", false);
 }
 
 function stopDrawingBabyIntroText() {

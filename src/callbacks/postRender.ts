@@ -1,6 +1,6 @@
 import { DEFAULT_KCOLOR, VERSION } from "../constants";
 import g from "../globals";
-import log, { crashLog } from "../log";
+import log, { debugLog } from "../log";
 import {
   getCurrentBaby,
   getHeartXOffset,
@@ -21,7 +21,7 @@ const LAST_BABY_WITH_SPRITE_IN_PLAYER2_DIRECTORY = 521;
 let clockSprite: Sprite | null = null;
 
 export function main(): void {
-  crashLog("MC_POST_RENDER", true);
+  debugLog("MC_POST_RENDER", true);
 
   // Update some cached API functions to avoid crashing
   g.l = g.g.GetLevel();
@@ -37,7 +37,7 @@ export function main(): void {
 
   const [, , valid] = getCurrentBaby();
   if (!valid) {
-    crashLog("MC_POST_RENDER", false);
+    debugLog("MC_POST_RENDER", false);
     return;
   }
 
@@ -48,7 +48,7 @@ export function main(): void {
   drawBabyEffects();
   timer.display();
 
-  crashLog("MC_POST_RENDER", false);
+  debugLog("MC_POST_RENDER", false);
 }
 
 // This function handles redrawing the player's sprite, if necessary

@@ -1,12 +1,12 @@
 import g from "../globals";
-import log, { crashLog } from "../log";
+import log, { debugLog } from "../log";
 import { giveItemAndRemoveFromPools } from "../misc";
 import { PlayerTypeCustom } from "../types/enums";
 import GlobalsRun from "../types/GlobalsRun";
 import * as postNewLevel from "./postNewLevel";
 
 export function main(isContinued: boolean): void {
-  crashLog("MC_POST_GAME_STARTED", true);
+  debugLog("MC_POST_GAME_STARTED", true);
 
   const startSeed = g.seeds.GetStartSeed();
   const startSeedString = g.seeds.GetStartSeedString();
@@ -19,7 +19,7 @@ export function main(isContinued: boolean): void {
 
   // Don't do anything if this is not a new run
   if (isContinued) {
-    crashLog("MC_POST_GAME_STARTED", false);
+    debugLog("MC_POST_GAME_STARTED", false);
     return;
   }
 
@@ -50,7 +50,7 @@ export function main(isContinued: boolean): void {
   if (character === PlayerTypeCustom.PLAYER_RANDOM_BABY) {
     g.run.enabled = true;
   } else {
-    crashLog("MC_POST_GAME_STARTED", false);
+    debugLog("MC_POST_GAME_STARTED", false);
     return;
   }
   // (only do the following things if we are on the Random Baby character)
@@ -71,5 +71,5 @@ export function main(isContinued: boolean): void {
   // Call PostNewLevel manually (they get naturally called out of order)
   postNewLevel.newLevel();
 
-  crashLog("MC_POST_GAME_STARTED", false);
+  debugLog("MC_POST_GAME_STARTED", false);
 }
