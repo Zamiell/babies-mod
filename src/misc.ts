@@ -234,10 +234,6 @@ export function gridToPos(x: number, y: number): Vector {
   return g.r.GetGridPosition(y * g.r.GetGridWidth() + x);
 }
 
-export function hasFlag(flags: int, flag: int): boolean {
-  return (flags & flag) === flag;
-}
-
 export function incrementRNG(seed: number): number {
   // The game expects seeds in the range of 0 to 4294967295
   const rng = RNG();

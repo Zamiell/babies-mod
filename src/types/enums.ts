@@ -43,7 +43,3 @@ export enum CollectibleTypeCustom {
   // Racing+ items
   COLLECTIBLE_CHECKPOINT = Isaac.GetItemIdByName("Checkpoint"),
 }
-
-export enum SoundEffectCustom {
-  LAUGH = Isaac.GetSoundIdByName("Laugh"),
-}

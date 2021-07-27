@@ -2,6 +2,44 @@ import g from "../globals";
 import { getCurrentBaby, getItemMaxCharges } from "../misc";
 import { CollectibleTypeCustom } from "../types/enums";
 
+export function init(mod: Mod): void {
+  mod.AddCallback(
+    ModCallbacks.MC_USE_ITEM,
+    shoopDaWhoop,
+    CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP,
+  ); // 49
+
+  mod.AddCallback(
+    ModCallbacks.MC_USE_ITEM,
+    monstrosTooth,
+    CollectibleType.COLLECTIBLE_MONSTROS_TOOTH,
+  ); // 86
+
+  mod.AddCallback(
+    ModCallbacks.MC_USE_ITEM,
+    howToJump,
+    CollectibleType.COLLECTIBLE_HOW_TO_JUMP,
+  ); // 282
+
+  mod.AddCallback(
+    ModCallbacks.MC_USE_ITEM,
+    clockworkAssembly,
+    CollectibleTypeCustom.COLLECTIBLE_CLOCKWORK_ASSEMBLY,
+  );
+
+  mod.AddCallback(
+    ModCallbacks.MC_USE_ITEM,
+    flockOfSuccubi,
+    CollectibleTypeCustom.COLLECTIBLE_FLOCK_OF_SUCCUBI,
+  );
+
+  mod.AddCallback(
+    ModCallbacks.MC_USE_ITEM,
+    chargingStation,
+    CollectibleTypeCustom.COLLECTIBLE_CHARGING_STATION,
+  );
+}
+
 export function main(_collectibleType: CollectibleType, _RNG: RNG): boolean {
   const [, , valid] = getCurrentBaby();
   if (!valid) {
@@ -17,10 +55,7 @@ export function main(_collectibleType: CollectibleType, _RNG: RNG): boolean {
 }
 
 // CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP (49)
-export function shoopDaWhoop(
-  _collectibleType: CollectibleType,
-  _RNG: RNG,
-): boolean {
+function shoopDaWhoop(_collectibleType: CollectibleType, _RNG: RNG) {
   const gameFrameCount = g.g.GetFrameCount();
   const activeCharge = g.p.GetActiveCharge();
   const batteryCharge = g.p.GetBatteryCharge();
@@ -40,10 +75,7 @@ export function shoopDaWhoop(
 }
 
 // CollectibleType.COLLECTIBLE_MONSTROS_TOOTH (86)
-export function monstrosTooth(
-  _collectibleType: CollectibleType,
-  _RNG: RNG,
-): boolean {
+function monstrosTooth(_collectibleType: CollectibleType, _RNG: RNG) {
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
@@ -66,10 +98,7 @@ export function monstrosTooth(
 }
 
 // CollectibleType.COLLECTIBLE_HOW_TO_JUMP (282)
-export function howToJump(
-  _collectibleType: CollectibleType,
-  _RNG: RNG,
-): boolean {
+function howToJump(_collectibleType: CollectibleType, _RNG: RNG) {
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
@@ -88,10 +117,7 @@ export function howToJump(
 }
 
 // CollectibleType.COLLECTIBLE_CLOCKWORK_ASSEMBLY
-export function clockworkAssembly(
-  _collectibleType: CollectibleType,
-  _RNG: RNG,
-): boolean {
+function clockworkAssembly(_collectibleType: CollectibleType, _RNG: RNG) {
   // Spawn a Restock Machine (6.10)
   g.run.clockworkAssembly = true;
   g.p.UseCard(Card.CARD_WHEEL_OF_FORTUNE);
@@ -105,10 +131,7 @@ export function clockworkAssembly(
 }
 
 // CollectibleType.COLLECTIBLE_FLOCK_OF_SUCCUBI
-export function flockOfSuccubi(
-  _collectibleType: CollectibleType,
-  _RNG: RNG,
-): boolean {
+function flockOfSuccubi(_collectibleType: CollectibleType, _RNG: RNG) {
   const effects = g.p.GetEffects();
 
   // Spawn 10 temporary Succubi
@@ -126,10 +149,7 @@ export function flockOfSuccubi(
 }
 
 // CollectibleType.COLLECTIBLE_CHARGING_STATION
-export function chargingStation(
-  _collectibleType: CollectibleType,
-  _RNG: RNG,
-): boolean {
+function chargingStation(_collectibleType: CollectibleType, _RNG: RNG) {
   const numCoins = g.p.GetNumCoins();
   const schoolbagItem = g.p.GetActiveItem(ActiveSlot.SLOT_SECONDARY);
 

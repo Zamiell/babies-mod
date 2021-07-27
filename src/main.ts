@@ -162,150 +162,58 @@ function checkBabiesDuplicateTrinket() {
   }
 }
 
-function registerCallbacks(babiesMod: Mod) {
-  registerMiscCallbacks(babiesMod);
+function registerCallbacks(mod: Mod) {
+  registerMiscCallbacks(mod);
 
   // Register callbacks that take a 3rd argument for a specific thing
-  registerUseItemCallbacks(babiesMod); // 3
-  registerUseCardCallbacks(babiesMod); // 5
-  registerPreUseItemCallbacks(babiesMod); // 23
+  useItem.init(mod); // 3
+  useCard.init(mod); // 5
+  preUseItem.init(mod); // 23
 }
 
-function registerMiscCallbacks(babiesMod: Mod) {
-  babiesMod.AddCallback(ModCallbacks.MC_NPC_UPDATE, NPCUpdate.main); // 0
-  babiesMod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate.main); // 1
-  babiesMod.AddCallback(ModCallbacks.MC_POST_RENDER, postRender.main); // 2
-  babiesMod.AddCallback(ModCallbacks.MC_USE_ITEM, useItem.main); // 3
-  babiesMod.AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, familiarUpdate.main); // 6
-  babiesMod.AddCallback(ModCallbacks.MC_FAMILIAR_INIT, familiarInit.main); // 7
-  babiesMod.AddCallback(ModCallbacks.MC_EVALUATE_CACHE, evaluateCache.main); // 8
-  babiesMod.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit.main); // 9
-  babiesMod.AddCallback(ModCallbacks.MC_USE_PILL, usePill.main); // 10
-  babiesMod.AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, entityTakeDmg.main); // 11
-  babiesMod.AddCallback(ModCallbacks.MC_INPUT_ACTION, inputAction.main); // 13
-  babiesMod.AddCallback(
-    ModCallbacks.MC_POST_GAME_STARTED,
-    postGameStarted.main,
-  ); // 15
-  babiesMod.AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, postNewLevel.main); // 18
-  babiesMod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom.main); // 19
-  babiesMod.AddCallback(ModCallbacks.MC_EXECUTE_CMD, executeCmd.main); // 22
-  babiesMod.AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, preEntitySpawn.main); // 24
-  babiesMod.AddCallback(ModCallbacks.MC_POST_NPC_INIT, postNPCInit.main); // 27
-  babiesMod.AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, postPickupInit.main); // 34
-  babiesMod.AddCallback(
+function registerMiscCallbacks(mod: Mod) {
+  mod.AddCallback(ModCallbacks.MC_NPC_UPDATE, NPCUpdate.main); // 0
+  mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate.main); // 1
+  mod.AddCallback(ModCallbacks.MC_POST_RENDER, postRender.main); // 2
+  mod.AddCallback(ModCallbacks.MC_USE_ITEM, useItem.main); // 3
+  mod.AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, familiarUpdate.main); // 6
+  mod.AddCallback(ModCallbacks.MC_FAMILIAR_INIT, familiarInit.main); // 7
+  mod.AddCallback(ModCallbacks.MC_EVALUATE_CACHE, evaluateCache.main); // 8
+  mod.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit.main); // 9
+  mod.AddCallback(ModCallbacks.MC_USE_PILL, usePill.main); // 10
+  mod.AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, entityTakeDmg.main); // 11
+  mod.AddCallback(ModCallbacks.MC_INPUT_ACTION, inputAction.main); // 13
+  mod.AddCallback(ModCallbacks.MC_POST_GAME_STARTED, postGameStarted.main); // 15
+  mod.AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, postNewLevel.main); // 18
+  mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom.main); // 19
+  mod.AddCallback(ModCallbacks.MC_EXECUTE_CMD, executeCmd.main); // 22
+  mod.AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, preEntitySpawn.main); // 24
+  mod.AddCallback(ModCallbacks.MC_POST_NPC_INIT, postNPCInit.main); // 27
+  mod.AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, postPickupInit.main); // 34
+  mod.AddCallback(
     ModCallbacks.MC_POST_PICKUP_SELECTION,
     postPickupSelection.main,
   ); // 37
-  babiesMod.AddCallback(
-    ModCallbacks.MC_POST_PICKUP_UPDATE,
-    postPickupUpdate.main,
-  ); // 38
-  babiesMod.AddCallback(ModCallbacks.MC_POST_TEAR_INIT, postTearInit.main); // 39
-  babiesMod.AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, postTearUpdate.main); // 40
-  babiesMod.AddCallback(
-    ModCallbacks.MC_PRE_TEAR_COLLISION,
-    preTearCollision.main,
-  ); // 42
-  babiesMod.AddCallback(
+  mod.AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, postPickupUpdate.main); // 38
+  mod.AddCallback(ModCallbacks.MC_POST_TEAR_INIT, postTearInit.main); // 39
+  mod.AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, postTearUpdate.main); // 40
+  mod.AddCallback(ModCallbacks.MC_PRE_TEAR_COLLISION, preTearCollision.main); // 42
+  mod.AddCallback(
     ModCallbacks.MC_POST_PROJECTILE_UPDATE,
     postProjectileUpdate.main,
   ); // 44
-  babiesMod.AddCallback(ModCallbacks.MC_POST_LASER_INIT, postLaserInit.main); // 47
-  babiesMod.AddCallback(
-    ModCallbacks.MC_POST_LASER_UPDATE,
-    postLaserUpdate.main,
-  ); // 48
-  babiesMod.AddCallback(ModCallbacks.MC_POST_KNIFE_INIT, postKnifeInit.main); // 50
-  babiesMod.AddCallback(ModCallbacks.MC_POST_EFFECT_INIT, postEffectInit.main); // 54
-  babiesMod.AddCallback(
-    ModCallbacks.MC_POST_EFFECT_UPDATE,
-    postEffectUpdate.main,
-  ); // 55
-  babiesMod.AddCallback(ModCallbacks.MC_POST_BOMB_INIT, postBombInit.main); // 57
-  babiesMod.AddCallback(ModCallbacks.MC_POST_BOMB_UPDATE, postBombUpdate.main); // 58
-  babiesMod.AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, postFireTear.main); // 61
-  babiesMod.AddCallback(
-    ModCallbacks.MC_PRE_GET_COLLECTIBLE,
-    preGetCollectible.main,
-  ); // 62
-  babiesMod.AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, postEntityKill.main); // 68
-  babiesMod.AddCallback(
+  mod.AddCallback(ModCallbacks.MC_POST_LASER_INIT, postLaserInit.main); // 47
+  mod.AddCallback(ModCallbacks.MC_POST_LASER_UPDATE, postLaserUpdate.main); // 48
+  mod.AddCallback(ModCallbacks.MC_POST_KNIFE_INIT, postKnifeInit.main); // 50
+  mod.AddCallback(ModCallbacks.MC_POST_EFFECT_INIT, postEffectInit.main); // 54
+  mod.AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, postEffectUpdate.main); // 55
+  mod.AddCallback(ModCallbacks.MC_POST_BOMB_INIT, postBombInit.main); // 57
+  mod.AddCallback(ModCallbacks.MC_POST_BOMB_UPDATE, postBombUpdate.main); // 58
+  mod.AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, postFireTear.main); // 61
+  mod.AddCallback(ModCallbacks.MC_PRE_GET_COLLECTIBLE, preGetCollectible.main); // 62
+  mod.AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, postEntityKill.main); // 68
+  mod.AddCallback(
     ModCallbacks.MC_PRE_ROOM_ENTITY_SPAWN,
     preRoomEntitySpawn.main,
   ); // 71
-}
-
-function registerUseItemCallbacks(babiesMod: Mod) {
-  babiesMod.AddCallback(
-    ModCallbacks.MC_USE_ITEM,
-    useItem.shoopDaWhoop,
-    CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP,
-  ); // 49
-  babiesMod.AddCallback(
-    ModCallbacks.MC_USE_ITEM,
-    useItem.monstrosTooth,
-    CollectibleType.COLLECTIBLE_MONSTROS_TOOTH,
-  ); // 86
-  babiesMod.AddCallback(
-    ModCallbacks.MC_USE_ITEM,
-    useItem.howToJump,
-    CollectibleType.COLLECTIBLE_HOW_TO_JUMP,
-  ); // 282
-  babiesMod.AddCallback(
-    ModCallbacks.MC_USE_ITEM,
-    useItem.clockworkAssembly,
-    CollectibleTypeCustom.COLLECTIBLE_CLOCKWORK_ASSEMBLY,
-  );
-  babiesMod.AddCallback(
-    ModCallbacks.MC_USE_ITEM,
-    useItem.flockOfSuccubi,
-    CollectibleTypeCustom.COLLECTIBLE_FLOCK_OF_SUCCUBI,
-  );
-  babiesMod.AddCallback(
-    ModCallbacks.MC_USE_ITEM,
-    useItem.chargingStation,
-    CollectibleTypeCustom.COLLECTIBLE_CHARGING_STATION,
-  );
-}
-
-function registerUseCardCallbacks(babiesMod: Mod) {
-  babiesMod.AddCallback(
-    ModCallbacks.MC_USE_CARD,
-    useCard.empress,
-    Card.CARD_EMPRESS,
-  ); // 4
-  babiesMod.AddCallback(
-    ModCallbacks.MC_USE_CARD,
-    useCard.hangedMan,
-    Card.CARD_HANGED_MAN,
-  ); // 5
-}
-
-function registerPreUseItemCallbacks(babiesMod: Mod) {
-  babiesMod.AddCallback(
-    ModCallbacks.MC_PRE_USE_ITEM,
-    preUseItem.poop,
-    CollectibleType.COLLECTIBLE_POOP, // 36
-  );
-  babiesMod.AddCallback(
-    ModCallbacks.MC_PRE_USE_ITEM,
-    preUseItem.lemonMishap,
-    CollectibleType.COLLECTIBLE_LEMON_MISHAP, // 56
-  );
-  babiesMod.AddCallback(
-    ModCallbacks.MC_PRE_USE_ITEM,
-    preUseItem.isaacsTears,
-    CollectibleType.COLLECTIBLE_ISAACS_TEARS, // 323
-  );
-  babiesMod.AddCallback(
-    ModCallbacks.MC_PRE_USE_ITEM,
-    preUseItem.smelter,
-    CollectibleType.COLLECTIBLE_SMELTER, // 479
-  );
-  babiesMod.AddCallback(
-    ModCallbacks.MC_PRE_USE_ITEM,
-    preUseItem.brownNugget,
-    CollectibleType.COLLECTIBLE_BROWN_NUGGET, // 504
-  );
 }

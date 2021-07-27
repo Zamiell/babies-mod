@@ -1,8 +1,40 @@
 import g from "../globals";
 import { getCurrentBaby } from "../misc";
 
+export function init(mod: Mod): void {
+  mod.AddCallback(
+    ModCallbacks.MC_PRE_USE_ITEM,
+    poop,
+    CollectibleType.COLLECTIBLE_POOP, // 36
+  );
+
+  mod.AddCallback(
+    ModCallbacks.MC_PRE_USE_ITEM,
+    lemonMishap,
+    CollectibleType.COLLECTIBLE_LEMON_MISHAP, // 56
+  );
+
+  mod.AddCallback(
+    ModCallbacks.MC_PRE_USE_ITEM,
+    isaacsTears,
+    CollectibleType.COLLECTIBLE_ISAACS_TEARS, // 323
+  );
+
+  mod.AddCallback(
+    ModCallbacks.MC_PRE_USE_ITEM,
+    smelter,
+    CollectibleType.COLLECTIBLE_SMELTER, // 479
+  );
+
+  mod.AddCallback(
+    ModCallbacks.MC_PRE_USE_ITEM,
+    brownNugget,
+    CollectibleType.COLLECTIBLE_BROWN_NUGGET, // 504
+  );
+}
+
 // CollectibleType.COLLECTIBLE_POOP (36)
-export function poop(_collectibleType: number, _rng: RNG): boolean {
+function poop(_collectibleType: number, _rng: RNG) {
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return false;
@@ -29,7 +61,7 @@ export function poop(_collectibleType: number, _rng: RNG): boolean {
 }
 
 // CollectibleType.COLLECTIBLE_LEMON_MISHAP (56)
-export function lemonMishap(_collectibleType: number, _rng: RNG): boolean {
+function lemonMishap(_collectibleType: number, _rng: RNG) {
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return false;
@@ -51,7 +83,7 @@ export function lemonMishap(_collectibleType: number, _rng: RNG): boolean {
 }
 
 // CollectibleType.COLLECTIBLE_ISAACS_TEARS (323)
-export function isaacsTears(_collectibleType: number, _rng: RNG): boolean {
+function isaacsTears(_collectibleType: number, _rng: RNG) {
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return false;
@@ -88,7 +120,7 @@ export function isaacsTears(_collectibleType: number, _rng: RNG): boolean {
 
 // CollectibleType.COLLECTIBLE_SMELTER (479)
 // This callback is used naturally by Gulp! pills
-export function smelter(_collectibleType: number, _rng: RNG): boolean {
+function smelter(_collectibleType: number, _rng: RNG) {
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return false;
@@ -111,7 +143,7 @@ export function smelter(_collectibleType: number, _rng: RNG): boolean {
 }
 
 // CollectibleType.COLLECTIBLE_BROWN_NUGGET (504)
-export function brownNugget(_collectibleType: number, _rng: RNG): boolean {
+function brownNugget(_collectibleType: number, _rng: RNG) {
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
