@@ -247,13 +247,13 @@ function drawBabyIntro() {
   // Render the baby's name
   text = baby.name;
   x = center.X - 3 * scale * text.length;
-  y = center.Y - 80;
+  y = center.Y - 130;
   Isaac.RenderScaledText(text, x, y, scale, scale, 2, 2, 2, 2);
 
   // Render the baby's description
   text = baby.description;
   x = center.X - 3 * text.length;
-  y = center.Y - 55;
+  y += 25;
   Isaac.RenderText(text, x, y, 2, 2, 2, 2);
 
   // The description might be really long and spill over onto a second line
@@ -288,6 +288,11 @@ function drawBabyNumber() {
 
 function drawVersion() {
   const gameFrameCount = g.g.GetFrameCount();
+  const isPaused = g.g.IsPaused();
+
+  if (isPaused) {
+    return;
+  }
 
   // Make the version persist for at least 2 seconds after the player presses "v"
   if (Input.IsButtonPressed(Keyboard.KEY_V, 0)) {

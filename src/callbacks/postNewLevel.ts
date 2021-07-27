@@ -80,6 +80,7 @@ export function newLevel(): void {
 }
 
 function getNewBaby() {
+  // We want to use a seed corresponding to the current floor
   let seed = g.l.GetDungeonPlacementSeed();
 
   // Don't get a new baby if we did not start the run as the Random Baby character

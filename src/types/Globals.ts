@@ -22,7 +22,7 @@ export default class Globals {
   font = Font();
 
   // Variables per-run
-  run: GlobalsRun;
+  run = new GlobalsRun(0);
 
   // A list of all the babies
   babies = babies;
@@ -34,12 +34,6 @@ export default class Globals {
   debugBabyNum: number | null = null;
 
   constructor() {
-    const randomSeed = this.l.GetDungeonPlacementSeed();
-
-    // Load the font
-    this.font.Load("font/teammeatfont10.fnt");
-
-    // Variables reset at the beginning of every run
-    this.run = new GlobalsRun(randomSeed);
+    this.font.Load("font/droid.fnt");
   }
 }

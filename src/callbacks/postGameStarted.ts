@@ -6,8 +6,8 @@ import GlobalsRun from "../types/GlobalsRun";
 import * as postNewLevel from "./postNewLevel";
 
 export function main(isContinued: boolean): void {
+  const startSeed = g.seeds.GetStartSeed();
   const startSeedString = g.seeds.GetStartSeedString();
-  const randomSeed = g.l.GetDungeonPlacementSeed();
   const character = g.p.GetPlayerType();
   const isaacFrameCount = Isaac.GetFrameCount();
 
@@ -21,7 +21,7 @@ export function main(isContinued: boolean): void {
   }
 
   // Reset variables
-  g.run = new GlobalsRun(randomSeed);
+  g.run = new GlobalsRun(startSeed);
 
   // Also reset the list of past babies that have been chosen
   g.pastBabies = [];

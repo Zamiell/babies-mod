@@ -3258,7 +3258,7 @@ const babies: BabyDescription[] = [
   {
     name: "Rotten Baby", // 533
     description: "Shoots Blue Flies + flight",
-    sprite: "costume_268_rottenbaby.png",
+    sprite: "familiar_shooters_268_rottenbaby.png",
     flight: true,
     mustHaveTears: true,
   },
