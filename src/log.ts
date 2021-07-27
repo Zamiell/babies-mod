@@ -5,7 +5,7 @@ export default function log(msg: string): void {
 }
 
 export function debugLog(callbackName: string, begin: boolean): void {
-  if (!g.crashDebug) {
+  if (!g.debugLogging) {
     return;
   }
 

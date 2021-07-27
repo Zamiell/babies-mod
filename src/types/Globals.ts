@@ -32,7 +32,7 @@ export default class Globals {
 
   // Used for testing specific babies
   debugBabyNum: number | null = null;
-  crashDebug = false;
+  debugLogging = false;
 
   constructor() {
     this.font.Load("font/droid.fnt");
