@@ -11,17 +11,22 @@ export function main(player: EntityPlayer, cacheFlag: CacheFlag): void {
 
   // Give the character a flat +1 damage as a bonus, similar to Samael
   if (
-    character === PlayerTypeCustom.PLAYER_RANDOM_BABY &&
-    cacheFlag === CacheFlag.CACHE_DAMAGE
+    cacheFlag === CacheFlag.CACHE_DAMAGE &&
+    character === PlayerTypeCustom.PLAYER_RANDOM_BABY
   ) {
     player.Damage += 1;
   }
 
   // Handle blindfolded characters
-  if (baby.blindfolded === true && cacheFlag === CacheFlag.CACHE_FIREDELAY) {
+  if (cacheFlag === CacheFlag.CACHE_FIREDELAY && baby.blindfolded === true) {
     player.MaxFireDelay = 100000;
     // (setting "player.FireDelay" here will not work,
     // so do it one frame later in the PostUpdate callback)
+  }
+
+  // Handle flying characters
+  if (cacheFlag === CacheFlag.CACHE_FLYING && baby.flight === true) {
+    player.CanFly = true;
   }
 
   const babyFunc = evaluateCacheBabyFunctions.get(babyType);

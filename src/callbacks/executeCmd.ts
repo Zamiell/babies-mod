@@ -1,3 +1,4 @@
+import debugFunction from "../debugFunction";
 import g from "../globals";
 
 export function main(cmd: string, params: string): void {
@@ -17,6 +18,11 @@ export function main(cmd: string, params: string): void {
         Isaac.ExecuteCommand("restart");
       }
 
+      break;
+    }
+
+    case "babydebug": {
+      debugFunction();
       break;
     }
 

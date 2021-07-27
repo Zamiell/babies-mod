@@ -1,5 +1,5 @@
 import g from "../globals";
-import log from "../log";
+import log, { crashLog } from "../log";
 import { getCurrentBaby, getRoomIndex } from "../misc";
 import GlobalsRunBabyTears from "../types/GlobalsRunBabyTears";
 import GlobalsRunRoom from "../types/GlobalsRunRoom";
@@ -7,6 +7,8 @@ import postNewRoomBabyFunctions from "./postNewRoomBabies";
 import * as postRender from "./postRender";
 
 export function main(): void {
+  crashLog("MC_POST_NEW_ROOM", true);
+
   // Update some cached API functions to avoid crashing
   g.l = g.g.GetLevel();
   g.r = g.g.GetRoom();
@@ -36,13 +38,18 @@ export function main(): void {
     g.run.level.stage !== stage ||
     g.run.level.stageType !== stageType
   ) {
+    crashLog("MC_POST_NEW_ROOM", false);
     return;
   }
 
   newRoom();
+
+  crashLog("MC_POST_NEW_ROOM", false);
 }
 
 export function newRoom(): void {
+  crashLog("MC_POST_NEW_ROOM2", true);
+
   const gameFrameCount = g.g.GetFrameCount();
   const stage = g.l.GetStage();
   const stageType = g.l.GetStageType();
@@ -74,32 +81,28 @@ export function newRoom(): void {
   g.run.babyTears = new GlobalsRunBabyTears();
 
   // Do nothing if we are not a baby
-  const [, , valid] = getCurrentBaby();
+  const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
+    crashLog("MC_POST_NEW_ROOM2", false);
     return;
   }
 
   // Reset the player's sprite, just in case it got messed up
   postRender.setPlayerSprite();
 
-  // Stop drawing the baby intro text once the player goes into a new room
+  stopDrawingBabyIntroText();
+  applyTemporaryEffects(babyType);
+
+  crashLog("MC_POST_NEW_ROOM2", false);
+}
+
+function stopDrawingBabyIntroText() {
   if (g.run.drawIntro) {
     g.run.drawIntro = false;
   }
-
-  applyTemporaryEffects();
 }
 
-function applyTemporaryEffects() {
-  const effects = g.p.GetEffects();
-  const canFly = g.p.CanFly;
-  const [babyType, baby] = getCurrentBaby();
-
-  // Some babies have flight
-  if (baby.flight === true && !canFly) {
-    effects.AddCollectibleEffect(CollectibleType.COLLECTIBLE_BIBLE, true);
-  }
-
+function applyTemporaryEffects(babyType: int) {
   // Apply baby-specific temporary effects
   const babyFunc = postNewRoomBabyFunctions.get(babyType);
   if (babyFunc !== undefined) {

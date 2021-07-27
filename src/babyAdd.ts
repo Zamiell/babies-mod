@@ -202,12 +202,12 @@ export default function babyAdd(): void {
     babyFunc();
   }
 
-  // Some babies grant extra stats
-  g.p.AddCacheFlags(CacheFlag.CACHE_ALL);
-  g.p.EvaluateItems();
-
   // Reset the player's size
   g.p.SpriteScale = Vector(1, 1);
+
+  // Some babies grant extra stats or flight
+  g.p.AddCacheFlags(CacheFlag.CACHE_ALL);
+  g.p.EvaluateItems();
 
   // We don't have to set the sprite now,
   // because it will be set later on in the PostNewRoom callback

@@ -1,6 +1,6 @@
 import { DEFAULT_KCOLOR, VERSION } from "../constants";
 import g from "../globals";
-import log from "../log";
+import log, { crashLog } from "../log";
 import {
   getCurrentBaby,
   getHeartXOffset,
@@ -9,6 +9,7 @@ import {
   isActionPressed,
 } from "../misc";
 import * as timer from "../timer";
+import BabyDescription from "../types/BabyDescription";
 import postRenderBabyFunctions from "./postRenderBabies";
 
 // Constants
@@ -20,6 +21,8 @@ const LAST_BABY_WITH_SPRITE_IN_PLAYER2_DIRECTORY = 521;
 let clockSprite: Sprite | null = null;
 
 export function main(): void {
+  crashLog("MC_POST_RENDER", true);
+
   // Update some cached API functions to avoid crashing
   g.l = g.g.GetLevel();
   g.r = g.g.GetRoom();
@@ -34,6 +37,7 @@ export function main(): void {
 
   const [, , valid] = getCurrentBaby();
   if (!valid) {
+    crashLog("MC_POST_RENDER", false);
     return;
   }
 
@@ -43,6 +47,8 @@ export function main(): void {
   drawTempIcon();
   drawBabyEffects();
   timer.display();
+
+  crashLog("MC_POST_RENDER", false);
 }
 
 // This function handles redrawing the player's sprite, if necessary
@@ -151,9 +157,10 @@ function trackPlayerAnimations() {
 // - after each item is applied
 // - after a death
 // - after an animation is played
+// - on the 0th frame of a run
+//   (to fix the bug where wings don't get applied in the PostGameStarted callback)
 export function setPlayerSprite(): void {
   const playerSprite = g.p.GetSprite();
-  const hearts = g.p.GetHearts();
   const effects = g.p.GetEffects();
   const effectsList = effects.GetEffectsList();
   const [babyType, baby, valid] = getCurrentBaby();
@@ -171,19 +178,7 @@ export function setPlayerSprite(): void {
   // (for some reason, Empty Vessel makes the sprite flicker when playing certain animations;
   // there is no known workaround for this)
 
-  // It is hard to tell that the player can fly with all costumes removed,
-  // so represent that the player has flight with Fate's wings
-  if (
-    // Empty Vessel takes a frame to activate after entering a new room,
-    // so detect the flight status manually
-    (g.p.CanFly ||
-      (g.p.HasCollectible(CollectibleType.COLLECTIBLE_EMPTY_VESSEL) &&
-        hearts === 0)) &&
-    // Make an exception for Butterfly Baby 2 because it already has wings
-    baby.name !== "Butterfly Baby 2" // 332
-  ) {
-    g.p.AddCostume(getItemConfig(CollectibleType.COLLECTIBLE_FATE), false);
-  }
+  addWings(baby);
 
   // Doing this will remove a shield, so detect if there is a shield and add it back if so
   for (let i = 1; i <= effectsList.Size; i++) {
@@ -201,10 +196,6 @@ export function setPlayerSprite(): void {
   }
 
   // Replace the player sprite with a co-op baby version
-  const fileName = playerSprite.GetFilename();
-  if (fileName === CUSTOM_PLAYER_ANM2) {
-    return;
-  }
   // Most of the babies use the vanilla baby sprites
   // We also make some extra babies that use familiar sprites,
   // and we insert these at the end of the array
@@ -218,6 +209,24 @@ export function setPlayerSprite(): void {
   }
   playerSprite.LoadGraphics();
   log("Applied custom baby anm2.");
+}
+
+export function addWings(baby: BabyDescription): void {
+  const hearts = g.p.GetHearts();
+
+  // It is hard to tell that the player can fly with all costumes removed,
+  // so represent that the player has flight with Fate's wings
+  if (
+    // Empty Vessel takes a frame to activate after entering a new room,
+    // so detect the flight status manually
+    (g.p.CanFly ||
+      (g.p.HasCollectible(CollectibleType.COLLECTIBLE_EMPTY_VESSEL) &&
+        hearts === 0)) &&
+    // Make an exception for Butterfly Baby 2 because it already has wings
+    baby.name !== "Butterfly Baby 2" // 332
+  ) {
+    g.p.AddCostume(getItemConfig(CollectibleType.COLLECTIBLE_FATE), false);
+  }
 }
 
 // Show what the current baby does in the intro room (or if the player presses the map button)

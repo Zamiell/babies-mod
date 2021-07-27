@@ -3,12 +3,14 @@ import babyCheckValid from "../babyCheckValid";
 import babyRemove from "../babyRemove";
 import { R7_SEASON_5 } from "../constants";
 import g from "../globals";
-import log from "../log";
+import log, { crashLog } from "../log";
 import { getCurrentBaby, incrementRNG } from "../misc";
 import GlobalsRunLevel from "../types/GlobalsRunLevel";
 import * as postNewRoom from "./postNewRoom";
 
 export function main(): void {
+  crashLog("MC_POST_NEW_LEVEL", true);
+
   const gameFrameCount = g.g.GetFrameCount();
   const stage = g.l.GetStage();
   const stageType = g.l.GetStageType();
@@ -20,13 +22,18 @@ export function main(): void {
   // Make sure the callbacks run in the right order
   // (naturally, PostNewLevel gets called before the PostGameStarted callbacks)
   if (gameFrameCount === 0) {
+    crashLog("MC_POST_NEW_LEVEL", false);
     return;
   }
 
   newLevel();
+
+  crashLog("MC_POST_NEW_LEVEL", false);
 }
 
 export function newLevel(): void {
+  crashLog("MC_POST_NEW_LEVEL2", true);
+
   const gameFrameCount = g.g.GetFrameCount();
   const stage = g.l.GetStage();
   const stageType = g.l.GetStageType();
@@ -40,6 +47,7 @@ export function newLevel(): void {
   // so it may reseed the floor immediately upon reaching it
   // If so, we don't want to do anything, since this isn't really a new level
   if (gameFrameCount !== 0 && gameFrameCount === g.run.level.stageFrame) {
+    crashLog("MC_POST_NEW_LEVEL2", false);
     return;
   }
 
@@ -77,6 +85,8 @@ export function newLevel(): void {
 
   // Call PostNewRoom manually (they get naturally called out of order)
   postNewRoom.newRoom();
+
+  crashLog("MC_POST_NEW_LEVEL2", false);
 }
 
 function getNewBaby() {

@@ -1,6 +1,6 @@
 import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
-import log from "../log";
+import log, { crashLog } from "../log";
 import {
   getCurrentBaby,
   getRoomIndex,
@@ -9,15 +9,51 @@ import {
   spawnRandomPickup,
 } from "../misc";
 import roomClearedBabyFunctions from "../roomClearedBabies";
+import BabyDescription from "../types/BabyDescription";
 import * as postRender from "./postRender";
 import postUpdateBabyFunctions from "./postUpdateBabies";
 
 export function main(): void {
+  crashLog("MC_POST_UPDATE", false);
+
   const [babyType, baby, valid] = getCurrentBaby();
   if (!valid) {
+    crashLog("MC_POST_UPDATE", true);
     return;
   }
 
+  checkFixWingsBug(baby);
+  checkApplyBlindfold(baby);
+  checkReloadSprite();
+  checkNewPedestalItem();
+  checkTrinket();
+  checkRoomCleared();
+
+  // Do custom baby effects
+  const babyFunc = postUpdateBabyFunctions.get(babyType);
+  if (babyFunc !== undefined) {
+    babyFunc();
+  }
+
+  checkSoftlockDestroyPoops();
+  checkSoftlockIsland();
+  checkGridEntities();
+  checkTrapdoor();
+
+  crashLog("MC_POST_UPDATE", false);
+}
+
+function checkFixWingsBug(baby: BabyDescription) {
+  // Wings don't get applied in the PostGameStarted callback for some reason
+  // Re-apply them now if needed
+  const gameFrameCount = g.g.GetFrameCount();
+
+  if (gameFrameCount === 1) {
+    postRender.addWings(baby);
+  }
+}
+
+function checkApplyBlindfold(baby: BabyDescription) {
   // Racing+ will disable the controls while the player is jumping out of the hole,
   // so for the FireDelay modification to work properly, we have to wait until this is over
   // (the "blindfoldedApplied" is reset in the PostNewLevel callback)
@@ -53,14 +89,18 @@ export function main(): void {
       }
     }
   }
+}
 
+function checkReloadSprite() {
   // Reapply the co-op baby sprite if we have set to reload it on this frame
   // (this has to be above the below code so that sprites get reloaded on the next frame)
   if (g.run.reloadSprite) {
     g.run.reloadSprite = false;
     postRender.setPlayerSprite();
   }
+}
 
+function checkNewPedestalItem() {
   // Reapply the co-op baby sprite after every pedestal item received
   // (and keep track of our passive items over the course of the run)
   if (
@@ -80,25 +120,9 @@ export function main(): void {
     g.run.reloadSprite = true;
     // (if we reload the sprite right now, it won't work with Empty Vessel)
   }
-
-  // Check to see if this is a trinket baby and they dropped the trinket
-  checkTrinket();
-
-  // Certain babies do things if the room is cleared
-  checkRoomCleared();
-
-  // Do custom baby effects
-  const babyFunc = postUpdateBabyFunctions.get(babyType);
-  if (babyFunc !== undefined) {
-    babyFunc();
-  }
-
-  checkSoftlockDestroyPoops();
-  checkSoftlockIsland();
-  checkGridEntities();
-  checkTrapdoor();
 }
 
+// Check to see if this is a trinket baby and they dropped the trinket
 function checkTrinket() {
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
@@ -167,6 +191,7 @@ function checkTrinket() {
   }
 }
 
+// Certain babies do things if the room is cleared
 function checkRoomCleared() {
   const roomClear = g.r.IsClear();
 

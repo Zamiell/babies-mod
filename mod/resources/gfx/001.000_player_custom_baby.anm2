@@ -2,7 +2,12 @@
 
 Notes:
 - Started with a vanilla "001.000_player.anm2"
-- Set the "Appear" animation to have 0 frames
+- Set the following animations to have 0 frames:
+  - Appear
+	- WalkLeft
+	- WalkUp
+	- WalkRight
+	- WalkDown
 - Made custom animations for:
 	- Pickup
 	- Hit
@@ -372,7 +377,7 @@ Notes:
 			</NullAnimations>
 			<Triggers/>
 		</Animation>
-		<Animation Name="WalkLeft" FrameNum="20" Loop="true">
+		<Animation Name="WalkLeft" FrameNum="0" Loop="true">
 			<RootAnimation>
 				<Frame XPosition="0" YPosition="0" XScale="100" YScale="100" Delay="20" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="255" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="false"/>
 			</RootAnimation>
@@ -416,7 +421,7 @@ Notes:
 			</NullAnimations>
 			<Triggers/>
 		</Animation>
-		<Animation Name="WalkUp" FrameNum="20" Loop="true">
+		<Animation Name="WalkUp" FrameNum="0" Loop="true">
 			<RootAnimation>
 				<Frame XPosition="0" YPosition="0" XScale="100" YScale="100" Delay="20" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="255" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="false"/>
 			</RootAnimation>
@@ -460,7 +465,7 @@ Notes:
 			</NullAnimations>
 			<Triggers/>
 		</Animation>
-		<Animation Name="WalkRight" FrameNum="20" Loop="true">
+		<Animation Name="WalkRight" FrameNum="0" Loop="true">
 			<RootAnimation>
 				<Frame XPosition="0" YPosition="0" XScale="100" YScale="100" Delay="20" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="255" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="false"/>
 			</RootAnimation>
@@ -504,7 +509,7 @@ Notes:
 			</NullAnimations>
 			<Triggers/>
 		</Animation>
-		<Animation Name="WalkDown" FrameNum="20" Loop="true">
+		<Animation Name="WalkDown" FrameNum="0" Loop="true">
 			<RootAnimation>
 				<Frame XPosition="0" YPosition="0" XScale="100" YScale="100" Delay="20" Visible="true" RedTint="255" GreenTint="255" BlueTint="255" AlphaTint="255" RedOffset="0" GreenOffset="0" BlueOffset="0" Rotation="0" Interpolated="false"/>
 			</RootAnimation>
