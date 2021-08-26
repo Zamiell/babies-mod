@@ -64,6 +64,7 @@ export default function babyCheckValid(babyType: int): boolean {
 
 function checkActiveItem(baby: BabyDescription) {
   const activeItem = g.p.GetActiveItem();
+  const secondaryActiveItem = g.p.GetActiveItem(ActiveSlot.SLOT_SECONDARY);
 
   if (
     baby.item !== undefined &&
@@ -78,7 +79,8 @@ function checkActiveItem(baby: BabyDescription) {
       return false;
     }
 
-    const hasItemInSchoolbag = hasSchoolbag && g.p.SecondaryActiveItem !== null;
+    const hasItemInSchoolbag =
+      hasSchoolbag && secondaryActiveItem !== CollectibleType.COLLECTIBLE_NULL;
     if (hasItemInSchoolbag) {
       // The player has both an active item and an item inside of the Schoolbag
       return false;

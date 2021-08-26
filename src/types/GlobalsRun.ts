@@ -50,6 +50,7 @@ export default class GlobalsRun {
 
   // Item-specific variables
   clockworkAssembly = false;
+  flockOfSuccubi = false;
 
   constructor(randomSeed: number) {
     this.randomSeed = randomSeed;

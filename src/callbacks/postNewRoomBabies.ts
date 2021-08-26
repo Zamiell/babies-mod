@@ -1,3 +1,4 @@
+import { getRoomVariant } from "isaacscript-common";
 import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
 import log from "../log";
@@ -10,8 +11,7 @@ export default functionMap;
 // This is used for several babies
 function noHealth() {
   const roomType = g.r.GetType();
-  const roomDesc = g.l.GetCurrentRoomDesc();
-  const roomVariant = roomDesc.Data.Variant;
+  const roomVariant = getRoomVariant();
 
   // Get rid of the health UI by using Curse of the Unknown
   // (but not in Devil Rooms or Black Markets)
@@ -257,6 +257,9 @@ functionMap.set(216, () => {
       continue;
     }
     const roomData = roomDesc.Data;
+    if (roomData === null) {
+      continue;
+    }
     const roomType = roomData.Type;
 
     let itemID: CollectibleType | CollectibleTypeCustom =
@@ -446,6 +449,9 @@ functionMap.set(261, () => {
     }
     const index = roomDesc.SafeGridIndex; // This is always the top-left index
     const roomData = roomDesc.Data;
+    if (roomData === null) {
+      continue;
+    }
     const roomType = roomData.Type;
     if (roomType === RoomType.ROOM_SUPERSECRET) {
       // You have to set LeaveDoor before every teleport or else it will send you to the wrong room

@@ -1,3 +1,4 @@
+import { getItemName } from "isaacscript-common";
 import { ZERO_VECTOR } from "./constants";
 import g from "./globals";
 import log from "./log";
@@ -99,12 +100,19 @@ export function getHeartXOffset(): number {
   return offset;
 }
 
-export function getItemConfig(itemID: number): Readonly<ItemConfigItem> {
-  if (itemID <= 0) {
-    error(`getItemConfig was passed an invalid item ID of: ${itemID}`);
+export function getItemConfig(
+  collectibleType: CollectibleType | CollectibleTypeCustom,
+): Readonly<ItemConfigItem> {
+  if (collectibleType <= 0) {
+    error(`getItemConfig was passed an invalid item ID of: ${collectibleType}`);
   }
 
-  return g.itemConfig.GetCollectible(itemID);
+  const itemConfigItem = g.itemConfig.GetCollectible(collectibleType);
+  if (itemConfigItem === null) {
+    error(`Failed to get the item config for collectible: ${collectibleType}`);
+  }
+
+  return itemConfigItem;
 }
 
 export function getItemHeartPrice(itemID: int): int {
@@ -270,8 +278,8 @@ export function openAllDoors(): void {
 export function removeItemFromItemTracker(
   collectibleType: CollectibleType | CollectibleTypeCustom,
 ): void {
-  const itemConfig = g.itemConfig.GetCollectible(collectibleType);
-  log(`Removing collectible ${collectibleType} (${itemConfig.Name})`);
+  const itemName = getItemName(collectibleType);
+  log(`Removing collectible ${collectibleType} (${itemName})`);
 }
 
 // Set the entity to a random color

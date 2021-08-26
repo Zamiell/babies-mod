@@ -1,3 +1,4 @@
+import { getRoomVariant } from "isaacscript-common";
 import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
 
@@ -26,8 +27,7 @@ functionMap.set(125, () => {
   }
 
   const roomType = g.r.GetType();
-  const roomDesc = g.l.GetCurrentRoomDesc();
-  const roomVariant = roomDesc.Data.Variant;
+  const roomVariant = getRoomVariant();
   if (
     roomType !== RoomType.ROOM_DEVIL && // 14
     roomType !== RoomType.ROOM_BLACK_MARKET && // 22
@@ -57,8 +57,7 @@ functionMap.set(138, () => {
   }
 
   const roomType = g.r.GetType();
-  const roomDesc = g.l.GetCurrentRoomDesc();
-  const roomVariant = roomDesc.Data.Variant;
+  const roomVariant = getRoomVariant();
   if (
     roomType !== RoomType.ROOM_DEVIL && // 14
     roomType !== RoomType.ROOM_BLACK_MARKET && // 22

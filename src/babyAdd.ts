@@ -16,6 +16,7 @@ export default function babyAdd(): void {
   const coins = g.p.GetNumCoins();
   const bombs = g.p.GetNumBombs();
   const keys = g.p.GetNumKeys();
+  const secondaryActiveItem = g.p.GetActiveItem(ActiveSlot.SLOT_SECONDARY);
   const [babyType, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
@@ -43,7 +44,7 @@ export default function babyAdd(): void {
       // Find out where to put it
       if (
         g.p.HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) &&
-        g.p.SecondaryActiveItem !== null
+        secondaryActiveItem !== CollectibleType.COLLECTIBLE_NULL
       ) {
         // There is room in the Schoolbag for it, so put it there
         // (getting new active items will automatically put the existing active item inside the

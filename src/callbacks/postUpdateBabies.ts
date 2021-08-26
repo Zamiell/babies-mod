@@ -316,6 +316,9 @@ functionMap.set(110, () => {
       continue;
     }
     const roomData = roomDesc.Data;
+    if (roomData === null) {
+      continue;
+    }
     const roomType2 = roomData.Type;
     if (
       (roomType2 === RoomType.ROOM_DEFAULT || // 1
@@ -742,6 +745,9 @@ functionMap.set(216, () => {
     }
     const index = roomDesc.SafeGridIndex; // This is always the top-left index
     const roomData = roomDesc.Data;
+    if (roomData === null) {
+      continue;
+    }
     const roomType = roomData.Type;
     if (roomType === teleportRoomType) {
       // Teleport to the intended room

@@ -24,6 +24,9 @@ export function main(): void {
   const stageType = g.l.GetStageType();
   const roomDesc = g.l.GetCurrentRoomDesc();
   const roomData = roomDesc.Data;
+  if (roomData === null) {
+    error("Failed to get the room data for the current room.");
+  }
   const roomStageID = roomData.StageID;
   const roomVariant = roomData.Variant;
 
@@ -56,6 +59,9 @@ export function newRoom(): void {
   const startingRoomIndex = g.l.GetStartingRoomIndex();
   const roomDesc = g.l.GetCurrentRoomDesc();
   const roomData = roomDesc.Data;
+  if (roomData === null) {
+    error("Failed to get the room data for the current room.");
+  }
   const roomStageID = roomData.StageID;
   const roomVariant = roomData.Variant;
   const roomClear = g.r.IsClear();
@@ -79,6 +85,9 @@ export function newRoom(): void {
   // Reset baby-specific variables
   g.run.babyCountersRoom = 0;
   g.run.babyTears = new GlobalsRunBabyTears();
+
+  // Handle items that are not tied to specific babies
+  resetFlockOfSuccubi();
 
   // Do nothing if we are not a baby
   const [babyType, , valid] = getCurrentBaby();
@@ -107,5 +116,16 @@ function applyTemporaryEffects(babyType: int) {
   const babyFunc = postNewRoomBabyFunctions.get(babyType);
   if (babyFunc !== undefined) {
     babyFunc();
+  }
+}
+
+function resetFlockOfSuccubi() {
+  if (!g.run.flockOfSuccubi) {
+    return;
+  }
+
+  g.run.flockOfSuccubi = false;
+  for (let i = 0; i < 7; i++) {
+    g.p.RemoveCollectible(CollectibleType.COLLECTIBLE_SUCCUBUS);
   }
 }

@@ -76,8 +76,8 @@ function lemonMishap(_collectibleType: number, _rng: RNG) {
   g.p.UsePill(PillEffect.PILLEFFECT_LEMON_PARTY, PillColor.PILL_NULL);
   g.p.AnimateCollectible(
     CollectibleType.COLLECTIBLE_LEMON_MISHAP,
-    "UseItem",
-    "PlayerPickup",
+    PlayerItemAnimation.USE_ITEM,
+    CollectibleAnimation.PLAYER_PICKUP,
   );
   return true; // Cancel the original effect
 }
@@ -110,8 +110,8 @@ function isaacsTears(_collectibleType: number, _rng: RNG) {
   // so we have to explicitly perform one
   g.p.AnimateCollectible(
     CollectibleType.COLLECTIBLE_ISAACS_TEARS,
-    "UseItem",
-    "PlayerPickup",
+    PlayerItemAnimation.USE_ITEM,
+    CollectibleAnimation.PLAYER_PICKUP,
   );
 
   // Cancel the original effect

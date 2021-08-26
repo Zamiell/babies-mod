@@ -123,8 +123,8 @@ function clockworkAssembly(_collectibleType: CollectibleType, _RNG: RNG) {
   g.p.UseCard(Card.CARD_WHEEL_OF_FORTUNE);
   g.p.AnimateCollectible(
     CollectibleTypeCustom.COLLECTIBLE_CLOCKWORK_ASSEMBLY,
-    "UseItem",
-    "PlayerPickup",
+    PlayerItemAnimation.USE_ITEM,
+    CollectibleAnimation.PLAYER_PICKUP,
   );
 
   return false;
@@ -132,18 +132,19 @@ function clockworkAssembly(_collectibleType: CollectibleType, _RNG: RNG) {
 
 // CollectibleType.COLLECTIBLE_FLOCK_OF_SUCCUBI
 function flockOfSuccubi(_collectibleType: CollectibleType, _RNG: RNG) {
-  const effects = g.p.GetEffects();
-
   // Spawn 10 temporary Succubi
   // (for some reason, adding 7 actually adds 28)
   for (let i = 0; i < 7; i++) {
-    effects.AddCollectibleEffect(CollectibleType.COLLECTIBLE_SUCCUBUS, false);
+    g.p.AddCollectible(CollectibleType.COLLECTIBLE_SUCCUBUS, 0, false);
   }
   g.p.AnimateCollectible(
     CollectibleTypeCustom.COLLECTIBLE_FLOCK_OF_SUCCUBI,
-    "UseItem",
-    "PlayerPickup",
+    PlayerItemAnimation.USE_ITEM,
+    CollectibleAnimation.PLAYER_PICKUP,
   );
+
+  // Mark to remove the items upon entering a new room
+  g.run.flockOfSuccubi = true;
 
   return false;
 }
@@ -178,8 +179,8 @@ function chargingStation(_collectibleType: CollectibleType, _RNG: RNG) {
   g.p.SetActiveCharge(incrementedCharge, ActiveSlot.SLOT_SECONDARY);
   g.p.AnimateCollectible(
     CollectibleTypeCustom.COLLECTIBLE_CHARGING_STATION,
-    "UseItem",
-    "PlayerPickup",
+    PlayerItemAnimation.USE_ITEM,
+    CollectibleAnimation.PLAYER_PICKUP,
   );
   g.sfx.Play(SoundEffect.SOUND_BEEP, 1, 0);
 
