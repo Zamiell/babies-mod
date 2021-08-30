@@ -1,7 +1,7 @@
 import g from "../globals";
 import { setRandomColor } from "../misc";
 
-const functionMap = new Map<int, (effect: EntityEffect) => void>();
+const functionMap = new LuaTable<int, (effect: EntityEffect) => void>();
 export default functionMap;
 
 // Blue Baby

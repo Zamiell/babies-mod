@@ -1,7 +1,7 @@
 import g from "./globals";
 import { getCurrentBaby, removeItemFromItemTracker } from "./misc";
 
-const functionMap = new Map<int, () => void>();
+const functionMap = new LuaTable<int, () => void>();
 export default functionMap;
 
 // Gold Baby

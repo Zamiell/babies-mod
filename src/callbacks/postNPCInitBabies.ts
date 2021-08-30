@@ -1,6 +1,6 @@
 import { setRandomColor } from "../misc";
 
-const functionMap = new Map<int, (npc: EntityNPC) => void>();
+const functionMap = new LuaTable<int, (npc: EntityNPC) => void>();
 export default functionMap;
 
 // Lil' Baby

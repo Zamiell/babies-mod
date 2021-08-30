@@ -1,4 +1,4 @@
-const functionMap = new Map<int, (tear: EntityTear) => void>();
+const functionMap = new LuaTable<int, (tear: EntityTear) => void>();
 export default functionMap;
 
 // Lil' Baby

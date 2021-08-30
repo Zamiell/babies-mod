@@ -1,7 +1,7 @@
 import g from "../globals";
 import { getItemHeartPrice, setRandomColor } from "../misc";
 
-const functionMap = new Map<int, (pickup: EntityPickup) => void>();
+const functionMap = new LuaTable<int, (pickup: EntityPickup) => void>();
 export default functionMap;
 
 // Lil' Baby

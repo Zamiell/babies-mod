@@ -1,7 +1,7 @@
 import g from "./globals";
 import { getCurrentBaby } from "./misc";
 
-const functionMap = new Map<int, () => void>();
+const functionMap = new LuaTable<int, () => void>();
 export default functionMap;
 
 // Cute Baby

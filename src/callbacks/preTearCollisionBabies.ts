@@ -1,7 +1,7 @@
 import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
 
-const functionMap = new Map<
+const functionMap = new LuaTable<
   int,
   (tear: EntityTear, collider: Entity) => boolean | void
 >();

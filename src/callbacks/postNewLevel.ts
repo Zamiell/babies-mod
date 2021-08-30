@@ -1,7 +1,6 @@
 import babyAdd from "../babyAdd";
 import babyCheckValid from "../babyCheckValid";
 import babyRemove from "../babyRemove";
-import { R7_SEASON_5 } from "../constants";
 import g from "../globals";
 import log, { debugLog } from "../log";
 import { getCurrentBaby, incrementRNG } from "../misc";
@@ -69,14 +68,6 @@ export function newLevel(): void {
 
   // Display text describing the new baby
   g.run.showIntroFrame = gameFrameCount + 60; // 2 seconds
-
-  // Racing+ removes all curses
-  // If we are in the R+7 Season 5 custom challenge,
-  // then all curses are disabled except for Curse of the Unknown
-  // Thus, we might naturally get this curse inside the challenge, so make sure it is disabled
-  if (challenge === Isaac.GetChallengeIdByName(R7_SEASON_5)) {
-    g.l.RemoveCurses(LevelCurse.CURSE_OF_THE_UNKNOWN);
-  }
 
   // Set the new baby
   babyRemove();

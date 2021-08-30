@@ -1,7 +1,7 @@
 import g from "../globals";
 import { addCharge, getOffsetPosition, incrementRNG } from "../misc";
 
-const functionMap = new Map<int, (bomb: EntityBomb) => void>();
+const functionMap = new LuaTable<int, (bomb: EntityBomb) => void>();
 export default functionMap;
 
 // Bomb Baby

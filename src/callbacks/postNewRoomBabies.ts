@@ -1,11 +1,11 @@
-import { getRoomVariant } from "isaacscript-common";
 import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
+import { getRoomVariant } from "../isaacscript-common";
 import log from "../log";
 import { getItemConfig, gridToPos, incrementRNG, openAllDoors } from "../misc";
 import { CollectibleTypeCustom } from "../types/enums";
 
-const functionMap = new Map<int, () => void>();
+const functionMap = new LuaTable<int, () => void>();
 export default functionMap;
 
 // This is used for several babies

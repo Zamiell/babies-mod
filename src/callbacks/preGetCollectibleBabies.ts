@@ -1,7 +1,7 @@
 import g from "../globals";
 import { getRandomItemFromPool } from "../misc";
 
-const functionMap = new Map<int, () => number | void>();
+const functionMap = new LuaTable<int, () => number | void>();
 export default functionMap;
 
 // Folder Baby

@@ -1,7 +1,7 @@
 import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
 
-const functionMap = new Map<int, (familiar: EntityFamiliar) => void>();
+const functionMap = new LuaTable<int, (familiar: EntityFamiliar) => void>();
 export default functionMap;
 
 // Blue Baby

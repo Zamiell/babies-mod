@@ -31,7 +31,7 @@ export function main(
   return undefined;
 }
 
-const functionMap = new Map<
+const functionMap = new LuaTable<
   int,
   (
     entity: Entity,

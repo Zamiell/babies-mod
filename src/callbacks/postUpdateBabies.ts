@@ -11,7 +11,7 @@ import * as pseudoRoomClear from "../pseudoRoomClear";
 import { EffectVariantCustom } from "../types/enums";
 import * as postRender from "./postRender";
 
-const functionMap = new Map<int, () => void>();
+const functionMap = new LuaTable<int, () => void>();
 export default functionMap;
 
 // Troll Baby

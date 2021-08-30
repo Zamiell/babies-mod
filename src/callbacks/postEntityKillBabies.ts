@@ -2,7 +2,7 @@ import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
 import { getCurrentBaby, getRoomIndex } from "../misc";
 
-const functionMap = new Map<int, (npc: EntityNPC) => void>();
+const functionMap = new LuaTable<int, (npc: EntityNPC) => void>();
 export default functionMap;
 
 // Black Baby

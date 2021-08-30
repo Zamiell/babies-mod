@@ -3,7 +3,7 @@ import g from "../globals";
 import { getCurrentBaby } from "../misc";
 import { EffectVariantCustom } from "../types/enums";
 
-const functionMap = new Map<int, (effect: EntityEffect) => void>();
+const functionMap = new LuaTable<int, (effect: EntityEffect) => void>();
 export default functionMap;
 
 // Mustache Baby

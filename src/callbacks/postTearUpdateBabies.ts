@@ -3,7 +3,7 @@ import g from "../globals";
 import { getCurrentBaby, setRandomColor } from "../misc";
 import TearData from "../types/TearData";
 
-const functionMap = new Map<int, (tear: EntityTear) => void>();
+const functionMap = new LuaTable<int, (tear: EntityTear) => void>();
 export default functionMap;
 
 // Ed Baby

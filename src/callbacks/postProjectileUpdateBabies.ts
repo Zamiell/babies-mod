@@ -1,7 +1,7 @@
 import g from "../globals";
 import { getCurrentBaby, setRandomColor } from "../misc";
 
-const functionMap = new Map<int, (projectile: EntityProjectile) => void>();
+const functionMap = new LuaTable<int, (projectile: EntityProjectile) => void>();
 export default functionMap;
 
 // Zombie Baby
