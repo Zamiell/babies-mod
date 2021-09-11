@@ -1,7 +1,7 @@
 import { CollectibleTypeCustom } from "./types/enums";
 
 // The version is updated automatically by IsaacScript
-export const VERSION = "1.2.2";
+export const VERSION = "1.2.3";
 
 export const ZERO_VECTOR = Vector(0, 0);
 export const DEFAULT_KCOLOR = KColor(1, 1, 1, 1);
