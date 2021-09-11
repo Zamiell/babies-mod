@@ -1,4 +1,4 @@
-const functionMap = new LuaTable<int, (knife: EntityKnife) => void>();
+const functionMap = new Map<int, (knife: EntityKnife) => void>();
 export default functionMap;
 
 // Brother Bobby

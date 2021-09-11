@@ -3,7 +3,7 @@ import g from "../globals";
 import { getCurrentBaby, setRandomColor } from "../misc";
 import TearData from "../types/TearData";
 
-const functionMap = new LuaTable<int, (tear: EntityTear) => void>();
+const functionMap = new Map<int, (tear: EntityTear) => void>();
 export default functionMap;
 
 // Ed Baby
@@ -16,7 +16,7 @@ functionMap.set(100, (tear: EntityTear) => {
       0,
       tear.Position,
       ZERO_VECTOR,
-      null,
+      undefined,
     );
     fire.SpriteScale = Vector(0.5, 0.5);
 
@@ -45,7 +45,7 @@ functionMap.set(213, (tear: EntityTear) => {
     for (const entity of Isaac.GetRoomEntities()) {
       const npc = entity.ToNPC();
       if (
-        npc !== null &&
+        npc !== undefined &&
         npc.IsVulnerableEnemy() && // Returns true for enemies that can be damaged
         !npc.IsDead() &&
         g.p.Position.Distance(npc.Position) < distance
@@ -84,7 +84,7 @@ functionMap.set(228, (tear: EntityTear) => {
         ProjectileVariant.PROJECTILE_NORMAL,
         tear.Position,
         tear.Velocity,
-        null,
+        undefined,
         0,
         tear.InitSeed,
       );
@@ -122,7 +122,10 @@ functionMap.set(246, (tear: EntityTear) => {
 // Lantern Baby
 functionMap.set(292, (tear: EntityTear) => {
   // Emulate having a Godhead aura
-  if (tear.Parent !== null && tear.Parent.Type === EntityType.ENTITY_PLAYER) {
+  if (
+    tear.Parent !== undefined &&
+    tear.Parent.Type === EntityType.ENTITY_PLAYER
+  ) {
     tear.Position = Vector(g.p.Position.X, g.p.Position.Y + 10);
 
     // Clear the sprite for the Ludo tear
@@ -168,7 +171,7 @@ functionMap.set(380, (tear: EntityTear) => {
       ZERO_VECTOR,
       tear,
     ).ToEffect();
-    if (creep !== null) {
+    if (creep !== undefined) {
       creep.Timeout = 240;
     }
   }

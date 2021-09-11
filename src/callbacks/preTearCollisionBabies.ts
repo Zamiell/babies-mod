@@ -1,7 +1,7 @@
 import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
 
-const functionMap = new LuaTable<
+const functionMap = new Map<
   int,
   (tear: EntityTear, collider: Entity) => boolean | void
 >();
@@ -11,7 +11,7 @@ export default functionMap;
 functionMap.set(55, (tear: EntityTear, _collider: Entity) => {
   // Guppy tears
   if (tear.SubType === 1) {
-    g.p.AddBlueFlies(1, g.p.Position, null);
+    g.p.AddBlueFlies(1, g.p.Position, undefined);
   }
 });
 
@@ -27,7 +27,7 @@ functionMap.set(410, (tear: EntityTear, collider: Entity) => {
       ZERO_VECTOR,
       g.p,
     ).ToEffect();
-    if (creep !== null) {
+    if (creep !== undefined) {
       creep.Timeout = 120;
     }
   }

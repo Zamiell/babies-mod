@@ -6,7 +6,7 @@ import { getCurrentBaby } from "../misc";
 import inputActionBabyFunctions from "./inputActionBabies";
 
 export function main(
-  _entity: Entity | null,
+  _entity: Entity | undefined,
   inputHook: InputHook,
   buttonAction: ButtonAction,
 ): number | boolean | void {

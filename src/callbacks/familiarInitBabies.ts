@@ -1,7 +1,7 @@
 import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
 
-const functionMap = new LuaTable<int, (familiar: EntityFamiliar) => void>();
+const functionMap = new Map<int, (familiar: EntityFamiliar) => void>();
 export default functionMap;
 
 // Blue Baby
@@ -36,7 +36,7 @@ functionMap.set(117, (familiar: EntityFamiliar) => {
         0,
         g.p.Position,
         ZERO_VECTOR,
-        null,
+        undefined,
       );
     }
     g.run.babyBool = false;

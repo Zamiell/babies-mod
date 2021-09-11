@@ -1,7 +1,7 @@
 import g from "../globals";
 import { getCurrentBaby } from "../misc";
 
-const functionMap = new LuaTable<
+const functionMap = new Map<
   int,
   (player: EntityPlayer, cacheFlag: CacheFlag) => void
 >();

@@ -184,7 +184,7 @@ export function setPlayerSprite(): void {
   for (let i = 1; i <= effectsList.Size; i++) {
     const effect = effectsList.Get(i - 1);
     if (
-      effect !== null &&
+      effect !== undefined &&
       effect.Item.ID === CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS
     ) {
       g.p.AddCostume(

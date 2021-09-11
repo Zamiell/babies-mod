@@ -1,13 +1,13 @@
 import g from "../globals";
 import { getCurrentBaby, setRandomColor } from "../misc";
 
-const functionMap = new LuaTable<int, (projectile: EntityProjectile) => void>();
+const functionMap = new Map<int, (projectile: EntityProjectile) => void>();
 export default functionMap;
 
 // Zombie Baby
 functionMap.set(61, (projectile: EntityProjectile) => {
   if (
-    projectile.Parent !== null &&
+    projectile.Parent !== undefined &&
     projectile.Parent.HasEntityFlags(EntityFlag.FLAG_FRIENDLY)
   ) {
     // Brings back enemies from the dead
@@ -48,7 +48,7 @@ functionMap.set(153, (projectile: EntityProjectile) => {
       0,
       projectile.Position,
       projectile.Velocity.mul(-1),
-      null,
+      undefined,
     );
     projectile.Remove();
   }

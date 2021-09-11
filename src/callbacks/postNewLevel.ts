@@ -36,7 +36,6 @@ export function newLevel(): void {
   const gameFrameCount = g.g.GetFrameCount();
   const stage = g.l.GetStage();
   const stageType = g.l.GetStageType();
-  const challenge = Isaac.GetChallenge();
 
   log(
     `MC_POST_NEW_LEVEL_2 - ${stage}.${stageType} (game frame ${gameFrameCount})`,

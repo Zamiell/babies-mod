@@ -1,4 +1,4 @@
-const functionMap = new LuaTable<int, (laser: EntityLaser) => void>();
+const functionMap = new Map<int, (laser: EntityLaser) => void>();
 export default functionMap;
 
 // Belial Baby

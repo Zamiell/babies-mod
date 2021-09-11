@@ -1,7 +1,7 @@
 import g from "../globals";
 import { isActionPressed } from "../misc";
 
-const functionMap = new LuaTable<
+const functionMap = new Map<
   int,
   (inputHook: InputHook, buttonAction: ButtonAction) => number | boolean | void
 >();

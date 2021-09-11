@@ -1,6 +1,6 @@
 import g from "../globals";
 
-const functionMap = new LuaTable<int, () => void>();
+const functionMap = new Map<int, () => void>();
 export default functionMap;
 
 // Bubbles Baby

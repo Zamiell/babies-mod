@@ -1,6 +1,6 @@
 import g from "../globals";
 
-const functionMap = new LuaTable<
+const functionMap = new Map<
   int,
   (entityType: EntityType) => [int, int, int] | void
 >();

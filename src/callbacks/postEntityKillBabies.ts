@@ -2,7 +2,7 @@ import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
 import { getCurrentBaby, getRoomIndex } from "../misc";
 
-const functionMap = new LuaTable<int, (npc: EntityNPC) => void>();
+const functionMap = new Map<int, (npc: EntityNPC) => void>();
 export default functionMap;
 
 // Black Baby
@@ -48,7 +48,7 @@ functionMap.set(61, (npc: EntityNPC) => {
       npc.Variant,
       npc.Position,
       ZERO_VECTOR,
-      null,
+      undefined,
       npc.SubType,
       npc.InitSeed,
     );
@@ -101,14 +101,14 @@ functionMap.set(249, (npc: EntityNPC) => {
   // Respawn all of the existing enemies in the room
   for (const entity2 of Isaac.GetRoomEntities()) {
     const npc2 = entity2.ToNPC();
-    if (npc2 !== null && npc2.Index !== npc.Index) {
+    if (npc2 !== undefined && npc2.Index !== npc.Index) {
       // Don't respawn the entity that just died
       g.g.Spawn(
         npc.Type,
         npc.Variant,
         npc2.Position,
         npc2.Velocity,
-        null,
+        undefined,
         npc.SubType,
         npc2.InitSeed,
       );
@@ -142,7 +142,7 @@ functionMap.set(376, (_npc: EntityNPC) => {
     0,
     g.p.Position,
     ZERO_VECTOR,
-    null,
+    undefined,
   );
   const brainSprite = brain.GetSprite();
   brainSprite.Load("gfx/003.059_bobs brain2.anm2", true);
@@ -175,7 +175,7 @@ functionMap.set(390, (npc: EntityNPC) => {
     0,
     npc.Position,
     ZERO_VECTOR,
-    null,
+    undefined,
   );
 });
 
@@ -197,7 +197,7 @@ functionMap.set(491, (npc: EntityNPC) => {
     0,
     npc.Position,
     ZERO_VECTOR,
-    null,
+    undefined,
   );
 });
 
@@ -208,7 +208,7 @@ functionMap.set(530, (npc: EntityNPC) => {
     PickupVariant.PICKUP_CHEST,
     npc.Position,
     ZERO_VECTOR,
-    null,
+    undefined,
     0,
     npc.InitSeed,
   );

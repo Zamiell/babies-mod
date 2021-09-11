@@ -31,7 +31,7 @@ export function main(
   return undefined;
 }
 
-const functionMap = new LuaTable<
+const functionMap = new Map<
   int,
   (
     entity: Entity,
@@ -172,7 +172,7 @@ functionMap.set(
           0,
           damageSource.Position,
           damageSource.Entity.Velocity,
-          null,
+          undefined,
         );
       }
     }

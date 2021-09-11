@@ -2,7 +2,7 @@ import { getRoomVariant } from "isaacscript-common";
 import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
 
-const functionMap = new LuaTable<int, () => void>();
+const functionMap = new Map<int, () => void>();
 export default functionMap;
 
 // Dark Baby

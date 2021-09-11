@@ -24,7 +24,7 @@ export function main(): void {
   const stageType = g.l.GetStageType();
   const roomDesc = g.l.GetCurrentRoomDesc();
   const roomData = roomDesc.Data;
-  if (roomData === null) {
+  if (roomData === undefined) {
     error("Failed to get the room data for the current room.");
   }
   const roomStageID = roomData.StageID;
@@ -59,7 +59,7 @@ export function newRoom(): void {
   const startingRoomIndex = g.l.GetStartingRoomIndex();
   const roomDesc = g.l.GetCurrentRoomDesc();
   const roomData = roomDesc.Data;
-  if (roomData === null) {
+  if (roomData === undefined) {
     error("Failed to get the room data for the current room.");
   }
   const roomStageID = roomData.StageID;

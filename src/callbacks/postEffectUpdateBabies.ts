@@ -3,7 +3,7 @@ import g from "../globals";
 import { getCurrentBaby } from "../misc";
 import { EffectVariantCustom } from "../types/enums";
 
-const functionMap = new LuaTable<int, (effect: EntityEffect) => void>();
+const functionMap = new Map<int, (effect: EntityEffect) => void>();
 export default functionMap;
 
 // Mustache Baby
@@ -115,7 +115,7 @@ functionMap.set(485, (effect: EntityEffect) => {
       0,
       effect.Position,
       ZERO_VECTOR,
-      null,
+      undefined,
     );
     const rocketHeightOffset = Vector(0, -300);
     rocket.SpriteOffset = rocket.SpriteOffset.add(rocketHeightOffset);
@@ -123,7 +123,7 @@ functionMap.set(485, (effect: EntityEffect) => {
     const rocketFallSpeed = Vector(0, 30);
     effect.SpriteOffset = effect.SpriteOffset.add(rocketFallSpeed);
     if (effect.SpriteOffset.Y >= 0) {
-      Isaac.Explode(effect.Position, null, 50); // 49 deals 1 half heart of damage
+      Isaac.Explode(effect.Position, undefined, 50); // 49 deals 1 half heart of damage
       effect.Remove();
       const targets = Isaac.FindByType(
         EntityType.ENTITY_EFFECT,

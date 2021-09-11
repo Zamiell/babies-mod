@@ -108,7 +108,7 @@ export function getItemConfig(
   }
 
   const itemConfigItem = g.itemConfig.GetCollectible(collectibleType);
-  if (itemConfigItem === null) {
+  if (itemConfigItem === undefined) {
     error(`Failed to get the item config for collectible: ${collectibleType}`);
   }
 
@@ -267,7 +267,7 @@ export function isActionPressed(buttonAction: ButtonAction): boolean {
 export function openAllDoors(): void {
   for (let i = 0; i <= 7; i++) {
     const door = g.r.GetDoor(i);
-    if (door !== null) {
+    if (door !== undefined) {
       // If we try to open a hidden secret room door (or super secret room door),
       // then nothing will happen
       door.Open();
@@ -331,7 +331,7 @@ export function spawnRandomPickup(
         PickupVariant.PICKUP_HEART,
         position,
         velocity,
-        null,
+        undefined,
         0,
         g.run.randomSeed,
       );
@@ -345,7 +345,7 @@ export function spawnRandomPickup(
         PickupVariant.PICKUP_COIN,
         position,
         velocity,
-        null,
+        undefined,
         0,
         g.run.randomSeed,
       );
@@ -359,7 +359,7 @@ export function spawnRandomPickup(
         PickupVariant.PICKUP_KEY,
         position,
         velocity,
-        null,
+        undefined,
         0,
         g.run.randomSeed,
       );
@@ -373,7 +373,7 @@ export function spawnRandomPickup(
         PickupVariant.PICKUP_BOMB,
         position,
         velocity,
-        null,
+        undefined,
         0,
         g.run.randomSeed,
       );
@@ -387,7 +387,7 @@ export function spawnRandomPickup(
         PickupVariant.PICKUP_CHEST,
         position,
         velocity,
-        null,
+        undefined,
         0,
         g.run.randomSeed,
       );
@@ -401,7 +401,7 @@ export function spawnRandomPickup(
         PickupVariant.PICKUP_GRAB_BAG,
         position,
         velocity,
-        null,
+        undefined,
         0,
         g.run.randomSeed,
       );
@@ -415,7 +415,7 @@ export function spawnRandomPickup(
         PickupVariant.PICKUP_LIL_BATTERY,
         position,
         velocity,
-        null,
+        undefined,
         0,
         g.run.randomSeed,
       );
@@ -429,7 +429,7 @@ export function spawnRandomPickup(
         PickupVariant.PICKUP_PILL,
         position,
         velocity,
-        null,
+        undefined,
         0,
         g.run.randomSeed,
       );
@@ -443,7 +443,7 @@ export function spawnRandomPickup(
         PickupVariant.PICKUP_TAROTCARD,
         position,
         velocity,
-        null,
+        undefined,
         0,
         g.run.randomSeed,
       );
@@ -457,7 +457,7 @@ export function spawnRandomPickup(
         PickupVariant.PICKUP_TRINKET,
         position,
         velocity,
-        null,
+        undefined,
         0,
         g.run.randomSeed,
       );
@@ -471,7 +471,7 @@ export function spawnRandomPickup(
         PickupVariant.PICKUP_COLLECTIBLE,
         position,
         velocity,
-        null,
+        undefined,
         0,
         g.run.randomSeed,
       );

@@ -15,7 +15,7 @@ export function main(
   }
 
   const player = entity.ToPlayer();
-  if (player !== null) {
+  if (player !== undefined) {
     return entityTakeDmgPlayer.main(
       player,
       damageAmount,

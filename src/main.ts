@@ -67,7 +67,7 @@ function welcomeBanner() {
 }
 
 function checkBabiesDuplicateName() {
-  const nameMap = new LuaTable<string, boolean>();
+  const nameMap = new Map<string, boolean>();
   for (let i = 0; i < g.babies.length; i++) {
     const baby = g.babies[i];
 
@@ -147,7 +147,7 @@ function checkBabiesDuplicateItem() {
 }
 
 function checkBabiesDuplicateTrinket() {
-  const trinketMap = new LuaTable<TrinketType, boolean>();
+  const trinketMap = new Map<TrinketType, boolean>();
   for (let i = 0; i < g.babies.length; i++) {
     const baby = g.babies[i];
 

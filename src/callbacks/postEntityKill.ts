@@ -9,7 +9,7 @@ export function main(entity: Entity): void {
 
   // We only care if an actual enemy dies
   const npc = entity.ToNPC();
-  if (npc === null) {
+  if (npc === undefined) {
     return;
   }
 

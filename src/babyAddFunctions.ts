@@ -1,7 +1,7 @@
 import g from "./globals";
 import { getCurrentBaby, removeItemFromItemTracker } from "./misc";
 
-const functionMap = new LuaTable<int, () => void>();
+const functionMap = new Map<int, () => void>();
 export default functionMap;
 
 // Gold Baby
@@ -31,7 +31,7 @@ functionMap.set(39, () => {
 // Hive Baby
 functionMap.set(40, () => {
   // The game only allows a maximum of 64 Blue Flies and Blue Spiders at one time
-  g.p.AddBlueFlies(64, g.p.Position, null);
+  g.p.AddBlueFlies(64, g.p.Position, undefined);
   for (let i = 0; i < 64; i++) {
     g.p.AddBlueSpider(g.p.Position);
   }

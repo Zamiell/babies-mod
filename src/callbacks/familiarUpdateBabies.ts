@@ -1,7 +1,7 @@
 import g from "../globals";
 import { getOffsetPosition } from "../misc";
 
-const functionMap = new LuaTable<int, (familiar: EntityFamiliar) => void>();
+const functionMap = new Map<int, (familiar: EntityFamiliar) => void>();
 export default functionMap;
 
 // Lil' Baby

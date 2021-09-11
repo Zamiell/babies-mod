@@ -1,4 +1,4 @@
-const functionMap = new LuaTable<
+const functionMap = new Map<
   int,
   (pickup: EntityPickup, variant: int, subType: int) => [int, int] | void
 >();

@@ -46,7 +46,7 @@ function initializeDoors() {
   for (let i = 0; i <= 7; i++) {
     const door = g.r.GetDoor(i);
     if (
-      door !== null &&
+      door !== undefined &&
       (door.TargetRoomType === RoomType.ROOM_DEFAULT || // 0
         door.TargetRoomType === RoomType.ROOM_MINIBOSS || // 6
         door.TargetRoomType === RoomType.ROOM_SACRIFICE) // 13
@@ -102,7 +102,7 @@ function getNumAliveNPCs() {
   for (const entity of Isaac.GetRoomEntities()) {
     const npc = entity.ToNPC();
     if (
-      npc !== null &&
+      npc !== undefined &&
       npc.CanShutDoors && // This is a battle NPC
       !npc.IsDead() &&
       (npc.Type !== EntityType.ENTITY_RAGLING ||
@@ -161,7 +161,7 @@ function checkAllPressurePlatesPushed() {
   const gridSize = g.r.GetGridSize();
   for (let i = 1; i <= gridSize; i++) {
     const gridEntity = g.r.GetGridEntity(i);
-    if (gridEntity !== null) {
+    if (gridEntity !== undefined) {
       const saveState = gridEntity.GetSaveState();
       if (
         saveState.Type === GridEntityType.GRID_PRESSURE_PLATE &&
@@ -193,7 +193,7 @@ function clearRoom() {
   // Reset all of the doors that we previously modified
   for (const doorNum of g.run.room.doorsModified) {
     const door = g.r.GetDoor(doorNum);
-    if (door === null) {
+    if (door === undefined) {
       continue;
     }
 
@@ -213,7 +213,7 @@ function clearRoom() {
   // (and handle co-op players, if present)
   for (let i = 0; i < g.g.GetNumPlayers(); i++) {
     const player = Isaac.GetPlayer(i);
-    if (player === null) {
+    if (player === undefined) {
       continue;
     }
     const activeItem = player.GetActiveItem();

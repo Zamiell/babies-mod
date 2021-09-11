@@ -2,7 +2,7 @@ import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
 import { getItemHeartPrice, incrementRNG } from "../misc";
 
-const functionMap = new LuaTable<int, (pickup: EntityPickup) => void>();
+const functionMap = new Map<int, (pickup: EntityPickup) => void>();
 export default functionMap;
 
 // Bugeyed Baby
@@ -112,7 +112,7 @@ functionMap.set(166, (pickup: EntityPickup) => {
       PickupVariant.PICKUP_COLLECTIBLE,
       pickup.Position,
       ZERO_VECTOR,
-      null,
+      undefined,
       0,
       pickup.InitSeed,
     );
@@ -244,12 +244,12 @@ functionMap.set(287, (pickup: EntityPickup) => {
         PickupVariant.PICKUP_COLLECTIBLE,
         pickup.Position,
         ZERO_VECTOR,
-        null,
+        undefined,
         item,
         pickup.InitSeed,
       )
       .ToPickup();
-    if (pedestal !== null) {
+    if (pedestal !== undefined) {
       // Set the price
       pedestal.AutoUpdatePrice = false;
       pedestal.Price = getItemHeartPrice(pedestal.SubType);
@@ -287,12 +287,12 @@ functionMap.set(317, (pickup: EntityPickup) => {
         PickupVariant.PICKUP_COLLECTIBLE,
         pickup.Position,
         ZERO_VECTOR,
-        null,
+        undefined,
         0,
         pickup.InitSeed,
       )
       .ToPickup();
-    if (pedestal !== null) {
+    if (pedestal !== undefined) {
       // Set the price
       pedestal.AutoUpdatePrice = false;
       pedestal.Price = getItemHeartPrice(pedestal.SubType);
@@ -327,12 +327,12 @@ functionMap.set(381, (pickup: EntityPickup) => {
         PickupVariant.PICKUP_COLLECTIBLE,
         position,
         ZERO_VECTOR,
-        null,
+        undefined,
         0,
         g.run.randomSeed,
       )
       .ToPickup();
-    if (pedestal !== null) {
+    if (pedestal !== undefined) {
       // We don't want it to automatically be bought
       pedestal.Price = pickup.Price;
       // We want it to keep the behavior of the room
@@ -387,12 +387,12 @@ functionMap.set(537, (pickup: EntityPickup) => {
         PickupVariant.PICKUP_COLLECTIBLE,
         pickup.Position,
         ZERO_VECTOR,
-        null,
+        undefined,
         0,
         g.run.room.RNG,
       )
       .ToPickup();
-    if (pedestal !== null) {
+    if (pedestal !== undefined) {
       pedestal.Price = 15;
     }
     pickup.Remove();

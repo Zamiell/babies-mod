@@ -61,7 +61,7 @@ export function main(
   return undefined;
 }
 
-const functionMap = new LuaTable<
+const functionMap = new Map<
   int,
   (
     player: EntityPlayer,
@@ -150,7 +150,7 @@ functionMap.set(
     // Enemies are fully healed on hit
     for (const entity of Isaac.GetRoomEntities()) {
       const npc = entity.ToNPC();
-      if (npc !== null && npc.IsVulnerableEnemy()) {
+      if (npc !== undefined && npc.IsVulnerableEnemy()) {
         // This enemy can be damaged
         npc.HitPoints = npc.MaxHitPoints;
       }
@@ -354,7 +354,7 @@ functionMap.set(
       ZERO_VECTOR,
       player,
     ).ToEffect();
-    if (creep !== null) {
+    if (creep !== undefined) {
       creep.Scale = 10;
       creep.Timeout = 240;
     }
@@ -662,7 +662,7 @@ functionMap.set(
     let dupeEnemy: EntityDescription | undefined;
     for (const entity of Isaac.GetRoomEntities()) {
       const npc = entity.ToNPC();
-      if (npc !== null && !npc.IsBoss()) {
+      if (npc !== undefined && !npc.IsBoss()) {
         dupeEnemy = {
           type: npc.Type,
           variant: npc.Variant,
@@ -687,7 +687,7 @@ functionMap.set(
       0,
       position,
       ZERO_VECTOR,
-      null,
+      undefined,
     );
   },
 );
@@ -782,7 +782,7 @@ functionMap.set(
     // as those will cause unavoidable damage
     for (let i = 1; i <= gridSize; i++) {
       const gridEntity = g.r.GetGridEntity(i);
-      if (gridEntity !== null) {
+      if (gridEntity !== undefined) {
         const saveState = gridEntity.GetSaveState();
         if (saveState.Type === GridEntityType.GRID_TRAPDOOR) {
           return false;
@@ -969,7 +969,7 @@ functionMap.set(
         PickupVariant.PICKUP_COLLECTIBLE,
         position,
         ZERO_VECTOR,
-        null,
+        undefined,
         0,
         g.run.randomSeed,
       );
@@ -1167,7 +1167,7 @@ functionMap.set(
     // All enemies get confused on hit
     for (const entity of Isaac.GetRoomEntities()) {
       const npc = entity.ToNPC();
-      if (npc !== null && npc.IsVulnerableEnemy()) {
+      if (npc !== undefined && npc.IsVulnerableEnemy()) {
         // Returns true for enemies that can be damaged
         npc.AddConfusion(EntityRef(player), 150, false); // 5 seconds
       }
@@ -1298,7 +1298,7 @@ functionMap.set(
       error(`The "num" attribute was not defined for ${baby.name}.`);
     }
 
-    player.AddBlueFlies(baby.num, player.Position, null);
+    player.AddBlueFlies(baby.num, player.Position, undefined);
   },
 );
 
@@ -1315,7 +1315,7 @@ functionMap.set(
     // All enemies get freezed on hit
     for (const entity of Isaac.GetRoomEntities()) {
       const npc = entity.ToNPC();
-      if (npc !== null && npc.IsVulnerableEnemy()) {
+      if (npc !== undefined && npc.IsVulnerableEnemy()) {
         // Returns true for enemies that can be damaged
         npc.AddFreeze(EntityRef(player), 150); // 5 seconds
       }

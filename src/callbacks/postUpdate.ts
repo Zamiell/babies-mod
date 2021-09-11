@@ -82,7 +82,7 @@ function checkApplyBlindfold(baby: BabyDescription) {
       );
       for (const entity of incubi) {
         const incubus = entity.ToFamiliar();
-        if (incubus !== null && incubus.FireCooldown > 900) {
+        if (incubus !== undefined && incubus.FireCooldown > 900) {
           // 30 seconds
           incubus.FireCooldown = 0;
         }
@@ -106,7 +106,7 @@ function checkNewPedestalItem() {
   if (
     !g.p.IsItemQueueEmpty() &&
     !g.run.queuedItems &&
-    g.p.QueuedItem.Item !== null
+    g.p.QueuedItem.Item !== undefined
   ) {
     g.run.queuedItems = true;
     if (
@@ -183,7 +183,7 @@ function checkTrinket() {
         PickupVariant.PICKUP_COLLECTIBLE,
         position,
         ZERO_VECTOR,
-        null,
+        undefined,
         0,
         g.run.randomSeed,
       );
@@ -253,7 +253,7 @@ function checkSoftlockDestroyPoops() {
   // (fireplaces will not cause softlocks since they are killable with The Candle)
   for (let i = 1; i <= gridSize; i++) {
     const gridEntity = g.r.GetGridEntity(i);
-    if (gridEntity !== null) {
+    if (gridEntity !== undefined) {
       const saveState = gridEntity.GetSaveState();
       if (
         saveState.Type === GridEntityType.GRID_TNT || // 12
@@ -307,7 +307,7 @@ function checkGridEntities() {
 
   for (let i = 1; i <= gridSize; i++) {
     const gridEntity = g.r.GetGridEntity(i);
-    if (gridEntity !== null) {
+    if (gridEntity !== undefined) {
       const saveState = gridEntity.GetSaveState();
       if (
         baby.name === "Gold Baby" && // 15

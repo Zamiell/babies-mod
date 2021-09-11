@@ -11,7 +11,7 @@ import * as pseudoRoomClear from "../pseudoRoomClear";
 import { EffectVariantCustom } from "../types/enums";
 import * as postRender from "./postRender";
 
-const functionMap = new LuaTable<int, () => void>();
+const functionMap = new Map<int, () => void>();
 export default functionMap;
 
 // Troll Baby
@@ -26,7 +26,7 @@ functionMap.set(6, () => {
       0,
       g.p.Position,
       ZERO_VECTOR,
-      null,
+      undefined,
     );
   }
 });
@@ -153,7 +153,7 @@ functionMap.set(43, () => {
   for (let i = g.run.babyExplosions.length - 1; i >= 0; i--) {
     const explosion = g.run.babyExplosions[i];
     if (explosion.roomIndex === roomIndex) {
-      Isaac.Explode(explosion.position, null, 50); // 49 deals 1 half heart of damage
+      Isaac.Explode(explosion.position, undefined, 50); // 49 deals 1 half heart of damage
       g.run.babyExplosions.splice(i, 1); // Remove this element
     }
   }
@@ -281,7 +281,7 @@ functionMap.set(107, () => {
     0,
     g.p.Position,
     ZERO_VECTOR,
-    null,
+    undefined,
   );
   Isaac.Spawn(
     EntityType.ENTITY_FAMILIAR,
@@ -289,7 +289,7 @@ functionMap.set(107, () => {
     0,
     g.p.Position,
     ZERO_VECTOR,
-    null,
+    undefined,
   );
 });
 
@@ -312,11 +312,11 @@ functionMap.set(110, () => {
   let allCleared = true;
   for (let i = 0; i < rooms.Size; i++) {
     const roomDesc = rooms.Get(i); // This is 0-indexed
-    if (roomDesc === null) {
+    if (roomDesc === undefined) {
       continue;
     }
     const roomData = roomDesc.Data;
-    if (roomData === null) {
+    if (roomData === undefined) {
       continue;
     }
     const roomType2 = roomData.Type;
@@ -337,7 +337,7 @@ functionMap.set(110, () => {
   // Keep the boss room door closed
   for (let i = 0; i <= 7; i++) {
     const door = g.r.GetDoor(i);
-    if (door !== null && door.IsRoomType(RoomType.ROOM_BOSS)) {
+    if (door !== undefined && door.IsRoomType(RoomType.ROOM_BOSS)) {
       door.Bar();
     }
   }
@@ -386,7 +386,7 @@ functionMap.set(128, () => {
   const floorIndexes: int[] = [];
   for (let i = 0; i < rooms.Size; i++) {
     const room = rooms.Get(i); // This is 0 indexed
-    if (room !== null) {
+    if (room !== undefined) {
       floorIndexes.push(room.SafeGridIndex);
     }
   }
@@ -663,7 +663,7 @@ functionMap.set(171, () => {
         PickupVariant.PICKUP_COLLECTIBLE,
         slot.Position,
         ZERO_VECTOR,
-        null,
+        undefined,
         0,
         g.run.randomSeed,
       );
@@ -728,7 +728,7 @@ functionMap.set(216, () => {
   const rooms = g.l.GetRooms();
 
   const item = g.p.QueuedItem.Item;
-  if (item === null) {
+  if (item === undefined) {
     return;
   }
 
@@ -740,12 +740,12 @@ functionMap.set(216, () => {
   // Find the grid index of the intended room
   for (let i = 0; i < rooms.Size; i++) {
     const roomDesc = rooms.Get(i); // This is 0 indexed
-    if (roomDesc === null) {
+    if (roomDesc === undefined) {
       continue;
     }
     const index = roomDesc.SafeGridIndex; // This is always the top-left index
     const roomData = roomDesc.Data;
-    if (roomData === null) {
+    if (roomData === undefined) {
       continue;
     }
     const roomType = roomData.Type;
@@ -1122,7 +1122,7 @@ functionMap.set(374, () => {
       0,
       Isaac.GetRandomPosition(),
       ZERO_VECTOR,
-      null,
+      undefined,
     );
   }
 });
@@ -1140,7 +1140,7 @@ functionMap.set(382, () => {
       0,
       g.p.Position,
       ZERO_VECTOR,
-      null,
+      undefined,
     );
   }
 });
@@ -1183,7 +1183,7 @@ functionMap.set(388, () => {
       0,
       tear.position,
       velocity,
-      null,
+      undefined,
     );
 
     tear.num -= 1;
@@ -1209,7 +1209,7 @@ functionMap.set(396, () => {
       ZERO_VECTOR,
       g.p,
     ).ToEffect();
-    if (creep !== null) {
+    if (creep !== undefined) {
       creep.Timeout = 240;
     }
   }
@@ -1222,7 +1222,14 @@ functionMap.set(401, () => {
   // Every 1.5 seconds
   if (gameFrameCount % 45 === 0) {
     // Spawn a Fly
-    Isaac.Spawn(EntityType.ENTITY_FLY, 0, 0, g.p.Position, ZERO_VECTOR, null);
+    Isaac.Spawn(
+      EntityType.ENTITY_FLY,
+      0,
+      0,
+      g.p.Position,
+      ZERO_VECTOR,
+      undefined,
+    );
   }
 });
 
@@ -1334,7 +1341,7 @@ functionMap.set(485, () => {
       0,
       Isaac.GetRandomPosition(),
       ZERO_VECTOR,
-      null,
+      undefined,
     );
     const sprite = target.GetSprite();
     sprite.Play("Blink", true);
@@ -1385,7 +1392,7 @@ functionMap.set(519, () => {
   // Check to see if a door opened before the room was clear
   for (let i = 0; i <= 7; i++) {
     const door = g.r.GetDoor(i);
-    if (door !== null && door.IsOpen()) {
+    if (door !== undefined && door.IsOpen()) {
       door.Close(true);
     }
   }

@@ -5,7 +5,7 @@ import log from "../log";
 import { getItemConfig, gridToPos, incrementRNG, openAllDoors } from "../misc";
 import { CollectibleTypeCustom } from "../types/enums";
 
-const functionMap = new LuaTable<int, () => void>();
+const functionMap = new Map<int, () => void>();
 export default functionMap;
 
 // This is used for several babies
@@ -58,7 +58,7 @@ functionMap.set(14, () => {
   // Spawn a laser ring around the player
   const laser = g.p.FireTechXLaser(g.p.Position, ZERO_VECTOR, 66).ToLaser();
   // (we copy the radius from Samael's Tech X ability)
-  if (laser === null) {
+  if (laser === undefined) {
     return;
   }
   if (laser.Variant !== 2) {
@@ -117,7 +117,7 @@ functionMap.set(90, () => {
   for (let i = 0; i <= 7; i++) {
     const door = g.r.GetDoor(i);
     if (
-      door !== null &&
+      door !== undefined &&
       door.TargetRoomType === RoomType.ROOM_DEFAULT &&
       door.IsLocked()
     ) {
@@ -145,7 +145,7 @@ functionMap.set(118, () => {
       PickupVariant.PICKUP_COLLECTIBLE,
       position,
       ZERO_VECTOR,
-      null,
+      undefined,
       0,
       g.run.randomSeed,
     );
@@ -201,7 +201,7 @@ functionMap.set(149, () => {
       PickupVariant.PICKUP_COLLECTIBLE,
       position,
       ZERO_VECTOR,
-      null,
+      undefined,
       0,
       g.run.randomSeed,
     );
@@ -253,11 +253,11 @@ functionMap.set(216, () => {
   const rooms = g.l.GetRooms();
   for (let i = 0; i < rooms.Size; i++) {
     const roomDesc = rooms.Get(i); // This is 0 indexed
-    if (roomDesc === null) {
+    if (roomDesc === undefined) {
       continue;
     }
     const roomData = roomDesc.Data;
-    if (roomData === null) {
+    if (roomData === undefined) {
       continue;
     }
     const roomType = roomData.Type;
@@ -370,12 +370,12 @@ functionMap.set(216, () => {
           PickupVariant.PICKUP_COLLECTIBLE,
           position,
           ZERO_VECTOR,
-          null,
+          undefined,
           itemID,
           g.run.room.RNG,
         )
         .ToPickup();
-      if (pedestal !== null) {
+      if (pedestal !== undefined) {
         pedestal.AutoUpdatePrice = false;
         pedestal.Price = price;
       }
@@ -415,7 +415,7 @@ functionMap.set(249, () => {
   for (const entity of Isaac.GetRoomEntities()) {
     const npc = entity.ToNPC();
     if (
-      npc !== null &&
+      npc !== undefined &&
       // Make an exception for certain NPCs
       npc.Type !== EntityType.ENTITY_SHOPKEEPER && // 17
       npc.Type !== EntityType.ENTITY_FIREPLACE // 33
@@ -425,7 +425,7 @@ functionMap.set(249, () => {
         g.run.babyNPC.variant,
         npc.Position,
         npc.Velocity,
-        null,
+        undefined,
         g.run.babyNPC.subType,
         npc.InitSeed,
       );
@@ -444,12 +444,12 @@ functionMap.set(261, () => {
   const rooms = g.l.GetRooms();
   for (let i = 0; i < rooms.Size; i++) {
     const roomDesc = rooms.Get(i); // This is 0 indexed
-    if (roomDesc === null) {
+    if (roomDesc === undefined) {
       continue;
     }
     const index = roomDesc.SafeGridIndex; // This is always the top-left index
     const roomData = roomDesc.Data;
-    if (roomData === null) {
+    if (roomData === undefined) {
       continue;
     }
     const roomType = roomData.Type;
@@ -509,12 +509,12 @@ functionMap.set(287, () => {
       PickupVariant.PICKUP_COLLECTIBLE,
       position,
       ZERO_VECTOR,
-      null,
+      undefined,
       item,
       g.run.room.RNG,
     )
     .ToPickup();
-  if (pedestal !== null) {
+  if (pedestal !== undefined) {
     pedestal.AutoUpdatePrice = false;
 
     // Find out how this item should be priced
@@ -544,7 +544,7 @@ functionMap.set(287, () => {
       0,
       pos,
       ZERO_VECTOR,
-      null,
+      undefined,
       0,
       g.run.room.RNG,
     );
@@ -579,7 +579,7 @@ functionMap.set(351, () => {
   for (let i = 0; i <= 7; i++) {
     const door = g.r.GetDoor(i);
     if (
-      door !== null &&
+      door !== undefined &&
       door.TargetRoomType === RoomType.ROOM_DEFAULT &&
       door.IsLocked()
     ) {
@@ -626,7 +626,7 @@ functionMap.set(504, () => {
   );
   for (const abel of abels) {
     const familiar = abel.ToFamiliar();
-    if (familiar !== null) {
+    if (familiar !== undefined) {
       familiar.FireCooldown = 1000000;
     }
   }

@@ -1,7 +1,7 @@
 import g from "../globals";
 import { addCharge, getOffsetPosition, incrementRNG } from "../misc";
 
-const functionMap = new LuaTable<int, (bomb: EntityBomb) => void>();
+const functionMap = new Map<int, (bomb: EntityBomb) => void>();
 export default functionMap;
 
 // Bomb Baby
@@ -90,7 +90,7 @@ functionMap.set(284, (bomb: EntityBomb) => {
         bomb.InitSeed,
       )
       .ToBomb();
-    if (doubledBomb !== null) {
+    if (doubledBomb !== undefined) {
       doubledBomb.Flags = bomb.Flags;
       doubledBomb.IsFetus = bomb.IsFetus;
       if (bomb.IsFetus) {

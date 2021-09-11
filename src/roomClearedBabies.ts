@@ -2,7 +2,7 @@ import { ZERO_VECTOR } from "./constants";
 import g from "./globals";
 import { addCharge } from "./misc";
 
-const functionMap = new LuaTable<int, () => void>();
+const functionMap = new Map<int, () => void>();
 export default functionMap;
 
 // Love Baby
