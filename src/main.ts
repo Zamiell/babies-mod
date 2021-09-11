@@ -41,20 +41,19 @@ import log from "./log";
 import { getItemConfig } from "./misc";
 import { CollectibleTypeCustom } from "./types/enums";
 
-main();
+export default function main(): void {
+  const mod = RegisterMod("The Babies Mod", 1);
 
-function main() {
-  const babiesMod = RegisterMod("The Babies Mod", 1);
   welcomeBanner();
 
   // Make a copy of this object so that we can use it elsewhere
-  g.babiesMod = babiesMod; // (this is needed for saving and loading the "save.dat" file)
+  g.babiesMod = mod; // (this is needed for saving and loading the "save.dat" file)
 
   checkBabiesDuplicateName();
   checkBabiesDuplicateItem();
   checkBabiesDuplicateTrinket();
 
-  registerCallbacks(babiesMod);
+  registerCallbacks(mod);
 }
 
 function welcomeBanner() {

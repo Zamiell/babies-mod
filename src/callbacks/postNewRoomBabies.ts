@@ -1,6 +1,6 @@
+import { getRoomVariant } from "isaacscript-common";
 import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
-import { getRoomVariant } from "../isaacscript-common";
 import log from "../log";
 import { getItemConfig, gridToPos, incrementRNG, openAllDoors } from "../misc";
 import { CollectibleTypeCustom } from "../types/enums";

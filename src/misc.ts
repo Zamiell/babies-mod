@@ -1,6 +1,6 @@
+import { getItemName } from "isaacscript-common";
 import { ZERO_VECTOR } from "./constants";
 import g from "./globals";
-import { getItemName } from "./isaacscript-common";
 import log from "./log";
 import BabyDescription from "./types/BabyDescription";
 import { CollectibleTypeCustom } from "./types/enums";

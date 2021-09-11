@@ -1,6 +1,6 @@
+import { getRoomVariant } from "isaacscript-common";
 import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
-import { getRoomVariant } from "../isaacscript-common";
 
 const functionMap = new LuaTable<int, () => void>();
 export default functionMap;
