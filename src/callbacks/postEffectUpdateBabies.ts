@@ -1,4 +1,3 @@
-import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
 import { getCurrentBaby } from "../misc";
 import { EffectVariantCustom } from "../types/enums";
@@ -96,7 +95,7 @@ functionMap.set(281, (effect: EntityEffect) => {
         EffectVariant.CRACK_THE_SKY,
         0,
         effect.Position,
-        ZERO_VECTOR,
+        Vector.Zero,
         g.p,
       );
     }
@@ -114,7 +113,7 @@ functionMap.set(485, (effect: EntityEffect) => {
       EffectVariantCustom.FETUS_BOSS_ROCKET,
       0,
       effect.Position,
-      ZERO_VECTOR,
+      Vector.Zero,
       undefined,
     );
     const rocketHeightOffset = Vector(0, -300);

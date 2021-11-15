@@ -1,4 +1,3 @@
-import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
 
 const functionMap = new Map<
@@ -24,7 +23,7 @@ functionMap.set(410, (tear: EntityTear, collider: Entity) => {
       EffectVariant.PLAYER_CREEP_HOLYWATER,
       0,
       collider.Position,
-      ZERO_VECTOR,
+      Vector.Zero,
       g.p,
     ).ToEffect();
     if (creep !== undefined) {

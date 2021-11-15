@@ -1,4 +1,3 @@
-import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
 import { getCurrentBaby, setRandomColor } from "../misc";
 import TearData from "../types/TearData";
@@ -15,7 +14,7 @@ functionMap.set(100, (tear: EntityTear) => {
       EffectVariant.HOT_BOMB_FIRE,
       0,
       tear.Position,
-      ZERO_VECTOR,
+      Vector.Zero,
       undefined,
     );
     fire.SpriteScale = Vector(0.5, 0.5);
@@ -168,7 +167,7 @@ functionMap.set(380, (tear: EntityTear) => {
       EffectVariant.PLAYER_CREEP_BLACK,
       0,
       tear.Position,
-      ZERO_VECTOR,
+      Vector.Zero,
       tear,
     ).ToEffect();
     if (creep !== undefined) {

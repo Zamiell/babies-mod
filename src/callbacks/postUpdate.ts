@@ -1,4 +1,3 @@
-import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
 import log, { debugLog } from "../log";
 import {
@@ -182,7 +181,7 @@ function checkTrinket() {
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_COLLECTIBLE,
         position,
-        ZERO_VECTOR,
+        Vector.Zero,
         undefined,
         0,
         g.run.randomSeed,
@@ -312,9 +311,9 @@ function checkGridEntities() {
       if (
         baby.name === "Gold Baby" && // 15
         saveState.Type === GridEntityType.GRID_POOP &&
-        saveState.Variant !== PoopVariant.GOLDEN
+        saveState.Variant !== PoopGridEntityVariant.GOLDEN
       ) {
-        gridEntity.SetVariant(PoopVariant.GOLDEN);
+        gridEntity.SetVariant(PoopGridEntityVariant.GOLDEN);
       } else if (
         baby.name === "Ate Poop Baby" && // 173
         saveState.Type === GridEntityType.GRID_POOP &&

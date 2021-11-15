@@ -1,5 +1,4 @@
 import { getRoomVariant } from "isaacscript-common";
-import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
 import log from "../log";
 import { getItemConfig, gridToPos, incrementRNG, openAllDoors } from "../misc";
@@ -56,7 +55,7 @@ functionMap.set(13, () => {
 // Glass Baby
 functionMap.set(14, () => {
   // Spawn a laser ring around the player
-  const laser = g.p.FireTechXLaser(g.p.Position, ZERO_VECTOR, 66).ToLaser();
+  const laser = g.p.FireTechXLaser(g.p.Position, Vector.Zero, 66).ToLaser();
   // (we copy the radius from Samael's Tech X ability)
   if (laser === undefined) {
     return;
@@ -144,7 +143,7 @@ functionMap.set(118, () => {
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_COLLECTIBLE,
       position,
-      ZERO_VECTOR,
+      Vector.Zero,
       undefined,
       0,
       g.run.randomSeed,
@@ -200,7 +199,7 @@ functionMap.set(149, () => {
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_COLLECTIBLE,
       position,
-      ZERO_VECTOR,
+      Vector.Zero,
       undefined,
       0,
       g.run.randomSeed,
@@ -369,7 +368,7 @@ functionMap.set(216, () => {
           EntityType.ENTITY_PICKUP,
           PickupVariant.PICKUP_COLLECTIBLE,
           position,
-          ZERO_VECTOR,
+          Vector.Zero,
           undefined,
           itemID,
           g.run.room.RNG,
@@ -508,7 +507,7 @@ functionMap.set(287, () => {
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_COLLECTIBLE,
       position,
-      ZERO_VECTOR,
+      Vector.Zero,
       undefined,
       item,
       g.run.room.RNG,
@@ -543,7 +542,7 @@ functionMap.set(287, () => {
       EntityType.ENTITY_FIREPLACE,
       0,
       pos,
-      ZERO_VECTOR,
+      Vector.Zero,
       undefined,
       0,
       g.run.room.RNG,
@@ -651,7 +650,7 @@ functionMap.set(516, () => {
 functionMap.set(522, () => {
   const godheadTear = g.p.FireTear(
     g.p.Position,
-    ZERO_VECTOR,
+    Vector.Zero,
     false,
     true,
     false,

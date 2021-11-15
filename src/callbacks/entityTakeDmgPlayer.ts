@@ -1,11 +1,10 @@
-import { ZERO_VECTOR } from "../constants";
+import { removeCollectibleFromItemTracker } from "isaacscript-common";
 import g from "../globals";
 import {
   getCurrentBaby,
   getRoomIndex,
   incrementRNG,
   openAllDoors,
-  removeItemFromItemTracker,
   spawnRandomPickup,
 } from "../misc";
 import EntityDescription from "../types/EntityDescription";
@@ -218,7 +217,7 @@ functionMap.set(
       PickupVariant.PICKUP_TAROTCARD,
       Card.CARD_SUN,
       player.Position,
-      ZERO_VECTOR,
+      Vector.Zero,
       player,
     );
   },
@@ -243,7 +242,7 @@ functionMap.set(
       PickupVariant.PICKUP_HEART,
       heartSubType,
       player.Position,
-      ZERO_VECTOR,
+      Vector.Zero,
       player,
     );
   },
@@ -284,9 +283,9 @@ functionMap.set(
       g.run.babyBool = true;
       g.sfx.Play(SoundEffect.SOUND_SATAN_GROW, 1, 0);
       player.AddCollectible(CollectibleType.COLLECTIBLE_GOAT_HEAD);
-      removeItemFromItemTracker(CollectibleType.COLLECTIBLE_GOAT_HEAD);
+      removeCollectibleFromItemTracker(CollectibleType.COLLECTIBLE_GOAT_HEAD);
       player.AddCollectible(CollectibleType.COLLECTIBLE_DUALITY);
-      removeItemFromItemTracker(CollectibleType.COLLECTIBLE_DUALITY);
+      removeCollectibleFromItemTracker(CollectibleType.COLLECTIBLE_DUALITY);
     }
   },
 );
@@ -351,7 +350,7 @@ functionMap.set(
       EffectVariant.PLAYER_CREEP_RED,
       0,
       player.Position,
-      ZERO_VECTOR,
+      Vector.Zero,
       player,
     ).ToEffect();
     if (creep !== undefined) {
@@ -605,7 +604,7 @@ functionMap.set(
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_KEY,
       player.Position,
-      ZERO_VECTOR,
+      Vector.Zero,
       player,
       0,
       g.run.randomSeed,
@@ -686,7 +685,7 @@ functionMap.set(
       dupeEnemy.variant,
       0,
       position,
-      ZERO_VECTOR,
+      Vector.Zero,
       undefined,
     );
   },
@@ -728,7 +727,7 @@ functionMap.set(
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_BOMB,
       player.Position,
-      ZERO_VECTOR,
+      Vector.Zero,
       player,
       0,
       g.run.randomSeed,
@@ -899,7 +898,7 @@ functionMap.set(
       PickupVariant.PICKUP_TAROTCARD,
       Card.CARD_STARS,
       player.Position,
-      ZERO_VECTOR,
+      Vector.Zero,
       player,
     );
   },
@@ -968,7 +967,7 @@ functionMap.set(
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_COLLECTIBLE,
         position,
-        ZERO_VECTOR,
+        Vector.Zero,
         undefined,
         0,
         g.run.randomSeed,
@@ -1114,7 +1113,7 @@ functionMap.set(
     _damageSource,
     _damageCountdownFrames,
   ) => {
-    player.ShootRedCandle(ZERO_VECTOR);
+    player.ShootRedCandle(Vector.Zero);
   },
 );
 
@@ -1442,7 +1441,7 @@ functionMap.set(
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_TAROTCARD,
       player.Position,
-      ZERO_VECTOR,
+      Vector.Zero,
       player,
       runeSubType,
       g.run.randomSeed,
@@ -1492,7 +1491,7 @@ functionMap.set(
         player.HasCollectible(itemToTakeAway)
       ) {
         player.RemoveCollectible(itemToTakeAway);
-        removeItemFromItemTracker(itemToTakeAway);
+        removeCollectibleFromItemTracker(itemToTakeAway);
       }
     }
   },

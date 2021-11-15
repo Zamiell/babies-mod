@@ -1,4 +1,4 @@
-import { TELEPORT_TO_ROOM_TYPE_MAP, ZERO_VECTOR } from "../constants";
+import { TELEPORT_TO_ROOM_TYPE_MAP } from "../constants";
 import g from "../globals";
 import log from "../log";
 import {
@@ -21,11 +21,11 @@ functionMap.set(6, () => {
   // Every 3 seconds
   if (gameFrameCount % 90 === 0) {
     Isaac.Spawn(
-      EntityType.ENTITY_BOMBDROP,
+      EntityType.ENTITY_BOMB,
       BombVariant.BOMB_TROLL,
       0,
       g.p.Position,
-      ZERO_VECTOR,
+      Vector.Zero,
       undefined,
     );
   }
@@ -207,7 +207,10 @@ functionMap.set(63, () => {
     g.run.randomSeed = incrementRNG(g.run.randomSeed);
     math.randomseed(g.run.randomSeed);
     const poopVariant = math.random(0, 6);
-    if (poopVariant === PoopVariant.RED || poopVariant === PoopVariant.CORN) {
+    if (
+      poopVariant === PoopGridEntityVariant.RED ||
+      poopVariant === PoopGridEntityVariant.CORN
+    ) {
       // If the poop is this type, it will instantly damage the player,
       // so give them some invulnerability frames
       g.run.invulnerabilityFrame = gameFrameCount + 25;
@@ -280,7 +283,7 @@ functionMap.set(107, () => {
     FamiliarVariant.CUBE_OF_MEAT_4, // 47
     0,
     g.p.Position,
-    ZERO_VECTOR,
+    Vector.Zero,
     undefined,
   );
   Isaac.Spawn(
@@ -288,7 +291,7 @@ functionMap.set(107, () => {
     FamiliarVariant.BALL_OF_BANDAGES_4, // 72
     0,
     g.p.Position,
-    ZERO_VECTOR,
+    Vector.Zero,
     undefined,
   );
 });
@@ -662,7 +665,7 @@ functionMap.set(171, () => {
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_COLLECTIBLE,
         slot.Position,
-        ZERO_VECTOR,
+        Vector.Zero,
         undefined,
         0,
         g.run.randomSeed,
@@ -685,7 +688,7 @@ functionMap.set(211, () => {
         EffectVariant.ROCK_EXPLOSION,
         0,
         tear.position,
-        ZERO_VECTOR,
+        Vector.Zero,
         g.p,
       );
       const index = g.r.GetGridIndex(tear.position);
@@ -1121,7 +1124,7 @@ functionMap.set(374, () => {
       EffectVariant.MOM_FOOT_STOMP,
       0,
       Isaac.GetRandomPosition(),
-      ZERO_VECTOR,
+      Vector.Zero,
       undefined,
     );
   }
@@ -1135,11 +1138,11 @@ functionMap.set(382, () => {
   if (gameFrameCount % 150 === 0) {
     // Spawn a Mega Troll Bomb
     Isaac.Spawn(
-      EntityType.ENTITY_BOMBDROP,
+      EntityType.ENTITY_BOMB,
       BombVariant.BOMB_SUPERTROLL,
       0,
       g.p.Position,
-      ZERO_VECTOR,
+      Vector.Zero,
       undefined,
     );
   }
@@ -1206,7 +1209,7 @@ functionMap.set(396, () => {
       EffectVariant.PLAYER_CREEP_RED,
       0,
       g.p.Position,
-      ZERO_VECTOR,
+      Vector.Zero,
       g.p,
     ).ToEffect();
     if (creep !== undefined) {
@@ -1227,7 +1230,7 @@ functionMap.set(401, () => {
       0,
       0,
       g.p.Position,
-      ZERO_VECTOR,
+      Vector.Zero,
       undefined,
     );
   }
@@ -1279,7 +1282,7 @@ functionMap.set(462, () => {
         EffectVariant.ROCK_EXPLOSION,
         0,
         tear.position,
-        ZERO_VECTOR,
+        Vector.Zero,
         g.p,
       );
       const index = g.r.GetGridIndex(tear.position);
@@ -1340,7 +1343,7 @@ functionMap.set(485, () => {
       EffectVariantCustom.FETUS_BOSS_TARGET,
       0,
       Isaac.GetRandomPosition(),
-      ZERO_VECTOR,
+      Vector.Zero,
       undefined,
     );
     const sprite = target.GetSprite();

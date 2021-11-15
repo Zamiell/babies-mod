@@ -1,7 +1,4 @@
-import { getItemName } from "isaacscript-common";
-import { ZERO_VECTOR } from "./constants";
 import g from "./globals";
-import log from "./log";
 import BabyDescription from "./types/BabyDescription";
 import { CollectibleTypeCustom } from "./types/enums";
 
@@ -275,13 +272,6 @@ export function openAllDoors(): void {
   }
 }
 
-export function removeItemFromItemTracker(
-  collectibleType: CollectibleType | CollectibleTypeCustom,
-): void {
-  const itemName = getItemName(collectibleType);
-  log(`Removing collectible ${collectibleType} (${itemName})`);
-}
-
 // Set the entity to a random color
 // (used for 404 Baby)
 export function setRandomColor(entity: Entity): void {
@@ -308,7 +298,7 @@ export function setRandomColor(entity: Entity): void {
 
 export function spawnRandomPickup(
   position: Vector,
-  velocity: Vector = ZERO_VECTOR,
+  velocity: Vector = Vector.Zero,
   noItems = false,
 ): void {
   // Spawn a random pickup

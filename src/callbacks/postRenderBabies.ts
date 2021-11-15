@@ -1,5 +1,4 @@
 import { getRoomVariant } from "isaacscript-common";
-import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
 
 const functionMap = new Map<int, () => void>();
@@ -16,7 +15,7 @@ functionMap.set(48, () => {
       opacity = 1;
     }
     g.run.babySprite.Color = Color(1, 1, 1, opacity, 0, 0, 0);
-    g.run.babySprite.RenderLayer(0, ZERO_VECTOR);
+    g.run.babySprite.RenderLayer(0, Vector.Zero);
   }
 });
 

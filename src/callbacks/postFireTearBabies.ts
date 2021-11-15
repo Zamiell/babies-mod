@@ -366,7 +366,7 @@ functionMap.set(361, (tear: EntityTear) => {
   if (g.run.babyCounters === baby.num) {
     g.run.babyCounters = 0;
     g.g.Spawn(
-      EntityType.ENTITY_BOMBDROP,
+      EntityType.ENTITY_BOMB,
       BombVariant.BOMB_NORMAL,
       tear.Position,
       tear.Velocity,

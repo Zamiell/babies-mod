@@ -1,5 +1,6 @@
+import { removeCollectibleFromItemTracker } from "isaacscript-common";
 import g from "./globals";
-import { getCurrentBaby, removeItemFromItemTracker } from "./misc";
+import { getCurrentBaby } from "./misc";
 
 const functionMap = new Map<int, () => void>();
 export default functionMap;
@@ -116,7 +117,7 @@ functionMap.set(350, () => {
 functionMap.set(375, () => {
   // This is the third item given, so we have to handle it manually
   g.p.AddCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE);
-  removeItemFromItemTracker(CollectibleType.COLLECTIBLE_FLAT_STONE);
+  removeCollectibleFromItemTracker(CollectibleType.COLLECTIBLE_FLAT_STONE);
 });
 
 // Imp Baby
@@ -140,7 +141,7 @@ functionMap.set(393, () => {
 functionMap.set(407, () => {
   // This is the third item given, so we have to handle it manually
   g.p.AddCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE);
-  removeItemFromItemTracker(CollectibleType.COLLECTIBLE_FLAT_STONE);
+  removeCollectibleFromItemTracker(CollectibleType.COLLECTIBLE_FLAT_STONE);
 });
 
 // Rich Baby

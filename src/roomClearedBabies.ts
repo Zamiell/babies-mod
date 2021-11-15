@@ -1,4 +1,3 @@
-import { ZERO_VECTOR } from "./constants";
 import g from "./globals";
 import { addCharge } from "./misc";
 
@@ -17,7 +16,7 @@ functionMap.set(1, () => {
     PickupVariant.PICKUP_HEART,
     heartSubType,
     g.p.Position,
-    ZERO_VECTOR,
+    Vector.Zero,
     g.p,
   );
 });
@@ -37,7 +36,7 @@ functionMap.set(88, () => {
     EntityType.ENTITY_PICKUP,
     PickupVariant.PICKUP_COLLECTIBLE,
     position,
-    ZERO_VECTOR,
+    Vector.Zero,
     g.p,
     0,
     roomSeed,
@@ -59,7 +58,7 @@ functionMap.set(384, () => {
     EntityType.ENTITY_PICKUP,
     PickupVariant.PICKUP_BOMB,
     g.p.Position,
-    ZERO_VECTOR,
+    Vector.Zero,
     g.p,
     0,
     roomSeed,

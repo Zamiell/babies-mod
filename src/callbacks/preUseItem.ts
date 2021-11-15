@@ -49,7 +49,7 @@ function poop(_collectibleType: number, _rng: RNG) {
   // Spawn White Poop next to the player
   Isaac.GridSpawn(
     GridEntityType.GRID_POOP,
-    PoopVariant.WHITE,
+    PoopGridEntityVariant.WHITE,
     g.p.Position,
     false,
   );

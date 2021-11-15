@@ -1,4 +1,3 @@
-import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
 import { getCurrentBaby, getRoomIndex } from "../misc";
 
@@ -16,7 +15,7 @@ functionMap.set(38, (npc: EntityNPC) => {
   // Spawns a poop per enemy killed
   Isaac.GridSpawn(
     GridEntityType.GRID_POOP,
-    PoopVariant.NORMAL,
+    PoopGridEntityVariant.NORMAL,
     npc.Position,
     false,
   );
@@ -47,7 +46,7 @@ functionMap.set(61, (npc: EntityNPC) => {
       npc.Type,
       npc.Variant,
       npc.Position,
-      ZERO_VECTOR,
+      Vector.Zero,
       undefined,
       npc.SubType,
       npc.InitSeed,
@@ -141,7 +140,7 @@ functionMap.set(376, (_npc: EntityNPC) => {
     FamiliarVariant.BOBS_BRAIN,
     0,
     g.p.Position,
-    ZERO_VECTOR,
+    Vector.Zero,
     undefined,
   );
   const brainSprite = brain.GetSprite();
@@ -161,7 +160,7 @@ functionMap.set(388, (npc: EntityNPC) => {
   g.run.room.tears.push({
     frame: 0,
     position: npc.Position,
-    velocity: ZERO_VECTOR,
+    velocity: Vector.Zero,
     num: baby.num,
   });
 });
@@ -174,7 +173,7 @@ functionMap.set(390, (npc: EntityNPC) => {
     EffectVariant.HOT_BOMB_FIRE,
     0,
     npc.Position,
-    ZERO_VECTOR,
+    Vector.Zero,
     undefined,
   );
 });
@@ -183,7 +182,7 @@ functionMap.set(390, (npc: EntityNPC) => {
 functionMap.set(451, (npc: EntityNPC) => {
   Isaac.GridSpawn(
     GridEntityType.GRID_POOP,
-    PoopVariant.BLACK,
+    PoopGridEntityVariant.BLACK,
     npc.Position,
     false,
   );
@@ -192,11 +191,11 @@ functionMap.set(451, (npc: EntityNPC) => {
 // Funny Baby
 functionMap.set(491, (npc: EntityNPC) => {
   Isaac.Spawn(
-    EntityType.ENTITY_BOMBDROP,
+    EntityType.ENTITY_BOMB,
     BombVariant.BOMB_SUPERTROLL,
     0,
     npc.Position,
-    ZERO_VECTOR,
+    Vector.Zero,
     undefined,
   );
 });
@@ -207,7 +206,7 @@ functionMap.set(530, (npc: EntityNPC) => {
     EntityType.ENTITY_PICKUP,
     PickupVariant.PICKUP_CHEST,
     npc.Position,
-    ZERO_VECTOR,
+    Vector.Zero,
     undefined,
     0,
     npc.InitSeed,

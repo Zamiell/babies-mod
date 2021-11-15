@@ -1,4 +1,3 @@
-import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
 import { getItemHeartPrice, incrementRNG } from "../misc";
 
@@ -111,7 +110,7 @@ functionMap.set(166, (pickup: EntityPickup) => {
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_COLLECTIBLE,
       pickup.Position,
-      ZERO_VECTOR,
+      Vector.Zero,
       undefined,
       0,
       pickup.InitSeed,
@@ -243,7 +242,7 @@ functionMap.set(287, (pickup: EntityPickup) => {
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_COLLECTIBLE,
         pickup.Position,
-        ZERO_VECTOR,
+        Vector.Zero,
         undefined,
         item,
         pickup.InitSeed,
@@ -286,7 +285,7 @@ functionMap.set(317, (pickup: EntityPickup) => {
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_COLLECTIBLE,
         pickup.Position,
-        ZERO_VECTOR,
+        Vector.Zero,
         undefined,
         0,
         pickup.InitSeed,
@@ -326,7 +325,7 @@ functionMap.set(381, (pickup: EntityPickup) => {
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_COLLECTIBLE,
         position,
-        ZERO_VECTOR,
+        Vector.Zero,
         undefined,
         0,
         g.run.randomSeed,
@@ -386,7 +385,7 @@ functionMap.set(537, (pickup: EntityPickup) => {
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_COLLECTIBLE,
         pickup.Position,
-        ZERO_VECTOR,
+        Vector.Zero,
         undefined,
         0,
         g.run.room.RNG,

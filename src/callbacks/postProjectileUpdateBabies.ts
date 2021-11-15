@@ -43,7 +43,7 @@ functionMap.set(153, (projectile: EntityProjectile) => {
   // Projectiles are reflected as bombs
   if (projectile.Position.Distance(g.p.Position) <= baby.distance) {
     Isaac.Spawn(
-      EntityType.ENTITY_BOMBDROP,
+      EntityType.ENTITY_BOMB,
       BombVariant.BOMB_NORMAL,
       0,
       projectile.Position,

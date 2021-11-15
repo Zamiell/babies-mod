@@ -1,4 +1,3 @@
-import { ZERO_VECTOR } from "../constants";
 import g from "../globals";
 
 const functionMap = new Map<int, (familiar: EntityFamiliar) => void>();
@@ -35,7 +34,7 @@ functionMap.set(117, (familiar: EntityFamiliar) => {
         FamiliarVariant.DEAD_BIRD,
         0,
         g.p.Position,
-        ZERO_VECTOR,
+        Vector.Zero,
         undefined,
       );
     }

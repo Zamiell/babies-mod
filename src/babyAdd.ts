@@ -1,3 +1,4 @@
+import { removeCollectibleFromItemTracker } from "isaacscript-common";
 import babyAddFunctions from "./babyAddFunctions";
 import g from "./globals";
 import log from "./log";
@@ -6,7 +7,6 @@ import {
   getItemConfig,
   getItemMaxCharges,
   giveItemAndRemoveFromPools,
-  removeItemFromItemTracker,
 } from "./misc";
 
 export default function babyAdd(): void {
@@ -61,7 +61,7 @@ export default function babyAdd(): void {
       log(`Added the new baby passive item (${baby.item}).`);
     }
 
-    removeItemFromItemTracker(baby.item);
+    removeCollectibleFromItemTracker(baby.item);
     g.itemPool.RemoveCollectible(baby.item);
   }
 
@@ -69,7 +69,7 @@ export default function babyAdd(): void {
   if (baby.item !== undefined && baby.itemNum !== undefined) {
     for (let i = 2; i <= baby.itemNum; i++) {
       g.p.AddCollectible(baby.item);
-      removeItemFromItemTracker(baby.item);
+      removeCollectibleFromItemTracker(baby.item);
     }
   }
 
@@ -77,7 +77,7 @@ export default function babyAdd(): void {
   // (this should always be a passive item; we explicitly check for this in "main.ts")
   if (baby.item2 !== undefined) {
     giveItemAndRemoveFromPools(baby.item2);
-    removeItemFromItemTracker(baby.item2);
+    removeCollectibleFromItemTracker(baby.item2);
   }
 
   // Reset the soul hearts and black hearts to the way it was before we added the items
