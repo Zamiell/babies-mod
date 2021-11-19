@@ -1,11 +1,10 @@
-import { removeCollectibleFromItemTracker } from "isaacscript-common";
+import { nextSeed, removeCollectibleFromItemTracker } from "isaacscript-common";
 import g from "../globals";
 import { EntityDescription } from "../types/EntityDescription";
 import { CollectibleTypeCustom } from "../types/enums";
 import {
   getCurrentBaby,
   getRoomIndex,
-  incrementRNG,
   openAllDoors,
   spawnRandomPickup,
 } from "../util";
@@ -184,7 +183,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
     _damageCountdownFrames,
   ) => {
     // Spawns a random heart on hit
-    g.run.randomSeed = incrementRNG(g.run.randomSeed);
+    g.run.randomSeed = nextSeed(g.run.randomSeed);
     math.randomseed(g.run.randomSeed);
     const heartSubType = math.random(1, 11); // From "Heart" to "Bone Heart"
     Isaac.Spawn(
@@ -231,7 +230,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
     g.run.babyCounters += 1;
     if (g.run.babyCounters >= baby.numHits && !g.run.babyBool) {
       g.run.babyBool = true;
-      g.sfx.Play(SoundEffect.SOUND_SATAN_GROW, 1, 0);
+      g.sfx.Play(SoundEffect.SOUND_SATAN_GROW);
       player.AddCollectible(CollectibleType.COLLECTIBLE_GOAT_HEAD);
       removeCollectibleFromItemTracker(CollectibleType.COLLECTIBLE_GOAT_HEAD);
       player.AddCollectible(CollectibleType.COLLECTIBLE_DUALITY);
@@ -493,7 +492,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
       const data = coin.GetData();
       data.recovery = true;
     }
-    g.sfx.Play(SoundEffect.SOUND_GOLD_HEART, 1, 0);
+    g.sfx.Play(SoundEffect.SOUND_GOLD_HEART);
   },
 );
 
@@ -549,7 +548,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
     _damageCountdownFrames,
   ) => {
     // Spawns a random key on hit
-    g.run.randomSeed = incrementRNG(g.run.randomSeed);
+    g.run.randomSeed = nextSeed(g.run.randomSeed);
     g.g.Spawn(
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_KEY,
@@ -672,7 +671,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
     _damageCountdownFrames,
   ) => {
     // Spawns a random bomb on hit
-    g.run.randomSeed = incrementRNG(g.run.randomSeed);
+    g.run.randomSeed = nextSeed(g.run.randomSeed);
     g.g.Spawn(
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_BOMB,
@@ -907,7 +906,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
     g.run.babyCounters += 1;
     if (g.run.babyCounters === 6) {
       g.run.babyCounters = 0;
-      g.run.randomSeed = incrementRNG(g.run.randomSeed);
+      g.run.randomSeed = nextSeed(g.run.randomSeed);
       const position = g.r.FindFreePickupSpawnPosition(
         player.Position,
         1,
@@ -937,7 +936,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
     _damageCountdownFrames,
   ) => {
     // 0.5x speed + 50% chance to ignore damage
-    g.run.randomSeed = incrementRNG(g.run.randomSeed);
+    g.run.randomSeed = nextSeed(g.run.randomSeed);
     math.randomseed(g.run.randomSeed);
     const avoidChance = math.random(1, 2);
     if (avoidChance === 2) {
@@ -1304,7 +1303,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
     // Random pill effect on hit
     let pillEffect = -1;
     do {
-      g.run.randomSeed = incrementRNG(g.run.randomSeed);
+      g.run.randomSeed = nextSeed(g.run.randomSeed);
       math.randomseed(g.run.randomSeed);
       pillEffect = math.random(0, PillEffect.NUM_PILL_EFFECTS - 1);
     } while (
@@ -1360,7 +1359,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
     // Random card effect on hit
     let cardType = -1;
     do {
-      g.run.randomSeed = incrementRNG(g.run.randomSeed);
+      g.run.randomSeed = nextSeed(g.run.randomSeed);
       math.randomseed(g.run.randomSeed);
       cardType = math.random(1, 54);
     } while (
@@ -1384,7 +1383,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
     _damageCountdownFrames,
   ) => {
     // Spawns a random rune on hit
-    g.run.randomSeed = incrementRNG(g.run.randomSeed);
+    g.run.randomSeed = nextSeed(g.run.randomSeed);
     math.randomseed(g.run.randomSeed);
     const runeSubType = math.random(Card.RUNE_HAGALAZ, Card.RUNE_BLACK);
     g.g.Spawn(

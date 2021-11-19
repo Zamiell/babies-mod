@@ -1,5 +1,5 @@
+import { addRoomClearCharge } from "isaacscript-common";
 import g from "./globals";
-import { addCharge } from "./util";
 
 export const roomClearedBabyFunctionMap = new Map<int, () => void>();
 
@@ -45,7 +45,7 @@ roomClearedBabyFunctionMap.set(88, () => {
 // Jammies Baby
 roomClearedBabyFunctionMap.set(192, () => {
   // Extra charge per room cleared
-  addCharge();
+  addRoomClearCharge(g.p);
 });
 
 // Fishman Baby

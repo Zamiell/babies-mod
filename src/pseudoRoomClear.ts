@@ -1,22 +1,28 @@
-import { log } from "isaacscript-common";
+import {
+  getCollectibleMaxCharges,
+  log,
+  MAX_NUM_DOORS,
+} from "isaacscript-common";
 import g from "./globals";
-import { getCurrentBaby, getItemMaxCharges } from "./util";
+import { getCurrentBaby } from "./util";
+
+// Pseudo room clear should only work in certain room types
+const ROOM_TYPE_BLACKLIST = new Set([
+  RoomType.ROOM_BOSS, // 5
+  RoomType.ROOM_CHALLENGE, // 11
+  RoomType.ROOM_DEVIL, // 14
+  RoomType.ROOM_ANGEL, // 15
+  RoomType.ROOM_DUNGEON, // 16
+  RoomType.ROOM_BOSSRUSH, // 17
+  RoomType.ROOM_BLACK_MARKET, // 22
+]);
 
 export function postUpdate(): void {
   const roomType = g.r.GetType();
   const roomFrameCount = g.r.GetFrameCount();
   const roomClear = g.r.IsClear();
 
-  // Pseudo room clear should only work in certain room types
-  if (
-    roomType === RoomType.ROOM_BOSS || // 5
-    roomType === RoomType.ROOM_CHALLENGE || // 11
-    roomType === RoomType.ROOM_DEVIL || // 14
-    roomType === RoomType.ROOM_ANGEL || // 15
-    roomType === RoomType.ROOM_DUNGEON || // 16
-    roomType === RoomType.ROOM_BOSSRUSH || // 17
-    roomType === RoomType.ROOM_BLACK_MARKET // 22
-  ) {
+  if (ROOM_TYPE_BLACKLIST.has(roomType)) {
     return;
   }
 
@@ -43,7 +49,8 @@ function initializeDoors() {
 
   g.r.SetClear(true);
   g.run.room.pseudoClear = false;
-  for (let i = 0; i <= 7; i++) {
+
+  for (let i = 0; i < MAX_NUM_DOORS; i++) {
     const door = g.r.GetDoor(i);
     if (
       door !== undefined &&
@@ -219,7 +226,7 @@ function clearRoom() {
     const activeItem = player.GetActiveItem();
     const activeCharge = player.GetActiveCharge();
     const batteryCharge = player.GetBatteryCharge();
-    const activeItemMaxCharges = getItemMaxCharges(activeItem);
+    const activeItemMaxCharges = getCollectibleMaxCharges(activeItem);
 
     if (player.NeedsCharge()) {
       // Find out if we are in a 2x2 or L room
@@ -253,9 +260,5 @@ function clearRoom() {
     }
   }
 
-  // Play the sound effect for the doors opening
-  // (but there are no doors in a crawlspace)
-  if (g.r.GetType() !== RoomType.ROOM_DUNGEON) {
-    g.sfx.Play(SoundEffect.SOUND_DOOR_HEAVY_OPEN, 1, 0);
-  }
+  g.sfx.Play(SoundEffect.SOUND_DOOR_HEAVY_OPEN);
 }

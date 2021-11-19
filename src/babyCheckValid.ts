@@ -1,6 +1,6 @@
+import { getCollectibleItemType } from "isaacscript-common";
 import g from "./globals";
 import { BabyDescription } from "./types/BabyDescription";
-import { getItemConfig } from "./util";
 
 export function babyCheckValid(babyType: int): boolean {
   const baby = g.babies[babyType];
@@ -68,7 +68,7 @@ function checkActiveItem(baby: BabyDescription) {
 
   if (
     baby.item !== undefined &&
-    getItemConfig(baby.item).Type === ItemType.ITEM_ACTIVE &&
+    getCollectibleItemType(baby.item) === ItemType.ITEM_ACTIVE &&
     activeItem !== 0
   ) {
     const hasSchoolbag = g.p.HasCollectible(

@@ -29,7 +29,7 @@ postLaserUpdateBabyFunctionMap.set(51, (laser: EntityLaser) => {
     laser.SetMaxDistance(75.125); // This is the vanilla Azazel distance
 
     // Making the laser invisible earlier also muted the sound effect, so play it manually
-    g.sfx.Play(SoundEffect.SOUND_BLOOD_LASER_LARGE, 0.75, 0);
+    g.sfx.Play(SoundEffect.SOUND_BLOOD_LASER_LARGE, 0.75);
     // (Azazel brimstone is the "large" sound effect instead of the normal one for some reason)
     // (a volume of 1 is a bit too loud)
   }

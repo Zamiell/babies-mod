@@ -1,5 +1,6 @@
+import { getCollectibleDevilHeartPrice } from "isaacscript-common";
 import g from "../globals";
-import { getItemHeartPrice, setRandomColor } from "../util";
+import { setRandomColor } from "../util";
 
 export const postPickupInitBabyFunctionMap = new Map<
   int,
@@ -75,7 +76,7 @@ postPickupInitBabyFunctionMap.set(317, (pickup: EntityPickup) => {
   // Items cost hearts
   if (pickup.Variant === PickupVariant.PICKUP_COLLECTIBLE) {
     pickup.AutoUpdatePrice = false;
-    pickup.Price = getItemHeartPrice(pickup.SubType);
+    pickup.Price = getCollectibleDevilHeartPrice(pickup.SubType, g.p);
   }
 });
 

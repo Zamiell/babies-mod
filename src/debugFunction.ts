@@ -1,9 +1,20 @@
-import { log } from "isaacscript-common";
+import {
+  log,
+  saveDataManagerSetGlobal,
+  setLogFunctionsGlobal,
+} from "isaacscript-common";
 
 export function debugFunction(): void {
   log("Entering debug function.");
 
-  // Debug code
+  saveDataManagerSetGlobal();
+  setLogFunctionsGlobal();
+
+  debugCode();
 
   log("Exiting debug function.");
+
+  Isaac.ConsoleOutput("Executed debug function.");
 }
+
+export function debugCode() {}

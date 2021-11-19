@@ -1,51 +1,7 @@
+import { getCollectibleMaxCharges, nextSeed } from "isaacscript-common";
 import g from "./globals";
 import { BabyDescription } from "./types/BabyDescription";
 import { CollectibleTypeCustom } from "./types/enums";
-
-// Copied from the Racing+ mod
-export function addCharge(singleCharge = false): void {
-  const roomShape = g.r.GetRoomShape();
-  const activeItem = g.p.GetActiveItem();
-  const activeCharge = g.p.GetActiveCharge();
-  const batteryCharge = g.p.GetBatteryCharge();
-  const activeItemMaxCharges = getItemMaxCharges(activeItem);
-
-  if (!g.p.NeedsCharge()) {
-    return;
-  }
-
-  // Find out if we are in a 2x2 or an L room
-  let chargesToAdd = 1;
-  if (roomShape >= 8) {
-    // L rooms and 2x2 rooms should grant 2 charges
-    chargesToAdd = 2;
-  } else if (
-    g.p.HasTrinket(TrinketType.TRINKET_AAA_BATTERY) &&
-    activeCharge === activeItemMaxCharges - 2
-  ) {
-    // The AAA Battery grants an extra charge when the active item is one away from being fully
-    // charged
-    chargesToAdd = 2;
-  } else if (
-    g.p.HasTrinket(TrinketType.TRINKET_AAA_BATTERY) &&
-    activeCharge === activeItemMaxCharges &&
-    g.p.HasCollectible(CollectibleType.COLLECTIBLE_BATTERY) &&
-    batteryCharge === activeItemMaxCharges - 2
-  ) {
-    // The AAA Battery should grant an extra charge when the active item is one away from being
-    // fully charged with The Battery (this is bugged in vanilla for The Battery)
-    chargesToAdd = 2;
-  }
-
-  // We might only want to add a single charge to the active item in certain situations
-  if (singleCharge) {
-    chargesToAdd = 1;
-  }
-
-  // Add the correct amount of charges
-  const currentCharge = g.p.GetActiveCharge();
-  g.p.SetActiveCharge(currentCharge + chargesToAdd);
-}
 
 export function getCurrentBaby(): [int, BabyDescription, boolean] {
   const babyType = g.run.babyType;
@@ -59,77 +15,6 @@ export function getCurrentBaby(): [int, BabyDescription, boolean] {
   }
 
   return [babyType, baby, true];
-}
-
-// Copied from the Racing+ mod
-export function getHeartXOffset(): number {
-  const curses = g.l.GetCurses();
-  const maxHearts = g.p.GetMaxHearts();
-  const soulHearts = g.p.GetSoulHearts();
-  const boneHearts = g.p.GetBoneHearts();
-  const extraLives = g.p.GetExtraLives();
-
-  const heartLength = 12; // This is how long each heart is on the UI in the upper left hand corner
-  // (this is not in pixels, but in draw coordinates;
-  // you can see that it is 13 pixels wide in the "ui_hearts.png" file)
-  let combinedHearts = maxHearts + soulHearts + boneHearts * 2; // There are no half bone hearts
-  if (combinedHearts > 12) {
-    combinedHearts = 12; // After 6 hearts, it wraps to a second row
-  }
-
-  if (curses === LevelCurse.CURSE_OF_THE_UNKNOWN) {
-    combinedHearts = 2;
-  }
-
-  let offset = (combinedHearts / 2) * heartLength;
-  if (extraLives > 9) {
-    offset += 20;
-    if (g.p.HasCollectible(CollectibleType.COLLECTIBLE_GUPPYS_COLLAR)) {
-      offset += 6;
-    }
-  } else if (extraLives > 0) {
-    offset += 16;
-    if (g.p.HasCollectible(CollectibleType.COLLECTIBLE_GUPPYS_COLLAR)) {
-      offset += 4;
-    }
-  }
-
-  return offset;
-}
-
-export function getItemConfig(
-  collectibleType: CollectibleType | CollectibleTypeCustom,
-): Readonly<ItemConfigItem> {
-  if (collectibleType <= 0) {
-    error(`getItemConfig was passed an invalid item ID of: ${collectibleType}`);
-  }
-
-  const itemConfigItem = g.itemConfig.GetCollectible(collectibleType);
-  if (itemConfigItem === undefined) {
-    error(`Failed to get the item config for collectible: ${collectibleType}`);
-  }
-
-  return itemConfigItem;
-}
-
-export function getItemHeartPrice(itemID: int): int {
-  const maxHearts = g.p.GetMaxHearts();
-
-  // Find out how this item should be priced
-  if (itemID === 0) {
-    return 0;
-  }
-  if (maxHearts === 0) {
-    return -3;
-  }
-
-  // The "DevilPrice" attribute will be 1 by default (for items like Sad Onion, etc.)
-  return getItemConfig(itemID).DevilPrice * -1;
-}
-
-// Find out how many charges this item has
-export function getItemMaxCharges(itemID: number): int {
-  return getItemConfig(itemID).MaxCharges;
 }
 
 export function getOffsetPosition(
@@ -179,14 +64,20 @@ export function getOffsetPosition(
   return Vector(position.X + offsetX, position.Y + offsetY);
 }
 
-export function getRandomItemFromPool(itemPoolType: ItemPoolType): int {
+export function getRandomCollectibleTypeFromPool(
+  itemPoolType: ItemPoolType,
+): int {
   // Get a new item from this pool
-  g.run.room.RNG = incrementRNG(g.run.room.RNG);
+  g.run.room.RNG = nextSeed(g.run.room.RNG);
   g.run.babyBool = true; // The next line will cause this callback to be re-entered
-  const item = g.itemPool.GetCollectible(itemPoolType, true, g.run.room.RNG);
+  const collectibleType = g.itemPool.GetCollectible(
+    itemPoolType,
+    true,
+    g.run.room.RNG,
+  );
   g.run.babyBool = false;
 
-  return item;
+  return collectibleType;
 }
 
 export function getRoomIndex(): int {
@@ -227,7 +118,7 @@ export function getScreenCenterPosition(): Vector {
 export function giveItemAndRemoveFromPools(
   collectibleType: CollectibleType | CollectibleTypeCustom,
 ): void {
-  const maxCharges = getItemMaxCharges(collectibleType);
+  const maxCharges = getCollectibleMaxCharges(collectibleType);
   g.p.AddCollectible(collectibleType, maxCharges, false);
   g.itemPool.RemoveCollectible(collectibleType);
 }
@@ -237,17 +128,6 @@ export function gridToPos(x: number, y: number): Vector {
   y += 1;
 
   return g.r.GetGridPosition(y * g.r.GetGridWidth() + x);
-}
-
-export function incrementRNG(seed: number): number {
-  // The game expects seeds in the range of 0 to 4294967295
-  const rng = RNG();
-  rng.SetSeed(seed, 35);
-  // This is the ShiftIdx that blcd recommended after having reviewing the game's internal functions
-  rng.Next();
-  const newSeed = rng.GetSeed();
-
-  return newSeed;
 }
 
 export function isActionPressed(buttonAction: ButtonAction): boolean {
@@ -278,7 +158,7 @@ export function setRandomColor(entity: Entity): void {
   const colorValues: int[] = [];
   let seed = entity.InitSeed;
   for (let i = 0; i < 3; i++) {
-    seed = incrementRNG(seed);
+    seed = nextSeed(seed);
     math.randomseed(seed);
     let colorValue = math.random(0, 200);
     colorValue /= 100;
@@ -302,7 +182,7 @@ export function spawnRandomPickup(
   noItems = false,
 ): void {
   // Spawn a random pickup
-  g.run.randomSeed = incrementRNG(g.run.randomSeed);
+  g.run.randomSeed = nextSeed(g.run.randomSeed);
   math.randomseed(g.run.randomSeed);
   let pickupVariant: int;
   if (noItems) {
@@ -311,7 +191,7 @@ export function spawnRandomPickup(
   } else {
     pickupVariant = math.random(1, 11);
   }
-  g.run.randomSeed = incrementRNG(g.run.randomSeed);
+  g.run.randomSeed = nextSeed(g.run.randomSeed);
 
   switch (pickupVariant) {
     case 1: {

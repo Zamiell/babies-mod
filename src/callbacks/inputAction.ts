@@ -1,7 +1,3 @@
-// Different actions occur on different inputHooks and this is not documented
-// Thus, each action's particular inputHook must be determined through trial and error
-// Also note that we can't use cached API functions in this callback or else the game will crash
-
 import { getCurrentBaby } from "../util";
 import { inputActionBabyFunctionMap } from "./inputActionBabyFunctionMap";
 

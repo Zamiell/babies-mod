@@ -1,7 +1,6 @@
-import { log } from "isaacscript-common";
+import { getCollectibleItemType, log } from "isaacscript-common";
 import g from "./globals";
 import { CollectibleTypeCustom } from "./types/enums";
-import { getItemConfig } from "./util";
 
 export function checkBabiesValid(): void {
   checkBabiesDuplicateName();
@@ -82,7 +81,7 @@ function checkBabiesDuplicateItem() {
 
     if (
       baby.item2 !== undefined &&
-      getItemConfig(baby.item2).Type === ItemType.ITEM_ACTIVE
+      getCollectibleItemType(baby.item2) === ItemType.ITEM_ACTIVE
     ) {
       log(`ERROR: Baby #${i} has an active item in the second slot.`);
     }

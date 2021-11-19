@@ -1,12 +1,12 @@
-import { log, removeCollectibleFromItemTracker } from "isaacscript-common";
+import {
+  getCollectibleItemType,
+  getCollectibleMaxCharges,
+  log,
+  removeCollectibleFromItemTracker,
+} from "isaacscript-common";
 import { babyAddFunctionMap } from "./babyAddFunctionMap";
 import g from "./globals";
-import {
-  getCurrentBaby,
-  getItemConfig,
-  getItemMaxCharges,
-  giveItemAndRemoveFromPools,
-} from "./util";
+import { getCurrentBaby, giveItemAndRemoveFromPools } from "./util";
 
 export function babyAdd(): void {
   const stage = g.l.GetStage();
@@ -32,10 +32,10 @@ export function babyAdd(): void {
   // Check if this is an item baby
   if (baby.item !== undefined) {
     // Check to see if it is an active item
-    if (getItemConfig(baby.item).Type === ItemType.ITEM_ACTIVE) {
+    if (getCollectibleItemType(baby.item) === ItemType.ITEM_ACTIVE) {
       // Find out how many charges it should have
       // By default, items are given with a maximum charge
-      let itemCharges = getItemMaxCharges(baby.item);
+      let itemCharges = getCollectibleMaxCharges(baby.item);
       if (baby.uncharged !== undefined) {
         itemCharges = 0;
       }

@@ -1,4 +1,11 @@
-import { getDefaultKColor, log } from "isaacscript-common";
+import {
+  addCollectibleCostume,
+  getCollectibleItemType,
+  getDefaultKColor,
+  getHeartsUIWidth,
+  log,
+  removeCollectibleCostume,
+} from "isaacscript-common";
 import { updateCachedAPIFunctions } from "../cache";
 import { VERSION } from "../constants";
 import g from "../globals";
@@ -6,8 +13,6 @@ import * as timer from "../timer";
 import { BabyDescription } from "../types/BabyDescription";
 import {
   getCurrentBaby,
-  getHeartXOffset,
-  getItemConfig,
   getScreenCenterPosition,
   isActionPressed,
 } from "../util";
@@ -17,6 +22,7 @@ import { postRenderBabyFunctionMap } from "./postRenderBabyFunctionMap";
 const CUSTOM_PLAYER_ANM2 = "gfx/001.000_player_custom_baby.anm2";
 const PLAYER_SPRITESHEET_LAYERS = 12;
 const LAST_BABY_WITH_SPRITE_IN_PLAYER2_DIRECTORY = 521;
+const UI_HEARTS_RIGHT_SPACING = 55;
 
 // Variables
 let clockSprite: Sprite | null = null;
@@ -50,9 +56,7 @@ function checkPlayerSprite() {
 
   // Fix the bug where fully charging Maw of the Void will occasionally make the player invisible
   if (g.p.HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_THE_VOID)) {
-    g.p.RemoveCostume(
-      getItemConfig(CollectibleType.COLLECTIBLE_MAW_OF_THE_VOID),
-    );
+    removeCollectibleCostume(g.p, CollectibleType.COLLECTIBLE_MAW_OF_THE_VOID);
   }
 
   // Certain costumes are applied one frame after entering a room
@@ -61,8 +65,9 @@ function checkPlayerSprite() {
     if (g.p.HasCollectible(CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON)) {
       // Even though we blanked out the costumes for Whore of Babylon, we also have to also remove
       // the costume or else the player sprite will be invisible permanently
-      g.p.RemoveCostume(
-        getItemConfig(CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON),
+      removeCollectibleCostume(
+        g.p,
+        CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON,
       );
     }
 
@@ -149,7 +154,6 @@ function trackPlayerAnimations() {
 export function setPlayerSprite(): void {
   const playerSprite = g.p.GetSprite();
   const effects = g.p.GetEffects();
-  const effectsList = effects.GetEffectsList();
   const [babyType, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
@@ -160,26 +164,19 @@ export function setPlayerSprite(): void {
 
   // Make exceptions for certain costumes
   if (g.p.HasCollectible(CollectibleType.COLLECTIBLE_DADS_RING)) {
-    g.p.AddCostume(getItemConfig(CollectibleType.COLLECTIBLE_DADS_RING), false);
+    addCollectibleCostume(g.p, CollectibleType.COLLECTIBLE_DADS_RING);
   }
   // (for some reason, Empty Vessel makes the sprite flicker when playing certain animations;
   // there is no known workaround for this)
 
   addWings(baby);
 
-  // Doing this will remove a shield, so detect if there is a shield and add it back if so
-  for (let i = 1; i <= effectsList.Size; i++) {
-    const effect = effectsList.Get(i - 1);
-    if (
-      effect !== undefined &&
-      effect.Item.ID === CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS
-    ) {
-      g.p.AddCostume(
-        getItemConfig(CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS),
-        false,
-      );
-      break;
-    }
+  // If the player currently has a shield, clearing the costumes will remove the shield graphic
+  // If there is a shield, add the costume back
+  if (
+    effects.HasCollectibleEffect(CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS)
+  ) {
+    addCollectibleCostume(g.p, CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS);
   }
 
   // Replace the player sprite with a co-op baby version
@@ -212,7 +209,7 @@ export function addWings(baby: BabyDescription): void {
     // Make an exception for Butterfly Baby 2 because it already has wings
     baby.name !== "Butterfly Baby 2" // 332
   ) {
-    g.p.AddCostume(getItemConfig(CollectibleType.COLLECTIBLE_FATE), false);
+    addCollectibleCostume(g.p, CollectibleType.COLLECTIBLE_FATE);
   }
 }
 
@@ -269,7 +266,8 @@ function drawBabyNumber() {
   }
 
   const text = `#${babyType}`;
-  let x = 55 + getHeartXOffset();
+
+  let x = getHeartsUIWidth() + UI_HEARTS_RIGHT_SPACING;
   if (
     baby.name === "Hopeless Baby" || // 125
     baby.name === "Mohawk Baby" // 138
@@ -278,7 +276,9 @@ function drawBabyNumber() {
     // so account for this so that the number text does not overlap
     x += 20;
   }
+
   const y = 10;
+
   g.font.droid.DrawString(text, x, y, getDefaultKColor(), 0, true);
 }
 
@@ -330,8 +330,8 @@ function drawTempIcon() {
   if (baby.item === undefined) {
     return;
   }
-  const itemConfig = getItemConfig(baby.item);
-  if (itemConfig.Type !== ItemType.ITEM_ACTIVE) {
+  const itemType = getCollectibleItemType(baby.item);
+  if (itemType !== ItemType.ITEM_ACTIVE) {
     return;
   }
 

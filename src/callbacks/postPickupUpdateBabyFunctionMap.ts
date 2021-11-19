@@ -1,5 +1,5 @@
+import { getCollectibleDevilHeartPrice, nextSeed } from "isaacscript-common";
 import g from "../globals";
-import { getItemHeartPrice, incrementRNG } from "../util";
 
 export const postPickupUpdateBabyFunctionMap = new Map<
   int,
@@ -221,7 +221,7 @@ postPickupUpdateBabyFunctionMap.set(287, (pickup: EntityPickup) => {
   if (pickup.Variant === PickupVariant.PICKUP_COLLECTIBLE) {
     // If the price is not correct, update it
     // (we have to check on every frame in case the health situation changes)
-    const price = getItemHeartPrice(pickup.SubType);
+    const price = getCollectibleDevilHeartPrice(pickup.SubType, g.p);
     if (pickup.Price !== price) {
       pickup.AutoUpdatePrice = false;
       pickup.Price = price;
@@ -233,8 +233,8 @@ postPickupUpdateBabyFunctionMap.set(287, (pickup: EntityPickup) => {
   ) {
     // Rerolled items turn into hearts since this is a not an actual Devil Room,
     // so delete the heart and manually create another pedestal item
-    g.run.room.RNG = incrementRNG(g.run.room.RNG);
-    const item = g.itemPool.GetCollectible(
+    g.run.room.RNG = nextSeed(g.run.room.RNG);
+    const collectibleType = g.itemPool.GetCollectible(
       ItemPoolType.POOL_DEVIL,
       true,
       g.run.room.RNG,
@@ -246,14 +246,14 @@ postPickupUpdateBabyFunctionMap.set(287, (pickup: EntityPickup) => {
         pickup.Position,
         Vector.Zero,
         undefined,
-        item,
+        collectibleType,
         pickup.InitSeed,
       )
       .ToPickup();
     if (pedestal !== undefined) {
       // Set the price
       pedestal.AutoUpdatePrice = false;
-      pedestal.Price = getItemHeartPrice(pedestal.SubType);
+      pedestal.Price = getCollectibleDevilHeartPrice(pedestal.SubType, g.p);
     }
 
     // Remove the heart
@@ -269,7 +269,7 @@ postPickupUpdateBabyFunctionMap.set(317, (pickup: EntityPickup) => {
   if (pickup.Variant === PickupVariant.PICKUP_COLLECTIBLE) {
     // If the price is not correct, update it
     // (we have to check on every frame in case the health situation changes)
-    const price = getItemHeartPrice(pickup.SubType);
+    const price = getCollectibleDevilHeartPrice(pickup.SubType, g.p);
     if (pickup.Price !== price) {
       pickup.AutoUpdatePrice = false;
       pickup.Price = price;
@@ -296,7 +296,7 @@ postPickupUpdateBabyFunctionMap.set(317, (pickup: EntityPickup) => {
     if (pedestal !== undefined) {
       // Set the price
       pedestal.AutoUpdatePrice = false;
-      pedestal.Price = getItemHeartPrice(pedestal.SubType);
+      pedestal.Price = getCollectibleDevilHeartPrice(pedestal.SubType, g.p);
     }
 
     // Remove the heart
@@ -321,7 +321,7 @@ postPickupUpdateBabyFunctionMap.set(381, (pickup: EntityPickup) => {
     (g.run.babyCountersRoom === 0 || g.run.babyCountersRoom === gameFrameCount)
   ) {
     const position = g.r.FindFreePickupSpawnPosition(pickup.Position, 1, true);
-    g.run.randomSeed = incrementRNG(g.run.randomSeed);
+    g.run.randomSeed = nextSeed(g.run.randomSeed);
     const pedestal = g.g
       .Spawn(
         EntityType.ENTITY_PICKUP,
@@ -381,7 +381,7 @@ postPickupUpdateBabyFunctionMap.set(537, (pickup: EntityPickup) => {
     pickup.SubType === HeartSubType.HEART_FULL &&
     pickup.Price === 3
   ) {
-    g.run.room.RNG = incrementRNG(g.run.room.RNG);
+    g.run.room.RNG = nextSeed(g.run.room.RNG);
     const pedestal = g.g
       .Spawn(
         EntityType.ENTITY_PICKUP,

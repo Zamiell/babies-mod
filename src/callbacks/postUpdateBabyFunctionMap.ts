@@ -1,14 +1,9 @@
-import { teleport } from "isaacscript-common";
+import { nextSeed, teleport } from "isaacscript-common";
 import { TELEPORT_TO_ROOM_TYPE_MAP } from "../constants";
 import g from "../globals";
 import * as pseudoRoomClear from "../pseudoRoomClear";
 import { EffectVariantCustom } from "../types/enums";
-import {
-  getCurrentBaby,
-  getRoomIndex,
-  incrementRNG,
-  isActionPressed,
-} from "../util";
+import { getCurrentBaby, getRoomIndex, isActionPressed } from "../util";
 import * as postRender from "./postRender";
 
 export const postUpdateBabyFunctionMap = new Map<int, () => void>();
@@ -203,7 +198,7 @@ postUpdateBabyFunctionMap.set(63, () => {
   // Every 5 seconds
   if (gameFrameCount % 150 === 0) {
     // Spawn a random poop
-    g.run.randomSeed = incrementRNG(g.run.randomSeed);
+    g.run.randomSeed = nextSeed(g.run.randomSeed);
     math.randomseed(g.run.randomSeed);
     const poopVariant = math.random(0, 6);
     if (
@@ -217,7 +212,7 @@ postUpdateBabyFunctionMap.set(63, () => {
     Isaac.GridSpawn(GridEntityType.GRID_POOP, poopVariant, g.p.Position, false);
 
     // Playing "SoundEffect.SOUND_FART" will randomly play one of the three farting sound effects
-    g.sfx.Play(SoundEffect.SOUND_FART, 1, 0);
+    g.sfx.Play(SoundEffect.SOUND_FART);
   }
 });
 
@@ -398,7 +393,7 @@ postUpdateBabyFunctionMap.set(128, () => {
     // eslint-disable-next-line no-constant-condition
     while (true) {
       // Get a random room index on the floor
-      g.run.randomSeed = incrementRNG(g.run.randomSeed);
+      g.run.randomSeed = nextSeed(g.run.randomSeed);
       math.randomseed(g.run.randomSeed);
       const randomIndex = math.random(0, floorIndexes.length - 1);
       const randomFloorIndex = floorIndexes[randomIndex];
@@ -656,7 +651,7 @@ postUpdateBabyFunctionMap.set(171, () => {
         sprite.IsPlaying("Death")) // Restock machines
     ) {
       data.destroyed = true;
-      g.run.randomSeed = incrementRNG(g.run.randomSeed);
+      g.run.randomSeed = nextSeed(g.run.randomSeed);
       g.g.Spawn(
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_COLLECTIBLE,
@@ -690,7 +685,7 @@ postUpdateBabyFunctionMap.set(211, () => {
       const index = g.r.GetGridIndex(tear.position);
       g.r.DestroyGrid(index, true);
       tear.position = tear.position.add(tear.velocity);
-      g.sfx.Play(SoundEffect.SOUND_ROCK_CRUMBLE, 0.5, 0);
+      g.sfx.Play(SoundEffect.SOUND_ROCK_CRUMBLE, 0.5);
       // (if the sound effect plays at full volume, it starts to get annoying)
 
       // Make the shockwave deal damage to the player

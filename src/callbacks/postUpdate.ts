@@ -1,11 +1,10 @@
-import { log } from "isaacscript-common";
+import { log, nextSeed } from "isaacscript-common";
 import g from "../globals";
 import { roomClearedBabyFunctionMap } from "../roomClearedBabyFunctionMap";
 import { BabyDescription } from "../types/BabyDescription";
 import {
   getCurrentBaby,
   getRoomIndex,
-  incrementRNG,
   openAllDoors,
   spawnRandomPickup,
 } from "../util";
@@ -171,7 +170,7 @@ function checkTrinket() {
     // The Walnut broke, so spawn additional items
     for (let i = 0; i < 5; i++) {
       const position = g.r.FindFreePickupSpawnPosition(g.p.Position, 1, true);
-      g.run.randomSeed = incrementRNG(g.run.randomSeed);
+      g.run.randomSeed = nextSeed(g.run.randomSeed);
       g.g.Spawn(
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_COLLECTIBLE,

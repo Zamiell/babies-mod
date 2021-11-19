@@ -1,7 +1,13 @@
-import { getRoomVariant, log, teleport } from "isaacscript-common";
+import {
+  getCollectibleDevilHeartPrice,
+  getRoomVariant,
+  log,
+  nextSeed,
+  teleport,
+} from "isaacscript-common";
 import g from "../globals";
 import { CollectibleTypeCustom } from "../types/enums";
-import { getItemConfig, gridToPos, incrementRNG, openAllDoors } from "../util";
+import { gridToPos, openAllDoors } from "../util";
 
 export const postNewRoomBabyFunctionMap = new Map<int, () => void>();
 
@@ -133,7 +139,7 @@ postNewRoomBabyFunctionMap.set(118, () => {
   // Improved Secret Rooms
   for (let i = 0; i < 4; i++) {
     const position = g.r.FindFreePickupSpawnPosition(center, 1, true);
-    g.run.randomSeed = incrementRNG(g.run.randomSeed);
+    g.run.randomSeed = nextSeed(g.run.randomSeed);
     g.g.Spawn(
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_COLLECTIBLE,
@@ -189,7 +195,7 @@ postNewRoomBabyFunctionMap.set(149, () => {
   // Improved Super Secret Rooms
   for (let i = 0; i < 5; i++) {
     const position = g.r.FindFreePickupSpawnPosition(center, 1, true);
-    g.run.randomSeed = incrementRNG(g.run.randomSeed);
+    g.run.randomSeed = nextSeed(g.run.randomSeed);
     g.g.Spawn(
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_COLLECTIBLE,
@@ -461,7 +467,6 @@ postNewRoomBabyFunctionMap.set(282, () => {
 postNewRoomBabyFunctionMap.set(287, () => {
   const roomType = g.r.GetType();
   const isFirstVisit = g.r.IsFirstVisit();
-  const maxHearts = g.p.GetMaxHearts();
 
   // Ignore some special rooms
   if (
@@ -479,8 +484,8 @@ postNewRoomBabyFunctionMap.set(287, () => {
   }
 
   // All special rooms are Devil Rooms
-  g.run.room.RNG = incrementRNG(g.run.room.RNG);
-  const item = g.itemPool.GetCollectible(
+  g.run.room.RNG = nextSeed(g.run.room.RNG);
+  const collectibleType = g.itemPool.GetCollectible(
     ItemPoolType.POOL_DEVIL,
     true,
     g.run.room.RNG,
@@ -493,21 +498,13 @@ postNewRoomBabyFunctionMap.set(287, () => {
       position,
       Vector.Zero,
       undefined,
-      item,
+      collectibleType,
       g.run.room.RNG,
     )
     .ToPickup();
   if (pedestal !== undefined) {
     pedestal.AutoUpdatePrice = false;
-
-    // Find out how this item should be priced
-    if (maxHearts === 0) {
-      pedestal.Price = -3;
-    } else {
-      const itemConfig = getItemConfig(item);
-      pedestal.Price = itemConfig.DevilPrice * -1;
-    }
-    // (the price will also be set on every frame in the PostPickupInit callback)
+    pedestal.Price = getCollectibleDevilHeartPrice(collectibleType, g.p);
   }
 
   // Spawn the Devil Statue
@@ -521,7 +518,7 @@ postNewRoomBabyFunctionMap.set(287, () => {
     } else {
       pos = gridToPos(9, 1);
     }
-    g.run.room.RNG = incrementRNG(g.run.room.RNG);
+    g.run.room.RNG = nextSeed(g.run.room.RNG);
     g.g.Spawn(
       EntityType.ENTITY_FIREPLACE,
       0,

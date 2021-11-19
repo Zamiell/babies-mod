@@ -1,6 +1,10 @@
+import {
+  getCollectibleMaxCharges,
+  playChargeSoundEffect,
+} from "isaacscript-common";
 import g from "../globals";
 import { CollectibleTypeCustom } from "../types/enums";
-import { getCurrentBaby, getItemMaxCharges } from "../util";
+import { getCurrentBaby } from "../util";
 
 export function init(mod: Mod): void {
   mod.AddCallback(
@@ -165,7 +169,7 @@ function chargingStation(_collectibleType: CollectibleType, _RNG: RNG) {
   const currentCharges = g.p.GetActiveCharge(ActiveSlot.SLOT_SECONDARY);
   const currentBatteryCharges = g.p.GetBatteryCharge(ActiveSlot.SLOT_SECONDARY);
   const totalCharges = currentCharges + currentBatteryCharges;
-  const maxCharges = getItemMaxCharges(schoolbagItem);
+  const maxCharges = getCollectibleMaxCharges(schoolbagItem);
   const hasBattery = g.p.HasCollectible(CollectibleType.COLLECTIBLE_BATTERY);
   if (hasBattery && totalCharges >= maxCharges * 2) {
     return false;
@@ -182,7 +186,7 @@ function chargingStation(_collectibleType: CollectibleType, _RNG: RNG) {
     PlayerItemAnimation.USE_ITEM,
     CollectibleAnimation.PLAYER_PICKUP,
   );
-  g.sfx.Play(SoundEffect.SOUND_BEEP, 1, 0);
+  playChargeSoundEffect(g.p, ActiveSlot.SLOT_SECONDARY);
 
   return false;
 }

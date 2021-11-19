@@ -1,5 +1,10 @@
+import {
+  addRoomClearCharge,
+  BOMB_EXPLODE_FRAME,
+  nextSeed,
+} from "isaacscript-common";
 import g from "../globals";
-import { addCharge, getOffsetPosition, incrementRNG } from "../util";
+import { getOffsetPosition } from "../util";
 
 export const postBombUpdateBabyFunctionMap = new Map<
   int,
@@ -13,7 +18,7 @@ postBombUpdateBabyFunctionMap.set(75, (bomb: EntityBomb) => {
     bomb.SpawnerType === EntityType.ENTITY_PLAYER &&
     bomb.FrameCount === 51 // Bombs explode on the 51st frame exactly
   ) {
-    g.run.room.RNG = incrementRNG(g.run.room.RNG);
+    g.run.room.RNG = nextSeed(g.run.room.RNG);
     math.randomseed(g.run.room.RNG);
     const d6chance = math.random(1, 2);
     if (d6chance === 2) {
@@ -33,9 +38,9 @@ postBombUpdateBabyFunctionMap.set(97, (bomb: EntityBomb) => {
   // Recharge bombs
   if (
     bomb.SpawnerType === EntityType.ENTITY_PLAYER &&
-    bomb.FrameCount === 51 // Bombs explode on the 51st frame exactly
+    bomb.FrameCount === BOMB_EXPLODE_FRAME
   ) {
-    addCharge();
+    addRoomClearCharge(g.p, true);
   }
 });
 

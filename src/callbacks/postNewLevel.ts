@@ -1,10 +1,10 @@
-import { log } from "isaacscript-common";
+import { log, nextSeed } from "isaacscript-common";
 import { babyAdd } from "../babyAdd";
 import { babyCheckValid } from "../babyCheckValid";
 import { babyRemove } from "../babyRemove";
 import g from "../globals";
 import { GlobalsRunLevel } from "../types/GlobalsRunLevel";
-import { getCurrentBaby, incrementRNG } from "../util";
+import { getCurrentBaby } from "../util";
 
 export function main(): void {
   const gameFrameCount = g.g.GetFrameCount();
@@ -70,7 +70,7 @@ function getNewBaby() {
   let i = 0;
   do {
     i += 1;
-    seed = incrementRNG(seed);
+    seed = nextSeed(seed);
     math.randomseed(seed);
 
     // Get a random index for the "babies" array
