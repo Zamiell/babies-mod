@@ -1,5 +1,13 @@
-import { getEffects, getRoomVariant } from "isaacscript-common";
+import {
+  getEffects,
+  getHUDOffsetVector,
+  getRoomVariant,
+} from "isaacscript-common";
 import g from "../globals";
+
+const KRAMPUS_ROOM_VARIANTS = new Set([
+  2300, 2301, 2302, 2303, 2304, 2305, 2306,
+]);
 
 export const postRenderBabyFunctionMap = new Map<int, () => void>();
 
@@ -29,21 +37,18 @@ postRenderBabyFunctionMap.set(125, () => {
   if (
     roomType !== RoomType.ROOM_DEVIL && // 14
     roomType !== RoomType.ROOM_BLACK_MARKET && // 22
-    roomVariant !== 2300 && // Krampus
-    roomVariant !== 2301 && // Krampus
-    roomVariant !== 2302 && // Krampus
-    roomVariant !== 2303 && // Krampus
-    roomVariant !== 2304 && // Krampus
-    roomVariant !== 2305 && // Krampus
-    roomVariant !== 2306 // Krampus
+    !KRAMPUS_ROOM_VARIANTS.has(roomVariant)
   ) {
     const keys = g.p.GetNumKeys();
 
     // Draw the key count next to the hearts
-    const x = 65;
-    g.run.babySprite.RenderLayer(0, Vector(x, 12));
+    const HUDOffsetVector = getHUDOffsetVector();
+    const x = 65 + HUDOffsetVector.X;
+    const y = 12;
+    const position = Vector(x, y);
+    g.run.babySprite.RenderLayer(0, position);
     const text = `x${keys}`;
-    Isaac.RenderText(text, x + 5, 12, 2, 2, 2, 2);
+    Isaac.RenderText(text, x + 5, y, 2, 2, 2, 2);
     // (this looks better without a Droid font)
   }
 });
@@ -59,21 +64,18 @@ postRenderBabyFunctionMap.set(138, () => {
   if (
     roomType !== RoomType.ROOM_DEVIL && // 14
     roomType !== RoomType.ROOM_BLACK_MARKET && // 22
-    roomVariant !== 2300 && // Krampus
-    roomVariant !== 2301 && // Krampus
-    roomVariant !== 2302 && // Krampus
-    roomVariant !== 2303 && // Krampus
-    roomVariant !== 2304 && // Krampus
-    roomVariant !== 2305 && // Krampus
-    roomVariant !== 2306 // Krampus
+    !KRAMPUS_ROOM_VARIANTS.has(roomVariant)
   ) {
     const bombs = g.p.GetNumBombs();
 
     // Draw the bomb count next to the hearts
-    const x = 65;
-    g.run.babySprite.RenderLayer(0, Vector(x, 12));
+    const HUDOffsetVector = getHUDOffsetVector();
+    const x = 65 + HUDOffsetVector.X;
+    const y = 12;
+    const position = Vector(x, y);
+    g.run.babySprite.RenderLayer(0, position);
     const text = `x${bombs}`;
-    Isaac.RenderText(text, x + 5, 12, 2, 2, 2, 2);
+    Isaac.RenderText(text, x + 5, y, 2, 2, 2, 2);
     // (this looks better without a Droid font)
   }
 });

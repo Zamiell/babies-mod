@@ -10,38 +10,42 @@ export const postEffectUpdateBabyFunctionMap = new Map<
 
 // Mustache Baby
 postEffectUpdateBabyFunctionMap.set(66, (effect: EntityEffect) => {
-  if (effect.Variant === EffectVariant.BOOMERANG) {
-    // Check for NPC collision
-    const entities = Isaac.FindInRadius(
-      effect.Position,
-      30,
-      EntityPartition.ENEMY,
-    );
-    if (entities.length > 0) {
-      const closestEntity = entities[0];
-      closestEntity.TakeDamage(g.p.Damage, 0, EntityRef(effect), 2);
-      effect.Remove();
-    }
+  if (effect.Variant !== EffectVariant.BOOMERANG) {
+    return;
+  }
 
-    // Check for player collision
-    const players = Isaac.FindInRadius(
-      effect.Position,
-      30,
-      EntityPartition.PLAYER,
-    );
-    if (players.length > 0 && effect.FrameCount > 20) {
-      effect.Remove();
-    }
+  const distance = 30;
 
-    // Make boomerangs return to the player
-    if (effect.FrameCount >= 26) {
-      // "effect.FollowParent(player)" does not work
-      const initialSpeed = effect.Velocity.LengthSquared();
-      effect.Velocity = g.p.Position.sub(effect.Position);
-      effect.Velocity = effect.Velocity.Normalized();
-      while (effect.Velocity.LengthSquared() < initialSpeed) {
-        effect.Velocity = effect.Velocity.mul(1.1);
-      }
+  // Check for NPC collision
+  const closeEntities = Isaac.FindInRadius(
+    effect.Position,
+    distance,
+    EntityPartition.ENEMY,
+  );
+  if (closeEntities.length > 0) {
+    const closestEntity = closeEntities[0];
+    closestEntity.TakeDamage(g.p.Damage, 0, EntityRef(effect), 2);
+    effect.Remove();
+  }
+
+  // Check for player collision
+  const closePlayers = Isaac.FindInRadius(
+    effect.Position,
+    distance,
+    EntityPartition.PLAYER,
+  );
+  if (closePlayers.length > 0 && effect.FrameCount > 20) {
+    effect.Remove();
+  }
+
+  // Make boomerangs return to the player
+  if (effect.FrameCount >= 26) {
+    // "effect.FollowParent(player)" does not work
+    const initialSpeed = effect.Velocity.LengthSquared();
+    effect.Velocity = g.p.Position.sub(effect.Position);
+    effect.Velocity = effect.Velocity.Normalized();
+    while (effect.Velocity.LengthSquared() < initialSpeed) {
+      effect.Velocity = effect.Velocity.mul(1.1);
     }
   }
 });
@@ -49,7 +53,7 @@ postEffectUpdateBabyFunctionMap.set(66, (effect: EntityEffect) => {
 // Sloppy Baby
 postEffectUpdateBabyFunctionMap.set(146, (effect: EntityEffect) => {
   // Shorten the lag time of the missiles
-  // (this is not possible in the PostEffectInit callback since effect.Timeout is -1)
+  // (this is not possible in the PostEffectInit callback since "effect.Timeout" is -1)
   if (
     effect.Variant === EffectVariant.TARGET &&
     effect.FrameCount === 1 &&
@@ -72,6 +76,8 @@ postEffectUpdateBabyFunctionMap.set(281, (effect: EntityEffect) => {
     return;
   }
 
+  const distance = 30;
+
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby] = getCurrentBaby();
   if (baby.cooldown === undefined) {
@@ -85,12 +91,12 @@ postEffectUpdateBabyFunctionMap.set(281, (effect: EntityEffect) => {
     effect.Visible = true;
   } else if (gameFrameCount >= g.run.babyFrame) {
     // Check to see if there is a nearby NPC
-    const entities = Isaac.FindInRadius(
+    const closeEntities = Isaac.FindInRadius(
       effect.Position,
-      30,
+      distance,
       EntityPartition.ENEMY,
     );
-    if (entities.length > 0) {
+    if (closeEntities.length > 0) {
       // Fire the beam
       g.run.babyFrame = gameFrameCount + baby.cooldown;
       Isaac.Spawn(

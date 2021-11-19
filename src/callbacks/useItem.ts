@@ -44,18 +44,16 @@ export function init(mod: Mod): void {
   );
 }
 
-export function main(_collectibleType: CollectibleType, _RNG: RNG): boolean {
+export function main(_collectibleType: CollectibleType, _RNG: RNG): void {
   const [, , valid] = getCurrentBaby();
   if (!valid) {
-    return false;
+    return;
   }
 
   // Certain items like The Nail mess up the player sprite (if they are standing still)
   // If we reload the sprite in this callback, it won't work,
   // so mark to update it in the PostUpdate callback
   g.run.reloadSprite = true;
-
-  return false;
 }
 
 // CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP (49)
@@ -65,17 +63,15 @@ function shoopDaWhoop(_collectibleType: CollectibleType, _RNG: RNG) {
   const batteryCharge = g.p.GetBatteryCharge();
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
-    return false;
+    return;
   }
 
+  // 81
   if (baby.name === "Scream Baby") {
-    // 81
     g.run.babyFrame = gameFrameCount;
     g.run.babyCounters = activeCharge;
     g.run.babyNPC.type = batteryCharge;
   }
-
-  return false;
 }
 
 // CollectibleType.COLLECTIBLE_MONSTROS_TOOTH (86)
@@ -83,11 +79,11 @@ function monstrosTooth(_collectibleType: CollectibleType, _RNG: RNG) {
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
-    return false;
+    return;
   }
 
+  // 221
   if (baby.name === "Drool Baby") {
-    // 221
     // Summon extra Monstro's, spaced apart
     g.run.babyCounters += 1;
     if (g.run.babyCounters === baby.num) {
@@ -97,8 +93,6 @@ function monstrosTooth(_collectibleType: CollectibleType, _RNG: RNG) {
       g.run.babyFrame = gameFrameCount + 15;
     }
   }
-
-  return false;
 }
 
 // CollectibleType.COLLECTIBLE_HOW_TO_JUMP (282)
@@ -106,32 +100,27 @@ function howToJump(_collectibleType: CollectibleType, _RNG: RNG) {
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
-    return false;
+    return;
   }
 
+  // 350
   if (baby.name === "Rabbit Baby") {
-    // 350
     if (baby.num === undefined) {
       error(`The "num" attribute was not defined for ${baby.name}.`);
     }
     g.run.babyFrame = gameFrameCount + baby.num;
   }
-
-  return false;
 }
 
 // CollectibleType.COLLECTIBLE_CLOCKWORK_ASSEMBLY
 function clockworkAssembly(_collectibleType: CollectibleType, _RNG: RNG) {
   // Spawn a Restock Machine (6.10)
-  g.run.clockworkAssembly = true;
-  g.p.UseCard(Card.CARD_WHEEL_OF_FORTUNE);
+  g.p.UseCard(Card.CARD_REVERSE_JUDGEMENT);
   g.p.AnimateCollectible(
     CollectibleTypeCustom.COLLECTIBLE_CLOCKWORK_ASSEMBLY,
     PlayerItemAnimation.USE_ITEM,
     CollectibleAnimation.PLAYER_PICKUP,
   );
-
-  return false;
 }
 
 // CollectibleType.COLLECTIBLE_FLOCK_OF_SUCCUBI
@@ -149,8 +138,6 @@ function flockOfSuccubi(_collectibleType: CollectibleType, _RNG: RNG) {
 
   // Mark to remove the items upon entering a new room
   g.run.flockOfSuccubi = true;
-
-  return false;
 }
 
 // CollectibleType.COLLECTIBLE_CHARGING_STATION

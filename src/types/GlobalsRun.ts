@@ -29,8 +29,10 @@ export class GlobalsRun {
   reloadSprite = false;
   showIntroFrame = 0;
   showVersionFrame = 0;
-  invulnerable = false; // Used to make the player temporarily invulnerable
-  invulnerabilityFrame = 0; // Used to make the player temporarily invulnerable
+  /** Used to make the player temporarily invulnerable. */
+  invulnerable = false;
+  /** Used to make the player temporarily invulnerable. */
+  invulnerabilityUntilFrame: int | null = null;
   dealingExtraDamage = false;
 
   // Baby-specific variables
@@ -49,7 +51,6 @@ export class GlobalsRun {
   babySprite: Sprite | null = null;
 
   // Item-specific variables
-  clockworkAssembly = false;
   flockOfSuccubi = false;
 
   constructor(randomSeed = Random()) {

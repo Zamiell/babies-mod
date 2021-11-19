@@ -38,8 +38,8 @@ postPickupSelectionBabyFunctionMap.set(
   (_pickup: EntityPickup, variant: int, subType: int) => {
     // Convert all bombs to keys
     if (variant === PickupVariant.PICKUP_BOMB) {
-      if (subType === 5) {
-        // There is a subType of 5 for bombs but not for keys
+      if (subType > KeySubType.KEY_CHARGED) {
+        // There are more bomb sub-types than key sub-types
         subType = 1;
       }
 

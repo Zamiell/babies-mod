@@ -1,3 +1,4 @@
+import { hasFlag } from "isaacscript-common";
 import g from "../globals";
 import { getCurrentBaby } from "../util";
 import { entityTakeDmgPlayerBabyFunctionMap } from "./entityTakeDmgPlayerBabyFunctionMap";
@@ -20,20 +21,20 @@ export function main(
   }
 
   // Check to see if the player is supposed to be temporarily invulnerable
-  if (
-    g.run.invulnerabilityFrame !== 0 &&
-    g.run.invulnerabilityFrame >= gameFrameCount
-  ) {
+  if (g.run.invulnerable) {
     return false;
   }
-  if (g.run.invulnerable) {
+  if (
+    g.run.invulnerabilityUntilFrame !== null &&
+    gameFrameCount < g.run.invulnerabilityUntilFrame
+  ) {
     return false;
   }
 
   // Check to see if this baby is immune to explosive damage
   if (
     baby.explosionImmunity === true &&
-    (damageFlags & DamageFlag.DAMAGE_EXPLOSION) !== 0
+    hasFlag(damageFlags, DamageFlag.DAMAGE_EXPLOSION)
   ) {
     return false;
   }

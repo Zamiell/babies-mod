@@ -1,5 +1,11 @@
 import g from "../globals";
 
+const GRID_ENTITY_REPLACEMENT_EXCEPTIONS = new Set([
+  GridEntityXMLType.PRESSURE_PLATE,
+  GridEntityXMLType.TRAPDOOR,
+  GridEntityXMLType.STAIRS,
+]);
+
 export const preRoomEntitySpawnBabyFunctionMap = new Map<
   int,
   (entityType: EntityType) => [int, int, int] | void
@@ -10,12 +16,10 @@ preRoomEntitySpawnBabyFunctionMap.set(143, (entityType: int) => {
   if (
     g.r.IsFirstVisit() &&
     entityType >= 1000 && // We only care about grid entities
-    entityType !== 4500 && // Make an exception for Pressure Plates
-    entityType !== 9000 && // Make an exception for trapdoors
-    entityType !== 9100 // Make an exception for crawlspaces
+    !GRID_ENTITY_REPLACEMENT_EXCEPTIONS.has(entityType) // Make an exception for certain entities
   ) {
     // Everything is Red Poop
-    return [1490, 0, 0];
+    return [GridEntityXMLType.POOP_RED, 0, 0];
   }
 
   return undefined;
@@ -47,12 +51,10 @@ preRoomEntitySpawnBabyFunctionMap.set(389, (entityType: int) => {
   if (
     g.r.IsFirstVisit() &&
     entityType >= 1000 && // We only care about grid entities
-    entityType !== 4500 && // Make an exception for Pressure Plates
-    entityType !== 9000 && // Make an exception for trapdoors
-    entityType !== 9100 // Make an exception for crawlspaces
+    !GRID_ENTITY_REPLACEMENT_EXCEPTIONS.has(entityType) // Make an exception for certain entities
   ) {
     // Everything is TNT
-    return [1300, 0, 0];
+    return [GridEntityXMLType.TNT, 0, 0];
   }
 
   return undefined;

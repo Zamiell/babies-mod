@@ -40,9 +40,8 @@ function poop(_collectibleType: number, _rng: RNG) {
     return false;
   }
 
-  if (
-    baby.name !== "Panda Baby" // 262
-  ) {
+  // 262
+  if (baby.name !== "Panda Baby") {
     return false;
   }
 
@@ -66,9 +65,8 @@ function lemonMishap(_collectibleType: number, _rng: RNG) {
     return false;
   }
 
-  if (
-    baby.name !== "Lemon Baby" // 232
-  ) {
+  // 232
+  if (baby.name !== "Lemon Baby") {
     return false;
   }
 
@@ -88,9 +86,8 @@ function isaacsTears(_collectibleType: number, _rng: RNG) {
     return false;
   }
 
-  if (
-    baby.name !== "Water Baby" // 3
-  ) {
+  // 3
+  if (baby.name !== "Water Baby") {
     return false;
   }
 
@@ -131,8 +128,8 @@ function smelter(_collectibleType: number, _rng: RNG) {
 
   // We want to keep track if the player smelts the trinket so that we don't give another copy back
   // to them
-  const trinket1 = g.p.GetTrinket(0); // This will be 0 if there is no trinket
-  const trinket2 = g.p.GetTrinket(1); // This will be 0 if there is no trinket
+  const trinket1 = g.p.GetTrinket(TrinketSlot.SLOT_1);
+  const trinket2 = g.p.GetTrinket(TrinketSlot.SLOT_2);
   if (trinket1 === baby.trinket || trinket2 === baby.trinket) {
     g.run.level.trinketGone = true;
   }
@@ -149,9 +146,8 @@ function brownNugget(_collectibleType: number, _rng: RNG) {
     return false;
   }
 
-  if (
-    baby.name !== "Pizza Baby" // 303
-  ) {
+  // 303
+  if (baby.name !== "Pizza Baby") {
     return false;
   }
   if (baby.delay === undefined) {

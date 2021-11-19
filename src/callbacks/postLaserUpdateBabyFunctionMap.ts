@@ -1,4 +1,7 @@
-import { setEntityRandomColor } from "isaacscript-common";
+import {
+  AZAZEL_DEFAULT_BRIMSTONE_DISTANCE,
+  setEntityRandomColor,
+} from "isaacscript-common";
 import g from "../globals";
 
 export const postLaserUpdateBabyFunctionMap = new Map<
@@ -17,16 +20,17 @@ postLaserUpdateBabyFunctionMap.set(14, (laser: EntityLaser) => {
 
 // Belial Baby
 postLaserUpdateBabyFunctionMap.set(51, (laser: EntityLaser) => {
+  const sprite = laser.GetSprite();
+  const filename = sprite.GetFilename();
+
   if (
     laser.SpawnerType === EntityType.ENTITY_PLAYER &&
     laser.FrameCount === 0
   ) {
     // Azazel-style Brimstone
-    // The formula for distance is: 32 - 2.5 * player.TearHeight
-    // (provided by Nine)
     // For simplicity and to make it more difficult,
     // we will instead hard-code the default Azazel distance
-    laser.SetMaxDistance(75.125); // This is the vanilla Azazel distance
+    laser.SetMaxDistance(AZAZEL_DEFAULT_BRIMSTONE_DISTANCE);
 
     // Making the laser invisible earlier also muted the sound effect, so play it manually
     g.sfx.Play(SoundEffect.SOUND_BLOOD_LASER_LARGE, 0.75);
@@ -35,7 +39,7 @@ postLaserUpdateBabyFunctionMap.set(51, (laser: EntityLaser) => {
   }
 
   if (
-    laser.GetSprite().GetFilename() === "gfx/007.001_Thick Red Laser.anm2" &&
+    filename === "gfx/007.001_Thick Red Laser.anm2" &&
     laser.FrameCount === 1
   ) {
     // We made the laser invisible in the PostLaserInit function,

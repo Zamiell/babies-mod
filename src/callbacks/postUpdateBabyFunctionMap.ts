@@ -214,7 +214,7 @@ postUpdateBabyFunctionMap.set(63, () => {
     ) {
       // If the poop is this type, it will instantly damage the player,
       // so give them some invulnerability frames
-      g.run.invulnerabilityFrame = gameFrameCount + 25;
+      g.run.invulnerabilityUntilFrame = gameFrameCount + 25;
     }
 
     Isaac.GridSpawn(GridEntityType.GRID_POOP, poopVariant, g.p.Position, false);

@@ -1,4 +1,4 @@
-import { getRoomIndex } from "isaacscript-common";
+import { copyColor, getNPCs, getRoomIndex } from "isaacscript-common";
 import g from "../globals";
 import { getCurrentBaby } from "../util";
 
@@ -6,9 +6,6 @@ export const postEntityKillBabyFunctionMap = new Map<
   int,
   (npc: EntityNPC) => void
 >();
-
-// Black Baby
-postEntityKillBabyFunctionMap.set(27, (_npc: EntityNPC) => {});
 
 // Brown Baby
 postEntityKillBabyFunctionMap.set(38, (npc: EntityNPC) => {
@@ -57,17 +54,10 @@ postEntityKillBabyFunctionMap.set(61, (npc: EntityNPC) => {
 
     // Fade the entity so that it is easier to see everything
     // (this is also reapplied on every frame because enemies can be unfaded occasionally)
-    const color = friend.GetColor();
     const fadeAmount = 0.25;
-    const newColor = Color(
-      color.R,
-      color.G,
-      color.B,
-      fadeAmount,
-      color.RO,
-      color.GO,
-      color.BO,
-    );
+    const color = friend.GetColor();
+    const newColor = copyColor(color);
+    newColor.A = fadeAmount;
     friend.SetColor(newColor, 0, 0, true, true);
   }
 });
@@ -92,9 +82,8 @@ postEntityKillBabyFunctionMap.set(249, (npc: EntityNPC) => {
   };
 
   // Respawn all of the existing enemies in the room
-  for (const entity2 of Isaac.GetRoomEntities()) {
-    const npc2 = entity2.ToNPC();
-    if (npc2 !== undefined && npc2.Index !== npc.Index) {
+  for (const npc2 of getNPCs()) {
+    if (npc2.Index !== npc.Index) {
       // Don't respawn the entity that just died
       g.g.Spawn(
         npc.Type,
@@ -138,9 +127,10 @@ postEntityKillBabyFunctionMap.set(376, (_npc: EntityNPC) => {
     Vector.Zero,
     undefined,
   );
-  const brainSprite = brain.GetSprite();
-  brainSprite.Load("gfx/003.059_bobs brain2.anm2", true);
-  brainSprite.Play("Idle", true);
+
+  const sprite = brain.GetSprite();
+  sprite.Load("gfx/003.059_bobs brain2.anm2", true);
+  sprite.Play("Idle", true);
 });
 
 // Blue Wrestler Baby

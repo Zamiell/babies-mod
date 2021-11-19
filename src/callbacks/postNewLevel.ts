@@ -16,7 +16,7 @@ export function main(): void {
   );
 
   // Reset floor-related variables
-  g.run.level = new GlobalsRunLevel(stage, stageType, gameFrameCount);
+  g.run.level = new GlobalsRunLevel();
 
   // Reset baby-specific variables
   g.run.babyBool = false;

@@ -10,7 +10,8 @@ postFamiliarInitBabyFunctionMap.set(30, (familiar: EntityFamiliar) => {
   // Making the Sprinkler invisible
   // (setting "familiar.Visible = false" does not work, so blank out the sprite)
   if (familiar.Variant === FamiliarVariant.SPRINKLER) {
-    familiar.GetSprite().Load("gfx/003.120_sprinkler2.anm2", true);
+    const sprite = familiar.GetSprite();
+    sprite.Load("gfx/003.120_sprinkler2.anm2", true);
   }
 });
 
@@ -28,7 +29,7 @@ postFamiliarInitBabyFunctionMap.set(47, (familiar: EntityFamiliar) => {
 // Crow Baby
 postFamiliarInitBabyFunctionMap.set(117, (familiar: EntityFamiliar) => {
   if (familiar.Variant === FamiliarVariant.DEAD_BIRD && !g.run.babyBool) {
-    // Spawn 5 bird familiars instead of 4
+    // Spawn 5 bird familiars instead of 1
     g.run.babyBool = true;
     for (let i = 0; i < 4; i++) {
       Isaac.Spawn(

@@ -9,7 +9,7 @@ export function main(player: EntityPlayer, cacheFlag: CacheFlag): void {
     return;
   }
 
-  // Give the character a flat +1 damage as a bonus, similar to Samael
+  // Give the Random Baby character a flat +1 damage as a bonus, similar to Samael
   if (
     cacheFlag === CacheFlag.CACHE_DAMAGE &&
     character === PlayerTypeCustom.PLAYER_RANDOM_BABY

@@ -1,4 +1,7 @@
-import { isActionPressedOnAnyInput } from "isaacscript-common";
+import {
+  isActionPressedOnAnyInput,
+  SHOOTING_ACTIONS,
+} from "isaacscript-common";
 import g from "../globals";
 
 export const inputActionBabyFunctionMap = new Map<
@@ -13,10 +16,7 @@ inputActionBabyFunctionMap.set(
     if (
       // The shoot inputs can be on all 3 of the input hooks
       inputHook === InputHook.IS_ACTION_PRESSED && // 0
-      (buttonAction === ButtonAction.ACTION_SHOOTLEFT || // 4
-        buttonAction === ButtonAction.ACTION_SHOOTRIGHT || // 5
-        buttonAction === ButtonAction.ACTION_SHOOTUP || // 6
-        buttonAction === ButtonAction.ACTION_SHOOTDOWN) // 7
+      SHOOTING_ACTIONS.has(buttonAction)
     ) {
       // Can't shoot while moving
       // This ability does not interact well with charged items,
