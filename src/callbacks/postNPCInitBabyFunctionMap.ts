@@ -1,4 +1,4 @@
-import { setRandomColor } from "../util";
+import { setEntityRandomColor } from "isaacscript-common";
 
 export const postNPCInitBabyFunctionMap = new Map<
   int,
@@ -19,5 +19,5 @@ postNPCInitBabyFunctionMap.set(37, (npc: EntityNPC) => {
 
 // 404 Baby
 postNPCInitBabyFunctionMap.set(463, (npc: EntityNPC) => {
-  setRandomColor(npc);
+  setEntityRandomColor(npc);
 });

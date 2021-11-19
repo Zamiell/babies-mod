@@ -1,5 +1,5 @@
+import { setEntityRandomColor } from "isaacscript-common";
 import g from "../globals";
-import { setRandomColor } from "../util";
 
 export const postEffectInitBabyFunctionMap = new Map<
   int,
@@ -27,5 +27,5 @@ postEffectInitBabyFunctionMap.set(281, (effect: EntityEffect) => {
 
 // 404 Baby
 postEffectInitBabyFunctionMap.set(463, (effect: EntityEffect) => {
-  setRandomColor(effect);
+  setEntityRandomColor(effect);
 });

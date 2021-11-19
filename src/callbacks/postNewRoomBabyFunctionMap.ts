@@ -1,13 +1,14 @@
 import {
   getCollectibleDevilHeartPrice,
   getRoomVariant,
+  gridToPos,
   log,
   nextSeed,
+  openAllDoors,
   teleport,
 } from "isaacscript-common";
 import g from "../globals";
 import { CollectibleTypeCustom } from "../types/enums";
-import { gridToPos, openAllDoors } from "../util";
 
 export const postNewRoomBabyFunctionMap = new Map<int, () => void>();
 

@@ -1,5 +1,6 @@
+import { getRoomIndex } from "isaacscript-common";
 import g from "../globals";
-import { getCurrentBaby, getRoomIndex } from "../util";
+import { getCurrentBaby } from "../util";
 
 export const postEntityKillBabyFunctionMap = new Map<
   int,

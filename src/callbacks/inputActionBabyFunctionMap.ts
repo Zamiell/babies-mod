@@ -1,5 +1,5 @@
+import { isActionPressedOnAnyInput } from "isaacscript-common";
 import g from "../globals";
-import { isActionPressed } from "../util";
 
 export const inputActionBabyFunctionMap = new Map<
   int,
@@ -58,29 +58,29 @@ inputActionBabyFunctionMap.set(
     // Can only move up + down + left + right
     if (
       buttonAction === ButtonAction.ACTION_LEFT && // 0
-      (isActionPressed(ButtonAction.ACTION_UP) || // 2
-        isActionPressed(ButtonAction.ACTION_DOWN)) // 3
+      (isActionPressedOnAnyInput(ButtonAction.ACTION_UP) || // 2
+        isActionPressedOnAnyInput(ButtonAction.ACTION_DOWN)) // 3
     ) {
       return 0;
     }
     if (
       buttonAction === ButtonAction.ACTION_RIGHT && // 1
-      (isActionPressed(ButtonAction.ACTION_UP) || // 2
-        isActionPressed(ButtonAction.ACTION_DOWN)) // 3
+      (isActionPressedOnAnyInput(ButtonAction.ACTION_UP) || // 2
+        isActionPressedOnAnyInput(ButtonAction.ACTION_DOWN)) // 3
     ) {
       return 0;
     }
     if (
       buttonAction === ButtonAction.ACTION_UP && // 2
-      (isActionPressed(ButtonAction.ACTION_LEFT) || // 0
-        isActionPressed(ButtonAction.ACTION_RIGHT)) // 1
+      (isActionPressedOnAnyInput(ButtonAction.ACTION_LEFT) || // 0
+        isActionPressedOnAnyInput(ButtonAction.ACTION_RIGHT)) // 1
     ) {
       return 0;
     }
     if (
       buttonAction === ButtonAction.ACTION_DOWN && // 3
-      (isActionPressed(ButtonAction.ACTION_LEFT) || // 0
-        isActionPressed(ButtonAction.ACTION_RIGHT)) // 1
+      (isActionPressedOnAnyInput(ButtonAction.ACTION_LEFT) || // 0
+        isActionPressedOnAnyInput(ButtonAction.ACTION_RIGHT)) // 1
     ) {
       return 0;
     }

@@ -1,6 +1,7 @@
+import { setEntityRandomColor } from "isaacscript-common";
 import g from "../globals";
 import { TearData } from "../types/TearData";
-import { getCurrentBaby, setRandomColor } from "../util";
+import { getCurrentBaby } from "../util";
 
 export const postTearUpdateBabyFunctionMap = new Map<
   int,
@@ -264,7 +265,7 @@ postTearUpdateBabyFunctionMap.set(459, (tear: EntityTear) => {
 // 404 Baby
 postTearUpdateBabyFunctionMap.set(463, (tear: EntityTear) => {
   if (tear.FrameCount === 0) {
-    setRandomColor(tear);
+    setEntityRandomColor(tear);
   }
 });
 

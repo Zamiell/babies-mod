@@ -1,13 +1,8 @@
-import { log, nextSeed } from "isaacscript-common";
+import { getRoomIndex, log, nextSeed, openAllDoors } from "isaacscript-common";
 import g from "../globals";
 import { roomClearedBabyFunctionMap } from "../roomClearedBabyFunctionMap";
 import { BabyDescription } from "../types/BabyDescription";
-import {
-  getCurrentBaby,
-  getRoomIndex,
-  openAllDoors,
-  spawnRandomPickup,
-} from "../util";
+import { getCurrentBaby, spawnRandomPickup } from "../util";
 import * as postRender from "./postRender";
 import { postUpdateBabyFunctionMap } from "./postUpdateBabyFunctionMap";
 

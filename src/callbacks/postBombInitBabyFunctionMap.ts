@@ -1,4 +1,4 @@
-import { setRandomColor } from "../util";
+import { setEntityRandomColor } from "isaacscript-common";
 
 export const postBombInitBabyFunctionMap = new Map<
   int,
@@ -19,5 +19,5 @@ postBombInitBabyFunctionMap.set(37, (bomb: EntityBomb) => {
 
 // 404 Baby
 postBombInitBabyFunctionMap.set(463, (bomb: EntityBomb) => {
-  setRandomColor(bomb);
+  setEntityRandomColor(bomb);
 });

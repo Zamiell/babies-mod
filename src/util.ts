@@ -1,4 +1,8 @@
-import { getCollectibleMaxCharges, nextSeed } from "isaacscript-common";
+import {
+  getCollectibleMaxCharges,
+  getRandomInt,
+  nextSeed,
+} from "isaacscript-common";
 import g from "./globals";
 import { BabyDescription } from "./types/BabyDescription";
 import { CollectibleTypeCustom } from "./types/enums";
@@ -17,7 +21,7 @@ export function getCurrentBaby(): [int, BabyDescription, boolean] {
   return [babyType, baby, true];
 }
 
-export function getOffsetPosition(
+export function getRandomOffsetPosition(
   position: Vector,
   offsetSize: int,
   seed: int,
@@ -67,9 +71,8 @@ export function getOffsetPosition(
 export function getRandomCollectibleTypeFromPool(
   itemPoolType: ItemPoolType,
 ): int {
-  // Get a new item from this pool
   g.run.room.RNG = nextSeed(g.run.room.RNG);
-  g.run.babyBool = true; // The next line will cause this callback to be re-entered
+  g.run.babyBool = true;
   const collectibleType = g.itemPool.GetCollectible(
     itemPoolType,
     true,
@@ -80,100 +83,12 @@ export function getRandomCollectibleTypeFromPool(
   return collectibleType;
 }
 
-export function getRoomIndex(): int {
-  const roomIndex = g.l.GetCurrentRoomDesc().SafeGridIndex;
-  if (roomIndex < 0) {
-    // SafeGridIndex is always -1 for rooms outside the grid
-    return g.l.GetCurrentRoomIndex();
-  }
-
-  return roomIndex;
-}
-
-// Taken from Alphabirth
-// https://steamcommunity.com/sharedfiles/filedetails/?id=848056541
-export function getScreenCenterPosition(): Vector {
-  const shape = g.r.GetRoomShape();
-  const centerPos = g.r.GetCenterPos();
-  const topLeftPos = g.r.GetTopLeftPos();
-  const centerOffset = centerPos.sub(topLeftPos);
-  const pos = centerPos;
-
-  if (centerOffset.X > 260) {
-    pos.X -= 260;
-  }
-  if (shape === RoomShape.ROOMSHAPE_LBL || shape === RoomShape.ROOMSHAPE_LTL) {
-    pos.X -= 260;
-  }
-  if (centerOffset.Y > 140) {
-    pos.Y -= 140;
-  }
-  if (shape === RoomShape.ROOMSHAPE_LTR || shape === RoomShape.ROOMSHAPE_LTL) {
-    pos.Y -= 140;
-  }
-
-  return Isaac.WorldToRenderPosition(pos);
-}
-
 export function giveItemAndRemoveFromPools(
   collectibleType: CollectibleType | CollectibleTypeCustom,
 ): void {
   const maxCharges = getCollectibleMaxCharges(collectibleType);
   g.p.AddCollectible(collectibleType, maxCharges, false);
   g.itemPool.RemoveCollectible(collectibleType);
-}
-
-export function gridToPos(x: number, y: number): Vector {
-  x += 1;
-  y += 1;
-
-  return g.r.GetGridPosition(y * g.r.GetGridWidth() + x);
-}
-
-export function isActionPressed(buttonAction: ButtonAction): boolean {
-  // There are 4 possible inputs/players from 0 to 3
-  for (let i = 0; i <= 3; i++) {
-    if (Input.IsActionPressed(buttonAction, i)) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-export function openAllDoors(): void {
-  for (let i = 0; i <= 7; i++) {
-    const door = g.r.GetDoor(i);
-    if (door !== undefined) {
-      // If we try to open a hidden secret room door (or super secret room door),
-      // then nothing will happen
-      door.Open();
-    }
-  }
-}
-
-// Set the entity to a random color
-// (used for 404 Baby)
-export function setRandomColor(entity: Entity): void {
-  const colorValues: int[] = [];
-  let seed = entity.InitSeed;
-  for (let i = 0; i < 3; i++) {
-    seed = nextSeed(seed);
-    math.randomseed(seed);
-    let colorValue = math.random(0, 200);
-    colorValue /= 100;
-    colorValues.push(colorValue);
-  }
-  const color = Color(
-    colorValues[0],
-    colorValues[1],
-    colorValues[2],
-    1,
-    1,
-    1,
-    1,
-  );
-  entity.SetColor(color, 10000, 10000, false, false);
 }
 
 export function spawnRandomPickup(
@@ -183,16 +98,15 @@ export function spawnRandomPickup(
 ): void {
   // Spawn a random pickup
   g.run.randomSeed = nextSeed(g.run.randomSeed);
-  math.randomseed(g.run.randomSeed);
   let pickupVariant: int;
   if (noItems) {
     // Exclude trinkets and collectibles
-    pickupVariant = math.random(1, 9);
+    pickupVariant = getRandomInt(1, 9, g.run.randomSeed);
   } else {
-    pickupVariant = math.random(1, 11);
+    pickupVariant = getRandomInt(1, 11, g.run.randomSeed);
   }
-  g.run.randomSeed = nextSeed(g.run.randomSeed);
 
+  g.run.randomSeed = nextSeed(g.run.randomSeed);
   switch (pickupVariant) {
     case 1: {
       // Random Heart

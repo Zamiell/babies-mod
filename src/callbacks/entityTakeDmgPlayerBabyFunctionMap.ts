@@ -1,13 +1,13 @@
-import { nextSeed, removeCollectibleFromItemTracker } from "isaacscript-common";
+import {
+  getRoomIndex,
+  nextSeed,
+  openAllDoors,
+  removeCollectibleFromItemTracker,
+} from "isaacscript-common";
 import g from "../globals";
 import { EntityDescription } from "../types/EntityDescription";
 import { CollectibleTypeCustom } from "../types/enums";
-import {
-  getCurrentBaby,
-  getRoomIndex,
-  openAllDoors,
-  spawnRandomPickup,
-} from "../util";
+import { getCurrentBaby, spawnRandomPickup } from "../util";
 
 export const entityTakeDmgPlayerBabyFunctionMap = new Map<
   int,

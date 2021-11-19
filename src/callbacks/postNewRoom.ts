@@ -1,9 +1,14 @@
-import { getRoomStageID, getRoomVariant, log } from "isaacscript-common";
+import {
+  getRoomIndex,
+  getRoomStageID,
+  getRoomVariant,
+  log,
+} from "isaacscript-common";
 import { updateCachedAPIFunctions } from "../cache";
 import g from "../globals";
 import { GlobalsRunBabyTears } from "../types/GlobalsRunBabyTears";
 import { GlobalsRunRoom } from "../types/GlobalsRunRoom";
-import { getCurrentBaby, getRoomIndex } from "../util";
+import { getCurrentBaby } from "../util";
 import { postNewRoomBabyFunctionMap } from "./postNewRoomBabyFunctionMap";
 import * as postRender from "./postRender";
 

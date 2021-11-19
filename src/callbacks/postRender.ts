@@ -3,6 +3,9 @@ import {
   getCollectibleItemType,
   getDefaultKColor,
   getHeartsUIWidth,
+  getHUDOffsetVector,
+  getScreenCenterPos,
+  isActionPressedOnAnyInput,
   log,
   removeCollectibleCostume,
 } from "isaacscript-common";
@@ -11,11 +14,7 @@ import { VERSION } from "../constants";
 import g from "../globals";
 import * as timer from "../timer";
 import { BabyDescription } from "../types/BabyDescription";
-import {
-  getCurrentBaby,
-  getScreenCenterPosition,
-  isActionPressed,
-} from "../util";
+import { getCurrentBaby } from "../util";
 import { postRenderBabyFunctionMap } from "./postRenderBabyFunctionMap";
 
 // Constants
@@ -222,7 +221,7 @@ function drawBabyIntro() {
   }
 
   // Make the baby description persist on the screen after the player presses the map button
-  if (isActionPressed(ButtonAction.ACTION_MAP)) {
+  if (isActionPressedOnAnyInput(ButtonAction.ACTION_MAP)) {
     g.run.showIntroFrame = gameFrameCount + 60; // 2 seconds
   }
 
@@ -230,7 +229,7 @@ function drawBabyIntro() {
     return;
   }
 
-  const center = getScreenCenterPosition();
+  const centerPos = getScreenCenterPos();
   const scale = 1.75;
 
   let text: string;
@@ -239,21 +238,21 @@ function drawBabyIntro() {
 
   // Render the baby's name
   text = baby.name;
-  x = center.X - 3 * scale * text.length;
-  y = center.Y - 130;
+  x = centerPos.X - 3 * scale * text.length;
+  y = centerPos.Y - 130;
   Isaac.RenderScaledText(text, x, y, scale, scale, 2, 2, 2, 2);
 
   // Render the baby's description
   text = baby.description;
-  x = center.X - 3 * text.length;
+  x = centerPos.X - 3 * text.length;
   y += 25;
   Isaac.RenderText(text, x, y, 2, 2, 2, 2);
 
   // The description might be really long and spill over onto a second line
   if (baby.description2 !== undefined) {
     text = baby.description2;
-    x = center.X - 3 * text.length;
-    y = center.Y - 40;
+    x = centerPos.X - 3 * text.length;
+    y = centerPos.Y - 40;
     Isaac.RenderText(text, x, y, 2, 2, 2, 2);
   }
 }
@@ -265,9 +264,12 @@ function drawBabyNumber() {
     return;
   }
 
+  const HUDOffsetVector = getHUDOffsetVector();
+  const heartsUIWidth = getHeartsUIWidth();
+
   const text = `#${babyType}`;
 
-  let x = getHeartsUIWidth() + UI_HEARTS_RIGHT_SPACING;
+  let x = HUDOffsetVector.X + heartsUIWidth + UI_HEARTS_RIGHT_SPACING;
   if (
     baby.name === "Hopeless Baby" || // 125
     baby.name === "Mohawk Baby" // 138
@@ -299,7 +301,7 @@ function drawVersion() {
     return;
   }
 
-  const center = getScreenCenterPosition();
+  const centerPos = getScreenCenterPos();
   let text: string;
   let scale: int;
   let x: number;
@@ -308,14 +310,14 @@ function drawVersion() {
   // Render the version of the mod
   text = "The Babies Mod";
   scale = 1;
-  x = center.X - 3 * scale * text.length;
-  y = center.Y;
+  x = centerPos.X - 3 * scale * text.length;
+  y = centerPos.Y;
   Isaac.RenderScaledText(text, x, y, scale, scale, 2, 2, 2, 2);
 
   text = VERSION;
   scale = 1;
-  x = center.X - 3 * scale * text.length;
-  y = center.Y + 15;
+  x = centerPos.X - 3 * scale * text.length;
+  y = centerPos.Y + 15;
   Isaac.RenderScaledText(text, x, y, scale, scale, 2, 2, 2, 2);
 }
 

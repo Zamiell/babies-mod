@@ -1,5 +1,5 @@
 import g from "../globals";
-import { getOffsetPosition } from "../util";
+import { getRandomOffsetPosition } from "../util";
 
 export const postFamiliarUpdateBabyFunctionMap = new Map<
   int,
@@ -44,7 +44,7 @@ postFamiliarUpdateBabyFunctionMap.set(82, (familiar: EntityFamiliar) => {
         // Use the index as a priority of which familiar is forced to move away
         familiar.Index < lilGurdy.Index
       ) {
-        lilGurdy.Position = getOffsetPosition(
+        lilGurdy.Position = getRandomOffsetPosition(
           lilGurdy.Position,
           7,
           lilGurdy.InitSeed,
@@ -68,7 +68,7 @@ postFamiliarUpdateBabyFunctionMap.set(326, (familiar: EntityFamiliar) => {
         // Use the index as a priority of which Gurdy is forced to move away
         familiar.Index < roboBaby.Index
       ) {
-        roboBaby.Position = getOffsetPosition(
+        roboBaby.Position = getRandomOffsetPosition(
           roboBaby.Position,
           7,
           roboBaby.InitSeed,

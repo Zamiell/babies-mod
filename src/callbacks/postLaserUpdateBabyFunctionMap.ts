@@ -1,5 +1,5 @@
+import { setEntityRandomColor } from "isaacscript-common";
 import g from "../globals";
-import { setRandomColor } from "../util";
 
 export const postLaserUpdateBabyFunctionMap = new Map<
   int,
@@ -48,6 +48,6 @@ postLaserUpdateBabyFunctionMap.set(51, (laser: EntityLaser) => {
 postLaserUpdateBabyFunctionMap.set(463, (laser: EntityLaser) => {
   // This does not work in the PostLaserInit callback for some reason
   if (laser.FrameCount === 0) {
-    setRandomColor(laser);
+    setEntityRandomColor(laser);
   }
 });

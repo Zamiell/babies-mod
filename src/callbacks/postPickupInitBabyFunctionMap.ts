@@ -1,6 +1,8 @@
-import { getCollectibleDevilHeartPrice } from "isaacscript-common";
+import {
+  getCollectibleDevilHeartPrice,
+  setEntityRandomColor,
+} from "isaacscript-common";
 import g from "../globals";
-import { setRandomColor } from "../util";
 
 export const postPickupInitBabyFunctionMap = new Map<
   int,
@@ -82,7 +84,7 @@ postPickupInitBabyFunctionMap.set(317, (pickup: EntityPickup) => {
 
 // 404 Baby
 postPickupInitBabyFunctionMap.set(463, (pickup: EntityPickup) => {
-  setRandomColor(pickup);
+  setEntityRandomColor(pickup);
 });
 
 // Demon Baby

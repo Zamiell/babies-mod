@@ -1,5 +1,6 @@
+import { setEntityRandomColor } from "isaacscript-common";
 import g from "../globals";
-import { getCurrentBaby, setRandomColor } from "../util";
+import { getCurrentBaby } from "../util";
 
 export const postProjectileUpdateBabyFunctionMap = new Map<
   int,
@@ -95,6 +96,6 @@ postProjectileUpdateBabyFunctionMap.set(318, (projectile: EntityProjectile) => {
 // 404 Baby
 postProjectileUpdateBabyFunctionMap.set(463, (projectile: EntityProjectile) => {
   if (projectile.FrameCount === 1) {
-    setRandomColor(projectile);
+    setEntityRandomColor(projectile);
   }
 });

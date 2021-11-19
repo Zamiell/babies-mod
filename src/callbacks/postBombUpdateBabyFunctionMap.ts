@@ -4,7 +4,7 @@ import {
   nextSeed,
 } from "isaacscript-common";
 import g from "../globals";
-import { getOffsetPosition } from "../util";
+import { getRandomOffsetPosition } from "../util";
 
 export const postBombUpdateBabyFunctionMap = new Map<
   int,
@@ -85,7 +85,7 @@ postBombUpdateBabyFunctionMap.set(284, (bomb: EntityBomb) => {
     bomb.FrameCount === 1 && // Frame 0 does not work
     data.doubled === undefined
   ) {
-    const position = getOffsetPosition(bomb.Position, 15, bomb.InitSeed);
+    const position = getRandomOffsetPosition(bomb.Position, 15, bomb.InitSeed);
     const doubledBomb = g.g
       .Spawn(
         bomb.Type,

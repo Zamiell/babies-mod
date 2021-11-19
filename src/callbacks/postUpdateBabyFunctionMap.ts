@@ -1,9 +1,14 @@
-import { nextSeed, teleport } from "isaacscript-common";
+import {
+  getRoomIndex,
+  isActionPressedOnAnyInput,
+  nextSeed,
+  teleport,
+} from "isaacscript-common";
 import { TELEPORT_TO_ROOM_TYPE_MAP } from "../constants";
 import g from "../globals";
 import * as pseudoRoomClear from "../pseudoRoomClear";
 import { EffectVariantCustom } from "../types/enums";
-import { getCurrentBaby, getRoomIndex, isActionPressed } from "../util";
+import { getCurrentBaby } from "../util";
 import * as postRender from "./postRender";
 
 export const postUpdateBabyFunctionMap = new Map<int, () => void>();
@@ -125,10 +130,10 @@ postUpdateBabyFunctionMap.set(39, () => {
 
     for (let i = 0; i <= 3; i++) {
       if (
-        isActionPressed(ButtonAction.ACTION_SHOOTLEFT) || // 4
-        isActionPressed(ButtonAction.ACTION_SHOOTRIGHT) || // 5
-        isActionPressed(ButtonAction.ACTION_SHOOTUP) || // 6
-        isActionPressed(ButtonAction.ACTION_SHOOTDOWN) // 7
+        isActionPressedOnAnyInput(ButtonAction.ACTION_SHOOTLEFT) || // 4
+        isActionPressedOnAnyInput(ButtonAction.ACTION_SHOOTRIGHT) || // 5
+        isActionPressedOnAnyInput(ButtonAction.ACTION_SHOOTUP) || // 6
+        isActionPressedOnAnyInput(ButtonAction.ACTION_SHOOTDOWN) // 7
       ) {
         g.p.TakeDamage(1, 0, EntityRef(g.p), 0);
         return;
@@ -542,10 +547,10 @@ postUpdateBabyFunctionMap.set(162, () => {
 // Helmet Baby
 postUpdateBabyFunctionMap.set(163, () => {
   // Check to see if they are pressing any movement buttons
-  const leftPressed = isActionPressed(ButtonAction.ACTION_LEFT);
-  const rightPressed = isActionPressed(ButtonAction.ACTION_RIGHT);
-  const upPressed = isActionPressed(ButtonAction.ACTION_UP);
-  const downPressed = isActionPressed(ButtonAction.ACTION_DOWN);
+  const leftPressed = isActionPressedOnAnyInput(ButtonAction.ACTION_LEFT);
+  const rightPressed = isActionPressedOnAnyInput(ButtonAction.ACTION_RIGHT);
+  const upPressed = isActionPressedOnAnyInput(ButtonAction.ACTION_UP);
+  const downPressed = isActionPressedOnAnyInput(ButtonAction.ACTION_DOWN);
 
   // Keep track of whether they are moving or not
   // Also, fade the character to indicate that they are invulnerable
