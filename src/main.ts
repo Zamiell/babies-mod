@@ -41,6 +41,8 @@ import * as preUseItem from "./callbacks/preUseItem";
 import * as useCard from "./callbacks/useCard";
 import * as useItem from "./callbacks/useItem";
 import * as usePill from "./callbacks/usePill";
+import * as postPickupCollect from "./callbacksCustom/postPickupCollect";
+import * as postSlotDestroyed from "./callbacksCustom/postSlotDestroyed";
 import { checkBabiesValid } from "./checkBabiesValid";
 import { VERSION } from "./constants";
 import g from "./globals";
@@ -137,5 +139,13 @@ function registerCallbacksCustom(mod: ModUpgraded) {
   mod.AddCallbackCustom(
     ModCallbacksCustom.MC_POST_NEW_ROOM_REORDERED,
     postNewRoom.main,
+  );
+  mod.AddCallbackCustom(
+    ModCallbacksCustom.MC_POST_PICKUP_COLLECT,
+    postPickupCollect.main,
+  );
+  mod.AddCallbackCustom(
+    ModCallbacksCustom.MC_POST_SLOT_DESTROYED,
+    postSlotDestroyed.main,
   );
 }

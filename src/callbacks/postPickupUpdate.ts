@@ -1,13 +1,9 @@
-import { log } from "isaacscript-common";
 import g from "../globals";
-import { pickupTouchedBabyFunctionMap } from "../pickupTouchedBabyFunctionMap";
 import { CollectibleTypeCustom } from "../types/enums";
 import { getCurrentBaby, spawnRandomPickup } from "../util";
 import { postPickupUpdateBabyFunctionMap } from "./postPickupUpdateBabyFunctionMap";
 
 export function main(pickup: EntityPickup): void {
-  const data = pickup.GetData();
-  const sprite = pickup.GetSprite();
   const [babyType, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
@@ -36,20 +32,6 @@ export function main(pickup: EntityPickup): void {
     spawnRandomPickup(pickup.Position, pickup.Velocity, true);
     pickup.Remove();
     return;
-  }
-
-  // Keep track of pickups that are touched
-  if (sprite.IsPlaying("Collect") && data.touched === undefined) {
-    data.touched = true;
-    log(
-      `Touched pickup: ${pickup.Type}.${pickup.Variant}.${pickup.SubType} (BM)`,
-    );
-
-    const pickupTouchedBabyFunction =
-      pickupTouchedBabyFunctionMap.get(babyType);
-    if (pickupTouchedBabyFunction !== undefined) {
-      pickupTouchedBabyFunction();
-    }
   }
 
   const postPickupUpdateBabyFunction =

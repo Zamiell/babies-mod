@@ -1,4 +1,5 @@
 import g from "./globals";
+import { initSprite } from "./sprite";
 import { getCurrentBaby } from "./util";
 
 // Variables
@@ -107,28 +108,19 @@ export function display(): void {
 }
 
 function loadSprites() {
-  // The sprites have not been loaded yet, so load them
-  sprites.clock = Sprite();
-  sprites.clock.Load("gfx/timer/clock.anm2", true);
-  sprites.clock.SetFrame("Default", 0);
+  sprites.clock = initSprite("gfx/timer/clock.anm2");
 
   for (let i = 0; i < 2; i++) {
-    const colonSprite = Sprite();
-    colonSprite.Load("gfx/timer/colon.anm2", true);
-    colonSprite.SetFrame("Default", 0);
+    const colonSprite = initSprite("gfx/timer/colon.anm2");
     sprites.colons.push(colonSprite);
   }
 
   for (let i = 0; i < 5; i++) {
-    const digitSprite = Sprite();
-    digitSprite.Load("gfx/timer/timer.anm2", true);
-    digitSprite.SetFrame("Default", 0);
+    const digitSprite = initSprite("gfx/timer/timer.anm2");
     sprites.digits.push(digitSprite);
   }
 
-  sprites.digitMini = Sprite();
-  sprites.digitMini.Load("gfx/timer/timerMini.anm2", true);
-  sprites.digitMini.SetFrame("Default", 0);
+  sprites.digitMini = initSprite("gfx/timer/timerMini.anm2");
 }
 
 function convertSecondsToStrings(totalSeconds: int) {

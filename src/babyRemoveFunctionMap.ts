@@ -1,3 +1,4 @@
+import { removeAllMatchingEntities } from "isaacscript-common";
 import g from "./globals";
 
 export const babyRemoveFunctionMap = new Map<int, () => void>();
@@ -122,13 +123,10 @@ babyRemoveFunctionMap.set(375, () => {
 // Dino Baby
 babyRemoveFunctionMap.set(376, () => {
   // Remove any leftover eggs
-  const brains = Isaac.FindByType(
+  removeAllMatchingEntities(
     EntityType.ENTITY_FAMILIAR,
     FamiliarVariant.BOBS_BRAIN,
   );
-  for (const brain of brains) {
-    brain.Remove();
-  }
 });
 
 // Dream Knight Baby

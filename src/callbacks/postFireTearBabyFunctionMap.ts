@@ -1,4 +1,8 @@
-import { getRandomInt } from "isaacscript-common";
+import {
+  GAME_FRAMES_PER_SECOND,
+  getFamiliars,
+  getRandomInt,
+} from "isaacscript-common";
 import g from "../globals";
 import { TearData } from "../types/TearData";
 import { getCurrentBaby } from "../util";
@@ -591,20 +595,26 @@ postFireTearBabyFunctionMap.set(500, (tear: EntityTear) => {
 
 // Psychic Baby
 postFireTearBabyFunctionMap.set(504, (tear: EntityTear) => {
+  const roomFrameCount = g.r.GetFrameCount();
+  const roomShape = g.r.GetRoomShape();
+
+  // Disable the mechanic after N seconds to avoid softlocks
+  const softlockThresholdFrame = 30 * GAME_FRAMES_PER_SECOND;
+  if (roomFrameCount >= softlockThresholdFrame) {
+    return;
+  }
+
+  // Disable the mechanic in any room that would grant 2 charges
+  if (roomShape >= RoomShape.ROOMSHAPE_2x2) {
+    return;
+  }
+
   // Starts with Abel; tears come from Abel
-  if (
-    g.r.GetFrameCount() < 900 && // Don't do it after 30 seconds to avoid softlocks
-    g.r.GetRoomShape() < RoomShape.ROOMSHAPE_2x2 // Don't do it for any rooms bigger than a 2x1
-  ) {
-    // Get Abel's position
-    const abels = Isaac.FindByType(
-      EntityType.ENTITY_FAMILIAR,
-      FamiliarVariant.ABEL,
-    );
-    if (abels.length > 0) {
-      const abel = abels[0];
-      tear.Position = abel.Position;
-    }
+  // Get Abel's position
+  const abels = getFamiliars(FamiliarVariant.ABEL);
+  if (abels.length > 0) {
+    const abel = abels[0];
+    tear.Position = abel.Position;
   }
 });
 

@@ -12,7 +12,7 @@ import {
 import g from "../globals";
 import { EntityDescription } from "../types/EntityDescription";
 import { CollectibleTypeCustom } from "../types/enums";
-import { getCurrentBaby, spawnRandomPickup } from "../util";
+import { bigChestExists, getCurrentBaby, spawnRandomPickup } from "../util";
 
 export const entityTakeDmgPlayerBabyFunctionMap = new Map<
   int,
@@ -743,12 +743,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
       }
     }
 
-    // Check to see if there are Big Chests in the room, as those will cause unavoidable damage
-    const bigChests = Isaac.FindByType(
-      EntityType.ENTITY_PICKUP,
-      PickupVariant.PICKUP_BIGCHEST,
-    );
-    if (bigChests.length > 0) {
+    if (bigChestExists()) {
       return false;
     }
 

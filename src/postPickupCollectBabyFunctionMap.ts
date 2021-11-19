@@ -1,10 +1,10 @@
 import g from "./globals";
 import { getCurrentBaby } from "./util";
 
-export const pickupTouchedBabyFunctionMap = new Map<int, () => void>();
+export const postPickupCollectBabyFunctionMap = new Map<int, () => void>();
 
 // Cute Baby
-pickupTouchedBabyFunctionMap.set(11, () => {
+postPickupCollectBabyFunctionMap.set(11, () => {
   // -1 damage per pickup taken
   g.run.babyCounters += 1;
   g.p.AddCacheFlags(CacheFlag.CACHE_DAMAGE);
@@ -12,13 +12,13 @@ pickupTouchedBabyFunctionMap.set(11, () => {
 });
 
 // Bluebird Baby
-pickupTouchedBabyFunctionMap.set(147, () => {
+postPickupCollectBabyFunctionMap.set(147, () => {
   // Touching pickups causes paralysis (2/2)
   g.p.UsePill(PillEffect.PILLEFFECT_PARALYSIS, PillColor.PILL_NULL);
 });
 
 // Worry Baby
-pickupTouchedBabyFunctionMap.set(167, () => {
+postPickupCollectBabyFunctionMap.set(167, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
@@ -33,13 +33,13 @@ pickupTouchedBabyFunctionMap.set(167, () => {
 });
 
 // Corrupted Baby
-pickupTouchedBabyFunctionMap.set(307, () => {
+postPickupCollectBabyFunctionMap.set(307, () => {
   // Touching items/pickups causes damage (2/2)
   g.p.TakeDamage(1, 0, EntityRef(g.p), 0);
 });
 
 // Robbermask Baby
-pickupTouchedBabyFunctionMap.set(473, () => {
+postPickupCollectBabyFunctionMap.set(473, () => {
   // Touching pickups gives extra damage
   g.run.babyCounters += 1;
   g.p.AddCacheFlags(CacheFlag.CACHE_DAMAGE);

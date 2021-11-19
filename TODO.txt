@@ -1,4 +1,2 @@
 TODO:
-- remove touched callback to use custom callback
-- go through pseudoRoomClear.ts, can probably use new room clear function
 - do a pass through the rest of the code

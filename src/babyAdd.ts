@@ -1,21 +1,23 @@
 import {
   getCollectibleItemType,
   getCollectibleMaxCharges,
+  getPickups,
+  getPlayerHealth,
+  isChest,
   log,
   removeCollectibleFromItemTracker,
+  setPlayerHealth,
 } from "isaacscript-common";
 import { babyAddFunctionMap } from "./babyAddFunctionMap";
 import g from "./globals";
 import { getCurrentBaby, giveItemAndRemoveFromPools } from "./util";
 
 export function babyAdd(): void {
-  const stage = g.l.GetStage();
-  const soulHearts = g.p.GetSoulHearts();
-  const blackHearts = g.p.GetBlackHearts();
   const coins = g.p.GetNumCoins();
   const bombs = g.p.GetNumBombs();
   const keys = g.p.GetNumKeys();
   const secondaryActiveItem = g.p.GetActiveItem(ActiveSlot.SLOT_SECONDARY);
+  const playerHealth = getPlayerHealth(g.p);
   const [babyType, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
@@ -79,23 +81,8 @@ export function babyAdd(): void {
     removeCollectibleFromItemTracker(baby.item2);
   }
 
-  // Reset the soul hearts and black hearts to the way it was before we added the items
-  const newSoulHearts = g.p.GetSoulHearts();
-  const newBlackHearts = g.p.GetBlackHearts();
-  if (newSoulHearts !== soulHearts || newBlackHearts !== blackHearts) {
-    g.p.AddSoulHearts(-24);
-    for (let i = 1; i <= soulHearts; i++) {
-      const bitPosition = math.floor((i - 1) / 2);
-      const bit = (blackHearts & (1 << bitPosition)) >>> bitPosition;
-      if (bit === 0) {
-        // Soul heart
-        g.p.AddSoulHearts(1);
-      } else {
-        // Black heart
-        g.p.AddBlackHearts(1);
-      }
-    }
-  }
+  // Reset the player's health to the way it was before we added the items
+  setPlayerHealth(g.p, playerHealth);
 
   // Reset the coin/bomb/key count to the way it was before we added the items
   g.p.AddCoins(-99);
@@ -116,83 +103,14 @@ export function babyAdd(): void {
     g.seeds.AddSeedEffect(baby.seed);
   }
 
-  // Don't grant extra pickups
-  if (
-    baby.item === CollectibleType.COLLECTIBLE_PHD || // 75
-    baby.item2 === CollectibleType.COLLECTIBLE_PHD // 75
-  ) {
-    // Delete the starting pill
-    const pills = Isaac.FindByType(
-      EntityType.ENTITY_PICKUP,
-      PickupVariant.PICKUP_PILL,
-    );
-    for (const pill of pills) {
-      pill.Remove();
-    }
-  }
-  if (
-    baby.item === CollectibleType.COLLECTIBLE_STARTER_DECK || // 251
-    baby.item2 === CollectibleType.COLLECTIBLE_STARTER_DECK // 251
-  ) {
-    // Delete the starting card
-    const cards = Isaac.FindByType(
-      EntityType.ENTITY_PICKUP,
-      PickupVariant.PICKUP_TAROTCARD,
-    );
-    for (const card of cards) {
-      card.Remove();
-    }
-  }
-  if (
-    baby.item === CollectibleType.COLLECTIBLE_LITTLE_BAGGY || // 252
-    baby.item2 === CollectibleType.COLLECTIBLE_LITTLE_BAGGY // 252
-  ) {
-    // Delete the starting pill
-    const pills = Isaac.FindByType(
-      EntityType.ENTITY_PICKUP,
-      PickupVariant.PICKUP_PILL,
-    );
-    for (const pill of pills) {
-      pill.Remove();
-    }
-  }
-  if (
-    (baby.item === CollectibleType.COLLECTIBLE_CHAOS || // 402
-      baby.item2 === CollectibleType.COLLECTIBLE_CHAOS) && // 402
-    stage !== 11 // Don't delete the pickups on The Chest / Dark Room
-  ) {
-    // Delete the starting random pickups
-    const pickups = Isaac.FindByType(EntityType.ENTITY_PICKUP);
-    for (const pickup of pickups) {
-      if (pickup.Variant !== PickupVariant.PICKUP_COLLECTIBLE) {
-        pickup.Remove();
-      }
-    }
-  }
-  if (
-    baby.item === CollectibleType.COLLECTIBLE_SACK_HEAD || // 424
-    baby.item2 === CollectibleType.COLLECTIBLE_SACK_HEAD // 424
-  ) {
-    // Delete the starting sack
-    const sacks = Isaac.FindByType(
-      EntityType.ENTITY_PICKUP,
-      PickupVariant.PICKUP_GRAB_BAG,
-    );
-    for (const sack of sacks) {
-      sack.Remove();
-    }
-  }
-  if (
-    baby.item === CollectibleType.COLLECTIBLE_LIL_SPEWER || // 537
-    baby.item2 === CollectibleType.COLLECTIBLE_LIL_SPEWER // 537
-  ) {
-    // Delete the starting pill
-    const pills = Isaac.FindByType(
-      EntityType.ENTITY_PICKUP,
-      PickupVariant.PICKUP_PILL,
-    );
-    for (const pill of pills) {
-      pill.Remove();
+  // Don't grant extra pickups (from e.g. PHD)
+  for (const pickup of getPickups()) {
+    if (
+      pickup.FrameCount === 0 &&
+      pickup.Variant !== PickupVariant.PICKUP_COLLECTIBLE &&
+      !isChest(pickup)
+    ) {
+      pickup.Remove();
     }
   }
 

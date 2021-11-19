@@ -1,5 +1,9 @@
-import { removeCollectibleFromItemTracker } from "isaacscript-common";
+import {
+  MAX_NUM_FAMILIARS,
+  removeCollectibleFromItemTracker,
+} from "isaacscript-common";
 import g from "./globals";
+import { initSprite } from "./sprite";
 import { getCurrentBaby } from "./util";
 
 export const babyAddFunctionMap = new Map<int, () => void>();
@@ -30,9 +34,10 @@ babyAddFunctionMap.set(39, () => {
 
 // Hive Baby
 babyAddFunctionMap.set(40, () => {
-  // The game only allows a maximum of 64 Blue Flies and Blue Spiders at one time
-  g.p.AddBlueFlies(64, g.p.Position, undefined);
-  for (let i = 0; i < 64; i++) {
+  // The game caps the current number of familiars
+  const halfMaxFamiliars = MAX_NUM_FAMILIARS / 2;
+  g.p.AddBlueFlies(halfMaxFamiliars, g.p.Position, undefined);
+  for (let i = 0; i < halfMaxFamiliars; i++) {
     g.p.AddBlueSpider(g.p.Position);
   }
 });
@@ -45,9 +50,7 @@ babyAddFunctionMap.set(43, () => {
 // Dark Baby
 babyAddFunctionMap.set(48, () => {
   // Temporary blindness
-  g.run.babySprite = Sprite();
-  g.run.babySprite.Load("gfx/misc/black.anm2", true);
-  g.run.babySprite.SetFrame("Default", 0);
+  g.run.babySprite = initSprite("gfx/misc/black.anm2");
 });
 
 // Hopeless Baby
@@ -55,10 +58,7 @@ babyAddFunctionMap.set(125, () => {
   // Keys are hearts
   g.p.AddKeys(2);
 
-  // Initialize the sprites
-  g.run.babySprite = Sprite();
-  g.run.babySprite.Load("gfx/custom-health/key.anm2", true);
-  g.run.babySprite.SetFrame("Default", 0);
+  g.run.babySprite = initSprite("gfx/custom-health/key.anm2");
 });
 
 // Mohawk Baby
@@ -66,10 +66,7 @@ babyAddFunctionMap.set(138, () => {
   // Bombs are hearts
   g.p.AddBombs(2);
 
-  // Initialize the sprites
-  g.run.babySprite = Sprite();
-  g.run.babySprite.Load("gfx/custom-health/bomb.anm2", true);
-  g.run.babySprite.SetFrame("Default", 0);
+  g.run.babySprite = initSprite("gfx/custom-health/bomb.anm2");
 });
 
 // Aban Baby

@@ -1,5 +1,6 @@
 import {
   GAME_FRAMES_PER_SECOND,
+  getFamiliars,
   getRandomInt,
   getRoomIndex,
   isActionPressedOnAnyInput,
@@ -10,7 +11,7 @@ import { TELEPORT_TO_ROOM_TYPE_MAP } from "../constants";
 import g from "../globals";
 import * as pseudoRoomClear from "../pseudoRoomClear";
 import { EffectVariantCustom } from "../types/enums";
-import { getCurrentBaby } from "../util";
+import { bigChestExists, getCurrentBaby } from "../util";
 import * as postRender from "./postRender";
 
 export const postUpdateBabyFunctionMap = new Map<int, () => void>();
@@ -36,12 +37,7 @@ postUpdateBabyFunctionMap.set(6, () => {
 postUpdateBabyFunctionMap.set(17, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
-  // Prevent softlocks that occur if you try to jump into a Big Chest
-  const bigChests = Isaac.FindByType(
-    EntityType.ENTITY_PICKUP,
-    PickupVariant.PICKUP_BIGCHEST,
-  );
-  if (bigChests.length > 0) {
+  if (bigChestExists()) {
     return;
   }
 
@@ -496,12 +492,7 @@ postUpdateBabyFunctionMap.set(156, () => {
   const soulHearts = g.p.GetSoulHearts();
   const boneHearts = g.p.GetBoneHearts();
 
-  // Prevent softlocks that occur if you try to jump into a Big Chest
-  const bigChests = Isaac.FindByType(
-    EntityType.ENTITY_PICKUP,
-    PickupVariant.PICKUP_BIGCHEST,
-  );
-  if (bigChests.length > 0) {
+  if (bigChestExists()) {
     return;
   }
 
@@ -609,10 +600,7 @@ postUpdateBabyFunctionMap.set(163, () => {
 postUpdateBabyFunctionMap.set(164, () => {
   // Starts with Leprosy, +5 damage on Leprosy breaking
   // We use the "babyCounters" variable to track how Leprocy familiars are in the room
-  const leprocyChunks = Isaac.FindByType(
-    EntityType.ENTITY_FAMILIAR,
-    FamiliarVariant.LEPROSY,
-  );
+  const leprocyChunks = getFamiliars(FamiliarVariant.LEPROSY);
   if (leprocyChunks.length < g.run.babyCounters) {
     g.run.babyCounters -= 1;
 
@@ -649,34 +637,6 @@ postUpdateBabyFunctionMap.set(167, () => {
     false,
     false,
   );
-});
-
-// Gappy Baby
-postUpdateBabyFunctionMap.set(171, () => {
-  // Broken machines drop pedestal items
-  // (there is no PostSlotUpdate callback so we have to do this here)
-  const slots = Isaac.FindByType(EntityType.ENTITY_SLOT);
-  for (const slot of slots) {
-    const sprite = slot.GetSprite();
-    const data = slot.GetData();
-    if (
-      data.destroyed === undefined &&
-      (sprite.IsPlaying("Broken") || // Normal machines
-        sprite.IsPlaying("Death")) // Restock machines
-    ) {
-      data.destroyed = true;
-      g.run.randomSeed = nextSeed(g.run.randomSeed);
-      g.g.Spawn(
-        EntityType.ENTITY_PICKUP,
-        PickupVariant.PICKUP_COLLECTIBLE,
-        slot.Position,
-        Vector.Zero,
-        undefined,
-        0,
-        g.run.randomSeed,
-      );
-    }
-  }
 });
 
 // Skull Baby
@@ -795,12 +755,7 @@ postUpdateBabyFunctionMap.set(231, () => {
   const soulHearts = g.p.GetSoulHearts();
   const boneHearts = g.p.GetBoneHearts();
 
-  // Prevent softlocks that occur if you try to jump into a Big Chest
-  const bigChests = Isaac.FindByType(
-    EntityType.ENTITY_PICKUP,
-    PickupVariant.PICKUP_BIGCHEST,
-  );
-  if (bigChests.length > 0) {
+  if (bigChestExists()) {
     return;
   }
 
@@ -984,12 +939,7 @@ postUpdateBabyFunctionMap.set(304, () => {
   const soulHearts = g.p.GetSoulHearts();
   const boneHearts = g.p.GetBoneHearts();
 
-  // Prevent softlocks that occur if you try to jump into a Big Chest
-  const bigChests = Isaac.FindByType(
-    EntityType.ENTITY_PICKUP,
-    PickupVariant.PICKUP_BIGCHEST,
-  );
-  if (bigChests.length > 0) {
+  if (bigChestExists()) {
     return;
   }
 

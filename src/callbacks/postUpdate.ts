@@ -1,4 +1,12 @@
-import { getRoomIndex, log, nextSeed, openAllDoors } from "isaacscript-common";
+import {
+  GAME_FRAMES_PER_SECOND,
+  getFamiliars,
+  getRoomIndex,
+  getTrinkets,
+  log,
+  nextSeed,
+  openAllDoors,
+} from "isaacscript-common";
 import g from "../globals";
 import { roomClearedBabyFunctionMap } from "../roomClearedBabyFunctionMap";
 import { BabyDescription } from "../types/BabyDescription";
@@ -64,14 +72,9 @@ function checkApplyBlindfold(baby: BabyDescription) {
       }
 
       // We also have to restore the fire delay on Incubus, if any
-      const incubi = Isaac.FindByType(
-        EntityType.ENTITY_FAMILIAR,
-        FamiliarVariant.INCUBUS,
-      );
-      for (const entity of incubi) {
-        const incubus = entity.ToFamiliar();
-        if (incubus !== undefined && incubus.FireCooldown > 900) {
-          // 30 seconds
+      const incubi = getFamiliars(FamiliarVariant.INCUBUS);
+      for (const incubus of incubi) {
+        if (incubus.FireCooldown > 30 * GAME_FRAMES_PER_SECOND) {
           incubus.FireCooldown = 0;
         }
       }
@@ -133,11 +136,7 @@ function checkTrinket() {
   }
 
   // Search the room for the dropped trinket
-  const trinkets = Isaac.FindByType(
-    EntityType.ENTITY_PICKUP,
-    PickupVariant.PICKUP_TRINKET,
-    baby.trinket,
-  );
+  const trinkets = getTrinkets(baby.trinket);
   if (trinkets.length > 0) {
     // Delete the dropped trinket
     const trinket = trinkets[0];
@@ -145,11 +144,10 @@ function checkTrinket() {
 
     // Give it back
     const position = g.r.FindFreePickupSpawnPosition(g.p.Position, 1, true);
-    // This will do nothing if the player does not currently have a trinket
     g.p.DropTrinket(position, true);
     g.p.AddTrinket(baby.trinket);
     // (we cannot cancel the animation or it will cause a bug where the player cannot pick up
-    // pedestal items)
+    // collectible items)
     log("Dropped trinket detected; manually giving it back.");
     return;
   }

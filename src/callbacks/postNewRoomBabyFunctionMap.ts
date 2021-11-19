@@ -1,10 +1,12 @@
 import {
   getCollectibleDevilHeartPrice,
+  getFamiliars,
   getRoomVariant,
   gridToPos,
   log,
   nextSeed,
   openAllDoors,
+  removeAllMatchingEntities,
   teleport,
 } from "isaacscript-common";
 import g from "../globals";
@@ -572,15 +574,9 @@ postNewRoomBabyFunctionMap.set(351, () => {
 // Driver Baby
 postNewRoomBabyFunctionMap.set(431, () => {
   // Slippery movement
-  // Prevent softlocks from Gaping Maws and cheap damage by Broken Gaping Maws by deleting them
-  const maws = Isaac.FindByType(EntityType.ENTITY_GAPING_MAW);
-  for (const maw of maws) {
-    maw.Remove();
-  }
-  const brokenMaws = Isaac.FindByType(EntityType.ENTITY_BROKEN_GAPING_MAW);
-  for (const brokenMaw of brokenMaws) {
-    brokenMaw.Remove();
-  }
+  // Prevent softlocks from Gaping Maws and cheap damage by Broken Gaping Maws
+  removeAllMatchingEntities(EntityType.ENTITY_GAPING_MAW);
+  removeAllMatchingEntities(EntityType.ENTITY_BROKEN_GAPING_MAW);
 });
 
 // Gamer Baby
@@ -601,15 +597,9 @@ postNewRoomBabyFunctionMap.set(492, () => {
 // Psychic Baby
 postNewRoomBabyFunctionMap.set(504, () => {
   // Disable the vanilla shooting behavior
-  const abels = Isaac.FindByType(
-    EntityType.ENTITY_FAMILIAR,
-    FamiliarVariant.ABEL,
-  );
+  const abels = getFamiliars(FamiliarVariant.ABEL);
   for (const abel of abels) {
-    const familiar = abel.ToFamiliar();
-    if (familiar !== undefined) {
-      familiar.FireCooldown = 1000000;
-    }
+    abel.FireCooldown = 1000000;
   }
 });
 

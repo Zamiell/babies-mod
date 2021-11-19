@@ -1,4 +1,4 @@
-import { GAME_FRAMES_PER_SECOND } from "isaacscript-common";
+import { GAME_FRAMES_PER_SECOND, getEffects } from "isaacscript-common";
 import g from "../globals";
 import { EffectVariantCustom } from "../types/enums";
 import { getCurrentBaby } from "../util";
@@ -127,10 +127,7 @@ postEffectUpdateBabyFunctionMap.set(485, (effect: EntityEffect) => {
     if (effect.SpriteOffset.Y >= 0) {
       Isaac.Explode(effect.Position, undefined, 50); // 49 deals 1 half heart of damage
       effect.Remove();
-      const targets = Isaac.FindByType(
-        EntityType.ENTITY_EFFECT,
-        EffectVariantCustom.FETUS_BOSS_TARGET,
-      );
+      const targets = getEffects(EffectVariantCustom.FETUS_BOSS_TARGET);
       if (targets.length > 0) {
         const target = targets[0];
         target.Remove();

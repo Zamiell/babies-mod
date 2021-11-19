@@ -1,4 +1,4 @@
-import { getRoomVariant } from "isaacscript-common";
+import { getEffects, getRoomVariant } from "isaacscript-common";
 import g from "../globals";
 
 export const postRenderBabyFunctionMap = new Map<int, () => void>();
@@ -84,15 +84,12 @@ postRenderBabyFunctionMap.set(377, () => {
   // Thus, we check for it on every frame instead
   // As an unfortunate side effect,
   // the Spear of Destiny will show as the vanilla graphic during room transitions
-  const spears = Isaac.FindByType(
-    EntityType.ENTITY_EFFECT,
-    EffectVariant.SPEAR_OF_DESTINY,
-  );
+  const spears = getEffects(EffectVariant.SPEAR_OF_DESTINY);
   for (const spear of spears) {
-    if (
-      spear.GetSprite().GetFilename() === "gfx/1000.083_Spear Of Destiny.anm2"
-    ) {
-      const sprite = spear.GetSprite();
+    const sprite = spear.GetSprite();
+    const filename = sprite.GetFilename();
+
+    if (filename === "gfx/1000.083_Spear Of Destiny.anm2") {
       sprite.Load("gfx/1000.083_spear of destiny2.anm2", true);
       sprite.Play("Idle", true);
     }

@@ -7,6 +7,19 @@ import g from "./globals";
 import { BabyDescription } from "./types/BabyDescription";
 import { CollectibleTypeCustom } from "./types/enums";
 
+/**
+ * In certain situations, baby effects will prevent a player from entering a Big Chest. If this is
+ * the case, we check for the present of a Big Chest and disable the baby effect accordingly.
+ */
+export function bigChestExists(): boolean {
+  const numBigChests = Isaac.CountEntities(
+    undefined,
+    EntityType.ENTITY_PICKUP,
+    PickupVariant.PICKUP_BIGCHEST,
+  );
+  return numBigChests > 0;
+}
+
 export function getCurrentBaby(): [int, BabyDescription, boolean] {
   const babyType = g.run.babyType;
   if (babyType === null) {

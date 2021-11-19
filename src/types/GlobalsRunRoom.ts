@@ -7,12 +7,11 @@ export class GlobalsRunRoom {
   lastRoomIndex = 0;
 
   clearState: boolean;
-  clearDelayFrame = 0;
+  clearDelayFrame: int | null = null;
 
   RNG = 0;
   pseudoClear = true;
   doorsModified: int[] = [];
-  buttonsPushed = false;
   softlock = false;
   tears: TearDescription[] = [];
   NPCs: NPCDescription[] = [];

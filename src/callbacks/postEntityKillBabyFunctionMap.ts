@@ -8,10 +8,7 @@ export const postEntityKillBabyFunctionMap = new Map<
 >();
 
 // Black Baby
-postEntityKillBabyFunctionMap.set(27, (_npc: EntityNPC) => {
-  // We don't want to clear the room too fast after an enemy dies
-  g.run.room.clearDelayFrame = g.g.GetFrameCount() + 1;
-});
+postEntityKillBabyFunctionMap.set(27, (_npc: EntityNPC) => {});
 
 // Brown Baby
 postEntityKillBabyFunctionMap.set(38, (npc: EntityNPC) => {
@@ -75,12 +72,6 @@ postEntityKillBabyFunctionMap.set(61, (npc: EntityNPC) => {
   }
 });
 
-// Nerd Baby
-postEntityKillBabyFunctionMap.set(90, (_npc: EntityNPC) => {
-  // We don't want to clear the room too fast after an enemy dies
-  g.run.room.clearDelayFrame = g.g.GetFrameCount() + 1;
-});
-
 // Turd Baby
 postEntityKillBabyFunctionMap.set(92, (npc: EntityNPC) => {
   g.g.Fart(npc.Position, 80, npc, 1, 0);
@@ -129,11 +120,12 @@ postEntityKillBabyFunctionMap.set(291, (_npc: EntityNPC) => {
 // Dino Baby
 postEntityKillBabyFunctionMap.set(376, (_npc: EntityNPC) => {
   // Don't bother giving another egg if we already have a bunch
-  const brains = Isaac.FindByType(
+  const numBrains = Isaac.CountEntities(
+    undefined,
     EntityType.ENTITY_FAMILIAR,
     FamiliarVariant.BOBS_BRAIN,
   );
-  if (brains.length >= 6) {
+  if (numBrains >= 6) {
     return;
   }
 

@@ -1,4 +1,4 @@
-import { setEntityRandomColor } from "isaacscript-common";
+import { getKnives, setEntityRandomColor } from "isaacscript-common";
 import g from "../globals";
 import { TearData } from "../types/TearData";
 import { getCurrentBaby } from "../util";
@@ -298,7 +298,7 @@ postTearUpdateBabyFunctionMap.set(522, (tear: EntityTear) => {
   }
 
   // This tear is supposed to be attached to the knife
-  const knives = Isaac.FindByType(EntityType.ENTITY_KNIFE);
+  const knives = getKnives();
   if (knives.length > 0) {
     const knife = knives[0];
     tear.Height = -10; // Keep it in the air forever

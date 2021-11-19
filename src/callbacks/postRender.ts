@@ -12,6 +12,7 @@ import {
 import { updateCachedAPIFunctions } from "../cache";
 import { VERSION } from "../constants";
 import g from "../globals";
+import { initSprite } from "../sprite";
 import * as timer from "../timer";
 import { BabyDescription } from "../types/BabyDescription";
 import { getCurrentBaby } from "../util";
@@ -24,7 +25,7 @@ const LAST_BABY_WITH_SPRITE_IN_PLAYER2_DIRECTORY = 521;
 const UI_HEARTS_RIGHT_SPACING = 55;
 
 // Variables
-let clockSprite: Sprite | null = null;
+const clockSprite = initSprite("gfx/clock.anm2");
 
 export function main(): void {
   updateCachedAPIFunctions();
@@ -335,13 +336,6 @@ function drawTempIcon() {
   const itemType = getCollectibleItemType(baby.item);
   if (itemType !== ItemType.ITEM_ACTIVE) {
     return;
-  }
-
-  // Initialize the sprite, if it is not already initialized`
-  if (clockSprite === null) {
-    clockSprite = Sprite();
-    clockSprite.Load("gfx/clock.anm2", true);
-    clockSprite.SetFrame("Default", 0);
   }
 
   const clockX = 30;

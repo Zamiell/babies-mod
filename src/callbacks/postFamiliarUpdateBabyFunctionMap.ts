@@ -1,3 +1,4 @@
+import { getFamiliars } from "isaacscript-common";
 import g from "../globals";
 import { getRandomOffsetPosition } from "../util";
 
@@ -32,48 +33,46 @@ postFamiliarUpdateBabyFunctionMap.set(47, (familiar: EntityFamiliar) => {
 
 // Gurdy Baby
 postFamiliarUpdateBabyFunctionMap.set(82, (familiar: EntityFamiliar) => {
+  if (familiar.Variant !== FamiliarVariant.LIL_GURDY) {
+    return;
+  }
+
   // All of the Gurdies will stack on top of each other, so manually keep them spread apart
-  if (familiar.Variant === FamiliarVariant.LIL_GURDY) {
-    const lilGurdies = Isaac.FindByType(
-      EntityType.ENTITY_FAMILIAR,
-      FamiliarVariant.LIL_GURDY,
-    );
-    for (const lilGurdy of lilGurdies) {
-      if (
-        familiar.Position.Distance(lilGurdy.Position) <= 1 &&
-        // Use the index as a priority of which familiar is forced to move away
-        familiar.Index < lilGurdy.Index
-      ) {
-        lilGurdy.Position = getRandomOffsetPosition(
-          lilGurdy.Position,
-          7,
-          lilGurdy.InitSeed,
-        );
-      }
+  const lilGurdies = getFamiliars(FamiliarVariant.LIL_GURDY);
+  for (const lilGurdy of lilGurdies) {
+    if (
+      familiar.Position.Distance(lilGurdy.Position) <= 1 &&
+      // Use the index as a priority of which familiar is forced to move away
+      familiar.Index < lilGurdy.Index
+    ) {
+      lilGurdy.Position = getRandomOffsetPosition(
+        lilGurdy.Position,
+        7,
+        lilGurdy.InitSeed,
+      );
     }
   }
 });
 
 // Geek Baby
 postFamiliarUpdateBabyFunctionMap.set(326, (familiar: EntityFamiliar) => {
-  // All of the babies will stack on top of each other, so manually keep them spread apart
   if (familiar.Variant === FamiliarVariant.ROBO_BABY_2) {
-    const roboBabies = Isaac.FindByType(
-      EntityType.ENTITY_FAMILIAR,
-      FamiliarVariant.ROBO_BABY_2,
-    );
-    for (const roboBaby of roboBabies) {
-      if (
-        familiar.Position.Distance(roboBaby.Position) <= 1 &&
-        // Use the index as a priority of which Gurdy is forced to move away
-        familiar.Index < roboBaby.Index
-      ) {
-        roboBaby.Position = getRandomOffsetPosition(
-          roboBaby.Position,
-          7,
-          roboBaby.InitSeed,
-        );
-      }
+    return;
+  }
+
+  // All of the babies will stack on top of each other, so manually keep them spread apart
+  const roboBabies = getFamiliars(FamiliarVariant.ROBO_BABY_2);
+  for (const roboBaby of roboBabies) {
+    if (
+      familiar.Position.Distance(roboBaby.Position) <= 1 &&
+      // Use the index as a priority of which Gurdy is forced to move away
+      familiar.Index < roboBaby.Index
+    ) {
+      roboBaby.Position = getRandomOffsetPosition(
+        roboBaby.Position,
+        7,
+        roboBaby.InitSeed,
+      );
     }
   }
 });
