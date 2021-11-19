@@ -1,6 +1,6 @@
 import g from "../globals";
-import { getCurrentBaby, setRandomColor } from "../misc";
 import TearData from "../types/TearData";
+import { getCurrentBaby, setRandomColor } from "../util";
 
 const functionMap = new Map<int, (tear: EntityTear) => void>();
 export default functionMap;

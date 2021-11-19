@@ -1,4 +1,4 @@
-import { getCurrentBaby } from "../misc";
+import { getCurrentBaby } from "../util";
 import { CollectibleTypeCustom } from "../types/enums";
 import postPickupInitBabyFunctions from "./postPickupInitBabies";
 

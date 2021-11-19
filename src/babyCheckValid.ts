@@ -1,6 +1,6 @@
 import g from "./globals";
-import { getItemConfig } from "./misc";
 import BabyDescription from "./types/BabyDescription";
+import { getItemConfig } from "./util";
 
 export default function babyCheckValid(babyType: int): boolean {
   const baby = g.babies[babyType];

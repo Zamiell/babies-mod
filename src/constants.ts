@@ -1,9 +1,6 @@
 import { CollectibleTypeCustom } from "./types/enums";
 
-// The version is updated automatically by IsaacScript
-export const VERSION = "1.2.5";
-
-export const DEFAULT_KCOLOR = KColor(1, 1, 1, 1);
+export const MOD_NAME = "The Babies Mod";
 
 export const TELEPORT_TO_ROOM_TYPE_MAP = new Map([
   [CollectibleTypeCustom.COLLECTIBLE_SHOP_TELEPORT, RoomType.ROOM_SHOP],
@@ -40,3 +37,6 @@ export const TELEPORT_TO_ROOM_TYPE_MAP = new Map([
   ],
   [CollectibleTypeCustom.COLLECTIBLE_DICE_ROOM_TELEPORT, RoomType.ROOM_DICE],
 ]);
+
+// The version is updated automatically by IsaacScript
+export const VERSION = "1.2.5";

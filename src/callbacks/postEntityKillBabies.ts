@@ -1,5 +1,5 @@
 import g from "../globals";
-import { getCurrentBaby, getRoomIndex } from "../misc";
+import { getCurrentBaby, getRoomIndex } from "../util";
 
 const functionMap = new Map<int, (npc: EntityNPC) => void>();
 export default functionMap;

@@ -1,4 +1,4 @@
-import { getCurrentBaby } from "../misc";
+import { getCurrentBaby } from "../util";
 import usePillBabyFunctions from "./usePillBabies";
 
 export function main(_pillEffect: PillEffect): void {

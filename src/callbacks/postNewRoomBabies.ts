@@ -1,8 +1,7 @@
-import { getRoomVariant } from "isaacscript-common";
+import { getRoomVariant, log, teleport } from "isaacscript-common";
 import g from "../globals";
-import log from "../log";
-import { getItemConfig, gridToPos, incrementRNG, openAllDoors } from "../misc";
 import { CollectibleTypeCustom } from "../types/enums";
+import { getItemConfig, gridToPos, incrementRNG, openAllDoors } from "../util";
 
 const functionMap = new Map<int, () => void>();
 export default functionMap;
@@ -41,10 +40,7 @@ functionMap.set(13, () => {
     roomType === RoomType.ROOM_DEVIL || // 14
     roomType === RoomType.ROOM_ANGEL // 15
   ) {
-    // You have to set LeaveDoor before every teleport or else it will send you to the wrong room
-    g.l.LeaveDoor = -1;
-
-    g.g.StartRoomTransition(
+    teleport(
       GridRooms.ROOM_BLACK_MARKET_IDX,
       Direction.NO_DIRECTION,
       RoomTransitionAnim.WALK,
@@ -214,10 +210,7 @@ functionMap.set(181, () => {
     // We want to be able to backtrack from a Black Market to a Crawlspace
     g.run.room.lastRoomIndex !== GridRooms.ROOM_BLACK_MARKET_IDX
   ) {
-    // You have to set LeaveDoor before every teleport or else it will send you to the wrong room
-    g.l.LeaveDoor = -1;
-
-    g.g.StartRoomTransition(
+    teleport(
       GridRooms.ROOM_BLACK_MARKET_IDX,
       Direction.NO_DIRECTION,
       RoomTransitionAnim.WALK,
@@ -446,22 +439,14 @@ functionMap.set(261, () => {
     if (roomDesc === undefined) {
       continue;
     }
-    const index = roomDesc.SafeGridIndex; // This is always the top-left index
+    const roomIndex = roomDesc.SafeGridIndex; // This is always the top-left index
     const roomData = roomDesc.Data;
     if (roomData === undefined) {
       continue;
     }
     const roomType = roomData.Type;
     if (roomType === RoomType.ROOM_SUPERSECRET) {
-      // You have to set LeaveDoor before every teleport or else it will send you to the wrong room
-      g.l.LeaveDoor = -1;
-
-      // Teleport to the Super Secret Room
-      g.g.StartRoomTransition(
-        index,
-        Direction.NO_DIRECTION,
-        RoomTransitionAnim.TELEPORT,
-      );
+      teleport(roomIndex);
       break;
     }
   }

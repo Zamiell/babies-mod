@@ -1,6 +1,6 @@
 import g from "../globals";
-import { getCurrentBaby } from "../misc";
 import { EffectVariantCustom } from "../types/enums";
+import { getCurrentBaby } from "../util";
 
 const functionMap = new Map<int, (effect: EntityEffect) => void>();
 export default functionMap;

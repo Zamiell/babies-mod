@@ -1,5 +1,5 @@
 import g from "../globals";
-import { getItemHeartPrice, incrementRNG } from "../misc";
+import { getItemHeartPrice, incrementRNG } from "../util";
 
 const functionMap = new Map<int, (pickup: EntityPickup) => void>();
 export default functionMap;

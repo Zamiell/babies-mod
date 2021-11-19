@@ -5,7 +5,7 @@
 // (like the Checkpoint)
 
 import g from "../globals";
-import { getCurrentBaby } from "../misc";
+import { getCurrentBaby } from "../util";
 import preGetCollectibleBabyFunctions from "./preGetCollectibleBabies";
 
 export function main(

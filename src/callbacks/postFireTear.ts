@@ -1,4 +1,4 @@
-import { getCurrentBaby } from "../misc";
+import { getCurrentBaby } from "../util";
 import postFireTearBabyFunctions from "./postFireTearBabies";
 
 export function main(tear: EntityTear): void {

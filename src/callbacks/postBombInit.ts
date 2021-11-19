@@ -1,4 +1,4 @@
-import { getCurrentBaby } from "../misc";
+import { getCurrentBaby } from "../util";
 import postBombInitBabyFunctions from "./postBombInitBabies";
 
 export function main(bomb: EntityBomb): void {

@@ -1,4 +1,4 @@
-import { getCurrentBaby } from "../misc";
+import { getCurrentBaby } from "../util";
 import postKnifeInitBabyFunctions from "./postKnifeInitBabies";
 
 export function main(knife: EntityKnife): void {

@@ -1,5 +1,5 @@
 import g from "../globals";
-import { getOffsetPosition } from "../misc";
+import { getOffsetPosition } from "../util";
 
 const functionMap = new Map<int, (familiar: EntityFamiliar) => void>();
 export default functionMap;

@@ -1,4 +1,4 @@
-import { getCurrentBaby } from "../misc";
+import { getCurrentBaby } from "../util";
 import NPCUpdateBabyFunctions from "./NPCUpdateBabies";
 
 export function main(npc: EntityNPC): void {

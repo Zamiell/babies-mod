@@ -1,23 +1,20 @@
+import { log } from "isaacscript-common";
 import g from "../globals";
-import log, { debugLog } from "../log";
+import roomClearedBabyFunctions from "../roomClearedBabies";
+import BabyDescription from "../types/BabyDescription";
 import {
   getCurrentBaby,
   getRoomIndex,
   incrementRNG,
   openAllDoors,
   spawnRandomPickup,
-} from "../misc";
-import roomClearedBabyFunctions from "../roomClearedBabies";
-import BabyDescription from "../types/BabyDescription";
+} from "../util";
 import * as postRender from "./postRender";
 import postUpdateBabyFunctions from "./postUpdateBabies";
 
 export function main(): void {
-  debugLog("MC_POST_UPDATE", false);
-
   const [babyType, baby, valid] = getCurrentBaby();
   if (!valid) {
-    debugLog("MC_POST_UPDATE", true);
     return;
   }
 
@@ -38,8 +35,6 @@ export function main(): void {
   checkSoftlockIsland();
   checkGridEntities();
   checkTrapdoor();
-
-  debugLog("MC_POST_UPDATE", false);
 }
 
 function checkFixWingsBug(baby: BabyDescription) {

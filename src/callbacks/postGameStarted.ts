@@ -1,13 +1,10 @@
+import { log } from "isaacscript-common";
 import g from "../globals";
-import log, { debugLog } from "../log";
-import { giveItemAndRemoveFromPools } from "../misc";
 import { PlayerTypeCustom } from "../types/enums";
 import GlobalsRun from "../types/GlobalsRun";
-import * as postNewLevel from "./postNewLevel";
+import { giveItemAndRemoveFromPools } from "../util";
 
 export function main(isContinued: boolean): void {
-  debugLog("MC_POST_GAME_STARTED", true);
-
   const startSeed = g.seeds.GetStartSeed();
   const startSeedString = g.seeds.GetStartSeedString();
   const character = g.p.GetPlayerType();
@@ -19,7 +16,6 @@ export function main(isContinued: boolean): void {
 
   // Don't do anything if this is not a new run
   if (isContinued) {
-    debugLog("MC_POST_GAME_STARTED", false);
     return;
   }
 
@@ -50,7 +46,6 @@ export function main(isContinued: boolean): void {
   if (character === PlayerTypeCustom.PLAYER_RANDOM_BABY) {
     g.run.enabled = true;
   } else {
-    debugLog("MC_POST_GAME_STARTED", false);
     return;
   }
   // (only do the following things if we are on the Random Baby character)
@@ -67,9 +62,4 @@ export function main(isContinued: boolean): void {
   // (there is no way to know which character that you Clicker to, so just remove this item)
   g.itemPool.RemoveTrinket(TrinketType.TRINKET_BAT_WING); // 118
   // (Bat Wing causes graphical bugs which are annoying to fix, so just remove this trinket)
-
-  // Call PostNewLevel manually (they get naturally called out of order)
-  postNewLevel.newLevel();
-
-  debugLog("MC_POST_GAME_STARTED", false);
 }

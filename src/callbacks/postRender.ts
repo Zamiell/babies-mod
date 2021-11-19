@@ -1,15 +1,16 @@
-import { DEFAULT_KCOLOR, VERSION } from "../constants";
+import { getDefaultKColor, log } from "isaacscript-common";
+import { updateCachedAPIFunctions } from "../cache";
+import { VERSION } from "../constants";
 import g from "../globals";
-import log, { debugLog } from "../log";
+import * as timer from "../timer";
+import BabyDescription from "../types/BabyDescription";
 import {
   getCurrentBaby,
   getHeartXOffset,
   getItemConfig,
   getScreenCenterPosition,
   isActionPressed,
-} from "../misc";
-import * as timer from "../timer";
-import BabyDescription from "../types/BabyDescription";
+} from "../util";
 import postRenderBabyFunctions from "./postRenderBabies";
 
 // Constants
@@ -21,23 +22,11 @@ const LAST_BABY_WITH_SPRITE_IN_PLAYER2_DIRECTORY = 521;
 let clockSprite: Sprite | null = null;
 
 export function main(): void {
-  debugLog("MC_POST_RENDER", true);
-
-  // Update some cached API functions to avoid crashing
-  g.l = g.g.GetLevel();
-  g.r = g.g.GetRoom();
-  const player = Isaac.GetPlayer();
-  if (player !== null) {
-    g.p = player;
-  }
-  g.seeds = g.g.GetSeeds();
-  g.itemPool = g.g.GetItemPool();
-
+  updateCachedAPIFunctions();
   drawVersion();
 
   const [, , valid] = getCurrentBaby();
   if (!valid) {
-    debugLog("MC_POST_RENDER", false);
     return;
   }
 
@@ -47,8 +36,6 @@ export function main(): void {
   drawTempIcon();
   drawBabyEffects();
   timer.display();
-
-  debugLog("MC_POST_RENDER", false);
 }
 
 // This function handles redrawing the player's sprite, if necessary
@@ -292,7 +279,7 @@ function drawBabyNumber() {
     x += 20;
   }
   const y = 10;
-  g.font.DrawString(text, x, y, DEFAULT_KCOLOR, 0, true);
+  g.font.DrawString(text, x, y, getDefaultKColor(), 0, true);
 }
 
 function drawVersion() {

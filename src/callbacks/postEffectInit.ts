@@ -1,4 +1,4 @@
-import { getCurrentBaby } from "../misc";
+import { getCurrentBaby } from "../util";
 import postEffectInitBabyFunctions from "./postEffectInitBabies";
 
 export function main(effect: EntityEffect): void {

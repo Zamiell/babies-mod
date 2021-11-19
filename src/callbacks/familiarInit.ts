@@ -1,4 +1,4 @@
-import { getCurrentBaby } from "../misc";
+import { getCurrentBaby } from "../util";
 import familiarInitBabyFunctions from "./familiarInitBabies";
 
 export function main(familiar: EntityFamiliar): void {

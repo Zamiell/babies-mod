@@ -1,4 +1,4 @@
-import { getCurrentBaby } from "../misc";
+import { getCurrentBaby } from "../util";
 import postEntityKillBabyFunctions from "./postEntityKillBabies";
 
 export function main(entity: Entity): void {

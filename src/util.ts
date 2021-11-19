@@ -2,7 +2,7 @@ import g from "./globals";
 import BabyDescription from "./types/BabyDescription";
 import { CollectibleTypeCustom } from "./types/enums";
 
-// Copied from the Racing+ mod (RPFastClear.lua)
+// Copied from the Racing+ mod
 export function addCharge(singleCharge = false): void {
   const roomShape = g.r.GetRoomShape();
   const activeItem = g.p.GetActiveItem();
@@ -462,7 +462,7 @@ export function spawnRandomPickup(
         position,
         velocity,
         undefined,
-        0,
+        CollectibleType.COLLECTIBLE_NULL,
         g.run.randomSeed,
       );
       break;

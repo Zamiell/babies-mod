@@ -1,9 +1,9 @@
 import g from "../globals";
-import log from "../log";
-import { getCurrentBaby, spawnRandomPickup } from "../misc";
+import { getCurrentBaby, spawnRandomPickup } from "../util";
 import pickupTouchedFunctions from "../pickupTouchedFunctions";
 import { CollectibleTypeCustom } from "../types/enums";
 import postPickupUpdateBabyFunctions from "./postPickupUpdateBabies";
+import { log } from "isaacscript-common";
 
 export function main(pickup: EntityPickup): void {
   const data = pickup.GetData();

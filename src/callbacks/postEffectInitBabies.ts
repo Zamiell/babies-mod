@@ -1,5 +1,5 @@
 import g from "../globals";
-import { setRandomColor } from "../misc";
+import { setRandomColor } from "../util";
 
 const functionMap = new Map<int, (effect: EntityEffect) => void>();
 export default functionMap;

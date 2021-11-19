@@ -1,14 +1,14 @@
+import { teleport } from "isaacscript-common";
 import { TELEPORT_TO_ROOM_TYPE_MAP } from "../constants";
 import g from "../globals";
-import log from "../log";
+import * as pseudoRoomClear from "../pseudoRoomClear";
+import { EffectVariantCustom } from "../types/enums";
 import {
   getCurrentBaby,
   getRoomIndex,
   incrementRNG,
   isActionPressed,
-} from "../misc";
-import * as pseudoRoomClear from "../pseudoRoomClear";
-import { EffectVariantCustom } from "../types/enums";
+} from "../util";
 import * as postRender from "./postRender";
 
 const functionMap = new Map<int, () => void>();
@@ -244,7 +244,6 @@ functionMap.set(81, () => {
     g.p.SetActiveCharge(g.run.babyCounters + g.run.babyNPC.type);
     g.sfx.Stop(SoundEffect.SOUND_BATTERYCHARGE);
     g.sfx.Stop(SoundEffect.SOUND_BEEP);
-    log("Reset the active item charge (Scream Baby).");
   }
 });
 
@@ -423,18 +422,16 @@ functionMap.set(128, () => {
 
   // Explore these rooms
   for (const roomIndex of randomFloorIndexes) {
-    // You have to set LeaveDoor before every teleport or else it will send you to the wrong room
+    // You have to set LeaveDoor before every room change or else it will send you to the wrong room
     g.l.LeaveDoor = -1;
-
     g.l.ChangeRoom(roomIndex);
 
     // We might have traveled to the Boss Room, so stop the Portcullis sound effect just in case
     g.sfx.Stop(SoundEffect.SOUND_CASTLEPORTCULLIS);
   }
 
-  // You have to set LeaveDoor before every teleport or else it will send you to the wrong room
+  // You have to set LeaveDoor before every room change or else it will send you to the wrong room
   g.l.LeaveDoor = -1;
-
   g.l.ChangeRoom(startingRoomIndex);
   g.p.Position = centerPos;
 });
@@ -740,28 +737,21 @@ functionMap.set(216, () => {
     return;
   }
 
-  // Find the grid index of the intended room
+  // Find the room index of the intended room
   for (let i = 0; i < rooms.Size; i++) {
     const roomDesc = rooms.Get(i); // This is 0 indexed
     if (roomDesc === undefined) {
       continue;
     }
-    const index = roomDesc.SafeGridIndex; // This is always the top-left index
+    const roomIndex = roomDesc.SafeGridIndex; // This is always the top-left index
     const roomData = roomDesc.Data;
     if (roomData === undefined) {
       continue;
     }
     const roomType = roomData.Type;
     if (roomType === teleportRoomType) {
-      // Teleport to the intended room
-      // You have to set LeaveDoor before every teleport or else it will send you to the wrong room
-      g.l.LeaveDoor = -1;
-      g.g.StartRoomTransition(
-        index,
-        Direction.NO_DIRECTION,
-        RoomTransitionAnim.TELEPORT,
-      );
-      break;
+      teleport(roomIndex);
+      return;
     }
   }
 });

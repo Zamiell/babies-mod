@@ -1,5 +1,5 @@
 import g from "../globals";
-import { getCurrentBaby } from "../misc";
+import { getCurrentBaby } from "../util";
 import preRoomEntitySpawnBabyFunctions from "./preRoomEntitySpawnBabies";
 
 export function main(

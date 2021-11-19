@@ -1,5 +1,5 @@
 import g from "../globals";
-import { addCharge, getOffsetPosition, incrementRNG } from "../misc";
+import { addCharge, getOffsetPosition, incrementRNG } from "../util";
 
 const functionMap = new Map<int, (bomb: EntityBomb) => void>();
 export default functionMap;

@@ -1,4 +1,4 @@
-import { getCurrentBaby } from "../misc";
+import { getCurrentBaby } from "../util";
 import { PlayerTypeCustom } from "../types/enums";
 import evaluateCacheBabyFunctions from "./evaluateCacheBabies";
 

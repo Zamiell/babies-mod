@@ -1,5 +1,5 @@
 import g from "../globals";
-import { getItemHeartPrice, setRandomColor } from "../misc";
+import { getItemHeartPrice, setRandomColor } from "../util";
 
 const functionMap = new Map<int, (pickup: EntityPickup) => void>();
 export default functionMap;

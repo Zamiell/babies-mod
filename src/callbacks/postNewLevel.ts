@@ -1,51 +1,24 @@
+import { log } from "isaacscript-common";
 import babyAdd from "../babyAdd";
 import babyCheckValid from "../babyCheckValid";
 import babyRemove from "../babyRemove";
 import g from "../globals";
-import log, { debugLog } from "../log";
-import { getCurrentBaby, incrementRNG } from "../misc";
 import GlobalsRunLevel from "../types/GlobalsRunLevel";
-import * as postNewRoom from "./postNewRoom";
+import { getCurrentBaby, incrementRNG } from "../util";
 
 export function main(): void {
-  debugLog("MC_POST_NEW_LEVEL", true);
-
   const gameFrameCount = g.g.GetFrameCount();
   const stage = g.l.GetStage();
   const stageType = g.l.GetStageType();
 
   log(
-    `MC_POST_NEW_LEVEL - ${stage}.${stageType} (game frame ${gameFrameCount}) (BM)`,
-  );
-
-  // Make sure the callbacks run in the right order
-  // (naturally, PostNewLevel gets called before the PostGameStarted callbacks)
-  if (gameFrameCount === 0) {
-    debugLog("MC_POST_NEW_LEVEL", false);
-    return;
-  }
-
-  newLevel();
-
-  debugLog("MC_POST_NEW_LEVEL", false);
-}
-
-export function newLevel(): void {
-  debugLog("MC_POST_NEW_LEVEL2", true);
-
-  const gameFrameCount = g.g.GetFrameCount();
-  const stage = g.l.GetStage();
-  const stageType = g.l.GetStageType();
-
-  log(
-    `MC_POST_NEW_LEVEL_2 - ${stage}.${stageType} (game frame ${gameFrameCount})`,
+    `MC_POST_NEW_LEVEL - ${stage}.${stageType} (game frame ${gameFrameCount})`,
   );
 
   // Racing+ has a feature to remove duplicate rooms,
   // so it may reseed the floor immediately upon reaching it
   // If so, we don't want to do anything, since this isn't really a new level
   if (gameFrameCount !== 0 && gameFrameCount === g.run.level.stageFrame) {
-    debugLog("MC_POST_NEW_LEVEL2", false);
     return;
   }
 
@@ -72,11 +45,6 @@ export function newLevel(): void {
   babyRemove();
   getNewBaby();
   babyAdd();
-
-  // Call PostNewRoom manually (they get naturally called out of order)
-  postNewRoom.newRoom();
-
-  debugLog("MC_POST_NEW_LEVEL2", false);
 }
 
 function getNewBaby() {

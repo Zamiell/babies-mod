@@ -1,4 +1,4 @@
-import { getCurrentBaby } from "../misc";
+import { getCurrentBaby } from "../util";
 import preTearCollisionBabyFunctions from "./preTearCollisionBabies";
 
 export function main(tear: EntityTear, collider: Entity): boolean | void {

@@ -1,69 +1,21 @@
+import { getRoomStageID, getRoomVariant, log } from "isaacscript-common";
+import { updateCachedAPIFunctions } from "../cache";
 import g from "../globals";
-import log, { debugLog } from "../log";
-import { getCurrentBaby, getRoomIndex } from "../misc";
 import GlobalsRunBabyTears from "../types/GlobalsRunBabyTears";
 import GlobalsRunRoom from "../types/GlobalsRunRoom";
+import { getCurrentBaby, getRoomIndex } from "../util";
 import postNewRoomBabyFunctions from "./postNewRoomBabies";
 import * as postRender from "./postRender";
 
 export function main(): void {
-  debugLog("MC_POST_NEW_ROOM", true);
-
-  // Update some cached API functions to avoid crashing
-  g.l = g.g.GetLevel();
-  g.r = g.g.GetRoom();
-  const player = Isaac.GetPlayer();
-  if (player !== null) {
-    g.p = player;
-  }
-  g.seeds = g.g.GetSeeds();
-  g.itemPool = g.g.GetItemPool();
-
-  const gameFrameCount = g.g.GetFrameCount();
-  const stage = g.l.GetStage();
-  const stageType = g.l.GetStageType();
-  const roomDesc = g.l.GetCurrentRoomDesc();
-  const roomData = roomDesc.Data;
-  if (roomData === undefined) {
-    error("Failed to get the room data for the current room.");
-  }
-  const roomStageID = roomData.StageID;
-  const roomVariant = roomData.Variant;
-
-  log(
-    `MC_POST_NEW_ROOM - ${roomStageID}.${roomVariant} (on stage ${stage}.${stageType}) (game frame ${gameFrameCount})`,
-  );
-
-  // Make sure the callbacks run in the right order
-  // (naturally, PostNewRoom gets called before the PostNewLevel and PostGameStarted callbacks)
-  if (
-    gameFrameCount === 0 ||
-    g.run.level.stage !== stage ||
-    g.run.level.stageType !== stageType
-  ) {
-    debugLog("MC_POST_NEW_ROOM", false);
-    return;
-  }
-
-  newRoom();
-
-  debugLog("MC_POST_NEW_ROOM", false);
-}
-
-export function newRoom(): void {
-  debugLog("MC_POST_NEW_ROOM2", true);
+  updateCachedAPIFunctions();
 
   const gameFrameCount = g.g.GetFrameCount();
   const stage = g.l.GetStage();
   const stageType = g.l.GetStageType();
   const startingRoomIndex = g.l.GetStartingRoomIndex();
-  const roomDesc = g.l.GetCurrentRoomDesc();
-  const roomData = roomDesc.Data;
-  if (roomData === undefined) {
-    error("Failed to get the room data for the current room.");
-  }
-  const roomStageID = roomData.StageID;
-  const roomVariant = roomData.Variant;
+  const roomStageID = getRoomStageID();
+  const roomVariant = getRoomVariant();
   const roomClear = g.r.IsClear();
   const roomSeed = g.r.GetSpawnSeed();
   const roomIndex = getRoomIndex();
@@ -92,7 +44,6 @@ export function newRoom(): void {
   // Do nothing if we are not a baby
   const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
-    debugLog("MC_POST_NEW_ROOM2", false);
     return;
   }
 
@@ -101,8 +52,6 @@ export function newRoom(): void {
 
   stopDrawingBabyIntroText();
   applyTemporaryEffects(babyType);
-
-  debugLog("MC_POST_NEW_ROOM2", false);
 }
 
 function stopDrawingBabyIntroText() {

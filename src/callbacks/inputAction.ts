@@ -2,7 +2,7 @@
 // Thus, each action's particular inputHook must be determined through trial and error
 // Also note that we can't use cached API functions in this callback or else the game will crash
 
-import { getCurrentBaby } from "../misc";
+import { getCurrentBaby } from "../util";
 import inputActionBabyFunctions from "./inputActionBabies";
 
 export function main(

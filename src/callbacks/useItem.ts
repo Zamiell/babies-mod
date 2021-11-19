@@ -1,6 +1,6 @@
 import g from "../globals";
-import { getCurrentBaby, getItemMaxCharges } from "../misc";
 import { CollectibleTypeCustom } from "../types/enums";
+import { getCurrentBaby, getItemMaxCharges } from "../util";
 
 export function init(mod: Mod): void {
   mod.AddCallback(

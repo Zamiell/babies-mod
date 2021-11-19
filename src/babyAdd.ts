@@ -1,13 +1,12 @@
-import { removeCollectibleFromItemTracker } from "isaacscript-common";
+import { log, removeCollectibleFromItemTracker } from "isaacscript-common";
 import babyAddFunctions from "./babyAddFunctions";
 import g from "./globals";
-import log from "./log";
 import {
   getCurrentBaby,
   getItemConfig,
   getItemMaxCharges,
   giveItemAndRemoveFromPools,
-} from "./misc";
+} from "./util";
 
 export default function babyAdd(): void {
   const stage = g.l.GetStage();

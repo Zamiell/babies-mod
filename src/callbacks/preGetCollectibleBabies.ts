@@ -1,5 +1,5 @@
 import g from "../globals";
-import { getRandomItemFromPool } from "../misc";
+import { getRandomItemFromPool } from "../util";
 
 const functionMap = new Map<int, () => number | void>();
 export default functionMap;

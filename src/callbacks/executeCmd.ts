@@ -1,4 +1,4 @@
-import debugFunction from "../debugFunction";
+import { debugFunction } from "../debugFunction";
 import g from "../globals";
 
 export function main(cmd: string, params: string): void {

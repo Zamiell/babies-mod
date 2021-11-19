@@ -1,6 +1,6 @@
+import { log } from "isaacscript-common";
 import g from "./globals";
-import log from "./log";
-import { getCurrentBaby, getItemMaxCharges } from "./misc";
+import { getCurrentBaby, getItemMaxCharges } from "./util";
 
 export function postUpdate(): void {
   const roomType = g.r.GetType();

@@ -1,6 +1,6 @@
 import { removeCollectibleFromItemTracker } from "isaacscript-common";
 import g from "./globals";
-import { getCurrentBaby } from "./misc";
+import { getCurrentBaby } from "./util";
 
 const functionMap = new Map<int, () => void>();
 export default functionMap;

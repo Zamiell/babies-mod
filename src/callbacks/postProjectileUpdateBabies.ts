@@ -1,5 +1,5 @@
 import g from "../globals";
-import { getCurrentBaby, setRandomColor } from "../misc";
+import { getCurrentBaby, setRandomColor } from "../util";
 
 const functionMap = new Map<int, (projectile: EntityProjectile) => void>();
 export default functionMap;

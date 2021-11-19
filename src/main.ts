@@ -1,3 +1,9 @@
+import {
+  log,
+  ModCallbacksCustom,
+  ModUpgraded,
+  upgradeMod,
+} from "isaacscript-common";
 import * as entityTakeDmg from "./callbacks/entityTakeDmg";
 import * as evaluateCache from "./callbacks/evaluateCache";
 import * as executeCmd from "./callbacks/executeCmd";
@@ -35,24 +41,20 @@ import * as preUseItem from "./callbacks/preUseItem";
 import * as useCard from "./callbacks/useCard";
 import * as useItem from "./callbacks/useItem";
 import * as usePill from "./callbacks/usePill";
+import { checkBabiesValid } from "./checkBabiesValid";
 import { VERSION } from "./constants";
 import g from "./globals";
-import log from "./log";
-import { getItemConfig } from "./misc";
-import { CollectibleTypeCustom } from "./types/enums";
 
 export default function main(): void {
-  const mod = RegisterMod("The Babies Mod", 1);
+  const modVanilla = RegisterMod("The Babies Mod", 1);
+  const mod = upgradeMod(modVanilla);
 
   welcomeBanner();
 
   // Make a copy of this object so that we can use it elsewhere
   g.babiesMod = mod; // (this is needed for saving and loading the "save.dat" file)
 
-  checkBabiesDuplicateName();
-  checkBabiesDuplicateItem();
-  checkBabiesDuplicateTrinket();
-
+  checkBabiesValid();
   registerCallbacks(mod);
 }
 
@@ -66,111 +68,13 @@ function welcomeBanner() {
   log(welcomeTextBorder);
 }
 
-function checkBabiesDuplicateName() {
-  const nameMap = new Map<string, boolean>();
-  for (let i = 0; i < g.babies.length; i++) {
-    const baby = g.babies[i];
-
-    if (nameMap.has(baby.name)) {
-      log(`ERROR: Baby #${i} has a duplicate name: ${baby.name}`);
-    } else {
-      nameMap.set(baby.name, true);
-    }
-  }
+function registerCallbacks(mod: ModUpgraded) {
+  registerCallbacksMain(mod);
+  registerCallbacksWithExtraArgument(mod);
+  registerCallbacksCustom(mod);
 }
 
-function checkBabiesDuplicateItem() {
-  const itemExceptions: Array<CollectibleType | CollectibleTypeCustom> = [
-    CollectibleType.COLLECTIBLE_POOP, // 36
-    CollectibleType.COLLECTIBLE_MOMS_KNIFE, // 114
-    CollectibleType.COLLECTIBLE_BRIMSTONE, // 118
-    CollectibleType.COLLECTIBLE_PONY, // 130
-    CollectibleType.COLLECTIBLE_CANDLE, // 164
-    CollectibleType.COLLECTIBLE_EPIC_FETUS, // 168
-    CollectibleType.COLLECTIBLE_SACRIFICIAL_DAGGER, // 172
-    CollectibleType.COLLECTIBLE_ABEL, // 188
-    CollectibleType.COLLECTIBLE_SAD_BOMBS, // 220
-    CollectibleType.COLLECTIBLE_FIRE_MIND, // 257
-    CollectibleType.COLLECTIBLE_HOW_TO_JUMP, // 282
-    CollectibleType.COLLECTIBLE_THE_WIZ, // 358
-    CollectibleType.COLLECTIBLE_INCUBUS, // 360
-    CollectibleType.COLLECTIBLE_MARKED, // 394
-  ];
-  for (let i = 0; i < g.babies.length; i++) {
-    const baby = g.babies[i];
-
-    if (baby.item !== undefined && baby.item2 === undefined) {
-      for (let j = 0; j < g.babies.length; j++) {
-        if (i === j) {
-          continue;
-        }
-
-        const baby2 = g.babies[j];
-        if (
-          baby2.item !== undefined &&
-          baby2.item2 === undefined &&
-          baby2.item === baby.item &&
-          !itemExceptions.includes(baby.item)
-        ) {
-          log(`ERROR: Baby #${i} has a duplicate item: ${baby.item}`);
-        }
-      }
-    }
-
-    if (baby.item !== undefined && baby.item2 !== undefined) {
-      for (let j = 0; j < g.babies.length; j++) {
-        if (i === j) {
-          continue;
-        }
-
-        const baby2 = g.babies[j];
-        if (
-          baby2.item !== undefined &&
-          baby2.item2 !== undefined &&
-          (baby2.item === baby.item || baby2.item2 === baby.item) &&
-          (baby2.item === baby.item2 || baby2.item2 === baby.item2)
-        ) {
-          log(
-            `ERROR: Baby #${i} has a duplicate pair of items: ${baby.item} & ${baby.item2}`,
-          );
-        }
-      }
-    }
-
-    if (
-      baby.item2 !== undefined &&
-      getItemConfig(baby.item2).Type === ItemType.ITEM_ACTIVE
-    ) {
-      log(`ERROR: Baby #${i} has an active item in the second slot.`);
-    }
-  }
-}
-
-function checkBabiesDuplicateTrinket() {
-  const trinketMap = new Map<TrinketType, boolean>();
-  for (let i = 0; i < g.babies.length; i++) {
-    const baby = g.babies[i];
-
-    if (baby.trinket !== undefined) {
-      if (trinketMap.has(baby.trinket)) {
-        log(`ERROR: Baby #${i} has a duplicate trinket: ${baby.trinket}`);
-      } else {
-        trinketMap.set(baby.trinket, true);
-      }
-    }
-  }
-}
-
-function registerCallbacks(mod: Mod) {
-  registerMiscCallbacks(mod);
-
-  // Register callbacks that take a 3rd argument for a specific thing
-  useItem.init(mod); // 3
-  useCard.init(mod); // 5
-  preUseItem.init(mod); // 23
-}
-
-function registerMiscCallbacks(mod: Mod) {
+function registerCallbacksMain(mod: ModUpgraded) {
   mod.AddCallback(ModCallbacks.MC_NPC_UPDATE, NPCUpdate.main); // 0
   mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate.main); // 1
   mod.AddCallback(ModCallbacks.MC_POST_RENDER, postRender.main); // 2
@@ -182,9 +86,6 @@ function registerMiscCallbacks(mod: Mod) {
   mod.AddCallback(ModCallbacks.MC_USE_PILL, usePill.main); // 10
   mod.AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, entityTakeDmg.main); // 11
   mod.AddCallback(ModCallbacks.MC_INPUT_ACTION, inputAction.main); // 13
-  mod.AddCallback(ModCallbacks.MC_POST_GAME_STARTED, postGameStarted.main); // 15
-  mod.AddCallback(ModCallbacks.MC_POST_NEW_LEVEL, postNewLevel.main); // 18
-  mod.AddCallback(ModCallbacks.MC_POST_NEW_ROOM, postNewRoom.main); // 19
   mod.AddCallback(ModCallbacks.MC_EXECUTE_CMD, executeCmd.main); // 22
   mod.AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, preEntitySpawn.main); // 24
   mod.AddCallback(ModCallbacks.MC_POST_NPC_INIT, postNPCInit.main); // 27
@@ -215,4 +116,25 @@ function registerMiscCallbacks(mod: Mod) {
     ModCallbacks.MC_PRE_ROOM_ENTITY_SPAWN,
     preRoomEntitySpawn.main,
   ); // 71
+}
+
+function registerCallbacksWithExtraArgument(mod: ModUpgraded) {
+  useItem.init(mod); // 3
+  useCard.init(mod); // 5
+  preUseItem.init(mod); // 23
+}
+
+function registerCallbacksCustom(mod: ModUpgraded) {
+  mod.AddCallbackCustom(
+    ModCallbacksCustom.MC_POST_GAME_STARTED_REORDERED,
+    postGameStarted.main,
+  );
+  mod.AddCallbackCustom(
+    ModCallbacksCustom.MC_POST_NEW_LEVEL_REORDERED,
+    postNewLevel.main,
+  );
+  mod.AddCallbackCustom(
+    ModCallbacksCustom.MC_POST_NEW_ROOM_REORDERED,
+    postNewRoom.main,
+  );
 }

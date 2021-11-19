@@ -1,6 +1,6 @@
 import babyRemoveFunctions from "./babyRemoveFunctions";
 import g from "./globals";
-import { getCurrentBaby } from "./misc";
+import { getCurrentBaby } from "./util";
 
 export default function babyRemove(): void {
   const [babyType, baby, valid] = getCurrentBaby();

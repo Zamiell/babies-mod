@@ -1,5 +1,5 @@
 import g from "./globals";
-import { addCharge } from "./misc";
+import { addCharge } from "./util";
 
 const functionMap = new Map<int, () => void>();
 export default functionMap;

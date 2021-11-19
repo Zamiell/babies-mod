@@ -1,4 +1,4 @@
-import { setRandomColor } from "../misc";
+import { setRandomColor } from "../util";
 
 const functionMap = new Map<int, (bomb: EntityBomb) => void>();
 export default functionMap;

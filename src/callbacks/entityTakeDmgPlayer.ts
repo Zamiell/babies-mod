@@ -1,14 +1,14 @@
 import { removeCollectibleFromItemTracker } from "isaacscript-common";
 import g from "../globals";
+import EntityDescription from "../types/EntityDescription";
+import { CollectibleTypeCustom } from "../types/enums";
 import {
   getCurrentBaby,
   getRoomIndex,
   incrementRNG,
   openAllDoors,
   spawnRandomPickup,
-} from "../misc";
-import EntityDescription from "../types/EntityDescription";
-import { CollectibleTypeCustom } from "../types/enums";
+} from "../util";
 
 export function main(
   player: EntityPlayer,

@@ -1,5 +1,5 @@
 import g from "../globals";
-import { isActionPressed } from "../misc";
+import { isActionPressed } from "../util";
 
 const functionMap = new Map<
   int,

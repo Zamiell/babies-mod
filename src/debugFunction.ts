@@ -1,6 +1,6 @@
-import log from "./log";
+import { log } from "isaacscript-common";
 
-export default function debugFunction(): void {
+export function debugFunction(): void {
   log("Entering debug function.");
 
   // Debug code
