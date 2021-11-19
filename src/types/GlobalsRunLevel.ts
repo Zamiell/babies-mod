@@ -1,7 +1,7 @@
-import PoopDescription from "./PoopDescription";
+import { PoopDescription } from "./PoopDescription";
 
 // Per-level variables
-export default class GlobalsRunLevel {
+export class GlobalsRunLevel {
   stage: int;
   stageType: int;
   stageFrame: int;

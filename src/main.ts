@@ -7,15 +7,14 @@ import {
 import * as entityTakeDmg from "./callbacks/entityTakeDmg";
 import * as evaluateCache from "./callbacks/evaluateCache";
 import * as executeCmd from "./callbacks/executeCmd";
-import * as familiarInit from "./callbacks/familiarInit";
-import * as familiarUpdate from "./callbacks/familiarUpdate";
 import * as inputAction from "./callbacks/inputAction";
-import * as NPCUpdate from "./callbacks/NPCUpdate";
 import * as postBombInit from "./callbacks/postBombInit";
 import * as postBombUpdate from "./callbacks/postBombUpdate";
 import * as postEffectInit from "./callbacks/postEffectInit";
 import * as postEffectUpdate from "./callbacks/postEffectUpdate";
 import * as postEntityKill from "./callbacks/postEntityKill";
+import * as postFamiliarInit from "./callbacks/postFamiliarInit";
+import * as postFamiliarUpdate from "./callbacks/postFamiliarUpdate";
 import * as postFireTear from "./callbacks/postFireTear";
 import * as postGameStarted from "./callbacks/postGameStarted";
 import * as postKnifeInit from "./callbacks/postKnifeInit";
@@ -24,6 +23,7 @@ import * as postLaserUpdate from "./callbacks/postLaserUpdate";
 import * as postNewLevel from "./callbacks/postNewLevel";
 import * as postNewRoom from "./callbacks/postNewRoom";
 import * as postNPCInit from "./callbacks/postNPCInit";
+import * as postNPCUpdate from "./callbacks/postNPCUpdate";
 import * as postPickupInit from "./callbacks/postPickupInit";
 import * as postPickupSelection from "./callbacks/postPickupSelection";
 import * as postPickupUpdate from "./callbacks/postPickupUpdate";
@@ -51,8 +51,9 @@ export default function main(): void {
 
   welcomeBanner();
 
-  // Make a copy of this object so that we can use it elsewhere
-  g.babiesMod = mod; // (this is needed for saving and loading the "save.dat" file)
+  // Store the mod reference so that we can use it elsewhere
+  // (this is needed for saving and loading the "save.dat" file)
+  g.babiesMod = mod;
 
   checkBabiesValid();
   registerCallbacks(mod);
@@ -75,12 +76,12 @@ function registerCallbacks(mod: ModUpgraded) {
 }
 
 function registerCallbacksMain(mod: ModUpgraded) {
-  mod.AddCallback(ModCallbacks.MC_NPC_UPDATE, NPCUpdate.main); // 0
+  mod.AddCallback(ModCallbacks.MC_NPC_UPDATE, postNPCUpdate.main); // 0
   mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate.main); // 1
   mod.AddCallback(ModCallbacks.MC_POST_RENDER, postRender.main); // 2
   mod.AddCallback(ModCallbacks.MC_USE_ITEM, useItem.main); // 3
-  mod.AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, familiarUpdate.main); // 6
-  mod.AddCallback(ModCallbacks.MC_FAMILIAR_INIT, familiarInit.main); // 7
+  mod.AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, postFamiliarUpdate.main); // 6
+  mod.AddCallback(ModCallbacks.MC_FAMILIAR_INIT, postFamiliarInit.main); // 7
   mod.AddCallback(ModCallbacks.MC_EVALUATE_CACHE, evaluateCache.main); // 8
   mod.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit.main); // 9
   mod.AddCallback(ModCallbacks.MC_USE_PILL, usePill.main); // 10

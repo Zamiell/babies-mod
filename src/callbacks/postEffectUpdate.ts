@@ -1,5 +1,5 @@
 import { getCurrentBaby } from "../util";
-import postEffectUpdateBabyFunctions from "./postEffectUpdateBabies";
+import { postEffectUpdateBabyFunctionMap } from "./postEffectUpdateBabyFunctionMap";
 
 export function main(effect: EntityEffect): void {
   const [babyType, , valid] = getCurrentBaby();
@@ -7,8 +7,9 @@ export function main(effect: EntityEffect): void {
     return;
   }
 
-  const babyFunc = postEffectUpdateBabyFunctions.get(babyType);
-  if (babyFunc !== undefined) {
-    babyFunc(effect);
+  const postEffectUpdateBabyFunction =
+    postEffectUpdateBabyFunctionMap.get(babyType);
+  if (postEffectUpdateBabyFunction !== undefined) {
+    postEffectUpdateBabyFunction(effect);
   }
 }

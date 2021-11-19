@@ -1,4 +1,4 @@
-export default interface PoopDescription {
+export interface PoopDescription {
   roomIndex: int;
   gridIndex: int;
 }

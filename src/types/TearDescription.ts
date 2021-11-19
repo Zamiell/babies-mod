@@ -1,4 +1,4 @@
-export default interface TearDescription {
+export interface TearDescription {
   frame: int;
   position: Vector;
   velocity: Vector;

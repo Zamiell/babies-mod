@@ -1,7 +1,7 @@
-import BabyDescription from "./types/BabyDescription";
+import { BabyDescription } from "./types/BabyDescription";
 import { CollectibleTypeCustom } from "./types/enums";
 
-const babies: BabyDescription[] = [
+export const BABIES: BabyDescription[] = [
   {
     name: "Spider Baby",
     description: "Shoots a Blue Spider every 2nd tear",
@@ -3307,4 +3307,3 @@ const babies: BabyDescription[] = [
     sprite: "invisible.png",
   },
 ];
-export default babies;

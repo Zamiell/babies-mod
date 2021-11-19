@@ -1,8 +1,8 @@
-import babyRemoveFunctions from "./babyRemoveFunctions";
+import { babyRemoveFunctionMap } from "./babyRemoveFunctionMap";
 import g from "./globals";
 import { getCurrentBaby } from "./util";
 
-export default function babyRemove(): void {
+export function babyRemove(): void {
   const [babyType, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
@@ -45,8 +45,8 @@ export default function babyRemove(): void {
   }
 
   // Remove miscellaneous effects
-  const babyFunc = babyRemoveFunctions.get(babyType);
-  if (babyFunc !== undefined) {
-    babyFunc();
+  const babyRemoveFunction = babyRemoveFunctionMap.get(babyType);
+  if (babyRemoveFunction !== undefined) {
+    babyRemoveFunction();
   }
 }

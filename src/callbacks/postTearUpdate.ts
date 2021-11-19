@@ -1,5 +1,5 @@
 import { getCurrentBaby } from "../util";
-import postTearUpdateBabyFunctions from "./postTearUpdateBabies";
+import { postTearUpdateBabyFunctionMap } from "./postTearUpdateBabyFunctionMap";
 
 export function main(tear: EntityTear): void {
   const [babyType, , valid] = getCurrentBaby();
@@ -7,8 +7,9 @@ export function main(tear: EntityTear): void {
     return;
   }
 
-  const babyFunc = postTearUpdateBabyFunctions.get(babyType);
-  if (babyFunc !== undefined) {
-    babyFunc(tear);
+  const postTearUpdateBabyFunction =
+    postTearUpdateBabyFunctionMap.get(babyType);
+  if (postTearUpdateBabyFunction !== undefined) {
+    postTearUpdateBabyFunction(tear);
   }
 }

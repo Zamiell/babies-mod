@@ -1,4 +1,4 @@
-export default interface EntityDescription {
+export interface EntityDescription {
   type: int;
   variant: int;
 }

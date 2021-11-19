@@ -1,5 +1,5 @@
 import { log, removeCollectibleFromItemTracker } from "isaacscript-common";
-import babyAddFunctions from "./babyAddFunctions";
+import { babyAddFunctionMap } from "./babyAddFunctionMap";
 import g from "./globals";
 import {
   getCurrentBaby,
@@ -8,7 +8,7 @@ import {
   giveItemAndRemoveFromPools,
 } from "./util";
 
-export default function babyAdd(): void {
+export function babyAdd(): void {
   const stage = g.l.GetStage();
   const soulHearts = g.p.GetSoulHearts();
   const blackHearts = g.p.GetBlackHearts();
@@ -26,7 +26,7 @@ export default function babyAdd(): void {
 
   // Put the baby description into the "save#.dat" file so that it can be shown on OBS
   if (g.babiesMod !== null) {
-    Isaac.SaveModData(g.babiesMod, baby.description);
+    g.babiesMod.SaveData(baby.description);
   }
 
   // Check if this is an item baby
@@ -197,9 +197,9 @@ export default function babyAdd(): void {
   }
 
   // Add miscellaneous other effects
-  const babyFunc = babyAddFunctions.get(babyType);
-  if (babyFunc !== undefined) {
-    babyFunc();
+  const babyAddFunction = babyAddFunctionMap.get(babyType);
+  if (babyAddFunction !== undefined) {
+    babyAddFunction();
   }
 
   // Reset the player's size

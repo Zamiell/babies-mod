@@ -1,4 +1,4 @@
-export default class GlobalsRunBabyTears {
+export class GlobalsRunBabyTears {
   numFired = 0;
   frame = 0;
   position = Vector.Zero;

@@ -1,5 +1,5 @@
 import g from "./globals";
-import BabyDescription from "./types/BabyDescription";
+import { BabyDescription } from "./types/BabyDescription";
 import { CollectibleTypeCustom } from "./types/enums";
 
 // Copied from the Racing+ mod

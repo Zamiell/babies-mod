@@ -1,4 +1,4 @@
-export default interface GlobalsRunBabyExplosion {
+export interface GlobalsRunBabyExplosion {
   roomIndex: int;
   position: Vector;
 }

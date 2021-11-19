@@ -6,7 +6,7 @@
 
 import g from "../globals";
 import { getCurrentBaby } from "../util";
-import preGetCollectibleBabyFunctions from "./preGetCollectibleBabies";
+import { preGetCollectibleBabyFunctionMap } from "./preGetCollectibleBabyFunctionMap";
 
 export function main(
   _itemPoolType: ItemPoolType,
@@ -24,9 +24,10 @@ export function main(
     return undefined;
   }
 
-  const babyFunc = preGetCollectibleBabyFunctions.get(babyType);
-  if (babyFunc !== undefined) {
-    return babyFunc();
+  const preGetCollectibleBabyFunction =
+    preGetCollectibleBabyFunctionMap.get(babyType);
+  if (preGetCollectibleBabyFunction !== undefined) {
+    return preGetCollectibleBabyFunction();
   }
 
   return undefined;

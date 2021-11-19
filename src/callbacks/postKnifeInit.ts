@@ -1,5 +1,5 @@
 import { getCurrentBaby } from "../util";
-import postKnifeInitBabyFunctions from "./postKnifeInitBabies";
+import { postKnifeInitBabyFunctionMap } from "./postKnifeInitBabyFunctionMap";
 
 export function main(knife: EntityKnife): void {
   const [babyType, , valid] = getCurrentBaby();
@@ -7,8 +7,8 @@ export function main(knife: EntityKnife): void {
     return;
   }
 
-  const babyFunc = postKnifeInitBabyFunctions.get(babyType);
-  if (babyFunc !== undefined) {
-    babyFunc(knife);
+  const postKnifeInitBabyFunction = postKnifeInitBabyFunctionMap.get(babyType);
+  if (postKnifeInitBabyFunction !== undefined) {
+    postKnifeInitBabyFunction(knife);
   }
 }

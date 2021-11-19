@@ -3,7 +3,7 @@ import { updateCachedAPIFunctions } from "../cache";
 import { VERSION } from "../constants";
 import g from "../globals";
 import * as timer from "../timer";
-import BabyDescription from "../types/BabyDescription";
+import { BabyDescription } from "../types/BabyDescription";
 import {
   getCurrentBaby,
   getHeartXOffset,
@@ -11,7 +11,7 @@ import {
   getScreenCenterPosition,
   isActionPressed,
 } from "../util";
-import postRenderBabyFunctions from "./postRenderBabies";
+import { postRenderBabyFunctionMap } from "./postRenderBabyFunctionMap";
 
 // Constants
 const CUSTOM_PLAYER_ANM2 = "gfx/001.000_player_custom_baby.anm2";
@@ -279,7 +279,7 @@ function drawBabyNumber() {
     x += 20;
   }
   const y = 10;
-  g.font.DrawString(text, x, y, getDefaultKColor(), 0, true);
+  g.font.droid.DrawString(text, x, y, getDefaultKColor(), 0, true);
 }
 
 function drawVersion() {
@@ -357,8 +357,8 @@ function drawBabyEffects() {
     return;
   }
 
-  const babyFunc = postRenderBabyFunctions.get(babyType);
-  if (babyFunc !== undefined) {
-    babyFunc();
+  const postRenderBabyFunction = postRenderBabyFunctionMap.get(babyType);
+  if (postRenderBabyFunction !== undefined) {
+    postRenderBabyFunction();
   }
 }

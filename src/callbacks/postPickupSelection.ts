@@ -1,5 +1,5 @@
 import { getCurrentBaby } from "../util";
-import postPickupSelectionBabyFunctions from "./postPickupSelectionBabies";
+import { postPickupSelectionBabyFunctionMap } from "./postPickupSelectionBabyFunctionMap";
 
 export function main(
   pickup: EntityPickup,
@@ -11,9 +11,10 @@ export function main(
     return undefined;
   }
 
-  const babyFunc = postPickupSelectionBabyFunctions.get(babyType);
-  if (babyFunc !== undefined) {
-    return babyFunc(pickup, variant, subType);
+  const postPickupSelectionBabyFunction =
+    postPickupSelectionBabyFunctionMap.get(babyType);
+  if (postPickupSelectionBabyFunction !== undefined) {
+    return postPickupSelectionBabyFunction(pickup, variant, subType);
   }
 
   return undefined;

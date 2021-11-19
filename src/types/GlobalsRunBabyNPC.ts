@@ -1,4 +1,4 @@
-export default interface GlobalsRunBabyNPC {
+export interface GlobalsRunBabyNPC {
   type: int;
   variant: int;
   subType: int;

@@ -1,4 +1,4 @@
-export default interface NPCDescription {
+export interface NPCDescription {
   roomIndex: int;
   position: Vector;
 }

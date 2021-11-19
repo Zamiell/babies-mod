@@ -1,8 +1,7 @@
-import babies from "../babies";
-import GlobalsRun from "./GlobalsRun";
+import { BABIES } from "../babies";
+import { GlobalsRun } from "./GlobalsRun";
 
-export default class Globals {
-  // Contains the mod object; this is filled in after registration
+export class Globals {
   babiesMod: Mod | null = null;
 
   // Cached API functions
@@ -19,13 +18,15 @@ export default class Globals {
   itemPool = Game().GetItemPool();
   itemConfig = Isaac.GetItemConfig();
   sfx = SFXManager();
-  font = Font();
+  font = {
+    droid: Font(),
+  };
 
   // Variables per-run
   run = new GlobalsRun(0);
 
   // A list of all the babies
-  babies = babies;
+  babies = BABIES;
 
   // A list of the babies that we have chosen so far on this run / multi-character custom challenge
   pastBabies: int[] = [];
@@ -35,6 +36,6 @@ export default class Globals {
   debugLogging = false;
 
   constructor() {
-    this.font.Load("font/droid.fnt");
+    this.font.droid.Load("font/droid.fnt");
   }
 }

@@ -1,5 +1,5 @@
 import { getCurrentBaby } from "../util";
-import postLaserUpdateBabyFunctions from "./postLaserUpdateBabies";
+import { postLaserUpdateBabyFunctionMap } from "./postLaserUpdateBabyFunctionMap";
 
 export function main(laser: EntityLaser): void {
   const [babyType, , valid] = getCurrentBaby();
@@ -7,8 +7,9 @@ export function main(laser: EntityLaser): void {
     return;
   }
 
-  const babyFunc = postLaserUpdateBabyFunctions.get(babyType);
-  if (babyFunc !== undefined) {
-    babyFunc(laser);
+  const postLaserUpdateBabyFunction =
+    postLaserUpdateBabyFunctionMap.get(babyType);
+  if (postLaserUpdateBabyFunction !== undefined) {
+    postLaserUpdateBabyFunction(laser);
   }
 }

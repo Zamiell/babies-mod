@@ -1,14 +1,14 @@
 import { getCurrentBaby } from "../util";
-import usePillBabyFunctions from "./usePillBabies";
+import { usePillBabyFunctionMap } from "./usePillBabyFunctionMap";
 
-export function main(_pillEffect: PillEffect): void {
+export function main(_pillEffect: PillEffect, player: EntityPlayer): void {
   const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return;
   }
 
-  const babyFunc = usePillBabyFunctions.get(babyType);
-  if (babyFunc !== undefined) {
-    babyFunc();
+  const usePillBabyFunction = usePillBabyFunctionMap.get(babyType);
+  if (usePillBabyFunction !== undefined) {
+    usePillBabyFunction(player);
   }
 }

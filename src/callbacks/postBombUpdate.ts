@@ -1,5 +1,5 @@
 import { getCurrentBaby } from "../util";
-import postBombUpdateBabyFunctions from "./postBombUpdateBabies";
+import { postBombUpdateBabyFunctionMap } from "./postBombUpdateBabyFunctionMap";
 
 export function main(bomb: EntityBomb): void {
   const [babyType, , valid] = getCurrentBaby();
@@ -7,8 +7,9 @@ export function main(bomb: EntityBomb): void {
     return;
   }
 
-  const babyFunc = postBombUpdateBabyFunctions.get(babyType);
-  if (babyFunc !== undefined) {
-    babyFunc(bomb);
+  const postBombUpdateBabyFunction =
+    postBombUpdateBabyFunctionMap.get(babyType);
+  if (postBombUpdateBabyFunction !== undefined) {
+    postBombUpdateBabyFunction(bomb);
   }
 }

@@ -1,5 +1,5 @@
 import { getCurrentBaby } from "../util";
-import postEntityKillBabyFunctions from "./postEntityKillBabies";
+import { postEntityKillBabyFunctionMap } from "./postEntityKillBabyFunctionMap";
 
 export function main(entity: Entity): void {
   const [babyType, , valid] = getCurrentBaby();
@@ -13,8 +13,9 @@ export function main(entity: Entity): void {
     return;
   }
 
-  const babyFunc = postEntityKillBabyFunctions.get(babyType);
-  if (babyFunc !== undefined) {
-    babyFunc(npc);
+  const postEntityKillBabyFunction =
+    postEntityKillBabyFunctionMap.get(babyType);
+  if (postEntityKillBabyFunction !== undefined) {
+    postEntityKillBabyFunction(npc);
   }
 }

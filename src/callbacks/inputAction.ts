@@ -3,7 +3,7 @@
 // Also note that we can't use cached API functions in this callback or else the game will crash
 
 import { getCurrentBaby } from "../util";
-import inputActionBabyFunctions from "./inputActionBabies";
+import { inputActionBabyFunctionMap } from "./inputActionBabyFunctionMap";
 
 export function main(
   _entity: Entity | undefined,
@@ -15,9 +15,9 @@ export function main(
     return undefined;
   }
 
-  const babyFunc = inputActionBabyFunctions.get(babyType);
-  if (babyFunc !== undefined) {
-    return babyFunc(inputHook, buttonAction);
+  const inputActionBabyFunction = inputActionBabyFunctionMap.get(babyType);
+  if (inputActionBabyFunction !== undefined) {
+    return inputActionBabyFunction(inputHook, buttonAction);
   }
 
   return undefined;

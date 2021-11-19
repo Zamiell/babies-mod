@@ -1,6 +1,6 @@
-import { getCurrentBaby } from "../util";
 import { PlayerTypeCustom } from "../types/enums";
-import evaluateCacheBabyFunctions from "./evaluateCacheBabies";
+import { getCurrentBaby } from "../util";
+import { evaluateCacheBabyFunctionMap } from "./evaluateCacheBabyFunctionMap";
 
 export function main(player: EntityPlayer, cacheFlag: CacheFlag): void {
   const character = player.GetPlayerType();
@@ -29,8 +29,8 @@ export function main(player: EntityPlayer, cacheFlag: CacheFlag): void {
     player.CanFly = true;
   }
 
-  const babyFunc = evaluateCacheBabyFunctions.get(babyType);
-  if (babyFunc !== undefined) {
-    babyFunc(player, cacheFlag);
+  const evaluateCacheBabyFunction = evaluateCacheBabyFunctionMap.get(babyType);
+  if (evaluateCacheBabyFunction !== undefined) {
+    evaluateCacheBabyFunction(player, cacheFlag);
   }
 }

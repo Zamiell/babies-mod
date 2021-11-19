@@ -1,4 +1,4 @@
-export default interface TearData {
+export interface TearData {
   Height: int;
   Velocity: Vector;
 }

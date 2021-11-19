@@ -1,7 +1,7 @@
 import { log } from "isaacscript-common";
 import g from "../globals";
-import roomClearedBabyFunctions from "../roomClearedBabies";
-import BabyDescription from "../types/BabyDescription";
+import { roomClearedBabyFunctionMap } from "../roomClearedBabyFunctionMap";
+import { BabyDescription } from "../types/BabyDescription";
 import {
   getCurrentBaby,
   getRoomIndex,
@@ -10,7 +10,7 @@ import {
   spawnRandomPickup,
 } from "../util";
 import * as postRender from "./postRender";
-import postUpdateBabyFunctions from "./postUpdateBabies";
+import { postUpdateBabyFunctionMap } from "./postUpdateBabyFunctionMap";
 
 export function main(): void {
   const [babyType, baby, valid] = getCurrentBaby();
@@ -26,9 +26,9 @@ export function main(): void {
   checkRoomCleared();
 
   // Do custom baby effects
-  const babyFunc = postUpdateBabyFunctions.get(babyType);
-  if (babyFunc !== undefined) {
-    babyFunc();
+  const postUpdateBabyFunction = postUpdateBabyFunctionMap.get(babyType);
+  if (postUpdateBabyFunction !== undefined) {
+    postUpdateBabyFunction();
   }
 
   checkSoftlockDestroyPoops();
@@ -209,9 +209,9 @@ function roomCleared() {
     return;
   }
 
-  const babyFunc = roomClearedBabyFunctions.get(babyType);
-  if (babyFunc !== undefined) {
-    babyFunc();
+  const roomClearedBabyFunction = roomClearedBabyFunctionMap.get(babyType);
+  if (roomClearedBabyFunction !== undefined) {
+    roomClearedBabyFunction();
   }
 }
 

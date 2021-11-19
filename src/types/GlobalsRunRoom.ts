@@ -1,8 +1,8 @@
-import NPCDescription from "./NPCDescription";
-import TearDescription from "./TearDescription";
+import { NPCDescription } from "./NPCDescription";
+import { TearDescription } from "./TearDescription";
 
 // Per-room variables
-export default class GlobalsRunRoom {
+export class GlobalsRunRoom {
   index = 0;
   lastRoomIndex = 0;
 

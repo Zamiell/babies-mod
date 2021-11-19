@@ -1,9 +1,9 @@
 import { log } from "isaacscript-common";
-import babyAdd from "../babyAdd";
-import babyCheckValid from "../babyCheckValid";
-import babyRemove from "../babyRemove";
+import { babyAdd } from "../babyAdd";
+import { babyCheckValid } from "../babyCheckValid";
+import { babyRemove } from "../babyRemove";
 import g from "../globals";
-import GlobalsRunLevel from "../types/GlobalsRunLevel";
+import { GlobalsRunLevel } from "../types/GlobalsRunLevel";
 import { getCurrentBaby, incrementRNG } from "../util";
 
 export function main(): void {

@@ -1,5 +1,5 @@
 import { getCurrentBaby } from "../util";
-import postNPCInitBabyFunctions from "./postNPCInitBabies";
+import { postNPCInitBabyFunctionMap } from "./postNPCInitBabyFunctionMap";
 
 export function main(npc: EntityNPC): void {
   const [babyType, , valid] = getCurrentBaby();
@@ -7,8 +7,8 @@ export function main(npc: EntityNPC): void {
     return;
   }
 
-  const babyFunc = postNPCInitBabyFunctions.get(babyType);
-  if (babyFunc !== undefined) {
-    babyFunc(npc);
+  const postNPCInitBabyFunction = postNPCInitBabyFunctionMap.get(babyType);
+  if (postNPCInitBabyFunction !== undefined) {
+    postNPCInitBabyFunction(npc);
   }
 }

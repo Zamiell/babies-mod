@@ -1,7 +1,7 @@
 import { log } from "isaacscript-common";
 import g from "../globals";
 import { PlayerTypeCustom } from "../types/enums";
-import GlobalsRun from "../types/GlobalsRun";
+import { GlobalsRun } from "../types/GlobalsRun";
 import { giveItemAndRemoveFromPools } from "../util";
 
 export function main(isContinued: boolean): void {

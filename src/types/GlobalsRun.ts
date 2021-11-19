@@ -1,11 +1,11 @@
-import GlobalsRunBabyExplosion from "./GlobalsRunBabyExplosion";
-import GlobalsRunBabyNPC from "./GlobalsRunBabyNPC";
-import GlobalsRunBabyTears from "./GlobalsRunBabyTears";
-import GlobalsRunLevel from "./GlobalsRunLevel";
-import GlobalsRunRoom from "./GlobalsRunRoom";
+import { GlobalsRunBabyExplosion } from "./GlobalsRunBabyExplosion";
+import { GlobalsRunBabyNPC } from "./GlobalsRunBabyNPC";
+import { GlobalsRunBabyTears } from "./GlobalsRunBabyTears";
+import { GlobalsRunLevel } from "./GlobalsRunLevel";
+import { GlobalsRunRoom } from "./GlobalsRunRoom";
 
 // Per-run variables
-export default class GlobalsRun {
+export class GlobalsRun {
   // Tracking per run
   // Set to true in the PostGameStarted callback if we are on the right character
   enabled = false;

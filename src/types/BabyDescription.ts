@@ -1,6 +1,6 @@
 import { CollectibleTypeCustom } from "./enums";
 
-export default interface BabyDescription {
+export interface BabyDescription {
   // Mandatory properties
   name: string;
   description: string;

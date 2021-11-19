@@ -1,5 +1,5 @@
 import { getCurrentBaby } from "../util";
-import postProjectileUpdateBabyFunctions from "./postProjectileUpdateBabies";
+import { postProjectileUpdateBabyFunctionMap } from "./postProjectileUpdateBabyFunctionMap";
 
 export function main(projectile: EntityProjectile): void {
   const [babyType, , valid] = getCurrentBaby();
@@ -7,8 +7,9 @@ export function main(projectile: EntityProjectile): void {
     return;
   }
 
-  const babyFunc = postProjectileUpdateBabyFunctions.get(babyType);
-  if (babyFunc !== undefined) {
-    babyFunc(projectile);
+  const postProjectileUpdateBabyFunction =
+    postProjectileUpdateBabyFunctionMap.get(babyType);
+  if (postProjectileUpdateBabyFunction !== undefined) {
+    postProjectileUpdateBabyFunction(projectile);
   }
 }

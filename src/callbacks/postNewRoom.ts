@@ -1,10 +1,10 @@
 import { getRoomStageID, getRoomVariant, log } from "isaacscript-common";
 import { updateCachedAPIFunctions } from "../cache";
 import g from "../globals";
-import GlobalsRunBabyTears from "../types/GlobalsRunBabyTears";
-import GlobalsRunRoom from "../types/GlobalsRunRoom";
+import { GlobalsRunBabyTears } from "../types/GlobalsRunBabyTears";
+import { GlobalsRunRoom } from "../types/GlobalsRunRoom";
 import { getCurrentBaby, getRoomIndex } from "../util";
-import postNewRoomBabyFunctions from "./postNewRoomBabies";
+import { postNewRoomBabyFunctionMap } from "./postNewRoomBabyFunctionMap";
 import * as postRender from "./postRender";
 
 export function main(): void {
@@ -51,7 +51,7 @@ export function main(): void {
   postRender.setPlayerSprite();
 
   stopDrawingBabyIntroText();
-  applyTemporaryEffects(babyType);
+  applyBabyTemporaryEffects(babyType);
 }
 
 function stopDrawingBabyIntroText() {
@@ -60,11 +60,10 @@ function stopDrawingBabyIntroText() {
   }
 }
 
-function applyTemporaryEffects(babyType: int) {
-  // Apply baby-specific temporary effects
-  const babyFunc = postNewRoomBabyFunctions.get(babyType);
-  if (babyFunc !== undefined) {
-    babyFunc();
+function applyBabyTemporaryEffects(babyType: int) {
+  const postNewRoomBabyFunction = postNewRoomBabyFunctionMap.get(babyType);
+  if (postNewRoomBabyFunction !== undefined) {
+    postNewRoomBabyFunction();
   }
 }
 

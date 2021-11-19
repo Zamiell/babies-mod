@@ -1,8 +1,8 @@
 import g from "./globals";
-import BabyDescription from "./types/BabyDescription";
+import { BabyDescription } from "./types/BabyDescription";
 import { getItemConfig } from "./util";
 
-export default function babyCheckValid(babyType: int): boolean {
+export function babyCheckValid(babyType: int): boolean {
   const baby = g.babies[babyType];
   if (baby === undefined) {
     error(`Baby ${babyType} was not found.`);

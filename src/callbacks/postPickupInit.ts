@@ -1,6 +1,6 @@
-import { getCurrentBaby } from "../util";
 import { CollectibleTypeCustom } from "../types/enums";
-import postPickupInitBabyFunctions from "./postPickupInitBabies";
+import { getCurrentBaby } from "../util";
+import { postPickupInitBabyFunctionMap } from "./postPickupInitBabyFunctionMap";
 
 export function main(pickup: EntityPickup): void {
   const [babyType, , valid] = getCurrentBaby();
@@ -16,8 +16,9 @@ export function main(pickup: EntityPickup): void {
     return;
   }
 
-  const babyFunc = postPickupInitBabyFunctions.get(babyType);
-  if (babyFunc !== undefined) {
-    babyFunc(pickup);
+  const postPickupInitBabyFunction =
+    postPickupInitBabyFunctionMap.get(babyType);
+  if (postPickupInitBabyFunction !== undefined) {
+    postPickupInitBabyFunction(pickup);
   }
 }

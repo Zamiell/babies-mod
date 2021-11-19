@@ -1,5 +1,5 @@
 import { getCurrentBaby } from "../util";
-import preTearCollisionBabyFunctions from "./preTearCollisionBabies";
+import { preTearCollisionBabyFunctionMap } from "./preTearCollisionBabyFunctionMap";
 
 export function main(tear: EntityTear, collider: Entity): boolean | void {
   const [babyType, , valid] = getCurrentBaby();
@@ -7,9 +7,10 @@ export function main(tear: EntityTear, collider: Entity): boolean | void {
     return undefined;
   }
 
-  const babyFunc = preTearCollisionBabyFunctions.get(babyType);
-  if (babyFunc !== undefined) {
-    return babyFunc(tear, collider);
+  const preTearCollisionBabyFunction =
+    preTearCollisionBabyFunctionMap.get(babyType);
+  if (preTearCollisionBabyFunction !== undefined) {
+    return preTearCollisionBabyFunction(tear, collider);
   }
 
   return undefined;

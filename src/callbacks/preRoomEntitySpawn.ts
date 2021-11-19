@@ -1,6 +1,6 @@
 import g from "../globals";
 import { getCurrentBaby } from "../util";
-import preRoomEntitySpawnBabyFunctions from "./preRoomEntitySpawnBabies";
+import { preRoomEntitySpawnBabyFunctionMap } from "./preRoomEntitySpawnBabyFunctionMap";
 
 export function main(
   entityType: int,
@@ -20,9 +20,10 @@ export function main(
     return undefined;
   }
 
-  const babyFunc = preRoomEntitySpawnBabyFunctions.get(babyType);
-  if (babyFunc !== undefined) {
-    return babyFunc(entityType);
+  const preRoomEntitySpawnBabyFunction =
+    preRoomEntitySpawnBabyFunctionMap.get(babyType);
+  if (preRoomEntitySpawnBabyFunction !== undefined) {
+    return preRoomEntitySpawnBabyFunction(entityType);
   }
 
   return undefined;
