@@ -1,3 +1,4 @@
+import { removeDeadEyeMultiplier } from "isaacscript-common";
 import { babyRemoveFunctionMap } from "./babyRemoveFunctionMap";
 import g from "./globals";
 import { getCurrentBaby } from "./util";
@@ -32,11 +33,7 @@ export function babyRemove(): void {
 
   // Remove the Dead Eye multiplier
   if (baby.item === CollectibleType.COLLECTIBLE_DEAD_EYE) {
-    for (let i = 0; i < 100; i++) {
-      // Each time this function is called, it only has a chance of working,
-      // so just call it 100 times to be safe
-      g.p.ClearDeadEyeCharge();
-    }
+    removeDeadEyeMultiplier(g.p);
   }
 
   // Remove easter eggs

@@ -37,7 +37,7 @@ roomClearedBabyFunctionMap.set(88, () => {
     position,
     Vector.Zero,
     g.p,
-    0,
+    CollectibleType.COLLECTIBLE_NULL,
     roomSeed,
   );
 });

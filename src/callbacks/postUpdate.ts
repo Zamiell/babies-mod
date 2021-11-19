@@ -147,7 +147,7 @@ function checkTrinket() {
     g.p.DropTrinket(position, true);
     g.p.AddTrinket(baby.trinket);
     // (we cannot cancel the animation or it will cause a bug where the player cannot pick up
-    // collectible items)
+    // collectibles)
     log("Dropped trinket detected; manually giving it back.");
     return;
   }

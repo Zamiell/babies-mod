@@ -1,5 +1,5 @@
-import g from "./globals";
-import { getCurrentBaby } from "./util";
+import g from "../globals";
+import { getCurrentBaby } from "../util";
 
 export const postPickupCollectBabyFunctionMap = new Map<int, () => void>();
 

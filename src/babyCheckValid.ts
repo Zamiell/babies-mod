@@ -27,7 +27,7 @@ export function babyCheckValid(babyType: int): boolean {
   }
 
   // If the player already has a trinket, do not give them a trinket baby
-  if (baby.trinket !== undefined && g.p.GetTrinket(0) !== 0) {
+  if (baby.trinket !== undefined && g.p.GetTrinket(TrinketSlot.SLOT_1) !== 0) {
     return false;
   }
 

@@ -11,6 +11,7 @@ export enum CollectibleTypeCustom {
   COLLECTIBLE_CLOCKWORK_ASSEMBLY = Isaac.GetItemIdByName("Clockwork Assembly"),
   COLLECTIBLE_FLOCK_OF_SUCCUBI = Isaac.GetItemIdByName("Flock of Succubi"),
   COLLECTIBLE_CHARGING_STATION = Isaac.GetItemIdByName("Charging Station"),
+
   COLLECTIBLE_SHOP_TELEPORT = Isaac.GetItemIdByName("Shop Teleport"),
   COLLECTIBLE_TREASURE_ROOM_TELEPORT = Isaac.GetItemIdByName(
     "Treasure Room Teleport",

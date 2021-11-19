@@ -1,5 +1,5 @@
-import { postPickupCollectBabyFunctionMap } from "../postPickupCollectBabyFunctionMap";
 import { getCurrentBaby } from "../util";
+import { postPickupCollectBabyFunctionMap } from "./postPickupCollectBabyFunctionMap";
 
 export function main(): void {
   const [babyType, , valid] = getCurrentBaby();

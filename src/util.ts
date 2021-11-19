@@ -121,7 +121,7 @@ export function spawnRandomPickup(
   g.run.randomSeed = nextSeed(g.run.randomSeed);
   switch (pickupVariant) {
     case 1: {
-      // Random Heart
+      // Random heart
       g.g.Spawn(
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_HEART,
@@ -135,7 +135,7 @@ export function spawnRandomPickup(
     }
 
     case 2: {
-      // Random Coin
+      // Random coin
       g.g.Spawn(
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_COIN,
@@ -149,7 +149,7 @@ export function spawnRandomPickup(
     }
 
     case 3: {
-      // Random Key
+      // Random key
       g.g.Spawn(
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_KEY,
@@ -163,7 +163,7 @@ export function spawnRandomPickup(
     }
 
     case 4: {
-      // Random Bomb
+      // Random bomb
       g.g.Spawn(
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_BOMB,
@@ -177,7 +177,7 @@ export function spawnRandomPickup(
     }
 
     case 5: {
-      // Random Chest
+      // Random chest
       g.g.Spawn(
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_CHEST,
@@ -191,7 +191,7 @@ export function spawnRandomPickup(
     }
 
     case 6: {
-      // Sack
+      // Random sack
       g.g.Spawn(
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_GRAB_BAG,
@@ -205,7 +205,7 @@ export function spawnRandomPickup(
     }
 
     case 7: {
-      // Lil' Battery
+      // Random battery
       g.g.Spawn(
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_LIL_BATTERY,
@@ -219,7 +219,7 @@ export function spawnRandomPickup(
     }
 
     case 8: {
-      // Random Pill
+      // Random pill
       g.g.Spawn(
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_PILL,
@@ -233,7 +233,7 @@ export function spawnRandomPickup(
     }
 
     case 9: {
-      // Random Card / Rune
+      // Random card / rune
       g.g.Spawn(
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_TAROTCARD,
@@ -247,7 +247,7 @@ export function spawnRandomPickup(
     }
 
     case 10: {
-      // Random Trinket
+      // Random trinket
       g.g.Spawn(
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_TRINKET,
@@ -261,7 +261,7 @@ export function spawnRandomPickup(
     }
 
     case 11: {
-      // Random Collectible
+      // Random collectible
       g.g.Spawn(
         EntityType.ENTITY_PICKUP,
         PickupVariant.PICKUP_COLLECTIBLE,

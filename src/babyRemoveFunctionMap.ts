@@ -1,33 +1,26 @@
-import { removeAllMatchingEntities } from "isaacscript-common";
+import { copyColor, removeAllMatchingEntities } from "isaacscript-common";
 import g from "./globals";
 
 export const babyRemoveFunctionMap = new Map<int, () => void>();
 
 // Spider Baby
 babyRemoveFunctionMap.set(0, () => {
-  // Remove all of the Blue Spiders
-  for (const entity of Isaac.GetRoomEntities()) {
-    if (
-      entity.Type === EntityType.ENTITY_FAMILIAR &&
-      entity.Variant === FamiliarVariant.BLUE_SPIDER
-    ) {
-      entity.Remove();
-    }
-  }
+  removeAllMatchingEntities(
+    EntityType.ENTITY_FAMILIAR,
+    FamiliarVariant.BLUE_SPIDER,
+  );
 });
 
 // Hive Baby
 babyRemoveFunctionMap.set(40, () => {
-  // Remove all of the Blue Flies and Blue Spiders
-  for (const entity of Isaac.GetRoomEntities()) {
-    if (
-      entity.Type === EntityType.ENTITY_FAMILIAR &&
-      (entity.Variant === FamiliarVariant.BLUE_FLY ||
-        entity.Variant === FamiliarVariant.BLUE_SPIDER)
-    ) {
-      entity.Remove();
-    }
-  }
+  removeAllMatchingEntities(
+    EntityType.ENTITY_FAMILIAR,
+    FamiliarVariant.BLUE_SPIDER,
+  );
+  removeAllMatchingEntities(
+    EntityType.ENTITY_FAMILIAR,
+    FamiliarVariant.BLUE_SPIDER,
+  );
 });
 
 // Zombie Baby
@@ -66,29 +59,17 @@ babyRemoveFunctionMap.set(163, () => {
   // Make sure that the fade is removed
   // (or else it will persist to the next character)
   const color = g.p.GetColor();
-  const newColor = Color(
-    color.R,
-    color.G,
-    color.B,
-    1,
-    color.RO,
-    color.GO,
-    color.BO,
-  );
+  const newColor = copyColor(color);
+  newColor.A = 1;
   g.p.SetColor(newColor, 0, 0, true, true);
 });
 
 // Sick Baby
 babyRemoveFunctionMap.set(187, () => {
-  // Remove all of the explosive Blue Flies
-  for (const entity of Isaac.GetRoomEntities()) {
-    if (
-      entity.Type === EntityType.ENTITY_FAMILIAR &&
-      entity.Variant === FamiliarVariant.BLUE_FLY
-    ) {
-      entity.Remove();
-    }
-  }
+  removeAllMatchingEntities(
+    EntityType.ENTITY_FAMILIAR,
+    FamiliarVariant.BLUE_FLY,
+  );
 });
 
 // Isaac Baby
@@ -151,12 +132,8 @@ babyRemoveFunctionMap.set(515, () => {
 // Rotten Baby
 babyRemoveFunctionMap.set(533, () => {
   // Remove all of the Blue Flies
-  for (const entity of Isaac.GetRoomEntities()) {
-    if (
-      entity.Type === EntityType.ENTITY_FAMILIAR &&
-      entity.Variant === FamiliarVariant.BLUE_FLY
-    ) {
-      entity.Remove();
-    }
-  }
+  removeAllMatchingEntities(
+    EntityType.ENTITY_FAMILIAR,
+    FamiliarVariant.BLUE_FLY,
+  );
 });
