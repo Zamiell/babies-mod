@@ -5,7 +5,6 @@ import {
   getRandomInt,
   getRandomRune,
   getRoomIndex,
-  isCard,
   nextSeed,
   openAllDoors,
   removeCollectibleFromItemTracker,
@@ -1368,11 +1367,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
     do {
       g.run.randomSeed = nextSeed(g.run.randomSeed);
       card = getRandomCard(g.run.randomSeed);
-    } while (
-      // Reroll the effect under certain conditions
-      !isCard(card) ||
-      card === Card.CARD_SUICIDE_KING
-    );
+    } while (card === Card.CARD_SUICIDE_KING);
 
     player.UseCard(card);
   },
