@@ -83,12 +83,12 @@ export function getRandomOffsetPosition(
 export function getRandomCollectibleTypeFromPool(
   itemPoolType: ItemPoolType,
 ): int {
-  g.run.room.RNG = nextSeed(g.run.room.RNG);
+  g.run.room.seed = nextSeed(g.run.room.seed);
   g.run.babyBool = true;
   const collectibleType = g.itemPool.GetCollectible(
     itemPoolType,
     true,
-    g.run.room.RNG,
+    g.run.room.seed,
   );
   g.run.babyBool = false;
 

@@ -15,13 +15,6 @@ export function main(): void {
     `MC_POST_NEW_LEVEL - ${stage}.${stageType} (game frame ${gameFrameCount})`,
   );
 
-  // Racing+ has a feature to remove duplicate rooms,
-  // so it may reseed the floor immediately upon reaching it
-  // If so, we don't want to do anything, since this isn't really a new level
-  if (gameFrameCount !== 0 && gameFrameCount === g.run.level.stageFrame) {
-    return;
-  }
-
   // Reset floor-related variables
   g.run.level = new GlobalsRunLevel(stage, stageType, gameFrameCount);
 

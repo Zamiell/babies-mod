@@ -23,7 +23,7 @@ export class Globals {
   };
 
   // Variables per-run
-  run = new GlobalsRun(0);
+  run = new GlobalsRun();
 
   // A list of all the babies
   babies = BABIES;

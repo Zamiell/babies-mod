@@ -216,7 +216,7 @@ postNewRoomBabyFunctionMap.set(181, () => {
   if (
     g.r.GetType() === RoomType.ROOM_DUNGEON &&
     // We want to be able to backtrack from a Black Market to a Crawlspace
-    g.run.room.lastRoomIndex !== GridRooms.ROOM_BLACK_MARKET_IDX
+    g.l.GetPreviousRoomIndex() !== GridRooms.ROOM_BLACK_MARKET_IDX
   ) {
     teleport(
       GridRooms.ROOM_BLACK_MARKET_IDX,
@@ -372,7 +372,7 @@ postNewRoomBabyFunctionMap.set(216, () => {
           Vector.Zero,
           undefined,
           itemID,
-          g.run.room.RNG,
+          g.run.room.seed,
         )
         .ToPickup();
       if (pedestal !== undefined) {
@@ -487,11 +487,11 @@ postNewRoomBabyFunctionMap.set(287, () => {
   }
 
   // All special rooms are Devil Rooms
-  g.run.room.RNG = nextSeed(g.run.room.RNG);
+  g.run.room.seed = nextSeed(g.run.room.seed);
   const collectibleType = g.itemPool.GetCollectible(
     ItemPoolType.POOL_DEVIL,
     true,
-    g.run.room.RNG,
+    g.run.room.seed,
   );
   const position = gridToPos(6, 4);
   const pedestal = g.g
@@ -502,7 +502,7 @@ postNewRoomBabyFunctionMap.set(287, () => {
       Vector.Zero,
       undefined,
       collectibleType,
-      g.run.room.RNG,
+      g.run.room.seed,
     )
     .ToPickup();
   if (pedestal !== undefined) {
@@ -521,7 +521,7 @@ postNewRoomBabyFunctionMap.set(287, () => {
     } else {
       pos = gridToPos(9, 1);
     }
-    g.run.room.RNG = nextSeed(g.run.room.RNG);
+    g.run.room.seed = nextSeed(g.run.room.seed);
     g.g.Spawn(
       EntityType.ENTITY_FIREPLACE,
       0,
@@ -529,7 +529,7 @@ postNewRoomBabyFunctionMap.set(287, () => {
       Vector.Zero,
       undefined,
       0,
-      g.run.room.RNG,
+      g.run.room.seed,
     );
   }
 });

@@ -37,7 +37,7 @@ export function main(): void {
   }
 
   // Reset room-related variables
-  g.run.room = new GlobalsRunRoom(roomIndex, roomClear, roomSeed);
+  g.run.room = new GlobalsRunRoom(roomClear, roomSeed);
 
   // Reset baby-specific variables
   g.run.babyCountersRoom = 0;

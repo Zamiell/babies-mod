@@ -233,11 +233,11 @@ postPickupUpdateBabyFunctionMap.set(287, (pickup: EntityPickup) => {
   ) {
     // Rerolled items turn into hearts since this is a not an actual Devil Room,
     // so delete the heart and manually create another pedestal item
-    g.run.room.RNG = nextSeed(g.run.room.RNG);
+    g.run.room.seed = nextSeed(g.run.room.seed);
     const collectibleType = g.itemPool.GetCollectible(
       ItemPoolType.POOL_DEVIL,
       true,
-      g.run.room.RNG,
+      g.run.room.seed,
     );
     const pedestal = g.g
       .Spawn(
@@ -381,7 +381,7 @@ postPickupUpdateBabyFunctionMap.set(537, (pickup: EntityPickup) => {
     pickup.SubType === HeartSubType.HEART_FULL &&
     pickup.Price === 3
   ) {
-    g.run.room.RNG = nextSeed(g.run.room.RNG);
+    g.run.room.seed = nextSeed(g.run.room.seed);
     const pedestal = g.g
       .Spawn(
         EntityType.ENTITY_PICKUP,
@@ -390,7 +390,7 @@ postPickupUpdateBabyFunctionMap.set(537, (pickup: EntityPickup) => {
         Vector.Zero,
         undefined,
         0,
-        g.run.room.RNG,
+        g.run.room.seed,
       )
       .ToPickup();
     if (pedestal !== undefined) {

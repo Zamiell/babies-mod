@@ -20,10 +20,10 @@ export class GlobalsRun {
   // Tracking per level
   // We start at stage 0 instead of stage 1 so that we can trigger the PostNewRoom callback after
   // the PostNewLevel callback
-  level = new GlobalsRunLevel(0, 0, 0);
+  level = new GlobalsRunLevel();
 
   // Tracking per room
-  room = new GlobalsRunRoom(0, true, 0);
+  room = new GlobalsRunRoom();
 
   // Temporary variables
   reloadSprite = false;
@@ -52,7 +52,7 @@ export class GlobalsRun {
   clockworkAssembly = false;
   flockOfSuccubi = false;
 
-  constructor(randomSeed: number) {
+  constructor(randomSeed = Random()) {
     this.randomSeed = randomSeed;
   }
 }
