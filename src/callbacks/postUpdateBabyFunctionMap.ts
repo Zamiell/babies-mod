@@ -1,4 +1,6 @@
 import {
+  GAME_FRAMES_PER_SECOND,
+  getRandomInt,
   getRoomIndex,
   isActionPressedOnAnyInput,
   nextSeed,
@@ -204,8 +206,12 @@ postUpdateBabyFunctionMap.set(63, () => {
   if (gameFrameCount % 150 === 0) {
     // Spawn a random poop
     g.run.randomSeed = nextSeed(g.run.randomSeed);
-    math.randomseed(g.run.randomSeed);
-    const poopVariant = math.random(0, 6);
+    const poopVariant: PoopGridEntityVariant = getRandomInt(
+      PoopGridEntityVariant.NORMAL,
+      PoopGridEntityVariant.WHITE,
+      g.run.randomSeed,
+    );
+
     if (
       poopVariant === PoopGridEntityVariant.RED ||
       poopVariant === PoopGridEntityVariant.CORN
@@ -214,9 +220,9 @@ postUpdateBabyFunctionMap.set(63, () => {
       // so give them some invulnerability frames
       g.run.invulnerabilityFrame = gameFrameCount + 25;
     }
+
     Isaac.GridSpawn(GridEntityType.GRID_POOP, poopVariant, g.p.Position, false);
 
-    // Playing "SoundEffect.SOUND_FART" will randomly play one of the three farting sound effects
     g.sfx.Play(SoundEffect.SOUND_FART);
   }
 });
@@ -394,13 +400,16 @@ postUpdateBabyFunctionMap.set(128, () => {
 
   // Get N unique random indexes
   const randomFloorIndexes: int[] = [];
-  for (let i = 1; i <= baby.num; i++) {
+  for (let i = 0; i < baby.num; i++) {
     // eslint-disable-next-line no-constant-condition
     while (true) {
       // Get a random room index on the floor
       g.run.randomSeed = nextSeed(g.run.randomSeed);
-      math.randomseed(g.run.randomSeed);
-      const randomIndex = math.random(0, floorIndexes.length - 1);
+      const randomIndex = getRandomInt(
+        0,
+        floorIndexes.length - 1,
+        g.run.randomSeed,
+      );
       const randomFloorIndex = floorIndexes[randomIndex];
 
       // Check to see if this is one of the indexes that we are already warping to
@@ -1104,15 +1113,15 @@ postUpdateBabyFunctionMap.set(351, () => {
 // Pink Princess Baby
 postUpdateBabyFunctionMap.set(374, () => {
   const gameFrameCount = g.g.GetFrameCount();
+  const randomPosition = Isaac.GetRandomPosition();
 
-  if (gameFrameCount % 120 === 0) {
-    // 4 second
+  if (gameFrameCount % (GAME_FRAMES_PER_SECOND * 4) === 0) {
     // Spawn a random stomp
     Isaac.Spawn(
       EntityType.ENTITY_EFFECT,
       EffectVariant.MOM_FOOT_STOMP,
       0,
-      Isaac.GetRandomPosition(),
+      randomPosition,
       Vector.Zero,
       undefined,
     );
@@ -1123,8 +1132,7 @@ postUpdateBabyFunctionMap.set(374, () => {
 postUpdateBabyFunctionMap.set(382, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
-  // Every 5 seconds
-  if (gameFrameCount % 150 === 0) {
+  if (gameFrameCount % (GAME_FRAMES_PER_SECOND * 5) === 0) {
     // Spawn a Mega Troll Bomb
     Isaac.Spawn(
       EntityType.ENTITY_BOMB,
@@ -1211,9 +1219,7 @@ postUpdateBabyFunctionMap.set(396, () => {
 postUpdateBabyFunctionMap.set(401, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
-  // Every 1.5 seconds
-  if (gameFrameCount % 45 === 0) {
-    // Spawn a Fly
+  if (gameFrameCount % (GAME_FRAMES_PER_SECOND * 1.5) === 0) {
     Isaac.Spawn(
       EntityType.ENTITY_FLY,
       0,
@@ -1324,8 +1330,7 @@ postUpdateBabyFunctionMap.set(474, () => {
 postUpdateBabyFunctionMap.set(485, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
-  if (gameFrameCount % 30 === 0) {
-    // 1 second
+  if (gameFrameCount % GAME_FRAMES_PER_SECOND === 0) {
     // Spawn a random rocket target
     const target = Isaac.Spawn(
       EntityType.ENTITY_EFFECT,

@@ -1,3 +1,4 @@
+import { GAME_FRAMES_PER_SECOND } from "isaacscript-common";
 import g from "../globals";
 import { EffectVariantCustom } from "../types/enums";
 import { getCurrentBaby } from "../util";
@@ -108,7 +109,7 @@ postEffectUpdateBabyFunctionMap.set(281, (effect: EntityEffect) => {
 postEffectUpdateBabyFunctionMap.set(485, (effect: EntityEffect) => {
   if (
     effect.Variant === EffectVariantCustom.FETUS_BOSS_TARGET &&
-    effect.FrameCount === 30 // 1 second
+    effect.FrameCount === GAME_FRAMES_PER_SECOND
   ) {
     const rocket = Isaac.Spawn(
       EntityType.ENTITY_EFFECT,

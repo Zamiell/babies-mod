@@ -1,4 +1,4 @@
-import { log, nextSeed } from "isaacscript-common";
+import { getRandomArrayIndex, log, nextSeed } from "isaacscript-common";
 import { babyAdd } from "../babyAdd";
 import { babyCheckValid } from "../babyCheckValid";
 import { babyRemove } from "../babyRemove";
@@ -71,10 +71,7 @@ function getNewBaby() {
   do {
     i += 1;
     seed = nextSeed(seed);
-    math.randomseed(seed);
-
-    // Get a random index for the "babies" array
-    babyType = math.random(0, g.babies.length - 1);
+    babyType = getRandomArrayIndex(g.babies, seed);
 
     // Don't randomly choose a co-op baby if we are choosing a specific one for debugging purposes
     if (g.debugBabyNum !== null) {

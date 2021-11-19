@@ -26,8 +26,7 @@ export function getRandomOffsetPosition(
   offsetSize: int,
   seed: int,
 ): Vector {
-  math.randomseed(seed);
-  const offsetDirection = math.random(1, 4);
+  const offsetDirection = getRandomInt(0, 3, seed);
 
   let offsetX: int;
   let offsetY: int;

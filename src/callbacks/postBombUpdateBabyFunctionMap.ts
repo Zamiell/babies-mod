@@ -1,6 +1,7 @@
 import {
   addRoomClearCharge,
   BOMB_EXPLODE_FRAME,
+  getRandom,
   nextSeed,
 } from "isaacscript-common";
 import g from "../globals";
@@ -16,12 +17,11 @@ postBombUpdateBabyFunctionMap.set(75, (bomb: EntityBomb) => {
   // 50% chance for bombs to have the D6 effect
   if (
     bomb.SpawnerType === EntityType.ENTITY_PLAYER &&
-    bomb.FrameCount === 51 // Bombs explode on the 51st frame exactly
+    bomb.FrameCount === BOMB_EXPLODE_FRAME
   ) {
     g.run.room.RNG = nextSeed(g.run.room.RNG);
-    math.randomseed(g.run.room.RNG);
-    const d6chance = math.random(1, 2);
-    if (d6chance === 2) {
+    const d6chance = getRandom(g.run.room.RNG);
+    if (d6chance <= 0.5) {
       g.p.UseActiveItem(
         CollectibleType.COLLECTIBLE_D6,
         false,
@@ -51,7 +51,7 @@ postBombUpdateBabyFunctionMap.set(211, (bomb: EntityBomb) => {
   // Shockwave bombs
   if (
     bomb.SpawnerType === EntityType.ENTITY_PLAYER &&
-    bomb.FrameCount === 51 // Bombs explode on the 51st frame exactly
+    bomb.FrameCount === BOMB_EXPLODE_FRAME
   ) {
     for (let i = 0; i < 4; i++) {
       let velocity: Vector;
@@ -115,7 +115,7 @@ postBombUpdateBabyFunctionMap.set(284, (bomb: EntityBomb) => {
 postBombUpdateBabyFunctionMap.set(344, (bomb: EntityBomb) => {
   if (
     bomb.SpawnerType === EntityType.ENTITY_PLAYER &&
-    bomb.FrameCount === 51 // Bombs explode on the 51st frame exactly
+    bomb.FrameCount === BOMB_EXPLODE_FRAME
   ) {
     g.r.MamaMegaExplossion();
   }

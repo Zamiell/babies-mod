@@ -1,5 +1,11 @@
 import {
+  getRandom,
+  getRandomCard,
+  getRandomHeartSubType,
+  getRandomInt,
+  getRandomRune,
   getRoomIndex,
+  isCard,
   nextSeed,
   openAllDoors,
   removeCollectibleFromItemTracker,
@@ -184,15 +190,15 @@ entityTakeDmgPlayerBabyFunctionMap.set(
   ) => {
     // Spawns a random heart on hit
     g.run.randomSeed = nextSeed(g.run.randomSeed);
-    math.randomseed(g.run.randomSeed);
-    const heartSubType = math.random(1, 11); // From "Heart" to "Bone Heart"
-    Isaac.Spawn(
+    const heartSubType = getRandomHeartSubType(g.run.randomSeed);
+    g.g.Spawn(
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_HEART,
-      heartSubType,
       player.Position,
       Vector.Zero,
       player,
+      heartSubType,
+      g.run.randomSeed,
     );
   },
 );
@@ -476,10 +482,10 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 
     player.AddCoins(-99);
     for (let i = 1; i <= coins; i++) {
-      // Spawn a Penny
-      let velocity = player.Position.sub(Isaac.GetRandomPosition());
+      const randomPosition = Isaac.GetRandomPosition();
+      let velocity = player.Position.sub(randomPosition);
       velocity = velocity.Normalized();
-      const modifier = math.random(4, 20);
+      const modifier = getRandomInt(4, 20);
       velocity = velocity.mul(modifier);
       const coin = Isaac.Spawn(
         EntityType.ENTITY_PICKUP,
@@ -841,7 +847,6 @@ entityTakeDmgPlayerBabyFunctionMap.set(
     _damageSource,
     _damageCountdownFrames,
   ) => {
-    // Stars Card
     Isaac.Spawn(
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_TAROTCARD,
@@ -937,9 +942,8 @@ entityTakeDmgPlayerBabyFunctionMap.set(
   ) => {
     // 0.5x speed + 50% chance to ignore damage
     g.run.randomSeed = nextSeed(g.run.randomSeed);
-    math.randomseed(g.run.randomSeed);
-    const avoidChance = math.random(1, 2);
-    if (avoidChance === 2) {
+    const avoidChance = getRandom(g.run.randomSeed);
+    if (avoidChance <= 0.5) {
       return false;
     }
 
@@ -1301,11 +1305,14 @@ entityTakeDmgPlayerBabyFunctionMap.set(
     _damageCountdownFrames,
   ) => {
     // Random pill effect on hit
-    let pillEffect = -1;
+    let pillEffect: PillEffect;
     do {
       g.run.randomSeed = nextSeed(g.run.randomSeed);
-      math.randomseed(g.run.randomSeed);
-      pillEffect = math.random(0, PillEffect.NUM_PILL_EFFECTS - 1);
+      pillEffect = getRandomInt(
+        0,
+        PillEffect.NUM_PILL_EFFECTS - 1,
+        g.run.randomSeed,
+      );
     } while (
       // Reroll the pill effect if it is a pill that Racing+ removes
       pillEffect === PillEffect.PILLEFFECT_AMNESIA || // 25
@@ -1357,18 +1364,17 @@ entityTakeDmgPlayerBabyFunctionMap.set(
     _damageCountdownFrames,
   ) => {
     // Random card effect on hit
-    let cardType = -1;
+    let card: Card;
     do {
       g.run.randomSeed = nextSeed(g.run.randomSeed);
-      math.randomseed(g.run.randomSeed);
-      cardType = math.random(1, 54);
+      card = getRandomCard(g.run.randomSeed);
     } while (
-      // Reroll the effect if it is a rune effect or Suicide
-      (cardType >= Card.RUNE_HAGALAZ && cardType <= Card.RUNE_BLACK) ||
-      cardType === Card.CARD_SUICIDE_KING
+      // Reroll the effect under certain conditions
+      !isCard(card) ||
+      card === Card.CARD_SUICIDE_KING
     );
 
-    player.UseCard(cardType);
+    player.UseCard(card);
   },
 );
 
@@ -1384,15 +1390,14 @@ entityTakeDmgPlayerBabyFunctionMap.set(
   ) => {
     // Spawns a random rune on hit
     g.run.randomSeed = nextSeed(g.run.randomSeed);
-    math.randomseed(g.run.randomSeed);
-    const runeSubType = math.random(Card.RUNE_HAGALAZ, Card.RUNE_BLACK);
+    const rune = getRandomRune(g.run.randomSeed);
     g.g.Spawn(
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_TAROTCARD,
       player.Position,
       Vector.Zero,
       player,
-      runeSubType,
+      rune,
       g.run.randomSeed,
     );
   },

@@ -1,4 +1,4 @@
-import { addRoomClearCharge } from "isaacscript-common";
+import { addRoomClearCharge, getRandomHeartSubType } from "isaacscript-common";
 import g from "./globals";
 
 export const roomClearedBabyFunctionMap = new Map<int, () => void>();
@@ -6,17 +6,17 @@ export const roomClearedBabyFunctionMap = new Map<int, () => void>();
 // Love Baby
 roomClearedBabyFunctionMap.set(1, () => {
   const roomSeed = g.r.GetSpawnSeed();
-  math.randomseed(roomSeed);
-  const heartSubType = math.random(1, 11); // From "Heart" to "Bone Heart"
+  const heartSubType = getRandomHeartSubType(roomSeed);
 
   // Random Heart
-  Isaac.Spawn(
+  g.g.Spawn(
     EntityType.ENTITY_PICKUP,
     PickupVariant.PICKUP_HEART,
-    heartSubType,
     g.p.Position,
     Vector.Zero,
     g.p,
+    heartSubType,
+    roomSeed,
   );
 });
 

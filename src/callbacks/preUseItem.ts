@@ -54,7 +54,6 @@ function poop(_collectibleType: number, _rng: RNG) {
     false,
   );
 
-  // Playing "SoundEffect.SOUND_FART" will randomly play one of the three farting sound effects
   g.sfx.Play(SoundEffect.SOUND_FART);
 
   return true; // Cancel the original effect

@@ -1,3 +1,4 @@
+import { getRandomInt } from "isaacscript-common";
 import g from "../globals";
 import { TearData } from "../types/TearData";
 import { getCurrentBaby } from "../util";
@@ -42,11 +43,10 @@ postFireTearBabyFunctionMap.set(8, (tear: EntityTear) => {
 
   // Spawn a new tear with a random velocity
   const seed = tear.GetDropRNG().GetSeed();
-  math.randomseed(seed);
-  const rotation = math.random(1, 359);
-  const vel = tear.Velocity.Rotated(rotation);
+  const rotation = getRandomInt(0, 359, seed);
+  const velocity = tear.Velocity.Rotated(rotation);
   g.run.babyBool = true;
-  g.p.FireTear(g.p.Position, vel, false, true, false);
+  g.p.FireTear(g.p.Position, velocity, false, true, false);
   g.run.babyBool = false;
 });
 
@@ -142,8 +142,8 @@ postFireTearBabyFunctionMap.set(106, (tear: EntityTear) => {
   // (we store the rotation angle inside the "babyCounters" variable)
   g.run.babyCounters += 45;
   if (g.run.babyCounters < 360) {
-    const vel = tear.Velocity.Rotated(g.run.babyCounters);
-    g.p.FireTear(g.p.Position, vel, false, true, false);
+    const velocity = tear.Velocity.Rotated(g.run.babyCounters);
+    g.p.FireTear(g.p.Position, velocity, false, true, false);
   } else {
     g.run.babyCounters = 0;
   }
@@ -632,8 +632,8 @@ postFireTearBabyFunctionMap.set(539, (tear: EntityTear) => {
   // (we store the rotation angle in the "babyCounters" variable)
   g.run.babyCounters += 90;
   if (g.run.babyCounters < 360) {
-    const vel = tear.Velocity.Rotated(g.run.babyCounters);
-    g.p.FireTear(g.p.Position, vel, false, true, false);
+    const velocity = tear.Velocity.Rotated(g.run.babyCounters);
+    g.p.FireTear(g.p.Position, velocity, false, true, false);
   } else {
     g.run.babyCounters = 0;
   }
