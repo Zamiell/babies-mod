@@ -1,4 +1,9 @@
-import { getCollectibleDevilHeartPrice, nextSeed } from "isaacscript-common";
+import {
+  copyColor,
+  GAME_FRAMES_PER_SECOND,
+  getCollectibleDevilHeartPrice,
+  nextSeed,
+} from "isaacscript-common";
 import g from "../globals";
 
 export const postPickupUpdateBabyFunctionMap = new Map<
@@ -127,16 +132,18 @@ postPickupUpdateBabyFunctionMap.set(177, (pickup: EntityPickup) => {
     return;
   }
 
+  const sprite = pickup.GetSprite();
+  const collected = sprite.IsPlaying("Collect");
   const data = pickup.GetData();
+
   if (
-    data.touched !== undefined || // Don't mess with coins anymore after we have picked them up
+    !collected || // Don't mess with coins anymore after we have picked them up
     data.recovery === undefined // We only want to target manually spawned coins
   ) {
     return;
   }
 
-  const sprite = pickup.GetSprite();
-  if (pickup.FrameCount <= 60) {
+  if (pickup.FrameCount <= 2 * GAME_FRAMES_PER_SECOND) {
     // Make it impossible for the player to pick up this pickup
     if (pickup.EntityCollisionClass !== EntityCollisionClass.ENTCOLL_NONE) {
       pickup.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE;
@@ -155,9 +162,7 @@ postPickupUpdateBabyFunctionMap.set(177, (pickup: EntityPickup) => {
     }
   } else {
     // The coin has been spawned for a while, so set the collision back to normal
-    if (pickup.EntityCollisionClass !== EntityCollisionClass.ENTCOLL_ALL) {
-      pickup.EntityCollisionClass = EntityCollisionClass.ENTCOLL_ALL;
-    }
+    pickup.EntityCollisionClass = EntityCollisionClass.ENTCOLL_ALL;
 
     // Stop the custom "Blink" animation
     if (!sprite.IsPlaying("Idle")) {
@@ -170,15 +175,8 @@ postPickupUpdateBabyFunctionMap.set(177, (pickup: EntityPickup) => {
     if (fadeAmount <= 0) {
       pickup.Remove();
     } else {
-      const newColor = Color(
-        color.R,
-        color.G,
-        color.B,
-        fadeAmount,
-        color.RO,
-        color.GO,
-        color.BO,
-      );
+      const newColor = copyColor(color);
+      newColor.A = fadeAmount;
       pickup.SetColor(newColor, 0, 0, true, true);
     }
   }
@@ -350,10 +348,13 @@ postPickupUpdateBabyFunctionMap.set(381, (pickup: EntityPickup) => {
 
 // Cowboy Baby
 postPickupUpdateBabyFunctionMap.set(394, (pickup: EntityPickup) => {
+  const sprite = pickup.GetSprite();
+  const collected = sprite.IsPlaying("Collect");
+
   // Pickups shoot
   if (
     pickup.FrameCount % 35 === 0 && // Every 1.17 seconds
-    !pickup.GetSprite().IsPlaying("Collect") // Don't shoot if we already picked it up
+    !collected // Don't shoot if we already picked it up
   ) {
     let velocity = g.p.Position.sub(pickup.Position);
     velocity = velocity.Normalized();

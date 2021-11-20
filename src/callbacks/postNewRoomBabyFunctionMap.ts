@@ -1,6 +1,9 @@
 import {
   getCollectibleDevilHeartPrice,
+  getDoors,
+  getEntities,
   getFamiliars,
+  getNPCs,
   getRoomVariant,
   gridToPos,
   log,
@@ -9,8 +12,10 @@ import {
   removeAllMatchingEntities,
   teleport,
 } from "isaacscript-common";
+import { KRAMPUS_ROOM_VARIANTS } from "../constants";
 import g from "../globals";
 import { CollectibleTypeCustom } from "../types/enums";
+import { useActiveItem } from "../util";
 
 export const postNewRoomBabyFunctionMap = new Map<int, () => void>();
 
@@ -24,13 +29,7 @@ function noHealth() {
   if (
     (roomType === RoomType.ROOM_DEVIL || // 14
       roomType === RoomType.ROOM_BLACK_MARKET) && // 22
-    roomVariant !== 2300 && // Krampus
-    roomVariant !== 2301 && // Krampus
-    roomVariant !== 2302 && // Krampus
-    roomVariant !== 2303 && // Krampus
-    roomVariant !== 2304 && // Krampus
-    roomVariant !== 2305 && // Krampus
-    roomVariant !== 2306 // Krampus
+    !KRAMPUS_ROOM_VARIANTS.has(roomVariant)
   ) {
     g.l.RemoveCurses(LevelCurse.CURSE_OF_THE_UNKNOWN);
   } else {
@@ -83,25 +82,19 @@ postNewRoomBabyFunctionMap.set(15, () => {
 postNewRoomBabyFunctionMap.set(30, () => {
   // Sprinkler tears
   g.run.babyBool = true;
-  g.p.UseActiveItem(
-    CollectibleType.COLLECTIBLE_SPRINKLER,
-    false,
-    false,
-    false,
-    false,
-  );
+  useActiveItem(g.p, CollectibleType.COLLECTIBLE_SPRINKLER);
 });
 
 // Zombie Baby
 postNewRoomBabyFunctionMap.set(61, () => {
-  for (const entity of Isaac.GetRoomEntities()) {
+  for (const entity of getEntities()) {
     if (entity.HasEntityFlags(EntityFlag.FLAG_FRIENDLY)) {
       if (entity.Type === EntityType.ENTITY_BOIL) {
         // Delete Boils, because they are supposed to be rooted to the spot
         // and will look very buggy if they are moved
         entity.Remove();
       } else {
-        // Teleport all friendly enemies to where the player is
+        // Teleport all friendly entities to where the player is
         entity.Position = g.p.Position;
       }
     }
@@ -175,13 +168,7 @@ postNewRoomBabyFunctionMap.set(141, () => {
   } else {
     // We are entering a new room
     g.run.babyBool = true;
-    g.p.UseActiveItem(
-      CollectibleType.COLLECTIBLE_TELEPORT_2,
-      false,
-      false,
-      false,
-      false,
-    );
+    useActiveItem(g.p, CollectibleType.COLLECTIBLE_TELEPORT_2);
   }
 });
 
@@ -196,7 +183,8 @@ postNewRoomBabyFunctionMap.set(149, () => {
   }
 
   // Improved Super Secret Rooms
-  for (let i = 0; i < 5; i++) {
+  const numSpawnedCollectibles = 5;
+  for (let i = 0; i < numSpawnedCollectibles; i++) {
     const position = g.r.FindFreePickupSpawnPosition(center, 1, true);
     g.run.randomSeed = nextSeed(g.run.randomSeed);
     g.g.Spawn(
@@ -389,13 +377,7 @@ postNewRoomBabyFunctionMap.set(242, () => {
   const startingRoomIndex = g.l.GetStartingRoomIndex();
 
   if (currentRoomIndex !== startingRoomIndex) {
-    g.p.UseActiveItem(
-      CollectibleType.COLLECTIBLE_D10,
-      false,
-      false,
-      false,
-      false,
-    );
+    useActiveItem(g.p, CollectibleType.COLLECTIBLE_D10);
   }
 });
 
@@ -412,25 +394,25 @@ postNewRoomBabyFunctionMap.set(249, () => {
   }
 
   // Replace all of the existing enemies with the stored one
-  for (const entity of Isaac.GetRoomEntities()) {
-    const npc = entity.ToNPC();
+  for (const npc of getNPCs()) {
+    // Make an exception for certain NPCs
     if (
-      npc !== undefined &&
-      // Make an exception for certain NPCs
-      npc.Type !== EntityType.ENTITY_SHOPKEEPER && // 17
-      npc.Type !== EntityType.ENTITY_FIREPLACE // 33
+      npc.Type === EntityType.ENTITY_SHOPKEEPER || // 17
+      npc.Type === EntityType.ENTITY_FIREPLACE // 33
     ) {
-      g.g.Spawn(
-        g.run.babyNPC.type,
-        g.run.babyNPC.variant,
-        npc.Position,
-        npc.Velocity,
-        undefined,
-        g.run.babyNPC.subType,
-        npc.InitSeed,
-      );
-      npc.Remove();
+      continue;
     }
+
+    g.g.Spawn(
+      g.run.babyNPC.type,
+      g.run.babyNPC.variant,
+      npc.Position,
+      npc.Velocity,
+      undefined,
+      g.run.babyNPC.subType,
+      npc.InitSeed,
+    );
+    npc.Remove();
   }
 });
 
@@ -559,13 +541,8 @@ postNewRoomBabyFunctionMap.set(351, () => {
   // Coin doors in uncleared rooms
   // If the player leaves and re-enters an uncleared room, a normal door will stay locked
   // So, unlock all normal doors if the room is already clear
-  for (let i = 0; i <= 7; i++) {
-    const door = g.r.GetDoor(i);
-    if (
-      door !== undefined &&
-      door.TargetRoomType === RoomType.ROOM_DEFAULT &&
-      door.IsLocked()
-    ) {
+  for (const door of getDoors()) {
+    if (door.TargetRoomType === RoomType.ROOM_DEFAULT && door.IsLocked()) {
       door.TryUnlock(player, true); // This has to be forced
     }
   }

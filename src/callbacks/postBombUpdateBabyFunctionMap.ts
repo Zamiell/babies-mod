@@ -5,7 +5,7 @@ import {
   nextSeed,
 } from "isaacscript-common";
 import g from "../globals";
-import { getRandomOffsetPosition } from "../util";
+import { getRandomOffsetPosition, useActiveItem } from "../util";
 
 export const postBombUpdateBabyFunctionMap = new Map<
   int,
@@ -22,13 +22,7 @@ postBombUpdateBabyFunctionMap.set(75, (bomb: EntityBomb) => {
     g.run.room.seed = nextSeed(g.run.room.seed);
     const d6chance = getRandom(g.run.room.seed);
     if (d6chance <= 0.5) {
-      g.p.UseActiveItem(
-        CollectibleType.COLLECTIBLE_D6,
-        false,
-        false,
-        false,
-        false,
-      );
+      useActiveItem(g.p, CollectibleType.COLLECTIBLE_D6);
     }
   }
 });

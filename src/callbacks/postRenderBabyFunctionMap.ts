@@ -3,11 +3,8 @@ import {
   getHUDOffsetVector,
   getRoomVariant,
 } from "isaacscript-common";
+import { KRAMPUS_ROOM_VARIANTS } from "../constants";
 import g from "../globals";
-
-const KRAMPUS_ROOM_VARIANTS = new Set([
-  2300, 2301, 2302, 2303, 2304, 2305, 2306,
-]);
 
 export const postRenderBabyFunctionMap = new Map<int, () => void>();
 

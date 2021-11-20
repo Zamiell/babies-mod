@@ -1,6 +1,7 @@
 import {
   GAME_FRAMES_PER_SECOND,
   getFamiliars,
+  getGridEntities,
   getRoomIndex,
   getTrinkets,
   log,
@@ -10,7 +11,7 @@ import {
 import g from "../globals";
 import { roomClearedBabyFunctionMap } from "../roomClearedBabyFunctionMap";
 import { BabyDescription } from "../types/BabyDescription";
-import { getCurrentBaby, spawnRandomPickup } from "../util";
+import { getCurrentBaby, spawnRandomPickup, useActiveItem } from "../util";
 import * as postRender from "./postRender";
 import { postUpdateBabyFunctionMap } from "./postUpdateBabyFunctionMap";
 
@@ -210,7 +211,6 @@ function roomCleared() {
 // On certain babies, destroy all poops and TNT barrels after a certain amount of time
 function checkSoftlockDestroyPoops() {
   const roomFrameCount = g.r.GetFrameCount();
-  const gridSize = g.r.GetGridSize();
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
@@ -227,8 +227,8 @@ function checkSoftlockDestroyPoops() {
   }
 
   // Check to see if they have been in the room long enough
-  if (roomFrameCount < 450) {
-    // 15 seconds
+  const secondsThreshold = 15;
+  if (roomFrameCount < secondsThreshold * GAME_FRAMES_PER_SECOND) {
     return;
   }
 
@@ -237,18 +237,14 @@ function checkSoftlockDestroyPoops() {
 
   // Kill some grid entities in the room to prevent softlocks in some specific rooms
   // (fireplaces will not cause softlocks since they are killable with The Candle)
-  for (let i = 1; i <= gridSize; i++) {
-    const gridEntity = g.r.GetGridEntity(i);
-    if (gridEntity !== undefined) {
-      const saveState = gridEntity.GetSaveState();
-      if (
-        saveState.Type === GridEntityType.GRID_TNT || // 12
-        saveState.Type === GridEntityType.GRID_POOP // 14
-      ) {
-        gridEntity.Destroy(true);
-      }
-    }
+  const gridEntities = getGridEntities(
+    GridEntityType.GRID_TNT, // 12
+    GridEntityType.GRID_POOP, // 14
+  );
+  for (const gridEntity of gridEntities) {
+    gridEntity.Destroy(true);
   }
+
   log("Destroyed all poops & TNT barrels to prevent a softlock.");
 }
 
@@ -272,8 +268,8 @@ function checkSoftlockIsland() {
   }
 
   // Check to see if they have been in the room long enough
-  if (roomFrameCount < 900) {
-    // 30 seconds
+  const secondsThreshold = 30;
+  if (roomFrameCount < secondsThreshold * GAME_FRAMES_PER_SECOND) {
     return;
   }
 
@@ -357,13 +353,7 @@ function checkGridEntities() {
         g.p.Position.Distance(gridEntity.Position) <= 36
       ) {
         g.run.invulnerable = true;
-        g.p.UseActiveItem(
-          CollectibleType.COLLECTIBLE_KAMIKAZE,
-          false,
-          false,
-          false,
-          false,
-        );
+        useActiveItem(g.p, CollectibleType.COLLECTIBLE_KAMIKAZE);
         g.run.invulnerable = false;
         g.run.babyFrame = gameFrameCount + 10;
       }

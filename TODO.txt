@@ -1,5 +1,3 @@
 TODO:
-- do a pass through the rest of the code
-  - on src dir
 - remove input switch baby
 - do a pass of all babies to un-nerf the hard ones

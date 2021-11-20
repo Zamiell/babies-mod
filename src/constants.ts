@@ -1,5 +1,9 @@
 import { CollectibleTypeCustom } from "./types/enums";
 
+export const KRAMPUS_ROOM_VARIANTS = new Set([
+  2300, 2301, 2302, 2303, 2304, 2305, 2306,
+]);
+
 export const MOD_NAME = "The Babies Mod";
 
 export const TELEPORT_TO_ROOM_TYPE_MAP = new Map([

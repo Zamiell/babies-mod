@@ -1,9 +1,14 @@
 import {
+  copyColor,
+  DISTANCE_OF_GRID_TILE,
   GAME_FRAMES_PER_SECOND,
+  getDoors,
   getFamiliars,
+  getRandomArrayElement,
   getRandomInt,
   getRoomIndex,
   isActionPressedOnAnyInput,
+  isShootActionPressedOnAnyInput,
   nextSeed,
   teleport,
 } from "isaacscript-common";
@@ -11,7 +16,7 @@ import { TELEPORT_TO_ROOM_TYPE_MAP } from "../constants";
 import g from "../globals";
 import * as pseudoRoomClear from "../pseudoRoomClear";
 import { EffectVariantCustom } from "../types/enums";
-import { bigChestExists, getCurrentBaby } from "../util";
+import { bigChestExists, getCurrentBaby, useActiveItem } from "../util";
 import * as postRender from "./postRender";
 
 export const postUpdateBabyFunctionMap = new Map<int, () => void>();
@@ -21,7 +26,7 @@ postUpdateBabyFunctionMap.set(6, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   // Every 3 seconds
-  if (gameFrameCount % 90 === 0) {
+  if (gameFrameCount % (3 * GAME_FRAMES_PER_SECOND) === 0) {
     Isaac.Spawn(
       EntityType.ENTITY_BOMB,
       BombVariant.BOMB_TROLL,
@@ -42,14 +47,8 @@ postUpdateBabyFunctionMap.set(17, () => {
   }
 
   // Every 1 second
-  if (gameFrameCount % 30 === 0) {
-    g.p.UseActiveItem(
-      CollectibleType.COLLECTIBLE_BUTTER_BEAN,
-      false,
-      false,
-      false,
-      false,
-    );
+  if (gameFrameCount % GAME_FRAMES_PER_SECOND === 0) {
+    useActiveItem(g.p, CollectibleType.COLLECTIBLE_BUTTER_BEAN);
   }
 });
 
@@ -62,13 +61,7 @@ postUpdateBabyFunctionMap.set(19, () => {
   }
 
   if (gameFrameCount % baby.num === 0) {
-    g.p.UseActiveItem(
-      CollectibleType.COLLECTIBLE_ANARCHIST_COOKBOOK,
-      false,
-      false,
-      false,
-      false,
-    );
+    useActiveItem(g.p, CollectibleType.COLLECTIBLE_ANARCHIST_COOKBOOK);
   }
 });
 
@@ -80,13 +73,7 @@ postUpdateBabyFunctionMap.set(20, () => {
   if (gameFrameCount % 3 === 0 && g.run.babyCounters > 0) {
     // This should not cause any damage since the player will have invulnerability frames
     g.run.babyCounters -= 1;
-    g.p.UseActiveItem(
-      CollectibleType.COLLECTIBLE_KAMIKAZE,
-      false,
-      false,
-      false,
-      false,
-    );
+    useActiveItem(g.p, CollectibleType.COLLECTIBLE_KAMIKAZE);
   }
 });
 
@@ -123,20 +110,13 @@ postUpdateBabyFunctionMap.set(39, () => {
 
   // Shooting when the timer reaches 0 causes damage
   const remainingTime = g.run.babyCounters - gameFrameCount;
-  if (remainingTime <= 0) {
-    g.run.babyCounters = gameFrameCount + baby.time; // Reset the timer
+  if (remainingTime > 0) {
+    return;
+  }
 
-    for (let i = 0; i <= 3; i++) {
-      if (
-        isActionPressedOnAnyInput(ButtonAction.ACTION_SHOOTLEFT) || // 4
-        isActionPressedOnAnyInput(ButtonAction.ACTION_SHOOTRIGHT) || // 5
-        isActionPressedOnAnyInput(ButtonAction.ACTION_SHOOTUP) || // 6
-        isActionPressedOnAnyInput(ButtonAction.ACTION_SHOOTDOWN) // 7
-      ) {
-        g.p.TakeDamage(1, 0, EntityRef(g.p), 0);
-        return;
-      }
-    }
+  g.run.babyCounters = gameFrameCount + baby.time; // Reset the timer
+  if (isShootActionPressedOnAnyInput()) {
+    g.p.TakeDamage(1, 0, EntityRef(g.p), 0);
   }
 });
 
@@ -183,14 +163,8 @@ postUpdateBabyFunctionMap.set(58, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   // Every 7 seconds
-  if (gameFrameCount % 210 === 0) {
-    g.p.UseActiveItem(
-      CollectibleType.COLLECTIBLE_MONSTER_MANUAL,
-      false,
-      false,
-      false,
-      false,
-    );
+  if (gameFrameCount % (7 * GAME_FRAMES_PER_SECOND) === 0) {
+    useActiveItem(g.p, CollectibleType.COLLECTIBLE_MONSTER_MANUAL);
   }
 });
 
@@ -199,7 +173,7 @@ postUpdateBabyFunctionMap.set(63, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   // Every 5 seconds
-  if (gameFrameCount % 150 === 0) {
+  if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
     // Spawn a random poop
     g.run.randomSeed = nextSeed(g.run.randomSeed);
     const poopVariant: PoopGridEntityVariant = getRandomInt(
@@ -258,14 +232,8 @@ postUpdateBabyFunctionMap.set(96, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   // Every 5 seconds
-  if (gameFrameCount % 150 === 0) {
-    g.p.UseActiveItem(
-      CollectibleType.COLLECTIBLE_BEST_FRIEND,
-      false,
-      false,
-      false,
-      false,
-    );
+  if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
+    useActiveItem(g.p, CollectibleType.COLLECTIBLE_BEST_FRIEND);
   }
 });
 
@@ -280,7 +248,7 @@ postUpdateBabyFunctionMap.set(107, () => {
   g.run.babyBool = true;
   Isaac.Spawn(
     EntityType.ENTITY_FAMILIAR,
-    FamiliarVariant.CUBE_OF_MEAT_4, // 47
+    FamiliarVariant.CUBE_OF_MEAT_4,
     0,
     g.p.Position,
     Vector.Zero,
@@ -288,7 +256,7 @@ postUpdateBabyFunctionMap.set(107, () => {
   );
   Isaac.Spawn(
     EntityType.ENTITY_FAMILIAR,
-    FamiliarVariant.BALL_OF_BANDAGES_4, // 72
+    FamiliarVariant.BALL_OF_BANDAGES_4,
     0,
     g.p.Position,
     Vector.Zero,
@@ -338,9 +306,8 @@ postUpdateBabyFunctionMap.set(110, () => {
   }
 
   // Keep the boss room door closed
-  for (let i = 0; i <= 7; i++) {
-    const door = g.r.GetDoor(i);
-    if (door !== undefined && door.IsRoomType(RoomType.ROOM_BOSS)) {
+  for (const door of getDoors()) {
+    if (door.IsRoomType(RoomType.ROOM_BOSS)) {
       door.Bar();
     }
   }
@@ -401,12 +368,10 @@ postUpdateBabyFunctionMap.set(128, () => {
     while (true) {
       // Get a random room index on the floor
       g.run.randomSeed = nextSeed(g.run.randomSeed);
-      const randomIndex = getRandomInt(
-        0,
-        floorIndexes.length - 1,
+      const randomFloorIndex = getRandomArrayElement(
+        floorIndexes,
         g.run.randomSeed,
       );
-      const randomFloorIndex = floorIndexes[randomIndex];
 
       // Check to see if this is one of the indexes that we are already warping to
       if (randomFloorIndexes.includes(randomFloorIndex)) {
@@ -474,14 +439,8 @@ postUpdateBabyFunctionMap.set(155, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   // Every 1 second
-  if (gameFrameCount % 30 === 0) {
-    g.p.UseActiveItem(
-      CollectibleType.COLLECTIBLE_TELEKINESIS,
-      false,
-      false,
-      false,
-      false,
-    );
+  if (gameFrameCount % GAME_FRAMES_PER_SECOND === 0) {
+    useActiveItem(g.p, CollectibleType.COLLECTIBLE_TELEKINESIS);
   }
 });
 
@@ -502,14 +461,8 @@ postUpdateBabyFunctionMap.set(156, () => {
   }
 
   // Every 5 seconds
-  if (gameFrameCount % 150 === 0) {
-    g.p.UseActiveItem(
-      CollectibleType.COLLECTIBLE_MEGA_BEAN,
-      false,
-      false,
-      false,
-      false,
-    );
+  if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
+    useActiveItem(g.p, CollectibleType.COLLECTIBLE_MEGA_BEAN);
   }
 });
 
@@ -518,14 +471,8 @@ postUpdateBabyFunctionMap.set(158, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   // Every 5 seconds
-  if (gameFrameCount % 150 === 0) {
-    g.p.UseActiveItem(
-      CollectibleType.COLLECTIBLE_MONSTER_MANUAL,
-      false,
-      false,
-      false,
-      false,
-    );
+  if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
+    useActiveItem(g.p, CollectibleType.COLLECTIBLE_MONSTER_MANUAL);
     g.sfx.Stop(SoundEffect.SOUND_SATAN_GROW);
   }
 });
@@ -565,15 +512,8 @@ postUpdateBabyFunctionMap.set(163, () => {
     g.run.babyBool = true;
     const color = g.p.GetColor();
     const fadeAmount = 0.5;
-    const newColor = Color(
-      color.R,
-      color.G,
-      color.B,
-      fadeAmount,
-      color.RO,
-      color.GO,
-      color.BO,
-    );
+    const newColor = copyColor(color);
+    newColor.A = fadeAmount;
     g.p.SetColor(newColor, 0, 0, true, true);
   } else if (
     g.run.babyBool &&
@@ -583,15 +523,8 @@ postUpdateBabyFunctionMap.set(163, () => {
     g.run.babyBool = false;
     const color = g.p.GetColor();
     const fadeAmount = 1;
-    const newColor = Color(
-      color.R,
-      color.G,
-      color.B,
-      fadeAmount,
-      color.RO,
-      color.GO,
-      color.BO,
-    );
+    const newColor = copyColor(color);
+    newColor.A = fadeAmount;
     g.p.SetColor(newColor, 0, 0, true, true);
   }
 });
@@ -630,13 +563,7 @@ postUpdateBabyFunctionMap.set(167, () => {
   }
 
   g.run.babyFrame = 0;
-  g.p.UseActiveItem(
-    CollectibleType.COLLECTIBLE_TELEPORT,
-    false,
-    false,
-    false,
-    false,
-  );
+  useActiveItem(g.p, CollectibleType.COLLECTIBLE_TELEPORT);
 });
 
 // Skull Baby
@@ -737,13 +664,7 @@ postUpdateBabyFunctionMap.set(221, () => {
       g.run.babyCounters = 0;
       g.run.babyFrame = 0;
     } else {
-      g.p.UseActiveItem(
-        CollectibleType.COLLECTIBLE_MONSTROS_TOOTH,
-        false,
-        false,
-        false,
-        false,
-      );
+      useActiveItem(g.p, CollectibleType.COLLECTIBLE_MONSTROS_TOOTH);
     }
   }
 });
@@ -767,13 +688,7 @@ postUpdateBabyFunctionMap.set(231, () => {
   // Constant Isaac's Tears effect + blindfolded
   if (gameFrameCount % 3 === 0) {
     g.run.babyBool = true;
-    g.p.UseActiveItem(
-      CollectibleType.COLLECTIBLE_ISAACS_TEARS,
-      false,
-      false,
-      false,
-      false,
-    );
+    useActiveItem(g.p, CollectibleType.COLLECTIBLE_ISAACS_TEARS);
     g.run.babyBool = false;
   }
 });
@@ -808,13 +723,7 @@ postUpdateBabyFunctionMap.set(256, () => {
   }
 
   if (gameFrameCount % baby.num === 0) {
-    g.p.UseActiveItem(
-      CollectibleType.COLLECTIBLE_VENTRICLE_RAZOR,
-      false,
-      false,
-      false,
-      false,
-    );
+    useActiveItem(g.p, CollectibleType.COLLECTIBLE_VENTRICLE_RAZOR);
   }
 });
 
@@ -827,13 +736,7 @@ postUpdateBabyFunctionMap.set(263, () => {
   // (this does not work if we do it in the PostNewRoom callback)
   // (this does not work if we do it on the 0th frame)
   if (roomFrameCount === 1 && isFirstVisit) {
-    g.p.UseActiveItem(
-      CollectibleType.COLLECTIBLE_D12,
-      false,
-      false,
-      false,
-      false,
-    );
+    useActiveItem(g.p, CollectibleType.COLLECTIBLE_D12);
   }
 });
 
@@ -851,13 +754,7 @@ postUpdateBabyFunctionMap.set(267, () => {
       playerSprite.IsPlaying("Jump") ||
       playerSprite.IsPlaying("LightTravel"))
   ) {
-    g.p.UseActiveItem(
-      CollectibleType.COLLECTIBLE_DULL_RAZOR,
-      false,
-      false,
-      false,
-      false,
-    );
+    useActiveItem(g.p, CollectibleType.COLLECTIBLE_DULL_RAZOR);
     g.sfx.Stop(SoundEffect.SOUND_ISAAC_HURT_GRUNT);
   }
 });
@@ -866,15 +763,9 @@ postUpdateBabyFunctionMap.set(267, () => {
 postUpdateBabyFunctionMap.set(270, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
-  if (gameFrameCount % 150 === 0) {
-    // 5 seconds
-    g.p.UseActiveItem(
-      CollectibleType.COLLECTIBLE_WAIT_WHAT,
-      false,
-      false,
-      false,
-      false,
-    );
+  // Every 5 seconds
+  if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
+    useActiveItem(g.p, CollectibleType.COLLECTIBLE_WAIT_WHAT);
   }
 });
 
@@ -882,15 +773,9 @@ postUpdateBabyFunctionMap.set(270, () => {
 postUpdateBabyFunctionMap.set(290, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
-  if (gameFrameCount % 150 === 0) {
-    // 5 seconds
-    g.p.UseActiveItem(
-      CollectibleType.COLLECTIBLE_DULL_RAZOR,
-      false,
-      false,
-      false,
-      false,
-    );
+  // Every 5 seconds
+  if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
+    useActiveItem(g.p, CollectibleType.COLLECTIBLE_DULL_RAZOR);
     g.sfx.Stop(SoundEffect.SOUND_ISAAC_HURT_GRUNT);
   }
 });
@@ -917,13 +802,7 @@ postUpdateBabyFunctionMap.set(303, () => {
   if (g.run.babyFrame !== 0 && gameFrameCount >= g.run.babyFrame) {
     g.run.babyCounters += 1;
     g.run.babyFrame = gameFrameCount + baby.delay;
-    g.p.UseActiveItem(
-      CollectibleType.COLLECTIBLE_BROWN_NUGGET,
-      false,
-      false,
-      false,
-      false,
-    );
+    useActiveItem(g.p, CollectibleType.COLLECTIBLE_BROWN_NUGGET);
     if (g.run.babyCounters === 19) {
       // One is already spawned with the initial trigger
       g.run.babyCounters = 0;
@@ -950,13 +829,7 @@ postUpdateBabyFunctionMap.set(304, () => {
 
   // Constant The Bean effect + flight + explosion immunity + blindfolded
   if (gameFrameCount % 3 === 0) {
-    g.p.UseActiveItem(
-      CollectibleType.COLLECTIBLE_BEAN,
-      false,
-      false,
-      false,
-      false,
-    );
+    useActiveItem(g.p, CollectibleType.COLLECTIBLE_BEAN);
   }
 });
 
@@ -1035,15 +908,9 @@ postUpdateBabyFunctionMap.set(348, () => {
 postUpdateBabyFunctionMap.set(349, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
-  if (gameFrameCount % 300 === 0) {
-    // 10 seconds
-    g.p.UseActiveItem(
-      CollectibleType.COLLECTIBLE_DELIRIOUS,
-      false,
-      false,
-      false,
-      false,
-    );
+  // Every 10 seconds
+  if (gameFrameCount % (10 * GAME_FRAMES_PER_SECOND) === 0) {
+    useActiveItem(g.p, CollectibleType.COLLECTIBLE_DELIRIOUS);
     postRender.setPlayerSprite();
   }
 });
@@ -1065,7 +932,8 @@ postUpdateBabyFunctionMap.set(374, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const randomPosition = Isaac.GetRandomPosition();
 
-  if (gameFrameCount % (GAME_FRAMES_PER_SECOND * 4) === 0) {
+  // Every 4 seconds
+  if (gameFrameCount % (4 * GAME_FRAMES_PER_SECOND) === 0) {
     // Spawn a random stomp
     Isaac.Spawn(
       EntityType.ENTITY_EFFECT,
@@ -1082,7 +950,8 @@ postUpdateBabyFunctionMap.set(374, () => {
 postUpdateBabyFunctionMap.set(382, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
-  if (gameFrameCount % (GAME_FRAMES_PER_SECOND * 5) === 0) {
+  // Every 5 seconds
+  if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
     // Spawn a Mega Troll Bomb
     Isaac.Spawn(
       EntityType.ENTITY_BOMB,
@@ -1169,7 +1038,8 @@ postUpdateBabyFunctionMap.set(396, () => {
 postUpdateBabyFunctionMap.set(401, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
-  if (gameFrameCount % (GAME_FRAMES_PER_SECOND * 1.5) === 0) {
+  // Every 1.5 seconds
+  if (gameFrameCount % (1.5 * GAME_FRAMES_PER_SECOND) === 0) {
     Isaac.Spawn(
       EntityType.ENTITY_FLY,
       0,
@@ -1186,14 +1056,8 @@ postUpdateBabyFunctionMap.set(428, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   // Every second
-  if (gameFrameCount % 30 === 0) {
-    g.p.UseActiveItem(
-      CollectibleType.COLLECTIBLE_KIDNEY_BEAN,
-      false,
-      false,
-      false,
-      false,
-    );
+  if (gameFrameCount % GAME_FRAMES_PER_SECOND === 0) {
+    useActiveItem(g.p, CollectibleType.COLLECTIBLE_KIDNEY_BEAN);
   }
 });
 
@@ -1202,14 +1066,8 @@ postUpdateBabyFunctionMap.set(449, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   // Every 7 seconds
-  if (gameFrameCount % 210 === 0) {
-    g.p.UseActiveItem(
-      CollectibleType.COLLECTIBLE_SPRINKLER,
-      false,
-      false,
-      false,
-      false,
-    );
+  if (gameFrameCount % (7 * GAME_FRAMES_PER_SECOND) === 0) {
+    useActiveItem(g.p, CollectibleType.COLLECTIBLE_SPRINKLER);
   }
 });
 
@@ -1240,7 +1098,7 @@ postUpdateBabyFunctionMap.set(462, () => {
       const damage = g.p.Damage * 1.5;
       const entities = Isaac.FindInRadius(
         tear.position,
-        40,
+        DISTANCE_OF_GRID_TILE,
         EntityPartition.ENEMY,
       );
       for (const entity of entities) {
@@ -1311,19 +1169,13 @@ postUpdateBabyFunctionMap.set(508, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const roomClear = g.r.IsClear();
 
-  // Every 5 seconds
   if (
-    gameFrameCount % 150 === 0 &&
+    // Every 5 seconds
+    gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0 &&
     // Monstro will target you if there are no enemies in the room (and this is unavoidable)
     !roomClear
   ) {
-    g.p.UseActiveItem(
-      CollectibleType.COLLECTIBLE_MONSTROS_TOOTH,
-      false,
-      false,
-      false,
-      false,
-    );
+    useActiveItem(g.p, CollectibleType.COLLECTIBLE_MONSTROS_TOOTH);
   }
 });
 
@@ -1337,9 +1189,8 @@ postUpdateBabyFunctionMap.set(519, () => {
   }
 
   // Check to see if a door opened before the room was clear
-  for (let i = 0; i <= 7; i++) {
-    const door = g.r.GetDoor(i);
-    if (door !== undefined && door.IsOpen()) {
+  for (const door of getDoors()) {
+    if (door.IsOpen()) {
       door.Close(true);
     }
   }

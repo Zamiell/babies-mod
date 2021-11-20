@@ -1,4 +1,10 @@
-import { getKnives, setEntityRandomColor } from "isaacscript-common";
+import {
+  copyColor,
+  GAME_FRAMES_PER_SECOND,
+  getKnives,
+  getNPCs,
+  setEntityRandomColor,
+} from "isaacscript-common";
 import g from "../globals";
 import { TearData } from "../types/TearData";
 import { getCurrentBaby } from "../util";
@@ -25,15 +31,8 @@ postTearUpdateBabyFunctionMap.set(100, (tear: EntityTear) => {
     // Fade the fire so that it is easier to see everything
     const color = fire.GetColor();
     const fadeAmount = 0.5;
-    const newColor = Color(
-      color.R,
-      color.G,
-      color.B,
-      fadeAmount,
-      color.RO,
-      color.GO,
-      color.BO,
-    );
+    const newColor = copyColor(color);
+    newColor.A = fadeAmount;
     fire.SetColor(newColor, 0, 0, true, true);
   }
 });
@@ -41,22 +40,21 @@ postTearUpdateBabyFunctionMap.set(100, (tear: EntityTear) => {
 // Skinny Baby
 postTearUpdateBabyFunctionMap.set(213, (tear: EntityTear) => {
   if (tear.SubType === 1 && tear.FrameCount >= 10) {
-    // Find the nearest enemy
-    let distance = 40000;
-    let closestNPC: EntityNPC | undefined;
-    for (const entity of Isaac.GetRoomEntities()) {
-      const npc = entity.ToNPC();
+    // Find the nearest alive & vulnerable enemy
+    let closestNPC: EntityNPC | null = null;
+    let closestDistance = math.huge;
+    for (const npc of getNPCs()) {
+      const distance = npc.Position.Distance(g.p.Position);
       if (
-        npc !== undefined &&
-        npc.IsVulnerableEnemy() && // Returns true for enemies that can be damaged
+        npc.IsVulnerableEnemy() &&
         !npc.IsDead() &&
-        g.p.Position.Distance(npc.Position) < distance
+        distance < closestDistance
       ) {
-        distance = g.p.Position.Distance(npc.Position);
         closestNPC = npc;
+        closestDistance = g.p.Position.Distance(npc.Position);
       }
     }
-    if (closestNPC === undefined) {
+    if (closestNPC === null) {
       return;
     }
 
@@ -191,7 +189,7 @@ postTearUpdateBabyFunctionMap.set(455, (tear: EntityTear) => {
   }
 
   // Every 4 seconds
-  if (tear.FrameCount <= 120) {
+  if (tear.FrameCount <= 4 * GAME_FRAMES_PER_SECOND) {
     // The PostTearUpdate callback will fire before the PostFireTear callback,
     // so do nothing if we are in on the first frame
     const data = tear.GetData();
@@ -227,7 +225,7 @@ postTearUpdateBabyFunctionMap.set(458, (tear: EntityTear) => {
   }
 
   // Every 4 seconds
-  if (tear.FrameCount <= 120) {
+  if (tear.FrameCount <= 4 * GAME_FRAMES_PER_SECOND) {
     // The PostTearUpdate callback will fire before the PostFireTear callback,
     // so do nothing if we are in on the first frame
     const data = tear.GetData();

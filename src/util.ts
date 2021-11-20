@@ -1,5 +1,6 @@
 import {
   getCollectibleMaxCharges,
+  getEntities,
   getRandomInt,
   nextSeed,
 } from "isaacscript-common";
@@ -101,6 +102,14 @@ export function giveItemAndRemoveFromPools(
   const maxCharges = getCollectibleMaxCharges(collectibleType);
   g.p.AddCollectible(collectibleType, maxCharges, false);
   g.itemPool.RemoveCollectible(collectibleType);
+}
+
+export function removeAllFriendlyEntities(): void {
+  for (const entity of getEntities()) {
+    if (entity.HasEntityFlags(EntityFlag.FLAG_FRIENDLY)) {
+      entity.Remove();
+    }
+  }
 }
 
 export function spawnRandomPickup(
@@ -278,4 +287,12 @@ export function spawnRandomPickup(
       error(`The pickup variant was an unknown value of: ${pickupVariant}`);
     }
   }
+}
+
+/** Helper function to use an active item without showing an animation. */
+export function useActiveItem(
+  player: EntityPlayer,
+  collectibleType: CollectibleType | CollectibleTypeCustom,
+): void {
+  player.UseActiveItem(collectibleType, false, false, false, false);
 }

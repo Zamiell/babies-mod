@@ -1,5 +1,6 @@
 import { copyColor, removeAllMatchingEntities } from "isaacscript-common";
 import g from "./globals";
+import { removeAllFriendlyEntities } from "./util";
 
 export const babyRemoveFunctionMap = new Map<int, () => void>();
 
@@ -25,12 +26,7 @@ babyRemoveFunctionMap.set(40, () => {
 
 // Zombie Baby
 babyRemoveFunctionMap.set(61, () => {
-  // Remove all of the friendly enemies
-  for (const entity of Isaac.GetRoomEntities()) {
-    if (entity.HasEntityFlags(EntityFlag.FLAG_FRIENDLY)) {
-      entity.Remove();
-    }
-  }
+  removeAllFriendlyEntities();
 });
 
 // Goat Baby
@@ -41,12 +37,7 @@ babyRemoveFunctionMap.set(62, () => {
 
 // Attractive Baby
 babyRemoveFunctionMap.set(157, () => {
-  // Remove all of the friendly enemies
-  for (const entity of Isaac.GetRoomEntities()) {
-    if (entity.HasEntityFlags(EntityFlag.FLAG_FRIENDLY)) {
-      entity.Remove();
-    }
-  }
+  removeAllFriendlyEntities();
 });
 
 // Digital Baby

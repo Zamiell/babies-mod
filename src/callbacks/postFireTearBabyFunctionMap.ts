@@ -5,7 +5,7 @@ import {
 } from "isaacscript-common";
 import g from "../globals";
 import { TearData } from "../types/TearData";
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby, useActiveItem } from "../util";
 
 export const postFireTearBabyFunctionMap = new Map<
   int,
@@ -119,13 +119,7 @@ postFireTearBabyFunctionMap.set(77, (tear: EntityTear) => {
 
 // Scream Baby
 postFireTearBabyFunctionMap.set(81, (tear: EntityTear) => {
-  g.p.UseActiveItem(
-    CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP,
-    false,
-    false,
-    false,
-    false,
-  );
+  useActiveItem(g.p, CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP);
   tear.Remove();
 });
 
@@ -304,13 +298,7 @@ postFireTearBabyFunctionMap.set(279, (tear: EntityTear) => {
 
 // Butt Baby
 postFireTearBabyFunctionMap.set(288, (_tear: EntityTear) => {
-  g.p.UseActiveItem(
-    CollectibleType.COLLECTIBLE_BEAN,
-    false,
-    false,
-    false,
-    false,
-  );
+  useActiveItem(g.p, CollectibleType.COLLECTIBLE_BEAN);
 });
 
 // Speaker Baby
