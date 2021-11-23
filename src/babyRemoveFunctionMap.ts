@@ -35,6 +35,23 @@ babyRemoveFunctionMap.set(62, () => {
   g.p.RemoveCollectible(CollectibleType.COLLECTIBLE_DUALITY); // 498
 });
 
+// Brownie Baby
+babyRemoveFunctionMap.set(107, () => {
+  const baby = g.babies[107];
+  if (baby.num === undefined) {
+    error('Brownie Baby does not have a "num" property defined.');
+  }
+
+  for (const collectibleType of [
+    CollectibleType.COLLECTIBLE_CUBE_OF_MEAT,
+    CollectibleType.COLLECTIBLE_BALL_OF_BANDAGES,
+  ]) {
+    for (let i = 0; i < baby.num; i++) {
+      g.p.RemoveCollectible(collectibleType);
+    }
+  }
+});
+
 // Attractive Baby
 babyRemoveFunctionMap.set(157, () => {
   removeAllFriendlyEntities();

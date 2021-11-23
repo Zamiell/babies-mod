@@ -1,4 +1,4 @@
-import { debugFunction } from "../debugFunction";
+import { debugFunction, setDebugBaby } from "../debugFunction";
 import g from "../globals";
 
 export const executeCmdFunctionMap = new Map<
@@ -8,18 +8,12 @@ export const executeCmdFunctionMap = new Map<
 
 // "baby #" will restart as the specified baby
 executeCmdFunctionMap.set("baby", (params: string) => {
-  // Check to see if this is a valid baby number
-  let babyNum: number | null | undefined = tonumber(params);
-  if (babyNum === undefined || babyNum < 0 || babyNum >= g.babies.length) {
-    babyNum = null;
-  }
+  setDebugBaby(params, true);
+});
 
-  g.debugBabyNum = babyNum;
-  Isaac.ConsoleOutput(`Set debug baby to be: ${babyNum}\n`);
-
-  if (babyNum !== null) {
-    Isaac.ExecuteCommand("restart");
-  }
+// "baby2" will lock in the specified baby but will not restart the current run
+executeCmdFunctionMap.set("baby2", (params: string) => {
+  setDebugBaby(params, false);
 });
 
 executeCmdFunctionMap.set("babydebug", (_params: string) => {

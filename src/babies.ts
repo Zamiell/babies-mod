@@ -641,6 +641,7 @@ export const BABIES: BabyDescription[] = [
     name: "Brownie Baby",
     description: "Starts with Level 4 Meatboy + Level 4 Meatgirl",
     sprite: "107_baby_brownie.png",
+    num: 4,
   },
   {
     name: "VVVVVV Baby",

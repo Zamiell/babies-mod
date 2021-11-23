@@ -2,7 +2,7 @@ Patch notes:
 - The effect for Twotone Baby (#346) was changed "Dataminer effect on hit" to "Dataminer effect per room entered".
 - The effect for 2600 Baby (#347) was changed from "Backwards tears" to "Friend Finder effect per room cleared".
 - Fixed the bug where babies that have effects based on touching a pickup would not work if a pickup was purchased.
-- DataMiner
+- Fixed the bug where Brownie Baby (#107) would taking items that updated the familiar cache would delete the Meat Boy and Meat Girl. (Thanks Octotroph)
 
 TODO:
 - remove input switch baby

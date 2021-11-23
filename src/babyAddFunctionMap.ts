@@ -53,6 +53,24 @@ babyAddFunctionMap.set(48, () => {
   g.run.babySprite = initSprite("gfx/misc/black.anm2");
 });
 
+// Brownie Baby
+babyAddFunctionMap.set(107, () => {
+  const baby = g.babies[107];
+  if (baby.num === undefined) {
+    error('Brownie Baby does not have a "num" property defined.');
+  }
+
+  for (const collectibleType of [
+    CollectibleType.COLLECTIBLE_CUBE_OF_MEAT,
+    CollectibleType.COLLECTIBLE_BALL_OF_BANDAGES,
+  ]) {
+    for (let i = 0; i < baby.num; i++) {
+      g.p.AddCollectible(collectibleType);
+      removeCollectibleFromItemTracker(collectibleType);
+    }
+  }
+});
+
 // Hopeless Baby
 babyAddFunctionMap.set(125, () => {
   // Keys are hearts

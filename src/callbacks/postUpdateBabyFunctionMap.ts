@@ -237,33 +237,6 @@ postUpdateBabyFunctionMap.set(96, () => {
   }
 });
 
-// Brownie Baby
-postUpdateBabyFunctionMap.set(107, () => {
-  // Starts with Level 4 Meatboy + Level 4 Meatgirl
-  // (if you spawn them in the PostNewLevel callback, it does not work for some reason)
-  if (g.run.babyBool) {
-    return;
-  }
-
-  g.run.babyBool = true;
-  Isaac.Spawn(
-    EntityType.ENTITY_FAMILIAR,
-    FamiliarVariant.CUBE_OF_MEAT_4,
-    0,
-    g.p.Position,
-    Vector.Zero,
-    undefined,
-  );
-  Isaac.Spawn(
-    EntityType.ENTITY_FAMILIAR,
-    FamiliarVariant.BALL_OF_BANDAGES_4,
-    0,
-    g.p.Position,
-    Vector.Zero,
-    undefined,
-  );
-});
-
 // Pubic Baby
 postUpdateBabyFunctionMap.set(110, () => {
   const rooms = g.l.GetRooms();
