@@ -1,5 +1,6 @@
 import { addRoomClearCharge, getRandomHeartSubType } from "isaacscript-common";
 import g from "./globals";
+import { useActiveItem } from "./util";
 
 export const roomClearedBabyFunctionMap = new Map<int, () => void>();
 
@@ -46,6 +47,11 @@ roomClearedBabyFunctionMap.set(88, () => {
 roomClearedBabyFunctionMap.set(192, () => {
   // Extra charge per room cleared
   addRoomClearCharge(g.p);
+});
+
+// 2600 Baby
+roomClearedBabyFunctionMap.set(347, () => {
+  useActiveItem(g.p, CollectibleType.COLLECTIBLE_FRIEND_FINDER);
 });
 
 // Fishman Baby

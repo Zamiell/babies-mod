@@ -536,11 +536,6 @@ entityTakeDmgPlayerBabyFunctionMap.set(336, () => {
   g.run.babyBool = true;
 });
 
-// Twotone Baby
-entityTakeDmgPlayerBabyFunctionMap.set(346, (player) => {
-  useActiveItem(player, CollectibleType.COLLECTIBLE_DATAMINER);
-});
-
 // Tanooki Baby
 entityTakeDmgPlayerBabyFunctionMap.set(359, (player) => {
   useActiveItem(player, CollectibleType.COLLECTIBLE_MR_ME);

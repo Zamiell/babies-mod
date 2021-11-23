@@ -343,11 +343,6 @@ postFireTearBabyFunctionMap.set(345, (tear: EntityTear) => {
   tear.TearFlags |= TearFlags.TEAR_BOOGER;
 });
 
-// 2600 Baby
-postFireTearBabyFunctionMap.set(347, (tear: EntityTear) => {
-  tear.Velocity = tear.Velocity.Rotated(180);
-});
-
 // Mushroom Girl Baby
 postFireTearBabyFunctionMap.set(361, (tear: EntityTear) => {
   const [, baby] = getCurrentBaby();

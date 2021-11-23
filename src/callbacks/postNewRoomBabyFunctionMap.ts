@@ -528,6 +528,11 @@ postNewRoomBabyFunctionMap.set(297, () => {
   openAllDoors();
 });
 
+// Twotone Baby
+postNewRoomBabyFunctionMap.set(346, () => {
+  useActiveItem(g.p, CollectibleType.COLLECTIBLE_DATAMINER);
+});
+
 // Mouse Baby
 postNewRoomBabyFunctionMap.set(351, () => {
   const roomClear = g.r.IsClear();
@@ -536,14 +541,12 @@ postNewRoomBabyFunctionMap.set(351, () => {
     return;
   }
 
-  const player = Isaac.GetPlayer();
-
   // Coin doors in uncleared rooms
   // If the player leaves and re-enters an uncleared room, a normal door will stay locked
   // So, unlock all normal doors if the room is already clear
   for (const door of getDoors()) {
     if (door.TargetRoomType === RoomType.ROOM_DEFAULT && door.IsLocked()) {
-      door.TryUnlock(player, true); // This has to be forced
+      door.TryUnlock(g.p, true); // This has to be forced
     }
   }
 });

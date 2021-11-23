@@ -2107,9 +2107,8 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "2600 Baby",
-    description: "Backwards tears",
+    description: "Friend Finder effect per room cleared",
     sprite: "347_baby_2600.png",
-    mustHaveTears: true,
   },
   {
     name: "Fourtone Baby",
