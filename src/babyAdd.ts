@@ -10,14 +10,18 @@ import {
 } from "isaacscript-common";
 import { babyAddFunctionMap } from "./babyAddFunctionMap";
 import g from "./globals";
+import * as costumeProtector from "./lib/character_costume_protector";
+import { NullItemIDCustom, PlayerTypeCustom } from "./types/enums";
 import { getCurrentBaby, giveItemAndRemoveFromPools } from "./util";
 
-export function babyAdd(): void {
-  const coins = g.p.GetNumCoins();
-  const bombs = g.p.GetNumBombs();
-  const keys = g.p.GetNumKeys();
+const LAST_BABY_WITH_SPRITE_IN_PLAYER2_DIRECTORY = 521;
+
+export function babyAdd(player: EntityPlayer): void {
+  const coins = player.GetNumCoins();
+  const bombs = player.GetNumBombs();
+  const keys = player.GetNumKeys();
   const secondaryActiveItem = g.p.GetActiveItem(ActiveSlot.SLOT_SECONDARY);
-  const playerHealth = getPlayerHealth(g.p);
+  const playerHealth = getPlayerHealth(player);
   const [babyType, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
@@ -44,21 +48,21 @@ export function babyAdd(): void {
 
       // Find out where to put it
       if (
-        g.p.HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) &&
+        player.HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) &&
         secondaryActiveItem !== CollectibleType.COLLECTIBLE_NULL
       ) {
         // There is room in the Schoolbag for it, so put it there
         // (getting new active items will automatically put the existing active item inside the
         // Schoolbag)
-        g.p.AddCollectible(baby.item, itemCharges, false);
-        g.p.SwapActiveItems();
+        player.AddCollectible(baby.item, itemCharges, false);
+        player.SwapActiveItems();
       } else {
         // We don't have a Schoolbag, so just give the new active item
-        g.p.AddCollectible(baby.item, itemCharges, false);
+        player.AddCollectible(baby.item, itemCharges, false);
       }
     } else {
       // Give the passive item
-      g.p.AddCollectible(baby.item);
+      player.AddCollectible(baby.item);
       log(`Added the new baby passive item (${baby.item}).`);
     }
 
@@ -69,7 +73,7 @@ export function babyAdd(): void {
   // Check if this is a multiple item baby
   if (baby.item !== undefined && baby.itemNum !== undefined) {
     for (let i = 2; i <= baby.itemNum; i++) {
-      g.p.AddCollectible(baby.item);
+      player.AddCollectible(baby.item);
       removeCollectibleFromItemTracker(baby.item);
     }
   }
@@ -82,19 +86,19 @@ export function babyAdd(): void {
   }
 
   // Reset the player's health to the way it was before we added the items
-  setPlayerHealth(g.p, playerHealth);
+  setPlayerHealth(player, playerHealth);
 
   // Reset the coin/bomb/key count to the way it was before we added the items
-  g.p.AddCoins(-99);
-  g.p.AddCoins(coins);
-  g.p.AddBombs(-99);
-  g.p.AddBombs(bombs);
-  g.p.AddKeys(-99);
-  g.p.AddKeys(keys);
+  player.AddCoins(-99);
+  player.AddCoins(coins);
+  player.AddBombs(-99);
+  player.AddBombs(bombs);
+  player.AddKeys(-99);
+  player.AddKeys(keys);
 
   // Check if this is a trinket baby
   if (baby.trinket !== undefined) {
-    g.p.AddTrinket(baby.trinket);
+    player.AddTrinket(baby.trinket);
     g.itemPool.RemoveTrinket(baby.trinket);
   }
 
@@ -121,13 +125,24 @@ export function babyAdd(): void {
   }
 
   // Reset the player's size
-  g.p.SpriteScale = Vector(1, 1);
+  player.SpriteScale = Vector(1, 1);
 
   // Some babies grant extra stats or flight
-  g.p.AddCacheFlags(CacheFlag.CACHE_ALL);
-  g.p.EvaluateItems();
+  player.AddCacheFlags(CacheFlag.CACHE_ALL);
+  player.EvaluateItems();
 
-  // We don't have to set the sprite now,
-  // because it will be set later on in the PostNewRoom callback
+  // Set the new sprite
+  const gfxDirectory =
+    babyType <= LAST_BABY_WITH_SPRITE_IN_PLAYER2_DIRECTORY
+      ? "gfx/characters/player2"
+      : "gfx/familiar";
+  const spritesheetPath = `${gfxDirectory}/${baby.sprite}`;
+  costumeProtector.AddPlayer(
+    PlayerTypeCustom.PLAYER_RANDOM_BABY,
+    spritesheetPath,
+    NullItemIDCustom.BABY_FLYING,
+  );
+  costumeProtector.initPlayerCostume(player);
+
   log(`Applied baby: ${babyType} - ${baby.name}`);
 }

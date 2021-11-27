@@ -1,4 +1,5 @@
 import { log } from "isaacscript-common";
+import { BABIES } from "../babies";
 import g from "../globals";
 import { PlayerTypeCustom } from "../types/enums";
 import { GlobalsRun } from "../types/GlobalsRun";
@@ -11,7 +12,7 @@ export function main(isContinued: boolean): void {
   const isaacFrameCount = Isaac.GetFrameCount();
 
   log(
-    `MC_POST_GAME_STARTED - Seed: ${startSeedString} - IsaacFrame: ${isaacFrameCount}`,
+    `MC_POST_GAME_STARTED (Babies Mod) - Seed: ${startSeedString} - IsaacFrame: ${isaacFrameCount}`,
   );
 
   // Don't do anything if this is not a new run
@@ -28,7 +29,7 @@ export function main(isContinued: boolean): void {
   // Easter Eggs from babies are normally removed upon going to the next floor
   // We also have to check to see if they reset the game while on a baby with a custom Easter Egg
   // effect
-  for (const baby of g.babies) {
+  for (const baby of BABIES) {
     if (baby.seed !== undefined) {
       if (g.seeds.HasSeedEffect(baby.seed)) {
         g.seeds.RemoveSeedEffect(baby.seed);
@@ -62,4 +63,5 @@ export function main(isContinued: boolean): void {
   // (there is no way to know which character that you Clicker to, so just remove this item)
   g.itemPool.RemoveTrinket(TrinketType.TRINKET_BAT_WING); // 118
   // (Bat Wing causes graphical bugs which are annoying to fix, so just remove this trinket)
+  // TODO CHECK IF THIS IS STILL NECESSARY WITH COSTUME PROTECTOR
 }

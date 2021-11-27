@@ -41,17 +41,20 @@ import * as preUseItem from "./callbacks/preUseItem";
 import * as useCard from "./callbacks/useCard";
 import * as useItem from "./callbacks/useItem";
 import * as usePill from "./callbacks/usePill";
+import * as postItemPickup from "./callbacksCustom/postItemPickup";
 import * as postPickupCollect from "./callbacksCustom/postPickupCollect";
 import * as postPurchase from "./callbacksCustom/postPurchase";
 import * as postSlotDestroyed from "./callbacksCustom/postSlotDestroyed";
 import { checkBabiesValid } from "./checkBabiesValid";
 import { VERSION } from "./constants";
 import g from "./globals";
+import * as costumeProtector from "./lib/character_costume_protector";
 
 export default function main(): void {
   const modVanilla = RegisterMod("The Babies Mod", 1);
   const mod = upgradeMod(modVanilla);
 
+  initLibraries(mod);
   welcomeBanner();
 
   // Store the mod reference so that we can use it elsewhere
@@ -60,6 +63,10 @@ export default function main(): void {
 
   checkBabiesValid();
   registerCallbacks(mod);
+}
+
+function initLibraries(mod: ModUpgraded) {
+  costumeProtector.init(mod);
 }
 
 function welcomeBanner() {
@@ -82,7 +89,6 @@ function registerCallbacksMain(mod: ModUpgraded) {
   mod.AddCallback(ModCallbacks.MC_NPC_UPDATE, postNPCUpdate.main); // 0
   mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate.main); // 1
   mod.AddCallback(ModCallbacks.MC_POST_RENDER, postRender.main); // 2
-  mod.AddCallback(ModCallbacks.MC_USE_ITEM, useItem.main); // 3
   mod.AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, postFamiliarUpdate.main); // 6
   mod.AddCallback(ModCallbacks.MC_FAMILIAR_INIT, postFamiliarInit.main); // 7
   mod.AddCallback(ModCallbacks.MC_EVALUATE_CACHE, evaluateCache.main); // 8
@@ -144,6 +150,10 @@ function registerCallbacksCustom(mod: ModUpgraded) {
   mod.AddCallbackCustom(
     ModCallbacksCustom.MC_POST_PICKUP_COLLECT,
     postPickupCollect.main,
+  );
+  mod.AddCallbackCustom(
+    ModCallbacksCustom.MC_POST_ITEM_PICKUP,
+    postItemPickup.main,
   );
   mod.AddCallbackCustom(ModCallbacksCustom.MC_POST_PURCHASE, postPurchase.main);
   mod.AddCallbackCustom(

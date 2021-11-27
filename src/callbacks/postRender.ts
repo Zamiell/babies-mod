@@ -1,30 +1,21 @@
 import {
-  addCollectibleCostume,
   getCollectibleItemType,
   getDefaultKColor,
   getHeartsUIWidth,
   getHUDOffsetVector,
   getScreenCenterPos,
   isActionPressedOnAnyInput,
-  log,
-  removeCollectibleCostume,
 } from "isaacscript-common";
 import { updateCachedAPIFunctions } from "../cache";
 import { VERSION } from "../constants";
 import g from "../globals";
 import { initSprite } from "../sprite";
 import * as timer from "../timer";
-import { BabyDescription } from "../types/BabyDescription";
 import { getCurrentBaby } from "../util";
 import { postRenderBabyFunctionMap } from "./postRenderBabyFunctionMap";
 
-// Constants
-const CUSTOM_PLAYER_ANM2 = "gfx/001.000_player_custom_baby.anm2";
-const PLAYER_SPRITESHEET_LAYERS = 12;
-const LAST_BABY_WITH_SPRITE_IN_PLAYER2_DIRECTORY = 521;
 const UI_HEARTS_RIGHT_SPACING = 55;
 
-// Variables
 const clockSprite = initSprite("gfx/clock.anm2");
 
 export function main(): void {
@@ -46,31 +37,12 @@ export function main(): void {
 
 // This function handles redrawing the player's sprite, if necessary
 function checkPlayerSprite() {
+  /*
   const gameFrameCount = g.g.GetFrameCount();
   const roomFrameCount = g.r.GetFrameCount();
 
-  // Remove extra costumes while the game is fading in and/or loading
-  if (gameFrameCount === 0) {
-    g.p.ClearCostumes();
-  }
-
-  // Fix the bug where fully charging Maw of the Void will occasionally make the player invisible
-  if (g.p.HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_THE_VOID)) {
-    removeCollectibleCostume(g.p, CollectibleType.COLLECTIBLE_MAW_OF_THE_VOID);
-  }
-
   // Certain costumes are applied one frame after entering a room
   if (roomFrameCount === 0) {
-    // 122
-    if (g.p.HasCollectible(CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON)) {
-      // Even though we blanked out the costumes for Whore of Babylon, we also have to also remove
-      // the costume or else the player sprite will be invisible permanently
-      removeCollectibleCostume(
-        g.p,
-        CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON,
-      );
-    }
-
     // 409
     if (g.p.HasCollectible(CollectibleType.COLLECTIBLE_EMPTY_VESSEL)) {
       // Even though we blanked out the costumes for Empty Vessel, we also have to also remove the
@@ -78,13 +50,13 @@ function checkPlayerSprite() {
       g.p.TryRemoveNullCostume(NullItemID.ID_EMPTY_VESSEL);
     }
   }
+  */
 
   /*
 
   Certain costumes are loaded immediately after triggering a room transition and they are locked in
   to the slide animation. The only way to fix this is to blank out the entire costume.
   This applies to.
-  - Whore of Babylon (122) - costume_073_whoreofbabylon.png
   - Fate (179) - costume_179_fate.png & 6 others for each color
       The costume is not completely blanked out;
       only the body is removed so that we can add only the wings.
@@ -95,38 +67,15 @@ function checkPlayerSprite() {
       The costume is only applied when entering a room for the first time.
   - Purity (407) - costume_407_purity.png
   - Empty Vessel (409) - emptyvessel body.png and emptyvessel head.png
-  - Dad's Ring (546) - costume_546_dadsring.png
-      The costume is applied one frame after entering the room, similar to Whore of Babylon.
-      If we remove the costume in code, it also removes the ring, which we don't want,
-      so we just blank out the costume.
 
+  - also check Nail, Pony
   */
 
   trackPlayerAnimations();
 }
 
 function trackPlayerAnimations() {
-  const playerSprite = g.p.GetSprite();
-
-  // Get the currently playing animation
-  const animations = [
-    "Pickup",
-    "Hit",
-    "Sad",
-    "Happy",
-    "PickupWalkDown",
-    "PickupWalkLeft",
-    "PickupWalkUp",
-    "PickupWalkRight",
-  ];
-  let currentlyPlayingAnimation = "";
-  for (const animation of animations) {
-    if (playerSprite.IsPlaying(animation)) {
-      currentlyPlayingAnimation = animation;
-      break;
-    }
-  }
-
+  /*
   // Set if the animation has changed
   // PickupWalkDown should be treated the same as PickupWalkLeft, so get the prefixes
   const pickupWalkLength = "PickupWalk".length;
@@ -142,16 +91,20 @@ function trackPlayerAnimations() {
       playerSprite.Play(currentlyPlayingAnimation, false);
     }
   }
+  */
 }
 
-// This is called:
-// - at the beginning of a level
-// - after each item is applied
-// - after a death
-// - after an animation is played
-// - on the 0th frame of a run
-//   (to fix the bug where wings don't get applied in the PostGameStarted callback)
+/**
+ * This is called:
+ * - at the beginning of a level
+ * - after each item is applied
+ * - after a death
+ * - after an animation is played
+ * - on the 0th frame of a run (to fix the bug where wings don't get applied in the PostGameStarted
+ * callback)
+ */
 export function setPlayerSprite(): void {
+  /*
   const playerSprite = g.p.GetSprite();
   const effects = g.p.GetEffects();
   const [babyType, baby, valid] = getCurrentBaby();
@@ -193,8 +146,10 @@ export function setPlayerSprite(): void {
   }
   playerSprite.LoadGraphics();
   log("Applied custom baby anm2.");
+  */
 }
 
+/*
 export function addWings(baby: BabyDescription): void {
   const hearts = g.p.GetHearts();
 
@@ -212,8 +167,9 @@ export function addWings(baby: BabyDescription): void {
     addCollectibleCostume(g.p, CollectibleType.COLLECTIBLE_FATE);
   }
 }
+*/
 
-// Show what the current baby does in the intro room (or if the player presses the map button)
+/** Show what the current baby does in the intro room (or if the player presses the map button). */
 function drawBabyIntro() {
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby, valid] = getCurrentBaby();
@@ -258,7 +214,7 @@ function drawBabyIntro() {
   }
 }
 
-// Draw the baby's number next to the heart count
+/** Draw the baby's number next to the heart count. */
 function drawBabyNumber() {
   const [babyType, baby, valid] = getCurrentBaby();
   if (!valid) {
@@ -322,8 +278,10 @@ function drawVersion() {
   Isaac.RenderScaledText(text, x, y, scale, scale, 2, 2, 2, 2);
 }
 
-// Draw a temporary icon next to the baby's active item to signify that it will go away at the of
-// the floor
+/**
+ * Draw a temporary icon next to the baby's active item to signify that it will go away at the of
+ * the floor.
+ */
 function drawTempIcon() {
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {

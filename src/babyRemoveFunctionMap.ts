@@ -1,4 +1,5 @@
 import { copyColor, removeAllMatchingEntities } from "isaacscript-common";
+import { BABIES } from "./babies";
 import g from "./globals";
 import { removeAllFriendlyEntities } from "./util";
 
@@ -37,7 +38,7 @@ babyRemoveFunctionMap.set(62, () => {
 
 // Brownie Baby
 babyRemoveFunctionMap.set(107, () => {
-  const baby = g.babies[107];
+  const baby = BABIES[107];
   if (baby.num === undefined) {
     error('Brownie Baby does not have a "num" property defined.');
   }

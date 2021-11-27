@@ -4,7 +4,7 @@ export interface BabyDescription {
   // Mandatory properties
   name: string;
   description: string;
-  sprite: string; // This is not currently used
+  sprite: string;
 
   // Optional properties
   blindfolded?: boolean;

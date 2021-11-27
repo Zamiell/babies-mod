@@ -6,6 +6,8 @@ export const KRAMPUS_ROOM_VARIANTS = new Set([
 
 export const MOD_NAME = "The Babies Mod";
 
+export const NUM_SUCCUBI_IN_FLOCK = 10;
+
 export const TELEPORT_TO_ROOM_TYPE_MAP = new Map([
   [CollectibleTypeCustom.COLLECTIBLE_SHOP_TELEPORT, RoomType.ROOM_SHOP],
   [

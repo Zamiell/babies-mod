@@ -12,3 +12,8 @@ export function updateCachedAPIFunctions(): void {
   g.seeds = g.g.GetSeeds();
   g.itemPool = g.g.GetItemPool();
 }
+
+export function updateCachedPlayer(player: EntityPlayer): void {
+  // Cache the player object so that we don't have to repeatedly call Isaac.GetPlayer()
+  g.p = player;
+}

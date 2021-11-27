@@ -727,7 +727,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(523, (player) => {
   g.run.babyCountersRoom += 1;
   if (g.run.babyCountersRoom === 2) {
     // Take away an item
-    const itemToTakeAway = g.run.passiveItems.pop();
+    const itemToTakeAway = g.run.passiveCollectibles.pop();
     if (itemToTakeAway !== undefined && player.HasCollectible(itemToTakeAway)) {
       player.RemoveCollectible(itemToTakeAway);
       removeCollectibleFromItemTracker(itemToTakeAway);

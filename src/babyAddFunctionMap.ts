@@ -2,6 +2,7 @@ import {
   MAX_NUM_FAMILIARS,
   removeCollectibleFromItemTracker,
 } from "isaacscript-common";
+import { BABIES } from "./babies";
 import g from "./globals";
 import { initSprite } from "./sprite";
 import { getCurrentBaby } from "./util";
@@ -55,7 +56,7 @@ babyAddFunctionMap.set(48, () => {
 
 // Brownie Baby
 babyAddFunctionMap.set(107, () => {
-  const baby = g.babies[107];
+  const baby = BABIES[107];
   if (baby.num === undefined) {
     error('Brownie Baby does not have a "num" property defined.');
   }

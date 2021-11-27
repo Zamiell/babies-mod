@@ -3184,7 +3184,7 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Falling Baby", // 521
-    description: "?",
+    description: "Starts with Twisted Pair",
     // There are two sprites with the prefix of "490_" and this is the second one,
     // so we assign it at the end
     sprite: "490_baby_falling.png",
@@ -3304,6 +3304,14 @@ export const BABIES: BabyDescription[] = [
   {
     name: "Invisible Baby", // 541
     description: "Invisibility",
+    // This file does not actually exist, but we cannot specify a blank string
     sprite: "invisible.png",
   },
 ];
+
+export const UNKNOWN_BABY: BabyDescription = {
+  name: "Unknown Baby",
+  description: "Unknown",
+  // This file does not actually exist, but we cannot specify a blank string
+  sprite: "unknown.png",
+};

@@ -3,6 +3,7 @@ import {
   saveDataManagerSetGlobal,
   setLogFunctionsGlobal,
 } from "isaacscript-common";
+import { BABIES } from "./babies";
 import g from "./globals";
 
 export function debugCode() {}
@@ -23,7 +24,7 @@ export function debugFunction() {
 export function setDebugBaby(params: string, restart: boolean) {
   // Check to see if this is a valid baby number
   let babyNum: number | null | undefined = tonumber(params);
-  if (babyNum === undefined || babyNum < 0 || babyNum >= g.babies.length) {
+  if (babyNum === undefined || babyNum < 0 || babyNum >= BABIES.length) {
     babyNum = null;
   }
 

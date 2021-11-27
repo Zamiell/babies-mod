@@ -1049,7 +1049,7 @@ postUpdateBabyFunctionMap.set(462, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   // Shockwave tears
-  for (let i = g.run.room.tears.length; i >= 0; i--) {
+  for (let i = g.run.room.tears.length - 1; i >= 0; i--) {
     const tear = g.run.room.tears[i];
 
     if ((gameFrameCount - tear.frame) % 2 === 0) {

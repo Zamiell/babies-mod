@@ -1,5 +1,5 @@
 import { getCollectibleItemType, log } from "isaacscript-common";
-import g from "./globals";
+import { BABIES } from "./babies";
 import { CollectibleTypeCustom } from "./types/enums";
 
 const VALID_DUPLICATE_ITEMS = new Set<CollectibleType | CollectibleTypeCustom>([
@@ -27,8 +27,8 @@ export function checkBabiesValid(): void {
 
 function checkBabiesDuplicateName() {
   const nameSet = new Set<string>();
-  for (let i = 0; i < g.babies.length; i++) {
-    const baby = g.babies[i];
+  for (let i = 0; i < BABIES.length; i++) {
+    const baby = BABIES[i];
 
     if (nameSet.has(baby.name)) {
       log(`ERROR: Baby #${i} has a duplicate name: ${baby.name}`);
@@ -39,16 +39,16 @@ function checkBabiesDuplicateName() {
 }
 
 function checkBabiesDuplicateItem() {
-  for (let i = 0; i < g.babies.length; i++) {
-    const baby = g.babies[i];
+  for (let i = 0; i < BABIES.length; i++) {
+    const baby = BABIES[i];
 
     if (baby.item !== undefined && baby.item2 === undefined) {
-      for (let j = 0; j < g.babies.length; j++) {
+      for (let j = 0; j < BABIES.length; j++) {
         if (i === j) {
           continue;
         }
 
-        const baby2 = g.babies[j];
+        const baby2 = BABIES[j];
         if (
           baby2.item !== undefined &&
           baby2.item2 === undefined &&
@@ -61,12 +61,12 @@ function checkBabiesDuplicateItem() {
     }
 
     if (baby.item !== undefined && baby.item2 !== undefined) {
-      for (let j = 0; j < g.babies.length; j++) {
+      for (let j = 0; j < BABIES.length; j++) {
         if (i === j) {
           continue;
         }
 
-        const baby2 = g.babies[j];
+        const baby2 = BABIES[j];
         if (
           baby2.item !== undefined &&
           baby2.item2 !== undefined &&
@@ -91,8 +91,8 @@ function checkBabiesDuplicateItem() {
 
 function checkBabiesDuplicateTrinket() {
   const trinketSet = new Set<TrinketType>();
-  for (let i = 0; i < g.babies.length; i++) {
-    const baby = g.babies[i];
+  for (let i = 0; i < BABIES.length; i++) {
+    const baby = BABIES[i];
 
     if (baby.trinket !== undefined) {
       if (trinketSet.has(baby.trinket)) {

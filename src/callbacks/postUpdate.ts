@@ -12,7 +12,6 @@ import g from "../globals";
 import { roomClearedBabyFunctionMap } from "../roomClearedBabyFunctionMap";
 import { BabyDescription } from "../types/BabyDescription";
 import { getCurrentBaby, spawnRandomPickup, useActiveItem } from "../util";
-import * as postRender from "./postRender";
 import { postUpdateBabyFunctionMap } from "./postUpdateBabyFunctionMap";
 
 export function main(): void {
@@ -23,8 +22,6 @@ export function main(): void {
 
   checkFixWingsBug(baby);
   checkApplyBlindfold(baby);
-  checkReloadSprite();
-  checkNewPedestalItem();
   checkTrinket();
   checkRoomCleared();
 
@@ -40,13 +37,13 @@ export function main(): void {
   checkTrapdoor();
 }
 
-function checkFixWingsBug(baby: BabyDescription) {
+function checkFixWingsBug(_baby: BabyDescription) {
   // Wings don't get applied in the PostGameStarted callback for some reason
   // Re-apply them now if needed
   const gameFrameCount = g.g.GetFrameCount();
 
   if (gameFrameCount === 1) {
-    postRender.addWings(baby);
+    // postRender.addWings(baby);
   }
 }
 
@@ -80,37 +77,6 @@ function checkApplyBlindfold(baby: BabyDescription) {
         }
       }
     }
-  }
-}
-
-function checkReloadSprite() {
-  // Reapply the co-op baby sprite if we have set to reload it on this frame
-  // (this has to be above the below code so that sprites get reloaded on the next frame)
-  if (g.run.reloadSprite) {
-    g.run.reloadSprite = false;
-    postRender.setPlayerSprite();
-  }
-}
-
-function checkNewPedestalItem() {
-  // Reapply the co-op baby sprite after every pedestal item received
-  // (and keep track of our passive items over the course of the run)
-  if (
-    !g.p.IsItemQueueEmpty() &&
-    !g.run.queuedItems &&
-    g.p.QueuedItem.Item !== undefined
-  ) {
-    g.run.queuedItems = true;
-    if (
-      g.p.QueuedItem.Item.Type === ItemType.ITEM_PASSIVE || // 1
-      g.p.QueuedItem.Item.Type === ItemType.ITEM_FAMILIAR // 4
-    ) {
-      g.run.passiveItems.push(g.p.QueuedItem.Item.ID);
-    }
-  } else if (g.p.IsItemQueueEmpty() && g.run.queuedItems) {
-    g.run.queuedItems = false;
-    g.run.reloadSprite = true;
-    // (if we reload the sprite right now, it won't work with Empty Vessel)
   }
 }
 

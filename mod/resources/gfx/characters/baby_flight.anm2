@@ -1,11 +1,12 @@
+<!-- This file is modified so that the costume will not interfere with the baby sprites. -->
+
 <AnimatedActor>
 	<Info CreatedBy="Unknown" CreatedOn="10/9/2018 10:46:41 PM" Version="19" Fps="30"/>
 	<Content>
 		<Spritesheets>
-			<Spritesheet Path="costumes\Costume_179_Fate.png" Id="0"/>
+			<Spritesheet Path="baby_flight.png" Id="0"/>
 		</Spritesheets>
 		<Layers>
-			<!-- Here I had to change body to body0 so that it would not interfere with the baby sprites -->
 			<Layer Name="body0" Id="0" SpritesheetId="0"/>
 			<Layer Name="top0" Id="1" SpritesheetId="0"/>
 		</Layers>

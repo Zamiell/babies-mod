@@ -1,9 +1,15 @@
 Patch notes:
 - The effect for Twotone Baby (#346) was changed "Dataminer effect on hit" to "Dataminer effect per room entered".
 - The effect for 2600 Baby (#347) was changed from "Backwards tears" to "Friend Finder effect per room cleared".
+- Fixed the bug where some babies could turn invisible under certain circumstances. (Thanks Octotroph)
 - Fixed the bug where babies that have effects based on touching a pickup would not work if a pickup was purchased.
 - Fixed the bug where Brownie Baby (#107) would taking items that updated the familiar cache would delete the Meat Boy and Meat Girl. (Thanks Octotroph)
+- Fixed the bug where the effect for Skull Baby (#211) was not working. (Thanks Gamonymous)
+- Fixed the bug where the effect for Voxdog Baby (#462) was not working. (Thanks Gamonymous)
+- Fixed the bug where the description for Falling Baby (#521) was incorrect. (Thanks Gamonymous)
+- Fixed the bug where Invisible Baby (#541) would cast a shadow.
 
 TODO:
+- TEST ALL COMMENTED OUT CODE FOR ITEMS IN POST RENDER
 - remove input switch baby
 - do a pass of all babies to un-nerf the hard ones

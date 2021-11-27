@@ -3,7 +3,7 @@ import { babyRemoveFunctionMap } from "./babyRemoveFunctionMap";
 import g from "./globals";
 import { getCurrentBaby } from "./util";
 
-export function babyRemove(): void {
+export function babyRemove(player: EntityPlayer): void {
   const [babyType, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
@@ -12,28 +12,28 @@ export function babyRemove(): void {
   // If we are on an item baby, remove the item
   if (baby.item !== undefined) {
     // If the item is in the Schoolbag, this will successfully remove it
-    g.p.RemoveCollectible(baby.item);
+    player.RemoveCollectible(baby.item);
   }
   if (baby.item2 !== undefined) {
     // If the item is in the Schoolbag, this will successfully remove it
-    g.p.RemoveCollectible(baby.item2);
+    player.RemoveCollectible(baby.item2);
   }
 
   // If we are on a multiple item baby, remove the extra items
   if (baby.item !== undefined && baby.itemNum !== undefined) {
     for (let i = 1; i <= baby.itemNum; i++) {
-      g.p.RemoveCollectible(baby.item);
+      player.RemoveCollectible(baby.item);
     }
   }
 
   // If we are on a trinket baby, remove the trinket
   if (baby.trinket !== undefined) {
-    g.p.TryRemoveTrinket(baby.trinket);
+    player.TryRemoveTrinket(baby.trinket);
   }
 
   // Remove the Dead Eye multiplier
   if (baby.item === CollectibleType.COLLECTIBLE_DEAD_EYE) {
-    removeDeadEyeMultiplier(g.p);
+    removeDeadEyeMultiplier(player);
   }
 
   // Remove easter eggs

@@ -1,9 +1,10 @@
 import { getCollectibleItemType } from "isaacscript-common";
+import { BABIES } from "./babies";
 import g from "./globals";
 import { BabyDescription } from "./types/BabyDescription";
 
 export function babyCheckValid(babyType: int): boolean {
-  const baby = g.babies[babyType];
+  const baby = BABIES[babyType];
   if (baby === undefined) {
     error(`Baby ${babyType} was not found.`);
   }

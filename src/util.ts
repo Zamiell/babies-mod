@@ -4,6 +4,7 @@ import {
   getRandomInt,
   nextSeed,
 } from "isaacscript-common";
+import { BABIES, UNKNOWN_BABY } from "./babies";
 import g from "./globals";
 import { BabyDescription } from "./types/BabyDescription";
 import { CollectibleTypeCustom } from "./types/enums";
@@ -24,10 +25,10 @@ export function bigChestExists(): boolean {
 export function getCurrentBaby(): [int, BabyDescription, boolean] {
   const babyType = g.run.babyType;
   if (babyType === null) {
-    return [-1, g.babies[0], false];
+    return [-1, UNKNOWN_BABY, false];
   }
 
-  const baby = g.babies[babyType];
+  const baby = BABIES[babyType];
   if (baby === undefined) {
     error(`Baby ${babyType} was not found.`);
   }

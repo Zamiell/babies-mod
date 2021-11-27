@@ -5,6 +5,7 @@ import {
   log,
 } from "isaacscript-common";
 import { updateCachedAPIFunctions } from "../cache";
+import { NUM_SUCCUBI_IN_FLOCK } from "../constants";
 import g from "../globals";
 import { GlobalsRunBabyTears } from "../types/GlobalsRunBabyTears";
 import { GlobalsRunRoom } from "../types/GlobalsRunRoom";
@@ -26,7 +27,7 @@ export function main(): void {
   const roomIndex = getRoomIndex();
 
   log(
-    `MC_POST_NEW_ROOM_2 - ${roomStageID}.${roomVariant} (on stage ${stage}.${stageType}) (game frame ${gameFrameCount})`,
+    `MC_POST_NEW_ROOM (Babies Mod) - ${roomStageID}.${roomVariant} (on stage ${stage}.${stageType}) (game frame ${gameFrameCount})`,
   );
 
   // Increment level variables
@@ -78,7 +79,7 @@ function resetFlockOfSuccubi() {
   }
 
   g.run.flockOfSuccubi = false;
-  for (let i = 0; i < 7; i++) {
+  for (let i = 0; i < NUM_SUCCUBI_IN_FLOCK; i++) {
     g.p.RemoveCollectible(CollectibleType.COLLECTIBLE_SUCCUBUS);
   }
 }

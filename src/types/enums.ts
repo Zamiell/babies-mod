@@ -44,3 +44,7 @@ export enum CollectibleTypeCustom {
   // Racing+ items
   COLLECTIBLE_CHECKPOINT = Isaac.GetItemIdByName("Checkpoint"),
 }
+
+export enum NullItemIDCustom {
+  BABY_FLYING = Isaac.GetCostumeIdByPath("gfx/characters/baby_flight.anm2"),
+}

@@ -1,4 +1,3 @@
-import { BABIES } from "../babies";
 import { GlobalsRun } from "./GlobalsRun";
 
 export class Globals {
@@ -24,9 +23,6 @@ export class Globals {
 
   // Variables per-run
   run = new GlobalsRun();
-
-  // A list of all the babies
-  babies = BABIES;
 
   // A list of the babies that we have chosen so far on this run / multi-character custom challenge
   pastBabies: int[] = [];

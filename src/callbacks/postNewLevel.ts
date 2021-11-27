@@ -1,4 +1,5 @@
 import { getRandomArrayIndex, log, nextSeed } from "isaacscript-common";
+import { BABIES } from "../babies";
 import { babyAdd } from "../babyAdd";
 import { babyCheckValid } from "../babyCheckValid";
 import { babyRemove } from "../babyRemove";
@@ -12,7 +13,7 @@ export function main(): void {
   const stageType = g.l.GetStageType();
 
   log(
-    `MC_POST_NEW_LEVEL - ${stage}.${stageType} (game frame ${gameFrameCount})`,
+    `MC_POST_NEW_LEVEL (Babies Mod) - ${stage}.${stageType} (game frame ${gameFrameCount})`,
   );
 
   // Reset floor-related variables
@@ -35,9 +36,9 @@ export function main(): void {
   g.run.showIntroFrame = gameFrameCount + 60; // 2 seconds
 
   // Set the new baby
-  babyRemove();
+  babyRemove(g.p);
   getNewBaby();
-  babyAdd();
+  babyAdd(g.p);
 }
 
 function getNewBaby() {
@@ -64,7 +65,7 @@ function getNewBaby() {
   do {
     i += 1;
     seed = nextSeed(seed);
-    babyType = getRandomArrayIndex(g.babies, seed);
+    babyType = getRandomArrayIndex(BABIES, seed);
 
     // Don't randomly choose a co-op baby if we are choosing a specific one for debugging purposes
     if (g.debugBabyNum !== null) {

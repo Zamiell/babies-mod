@@ -7,26 +7,21 @@ import { GlobalsRunRoom } from "./GlobalsRunRoom";
 // Per-run variables
 export class GlobalsRun {
   // Tracking per run
-  // Set to true in the PostGameStarted callback if we are on the right character
+  /** Set to true in the PostGameStarted callback if we are on the right character. */
   enabled = false;
   babyType: number | null = null;
   drawIntro = false;
-  queuedItems = false;
-  // Keep track of all of the pedestal items that we pick up over the course of the run
-  passiveItems: int[] = [];
-  animation = "";
+  /** Keep track of all of the collectibles that we pick up over the course of the run. */
+  passiveCollectibles: int[] = [];
   randomSeed: int;
 
   // Tracking per level
-  // We start at stage 0 instead of stage 1 so that we can trigger the PostNewRoom callback after
-  // the PostNewLevel callback
   level = new GlobalsRunLevel();
 
   // Tracking per room
   room = new GlobalsRunRoom();
 
   // Temporary variables
-  reloadSprite = false;
   showIntroFrame = 0;
   showVersionFrame = 0;
   /** Used to make the player temporarily invulnerable. */
@@ -52,8 +47,10 @@ export class GlobalsRun {
 
   // Item-specific variables
   flockOfSuccubi = false;
+  clockworkAssemblySeed = 0;
 
   constructor(randomSeed = Random()) {
     this.randomSeed = randomSeed;
+    this.clockworkAssemblySeed = randomSeed;
   }
 }

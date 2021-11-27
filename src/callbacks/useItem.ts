@@ -1,7 +1,11 @@
 import {
+  findFreePosition,
   getCollectibleMaxCharges,
+  nextSeed,
   playChargeSoundEffect,
+  removeCollectibleFromItemTracker,
 } from "isaacscript-common";
+import { NUM_SUCCUBI_IN_FLOCK } from "../constants";
 import g from "../globals";
 import { CollectibleTypeCustom } from "../types/enums";
 import { getCurrentBaby } from "../util";
@@ -44,23 +48,15 @@ export function init(mod: Mod): void {
   );
 }
 
-export function main(_collectibleType: CollectibleType, _RNG: RNG): void {
-  const [, , valid] = getCurrentBaby();
-  if (!valid) {
-    return;
-  }
-
-  // Certain items like The Nail mess up the player sprite (if they are standing still)
-  // If we reload the sprite in this callback, it won't work,
-  // so mark to update it in the PostUpdate callback
-  g.run.reloadSprite = true;
-}
-
 // CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP (49)
-function shoopDaWhoop(_collectibleType: CollectibleType, _RNG: RNG) {
+function shoopDaWhoop(
+  _collectibleType: CollectibleType,
+  _RNG: RNG,
+  player: EntityPlayer,
+) {
   const gameFrameCount = g.g.GetFrameCount();
-  const activeCharge = g.p.GetActiveCharge();
-  const batteryCharge = g.p.GetBatteryCharge();
+  const activeCharge = player.GetActiveCharge();
+  const batteryCharge = player.GetBatteryCharge();
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
@@ -75,7 +71,7 @@ function shoopDaWhoop(_collectibleType: CollectibleType, _RNG: RNG) {
 }
 
 // CollectibleType.COLLECTIBLE_MONSTROS_TOOTH (86)
-function monstrosTooth(_collectibleType: CollectibleType, _RNG: RNG) {
+function monstrosTooth() {
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
@@ -96,7 +92,7 @@ function monstrosTooth(_collectibleType: CollectibleType, _RNG: RNG) {
 }
 
 // CollectibleType.COLLECTIBLE_HOW_TO_JUMP (282)
-function howToJump(_collectibleType: CollectibleType, _RNG: RNG) {
+function howToJump() {
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
@@ -113,10 +109,34 @@ function howToJump(_collectibleType: CollectibleType, _RNG: RNG) {
 }
 
 // CollectibleType.COLLECTIBLE_CLOCKWORK_ASSEMBLY
-function clockworkAssembly(_collectibleType: CollectibleType, _RNG: RNG) {
-  // Spawn a Restock Machine (6.10)
-  g.p.UseCard(Card.CARD_REVERSE_JUDGEMENT);
-  g.p.AnimateCollectible(
+function clockworkAssembly(
+  _collectibleType: CollectibleType,
+  _RNG: RNG,
+  player: EntityPlayer,
+) {
+  g.run.clockworkAssemblySeed = nextSeed(g.run.clockworkAssemblySeed);
+  const position = findFreePosition(player.Position);
+  g.g.Spawn(
+    EntityType.ENTITY_SLOT,
+    SlotVariant.SHOP_RESTOCK_MACHINE,
+    position,
+    Vector.Zero,
+    undefined,
+    0,
+    g.run.clockworkAssemblySeed,
+  );
+  Isaac.Spawn(
+    EntityType.ENTITY_EFFECT,
+    EffectVariant.POOF01,
+    PoofSubType.NORMAL,
+    position,
+    Vector.Zero,
+    undefined,
+  );
+
+  g.sfx.Play(SoundEffect.SOUND_SUMMONSOUND);
+
+  player.AnimateCollectible(
     CollectibleTypeCustom.COLLECTIBLE_CLOCKWORK_ASSEMBLY,
     PlayerItemAnimation.USE_ITEM,
     CollectibleAnimation.PLAYER_PICKUP,
@@ -124,13 +144,17 @@ function clockworkAssembly(_collectibleType: CollectibleType, _RNG: RNG) {
 }
 
 // CollectibleType.COLLECTIBLE_FLOCK_OF_SUCCUBI
-function flockOfSuccubi(_collectibleType: CollectibleType, _RNG: RNG) {
-  // Spawn 10 temporary Succubi
-  // (for some reason, adding 7 actually adds 28)
-  for (let i = 0; i < 7; i++) {
-    g.p.AddCollectible(CollectibleType.COLLECTIBLE_SUCCUBUS, 0, false);
+function flockOfSuccubi(
+  _collectibleType: CollectibleType,
+  _RNG: RNG,
+  player: EntityPlayer,
+) {
+  // Spawn N temporary Succubi
+  for (let i = 0; i < NUM_SUCCUBI_IN_FLOCK; i++) {
+    player.AddCollectible(CollectibleType.COLLECTIBLE_SUCCUBUS, 0, false);
+    removeCollectibleFromItemTracker(CollectibleType.COLLECTIBLE_SUCCUBUS);
   }
-  g.p.AnimateCollectible(
+  player.AnimateCollectible(
     CollectibleTypeCustom.COLLECTIBLE_FLOCK_OF_SUCCUBI,
     PlayerItemAnimation.USE_ITEM,
     CollectibleAnimation.PLAYER_PICKUP,
@@ -141,23 +165,29 @@ function flockOfSuccubi(_collectibleType: CollectibleType, _RNG: RNG) {
 }
 
 // CollectibleType.COLLECTIBLE_CHARGING_STATION
-function chargingStation(_collectibleType: CollectibleType, _RNG: RNG) {
-  const numCoins = g.p.GetNumCoins();
-  const schoolbagItem = g.p.GetActiveItem(ActiveSlot.SLOT_SECONDARY);
+function chargingStation(
+  _collectibleType: CollectibleType,
+  _RNG: RNG,
+  player: EntityPlayer,
+) {
+  const numCoins = player.GetNumCoins();
+  const schoolbagItem = player.GetActiveItem(ActiveSlot.SLOT_SECONDARY);
 
   if (
     numCoins === 0 ||
-    !g.p.HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) ||
+    !player.HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) ||
     schoolbagItem === 0
   ) {
     return false;
   }
 
-  const currentCharges = g.p.GetActiveCharge(ActiveSlot.SLOT_SECONDARY);
-  const currentBatteryCharges = g.p.GetBatteryCharge(ActiveSlot.SLOT_SECONDARY);
+  const currentCharges = player.GetActiveCharge(ActiveSlot.SLOT_SECONDARY);
+  const currentBatteryCharges = player.GetBatteryCharge(
+    ActiveSlot.SLOT_SECONDARY,
+  );
   const totalCharges = currentCharges + currentBatteryCharges;
   const maxCharges = getCollectibleMaxCharges(schoolbagItem);
-  const hasBattery = g.p.HasCollectible(CollectibleType.COLLECTIBLE_BATTERY);
+  const hasBattery = player.HasCollectible(CollectibleType.COLLECTIBLE_BATTERY);
   if (hasBattery && totalCharges >= maxCharges * 2) {
     return false;
   }
@@ -165,15 +195,15 @@ function chargingStation(_collectibleType: CollectibleType, _RNG: RNG) {
     return false;
   }
 
-  g.p.AddCoins(-1);
+  player.AddCoins(-1);
   const incrementedCharge = currentCharges + 1;
-  g.p.SetActiveCharge(incrementedCharge, ActiveSlot.SLOT_SECONDARY);
-  g.p.AnimateCollectible(
+  player.SetActiveCharge(incrementedCharge, ActiveSlot.SLOT_SECONDARY);
+  player.AnimateCollectible(
     CollectibleTypeCustom.COLLECTIBLE_CHARGING_STATION,
     PlayerItemAnimation.USE_ITEM,
     CollectibleAnimation.PLAYER_PICKUP,
   );
-  playChargeSoundEffect(g.p, ActiveSlot.SLOT_SECONDARY);
+  playChargeSoundEffect(player, ActiveSlot.SLOT_SECONDARY);
 
   return false;
 }
