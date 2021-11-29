@@ -311,6 +311,16 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
+// Psychic Baby
+evaluateCacheBabyFunctionMap.set(
+  504,
+  (player: EntityPlayer, cacheFlag: CacheFlag) => {
+    if (cacheFlag === CacheFlag.CACHE_DAMAGE) {
+      player.Damage *= 2;
+    }
+  },
+);
+
 // Twitchy Baby
 evaluateCacheBabyFunctionMap.set(
   511,

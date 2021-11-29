@@ -17,7 +17,7 @@ postNPCInitBabyFunctionMap.set(37, (npc: EntityNPC) => {
   npc.Scale = 2;
 });
 
-// 404 Baby
-postNPCInitBabyFunctionMap.set(463, (npc: EntityNPC) => {
+// Colorful Baby
+postNPCInitBabyFunctionMap.set(42, (npc: EntityNPC) => {
   setEntityRandomColor(npc);
 });

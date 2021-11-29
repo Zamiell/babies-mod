@@ -56,7 +56,7 @@ export function babyCheckValid(babyType: int): boolean {
   }
 
   // Check to see if there are level restrictions
-  if (!checkLevel(baby)) {
+  if (!checkStage(baby)) {
     return false;
   }
 
@@ -224,13 +224,6 @@ function checkItem(baby: BabyDescription) {
     (baby.item === CollectibleType.COLLECTIBLE_DEAD_EYE || // 373
       baby.item2 === CollectibleType.COLLECTIBLE_DEAD_EYE) && // 373
     g.p.HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) // 395
-  ) {
-    return false;
-  }
-
-  if (
-    baby.name === "Whore Baby" && // 43
-    g.p.HasCollectible(CollectibleType.COLLECTIBLE_SACRIFICIAL_DAGGER)
   ) {
     return false;
   }
@@ -449,7 +442,7 @@ function checkItem(baby: BabyDescription) {
   return true;
 }
 
-function checkLevel(baby: BabyDescription) {
+function checkStage(baby: BabyDescription) {
   const stage = g.l.GetStage();
   const stageType = g.l.GetStageType();
 
@@ -547,6 +540,15 @@ function checkLevel(baby: BabyDescription) {
     stage === 10
   ) {
     // 50% chance for bombs to have the D6 effect
+    return false;
+  }
+
+  if (
+    baby.name === "Pubic Baby" && // 110
+    stage === 11
+  ) {
+    // Must full clear
+    // Full clearing The Chest is too punishing
     return false;
   }
 

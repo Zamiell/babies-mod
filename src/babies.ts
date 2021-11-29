@@ -1,6 +1,12 @@
 import { BabyDescription } from "./types/BabyDescription";
 import { CollectibleTypeCustom } from "./types/enums";
 
+// The sprites are located at:
+// C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\resources-dlc3\gfx\characters\player2\
+
+// The babies are located at:
+// https://bindingofisaacrebirth.fandom.com/wiki/User:Zamie/Babies_Mod
+
 export const BABIES: BabyDescription[] = [
   {
     name: "Spider Baby",
@@ -72,7 +78,6 @@ export const BABIES: BabyDescription[] = [
     name: "Cute Baby",
     description: "-1 damage per pickup taken",
     sprite: "011_baby_cute.png",
-    item: CollectibleType.COLLECTIBLE_MAGGYS_BOW,
   },
   {
     name: "Crow Baby",
@@ -134,6 +139,7 @@ export const BABIES: BabyDescription[] = [
     description: "Starts with ???'s Only Friend + blindfolded",
     sprite: "022_baby_dead.png",
     item: CollectibleType.COLLECTIBLE_BLUE_BABYS_ONLY_FRIEND,
+    itemNum: 2,
     blindfolded: true,
     softlockPreventionDestroyPoops: true, // ???'s Only Friend cannot kill poops
   },
@@ -150,10 +156,9 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Glitch Baby",
-    description: "Starts with 40x GB Bug",
+    description: "Starts with GB Bug",
     sprite: "025_baby_glitch.png",
     item: CollectibleType.COLLECTIBLE_GB_BUG,
-    itemNum: 40,
   },
   {
     name: "Magnet Baby",
@@ -248,10 +253,8 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Colorful Baby",
-    description: "Starts with 3 Dollar Bill",
+    description: "Acid trip",
     sprite: "042_baby_colorful.png",
-    item: CollectibleType.COLLECTIBLE_3_DOLLAR_BILL,
-    mustHaveTears: true,
   },
   {
     name: "Whore Baby",
@@ -440,9 +443,9 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Alien Hominid Baby",
-    description: "Starts with The Parasite",
+    description: "Starts with beam sword tears",
     sprite: "074_baby_alienhominid.png",
-    item: CollectibleType.COLLECTIBLE_PARASITE,
+    mustHaveTears: true,
   },
   {
     name: "Bomb Baby",
@@ -458,9 +461,9 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Parasite Baby",
-    description: "Balloon tears",
+    description: "Starts with The Parasite",
     sprite: "077_baby_parasite.png",
-    mustHaveTears: true,
+    item: CollectibleType.COLLECTIBLE_PARASITE,
   },
   {
     name: "Derp Baby",
@@ -591,10 +594,10 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Makeup Baby",
-    description: "8-shot",
+    description: "7-shot",
     sprite: "099_baby_makeup.png",
     item: CollectibleType.COLLECTIBLE_THE_WIZ,
-    itemNum: 4,
+    itemNum: 6,
     mustHaveTears: true,
   },
   {
@@ -1523,7 +1526,7 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Wizard Baby",
-    description: "Cards are face up",
+    description: "Most cards are face up",
     sprite: "253_baby_wizard.png",
   },
   {
@@ -1608,7 +1611,6 @@ export const BABIES: BabyDescription[] = [
     name: "Hare Baby",
     description: "Takes damage when standing still",
     sprite: "267_baby_hare.png",
-    seed: SeedEffect.SEED_DAMAGE_WHEN_STOPPED,
   },
   {
     name: "Squirrel Baby",
@@ -1796,7 +1798,7 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Woodsman Baby",
-    description: "All doors are open",
+    description: "Meat Cleaver effect per room",
     sprite: "297_baby_woodsman.png",
   },
   {
@@ -1827,11 +1829,10 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Cheese Baby",
-    description: "Starts with Libra + Soy Milk",
+    description: "The Bean + Gigante Bean",
     sprite: "302_baby_cheese.png",
-    item: CollectibleType.COLLECTIBLE_LIBRA,
-    item2: CollectibleType.COLLECTIBLE_SOY_MILK,
-    mustHaveTears: true,
+    item: CollectibleType.COLLECTIBLE_BEAN,
+    trinket: TrinketType.TRINKET_GIGANTE_BEAN,
   },
   {
     name: "Pizza Baby",
@@ -1898,9 +1899,9 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Monk Baby",
-    description: "PAC1F1CM",
+    description: "Starts with Mom's Bracelet",
     sprite: "313_baby_monk.png",
-    seed: SeedEffect.SEED_PACIFIST,
+    item: CollectibleType.COLLECTIBLE_MOMS_BRACELET,
   },
   {
     name: "Disco Baby",
@@ -2103,7 +2104,7 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Twotone Baby",
-    description: "Dataminer effect on hit",
+    description: "Dataminer effect per room entered",
     sprite: "346_baby_twotone.png",
   },
   {
@@ -2113,7 +2114,7 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Fourtone Baby",
-    description: "Starts with The Candle + blindfolded",
+    description: "Starts with The Candle + blindfolded + instant recharge",
     sprite: "348_baby_fourtone.png",
     item: CollectibleType.COLLECTIBLE_CANDLE,
     blindfolded: true,
@@ -2426,7 +2427,7 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Dark Space Soldier Baby",
-    description: "Chaos card tears",
+    description: "Chaos card tears (every 5th tear)",
     sprite: "398_baby_darkspacesoldier.png",
     num: 5,
     mustHaveTears: true,
@@ -2619,9 +2620,9 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Little Horn Baby",
-    description: "Void tears",
+    description: "Void tears (every 5th tear)",
     sprite: "429_baby_littlehorn.png",
-    num: 3,
+    num: 5,
     mustHaveTears: true,
   },
   {
@@ -2831,7 +2832,7 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "404 Baby",
-    description: "Acid trip",
+    description: "-1 coin/bomb/key on hit",
     sprite: "463_baby_404.png",
   },
   {
@@ -2973,9 +2974,9 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Cursed Pillow Baby",
-    description: "Every 3rd missed tear causes damage",
+    description: "Every 4th missed tear causes damage",
     sprite: "487_baby_cursedpillow.png",
-    num: 3,
+    num: 4,
     mustHaveTears: true,
   },
   {
@@ -2997,13 +2998,14 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Funny Baby",
-    description: "Enemies spawn Mega Troll Bombs on death",
+    description: "Enemies spawn Troll Bombs on death",
     sprite: "491_baby_funny.png",
   },
   {
     name: "Gamer Baby",
     description: "Constant Retro Vision pill effect",
     sprite: "492_baby_gamer.png",
+    seed: SeedEffect.SEED_RETRO_VISION,
   },
   {
     name: "Glittery Peach Baby",
@@ -3076,7 +3078,7 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Psychic Baby",
-    description: "Starts with Abel; tears come from Abel",
+    description: "Starts with Abel; tears come from Abel; 2x damage",
     sprite: "504_baby_psychic.png",
     item: CollectibleType.COLLECTIBLE_ABEL,
     mustHaveTears: true,
@@ -3095,9 +3097,10 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Road Kill Baby",
-    description: "Starts with Pointy Rib (improved) + blindfolded",
+    description: "Starts with Pointy Rib x3 + blindfolded",
     sprite: "507_baby_roadkill.png",
     item: CollectibleType.COLLECTIBLE_POINTY_RIB,
+    num: 3,
     blindfolded: true,
   },
   {
@@ -3191,6 +3194,11 @@ export const BABIES: BabyDescription[] = [
     item: CollectibleType.COLLECTIBLE_TWISTED_PAIR,
   },
   {
+    name: "",
+    description: "Starts with Twisted Pair",
+    sprite: "490_baby_falling.png",
+  },
+  {
     name: "Brother Bobby", // 522
     description: "Slings Godhead aura",
     sprite: "familiar_shooters_01_brotherbobby.png",
@@ -3243,9 +3251,9 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Abel", // 531
-    description: "Every 3rd missed tear causes paralysis",
+    description: "Every 5th missed tear causes paralysis",
     sprite: "familiar_shooters_08_abel.png",
-    num: 3,
+    num: 5,
     mustHaveTears: true,
   },
   {

@@ -618,6 +618,13 @@ entityTakeDmgPlayerBabyFunctionMap.set(456, (player) => {
   player.AddBlueFlies(baby.num, player.Position, undefined);
 });
 
+// 404 Baby
+entityTakeDmgPlayerBabyFunctionMap.set(463, (player) => {
+  player.AddCoins(-1);
+  player.AddBombs(-1);
+  player.AddKeys(-1);
+});
+
 // Mufflerscarf Baby
 entityTakeDmgPlayerBabyFunctionMap.set(472, (player) => {
   // All enemies get freezed on hit
@@ -683,12 +690,8 @@ entityTakeDmgPlayerBabyFunctionMap.set(493, (player) => {
 // Lazy Baby
 entityTakeDmgPlayerBabyFunctionMap.set(499, (player) => {
   // Random card effect on hit
-  let card: Card;
-  do {
-    g.run.randomSeed = nextSeed(g.run.randomSeed);
-    card = getRandomCard(g.run.randomSeed);
-  } while (card === Card.CARD_SUICIDE_KING);
-
+  const exceptions = [Card.CARD_SUICIDE_KING]; // It would be unfair to randomly die
+  const card = getRandomCard(g.run.randomSeed, exceptions);
   player.UseCard(card);
 });
 

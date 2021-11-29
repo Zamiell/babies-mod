@@ -11,7 +11,6 @@ import { GlobalsRunBabyTears } from "../types/GlobalsRunBabyTears";
 import { GlobalsRunRoom } from "../types/GlobalsRunRoom";
 import { getCurrentBaby } from "../util";
 import { postNewRoomBabyFunctionMap } from "./postNewRoomBabyFunctionMap";
-import * as postRender from "./postRender";
 
 export function main(): void {
   updateCachedAPIFunctions();
@@ -52,9 +51,6 @@ export function main(): void {
   if (!valid) {
     return;
   }
-
-  // Reset the player's sprite, just in case it got messed up
-  postRender.setPlayerSprite();
 
   stopDrawingBabyIntroText();
   applyBabyTemporaryEffects(babyType);

@@ -1,15 +1,87 @@
 Patch notes:
-- The effect for Twotone Baby (#346) was changed "Dataminer effect on hit" to "Dataminer effect per room entered".
-- The effect for 2600 Baby (#347) was changed from "Backwards tears" to "Friend Finder effect per room cleared".
+
+Baby changes:
+- Dead Baby (#12) - "Starts with ???'s Only Friend + blindfolded" --> "Starts with 2x ???'s Only Friend + blindfolded"
+- Glitch Baby (#25) - "Starts with 40x GB Bug" --> "Starts with GB Bug"
+- Colorful Baby (#42) - "Starts with 3 Dollar Bill" --> "Acid Trip"
+- Alien Hominid Baby (#74) - "Starts with The Parasite" --> "Starts with beam sword tears"
+- Parasite Baby (#77) - "Balloon tears" --> "Starts with The Parasite"
+- Makeup Baby (#99) - "8-shot" --> "7-shot"
+- Pubic Baby (#110) - Can no longer be gotten on The Chest.
+- Hare Baby (#267) - Now has a visual indication before you take damage.
+- Woodsman Baby (#297) - "All doors are open" --> "Meat Cleaver effect per room"
+- Cheese Baby (#302) - "Starts with Soy Milk + Libra" --> "Starts with The Bean + Gigante Bean"
+- Monk Baby (#313) - "PAC1F1CM" --> "Starts with "
+- Twotone Baby (#346) - "Dataminer effect on hit" --> "Dataminer effect per room entered"
+- 2600 Baby (#347) - "Backwards tears" --> "Friend Finder effect per room cleared"
+- Little Horn Baby (#429) - "Void tears (every 3rd tear)" --> "Void tears (every 5th tear)"
+- 404 Baby (#463) - "Acid Trip" --> "-1 coin/bomb/key on hit"
+- Cursed Pillow Baby (#487) - "Every 3rd missed tear causes damage" --> "Every 4th missed tear causes damage"
+- Psychic Baby (#504) - "Starts with Abel; tears come from Abel" --> "Starts with Abel; tears come from Abel; 2x damage"
+- Road Kill Baby (#507) - "Starts with Pointy Rib (improved) + blindfolded" --> "Starts with Pointy Rib x3 + blindfolded"
+- Abel (#531) - "Every 3rd missed tear causes paralysis" --> "Every 5th missed tear causes paralysis"
+
+Bug fixes:
 - Fixed the bug where some babies could turn invisible under certain circumstances. (Thanks Octotroph)
 - Fixed the bug where babies that have effects based on touching a pickup would not work if a pickup was purchased.
+- Fixed the bug where the effects for babies tied to bombs exploding was not working. (Thanks Gamonymous)
+- Fixed the bug where Cute Baby (#11) received Maggy's Bow.
+- Fixed the bug where the effect for Whore Baby (#43) was not working. (Thanks Gamonymous)
+- Fixed the bug where the effect for Makeup Baby (#99) was not working. (Thanks Gamonymous)
 - Fixed the bug where Brownie Baby (#107) would taking items that updated the familiar cache would delete the Meat Boy and Meat Girl. (Thanks Octotroph)
-- Fixed the bug where the effect for Skull Baby (#211) was not working. (Thanks Gamonymous)
+- Fixed the bug where Boxers Baby (#337) tears did not have any knockback.
 - Fixed the bug where the effect for Voxdog Baby (#462) was not working. (Thanks Gamonymous)
+- Fixed the bug where Imp Baby 2 (#480) had tears that were not yellow.
 - Fixed the bug where the description for Falling Baby (#521) was incorrect. (Thanks Gamonymous)
 - Fixed the bug where Invisible Baby (#541) would cast a shadow.
 
 TODO:
-- TEST ALL COMMENTED OUT CODE FOR ITEMS IN POST RENDER
-- remove input switch baby
+- hare baby
+- make trinket babies use Smelter
 - do a pass of all babies to un-nerf the hard ones
+- make effect for 404 baby
+- For Birthright, is it possible to keep for the entire run the current effect you have
+- possible effects:
+  - ice tears
+  - spore tears
+  - Friendly Dark Esau
+  - Spawns a Crane Game on hit
+  - SeedEffect.SEED_SUPER_HOT
+  - starting with holy mantle + Curse of cursed
+  - haemolacria + brimstone
+  - rocket in a jar + infinite bombs + blindfolded (test it)
+
+Boring babies:
+- Magnet Baby (#26) - Starts with Magneto
+- Teeth Baby (#95) - Starts with Dog Tooth
+- Wink Baby (#222) - Starts with the Stop Watch
+- Blue Robot Baby (#353) - Starts with Broken Watch
+- Liberty Baby (#392) - Starts with Liberty Cap
+- Referee Baby (#404) - Starts with Crooked Penny
+- Censored Baby (#408) - All enemies get confused on hit
+- Shadowmage Baby (#418) - Starts with Death's List
+- Priest Baby (#420) - Starts with Scapular
+- Bag Baby (#422) - Starts with Sack Head
+- Magic Cat Baby (#428) - Constant Kidney Bean effect
+- Breadmeat Hoodiebread Baby (#437) - Starts with Eye of Greed
+- Adventure Baby (#482) - Starts with Moving Box
+- Puppet Baby (#505) - Starts with 5x Key Bum
+- Green Pepper Baby (#518) - Starts with Serpent's Kiss
+
+Hard babies:
+- Troll Baby (#6) - Spawns a Troll Bomb every 3 seconds
+- Noose Baby (#39) - Don't shoot when the timer reaches 0
+- Hare Baby (#267) - Takes damage when standing still
+- !!! Tabby Baby (#269) - 0.5x tear rate
+- Vomit Baby (#341) - Must stand still every 10 seconds
+- Orange Ghost Baby (#373) - Placed bombs are Mega Troll Bombs
+- Pink Princess Baby (#374) - Summons random stomps
+- Blue Pig Baby (#382) - Spawns a Mega Troll Bomb every 5 seconds
+- !!! Text Baby (#476) - 0.5x damage
+- Funny Baby (#491) - Enemies spawn Mega Troll Bombs on death
+
+Bugs with Costume Protector:
+- Mineshaft
+- Wavy Cap
+- Double Glass Eye
+- Double Guppy's Eye

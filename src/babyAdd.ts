@@ -137,12 +137,16 @@ export function babyAdd(player: EntityPlayer): void {
       ? "gfx/characters/player2"
       : "gfx/familiar";
   const spritesheetPath = `${gfxDirectory}/${baby.sprite}`;
-  costumeProtector.AddPlayer(
+  const flightCostume =
+    baby.name === "Butterfly Baby 2" ? undefined : NullItemIDCustom.BABY_FLYING;
+  costumeProtector.UpdatePlayer(
+    player,
     PlayerTypeCustom.PLAYER_RANDOM_BABY,
+    false,
     spritesheetPath,
-    NullItemIDCustom.BABY_FLYING,
+    flightCostume,
   );
-  costumeProtector.initPlayerCostume(player);
+  costumeProtector.initPlayerCostume(player); // Needed according to Sanio in order to fix some bugs
 
   log(`Applied baby: ${babyType} - ${baby.name}`);
 }

@@ -14,6 +14,13 @@ export const postTearUpdateBabyFunctionMap = new Map<
   (tear: EntityTear) => void
 >();
 
+// Colorful Baby
+postTearUpdateBabyFunctionMap.set(42, (tear: EntityTear) => {
+  if (tear.FrameCount === 0) {
+    setEntityRandomColor(tear);
+  }
+});
+
 // Ed Baby
 postTearUpdateBabyFunctionMap.set(100, (tear: EntityTear) => {
   // Fire trail tears
@@ -257,13 +264,6 @@ postTearUpdateBabyFunctionMap.set(459, (tear: EntityTear) => {
     g.run.babyCounters = 0;
     g.p.AddCacheFlags(CacheFlag.CACHE_FIREDELAY);
     g.p.EvaluateItems();
-  }
-});
-
-// 404 Baby
-postTearUpdateBabyFunctionMap.set(463, (tear: EntityTear) => {
-  if (tear.FrameCount === 0) {
-    setEntityRandomColor(tear);
   }
 });
 

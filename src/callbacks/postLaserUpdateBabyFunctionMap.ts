@@ -18,6 +18,14 @@ postLaserUpdateBabyFunctionMap.set(14, (laser: EntityLaser) => {
   }
 });
 
+// Colorful Baby
+postLaserUpdateBabyFunctionMap.set(42, (laser: EntityLaser) => {
+  // This does not work in the PostLaserInit callback for some reason
+  if (laser.FrameCount === 0) {
+    setEntityRandomColor(laser);
+  }
+});
+
 // Belial Baby
 postLaserUpdateBabyFunctionMap.set(51, (laser: EntityLaser) => {
   const sprite = laser.GetSprite();
@@ -45,13 +53,5 @@ postLaserUpdateBabyFunctionMap.set(51, (laser: EntityLaser) => {
     // We made the laser invisible in the PostLaserInit function,
     // and it takes a frame for the "laser.SetMaxDistance()" function to take effect
     laser.Visible = true;
-  }
-});
-
-// 404 Baby
-postLaserUpdateBabyFunctionMap.set(463, (laser: EntityLaser) => {
-  // This does not work in the PostLaserInit callback for some reason
-  if (laser.FrameCount === 0) {
-    setEntityRandomColor(laser);
   }
 });

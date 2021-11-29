@@ -6,5 +6,6 @@
           nameimage="PlayerName_06_BlueBaby.png"
           portrait="playerportrait_coop_baby.png"
           bigportrait="playerportraitbig_coop_baby.png"
-          skinColor="-1" />
+          skinColor="-1"
+          costumeSuffix="randomBaby" />
 </players>

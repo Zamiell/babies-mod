@@ -26,7 +26,7 @@ postEntityKillBabyFunctionMap.set(43, (npc: EntityNPC) => {
   // We cannot explode enemies in the PostEntityKill callback due to a crash having to do with black
   // hearts
   // So, mark to explode in the PostUpdate callback
-  g.run.room.NPCs.push({
+  g.run.babyExplosions.push({
     roomIndex,
     position: npc.Position,
   });
@@ -177,7 +177,7 @@ postEntityKillBabyFunctionMap.set(451, (npc: EntityNPC) => {
 postEntityKillBabyFunctionMap.set(491, (npc: EntityNPC) => {
   Isaac.Spawn(
     EntityType.ENTITY_BOMB,
-    BombVariant.BOMB_SUPERTROLL,
+    BombVariant.BOMB_TROLL,
     0,
     npc.Position,
     Vector.Zero,

@@ -15,6 +15,11 @@ postEffectInitBabyFunctionMap.set(30, (effect: EntityEffect) => {
   }
 });
 
+// Colorful Baby
+postEffectInitBabyFunctionMap.set(42, (effect: EntityEffect) => {
+  setEntityRandomColor(effect);
+});
+
 // Fang Demon Baby
 postEffectInitBabyFunctionMap.set(281, (effect: EntityEffect) => {
   // By default, the Marked target spawns at the center of the room,
@@ -23,9 +28,4 @@ postEffectInitBabyFunctionMap.set(281, (effect: EntityEffect) => {
   if (effect.Variant === EffectVariant.TARGET) {
     effect.Visible = false;
   }
-});
-
-// 404 Baby
-postEffectInitBabyFunctionMap.set(463, (effect: EntityEffect) => {
-  setEntityRandomColor(effect);
 });

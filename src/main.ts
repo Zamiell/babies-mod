@@ -38,7 +38,6 @@ import * as preGetCollectible from "./callbacks/preGetCollectible";
 import * as preRoomEntitySpawn from "./callbacks/preRoomEntitySpawn";
 import * as preTearCollision from "./callbacks/preTearCollision";
 import * as preUseItem from "./callbacks/preUseItem";
-import * as useCard from "./callbacks/useCard";
 import * as useItem from "./callbacks/useItem";
 import * as usePill from "./callbacks/usePill";
 import * as postItemPickup from "./callbacksCustom/postItemPickup";
@@ -130,7 +129,6 @@ function registerCallbacksMain(mod: ModUpgraded) {
 
 function registerCallbacksWithExtraArgument(mod: ModUpgraded) {
   useItem.init(mod); // 3
-  useCard.init(mod); // 5
   preUseItem.init(mod); // 23
 }
 

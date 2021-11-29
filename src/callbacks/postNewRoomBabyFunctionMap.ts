@@ -8,7 +8,6 @@ import {
   gridToPos,
   log,
   nextSeed,
-  openAllDoors,
   removeAllMatchingEntities,
   teleport,
 } from "isaacscript-common";
@@ -518,14 +517,11 @@ postNewRoomBabyFunctionMap.set(287, () => {
 
 // Woodsman Baby
 postNewRoomBabyFunctionMap.set(297, () => {
-  const currentRoomIndex = g.l.GetCurrentRoomIndex();
-  const startingRoomIndex = g.l.GetStartingRoomIndex();
+  const roomClear = g.r.IsClear();
 
-  if (currentRoomIndex === startingRoomIndex) {
-    return;
+  if (!roomClear) {
+    useActiveItem(g.p, CollectibleType.COLLECTIBLE_MEAT_CLEAVER);
   }
-
-  openAllDoors();
 });
 
 // Twotone Baby
@@ -557,21 +553,6 @@ postNewRoomBabyFunctionMap.set(431, () => {
   // Prevent softlocks from Gaping Maws and cheap damage by Broken Gaping Maws
   removeAllMatchingEntities(EntityType.ENTITY_GAPING_MAW);
   removeAllMatchingEntities(EntityType.ENTITY_BROKEN_GAPING_MAW);
-});
-
-// Gamer Baby
-postNewRoomBabyFunctionMap.set(492, () => {
-  const currentRoomIndex = g.l.GetCurrentRoomIndex();
-  const startingRoomIndex = g.l.GetStartingRoomIndex();
-
-  // Checking for starting room index can prevent crashes when reseeding happens
-  if (currentRoomIndex !== startingRoomIndex) {
-    g.p.UsePill(PillEffect.PILLEFFECT_RETRO_VISION, PillColor.PILL_NULL);
-    // If we try to cancel the animation now, it will bug out the player such that they will not be
-    // able to take pocket items or pedestal items
-    // This still happens even if we cancel the animation in the PostUpdate callback,
-    // so don't bother canceling it
-  }
 });
 
 // Psychic Baby

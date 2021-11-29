@@ -148,29 +148,3 @@ entityTakeDmgEntityBabyFunctionMap.set(
     }
   },
 );
-
-// Road Kill Baby
-entityTakeDmgEntityBabyFunctionMap.set(
-  507,
-  (
-    entity,
-    _damageAmount,
-    _damageFlags,
-    damageSource,
-    damageCountdownFrames,
-  ) => {
-    // Give the Pointy Rib extra damage
-    if (
-      damageSource.Type === EntityType.ENTITY_FAMILIAR && // 3
-      damageSource.Variant === FamiliarVariant.POINTY_RIB // 127
-    ) {
-      const damage = g.p.Damage * 3;
-      g.run.dealingExtraDamage = true;
-      entity.TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames);
-      g.run.dealingExtraDamage = false;
-      return false;
-    }
-
-    return undefined;
-  },
-);

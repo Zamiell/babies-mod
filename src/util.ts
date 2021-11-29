@@ -84,7 +84,7 @@ export function getRandomOffsetPosition(
 
 export function getRandomCollectibleTypeFromPool(
   itemPoolType: ItemPoolType,
-): int {
+): int | undefined {
   g.run.room.seed = nextSeed(g.run.room.seed);
   g.run.babyBool = true;
   const collectibleType = g.itemPool.GetCollectible(

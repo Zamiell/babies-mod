@@ -66,21 +66,64 @@ function costumeProtector:AddPlayer(
 playerType, spritesheetNormal, costumeFlight, spritesheetFlight, costumeExtra
 )
 	if playerType ~= nil
-	and costumeFlight ~= nil
 	and spritesheetNormal ~= nil then
 		playerToProtect[playerType] = true
-		playerCostume[playerType] = {costumeFlight}
+		playerCostume[playerType] = {}
 		playerSpritesheet[playerType] = {spritesheetNormal}
 		initiateItemWhitelist(playerType)
 		initiateNullItemWhitelist(playerType)
-
+		
+		if costumeFlight or costumeExtra ~= nil then			
+			if costumeFlight ~= nil then
+				table.insert(playerCostume[playerType], costumeFlight)
+			end
+			if costumeExtra ~= nil then
+				table.insert(playerCostume[playerType], costumeExtra)
+			end
+		end
+		
 		if spritesheetFlight ~= nil then
 			table.insert(playerSpritesheet[playerType], spritesheetFlight)
 		end
 		
-		if costumeExtra ~= nil then
-			table.insert(playerCostume[playerType], costumeExtra)
+	end
+end
+
+function costumeProtector:UpdatePlayer(
+player, playerType, shouldUpdateWhitelist, spritesheetNormal, costumeFlight, spritesheetFlight, costumeExtra
+)
+	if playerType ~= nil
+	and playerToProtect[playerType] == true then
+	
+		if shouldUpdateWhitelist then
+			initiateItemWhitelist(playerType)
+			initiateNullItemWhitelist(playerType)
 		end
+		
+		if spritesheetNormal then
+			playerSpritesheet[playerType][1] = spritesheetNormal
+		end
+		
+		if costumeFlight ~= nil then
+			playerCostume[playerType][1] = costumeFlight
+		else
+			playerCostume[playerType][1] = nil
+		end
+		
+		if spritesheetFlight ~= nil then
+			playerSpritesheet[playerType][2] = spritesheetFlight
+		else
+			playerSpritesheet[playerType][2] = nil
+		end
+		
+		if costumeExtra ~= nil then
+			playerCostume[playerType][2] = costumeExtra
+		else
+			playerCostume[playerType][2] = nil
+		end
+		
+		costumeProtector:mainResetPlayerCostumes(player)
+	
 	end
 end
 
@@ -145,16 +188,19 @@ local nullEffectsBlacklist = {}
 --Specifically if these items are whitelisted are they added back if their effects are active
 local collectiblesEffectsOnlyAddOnEffect = {
 	[CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON] = true,
+	[CollectibleType.COLLECTIBLE_MOMS_BRA] = true,
 	[CollectibleType.COLLECTIBLE_EMPTY_VESSEL] = true,
 	[CollectibleType.COLLECTIBLE_RAZOR_BLADE] = true,
 	[CollectibleType.COLLECTIBLE_THE_NAIL] = true,
 	[CollectibleType.COLLECTIBLE_MY_LITTLE_UNICORN] = true,
 	[CollectibleType.COLLECTIBLE_GAMEKID] = true,
 	[CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP] = true,
+	[CollectibleType.COLLECTIBLE_DELIRIOUS] = true,
 }
 
 local activesToDelayCostumeReset = {
 	[CollectibleType.COLLECTIBLE_RAZOR_BLADE] = true,
+	[CollectibleType.COLLECTIBLE_MOMS_BRA] = true,
 	[CollectibleType.COLLECTIBLE_THE_NAIL] = true,
 	[CollectibleType.COLLECTIBLE_MY_LITTLE_UNICORN] = true,
 	[CollectibleType.COLLECTIBLE_GAMEKID] = true,
@@ -163,6 +209,8 @@ local activesToDelayCostumeReset = {
 	[CollectibleType.COLLECTIBLE_WHITE_PONY] = true,
 	[CollectibleType.COLLECTIBLE_D4] = true,
 	[CollectibleType.COLLECTIBLE_D100] = true,
+	[CollectibleType.COLLECTIBLE_DELIRIOUS] = true,
+	
 }
 
 local playerFormToNullItemID = {
@@ -213,8 +261,11 @@ if REPENTANCE then
 		[NullItemID.ID_SOUL_JACOB] = true,
 	}
 	
+	collectiblesEffectsOnlyAddOnEffect[CollectibleType.COLLECTIBLE_LARYNX] = true
+	collectiblesEffectsOnlyAddOnEffect[CollectibleType.COLLECTIBLE_TOOTH_AND_NAIL] = true
 	collectiblesEffectsOnlyAddOnEffect[CollectibleType.COLLECTIBLE_ASTRAL_PROJECTION] = true
 	
+	activesToDelayCostumeReset[CollectibleType.COLLECTIBLE_LARYNX] = true
 	activesToDelayCostumeReset[CollectibleType.COLLECTIBLE_SULFUR] = true
 	activesToDelayCostumeReset[CollectibleType.COLLECTIBLE_LEMEGETON] = true	
 end
@@ -229,37 +280,39 @@ local function onSpiritShacklesGhost(player)
 	end
 end
 
-local function readdTransformations(player)
-	local playerType = player:GetPlayerType()
-	for playerForm, nullItemID in pairs(playerFormToNullItemID) do
-		if player:HasPlayerForm(playerForm)
-		and playerNullItemCostumeWhitelist[playerType][nullItemID] == true
-		then
-			player:AddNullCostume(nullItemID)
-		end
+function costumeProtector:AddCustomNullCostume(player, nullID)
+	if nullID ~= -1 then
+		player:AddNullCostume(nullID)
+	else
+		error("Custom Costume Protector Error: attempt to add costume returns nil")
 	end
 end
 
-local function readdNullEffectCostumes(player)
+function costumeProtector:CanAddCollectibleCostume(player, itemID)
+	if (player:HasCollectible(itemID) or player:GetEffects():HasCollectibleEffect(itemID)) 
+	and not collectiblesEffectsOnlyAddOnEffect[itemID]
+	then
+		return true
+	else
+		return false
+	end
+end
+
+local function ReaddAllCostumes(player)
 	local playerType = player:GetPlayerType()
 	local playerEffects = player:GetEffects()
-
-	for nullItemID = 1, NullItemID.NUM_NULLITEMS do
-		if playerEffects:HasNullEffect(nullItemID) then
-			if playerNullItemCostumeWhitelist[playerType][nullItemID] == true
-			and not nullEffectsBlacklist[nullItemID] then
-				if REPENTANCE and nullItemID == NullItemID.ID_SPIRIT_SHACKLES_SOUL then
-					onSpiritShacklesGhost(player)
+	
+	--Item Costumes
+	if playerItemCostumeWhitelist[playerType] then
+			for itemID, _ in pairs(playerItemCostumeWhitelist[playerType]) do
+				local itemCostume = Isaac.GetItemConfig():GetCollectible(itemID)
+				if costumeProtector:CanAddCollectibleCostume(player, itemID) then
+					player:AddCostume(itemCostume, false)
 				end
-				player:AddNullCostume(nullItemID)
 			end
 		end
-	end
-end
-
-local function readdCollectibleEffectCostumes(player)
-	local playerType = player:GetPlayerType()
-	local playerEffects = player:GetEffects()
+	
+	--Item Costumes Only On Effect
 	for itemID, boolean in pairs(collectiblesEffectsOnlyAddOnEffect) do
 		if playerEffects:HasCollectibleEffect(itemID) then
 			if playerItemCostumeWhitelist[playerType][itemID] == true then
@@ -271,7 +324,46 @@ local function readdCollectibleEffectCostumes(player)
 				end
 			end
 		end
-	end	
+	end
+	
+	--Null Costumes
+	for nullItemID = 1, NullItemID.NUM_NULLITEMS do
+		if playerEffects:HasNullEffect(nullItemID) then
+			if playerNullItemCostumeWhitelist[playerType][nullItemID] == true
+			and not nullEffectsBlacklist[nullItemID] then
+				if REPENTANCE and nullItemID == NullItemID.ID_SPIRIT_SHACKLES_SOUL then
+					onSpiritShacklesGhost(player)
+				end
+				player:AddNullCostume(nullItemID)
+			end
+		end
+	end
+	
+	--Transformations
+	for playerForm, nullItemID in pairs(playerFormToNullItemID) do
+		if player:HasPlayerForm(playerForm)
+		and playerNullItemCostumeWhitelist[playerType][nullItemID] == true
+		then
+			player:AddNullCostume(nullItemID)
+		end
+	end
+end
+
+local function AddItemSpecificCostumes(player)
+	local playerType = player:GetPlayerType()
+	local playerEffects = player:GetEffects()
+	local holyMantleCostume = Isaac.GetItemConfig():GetCollectible(CollectibleType.COLLECTIBLE_HOLY_MANTLE)
+	
+	--Holy Card
+	if REPENTANCE and playerEffects:HasNullEffect(NullItemID.ID_HOLY_CARD) then
+		player:AddCostume(holyMantleCostume, false)
+	end
+	
+	--Empty Vessel
+	if playerEffects:HasCollectibleEffect(CollectibleType.COLLECTIBLE_EMPTY_VESSEL)
+	and playerItemCostumeWhitelist[playerType][CollectibleType.COLLECTIBLE_EMPTY_VESSEL] == true then
+		player:AddNullCostume(NullItemID.ID_EMPTY_VESSEL)
+	end
 end
 
 local function updatePlayerSpritesheet(player)
@@ -282,7 +374,7 @@ local function updatePlayerSpritesheet(player)
 	if player.CanFly and playerSpritesheet[playerType][2] ~= nil then
 		spritesheetPath = playerSpritesheet[playerType][2]
 	end
-
+	
 	sprite:ReplaceSpritesheet(12, spritesheetPath)
 	sprite:ReplaceSpritesheet(4, spritesheetPath)
 	sprite:ReplaceSpritesheet(2, spritesheetPath)
@@ -294,22 +386,10 @@ local function tryAddFlightCostume(player)
 	local playerType = player:GetPlayerType()
 	local data = player:GetData()	
 
-	if player.CanFly == true then
+	if player.CanFly == true 
+	and playerCostume[playerType][1] ~= nil then
 		local costumeFlight = playerCostume[playerType][1]
 		player:AddNullCostume(costumeFlight)
-	end
-end
-
-local function readdOtherMantles(player)
-	local playerEffects = player:GetEffects()
-	
-	if playerEffects:HasCollectibleEffect(CollectibleType.COLLECTIBLE_HOLY_MANTLE) then
-		if REPENTANCE then
-			if playerEffects:HasNullEffect(NullItemID.ID_HOLY_CARD) or playerEffects:HasNullEffect(NullItemID.ID_LOST_CURSE) then
-				local holyMantleCostume = Isaac.GetItemConfig():GetCollectible(CollectibleType.COLLECTIBLE_HOLY_MANTLE)
-				player:AddCostume(holyMantleCostume, false)
-			end
-		end
 	end
 end
 
@@ -317,7 +397,7 @@ function costumeProtector:mainResetPlayerCostumes(player)
 	local playerType = player:GetPlayerType()
 	
 	if (REPENTANCE and playerToProtect[playerType] == true and not player:IsCoopGhost()) or (not REPENTANCE and playerToProtect[playerType] == true) then
-
+	
 		player:ClearCostumes()
 		updatePlayerSpritesheet(player)
 		
@@ -327,43 +407,56 @@ function costumeProtector:mainResetPlayerCostumes(player)
 		
 		if playerCostume[playerType][2] ~= nil then
 			local costumeExtra = playerCostume[playerType][2]
-			player:AddNullCostume(costumeExtra)
-		end
-					
-		if playerItemCostumeWhitelist[playerType] then
-			for itemID, _ in pairs(playerItemCostumeWhitelist[playerType]) do
-				local itemCostume = Isaac.GetItemConfig():GetCollectible(itemID)
-				if (player:HasCollectible(itemID) or player:GetEffects():HasCollectibleEffect(itemID)) 
-				and not collectiblesEffectsOnlyAddOnEffect[itemID]
-				then
-					player:AddCostume(itemCostume, false)
-				end
-			end
+			costumeProtector:AddCustomNullCostume(player, costumeExtra)
 		end
 		
-		readdOtherMantles(player)
-		readdNullEffectCostumes(player)
-		readdTransformations(player)
-		readdCollectibleEffectCostumes(player)
+		ReaddAllCostumes(player)
+		AddItemSpecificCostumes(player)
 		costumeProtector:afterCostumeReset(player)
 	end
 end
 
-function costumeProtector:removePlayerCostumes(player, playerType)
-	if playerCostume[playerType][1] ~= nil then
-		player:TryRemoveNullCostume(playerCostume[playerType][1])
+function costumeProtector:removePlayerCostumes(player)
+	local data = player:GetData()
+	local playerEffects = player:GetEffects()
+	
+	--Removing character's costumes
+	for playerType, _ in pairs(data.CCH_HasCostumeInitialized) do
+		local basePath = playerCostume[playerType]
+		player:TryRemoveNullCostume(basePath[1])
+		if basePath[2] ~= nil then
+			player:TryRemoveNullCostume(basePath[2])
+		end
 	end
-	if playerCostume[playerType][2] ~= nil then
-		player:TryRemoveNullCostume(playerCostume[playerType][2])
-	end
+	
+	--Item Costumes
 	for itemID = 1, CollectibleType.NUM_COLLECTIBLES do
-		if (player:HasCollectible(itemID) or player:GetEffects():HasCollectibleEffect(itemID)) 
-		and not collectiblesEffectsOnlyAddOnEffect[itemID]
-		then
-			local itemCostume = Isaac.GetItemConfig():GetCollectible(itemID)
-			if (player:HasCollectible(itemID)) then
-				player:AddCostume(itemCostume, false)
+		local itemCostume = Isaac.GetItemConfig():GetCollectible(itemID)
+		if costumeProtector:CanAddCollectibleCostume(player, itemID) then
+			player:AddCostume(itemCostume, false)
+		end
+	end
+
+	--Item Costumes Only On Effect
+	for itemID, boolean in pairs(collectiblesEffectsOnlyAddOnEffect) do
+		if playerEffects:HasCollectibleEffect(itemID) then
+			player:AddCostume(itemCostume)
+		end
+	end
+	
+	--Null Costumes
+	for nullItemID = 1, NullItemID.NUM_NULLITEMS do
+		if playerEffects:HasNullEffect(nullItemID) then
+			if not nullEffectsBlacklist[nullItemID] then
+				player:AddNullCostume(nullItemID)
 			end
+		end
+	end
+	
+	--Transformations
+	for playerForm, nullItemID in pairs(playerFormToNullItemID) do
+		if player:HasPlayerForm(playerForm) then
+			player:AddNullCostume(nullItemID)
 		end
 	end
 end
@@ -371,14 +464,15 @@ end
 function costumeProtector:initPlayerCostume(player)
   local data = player:GetData()
   local playerType = player:GetPlayerType()
-
-	if (not REPENTANCE and playerToProtect[playerType] == true) or (REPENTANCE and playerToProtect[playerType] == true and not player:IsCoopGhost()) then
 	
+	if (not REPENTANCE and playerToProtect[playerType] == true) or (REPENTANCE and playerToProtect[playerType] == true and not player:IsCoopGhost()) then
+		
 		if not data.CCH_HasCostumeInitialized then
-
+			
 			costumeProtector:mainResetPlayerCostumes(player)
 			data.CCH_NumCollectibles = player:GetCollectibleCount()
 			data.CCH_NumTemporaryEffects = player:GetEffects():GetEffectsList():__len()
+			data.CCH_QueueCostumeRemove = {}
 			data.CCH_HasCostumeInitialized = {
 				[playerType] = true
 			}
@@ -390,20 +484,32 @@ end
 
 function costumeProtector:deinitPlayerCostume(player)
 	local data = player:GetData()
+	local playerType = player:GetPlayerType()
 	
-	if not playerToProtect[player:GetPlayerType()] then
-		if data.CCH_HasCostumeInitialized then --Not listed protected player but has protected data.
-			for playerType, _ in pairs(playerToProtect) do
-				if data.CCH_HasCostumeInitialized[playerType] ~= nil then
-					costumeProtector:removePlayerCostumes(player, playerType)
-					data.CCH_NumCollectibles = nil
-					data.CCH_NumTemporaryEffects = nil
-					data.CCH_CustomFlightCostume = nil
-					data.CCH_HasCostumeInitialized = nil
-					costumeProtector:afterCostumeDeinit(player)
-				end
-			end
-		end
+	if not playerToProtect[playerType] --PlayerType isn't in local protection system
+	and data.CCH_HasCostumeInitialized --Has the protection data
+	and not data.CCH_HasCostumeInitialized[playerType] --For those given protection outside of this mod
+	then
+		--costumeProtector:removePlayerCostumes(player)
+		data.CCH_NumCollectibles = nil
+		data.CCH_NumTemporaryEffects = nil
+		data.CCH_CustomFlightCostume = nil
+		data.CCH_HasCostumeInitialized = nil
+		costumeProtector:afterCostumeDeinit(player)
+	end
+end
+
+local function dontResetOnHemoptysis(player)
+	local effects = player:GetEffects()
+	local playerType = player:GetPlayerType()
+	local hemo = CollectibleType.COLLECTIBLE_HEMOPTYSIS
+	
+	if effects:HasCollectibleEffect(hemo)
+	and playerItemCostumeWhitelist[playerType]
+	and playerItemCostumeWhitelist[playerType][hemo] ~= nil then
+		return true
+	else
+		return false
 	end
 end
 
@@ -419,6 +525,7 @@ function costumeProtector:miscCostumeResets(player)
 	
 	if data.CCH_NumTemporaryEffects
 	and data.CCH_NumTemporaryEffects ~= player:GetEffects():GetEffectsList():__len()
+	and dontResetOnHemoptysis(player)
 	then
 		data.CCH_NumTemporaryEffects = player:GetEffects():GetEffectsList():__len()
 		costumeProtector:mainResetPlayerCostumes(player)
@@ -504,37 +611,58 @@ function costumeProtector:stopNewRoomCostumes(player)
 	local data = player:GetData()
 	
 	if player:HasCollectible(CollectibleType.COLLECTIBLE_TAURUS)
-	and not playerItemCostumeWhitelist[playerType][CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON] then
-		data.CCH_DelayCostumeReset = true
+	and not playerItemCostumeWhitelist[playerType][CollectibleType.COLLECTIBLE_TAURUS] then
+		table.insert(data.CCH_QueueCostumeRemove, CollectibleType.COLLECTIBLE_TAURUS)
+		data.CCH_DelayTaurusCostumeReset = true
 	end
 	
 	if player:HasCollectible(CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON)
 	and not playerItemCostumeWhitelist[playerType][CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON] then
 		if player:GetHearts() <= 1 then
-			data.CCH_DelayCostumeReset = true
+			table.insert(data.CCH_QueueCostumeRemove, CollectibleType.COLLECTIBLE_WHORE_OF_BABYLON)
 		end
 	end
 
 	if player:HasCollectible(CollectibleType.COLLECTIBLE_EMPTY_VESSEL)
 	and not playerItemCostumeWhitelist[playerType][CollectibleType.COLLECTIBLE_EMPTY_VESSEL] then
 		if player:GetHearts() == 0 then
-			data.CCH_DelayCostumeReset = true
+			table.insert(data.CCH_QueueCostumeRemove, CollectibleType.COLLECTIBLE_EMPTY_VESSEL)
 		end
 	end
 end
 
---Missing No. doesn't use D4's run-reroll effect for some dumb reason lol
+function costumeProtector:stopTaurusCostumeOnInvincibility(player)
+	local effects = player:GetEffects()
+	local data = player:GetData()
+
+	if player:GetEffects():HasCollectibleEffect(CollectibleType.COLLECTIBLE_TAURUS)
+	and player.MoveSpeed >= 2.0
+	and data.CCH_DelayTaurusCostumeReset then
+		table.insert(data.CCH_QueueCostumeRemove, CollectibleType.COLLECTIBLE_TAURUS)
+		data.CCH_DelayTaurusCostumeReset = false
+	end
+end
+
+--Missing No. doesn't use D4's run-reroll effect for some dumb reason!
 function costumeProtector:resetOnMissingNoNewFloor(player)
 	if player:HasCollectible(CollectibleType.COLLECTIBLE_MISSING_NO) then
-		costumeProtector:mainResetPlayerCostumes(player)
+		costumeProtector:MainResetPlayerCostumes(player)
 	end
 end
 
 function costumeProtector:modelingClay(player)
 	local playerType = player:GetPlayerType()
 	local data = player:GetData()
-	if player:HasTrinket(TrinketType.TRINKET_MODELING_CLAY) then
-		data.CCH_DelayCostumeReset = true
+	local itemID = player:GetModelingClayEffect()
+	
+	if data.CCH_CheckForModelingClay then
+		if player:HasTrinket(TrinketType.TRINKET_MODELING_CLAY)
+		and itemID ~= 0
+		and playerItemCostumeWhitelist[playerType][itemID] == nil
+		then
+			table.insert(data.CCH_QueueCostumeRemove, itemID)
+		end
+		data.CCH_CheckForModelingClay = false
 	end
 end
 
@@ -577,8 +705,16 @@ function costumeProtector:delayInCostumeReset(player)
 	local data = player:GetData()
 
 	if data.CCH_DelayCostumeReset and data.CCH_DelayCostumeReset then
-		costumeProtector:mainResetPlayerCostumes(player)
+		costumeProtector:MainResetPlayerCostumes(player)
 		data.CCH_DelayCostumeReset = nil
+	end
+	
+	if data.CCH_QueueCostumeRemove and data.CCH_QueueCostumeRemove[1] ~= nil then
+		while #data.CCH_QueueCostumeRemove > 0 do
+			local itemCostume = Isaac.GetItemConfig():GetCollectible(data.CCH_QueueCostumeRemove[1])
+			player:RemoveCostume(itemCostume)
+			table.remove(data.CCH_QueueCostumeRemove, 1)
+		end
 	end
 end
 
@@ -587,7 +723,6 @@ end
 ----------------------------
 
 function costumeProtector:init(mod)
-
 	mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE, function(_, player)
 		local playerType = player:GetPlayerType()
 		
@@ -596,6 +731,7 @@ function costumeProtector:init(mod)
 		if playerToProtect[playerType] == true then
 			costumeProtector:miscCostumeResets(player)
 			costumeProtector:delayInCostumeReset(player)
+			costumeProtector:stopTaurusCostumeOnInvincibility(player)
 			if REPENTANCE then
 				costumeProtector:astralProjectionOnClear(player)
 			end

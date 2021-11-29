@@ -17,7 +17,7 @@ postBombInitBabyFunctionMap.set(37, (bomb: EntityBomb) => {
   bomb.SpriteScale = Vector(2, 2);
 });
 
-// 404 Baby
-postBombInitBabyFunctionMap.set(463, (bomb: EntityBomb) => {
+// Colorful Baby
+postBombInitBabyFunctionMap.set(42, (bomb: EntityBomb) => {
   setEntityRandomColor(bomb);
 });

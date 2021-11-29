@@ -7,6 +7,13 @@ export const postProjectileUpdateBabyFunctionMap = new Map<
   (projectile: EntityProjectile) => void
 >();
 
+// Colorful Baby
+postProjectileUpdateBabyFunctionMap.set(42, (projectile: EntityProjectile) => {
+  if (projectile.FrameCount === 1) {
+    setEntityRandomColor(projectile);
+  }
+});
+
 // Zombie Baby
 postProjectileUpdateBabyFunctionMap.set(61, (projectile: EntityProjectile) => {
   if (
@@ -90,12 +97,5 @@ postProjectileUpdateBabyFunctionMap.set(318, (projectile: EntityProjectile) => {
     projectile.SpawnerType === EntityType.ENTITY_FIREPLACE
   ) {
     projectile.Remove();
-  }
-});
-
-// 404 Baby
-postProjectileUpdateBabyFunctionMap.set(463, (projectile: EntityProjectile) => {
-  if (projectile.FrameCount === 1) {
-    setEntityRandomColor(projectile);
   }
 });

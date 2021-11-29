@@ -7,6 +7,8 @@ import g from "../globals";
 import { TearData } from "../types/TearData";
 import { getCurrentBaby, useActiveItem } from "../util";
 
+const YELLOW = Color(1, 1, 0);
+
 export const postFireTearBabyFunctionMap = new Map<
   int,
   (tear: EntityTear) => void
@@ -112,9 +114,10 @@ postFireTearBabyFunctionMap.set(66, (tear: EntityTear) => {
   tear.Remove();
 });
 
-// Parasite Baby
-postFireTearBabyFunctionMap.set(77, (tear: EntityTear) => {
-  tear.ChangeVariant(TearVariant.BALLOON);
+// Alien Hominid Baby
+postFireTearBabyFunctionMap.set(74, (tear: EntityTear) => {
+  // tear.ChangeVariant(TearVariant.TECH_SWORD_BEAM);
+  tear.ChangeVariant(TearVariant.KEY_BLOOD);
 });
 
 // Scream Baby
@@ -319,6 +322,7 @@ postFireTearBabyFunctionMap.set(331, (tear: EntityTear) => {
 postFireTearBabyFunctionMap.set(337, (tear: EntityTear) => {
   // Turn all tears into Knockout Drops tears
   tear.ChangeVariant(TearVariant.FIST);
+  tear.TearFlags |= TearFlags.TEAR_PUNCH;
 });
 
 // X Baby
@@ -543,6 +547,7 @@ postFireTearBabyFunctionMap.set(470, (tear: EntityTear) => {
 
 // Imp Baby 2
 postFireTearBabyFunctionMap.set(480, (tear: EntityTear) => {
+  tear.SetColor(YELLOW, 3600, 100);
   tear.TearFlags |= TearFlags.TEAR_ACID;
 });
 

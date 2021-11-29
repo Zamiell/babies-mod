@@ -17,7 +17,6 @@ import g from "../globals";
 import * as pseudoRoomClear from "../pseudoRoomClear";
 import { EffectVariantCustom } from "../types/enums";
 import { bigChestExists, getCurrentBaby, useActiveItem } from "../util";
-import * as postRender from "./postRender";
 
 export const postUpdateBabyFunctionMap = new Map<int, () => void>();
 
@@ -884,7 +883,6 @@ postUpdateBabyFunctionMap.set(349, () => {
   // Every 10 seconds
   if (gameFrameCount % (10 * GAME_FRAMES_PER_SECOND) === 0) {
     useActiveItem(g.p, CollectibleType.COLLECTIBLE_DELIRIOUS);
-    postRender.setPlayerSprite();
   }
 });
 

@@ -28,6 +28,11 @@ postPickupInitBabyFunctionMap.set(37, (pickup: EntityPickup) => {
   }
 });
 
+// Colorful Baby
+postPickupInitBabyFunctionMap.set(42, (pickup: EntityPickup) => {
+  setEntityRandomColor(pickup);
+});
+
 // Shopkeeper Baby
 postPickupInitBabyFunctionMap.set(215, (pickup: EntityPickup) => {
   // Free items in shops
@@ -80,11 +85,6 @@ postPickupInitBabyFunctionMap.set(317, (pickup: EntityPickup) => {
     pickup.AutoUpdatePrice = false;
     pickup.Price = getCollectibleDevilHeartPrice(pickup.SubType, g.p);
   }
-});
-
-// 404 Baby
-postPickupInitBabyFunctionMap.set(463, (pickup: EntityPickup) => {
-  setEntityRandomColor(pickup);
 });
 
 // Demon Baby
