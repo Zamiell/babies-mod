@@ -1,4 +1,4 @@
-import { getCollectibleItemType } from "isaacscript-common";
+import { getCollectibleItemType, getEffectiveStage } from "isaacscript-common";
 import { BABIES } from "./babies";
 import g from "./globals";
 import { BabyDescription } from "./types/BabyDescription";
@@ -443,17 +443,17 @@ function checkItem(baby: BabyDescription) {
 }
 
 function checkStage(baby: BabyDescription) {
-  const stage = g.l.GetStage();
   const stageType = g.l.GetStageType();
+  const effectiveStage = getEffectiveStage();
 
-  if (baby.noEndFloors === true && stage >= 9) {
+  if (baby.noEndFloors === true && effectiveStage >= 9) {
     return false;
   }
 
   if (
     (baby.item === CollectibleType.COLLECTIBLE_STEAM_SALE ||
       baby.item2 === CollectibleType.COLLECTIBLE_STEAM_SALE) &&
-    stage >= 7
+    effectiveStage >= 7
   ) {
     // Only valid for floors with shops
     return false;
@@ -461,7 +461,7 @@ function checkStage(baby: BabyDescription) {
 
   if (
     baby.item === CollectibleType.COLLECTIBLE_WE_NEED_TO_GO_DEEPER &&
-    (stage <= 2 || stage >= 8)
+    (effectiveStage <= 2 || effectiveStage >= 8)
   ) {
     // Only valid for floors that the shovel will work on
     return false;
@@ -470,16 +470,22 @@ function checkStage(baby: BabyDescription) {
   if (
     (baby.item === CollectibleType.COLLECTIBLE_SCAPULAR ||
       baby.item2 === CollectibleType.COLLECTIBLE_SCAPULAR) &&
-    stage >= 7
+    effectiveStage >= 7
   ) {
     return false;
   }
 
-  if (baby.item === CollectibleType.COLLECTIBLE_CRYSTAL_BALL && stage <= 2) {
+  if (
+    baby.item === CollectibleType.COLLECTIBLE_CRYSTAL_BALL &&
+    effectiveStage <= 2
+  ) {
     return false;
   }
 
-  if (baby.item === CollectibleType.COLLECTIBLE_UNDEFINED && stage <= 2) {
+  if (
+    baby.item === CollectibleType.COLLECTIBLE_UNDEFINED &&
+    effectiveStage <= 2
+  ) {
     return false;
   }
 
@@ -490,7 +496,7 @@ function checkStage(baby: BabyDescription) {
       baby.item2 === CollectibleType.COLLECTIBLE_DUALITY || // 498
       baby.item === CollectibleType.COLLECTIBLE_EUCHARIST || // 499
       baby.item2 === CollectibleType.COLLECTIBLE_EUCHARIST) && // 499
-    (stage === 1 || stage >= 9)
+    (effectiveStage === 1 || effectiveStage >= 9)
   ) {
     // Only valid for floors with Devil Rooms
     return false;
@@ -499,7 +505,7 @@ function checkStage(baby: BabyDescription) {
   if (
     (baby.item === CollectibleType.COLLECTIBLE_THERES_OPTIONS ||
       baby.item2 === CollectibleType.COLLECTIBLE_THERES_OPTIONS) &&
-    (stage === 6 || stage >= 8)
+    (effectiveStage === 6 || effectiveStage >= 8)
   ) {
     // There won't be a boss item on floor 6 or floor 8 and beyond
     return false;
@@ -508,7 +514,7 @@ function checkStage(baby: BabyDescription) {
   if (
     (baby.item === CollectibleType.COLLECTIBLE_MORE_OPTIONS ||
       baby.item2 === CollectibleType.COLLECTIBLE_MORE_OPTIONS) &&
-    (stage === 1 || stage >= 7)
+    (effectiveStage === 1 || effectiveStage >= 7)
   ) {
     // We always have More Options on Basement 1
     // There are no Treasure Rooms on floors 7 and beyond
@@ -517,7 +523,7 @@ function checkStage(baby: BabyDescription) {
 
   if (
     baby.name === "Shadow Baby" && // 13
-    (stage === 1 || stage >= 8)
+    (effectiveStage === 1 || effectiveStage >= 8)
   ) {
     // Devil Rooms / Angel Rooms go to the Black Market instead
     // Only valid for floors with Devil Rooms
@@ -528,7 +534,7 @@ function checkStage(baby: BabyDescription) {
 
   if (
     baby.name === "Goat Baby" && // 62
-    (stage <= 2 || stage >= 9)
+    (effectiveStage <= 2 || effectiveStage >= 9)
   ) {
     // Only valid for floors with Devil Rooms
     // Also, we are guaranteed a Devil Room on Basement 2, so we don't want to have it there either
@@ -537,7 +543,7 @@ function checkStage(baby: BabyDescription) {
 
   if (
     baby.name === "Bomb Baby" && // 75
-    stage === 10
+    effectiveStage === 10
   ) {
     // 50% chance for bombs to have the D6 effect
     return false;
@@ -545,7 +551,7 @@ function checkStage(baby: BabyDescription) {
 
   if (
     baby.name === "Pubic Baby" && // 110
-    stage === 11
+    effectiveStage === 11
   ) {
     // Must full clear
     // Full clearing The Chest is too punishing
@@ -554,7 +560,7 @@ function checkStage(baby: BabyDescription) {
 
   if (
     baby.name === "Earwig Baby" && // 128
-    stage === 1
+    effectiveStage === 1
   ) {
     // 3 rooms are already explored
     // This can make resetting slower, so don't have this baby on Basement 1
@@ -563,7 +569,7 @@ function checkStage(baby: BabyDescription) {
 
   if (
     baby.name === "Tears Baby" && // 136
-    stage === 2
+    effectiveStage === 2
   ) {
     // Starts with the Soul Jar
     // Getting this on Basement 2 would cause a missed devil deal
@@ -572,7 +578,7 @@ function checkStage(baby: BabyDescription) {
 
   if (
     baby.name === "Twin Baby" && // 141
-    stage === 8
+    effectiveStage === 8
   ) {
     // If they mess up and go past the Boss Room, they can get the wrong path
     return false;
@@ -580,7 +586,7 @@ function checkStage(baby: BabyDescription) {
 
   if (
     baby.name === "Chompers Baby" && // 143
-    stage === 11
+    effectiveStage === 11
   ) {
     // Everything is Red Poop
     // There are almost no grid entities on The Chest
@@ -589,7 +595,7 @@ function checkStage(baby: BabyDescription) {
 
   if (
     baby.name === "Ate Poop Baby" && // 173
-    stage === 11
+    effectiveStage === 11
   ) {
     // Destroying poops spawns random pickups
     // There are hardly any poops on The Chest
@@ -598,7 +604,7 @@ function checkStage(baby: BabyDescription) {
 
   if (
     baby.name === "Shopkeeper Baby" && // 215
-    stage >= 7
+    effectiveStage >= 7
   ) {
     // Free shop items
     return false;
@@ -606,7 +612,7 @@ function checkStage(baby: BabyDescription) {
 
   if (
     baby.name === "Gem Baby" && // 237
-    stage >= 7 &&
+    effectiveStage >= 7 &&
     !g.p.HasCollectible(CollectibleType.COLLECTIBLE_MONEY_EQUALS_POWER)
   ) {
     // Pennies spawn as nickels
@@ -615,20 +621,8 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Monk Baby" && // 313
-    (stage === 6 || stage === 8)
-  ) {
-    // PAC1F1CM
-    // If a Devil Room or Angel Room spawns after the Mom fight,
-    // the Mom doors will cover up the Devil/Angel Room door
-    // On floor 8, the exits will not spawn correctly
-    // (On floor 11, the end of the run seems to spawn correctly)
-    return false;
-  }
-
-  if (
     baby.name === "Puzzle Baby" && // 315
-    stage === 10
+    effectiveStage === 10
   ) {
     // The D6 effect on hit
     return false;
@@ -636,7 +630,7 @@ function checkStage(baby: BabyDescription) {
 
   if (
     baby.name === "Scary Baby" && // 317
-    stage === 6
+    effectiveStage === 6
   ) {
     // Items cost hearts
     // The player may not be able to take The Polaroid (when playing a normal run)
@@ -645,7 +639,7 @@ function checkStage(baby: BabyDescription) {
 
   if (
     baby.name === "Red Wrestler Baby" && // 389
-    stage === 11
+    effectiveStage === 11
   ) {
     // Everything is TNT
     // There are almost no grid entities on The Chest / Dark Room
@@ -654,7 +648,7 @@ function checkStage(baby: BabyDescription) {
 
   if (
     baby.name === "Rich Baby" && // 424
-    stage >= 7
+    effectiveStage >= 7
   ) {
     // Starts with 99 cents
     // Money is useless past Depths
@@ -663,14 +657,14 @@ function checkStage(baby: BabyDescription) {
 
   if (
     baby.name === "Folder Baby" && // 430
-    (stage === 1 || stage === 10)
+    (effectiveStage === 1 || effectiveStage === 10)
   ) {
     return false;
   }
 
   if (
     baby.name === "Hooligan Baby" && // 514
-    stage === 10 &&
+    effectiveStage === 10 &&
     stageType === 0 // Sheol
   ) {
     return false;
@@ -678,14 +672,14 @@ function checkStage(baby: BabyDescription) {
 
   if (
     baby.name === "Baggy Cap Baby" && // 519
-    stage === 11
+    effectiveStage === 11
   ) {
     return false;
   }
 
   if (
     baby.name === "Demon Baby" && // 527
-    (stage === 1 || stage >= 9)
+    (effectiveStage === 1 || effectiveStage >= 9)
   ) {
     // Only valid for floors with Devil Rooms
     return false;
@@ -693,7 +687,7 @@ function checkStage(baby: BabyDescription) {
 
   if (
     baby.name === "Ghost Baby" && // 528
-    stage === 2
+    effectiveStage === 2
   ) {
     // All items from the Shop pool
     // On stage 2, they will miss a Devil Deal, which is not fair
@@ -702,7 +696,7 @@ function checkStage(baby: BabyDescription) {
 
   if (
     baby.name === "Fate's Reward" && // 537
-    (stage <= 2 || stage === 6 || stage >= 10)
+    (effectiveStage <= 2 || effectiveStage === 6 || effectiveStage >= 10)
   ) {
     // Items cost money
     // On stage 1, the player does not have 15 cents

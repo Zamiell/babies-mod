@@ -2,6 +2,7 @@ import {
   copyColor,
   GAME_FRAMES_PER_SECOND,
   getCollectibleDevilHeartPrice,
+  inStartingRoom,
   nextSeed,
 } from "isaacscript-common";
 import g from "../globals";
@@ -184,14 +185,12 @@ postPickupUpdateBabyFunctionMap.set(177, (pickup: EntityPickup) => {
 
 // Fancy Baby
 postPickupUpdateBabyFunctionMap.set(216, (pickup: EntityPickup) => {
-  const currentRoomIndex = g.l.GetCurrentRoomIndex();
-  const startingRoomIndex = g.l.GetStartingRoomIndex();
-
+  // Can purchase teleports to special rooms
   if (
     pickup.Variant === PickupVariant.PICKUP_HEART &&
     pickup.SubType === HeartSubType.HEART_FULL &&
     pickup.Price === 3 &&
-    currentRoomIndex === startingRoomIndex
+    inStartingRoom()
   ) {
     // Delete the rerolled teleports
     pickup.Remove();

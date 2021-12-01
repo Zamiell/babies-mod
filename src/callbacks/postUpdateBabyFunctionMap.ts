@@ -2,20 +2,23 @@ import {
   copyColor,
   DISTANCE_OF_GRID_TILE,
   GAME_FRAMES_PER_SECOND,
+  getAllRoomGridIndexes,
   getDoors,
   getFamiliars,
   getRandomArrayElement,
   getRandomInt,
-  getRoomIndex,
+  getRoomGridIndexesForType,
+  getRoomListIndex,
   isActionPressedOnAnyInput,
+  isAllRoomsClear,
   isShootActionPressedOnAnyInput,
   nextSeed,
   teleport,
 } from "isaacscript-common";
-import { TELEPORT_TO_ROOM_TYPE_MAP } from "../constants";
 import g from "../globals";
+import { TELEPORT_COLLECTIBLE_TYPE_TO_ROOM_TYPE_MAP } from "../maps/teleportCollectibleTypeToRoomTypeMap";
 import * as pseudoRoomClear from "../pseudoRoomClear";
-import { EffectVariantCustom } from "../types/enums";
+import { CollectibleTypeCustom, EffectVariantCustom } from "../types/enums";
 import { bigChestExists, getCurrentBaby, useActiveItem } from "../util";
 
 export const postUpdateBabyFunctionMap = new Map<int, () => void>();
@@ -121,14 +124,14 @@ postUpdateBabyFunctionMap.set(39, () => {
 
 // Whore Baby
 postUpdateBabyFunctionMap.set(43, () => {
-  const roomIndex = getRoomIndex();
+  const roomListIndex = getRoomListIndex();
 
   // All enemies explode
   // Perform the explosion that was initiated in the PostEntityKill callback
   // We iterate backwards because we need to remove elements from the array
   for (let i = g.run.babyExplosions.length - 1; i >= 0; i--) {
     const explosion = g.run.babyExplosions[i];
-    if (explosion.roomIndex === roomIndex) {
+    if (explosion.roomListIndex === roomListIndex) {
       Isaac.Explode(explosion.position, undefined, 50); // 49 deals 1 half heart of damage
       g.run.babyExplosions.splice(i, 1); // Remove this element
     }
@@ -238,7 +241,6 @@ postUpdateBabyFunctionMap.set(96, () => {
 
 // Pubic Baby
 postUpdateBabyFunctionMap.set(110, () => {
-  const rooms = g.l.GetRooms();
   const roomClear = g.r.IsClear();
 
   // Don't do anything if we already full cleared the floor
@@ -251,28 +253,8 @@ postUpdateBabyFunctionMap.set(110, () => {
     return;
   }
 
-  // Check to see if the floor is full cleared
-  let allCleared = true;
-  for (let i = 0; i < rooms.Size; i++) {
-    const roomDesc = rooms.Get(i); // This is 0-indexed
-    if (roomDesc === undefined) {
-      continue;
-    }
-    const roomData = roomDesc.Data;
-    if (roomData === undefined) {
-      continue;
-    }
-    const roomType2 = roomData.Type;
-    if (
-      (roomType2 === RoomType.ROOM_DEFAULT || // 1
-        roomType2 === RoomType.ROOM_MINIBOSS) && // 6
-      !roomDesc.Clear
-    ) {
-      allCleared = false;
-      break;
-    }
-  }
-  if (allCleared) {
+  const onlyCheckRoomTypes = [RoomType.ROOM_DEFAULT, RoomType.ROOM_MINIBOSS];
+  if (isAllRoomsClear(onlyCheckRoomTypes)) {
     g.run.babyBool = true;
     return;
   }
@@ -309,63 +291,43 @@ postUpdateBabyFunctionMap.set(125, () => {
 
 // Earwig Baby
 postUpdateBabyFunctionMap.set(128, () => {
-  const startingRoomIndex = g.l.GetStartingRoomIndex();
-  const rooms = g.l.GetRooms();
+  // 3 rooms are already explored
+  const startingRoomGridIndex = g.l.GetStartingRoomIndex();
   const centerPos = g.r.GetCenterPos();
+  const allRoomGridIndexes = getAllRoomGridIndexes();
   const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for ${baby.name}.`);
   }
 
-  // The floor may be reseeded, so we do not want this to be in the PostNewLevel callback
-  if (g.run.babyBool) {
-    return;
-  }
-  g.run.babyBool = true;
-
-  // 3 rooms are already explored
-  // Get the indexes of every room on the floor
-  const floorIndexes: int[] = [];
-  for (let i = 0; i < rooms.Size; i++) {
-    const room = rooms.Get(i); // This is 0 indexed
-    if (room !== undefined) {
-      floorIndexes.push(room.SafeGridIndex);
-    }
-  }
-
   // Get N unique random indexes
-  const randomFloorIndexes: int[] = [];
-  for (let i = 0; i < baby.num; i++) {
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-      // Get a random room index on the floor
-      g.run.randomSeed = nextSeed(g.run.randomSeed);
-      const randomFloorIndex = getRandomArrayElement(
-        floorIndexes,
-        g.run.randomSeed,
-      );
+  const randomFloorGridIndexes: int[] = [];
+  do {
+    // Get a random room index on the floor
+    g.run.randomSeed = nextSeed(g.run.randomSeed);
+    const randomFloorGridIndex = getRandomArrayElement(
+      allRoomGridIndexes,
+      g.run.randomSeed,
+    );
 
-      // Check to see if this is one of the indexes that we are already warping to
-      if (randomFloorIndexes.includes(randomFloorIndex)) {
-        continue;
-      }
-
-      // We don't want the starting room to count
-      if (randomFloorIndex === startingRoomIndex) {
-        continue;
-      }
-
-      // Add it
-      randomFloorIndexes.push(randomFloorIndex);
-      break;
+    // Check to see if this is one of the indexes that we are already warping to
+    if (randomFloorGridIndexes.includes(randomFloorGridIndex)) {
+      continue;
     }
-  }
+
+    // We don't want the starting room to count
+    if (randomFloorGridIndex === startingRoomGridIndex) {
+      continue;
+    }
+
+    randomFloorGridIndexes.push(randomFloorGridIndex);
+  } while (randomFloorGridIndexes.length < baby.num);
 
   // Explore these rooms
-  for (const roomIndex of randomFloorIndexes) {
+  for (const roomGridIndex of randomFloorGridIndexes) {
     // You have to set LeaveDoor before every room change or else it will send you to the wrong room
     g.l.LeaveDoor = -1;
-    g.l.ChangeRoom(roomIndex);
+    g.l.ChangeRoom(roomGridIndex);
 
     // We might have traveled to the Boss Room, so stop the Portcullis sound effect just in case
     g.sfx.Stop(SoundEffect.SOUND_CASTLEPORTCULLIS);
@@ -373,7 +335,7 @@ postUpdateBabyFunctionMap.set(128, () => {
 
   // You have to set LeaveDoor before every room change or else it will send you to the wrong room
   g.l.LeaveDoor = -1;
-  g.l.ChangeRoom(startingRoomIndex);
+  g.l.ChangeRoom(startingRoomGridIndex);
   g.p.Position = centerPos;
 });
 
@@ -592,34 +554,24 @@ postUpdateBabyFunctionMap.set(211, () => {
 
 // Fancy Baby
 postUpdateBabyFunctionMap.set(216, () => {
-  const rooms = g.l.GetRooms();
-
+  // Can purchase teleports to special rooms
   const item = g.p.QueuedItem.Item;
-  if (item === undefined) {
+  if (item === undefined || item.Type !== ItemType.ITEM_PASSIVE) {
     return;
   }
 
-  const teleportRoomType = TELEPORT_TO_ROOM_TYPE_MAP.get(item.ID);
+  const collectibleTypeCustom = item.ID as CollectibleTypeCustom;
+  const teleportRoomType = TELEPORT_COLLECTIBLE_TYPE_TO_ROOM_TYPE_MAP.get(
+    collectibleTypeCustom,
+  );
   if (teleportRoomType === undefined) {
     return;
   }
 
-  // Find the room index of the intended room
-  for (let i = 0; i < rooms.Size; i++) {
-    const roomDesc = rooms.Get(i); // This is 0 indexed
-    if (roomDesc === undefined) {
-      continue;
-    }
-    const roomIndex = roomDesc.SafeGridIndex; // This is always the top-left index
-    const roomData = roomDesc.Data;
-    if (roomData === undefined) {
-      continue;
-    }
-    const roomType = roomData.Type;
-    if (roomType === teleportRoomType) {
-      teleport(roomIndex);
-      return;
-    }
+  const roomGridIndexes = getRoomGridIndexesForType(teleportRoomType);
+  if (roomGridIndexes.length > 0) {
+    const firstRoomGridIndex = roomGridIndexes[0];
+    teleport(firstRoomGridIndex);
   }
 });
 
@@ -709,25 +661,6 @@ postUpdateBabyFunctionMap.set(263, () => {
   // (this does not work if we do it on the 0th frame)
   if (roomFrameCount === 1 && isFirstVisit) {
     useActiveItem(g.p, CollectibleType.COLLECTIBLE_D12);
-  }
-});
-
-// Hare Baby
-postUpdateBabyFunctionMap.set(267, () => {
-  const playerSprite = g.p.GetSprite();
-  const hasInvincibility = g.p.HasInvincibility();
-
-  // Takes damage when standing still
-  // Prevent the (vanilla) bug where the player will take damage upon jumping into a trapdoor
-  if (
-    !hasInvincibility &&
-    (playerSprite.IsPlaying("Trapdoor") ||
-      playerSprite.IsPlaying("Trapdoor2") ||
-      playerSprite.IsPlaying("Jump") ||
-      playerSprite.IsPlaying("LightTravel"))
-  ) {
-    useActiveItem(g.p, CollectibleType.COLLECTIBLE_DULL_RAZOR);
-    g.sfx.Stop(SoundEffect.SOUND_ISAAC_HURT_GRUNT);
   }
 });
 

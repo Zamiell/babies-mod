@@ -47,7 +47,7 @@ import * as postSlotDestroyed from "./callbacksCustom/postSlotDestroyed";
 import { checkBabiesValid } from "./checkBabiesValid";
 import { VERSION } from "./constants";
 import g from "./globals";
-import * as costumeProtector from "./lib/character_costume_protector";
+import * as costumeProtector from "./lib/characterCostumeProtector";
 
 export default function main(): void {
   const modVanilla = RegisterMod("The Babies Mod", 1);
@@ -65,7 +65,7 @@ export default function main(): void {
 }
 
 function initLibraries(mod: ModUpgraded) {
-  costumeProtector.init(mod);
+  costumeProtector.Init(mod);
 }
 
 function welcomeBanner() {

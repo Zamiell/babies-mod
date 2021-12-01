@@ -4,16 +4,17 @@ import {
   getEntities,
   getFamiliars,
   getNPCs,
-  getRoomVariant,
+  getRoomGridIndexesForType,
   gridToPos,
+  inMinibossRoomOf,
+  inStartingRoom,
   log,
   nextSeed,
   removeAllMatchingEntities,
   teleport,
 } from "isaacscript-common";
-import { KRAMPUS_ROOM_VARIANTS } from "../constants";
 import g from "../globals";
-import { CollectibleTypeCustom } from "../types/enums";
+import { TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP } from "../maps/teleportRoomTypeToItemAndPriceMap";
 import { useActiveItem } from "../util";
 
 export const postNewRoomBabyFunctionMap = new Map<int, () => void>();
@@ -21,14 +22,14 @@ export const postNewRoomBabyFunctionMap = new Map<int, () => void>();
 // This is used for several babies
 function noHealth() {
   const roomType = g.r.GetType();
-  const roomVariant = getRoomVariant();
+  const inKrampusRoom = inMinibossRoomOf(MinibossID.KRAMPUS);
 
   // Get rid of the health UI by using Curse of the Unknown
   // (but not in Devil Rooms or Black Markets)
   if (
     (roomType === RoomType.ROOM_DEVIL || // 14
       roomType === RoomType.ROOM_BLACK_MARKET) && // 22
-    !KRAMPUS_ROOM_VARIANTS.has(roomVariant)
+    !inKrampusRoom
   ) {
     g.l.RemoveCurses(LevelCurse.CURSE_OF_THE_UNKNOWN);
   } else {
@@ -155,9 +156,11 @@ postNewRoomBabyFunctionMap.set(138, noHealth);
 
 // Twin Baby
 postNewRoomBabyFunctionMap.set(141, () => {
+  // Uncontrollable Teleport 2.0
+  const isFirstVisit = g.r.IsFirstVisit();
+
   // We don't want to teleport away from the first room
-  // (the starting room does not count for the purposes of this variable)
-  if (g.run.level.roomsEntered === 0) {
+  if (inStartingRoom() && isFirstVisit) {
     return;
   }
 
@@ -200,10 +203,13 @@ postNewRoomBabyFunctionMap.set(149, () => {
 
 // Spelunker Baby
 postNewRoomBabyFunctionMap.set(181, () => {
+  const previousRoomGridIndex = g.l.GetPreviousRoomIndex();
+  const roomType = g.r.GetType();
+
   if (
-    g.r.GetType() === RoomType.ROOM_DUNGEON &&
+    roomType === RoomType.ROOM_DUNGEON &&
     // We want to be able to backtrack from a Black Market to a Crawlspace
-    g.l.GetPreviousRoomIndex() !== GridRooms.ROOM_BLACK_MARKET_IDX
+    previousRoomGridIndex !== GridRooms.ROOM_BLACK_MARKET_IDX
   ) {
     teleport(
       GridRooms.ROOM_BLACK_MARKET_IDX,
@@ -215,11 +221,9 @@ postNewRoomBabyFunctionMap.set(181, () => {
 
 // Fancy Baby
 postNewRoomBabyFunctionMap.set(216, () => {
-  const currentRoomIndex = g.l.GetCurrentRoomIndex();
-  const startingRoomIndex = g.l.GetStartingRoomIndex();
   const isFirstVisit = g.r.IsFirstVisit();
 
-  if (currentRoomIndex !== startingRoomIndex || !isFirstVisit) {
+  if (!inStartingRoom() || !isFirstVisit) {
     return;
   }
 
@@ -239,7 +243,7 @@ postNewRoomBabyFunctionMap.set(216, () => {
   // Find the special rooms on the floor
   const rooms = g.l.GetRooms();
   for (let i = 0; i < rooms.Size; i++) {
-    const roomDesc = rooms.Get(i); // This is 0 indexed
+    const roomDesc = rooms.Get(i);
     if (roomDesc === undefined) {
       continue;
     }
@@ -249,133 +253,43 @@ postNewRoomBabyFunctionMap.set(216, () => {
     }
     const roomType = roomData.Type;
 
-    let itemID: CollectibleType | CollectibleTypeCustom =
-      CollectibleType.COLLECTIBLE_NULL;
-    let price = 0;
-
-    switch (roomType) {
-      // 2
-      case RoomType.ROOM_SHOP: {
-        itemID = CollectibleTypeCustom.COLLECTIBLE_SHOP_TELEPORT;
-        price = 10;
-        break;
-      }
-
-      // 4
-      case RoomType.ROOM_TREASURE: {
-        itemID = CollectibleTypeCustom.COLLECTIBLE_TREASURE_ROOM_TELEPORT;
-        price = 10;
-        break;
-      }
-
-      // 6
-      case RoomType.ROOM_MINIBOSS: {
-        itemID = CollectibleTypeCustom.COLLECTIBLE_MINIBOSS_ROOM_TELEPORT;
-        price = 10;
-        break;
-      }
-
-      // 9
-      case RoomType.ROOM_ARCADE: {
-        itemID = CollectibleTypeCustom.COLLECTIBLE_ARCADE_TELEPORT;
-        price = 10;
-        break;
-      }
-
-      // 10
-      case RoomType.ROOM_CURSE: {
-        itemID = CollectibleTypeCustom.COLLECTIBLE_CURSE_ROOM_TELEPORT;
-        price = 10;
-        break;
-      }
-
-      // 11
-      case RoomType.ROOM_CHALLENGE: {
-        itemID = CollectibleTypeCustom.COLLECTIBLE_CHALLENGE_ROOM_TELEPORT;
-        price = 10;
-        break;
-      }
-
-      // 12
-      case RoomType.ROOM_LIBRARY: {
-        itemID = CollectibleTypeCustom.COLLECTIBLE_LIBRARY_TELEPORT;
-        price = 15;
-        break;
-      }
-
-      // 13
-      case RoomType.ROOM_SACRIFICE: {
-        itemID = CollectibleTypeCustom.COLLECTIBLE_SACRIFICE_ROOM_TELEPORT;
-        price = 10;
-        break;
-      }
-
-      // 18
-      case RoomType.ROOM_ISAACS: {
-        itemID = CollectibleTypeCustom.COLLECTIBLE_BEDROOM_CLEAN_TELEPORT;
-        price = 10;
-        break;
-      }
-
-      // 19
-      case RoomType.ROOM_BARREN: {
-        itemID = CollectibleTypeCustom.COLLECTIBLE_BEDROOM_DIRTY_TELEPORT;
-        price = 20;
-        break;
-      }
-
-      // 20
-      case RoomType.ROOM_CHEST: {
-        itemID = CollectibleTypeCustom.COLLECTIBLE_TREASURE_CHEST_ROOM_TELEPORT;
-        price = 15;
-        break;
-      }
-
-      // 21
-      case RoomType.ROOM_DICE: {
-        itemID = CollectibleTypeCustom.COLLECTIBLE_DICE_ROOM_TELEPORT;
-        price = 10;
-        break;
-      }
-
-      default: {
-        break;
-      }
+    const itemAndPrice = TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP.get(roomType);
+    if (itemAndPrice === undefined) {
+      // This is not a special room
+      continue;
     }
 
-    if (itemID !== 0) {
-      positionIndex += 1;
-      if (positionIndex > positions.length) {
-        log("Error: This floor has too many special rooms for Fancy Baby.");
-        return;
-      }
-      const xy = positions[positionIndex];
-      const position = gridToPos(xy[0], xy[1]);
-      const pedestal = g.g
-        .Spawn(
-          EntityType.ENTITY_PICKUP,
-          PickupVariant.PICKUP_COLLECTIBLE,
-          position,
-          Vector.Zero,
-          undefined,
-          itemID,
-          g.run.room.seed,
-        )
-        .ToPickup();
-      if (pedestal !== undefined) {
-        pedestal.AutoUpdatePrice = false;
-        pedestal.Price = price;
-      }
+    const [collectibleType, price] = itemAndPrice;
+
+    positionIndex += 1;
+    if (positionIndex > positions.length) {
+      log("Error: This floor has too many special rooms for Fancy Baby.");
+      return;
+    }
+    const xy = positions[positionIndex];
+    const position = gridToPos(xy[0], xy[1]);
+    const pedestal = g.g
+      .Spawn(
+        EntityType.ENTITY_PICKUP,
+        PickupVariant.PICKUP_COLLECTIBLE,
+        position,
+        Vector.Zero,
+        undefined,
+        collectibleType,
+        g.run.room.seed,
+      )
+      .ToPickup();
+    if (pedestal !== undefined) {
+      pedestal.AutoUpdatePrice = false;
+      pedestal.Price = price;
     }
   }
 });
 
 // Beast Baby
 postNewRoomBabyFunctionMap.set(242, () => {
-  const currentRoomIndex = g.l.GetCurrentRoomIndex();
-  const startingRoomIndex = g.l.GetStartingRoomIndex();
-
-  if (currentRoomIndex !== startingRoomIndex) {
+  // Random enemies
+  if (!inStartingRoom()) {
     useActiveItem(g.p, CollectibleType.COLLECTIBLE_D10);
   }
 });
@@ -417,28 +331,20 @@ postNewRoomBabyFunctionMap.set(249, () => {
 
 // Viking Baby
 postNewRoomBabyFunctionMap.set(261, () => {
-  if (g.r.GetType() !== RoomType.ROOM_SECRET) {
+  const roomType = g.r.GetType();
+
+  if (roomType !== RoomType.ROOM_SECRET) {
     return;
   }
 
-  // Find the grid index of the Super Secret Room
-  const rooms = g.l.GetRooms();
-  for (let i = 0; i < rooms.Size; i++) {
-    const roomDesc = rooms.Get(i); // This is 0 indexed
-    if (roomDesc === undefined) {
-      continue;
-    }
-    const roomIndex = roomDesc.SafeGridIndex; // This is always the top-left index
-    const roomData = roomDesc.Data;
-    if (roomData === undefined) {
-      continue;
-    }
-    const roomType = roomData.Type;
-    if (roomType === RoomType.ROOM_SUPERSECRET) {
-      teleport(roomIndex);
-      break;
-    }
+  const superSecretRoomIndexes = getRoomGridIndexesForType(
+    RoomType.ROOM_SUPERSECRET,
+  );
+  if (superSecretRoomIndexes.length === 0) {
+    return;
   }
+  const firstSuperSecretRoomIndex = superSecretRoomIndexes[0];
+  teleport(firstSuperSecretRoomIndex);
 });
 
 // Ghost Baby 2
@@ -566,11 +472,8 @@ postNewRoomBabyFunctionMap.set(504, () => {
 
 // Silly Baby
 postNewRoomBabyFunctionMap.set(516, () => {
-  const currentRoomIndex = g.l.GetCurrentRoomIndex();
-  const startingRoomIndex = g.l.GetStartingRoomIndex();
-
-  // Checking for starting room index can prevent crashes when reseeding happens
-  if (currentRoomIndex !== startingRoomIndex) {
+  // Checking for the starting room can prevent crashes when reseeding happens
+  if (!inStartingRoom()) {
     g.p.UsePill(PillEffect.PILLEFFECT_IM_EXCITED, PillColor.PILL_NULL);
     // If we try to cancel the animation now, it will bug out the player such that they will not be
     // able to take pocket items or pedestal items

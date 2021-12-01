@@ -2,7 +2,6 @@ import g from "./globals";
 import { initSprite } from "./sprite";
 import { getCurrentBaby } from "./util";
 
-// Variables
 const sprites = {
   clock: Sprite(),
   colons: [] as Sprite[], // colon between minutes & seconds, colon between hours & minutes

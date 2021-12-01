@@ -2,7 +2,7 @@ import {
   GAME_FRAMES_PER_SECOND,
   getFamiliars,
   getGridEntities,
-  getRoomIndex,
+  getRoomListIndex,
   getTrinkets,
   log,
   nextSeed,
@@ -245,7 +245,7 @@ function checkSoftlockIsland() {
 }
 
 function checkGridEntities() {
-  const roomIndex = getRoomIndex();
+  const roomListIndex = getRoomListIndex();
   const gameFrameCount = g.g.GetFrameCount();
   const gridSize = g.r.GetGridSize();
   const [, baby, valid] = getCurrentBaby();
@@ -272,7 +272,7 @@ function checkGridEntities() {
         let found = false;
         for (const killedPoop of g.run.level.killedPoops) {
           if (
-            killedPoop.roomIndex === roomIndex &&
+            killedPoop.roomListIndex === roomListIndex &&
             killedPoop.gridIndex === i
           ) {
             found = true;
@@ -292,7 +292,7 @@ function checkGridEntities() {
 
             // Keep track of it so that we don't spawn another pickup on the next frame
             g.run.level.killedPoops.push({
-              roomIndex,
+              roomListIndex,
               gridIndex: i,
             });
           }

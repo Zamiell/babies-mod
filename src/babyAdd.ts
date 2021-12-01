@@ -10,7 +10,7 @@ import {
 } from "isaacscript-common";
 import { babyAddFunctionMap } from "./babyAddFunctionMap";
 import g from "./globals";
-import * as costumeProtector from "./lib/character_costume_protector";
+import * as costumeProtector from "./lib/characterCostumeProtector";
 import { NullItemIDCustom, PlayerTypeCustom } from "./types/enums";
 import { getCurrentBaby, giveItemAndRemoveFromPools } from "./util";
 
@@ -142,11 +142,9 @@ export function babyAdd(player: EntityPlayer): void {
   costumeProtector.UpdatePlayer(
     player,
     PlayerTypeCustom.PLAYER_RANDOM_BABY,
-    false,
     spritesheetPath,
     flightCostume,
   );
-  costumeProtector.initPlayerCostume(player); // Needed according to Sanio in order to fix some bugs
 
   log(`Applied baby: ${babyType} - ${baby.name}`);
 }

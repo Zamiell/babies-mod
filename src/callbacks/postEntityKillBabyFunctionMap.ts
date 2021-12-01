@@ -1,4 +1,4 @@
-import { copyColor, getNPCs, getRoomIndex } from "isaacscript-common";
+import { copyColor, getNPCs, getRoomListIndex } from "isaacscript-common";
 import g from "../globals";
 import { getCurrentBaby } from "../util";
 
@@ -20,14 +20,14 @@ postEntityKillBabyFunctionMap.set(38, (npc: EntityNPC) => {
 
 // Whore Baby
 postEntityKillBabyFunctionMap.set(43, (npc: EntityNPC) => {
-  const roomIndex = getRoomIndex();
+  const roomListIndex = getRoomListIndex();
 
   // All enemies explode
   // We cannot explode enemies in the PostEntityKill callback due to a crash having to do with black
   // hearts
   // So, mark to explode in the PostUpdate callback
   g.run.babyExplosions.push({
-    roomIndex,
+    roomListIndex,
     position: npc.Position,
   });
 });

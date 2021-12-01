@@ -1,4 +1,4 @@
 export interface GlobalsRunBabyExplosion {
-  roomIndex: int;
+  roomListIndex: int;
   position: Vector;
 }

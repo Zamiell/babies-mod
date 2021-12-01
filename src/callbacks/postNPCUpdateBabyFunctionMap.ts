@@ -12,7 +12,7 @@ postNPCUpdateBabyFunctionMap.set(61, (npc: EntityNPC) => {
   if (npc.HasEntityFlags(EntityFlag.FLAG_FRIENDLY)) {
     const color = npc.GetColor();
     const fadeAmount = 0.25;
-    const newColor = Color(color.R, color.G, color.B, fadeAmount, 0, 0, 0);
+    const newColor = Color(color.R, color.G, color.B, fadeAmount);
     // (for some reason, in this callback, RO, GO, and BO will be float values,
     // but the Color constructor only wants integers,
     // so manually use 0 for these 3 values instead of the existing ones)

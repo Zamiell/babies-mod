@@ -1,5 +1,6 @@
 import {
   getCollectibleDevilHeartPrice,
+  inStartingRoom,
   setEntityRandomColor,
 } from "isaacscript-common";
 import g from "../globals";
@@ -17,15 +18,16 @@ postPickupInitBabyFunctionMap.set(36, (pickup: EntityPickup) => {
 
 // Big Baby
 postPickupInitBabyFunctionMap.set(37, (pickup: EntityPickup) => {
-  // Everything is giant
+  const stage = g.l.GetStage();
+
   // Make an exception for the 4 Golden Chests,
   // as those will be made giant before the babies effect is removed
-  if (
-    g.l.GetStage() !== 11 ||
-    g.l.GetCurrentRoomIndex() !== g.l.GetStartingRoomIndex()
-  ) {
-    pickup.SpriteScale = Vector(2, 2);
+  if (stage === 11 && inStartingRoom()) {
+    return;
   }
+
+  // Everything is giant
+  pickup.SpriteScale = Vector(2, 2);
 });
 
 // Colorful Baby

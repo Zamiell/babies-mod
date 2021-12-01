@@ -1,11 +1,11 @@
-import { BabyDescription } from "./types/BabyDescription";
-import { CollectibleTypeCustom } from "./types/enums";
-
 // The sprites are located at:
 // C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\resources-dlc3\gfx\characters\player2\
 
 // The babies are located at:
 // https://bindingofisaacrebirth.fandom.com/wiki/User:Zamie/Babies_Mod
+
+import { BabyDescription } from "./types/BabyDescription";
+import { CollectibleTypeCustom } from "./types/enums";
 
 export const BABIES: BabyDescription[] = [
   {

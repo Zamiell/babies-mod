@@ -1,6 +1,6 @@
 import { getPlayerIndex, log } from "isaacscript-common";
 import { updateCachedPlayer } from "../cache";
-import * as costumeProtector from "../lib/character_costume_protector";
+import * as costumeProtector from "../lib/characterCostumeProtector";
 import { PlayerTypeCustom } from "../types/enums";
 
 const CUSTOM_PLAYER_ANM2 = "gfx/001.000_player_custom_baby.anm2";
@@ -26,5 +26,5 @@ function setBabyANM2(player: EntityPlayer) {
     sprite.Load(CUSTOM_PLAYER_ANM2, true);
   }
 
-  costumeProtector.AddPlayer(PlayerTypeCustom.PLAYER_RANDOM_BABY, "");
+  costumeProtector.AddPlayer(player, PlayerTypeCustom.PLAYER_RANDOM_BABY, "");
 }

@@ -1,13 +1,11 @@
 import {
   GAME_FRAMES_PER_SECOND,
-  getGridEntities,
   getNPCs,
   getRandom,
   getRandomCard,
   getRandomHeartSubType,
   getRandomInt,
   getRandomRune,
-  getRoomIndex,
   nextSeed,
   openAllDoors,
   removeCollectibleFromItemTracker,
@@ -15,12 +13,7 @@ import {
 import g from "../globals";
 import { EntityDescription } from "../types/EntityDescription";
 import { CollectibleTypeCustom } from "../types/enums";
-import {
-  bigChestExists,
-  getCurrentBaby,
-  spawnRandomPickup,
-  useActiveItem,
-} from "../util";
+import { getCurrentBaby, spawnRandomPickup, useActiveItem } from "../util";
 
 export const entityTakeDmgPlayerBabyFunctionMap = new Map<
   int,
@@ -385,32 +378,6 @@ entityTakeDmgPlayerBabyFunctionMap.set(258, (player) => {
 // Coat Baby
 entityTakeDmgPlayerBabyFunctionMap.set(260, (player) => {
   useActiveItem(player, CollectibleType.COLLECTIBLE_DECK_OF_CARDS);
-});
-
-// Hare Baby
-entityTakeDmgPlayerBabyFunctionMap.set(267, () => {
-  // Takes damage when standing still
-  // In this function, we return false instead of null because the damage is from the seed
-
-  const roomIndex = getRoomIndex();
-  const startingRoomIndex = g.l.GetStartingRoomIndex();
-
-  // This mechanic should not apply in the starting room
-  if (roomIndex === startingRoomIndex) {
-    return false;
-  }
-
-  // Trapdoors will cause unavoidable damage
-  const trapdoors = getGridEntities(GridEntityType.GRID_TRAPDOOR);
-  if (trapdoors.length > 0) {
-    return false;
-  }
-
-  if (bigChestExists()) {
-    return false;
-  }
-
-  return undefined;
 });
 
 // Gargoyle Baby

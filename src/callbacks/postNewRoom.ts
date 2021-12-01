@@ -1,9 +1,4 @@
-import {
-  getRoomIndex,
-  getRoomStageID,
-  getRoomVariant,
-  log,
-} from "isaacscript-common";
+import { getRoomStageID, getRoomVariant, log } from "isaacscript-common";
 import { updateCachedAPIFunctions } from "../cache";
 import { NUM_SUCCUBI_IN_FLOCK } from "../constants";
 import g from "../globals";
@@ -18,23 +13,14 @@ export function main(): void {
   const gameFrameCount = g.g.GetFrameCount();
   const stage = g.l.GetStage();
   const stageType = g.l.GetStageType();
-  const startingRoomIndex = g.l.GetStartingRoomIndex();
   const roomStageID = getRoomStageID();
   const roomVariant = getRoomVariant();
   const roomClear = g.r.IsClear();
   const roomSeed = g.r.GetSpawnSeed();
-  const roomIndex = getRoomIndex();
 
   log(
     `MC_POST_NEW_ROOM (Babies Mod) - ${roomStageID}.${roomVariant} (on stage ${stage}.${stageType}) (game frame ${gameFrameCount})`,
   );
-
-  // Increment level variables
-  g.run.level.roomsEntered += 1;
-  if (roomIndex === startingRoomIndex && g.run.level.roomsEntered === 1) {
-    // We don't want the starting room of the floor to count towards the rooms entered
-    g.run.level.roomsEntered = 0;
-  }
 
   // Reset room-related variables
   g.run.room = new GlobalsRunRoom(roomClear, roomSeed);

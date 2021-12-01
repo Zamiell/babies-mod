@@ -1,13 +1,13 @@
 import {
+  COLORS,
   GAME_FRAMES_PER_SECOND,
   getFamiliars,
   getRandomInt,
 } from "isaacscript-common";
+import { FADED_BLUE, FADED_YELLOW } from "../constants";
 import g from "../globals";
 import { TearData } from "../types/TearData";
 import { getCurrentBaby, useActiveItem } from "../util";
-
-const YELLOW = Color(1, 1, 0);
 
 export const postFireTearBabyFunctionMap = new Map<
   int,
@@ -190,8 +190,7 @@ postFireTearBabyFunctionMap.set(152, (tear: EntityTear) => {
   // Spray tears
   const angleModifier = math.random(0, 90) - 45;
   tear.Velocity = tear.Velocity.Rotated(angleModifier);
-  const yellow = Color(2, 2, 0, 0.7, 1, 1, 1);
-  tear.SetColor(yellow, 10000, 10000, false, false);
+  tear.SetColor(FADED_YELLOW, 10000, 10000, false, false);
 });
 
 // Lights Baby
@@ -230,8 +229,7 @@ postFireTearBabyFunctionMap.set(187, (tear: EntityTear) => {
 // Cold Baby
 postFireTearBabyFunctionMap.set(194, (tear: EntityTear) => {
   tear.TearFlags |= TearFlags.TEAR_FREEZE;
-  const blue = Color(0, 0, 2, 0.7, 1, 1, 1);
-  tear.SetColor(blue, 10000, 10000, false, false);
+  tear.SetColor(FADED_BLUE, 10000, 10000, false, false);
 });
 
 // Nice Baby
@@ -547,7 +545,7 @@ postFireTearBabyFunctionMap.set(470, (tear: EntityTear) => {
 
 // Imp Baby 2
 postFireTearBabyFunctionMap.set(480, (tear: EntityTear) => {
-  tear.SetColor(YELLOW, 3600, 100);
+  tear.SetColor(COLORS.Yellow, 3600, 100);
   tear.TearFlags |= TearFlags.TEAR_ACID;
 });
 

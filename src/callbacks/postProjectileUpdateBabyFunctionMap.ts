@@ -24,7 +24,7 @@ postProjectileUpdateBabyFunctionMap.set(61, (projectile: EntityProjectile) => {
     // Make projectiles from friendly enemies faded to prevent confusion
     const color = projectile.GetColor();
     const fadeAmount = 0.25;
-    const newColor = Color(color.R, color.G, color.B, fadeAmount, 0, 0, 0);
+    const newColor = Color(color.R, color.G, color.B, fadeAmount);
     // (for some reason, in this callback, RO, GO, and BO will be float values,
     // but the Color constructor only wants integers,
     // so manually use 0 for these 3 values instead of the existing ones)

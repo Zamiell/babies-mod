@@ -55,13 +55,10 @@ export function main(isContinued: boolean): void {
   giveItemAndRemoveFromPools(CollectibleType.COLLECTIBLE_SCHOOLBAG);
 
   // Remove some items from pools
+  // Guillotine not display properly because Random Baby does not have a head
   g.itemPool.RemoveCollectible(CollectibleType.COLLECTIBLE_GUILLOTINE); // 206
-  // (this item will not properly display and there is no good way to fix it)
+  // Scissors will not display properly because Random Baby does not have a head
   g.itemPool.RemoveCollectible(CollectibleType.COLLECTIBLE_SCISSORS); // 325
-  // (this item will not properly display and there is no good way to fix it)
+  // Clicker can cause bugs that are too painful to work around
   g.itemPool.RemoveCollectible(CollectibleType.COLLECTIBLE_CLICKER); // 482
-  // (there is no way to know which character that you Clicker to, so just remove this item)
-  g.itemPool.RemoveTrinket(TrinketType.TRINKET_BAT_WING); // 118
-  // (Bat Wing causes graphical bugs which are annoying to fix, so just remove this trinket)
-  // TODO CHECK IF THIS IS STILL NECESSARY WITH COSTUME PROTECTOR
 }

@@ -1,4 +1,4 @@
 export interface PoopDescription {
-  roomIndex: int;
+  roomListIndex: int;
   gridIndex: int;
 }

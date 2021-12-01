@@ -36,11 +36,11 @@ Bug fixes:
 - Fixed the bug where Invisible Baby (#541) would cast a shadow.
 
 TODO:
-- hare baby
+- recode hare baby from scratch
 - make trinket babies use Smelter
 - do a pass of all babies to un-nerf the hard ones
-- make effect for 404 baby
 - For Birthright, is it possible to keep for the entire run the current effect you have
+- timer icon appears at inappropriate times
 - possible effects:
   - ice tears
   - spore tears
@@ -50,6 +50,7 @@ TODO:
   - starting with holy mantle + Curse of cursed
   - haemolacria + brimstone
   - rocket in a jar + infinite bombs + blindfolded (test it)
+
 
 Boring babies:
 - Magnet Baby (#26) - Starts with Magneto
