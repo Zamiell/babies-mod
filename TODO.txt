@@ -25,6 +25,7 @@ Bug fixes:
 - Fixed the bug where some babies could turn invisible under certain circumstances. (Thanks Octotroph)
 - Fixed the bug where babies that have effects based on touching a pickup would not work if a pickup was purchased.
 - Fixed the bug where the effects for babies tied to bombs exploding was not working. (Thanks Gamonymous)
+- Fixed the bug where the clock icon would be drawn in circumstances where the temporary active item was not in the primary active slot.
 - Fixed the bug where Cute Baby (#11) received Maggy's Bow.
 - Fixed the bug where the effect for Whore Baby (#43) was not working. (Thanks Gamonymous)
 - Fixed the bug where the effect for Makeup Baby (#99) was not working. (Thanks Gamonymous)
@@ -51,8 +52,7 @@ TODO:
   - haemolacria + brimstone
   - rocket in a jar + infinite bombs + blindfolded (test it)
 
-
-Boring babies:
+List of boring babies:
 - Magnet Baby (#26) - Starts with Magneto
 - Teeth Baby (#95) - Starts with Dog Tooth
 - Wink Baby (#222) - Starts with the Stop Watch
@@ -69,7 +69,7 @@ Boring babies:
 - Puppet Baby (#505) - Starts with 5x Key Bum
 - Green Pepper Baby (#518) - Starts with Serpent's Kiss
 
-Hard babies:
+List of hard babies:
 - Troll Baby (#6) - Spawns a Troll Bomb every 3 seconds
 - Noose Baby (#39) - Don't shoot when the timer reaches 0
 - Hare Baby (#267) - Takes damage when standing still

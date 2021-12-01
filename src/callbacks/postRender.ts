@@ -15,6 +15,7 @@ import { getCurrentBaby } from "../util";
 import { postRenderBabyFunctionMap } from "./postRenderBabyFunctionMap";
 
 const UI_HEARTS_RIGHT_SPACING = 55;
+const CLOCK_POSITION = Vector(30, 30);
 
 const clockSprite = initSprite("gfx/clock.anm2");
 
@@ -29,7 +30,7 @@ export function main(): void {
 
   drawBabyIntro();
   drawBabyNumber();
-  drawTempIcon();
+  drawTempIconNextToActiveCollectible();
   drawBabyEffects();
   timer.display();
 }
@@ -147,7 +148,7 @@ function drawVersion() {
  * Draw a temporary icon next to the baby's active item to signify that it will go away at the of
  * the floor.
  */
-function drawTempIcon() {
+function drawTempIconNextToActiveCollectible() {
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
@@ -156,18 +157,20 @@ function drawTempIcon() {
   if (baby.item === undefined) {
     return;
   }
+
   const itemType = getCollectibleItemType(baby.item);
   if (itemType !== ItemType.ITEM_ACTIVE) {
     return;
   }
 
-  const clockX = 30;
-  const clockY = 30;
-  if (g.p.HasCollectible(baby.item)) {
-    // The player has the item in their main active slot
-    // Draw the icon in the bottom-right hand corner
-    clockSprite.RenderLayer(0, Vector(clockX, clockY));
+  const activeCollectibleType = g.p.GetActiveItem(ActiveSlot.SLOT_PRIMARY);
+  if (activeCollectibleType !== baby.item) {
+    return;
   }
+
+  // The player has the item in their main active slot
+  // Draw the icon in the bottom-right hand corner
+  clockSprite.RenderLayer(0, CLOCK_POSITION);
 }
 
 function drawBabyEffects() {

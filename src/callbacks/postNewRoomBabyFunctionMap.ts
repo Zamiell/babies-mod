@@ -238,7 +238,7 @@ postNewRoomBabyFunctionMap.set(216, () => {
     [1, 5],
     [11, 5],
   ];
-  let positionIndex = 0;
+  let positionIndex = -1;
 
   // Find the special rooms on the floor
   const rooms = g.l.GetRooms();
