@@ -105,6 +105,10 @@ export function giveItemAndRemoveFromPools(
   g.itemPool.RemoveCollectible(collectibleType);
 }
 
+export function isRacingPlusEnabled(): boolean {
+  return CollectibleTypeCustom.COLLECTIBLE_CHECKPOINT !== -1;
+}
+
 export function removeAllFriendlyEntities(): void {
   for (const entity of getEntities()) {
     if (entity.HasEntityFlags(EntityFlag.FLAG_FRIENDLY)) {

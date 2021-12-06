@@ -1,4 +1,5 @@
 import { getPlayerIndex, log } from "isaacscript-common";
+import { BABIES } from "../babies";
 import { updateCachedPlayer } from "../cache";
 import * as costumeProtector from "../lib/characterCostumeProtector";
 import { PlayerTypeCustom } from "../types/enums";
@@ -26,5 +27,11 @@ function setBabyANM2(player: EntityPlayer) {
     sprite.Load(CUSTOM_PLAYER_ANM2, true);
   }
 
-  costumeProtector.AddPlayer(player, PlayerTypeCustom.PLAYER_RANDOM_BABY, "");
+  costumeProtector.AddPlayer(
+    player,
+    PlayerTypeCustom.PLAYER_RANDOM_BABY,
+    // The sprite will be replaced when the baby gets applied in the PostNewLevel callback
+    // For now, default to loading the first baby sprite to avoid error in the "log.txt" file
+    `gfx/characters/player2/${BABIES[0].sprite}`,
+  );
 }

@@ -116,8 +116,7 @@ postFireTearBabyFunctionMap.set(66, (tear: EntityTear) => {
 
 // Alien Hominid Baby
 postFireTearBabyFunctionMap.set(74, (tear: EntityTear) => {
-  // tear.ChangeVariant(TearVariant.TECH_SWORD_BEAM);
-  tear.ChangeVariant(TearVariant.KEY_BLOOD);
+  tear.ChangeVariant(TearVariant.TECH_SWORD_BEAM);
 });
 
 // Scream Baby

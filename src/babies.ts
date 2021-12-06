@@ -1610,6 +1610,7 @@ export const BABIES: BabyDescription[] = [
   {
     name: "Hare Baby",
     description: "Takes damage when standing still",
+    num: 15, // Amount of frames standing still before taking damage
     sprite: "267_baby_hare.png",
   },
   {

@@ -11,7 +11,7 @@ import { VERSION } from "../constants";
 import g from "../globals";
 import { initSprite } from "../sprite";
 import * as timer from "../timer";
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby, isRacingPlusEnabled } from "../util";
 import { postRenderBabyFunctionMap } from "./postRenderBabyFunctionMap";
 
 const UI_HEARTS_RIGHT_SPACING = 55;
@@ -87,8 +87,15 @@ function drawBabyNumber() {
     return;
   }
 
+  const roomType = g.r.GetType();
   const HUDOffsetVector = getHUDOffsetVector();
   const heartsUIWidth = getHeartsUIWidth();
+
+  // Racing+ draws the number of sacrifices in the top left corner,
+  // which interferes with the baby number text
+  if (isRacingPlusEnabled() && roomType === RoomType.ROOM_SACRIFICE) {
+    return;
+  }
 
   const text = `#${babyType}`;
 

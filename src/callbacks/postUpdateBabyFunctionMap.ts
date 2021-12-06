@@ -3,18 +3,22 @@ import {
   DISTANCE_OF_GRID_TILE,
   GAME_FRAMES_PER_SECOND,
   getAllRoomGridIndexes,
+  getDefaultColor,
   getDoors,
   getFamiliars,
   getRandomArrayElement,
   getRandomInt,
   getRoomGridIndexesForType,
   getRoomListIndex,
+  inStartingRoom,
   isActionPressedOnAnyInput,
   isAllRoomsClear,
+  isEntityMoving,
   isShootActionPressedOnAnyInput,
   nextSeed,
   teleport,
 } from "isaacscript-common";
+import { BABIES } from "../babies";
 import g from "../globals";
 import { TELEPORT_COLLECTIBLE_TYPE_TO_ROOM_TYPE_MAP } from "../maps/teleportCollectibleTypeToRoomTypeMap";
 import * as pseudoRoomClear from "../pseudoRoomClear";
@@ -661,6 +665,47 @@ postUpdateBabyFunctionMap.set(263, () => {
   // (this does not work if we do it on the 0th frame)
   if (roomFrameCount === 1 && isFirstVisit) {
     useActiveItem(g.p, CollectibleType.COLLECTIBLE_D12);
+  }
+});
+
+// Hare Baby
+postUpdateBabyFunctionMap.set(267, () => {
+  const baby = BABIES[267];
+  if (baby.num === undefined) {
+    error(`The "num" attribute was not defined for ${baby.name}.`);
+  }
+
+  const sprite = g.p.GetSprite();
+  const framesBeforeTakingDamage = baby.num;
+
+  // This effect should not apply in the starting room to give the player a chance to read the
+  // description
+  if (inStartingRoom()) {
+    return;
+  }
+
+  // Takes damage when standing still
+  if (isEntityMoving(g.p, 1)) {
+    g.run.babyCounters = 0;
+    sprite.Color = getDefaultColor();
+    return;
+  }
+
+  g.run.babyCounters += 1;
+  if (g.run.babyCounters > framesBeforeTakingDamage) {
+    g.run.babyCounters = framesBeforeTakingDamage;
+  }
+
+  // Show the player gradually changing color to signify that they are about to take damage
+  const distanceToDamage = g.run.babyCounters / framesBeforeTakingDamage; // From 0 to 1
+  sprite.Color = Color(
+    1 - distanceToDamage,
+    1 - distanceToDamage,
+    1 - distanceToDamage,
+  );
+
+  if (g.run.babyCounters === framesBeforeTakingDamage) {
+    g.p.TakeDamage(1, 0, EntityRef(g.p), 0);
   }
 });
 

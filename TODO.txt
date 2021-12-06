@@ -37,11 +37,12 @@ Bug fixes:
 - Fixed the bug where Invisible Baby (#541) would cast a shadow.
 
 TODO:
+- baby 541
 - recode hare baby from scratch
 - make trinket babies use Smelter
-- do a pass of all babies to un-nerf the hard ones
 - For Birthright, is it possible to keep for the entire run the current effect you have
 - timer icon appears at inappropriate times
+- do a pass of all babies to un-nerf the hard ones
 - possible effects:
   - ice tears
   - spore tears
