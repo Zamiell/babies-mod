@@ -36,9 +36,11 @@ export function main(): void {
   g.run.showIntroFrame = gameFrameCount + 60; // 2 seconds
 
   // Set the new baby
-  babyRemove(g.p);
-  getNewBaby(g.p);
-  babyAdd(g.p);
+  if (!g.p.HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)) {
+    babyRemove(g.p);
+    getNewBaby(g.p);
+    babyAdd(g.p);
+  }
 }
 
 function getNewBaby(player: EntityPlayer) {
