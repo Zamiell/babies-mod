@@ -7,6 +7,7 @@ import {
   log,
   removeCollectibleFromItemTracker,
   setPlayerHealth,
+  smeltTrinket,
 } from "isaacscript-common";
 import { babyAddFunctionMap } from "./babyAddFunctionMap";
 import g from "./globals";
@@ -98,7 +99,7 @@ export function babyAdd(player: EntityPlayer): void {
 
   // Check if this is a trinket baby
   if (baby.trinket !== undefined) {
-    player.AddTrinket(baby.trinket);
+    smeltTrinket(player, baby.trinket);
     g.itemPool.RemoveTrinket(baby.trinket);
   }
 

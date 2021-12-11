@@ -19,13 +19,13 @@ const VALID_DUPLICATE_ITEMS = new Set<CollectibleType | CollectibleTypeCustom>([
   CollectibleType.COLLECTIBLE_MARKED, // 394
 ]);
 
-export function checkBabiesValid(): void {
-  checkBabiesDuplicateName();
-  checkBabiesDuplicateItem();
-  checkBabiesDuplicateTrinket();
+export function babiesCheckValid(): void {
+  babiesCheckValidDuplicateName();
+  babiesCheckValidDuplicateItem();
+  babiesCheckValidDuplicateTrinket();
 }
 
-function checkBabiesDuplicateName() {
+function babiesCheckValidDuplicateName() {
   const nameSet = new Set<string>();
   for (let i = 0; i < BABIES.length; i++) {
     const baby = BABIES[i];
@@ -38,7 +38,7 @@ function checkBabiesDuplicateName() {
   }
 }
 
-function checkBabiesDuplicateItem() {
+function babiesCheckValidDuplicateItem() {
   for (let i = 0; i < BABIES.length; i++) {
     const baby = BABIES[i];
 
@@ -89,7 +89,7 @@ function checkBabiesDuplicateItem() {
   }
 }
 
-function checkBabiesDuplicateTrinket() {
+function babiesCheckValidDuplicateTrinket() {
   const trinketSet = new Set<TrinketType>();
   for (let i = 0; i < BABIES.length; i++) {
     const baby = BABIES[i];

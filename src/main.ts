@@ -4,6 +4,7 @@ import {
   ModUpgraded,
   upgradeMod,
 } from "isaacscript-common";
+import { babiesCheckValid } from "./babiesCheckValid";
 import * as entityTakeDmg from "./callbacks/entityTakeDmg";
 import * as evaluateCache from "./callbacks/evaluateCache";
 import * as executeCmd from "./callbacks/executeCmd";
@@ -44,7 +45,7 @@ import * as postItemPickup from "./callbacksCustom/postItemPickup";
 import * as postPickupCollect from "./callbacksCustom/postPickupCollect";
 import * as postPurchase from "./callbacksCustom/postPurchase";
 import * as postSlotDestroyed from "./callbacksCustom/postSlotDestroyed";
-import { checkBabiesValid } from "./checkBabiesValid";
+import * as postTrinketBreak from "./callbacksCustom/postTrinketBreak";
 import { VERSION } from "./constants";
 import g from "./globals";
 import * as costumeProtector from "./lib/characterCostumeProtector";
@@ -60,7 +61,7 @@ export default function main(): void {
   // (this is needed for saving and loading the "save.dat" file)
   g.babiesMod = mod;
 
-  checkBabiesValid();
+  babiesCheckValid();
   registerCallbacks(mod);
 }
 
@@ -82,6 +83,7 @@ function registerCallbacks(mod: ModUpgraded) {
   registerCallbacksMain(mod);
   registerCallbacksWithExtraArgument(mod);
   registerCallbacksCustom(mod);
+  registerCallbacksCustomWithExtraArgument(mod);
 }
 
 function registerCallbacksMain(mod: ModUpgraded) {
@@ -158,4 +160,8 @@ function registerCallbacksCustom(mod: ModUpgraded) {
     ModCallbacksCustom.MC_POST_SLOT_DESTROYED,
     postSlotDestroyed.main,
   );
+}
+
+function registerCallbacksCustomWithExtraArgument(mod: ModUpgraded) {
+  postTrinketBreak.init(mod);
 }

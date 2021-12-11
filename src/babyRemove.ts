@@ -28,6 +28,9 @@ export function babyRemove(player: EntityPlayer): void {
 
   // If we are on a trinket baby, remove the trinket
   if (baby.trinket !== undefined) {
+    // It should be impossible for the player to have picked up another copy of the trinket,
+    // because we removed it from pools
+    // Thus, this should always remove the smelted trinket
     player.TryRemoveTrinket(baby.trinket);
   }
 

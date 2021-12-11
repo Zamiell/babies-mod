@@ -1,5 +1,8 @@
 Patch notes:
 
+New features:
+- Babies that grant a trinket will now temporarily smelt it for the current floor instead of put it in a normal trinket slot. Subsequently, the restriction where you cannot get a trinket baby if you already have a trinket has been lifted.
+
 Baby changes:
 - Dead Baby (#12) - "Starts with ???'s Only Friend + blindfolded" --> "Starts with 2x ???'s Only Friend + blindfolded"
 - Glitch Baby (#25) - "Starts with 40x GB Bug" --> "Starts with GB Bug"
@@ -34,10 +37,10 @@ Bug fixes:
 - Fixed the bug where the effect for Voxdog Baby (#462) was not working. (Thanks Gamonymous)
 - Fixed the bug where Imp Baby 2 (#480) had tears that were not yellow.
 - Fixed the bug where the description for Falling Baby (#521) was incorrect. (Thanks Gamonymous)
+- Fixed the bug where the sprite for Lil Monstro (#540) was not working correctly.
 - Fixed the bug where Invisible Baby (#541) would cast a shadow.
 
 TODO:
-- make trinket babies use Smelter
 - For Birthright, is it possible to keep for the entire run the current effect you have
 - timer icon appears at inappropriate times
 - do a pass of all babies to un-nerf the hard ones

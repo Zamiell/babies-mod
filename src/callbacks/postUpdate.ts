@@ -3,9 +3,7 @@ import {
   getFamiliars,
   getGridEntities,
   getRoomListIndex,
-  getTrinkets,
   log,
-  nextSeed,
   openAllDoors,
 } from "isaacscript-common";
 import g from "../globals";
@@ -20,9 +18,7 @@ export function main(): void {
     return;
   }
 
-  checkFixWingsBug(baby);
   checkApplyBlindfold(baby);
-  checkTrinket();
   checkRoomCleared();
 
   // Do custom baby effects
@@ -35,16 +31,6 @@ export function main(): void {
   checkSoftlockIsland();
   checkGridEntities();
   checkTrapdoor();
-}
-
-function checkFixWingsBug(_baby: BabyDescription) {
-  // Wings don't get applied in the PostGameStarted callback for some reason
-  // Re-apply them now if needed
-  const gameFrameCount = g.g.GetFrameCount();
-
-  if (gameFrameCount === 1) {
-    // postRender.addWings(baby);
-  }
 }
 
 function checkApplyBlindfold(baby: BabyDescription) {
@@ -76,70 +62,6 @@ function checkApplyBlindfold(baby: BabyDescription) {
           incubus.FireCooldown = 0;
         }
       }
-    }
-  }
-}
-
-// Check to see if this is a trinket baby and they dropped the trinket
-function checkTrinket() {
-  const [, baby, valid] = getCurrentBaby();
-  if (!valid) {
-    return;
-  }
-
-  // Check to see if we are on baby that is supposed to have a permanent trinket
-  if (baby.trinket === undefined) {
-    return;
-  }
-
-  // Check to see if we still have the trinket
-  if (g.p.HasTrinket(baby.trinket)) {
-    return;
-  }
-
-  // Check to see if we smelted / destroyed the trinket
-  if (g.run.level.trinketGone) {
-    return;
-  }
-
-  // Search the room for the dropped trinket
-  const trinkets = getTrinkets(baby.trinket);
-  if (trinkets.length > 0) {
-    // Delete the dropped trinket
-    const trinket = trinkets[0];
-    trinket.Remove();
-
-    // Give it back
-    const position = g.r.FindFreePickupSpawnPosition(g.p.Position, 1, true);
-    g.p.DropTrinket(position, true);
-    g.p.AddTrinket(baby.trinket);
-    // (we cannot cancel the animation or it will cause a bug where the player cannot pick up
-    // collectibles)
-    log("Dropped trinket detected; manually giving it back.");
-    return;
-  }
-
-  // The trinket is gone but it was not found on the floor, so the trinket must have been destroyed
-  // (e.g. Walnut)
-  g.run.level.trinketGone = true;
-  log("Trinket has been destroyed!");
-
-  // Handle special trinket deletion circumstances
-  if (baby.name === "Squirrel Baby") {
-    // 268
-    // The Walnut broke, so spawn additional items
-    for (let i = 0; i < 5; i++) {
-      const position = g.r.FindFreePickupSpawnPosition(g.p.Position, 1, true);
-      g.run.randomSeed = nextSeed(g.run.randomSeed);
-      g.g.Spawn(
-        EntityType.ENTITY_PICKUP,
-        PickupVariant.PICKUP_COLLECTIBLE,
-        position,
-        Vector.Zero,
-        undefined,
-        0,
-        g.run.randomSeed,
-      );
     }
   }
 }

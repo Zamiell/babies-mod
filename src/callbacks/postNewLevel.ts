@@ -37,11 +37,11 @@ export function main(): void {
 
   // Set the new baby
   babyRemove(g.p);
-  getNewBaby();
+  getNewBaby(g.p);
   babyAdd(g.p);
 }
 
-function getNewBaby() {
+function getNewBaby(player: EntityPlayer) {
   // We want to use a seed corresponding to the current floor
   let seed = g.l.GetDungeonPlacementSeed();
 
@@ -72,7 +72,7 @@ function getNewBaby() {
       babyType = g.debugBabyNum;
       break;
     }
-  } while (!babyCheckValid(babyType));
+  } while (!babyCheckValid(player, babyType));
 
   // Set the newly chosen baby type
   g.run.babyType = babyType;

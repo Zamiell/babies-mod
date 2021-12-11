@@ -1,10 +1,9 @@
-import g from "../globals";
 import { CollectibleTypeCustom } from "../types/enums";
-import { getCurrentBaby, spawnRandomPickup } from "../util";
+import { getCurrentBaby } from "../util";
 import { postPickupUpdateBabyFunctionMap } from "./postPickupUpdateBabyFunctionMap";
 
 export function main(pickup: EntityPickup): void {
-  const [babyType, baby, valid] = getCurrentBaby();
+  const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return;
   }
@@ -14,23 +13,6 @@ export function main(pickup: EntityPickup): void {
     pickup.Variant === PickupVariant.PICKUP_COLLECTIBLE &&
     pickup.SubType === CollectibleTypeCustom.COLLECTIBLE_CHECKPOINT
   ) {
-    return;
-  }
-
-  // If the player is on a trinket baby, then they will not be able to take any dropped trinkets
-  // (unless they have Mom's Purse or Belly Button)
-  // So, if this is the case, replace any trinkets that drop with a random pickup
-  // (this cannot be in the PostPickupInit callback, because the position is not initialized yet)
-  if (
-    baby.trinket !== undefined &&
-    pickup.Variant === PickupVariant.PICKUP_TRINKET &&
-    pickup.SubType !== baby.trinket && // We don't want to replace a dropped trinket
-    pickup.FrameCount === 1 && // Frame 0 does not work
-    !g.p.HasCollectible(CollectibleType.COLLECTIBLE_MOMS_PURSE) && // 139
-    !g.p.HasCollectible(CollectibleType.COLLECTIBLE_BELLY_BUTTON) // 458
-  ) {
-    spawnRandomPickup(pickup.Position, pickup.Velocity, true);
-    pickup.Remove();
     return;
   }
 

@@ -22,12 +22,6 @@ export function init(mod: Mod): void {
 
   mod.AddCallback(
     ModCallbacks.MC_PRE_USE_ITEM,
-    smelter,
-    CollectibleType.COLLECTIBLE_SMELTER, // 479
-  );
-
-  mod.AddCallback(
-    ModCallbacks.MC_PRE_USE_ITEM,
     brownNugget,
     CollectibleType.COLLECTIBLE_BROWN_NUGGET, // 504
   );
@@ -112,30 +106,6 @@ function isaacsTears(_collectibleType: number, _rng: RNG) {
 
   // Cancel the original effect
   return true;
-}
-
-// CollectibleType.COLLECTIBLE_SMELTER (479)
-// This callback is used naturally by Gulp! pills
-function smelter(_collectibleType: number, _rng: RNG) {
-  const [, baby, valid] = getCurrentBaby();
-  if (!valid) {
-    return false;
-  }
-
-  if (baby.trinket === undefined) {
-    return false;
-  }
-
-  // We want to keep track if the player smelts the trinket so that we don't give another copy back
-  // to them
-  const trinket1 = g.p.GetTrinket(TrinketSlot.SLOT_1);
-  const trinket2 = g.p.GetTrinket(TrinketSlot.SLOT_2);
-  if (trinket1 === baby.trinket || trinket2 === baby.trinket) {
-    g.run.level.trinketGone = true;
-  }
-
-  // Go on to do the Smelter effect
-  return false;
 }
 
 // CollectibleType.COLLECTIBLE_BROWN_NUGGET (504)
