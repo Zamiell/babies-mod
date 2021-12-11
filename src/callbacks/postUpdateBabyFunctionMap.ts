@@ -698,11 +698,8 @@ postUpdateBabyFunctionMap.set(267, () => {
 
   // Show the player gradually changing color to signify that they are about to take damage
   const distanceToDamage = g.run.babyCounters / framesBeforeTakingDamage; // From 0 to 1
-  sprite.Color = Color(
-    1 - distanceToDamage,
-    1 - distanceToDamage,
-    1 - distanceToDamage,
-  );
+  const colorValue = 1 - distanceToDamage; // They should go from white to black
+  sprite.Color = Color(colorValue, colorValue, colorValue);
 
   if (g.run.babyCounters === framesBeforeTakingDamage) {
     g.p.TakeDamage(1, 0, EntityRef(g.p), 0);

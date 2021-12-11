@@ -8,7 +8,7 @@ Baby changes:
 - Parasite Baby (#77) - "Balloon tears" --> "Starts with The Parasite"
 - Makeup Baby (#99) - "8-shot" --> "7-shot"
 - Pubic Baby (#110) - Can no longer be gotten on The Chest.
-- Hare Baby (#267) - Now has a visual indication before you take damage.
+- Hare Baby (#267) - "Takes damage when standing still" --> Same effect, but you now have to stand still for 15 frames before you take damage. There is also a visual indication before you take damage.
 - Woodsman Baby (#297) - "All doors are open" --> "Meat Cleaver effect per room"
 - Cheese Baby (#302) - "Starts with Soy Milk + Libra" --> "Starts with The Bean + Gigante Bean"
 - Monk Baby (#313) - "PAC1F1CM" --> "Starts with "
@@ -37,8 +37,6 @@ Bug fixes:
 - Fixed the bug where Invisible Baby (#541) would cast a shadow.
 
 TODO:
-- baby 541
-- recode hare baby from scratch
 - make trinket babies use Smelter
 - For Birthright, is it possible to keep for the entire run the current effect you have
 - timer icon appears at inappropriate times

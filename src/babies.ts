@@ -3307,7 +3307,8 @@ export const BABIES: BabyDescription[] = [
   {
     name: "Lil Monstro", // 540
     description: "Starts with Monstro's Lung",
-    sprite: "familiar_108_lilmonstro.png",
+    // We cannot use the vanilla sprite since it does not follow the same format
+    sprite: "familiar_108_lilmonstro_custom.png",
     item: CollectibleType.COLLECTIBLE_MONSTROS_LUNG,
   },
   {
