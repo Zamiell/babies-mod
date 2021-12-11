@@ -6,12 +6,15 @@ import {
   isChest,
   log,
   removeCollectibleFromItemTracker,
+  setBlindfold,
   setPlayerHealth,
   smeltTrinket,
 } from "isaacscript-common";
 import { babyAddFunctionMap } from "./babyAddFunctionMap";
+import { setBabyANM2 } from "./callbacks/postPlayerInit";
 import g from "./globals";
 import * as costumeProtector from "./lib/characterCostumeProtector";
+import { BabyDescription } from "./types/BabyDescription";
 import { NullItemIDCustom, PlayerTypeCustom } from "./types/enums";
 import { getCurrentBaby, giveItemAndRemoveFromPools } from "./util";
 
@@ -86,6 +89,12 @@ export function babyAdd(player: EntityPlayer): void {
     removeCollectibleFromItemTracker(baby.item2);
   }
 
+  // Check if this is a trinket baby
+  if (baby.trinket !== undefined) {
+    smeltTrinket(player, baby.trinket);
+    g.itemPool.RemoveTrinket(baby.trinket);
+  }
+
   // Reset the player's health to the way it was before we added the items
   setPlayerHealth(player, playerHealth);
 
@@ -97,10 +106,13 @@ export function babyAdd(player: EntityPlayer): void {
   player.AddKeys(-99);
   player.AddKeys(keys);
 
-  // Check if this is a trinket baby
-  if (baby.trinket !== undefined) {
-    smeltTrinket(player, baby.trinket);
-    g.itemPool.RemoveTrinket(baby.trinket);
+  // Some babies are blindfolded
+  if (baby.blindfolded === true) {
+    setBlindfold(player, true, false);
+
+    // Setting a blindfold changes the player type, which resets the ANM2
+    // Manually set it back
+    setBabyANM2(player);
   }
 
   // Some babies give Easter Eggs
@@ -132,7 +144,16 @@ export function babyAdd(player: EntityPlayer): void {
   player.AddCacheFlags(CacheFlag.CACHE_ALL);
   player.EvaluateItems();
 
-  // Set the new sprite
+  setCostumeProtectorSprite(player, babyType, baby);
+
+  log(`Applied baby: ${babyType} - ${baby.name}`);
+}
+
+function setCostumeProtectorSprite(
+  player: EntityPlayer,
+  babyType: int,
+  baby: BabyDescription,
+) {
   const gfxDirectory =
     babyType <= LAST_BABY_WITH_SPRITE_IN_PLAYER2_DIRECTORY
       ? "gfx/characters/player2"
@@ -146,6 +167,4 @@ export function babyAdd(player: EntityPlayer): void {
     spritesheetPath,
     flightCostume,
   );
-
-  log(`Applied baby: ${babyType} - ${baby.name}`);
 }

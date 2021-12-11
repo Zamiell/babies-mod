@@ -237,13 +237,6 @@ postFireTearBabyFunctionMap.set(197, (tear: EntityTear) => {
   tear.Remove();
 });
 
-// Blindfold Baby
-postFireTearBabyFunctionMap.set(202, (tear: EntityTear) => {
-  // Starts with Incubus + blindfolded
-  // (we need to manually blindfold the player so that the Incubus works properly)
-  tear.Remove();
-});
-
 // Monocle Baby
 postFireTearBabyFunctionMap.set(206, (tear: EntityTear) => {
   tear.Scale *= 3;

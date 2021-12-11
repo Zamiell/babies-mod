@@ -8,7 +8,10 @@ export class GlobalsRunRoom {
   seed = 0;
   pseudoClear = true;
   doorsModified: int[] = [];
+
+  /** For poops and TNT barrels. */
   softlock = false;
+
   tears: TearDescription[] = [];
 
   constructor(clearState = true, roomSeed = Random()) {

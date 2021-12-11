@@ -162,19 +162,6 @@ function checkInventory(player: EntityPlayer, baby: BabyDescription) {
 
 function checkItem(player: EntityPlayer, baby: BabyDescription) {
   if (
-    baby.blindfolded === true &&
-    (player.HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) || // 69
-      player.HasCollectible(CollectibleType.COLLECTIBLE_TECH_5) || // 244
-      player.HasCollectible(CollectibleType.COLLECTIBLE_LIBRA)) // 304
-  ) {
-    // Even with very high tear delay, you can still spam tears with Chocolate Milk
-    // With Libra, the extra tear delay from the blindfold is redistributed,
-    // so the player will be able to shoot after saving and quitting
-    // With Tech.5, the player is still able to shoot while blindfolded
-    return false;
-  }
-
-  if (
     (baby.mustHaveTears === true ||
       baby.item === CollectibleType.COLLECTIBLE_SOY_MILK || // 330
       baby.item2 === CollectibleType.COLLECTIBLE_SOY_MILK) && // 330
@@ -278,14 +265,6 @@ function checkItem(player: EntityPlayer, baby: BabyDescription) {
       player.HasCollectible(CollectibleType.COLLECTIBLE_THE_WIZ) || // 358
       player.HasPlayerForm(PlayerForm.PLAYERFORM_BABY) || // 7
       player.HasPlayerForm(PlayerForm.PLAYERFORM_BOOK_WORM)) // 10
-  ) {
-    return false;
-  }
-
-  if (
-    baby.name === "Blindfold Baby" && // 202
-    (player.HasCollectible(CollectibleType.COLLECTIBLE_TECHNOLOGY_2) || // 152
-      player.HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG)) // 229
   ) {
     return false;
   }

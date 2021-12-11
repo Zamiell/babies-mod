@@ -19,6 +19,11 @@ export function main(): void {
   // Reset floor-related variables
   g.run.level = new GlobalsRunLevel();
 
+  // Birthright has the effect of keeping the current baby for the remainder of the run
+  if (g.p.HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)) {
+    return;
+  }
+
   // Reset baby-specific variables
   g.run.babyBool = false;
   g.run.babyCounters = 0;
@@ -36,11 +41,9 @@ export function main(): void {
   g.run.showIntroFrame = gameFrameCount + 60; // 2 seconds
 
   // Set the new baby
-  if (!g.p.HasCollectible(CollectibleType.COLLECTIBLE_BIRTHRIGHT)) {
-    babyRemove(g.p);
-    getNewBaby(g.p);
-    babyAdd(g.p);
-  }
+  babyRemove(g.p);
+  getNewBaby(g.p);
+  babyAdd(g.p);
 }
 
 function getNewBaby(player: EntityPlayer) {

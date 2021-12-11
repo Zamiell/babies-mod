@@ -17,13 +17,6 @@ export function main(player: EntityPlayer, cacheFlag: CacheFlag): void {
     player.Damage += 1;
   }
 
-  // Handle blindfolded characters
-  if (cacheFlag === CacheFlag.CACHE_FIREDELAY && baby.blindfolded === true) {
-    player.MaxFireDelay = 100000;
-    // (setting "player.FireDelay" here will not work,
-    // so do it one frame later in the PostUpdate callback)
-  }
-
   // Handle flying characters
   if (cacheFlag === CacheFlag.CACHE_FLYING && baby.flight === true) {
     player.CanFly = true;

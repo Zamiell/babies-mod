@@ -1,4 +1,4 @@
-import { removeDeadEyeMultiplier } from "isaacscript-common";
+import { removeDeadEyeMultiplier, setBlindfold } from "isaacscript-common";
 import { babyRemoveFunctionMap } from "./babyRemoveFunctionMap";
 import g from "./globals";
 import { getCurrentBaby } from "./util";
@@ -37,6 +37,11 @@ export function babyRemove(player: EntityPlayer): void {
   // Remove the Dead Eye multiplier
   if (baby.item === CollectibleType.COLLECTIBLE_DEAD_EYE) {
     removeDeadEyeMultiplier(player);
+  }
+
+  // Remove the blindfold
+  if (baby.blindfolded === true) {
+    setBlindfold(player, false, false);
   }
 
   // Remove easter eggs

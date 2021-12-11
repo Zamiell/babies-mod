@@ -1,59 +1,15 @@
-Patch notes:
-
-New features:
-- Babies that grant a trinket will now temporarily smelt it for the current floor instead of put it in a normal trinket slot. Subsequently, the restriction where you cannot get a trinket baby if you already have a trinket has been lifted.
-- Birthright will allow you to keep the current baby for the remainder of the run.
-
-Baby changes:
-- Dead Baby (#12) - "Starts with ???'s Only Friend + blindfolded" --> "Starts with 2x ???'s Only Friend + blindfolded"
-- Glitch Baby (#25) - "Starts with 40x GB Bug" --> "Starts with GB Bug"
-- Colorful Baby (#42) - "Starts with 3 Dollar Bill" --> "Acid Trip"
-- Alien Hominid Baby (#74) - "Starts with The Parasite" --> "Starts with beam sword tears"
-- Parasite Baby (#77) - "Balloon tears" --> "Starts with The Parasite"
-- Makeup Baby (#99) - "8-shot" --> "7-shot"
-- Pubic Baby (#110) - Can no longer be gotten on The Chest.
-- Hare Baby (#267) - "Takes damage when standing still" --> Same effect, but you now have to stand still for 15 frames before you take damage. There is also a visual indication before you take damage.
-- Woodsman Baby (#297) - "All doors are open" --> "Meat Cleaver effect per room"
-- Cheese Baby (#302) - "Starts with Soy Milk + Libra" --> "Starts with The Bean + Gigante Bean"
-- Monk Baby (#313) - "PAC1F1CM" --> "Starts with "
-- Twotone Baby (#346) - "Dataminer effect on hit" --> "Dataminer effect per room entered"
-- 2600 Baby (#347) - "Backwards tears" --> "Friend Finder effect per room cleared"
-- Little Horn Baby (#429) - "Void tears (every 3rd tear)" --> "Void tears (every 5th tear)"
-- 404 Baby (#463) - "Acid Trip" --> "-1 coin/bomb/key on hit"
-- Cursed Pillow Baby (#487) - "Every 3rd missed tear causes damage" --> "Every 4th missed tear causes damage"
-- Psychic Baby (#504) - "Starts with Abel; tears come from Abel" --> "Starts with Abel; tears come from Abel; 2x damage"
-- Road Kill Baby (#507) - "Starts with Pointy Rib (improved) + blindfolded" --> "Starts with Pointy Rib x3 + blindfolded"
-- Abel (#531) - "Every 3rd missed tear causes paralysis" --> "Every 5th missed tear causes paralysis"
-
-Bug fixes:
-- Fixed the bug where some babies could turn invisible under certain circumstances. (Thanks Octotroph)
-- Fixed the bug where babies that have effects based on touching a pickup would not work if a pickup was purchased.
-- Fixed the bug where the effects for babies tied to bombs exploding was not working. (Thanks Gamonymous)
-- Fixed the bug where the clock icon would be drawn in circumstances where the temporary active item was not in the primary active slot.
-- Fixed the bug where Cute Baby (#11) received Maggy's Bow.
-- Fixed the bug where the effect for Whore Baby (#43) was not working. (Thanks Gamonymous)
-- Fixed the bug where the effect for Makeup Baby (#99) was not working. (Thanks Gamonymous)
-- Fixed the bug where Brownie Baby (#107) would taking items that updated the familiar cache would delete the Meat Boy and Meat Girl. (Thanks Octotroph)
-- Fixed the bug where Boxers Baby (#337) tears did not have any knockback.
-- Fixed the bug where the effect for Voxdog Baby (#462) was not working. (Thanks Gamonymous)
-- Fixed the bug where Imp Baby 2 (#480) had tears that were not yellow.
-- Fixed the bug where the description for Falling Baby (#521) was incorrect. (Thanks Gamonymous)
-- Fixed the bug where the sprite for Lil Monstro (#540) was not working correctly.
-- Fixed the bug where Invisible Baby (#541) would cast a shadow.
-
 TODO:
-- For Birthright, is it possible to keep for the entire run the current effect you have
-- timer icon appears at inappropriate times
-- do a pass of all babies to un-nerf the hard ones
-- possible effects:
-  - ice tears
-  - spore tears
-  - Friendly Dark Esau
-  - Spawns a Crane Game on hit
-  - SeedEffect.SEED_SUPER_HOT
-  - starting with holy mantle + Curse of cursed
-  - haemolacria + brimstone
-  - rocket in a jar + infinite bombs + blindfolded (test it)
+- Replace effect for Tabby Baby (#269) + Text Baby (#476)
+
+Effect ideas:
+- ice tears
+- spore tears
+- Friendly Dark Esau
+- Spawns a Crane Game on hit
+- SeedEffect.SEED_SUPER_HOT
+- starting with holy mantle + Curse of cursed
+- haemolacria + brimstone
+- rocket in a jar + infinite bombs + blindfolded (test it)
 
 List of boring babies:
 - Magnet Baby (#26) - Starts with Magneto
@@ -82,7 +38,7 @@ List of hard babies:
 - Pink Princess Baby (#374) - Summons random stomps
 - Blue Pig Baby (#382) - Spawns a Mega Troll Bomb every 5 seconds
 - !!! Text Baby (#476) - 0.5x damage
-- Funny Baby (#491) - Enemies spawn Mega Troll Bombs on death
+- Funny Baby (#491) - Enemies spawn Troll Bombs on death
 
 Bugs with Costume Protector:
 - Mineshaft

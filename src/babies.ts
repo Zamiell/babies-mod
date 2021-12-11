@@ -1217,9 +1217,7 @@ export const BABIES: BabyDescription[] = [
     description: "Starts with Incubus + blindfolded",
     sprite: "202_baby_blindfold.png",
     item: CollectibleType.COLLECTIBLE_INCUBUS,
-    // We can't blindfold the player because then the Incubus would not be able to shoot anything
-    // due to the high tear delay
-    mustHaveTears: true,
+    blindfolded: true,
   },
   {
     name: "Pipe Baby",

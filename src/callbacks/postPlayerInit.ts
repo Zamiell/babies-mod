@@ -17,16 +17,22 @@ export function main(player: EntityPlayer): void {
   }
 
   updateCachedPlayer(player);
-  setBabyANM2(player);
-}
 
-function setBabyANM2(player: EntityPlayer) {
   const character = player.GetPlayerType();
-  if (character === PlayerTypeCustom.PLAYER_RANDOM_BABY) {
-    const sprite = player.GetSprite();
-    sprite.Load(CUSTOM_PLAYER_ANM2, true);
+  if (character !== PlayerTypeCustom.PLAYER_RANDOM_BABY) {
+    return;
   }
 
+  setBabyANM2(player);
+  initCostumeProtector(player);
+}
+
+export function setBabyANM2(player: EntityPlayer) {
+  const sprite = player.GetSprite();
+  sprite.Load(CUSTOM_PLAYER_ANM2, true);
+}
+
+function initCostumeProtector(player: EntityPlayer) {
   costumeProtector.AddPlayer(
     player,
     PlayerTypeCustom.PLAYER_RANDOM_BABY,

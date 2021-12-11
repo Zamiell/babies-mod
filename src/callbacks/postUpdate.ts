@@ -1,6 +1,5 @@
 import {
   GAME_FRAMES_PER_SECOND,
-  getFamiliars,
   getGridEntities,
   getRoomListIndex,
   log,
@@ -8,17 +7,15 @@ import {
 } from "isaacscript-common";
 import g from "../globals";
 import { roomClearedBabyFunctionMap } from "../roomClearedBabyFunctionMap";
-import { BabyDescription } from "../types/BabyDescription";
 import { getCurrentBaby, spawnRandomPickup, useActiveItem } from "../util";
 import { postUpdateBabyFunctionMap } from "./postUpdateBabyFunctionMap";
 
 export function main(): void {
-  const [babyType, baby, valid] = getCurrentBaby();
+  const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return;
   }
 
-  checkApplyBlindfold(baby);
   checkRoomCleared();
 
   // Do custom baby effects
@@ -31,39 +28,6 @@ export function main(): void {
   checkSoftlockIsland();
   checkGridEntities();
   checkTrapdoor();
-}
-
-function checkApplyBlindfold(baby: BabyDescription) {
-  // Racing+ will disable the controls while the player is jumping out of the hole,
-  // so for the FireDelay modification to work properly, we have to wait until this is over
-  // (the "blindfoldedApplied" is reset in the PostNewLevel callback)
-  if (!g.run.level.blindfoldedApplied && g.p.ControlsEnabled) {
-    g.run.level.blindfoldedApplied = true;
-    if (baby.blindfolded === true) {
-      // Make sure the player does not have a tear in the queue
-      // (otherwise, if the player had the tear fire button held down while transitioning between
-      // floors, they will get one more shot)
-      // (this will not work in the EvaluateCache callback because it gets reset to 0 at the end
-      // of the frame)
-      g.p.FireDelay = 1000000; // 1 million, equal to roughly 9 hours
-    } else {
-      // If we do not check for a large fire delay, we will get a double tear during the start
-      // If we are going from a blindfolded baby to a non-blindfolded baby,
-      // we must restore the fire delay to a normal value
-      if (g.p.FireDelay > 900) {
-        // 30 seconds
-        g.p.FireDelay = 0;
-      }
-
-      // We also have to restore the fire delay on Incubus, if any
-      const incubi = getFamiliars(FamiliarVariant.INCUBUS);
-      for (const incubus of incubi) {
-        if (incubus.FireCooldown > 30 * GAME_FRAMES_PER_SECOND) {
-          incubus.FireCooldown = 0;
-        }
-      }
-    }
-  }
 }
 
 // Certain babies do things if the room is cleared
@@ -96,7 +60,8 @@ function roomCleared() {
   }
 }
 
-// On certain babies, destroy all poops and TNT barrels after a certain amount of time
+// On certain babies, destroy all poops and TNT barrels after a certain amount of time to prevent
+// softlocks
 function checkSoftlockDestroyPoops() {
   const roomFrameCount = g.r.GetFrameCount();
   const [, baby, valid] = getCurrentBaby();
@@ -120,7 +85,6 @@ function checkSoftlockDestroyPoops() {
     return;
   }
 
-  // Prevent softlocks with poops and TNT barrels on certain babies that are blindfolded
   g.run.room.softlock = true;
 
   // Kill some grid entities in the room to prevent softlocks in some specific rooms
