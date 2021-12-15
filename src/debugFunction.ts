@@ -5,12 +5,8 @@ import {
 } from "isaacscript-common";
 import { BABIES } from "./babies";
 import g from "./globals";
-import { NullItemIDCustom } from "./types/enums";
 
-export function debugCode() {
-  const player = Isaac.GetPlayer();
-  player.AddNullCostume(NullItemIDCustom.BABY_FLYING);
-}
+export function debugCode() {}
 
 export function debugFunction() {
   log("Entering debug function.");

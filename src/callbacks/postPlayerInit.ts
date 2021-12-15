@@ -1,7 +1,7 @@
 import { BABIES } from "../babies";
 import { updateCachedPlayer } from "../cache";
 import * as costumeProtector from "../lib/characterCostumeProtector";
-import { NullItemIDCustom, PlayerTypeCustom } from "../types/enums";
+import { PlayerTypeCustom } from "../types/enums";
 
 const CUSTOM_PLAYER_ANM2 = "gfx/001.000_player_custom_baby.anm2";
 
@@ -36,6 +36,5 @@ function initCostumeProtector(player: EntityPlayer) {
     // The sprite will be replaced when the baby gets applied in the PostNewLevel callback
     // For now, default to loading the first baby sprite to avoid error in the "log.txt" file
     `gfx/characters/player2/${BABIES[0].sprite}`,
-    NullItemIDCustom.BABY_FLYING,
   );
 }
