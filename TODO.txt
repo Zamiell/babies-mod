@@ -5,8 +5,6 @@ TODO:
 Effect ideas:
 - Spawns a pedestal item after 6 hits
 - spore tears
-- Spawns a Crane Game on hit
-- haemolacria + brimstone
 
 List of boring babies:
 - Magnet Baby (#26) - Starts with Magneto

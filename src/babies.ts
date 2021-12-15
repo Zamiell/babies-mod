@@ -3230,7 +3230,7 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Illusion Baby",
-    description: "",
+    description: "Spawns a Crane Game on hit",
     sprite: "067_baby_illusion.png", // 529
   },
   {

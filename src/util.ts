@@ -1,4 +1,5 @@
 import {
+  findFreePosition,
   getCollectibleMaxCharges,
   getEntities,
   getRandomInt,
@@ -292,6 +293,35 @@ export function spawnRandomPickup(
       error(`The pickup variant was an unknown value of: ${pickupVariant}`);
     }
   }
+}
+
+export function spawnSlot(
+  slotVariant: SlotVariant,
+  startingPosition: Vector,
+  seed: int,
+) {
+  const position = findFreePosition(startingPosition);
+
+  g.g.Spawn(
+    EntityType.ENTITY_SLOT,
+    slotVariant,
+    position,
+    Vector.Zero,
+    undefined,
+    0,
+    seed,
+  );
+
+  Isaac.Spawn(
+    EntityType.ENTITY_EFFECT,
+    EffectVariant.POOF01,
+    PoofSubType.NORMAL,
+    position,
+    Vector.Zero,
+    undefined,
+  );
+
+  g.sfx.Play(SoundEffect.SOUND_SUMMONSOUND);
 }
 
 /** Helper function to use an active item without showing an animation. */

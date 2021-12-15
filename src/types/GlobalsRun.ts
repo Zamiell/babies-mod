@@ -48,9 +48,11 @@ export class GlobalsRun {
   // Item-specific variables
   flockOfSuccubi = false;
   clockworkAssemblySeed = 0;
+  craneGameSeed = 0;
 
   constructor(randomSeed = Random()) {
     this.randomSeed = randomSeed;
     this.clockworkAssemblySeed = randomSeed;
+    this.craneGameSeed = randomSeed;
   }
 }

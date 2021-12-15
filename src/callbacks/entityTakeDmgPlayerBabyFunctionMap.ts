@@ -14,7 +14,12 @@ import { RandomBabyType } from "../babies";
 import g from "../globals";
 import { EntityDescription } from "../types/EntityDescription";
 import { CollectibleTypeCustom } from "../types/enums";
-import { getCurrentBaby, spawnRandomPickup, useActiveItem } from "../util";
+import {
+  getCurrentBaby,
+  spawnRandomPickup,
+  spawnSlot,
+  useActiveItem,
+} from "../util";
 
 export const entityTakeDmgPlayerBabyFunctionMap = new Map<
   int,
@@ -749,6 +754,16 @@ entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.LOST_GREY_BABY,
   (player) => {
     useActiveItem(player, CollectibleType.COLLECTIBLE_D7);
+  },
+);
+
+// Illusion Baby
+entityTakeDmgPlayerBabyFunctionMap.set(
+  RandomBabyType.ILLUSION_BABY,
+  (player) => {
+    // Spawns a Crane Game on hit
+    g.run.craneGameSeed = nextSeed(g.run.craneGameSeed);
+    spawnSlot(SlotVariant.CRANE_GAME, player.Position, g.run.craneGameSeed);
   },
 );
 

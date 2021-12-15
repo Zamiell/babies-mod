@@ -1,5 +1,4 @@
 import {
-  findFreePosition,
   getCollectibleMaxCharges,
   nextSeed,
   playChargeSoundEffect,
@@ -8,7 +7,7 @@ import {
 import { NUM_SUCCUBI_IN_FLOCK } from "../constants";
 import g from "../globals";
 import { CollectibleTypeCustom } from "../types/enums";
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby, spawnSlot } from "../util";
 
 export function init(mod: Mod): void {
   mod.AddCallback(
@@ -115,26 +114,11 @@ function clockworkAssembly(
   player: EntityPlayer,
 ) {
   g.run.clockworkAssemblySeed = nextSeed(g.run.clockworkAssemblySeed);
-  const position = findFreePosition(player.Position);
-  g.g.Spawn(
-    EntityType.ENTITY_SLOT,
+  spawnSlot(
     SlotVariant.SHOP_RESTOCK_MACHINE,
-    position,
-    Vector.Zero,
-    undefined,
-    0,
+    player.Position,
     g.run.clockworkAssemblySeed,
   );
-  Isaac.Spawn(
-    EntityType.ENTITY_EFFECT,
-    EffectVariant.POOF01,
-    PoofSubType.NORMAL,
-    position,
-    Vector.Zero,
-    undefined,
-  );
-
-  g.sfx.Play(SoundEffect.SOUND_SUMMONSOUND);
 
   player.AnimateCollectible(
     CollectibleTypeCustom.COLLECTIBLE_CLOCKWORK_ASSEMBLY,
