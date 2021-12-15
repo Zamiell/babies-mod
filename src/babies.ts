@@ -3534,7 +3534,7 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Twisted Baby", // CollectibleType.COLLECTIBLE_TWISTED_PAIR (698)
-    description: "",
+    description: "Spore tears",
     sprite: "familiar_twisted_pair_custom.png", // 581
   },
   {
@@ -3546,7 +3546,7 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Siren Shooter",
-    description: "",
+    description: "Spawns a pedestal item after 6 hits",
     sprite: "familiar_siren_shooter.png", // 583
   },
   {

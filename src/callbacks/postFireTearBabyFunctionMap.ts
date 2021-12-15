@@ -633,9 +633,20 @@ postFireTearBabyFunctionMap.set(RandomBabyType.LIL_LOKI, (tear: EntityTear) => {
 
 // Freezer Baby
 postFireTearBabyFunctionMap.set(
+  // Ice tears
   RandomBabyType.FREEZER_BABY,
   (tear: EntityTear) => {
     tear.TearFlags |= TearFlags.TEAR_ICE;
     tear.SetColor(FADED_BLUE, 10000, 10000, false, false);
+  },
+);
+
+// Twisted Baby
+postFireTearBabyFunctionMap.set(
+  // Spore tears
+  RandomBabyType.TWISTED_BABY,
+  (tear: EntityTear) => {
+    tear.TearFlags |= TearFlags.TEAR_SPORE;
+    tear.ChangeVariant(TearVariant.SPORE);
   },
 );

@@ -438,26 +438,6 @@ entityTakeDmgPlayerBabyFunctionMap.set(
   },
 );
 
-// Spartan Baby
-entityTakeDmgPlayerBabyFunctionMap.set(329, (player) => {
-  // Spawns a pedestal item after 6 hits
-  g.run.babyCounters += 1;
-  if (g.run.babyCounters === 6) {
-    g.run.babyCounters = 0;
-    g.run.randomSeed = nextSeed(g.run.randomSeed);
-    const position = g.r.FindFreePickupSpawnPosition(player.Position, 1, true);
-    g.g.Spawn(
-      EntityType.ENTITY_PICKUP,
-      PickupVariant.PICKUP_COLLECTIBLE,
-      position,
-      Vector.Zero,
-      undefined,
-      0,
-      g.run.randomSeed,
-    );
-  }
-});
-
 // Tortoise Baby
 entityTakeDmgPlayerBabyFunctionMap.set(330, () => {
   // 0.5x speed + 50% chance to ignore damage
@@ -783,6 +763,33 @@ entityTakeDmgPlayerBabyFunctionMap.set(
         player.RemoveCollectible(itemToTakeAway);
         removeCollectibleFromItemTracker(itemToTakeAway);
       }
+    }
+  },
+);
+
+// Siren Shooter
+entityTakeDmgPlayerBabyFunctionMap.set(
+  RandomBabyType.SIREN_SHOOTER,
+  (player) => {
+    // Spawns a pedestal item after 6 hits
+    g.run.babyCounters += 1;
+    if (g.run.babyCounters === 6) {
+      g.run.babyCounters = 0;
+      g.run.randomSeed = nextSeed(g.run.randomSeed);
+      const position = g.r.FindFreePickupSpawnPosition(
+        player.Position,
+        1,
+        true,
+      );
+      g.g.Spawn(
+        EntityType.ENTITY_PICKUP,
+        PickupVariant.PICKUP_COLLECTIBLE,
+        position,
+        Vector.Zero,
+        undefined,
+        0,
+        g.run.randomSeed,
+      );
     }
   },
 );

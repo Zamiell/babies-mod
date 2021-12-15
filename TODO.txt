@@ -2,10 +2,6 @@ TODO:
 - Replace effect for Tabby Baby (#269) + Text Baby (#476)
 - Total babies: 559 --> 585
 
-Effect ideas:
-- Spawns a pedestal item after 6 hits
-- spore tears
-
 List of boring babies:
 - Magnet Baby (#26) - Starts with Magneto
 - Teeth Baby (#95) - Starts with Dog Tooth
