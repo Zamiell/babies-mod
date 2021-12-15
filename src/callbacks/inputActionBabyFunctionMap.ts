@@ -2,6 +2,7 @@ import {
   isActionPressedOnAnyInput,
   SHOOTING_ACTIONS,
 } from "isaacscript-common";
+import { RandomBabyType } from "../babies";
 import g from "../globals";
 
 export const inputActionBabyFunctionMap = new Map<
@@ -15,7 +16,7 @@ inputActionBabyFunctionMap.set(
   (inputHook: InputHook, buttonAction: ButtonAction) => {
     if (
       // The shoot inputs can be on all 3 of the input hooks
-      inputHook === InputHook.IS_ACTION_PRESSED && // 0
+      inputHook === InputHook.IS_ACTION_PRESSED &&
       SHOOTING_ACTIONS.has(buttonAction)
     ) {
       // Can't shoot while moving
@@ -113,6 +114,38 @@ inputActionBabyFunctionMap.set(
     // Make the player face in this direction
     if (buttonAction === direction) {
       return 1;
+    }
+
+    return undefined;
+  },
+);
+
+// Solomon's Baby A
+inputActionBabyFunctionMap.set(
+  RandomBabyType.SOLOMONS_BABY_A,
+  (inputHook: InputHook, buttonAction: ButtonAction) => {
+    // Can't shoot right
+    if (
+      inputHook === InputHook.IS_ACTION_PRESSED &&
+      buttonAction === ButtonAction.ACTION_SHOOTRIGHT
+    ) {
+      return false;
+    }
+
+    return undefined;
+  },
+);
+
+// Solomon's Baby B
+inputActionBabyFunctionMap.set(
+  RandomBabyType.SOLOMONS_BABY_B,
+  (inputHook: InputHook, buttonAction: ButtonAction) => {
+    // Can't shoot left
+    if (
+      inputHook === InputHook.IS_ACTION_PRESSED &&
+      buttonAction === ButtonAction.ACTION_SHOOTLEFT
+    ) {
+      return false;
     }
 
     return undefined;
