@@ -6,7 +6,7 @@ import {
 import { BABIES } from "./babies";
 import g from "./globals";
 
-export function debugCode() {}
+function debugCode() {}
 
 export function debugFunction() {
   log("Entering debug function.");

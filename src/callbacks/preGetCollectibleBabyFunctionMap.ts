@@ -38,21 +38,21 @@ preGetCollectibleBabyFunctionMap.set(430, () => {
 });
 
 // Little Gish
-preGetCollectibleBabyFunctionMap.set(525, () => {
-  return getRandomCollectibleTypeFromPool(ItemPoolType.POOL_CURSE);
-});
+preGetCollectibleBabyFunctionMap.set(525, () =>
+  getRandomCollectibleTypeFromPool(ItemPoolType.POOL_CURSE),
+);
 
 // Ghost Baby
-preGetCollectibleBabyFunctionMap.set(528, () => {
-  return getRandomCollectibleTypeFromPool(ItemPoolType.POOL_SHOP);
-});
+preGetCollectibleBabyFunctionMap.set(528, () =>
+  getRandomCollectibleTypeFromPool(ItemPoolType.POOL_SHOP),
+);
 
 // Mongo Baby
-preGetCollectibleBabyFunctionMap.set(535, () => {
-  return getRandomCollectibleTypeFromPool(ItemPoolType.POOL_ANGEL);
-});
+preGetCollectibleBabyFunctionMap.set(535, () =>
+  getRandomCollectibleTypeFromPool(ItemPoolType.POOL_ANGEL),
+);
 
 // Incubus
-preGetCollectibleBabyFunctionMap.set(536, () => {
-  return getRandomCollectibleTypeFromPool(ItemPoolType.POOL_DEVIL);
-});
+preGetCollectibleBabyFunctionMap.set(536, () =>
+  getRandomCollectibleTypeFromPool(ItemPoolType.POOL_DEVIL),
+);

@@ -1,12 +1,17 @@
 # The Babies Mod Version History
 
+### *v1.3.1* - December 11th, 2021
+
+- Fixed the bug where tiny enemies from Lil' Baby (#36) would lose the size multiplier if they went underground.
+- Fixed the bug where giant enemies from Big Baby (#37) would lose the size multiplier if they went underground.
+
 ### *v1.3.0* - December 11th, 2021
 
 New features:
 
 - Babies that grant a trinket will now temporarily smelt it for the current floor instead of put it in a normal trinket slot. Subsequently, the restriction where you cannot get a trinket baby if you already have a trinket has been lifted.
 - Birthright will allow you to keep the current baby for the remainder of the run.
-- The mod now uses Sanio's [Costume Protector](https://steamcommunity.com/sharedfiles/filedetails/?id=2541362255), which fixes a lot of costume-related bugs. (For example, Dad's Ring now works properly with Random Baby.)
+- The mod now uses Sanio's [Costume Protector](https://steamcommunity.com/sharedfiles/filedetails/?id=2541362255) library, which fixes a lot of costume-related bugs. (For example, Dad's Ring now works properly with Random Baby.)
 
 Baby changes:
 
@@ -20,7 +25,7 @@ Baby changes:
 - Hare Baby (#267) - "Takes damage when standing still" --> Same effect, but you now have to stand still for 15 frames before you take damage. There is also a visual indication before you take damage.
 - Woodsman Baby (#297) - "All doors are open" --> "Meat Cleaver effect per room"
 - Cheese Baby (#302) - "Starts with Soy Milk + Libra" --> "Starts with The Bean + Gigante Bean"
-- Monk Baby (#313) - "PAC1F1CM" --> "Starts with "
+- Monk Baby (#313) - "PAC1F1CM" --> "Starts with Mom's Bracelet"
 - Twotone Baby (#346) - "Dataminer effect on hit" --> "Dataminer effect per room entered"
 - 2600 Baby (#347) - "Backwards tears" --> "Friend Finder effect per room cleared"
 - Little Horn Baby (#429) - "Void tears (every 3rd tear)" --> "Void tears (every 5th tear)"

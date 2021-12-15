@@ -46,12 +46,12 @@ import * as postPickupCollect from "./callbacksCustom/postPickupCollect";
 import * as postPurchase from "./callbacksCustom/postPurchase";
 import * as postSlotDestroyed from "./callbacksCustom/postSlotDestroyed";
 import * as postTrinketBreak from "./callbacksCustom/postTrinketBreak";
-import { VERSION } from "./constants";
+import { MOD_NAME, VERSION } from "./constants";
 import g from "./globals";
 import * as costumeProtector from "./lib/characterCostumeProtector";
 
 export default function main(): void {
-  const modVanilla = RegisterMod("The Babies Mod", 1);
+  const modVanilla = RegisterMod(MOD_NAME, 1);
   const mod = upgradeMod(modVanilla);
 
   initLibraries(mod);
@@ -70,8 +70,7 @@ function initLibraries(mod: ModUpgraded) {
 }
 
 function welcomeBanner() {
-  const modName = "The Babies Mod";
-  const welcomeText = `${modName} ${VERSION} initialized.`;
+  const welcomeText = `${MOD_NAME} ${VERSION} initialized.`;
   const hyphens = "-".repeat(welcomeText.length);
   const welcomeTextBorder = `+-${hyphens}-+`;
   log(welcomeTextBorder);

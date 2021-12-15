@@ -7,7 +7,7 @@ import {
   isActionPressedOnAnyInput,
 } from "isaacscript-common";
 import { updateCachedAPIFunctions } from "../cache";
-import { VERSION } from "../constants";
+import { MOD_NAME, VERSION } from "../constants";
 import g from "../globals";
 import { initSprite } from "../sprite";
 import * as timer from "../timer";
@@ -138,7 +138,7 @@ function drawVersion() {
   let y: number;
 
   // Render the version of the mod
-  text = "The Babies Mod";
+  text = MOD_NAME;
   scale = 1;
   x = centerPos.X - 3 * scale * text.length;
   y = centerPos.Y;

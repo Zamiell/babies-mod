@@ -50,10 +50,12 @@ entityTakeDmgPlayerBabyFunctionMap.set(20, () => {
 });
 
 // -0- Baby
-entityTakeDmgPlayerBabyFunctionMap.set(24, () => {
-  // Invulnerability
-  return false;
-});
+entityTakeDmgPlayerBabyFunctionMap.set(
+  24,
+  () =>
+    // Invulnerability
+    false,
+);
 
 // Cry Baby
 entityTakeDmgPlayerBabyFunctionMap.set(32, () => {

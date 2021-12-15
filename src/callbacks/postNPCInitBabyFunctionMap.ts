@@ -7,7 +7,7 @@ export const postNPCInitBabyFunctionMap = new Map<
 
 // Lil' Baby
 postNPCInitBabyFunctionMap.set(36, (npc: EntityNPC) => {
-  // Tiny enemies
+  // Everything is giant
   npc.Scale = 0.5;
 });
 

@@ -5,6 +5,18 @@ export const postNPCUpdateBabyFunctionMap = new Map<
   (npc: EntityNPC) => void
 >();
 
+// Lil' Baby
+postNPCUpdateBabyFunctionMap.set(36, (npc: EntityNPC) => {
+  // Everything is tiny
+  npc.Scale = 0.5;
+});
+
+// Big Baby
+postNPCUpdateBabyFunctionMap.set(37, (npc: EntityNPC) => {
+  // Everything is giant
+  npc.Scale = 2;
+});
+
 // Zombie Baby
 postNPCUpdateBabyFunctionMap.set(61, (npc: EntityNPC) => {
   // Brings back enemies from the dead
