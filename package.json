@@ -1,6 +1,6 @@
 {
   "name": "babies-mod",
-  "version": "1.2.5",
+  "version": "1.3.0",
   "description": "A mod for The Binding of Isaac: Repentance",
   "keywords": [
     "isaac",
@@ -11,9 +11,9 @@
   ],
   "license": "GPL-3.0",
   "dependencies": {
-    "isaac-typescript-definitions": "^1.0.307",
-    "isaacscript": "^1.1.56",
-    "isaacscript-common": "^1.0.559",
+    "isaac-typescript-definitions": "^1.0.310",
+    "isaacscript": "^1.1.58",
+    "isaacscript-common": "^1.0.562",
     "isaacscript-lint": "^1.0.74"
   }
 }

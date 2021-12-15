@@ -159,12 +159,12 @@ function setCostumeProtectorSprite(
       ? "gfx/characters/player2"
       : "gfx/familiar";
   const spritesheetPath = `${gfxDirectory}/${baby.sprite}`;
-  const flightCostume =
+  const flightCostumeNullItemID =
     baby.name === "Butterfly Baby 2" ? undefined : NullItemIDCustom.BABY_FLYING;
   costumeProtector.UpdatePlayer(
     player,
     PlayerTypeCustom.PLAYER_RANDOM_BABY,
     spritesheetPath,
-    flightCostume,
+    flightCostumeNullItemID,
   );
 }

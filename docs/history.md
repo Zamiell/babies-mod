@@ -6,6 +6,7 @@ New features:
 
 - Babies that grant a trinket will now temporarily smelt it for the current floor instead of put it in a normal trinket slot. Subsequently, the restriction where you cannot get a trinket baby if you already have a trinket has been lifted.
 - Birthright will allow you to keep the current baby for the remainder of the run.
+- The mod now uses Sanio's [Costume Protector](https://steamcommunity.com/sharedfiles/filedetails/?id=2541362255), which fixes a lot of costume-related bugs. (For example, Dad's Ring now works properly with Random Baby.)
 
 Baby changes:
 
