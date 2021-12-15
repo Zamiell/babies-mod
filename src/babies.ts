@@ -192,7 +192,7 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Rage Baby",
-    description: "Starts with Pyro + Sad Bombs + blindfolded",
+    description: "Starts with Sad Bombs + infinite bombs + blindfolded",
     sprite: "031_baby_rage.png",
     item: CollectibleType.COLLECTIBLE_SAD_BOMBS,
     blindfolded: true,
@@ -1979,7 +1979,7 @@ export const BABIES: BabyDescription[] = [
     item: CollectibleType.COLLECTIBLE_ROBO_BABY_2,
     itemNum: 20,
     blindfolded: true,
-    softlockPreventionDestroyPoops: true, // Robo Baby 2.0 will not kill poops
+    softlockPreventionDestroyPoops: true, // Robo-Baby 2.0 will not kill poops
   },
   {
     name: "Long Beard Baby",
@@ -1997,8 +1997,9 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Spartan Baby",
-    description: "Spawns a pedestal item after 6 hits",
+    description: "Starts with Spirit Sword",
     sprite: "329_baby_spartan.png",
+    item: CollectibleType.COLLECTIBLE_SPIRIT_SWORD,
   },
   {
     name: "Tortoise Baby",
@@ -3185,135 +3186,374 @@ export const BABIES: BabyDescription[] = [
     trinket: TrinketType.TRINKET_STORE_CREDIT,
   },
   {
-    name: "Falling Baby", // 521
+    name: "Found Soul Baby",
+    description: "Starts with a friendly Dark Esau",
+    sprite: "059_found_soul.png", // 521
+  },
+  {
+    name: "Lost White Baby",
+    description: "Eternal D6 effect on hit",
+    sprite: "60_baby_lost_white.png", // 522
+  },
+  {
+    name: "Lost Black Baby",
+    description: "Spindown Dice effect on hit",
+    sprite: "61_baby_lost_black.png", // 523
+  },
+  {
+    name: "Lost Blue Baby",
+    description: "D12 effect on hit",
+    sprite: "62_baby_lost_blue.png", // 524
+  },
+  {
+    name: "Lost Grey Baby",
+    description: "D7 effect on hit",
+    sprite: "63_baby_lost_grey.png", // 525
+  },
+  {
+    name: "Wisp Baby 2",
+    description: "Starts with Book of Virtues",
+    sprite: "064_baby_wisp.png", // 526
+    item: CollectibleType.COLLECTIBLE_BOOK_OF_VIRTUES,
+  },
+  {
+    name: "Double Baby",
+    description: "Starts with Flip",
+    sprite: "065_baby_double.png", // 527
+    item: CollectibleType.COLLECTIBLE_FLIP,
+  },
+  {
+    name: "Glowing Baby",
+    description: "Starts with Monstrance",
+    sprite: "066_baby_glowing.png", // 528
+    item: CollectibleType.COLLECTIBLE_MONSTRANCE,
+  },
+  {
+    name: "Illusion Baby",
+    description: "",
+    sprite: "067_baby_illusion.png", // 529
+  },
+  {
+    name: "Hope Baby",
+    description: "",
+    sprite: "068_baby_hope.png", // 530
+  },
+  {
+    name: "Solomon's Baby A",
+    description: "Can't shoot right",
+    sprite: "069_baby_solomon_a.png", // 531
+  },
+  {
+    name: "Solomon's Baby B",
+    description: "Can't shoot left",
+    sprite: "070_baby_solomon_b.png", // 532
+  },
+  {
+    name: "Thirteenth Baby",
+    description: "",
+    sprite: "533_baby_thirteenth.png",
+    num: 10,
+  },
+  {
+    name: "Berry Baby",
+    description: "Starts with Red Stew",
+    sprite: "534_baby_goldberry.png",
+    item: CollectibleType.COLLECTIBLE_RED_STEW,
+  },
+  {
+    name: "Eyebat Baby",
+    description: "All enemies are transformed into One Tooth",
+    sprite: "535_baby_eyebat.png",
+  },
+  {
+    name: "Baby Is You",
+    description: "",
+    sprite: "536_baby_isyou.png",
+  },
+  {
+    name: "Vessel Baby",
+    description: "Starts with 5x Worm Friend",
+    sprite: "537_baby_vessel.png",
+    item: CollectibleType.COLLECTIBLE_WORM_FRIEND,
+    itemNum: 5,
+  },
+  {
+    name: "Rock Baby",
+    description: "Starts with Terra",
+    sprite: "538_baby_rock.png",
+    item: CollectibleType.COLLECTIBLE_TERRA,
+  },
+  {
+    name: "Janitor Baby",
+    description: "Starts with Aquarius + Playdough Cookie",
+    sprite: "539_baby_janitor.png",
+    item: CollectibleType.COLLECTIBLE_AQUARIUS,
+    item2: CollectibleType.COLLECTIBLE_PLAYDOUGH_COOKIE,
+  },
+  {
+    name: "Meaty Baby",
+    description: "Starts with Suplex! + Mars",
+    sprite: "540_baby_meaty.png",
+    item: CollectibleType.COLLECTIBLE_SUPLEX,
+    item2: CollectibleType.COLLECTIBLE_MARS,
+  },
+  {
+    name: "Pig Baby",
+    description: "Starts with Sausage",
+    sprite: "541_baby_pig.png",
+    item: CollectibleType.COLLECTIBLE_SAUSAGE,
+  },
+  {
+    name: "Pegasus Baby",
+    description: "",
+    sprite: "542_baby_pegasus.png",
+  },
+  {
+    name: "Mr. E Baby",
+    description: "Starts with Belly Jelly",
+    sprite: "543_baby_mre.png",
+    item: CollectibleType.COLLECTIBLE_JELLY_BELLY,
+  },
+  {
+    name: "Slab Baby",
+    description: "Starts with Bag of Crafting",
+    sprite: "544_baby_slab.png",
+    item: CollectibleType.COLLECTIBLE_BAG_OF_CRAFTING,
+  },
+  {
+    name: "Pog Baby",
+    description: "Starts with Sacred Orb",
+    sprite: "545_baby_pog.png",
+    item: CollectibleType.COLLECTIBLE_SACRED_ORB,
+  },
+  {
+    name: "Hive King Baby",
+    description: "Giant cell effect per room cleared",
+    sprite: "546_baby_hiveking.png",
+  },
+  {
+    name: "Pill Ship Baby",
+    description: "Starts with Neptunus",
+    sprite: "547_baby_pillship.png",
+    item: CollectibleType.COLLECTIBLE_NEPTUNUS,
+  },
+  {
+    name: "Point Baby",
+    description: "SUPERHOT",
+    sprite: "548_baby_point.png",
+    seed: SeedEffect.SEED_SUPER_HOT,
+  },
+  {
+    name: "Wyrm Baby",
+    description: "Starts with C Section",
+    sprite: "549_baby_gunwyrm.png",
+    item: CollectibleType.COLLECTIBLE_C_SECTION,
+  },
+  {
+    name: "Bullet Baby",
+    description: "Starts with Rocket in a Jar + infinite bombs + blindfolded",
+    sprite: "550_baby_bullet.png",
+    item: CollectibleType.COLLECTIBLE_ROCKET_IN_A_JAR,
+    blindfolded: true,
+  },
+  {
+    name: "Purple Horse Baby",
+    description: "",
+    sprite: "551_baby_purplehorse.png",
+  },
+  {
+    name: "Koala Baby",
+    description: "Genesis effect after 6 hits",
+    sprite: "552_baby_koala.png",
+    numHits: 6,
+  },
+  {
+    name: "Cliff Hanger Baby",
+    description: "Starts with Options?",
+    sprite: "553_baby_cliffhanger.png",
+    item: CollectibleType.COLLECTIBLE_OPTIONS,
+  },
+  {
+    name: "Penguin Baby",
+    description: "",
+    sprite: "554_baby_penguin.png",
+  },
+  {
+    name: "Kinda Loveable Baby",
+    description: "Spawns a Lovers card on hit",
+    sprite: "555_baby_kindaloveable.png",
+  },
+  {
+    name: "Cursed Room Baby",
+    description: "Starts with Holy Mantle + Curse of the Cursed",
+    sprite: "556_baby_cursedroom.png",
+    item: CollectibleType.COLLECTIBLE_HOLY_MANTLE,
+  },
+  {
+    name: "Proto Baby",
+    description: "Starts with Brimstone + Haemolacria",
+    sprite: "557_baby_proto.png",
+    item: CollectibleType.COLLECTIBLE_BRIMSTONE,
+    item2: CollectibleType.COLLECTIBLE_HAEMOLACRIA,
+    mustHaveTears: true,
+  },
+  {
+    name: "Falling Baby",
     description: "Starts with Twisted Pair",
     // There are two sprites with the prefix of "490_" and this is the second one,
     // so we assign it at the end
-    sprite: "490_baby_falling.png",
+    sprite: "490_baby_falling.png", // 558
     item: CollectibleType.COLLECTIBLE_TWISTED_PAIR,
   },
   {
-    name: "",
-    description: "Starts with Twisted Pair",
-    sprite: "490_baby_falling.png",
-  },
-  {
-    name: "Brother Bobby", // 522
-    description: "Slings Godhead aura",
-    sprite: "familiar_shooters_01_brotherbobby.png",
+    name: "Brother Bobby", // CollectibleType.COLLECTIBLE_BROTHER_BOBBY (8)
+    description: "Slings Godhead aura (improved)",
+    sprite: "familiar_shooters_01_brotherbobby.png", // 559
     item: CollectibleType.COLLECTIBLE_MOMS_KNIFE,
     mustHaveTears: true,
   },
   {
-    name: "Sister Maggy", // 523
+    name: "Sister Maggy", // CollectibleType.COLLECTIBLE_SISTER_MAGGY (67)
     description: "Loses last item on 2nd hit (per room)",
-    sprite: "familiar_shooters_07_sistermaggie.png",
+    sprite: "familiar_shooters_07_sistermaggie.png", // 560
   },
   {
-    name: "Robo-Baby", // 524
+    name: "Robo-Baby", // CollectibleType.COLLECTIBLE_ROBO_BABY (95)
     description: "Starts with Technology",
-    sprite: "familiar_shooters_06_robobaby.png",
+    sprite: "familiar_shooters_06_robobaby.png", // 561
     item: CollectibleType.COLLECTIBLE_TECHNOLOGY,
   },
   {
-    name: "Little Gish", // 525
+    name: "Little Gish", // CollectibleType.COLLECTIBLE_LITTLE_GISH (99)
     description: "All items from the Curse Room pool",
-    sprite: "familiar_shooters_04_littlegish.png",
+    sprite: "familiar_shooters_04_littlegish.png", // 562
   },
   {
-    name: "Little Steven", // 526
+    name: "Little Steven", // CollectibleType.COLLECTIBLE_LITTLE_STEVEN (100)
     description: "Starts with Chaos",
-    sprite: "familiar_shooters_05_littlesteve.png",
+    sprite: "familiar_shooters_05_littlesteve.png", // 563
     item: CollectibleType.COLLECTIBLE_CHAOS,
   },
   {
-    name: "Demon Baby", // 527
+    name: "Demon Baby", // CollectibleType.COLLECTIBLE_DEMON_BABY (113)
     description: "Free devil deals",
-    sprite: "familiar_shooters_02_demonbaby.png",
+    sprite: "familiar_shooters_02_demonbaby.png", // 564
   },
   {
-    name: "Ghost Baby", // 528
+    name: "Ghost Baby", // CollectibleType.COLLECTIBLE_GHOST_BABY (163)
     description: "All items from the Shop pool",
-    sprite: "familiar_shooters_09_ghostbaby.png",
+    sprite: "familiar_shooters_09_ghostbaby.png", // 565
   },
   {
-    name: "Harlequin Baby", // 529
+    name: "Harlequin Baby", // CollectibleType.COLLECTIBLE_HARLEQUIN_BABY (167)
     description: "Starts with The Wiz",
-    sprite: "familiar_shooters_10_harlequinbaby.png",
+    sprite: "familiar_shooters_10_harlequinbaby.png", // 566
     item: CollectibleType.COLLECTIBLE_THE_WIZ,
     mustHaveTears: true,
   },
   {
-    name: "Rainbow Baby", // 530
+    name: "Rainbow Baby", // CollectibleType.COLLECTIBLE_RAINBOW_BABY (174)
     description: "Chest per enemy killed",
-    sprite: "familiar_shooters_11_rainbowbaby.png",
+    sprite: "familiar_shooters_11_rainbowbaby.png", // 567
   },
   {
-    name: "Abel", // 531
+    name: "Abel", // CollectibleType.COLLECTIBLE_ABEL (188)
     description: "Every 5th missed tear causes paralysis",
-    sprite: "familiar_shooters_08_abel.png",
+    sprite: "familiar_shooters_08_abel.png", // 568
     num: 5,
     mustHaveTears: true,
   },
   {
-    name: "Robo-Baby 2.0", // 532
+    name: "Robo-Baby 2.0", // CollectibleType.COLLECTIBLE_ROBO_BABY_2 (267)
     description: "Starts with Undefined (uncharged)",
-    sprite: "familiar_shooters_267_robobaby20.png",
+    sprite: "familiar_shooters_267_robobaby20.png", // 569
     item: CollectibleType.COLLECTIBLE_UNDEFINED,
     uncharged: true,
   },
   {
-    name: "Rotten Baby", // 533
+    name: "Rotten Baby", // CollectibleType.COLLECTIBLE_ROTTEN_BABY (268)
     description: "Shoots Blue Flies + flight",
-    sprite: "familiar_shooters_268_rottenbaby.png",
+    sprite: "familiar_shooters_268_rottenbaby.png", // 570
     flight: true,
     mustHaveTears: true,
   },
   {
-    name: "Lil Brimstone", // 534
+    name: "Lil Brimstone", // CollectibleType.COLLECTIBLE_LIL_BRIMSTONE (275)
     description: "Starts with Brimstone",
-    sprite: "costume_rebirth_77_lilbrimstone.png",
+    sprite: "costume_rebirth_77_lilbrimstone.png", // 571
     item: CollectibleType.COLLECTIBLE_BRIMSTONE,
   },
   {
-    name: "Mongo Baby", // 535
+    name: "Mongo Baby", // CollectibleType.COLLECTIBLE_MONGO_BABY (322)
     description: "All items from the Angel Room pool",
-    sprite: "familiar_shooters_322_mongobaby.png",
+    sprite: "familiar_shooters_322_mongobaby.png", // 572
   },
   {
-    name: "Incubus", // 536
+    name: "Incubus", // CollectibleType.COLLECTIBLE_INCUBUS (360)
     description: "All items from the Devil Room pool",
-    sprite: "familiar_shooters_80_incubus.png",
+    sprite: "familiar_shooters_80_incubus.png", // 573
   },
   {
-    name: "Fate's Reward", // 537
+    name: "Fate's Reward", // CollectibleType.COLLECTIBLE_FATES_REWARD (361)
     description: "Items cost money",
-    sprite: "familiar_shooters_81_fatesreward.png",
+    sprite: "familiar_shooters_81_fatesreward.png", // 574
   },
   {
-    name: "Seraphim", // 538
+    name: "Seraphim", // CollectibleType.COLLECTIBLE_SERAPHIM (390)
     description: "Censer aura",
-    sprite: "familiars_shooters_92_seraphim.png",
+    sprite: "familiars_shooters_92_seraphim.png", // 575
     item: CollectibleType.COLLECTIBLE_CENSER,
   },
   {
-    name: "Lil' Loki", // 539
+    name: "Lil' Loki", // CollectibleType.COLLECTIBLE_LIL_LOKI (435)
     description: "Cross tears",
-    sprite: "familiar_097_shooters_lilloki.png",
+    sprite: "familiar_097_shooters_lilloki.png", // 576
     mustHaveTears: true,
   },
   {
-    name: "Lil Monstro", // 540
+    name: "Lil Monstro", // CollectibleType.COLLECTIBLE_LIL_MONSTRO (471)
     description: "Starts with Monstro's Lung",
     // We cannot use the vanilla sprite since it does not follow the same format
-    sprite: "familiar_108_lilmonstro_custom.png",
+    sprite: "familiar_108_lilmonstro_custom.png", // 577
     item: CollectibleType.COLLECTIBLE_MONSTROS_LUNG,
   },
   {
-    name: "Invisible Baby", // 541
+    name: "Boiled Baby", // CollectibleType.COLLECTIBLE_BOILED_BABY (607)
+    description: "All items from the Ultra Secret Room pool",
+    sprite: "003.208_boilbaby.png", // 578
+  },
+  {
+    name: "Freezer Baby", // CollectibleType.COLLECTIBLE_FREEZER_BABY (608)
+    description: "Ice tears",
+    sprite: "003.209_freezerbaby.png", // 579
+  },
+  {
+    name: "Lil Abaddon", // CollectibleType.COLLECTIBLE_LIL_ABADDON (679)
+    description: "Starts with Devil's Crown",
+    sprite: "familiar_lil_abaddon.png", // 580
+  },
+  {
+    name: "Twisted Baby", // CollectibleType.COLLECTIBLE_TWISTED_PAIR (698)
+    description: "",
+    sprite: "familiar_twisted_pair_custom.png", // 581
+  },
+  {
+    name: "Gello", // CollectibleType.COLLECTIBLE_GELLO (728)
+    description: "",
+    // In vanilla, there are spritesheets for each component of Gello,
+    // so this is a custom spritesheet that was manually compiled by Gamonymous
+    sprite: "familiar_gello_custom.png", // 582
+  },
+  {
+    name: "Siren Shooter",
+    description: "",
+    sprite: "familiar_siren_shooter.png", // 583
+  },
+  {
+    name: "Invisible Baby",
     description: "Invisibility",
     // This file does not actually exist, but we cannot specify a blank string
-    sprite: "invisible.png",
+    sprite: "invisible_baby.png", // 584
   },
 ];
 
@@ -3323,3 +3563,52 @@ export const UNKNOWN_BABY: BabyDescription = {
   // This file does not actually exist, but we cannot specify a blank string
   sprite: "unknown.png",
 };
+
+export enum RandomBabyType {
+  // Repentance babies that have a weird sprite number prefix (59 through 70)
+  FOUND_SOUL_BABY = 521,
+  LOST_WHITE_BABY = 522,
+  LOST_BLACK_BABY = 523,
+  LOST_BLUE_BABY = 524,
+  LOST_GREY_BABY = 525,
+  WISP_BABY = 526,
+  DOUBLE_BABY = 527,
+  GLOWING_BABY = 528,
+  ILLUSION_BABY = 529,
+  HOPE_BABY = 530,
+  SOLOMONS_BABY_A = 531,
+  SOLOMONS_BABY_B = 532,
+
+  // Babies with a duplicate sprite number prefix
+  FALLING_BABY = 558,
+
+  // Baby familiars (ordered by CollectibleType)
+  BROTHER_BOBBY = 559,
+  SISTER_MAGGY = 560,
+  ROBO_BABY = 561,
+  LITTLE_GISH = 562,
+  LITTLE_STEVEN = 563,
+  DEMON_BABY = 564,
+  GHOST_BABY = 565,
+  HARLEQUIN_BABY = 566,
+  RAINBOW_BABY = 567,
+  ABEL = 568,
+  ROBO_BABY_2 = 569,
+  ROTTEN_BABY = 570,
+  LIL_BRIMSTONE = 571,
+  MONGO_BABY = 572,
+  INCUBUS = 573,
+  FATES_REWARD = 574,
+  SERAPHIM = 575,
+  LIL_LOKI = 576,
+  LIL_MONSTRO = 577,
+  BOILED_BABY = 578,
+  FREEZER_BABY = 579,
+  LIL_ABADDON = 580,
+  TWISTED_BABY = 581,
+  GELLO = 582,
+
+  // Other
+  SIREN_SHOOTER = 583,
+  INVISIBLE_BABY = 584,
+}

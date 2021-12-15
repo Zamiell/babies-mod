@@ -24,6 +24,8 @@ export function main(): void {
     return;
   }
 
+  const oldBabyCounters = g.run.babyCounters;
+
   // Reset baby-specific variables
   g.run.babyBool = false;
   g.run.babyCounters = 0;
@@ -41,7 +43,7 @@ export function main(): void {
   g.run.showIntroFrame = gameFrameCount + 60; // 2 seconds
 
   // Set the new baby
-  babyRemove(g.p);
+  babyRemove(g.p, oldBabyCounters);
   getNewBaby(g.p);
   babyAdd(g.p);
 }

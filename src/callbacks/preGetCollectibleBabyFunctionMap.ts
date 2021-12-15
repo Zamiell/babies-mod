@@ -1,3 +1,4 @@
+import { RandomBabyType } from "../babies";
 import g from "../globals";
 import { getRandomCollectibleTypeFromPool } from "../util";
 
@@ -38,21 +39,26 @@ preGetCollectibleBabyFunctionMap.set(430, () => {
 });
 
 // Little Gish
-preGetCollectibleBabyFunctionMap.set(525, () =>
+preGetCollectibleBabyFunctionMap.set(RandomBabyType.LITTLE_GISH, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.POOL_CURSE),
 );
 
 // Ghost Baby
-preGetCollectibleBabyFunctionMap.set(528, () =>
+preGetCollectibleBabyFunctionMap.set(RandomBabyType.GHOST_BABY, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.POOL_SHOP),
 );
 
 // Mongo Baby
-preGetCollectibleBabyFunctionMap.set(535, () =>
+preGetCollectibleBabyFunctionMap.set(RandomBabyType.MONGO_BABY, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.POOL_ANGEL),
 );
 
 // Incubus
-preGetCollectibleBabyFunctionMap.set(536, () =>
+preGetCollectibleBabyFunctionMap.set(RandomBabyType.INCUBUS, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.POOL_DEVIL),
+);
+
+// Boiled Baby
+preGetCollectibleBabyFunctionMap.set(RandomBabyType.BOILED_BABY, () =>
+  getRandomCollectibleTypeFromPool(ItemPoolType.POOL_ULTRA_SECRET),
 );

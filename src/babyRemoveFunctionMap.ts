@@ -1,9 +1,12 @@
 import { copyColor, removeAllMatchingEntities } from "isaacscript-common";
-import { BABIES } from "./babies";
+import { BABIES, RandomBabyType } from "./babies";
 import g from "./globals";
 import { removeAllFriendlyEntities } from "./util";
 
-export const babyRemoveFunctionMap = new Map<int, () => void>();
+export const babyRemoveFunctionMap = new Map<
+  int,
+  (oldBabyCounters: int) => void
+>();
 
 // Spider Baby
 babyRemoveFunctionMap.set(0, () => {
@@ -11,6 +14,13 @@ babyRemoveFunctionMap.set(0, () => {
     EntityType.ENTITY_FAMILIAR,
     FamiliarVariant.BLUE_SPIDER,
   );
+});
+
+// Rage Baby
+babyRemoveFunctionMap.set(31, (oldBabyCounters: int) => {
+  // Restore the bomb count to what it was before we got this baby
+  g.p.AddBombs(-99);
+  g.p.AddBombs(oldBabyCounters);
 });
 
 // Hive Baby
@@ -138,8 +148,20 @@ babyRemoveFunctionMap.set(515, () => {
   g.p.RemoveCollectible(CollectibleType.COLLECTIBLE_HALO_OF_FLIES);
 });
 
+// Bullet Baby
+babyRemoveFunctionMap.set(550, (oldBabyCounters: int) => {
+  // Restore the bomb count to what it was before we got this baby
+  g.p.AddBombs(-99);
+  g.p.AddBombs(oldBabyCounters);
+});
+
+// Cursed Room Baby
+babyRemoveFunctionMap.set(556, () => {
+  g.l.RemoveCurses(LevelCurse.CURSE_OF_THE_CURSED);
+});
+
 // Rotten Baby
-babyRemoveFunctionMap.set(533, () => {
+babyRemoveFunctionMap.set(RandomBabyType.ROTTEN_BABY, () => {
   // Remove all of the Blue Flies
   removeAllMatchingEntities(
     EntityType.ENTITY_FAMILIAR,

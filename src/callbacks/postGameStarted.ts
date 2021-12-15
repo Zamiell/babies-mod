@@ -31,9 +31,7 @@ export function main(isContinued: boolean): void {
   // effect
   for (const baby of BABIES) {
     if (baby.seed !== undefined) {
-      if (g.seeds.HasSeedEffect(baby.seed)) {
-        g.seeds.RemoveSeedEffect(baby.seed);
-      }
+      g.seeds.RemoveSeedEffect(baby.seed);
     }
   }
 

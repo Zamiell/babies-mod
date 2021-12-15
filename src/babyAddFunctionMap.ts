@@ -2,7 +2,7 @@ import {
   MAX_NUM_FAMILIARS,
   removeCollectibleFromItemTracker,
 } from "isaacscript-common";
-import { BABIES } from "./babies";
+import { BABIES, RandomBabyType } from "./babies";
 import g from "./globals";
 import { initSprite } from "./sprite";
 import { getCurrentBaby } from "./util";
@@ -18,6 +18,9 @@ babyAddFunctionMap.set(15, () => {
 
 // Rage Baby
 babyAddFunctionMap.set(31, () => {
+  const numBombs = g.p.GetNumBombs();
+
+  g.run.babyCounters = numBombs;
   g.p.AddBombs(99);
 });
 
@@ -174,4 +177,31 @@ babyAddFunctionMap.set(511, () => {
   // Start with the slowest tears and mark to update them on this frame
   g.run.babyCounters = baby.max;
   g.run.babyFrame = g.g.GetFrameCount();
+});
+
+// Bullet Baby
+babyAddFunctionMap.set(550, () => {
+  const numBombs = g.p.GetNumBombs();
+
+  g.run.babyCounters = numBombs;
+  g.p.AddBombs(99);
+});
+
+// Cursed Room Baby
+babyAddFunctionMap.set(556, () => {
+  g.l.AddCurse(LevelCurse.CURSE_OF_THE_CURSED, false);
+});
+
+// Found Soul Baby
+babyAddFunctionMap.set(RandomBabyType.FOUND_SOUL_BABY, () => {
+  const bottomLeftGridIndex = 92;
+  const bottomLeftPosition = g.r.GetGridPosition(bottomLeftGridIndex);
+  Isaac.Spawn(
+    EntityType.ENTITY_DARK_ESAU,
+    0,
+    0,
+    bottomLeftPosition,
+    Vector.Zero,
+    undefined,
+  );
 });

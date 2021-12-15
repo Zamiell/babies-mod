@@ -10,6 +10,7 @@ import {
   openAllDoors,
   removeCollectibleFromItemTracker,
 } from "isaacscript-common";
+import { RandomBabyType } from "../babies";
 import g from "../globals";
 import { EntityDescription } from "../types/EntityDescription";
 import { CollectibleTypeCustom } from "../types/enums";
@@ -693,16 +694,80 @@ entityTakeDmgPlayerBabyFunctionMap.set(514, () => {
   return undefined;
 });
 
-// Sister Maggy
-entityTakeDmgPlayerBabyFunctionMap.set(523, (player) => {
-  // Loses last item on 2nd hit (per room)
-  g.run.babyCountersRoom += 1;
-  if (g.run.babyCountersRoom === 2) {
-    // Take away an item
-    const itemToTakeAway = g.run.passiveCollectibles.pop();
-    if (itemToTakeAway !== undefined && player.HasCollectible(itemToTakeAway)) {
-      player.RemoveCollectible(itemToTakeAway);
-      removeCollectibleFromItemTracker(itemToTakeAway);
-    }
+// Koala Baby
+entityTakeDmgPlayerBabyFunctionMap.set(552, (player) => {
+  const [, baby] = getCurrentBaby();
+  if (baby.numHits === undefined) {
+    error(`The "numHits" attribute was not defined for ${baby.name}.`);
+  }
+
+  g.run.babyCounters += 1;
+  if (g.run.babyCounters === baby.numHits) {
+    g.run.babyCounters = 0;
+    useActiveItem(player, CollectibleType.COLLECTIBLE_GENESIS);
   }
 });
+
+// Kinda Loveable Baby
+entityTakeDmgPlayerBabyFunctionMap.set(555, (player) => {
+  Isaac.Spawn(
+    EntityType.ENTITY_PICKUP,
+    PickupVariant.PICKUP_TAROTCARD,
+    Card.CARD_LOVERS,
+    player.Position,
+    Vector.Zero,
+    player,
+  );
+});
+
+// Lost White Baby
+entityTakeDmgPlayerBabyFunctionMap.set(
+  RandomBabyType.LOST_WHITE_BABY,
+  (player) => {
+    useActiveItem(player, CollectibleType.COLLECTIBLE_ETERNAL_D6);
+  },
+);
+
+// Lost Black Baby
+entityTakeDmgPlayerBabyFunctionMap.set(
+  RandomBabyType.LOST_BLACK_BABY,
+  (player) => {
+    useActiveItem(player, CollectibleType.COLLECTIBLE_SPINDOWN_DICE);
+  },
+);
+
+// Lost Blue Baby
+entityTakeDmgPlayerBabyFunctionMap.set(
+  RandomBabyType.LOST_BLUE_BABY,
+  (player) => {
+    useActiveItem(player, CollectibleType.COLLECTIBLE_D12);
+  },
+);
+
+// Lost Grey Baby
+entityTakeDmgPlayerBabyFunctionMap.set(
+  RandomBabyType.LOST_GREY_BABY,
+  (player) => {
+    useActiveItem(player, CollectibleType.COLLECTIBLE_D7);
+  },
+);
+
+// Sister Maggy
+entityTakeDmgPlayerBabyFunctionMap.set(
+  RandomBabyType.SISTER_MAGGY,
+  (player) => {
+    // Loses last item on 2nd hit (per room)
+    g.run.babyCountersRoom += 1;
+    if (g.run.babyCountersRoom === 2) {
+      // Take away an item
+      const itemToTakeAway = g.run.passiveCollectibles.pop();
+      if (
+        itemToTakeAway !== undefined &&
+        player.HasCollectible(itemToTakeAway)
+      ) {
+        player.RemoveCollectible(itemToTakeAway);
+        removeCollectibleFromItemTracker(itemToTakeAway);
+      }
+    }
+  },
+);

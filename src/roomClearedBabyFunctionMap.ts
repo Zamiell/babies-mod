@@ -69,3 +69,18 @@ roomClearedBabyFunctionMap.set(384, () => {
     roomSeed,
   );
 });
+
+// Hive King Baby
+roomClearedBabyFunctionMap.set(546, () => {
+  let gaveGiantCell = false;
+  if (g.p.HasCollectible(CollectibleType.COLLECTIBLE_GIANT_CELL)) {
+    g.p.AddCollectible(CollectibleType.COLLECTIBLE_GIANT_CELL, 0, false);
+    gaveGiantCell = true;
+  }
+
+  useActiveItem(g.p, CollectibleType.COLLECTIBLE_DULL_RAZOR);
+
+  if (gaveGiantCell) {
+    g.p.RemoveCollectible(CollectibleType.COLLECTIBLE_GIANT_CELL);
+  }
+});

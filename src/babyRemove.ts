@@ -3,7 +3,7 @@ import { babyRemoveFunctionMap } from "./babyRemoveFunctionMap";
 import g from "./globals";
 import { getCurrentBaby } from "./util";
 
-export function babyRemove(player: EntityPlayer): void {
+export function babyRemove(player: EntityPlayer, oldBabyCounters: int): void {
   const [babyType, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
@@ -52,6 +52,6 @@ export function babyRemove(player: EntityPlayer): void {
   // Remove miscellaneous effects
   const babyRemoveFunction = babyRemoveFunctionMap.get(babyType);
   if (babyRemoveFunction !== undefined) {
-    babyRemoveFunction();
+    babyRemoveFunction(oldBabyCounters);
   }
 }

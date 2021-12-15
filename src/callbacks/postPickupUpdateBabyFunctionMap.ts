@@ -5,6 +5,7 @@ import {
   inStartingRoom,
   nextSeed,
 } from "isaacscript-common";
+import { RandomBabyType } from "../babies";
 import g from "../globals";
 
 export const postPickupUpdateBabyFunctionMap = new Map<
@@ -370,32 +371,35 @@ postPickupUpdateBabyFunctionMap.set(394, (pickup: EntityPickup) => {
 });
 
 // Fate's Reward
-postPickupUpdateBabyFunctionMap.set(537, (pickup: EntityPickup) => {
-  // Rerolled items turn into hearts
-  // so delete the heart and manually create another pedestal item
-  const roomType = g.r.GetType();
-  if (
-    roomType !== RoomType.ROOM_SHOP && // 2
-    roomType !== RoomType.ROOM_ERROR && // 3
-    pickup.Variant === PickupVariant.PICKUP_HEART &&
-    pickup.SubType === HeartSubType.HEART_FULL &&
-    pickup.Price === 3
-  ) {
-    g.run.room.seed = nextSeed(g.run.room.seed);
-    const pedestal = g.g
-      .Spawn(
-        EntityType.ENTITY_PICKUP,
-        PickupVariant.PICKUP_COLLECTIBLE,
-        pickup.Position,
-        Vector.Zero,
-        undefined,
-        0,
-        g.run.room.seed,
-      )
-      .ToPickup();
-    if (pedestal !== undefined) {
-      pedestal.Price = 15;
+postPickupUpdateBabyFunctionMap.set(
+  RandomBabyType.FATES_REWARD,
+  (pickup: EntityPickup) => {
+    // Rerolled items turn into hearts
+    // so delete the heart and manually create another pedestal item
+    const roomType = g.r.GetType();
+    if (
+      roomType !== RoomType.ROOM_SHOP && // 2
+      roomType !== RoomType.ROOM_ERROR && // 3
+      pickup.Variant === PickupVariant.PICKUP_HEART &&
+      pickup.SubType === HeartSubType.HEART_FULL &&
+      pickup.Price === 3
+    ) {
+      g.run.room.seed = nextSeed(g.run.room.seed);
+      const pedestal = g.g
+        .Spawn(
+          EntityType.ENTITY_PICKUP,
+          PickupVariant.PICKUP_COLLECTIBLE,
+          pickup.Position,
+          Vector.Zero,
+          undefined,
+          0,
+          g.run.room.seed,
+        )
+        .ToPickup();
+      if (pedestal !== undefined) {
+        pedestal.Price = 15;
+      }
+      pickup.Remove();
     }
-    pickup.Remove();
-  }
-});
+  },
+);

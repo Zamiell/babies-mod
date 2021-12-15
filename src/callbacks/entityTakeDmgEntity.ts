@@ -18,6 +18,12 @@ export function main(
     return undefined;
   }
 
+  /*
+  log(
+    `MC_ENTITY_TAKE_DMG - damageAmount: ${damageAmount}, damageFlags: ${damageFlags}, damageSource: ${damageSource.Type}.${damageSource.Variant}`,
+  );
+  */
+
   const entityTakeDmgEntityBabyFunction =
     entityTakeDmgEntityBabyFunctionMap.get(babyType);
   if (entityTakeDmgEntityBabyFunction !== undefined) {

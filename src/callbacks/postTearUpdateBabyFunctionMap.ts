@@ -5,6 +5,7 @@ import {
   getNPCs,
   setEntityRandomColor,
 } from "isaacscript-common";
+import { RandomBabyType } from "../babies";
 import g from "../globals";
 import { TearData } from "../types/TearData";
 import { getCurrentBaby } from "../util";
@@ -290,24 +291,27 @@ postTearUpdateBabyFunctionMap.set(487, (tear: EntityTear) => {
 });
 
 // Brother Bobby
-postTearUpdateBabyFunctionMap.set(522, (tear: EntityTear) => {
-  if (tear.SubType !== 1) {
-    return;
-  }
+postTearUpdateBabyFunctionMap.set(
+  RandomBabyType.BROTHER_BOBBY,
+  (tear: EntityTear) => {
+    if (tear.SubType !== 1) {
+      return;
+    }
 
-  // This tear is supposed to be attached to the knife
-  const knives = getKnives();
-  if (knives.length > 0) {
-    const knife = knives[0];
-    tear.Height = -10; // Keep it in the air forever
-    tear.Position = knife.Position;
-    tear.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE;
-    tear.GridCollisionClass = EntityGridCollisionClass.GRIDCOLL_NONE;
-  }
-});
+    // This tear is supposed to be attached to the knife
+    const knives = getKnives();
+    if (knives.length > 0) {
+      const knife = knives[0];
+      tear.Height = -10; // Keep it in the air forever
+      tear.Position = knife.Position;
+      tear.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE;
+      tear.GridCollisionClass = EntityGridCollisionClass.GRIDCOLL_NONE;
+    }
+  },
+);
 
 // Abel
-postTearUpdateBabyFunctionMap.set(531, (tear: EntityTear) => {
+postTearUpdateBabyFunctionMap.set(RandomBabyType.ABEL, (tear: EntityTear) => {
   const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for ${baby.name}.`);

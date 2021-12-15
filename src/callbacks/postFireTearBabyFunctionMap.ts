@@ -4,6 +4,7 @@ import {
   getFamiliars,
   getRandomInt,
 } from "isaacscript-common";
+import { RandomBabyType } from "../babies";
 import { FADED_BLUE, FADED_YELLOW } from "../constants";
 import g from "../globals";
 import { TearData } from "../types/TearData";
@@ -603,19 +604,22 @@ postFireTearBabyFunctionMap.set(517, (tear: EntityTear) => {
 });
 
 // Abel
-postFireTearBabyFunctionMap.set(531, (tear: EntityTear) => {
+postFireTearBabyFunctionMap.set(RandomBabyType.ABEL, (tear: EntityTear) => {
   // Mark that we shot this tear
   tear.SubType = 1;
 });
 
 // Rotten Baby
-postFireTearBabyFunctionMap.set(533, (tear: EntityTear) => {
-  tear.Remove();
-  g.p.AddBlueFlies(1, g.p.Position, undefined);
-});
+postFireTearBabyFunctionMap.set(
+  RandomBabyType.ROTTEN_BABY,
+  (tear: EntityTear) => {
+    tear.Remove();
+    g.p.AddBlueFlies(1, g.p.Position, undefined);
+  },
+);
 
 // Lil' Loki
-postFireTearBabyFunctionMap.set(539, (tear: EntityTear) => {
+postFireTearBabyFunctionMap.set(RandomBabyType.LIL_LOKI, (tear: EntityTear) => {
   // Cross tears
   // (we store the rotation angle in the "babyCounters" variable)
   g.run.babyCounters += 90;
@@ -626,3 +630,12 @@ postFireTearBabyFunctionMap.set(539, (tear: EntityTear) => {
     g.run.babyCounters = 0;
   }
 });
+
+// Freezer Baby
+postFireTearBabyFunctionMap.set(
+  RandomBabyType.FREEZER_BABY,
+  (tear: EntityTear) => {
+    tear.TearFlags |= TearFlags.TEAR_ICE;
+    tear.SetColor(FADED_BLUE, 10000, 10000, false, false);
+  },
+);

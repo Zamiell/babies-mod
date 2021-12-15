@@ -1,4 +1,5 @@
 import { copyColor, getNPCs, getRoomListIndex } from "isaacscript-common";
+import { RandomBabyType } from "../babies";
 import g from "../globals";
 import { getCurrentBaby } from "../util";
 
@@ -129,7 +130,7 @@ postEntityKillBabyFunctionMap.set(376, (_npc: EntityNPC) => {
   );
 
   const sprite = brain.GetSprite();
-  sprite.Load("gfx/003.059_bobs brain2.anm2", true);
+  sprite.Load("gfx/003.059_bobs brain_custom.anm2", true);
   sprite.Play("Idle", true);
 });
 
@@ -186,14 +187,17 @@ postEntityKillBabyFunctionMap.set(491, (npc: EntityNPC) => {
 });
 
 // Rainbow Baby
-postEntityKillBabyFunctionMap.set(530, (npc: EntityNPC) => {
-  g.g.Spawn(
-    EntityType.ENTITY_PICKUP,
-    PickupVariant.PICKUP_CHEST,
-    npc.Position,
-    Vector.Zero,
-    undefined,
-    0,
-    npc.InitSeed,
-  );
-});
+postEntityKillBabyFunctionMap.set(
+  RandomBabyType.RAINBOW_BABY,
+  (npc: EntityNPC) => {
+    g.g.Spawn(
+      EntityType.ENTITY_PICKUP,
+      PickupVariant.PICKUP_CHEST,
+      npc.Position,
+      Vector.Zero,
+      undefined,
+      0,
+      npc.InitSeed,
+    );
+  },
+);

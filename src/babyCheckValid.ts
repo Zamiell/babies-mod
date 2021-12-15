@@ -149,7 +149,10 @@ function checkInventory(player: EntityPlayer, baby: BabyDescription) {
     return false;
   }
 
-  if (baby.name === "Rage Baby" && bombs >= 50) {
+  if (
+    (baby.name === "Rage Baby" || baby.name === "Bullet Baby") &&
+    bombs >= 50
+  ) {
     return false;
   }
 
@@ -492,6 +495,11 @@ function checkStage(baby: BabyDescription) {
   ) {
     // We always have More Options on Basement 1
     // There are no Treasure Rooms on floors 7 and beyond
+    return false;
+  }
+
+  if (baby.trinket === TrinketType.TRINKET_DEVILS_CROWN && effectiveStage > 6) {
+    // Devil's Crown doesn't do anything on floors that do not have Treasure Rooms
     return false;
   }
 

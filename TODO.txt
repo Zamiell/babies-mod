@@ -1,15 +1,12 @@
 TODO:
 - Replace effect for Tabby Baby (#269) + Text Baby (#476)
+- Total babies: 559 --> 585
 
 Effect ideas:
-- ice tears
+- Spawns a pedestal item after 6 hits
 - spore tears
-- Friendly Dark Esau
 - Spawns a Crane Game on hit
-- SeedEffect.SEED_SUPER_HOT
-- starting with holy mantle + Curse of cursed
 - haemolacria + brimstone
-- rocket in a jar + infinite bombs + blindfolded (test it)
 
 List of boring babies:
 - Magnet Baby (#26) - Starts with Magneto
@@ -27,6 +24,8 @@ List of boring babies:
 - Adventure Baby (#482) - Starts with Moving Box
 - Puppet Baby (#505) - Starts with 5x Key Bum
 - Green Pepper Baby (#518) - Starts with Serpent's Kiss
+- Pig Baby (#542) - Starts with Sausage
+- Mr. E Baby (#543) - Starts with Belly Jelly
 
 List of hard babies:
 - Troll Baby (#6) - Spawns a Troll Bomb every 3 seconds

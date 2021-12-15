@@ -13,6 +13,7 @@ import {
   removeAllMatchingEntities,
   teleport,
 } from "isaacscript-common";
+import { RandomBabyType } from "../babies";
 import g from "../globals";
 import { TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP } from "../maps/teleportRoomTypeToItemAndPriceMap";
 import { useActiveItem } from "../util";
@@ -483,7 +484,7 @@ postNewRoomBabyFunctionMap.set(516, () => {
 });
 
 // Brother Bobby
-postNewRoomBabyFunctionMap.set(522, () => {
+postNewRoomBabyFunctionMap.set(RandomBabyType.BROTHER_BOBBY, () => {
   const godheadTear = g.p.FireTear(
     g.p.Position,
     Vector.Zero,
@@ -496,4 +497,7 @@ postNewRoomBabyFunctionMap.set(522, () => {
   const sprite = godheadTear.GetSprite();
   sprite.Load("gfx/tear_blank.anm2", true);
   sprite.Play("RegularTear6", false);
+
+  const data = godheadTear.GetData();
+  data.godHeadTear = true;
 });

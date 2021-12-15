@@ -18,7 +18,7 @@ import {
   nextSeed,
   teleport,
 } from "isaacscript-common";
-import { BABIES } from "../babies";
+import { BABIES, RandomBabyType } from "../babies";
 import g from "../globals";
 import { TELEPORT_COLLECTIBLE_TYPE_TO_ROOM_TYPE_MAP } from "../maps/teleportCollectibleTypeToRoomTypeMap";
 import * as pseudoRoomClear from "../pseudoRoomClear";
@@ -86,6 +86,12 @@ postUpdateBabyFunctionMap.set(20, () => {
 // Black Baby
 postUpdateBabyFunctionMap.set(27, () => {
   pseudoRoomClear.postUpdate();
+});
+
+// Rage Baby
+postUpdateBabyFunctionMap.set(31, () => {
+  // Infinite bombs
+  g.p.AddBombs(1);
 });
 
 // Lil' Baby
@@ -720,6 +726,11 @@ postUpdateBabyFunctionMap.set(270, () => {
 postUpdateBabyFunctionMap.set(290, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
+  // Ignore the starting room
+  if (inStartingRoom()) {
+    return;
+  }
+
   // Every 5 seconds
   if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
     useActiveItem(g.p, CollectibleType.COLLECTIBLE_DULL_RAZOR);
@@ -1171,8 +1182,14 @@ postUpdateBabyFunctionMap.set(511, () => {
   }
 });
 
+// Bullet Baby
+postUpdateBabyFunctionMap.set(550, () => {
+  // Infinite bombs
+  g.p.AddBombs(1);
+});
+
 // Invisible Baby
-postUpdateBabyFunctionMap.set(541, () => {
+postUpdateBabyFunctionMap.set(RandomBabyType.INVISIBLE_BABY, () => {
   const roomFrameCount = g.r.GetFrameCount();
 
   if (roomFrameCount === 1) {

@@ -2,6 +2,11 @@
 
 ### *v1.3.1* - December 11th, 2021
 
+- Rage Baby (#31) - Will no longer have the extra bombs carry over at the end of the floor.
+- Rage Baby (#31) - Now has infinite bombs instead of Pyro.
+- Sword Baby (#312) - "Starts with Sacrificial Dagger" --> "Starts with Trinity Shield"
+- Spartan Baby (#329) - "Spawns a pedestal item after 6 hits" --> "Starts with Spirit Sword"
+- Brother Bobby (#559) - The aura now scales with the player's damage.
 - Fixed the bug where tiny enemies from Lil' Baby (#36) would lose the size multiplier if they went underground.
 - Fixed the bug where giant enemies from Big Baby (#37) would lose the size multiplier if they went underground.
 
@@ -17,7 +22,7 @@ Baby changes:
 
 - Dead Baby (#12) - "Starts with ???'s Only Friend + blindfolded" --> "Starts with 2x ???'s Only Friend + blindfolded"
 - Glitch Baby (#25) - "Starts with 40x GB Bug" --> "Starts with GB Bug"
-- Colorful Baby (#42) - "Starts with 3 Dollar Bill" --> "Acid Trip"
+- Colorful Baby (#42) - "Starts with 3 Dollar Bill" --> "Acid trip"
 - Alien Hominid Baby (#74) - "Starts with The Parasite" --> "Starts with beam sword tears"
 - Parasite Baby (#77) - "Balloon tears" --> "Starts with The Parasite"
 - Makeup Baby (#99) - "8-shot" --> "7-shot"

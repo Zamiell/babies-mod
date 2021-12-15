@@ -1,4 +1,5 @@
 import { getFamiliars } from "isaacscript-common";
+import { RandomBabyType } from "../babies";
 import g from "../globals";
 import { getRandomOffsetPosition } from "../util";
 
@@ -110,12 +111,15 @@ postFamiliarUpdateBabyFunctionMap.set(453, (familiar: EntityFamiliar) => {
 });
 
 // Seraphim
-postFamiliarUpdateBabyFunctionMap.set(538, (familiar: EntityFamiliar) => {
-  if (familiar.Variant === FamiliarVariant.CENSER) {
-    familiar.Position = g.p.Position;
+postFamiliarUpdateBabyFunctionMap.set(
+  RandomBabyType.SERAPHIM,
+  (familiar: EntityFamiliar) => {
+    if (familiar.Variant === FamiliarVariant.CENSER) {
+      familiar.Position = g.p.Position;
 
-    const sprite = familiar.GetSprite();
-    sprite.Load("gfx/003.089_censer_invisible.anm2", true);
-    sprite.Play("Idle", true);
-  }
-});
+      const sprite = familiar.GetSprite();
+      sprite.Load("gfx/003.089_censer_invisible.anm2", true);
+      sprite.Play("Idle", true);
+    }
+  },
+);

@@ -10,6 +10,7 @@ import {
   setPlayerHealth,
   smeltTrinket,
 } from "isaacscript-common";
+import { RandomBabyType } from "./babies";
 import { babyAddFunctionMap } from "./babyAddFunctionMap";
 import { setBabyANM2 } from "./callbacks/postPlayerInit";
 import g from "./globals";
@@ -18,7 +19,8 @@ import { BabyDescription } from "./types/BabyDescription";
 import { NullItemIDCustom, PlayerTypeCustom } from "./types/enums";
 import { getCurrentBaby, giveItemAndRemoveFromPools } from "./util";
 
-const LAST_BABY_WITH_SPRITE_IN_PLAYER2_DIRECTORY = 521;
+const FIRST_BABY_WITH_SPRITE_IN_FAMILIAR_DIRECTORY =
+  RandomBabyType.BROTHER_BOBBY;
 
 export function babyAdd(player: EntityPlayer): void {
   const coins = player.GetNumCoins();
@@ -155,9 +157,9 @@ function setCostumeProtectorSprite(
   baby: BabyDescription,
 ) {
   const gfxDirectory =
-    babyType <= LAST_BABY_WITH_SPRITE_IN_PLAYER2_DIRECTORY
-      ? "gfx/characters/player2"
-      : "gfx/familiar";
+    babyType >= FIRST_BABY_WITH_SPRITE_IN_FAMILIAR_DIRECTORY
+      ? "gfx/familiar"
+      : "gfx/characters/player2";
   const spritesheetPath = `${gfxDirectory}/${baby.sprite}`;
   const flightCostumeNullItemID =
     baby.name === "Butterfly Baby 2" ? undefined : NullItemIDCustom.BABY_FLYING;

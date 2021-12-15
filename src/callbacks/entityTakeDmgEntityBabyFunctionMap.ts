@@ -1,4 +1,5 @@
 import { getRandom } from "isaacscript-common";
+import { RandomBabyType } from "../babies";
 import g from "../globals";
 
 export const entityTakeDmgEntityBabyFunctionMap = new Map<
@@ -146,5 +147,31 @@ entityTakeDmgEntityBabyFunctionMap.set(
         );
       }
     }
+  },
+);
+
+// Brother Bobby
+entityTakeDmgEntityBabyFunctionMap.set(
+  RandomBabyType.BROTHER_BOBBY,
+  (entity, _damageAmount, damageFlags, damageSource, damageCountdownFrames) => {
+    if (damageSource.Entity === undefined) {
+      return undefined;
+    }
+
+    const data = damageSource.Entity.GetData();
+    if (data.godHeadTear === true) {
+      const damage = g.p.Damage;
+      g.run.dealingExtraDamage = true;
+      entity.TakeDamage(
+        damage,
+        damageFlags,
+        EntityRef(g.p),
+        damageCountdownFrames,
+      );
+      g.run.dealingExtraDamage = false;
+      return false;
+    }
+
+    return undefined;
   },
 );

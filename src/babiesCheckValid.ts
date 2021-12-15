@@ -14,6 +14,7 @@ const VALID_DUPLICATE_ITEMS = new Set<CollectibleType | CollectibleTypeCustom>([
   CollectibleType.COLLECTIBLE_SAD_BOMBS, // 220
   CollectibleType.COLLECTIBLE_FIRE_MIND, // 257
   CollectibleType.COLLECTIBLE_HOW_TO_JUMP, // 282
+  CollectibleType.COLLECTIBLE_HOLY_MANTLE, // 313
   CollectibleType.COLLECTIBLE_THE_WIZ, // 358
   CollectibleType.COLLECTIBLE_INCUBUS, // 360
   CollectibleType.COLLECTIBLE_MARKED, // 394

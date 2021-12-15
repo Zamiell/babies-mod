@@ -3,6 +3,7 @@ import {
   inStartingRoom,
   setEntityRandomColor,
 } from "isaacscript-common";
+import { RandomBabyType } from "../babies";
 import g from "../globals";
 
 export const postPickupInitBabyFunctionMap = new Map<
@@ -90,32 +91,38 @@ postPickupInitBabyFunctionMap.set(317, (pickup: EntityPickup) => {
 });
 
 // Demon Baby
-postPickupInitBabyFunctionMap.set(527, (pickup: EntityPickup) => {
-  // Free devil deals
-  if (pickup.Variant === PickupVariant.PICKUP_COLLECTIBLE) {
-    const roomType = g.r.GetType();
-    if (
-      roomType === RoomType.ROOM_DEVIL || // 14
-      roomType === RoomType.ROOM_BLACK_MARKET // 22
-    ) {
-      pickup.Price = 0;
+postPickupInitBabyFunctionMap.set(
+  RandomBabyType.DEMON_BABY,
+  (pickup: EntityPickup) => {
+    // Free devil deals
+    if (pickup.Variant === PickupVariant.PICKUP_COLLECTIBLE) {
+      const roomType = g.r.GetType();
+      if (
+        roomType === RoomType.ROOM_DEVIL || // 14
+        roomType === RoomType.ROOM_BLACK_MARKET // 22
+      ) {
+        pickup.Price = 0;
+      }
     }
-  }
-});
+  },
+);
 
 // Fate's Reward
-postPickupInitBabyFunctionMap.set(537, (pickup: EntityPickup) => {
-  // Items cost money
-  if (pickup.Variant === PickupVariant.PICKUP_COLLECTIBLE) {
-    const roomType = g.r.GetType();
-    if (
-      roomType === RoomType.ROOM_DEVIL || // 14
-      roomType === RoomType.ROOM_BLACK_MARKET // 22
-    ) {
-      pickup.AutoUpdatePrice = false;
+postPickupInitBabyFunctionMap.set(
+  RandomBabyType.FATES_REWARD,
+  (pickup: EntityPickup) => {
+    // Items cost money
+    if (pickup.Variant === PickupVariant.PICKUP_COLLECTIBLE) {
+      const roomType = g.r.GetType();
+      if (
+        roomType === RoomType.ROOM_DEVIL || // 14
+        roomType === RoomType.ROOM_BLACK_MARKET // 22
+      ) {
+        pickup.AutoUpdatePrice = false;
+      }
+      if (pickup.Price <= 0) {
+        pickup.Price = 15;
+      }
     }
-    if (pickup.Price <= 0) {
-      pickup.Price = 15;
-    }
-  }
-});
+  },
+);

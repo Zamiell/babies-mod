@@ -2,7 +2,7 @@
 	<Info CreatedBy="robot" CreatedOn="25.03.2014 01:08:02" Version="104" Fps="30"/>
 	<Content>
 		<Spritesheets>
-			<Spritesheet Path="familiar\familiar_273_bobsbrain2.png" Id="0"/>
+			<Spritesheet Path="familiar\familiar_273_bobsbrain_custom.png" Id="0"/>
 		</Spritesheets>
 		<Layers>
 			<Layer Name="body" Id="0" SpritesheetId="0"/>
