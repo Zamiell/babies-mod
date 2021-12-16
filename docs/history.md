@@ -59,6 +59,7 @@
 - Fixed the bug where tiny enemies from Lil' Baby (#36) would lose the size multiplier if they went underground.
 - Fixed the bug where giant enemies from Big Baby (#37) would lose the size multiplier if they went underground.
 - Fixed the bug where Black Baby (#27), Nerd Baby (#90), and Mouse Baby (#351) were not working correctly.
+- Thanks to Finalkids and Gamonymous for helping with the effects.
 
 ### *v1.3.0* - December 11th, 2021
 
