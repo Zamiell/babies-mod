@@ -366,8 +366,7 @@ postFireTearBabyFunctionMap.set(361, (tear: EntityTear) => {
 postFireTearBabyFunctionMap.set(364, (tear: EntityTear) => {
   // If we use "player.ShootRedCandle(tear.Velocity)",
   // the fires have enormous speed and are hard to control
-  const angle = tear.Velocity.GetAngleDegrees();
-  const normalizedVelocity = Vector.FromAngle(angle);
+  const normalizedVelocity = tear.Velocity.Normalized();
   g.p.ShootRedCandle(normalizedVelocity);
   tear.Remove();
 });
