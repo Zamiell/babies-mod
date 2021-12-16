@@ -1,6 +1,6 @@
 import { addRoomClearCharge, getRandomHeartSubType } from "isaacscript-common";
 import g from "./globals";
-import { useActiveItem } from "./util";
+import { getCurrentBaby, useActiveItem } from "./util";
 
 export const roomClearedBabyFunctionMap = new Map<int, () => void>();
 
@@ -82,5 +82,17 @@ roomClearedBabyFunctionMap.set(546, () => {
 
   if (gaveGiantCell) {
     g.p.RemoveCollectible(CollectibleType.COLLECTIBLE_GIANT_CELL);
+  }
+});
+
+// Pegasus Baby
+roomClearedBabyFunctionMap.set(542, () => {
+  const [, baby] = getCurrentBaby();
+  if (baby.num === undefined) {
+    error(`The "num" attribute was not defined for ${baby.name}.`);
+  }
+
+  for (let i = 0; i < baby.num; i++) {
+    useActiveItem(g.p, CollectibleType.COLLECTIBLE_KEEPERS_BOX);
   }
 });

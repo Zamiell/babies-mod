@@ -1,14 +1,64 @@
 # The Babies Mod Version History
 
-### *v1.3.1* - December 11th, 2021
+### *v1.4.0* - December ?th, 2021
 
-- Rage Baby (#31) - Will no longer have the extra bombs carry over at the end of the floor.
-- Rage Baby (#31) - Now has infinite bombs instead of Pyro.
-- Sword Baby (#312) - "Starts with Sacrificial Dagger" --> "Starts with Trinity Shield"
-- Spartan Baby (#329) - "Spawns a pedestal item after 6 hits" --> "Starts with Spirit Sword"
-- Brother Bobby (#559) - The aura now scales with the player's damage.
+- 42 new babies have been added using the new Repentance baby sprites:
+  - Found Soul Baby (#521) - Starts with a friendly Dark Esau
+  - Lost White Baby (#522) - Eternal D6 effect on hit
+  - Lost Black Baby (#523) - Spindown Dice effect on hit
+  - Lost Blue Baby (#524) - D12 effect on hit
+  - Lost Grey Baby (#525) - "D7 effect on hit
+  - Wisp Baby 2 (#526) - Starts with Book of Virtues
+  - Double Baby (#527) - Starts with Flip
+  - Glowing Baby (#528) - Starts with Monstrance
+  - Illusion Baby (#529) - Spawns a Crane Game on hit
+  - Hope Baby (#530) - Starts with Found Soul
+  - Solomon's Baby A (#531) - Can't shoot right
+  - Solomon's Baby B (#532) - Can't shoot left
+  - Thirteenth Baby (#533) - Starts with Sacrificial Dagger
+  - Berry Baby (#534) - Starts with Red Stew
+  - Eyebat Baby (#535) - TODO
+  - Baby Is You (#536) - Starts with Luna
+  - Vessel Baby (#537) - Starts with 5x Worm Friend
+  - Rock Baby (#538) - Starts with Terra
+  - Janitor Baby (#539) - Starts with Aquarius + Playdough Cookie
+  - Meaty Baby (#540) - Starts with Mars
+  - Pig Baby (#541) - Starts with Sausage
+  - Pegasus Baby (#542) - 3x Keeper's Box effect on room clear
+  - Mr. E Baby (#543) - Starts with Belly Jelly
+  - Slab Baby (#544) - Starts with Bag of Crafting
+  - Pog Baby (#545) - Starts with Sacred Orb
+  - Hive King Baby (#546) - Giant cell effect on room clear
+  - Pill Ship Baby (#547) - Starts with Neptunus
+  - Point Baby (#548) - SUPERHOT
+  - Wyrm Baby (#549) - Starts with C Section
+  - Bullet Baby (#550) - Starts with Rocket in a Jar + infinite bombs + blindfolded
+  - Purple Horse Baby (#551) - Starts with Blessed Penny
+  - Koala Baby (#552) - Genesis effect after 6 hits
+  - Cliff Hanger Baby (#553) - Starts with Options?
+  - Penguin Baby (#554) - Starts with Blood Puppy
+  - Kinda Loveable Baby (#555) - Spawns a Lovers card on hit
+  - Cursed Room Baby (#556) - Starts with Holy Mantle + Curse of the Cursed
+  - Proto Baby (#557) - Starts with Brimstone + Haemolacria
+  - Boiled Baby (#578) - All items from the Ultra Secret Room pool
+  - Freezer Baby (#579) - Ice tears
+  - Lil Abaddon (#580) - Starts with Devil's Crown
+  - Twisted Baby (#581) - Spore tears
+  - Gello (#582) - Starts with Sol
+  - Siren Shooter (#583) - Spawns a pedestal item after 6 hits
+- Some other babies have been changed:
+  - Rage Baby (#31) - Now has infinite bombs instead of Pyro. The extra bombs will no longer carry over at the end of the floor.
+  - Brown Baby (#38) - "Spawns a poop per enemy killed" --> "Starts with Dirty Mind + spawns a poop per enemy killed"
+  - Beard Baby (#227) - "Crooked Penny effect on hit" --> "Starts with Ocular Rift"
+  - Tabby Baby (#269) - "0.5x tear rate" --> "Starts with Gello"
+  - Sword Baby (#312) - "Starts with Sacrificial Dagger" --> "Starts with Trinity Shield"
+  - Spartan Baby (#329) - "Spawns a pedestal item after 6 hits" --> "Starts with Spirit Sword"
+  - Referee Baby (#404) - "Starts with Crooked Penny" --> "Tomato tears"
+  - Text Baby (#476) - "0.5x damage" --> "Starts with Glitched Crown"
+  - Brother Bobby (#559) - The aura now scales with the player's damage.
 - Fixed the bug where tiny enemies from Lil' Baby (#36) would lose the size multiplier if they went underground.
 - Fixed the bug where giant enemies from Big Baby (#37) would lose the size multiplier if they went underground.
+- Fixed the bug where Black Baby (#27), Nerd Baby (#90), and Mouse Baby (#351) were not working correctly.
 
 ### *v1.3.0* - December 11th, 2021
 

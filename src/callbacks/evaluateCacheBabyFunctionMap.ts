@@ -125,16 +125,6 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Tabby Baby
-evaluateCacheBabyFunctionMap.set(
-  269,
-  (player: EntityPlayer, cacheFlag: CacheFlag) => {
-    if (cacheFlag === CacheFlag.CACHE_FIREDELAY) {
-      player.MaxFireDelay = math.ceil(player.MaxFireDelay * 2);
-    }
-  },
-);
-
 // Killer Baby
 evaluateCacheBabyFunctionMap.set(
   291,
@@ -285,16 +275,6 @@ evaluateCacheBabyFunctionMap.set(
       for (let i = 1; i <= g.run.babyCounters; i++) {
         player.Damage += 1;
       }
-    }
-  },
-);
-
-// Text Baby
-evaluateCacheBabyFunctionMap.set(
-  476,
-  (player: EntityPlayer, cacheFlag: CacheFlag) => {
-    if (cacheFlag === CacheFlag.CACHE_DAMAGE) {
-      player.Damage /= 2;
     }
   },
 );

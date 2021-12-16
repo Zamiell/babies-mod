@@ -1,4 +1,5 @@
 export const FADED_BLUE = Color(0, 0, 1, 0.7);
+export const FADED_RED = Color(1, 0, 0, 0.7);
 export const FADED_YELLOW = Color(1, 1, 0, 0.7);
 
 export const MOD_NAME = "The Babies Mod";

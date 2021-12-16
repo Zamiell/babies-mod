@@ -1,6 +1,4 @@
 TODO:
-- Replace effect for Tabby Baby (#269) + Text Baby (#476)
-- Total babies: 559 --> 585
 
 List of boring babies:
 - Magnet Baby (#26) - Starts with Magneto
@@ -25,12 +23,10 @@ List of hard babies:
 - Troll Baby (#6) - Spawns a Troll Bomb every 3 seconds
 - Noose Baby (#39) - Don't shoot when the timer reaches 0
 - Hare Baby (#267) - Takes damage when standing still
-- !!! Tabby Baby (#269) - 0.5x tear rate
 - Vomit Baby (#341) - Must stand still every 10 seconds
 - Orange Ghost Baby (#373) - Placed bombs are Mega Troll Bombs
 - Pink Princess Baby (#374) - Summons random stomps
 - Blue Pig Baby (#382) - Spawns a Mega Troll Bomb every 5 seconds
-- !!! Text Baby (#476) - 0.5x damage
 - Funny Baby (#491) - Enemies spawn Troll Bombs on death
 
 Bugs with Costume Protector:

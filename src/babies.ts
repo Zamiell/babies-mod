@@ -16,7 +16,7 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Love Baby",
-    description: "Spawns a random heart per room cleared",
+    description: "Spawns a random heart on room clear",
     sprite: "001_baby_love.png",
   },
   {
@@ -231,8 +231,9 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Brown Baby",
-    description: "Spawns a poop per enemy killed",
+    description: "Starts with Dirty Mind + spawns a poop per enemy killed",
     sprite: "038_baby_brown.png",
+    item: CollectibleType.COLLECTIBLE_DIRTY_MIND,
   },
   {
     name: "Noose Baby",
@@ -532,7 +533,7 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Bandaid Baby",
-    description: "Spawns a random pedestal item per room cleared",
+    description: "Spawns a random pedestal item on room clear",
     sprite: "088_baby_bandaid.png",
   },
   {
@@ -1153,7 +1154,7 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Jammies Baby",
-    description: "Extra charge per room cleared",
+    description: "Extra charge on room clear",
     sprite: "192_baby_jammies.png",
   },
   {
@@ -1366,8 +1367,9 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Beard Baby",
-    description: "Crooked Penny effect on hit",
+    description: "Starts with Ocular Rift",
     sprite: "227_baby_beard.png",
+    item: CollectibleType.COLLECTIBLE_OCULAR_RIFT,
   },
   {
     name: "Hanger Baby",
@@ -1620,8 +1622,9 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Tabby Baby",
-    description: "0.5x tear rate",
+    description: "Starts with Gello",
     sprite: "269_baby_tabby.png",
+    item: CollectibleType.COLLECTIBLE_GELLO,
   },
   {
     name: "Porcupine Baby",
@@ -1797,7 +1800,7 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Woodsman Baby",
-    description: "Meat Cleaver effect per room",
+    description: "Meat Cleaver effect on room enter",
     sprite: "297_baby_woodsman.png",
   },
   {
@@ -2104,12 +2107,12 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Twotone Baby",
-    description: "Dataminer effect per room entered",
+    description: "Dataminer effect on room enter",
     sprite: "346_baby_twotone.png",
   },
   {
     name: "2600 Baby",
-    description: "Friend Finder effect per room cleared",
+    description: "Friend Finder effect on room clear",
     sprite: "347_baby_2600.png",
   },
   {
@@ -2340,7 +2343,7 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Fishman Baby",
-    description: "Spawns a random bomb per room cleared",
+    description: "Spawns a random bomb on room clear",
     sprite: "384_baby_fishman.png",
   },
   {
@@ -2466,9 +2469,8 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Referee Baby",
-    description: "Starts with Crooked Penny",
+    description: "Tomato tears",
     sprite: "404_baby_referee.png",
-    item: CollectibleType.COLLECTIBLE_CROOKED_PENNY,
   },
   {
     name: "Deal With It Baby",
@@ -2909,8 +2911,9 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Text Baby",
-    description: "0.5x damage",
+    description: "Starts with Glitched Crown",
     sprite: "476_baby_text.png",
+    item: CollectibleType.COLLECTIBLE_GLITCHED_CROWN,
   },
   {
     name: "Wing Baby",
@@ -3235,8 +3238,9 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Hope Baby",
-    description: "",
+    description: "Starts with Found Soul",
     sprite: "068_baby_hope.png", // 530
+    trinket: TrinketType.TRINKET_FOUND_SOUL,
   },
   {
     name: "Solomon's Baby A",
@@ -3250,9 +3254,9 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Thirteenth Baby",
-    description: "",
+    description: "Starts with Sacrificial Dagger",
     sprite: "533_baby_thirteenth.png",
-    num: 10,
+    item: CollectibleType.COLLECTIBLE_SACRIFICIAL_DAGGER,
   },
   {
     name: "Berry Baby",
@@ -3262,13 +3266,14 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Eyebat Baby",
-    description: "All enemies are transformed into One Tooth",
+    description: "",
     sprite: "535_baby_eyebat.png",
   },
   {
     name: "Baby Is You",
-    description: "",
+    description: "Starts with Luna",
     sprite: "536_baby_isyou.png",
+    item: CollectibleType.COLLECTIBLE_LUNA,
   },
   {
     name: "Vessel Baby",
@@ -3292,10 +3297,9 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Meaty Baby",
-    description: "Starts with Suplex! + Mars",
+    description: "Starts with Mars",
     sprite: "540_baby_meaty.png",
-    item: CollectibleType.COLLECTIBLE_SUPLEX,
-    item2: CollectibleType.COLLECTIBLE_MARS,
+    item: CollectibleType.COLLECTIBLE_MARS,
   },
   {
     name: "Pig Baby",
@@ -3305,8 +3309,9 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Pegasus Baby",
-    description: "",
+    description: "3x Keeper's Box effect on room clear",
     sprite: "542_baby_pegasus.png",
+    num: 3,
   },
   {
     name: "Mr. E Baby",
@@ -3328,7 +3333,7 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Hive King Baby",
-    description: "Giant cell effect per room cleared",
+    description: "Giant cell effect on room clear",
     sprite: "546_baby_hiveking.png",
   },
   {
@@ -3358,8 +3363,9 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Purple Horse Baby",
-    description: "",
+    description: "Starts with Blessed Penny",
     sprite: "551_baby_purplehorse.png",
+    trinket: TrinketType.TRINKET_BLESSED_PENNY,
   },
   {
     name: "Koala Baby",
@@ -3375,8 +3381,9 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Penguin Baby",
-    description: "",
+    description: "Starts with Blood Puppy",
     sprite: "554_baby_penguin.png",
+    item: CollectibleType.COLLECTIBLE_BLOOD_PUPPY,
   },
   {
     name: "Kinda Loveable Baby",
@@ -3539,10 +3546,11 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Gello", // CollectibleType.COLLECTIBLE_GELLO (728)
-    description: "",
+    description: "Starts with Sol",
     // In vanilla, there are spritesheets for each component of Gello,
     // so this is a custom spritesheet that was manually compiled by Gamonymous
     sprite: "familiar_gello_custom.png", // 582
+    item: CollectibleType.COLLECTIBLE_SOL,
   },
   {
     name: "Siren Shooter",

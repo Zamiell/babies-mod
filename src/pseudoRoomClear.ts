@@ -114,11 +114,11 @@ function areAnyNPCsAlive() {
       !npc.IsDead() &&
       !isAliveExceptionNPC(npc)
     ) {
-      return false;
+      return true;
     }
   }
 
-  return true;
+  return false;
 }
 
 // This roughly emulates what happens when you normally clear a room

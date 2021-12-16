@@ -5,7 +5,7 @@ import {
   getRandomInt,
 } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
-import { FADED_BLUE, FADED_YELLOW } from "../constants";
+import { FADED_BLUE, FADED_RED, FADED_YELLOW } from "../constants";
 import g from "../globals";
 import { TearData } from "../types/TearData";
 import { getCurrentBaby, useActiveItem } from "../util";
@@ -403,6 +403,13 @@ postFireTearBabyFunctionMap.set(398, (tear: EntityTear) => {
     g.run.babyCounters = 0;
     tear.ChangeVariant(TearVariant.CHAOS_CARD);
   }
+});
+
+// Referee Baby
+postFireTearBabyFunctionMap.set(404, (tear: EntityTear) => {
+  // Tomato tears
+  tear.TearFlags |= TearFlags.TEAR_BAIT;
+  tear.SetColor(FADED_RED, 10000, 10000, false, false);
 });
 
 // Astronaut Baby
