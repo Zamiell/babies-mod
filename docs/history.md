@@ -1,6 +1,6 @@
 # The Babies Mod Version History
 
-### *v1.4.0* - December ?th, 2021
+### *v1.4.0* - December 15th, 2021
 
 - 42 new babies have been added using the new Repentance baby sprites:
   - Found Soul Baby (#521) - Starts with a friendly Dark Esau
