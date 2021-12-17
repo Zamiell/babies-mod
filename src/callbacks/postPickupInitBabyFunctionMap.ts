@@ -73,7 +73,11 @@ postPickupInitBabyFunctionMap.set(253, (pickup: EntityPickup) => {
     // Emergency Contact (50) has a unique card back in vanilla
     // Holy Card (51) has a unique card back in vanilla
     (pickup.SubType >= Card.CARD_HUGE_GROWTH && // 52
-      pickup.SubType <= Card.CARD_ERA_WALK) // 54
+      pickup.SubType <= Card.CARD_ERA_WALK) || // 54
+    (pickup.SubType >= Card.CARD_REVERSE_FOOL && // 56
+      pickup.SubType <= Card.CARD_REVERSE_WORLD) || // 77
+    pickup.SubType === Card.CARD_QUEEN_OF_HEARTS || // 79
+    pickup.SubType === Card.CARD_WILD // 80
   ) {
     const sprite = pickup.GetSprite();
     sprite.ReplaceSpritesheet(0, `gfx/cards/${pickup.SubType}.png`);
