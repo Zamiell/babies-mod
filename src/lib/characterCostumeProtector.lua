@@ -1,4 +1,4 @@
-local VERSION = "1.2.2"
+local VERSION = "1.2.4"
 
 --Character Costume Protector by Sanio! (Sanio46 on Steam and Twitter)
 --This local library has the goal of protecting the unique looks of custom characters that regularly
@@ -48,29 +48,28 @@ local CallbacksTable = {
 	data.CCP.AstralProjectionDisabled = Boolean. As Astral Projection's temporary effect is not auto-removed when returning to your normal form,
 	unlike Spirit Shackles, manual detection is needed. This is to stop adding Astral Projection's costume during a costume reset.
 	True after getting hit in your ghost form or clearing a room. False upon losing the temporary effect.
-
-	data.CCP.MineshaftEscape = Boolean. Set to true to reset your costume once upon confirming you're in the Mineshaft Escape Sequence dimension
-	As of writing this, there's a bug where costumes can't be added inside the dimension anyway. Hopefully the code works as intended if it's fixed.
 ]]
 
 ---------------------
 --  API FUNCTIONS  --
 ---------------------
 
-local function apiError(isBasic, func, invalidVar, num, expectedType)
-	if isBasic == true and func ~= nil then
-		local err = "(CCP) Something went wrong in ccp:"..func.."!"
-		error(err)
-		Isaac.DebugString(err)
-	elseif not isBasic then
-		if invalidVar == nil
-		or type(invalidVar) ~= expectedType
-		then
-			err = "Bad Argument #"..num.." in "..func.."(Attempt to index a " .. type(invalidVar) .. " value, field '" .. tostring(invalidVar) .. "', expected "..expectedType..")."
-			error(err)
-			Isaac.DebugString(err)
-		end
+local function apiError(func, invalidVar, num, expectedType)
+	local err = "(CCP) Something went wrong in ccp:"..func.."!"
+
+	if invalidVar == nil
+	or type(invalidVar) ~= expectedType
+	then
+		err = "Bad Argument #"..num.." in "..func.."(Attempt to index a " .. type(invalidVar) .. " value, field '" .. tostring(invalidVar) .. "', expected "..expectedType..")."
 	end
+	error(err)
+	Isaac.DebugString(err)
+end
+
+local function costumeError(func, num, msg)
+	local err = "Bad Argument #"..num.." in "..func.."("..msg..")."
+	error(err)
+	Isaac.DebugString(err)
 end
 
 local function initiateItemWhitelist(playerType)
@@ -87,15 +86,65 @@ local function initiateNullItemWhitelist(playerType)
 	end
 end
 
+local function apiSetOptionalArgs(playerType, func, costumeFlight, spritesheetFlight, costumeExtra)
+
+	if costumeFlight ~= nil then
+		if costumeFlight ~= -1
+		and type(costumeFlight) == "number"
+		then
+			local nullConfig = Isaac.GetItemConfig():GetNullItem(costumeFlight)
+
+			if nullConfig == nil then
+				costumeError(func, "4", "Invalid NullItemID.")
+			elseif nullConfig.Costume.Anm2Path == "" then
+				costumeError(func, "4", "NullItemID does not contain a costume.")
+			elseif nullConfig.Costume.IsFlying == false then
+				costumeError(func, "4", "Flight costume's 'isFlying' paramater is not set or false")
+			end
+
+			playerCostume[playerType]["Flight"] = costumeFlight
+		else
+			apiError(func, costumeFlight, "4", "number")
+		end
+	end
+
+	if spritesheetFlight ~= nil then
+		if type(spritesheetFlight) == "string" then
+			playerSpritesheet[playerType]["Flight"] = spritesheetFlight
+		else
+			apiError(func, spritesheetFlight, "5", "string")
+		end
+	end
+
+	if costumeExtra ~= nil then
+		if costumeExtra ~= -1
+		and type(costumeExtra) == "number" then
+			local nullConfig = Isaac.GetItemConfig():GetNullItem(costumeExtra)
+
+			if nullConfig == nil then
+				costumeError(func, "6", "Invalid NullItemID.")
+			elseif nullConfig.Costume.Anm2Path == "" then
+				costumeError(func, "6", "NullItemID does not contain a costume.")
+			end
+			playerCostume[playerType]["Extra"] = costumeExtra
+		else
+			apiError(func, costumeExtra, "6", "number")
+		end
+	end
+end
+
 function ccp:addPlayer(
 player, playerType, spritesheetNormal, costumeFlight, spritesheetFlight, costumeExtra
 )
+	local func = "AddPlayer"
+
 	if player ~= nil
 	and type(player) == "userdata"
 	and playerType ~= nil
 	and type(playerType) == "number"
 	and spritesheetNormal ~= nil
 	and type(spritesheetNormal) == "string" then
+
 		playerToProtect[playerType] = true
 		playerCostume[playerType] = {}
 		playerSpritesheet[playerType] = {}
@@ -104,16 +153,7 @@ player, playerType, spritesheetNormal, costumeFlight, spritesheetFlight, costume
 		initiateNullItemWhitelist(playerType)
 		playerTrinketCostumeWhitelist[playerType] = {}
 
-		if costumeFlight ~= nil then
-			playerCostume[playerType]["Flight"] = costumeFlight
-		end
-		if costumeExtra ~= nil then
-			playerCostume[playerType]["Extra"] = costumeExtra
-		end
-
-		if spritesheetFlight ~= nil then
-			playerSpritesheet[playerType]["Flight"] = spritesheetFlight
-		end
+		apiSetOptionalArgs(playerType, func, costumeFlight, spritesheetFlight, costumeExtra)
 
 		if not REPENTANCE
 		or (REPENTANCE and not player:IsCoopGhost())
@@ -132,21 +172,20 @@ player, playerType, spritesheetNormal, costumeFlight, spritesheetFlight, costume
 			ccp:afterCostumeInit(player)
 		end
 	else
-		local func = "AddPlayer"
 		if player == nil
 		or type(player) ~= "userdata"
 		then
-			apiError(false, func, player, "1", "userdata")
+			apiError(func, player, "1", "userdata")
 		elseif playerType == nil
 		or type(playerType) ~= "number"
 		then
-			apiError(false, func, playerType, "2", "number")
+			apiError(func, playerType, "2", "number")
 		elseif spritesheetNormal == nil
 		or type(spritesheetNormal) ~= "string"
 		then
-			apiError(false, func, spritesheetNormal, "3", "string")
+			apiError(func, spritesheetNormal, "3", "string")
 		else
-			apiError(true, func)
+			apiError(func)
 		end
 	end
 end
@@ -154,46 +193,35 @@ end
 function ccp:updatePlayer(
 player, playerType, spritesheetNormal, costumeFlight, spritesheetFlight, costumeExtra
 )
+	local func = "UpdatePlayer"
+
 	if player ~= nil
 	and type(player) == "userdata"
 	and playerType ~= nil
 	and playerToProtect[playerType] == true then
 
 		if spritesheetNormal ~= nil then
-			playerSpritesheet[playerType]["Normal"] = spritesheetNormal
+			if type(spritesheetNormal) == "string" then
+				playerSpritesheet[playerType]["Normal"] = spritesheetNormal
+			else
+				apiError(func, spritesheetNormal, "3", "string")
+			end
 		end
 
-		if costumeFlight ~= nil then
-			playerCostume[playerType]["Flight"] = costumeFlight
-		else
-			playerCostume[playerType]["Flight"] = nil
-		end
-
-		if spritesheetFlight ~= nil then
-			playerSpritesheet[playerType]["Flight"] = spritesheetFlight
-		else
-			playerSpritesheet[playerType]["Flight"] = nil
-		end
-
-		if costumeExtra ~= nil then
-			playerCostume[playerType]["Extra"] = costumeExtra
-		else
-			playerCostume[playerType]["Extra"] = nil
-		end
+		apiSetOptionalArgs(playerType, func, costumeFlight, spritesheetFlight, costumeExtra)
 
 		ccp:mainResetPlayerCostumes(player)
 	else
-		local func = "UpdatePlayer"
 		if player == nil
 		or type(player) ~= "userdata"
 		then
-			apiError(false, func, player, "1", "userdata")
+			apiError(func, player, "1", "userdata")
 		elseif playerType == nil
 		or type(playerType) ~= "number"
 		then
-			apiError(false, func, playerType, "2", "number")
+			apiError(func, playerType, "2", "number")
 		else
-			apiError(true, func)
+			apiError(func)
 		end
 	end
 end
@@ -217,12 +245,12 @@ function ccp:itemCostumeWhitelist(playerType, costumeList)
 		local func = "ItemCostumeWhitelist"
 		if playerType == nil
 		or type(playerType) ~= "number" then
-			apiError(false, func, player, "1", "userdata")
+			apiError(func, player, "1", "userdata")
 		elseif costumeList == nil
 		or type(costumeList) ~= "table" then
-			apiError(false, func, costumeList, "2", "table")
+			apiError(func, costumeList, "2", "table")
 		else
-			apiError(true, func)
+			apiError(func)
 		end
 	end
 end
@@ -246,12 +274,12 @@ function ccp:nullEffectWhitelist(playerType, costumeList)
 		local func = "NullEffectWhitelist"
 		if playerType == nil
 		or type(playerType) ~= "number" then
-			apiError(false, func, player, "1", "userdata")
+			apiError(func, player, "1", "userdata")
 		elseif costumeList == nil
 		or type(costumeList) ~= "table" then
-			apiError(false, func, costumeList, "2", "table")
+			apiError(func, costumeList, "2", "table")
 		else
-			apiError(true, func)
+			apiError(func)
 		end
 	end
 end
@@ -275,12 +303,12 @@ function ccp:trinketCostumeWhitelist(playerType, costumeList)
 		local func = "TrinketCostumeWhitelist"
 		if playerType == nil
 		or type(playerType) ~= "number" then
-			apiError(false, func, player, "1", "userdata")
+			apiError(func, player, "1", "userdata")
 		elseif costumeList == nil
 		or type(costumeList) ~= "table" then
-			apiError(false, func, costumeList, "2", "table")
+			apiError(func, costumeList, "2", "table")
 		else
-			apiError(true, func)
+			apiError(func)
 		end
 	end
 end
@@ -335,6 +363,7 @@ local collectiblesEffectsOnlyAddOnEffect = {
 
 local activesToDelayCostumeReset = {
 	[CollectibleType.COLLECTIBLE_RAZOR_BLADE] = true,
+	[CollectibleType.COLLECTIBLE_BOOK_OF_BELIAL] = true,
 	[CollectibleType.COLLECTIBLE_MOMS_BRA] = true,
 	[CollectibleType.COLLECTIBLE_THE_NAIL] = true,
 	[CollectibleType.COLLECTIBLE_MY_LITTLE_UNICORN] = true,
@@ -553,8 +582,7 @@ local function tryAddFlightCostume(player)
 
 	if player.CanFly == true
 	and playerCostume[playerType]["Flight"] ~= nil then
-		local costumeFlight = playerCostume[playerType]["Flight"]
-		player:AddNullCostume(costumeFlight)
+		player:AddNullCostume(playerCostume[playerType]["Flight"])
 	end
 end
 
@@ -572,11 +600,16 @@ local function returnOnHemoptysis(player)
 	return shouldStopReset
 end
 
-local function removeOldCostume(playerType)
+local function tryRemoveOldCostume(player, playerType)
 	local basePath = playerCostume[playerType]
-	player:TryRemoveNullCostume(basePath[1])
-	if basePath[2] ~= nil then
-		player:TryRemoveNullCostume(basePath[2])
+
+	if basePath ~= nil then
+		if basePath["Flight"] ~= nil then
+			player:TryRemoveNullCostume(basePath["Flight"])
+		end
+		if basePath["Extra"] ~= nil then
+			player:TryRemoveNullCostume(basePath["Extra"])
+		end
 	end
 end
 
@@ -634,7 +667,7 @@ function ccp:addAllCostumes(player)
 
 	for playerType, _ in pairs(data.CCP.HasCostumeInitialized) do
 
-		removeOldCostume(playerType)
+		tryRemoveOldCostume(player, playerType)
 
 		--Item Costumes
 		for itemID = 1, CollectibleType.NUM_COLLECTIBLES do
@@ -703,7 +736,7 @@ function ccp:removeOldCCPData(player)
 
 	for dataPlayerType, _ in pairs(data.CCP.HasCostumeInitialized) do
 		if dataPlayerType ~= playerType then
-			removeOldCostume(dataPlayerType)
+			tryRemoveOldCostume(dataPlayerType)
 			data.CCP.HasCostumeInitialized[dataPlayerType] = nil
 		end
 	end
@@ -723,7 +756,7 @@ function ccp:miscCostumeResets(player)
 
 	if data.CCP.NumTemporaryEffects
 	and data.CCP.NumTemporaryEffects ~= player:GetEffects():GetEffectsList().Size
-	and returnOnHemoptysis(player)
+	and not returnOnHemoptysis(player)
 	then
 		data.CCP.NumTemporaryEffects = player:GetEffects():GetEffectsList().Size
 		ccp:mainResetPlayerCostumes(player)

@@ -43,18 +43,19 @@ import * as useItem from "./callbacks/useItem";
 import * as usePill from "./callbacks/usePill";
 import * as postItemPickup from "./callbacksCustom/postItemPickup";
 import * as postPickupCollect from "./callbacksCustom/postPickupCollect";
+import * as postPlayerChangeType from "./callbacksCustom/postPlayerChangeType";
 import * as postPurchase from "./callbacksCustom/postPurchase";
 import * as postSlotDestroyed from "./callbacksCustom/postSlotDestroyed";
 import * as postTrinketBreak from "./callbacksCustom/postTrinketBreak";
 import { MOD_NAME, VERSION } from "./constants";
+import { initCostumeProtector } from "./costumes";
 import g from "./globals";
-import * as costumeProtector from "./lib/characterCostumeProtector";
 
 export default function main(): void {
   const modVanilla = RegisterMod(MOD_NAME, 1);
   const mod = upgradeMod(modVanilla);
 
-  initLibraries(mod);
+  initCostumeProtector(mod);
   welcomeBanner();
 
   // Store the mod reference so that we can use it elsewhere
@@ -63,10 +64,6 @@ export default function main(): void {
 
   babiesCheckValid();
   registerCallbacks(mod);
-}
-
-function initLibraries(mod: ModUpgraded) {
-  costumeProtector.Init(mod);
 }
 
 function welcomeBanner() {
@@ -158,6 +155,10 @@ function registerCallbacksCustom(mod: ModUpgraded) {
   mod.AddCallbackCustom(
     ModCallbacksCustom.MC_POST_SLOT_DESTROYED,
     postSlotDestroyed.main,
+  );
+  mod.AddCallbackCustom(
+    ModCallbacksCustom.MC_POST_PLAYER_CHANGE_TYPE,
+    postPlayerChangeType.main,
   );
 }
 

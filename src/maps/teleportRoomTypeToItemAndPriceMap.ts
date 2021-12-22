@@ -1,4 +1,4 @@
-import { CollectibleTypeCustom } from "../types/enums";
+import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 
 enum TeleportPrice {
   TEN = 10,

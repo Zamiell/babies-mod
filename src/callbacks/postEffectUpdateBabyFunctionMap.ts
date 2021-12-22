@@ -1,6 +1,6 @@
 import { GAME_FRAMES_PER_SECOND, getEffects } from "isaacscript-common";
 import g from "../globals";
-import { EffectVariantCustom } from "../types/enums";
+import { EffectVariantCustom } from "../types/EffectVariantCustom";
 import { getCurrentBaby } from "../util";
 
 export const postEffectUpdateBabyFunctionMap = new Map<
@@ -81,7 +81,7 @@ postEffectUpdateBabyFunctionMap.set(281, (effect: EntityEffect) => {
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby] = getCurrentBaby();
   if (baby.cooldown === undefined) {
-    error(`The "cooldown" attribute was not defined for ${baby.name}.`);
+    error(`The "cooldown" attribute was not defined for: ${baby.name}`);
   }
 
   if (effect.FrameCount === 1) {

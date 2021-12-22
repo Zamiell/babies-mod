@@ -6,7 +6,7 @@ import {
 } from "isaacscript-common";
 import { NUM_SUCCUBI_IN_FLOCK } from "../constants";
 import g from "../globals";
-import { CollectibleTypeCustom } from "../types/enums";
+import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 import { getCurrentBaby, spawnSlot } from "../util";
 
 export function init(mod: Mod): void {
@@ -101,7 +101,7 @@ function howToJump() {
   // 350
   if (baby.name === "Rabbit Baby") {
     if (baby.num === undefined) {
-      error(`The "num" attribute was not defined for ${baby.name}.`);
+      error(`The "num" attribute was not defined for: ${baby.name}`);
     }
     g.run.babyFrame = gameFrameCount + baby.num;
   }

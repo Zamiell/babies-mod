@@ -5,7 +5,7 @@
 // https://bindingofisaacrebirth.fandom.com/wiki/User:Zamie/Babies_Mod
 
 import { BabyDescription } from "./types/BabyDescription";
-import { CollectibleTypeCustom } from "./types/enums";
+import { CollectibleTypeCustom } from "./types/CollectibleTypeCustom";
 
 export const BABIES: BabyDescription[] = [
   {
@@ -1738,6 +1738,25 @@ export const BABIES: BabyDescription[] = [
     name: "Suit Baby",
     description: "All special rooms are Devil Rooms",
     sprite: "287_baby_suit.png",
+    roomTypes: [
+      RoomType.ROOM_DEFAULT, // 1
+      // I AM ERROR rooms should not be converted so that they have a way to escape
+      RoomType.ROOM_ERROR, // 3
+      RoomType.ROOM_BOSS, // 5
+      // Devil Rooms don't need to be converted because they are already Devil Rooms
+      RoomType.ROOM_DEVIL, // 14
+      // Dungeons cannot be converted because they need to have the ladder
+      RoomType.ROOM_DUNGEON, // 16
+      // Big rooms should not be converted
+      RoomType.ROOM_BOSSRUSH, // 17
+      RoomType.ROOM_BLACK_MARKET, // 22
+      // The mechanic should not interfere with progressing in Greed Mode
+      RoomType.ROOM_GREED_EXIT, // 23
+      // The mechanic should not interfere with getting to Repentance floors
+      RoomType.ROOM_SECRET_EXIT, // 27
+      // The mechanic should not apply to in-between battle rooms
+      RoomType.ROOM_BLUE, // 28
+    ],
   },
   {
     name: "Butt Baby",
@@ -2016,6 +2035,7 @@ export const BABIES: BabyDescription[] = [
     item: CollectibleType.COLLECTIBLE_SOY_MILK,
     item2: CollectibleType.COLLECTIBLE_PROPTOSIS,
     mustHaveTears: true,
+    num: 5, // Frames until it disappears
   },
   {
     name: "Butterfly Baby 2",

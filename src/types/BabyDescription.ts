@@ -1,4 +1,4 @@
-import { CollectibleTypeCustom } from "./enums";
+import { CollectibleTypeCustom } from "./CollectibleTypeCustom";
 
 export interface BabyDescription {
   // Mandatory properties
@@ -33,4 +33,5 @@ export interface BabyDescription {
   time?: int;
   trinket?: TrinketType;
   uncharged?: boolean;
+  roomTypes?: RoomType[];
 }

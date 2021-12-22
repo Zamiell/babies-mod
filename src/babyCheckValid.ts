@@ -420,7 +420,6 @@ function checkItem(player: EntityPlayer, baby: BabyDescription) {
 }
 
 function checkStage(baby: BabyDescription) {
-  const stageType = g.l.GetStageType();
   const effectiveStage = getEffectiveStage();
 
   if (baby.noEndFloors === true && effectiveStage >= 9) {
@@ -515,6 +514,14 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
+    baby.name === "-0- Baby" && // 24
+    effectiveStage === 5
+  ) {
+    // -0- Baby cannot open the door to Mausoleum (since it requires health to be sacrificed)
+    return false;
+  }
+
+  if (
     baby.name === "Goat Baby" && // 62
     (effectiveStage <= 2 || effectiveStage >= 9)
   ) {
@@ -528,6 +535,15 @@ function checkStage(baby: BabyDescription) {
     effectiveStage === 10
   ) {
     // 50% chance for bombs to have the D6 effect
+    return false;
+  }
+
+  if (
+    baby.name === "Nosferatu Baby" && // 109
+    effectiveStage >= 8
+  ) {
+    // Enemies have homing projectiles
+    // This makes end-game floors too difficult
     return false;
   }
 
@@ -645,9 +661,12 @@ function checkStage(baby: BabyDescription) {
 
   if (
     baby.name === "Hooligan Baby" && // 514
-    effectiveStage === 10 &&
-    stageType === 0 // Sheol
+    (effectiveStage === 6 || effectiveStage >= 8)
   ) {
+    // Double enemies
+    // Mom cannot be doubled, so don't give this baby on stage 6
+    // It Lives! cannot be doubled, so don't give this baby on stage 8
+    // Furthermore, double enemies would be too hard on the final stages
     return false;
   }
 

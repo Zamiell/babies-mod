@@ -1,12 +1,3 @@
-export enum PlayerTypeCustom {
-  PLAYER_RANDOM_BABY = Isaac.GetPlayerTypeByName("Random Baby"),
-}
-
-export enum EffectVariantCustom {
-  FETUS_BOSS_TARGET = Isaac.GetEntityVariantByName("FetusBossTarget"),
-  FETUS_BOSS_ROCKET = Isaac.GetEntityVariantByName("FetusBossRocket"),
-}
-
 export enum CollectibleTypeCustom {
   COLLECTIBLE_CLOCKWORK_ASSEMBLY = Isaac.GetItemIdByName("Clockwork Assembly"),
   COLLECTIBLE_FLOCK_OF_SUCCUBI = Isaac.GetItemIdByName("Flock of Succubi"),
@@ -43,8 +34,4 @@ export enum CollectibleTypeCustom {
 
   // Racing+ items
   COLLECTIBLE_CHECKPOINT = Isaac.GetItemIdByName("Checkpoint"),
-}
-
-export enum NullItemIDCustom {
-  BABY_FLYING = Isaac.GetCostumeIdByPath("gfx/characters/baby_flight.anm2"),
 }

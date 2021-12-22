@@ -47,7 +47,7 @@ postProjectileUpdateBabyFunctionMap.set(109, (projectile: EntityProjectile) => {
 postProjectileUpdateBabyFunctionMap.set(153, (projectile: EntityProjectile) => {
   const [, baby] = getCurrentBaby();
   if (baby.distance === undefined) {
-    error(`The "distance" attribute was not defined for ${baby.name}.`);
+    error(`The "distance" attribute was not defined for: ${baby.name}`);
   }
 
   // Projectiles are reflected as bombs

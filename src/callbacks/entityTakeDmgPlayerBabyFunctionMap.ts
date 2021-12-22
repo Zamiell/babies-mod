@@ -12,8 +12,8 @@ import {
 } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
 import g from "../globals";
+import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 import { EntityDescription } from "../types/EntityDescription";
-import { CollectibleTypeCustom } from "../types/enums";
 import {
   getCurrentBaby,
   spawnRandomPickup,
@@ -131,7 +131,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(56, (player) => {
 entityTakeDmgPlayerBabyFunctionMap.set(62, (player) => {
   const [, baby] = getCurrentBaby();
   if (baby.numHits === undefined) {
-    error(`The "numHits" attribute was not defined for ${baby.name}.`);
+    error(`The "numHits" attribute was not defined for: ${baby.name}`);
   }
 
   // Guaranteed Devil Room + Angel Room after N hits
@@ -539,7 +539,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(435, (player) => {
 entityTakeDmgPlayerBabyFunctionMap.set(441, (player) => {
   const [, baby] = getCurrentBaby();
   if (baby.numHits === undefined) {
-    error(`The "numHits" attribute was not defined for ${baby.name}.`);
+    error(`The "numHits" attribute was not defined for: ${baby.name}`);
   }
 
   g.run.babyCounters += 1;
@@ -567,7 +567,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(446, (player) => {
 entityTakeDmgPlayerBabyFunctionMap.set(456, (player) => {
   const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for ${baby.name}.`);
+    error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   player.AddBlueFlies(baby.num, player.Position, undefined);
@@ -626,7 +626,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(488, (player) => {
 entityTakeDmgPlayerBabyFunctionMap.set(493, (player) => {
   const [, baby] = getCurrentBaby();
   if (baby.numHits === undefined) {
-    error(`The "numHits" attribute was not defined for ${baby.name}.`);
+    error(`The "numHits" attribute was not defined for: ${baby.name}`);
   }
 
   if (g.run.babyBool) {
@@ -683,7 +683,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(514, () => {
 entityTakeDmgPlayerBabyFunctionMap.set(552, (player) => {
   const [, baby] = getCurrentBaby();
   if (baby.numHits === undefined) {
-    error(`The "numHits" attribute was not defined for ${baby.name}.`);
+    error(`The "numHits" attribute was not defined for: ${baby.name}`);
   }
 
   g.run.babyCounters += 1;

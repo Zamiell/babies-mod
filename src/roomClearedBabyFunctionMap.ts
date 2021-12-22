@@ -89,7 +89,7 @@ roomClearedBabyFunctionMap.set(546, () => {
 roomClearedBabyFunctionMap.set(542, () => {
   const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for ${baby.name}.`);
+    error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   for (let i = 0; i < baby.num; i++) {

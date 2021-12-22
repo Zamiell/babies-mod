@@ -1,4 +1,4 @@
-import { PlayerTypeCustom } from "../types/enums";
+import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
 import { getCurrentBaby } from "../util";
 import { evaluateCacheBabyFunctionMap } from "./evaluateCacheBabyFunctionMap";
 

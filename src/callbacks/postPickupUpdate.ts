@@ -1,4 +1,4 @@
-import { CollectibleTypeCustom } from "../types/enums";
+import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 import { getCurrentBaby } from "../util";
 import { postPickupUpdateBabyFunctionMap } from "./postPickupUpdateBabyFunctionMap";
 

@@ -53,7 +53,7 @@ function getNewBaby(player: EntityPlayer) {
   let seed = g.l.GetDungeonPlacementSeed();
 
   // Don't get a new baby if we did not start the run as the Random Baby character
-  if (!g.run.enabled) {
+  if (!g.run.startedRunAsRandomBaby) {
     g.run.babyType = null;
     return;
   }

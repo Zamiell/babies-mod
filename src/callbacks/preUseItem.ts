@@ -121,7 +121,7 @@ function brownNugget(_collectibleType: number, _rng: RNG) {
     return false;
   }
   if (baby.delay === undefined) {
-    error(`The "delay" attribute was not defined for ${baby.name}.`);
+    error(`The "delay" attribute was not defined for: ${baby.name}`);
   }
 
   // Mark to spawn more of them on subsequent frames

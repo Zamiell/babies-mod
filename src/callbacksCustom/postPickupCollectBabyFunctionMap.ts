@@ -22,7 +22,7 @@ postPickupCollectBabyFunctionMap.set(167, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for ${baby.name}.`);
+    error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   // Touching pickups causes teleportation (1/2)

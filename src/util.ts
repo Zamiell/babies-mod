@@ -8,7 +8,7 @@ import {
 import { BABIES, UNKNOWN_BABY } from "./babies";
 import g from "./globals";
 import { BabyDescription } from "./types/BabyDescription";
-import { CollectibleTypeCustom } from "./types/enums";
+import { CollectibleTypeCustom } from "./types/CollectibleTypeCustom";
 
 /**
  * In certain situations, baby effects will prevent a player from entering a Big Chest. If this is

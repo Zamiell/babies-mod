@@ -1,6 +1,6 @@
 import { getCollectibleItemType, log } from "isaacscript-common";
 import { BABIES } from "./babies";
-import { CollectibleTypeCustom } from "./types/enums";
+import { CollectibleTypeCustom } from "./types/CollectibleTypeCustom";
 
 const VALID_DUPLICATE_ITEMS = new Set<CollectibleType | CollectibleTypeCustom>([
   CollectibleType.COLLECTIBLE_POOP, // 36

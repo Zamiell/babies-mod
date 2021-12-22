@@ -110,7 +110,7 @@ postTearUpdateBabyFunctionMap.set(246, (tear: EntityTear) => {
 
   const [, baby] = getCurrentBaby();
   if (baby.distance === undefined) {
-    error(`The "distance" attribute was not defined for ${baby.name}.`);
+    error(`The "distance" attribute was not defined for: ${baby.name}`);
   }
   let positionMod = Vector(0, baby.distance * -1); // The tear starts directly above the player
   const degrees = tear.FrameCount * 8; // Tears rotate 4 degrees per frame
@@ -160,6 +160,25 @@ postTearUpdateBabyFunctionMap.set(316, (tear: EntityTear) => {
       xTear.Position = tear.Position;
       xTear.Height = tear.Height;
     }
+    tear.Remove();
+  }
+});
+
+// Slicer Baby
+postTearUpdateBabyFunctionMap.set(331, (tear: EntityTear) => {
+  const [, baby] = getCurrentBaby();
+  if (baby.num === undefined) {
+    error(`The "num" attribute was not defined for: ${baby.name}`);
+  }
+
+  const sprite = tear.GetSprite();
+  const opacity = 1 - tear.FrameCount / baby.num;
+  const faded = copyColor(sprite.Color);
+  faded.A = opacity;
+  sprite.Color = faded;
+
+  // Slice tears
+  if (tear.FrameCount > baby.num) {
     tear.Remove();
   }
 });
@@ -272,7 +291,7 @@ postTearUpdateBabyFunctionMap.set(459, (tear: EntityTear) => {
 postTearUpdateBabyFunctionMap.set(487, (tear: EntityTear) => {
   const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for ${baby.name}.`);
+    error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   if (
@@ -314,7 +333,7 @@ postTearUpdateBabyFunctionMap.set(
 postTearUpdateBabyFunctionMap.set(RandomBabyType.ABEL, (tear: EntityTear) => {
   const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for ${baby.name}.`);
+    error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   if (

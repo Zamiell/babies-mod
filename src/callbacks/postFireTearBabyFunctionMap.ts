@@ -31,7 +31,7 @@ postFireTearBabyFunctionMap.set(0, (tear: EntityTear) => {
 postFireTearBabyFunctionMap.set(2, (tear: EntityTear) => {
   const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for ${baby.name}.`);
+    error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   g.run.babyCounters += 1;
@@ -197,7 +197,7 @@ postFireTearBabyFunctionMap.set(152, (tear: EntityTear) => {
 postFireTearBabyFunctionMap.set(165, (tear: EntityTear) => {
   const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for ${baby.name}.`);
+    error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   g.run.babyCounters += 1;
@@ -263,7 +263,7 @@ postFireTearBabyFunctionMap.set(231, (tear: EntityTear) => {
 postFireTearBabyFunctionMap.set(246, (tear: EntityTear) => {
   const [, baby] = getCurrentBaby();
   if (baby.distance === undefined) {
-    error(`The "distance" attribute was not defined for ${baby.name}.`);
+    error(`The "distance" attribute was not defined for: ${baby.name}`);
   }
 
   // Mark that we shot this tear
@@ -342,7 +342,7 @@ postFireTearBabyFunctionMap.set(345, (tear: EntityTear) => {
 postFireTearBabyFunctionMap.set(361, (tear: EntityTear) => {
   const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for ${baby.name}.`);
+    error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   // Extra bomb shots
@@ -395,7 +395,7 @@ postFireTearBabyFunctionMap.set(380, (tear: EntityTear) => {
 postFireTearBabyFunctionMap.set(398, (tear: EntityTear) => {
   const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for ${baby.name}.`);
+    error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   g.run.babyCounters += 1;
@@ -431,7 +431,7 @@ postFireTearBabyFunctionMap.set(410, (tear: EntityTear) => {
 postFireTearBabyFunctionMap.set(429, (tear: EntityTear) => {
   const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for ${baby.name}.`);
+    error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   // Void tears

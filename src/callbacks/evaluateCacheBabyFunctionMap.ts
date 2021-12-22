@@ -85,7 +85,7 @@ evaluateCacheBabyFunctionMap.set(
 
     const [, baby] = getCurrentBaby();
     if (baby.num === undefined) {
-      error(`The "num" attribute was not defined for ${baby.name}.`);
+      error(`The "num" attribute was not defined for: ${baby.name}`);
     }
 
     // We use the "babyFrame" variable to track how many damage ups we have received

@@ -138,7 +138,7 @@ postEntityKillBabyFunctionMap.set(376, (_npc: EntityNPC) => {
 postEntityKillBabyFunctionMap.set(388, (npc: EntityNPC) => {
   const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for ${baby.name}.`);
+    error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   // Enemies spawn projectiles upon death

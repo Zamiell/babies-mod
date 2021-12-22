@@ -1,8 +1,8 @@
 import { log } from "isaacscript-common";
 import { BABIES } from "../babies";
 import g from "../globals";
-import { PlayerTypeCustom } from "../types/enums";
 import { GlobalsRun } from "../types/GlobalsRun";
+import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
 import { giveItemAndRemoveFromPools } from "../util";
 
 export function main(isContinued: boolean): void {
@@ -43,7 +43,7 @@ export function main(isContinued: boolean): void {
   // We want to keep track that we started the run as the "Random Baby" character,
   // in case the player changes their character later through Judas' Shadow, etc.
   if (character === PlayerTypeCustom.PLAYER_RANDOM_BABY) {
-    g.run.enabled = true;
+    g.run.startedRunAsRandomBaby = true;
   } else {
     return;
   }

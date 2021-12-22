@@ -1,4 +1,4 @@
-import { CollectibleTypeCustom } from "../types/enums";
+import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 
 export const TELEPORT_COLLECTIBLE_TYPE_TO_ROOM_TYPE_MAP = new Map([
   [CollectibleTypeCustom.COLLECTIBLE_SHOP_TELEPORT, RoomType.ROOM_SHOP],

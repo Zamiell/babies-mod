@@ -7,8 +7,8 @@ import { GlobalsRunRoom } from "./GlobalsRunRoom";
 // Per-run variables
 export class GlobalsRun {
   // Tracking per run
-  /** Set to true in the PostGameStarted callback if we are on the right character. */
-  enabled = false;
+  /** Set to true in the PostGameStarted callback. */
+  startedRunAsRandomBaby = false;
   babyType: number | null = null;
   drawIntro = false;
   /** Keep track of all of the collectibles that we pick up over the course of the run. */

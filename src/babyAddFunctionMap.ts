@@ -28,7 +28,7 @@ babyAddFunctionMap.set(31, () => {
 babyAddFunctionMap.set(39, () => {
   const [, baby] = getCurrentBaby();
   if (baby.time === undefined) {
-    error(`The "time" attribute was not defined for ${baby.name}.`);
+    error(`The "time" attribute was not defined for: ${baby.name}`);
   }
 
   // Don't shoot when the timer reaches 0
@@ -110,7 +110,7 @@ babyAddFunctionMap.set(281, () => {
 babyAddFunctionMap.set(341, () => {
   const [, baby] = getCurrentBaby();
   if (baby.time === undefined) {
-    error(`The "time" attribute was not defined for ${baby.name}.`);
+    error(`The "time" attribute was not defined for: ${baby.name}`);
   }
 
   g.run.babyCounters = g.g.GetFrameCount() + baby.time;
@@ -125,7 +125,7 @@ babyAddFunctionMap.set(343, () => {
 babyAddFunctionMap.set(350, () => {
   const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for ${baby.name}.`);
+    error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   g.run.babyFrame = g.g.GetFrameCount() + baby.num;
@@ -142,7 +142,7 @@ babyAddFunctionMap.set(375, () => {
 babyAddFunctionMap.set(386, () => {
   const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for ${baby.name}.`);
+    error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   // Start the direction at left
@@ -171,7 +171,7 @@ babyAddFunctionMap.set(424, () => {
 babyAddFunctionMap.set(511, () => {
   const [, baby] = getCurrentBaby();
   if (baby.max === undefined) {
-    error(`The "max" attribute was not defined for ${baby.name}.`);
+    error(`The "max" attribute was not defined for: ${baby.name}`);
   }
 
   // Start with the slowest tears and mark to update them on this frame
@@ -194,6 +194,14 @@ babyAddFunctionMap.set(556, () => {
 
 // Found Soul Baby
 babyAddFunctionMap.set(RandomBabyType.FOUND_SOUL_BABY, () => {
+  const numDarkEsaus = Isaac.CountEntities(
+    undefined,
+    EntityType.ENTITY_DARK_ESAU,
+  );
+  if (numDarkEsaus > 0) {
+    return;
+  }
+
   const bottomLeftGridIndex = 92;
   const bottomLeftPosition = g.r.GetGridPosition(bottomLeftGridIndex);
   Isaac.Spawn(

@@ -10,17 +10,10 @@ import {
   setPlayerHealth,
   smeltTrinket,
 } from "isaacscript-common";
-import { RandomBabyType } from "./babies";
 import { babyAddFunctionMap } from "./babyAddFunctionMap";
-import { setBabyANM2 } from "./callbacks/postPlayerInit";
+import { setBabyANM2, updatePlayerWithCostumeProtector } from "./costumes";
 import g from "./globals";
-import * as costumeProtector from "./lib/characterCostumeProtector";
-import { BabyDescription } from "./types/BabyDescription";
-import { NullItemIDCustom, PlayerTypeCustom } from "./types/enums";
 import { getCurrentBaby, giveItemAndRemoveFromPools } from "./util";
-
-const FIRST_BABY_WITH_SPRITE_IN_FAMILIAR_DIRECTORY =
-  RandomBabyType.BROTHER_BOBBY;
 
 export function babyAdd(player: EntityPlayer): void {
   const coins = player.GetNumCoins();
@@ -69,7 +62,7 @@ export function babyAdd(player: EntityPlayer): void {
     } else {
       // Give the passive item
       player.AddCollectible(baby.item);
-      log(`Added the new baby passive item (${baby.item}).`);
+      log(`Added the new baby passive item: ${baby.item}`);
     }
 
     removeCollectibleFromItemTracker(baby.item);
@@ -146,27 +139,7 @@ export function babyAdd(player: EntityPlayer): void {
   player.AddCacheFlags(CacheFlag.CACHE_ALL);
   player.EvaluateItems();
 
-  setCostumeProtectorSprite(player, babyType, baby);
+  updatePlayerWithCostumeProtector(player);
 
   log(`Applied baby: ${babyType} - ${baby.name}`);
-}
-
-function setCostumeProtectorSprite(
-  player: EntityPlayer,
-  babyType: int,
-  baby: BabyDescription,
-) {
-  const gfxDirectory =
-    babyType >= FIRST_BABY_WITH_SPRITE_IN_FAMILIAR_DIRECTORY
-      ? "gfx/familiar"
-      : "gfx/characters/player2";
-  const spritesheetPath = `${gfxDirectory}/${baby.sprite}`;
-  const flightCostumeNullItemID =
-    baby.name === "Butterfly Baby 2" ? undefined : NullItemIDCustom.BABY_FLYING;
-  costumeProtector.UpdatePlayer(
-    player,
-    PlayerTypeCustom.PLAYER_RANDOM_BABY,
-    spritesheetPath,
-    flightCostumeNullItemID,
-  );
 }

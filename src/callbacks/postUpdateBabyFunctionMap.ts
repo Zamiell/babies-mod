@@ -3,6 +3,7 @@ import {
   DISTANCE_OF_GRID_TILE,
   GAME_FRAMES_PER_SECOND,
   getAllRoomGridIndexes,
+  getCurrentDimension,
   getDefaultColor,
   getDoors,
   getFamiliars,
@@ -22,7 +23,8 @@ import { BABIES, RandomBabyType } from "../babies";
 import g from "../globals";
 import { TELEPORT_COLLECTIBLE_TYPE_TO_ROOM_TYPE_MAP } from "../maps/teleportCollectibleTypeToRoomTypeMap";
 import * as pseudoRoomClear from "../pseudoRoomClear";
-import { CollectibleTypeCustom, EffectVariantCustom } from "../types/enums";
+import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
+import { EffectVariantCustom } from "../types/EffectVariantCustom";
 import { bigChestExists, getCurrentBaby, useActiveItem } from "../util";
 
 export const postUpdateBabyFunctionMap = new Map<int, () => void>();
@@ -63,7 +65,7 @@ postUpdateBabyFunctionMap.set(19, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for ${baby.name}.`);
+    error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   if (gameFrameCount % baby.num === 0) {
@@ -117,7 +119,7 @@ postUpdateBabyFunctionMap.set(39, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby] = getCurrentBaby();
   if (baby.time === undefined) {
-    error(`The "time" attribute was not defined for ${baby.name}.`);
+    error(`The "time" attribute was not defined for: ${baby.name}`);
   }
 
   // Shooting when the timer reaches 0 causes damage
@@ -152,7 +154,7 @@ postUpdateBabyFunctionMap.set(43, () => {
 postUpdateBabyFunctionMap.set(48, () => {
   const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for ${baby.name}.`);
+    error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   // Temporary blindness
@@ -252,6 +254,7 @@ postUpdateBabyFunctionMap.set(96, () => {
 // Pubic Baby
 postUpdateBabyFunctionMap.set(110, () => {
   const roomClear = g.r.IsClear();
+  const dimension = getCurrentDimension();
 
   // Don't do anything if we already full cleared the floor
   if (g.run.babyBool) {
@@ -260,6 +263,11 @@ postUpdateBabyFunctionMap.set(110, () => {
 
   // The doors are not open because the room is not yet cleared
   if (!roomClear) {
+    return;
+  }
+
+  // Don't do anything if we are in an alternate dimension
+  if (dimension !== Dimension.MAIN) {
     return;
   }
 
@@ -307,7 +315,7 @@ postUpdateBabyFunctionMap.set(128, () => {
   const allRoomGridIndexes = getAllRoomGridIndexes();
   const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for ${baby.name}.`);
+    error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   // Get N unique random indexes
@@ -493,7 +501,7 @@ postUpdateBabyFunctionMap.set(167, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for ${baby.name}.`);
+    error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   // Touching pickups causes teleportation (2/2)
@@ -653,7 +661,7 @@ postUpdateBabyFunctionMap.set(256, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for ${baby.name}.`);
+    error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   if (gameFrameCount % baby.num === 0) {
@@ -678,7 +686,7 @@ postUpdateBabyFunctionMap.set(263, () => {
 postUpdateBabyFunctionMap.set(267, () => {
   const baby = BABIES[267];
   if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for ${baby.name}.`);
+    error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   const sprite = g.p.GetSprite();
@@ -754,7 +762,7 @@ postUpdateBabyFunctionMap.set(303, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby] = getCurrentBaby();
   if (baby.delay === undefined) {
-    error(`The "delay" attribute was not defined for ${baby.name}.`);
+    error(`The "delay" attribute was not defined for: ${baby.name}`);
   }
 
   if (g.run.babyFrame !== 0 && gameFrameCount >= g.run.babyFrame) {
@@ -831,7 +839,7 @@ postUpdateBabyFunctionMap.set(341, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby] = getCurrentBaby();
   if (baby.time === undefined) {
-    error(`The "time" attribute was not defined for ${baby.name}.`);
+    error(`The "time" attribute was not defined for: ${baby.name}`);
   }
 
   // Moving when the timer reaches 0 causes damage
@@ -926,7 +934,7 @@ postUpdateBabyFunctionMap.set(386, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for ${baby.name}.`);
+    error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   // If we rotate the knives on every frame, then it spins too fast
@@ -1158,7 +1166,7 @@ postUpdateBabyFunctionMap.set(511, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby] = getCurrentBaby();
   if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for ${baby.name}.`);
+    error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   if (gameFrameCount >= g.run.babyFrame) {
