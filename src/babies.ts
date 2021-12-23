@@ -712,6 +712,7 @@ export const BABIES: BabyDescription[] = [
     name: "Statue Baby 2",
     description: "Improved Secret Rooms",
     sprite: "118_baby_statue.png",
+    num: 4,
   },
   {
     name: "Grin Baby",
@@ -895,6 +896,7 @@ export const BABIES: BabyDescription[] = [
     name: "Butterfly Baby",
     description: "Improved Super Secret Rooms",
     sprite: "149_baby_butterfly.png",
+    num: 4,
   },
   {
     name: "Goggles Baby",
@@ -1843,10 +1845,9 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Bloodied Baby",
-    description: "Starts with Blood Rights + The Polaroid",
+    description: "Create red doors on hit + improved Ultra Secret Rooms",
     sprite: "301_baby_bloodied.png",
-    item: CollectibleType.COLLECTIBLE_BLOOD_RIGHTS,
-    item2: CollectibleType.COLLECTIBLE_POLAROID,
+    num: 5,
   },
   {
     name: "Cheese Baby",

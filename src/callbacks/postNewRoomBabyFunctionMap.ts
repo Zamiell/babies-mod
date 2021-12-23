@@ -18,7 +18,7 @@ import { RandomBabyType } from "../babies";
 import g from "../globals";
 import { TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP } from "../maps/teleportRoomTypeToItemAndPriceMap";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
-import { useActiveItem } from "../util";
+import { getCurrentBaby, useActiveItem } from "../util";
 
 export const postNewRoomBabyFunctionMap = new Map<int, () => void>();
 
@@ -130,13 +130,17 @@ postNewRoomBabyFunctionMap.set(118, () => {
   const roomType = g.r.GetType();
   const isFirstVisit = g.r.IsFirstVisit();
   const center = g.r.GetCenterPos();
+  const [, baby] = getCurrentBaby();
+  if (baby.num === undefined) {
+    error(`The "num" attribute was not defined for: ${baby.name}`);
+  }
 
   if (roomType !== RoomType.ROOM_SECRET || !isFirstVisit) {
     return;
   }
 
   // Improved Secret Rooms
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < baby.num; i++) {
     const position = g.r.FindFreePickupSpawnPosition(center, 1, true);
     g.run.randomSeed = nextSeed(g.run.randomSeed);
     g.g.Spawn(
@@ -182,14 +186,17 @@ postNewRoomBabyFunctionMap.set(149, () => {
   const roomType = g.r.GetType();
   const isFirstVisit = g.r.IsFirstVisit();
   const center = g.r.GetCenterPos();
+  const [, baby] = getCurrentBaby();
+  if (baby.num === undefined) {
+    error(`The "num" attribute was not defined for: ${baby.name}`);
+  }
 
   if (roomType !== RoomType.ROOM_SUPERSECRET || !isFirstVisit) {
     return;
   }
 
   // Improved Super Secret Rooms
-  const numSpawnedCollectibles = 5;
-  for (let i = 0; i < numSpawnedCollectibles; i++) {
+  for (let i = 0; i < baby.num; i++) {
     const position = g.r.FindFreePickupSpawnPosition(center, 1, true);
     g.run.randomSeed = nextSeed(g.run.randomSeed);
     g.g.Spawn(
@@ -441,6 +448,36 @@ postNewRoomBabyFunctionMap.set(297, () => {
 
   if (!roomClear) {
     useActiveItem(g.p, CollectibleType.COLLECTIBLE_MEAT_CLEAVER);
+  }
+});
+
+// Bloodied Baby
+postNewRoomBabyFunctionMap.set(301, () => {
+  const roomType = g.r.GetType();
+  const isFirstVisit = g.r.IsFirstVisit();
+  const center = g.r.GetCenterPos();
+  const [, baby] = getCurrentBaby();
+  if (baby.num === undefined) {
+    error(`The "num" attribute was not defined for: ${baby.name}`);
+  }
+
+  if (roomType !== RoomType.ROOM_ULTRASECRET || !isFirstVisit) {
+    return;
+  }
+
+  // Improved Ultra Secret Rooms
+  for (let i = 0; i < baby.num; i++) {
+    const position = g.r.FindFreePickupSpawnPosition(center, 1, true);
+    g.run.randomSeed = nextSeed(g.run.randomSeed);
+    g.g.Spawn(
+      EntityType.ENTITY_PICKUP,
+      PickupVariant.PICKUP_COLLECTIBLE,
+      position,
+      Vector.Zero,
+      undefined,
+      0,
+      g.run.randomSeed,
+    );
   }
 });
 

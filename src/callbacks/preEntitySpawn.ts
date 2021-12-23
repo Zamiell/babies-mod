@@ -17,7 +17,8 @@ export function main(
   if (
     baby.name === "Purple Baby" && // 252
     entityType === EntityType.ENTITY_FIREPLACE &&
-    variant !== FireplaceVariant.BLUE
+    variant !== FireplaceVariant.BLUE &&
+    variant !== FireplaceVariant.WHITE
   ) {
     return [entityType, FireplaceVariant.BLUE, subType, initSeed];
   }

@@ -1,5 +1,7 @@
 import {
+  closeDoorFast,
   GAME_FRAMES_PER_SECOND,
+  getDoors,
   getNPCs,
   getRandom,
   getRandomCard,
@@ -401,6 +403,35 @@ entityTakeDmgPlayerBabyFunctionMap.set(285, (player) => {
 // Banshee Baby
 entityTakeDmgPlayerBabyFunctionMap.set(293, (player) => {
   useActiveItem(player, CollectibleType.COLLECTIBLE_CRACK_THE_SKY);
+});
+
+// Bloodied Baby
+entityTakeDmgPlayerBabyFunctionMap.set(301, (player) => {
+  const roomClear = g.r.IsClear();
+
+  const doorStateMap = new Map<int, DoorState>();
+  for (const door of getDoors()) {
+    doorStateMap.set(door.TargetRoomIndex, door.State);
+  }
+
+  const useFlags = UseFlag.USE_NOANIM | UseFlag.USE_NOANNOUNCER;
+  player.UseCard(Card.CARD_SOUL_CAIN, useFlags);
+
+  if (roomClear) {
+    return;
+  }
+
+  // Soul of Cain will open all of the doors, but we only want to open the doors to the red rooms
+  for (const door of getDoors()) {
+    const oldState = doorStateMap.get(door.TargetRoomIndex);
+    if (oldState === undefined) {
+      continue;
+    }
+
+    if (oldState !== door.State) {
+      closeDoorFast(door);
+    }
+  }
 });
 
 // X Mouth Baby

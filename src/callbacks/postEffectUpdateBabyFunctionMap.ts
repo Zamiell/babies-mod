@@ -72,7 +72,10 @@ postEffectUpdateBabyFunctionMap.set(146, (effect: EntityEffect) => {
 // Fang Demon Baby
 postEffectUpdateBabyFunctionMap.set(281, (effect: EntityEffect) => {
   // Directed light beams
-  if (effect.Variant !== EffectVariant.TARGET) {
+  if (
+    effect.Variant !== EffectVariant.TARGET &&
+    effect.Variant !== EffectVariant.OCCULT_TARGET
+  ) {
     return;
   }
 

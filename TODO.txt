@@ -1,6 +1,5 @@
 TODO:
 
-effect idea : cracked key effect on hit + improved ultra secret rooms
 baby 158 is kinda duplicate with baby 58
 effect idea : special rooms are angel shops
 effect idea : spawn 4 dark room-like chests at the beginning of the floor (can't have it on stage 9/11)
