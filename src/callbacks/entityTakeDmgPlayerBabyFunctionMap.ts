@@ -8,6 +8,7 @@ import {
   getRandomHeartSubType,
   getRandomInt,
   getRandomRune,
+  isSelfDamage,
   nextSeed,
   openAllDoors,
   removeCollectibleFromItemTracker,
@@ -623,14 +624,23 @@ entityTakeDmgPlayerBabyFunctionMap.set(472, (player) => {
 });
 
 // Scoreboard Baby
-entityTakeDmgPlayerBabyFunctionMap.set(474, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+entityTakeDmgPlayerBabyFunctionMap.set(
+  474,
+  (_player: EntityPlayer, _damageAmount: float, damageFlags: int) => {
+    const gameFrameCount = g.g.GetFrameCount();
 
-  // Death in 1 minute
-  if (g.run.babyCounters === 0) {
+    if (g.run.babyCounters !== 0) {
+      return;
+    }
+
+    if (isSelfDamage(damageFlags)) {
+      return;
+    }
+
+    // Death in 1 minute
     g.run.babyCounters = gameFrameCount + 60 * 30;
-  }
-});
+  },
+);
 
 // Egg Baby
 entityTakeDmgPlayerBabyFunctionMap.set(488, (player) => {

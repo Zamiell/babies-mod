@@ -3065,7 +3065,7 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Ill Baby",
-    description: "Bob's Brain tears",
+    description: "Bob's Rotten Head tears",
     sprite: "498_baby_ill.png",
     mustHaveTears: true,
   },

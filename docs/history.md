@@ -8,6 +8,7 @@
   - Blindfold Baby (#202) - Can no longer use Sacrificial Altar. (Thanks Gamonymous)
   - Bloodied Baby (#301) - "Starts with Blood Rights + The Polaroid" --> "Create red doors on hit + improved Ultra Secret Rooms"
   - Corrupted Baby (#307) - Can now take quest collectibles without taking damage. (Thanks Gamonymous)
+  - Scoreboard Baby (#474) - No longer starts the timer upon taking self-damage. (Thanks Gamonymous)
   - Orange Pig Baby (#381) - Can no longer be gotten if the player has Damocles. (Thanks Gamonymous)
   - Hooligan Baby (#514) - Can no longer be gotten on stage 6, stage 8, or anything beyond stage 8. (Thanks Gamonymous)
 - Fixed the bug where temporary baby passive items would count towards transformations.
