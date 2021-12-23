@@ -687,6 +687,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(493, (player) => {
 entityTakeDmgPlayerBabyFunctionMap.set(499, (player) => {
   // Random card effect on hit
   const exceptions = [Card.CARD_SUICIDE_KING]; // It would be unfair to randomly die
+  g.run.randomSeed = nextSeed(g.run.randomSeed);
   const card = getRandomCard(g.run.randomSeed, exceptions);
   player.UseCard(card);
 });
