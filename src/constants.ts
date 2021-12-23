@@ -7,4 +7,4 @@ export const MOD_NAME = "The Babies Mod";
 export const NUM_SUCCUBI_IN_FLOCK = 10;
 
 // The version is updated automatically by IsaacScript
-export const VERSION = "1.4.0";
+export const VERSION = "1.4.1";

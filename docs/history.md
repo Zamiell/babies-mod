@@ -28,6 +28,7 @@
 - Fixed the bug where Slicer Baby (#331) had range that was too long. (Thanks Gamonymous)
 - Fixed the bug where Imp Baby (#386) was not working properly. (Thanks Gamonymous)
 - Fixed the bug where Headphone Baby (#470) tears would be pointed the wrong directly on the first frame. (Thanks Gamonymous)
+- Fixed the bug where Lazy Baby (#499) was not choosing a random card properly. (Thanks Gamonymous)
 - Fixed the bug where Found Soul Baby (#521) would spawn more than one Dark Esau with Birthright. (Thanks Gamonymous)
 - Fixed the bug where Fate's Reward (#574) had items costing 99 coins instead of 15 coins.
 
