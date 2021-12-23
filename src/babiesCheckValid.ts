@@ -43,6 +43,7 @@ function babiesCheckValidDuplicateItem() {
   for (let i = 0; i < BABIES.length; i++) {
     const baby = BABIES[i];
 
+    // Babies with 1 item
     if (baby.item !== undefined && baby.item2 === undefined) {
       for (let j = 0; j < BABIES.length; j++) {
         if (i === j) {
@@ -61,6 +62,7 @@ function babiesCheckValidDuplicateItem() {
       }
     }
 
+    // Babies with 2 items
     if (baby.item !== undefined && baby.item2 !== undefined) {
       for (let j = 0; j < BABIES.length; j++) {
         if (i === j) {
@@ -86,6 +88,13 @@ function babiesCheckValidDuplicateItem() {
       getCollectibleItemType(baby.item2) === ItemType.ITEM_ACTIVE
     ) {
       log(`ERROR: Baby #${i} has an active item in the second slot.`);
+    }
+
+    if (
+      baby.item3 !== undefined &&
+      getCollectibleItemType(baby.item3) === ItemType.ITEM_ACTIVE
+    ) {
+      log(`ERROR: Baby #${i} has an active item in the third slot.`);
     }
   }
 }

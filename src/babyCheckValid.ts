@@ -2,6 +2,7 @@ import { getCollectibleItemType, getEffectiveStage } from "isaacscript-common";
 import { BABIES } from "./babies";
 import g from "./globals";
 import { BabyDescription } from "./types/BabyDescription";
+import { CollectibleTypeCustom } from "./types/CollectibleTypeCustom";
 
 export function babyCheckValid(player: EntityPlayer, babyType: int): boolean {
   const baby = BABIES[babyType];
@@ -19,6 +20,9 @@ export function babyCheckValid(player: EntityPlayer, babyType: int): boolean {
     return false;
   }
   if (baby.item2 !== undefined && player.HasCollectible(baby.item2)) {
+    return false;
+  }
+  if (baby.item3 !== undefined && player.HasCollectible(baby.item3)) {
     return false;
   }
 
@@ -91,13 +95,14 @@ function checkHealth(player: EntityPlayer, baby: BabyDescription) {
   const soulHearts = player.GetSoulHearts();
   const boneHearts = player.GetBoneHearts();
   const totalHealth = maxHearts + soulHearts + boneHearts;
+  const babyItemSet = getBabyItemsSet(baby);
 
   if (baby.numHits !== undefined && totalHealth < baby.numHits) {
     return false;
   }
 
   if (
-    baby.item === CollectibleType.COLLECTIBLE_POTATO_PEELER &&
+    babyItemSet.has(CollectibleType.COLLECTIBLE_POTATO_PEELER) &&
     maxHearts === 0
   ) {
     return false;
@@ -118,6 +123,7 @@ function checkInventory(player: EntityPlayer, baby: BabyDescription) {
   const coins = player.GetNumCoins();
   const bombs = player.GetNumBombs();
   const keys = player.GetNumKeys();
+  const babyItemsSet = getBabyItemsSet(baby);
 
   if (baby.requireCoins === true && coins === 0) {
     return false;
@@ -137,11 +143,7 @@ function checkInventory(player: EntityPlayer, baby: BabyDescription) {
     return false;
   }
 
-  if (
-    (baby.item === CollectibleType.COLLECTIBLE_DOLLAR ||
-      baby.item2 === CollectibleType.COLLECTIBLE_DOLLAR) &&
-    coins >= 50
-  ) {
+  if (babyItemsSet.has(CollectibleType.COLLECTIBLE_DOLLAR) && coins >= 50) {
     return false;
   }
 
@@ -164,10 +166,11 @@ function checkInventory(player: EntityPlayer, baby: BabyDescription) {
 }
 
 function checkItem(player: EntityPlayer, baby: BabyDescription) {
+  const babyItemsSet = getBabyItemsSet(baby);
+
   if (
     (baby.mustHaveTears === true ||
-      baby.item === CollectibleType.COLLECTIBLE_SOY_MILK || // 330
-      baby.item2 === CollectibleType.COLLECTIBLE_SOY_MILK) && // 330
+      babyItemsSet.has(CollectibleType.COLLECTIBLE_SOY_MILK)) &&
     (player.HasCollectible(CollectibleType.COLLECTIBLE_DR_FETUS) || // 52
       player.HasCollectible(CollectibleType.COLLECTIBLE_TECHNOLOGY) || // 68
       player.HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE) || // 114
@@ -179,35 +182,30 @@ function checkItem(player: EntityPlayer, baby: BabyDescription) {
   }
 
   if (
-    baby.item === CollectibleType.COLLECTIBLE_ISAACS_TEARS && // 323
+    babyItemsSet.has(CollectibleType.COLLECTIBLE_ISAACS_TEARS) && // 323
     player.HasCollectible(CollectibleType.COLLECTIBLE_IPECAC) // 149
   ) {
     return false;
   }
 
   if (
-    (baby.item === CollectibleType.COLLECTIBLE_COMPASS || // 21
-      baby.item2 === CollectibleType.COLLECTIBLE_COMPASS || // 21
-      baby.item === CollectibleType.COLLECTIBLE_TREASURE_MAP || // 54
-      baby.item2 === CollectibleType.COLLECTIBLE_TREASURE_MAP || // 54
-      baby.item === CollectibleType.COLLECTIBLE_BLUE_MAP || // 246
-      baby.item2 === CollectibleType.COLLECTIBLE_BLUE_MAP) && // 246
+    (babyItemsSet.has(CollectibleType.COLLECTIBLE_COMPASS) || // 21
+      babyItemsSet.has(CollectibleType.COLLECTIBLE_TREASURE_MAP) || // 54
+      babyItemsSet.has(CollectibleType.COLLECTIBLE_BLUE_MAP)) && // 246
     player.HasCollectible(CollectibleType.COLLECTIBLE_MIND) // 333
   ) {
     return false;
   }
 
   if (
-    (baby.item === CollectibleType.COLLECTIBLE_TECH_X || // 395
-      baby.item2 === CollectibleType.COLLECTIBLE_TECH_X) && // 395
+    babyItemsSet.has(CollectibleType.COLLECTIBLE_TECH_X) && // 395
     player.HasCollectible(CollectibleType.COLLECTIBLE_DEAD_EYE) // 373
   ) {
     return false;
   }
 
   if (
-    (baby.item === CollectibleType.COLLECTIBLE_DEAD_EYE || // 373
-      baby.item2 === CollectibleType.COLLECTIBLE_DEAD_EYE) && // 373
+    babyItemsSet.has(CollectibleType.COLLECTIBLE_DEAD_EYE) && // 373
     player.HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) // 395
   ) {
     return false;
@@ -357,6 +355,16 @@ function checkItem(player: EntityPlayer, baby: BabyDescription) {
   }
 
   if (
+    baby.name === "Orange Pig Baby" && // 381
+    (player.HasCollectible(CollectibleType.COLLECTIBLE_DAMOCLES) ||
+      player.HasCollectible(CollectibleType.COLLECTIBLE_DAMOCLES_PASSIVE))
+  ) {
+    // Double items
+    // Damocles does not work properly with this mechanic
+    return false;
+  }
+
+  if (
     baby.name === "Imp Baby" && // 386
     player.HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS)
   ) {
@@ -421,14 +429,14 @@ function checkItem(player: EntityPlayer, baby: BabyDescription) {
 
 function checkStage(baby: BabyDescription) {
   const effectiveStage = getEffectiveStage();
+  const babyItemsSet = getBabyItemsSet(baby);
 
   if (baby.noEndFloors === true && effectiveStage >= 9) {
     return false;
   }
 
   if (
-    (baby.item === CollectibleType.COLLECTIBLE_STEAM_SALE ||
-      baby.item2 === CollectibleType.COLLECTIBLE_STEAM_SALE) &&
+    babyItemsSet.has(CollectibleType.COLLECTIBLE_STEAM_SALE) &&
     effectiveStage >= 7
   ) {
     // Only valid for floors with shops
@@ -436,7 +444,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.item === CollectibleType.COLLECTIBLE_WE_NEED_TO_GO_DEEPER &&
+    babyItemsSet.has(CollectibleType.COLLECTIBLE_WE_NEED_TO_GO_DEEPER) &&
     (effectiveStage <= 2 || effectiveStage >= 8)
   ) {
     // Only valid for floors that the shovel will work on
@@ -444,34 +452,30 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    (baby.item === CollectibleType.COLLECTIBLE_SCAPULAR ||
-      baby.item2 === CollectibleType.COLLECTIBLE_SCAPULAR) &&
+    babyItemsSet.has(CollectibleType.COLLECTIBLE_SCAPULAR) &&
     effectiveStage >= 7
   ) {
     return false;
   }
 
   if (
-    baby.item === CollectibleType.COLLECTIBLE_CRYSTAL_BALL &&
+    babyItemsSet.has(CollectibleType.COLLECTIBLE_CRYSTAL_BALL) &&
     effectiveStage <= 2
   ) {
     return false;
   }
 
   if (
-    baby.item === CollectibleType.COLLECTIBLE_UNDEFINED &&
+    babyItemsSet.has(CollectibleType.COLLECTIBLE_UNDEFINED) &&
     effectiveStage <= 2
   ) {
     return false;
   }
 
   if (
-    (baby.item === CollectibleType.COLLECTIBLE_GOAT_HEAD || // 215
-      baby.item2 === CollectibleType.COLLECTIBLE_GOAT_HEAD || // 215
-      baby.item === CollectibleType.COLLECTIBLE_DUALITY || // 498
-      baby.item2 === CollectibleType.COLLECTIBLE_DUALITY || // 498
-      baby.item === CollectibleType.COLLECTIBLE_EUCHARIST || // 499
-      baby.item2 === CollectibleType.COLLECTIBLE_EUCHARIST) && // 499
+    (babyItemsSet.has(CollectibleType.COLLECTIBLE_GOAT_HEAD) || // 215
+      babyItemsSet.has(CollectibleType.COLLECTIBLE_DUALITY) || // 498
+      babyItemsSet.has(CollectibleType.COLLECTIBLE_EUCHARIST)) && // 499
     (effectiveStage === 1 || effectiveStage >= 9)
   ) {
     // Only valid for floors with Devil Rooms
@@ -479,8 +483,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    (baby.item === CollectibleType.COLLECTIBLE_THERES_OPTIONS ||
-      baby.item2 === CollectibleType.COLLECTIBLE_THERES_OPTIONS) &&
+    babyItemsSet.has(CollectibleType.COLLECTIBLE_THERES_OPTIONS) &&
     (effectiveStage === 6 || effectiveStage >= 8)
   ) {
     // There won't be a boss item on floor 6 or floor 8 and beyond
@@ -488,8 +491,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    (baby.item === CollectibleType.COLLECTIBLE_MORE_OPTIONS ||
-      baby.item2 === CollectibleType.COLLECTIBLE_MORE_OPTIONS) &&
+    babyItemsSet.has(CollectibleType.COLLECTIBLE_MORE_OPTIONS) &&
     (effectiveStage === 1 || effectiveStage >= 7)
   ) {
     // We always have More Options on Basement 1
@@ -707,4 +709,19 @@ function checkStage(baby: BabyDescription) {
   }
 
   return true;
+}
+
+function getBabyItemsSet(baby: BabyDescription) {
+  const babyItemsSet = new Set<CollectibleType | CollectibleTypeCustom>();
+  if (baby.item !== undefined) {
+    babyItemsSet.add(baby.item);
+  }
+  if (baby.item2 !== undefined) {
+    babyItemsSet.add(baby.item2);
+  }
+  if (baby.item3 !== undefined) {
+    babyItemsSet.add(baby.item3);
+  }
+
+  return babyItemsSet;
 }

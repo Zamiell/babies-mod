@@ -114,12 +114,6 @@ babyRemoveFunctionMap.set(343, () => {
   Isaac.ExecuteCommand("debug 7");
 });
 
-// Yellow Princess Baby
-babyRemoveFunctionMap.set(375, () => {
-  // This is the third item given, so we have to handle it manually
-  g.p.RemoveCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE);
-});
-
 // Dino Baby
 babyRemoveFunctionMap.set(376, () => {
   // Remove any leftover eggs
@@ -127,18 +121,6 @@ babyRemoveFunctionMap.set(376, () => {
     EntityType.ENTITY_FAMILIAR,
     FamiliarVariant.BOBS_BRAIN,
   );
-});
-
-// Dream Knight Baby
-babyRemoveFunctionMap.set(393, () => {
-  // This is the third item given, so we have to handle it manually
-  g.p.RemoveCollectible(CollectibleType.COLLECTIBLE_KEY_BUM);
-});
-
-// Blurred Baby
-babyRemoveFunctionMap.set(407, () => {
-  // This is the third item given, so we have to handle it manually
-  g.p.RemoveCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE);
 });
 
 // Half Spider Baby

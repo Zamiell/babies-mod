@@ -7,9 +7,11 @@
   - Nosferatu Baby (#109) - Can no longer be gotten on stage 8 or beyond. (Thanks Gamonymous)
   - Blindfold Baby (#202) - Can no longer use Sacrificial Altar. (Thanks Gamonymous)
   - Bloodied Baby (#301) - "Starts with Blood Rights + The Polaroid" --> "Create red doors on hit + improved Ultra Secret Rooms"
-  - Corrupted Baby (#307) - Can now take quest collectibles without taking damage.
+  - Corrupted Baby (#307) - Can now take quest collectibles without taking damage. (Thanks Gamonymous)
+  - Orange Pig Baby (#381) - Can no longer be gotten if the player has Damocles. (Thanks Gamonymous)
   - Hooligan Baby (#514) - Can no longer be gotten on stage 6, stage 8, or anything beyond stage 8. (Thanks Gamonymous)
 - Fixed the bug where temporary baby passive items would count towards transformations.
+- Fixed the bug where babies with three items would have the third item show on the item tracker. (Thanks Gamonymous)
 - Fixed the bug where some cards would remove the baby's sprite. (Thanks Gamonymous)
 - Fixed the bug where using a transformation item like Judas' Shadow would remove the baby's sprite. (Thanks Gamonymous)
 - Fixed the bug where using Genesis would cause the baby sprite to be incorrect. (Thanks Gamonymous)
@@ -23,6 +25,7 @@
 - Fixed the bug where Fang Demon Baby (#281) would not work properly with Eye of the Occult. (Thanks Gamonymous)
 - Fixed the bug where Suit Baby (#287) would turn some special rooms into Devil Rooms that were inappropriate. (Thanks Gamonymous)
 - Fixed the bug where Slicer Baby (#331) had range that was too long. (Thanks Gamonymous)
+- Fixed the bug where Imp Baby (#386) was not working properly. (Thanks Gamonymous)
 - Fixed the bug where Found Soul Baby (#521) would spawn more than one Dark Esau with Birthright. (Thanks Gamonymous)
 - Fixed the bug where Fate's Reward (#574) had items costing 99 coins instead of 15 coins.
 

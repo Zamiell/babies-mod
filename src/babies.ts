@@ -2309,7 +2309,7 @@ export const BABIES: BabyDescription[] = [
     sprite: "375_baby_yellowprincess.png",
     item: CollectibleType.COLLECTIBLE_IPECAC,
     item2: CollectibleType.COLLECTIBLE_TRISAGION,
-    // (Flat Stone is manually given later)
+    item3: CollectibleType.COLLECTIBLE_FLAT_STONE,
     mustHaveTears: true,
   },
   {
@@ -2380,7 +2380,7 @@ export const BABIES: BabyDescription[] = [
     item2: CollectibleType.COLLECTIBLE_LOKIS_HORNS,
     flight: true,
     explosionImmunity: true,
-    blindfolded: true,
+    blindfolded2: true,
     noEndFloors: true,
     num: 3, // In game frames
   },
@@ -2426,7 +2426,7 @@ export const BABIES: BabyDescription[] = [
     sprite: "393_baby_dreamknight.png",
     item: CollectibleType.COLLECTIBLE_BUM_FRIEND,
     item2: CollectibleType.COLLECTIBLE_DARK_BUM,
-    // (Key Bum is given manually)
+    item3: CollectibleType.COLLECTIBLE_KEY_BUM,
   },
   {
     name: "Cowboy Baby",
@@ -2511,7 +2511,7 @@ export const BABIES: BabyDescription[] = [
     sprite: "407_baby_blurred.png",
     item: CollectibleType.COLLECTIBLE_IPECAC,
     item2: CollectibleType.COLLECTIBLE_LUDOVICO_TECHNIQUE,
-    // (Flat Stone is manually given later)
+    item3: CollectibleType.COLLECTIBLE_FLAT_STONE,
     mustHaveTears: true,
   },
   {

@@ -78,10 +78,17 @@ export function babyAdd(player: EntityPlayer): void {
   }
 
   // Check if this is a baby that grants a second item
-  // (this should always be a passive item; we explicitly check for this in "main.ts")
+  // (this should always be a passive item; we explicitly check for this on startup)
   if (baby.item2 !== undefined) {
     giveItemAndRemoveFromPools(baby.item2);
     removeCollectibleFromItemTracker(baby.item2);
+  }
+
+  // Check if this is a baby that grants a third item
+  // (this should always be a passive item; we explicitly check for this on startup)
+  if (baby.item3 !== undefined) {
+    giveItemAndRemoveFromPools(baby.item3);
+    removeCollectibleFromItemTracker(baby.item3);
   }
 
   // Check if this is a trinket baby

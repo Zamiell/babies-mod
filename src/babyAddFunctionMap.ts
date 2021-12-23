@@ -131,13 +131,6 @@ babyAddFunctionMap.set(350, () => {
   g.run.babyFrame = g.g.GetFrameCount() + baby.num;
 });
 
-// Yellow Princess Baby
-babyAddFunctionMap.set(375, () => {
-  // This is the third item given, so we have to handle it manually
-  g.p.AddCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE);
-  removeCollectibleFromItemTracker(CollectibleType.COLLECTIBLE_FLAT_STONE);
-});
-
 // Imp Baby
 babyAddFunctionMap.set(386, () => {
   const [, baby] = getCurrentBaby();
@@ -148,18 +141,6 @@ babyAddFunctionMap.set(386, () => {
   // Start the direction at left
   g.run.babyCounters = ButtonAction.ACTION_SHOOTLEFT;
   g.run.babyFrame = g.g.GetFrameCount() + baby.num;
-});
-
-// Dream Knight Baby
-babyAddFunctionMap.set(393, () => {
-  g.p.AddCollectible(CollectibleType.COLLECTIBLE_KEY_BUM);
-});
-
-// Blurred Baby
-babyAddFunctionMap.set(407, () => {
-  // This is the third item given, so we have to handle it manually
-  g.p.AddCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE);
-  removeCollectibleFromItemTracker(CollectibleType.COLLECTIBLE_FLAT_STONE);
 });
 
 // Rich Baby

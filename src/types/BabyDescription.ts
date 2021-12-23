@@ -17,6 +17,7 @@ export interface BabyDescription {
   flight?: boolean;
   item?: CollectibleType | CollectibleTypeCustom;
   item2?: CollectibleType | CollectibleTypeCustom;
+  item3?: CollectibleType | CollectibleTypeCustom;
   itemNum?: int;
   max?: int;
   min?: int;
