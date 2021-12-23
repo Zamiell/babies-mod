@@ -1,11 +1,21 @@
 import { PickingUpItem } from "isaacscript-common";
 import g from "../globals";
+import { getCurrentBaby } from "../util";
+import { postItemPickupBabyFunctionMap } from "./postItemPickupBabyFunctionMap";
 
-export function main(
-  _player: EntityPlayer,
-  pickingUpItem: PickingUpItem,
-): void {
+export function main(player: EntityPlayer, pickingUpItem: PickingUpItem): void {
   checkAddItem(pickingUpItem);
+
+  const [babyType, , valid] = getCurrentBaby();
+  if (!valid) {
+    return;
+  }
+
+  const postItemPickupBabyFunction =
+    postItemPickupBabyFunctionMap.get(babyType);
+  if (postItemPickupBabyFunction !== undefined) {
+    postItemPickupBabyFunction(player, pickingUpItem);
+  }
 }
 
 function checkAddItem(pickingUpItem: PickingUpItem) {

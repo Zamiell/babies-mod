@@ -13,6 +13,7 @@
 - Fixed the bug where Pubic Baby (#110) would not work correctly on floors with an alternate dimension. (Thanks Gamonymous)
 - Fixed the bug where Aban Baby (#177) was not having coins fade away correctly.
 - Fixed the bug where Piece B Baby (#180) was not able to charge pocket items. (Thanks Gamonymous)
+- Fixed the bug where Fancy Baby (#216) would not work with Planetariums. (Thanks Gamonymous)
 - Fixed the bug where Suit Baby (#287) would turn some special rooms into Devil Rooms that were inappropriate. (Thanks Gamonymous)
 - Fixed the bug where Slicer Baby (#331) had range that was too long. (Thanks Gamonymous)
 - Fixed the bug where Found Soul Baby (#521) would spawn more than one Dark Esau with Birthright. (Thanks Gamonymous)

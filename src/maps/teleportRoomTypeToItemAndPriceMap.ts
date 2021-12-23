@@ -76,4 +76,8 @@ export const TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP = new Map([
     RoomType.ROOM_DICE,
     [CollectibleTypeCustom.COLLECTIBLE_DICE_ROOM_TELEPORT, TeleportPrice.TEN],
   ], // 21
+  [
+    RoomType.ROOM_PLANETARIUM,
+    [CollectibleTypeCustom.COLLECTIBLE_PLANETARIUM_TELEPORT, TeleportPrice.TEN],
+  ], // 24
 ]);

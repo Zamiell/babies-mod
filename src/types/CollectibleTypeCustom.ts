@@ -17,6 +17,9 @@ export enum CollectibleTypeCustom {
   COLLECTIBLE_CHALLENGE_ROOM_TELEPORT = Isaac.GetItemIdByName(
     "Challenge Room Teleport",
   ),
+  COLLECTIBLE_BOSS_CHALLENGE_ROOM_TELEPORT = Isaac.GetItemIdByName(
+    "Boss Challenge Room Teleport",
+  ),
   COLLECTIBLE_LIBRARY_TELEPORT = Isaac.GetItemIdByName("Library Teleport"),
   COLLECTIBLE_SACRIFICE_ROOM_TELEPORT = Isaac.GetItemIdByName(
     "Sacrifice Room Teleport",
@@ -31,6 +34,9 @@ export enum CollectibleTypeCustom {
     "Treasure Chest Room Teleport",
   ),
   COLLECTIBLE_DICE_ROOM_TELEPORT = Isaac.GetItemIdByName("Dice Room Teleport"),
+  COLLECTIBLE_PLANETARIUM_TELEPORT = Isaac.GetItemIdByName(
+    "Planetarium Teleport",
+  ),
 
   // Racing+ items
   COLLECTIBLE_CHECKPOINT = Isaac.GetItemIdByName("Checkpoint"),

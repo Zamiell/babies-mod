@@ -47,6 +47,7 @@ import * as postPlayerChangeType from "./callbacksCustom/postPlayerChangeType";
 import * as postPurchase from "./callbacksCustom/postPurchase";
 import * as postSlotDestroyed from "./callbacksCustom/postSlotDestroyed";
 import * as postTrinketBreak from "./callbacksCustom/postTrinketBreak";
+import * as preItemPickup from "./callbacksCustom/preItemPickup";
 import { MOD_NAME, VERSION } from "./constants";
 import { initCostumeProtector } from "./costumes";
 import g from "./globals";
@@ -146,6 +147,10 @@ function registerCallbacksCustom(mod: ModUpgraded) {
   mod.AddCallbackCustom(
     ModCallbacksCustom.MC_POST_PICKUP_COLLECT,
     postPickupCollect.main,
+  );
+  mod.AddCallbackCustom(
+    ModCallbacksCustom.MC_PRE_ITEM_PICKUP,
+    preItemPickup.main,
   );
   mod.AddCallbackCustom(
     ModCallbacksCustom.MC_POST_ITEM_PICKUP,

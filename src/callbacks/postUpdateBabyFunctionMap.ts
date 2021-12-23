@@ -9,7 +9,6 @@ import {
   getFamiliars,
   getRandomArrayElement,
   getRandomInt,
-  getRoomGridIndexesForType,
   getRoomListIndex,
   inStartingRoom,
   isActionPressedOnAnyInput,
@@ -17,13 +16,10 @@ import {
   isEntityMoving,
   isShootActionPressedOnAnyInput,
   nextSeed,
-  teleport,
 } from "isaacscript-common";
 import { BABIES, RandomBabyType } from "../babies";
 import g from "../globals";
-import { TELEPORT_COLLECTIBLE_TYPE_TO_ROOM_TYPE_MAP } from "../maps/teleportCollectibleTypeToRoomTypeMap";
 import * as pseudoRoomClear from "../pseudoRoomClear";
-import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 import { EffectVariantCustom } from "../types/EffectVariantCustom";
 import { bigChestExists, getCurrentBaby, useActiveItem } from "../util";
 
@@ -567,29 +563,6 @@ postUpdateBabyFunctionMap.set(211, () => {
     if (!g.r.IsPositionInRoom(tear.position, 0)) {
       g.run.room.tears.splice(i, 1);
     }
-  }
-});
-
-// Fancy Baby
-postUpdateBabyFunctionMap.set(216, () => {
-  // Can purchase teleports to special rooms
-  const item = g.p.QueuedItem.Item;
-  if (item === undefined || item.Type !== ItemType.ITEM_PASSIVE) {
-    return;
-  }
-
-  const collectibleTypeCustom = item.ID as CollectibleTypeCustom;
-  const teleportRoomType = TELEPORT_COLLECTIBLE_TYPE_TO_ROOM_TYPE_MAP.get(
-    collectibleTypeCustom,
-  );
-  if (teleportRoomType === undefined) {
-    return;
-  }
-
-  const roomGridIndexes = getRoomGridIndexesForType(teleportRoomType);
-  if (roomGridIndexes.length > 0) {
-    const firstRoomGridIndex = roomGridIndexes[0];
-    teleport(firstRoomGridIndex);
   }
 });
 

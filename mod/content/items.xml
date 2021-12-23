@@ -17,6 +17,8 @@
 	<passive description="You seek pain" gfx="teleports/curse_room.png" name="Curse Room Teleport" hidden="true" />
 	<!-- 11 -->
 	<passive description="You seek challenge" gfx="teleports/challenge_room.png" name="Challenge Room Teleport" hidden="true" />
+	<!-- 11 -->
+	<passive description="You seek challenge" gfx="teleports/boss_challenge_room.png" name="Boss Challenge Room Teleport" hidden="true" />
 	<!-- 12 -->
 	<passive description="You seek knowledge" gfx="teleports/library.png" name="Library Teleport" hidden="true" />
 	<!-- 13 -->
@@ -29,4 +31,6 @@
 	<passive description="You seek chests" gfx="teleports/treasure_chest_room.png" name="Treasure Chest Room Teleport" hidden="true" />
 	<!-- 21 -->
 	<passive description="You seek randomness" gfx="teleports/dice_room.png" name="Dice Room Teleport" hidden="true" />
+	<!-- 24 -->
+	<passive description="You seek the planets" gfx="teleports/planetarium.png" name="Planetarium Teleport" hidden="true" />
 </items>

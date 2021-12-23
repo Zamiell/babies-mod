@@ -1,0 +1,35 @@
+import {
+  getRoomGridIndexesForType,
+  PickingUpItem,
+  teleport,
+} from "isaacscript-common";
+import { TELEPORT_COLLECTIBLE_TYPE_TO_ROOM_TYPE_MAP } from "../maps/teleportCollectibleTypeToRoomTypeMap";
+
+export const preItemPickupBabyFunctionMap = new Map<
+  int,
+  (player: EntityPlayer, pickingUpItem: PickingUpItem) => void
+>();
+
+// Fancy Baby
+preItemPickupBabyFunctionMap.set(
+  216,
+  (player: EntityPlayer, pickingUpItem: PickingUpItem) => {
+    if (pickingUpItem.type !== ItemType.ITEM_PASSIVE) {
+      return;
+    }
+
+    // Can purchase teleports to special rooms
+    const teleportRoomType = TELEPORT_COLLECTIBLE_TYPE_TO_ROOM_TYPE_MAP.get(
+      pickingUpItem.id,
+    );
+    if (teleportRoomType === undefined) {
+      return;
+    }
+
+    const roomGridIndexes = getRoomGridIndexesForType(teleportRoomType);
+    if (roomGridIndexes.length > 0) {
+      const firstRoomGridIndex = roomGridIndexes[0];
+      teleport(firstRoomGridIndex);
+    }
+  },
+);
