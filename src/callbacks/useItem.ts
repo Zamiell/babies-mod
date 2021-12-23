@@ -120,11 +120,7 @@ function clockworkAssembly(
     g.run.clockworkAssemblySeed,
   );
 
-  player.AnimateCollectible(
-    CollectibleTypeCustom.COLLECTIBLE_CLOCKWORK_ASSEMBLY,
-    PlayerItemAnimation.USE_ITEM,
-    CollectibleAnimation.PLAYER_PICKUP,
-  );
+  return true;
 }
 
 // CollectibleType.COLLECTIBLE_FLOCK_OF_SUCCUBI
@@ -138,14 +134,11 @@ function flockOfSuccubi(
     player.AddCollectible(CollectibleType.COLLECTIBLE_SUCCUBUS, 0, false);
     removeCollectibleFromItemTracker(CollectibleType.COLLECTIBLE_SUCCUBUS);
   }
-  player.AnimateCollectible(
-    CollectibleTypeCustom.COLLECTIBLE_FLOCK_OF_SUCCUBI,
-    PlayerItemAnimation.USE_ITEM,
-    CollectibleAnimation.PLAYER_PICKUP,
-  );
 
   // Mark to remove the items upon entering a new room
   g.run.flockOfSuccubi = true;
+
+  return true;
 }
 
 // CollectibleType.COLLECTIBLE_CHARGING_STATION
@@ -155,39 +148,40 @@ function chargingStation(
   player: EntityPlayer,
 ) {
   const numCoins = player.GetNumCoins();
-  const schoolbagItem = player.GetActiveItem(ActiveSlot.SLOT_SECONDARY);
 
-  if (
-    numCoins === 0 ||
-    !player.HasCollectible(CollectibleType.COLLECTIBLE_SCHOOLBAG) ||
-    schoolbagItem === 0
-  ) {
+  if (numCoins === 0) {
     return false;
   }
 
-  const currentCharges = player.GetActiveCharge(ActiveSlot.SLOT_SECONDARY);
-  const currentBatteryCharges = player.GetBatteryCharge(
-    ActiveSlot.SLOT_SECONDARY,
-  );
-  const totalCharges = currentCharges + currentBatteryCharges;
-  const maxCharges = getCollectibleMaxCharges(schoolbagItem);
   const hasBattery = player.HasCollectible(CollectibleType.COLLECTIBLE_BATTERY);
-  if (hasBattery && totalCharges >= maxCharges * 2) {
-    return false;
-  }
-  if (!hasBattery && totalCharges >= maxCharges) {
-    return false;
-  }
 
-  player.AddCoins(-1);
-  const incrementedCharge = currentCharges + 1;
-  player.SetActiveCharge(incrementedCharge, ActiveSlot.SLOT_SECONDARY);
-  player.AnimateCollectible(
-    CollectibleTypeCustom.COLLECTIBLE_CHARGING_STATION,
-    PlayerItemAnimation.USE_ITEM,
-    CollectibleAnimation.PLAYER_PICKUP,
-  );
-  playChargeSoundEffect(player, ActiveSlot.SLOT_SECONDARY);
+  for (const activeSlot of [
+    ActiveSlot.SLOT_SECONDARY,
+    ActiveSlot.SLOT_POCKET,
+  ]) {
+    const activeItem = player.GetActiveItem(activeSlot);
+    if (activeItem === CollectibleType.COLLECTIBLE_NULL) {
+      continue;
+    }
+
+    const currentCharges = player.GetActiveCharge(activeSlot);
+    const currentBatteryCharges = player.GetBatteryCharge(activeSlot);
+    const totalCharges = currentCharges + currentBatteryCharges;
+    const maxCharges = getCollectibleMaxCharges(activeItem);
+    if (hasBattery && totalCharges >= maxCharges * 2) {
+      continue;
+    }
+    if (!hasBattery && totalCharges >= maxCharges) {
+      continue;
+    }
+
+    player.AddCoins(-1);
+    const incrementedCharge = currentCharges + 1;
+    player.SetActiveCharge(incrementedCharge, activeSlot);
+    playChargeSoundEffect(player, activeSlot);
+
+    return true;
+  }
 
   return false;
 }

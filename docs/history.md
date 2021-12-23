@@ -4,12 +4,15 @@
 
 - -0- Baby (#24) - Can no longer be gotten on stage 5. (Thanks Gamonymous)
 - Nosferatu Baby (#109) - Can no longer be gotten on stage 8 or beyond. (Thanks Gamonymous)
+- Blindfold Baby (#202) - Can no longer use Sacrificial Altar. (Thanks Gamonymous)
 - Hooligan Baby (#514) - Can no longer be gotten on stage 6, stage 8, or anything beyond stage 8. (Thanks Gamonymous)
+- Fixed the bug where temporary baby passive items would count towards transformations.
 - Fixed the bug where some cards would remove the baby's sprite. (Thanks Gamonymous)
 - Fixed the bug where using a transformation item like Judas' Shadow would remove the baby's sprite. (Thanks Gamonymous)
 - Fixed the bug where using Genesis would cause the baby sprite to be incorrect. (Thanks Gamonymous)
 - Fixed the bug where Pubic Baby (#110) would not work correctly on floors with an alternate dimension. (Thanks Gamonymous)
 - Fixed the bug where Aban Baby (#177) was not having coins fade away correctly.
+- Fixed the bug where Piece B Baby (#180) was not able to charge pocket items. (Thanks Gamonymous)
 - Fixed the bug where Suit Baby (#287) would turn some special rooms into Devil Rooms that were inappropriate. (Thanks Gamonymous)
 - Fixed the bug where Slicer Baby (#331) had range that was too long. (Thanks Gamonymous)
 - Fixed the bug where Found Soul Baby (#521) would spawn more than one Dark Esau with Birthright. (Thanks Gamonymous)

@@ -25,18 +25,24 @@ export function init(mod: Mod): void {
     brownNugget,
     CollectibleType.COLLECTIBLE_BROWN_NUGGET, // 504
   );
+
+  mod.AddCallback(
+    ModCallbacks.MC_PRE_USE_ITEM,
+    sacrificialAltar,
+    CollectibleType.COLLECTIBLE_SACRIFICIAL_ALTAR, // 536
+  );
 }
 
 // CollectibleType.COLLECTIBLE_POOP (36)
-function poop(_collectibleType: number, _rng: RNG) {
+function poop() {
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
-    return false;
+    return undefined;
   }
 
   // 262
   if (baby.name !== "Panda Baby") {
-    return false;
+    return undefined;
   }
 
   // Spawn White Poop next to the player
@@ -49,19 +55,20 @@ function poop(_collectibleType: number, _rng: RNG) {
 
   g.sfx.Play(SoundEffect.SOUND_FART);
 
-  return true; // Cancel the original effect
+  // Cancel the original effect
+  return true;
 }
 
 // CollectibleType.COLLECTIBLE_LEMON_MISHAP (56)
-function lemonMishap(_collectibleType: number, _rng: RNG) {
+function lemonMishap() {
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
-    return false;
+    return undefined;
   }
 
   // 232
   if (baby.name !== "Lemon Baby") {
-    return false;
+    return undefined;
   }
 
   g.p.UsePill(PillEffect.PILLEFFECT_LEMON_PARTY, PillColor.PILL_NULL);
@@ -70,19 +77,21 @@ function lemonMishap(_collectibleType: number, _rng: RNG) {
     PlayerItemAnimation.USE_ITEM,
     CollectibleAnimation.PLAYER_PICKUP,
   );
-  return true; // Cancel the original effect
+
+  // Cancel the original effect
+  return true;
 }
 
 // CollectibleType.COLLECTIBLE_ISAACS_TEARS (323)
-function isaacsTears(_collectibleType: number, _rng: RNG) {
+function isaacsTears() {
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
-    return false;
+    return undefined;
   }
 
   // 3
   if (baby.name !== "Water Baby") {
-    return false;
+    return undefined;
   }
 
   let velocity = Vector(10, 0);
@@ -109,16 +118,16 @@ function isaacsTears(_collectibleType: number, _rng: RNG) {
 }
 
 // CollectibleType.COLLECTIBLE_BROWN_NUGGET (504)
-function brownNugget(_collectibleType: number, _rng: RNG) {
+function brownNugget() {
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
-    return false;
+    return undefined;
   }
 
   // 303
   if (baby.name !== "Pizza Baby") {
-    return false;
+    return undefined;
   }
   if (baby.delay === undefined) {
     error(`The "delay" attribute was not defined for: ${baby.name}`);
@@ -130,5 +139,29 @@ function brownNugget(_collectibleType: number, _rng: RNG) {
     g.run.babyFrame = gameFrameCount + baby.delay;
   }
 
-  return false;
+  return undefined;
+}
+
+// CollectibleType.COLLECTIBLE_SACRIFICIAL_ALTAR (536)
+function sacrificialAltar(
+  _collectibleType: number,
+  _rng: RNG,
+  player: EntityPlayer,
+  _useFlags: int,
+  _activeSlot: ActiveSlot,
+) {
+  const [, baby, valid] = getCurrentBaby();
+  if (!valid) {
+    return undefined;
+  }
+
+  // 202
+  if (baby.name !== "Blindfold Baby") {
+    return undefined;
+  }
+
+  // Prevent using Sacrificial Altar on this baby so that they don't delete the Incubus and become
+  // softlocked
+  player.AnimateSad();
+  return true;
 }
