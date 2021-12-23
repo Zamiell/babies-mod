@@ -536,10 +536,15 @@ postFireTearBabyFunctionMap.set(469, (tear: EntityTear) => {
 
 // Headphone Baby
 postFireTearBabyFunctionMap.set(470, (tear: EntityTear) => {
-  // Soundwave tears
+  // Soundwave tears (1/2)
   tear.ChangeVariant(TearVariant.PUPULA);
   // We don't give it a tear flag of TEAR_FLAT because that makes it look worse
   tear.Scale *= 10;
+
+  // For some reason, changing the tear variant on this frame will cause the tear to point towards
+  // the right
+  // To work around this, make the tear invisible and make it visible on the next frame
+  tear.Visible = false;
 });
 
 // Imp Baby 2

@@ -287,6 +287,16 @@ postTearUpdateBabyFunctionMap.set(459, (tear: EntityTear) => {
   }
 });
 
+// Headphone Baby
+postTearUpdateBabyFunctionMap.set(470, (tear: EntityTear) => {
+  if (tear.FrameCount !== 1) {
+    return;
+  }
+
+  // Soundwave tears (2/2)
+  tear.Visible = true;
+});
+
 // Cursed Pillow Baby
 postTearUpdateBabyFunctionMap.set(487, (tear: EntityTear) => {
   const [, baby] = getCurrentBaby();
