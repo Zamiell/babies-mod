@@ -190,7 +190,7 @@ postPickupUpdateBabyFunctionMap.set(216, (pickup: EntityPickup) => {
   if (
     pickup.Variant === PickupVariant.PICKUP_HEART &&
     pickup.SubType === HeartSubType.HEART_FULL &&
-    pickup.Price === 3 &&
+    pickup.Price === 99 &&
     inStartingRoom()
   ) {
     // Delete the rerolled teleports
@@ -227,7 +227,7 @@ postPickupUpdateBabyFunctionMap.set(287, (pickup: EntityPickup) => {
   } else if (
     pickup.Variant === PickupVariant.PICKUP_HEART &&
     pickup.SubType === HeartSubType.HEART_FULL &&
-    pickup.Price === 3
+    pickup.Price === 99
   ) {
     // Rerolled items turn into hearts since this is a not an actual Devil Room,
     // so delete the heart and manually create another pedestal item
@@ -261,8 +261,6 @@ postPickupUpdateBabyFunctionMap.set(287, (pickup: EntityPickup) => {
 
 // Scary Baby
 postPickupUpdateBabyFunctionMap.set(317, (pickup: EntityPickup) => {
-  const roomType = g.r.GetType();
-
   // Items cost hearts
   if (pickup.Variant === PickupVariant.PICKUP_COLLECTIBLE) {
     // If the price is not correct, update it
@@ -275,8 +273,7 @@ postPickupUpdateBabyFunctionMap.set(317, (pickup: EntityPickup) => {
   } else if (
     pickup.Variant === PickupVariant.PICKUP_HEART &&
     pickup.SubType === HeartSubType.HEART_FULL &&
-    pickup.Price === 3 &&
-    roomType !== RoomType.ROOM_SHOP
+    pickup.Price === 99
   ) {
     // Rerolled items turn into hearts since we are not in a Devil Room,
     // so delete the heart and manually create another pedestal item
@@ -376,13 +373,10 @@ postPickupUpdateBabyFunctionMap.set(
   (pickup: EntityPickup) => {
     // Rerolled items turn into hearts
     // so delete the heart and manually create another pedestal item
-    const roomType = g.r.GetType();
     if (
-      roomType !== RoomType.ROOM_SHOP && // 2
-      roomType !== RoomType.ROOM_ERROR && // 3
       pickup.Variant === PickupVariant.PICKUP_HEART &&
       pickup.SubType === HeartSubType.HEART_FULL &&
-      pickup.Price === 3
+      pickup.Price === 99
     ) {
       g.run.room.seed = nextSeed(g.run.room.seed);
       const pedestal = g.g
@@ -397,6 +391,7 @@ postPickupUpdateBabyFunctionMap.set(
         )
         .ToPickup();
       if (pedestal !== undefined) {
+        pedestal.AutoUpdatePrice = false;
         pedestal.Price = 15;
       }
       pickup.Remove();

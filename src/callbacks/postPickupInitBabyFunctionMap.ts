@@ -117,16 +117,8 @@ postPickupInitBabyFunctionMap.set(
   (pickup: EntityPickup) => {
     // Items cost money
     if (pickup.Variant === PickupVariant.PICKUP_COLLECTIBLE) {
-      const roomType = g.r.GetType();
-      if (
-        roomType === RoomType.ROOM_DEVIL || // 14
-        roomType === RoomType.ROOM_BLACK_MARKET // 22
-      ) {
-        pickup.AutoUpdatePrice = false;
-      }
-      if (pickup.Price <= 0) {
-        pickup.Price = 15;
-      }
+      pickup.AutoUpdatePrice = false;
+      pickup.Price = 15;
     }
   },
 );

@@ -14,9 +14,12 @@
 - Fixed the bug where Aban Baby (#177) was not having coins fade away correctly.
 - Fixed the bug where Piece B Baby (#180) was not able to charge pocket items. (Thanks Gamonymous)
 - Fixed the bug where Fancy Baby (#216) would not work with Planetariums. (Thanks Gamonymous)
+- Fixed the bug where Fancy Baby (#216) could reroll the teleport collectibles in the starting room.
+- Fixed the bug where Fancy Baby (#216) would not show the correct teleport collectible for Boss Challenge Rooms. (Thanks Gamonymous)
 - Fixed the bug where Suit Baby (#287) would turn some special rooms into Devil Rooms that were inappropriate. (Thanks Gamonymous)
 - Fixed the bug where Slicer Baby (#331) had range that was too long. (Thanks Gamonymous)
 - Fixed the bug where Found Soul Baby (#521) would spawn more than one Dark Esau with Birthright. (Thanks Gamonymous)
+- Fixed the bug where Fate's Reward (#574) had items costing 99 coins instead of 15 coins.
 
 ### *v1.4.0* - December 15th, 2021
 

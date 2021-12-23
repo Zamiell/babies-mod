@@ -8,6 +8,7 @@ import {
   gridToPos,
   inMinibossRoomOf,
   inStartingRoom,
+  isEven,
   log,
   nextSeed,
   removeAllMatchingEntities,
@@ -16,6 +17,7 @@ import {
 import { RandomBabyType } from "../babies";
 import g from "../globals";
 import { TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP } from "../maps/teleportRoomTypeToItemAndPriceMap";
+import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 import { useActiveItem } from "../util";
 
 export const postNewRoomBabyFunctionMap = new Map<int, () => void>();
@@ -222,6 +224,7 @@ postNewRoomBabyFunctionMap.set(181, () => {
 
 // Fancy Baby
 postNewRoomBabyFunctionMap.set(216, () => {
+  const stage = g.l.GetStage();
   const isFirstVisit = g.r.IsFirstVisit();
 
   if (!inStartingRoom() || !isFirstVisit) {
@@ -260,7 +263,17 @@ postNewRoomBabyFunctionMap.set(216, () => {
       continue;
     }
 
-    const [collectibleType, price] = itemAndPrice;
+    let collectibleType = itemAndPrice[0];
+    const price = itemAndPrice[1];
+
+    if (
+      collectibleType ===
+        CollectibleTypeCustom.COLLECTIBLE_CHALLENGE_ROOM_TELEPORT &&
+      isEven(stage)
+    ) {
+      collectibleType =
+        CollectibleTypeCustom.COLLECTIBLE_BOSS_CHALLENGE_ROOM_TELEPORT;
+    }
 
     positionIndex += 1;
     if (positionIndex > positions.length) {
