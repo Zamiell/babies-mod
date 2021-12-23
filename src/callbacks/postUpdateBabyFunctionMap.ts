@@ -772,14 +772,6 @@ postUpdateBabyFunctionMap.set(304, () => {
   }
 });
 
-// Corrupted Baby
-postUpdateBabyFunctionMap.set(307, () => {
-  // Taking items/pickups causes damage (1/2)
-  if (!g.p.IsItemQueueEmpty()) {
-    g.p.TakeDamage(1, 0, EntityRef(g.p), 0);
-  }
-});
-
 // Exploding Baby
 postUpdateBabyFunctionMap.set(320, () => {
   const gameFrameCount = g.g.GetFrameCount();

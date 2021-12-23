@@ -7,6 +7,7 @@
   - Nosferatu Baby (#109) - Can no longer be gotten on stage 8 or beyond. (Thanks Gamonymous)
   - Blindfold Baby (#202) - Can no longer use Sacrificial Altar. (Thanks Gamonymous)
   - Bloodied Baby (#301) - "Starts with Blood Rights + The Polaroid" --> "Create red doors on hit + improved Ultra Secret Rooms"
+  - Corrupted Baby (#307) - Can now take quest collectibles without taking damage.
   - Hooligan Baby (#514) - Can no longer be gotten on stage 6, stage 8, or anything beyond stage 8. (Thanks Gamonymous)
 - Fixed the bug where temporary baby passive items would count towards transformations.
 - Fixed the bug where some cards would remove the baby's sprite. (Thanks Gamonymous)

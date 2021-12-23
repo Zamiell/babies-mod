@@ -1,5 +1,6 @@
 import {
   getRoomGridIndexesForType,
+  isQuestCollectible,
   PickingUpItem,
   teleport,
 } from "isaacscript-common";
@@ -31,5 +32,23 @@ preItemPickupBabyFunctionMap.set(
       const firstRoomGridIndex = roomGridIndexes[0];
       teleport(firstRoomGridIndex);
     }
+  },
+);
+
+// Corrupted Baby
+preItemPickupBabyFunctionMap.set(
+  307,
+  (player: EntityPlayer, pickingUpItem: PickingUpItem) => {
+    if (
+      (pickingUpItem.type === ItemType.ITEM_PASSIVE ||
+        pickingUpItem.type === ItemType.ITEM_ACTIVE ||
+        pickingUpItem.type === ItemType.ITEM_FAMILIAR) &&
+      isQuestCollectible(pickingUpItem.id)
+    ) {
+      return;
+    }
+
+    // Taking items/pickups causes damage (1/2)
+    player.TakeDamage(1, 0, EntityRef(player), 0);
   },
 );
