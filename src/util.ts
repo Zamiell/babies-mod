@@ -110,6 +110,16 @@ export function isRacingPlusEnabled(): boolean {
   return CollectibleTypeCustom.COLLECTIBLE_CHECKPOINT !== -1;
 }
 
+export function isRerolledCollectibleBuggedHeart(
+  pickup: EntityPickup,
+): boolean {
+  return (
+    pickup.Variant === PickupVariant.PICKUP_HEART &&
+    pickup.SubType === HeartSubType.HEART_FULL &&
+    pickup.Price === 99
+  );
+}
+
 export function removeAllFriendlyEntities(): void {
   for (const entity of getEntities()) {
     if (entity.HasEntityFlags(EntityFlag.FLAG_FRIENDLY)) {

@@ -7,6 +7,7 @@ import {
 } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
 import g from "../globals";
+import { isRerolledCollectibleBuggedHeart } from "../util";
 
 export const postPickupUpdateBabyFunctionMap = new Map<
   int,
@@ -187,12 +188,7 @@ postPickupUpdateBabyFunctionMap.set(177, (pickup: EntityPickup) => {
 // Fancy Baby
 postPickupUpdateBabyFunctionMap.set(216, (pickup: EntityPickup) => {
   // Can purchase teleports to special rooms
-  if (
-    pickup.Variant === PickupVariant.PICKUP_HEART &&
-    pickup.SubType === HeartSubType.HEART_FULL &&
-    pickup.Price === 99 &&
-    inStartingRoom()
-  ) {
+  if (isRerolledCollectibleBuggedHeart(pickup) && inStartingRoom()) {
     // Delete the rerolled teleports
     pickup.Remove();
   }
@@ -224,11 +220,7 @@ postPickupUpdateBabyFunctionMap.set(287, (pickup: EntityPickup) => {
       pickup.AutoUpdatePrice = false;
       pickup.Price = price;
     }
-  } else if (
-    pickup.Variant === PickupVariant.PICKUP_HEART &&
-    pickup.SubType === HeartSubType.HEART_FULL &&
-    pickup.Price === 99
-  ) {
+  } else if (isRerolledCollectibleBuggedHeart(pickup)) {
     // Rerolled items turn into hearts since this is a not an actual Devil Room,
     // so delete the heart and manually create another pedestal item
     g.run.room.seed = nextSeed(g.run.room.seed);
@@ -270,11 +262,7 @@ postPickupUpdateBabyFunctionMap.set(317, (pickup: EntityPickup) => {
       pickup.AutoUpdatePrice = false;
       pickup.Price = price;
     }
-  } else if (
-    pickup.Variant === PickupVariant.PICKUP_HEART &&
-    pickup.SubType === HeartSubType.HEART_FULL &&
-    pickup.Price === 99
-  ) {
+  } else if (isRerolledCollectibleBuggedHeart(pickup)) {
     // Rerolled items turn into hearts since we are not in a Devil Room,
     // so delete the heart and manually create another pedestal item
     const pedestal = g.g
@@ -373,11 +361,7 @@ postPickupUpdateBabyFunctionMap.set(
   (pickup: EntityPickup) => {
     // Rerolled items turn into hearts
     // so delete the heart and manually create another pedestal item
-    if (
-      pickup.Variant === PickupVariant.PICKUP_HEART &&
-      pickup.SubType === HeartSubType.HEART_FULL &&
-      pickup.Price === 99
-    ) {
+    if (isRerolledCollectibleBuggedHeart(pickup)) {
       g.run.room.seed = nextSeed(g.run.room.seed);
       const pedestal = g.g
         .Spawn(
