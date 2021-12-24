@@ -1,6 +1,11 @@
 # The Babies Mod Version History
 
-### *v1.4.1* - December ?th, 2021
+### *v1.4.2* - December 24th, 2021
+
+- Bound Baby (#58) - Will no longer play the sound effect when a familiar is summoned.
+- Pretty Baby (#158) - "Summons a random familiar every 5 seconds" --> "All special rooms are Angel Shops"
+
+### *v1.4.1* - December 23rd, 2021
 
 - Some babies have been changed:
   - -0- Baby (#24) - Can no longer be gotten on stage 5. (Thanks Gamonymous)

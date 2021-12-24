@@ -7,7 +7,10 @@ import {
 } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
 import g from "../globals";
-import { isRerolledCollectibleBuggedHeart } from "../util";
+import {
+  isRerolledCollectibleBuggedHeart,
+  shouldTransformRoomType,
+} from "../util";
 
 export const postPickupUpdateBabyFunctionMap = new Map<
   int,
@@ -78,6 +81,47 @@ postPickupUpdateBabyFunctionMap.set(154, (pickup: EntityPickup) => {
     velocity = velocity.Normalized();
     velocity = velocity.mul(8);
     pickup.Velocity = velocity;
+  }
+});
+
+// Pretty Baby
+postPickupUpdateBabyFunctionMap.set(158, (pickup: EntityPickup) => {
+  const roomType = g.r.GetType();
+
+  // Ignore some special rooms
+  if (!shouldTransformRoomType(roomType)) {
+    return;
+  }
+
+  // All special rooms are Angel Shops
+  if (isRerolledCollectibleBuggedHeart(pickup)) {
+    // Rerolled items turn into hearts since this is a not an actual Devil Room,
+    // so delete the heart and manually create another pedestal item
+    g.run.room.seed = nextSeed(g.run.room.seed);
+    const collectibleType = g.itemPool.GetCollectible(
+      ItemPoolType.POOL_ANGEL,
+      true,
+      g.run.room.seed,
+    );
+    const pedestal = g.g
+      .Spawn(
+        EntityType.ENTITY_PICKUP,
+        PickupVariant.PICKUP_COLLECTIBLE,
+        pickup.Position,
+        Vector.Zero,
+        undefined,
+        collectibleType,
+        pickup.InitSeed,
+      )
+      .ToPickup();
+    if (pedestal !== undefined) {
+      // Set the price
+      pedestal.AutoUpdatePrice = false;
+      pedestal.Price = 15;
+    }
+
+    // Remove the heart
+    pickup.Remove();
   }
 });
 
@@ -196,18 +240,10 @@ postPickupUpdateBabyFunctionMap.set(216, (pickup: EntityPickup) => {
 
 // Suit Baby
 postPickupUpdateBabyFunctionMap.set(287, (pickup: EntityPickup) => {
-  // Ignore some select special rooms
   const roomType = g.r.GetType();
-  if (
-    roomType === RoomType.ROOM_DEFAULT || // 1
-    roomType === RoomType.ROOM_ERROR || // 3
-    roomType === RoomType.ROOM_BOSS || // 5
-    roomType === RoomType.ROOM_DEVIL || // 14
-    roomType === RoomType.ROOM_ANGEL || // 15
-    roomType === RoomType.ROOM_DUNGEON || // 16
-    roomType === RoomType.ROOM_BOSSRUSH || // 17
-    roomType === RoomType.ROOM_BLACK_MARKET // 22
-  ) {
+
+  // Ignore some special rooms
+  if (!shouldTransformRoomType(roomType)) {
     return;
   }
 

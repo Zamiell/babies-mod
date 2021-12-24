@@ -1,4 +1,5 @@
 import g from "../globals";
+import { shouldTransformRoomType } from "../util";
 
 const GRID_ENTITY_REPLACEMENT_EXCEPTIONS = new Set([
   GridEntityXMLType.PRESSURE_PLATE,
@@ -25,21 +26,26 @@ preRoomEntitySpawnBabyFunctionMap.set(143, (entityType: int) => {
   return undefined;
 });
 
+// Pretty Baby
+preRoomEntitySpawnBabyFunctionMap.set(158, (_entityType: EntityType) => {
+  const roomType = g.r.GetType();
+
+  // All special rooms are Angel Shops
+  // Ignore some select special rooms
+  if (shouldTransformRoomType(roomType)) {
+    return [999, 0, 0]; // Equal to 1000.0, which is a blank effect, which is essentially nothing
+  }
+
+  return undefined;
+});
+
 // Suit Baby
 preRoomEntitySpawnBabyFunctionMap.set(287, (_entityType: EntityType) => {
+  const roomType = g.r.GetType();
+
   // All special rooms are Devil Rooms
   // Ignore some select special rooms
-  const roomType = g.r.GetType();
-  if (
-    roomType !== RoomType.ROOM_DEFAULT && // 1
-    roomType !== RoomType.ROOM_ERROR && // 3
-    roomType !== RoomType.ROOM_BOSS && // 5
-    roomType !== RoomType.ROOM_DEVIL && // 14
-    roomType !== RoomType.ROOM_ANGEL && // 15
-    roomType !== RoomType.ROOM_DUNGEON && // 16
-    roomType !== RoomType.ROOM_BOSSRUSH && // 17
-    roomType !== RoomType.ROOM_BLACK_MARKET // 22
-  ) {
+  if (shouldTransformRoomType(roomType)) {
     return [999, 0, 0]; // Equal to 1000.0, which is a blank effect, which is essentially nothing
   }
 

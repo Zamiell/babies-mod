@@ -6,6 +6,7 @@ import {
   nextSeed,
 } from "isaacscript-common";
 import { BABIES, UNKNOWN_BABY } from "./babies";
+import { ROOM_TYPES_TO_NOT_TRANSFORM } from "./constants";
 import g from "./globals";
 import { BabyDescription } from "./types/BabyDescription";
 import { CollectibleTypeCustom } from "./types/CollectibleTypeCustom";
@@ -126,6 +127,11 @@ export function removeAllFriendlyEntities(): void {
       entity.Remove();
     }
   }
+}
+
+/** For special babies that transform all special rooms into something else. */
+export function shouldTransformRoomType(roomType: RoomType): boolean {
+  return !ROOM_TYPES_TO_NOT_TRANSFORM.has(roomType);
 }
 
 export function spawnRandomPickup(

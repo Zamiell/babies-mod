@@ -34,5 +34,4 @@ export interface BabyDescription {
   time?: int;
   trinket?: TrinketType;
   uncharged?: boolean;
-  roomTypes?: RoomType[];
 }

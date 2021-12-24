@@ -175,6 +175,7 @@ postUpdateBabyFunctionMap.set(58, () => {
   // Every 7 seconds
   if (gameFrameCount % (7 * GAME_FRAMES_PER_SECOND) === 0) {
     useActiveItem(g.p, CollectibleType.COLLECTIBLE_MONSTER_MANUAL);
+    g.sfx.Stop(SoundEffect.SOUND_SATAN_GROW);
   }
 });
 
@@ -411,17 +412,6 @@ postUpdateBabyFunctionMap.set(156, () => {
   // Every 5 seconds
   if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
     useActiveItem(g.p, CollectibleType.COLLECTIBLE_MEGA_BEAN);
-  }
-});
-
-// Pretty Baby
-postUpdateBabyFunctionMap.set(158, () => {
-  const gameFrameCount = g.g.GetFrameCount();
-
-  // Every 5 seconds
-  if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
-    useActiveItem(g.p, CollectibleType.COLLECTIBLE_MONSTER_MANUAL);
-    g.sfx.Stop(SoundEffect.SOUND_SATAN_GROW);
   }
 });
 

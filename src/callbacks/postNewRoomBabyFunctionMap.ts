@@ -18,7 +18,11 @@ import { RandomBabyType } from "../babies";
 import g from "../globals";
 import { TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP } from "../maps/teleportRoomTypeToItemAndPriceMap";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
-import { getCurrentBaby, useActiveItem } from "../util";
+import {
+  getCurrentBaby,
+  shouldTransformRoomType,
+  useActiveItem,
+} from "../util";
 
 export const postNewRoomBabyFunctionMap = new Map<int, () => void>();
 
@@ -211,6 +215,71 @@ postNewRoomBabyFunctionMap.set(149, () => {
   }
 });
 
+// Pretty Baby
+postNewRoomBabyFunctionMap.set(158, () => {
+  const roomType = g.r.GetType();
+  const isFirstVisit = g.r.IsFirstVisit();
+
+  // Ignore some special rooms
+  if (!isFirstVisit || !shouldTransformRoomType(roomType)) {
+    return;
+  }
+
+  // All special rooms are Angel Shops
+  g.run.room.seed = nextSeed(g.run.room.seed);
+  const collectibleType = g.itemPool.GetCollectible(
+    ItemPoolType.POOL_ANGEL,
+    true,
+    g.run.room.seed,
+  );
+  const position = gridToPos(6, 4);
+  const pedestal = g.g
+    .Spawn(
+      EntityType.ENTITY_PICKUP,
+      PickupVariant.PICKUP_COLLECTIBLE,
+      position,
+      Vector.Zero,
+      undefined,
+      collectibleType,
+      g.run.room.seed,
+    )
+    .ToPickup();
+  if (pedestal !== undefined) {
+    pedestal.AutoUpdatePrice = false;
+    pedestal.Price = 15;
+  }
+
+  // Spawn the Angel Statue
+  const oneTileAboveCenter = 52;
+  g.r.SpawnGridEntity(
+    oneTileAboveCenter,
+    GridEntityType.GRID_STATUE,
+    StatueVariant.ANGEL,
+    0,
+    0,
+  );
+
+  // Spawn the two fires
+  for (let i = 0; i < 2; i++) {
+    let pos: Vector;
+    if (i === 0) {
+      pos = gridToPos(3, 1);
+    } else {
+      pos = gridToPos(9, 1);
+    }
+    g.run.room.seed = nextSeed(g.run.room.seed);
+    g.g.Spawn(
+      EntityType.ENTITY_FIREPLACE,
+      FireplaceVariant.BLUE,
+      pos,
+      Vector.Zero,
+      undefined,
+      0,
+      g.run.room.seed,
+    );
+  }
+});
+
 // Spelunker Baby
 postNewRoomBabyFunctionMap.set(181, () => {
   const previousRoomGridIndex = g.l.GetPreviousRoomIndex();
@@ -380,17 +449,7 @@ postNewRoomBabyFunctionMap.set(287, () => {
   const isFirstVisit = g.r.IsFirstVisit();
 
   // Ignore some special rooms
-  if (
-    !isFirstVisit ||
-    roomType === RoomType.ROOM_DEFAULT || // 1
-    roomType === RoomType.ROOM_ERROR || // 3
-    roomType === RoomType.ROOM_BOSS || // 5
-    roomType === RoomType.ROOM_DEVIL || // 14
-    roomType === RoomType.ROOM_ANGEL || // 15
-    roomType === RoomType.ROOM_DUNGEON || // 16
-    roomType === RoomType.ROOM_BOSSRUSH || // 17
-    roomType === RoomType.ROOM_BLACK_MARKET // 22
-  ) {
+  if (!isFirstVisit || !shouldTransformRoomType(roomType)) {
     return;
   }
 
@@ -419,7 +478,14 @@ postNewRoomBabyFunctionMap.set(287, () => {
   }
 
   // Spawn the Devil Statue
-  g.r.SpawnGridEntity(52, GridEntityType.GRID_STATUE, 0, 0, 0);
+  const oneTileAboveCenter = 52;
+  g.r.SpawnGridEntity(
+    oneTileAboveCenter,
+    GridEntityType.GRID_STATUE,
+    StatueVariant.DEVIL,
+    0,
+    0,
+  );
 
   // Spawn the two fires
   for (let i = 0; i < 2; i++) {
@@ -432,7 +498,7 @@ postNewRoomBabyFunctionMap.set(287, () => {
     g.run.room.seed = nextSeed(g.run.room.seed);
     g.g.Spawn(
       EntityType.ENTITY_FIREPLACE,
-      0,
+      FireplaceVariant.NORMAL,
       pos,
       Vector.Zero,
       undefined,

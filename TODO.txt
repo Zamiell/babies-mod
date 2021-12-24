@@ -1,6 +1,5 @@
 TODO:
 
-baby 158 is kinda duplicate with baby 58
 effect idea : special rooms are angel shops
 effect idea : spawn 4 dark room-like chests at the beginning of the floor (can't have it on stage 9/11)
 Baby 331 should have nerfed range imo
