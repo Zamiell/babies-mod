@@ -589,6 +589,20 @@ entityTakeDmgPlayerBabyFunctionMap.set(435, (player) => {
   // (the animation will automatically be canceled by the damage)
 });
 
+// Big Mouth Baby 2
+entityTakeDmgPlayerBabyFunctionMap.set(438, (player) => {
+  const [, baby] = getCurrentBaby();
+  if (baby.numHits === undefined) {
+    error(`The "numHits" attribute was not defined for: ${baby.name}`);
+  }
+
+  g.run.babyCounters += 1;
+  if (g.run.babyCounters === baby.numHits) {
+    g.run.babyCounters = 0;
+    useActiveItem(player, CollectibleType.COLLECTIBLE_MEGA_MUSH);
+  }
+});
+
 // TV Baby
 entityTakeDmgPlayerBabyFunctionMap.set(441, (player) => {
   const [, baby] = getCurrentBaby();
@@ -789,7 +803,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.LOST_BLUE_BABY,
   (player) => {
-    useActiveItem(player, CollectibleType.COLLECTIBLE_D12);
+    useActiveItem(player, CollectibleType.COLLECTIBLE_D10);
   },
 );
 

@@ -63,6 +63,12 @@ postFireTearBabyFunctionMap.set(18, (tear: EntityTear) => {
   tear.TearFlags |= TearFlags.TEAR_CONFUSION;
 });
 
+// Magnet Baby
+postFireTearBabyFunctionMap.set(26, (tear: EntityTear) => {
+  tear.ChangeVariant(TearVariant.METALLIC);
+  tear.TearFlags |= TearFlags.TEAR_MAGNETIZE;
+});
+
 // Blue Baby
 postFireTearBabyFunctionMap.set(30, (tear: EntityTear) => {
   // Sprinkler tears need to originate at the player

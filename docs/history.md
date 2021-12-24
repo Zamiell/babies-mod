@@ -1,5 +1,24 @@
 # The Babies Mod Version History
 
+### *v1.4.3* - December 23rd, 2021
+
+- Magnet Baby (#26) - "Starts with Magneto" --> "Magnetizing tears"
+- Teeth Baby (#95) - "Starts with Dog Tooth" --> "Starts with Lemegeton"
+- Wink Baby (#222) - "Starts with Stop Watch" --> "Starts with Vanishing Twin"
+- Blue Robot Baby (#353) - "Starts with Broken Watch" --> "Starts with Berserk!"
+- Liberty Baby (#392) - "Starts with Liberty Cap" --> "Starts with Azazel's Rage"
+- Censored Baby (#408) - "All enemies get confused on hit" --> "Starts with Eternal D6"
+- Shadowmage Baby (#418) - "Starts with Death's List" --> "Starts with Spindown Dice"
+- Priest Baby (#420) - "Starts with Scapular" --> "Starts with Anima Sola"
+- Bag Baby (#422) - "Starts with Sack Head" --> "Starts with The Swarm"
+- Big Mouth Baby 2 (#438) - "Starts with Mega Blast" --> "Mega Mush effect after 6 hits"
+- Pig Baby (#542) - "Starts with Sausage" --> "Starts with Bloody Gust"
+- Puppet Baby (#505) - "Starts with 5x Key Bum" --> "Starts with Salvation"
+- Green Pepper Baby (#518) - "Starts with Serpent's Kiss" --> "Starts with Abyss"
+- Lost Blue Baby (#524) - "D12 effect on hit" --> "D10 effect on hit"
+- Eyebat Baby (#535) - "n/a" --> "Starts with Paschal Candle"
+- Mr. E Baby (#543) - "Starts with Belly Jelly" --> "Starts with Purgatory"
+
 ### *v1.4.2* - December 23rd, 2021
 
 - Bound Baby (#58) - Will no longer play the sound effect when a familiar is summoned.

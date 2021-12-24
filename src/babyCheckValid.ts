@@ -483,7 +483,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    babyItemsSet.has(CollectibleType.COLLECTIBLE_THERES_OPTIONS) &&
+    babyItemsSet.has(CollectibleType.COLLECTIBLE_THERES_OPTIONS) && // 249
     (effectiveStage === 6 || effectiveStage >= 8)
   ) {
     // There won't be a boss item on floor 6 or floor 8 and beyond
@@ -491,11 +491,19 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    babyItemsSet.has(CollectibleType.COLLECTIBLE_MORE_OPTIONS) &&
+    babyItemsSet.has(CollectibleType.COLLECTIBLE_MORE_OPTIONS) && // 414
     (effectiveStage === 1 || effectiveStage >= 7)
   ) {
     // We always have More Options on Basement 1
     // There are no Treasure Rooms on floors 7 and beyond
+    return false;
+  }
+
+  if (
+    babyItemsSet.has(CollectibleType.COLLECTIBLE_VANISHING_TWIN) && // 697
+    (effectiveStage === 6 || effectiveStage >= 8)
+  ) {
+    // Some floors have bosses that cannot be doubled
     return false;
   }
 
@@ -662,7 +670,7 @@ function checkStage(baby: BabyDescription) {
     return false;
   }
 
-  if (baby.name === "Breadmeat Hoodiebread Baby" && effectiveStage >= 9) {
+  if (baby.name === "Breadmeat Hoodiebread Baby" && effectiveStage >= 8) {
     // Everything is sped up
     return false;
   }

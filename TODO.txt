@@ -1,22 +1,18 @@
 TODO:
 
-List of really boring babies:
-- Teeth Baby (#95) - Starts with Dog Tooth
-- Censored Baby (#408) - All enemies get confused on hit
-- Shadowmage Baby (#418) - Starts with Death's List
-- Priest Baby (#420) - Starts with Scapular
-- Adventure Baby (#482) - Starts with Moving Box
-- Puppet Baby (#505) - Starts with 5x Key Bum
-- Green Pepper Baby (#518) - Starts with Serpent's Kiss
-
-List of boring babies:
-- Magnet Baby (#26) - Starts with Magneto
-- Wink Baby (#222) - Starts with the Stop Watch
-- Blue Robot Baby (#353) - Starts with Broken Watch
-- Liberty Baby (#392) - Starts with Liberty Cap
-- Bag Baby (#422) - Starts with Sack Head
-- Pig Baby (#542) - Starts with Sausage
-- Mr. E Baby (#543) - Starts with Belly Jelly
+List of potentially good effects:
+- Starts with Astral Projection
+- Starts with Binge Eater
+- Starts with Vasculitis
+- Starts with Brimstone Bombs
+- Starts with Revelation
+- Starts with Urn of Souls
+- Starts with Bot Fly
+- Starts with Saturnus
+- Starts with The Stairway
+- Starts with Psy Fly
+- Starts with The Intruder
+- Starts with Eye of the Occult
 
 List of hard babies:
 - Troll Baby (#6) - Spawns a Troll Bomb every 3 seconds
