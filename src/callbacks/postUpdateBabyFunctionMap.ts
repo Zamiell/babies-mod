@@ -971,16 +971,6 @@ postUpdateBabyFunctionMap.set(401, () => {
   }
 });
 
-// Magic Cat Baby
-postUpdateBabyFunctionMap.set(428, () => {
-  const gameFrameCount = g.g.GetFrameCount();
-
-  // Every second
-  if (gameFrameCount % GAME_FRAMES_PER_SECOND === 0) {
-    useActiveItem(g.p, CollectibleType.COLLECTIBLE_KIDNEY_BEAN);
-  }
-});
-
 // Mutated Fish Baby
 postUpdateBabyFunctionMap.set(449, () => {
   const gameFrameCount = g.g.GetFrameCount();

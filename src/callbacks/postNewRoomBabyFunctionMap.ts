@@ -578,6 +578,12 @@ postNewRoomBabyFunctionMap.set(431, () => {
   removeAllMatchingEntities(EntityType.ENTITY_BROKEN_GAPING_MAW);
 });
 
+// Breadmeat Hoodiebread Baby
+postNewRoomBabyFunctionMap.set(437, () => {
+  // Everything is sped up
+  g.r.SetBrokenWatchState(BrokenWatchState.FAST);
+});
+
 // Psychic Baby
 postNewRoomBabyFunctionMap.set(504, () => {
   // Disable the vanilla shooting behavior

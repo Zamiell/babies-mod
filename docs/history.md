@@ -1,9 +1,12 @@
 # The Babies Mod Version History
 
-### *v1.4.2* - December 24th, 2021
+### *v1.4.2* - December ?th, 2021
 
 - Bound Baby (#58) - Will no longer play the sound effect when a familiar is summoned.
 - Pretty Baby (#158) - "Summons a random familiar every 5 seconds" --> "All special rooms are Angel Shops"
+- Nuclear Baby (#251) - "Starts with Mama Mega!" --> "Mama Mega effect on hit"
+- Magic Cat Baby (#428) - "Constant Kidney Bean effect" --> "Giga Bomb effect on hit"
+- Breadmeat Hoodiebread Baby (#437) - "Starts with Eye of Greed" --> "Everything is sped up"
 
 ### *v1.4.1* - December 23rd, 2021
 

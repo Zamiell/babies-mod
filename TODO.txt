@@ -1,27 +1,20 @@
 TODO:
 
-effect idea : special rooms are angel shops
-effect idea : spawn 4 dark room-like chests at the beginning of the floor (can't have it on stage 9/11)
-Baby 331 should have nerfed range imo
-effect idea : giga bomb effect on hit
-I think baby 514 shouldn't double final bosses
-
-List of boring babies:
-- Magnet Baby (#26) - Starts with Magneto
+List of really boring babies:
 - Teeth Baby (#95) - Starts with Dog Tooth
-- Wink Baby (#222) - Starts with the Stop Watch
-- Blue Robot Baby (#353) - Starts with Broken Watch
-- Liberty Baby (#392) - Starts with Liberty Cap
-- Referee Baby (#404) - Starts with Crooked Penny
 - Censored Baby (#408) - All enemies get confused on hit
 - Shadowmage Baby (#418) - Starts with Death's List
 - Priest Baby (#420) - Starts with Scapular
-- Bag Baby (#422) - Starts with Sack Head
-- Magic Cat Baby (#428) - Constant Kidney Bean effect
-- Breadmeat Hoodiebread Baby (#437) - Starts with Eye of Greed
 - Adventure Baby (#482) - Starts with Moving Box
 - Puppet Baby (#505) - Starts with 5x Key Bum
 - Green Pepper Baby (#518) - Starts with Serpent's Kiss
+
+List of boring babies:
+- Magnet Baby (#26) - Starts with Magneto
+- Wink Baby (#222) - Starts with the Stop Watch
+- Blue Robot Baby (#353) - Starts with Broken Watch
+- Liberty Baby (#392) - Starts with Liberty Cap
+- Bag Baby (#422) - Starts with Sack Head
 - Pig Baby (#542) - Starts with Sausage
 - Mr. E Baby (#543) - Starts with Belly Jelly
 
@@ -33,6 +26,7 @@ List of hard babies:
 - Orange Ghost Baby (#373) - Placed bombs are Mega Troll Bombs
 - Pink Princess Baby (#374) - Summons random stomps
 - Blue Pig Baby (#382) - Spawns a Mega Troll Bomb every 5 seconds
+- Driver Baby (#431) - Slippery movement
 - Funny Baby (#491) - Enemies spawn Troll Bombs on death
 
 Bugs with Costume Protector:

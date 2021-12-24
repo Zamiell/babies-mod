@@ -371,6 +371,12 @@ entityTakeDmgPlayerBabyFunctionMap.set(227, (player) => {
   useActiveItem(player, CollectibleType.COLLECTIBLE_CROOKED_PENNY);
 });
 
+// Nuclear Baby
+entityTakeDmgPlayerBabyFunctionMap.set(251, () => {
+  // Mama Mega effect on hit
+  g.r.MamaMegaExplossion();
+});
+
 // Rocker Baby
 entityTakeDmgPlayerBabyFunctionMap.set(258, (player) => {
   // Spawns a random bomb on hit
@@ -559,6 +565,22 @@ entityTakeDmgPlayerBabyFunctionMap.set(408, (player) => {
 // Catsuit Baby
 entityTakeDmgPlayerBabyFunctionMap.set(412, (player) => {
   useActiveItem(player, CollectibleType.COLLECTIBLE_GUPPYS_PAW);
+});
+
+// Magic Cat Baby
+entityTakeDmgPlayerBabyFunctionMap.set(428, (player) => {
+  const bomb = Isaac.Spawn(
+    EntityType.ENTITY_BOMB,
+    BombVariant.BOMB_GIGA,
+    0,
+    player.Position,
+    Vector.Zero,
+    undefined,
+  ).ToBomb();
+  if (bomb !== undefined) {
+    bomb.Visible = false;
+    bomb.SetExplosionCountdown(0);
+  }
 });
 
 // Cup Baby

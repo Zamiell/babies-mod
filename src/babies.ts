@@ -1517,9 +1517,8 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Nuclear Baby",
-    description: "Starts with Mama Mega!",
+    description: "Mama Mega effect on hit",
     sprite: "251_baby_nuclear.png",
-    item: CollectibleType.COLLECTIBLE_MAMA_MEGA,
   },
   {
     name: "Purple Baby",
@@ -2619,7 +2618,7 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Magic Cat Baby",
-    description: "Constant Kidney Bean effect",
+    description: "Giga Bomb effect on hit",
     sprite: "428_baby_magiccat.png",
   },
   {
@@ -2672,10 +2671,8 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Breadmeat Hoodiebread Baby",
-    description: "Starts with Eye of Greed",
+    description: "Everything is sped up",
     sprite: "437_baby_breadmeat_hoodiebread.png",
-    item: CollectibleType.COLLECTIBLE_EYE_OF_GREED,
-    mustHaveTears: true,
   },
   {
     name: "Big Mouth Baby 2",
