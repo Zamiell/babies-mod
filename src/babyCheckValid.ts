@@ -658,6 +658,12 @@ function checkStage(baby: BabyDescription) {
     baby.name === "Folder Baby" && // 430
     (effectiveStage === 1 || effectiveStage === 10)
   ) {
+    // Swaps item/shop pools + devil/angel pools
+    return false;
+  }
+
+  if (baby.name === "Breadmeat Hoodiebread Baby" && effectiveStage >= 9) {
+    // Everything is sped up
     return false;
   }
 
