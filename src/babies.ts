@@ -1343,7 +1343,6 @@ export const BABIES: BabyDescription[] = [
     description: "Starts with Vanishing Twin",
     sprite: "222_baby_wink.png",
     item: CollectibleType.COLLECTIBLE_VANISHING_TWIN,
-    noEndFloors: true,
   },
   {
     name: "Pox Baby",
@@ -3204,7 +3203,7 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Lost Blue Baby",
-    description: "D12 effect on hit", // Re-roll rocks
+    description: "D10 effect on hit", // Re-roll enemies
     sprite: "62_baby_lost_blue.png", // 524
   },
   {
