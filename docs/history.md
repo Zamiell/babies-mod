@@ -1,6 +1,6 @@
 # The Babies Mod Version History
 
-### *v1.4.3* - December 23rd, 2021
+### *v1.4.4* - December 23rd, 2021
 
 - Magnet Baby (#26) - "Starts with Magneto" --> "Magnetizing tears"
 - Teeth Baby (#95) - "Starts with Dog Tooth" --> "Starts with Lemegeton"
