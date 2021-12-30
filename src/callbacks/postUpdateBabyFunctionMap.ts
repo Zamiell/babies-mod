@@ -1,4 +1,5 @@
 import {
+  changeRoom,
   copyColor,
   DISTANCE_OF_GRID_TILE,
   GAME_FRAMES_PER_SECOND,
@@ -340,17 +341,13 @@ postUpdateBabyFunctionMap.set(128, () => {
 
   // Explore these rooms
   for (const roomGridIndex of randomFloorGridIndexes) {
-    // You have to set LeaveDoor before every room change or else it will send you to the wrong room
-    g.l.LeaveDoor = -1;
-    g.l.ChangeRoom(roomGridIndex);
+    changeRoom(roomGridIndex);
 
     // We might have traveled to the Boss Room, so stop the Portcullis sound effect just in case
     g.sfx.Stop(SoundEffect.SOUND_CASTLEPORTCULLIS);
   }
 
-  // You have to set LeaveDoor before every room change or else it will send you to the wrong room
-  g.l.LeaveDoor = -1;
-  g.l.ChangeRoom(startingRoomGridIndex);
+  changeRoom(startingRoomGridIndex);
   g.p.Position = centerPos;
 });
 
