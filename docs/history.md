@@ -1,5 +1,9 @@
 # The Babies Mod Version History
 
+### *v1.4.5* - December 30th, 2021
+
+- Rock Baby (#538) - "Starts with Terra" --> "Floors are reversed"
+
 ### *v1.4.4* - December 23rd, 2021
 
 - Magnet Baby (#26) - "Starts with Magneto" --> "Magnetizing tears"

@@ -1,4 +1,9 @@
-import { getCollectibleItemType, getEffectiveStage } from "isaacscript-common";
+import {
+  getCollectibleItemType,
+  getEffectiveStage,
+  hasFlag,
+  onRepentanceStage,
+} from "isaacscript-common";
 import { BABIES } from "./babies";
 import g from "./globals";
 import { BabyDescription } from "./types/BabyDescription";
@@ -41,21 +46,23 @@ export function babyCheckValid(player: EntityPlayer, babyType: int): boolean {
     return false;
   }
 
-  // Check for conflicting items
-  if (!checkItem(player, baby)) {
+  // Check for conflicting collectibles
+  if (!checkCollectibles(player, baby)) {
     return false;
   }
 
   // Check for conflicting trinkets
-  if (
-    baby.name === "Spike Baby" && // 166
-    player.HasTrinket(TrinketType.TRINKET_LEFT_HAND) // 61
-  ) {
+  if (!checkTrinkets(player, baby)) {
     return false;
   }
 
-  // Check to see if there are level restrictions
+  // Check for stage restrictions
   if (!checkStage(baby)) {
+    return false;
+  }
+
+  // Check for curse restrictions
+  if (!checkCurses(baby)) {
     return false;
   }
 
@@ -165,7 +172,7 @@ function checkInventory(player: EntityPlayer, baby: BabyDescription) {
   return true;
 }
 
-function checkItem(player: EntityPlayer, baby: BabyDescription) {
+function checkCollectibles(player: EntityPlayer, baby: BabyDescription) {
   const babyItemsSet = getBabyItemsSet(baby);
 
   if (
@@ -421,6 +428,17 @@ function checkItem(player: EntityPlayer, baby: BabyDescription) {
   ) {
     // Missed tears cause damage and missed tears cause paralysis
     // Piercing, multiple shots, and Flat Stone causes this to mess up
+    return false;
+  }
+
+  return true;
+}
+
+function checkTrinkets(player: EntityPlayer, baby: BabyDescription) {
+  if (
+    baby.name === "Spike Baby" && // 166
+    player.HasTrinket(TrinketType.TRINKET_LEFT_HAND) // 61
+  ) {
     return false;
   }
 
@@ -694,7 +712,17 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Demon Baby" && // 527
+    baby.name === "Rock Baby" && // 538
+    (effectiveStage === 6 || effectiveStage >= 8 || onRepentanceStage())
+  ) {
+    // Floors are reversed
+    // We don't want to have this on any end floors so that we can simply the logic and always spawn
+    // a trapdoor
+    return false;
+  }
+
+  if (
+    baby.name === "Demon Baby" && // 564
     (effectiveStage === 1 || effectiveStage >= 9)
   ) {
     // Only valid for floors with Devil Rooms
@@ -702,7 +730,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Ghost Baby" && // 528
+    baby.name === "Ghost Baby" && // 565
     effectiveStage === 2
   ) {
     // All items from the Shop pool
@@ -711,7 +739,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Fate's Reward" && // 537
+    baby.name === "Fate's Reward" && // 574
     (effectiveStage <= 2 || effectiveStage === 6 || effectiveStage >= 10)
   ) {
     // Items cost money
@@ -719,6 +747,20 @@ function checkStage(baby: BabyDescription) {
     // On stage 2, they will miss a Devil Deal, which is not fair
     // On stage 6, they might not be able to buy the Polaroid (when playing on a normal run)
     // On stage 10 and 11, there are no items
+    return false;
+  }
+
+  return true;
+}
+
+function checkCurses(baby: BabyDescription) {
+  const curses = g.l.GetCurses();
+
+  if (
+    baby.name === "Rock Baby" && // 538
+    hasFlag(curses, LevelCurse.CURSE_OF_LABYRINTH)
+  ) {
+    // Floors are reversed
     return false;
   }
 

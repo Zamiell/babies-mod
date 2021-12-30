@@ -3283,9 +3283,8 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Rock Baby",
-    description: "Starts with Terra",
+    description: "Floors are reversed",
     sprite: "538_baby_rock.png",
-    item: CollectibleType.COLLECTIBLE_TERRA,
   },
   {
     name: "Janitor Baby",

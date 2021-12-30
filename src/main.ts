@@ -41,6 +41,7 @@ import * as preTearCollision from "./callbacks/preTearCollision";
 import * as preUseItem from "./callbacks/preUseItem";
 import * as useItem from "./callbacks/useItem";
 import * as usePill from "./callbacks/usePill";
+import * as postGridEntityInit from "./callbacksCustom/postGridEntityInit";
 import * as postItemPickup from "./callbacksCustom/postItemPickup";
 import * as postPickupCollect from "./callbacksCustom/postPickupCollect";
 import * as postPlayerChangeType from "./callbacksCustom/postPlayerChangeType";
@@ -158,15 +159,16 @@ function registerCallbacksCustom(mod: ModUpgraded) {
   );
   mod.AddCallbackCustom(ModCallbacksCustom.MC_POST_PURCHASE, postPurchase.main);
   mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_POST_SLOT_DESTROYED,
-    postSlotDestroyed.main,
-  );
-  mod.AddCallbackCustom(
     ModCallbacksCustom.MC_POST_PLAYER_CHANGE_TYPE,
     postPlayerChangeType.main,
+  );
+  mod.AddCallbackCustom(
+    ModCallbacksCustom.MC_POST_SLOT_DESTROYED,
+    postSlotDestroyed.main,
   );
 }
 
 function registerCallbacksCustomWithExtraArgument(mod: ModUpgraded) {
   postTrinketBreak.init(mod);
+  postGridEntityInit.init(mod);
 }

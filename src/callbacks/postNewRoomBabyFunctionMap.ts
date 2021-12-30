@@ -1,4 +1,5 @@
 import {
+  changeRoom,
   getCollectibleDevilHeartPrice,
   getDoors,
   getEntities,
@@ -602,6 +603,33 @@ postNewRoomBabyFunctionMap.set(516, () => {
     // able to take pocket items or pedestal items
     // This still happens even if we cancel the animation in the PostUpdate callback,
     // so don't bother canceling it
+  }
+});
+
+// Rock Baby
+postNewRoomBabyFunctionMap.set(538, () => {
+  // Floors are reversed
+  if (!inStartingRoom()) {
+    return;
+  }
+
+  const isFirstVisit = g.r.IsFirstVisit();
+
+  if (isFirstVisit) {
+    const bossRoomIndexes = getRoomGridIndexesForType(RoomType.ROOM_BOSS);
+    if (bossRoomIndexes.length === 0) {
+      return;
+    }
+    const bossRoomIndex = bossRoomIndexes[0];
+    changeRoom(bossRoomIndex);
+  } else {
+    const centerPos = g.r.GetCenterPos();
+    Isaac.GridSpawn(
+      GridEntityType.GRID_TRAPDOOR,
+      TrapdoorVariant.NORMAL,
+      centerPos,
+      true,
+    );
   }
 });
 
