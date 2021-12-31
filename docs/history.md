@@ -1,6 +1,6 @@
 # The Babies Mod Version History
 
-### *v1.4.5* - December 30th, 2021
+### *v1.4.8* - December 30th, 2021
 
 - Eyebat Baby (#535) - "Starts with Paschal Candle" --> "Floors are reversed"
 - Rock Baby (#538) - "Floors are reversed" --> "Starts with Terra"

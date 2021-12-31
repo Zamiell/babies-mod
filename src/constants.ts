@@ -27,4 +27,4 @@ export const ROOM_TYPES_TO_NOT_TRANSFORM = new Set([
 ]);
 
 // The version is updated automatically by IsaacScript
-export const VERSION = "1.4.7";
+export const VERSION = "1.4.8";
