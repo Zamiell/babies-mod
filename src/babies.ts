@@ -3264,9 +3264,8 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Eyebat Baby",
-    description: "Starts with Paschal Candle",
+    description: "Floors are reversed",
     sprite: "535_baby_eyebat.png",
-    item: CollectibleType.COLLECTIBLE_PASCHAL_CANDLE,
   },
   {
     name: "Baby Is You",
@@ -3283,8 +3282,9 @@ export const BABIES: BabyDescription[] = [
   },
   {
     name: "Rock Baby",
-    description: "Floors are reversed",
+    description: "Starts with Terra",
     sprite: "538_baby_rock.png",
+    item: CollectibleType.COLLECTIBLE_TERRA,
   },
   {
     name: "Janitor Baby",

@@ -712,7 +712,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Rock Baby" && // 538
+    baby.name === "Eyebat Baby" && // 535
     (effectiveStage === 6 || effectiveStage >= 8 || onRepentanceStage())
   ) {
     // Floors are reversed
@@ -757,7 +757,7 @@ function checkCurses(baby: BabyDescription) {
   const curses = g.l.GetCurses();
 
   if (
-    baby.name === "Rock Baby" && // 538
+    baby.name === "Eyebat Baby" && // 535
     hasFlag(curses, LevelCurse.CURSE_OF_LABYRINTH)
   ) {
     // Floors are reversed

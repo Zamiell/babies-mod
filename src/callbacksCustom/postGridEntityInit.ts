@@ -21,8 +21,8 @@ function trapdoor(gridEntity: GridEntity) {
     return;
   }
 
-  // 538
-  if (baby.name === "Rock Baby") {
+  // 535
+  if (baby.name === "Eyebat Baby") {
     const roomType = g.r.GetType();
     if (roomType === RoomType.ROOM_BOSS) {
       removeGridEntity(gridEntity, false);

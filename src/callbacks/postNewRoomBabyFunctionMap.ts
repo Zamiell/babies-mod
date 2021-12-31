@@ -606,8 +606,8 @@ postNewRoomBabyFunctionMap.set(516, () => {
   }
 });
 
-// Rock Baby
-postNewRoomBabyFunctionMap.set(538, () => {
+// Eyebat Baby
+postNewRoomBabyFunctionMap.set(535, () => {
   // Floors are reversed
   if (!inStartingRoom()) {
     return;
