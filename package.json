@@ -12,7 +12,7 @@
   "license": "GPL-3.0",
   "dependencies": {
     "isaac-typescript-definitions": "^1.0.327",
-    "isaacscript": "^1.1.70",
+    "isaacscript": "^1.1.71",
     "isaacscript-common": "^1.0.585",
     "isaacscript-lint": "^1.0.77"
   }
