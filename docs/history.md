@@ -1,5 +1,9 @@
 # The Babies Mod Version History
 
+### *v1.4.9* - January 2nd, 2022
+
+- Fixed the bug where in seeded races, Random Baby would be invisible during the custom death mechanic. (Thanks Moucheron Quipet)
+
 ### *v1.4.8* - December 30th, 2021
 
 - Eyebat Baby (#535) - "Starts with Paschal Candle" --> "Floors are reversed"
