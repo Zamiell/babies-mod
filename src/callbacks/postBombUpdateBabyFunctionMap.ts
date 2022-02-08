@@ -3,9 +3,10 @@ import {
   BOMB_EXPLODE_FRAME,
   getRandom,
   nextSeed,
+  useActiveItemTemp,
 } from "isaacscript-common";
 import g from "../globals";
-import { getRandomOffsetPosition, useActiveItem } from "../util";
+import { getRandomOffsetPosition } from "../util";
 
 export const postBombUpdateBabyFunctionMap = new Map<
   int,
@@ -22,7 +23,7 @@ postBombUpdateBabyFunctionMap.set(75, (bomb: EntityBomb) => {
     g.run.room.seed = nextSeed(g.run.room.seed);
     const d6chance = getRandom(g.run.room.seed);
     if (d6chance <= 0.5) {
-      useActiveItem(g.p, CollectibleType.COLLECTIBLE_D6);
+      useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_D6);
     }
   }
 });

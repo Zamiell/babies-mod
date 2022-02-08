@@ -14,16 +14,13 @@ import {
   nextSeed,
   removeAllMatchingEntities,
   teleport,
+  useActiveItemTemp,
 } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
 import g from "../globals";
 import { TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP } from "../maps/teleportRoomTypeToItemAndPriceMap";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
-import {
-  getCurrentBaby,
-  shouldTransformRoomType,
-  useActiveItem,
-} from "../util";
+import { getCurrentBaby, shouldTransformRoomType } from "../util";
 
 export const postNewRoomBabyFunctionMap = new Map<int, () => void>();
 
@@ -90,7 +87,7 @@ postNewRoomBabyFunctionMap.set(15, () => {
 postNewRoomBabyFunctionMap.set(30, () => {
   // Sprinkler tears
   g.run.babyBool = true;
-  useActiveItem(g.p, CollectibleType.COLLECTIBLE_SPRINKLER);
+  useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_SPRINKLER);
 });
 
 // Zombie Baby
@@ -182,7 +179,7 @@ postNewRoomBabyFunctionMap.set(141, () => {
   } else {
     // We are entering a new room
     g.run.babyBool = true;
-    useActiveItem(g.p, CollectibleType.COLLECTIBLE_TELEPORT_2);
+    useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_TELEPORT_2);
   }
 });
 
@@ -381,7 +378,7 @@ postNewRoomBabyFunctionMap.set(216, () => {
 postNewRoomBabyFunctionMap.set(242, () => {
   // Random enemies
   if (!inStartingRoom()) {
-    useActiveItem(g.p, CollectibleType.COLLECTIBLE_D10);
+    useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_D10);
   }
 });
 
@@ -514,7 +511,7 @@ postNewRoomBabyFunctionMap.set(297, () => {
   const roomClear = g.r.IsClear();
 
   if (!roomClear) {
-    useActiveItem(g.p, CollectibleType.COLLECTIBLE_MEAT_CLEAVER);
+    useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_MEAT_CLEAVER);
   }
 });
 
@@ -550,7 +547,7 @@ postNewRoomBabyFunctionMap.set(301, () => {
 
 // Twotone Baby
 postNewRoomBabyFunctionMap.set(346, () => {
-  useActiveItem(g.p, CollectibleType.COLLECTIBLE_DATAMINER);
+  useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_DATAMINER);
 });
 
 // Mouse Baby

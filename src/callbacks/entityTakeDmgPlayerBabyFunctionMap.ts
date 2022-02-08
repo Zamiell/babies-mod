@@ -12,17 +12,13 @@ import {
   nextSeed,
   openAllDoors,
   removeCollectibleFromItemTracker,
+  useActiveItemTemp,
 } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
 import g from "../globals";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 import { EntityDescription } from "../types/EntityDescription";
-import {
-  getCurrentBaby,
-  spawnRandomPickup,
-  spawnSlot,
-  useActiveItem,
-} from "../util";
+import { getCurrentBaby, spawnRandomPickup, spawnSlot } from "../util";
 
 export const entityTakeDmgPlayerBabyFunctionMap = new Map<
   int,
@@ -89,7 +85,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(41, (player) => {
   if (!g.run.babyBool && maxHearts >= 2) {
     player.AddMaxHearts(-2, true);
     g.run.babyBool = true;
-    useActiveItem(player, CollectibleType.COLLECTIBLE_DULL_RAZOR);
+    useActiveItemTemp(player, CollectibleType.COLLECTIBLE_DULL_RAZOR);
     g.run.babyBool = false;
     return false;
   }
@@ -151,7 +147,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(62, (player) => {
 
 // Ghoul Baby
 entityTakeDmgPlayerBabyFunctionMap.set(83, (player) => {
-  useActiveItem(player, CollectibleType.COLLECTIBLE_BOOK_OF_SECRETS);
+  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_BOOK_OF_SECRETS);
 });
 
 // Half Head Baby
@@ -213,7 +209,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
     // Keys are hearts
     if (!g.run.babyBool) {
       g.run.babyBool = true;
-      useActiveItem(player, CollectibleType.COLLECTIBLE_DULL_RAZOR);
+      useActiveItemTemp(player, CollectibleType.COLLECTIBLE_DULL_RAZOR);
       g.run.babyBool = false;
       player.AddKeys(-1);
       return false;
@@ -225,7 +221,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 
 // Freaky Baby
 entityTakeDmgPlayerBabyFunctionMap.set(132, (player) => {
-  useActiveItem(player, CollectibleType.COLLECTIBLE_CONVERTER);
+  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_CONVERTER);
 });
 
 // Mohawk Baby
@@ -233,7 +229,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(138, (player) => {
   // Bombs are hearts
   if (!g.run.babyBool) {
     g.run.babyBool = true;
-    useActiveItem(player, CollectibleType.COLLECTIBLE_DULL_RAZOR);
+    useActiveItemTemp(player, CollectibleType.COLLECTIBLE_DULL_RAZOR);
     g.run.babyBool = false;
     player.AddBombs(-1);
     return false;
@@ -249,7 +245,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(139, (player) => {
 
 // Fat Baby
 entityTakeDmgPlayerBabyFunctionMap.set(148, (player) => {
-  useActiveItem(player, CollectibleType.COLLECTIBLE_NECRONOMICON);
+  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_NECRONOMICON);
 });
 
 // Helmet Baby
@@ -298,12 +294,12 @@ entityTakeDmgPlayerBabyFunctionMap.set(177, (player) => {
 // Faded Baby
 entityTakeDmgPlayerBabyFunctionMap.set(186, (player) => {
   // Random teleport on hit
-  useActiveItem(player, CollectibleType.COLLECTIBLE_TELEPORT);
+  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_TELEPORT);
 });
 
 // Small Face Baby
 entityTakeDmgPlayerBabyFunctionMap.set(200, (player) => {
-  useActiveItem(player, CollectibleType.COLLECTIBLE_MY_LITTLE_UNICORN);
+  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_MY_LITTLE_UNICORN);
 });
 
 // Dented Baby
@@ -323,7 +319,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(204, (player) => {
 
 // MeatBoy Baby
 entityTakeDmgPlayerBabyFunctionMap.set(210, (player) => {
-  useActiveItem(player, CollectibleType.COLLECTIBLE_POTATO_PEELER);
+  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_POTATO_PEELER);
 });
 
 // Conjoined Baby
@@ -368,7 +364,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(225, (player) => {
 
 // Beard Baby
 entityTakeDmgPlayerBabyFunctionMap.set(227, (player) => {
-  useActiveItem(player, CollectibleType.COLLECTIBLE_CROOKED_PENNY);
+  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_CROOKED_PENNY);
 });
 
 // Nuclear Baby
@@ -394,22 +390,22 @@ entityTakeDmgPlayerBabyFunctionMap.set(258, (player) => {
 
 // Coat Baby
 entityTakeDmgPlayerBabyFunctionMap.set(260, (player) => {
-  useActiveItem(player, CollectibleType.COLLECTIBLE_DECK_OF_CARDS);
+  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_DECK_OF_CARDS);
 });
 
 // Gargoyle Baby
 entityTakeDmgPlayerBabyFunctionMap.set(276, (player) => {
-  useActiveItem(player, CollectibleType.COLLECTIBLE_HEAD_OF_KRAMPUS);
+  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_HEAD_OF_KRAMPUS);
 });
 
 // Big Tongue Baby
 entityTakeDmgPlayerBabyFunctionMap.set(285, (player) => {
-  useActiveItem(player, CollectibleType.COLLECTIBLE_FLUSH);
+  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_FLUSH);
 });
 
 // Banshee Baby
 entityTakeDmgPlayerBabyFunctionMap.set(293, (player) => {
-  useActiveItem(player, CollectibleType.COLLECTIBLE_CRACK_THE_SKY);
+  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_CRACK_THE_SKY);
 });
 
 // Bloodied Baby
@@ -443,7 +439,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(301, (player) => {
 
 // X Mouth Baby
 entityTakeDmgPlayerBabyFunctionMap.set(308, (player) => {
-  useActiveItem(player, CollectibleType.COLLECTIBLE_MOVING_BOX);
+  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_MOVING_BOX);
 });
 
 // Starry Eyed Baby
@@ -460,7 +456,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(310, (player) => {
 
 // Puzzle Baby
 entityTakeDmgPlayerBabyFunctionMap.set(315, (player) => {
-  useActiveItem(player, CollectibleType.COLLECTIBLE_D6);
+  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_D6);
 });
 
 // Fireball Baby
@@ -518,7 +514,10 @@ entityTakeDmgPlayerBabyFunctionMap.set(323, (player) => {
   g.run.babyCounters += 1;
   if (g.run.babyCounters === 6) {
     g.run.babyCounters = 0;
-    useActiveItem(player, CollectibleTypeCustom.COLLECTIBLE_CLOCKWORK_ASSEMBLY);
+    useActiveItemTemp(
+      player,
+      CollectibleTypeCustom.COLLECTIBLE_CLOCKWORK_ASSEMBLY,
+    );
   }
 });
 
@@ -531,7 +530,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(336, () => {
 
 // Tanooki Baby
 entityTakeDmgPlayerBabyFunctionMap.set(359, (player) => {
-  useActiveItem(player, CollectibleType.COLLECTIBLE_MR_ME);
+  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_MR_ME);
 });
 
 // Fiery Baby
@@ -541,7 +540,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(366, (player) => {
 
 // Dark Elf Baby
 entityTakeDmgPlayerBabyFunctionMap.set(378, (player) => {
-  useActiveItem(player, CollectibleType.COLLECTIBLE_BOOK_OF_THE_DEAD);
+  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_BOOK_OF_THE_DEAD);
 });
 
 // Fairyman Baby
@@ -564,7 +563,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(408, (player) => {
 
 // Catsuit Baby
 entityTakeDmgPlayerBabyFunctionMap.set(412, (player) => {
-  useActiveItem(player, CollectibleType.COLLECTIBLE_GUPPYS_PAW);
+  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_GUPPYS_PAW);
 });
 
 // Magic Cat Baby
@@ -599,7 +598,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(438, (player) => {
   g.run.babyCounters += 1;
   if (g.run.babyCounters === baby.numHits) {
     g.run.babyCounters = 0;
-    useActiveItem(player, CollectibleType.COLLECTIBLE_MEGA_MUSH);
+    useActiveItemTemp(player, CollectibleType.COLLECTIBLE_MEGA_MUSH);
   }
 });
 
@@ -613,7 +612,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(441, (player) => {
   g.run.babyCounters += 1;
   if (g.run.babyCounters === baby.numHits) {
     g.run.babyCounters = 0;
-    useActiveItem(player, CollectibleType.COLLECTIBLE_MEGA_BLAST);
+    useActiveItemTemp(player, CollectibleType.COLLECTIBLE_MEGA_BLAST);
   }
 });
 
@@ -622,13 +621,13 @@ entityTakeDmgPlayerBabyFunctionMap.set(444, (player) => {
   // Forget Me Now on 2nd hit (per room)
   g.run.babyCountersRoom += 1;
   if (g.run.babyCountersRoom >= 2) {
-    useActiveItem(player, CollectibleType.COLLECTIBLE_FORGET_ME_NOW);
+    useActiveItemTemp(player, CollectibleType.COLLECTIBLE_FORGET_ME_NOW);
   }
 });
 
 // Rojen Whitefox Baby
 entityTakeDmgPlayerBabyFunctionMap.set(446, (player) => {
-  useActiveItem(player, CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS);
+  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS);
 });
 
 // Handsome Mr. Frog Baby
@@ -767,7 +766,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(552, (player) => {
   g.run.babyCounters += 1;
   if (g.run.babyCounters === baby.numHits) {
     g.run.babyCounters = 0;
-    useActiveItem(player, CollectibleType.COLLECTIBLE_GENESIS);
+    useActiveItemTemp(player, CollectibleType.COLLECTIBLE_GENESIS);
   }
 });
 
@@ -787,7 +786,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(555, (player) => {
 entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.LOST_WHITE_BABY,
   (player) => {
-    useActiveItem(player, CollectibleType.COLLECTIBLE_ETERNAL_D6);
+    useActiveItemTemp(player, CollectibleType.COLLECTIBLE_ETERNAL_D6);
   },
 );
 
@@ -795,7 +794,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.LOST_BLACK_BABY,
   (player) => {
-    useActiveItem(player, CollectibleType.COLLECTIBLE_SPINDOWN_DICE);
+    useActiveItemTemp(player, CollectibleType.COLLECTIBLE_SPINDOWN_DICE);
   },
 );
 
@@ -803,7 +802,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.LOST_BLUE_BABY,
   (player) => {
-    useActiveItem(player, CollectibleType.COLLECTIBLE_D10);
+    useActiveItemTemp(player, CollectibleType.COLLECTIBLE_D10);
   },
 );
 
@@ -811,7 +810,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.LOST_GREY_BABY,
   (player) => {
-    useActiveItem(player, CollectibleType.COLLECTIBLE_D7);
+    useActiveItemTemp(player, CollectibleType.COLLECTIBLE_D7);
   },
 );
 

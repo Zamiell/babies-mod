@@ -339,11 +339,3 @@ export function spawnSlot(
 
   g.sfx.Play(SoundEffect.SOUND_SUMMONSOUND);
 }
-
-/** Helper function to use an active item without showing an animation. */
-export function useActiveItem(
-  player: EntityPlayer,
-  collectibleType: CollectibleType | CollectibleTypeCustom,
-): void {
-  player.UseActiveItem(collectibleType, false, false, false, false);
-}

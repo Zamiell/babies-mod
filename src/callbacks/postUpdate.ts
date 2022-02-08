@@ -4,10 +4,11 @@ import {
   getRoomListIndex,
   log,
   openAllDoors,
+  useActiveItemTemp,
 } from "isaacscript-common";
 import g from "../globals";
 import { roomClearedBabyFunctionMap } from "../roomClearedBabyFunctionMap";
-import { getCurrentBaby, spawnRandomPickup, useActiveItem } from "../util";
+import { getCurrentBaby, spawnRandomPickup } from "../util";
 import { postUpdateBabyFunctionMap } from "./postUpdateBabyFunctionMap";
 
 export function main(): void {
@@ -205,7 +206,7 @@ function checkGridEntities() {
         g.p.Position.Distance(gridEntity.Position) <= 36
       ) {
         g.run.invulnerable = true;
-        useActiveItem(g.p, CollectibleType.COLLECTIBLE_KAMIKAZE);
+        useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_KAMIKAZE);
         g.run.invulnerable = false;
         g.run.babyFrame = gameFrameCount + 10;
       }

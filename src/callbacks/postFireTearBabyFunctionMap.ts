@@ -3,12 +3,13 @@ import {
   GAME_FRAMES_PER_SECOND,
   getFamiliars,
   getRandomInt,
+  useActiveItemTemp,
 } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
 import { FADED_BLUE, FADED_RED, FADED_YELLOW } from "../constants";
 import g from "../globals";
 import { TearData } from "../types/TearData";
-import { getCurrentBaby, useActiveItem } from "../util";
+import { getCurrentBaby } from "../util";
 
 export const postFireTearBabyFunctionMap = new Map<
   int,
@@ -128,7 +129,7 @@ postFireTearBabyFunctionMap.set(74, (tear: EntityTear) => {
 
 // Scream Baby
 postFireTearBabyFunctionMap.set(81, (tear: EntityTear) => {
-  useActiveItem(g.p, CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP);
+  useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP);
   tear.Remove();
 });
 
@@ -298,7 +299,7 @@ postFireTearBabyFunctionMap.set(279, (tear: EntityTear) => {
 
 // Butt Baby
 postFireTearBabyFunctionMap.set(288, (_tear: EntityTear) => {
-  useActiveItem(g.p, CollectibleType.COLLECTIBLE_BEAN);
+  useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_BEAN);
 });
 
 // Speaker Baby

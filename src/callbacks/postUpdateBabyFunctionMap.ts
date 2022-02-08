@@ -17,12 +17,13 @@ import {
   isEntityMoving,
   isShootActionPressedOnAnyInput,
   nextSeed,
+  useActiveItemTemp,
 } from "isaacscript-common";
 import { BABIES, RandomBabyType } from "../babies";
 import g from "../globals";
 import * as pseudoRoomClear from "../pseudoRoomClear";
 import { EffectVariantCustom } from "../types/EffectVariantCustom";
-import { bigChestExists, getCurrentBaby, useActiveItem } from "../util";
+import { bigChestExists, getCurrentBaby } from "../util";
 
 export const postUpdateBabyFunctionMap = new Map<int, () => void>();
 
@@ -53,7 +54,7 @@ postUpdateBabyFunctionMap.set(17, () => {
 
   // Every 1 second
   if (gameFrameCount % GAME_FRAMES_PER_SECOND === 0) {
-    useActiveItem(g.p, CollectibleType.COLLECTIBLE_BUTTER_BEAN);
+    useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_BUTTER_BEAN);
   }
 });
 
@@ -66,7 +67,7 @@ postUpdateBabyFunctionMap.set(19, () => {
   }
 
   if (gameFrameCount % baby.num === 0) {
-    useActiveItem(g.p, CollectibleType.COLLECTIBLE_ANARCHIST_COOKBOOK);
+    useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_ANARCHIST_COOKBOOK);
   }
 });
 
@@ -78,7 +79,7 @@ postUpdateBabyFunctionMap.set(20, () => {
   if (gameFrameCount % 3 === 0 && g.run.babyCounters > 0) {
     // This should not cause any damage since the player will have invulnerability frames
     g.run.babyCounters -= 1;
-    useActiveItem(g.p, CollectibleType.COLLECTIBLE_KAMIKAZE);
+    useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_KAMIKAZE);
   }
 });
 
@@ -175,7 +176,7 @@ postUpdateBabyFunctionMap.set(58, () => {
 
   // Every 7 seconds
   if (gameFrameCount % (7 * GAME_FRAMES_PER_SECOND) === 0) {
-    useActiveItem(g.p, CollectibleType.COLLECTIBLE_MONSTER_MANUAL);
+    useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_MONSTER_MANUAL);
     g.sfx.Stop(SoundEffect.SOUND_SATAN_GROW);
   }
 });
@@ -245,7 +246,7 @@ postUpdateBabyFunctionMap.set(96, () => {
 
   // Every 5 seconds
   if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
-    useActiveItem(g.p, CollectibleType.COLLECTIBLE_BEST_FRIEND);
+    useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_BEST_FRIEND);
   }
 });
 
@@ -386,7 +387,7 @@ postUpdateBabyFunctionMap.set(155, () => {
 
   // Every 1 second
   if (gameFrameCount % GAME_FRAMES_PER_SECOND === 0) {
-    useActiveItem(g.p, CollectibleType.COLLECTIBLE_TELEKINESIS);
+    useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_TELEKINESIS);
   }
 });
 
@@ -408,7 +409,7 @@ postUpdateBabyFunctionMap.set(156, () => {
 
   // Every 5 seconds
   if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
-    useActiveItem(g.p, CollectibleType.COLLECTIBLE_MEGA_BEAN);
+    useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_MEGA_BEAN);
   }
 });
 
@@ -498,7 +499,7 @@ postUpdateBabyFunctionMap.set(167, () => {
   }
 
   g.run.babyFrame = 0;
-  useActiveItem(g.p, CollectibleType.COLLECTIBLE_TELEPORT);
+  useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_TELEPORT);
 });
 
 // Skull Baby
@@ -566,7 +567,7 @@ postUpdateBabyFunctionMap.set(221, () => {
       g.run.babyCounters = 0;
       g.run.babyFrame = 0;
     } else {
-      useActiveItem(g.p, CollectibleType.COLLECTIBLE_MONSTROS_TOOTH);
+      useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_MONSTROS_TOOTH);
     }
   }
 });
@@ -590,7 +591,7 @@ postUpdateBabyFunctionMap.set(231, () => {
   // Constant Isaac's Tears effect + blindfolded
   if (gameFrameCount % 3 === 0) {
     g.run.babyBool = true;
-    useActiveItem(g.p, CollectibleType.COLLECTIBLE_ISAACS_TEARS);
+    useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_ISAACS_TEARS);
     g.run.babyBool = false;
   }
 });
@@ -625,7 +626,7 @@ postUpdateBabyFunctionMap.set(256, () => {
   }
 
   if (gameFrameCount % baby.num === 0) {
-    useActiveItem(g.p, CollectibleType.COLLECTIBLE_VENTRICLE_RAZOR);
+    useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_VENTRICLE_RAZOR);
   }
 });
 
@@ -638,7 +639,7 @@ postUpdateBabyFunctionMap.set(263, () => {
   // (this does not work if we do it in the PostNewRoom callback)
   // (this does not work if we do it on the 0th frame)
   if (roomFrameCount === 1 && isFirstVisit) {
-    useActiveItem(g.p, CollectibleType.COLLECTIBLE_D12);
+    useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_D12);
   }
 });
 
@@ -686,7 +687,7 @@ postUpdateBabyFunctionMap.set(270, () => {
 
   // Every 5 seconds
   if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
-    useActiveItem(g.p, CollectibleType.COLLECTIBLE_WAIT_WHAT);
+    useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_WAIT_WHAT);
   }
 });
 
@@ -701,7 +702,7 @@ postUpdateBabyFunctionMap.set(290, () => {
 
   // Every 5 seconds
   if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
-    useActiveItem(g.p, CollectibleType.COLLECTIBLE_DULL_RAZOR);
+    useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_DULL_RAZOR);
     g.sfx.Stop(SoundEffect.SOUND_ISAAC_HURT_GRUNT);
   }
 });
@@ -728,7 +729,7 @@ postUpdateBabyFunctionMap.set(303, () => {
   if (g.run.babyFrame !== 0 && gameFrameCount >= g.run.babyFrame) {
     g.run.babyCounters += 1;
     g.run.babyFrame = gameFrameCount + baby.delay;
-    useActiveItem(g.p, CollectibleType.COLLECTIBLE_BROWN_NUGGET);
+    useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_BROWN_NUGGET);
     if (g.run.babyCounters === 19) {
       // One is already spawned with the initial trigger
       g.run.babyCounters = 0;
@@ -755,7 +756,7 @@ postUpdateBabyFunctionMap.set(304, () => {
 
   // Constant The Bean effect + flight + explosion immunity + blindfolded
   if (gameFrameCount % 3 === 0) {
-    useActiveItem(g.p, CollectibleType.COLLECTIBLE_BEAN);
+    useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_BEAN);
   }
 });
 
@@ -828,7 +829,7 @@ postUpdateBabyFunctionMap.set(349, () => {
 
   // Every 10 seconds
   if (gameFrameCount % (10 * GAME_FRAMES_PER_SECOND) === 0) {
-    useActiveItem(g.p, CollectibleType.COLLECTIBLE_DELIRIOUS);
+    useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_DELIRIOUS);
   }
 });
 
@@ -974,7 +975,7 @@ postUpdateBabyFunctionMap.set(449, () => {
 
   // Every 7 seconds
   if (gameFrameCount % (7 * GAME_FRAMES_PER_SECOND) === 0) {
-    useActiveItem(g.p, CollectibleType.COLLECTIBLE_SPRINKLER);
+    useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_SPRINKLER);
   }
 });
 
@@ -1082,7 +1083,7 @@ postUpdateBabyFunctionMap.set(508, () => {
     // Monstro will target you if there are no enemies in the room (and this is unavoidable)
     !roomClear
   ) {
-    useActiveItem(g.p, CollectibleType.COLLECTIBLE_MONSTROS_TOOTH);
+    useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_MONSTROS_TOOTH);
   }
 });
 

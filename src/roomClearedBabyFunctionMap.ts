@@ -1,6 +1,10 @@
-import { addRoomClearCharge, getRandomHeartSubType } from "isaacscript-common";
+import {
+  addRoomClearCharge,
+  getRandomHeartSubType,
+  useActiveItemTemp,
+} from "isaacscript-common";
 import g from "./globals";
-import { getCurrentBaby, useActiveItem } from "./util";
+import { getCurrentBaby } from "./util";
 
 export const roomClearedBabyFunctionMap = new Map<int, () => void>();
 
@@ -51,7 +55,7 @@ roomClearedBabyFunctionMap.set(192, () => {
 
 // 2600 Baby
 roomClearedBabyFunctionMap.set(347, () => {
-  useActiveItem(g.p, CollectibleType.COLLECTIBLE_FRIEND_FINDER);
+  useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_FRIEND_FINDER);
 });
 
 // Fishman Baby
@@ -78,7 +82,7 @@ roomClearedBabyFunctionMap.set(546, () => {
     gaveGiantCell = true;
   }
 
-  useActiveItem(g.p, CollectibleType.COLLECTIBLE_DULL_RAZOR);
+  useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_DULL_RAZOR);
 
   if (gaveGiantCell) {
     g.p.RemoveCollectible(CollectibleType.COLLECTIBLE_GIANT_CELL);
@@ -93,6 +97,6 @@ roomClearedBabyFunctionMap.set(542, () => {
   }
 
   for (let i = 0; i < baby.num; i++) {
-    useActiveItem(g.p, CollectibleType.COLLECTIBLE_KEEPERS_BOX);
+    useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_KEEPERS_BOX);
   }
 });
