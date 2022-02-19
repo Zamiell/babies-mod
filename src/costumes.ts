@@ -24,6 +24,8 @@ export function setBabyANM2(player: EntityPlayer) {
 }
 
 export function addPlayerToCostumeProtector(player: EntityPlayer): void {
+  setBabyANM2(player);
+
   const character = player.GetPlayerType();
   const [spritesheetPath, flightCostumeNullItemID] =
     getCostumeProtectorArguments();
@@ -41,6 +43,8 @@ export function addPlayerToCostumeProtector(player: EntityPlayer): void {
 }
 
 export function updatePlayerWithCostumeProtector(player: EntityPlayer): void {
+  setBabyANM2(player);
+
   const character = player.GetPlayerType();
   const [spritesheetPath, flightCostumeNullItemID] =
     getCostumeProtectorArguments();

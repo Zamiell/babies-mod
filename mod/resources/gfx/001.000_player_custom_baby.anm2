@@ -16,7 +16,8 @@ Notes:
 	- Happy
 	- TeleportUp
 	- TeleportDown
-	- Trapdoor (and TrapdoorCustom to match Racing+)
+	- Trapdoor
+	- TrapdoorCustom (to match Racing+)
 	- Jump
 	- LiftItem
 	- FallIn
@@ -845,7 +846,9 @@ Notes:
 				<NullAnimation NullId="6" Visible="true"/>
 				<NullAnimation NullId="7" Visible="true"/>
 			</NullAnimations>
-			<Triggers/>
+			<Triggers>
+				<Trigger EventId="1" AtFrame="14" />
+			</Triggers>
 		</Animation>
 		<Animation Name="TrapdoorCustom" FrameNum="40" Loop="false">
 			<RootAnimation>

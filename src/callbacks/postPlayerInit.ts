@@ -1,5 +1,5 @@
 import { updateCachedPlayer } from "../cache";
-import { addPlayerToCostumeProtector, setBabyANM2 } from "../costumes";
+import { addPlayerToCostumeProtector } from "../costumes";
 import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
 
 export function main(player: EntityPlayer): void {
@@ -17,6 +17,5 @@ export function main(player: EntityPlayer): void {
     return;
   }
 
-  setBabyANM2(player);
   addPlayerToCostumeProtector(player);
 }

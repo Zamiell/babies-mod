@@ -870,3 +870,8 @@ entityTakeDmgPlayerBabyFunctionMap.set(
     }
   },
 );
+
+// Esau Jr. Baby
+entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.ESAU_JR, (player) => {
+  player.UseCard(Card.CARD_SOUL_JACOB);
+});

@@ -3485,7 +3485,8 @@ export const BABIES: BabyDescription[] = [
   {
     name: "Lil Brimstone", // CollectibleType.COLLECTIBLE_LIL_BRIMSTONE (275)
     description: "Starts with Brimstone",
-    sprite: "costume_rebirth_77_lilbrimstone.png", // 571
+    // We cannot use the vanilla sprite since it has extra frames for charging
+    sprite: "familiar_shooters_275_lilbrimstone_custom.png", // 571
     item: CollectibleType.COLLECTIBLE_BRIMSTONE,
   },
   {
@@ -3525,7 +3526,8 @@ export const BABIES: BabyDescription[] = [
   {
     name: "Boiled Baby", // CollectibleType.COLLECTIBLE_BOILED_BABY (607)
     description: "All items from the Ultra Secret Room pool",
-    sprite: "003.208_boilbaby.png", // 578
+    // We cannot use the vanilla sprite since it is unidirectional
+    sprite: "003.208_boilbaby_custom.png", // 578
   },
   {
     name: "Freezer Baby", // CollectibleType.COLLECTIBLE_FREEZER_BABY (608)
@@ -3551,15 +3553,20 @@ export const BABIES: BabyDescription[] = [
     item: CollectibleType.COLLECTIBLE_SOL,
   },
   {
+    name: "Esau Jr. Baby",
+    description: "Soul of Jacob and Esau effect on hit",
+    sprite: "familiar_esau_jr.png", // 583
+  },
+  {
     name: "Siren Shooter",
     description: "Spawns a pedestal item after 6 hits",
-    sprite: "familiar_siren_shooter.png", // 583
+    sprite: "familiar_siren_shooter.png", // 584
   },
   {
     name: "Invisible Baby",
     description: "Invisibility",
     // This file does not actually exist, but we cannot specify a blank string
-    sprite: "invisible_baby.png", // 584
+    sprite: "invisible_baby.png", // 585
   },
 ];
 
@@ -3615,6 +3622,7 @@ export enum RandomBabyType {
   GELLO = 582,
 
   // Other
-  SIREN_SHOOTER = 583,
-  INVISIBLE_BABY = 584,
+  ESAU_JR = 583,
+  SIREN_SHOOTER = 584,
+  INVISIBLE_BABY = 585,
 }

@@ -1,5 +1,13 @@
 # The Babies Mod Version History
 
+### *v1.4.10* - February 18th, 2022
+
+- New baby: Esau Jr. Baby (#584) - Soul of Jacob and Esau effect on hit
+- Fixed the bug where Lil' Brimstone was invisible.
+- Fixed the bug where the sprite for Boiled Baby was not working correctly.
+- Fixed the bug where baby sprites would not work correctly under certain conditions.
+- Fixed the bug where jumping into a Womb trapdoor would softlock the game under certain conditions.
+
 ### *v1.4.9* - January 2nd, 2022
 
 - Fixed the bug where in seeded races, Random Baby would be invisible during the custom death mechanic. (Thanks Moucheron Quipet)
