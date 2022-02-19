@@ -1,6 +1,6 @@
 import {
   isActionPressedOnAnyInput,
-  SHOOTING_ACTIONS,
+  SHOOTING_ACTIONS_SET,
 } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
 import g from "../globals";
@@ -17,7 +17,7 @@ inputActionBabyFunctionMap.set(
     if (
       // The shoot inputs can be on all 3 of the input hooks
       inputHook === InputHook.IS_ACTION_PRESSED &&
-      SHOOTING_ACTIONS.has(buttonAction)
+      SHOOTING_ACTIONS_SET.has(buttonAction)
     ) {
       // Can't shoot while moving
       // This ability does not interact well with charged items,
