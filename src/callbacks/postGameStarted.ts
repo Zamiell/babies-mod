@@ -3,7 +3,7 @@ import { BABIES } from "../babies";
 import g from "../globals";
 import { GlobalsRun } from "../types/GlobalsRun";
 import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
-import { giveItemAndRemoveFromPools } from "../util";
+import { giveItemAndRemoveFromPools } from "../utils";
 
 export function main(isContinued: boolean): void {
   const startSeed = g.seeds.GetStartSeed();

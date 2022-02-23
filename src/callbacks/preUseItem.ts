@@ -1,5 +1,5 @@
 import g from "../globals";
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 
 export function init(mod: Mod): void {
   mod.AddCallback(

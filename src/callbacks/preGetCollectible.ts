@@ -1,5 +1,5 @@
 import g from "../globals";
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 import { preGetCollectibleBabyFunctionMap } from "./preGetCollectibleBabyFunctionMap";
 
 export function main(

@@ -8,7 +8,7 @@ import {
 import { RandomBabyType } from "../babies";
 import g from "../globals";
 import { TearData } from "../types/TearData";
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 
 export const postTearUpdateBabyFunctionMap = new Map<
   int,

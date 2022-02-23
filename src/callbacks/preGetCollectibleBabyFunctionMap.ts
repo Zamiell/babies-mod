@@ -1,6 +1,6 @@
 import { RandomBabyType } from "../babies";
 import g from "../globals";
-import { getRandomCollectibleTypeFromPool } from "../util";
+import { getRandomCollectibleTypeFromPool } from "../utils";
 
 export const preGetCollectibleBabyFunctionMap = new Map<
   int,

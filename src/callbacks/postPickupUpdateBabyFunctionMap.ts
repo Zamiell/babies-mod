@@ -10,7 +10,7 @@ import g from "../globals";
 import {
   isRerolledCollectibleBuggedHeart,
   shouldTransformRoomType,
-} from "../util";
+} from "../utils";
 
 export const postPickupUpdateBabyFunctionMap = new Map<
   int,

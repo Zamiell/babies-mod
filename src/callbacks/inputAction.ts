@@ -1,4 +1,4 @@
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 import { inputActionBabyFunctionMap } from "./inputActionBabyFunctionMap";
 
 export function main(

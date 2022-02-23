@@ -4,7 +4,7 @@ import { NUM_SUCCUBI_IN_FLOCK } from "../constants";
 import g from "../globals";
 import { GlobalsRunBabyTears } from "../types/GlobalsRunBabyTears";
 import { GlobalsRunRoom } from "../types/GlobalsRunRoom";
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 import { postNewRoomBabyFunctionMap } from "./postNewRoomBabyFunctionMap";
 
 export function main(): void {

@@ -1,4 +1,4 @@
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 import * as entityTakeDmgEntity from "./entityTakeDmgEntity";
 import * as entityTakeDmgPlayer from "./entityTakeDmgPlayer";
 

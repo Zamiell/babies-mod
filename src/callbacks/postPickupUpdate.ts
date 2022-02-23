@@ -1,5 +1,5 @@
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 import { postPickupUpdateBabyFunctionMap } from "./postPickupUpdateBabyFunctionMap";
 
 export function main(pickup: EntityPickup): void {

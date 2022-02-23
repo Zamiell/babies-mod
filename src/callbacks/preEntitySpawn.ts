@@ -1,4 +1,4 @@
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 
 export function main(
   entityType: int,

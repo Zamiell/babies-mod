@@ -1,4 +1,4 @@
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 import { postEffectUpdateBabyFunctionMap } from "./postEffectUpdateBabyFunctionMap";
 
 export function main(effect: EntityEffect): void {

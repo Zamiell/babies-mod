@@ -7,7 +7,7 @@ import {
 import { NUM_SUCCUBI_IN_FLOCK } from "../constants";
 import g from "../globals";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
-import { getCurrentBaby, spawnSlot } from "../util";
+import { getCurrentBaby, spawnSlot } from "../utils";
 
 export function init(mod: Mod): void {
   mod.AddCallback(

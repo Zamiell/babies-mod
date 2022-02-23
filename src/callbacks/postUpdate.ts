@@ -8,7 +8,7 @@ import {
 } from "isaacscript-common";
 import g from "../globals";
 import { roomClearedBabyFunctionMap } from "../roomClearedBabyFunctionMap";
-import { getCurrentBaby, spawnRandomPickup } from "../util";
+import { getCurrentBaby, spawnRandomPickup } from "../utils";
 import { postUpdateBabyFunctionMap } from "./postUpdateBabyFunctionMap";
 
 export function main(): void {

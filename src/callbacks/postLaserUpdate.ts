@@ -1,4 +1,4 @@
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 import { postLaserUpdateBabyFunctionMap } from "./postLaserUpdateBabyFunctionMap";
 
 export function main(laser: EntityLaser): void {

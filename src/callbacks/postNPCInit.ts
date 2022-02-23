@@ -1,4 +1,4 @@
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 import { postNPCInitBabyFunctionMap } from "./postNPCInitBabyFunctionMap";
 
 export function main(npc: EntityNPC): void {

@@ -1,5 +1,5 @@
 import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 import { evaluateCacheBabyFunctionMap } from "./evaluateCacheBabyFunctionMap";
 
 export function main(player: EntityPlayer, cacheFlag: CacheFlag): void {

@@ -1,7 +1,7 @@
 import { copyColor, removeAllMatchingEntities } from "isaacscript-common";
 import { BABIES, RandomBabyType } from "./babies";
 import g from "./globals";
-import { removeAllFriendlyEntities } from "./util";
+import { removeAllFriendlyEntities } from "./utils";
 
 export const babyRemoveFunctionMap = new Map<
   int,

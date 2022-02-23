@@ -1,4 +1,4 @@
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 import { postBombUpdateBabyFunctionMap } from "./postBombUpdateBabyFunctionMap";
 
 export function main(bomb: EntityBomb): void {

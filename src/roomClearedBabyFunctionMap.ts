@@ -4,7 +4,7 @@ import {
   useActiveItemTemp,
 } from "isaacscript-common";
 import g from "./globals";
-import { getCurrentBaby } from "./util";
+import { getCurrentBaby } from "./utils";
 
 export const roomClearedBabyFunctionMap = new Map<int, () => void>();
 

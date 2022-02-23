@@ -1,4 +1,4 @@
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 import { postPickupCollectBabyFunctionMap } from "./postPickupCollectBabyFunctionMap";
 
 export function main(): void {

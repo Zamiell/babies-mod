@@ -6,7 +6,7 @@ import {
   MAX_NUM_DOORS,
 } from "isaacscript-common";
 import g from "./globals";
-import { getCurrentBaby } from "./util";
+import { getCurrentBaby } from "./utils";
 
 // Pseudo room clear should be disabled in certain room types
 const ROOM_TYPE_BLACKLIST: ReadonlySet<RoomType> = new Set([

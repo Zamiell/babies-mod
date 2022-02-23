@@ -1,6 +1,6 @@
 import { addPlayerToCostumeProtector } from "../costumes";
 import g from "../globals";
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 
 export function main(player: EntityPlayer): void {
   if (!g.run.startedRunAsRandomBaby) {

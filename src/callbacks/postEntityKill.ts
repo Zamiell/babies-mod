@@ -1,5 +1,5 @@
 import g from "../globals";
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 import { postEntityKillBabyFunctionMap } from "./postEntityKillBabyFunctionMap";
 
 export function main(entity: Entity): void {

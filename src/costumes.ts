@@ -4,7 +4,7 @@
 import { BABIES, RandomBabyType } from "./babies";
 import * as costumeProtector from "./lib/characterCostumeProtector";
 import { NullItemIDCustom } from "./types/NullItemIDCustom";
-import { getCurrentBaby } from "./util";
+import { getCurrentBaby } from "./utils";
 
 const CUSTOM_PLAYER_ANM2 = "gfx/001.000_player_custom_baby.anm2";
 const FIRST_BABY_WITH_SPRITE_IN_FAMILIAR_DIRECTORY =

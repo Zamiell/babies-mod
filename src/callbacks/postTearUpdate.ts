@@ -1,4 +1,4 @@
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 import { postTearUpdateBabyFunctionMap } from "./postTearUpdateBabyFunctionMap";
 
 export function main(tear: EntityTear): void {

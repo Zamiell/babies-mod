@@ -1,6 +1,6 @@
 import g from "./globals";
 import { initSprite } from "./sprite";
-import { getCurrentBaby } from "./util";
+import { getCurrentBaby } from "./utils";
 
 const sprites = {
   clock: Sprite(),

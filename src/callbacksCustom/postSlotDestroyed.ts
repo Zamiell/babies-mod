@@ -1,6 +1,6 @@
 import { nextSeed } from "isaacscript-common";
 import g from "../globals";
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 
 export function main(slot: Entity): void {
   const [babyType, , valid] = getCurrentBaby();

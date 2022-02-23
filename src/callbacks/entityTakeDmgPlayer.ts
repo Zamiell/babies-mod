@@ -1,6 +1,6 @@
 import { hasFlag } from "isaacscript-common";
 import g from "../globals";
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 import { entityTakeDmgPlayerBabyFunctionMap } from "./entityTakeDmgPlayerBabyFunctionMap";
 
 export function main(

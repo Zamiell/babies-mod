@@ -5,7 +5,7 @@ import {
 import { BABIES, RandomBabyType } from "./babies";
 import g from "./globals";
 import { initSprite } from "./sprite";
-import { getCurrentBaby } from "./util";
+import { getCurrentBaby } from "./utils";
 
 export const babyAddFunctionMap = new Map<int, () => void>();
 

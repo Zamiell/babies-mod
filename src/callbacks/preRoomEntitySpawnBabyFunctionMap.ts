@@ -1,5 +1,5 @@
 import g from "../globals";
-import { shouldTransformRoomType } from "../util";
+import { shouldTransformRoomType } from "../utils";
 
 const GRID_ENTITY_REPLACEMENT_EXCEPTIONS: ReadonlySet<GridEntityXMLType> =
   new Set([

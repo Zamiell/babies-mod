@@ -1,6 +1,6 @@
 import { setEntityRandomColor } from "isaacscript-common";
 import g from "../globals";
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 
 export const postProjectileUpdateBabyFunctionMap = new Map<
   int,

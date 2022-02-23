@@ -6,7 +6,7 @@ import {
   useActiveItemTemp,
 } from "isaacscript-common";
 import g from "../globals";
-import { getRandomOffsetPosition } from "../util";
+import { getRandomOffsetPosition } from "../utils";
 
 export const postBombUpdateBabyFunctionMap = new Map<
   int,

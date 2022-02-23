@@ -1,4 +1,4 @@
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 import { postProjectileUpdateBabyFunctionMap } from "./postProjectileUpdateBabyFunctionMap";
 
 export function main(projectile: EntityProjectile): void {

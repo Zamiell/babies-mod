@@ -5,7 +5,7 @@ import { babyCheckValid } from "../babyCheckValid";
 import { babyRemove } from "../babyRemove";
 import g from "../globals";
 import { GlobalsRunLevel } from "../types/GlobalsRunLevel";
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 
 export function main(): void {
   const gameFrameCount = g.g.GetFrameCount();

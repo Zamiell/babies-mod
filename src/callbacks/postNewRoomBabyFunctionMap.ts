@@ -20,7 +20,7 @@ import { RandomBabyType } from "../babies";
 import g from "../globals";
 import { TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP } from "../maps/teleportRoomTypeToItemAndPriceMap";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
-import { getCurrentBaby, shouldTransformRoomType } from "../util";
+import { getCurrentBaby, shouldTransformRoomType } from "../utils";
 
 export const postNewRoomBabyFunctionMap = new Map<int, () => void>();
 

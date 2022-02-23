@@ -11,7 +11,7 @@ import { MOD_NAME, VERSION } from "../constants";
 import g from "../globals";
 import { initSprite } from "../sprite";
 import * as timer from "../timer";
-import { getCurrentBaby, isRacingPlusEnabled } from "../util";
+import { getCurrentBaby, isRacingPlusEnabled } from "../utils";
 import { postRenderBabyFunctionMap } from "./postRenderBabyFunctionMap";
 
 const UI_HEARTS_RIGHT_SPACING = 55;

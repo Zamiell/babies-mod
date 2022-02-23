@@ -23,7 +23,7 @@ import { BABIES, RandomBabyType } from "../babies";
 import g from "../globals";
 import * as pseudoRoomClear from "../pseudoRoomClear";
 import { EffectVariantCustom } from "../types/EffectVariantCustom";
-import { bigChestExists, getCurrentBaby } from "../util";
+import { bigChestExists, getCurrentBaby } from "../utils";
 
 export const postUpdateBabyFunctionMap = new Map<int, () => void>();
 

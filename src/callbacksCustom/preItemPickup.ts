@@ -1,5 +1,5 @@
 import { PickingUpItem } from "isaacscript-common";
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 import { preItemPickupBabyFunctionMap } from "./preItemPickupBabyFunctionMap";
 
 export function main(player: EntityPlayer, pickingUpItem: PickingUpItem): void {

@@ -1,7 +1,7 @@
 import { GAME_FRAMES_PER_SECOND, getEffects } from "isaacscript-common";
 import g from "../globals";
 import { EffectVariantCustom } from "../types/EffectVariantCustom";
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 
 export const postEffectUpdateBabyFunctionMap = new Map<
   int,

@@ -4,7 +4,7 @@ import {
   removeGridEntity,
 } from "isaacscript-common";
 import g from "../globals";
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 
 export function init(mod: ModUpgraded): void {
   mod.AddCallbackCustom(

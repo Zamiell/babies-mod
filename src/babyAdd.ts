@@ -13,7 +13,7 @@ import {
 import { babyAddFunctionMap } from "./babyAddFunctionMap";
 import { setBabyANM2, updatePlayerWithCostumeProtector } from "./costumes";
 import g from "./globals";
-import { getCurrentBaby, giveItemAndRemoveFromPools } from "./util";
+import { getCurrentBaby, giveItemAndRemoveFromPools } from "./utils";
 
 export function babyAdd(player: EntityPlayer): void {
   const coins = player.GetNumCoins();

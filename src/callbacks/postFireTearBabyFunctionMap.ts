@@ -9,7 +9,7 @@ import { RandomBabyType } from "../babies";
 import { FADED_BLUE, FADED_RED, FADED_YELLOW } from "../constants";
 import g from "../globals";
 import { TearData } from "../types/TearData";
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 
 export const postFireTearBabyFunctionMap = new Map<
   int,

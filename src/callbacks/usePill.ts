@@ -1,4 +1,4 @@
-import { getCurrentBaby } from "../util";
+import { getCurrentBaby } from "../utils";
 import { usePillBabyFunctionMap } from "./usePillBabyFunctionMap";
 
 export function main(_pillEffect: PillEffect, player: EntityPlayer): void {

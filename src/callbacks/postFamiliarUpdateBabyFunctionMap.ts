@@ -1,7 +1,7 @@
 import { getFamiliars } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
 import g from "../globals";
-import { getRandomOffsetPosition } from "../util";
+import { getRandomOffsetPosition } from "../utils";
 
 export const postFamiliarUpdateBabyFunctionMap = new Map<
   int,
