@@ -6,7 +6,7 @@ export function updateCachedAPIFunctions(): void {
   g.l = g.g.GetLevel();
   g.r = g.g.GetRoom();
   const player = Isaac.GetPlayer();
-  if (player !== null) {
+  if (player !== undefined) {
     g.p = player;
   }
   g.seeds = g.g.GetSeeds();

@@ -23,6 +23,9 @@ inputActionBabyFunctionMap.set(
       // This ability does not interact well with charged items,
       // so don't do anything if the player has a charged item
       const player = Isaac.GetPlayer();
+      if (player === undefined) {
+        return undefined;
+      }
 
       if (
         player.HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) || // 69
