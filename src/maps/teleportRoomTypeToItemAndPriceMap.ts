@@ -6,7 +6,10 @@ enum TeleportPrice {
   TWENTY = 20,
 }
 
-export const TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP = new Map([
+export const TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP: ReadonlyMap<
+  RoomType,
+  [CollectibleTypeCustom, TeleportPrice]
+> = new Map([
   [
     RoomType.ROOM_SHOP,
     [CollectibleTypeCustom.COLLECTIBLE_SHOP_TELEPORT, TeleportPrice.TEN],

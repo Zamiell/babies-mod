@@ -1,6 +1,9 @@
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 
-export const TELEPORT_COLLECTIBLE_TYPE_TO_ROOM_TYPE_MAP = new Map([
+export const TELEPORT_COLLECTIBLE_TYPE_TO_ROOM_TYPE_MAP: ReadonlyMap<
+  CollectibleTypeCustom,
+  RoomType
+> = new Map([
   [CollectibleTypeCustom.COLLECTIBLE_SHOP_TELEPORT, RoomType.ROOM_SHOP], // 2
   [
     CollectibleTypeCustom.COLLECTIBLE_TREASURE_ROOM_TELEPORT,

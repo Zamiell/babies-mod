@@ -6,7 +6,7 @@ export const MOD_NAME = "The Babies Mod";
 
 export const NUM_SUCCUBI_IN_FLOCK = 10;
 
-export const ROOM_TYPES_TO_NOT_TRANSFORM = new Set([
+export const ROOM_TYPES_TO_NOT_TRANSFORM: ReadonlySet<RoomType> = new Set([
   RoomType.ROOM_DEFAULT, // 1
   // I AM ERROR rooms should not be converted so that they have a way to escape
   RoomType.ROOM_ERROR, // 3

@@ -7,7 +7,7 @@
 import { BabyDescription } from "./types/BabyDescription";
 import { CollectibleTypeCustom } from "./types/CollectibleTypeCustom";
 
-export const BABIES: BabyDescription[] = [
+export const BABIES: readonly BabyDescription[] = [
   {
     name: "Spider Baby",
     description: "Shoots a Blue Spider every 2nd tear",

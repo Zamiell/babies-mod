@@ -2,7 +2,9 @@ import { getCollectibleItemType, log } from "isaacscript-common";
 import { BABIES } from "./babies";
 import { CollectibleTypeCustom } from "./types/CollectibleTypeCustom";
 
-const VALID_DUPLICATE_ITEMS = new Set<CollectibleType | CollectibleTypeCustom>([
+const VALID_DUPLICATE_ITEMS: ReadonlySet<
+  CollectibleType | CollectibleTypeCustom
+> = new Set([
   CollectibleType.COLLECTIBLE_POOP, // 36
   CollectibleType.COLLECTIBLE_MOMS_KNIFE, // 114
   CollectibleType.COLLECTIBLE_BRIMSTONE, // 118

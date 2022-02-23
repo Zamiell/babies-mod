@@ -1,11 +1,12 @@
 import g from "../globals";
 import { shouldTransformRoomType } from "../util";
 
-const GRID_ENTITY_REPLACEMENT_EXCEPTIONS = new Set([
-  GridEntityXMLType.PRESSURE_PLATE,
-  GridEntityXMLType.TRAPDOOR,
-  GridEntityXMLType.STAIRS,
-]);
+const GRID_ENTITY_REPLACEMENT_EXCEPTIONS: ReadonlySet<GridEntityXMLType> =
+  new Set([
+    GridEntityXMLType.PRESSURE_PLATE,
+    GridEntityXMLType.TRAPDOOR,
+    GridEntityXMLType.STAIRS,
+  ]);
 
 export const preRoomEntitySpawnBabyFunctionMap = new Map<
   int,

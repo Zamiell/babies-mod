@@ -9,7 +9,7 @@ import g from "./globals";
 import { getCurrentBaby } from "./util";
 
 // Pseudo room clear should be disabled in certain room types
-const ROOM_TYPE_BLACKLIST = new Set([
+const ROOM_TYPE_BLACKLIST: ReadonlySet<RoomType> = new Set([
   RoomType.ROOM_BOSS, // 5
   RoomType.ROOM_CHALLENGE, // 11
   RoomType.ROOM_DEVIL, // 14
