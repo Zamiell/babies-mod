@@ -7,58 +7,66 @@ import g from "../globals";
 
 export const inputActionBabyFunctionMap = new Map<
   int,
-  (inputHook: InputHook, buttonAction: ButtonAction) => number | boolean | void
+  (
+    entity: Entity | undefined,
+    inputHook: InputHook,
+    buttonAction: ButtonAction,
+  ) => number | boolean | void
 >();
 
 // Masked Baby
 inputActionBabyFunctionMap.set(
   115,
-  (inputHook: InputHook, buttonAction: ButtonAction) => {
-    if (
-      // The shoot inputs can be on all 3 of the input hooks
-      inputHook === InputHook.IS_ACTION_PRESSED &&
-      SHOOTING_ACTIONS_SET.has(buttonAction)
-    ) {
-      // Can't shoot while moving
-      // This ability does not interact well with charged items,
-      // so don't do anything if the player has a charged item
-      const player = Isaac.GetPlayer();
-      if (player === undefined) {
-        return undefined;
-      }
-
-      if (
-        player.HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) || // 69
-        player.HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE) || // 114
-        player.HasCollectible(CollectibleType.COLLECTIBLE_BRIMSTONE) || // 118
-        player.HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) || // 229
-        player.HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE) || // 316
-        player.HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) || // 395
-        player.HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_THE_VOID) // 399
-      ) {
-        return undefined;
-      }
-
-      // Find out if we are moving
-      const threshold = 0.75;
-      if (
-        player.Velocity.X > threshold ||
-        player.Velocity.X < threshold * -1 ||
-        player.Velocity.Y > threshold ||
-        player.Velocity.Y < threshold * -1
-      ) {
-        return false;
-      }
+  (
+    entity: Entity | undefined,
+    inputHook: InputHook,
+    buttonAction: ButtonAction,
+  ) => {
+    if (entity === undefined) {
+      return undefined;
     }
 
-    return undefined;
+    const player = entity.ToPlayer();
+    if (player === undefined) {
+      return undefined;
+    }
+
+    if (inputHook !== InputHook.IS_ACTION_PRESSED) {
+      return undefined;
+    }
+
+    if (!SHOOTING_ACTIONS_SET.has(buttonAction)) {
+      return undefined;
+    }
+
+    // Can't shoot while moving
+    // This ability does not interact well with charged items,
+    // so don't do anything if the player has a charged item
+    if (
+      player.HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) || // 69
+      player.HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE) || // 114
+      player.HasCollectible(CollectibleType.COLLECTIBLE_BRIMSTONE) || // 118
+      player.HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) || // 229
+      player.HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE) || // 316
+      player.HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) || // 395
+      player.HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_THE_VOID) // 399
+    ) {
+      return undefined;
+    }
+
+    const amMoving = player.Velocity.Length() > 0.75;
+    return amMoving ? false : undefined;
   },
 );
 
 // Piece A Baby
 inputActionBabyFunctionMap.set(
   179,
-  (_inputHook: InputHook, buttonAction: ButtonAction) => {
+  (
+    _entity: Entity | undefined,
+    _inputHook: InputHook,
+    buttonAction: ButtonAction,
+  ) => {
     // Can only move up + down + left + right
     if (
       buttonAction === ButtonAction.ACTION_LEFT && // 0
@@ -96,7 +104,11 @@ inputActionBabyFunctionMap.set(
 // Imp Baby
 inputActionBabyFunctionMap.set(
   386,
-  (_inputHook: InputHook, buttonAction: ButtonAction) => {
+  (
+    _entity: Entity | undefined,
+    _inputHook: InputHook,
+    buttonAction: ButtonAction,
+  ) => {
     // Blender + flight + explosion immunity + blindfolded
 
     // The direction is stored in the "babyCounters" variable
@@ -126,7 +138,11 @@ inputActionBabyFunctionMap.set(
 // Solomon's Baby A
 inputActionBabyFunctionMap.set(
   RandomBabyType.SOLOMONS_BABY_A,
-  (inputHook: InputHook, buttonAction: ButtonAction) => {
+  (
+    _entity: Entity | undefined,
+    inputHook: InputHook,
+    buttonAction: ButtonAction,
+  ) => {
     // Can't shoot right
     if (
       inputHook === InputHook.IS_ACTION_PRESSED &&
@@ -142,7 +158,11 @@ inputActionBabyFunctionMap.set(
 // Solomon's Baby B
 inputActionBabyFunctionMap.set(
   RandomBabyType.SOLOMONS_BABY_B,
-  (inputHook: InputHook, buttonAction: ButtonAction) => {
+  (
+    _entity: Entity | undefined,
+    inputHook: InputHook,
+    buttonAction: ButtonAction,
+  ) => {
     // Can't shoot left
     if (
       inputHook === InputHook.IS_ACTION_PRESSED &&

@@ -2,7 +2,7 @@ import { getCurrentBaby } from "../utils";
 import { inputActionBabyFunctionMap } from "./inputActionBabyFunctionMap";
 
 export function main(
-  _entity: Entity | undefined,
+  entity: Entity | undefined,
   inputHook: InputHook,
   buttonAction: ButtonAction,
 ): number | boolean | void {
@@ -13,7 +13,7 @@ export function main(
 
   const inputActionBabyFunction = inputActionBabyFunctionMap.get(babyType);
   if (inputActionBabyFunction !== undefined) {
-    return inputActionBabyFunction(inputHook, buttonAction);
+    return inputActionBabyFunction(entity, inputHook, buttonAction);
   }
 
   return undefined;
