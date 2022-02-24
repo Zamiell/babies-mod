@@ -1,7 +1,4 @@
-import {
-  isActionPressedOnAnyInput,
-  SHOOTING_ACTIONS_SET,
-} from "isaacscript-common";
+import { isActionPressedOnAnyInput, isShootAction } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
 import g from "../globals";
 
@@ -35,7 +32,7 @@ inputActionBabyFunctionMap.set(
       return undefined;
     }
 
-    if (!SHOOTING_ACTIONS_SET.has(buttonAction)) {
+    if (!isShootAction(buttonAction)) {
       return undefined;
     }
 
