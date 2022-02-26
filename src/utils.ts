@@ -25,7 +25,11 @@ export function bigChestExists(): boolean {
   return numBigChests > 0;
 }
 
-export function getCurrentBaby(): [int, BabyDescription, boolean] {
+export function getCurrentBaby(): [
+  babyType: int,
+  baby: BabyDescription,
+  valid: boolean,
+] {
   const babyType = g.run.babyType;
   if (babyType === null) {
     return [-1, UNKNOWN_BABY, false];
