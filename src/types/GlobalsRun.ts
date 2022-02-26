@@ -12,7 +12,7 @@ export class GlobalsRun {
   babyType: number | null = null;
   drawIntro = false;
   /** Keep track of all of the collectibles that we pick up over the course of the run. */
-  passiveCollectibles: int[] = [];
+  passiveCollectibleTypes: int[] = [];
   randomSeed: int;
 
   // Tracking per level

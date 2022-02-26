@@ -20,9 +20,9 @@ export function main(player: EntityPlayer, pickingUpItem: PickingUpItem): void {
 
 function checkAddItem(pickingUpItem: PickingUpItem) {
   if (
-    pickingUpItem.type === ItemType.ITEM_PASSIVE || // 1
-    pickingUpItem.type === ItemType.ITEM_FAMILIAR // 4
+    pickingUpItem.itemType === ItemType.ITEM_PASSIVE || // 1
+    pickingUpItem.itemType === ItemType.ITEM_FAMILIAR // 4
   ) {
-    g.run.passiveCollectibles.push(pickingUpItem.id);
+    g.run.passiveCollectibleTypes.push(pickingUpItem.subType);
   }
 }

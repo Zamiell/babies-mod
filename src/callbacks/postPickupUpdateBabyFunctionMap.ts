@@ -5,6 +5,7 @@ import {
   inStartingRoom,
   nextSeed,
   repeat,
+  spawnCollectible,
 } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
 import g from "../globals";
@@ -146,6 +147,7 @@ postPickupUpdateBabyFunctionMap.set(166, (pickup: EntityPickup) => {
     // (this does not work in the PostPickupSelection callback because
     // the chest will not initialize properly for some reason)
     // (this does not work in the PostPickupInit callback because the position is not initialized)
+    pickup.Remove();
     g.g.Spawn(
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_MIMICCHEST,
@@ -155,22 +157,17 @@ postPickupUpdateBabyFunctionMap.set(166, (pickup: EntityPickup) => {
       0,
       pickup.InitSeed,
     );
-    pickup.Remove();
   } else if (
     pickup.Variant === PickupVariant.PICKUP_SPIKEDCHEST &&
     pickup.SubType === 0 // SubType of 0 is open and 1 is closed
   ) {
     // Replace the contents of the chest with an item
-    g.g.Spawn(
-      EntityType.ENTITY_PICKUP,
-      PickupVariant.PICKUP_COLLECTIBLE,
+    pickup.Remove();
+    spawnCollectible(
+      CollectibleType.COLLECTIBLE_NULL,
       pickup.Position,
-      Vector.Zero,
-      undefined,
-      0,
       pickup.InitSeed,
     );
-    pickup.Remove();
   }
 });
 

@@ -13,16 +13,16 @@ export const postItemPickupBabyFunctionMap = new Map<
 postItemPickupBabyFunctionMap.set(
   216,
   (player: EntityPlayer, pickingUpItem: PickingUpItem) => {
-    if (pickingUpItem.type !== ItemType.ITEM_PASSIVE) {
+    if (pickingUpItem.itemType !== ItemType.ITEM_PASSIVE) {
       return;
     }
 
     const teleportRoomType = TELEPORT_COLLECTIBLE_TYPE_TO_ROOM_TYPE_MAP.get(
-      pickingUpItem.id,
+      pickingUpItem.subType,
     );
     if (teleportRoomType !== undefined) {
-      player.RemoveCollectible(pickingUpItem.id);
-      removeCollectibleFromItemTracker(pickingUpItem.id);
+      player.RemoveCollectible(pickingUpItem.subType);
+      removeCollectibleFromItemTracker(pickingUpItem.subType);
     }
   },
 );

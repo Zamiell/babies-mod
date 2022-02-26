@@ -13,6 +13,7 @@ import {
   openAllDoors,
   removeCollectibleFromItemTracker,
   repeat,
+  spawnCollectible,
   useActiveItemTemp,
 } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
@@ -833,7 +834,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
     g.run.babyCountersRoom += 1;
     if (g.run.babyCountersRoom === 2) {
       // Take away an item
-      const itemToTakeAway = g.run.passiveCollectibles.pop();
+      const itemToTakeAway = g.run.passiveCollectibleTypes.pop();
       if (
         itemToTakeAway !== undefined &&
         player.HasCollectible(itemToTakeAway)
@@ -859,13 +860,9 @@ entityTakeDmgPlayerBabyFunctionMap.set(
         1,
         true,
       );
-      g.g.Spawn(
-        EntityType.ENTITY_PICKUP,
-        PickupVariant.PICKUP_COLLECTIBLE,
+      spawnCollectible(
+        CollectibleType.COLLECTIBLE_NULL,
         position,
-        Vector.Zero,
-        undefined,
-        0,
         g.run.randomSeed,
       );
     }

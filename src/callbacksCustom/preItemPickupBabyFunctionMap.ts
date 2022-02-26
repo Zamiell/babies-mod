@@ -15,13 +15,13 @@ export const preItemPickupBabyFunctionMap = new Map<
 preItemPickupBabyFunctionMap.set(
   216,
   (player: EntityPlayer, pickingUpItem: PickingUpItem) => {
-    if (pickingUpItem.type !== ItemType.ITEM_PASSIVE) {
+    if (pickingUpItem.itemType !== ItemType.ITEM_PASSIVE) {
       return;
     }
 
     // Can purchase teleports to special rooms
     const teleportRoomType = TELEPORT_COLLECTIBLE_TYPE_TO_ROOM_TYPE_MAP.get(
-      pickingUpItem.id,
+      pickingUpItem.subType,
     );
     if (teleportRoomType === undefined) {
       return;
@@ -40,10 +40,10 @@ preItemPickupBabyFunctionMap.set(
   307,
   (player: EntityPlayer, pickingUpItem: PickingUpItem) => {
     if (
-      (pickingUpItem.type === ItemType.ITEM_PASSIVE ||
-        pickingUpItem.type === ItemType.ITEM_ACTIVE ||
-        pickingUpItem.type === ItemType.ITEM_FAMILIAR) &&
-      isQuestCollectible(pickingUpItem.id)
+      (pickingUpItem.itemType === ItemType.ITEM_PASSIVE ||
+        pickingUpItem.itemType === ItemType.ITEM_ACTIVE ||
+        pickingUpItem.itemType === ItemType.ITEM_FAMILIAR) &&
+      isQuestCollectible(pickingUpItem.subType)
     ) {
       return;
     }

@@ -2,6 +2,7 @@ import {
   addRoomClearCharge,
   getRandomHeartSubType,
   repeat,
+  spawnCollectible,
   useActiveItemTemp,
 } from "isaacscript-common";
 import g from "./globals";
@@ -37,15 +38,7 @@ roomClearedBabyFunctionMap.set(88, () => {
 
   // Random collectible
   const position = g.r.FindFreePickupSpawnPosition(g.p.Position, 1, true);
-  g.g.Spawn(
-    EntityType.ENTITY_PICKUP,
-    PickupVariant.PICKUP_COLLECTIBLE,
-    position,
-    Vector.Zero,
-    g.p,
-    CollectibleType.COLLECTIBLE_NULL,
-    roomSeed,
-  );
+  spawnCollectible(CollectibleType.COLLECTIBLE_NULL, position, roomSeed);
 });
 
 // Jammies Baby

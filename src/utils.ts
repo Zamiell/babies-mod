@@ -4,6 +4,7 @@ import {
   getEntities,
   getRandomInt,
   nextSeed,
+  spawnCollectible,
 } from "isaacscript-common";
 import { BABIES, UNKNOWN_BABY } from "./babies";
 import { ROOM_TYPES_TO_NOT_TRANSFORM } from "./constants";
@@ -141,16 +142,16 @@ export function spawnRandomPickup(
 ): void {
   // Spawn a random pickup
   g.run.randomSeed = nextSeed(g.run.randomSeed);
-  let pickupVariant: int;
+  let pickupVariantChoice: int;
   if (noItems) {
     // Exclude trinkets and collectibles
-    pickupVariant = getRandomInt(1, 9, g.run.randomSeed);
+    pickupVariantChoice = getRandomInt(1, 9, g.run.randomSeed);
   } else {
-    pickupVariant = getRandomInt(1, 11, g.run.randomSeed);
+    pickupVariantChoice = getRandomInt(1, 11, g.run.randomSeed);
   }
 
   g.run.randomSeed = nextSeed(g.run.randomSeed);
-  switch (pickupVariant) {
+  switch (pickupVariantChoice) {
     case 1: {
       // Random heart
       g.g.Spawn(
@@ -293,20 +294,18 @@ export function spawnRandomPickup(
 
     case 11: {
       // Random collectible
-      g.g.Spawn(
-        EntityType.ENTITY_PICKUP,
-        PickupVariant.PICKUP_COLLECTIBLE,
-        position,
-        velocity,
-        undefined,
+      spawnCollectible(
         CollectibleType.COLLECTIBLE_NULL,
+        position,
         g.run.randomSeed,
       );
       break;
     }
 
     default: {
-      error(`The pickup variant was an unknown value of: ${pickupVariant}`);
+      error(
+        `The pickup variant was an unknown value of: ${pickupVariantChoice}`,
+      );
     }
   }
 }
