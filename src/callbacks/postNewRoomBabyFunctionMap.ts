@@ -6,6 +6,7 @@ import {
   getFamiliars,
   getNPCs,
   getRoomGridIndexesForType,
+  getRooms,
   gridToPos,
   inMinibossRoomOf,
   inStartingRoom,
@@ -13,6 +14,8 @@ import {
   log,
   nextSeed,
   removeAllMatchingEntities,
+  repeat,
+  spawnCollectible,
   teleport,
   useActiveItemTemp,
 } from "isaacscript-common";
@@ -115,15 +118,13 @@ postNewRoomBabyFunctionMap.set(90, () => {
   // Locked doors in uncleared rooms
   // If the player leaves and re-enters an uncleared room, a normal door will stay locked
   // So, unlock all normal doors if the room is already clear
-  for (let i = 0; i <= 7; i++) {
-    const door = g.r.GetDoor(i);
-    if (
-      door !== undefined &&
-      door.TargetRoomType === RoomType.ROOM_DEFAULT &&
-      door.IsLocked()
-    ) {
-      door.TryUnlock(g.p, true); // This has to be forced
-    }
+  const normalLookingDoors = getDoors(
+    RoomType.ROOM_DEFAULT, // 1
+    RoomType.ROOM_MINIBOSS, // 6
+  );
+  const lockedDoors = normalLookingDoors.filter((door) => door.IsLocked());
+  for (const door of lockedDoors) {
+    door.TryUnlock(g.p, true); // This has to be forced
   }
 });
 
@@ -142,19 +143,15 @@ postNewRoomBabyFunctionMap.set(118, () => {
   }
 
   // Improved Secret Rooms
-  for (let i = 0; i < baby.num; i++) {
+  repeat(baby.num, () => {
     const position = g.r.FindFreePickupSpawnPosition(center, 1, true);
     g.run.randomSeed = nextSeed(g.run.randomSeed);
-    g.g.Spawn(
-      EntityType.ENTITY_PICKUP,
-      PickupVariant.PICKUP_COLLECTIBLE,
+    spawnCollectible(
+      CollectibleType.COLLECTIBLE_NULL,
       position,
-      Vector.Zero,
-      undefined,
-      0,
       g.run.randomSeed,
     );
-  }
+  });
 });
 
 // Hopeless Baby
@@ -198,19 +195,15 @@ postNewRoomBabyFunctionMap.set(149, () => {
   }
 
   // Improved Super Secret Rooms
-  for (let i = 0; i < baby.num; i++) {
+  repeat(baby.num, () => {
     const position = g.r.FindFreePickupSpawnPosition(center, 1, true);
     g.run.randomSeed = nextSeed(g.run.randomSeed);
-    g.g.Spawn(
-      EntityType.ENTITY_PICKUP,
-      PickupVariant.PICKUP_COLLECTIBLE,
+    spawnCollectible(
+      CollectibleType.COLLECTIBLE_NULL,
       position,
-      Vector.Zero,
-      undefined,
-      0,
       g.run.randomSeed,
     );
-  }
+  });
 });
 
 // Pretty Baby
@@ -231,21 +224,13 @@ postNewRoomBabyFunctionMap.set(158, () => {
     g.run.room.seed,
   );
   const position = gridToPos(6, 4);
-  const pedestal = g.g
-    .Spawn(
-      EntityType.ENTITY_PICKUP,
-      PickupVariant.PICKUP_COLLECTIBLE,
-      position,
-      Vector.Zero,
-      undefined,
-      collectibleType,
-      g.run.room.seed,
-    )
-    .ToPickup();
-  if (pedestal !== undefined) {
-    pedestal.AutoUpdatePrice = false;
-    pedestal.Price = 15;
-  }
+  const collectible = spawnCollectible(
+    collectibleType,
+    position,
+    g.run.room.seed,
+  );
+  collectible.AutoUpdatePrice = false;
+  collectible.Price = 15;
 
   // Spawn the Angel Statue
   const oneTileAboveCenter = 52;
@@ -258,18 +243,13 @@ postNewRoomBabyFunctionMap.set(158, () => {
   );
 
   // Spawn the two fires
-  for (let i = 0; i < 2; i++) {
-    let pos: Vector;
-    if (i === 0) {
-      pos = gridToPos(3, 1);
-    } else {
-      pos = gridToPos(9, 1);
-    }
+  const firePositions = [gridToPos(3, 1), gridToPos(9, 1)];
+  for (const firePosition of firePositions) {
     g.run.room.seed = nextSeed(g.run.room.seed);
     g.g.Spawn(
       EntityType.ENTITY_FIREPLACE,
       FireplaceVariant.BLUE,
-      pos,
+      firePosition,
       Vector.Zero,
       undefined,
       0,
@@ -319,18 +299,13 @@ postNewRoomBabyFunctionMap.set(216, () => {
   let positionIndex = -1;
 
   // Find the special rooms on the floor
-  const rooms = g.l.GetRooms();
-  for (let i = 0; i < rooms.Size; i++) {
-    const roomDesc = rooms.Get(i);
-    if (roomDesc === undefined) {
-      continue;
-    }
-    const roomData = roomDesc.Data;
+  for (const roomDescriptor of getRooms()) {
+    const roomData = roomDescriptor.Data;
     if (roomData === undefined) {
       continue;
     }
-    const roomType = roomData.Type;
 
+    const roomType = roomData.Type;
     const itemAndPrice = TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP.get(roomType);
     if (itemAndPrice === undefined) {
       // This is not a special room
@@ -356,21 +331,13 @@ postNewRoomBabyFunctionMap.set(216, () => {
     }
     const xy = positions[positionIndex];
     const position = gridToPos(xy[0], xy[1]);
-    const pedestal = g.g
-      .Spawn(
-        EntityType.ENTITY_PICKUP,
-        PickupVariant.PICKUP_COLLECTIBLE,
-        position,
-        Vector.Zero,
-        undefined,
-        collectibleType,
-        g.run.room.seed,
-      )
-      .ToPickup();
-    if (pedestal !== undefined) {
-      pedestal.AutoUpdatePrice = false;
-      pedestal.Price = price;
-    }
+    const collectible = spawnCollectible(
+      collectibleType,
+      position,
+      g.run.room.seed,
+    );
+    collectible.AutoUpdatePrice = false;
+    collectible.Price = price;
   }
 });
 
@@ -486,18 +453,13 @@ postNewRoomBabyFunctionMap.set(287, () => {
   );
 
   // Spawn the two fires
-  for (let i = 0; i < 2; i++) {
-    let pos: Vector;
-    if (i === 0) {
-      pos = gridToPos(3, 1);
-    } else {
-      pos = gridToPos(9, 1);
-    }
+  const firePositions = [gridToPos(3, 1), gridToPos(9, 1)];
+  for (const firePosition of firePositions) {
     g.run.room.seed = nextSeed(g.run.room.seed);
     g.g.Spawn(
       EntityType.ENTITY_FIREPLACE,
       FireplaceVariant.NORMAL,
-      pos,
+      firePosition,
       Vector.Zero,
       undefined,
       0,
@@ -530,19 +492,15 @@ postNewRoomBabyFunctionMap.set(301, () => {
   }
 
   // Improved Ultra Secret Rooms
-  for (let i = 0; i < baby.num; i++) {
+  repeat(baby.num, () => {
     const position = g.r.FindFreePickupSpawnPosition(center, 1, true);
     g.run.randomSeed = nextSeed(g.run.randomSeed);
-    g.g.Spawn(
-      EntityType.ENTITY_PICKUP,
-      PickupVariant.PICKUP_COLLECTIBLE,
+    spawnCollectible(
+      CollectibleType.COLLECTIBLE_NULL,
       position,
-      Vector.Zero,
-      undefined,
-      0,
       g.run.randomSeed,
     );
-  }
+  });
 });
 
 // Twotone Baby

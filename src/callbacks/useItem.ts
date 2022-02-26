@@ -3,6 +3,7 @@ import {
   nextSeed,
   playChargeSoundEffect,
   removeCollectibleFromItemTracker,
+  repeat,
 } from "isaacscript-common";
 import { NUM_SUCCUBI_IN_FLOCK } from "../constants";
 import g from "../globals";
@@ -130,10 +131,10 @@ function flockOfSuccubi(
   player: EntityPlayer,
 ) {
   // Spawn N temporary Succubi
-  for (let i = 0; i < NUM_SUCCUBI_IN_FLOCK; i++) {
+  repeat(NUM_SUCCUBI_IN_FLOCK, () => {
     player.AddCollectible(CollectibleType.COLLECTIBLE_SUCCUBUS, 0, false);
     removeCollectibleFromItemTracker(CollectibleType.COLLECTIBLE_SUCCUBUS);
-  }
+  });
 
   // Mark to remove the items upon entering a new room
   g.run.flockOfSuccubi = true;

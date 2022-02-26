@@ -12,6 +12,7 @@ import {
   nextSeed,
   openAllDoors,
   removeCollectibleFromItemTracker,
+  repeat,
   useActiveItemTemp,
 } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
@@ -33,9 +34,9 @@ export const entityTakeDmgPlayerBabyFunctionMap = new Map<
 
 // Host Baby
 entityTakeDmgPlayerBabyFunctionMap.set(9, (player) => {
-  for (let i = 0; i < 10; i++) {
+  repeat(10, () => {
     player.AddBlueSpider(player.Position);
-  }
+  });
 });
 
 // Lost Baby
@@ -271,7 +272,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(177, (player) => {
   }
 
   player.AddCoins(-99);
-  for (let i = 1; i <= coins; i++) {
+  repeat(coins, () => {
     const randomPosition = Isaac.GetRandomPosition();
     let velocity = player.Position.sub(randomPosition);
     velocity = velocity.Normalized();
@@ -287,7 +288,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(177, (player) => {
     );
     const data = coin.GetData();
     data.recovery = true;
-  }
+  });
   g.sfx.Play(SoundEffect.SOUND_GOLD_HEART);
 });
 

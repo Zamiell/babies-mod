@@ -1,3 +1,4 @@
+import { repeat } from "isaacscript-common";
 import g from "../globals";
 import { getCurrentBaby } from "../utils";
 
@@ -94,16 +95,17 @@ function isaacsTears() {
     return undefined;
   }
 
-  let velocity = Vector(10, 0);
-  for (let i = 0; i < 8; i++) {
-    velocity = velocity.Rotated(45);
+  const numIsaacTearsTears = 8;
+  const baseVelocity = Vector(10, 0);
+  repeat(numIsaacTearsTears, (i: int) => {
+    const velocity = baseVelocity.Rotated(45 * (i + 1));
     const tear = g.p.FireTear(g.p.Position, velocity, false, false, false);
 
     // Increase the damage and make it look more impressive
     tear.CollisionDamage = g.p.Damage * 2;
     tear.Scale = 2;
     tear.KnockbackMultiplier = 20;
-  }
+  });
 
   // When we return from the function below, no animation will play,
   // so we have to explicitly perform one

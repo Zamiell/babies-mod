@@ -1,4 +1,8 @@
-import { copyColor, removeAllMatchingEntities } from "isaacscript-common";
+import {
+  copyColor,
+  removeAllMatchingEntities,
+  repeat,
+} from "isaacscript-common";
 import { BABIES, RandomBabyType } from "./babies";
 import g from "./globals";
 import { removeAllFriendlyEntities } from "./utils";
@@ -57,9 +61,9 @@ babyRemoveFunctionMap.set(107, () => {
     CollectibleType.COLLECTIBLE_CUBE_OF_MEAT,
     CollectibleType.COLLECTIBLE_BALL_OF_BANDAGES,
   ]) {
-    for (let i = 0; i < baby.num; i++) {
+    repeat(baby.num, () => {
       g.p.RemoveCollectible(collectibleType);
-    }
+    });
   }
 });
 

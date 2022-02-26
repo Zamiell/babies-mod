@@ -1,6 +1,7 @@
 import {
   MAX_NUM_FAMILIARS,
   removeCollectibleFromItemTracker,
+  repeat,
 } from "isaacscript-common";
 import { BABIES, RandomBabyType } from "./babies";
 import g from "./globals";
@@ -41,9 +42,9 @@ babyAddFunctionMap.set(40, () => {
   // The game caps the current number of familiars
   const halfMaxFamiliars = MAX_NUM_FAMILIARS / 2;
   g.p.AddBlueFlies(halfMaxFamiliars, g.p.Position, undefined);
-  for (let i = 0; i < halfMaxFamiliars; i++) {
+  repeat(halfMaxFamiliars, () => {
     g.p.AddBlueSpider(g.p.Position);
-  }
+  });
 });
 
 // Whore Baby
@@ -68,10 +69,10 @@ babyAddFunctionMap.set(107, () => {
     CollectibleType.COLLECTIBLE_CUBE_OF_MEAT,
     CollectibleType.COLLECTIBLE_BALL_OF_BANDAGES,
   ]) {
-    for (let i = 0; i < baby.num; i++) {
+    repeat(baby.num, () => {
       g.p.AddCollectible(collectibleType);
       removeCollectibleFromItemTracker(collectibleType);
-    }
+    });
   }
 });
 

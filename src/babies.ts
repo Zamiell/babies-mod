@@ -1620,6 +1620,7 @@ export const BABIES: readonly BabyDescription[] = [
     sprite: "268_baby_squirrel.png",
     trinket: TrinketType.TRINKET_WALNUT,
     requireBombs: true,
+    num: 5,
   },
   {
     name: "Tabby Baby",

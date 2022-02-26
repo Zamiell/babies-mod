@@ -8,6 +8,15 @@ import {
 import g from "../globals";
 import { getRandomOffsetPosition } from "../utils";
 
+const SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER = 30;
+
+const SHOCKWAVE_BOMB_VELOCITIES: readonly Vector[] = [
+  Vector(1, 0).mul(SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER), // Right
+  Vector(0, 1).mul(SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER), // Up
+  Vector(-1, 0).mul(SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER), // Left
+  Vector(0, -1).mul(SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER), // Down
+];
+
 export const postBombUpdateBabyFunctionMap = new Map<
   int,
   (bomb: EntityBomb) => void
@@ -43,32 +52,21 @@ postBombUpdateBabyFunctionMap.set(97, (bomb: EntityBomb) => {
 postBombUpdateBabyFunctionMap.set(211, (bomb: EntityBomb) => {
   const gameFrameCount = g.g.GetFrameCount();
 
-  // Shockwave bombs
   if (
-    bomb.SpawnerType === EntityType.ENTITY_PLAYER &&
-    bomb.FrameCount === BOMB_EXPLODE_FRAME
+    bomb.SpawnerType !== EntityType.ENTITY_PLAYER ||
+    bomb.FrameCount !== BOMB_EXPLODE_FRAME
   ) {
-    for (let i = 0; i < 4; i++) {
-      let velocity: Vector;
-      if (i === 0) {
-        velocity = Vector(1, 0); // Right
-      } else if (i === 1) {
-        velocity = Vector(0, 1); // Up
-      } else if (i === 2) {
-        velocity = Vector(-1, 0); // Left
-      } else if (i === 3) {
-        velocity = Vector(0, -1); // Down
-      } else {
-        error("velocity was never defined.");
-      }
+    return;
+  }
 
-      g.run.room.tears.push({
-        frame: gameFrameCount,
-        position: bomb.Position,
-        velocity: velocity.mul(30),
-        num: 0,
-      });
-    }
+  // Shockwave bombs
+  for (const velocity of SHOCKWAVE_BOMB_VELOCITIES) {
+    g.run.room.tears.push({
+      frame: gameFrameCount,
+      position: bomb.Position,
+      velocity,
+      num: 0,
+    });
   }
 });
 

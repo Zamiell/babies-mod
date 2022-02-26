@@ -1,6 +1,7 @@
 import {
   addRoomClearCharge,
   getRandomHeartSubType,
+  repeat,
   useActiveItemTemp,
 } from "isaacscript-common";
 import g from "./globals";
@@ -96,7 +97,7 @@ roomClearedBabyFunctionMap.set(542, () => {
     error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
-  for (let i = 0; i < baby.num; i++) {
+  repeat(baby.num, () => {
     useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_KEEPERS_BOX);
-  }
+  });
 });

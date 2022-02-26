@@ -1,3 +1,4 @@
+import { repeat } from "isaacscript-common";
 import g from "../globals";
 
 export const postFamiliarInitBabyFunctionMap = new Map<
@@ -30,8 +31,9 @@ postFamiliarInitBabyFunctionMap.set(47, (familiar: EntityFamiliar) => {
 postFamiliarInitBabyFunctionMap.set(117, (familiar: EntityFamiliar) => {
   if (familiar.Variant === FamiliarVariant.DEAD_BIRD && !g.run.babyBool) {
     // Spawn 5 bird familiars instead of 1
+    // (1 is already spawned)
     g.run.babyBool = true;
-    for (let i = 0; i < 4; i++) {
+    repeat(4, () => {
       Isaac.Spawn(
         EntityType.ENTITY_FAMILIAR,
         FamiliarVariant.DEAD_BIRD,
@@ -40,7 +42,7 @@ postFamiliarInitBabyFunctionMap.set(117, (familiar: EntityFamiliar) => {
         Vector.Zero,
         undefined,
       );
-    }
+    });
     g.run.babyBool = false;
   }
 });

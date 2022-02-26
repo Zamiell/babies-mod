@@ -1,9 +1,9 @@
 import {
+  getDoors,
   getNPCs,
   isAliveExceptionNPC,
   isAllPressurePlatesPushed,
   log,
-  MAX_NUM_DOORS,
 } from "isaacscript-common";
 import g from "./globals";
 import { getCurrentBaby } from "./utils";
@@ -54,29 +54,38 @@ function initializeDoors() {
   g.r.SetClear(true);
   g.run.room.pseudoClear = false;
 
-  for (let i = 0; i < MAX_NUM_DOORS; i++) {
-    const door = g.r.GetDoor(i);
-    if (
-      door !== undefined &&
-      (door.TargetRoomType === RoomType.ROOM_DEFAULT || // 0
-        door.TargetRoomType === RoomType.ROOM_MINIBOSS || // 6
-        door.TargetRoomType === RoomType.ROOM_SACRIFICE) // 13
-    ) {
-      // Keep track of which doors we lock for later
-      g.run.room.doorsModified.push(i);
+  const normalLookingDoors = getDoors(
+    RoomType.ROOM_DEFAULT, // 0
+    RoomType.ROOM_MINIBOSS, // 6
+  );
+  for (const door of normalLookingDoors) {
+    // Keep track of which doors we lock for later
+    g.run.room.doorSlotsModified.push(door.Slot);
 
-      // Modify the door
-      if (baby.name === "Black Baby") {
-        // 27
+    // Modify the door
+    switch (baby.name) {
+      // 27
+      case "Black Baby": {
         door.SetRoomTypes(door.CurrentRoomType, RoomType.ROOM_CURSE);
         door.Open();
-      } else if (baby.name === "Nerd Baby") {
-        // 90
+        break;
+      }
+
+      // 90
+      case "Nerd Baby": {
         door.SetLocked(true);
-      } else if (baby.name === "Mouse Baby") {
-        // 351
+        break;
+      }
+
+      // 351
+      case "Mouse Baby": {
         door.SetRoomTypes(door.CurrentRoomType, RoomType.ROOM_SHOP);
         door.SetLocked(true);
+        break;
+      }
+
+      default: {
+        break;
       }
     }
   }
@@ -135,21 +144,34 @@ function pseudoClearRoom() {
   // (we already set the clear state of the room to be true)
 
   // Reset all of the doors that we previously modified
-  for (const doorNum of g.run.room.doorsModified) {
-    const door = g.r.GetDoor(doorNum);
+  for (const doorSlot of g.run.room.doorSlotsModified) {
+    const door = g.r.GetDoor(doorSlot);
     if (door === undefined) {
       continue;
     }
 
-    if (baby.name === "Black Baby") {
+    switch (baby.name) {
       // 27
-      door.SetRoomTypes(door.CurrentRoomType, RoomType.ROOM_DEFAULT);
-    } else if (baby.name === "Nerd Baby") {
+      case "Black Baby": {
+        door.SetRoomTypes(door.CurrentRoomType, RoomType.ROOM_DEFAULT);
+        break;
+      }
+
       // 90
-      door.TryUnlock(g.p, true); // This has to be forced
-    } else if (baby.name === "Mouse Baby") {
+      case "Nerd Baby": {
+        door.TryUnlock(g.p, true); // This has to be forced
+        break;
+      }
+
       // 351
-      door.TryUnlock(g.p, true); // This has to be forced
+      case "Mouse Baby": {
+        door.TryUnlock(g.p, true); // This has to be forced
+        break;
+      }
+
+      default: {
+        break;
+      }
     }
   }
 }

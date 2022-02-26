@@ -4,6 +4,7 @@ import {
   getCollectibleDevilHeartPrice,
   inStartingRoom,
   nextSeed,
+  repeat,
 } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
 import g from "../globals";
@@ -31,14 +32,14 @@ postPickupUpdateBabyFunctionMap.set(131, (pickup: EntityPickup) => {
     pickup.Price === 0 // We don't want it to affect shop items
   ) {
     pickup.Remove();
-    for (let i = 0; i < 3; i++) {
+    repeat(3, (i) => {
       // We want to space out the spiders so that you can see each individual one
       const position = Vector(
         pickup.Position.X + 15 * i,
-        pickup.Position.X + 15 * i,
+        pickup.Position.Y + 15 * i,
       );
       g.p.ThrowBlueSpider(position, g.p.Position);
-    }
+    });
   }
 });
 

@@ -3,6 +3,7 @@ import {
   GAME_FRAMES_PER_SECOND,
   getKnives,
   getNPCs,
+  repeat,
   setEntityRandomColor,
 } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
@@ -143,25 +144,29 @@ postTearUpdateBabyFunctionMap.set(292, (tear: EntityTear) => {
 
 // Speaker Baby
 postTearUpdateBabyFunctionMap.set(316, (tear: EntityTear) => {
-  if (tear.SubType === 1 && tear.FrameCount >= 20) {
-    let rotation = 45;
-    for (let i = 0; i < 4; i++) {
-      rotation += 90;
-      const rotatedVelocity = tear.Velocity.Rotated(rotation);
-      g.run.babyBool = true;
-      const xTear = g.p.FireTear(
-        g.p.Position,
-        rotatedVelocity,
-        false,
-        true,
-        false,
-      );
-      g.run.babyBool = false;
-      xTear.Position = tear.Position;
-      xTear.Height = tear.Height;
-    }
-    tear.Remove();
+  // X splitting tears
+  if (tear.SubType !== 1 || tear.FrameCount < 20) {
+    return;
   }
+
+  tear.Remove();
+
+  let rotation = 45;
+  repeat(4, () => {
+    rotation += 90;
+    const rotatedVelocity = tear.Velocity.Rotated(rotation);
+    g.run.babyBool = true;
+    const xTear = g.p.FireTear(
+      g.p.Position,
+      rotatedVelocity,
+      false,
+      true,
+      false,
+    );
+    g.run.babyBool = false;
+    xTear.Position = tear.Position;
+    xTear.Height = tear.Height;
+  });
 });
 
 // Slicer Baby

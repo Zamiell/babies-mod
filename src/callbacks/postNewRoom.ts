@@ -1,4 +1,9 @@
-import { getRoomStageID, getRoomVariant, log } from "isaacscript-common";
+import {
+  getRoomStageID,
+  getRoomVariant,
+  log,
+  repeat,
+} from "isaacscript-common";
 import { updateCachedAPIFunctions } from "../cache";
 import { NUM_SUCCUBI_IN_FLOCK } from "../constants";
 import g from "../globals";
@@ -59,9 +64,9 @@ function resetFlockOfSuccubi() {
   if (!g.run.flockOfSuccubi) {
     return;
   }
-
   g.run.flockOfSuccubi = false;
-  for (let i = 0; i < NUM_SUCCUBI_IN_FLOCK; i++) {
+
+  repeat(NUM_SUCCUBI_IN_FLOCK, () => {
     g.p.RemoveCollectible(CollectibleType.COLLECTIBLE_SUCCUBUS);
-  }
+  });
 }

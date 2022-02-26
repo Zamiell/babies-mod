@@ -1,3 +1,4 @@
+import { repeat } from "isaacscript-common";
 import g from "../globals";
 import { getCurrentBaby } from "../utils";
 
@@ -12,9 +13,9 @@ evaluateCacheBabyFunctionMap.set(
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.CACHE_DAMAGE) {
       // -1 damage per pickup taken
-      for (let i = 1; i <= g.run.babyCounters; i++) {
+      repeat(g.run.babyCounters, () => {
         player.Damage -= 1;
-      }
+      });
     }
   },
 );
@@ -130,9 +131,9 @@ evaluateCacheBabyFunctionMap.set(
   291,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.CACHE_DAMAGE) {
-      for (let i = 1; i <= g.run.babyCounters; i++) {
+      repeat(g.run.babyCounters, () => {
         player.Damage += 0.2;
-      }
+      });
     }
   },
 );
@@ -227,9 +228,9 @@ evaluateCacheBabyFunctionMap.set(
   385,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.CACHE_DAMAGE) {
-      for (let i = 1; i <= g.run.babyCounters; i++) {
+      repeat(g.run.babyCounters, () => {
         player.Damage *= 0.7;
-      }
+      });
     }
   },
 );
@@ -249,9 +250,9 @@ evaluateCacheBabyFunctionMap.set(
   459,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.CACHE_FIREDELAY) {
-      for (let i = 1; i <= g.run.babyCounters; i++) {
+      repeat(g.run.babyCounters, () => {
         player.MaxFireDelay -= 1;
-      }
+      });
     }
   },
 );
@@ -272,9 +273,9 @@ evaluateCacheBabyFunctionMap.set(
   473,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.CACHE_DAMAGE) {
-      for (let i = 1; i <= g.run.babyCounters; i++) {
+      repeat(g.run.babyCounters, () => {
         player.Damage += 1;
-      }
+      });
     }
   },
 );
@@ -284,9 +285,9 @@ evaluateCacheBabyFunctionMap.set(
   483,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.CACHE_DAMAGE) {
-      for (let i = 1; i <= g.run.babyCounters; i++) {
+      repeat(g.run.babyCounters, () => {
         player.Damage += 1;
-      }
+      });
     }
   },
 );
