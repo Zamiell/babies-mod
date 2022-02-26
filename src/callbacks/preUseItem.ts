@@ -97,7 +97,8 @@ function isaacsTears() {
 
   const numIsaacTearsTears = 8;
   const baseVelocity = Vector(10, 0);
-  repeat(numIsaacTearsTears, (i: int) => {
+
+  repeat(numIsaacTearsTears, (i) => {
     const velocity = baseVelocity.Rotated(45 * (i + 1));
     const tear = g.p.FireTear(g.p.Position, velocity, false, false, false);
 

@@ -30,29 +30,25 @@ export function babiesCheckValid(): void {
 
 function babiesCheckValidDuplicateName() {
   const nameSet = new Set<string>();
-  for (let i = 0; i < BABIES.length; i++) {
-    const baby = BABIES[i];
 
+  BABIES.forEach((baby, i) => {
     if (nameSet.has(baby.name)) {
       log(`ERROR: Baby #${i} has a duplicate name: ${baby.name}`);
     } else {
       nameSet.add(baby.name);
     }
-  }
+  });
 }
 
 function babiesCheckValidDuplicateItem() {
-  for (let i = 0; i < BABIES.length; i++) {
-    const baby = BABIES[i];
-
+  BABIES.forEach((baby, i) => {
     // Babies with 1 item
     if (baby.item !== undefined && baby.item2 === undefined) {
-      for (let j = 0; j < BABIES.length; j++) {
+      BABIES.forEach((baby2, j) => {
         if (i === j) {
-          continue;
+          return;
         }
 
-        const baby2 = BABIES[j];
         if (
           baby2.item !== undefined &&
           baby2.item2 === undefined &&
@@ -61,17 +57,16 @@ function babiesCheckValidDuplicateItem() {
         ) {
           log(`ERROR: Baby #${i} has a duplicate item: ${baby.item}`);
         }
-      }
+      });
     }
 
     // Babies with 2 items
     if (baby.item !== undefined && baby.item2 !== undefined) {
-      for (let j = 0; j < BABIES.length; j++) {
+      BABIES.forEach((baby2, j) => {
         if (i === j) {
-          continue;
+          return;
         }
 
-        const baby2 = BABIES[j];
         if (
           baby2.item !== undefined &&
           baby2.item2 !== undefined &&
@@ -82,7 +77,7 @@ function babiesCheckValidDuplicateItem() {
             `ERROR: Baby #${i} has a duplicate pair of items: ${baby.item} & ${baby.item2}`,
           );
         }
-      }
+      });
     }
 
     if (
@@ -98,14 +93,13 @@ function babiesCheckValidDuplicateItem() {
     ) {
       log(`ERROR: Baby #${i} has an active item in the third slot.`);
     }
-  }
+  });
 }
 
 function babiesCheckValidDuplicateTrinket() {
   const trinketSet = new Set<TrinketType>();
-  for (let i = 0; i < BABIES.length; i++) {
-    const baby = BABIES[i];
 
+  BABIES.forEach((baby, i) => {
     if (baby.trinket !== undefined) {
       if (trinketSet.has(baby.trinket)) {
         log(`ERROR: Baby #${i} has a duplicate trinket: ${baby.trinket}`);
@@ -113,5 +107,5 @@ function babiesCheckValidDuplicateTrinket() {
         trinketSet.add(baby.trinket);
       }
     }
-  }
+  });
 }

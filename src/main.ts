@@ -42,6 +42,7 @@ import * as preUseItem from "./callbacks/preUseItem";
 import * as useItem from "./callbacks/useItem";
 import * as usePill from "./callbacks/usePill";
 import * as postGridEntityInit from "./callbacksCustom/postGridEntityInit";
+import * as postGridEntityUpdate from "./callbacksCustom/postGridEntityUpdate";
 import * as postItemPickup from "./callbacksCustom/postItemPickup";
 import * as postPickupCollect from "./callbacksCustom/postPickupCollect";
 import * as postPlayerChangeType from "./callbacksCustom/postPlayerChangeType";
@@ -166,9 +167,14 @@ function registerCallbacksCustom(mod: ModUpgraded) {
     ModCallbacksCustom.MC_POST_SLOT_DESTROYED,
     postSlotDestroyed.main,
   );
+  mod.AddCallbackCustom(
+    ModCallbacksCustom.MC_POST_GRID_ENTITY_UPDATE,
+    postGridEntityUpdate.main,
+  );
 }
 
 function registerCallbacksCustomWithExtraArgument(mod: ModUpgraded) {
   postTrinketBreak.init(mod);
   postGridEntityInit.init(mod);
+  postGridEntityUpdate.init(mod);
 }

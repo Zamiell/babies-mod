@@ -1,14 +1,12 @@
 import {
   GAME_FRAMES_PER_SECOND,
   getGridEntities,
-  getRoomListIndex,
   log,
   openAllDoors,
-  useActiveItemTemp,
 } from "isaacscript-common";
 import g from "../globals";
 import { roomClearedBabyFunctionMap } from "../roomClearedBabyFunctionMap";
-import { getCurrentBaby, spawnRandomPickup } from "../utils";
+import { getCurrentBaby } from "../utils";
 import { postUpdateBabyFunctionMap } from "./postUpdateBabyFunctionMap";
 
 export function main(): void {
@@ -27,7 +25,6 @@ export function main(): void {
 
   checkSoftlockDestroyPoops();
   checkSoftlockIsland();
-  checkGridEntities();
   checkTrapdoor();
 }
 
@@ -129,84 +126,6 @@ function checkSoftlockIsland() {
   g.run.room.softlock = true;
   g.r.SetClear(true);
   openAllDoors();
-}
-
-function checkGridEntities() {
-  const roomListIndex = getRoomListIndex();
-  const gameFrameCount = g.g.GetFrameCount();
-  const [, baby, valid] = getCurrentBaby();
-  if (!valid) {
-    return;
-  }
-
-  for (const gridEntity of getGridEntities()) {
-    const gridIndex = gridEntity.GetGridIndex();
-    const saveState = gridEntity.GetSaveState();
-    if (
-      baby.name === "Gold Baby" && // 15
-      saveState.Type === GridEntityType.GRID_POOP &&
-      saveState.Variant !== PoopGridEntityVariant.GOLDEN
-    ) {
-      gridEntity.SetVariant(PoopGridEntityVariant.GOLDEN);
-    } else if (
-      baby.name === "Ate Poop Baby" && // 173
-      saveState.Type === GridEntityType.GRID_POOP &&
-      gridEntity.State === 4 // Destroyed
-    ) {
-      // First, check to make sure that we have not already destroyed this poop
-      let found = false;
-      for (const killedPoop of g.run.level.killedPoops) {
-        if (
-          killedPoop.roomListIndex === roomListIndex &&
-          killedPoop.gridIndex === gridIndex
-        ) {
-          found = true;
-          break;
-        }
-      }
-      if (!found) {
-        // Second, check to make sure that there is not any existing pickups already on the poop
-        // (the size of a grid square is 40x40)
-        const entities = Isaac.FindInRadius(
-          gridEntity.Position,
-          25,
-          EntityPartition.PICKUP,
-        );
-        if (entities.length === 0) {
-          spawnRandomPickup(gridEntity.Position);
-
-          // Keep track of it so that we don't spawn another pickup on the next frame
-          g.run.level.killedPoops.push({
-            roomListIndex,
-            gridIndex,
-          });
-        }
-      }
-    } else if (
-      baby.name === "Exploding Baby" && // 320
-      g.run.babyFrame === 0 &&
-      ((saveState.Type === GridEntityType.GRID_ROCK && saveState.State === 1) || // 2
-        (saveState.Type === GridEntityType.GRID_ROCKT &&
-          saveState.State === 1) || // 4
-        (saveState.Type === GridEntityType.GRID_ROCK_BOMB &&
-          saveState.State === 1) || // 5
-        (saveState.Type === GridEntityType.GRID_ROCK_ALT &&
-          saveState.State === 1) || // 6
-        (saveState.Type === GridEntityType.GRID_SPIDERWEB &&
-          saveState.State === 0) || // 10
-        (saveState.Type === GridEntityType.GRID_TNT && saveState.State !== 4) || // 12
-        (saveState.Type === GridEntityType.GRID_POOP &&
-          saveState.State !== 4) || // 14
-        (saveState.Type === GridEntityType.GRID_ROCK_SS &&
-          saveState.State !== 3)) && // 22
-      g.p.Position.Distance(gridEntity.Position) <= 36
-    ) {
-      g.run.invulnerable = true;
-      useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_KAMIKAZE);
-      g.run.invulnerable = false;
-      g.run.babyFrame = gameFrameCount + 10;
-    }
-  }
 }
 
 function checkTrapdoor() {

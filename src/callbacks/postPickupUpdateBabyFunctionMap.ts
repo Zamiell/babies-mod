@@ -33,6 +33,7 @@ postPickupUpdateBabyFunctionMap.set(131, (pickup: EntityPickup) => {
     pickup.Price === 0 // We don't want it to affect shop items
   ) {
     pickup.Remove();
+
     repeat(3, (i) => {
       // We want to space out the spiders so that you can see each individual one
       const position = Vector(

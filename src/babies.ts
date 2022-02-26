@@ -1943,7 +1943,7 @@ export const BABIES: readonly BabyDescription[] = [
   },
   {
     name: "Exploding Baby",
-    description: "Kamikaze! effect upon touching an obstacle",
+    description: "Kamikaze! effect upon touching a breakable obstacle",
     sprite: "320_baby_exploding.png",
     explosionImmunity: true,
   },
