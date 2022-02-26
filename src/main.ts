@@ -41,6 +41,7 @@ import * as preTearCollision from "./callbacks/preTearCollision";
 import * as preUseItem from "./callbacks/preUseItem";
 import * as useItem from "./callbacks/useItem";
 import * as usePill from "./callbacks/usePill";
+import * as postGridEntityBroken from "./callbacksCustom/postGridEntityBroken";
 import * as postGridEntityInit from "./callbacksCustom/postGridEntityInit";
 import * as postGridEntityUpdate from "./callbacksCustom/postGridEntityUpdate";
 import * as postItemPickup from "./callbacksCustom/postItemPickup";
@@ -176,5 +177,5 @@ function registerCallbacksCustom(mod: ModUpgraded) {
 function registerCallbacksCustomWithExtraArgument(mod: ModUpgraded) {
   postTrinketBreak.init(mod);
   postGridEntityInit.init(mod);
-  postGridEntityUpdate.init(mod);
+  postGridEntityBroken.init(mod);
 }

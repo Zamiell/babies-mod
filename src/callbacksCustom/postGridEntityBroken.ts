@@ -15,7 +15,7 @@ export function init(mod: ModUpgraded): void {
   );
 }
 
-export function poop(gridEntity: GridEntity): void {
+function poop(gridEntity: GridEntity) {
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
