@@ -426,21 +426,13 @@ postNewRoomBabyFunctionMap.set(287, () => {
     g.run.room.seed,
   );
   const position = gridToPos(6, 4);
-  const pedestal = g.g
-    .Spawn(
-      EntityType.ENTITY_PICKUP,
-      PickupVariant.PICKUP_COLLECTIBLE,
-      position,
-      Vector.Zero,
-      undefined,
-      collectibleType,
-      g.run.room.seed,
-    )
-    .ToPickup();
-  if (pedestal !== undefined) {
-    pedestal.AutoUpdatePrice = false;
-    pedestal.Price = getCollectibleDevilHeartPrice(collectibleType, g.p);
-  }
+  const collectible = spawnCollectible(
+    collectibleType,
+    position,
+    g.run.room.seed,
+  );
+  collectible.AutoUpdatePrice = false;
+  collectible.Price = getCollectibleDevilHeartPrice(collectibleType, g.p);
 
   // Spawn the Devil Statue
   const oneTileAboveCenter = 52;

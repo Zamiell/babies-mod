@@ -105,22 +105,13 @@ postPickupUpdateBabyFunctionMap.set(158, (pickup: EntityPickup) => {
       true,
       g.run.room.seed,
     );
-    const pedestal = g.g
-      .Spawn(
-        EntityType.ENTITY_PICKUP,
-        PickupVariant.PICKUP_COLLECTIBLE,
-        pickup.Position,
-        Vector.Zero,
-        undefined,
-        collectibleType,
-        pickup.InitSeed,
-      )
-      .ToPickup();
-    if (pedestal !== undefined) {
-      // Set the price
-      pedestal.AutoUpdatePrice = false;
-      pedestal.Price = 15;
-    }
+    const collectible = spawnCollectible(
+      collectibleType,
+      pickup.Position,
+      pickup.InitSeed,
+    );
+    collectible.AutoUpdatePrice = false;
+    collectible.Price = 15;
 
     // Remove the heart
     pickup.Remove();
@@ -263,22 +254,13 @@ postPickupUpdateBabyFunctionMap.set(287, (pickup: EntityPickup) => {
       true,
       g.run.room.seed,
     );
-    const pedestal = g.g
-      .Spawn(
-        EntityType.ENTITY_PICKUP,
-        PickupVariant.PICKUP_COLLECTIBLE,
-        pickup.Position,
-        Vector.Zero,
-        undefined,
-        collectibleType,
-        pickup.InitSeed,
-      )
-      .ToPickup();
-    if (pedestal !== undefined) {
-      // Set the price
-      pedestal.AutoUpdatePrice = false;
-      pedestal.Price = getCollectibleDevilHeartPrice(pedestal.SubType, g.p);
-    }
+    const collectible = spawnCollectible(
+      collectibleType,
+      pickup.Position,
+      pickup.InitSeed,
+    );
+    collectible.AutoUpdatePrice = false;
+    collectible.Price = getCollectibleDevilHeartPrice(collectible.SubType, g.p);
 
     // Remove the heart
     pickup.Remove();
@@ -299,22 +281,13 @@ postPickupUpdateBabyFunctionMap.set(317, (pickup: EntityPickup) => {
   } else if (isRerolledCollectibleBuggedHeart(pickup)) {
     // Rerolled items turn into hearts since we are not in a Devil Room,
     // so delete the heart and manually create another pedestal item
-    const pedestal = g.g
-      .Spawn(
-        EntityType.ENTITY_PICKUP,
-        PickupVariant.PICKUP_COLLECTIBLE,
-        pickup.Position,
-        Vector.Zero,
-        undefined,
-        0,
-        pickup.InitSeed,
-      )
-      .ToPickup();
-    if (pedestal !== undefined) {
-      // Set the price
-      pedestal.AutoUpdatePrice = false;
-      pedestal.Price = getCollectibleDevilHeartPrice(pedestal.SubType, g.p);
-    }
+    const collectible = spawnCollectible(
+      CollectibleType.COLLECTIBLE_NULL,
+      pickup.Position,
+      pickup.InitSeed,
+    );
+    collectible.AutoUpdatePrice = false;
+    collectible.Price = getCollectibleDevilHeartPrice(collectible.SubType, g.p);
 
     // Remove the heart
     pickup.Remove();
@@ -339,25 +312,20 @@ postPickupUpdateBabyFunctionMap.set(381, (pickup: EntityPickup) => {
   ) {
     const position = g.r.FindFreePickupSpawnPosition(pickup.Position, 1, true);
     g.run.randomSeed = nextSeed(g.run.randomSeed);
-    const pedestal = g.g
-      .Spawn(
-        EntityType.ENTITY_PICKUP,
-        PickupVariant.PICKUP_COLLECTIBLE,
-        position,
-        Vector.Zero,
-        undefined,
-        0,
-        g.run.randomSeed,
-      )
-      .ToPickup();
-    if (pedestal !== undefined) {
-      // We don't want it to automatically be bought
-      pedestal.Price = pickup.Price;
-      // We want it to keep the behavior of the room
-      pedestal.OptionsPickupIndex = pickup.OptionsPickupIndex;
-      // Mark it so that we don't duplicate it again
-      pedestal.State = 2;
-    }
+    const collectible = spawnCollectible(
+      CollectibleType.COLLECTIBLE_NULL,
+      position,
+      g.run.randomSeed,
+    );
+
+    // We don't want it to automatically be bought
+    collectible.Price = pickup.Price;
+
+    // We want it to keep the behavior of the room
+    collectible.OptionsPickupIndex = pickup.OptionsPickupIndex;
+
+    // Mark it so that we don't duplicate it again
+    collectible.State = 2;
 
     // We only want to duplicate pedestals once per room to avoid duplicating rerolled pedestals
     // (the state will go back to 0 for a rerolled pedestal)
@@ -396,23 +364,16 @@ postPickupUpdateBabyFunctionMap.set(
     // Rerolled items turn into hearts
     // so delete the heart and manually create another pedestal item
     if (isRerolledCollectibleBuggedHeart(pickup)) {
-      g.run.room.seed = nextSeed(g.run.room.seed);
-      const pedestal = g.g
-        .Spawn(
-          EntityType.ENTITY_PICKUP,
-          PickupVariant.PICKUP_COLLECTIBLE,
-          pickup.Position,
-          Vector.Zero,
-          undefined,
-          0,
-          g.run.room.seed,
-        )
-        .ToPickup();
-      if (pedestal !== undefined) {
-        pedestal.AutoUpdatePrice = false;
-        pedestal.Price = 15;
-      }
       pickup.Remove();
+
+      g.run.room.seed = nextSeed(g.run.room.seed);
+      const collectible = spawnCollectible(
+        CollectibleType.COLLECTIBLE_NULL,
+        pickup.Position,
+        g.run.room.seed,
+      );
+      collectible.AutoUpdatePrice = false;
+      collectible.Price = 15;
     }
   },
 );
