@@ -1,4 +1,4 @@
-import { repeat } from "isaacscript-common";
+import { repeat, sfxManager } from "isaacscript-common";
 import g from "../globals";
 import { getCurrentBaby } from "../utils";
 
@@ -54,7 +54,7 @@ function poop() {
     false,
   );
 
-  g.sfx.Play(SoundEffect.SOUND_FART);
+  sfxManager.Play(SoundEffect.SOUND_FART);
 
   // Cancel the original effect
   return true;

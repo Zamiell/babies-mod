@@ -2,6 +2,7 @@ import {
   copyColor,
   removeAllMatchingEntities,
   repeat,
+  sfxManager,
 } from "isaacscript-common";
 import { BABIES, RandomBabyType } from "./babies";
 import g from "./globals";
@@ -103,7 +104,7 @@ babyRemoveFunctionMap.set(219, () => {
     if (g.p.GetActiveItem(slot) !== 0 && g.p.GetBatteryCharge(slot) > 0) {
       g.p.DischargeActiveItem();
       g.p.FullCharge();
-      g.sfx.Stop(SoundEffect.SOUND_BATTERYCHARGE);
+      sfxManager.Stop(SoundEffect.SOUND_BATTERYCHARGE);
     }
   }
 });

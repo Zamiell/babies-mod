@@ -2,10 +2,11 @@ import {
   closeDoorFast,
   GAME_FRAMES_PER_SECOND,
   getDoors,
+  getEnumValues,
   getNPCs,
   getRandom,
+  getRandomArrayElement,
   getRandomCard,
-  getRandomHeartSubType,
   getRandomInt,
   getRandomRune,
   isSelfDamage,
@@ -13,6 +14,7 @@ import {
   openAllDoors,
   removeCollectibleFromItemTracker,
   repeat,
+  sfxManager,
   spawnCollectible,
   useActiveItemTemp,
 } from "isaacscript-common";
@@ -111,7 +113,8 @@ entityTakeDmgPlayerBabyFunctionMap.set(46, (player) => {
 entityTakeDmgPlayerBabyFunctionMap.set(50, (player) => {
   // Spawns a random heart on hit
   g.run.randomSeed = nextSeed(g.run.randomSeed);
-  const heartSubType = getRandomHeartSubType(g.run.randomSeed);
+  const heartSubTypes = getEnumValues(HeartSubType);
+  const heartSubType = getRandomArrayElement(heartSubTypes, g.run.randomSeed);
   g.g.Spawn(
     EntityType.ENTITY_PICKUP,
     PickupVariant.PICKUP_HEART,
@@ -139,7 +142,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(62, (player) => {
   g.run.babyCounters += 1;
   if (g.run.babyCounters >= baby.numHits && !g.run.babyBool) {
     g.run.babyBool = true;
-    g.sfx.Play(SoundEffect.SOUND_SATAN_GROW);
+    sfxManager.Play(SoundEffect.SOUND_SATAN_GROW);
     player.AddCollectible(CollectibleType.COLLECTIBLE_GOAT_HEAD);
     removeCollectibleFromItemTracker(CollectibleType.COLLECTIBLE_GOAT_HEAD);
     player.AddCollectible(CollectibleType.COLLECTIBLE_DUALITY);
@@ -290,7 +293,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(177, (player) => {
     const data = coin.GetData();
     data.recovery = true;
   });
-  g.sfx.Play(SoundEffect.SOUND_GOLD_HEART);
+  sfxManager.Play(SoundEffect.SOUND_GOLD_HEART);
 });
 
 // Faded Baby

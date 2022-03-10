@@ -1,6 +1,7 @@
 import {
   AZAZEL_DEFAULT_BRIMSTONE_DISTANCE,
   setEntityRandomColor,
+  sfxManager,
 } from "isaacscript-common";
 import g from "../globals";
 
@@ -41,7 +42,7 @@ postLaserUpdateBabyFunctionMap.set(51, (laser: EntityLaser) => {
     laser.SetMaxDistance(AZAZEL_DEFAULT_BRIMSTONE_DISTANCE);
 
     // Making the laser invisible earlier also muted the sound effect, so play it manually
-    g.sfx.Play(SoundEffect.SOUND_BLOOD_LASER_LARGE, 0.75);
+    sfxManager.Play(SoundEffect.SOUND_BLOOD_LASER_LARGE, 0.75);
     // (Azazel brimstone is the "large" sound effect instead of the normal one for some reason)
     // (a volume of 1 is a bit too loud)
   }

@@ -5,7 +5,7 @@ export class GlobalsRunRoom {
   clearState: boolean;
   clearDelayFrame: int | null = null;
 
-  seed = 0;
+  seed = 0 as Seed;
   pseudoClear = true;
   doorSlotsModified: int[] = [];
 

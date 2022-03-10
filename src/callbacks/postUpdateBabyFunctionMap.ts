@@ -17,6 +17,7 @@ import {
   isEntityMoving,
   isShootActionPressedOnAnyInput,
   nextSeed,
+  sfxManager,
   useActiveItemTemp,
 } from "isaacscript-common";
 import { BABIES, RandomBabyType } from "../babies";
@@ -177,7 +178,7 @@ postUpdateBabyFunctionMap.set(58, () => {
   // Every 7 seconds
   if (gameFrameCount % (7 * GAME_FRAMES_PER_SECOND) === 0) {
     useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_MONSTER_MANUAL);
-    g.sfx.Stop(SoundEffect.SOUND_SATAN_GROW);
+    sfxManager.Stop(SoundEffect.SOUND_SATAN_GROW);
   }
 });
 
@@ -206,7 +207,7 @@ postUpdateBabyFunctionMap.set(63, () => {
 
     Isaac.GridSpawn(GridEntityType.GRID_POOP, poopVariant, g.p.Position, false);
 
-    g.sfx.Play(SoundEffect.SOUND_FART);
+    sfxManager.Play(SoundEffect.SOUND_FART);
   }
 });
 
@@ -230,8 +231,8 @@ postUpdateBabyFunctionMap.set(81, () => {
       batteryCharge !== g.run.babyNPC.type)
   ) {
     g.p.SetActiveCharge(g.run.babyCounters + g.run.babyNPC.type);
-    g.sfx.Stop(SoundEffect.SOUND_BATTERYCHARGE);
-    g.sfx.Stop(SoundEffect.SOUND_BEEP);
+    sfxManager.Stop(SoundEffect.SOUND_BATTERYCHARGE);
+    sfxManager.Stop(SoundEffect.SOUND_BEEP);
   }
 });
 
@@ -345,7 +346,7 @@ postUpdateBabyFunctionMap.set(128, () => {
     changeRoom(roomGridIndex);
 
     // We might have traveled to the Boss Room, so stop the Portcullis sound effect just in case
-    g.sfx.Stop(SoundEffect.SOUND_CASTLEPORTCULLIS);
+    sfxManager.Stop(SoundEffect.SOUND_CASTLEPORTCULLIS);
   }
 
   changeRoom(startingRoomGridIndex);
@@ -522,7 +523,7 @@ postUpdateBabyFunctionMap.set(211, () => {
       const index = g.r.GetGridIndex(tear.position);
       g.r.DestroyGrid(index, true);
       tear.position = tear.position.add(tear.velocity);
-      g.sfx.Play(SoundEffect.SOUND_ROCK_CRUMBLE, 0.5);
+      sfxManager.Play(SoundEffect.SOUND_ROCK_CRUMBLE, 0.5);
       // (if the sound effect plays at full volume, it starts to get annoying)
 
       // Make the shockwave deal damage to the player
@@ -703,7 +704,7 @@ postUpdateBabyFunctionMap.set(290, () => {
   // Every 5 seconds
   if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
     useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_DULL_RAZOR);
-    g.sfx.Stop(SoundEffect.SOUND_ISAAC_HURT_GRUNT);
+    sfxManager.Stop(SoundEffect.SOUND_ISAAC_HURT_GRUNT);
   }
 });
 
@@ -714,7 +715,7 @@ postUpdateBabyFunctionMap.set(295, () => {
   // Keep the pony fully charged
   if (activeItem === CollectibleType.COLLECTIBLE_PONY && g.p.NeedsCharge()) {
     g.p.FullCharge();
-    g.sfx.Stop(SoundEffect.SOUND_BATTERYCHARGE);
+    sfxManager.Stop(SoundEffect.SOUND_BATTERYCHARGE);
   }
 });
 
@@ -819,7 +820,7 @@ postUpdateBabyFunctionMap.set(348, () => {
   // Keep the Candle always fully charged
   if (activeItem === CollectibleType.COLLECTIBLE_CANDLE && g.p.NeedsCharge()) {
     g.p.FullCharge();
-    g.sfx.Stop(SoundEffect.SOUND_BATTERYCHARGE);
+    sfxManager.Stop(SoundEffect.SOUND_BATTERYCHARGE);
   }
 });
 
@@ -999,7 +1000,7 @@ postUpdateBabyFunctionMap.set(462, () => {
       const index = g.r.GetGridIndex(tear.position);
       g.r.DestroyGrid(index, true);
       tear.position = tear.position.add(tear.velocity);
-      g.sfx.Play(SoundEffect.SOUND_ROCK_CRUMBLE, 0.5, 0);
+      sfxManager.Play(SoundEffect.SOUND_ROCK_CRUMBLE, 0.5, 0);
       // (if the sound effect plays at full volume, it starts to get annoying)
 
       // Make the shockwave deal damage to NPCs

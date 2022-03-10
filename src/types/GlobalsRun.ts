@@ -13,7 +13,7 @@ export class GlobalsRun {
   drawIntro = false;
   /** Keep track of all of the collectibles that we pick up over the course of the run. */
   passiveCollectibleTypes: int[] = [];
-  randomSeed: int;
+  randomSeed: Seed;
 
   // Tracking per level
   level = new GlobalsRunLevel();
@@ -47,8 +47,8 @@ export class GlobalsRun {
 
   // Item-specific variables
   flockOfSuccubi = false;
-  clockworkAssemblySeed = 0;
-  craneGameSeed = 0;
+  clockworkAssemblySeed = 0 as Seed;
+  craneGameSeed = 0 as Seed;
 
   constructor(randomSeed = Random()) {
     this.randomSeed = randomSeed;

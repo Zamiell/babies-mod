@@ -1,6 +1,7 @@
 import {
   addRoomClearCharge,
-  getRandomHeartSubType,
+  getEnumValues,
+  getRandomArrayElement,
   repeat,
   spawnCollectible,
   useActiveItemTemp,
@@ -13,7 +14,8 @@ export const roomClearedBabyFunctionMap = new Map<int, () => void>();
 // Love Baby
 roomClearedBabyFunctionMap.set(1, () => {
   const roomSeed = g.r.GetSpawnSeed();
-  const heartSubType = getRandomHeartSubType(roomSeed);
+  const heartSubTypes = getEnumValues(HeartSubType);
+  const heartSubType = getRandomArrayElement(heartSubTypes, roomSeed);
 
   // Random Heart
   g.g.Spawn(

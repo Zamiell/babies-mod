@@ -16,6 +16,7 @@ import {
   removeAllMatchingEntities,
   repeat,
   spawnCollectible,
+  spawnGridEntityWithVariant,
   teleport,
   useActiveItemTemp,
 } from "isaacscript-common";
@@ -233,13 +234,11 @@ postNewRoomBabyFunctionMap.set(158, () => {
   collectible.Price = 15;
 
   // Spawn the Angel Statue
-  const oneTileAboveCenter = 52;
-  g.r.SpawnGridEntity(
-    oneTileAboveCenter,
+  const oneTileAboveCenterGridIndex = 52;
+  spawnGridEntityWithVariant(
     GridEntityType.GRID_STATUE,
     StatueVariant.ANGEL,
-    0,
-    0,
+    oneTileAboveCenterGridIndex,
   );
 
   // Spawn the two fires
@@ -435,13 +434,11 @@ postNewRoomBabyFunctionMap.set(287, () => {
   collectible.Price = getCollectibleDevilHeartPrice(collectibleType, g.p);
 
   // Spawn the Devil Statue
-  const oneTileAboveCenter = 52;
-  g.r.SpawnGridEntity(
-    oneTileAboveCenter,
+  const oneTileAboveCenterGridIndex = 52;
+  spawnGridEntityWithVariant(
     GridEntityType.GRID_STATUE,
     StatueVariant.DEVIL,
-    0,
-    0,
+    oneTileAboveCenterGridIndex,
   );
 
   // Spawn the two fires

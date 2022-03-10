@@ -4,6 +4,7 @@ import {
   getEntities,
   getRandomInt,
   nextSeed,
+  sfxManager,
   spawnCollectible,
 } from "isaacscript-common";
 import { BABIES, UNKNOWN_BABY } from "./babies";
@@ -46,7 +47,7 @@ export function getCurrentBaby(): [
 export function getRandomOffsetPosition(
   position: Vector,
   offsetSize: int,
-  seed: int,
+  seed: Seed,
 ): Vector {
   const offsetDirection = getRandomInt(0, 3, seed);
 
@@ -317,7 +318,7 @@ export function spawnRandomPickup(
 export function spawnSlot(
   slotVariant: SlotVariant,
   startingPosition: Vector,
-  seed: int,
+  seed: Seed,
 ) {
   const position = findFreePosition(startingPosition);
 
@@ -340,5 +341,5 @@ export function spawnSlot(
     undefined,
   );
 
-  g.sfx.Play(SoundEffect.SOUND_SUMMONSOUND);
+  sfxManager.Play(SoundEffect.SOUND_SUMMONSOUND);
 }
