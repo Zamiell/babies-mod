@@ -8,7 +8,7 @@ import g from "./globals";
 
 function debugCode() {}
 
-export function debugFunction() {
+export function debugFunction(): void {
   log("Entering debug function.");
 
   saveDataManagerSetGlobal();
@@ -21,7 +21,7 @@ export function debugFunction() {
   Isaac.ConsoleOutput("Executed debug function.");
 }
 
-export function setDebugBaby(params: string, restart: boolean) {
+export function setDebugBaby(params: string, restart: boolean): void {
   // Check to see if this is a valid baby number
   let babyNum: number | null | undefined = tonumber(params);
   if (babyNum === undefined || babyNum < 0 || babyNum >= BABIES.length) {

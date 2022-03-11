@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <metadata>
   <name>The Babies Mod</name>
   <directory>babies_mod</directory>
@@ -20,8 +20,8 @@ For technical support or general questions, please [b]do not post a comment here
 Comments asking questions will be deleted.</description>
   <version>1.4.10</version>
   <visibility>Public</visibility>
-  <tag id="Lua"/>
-  <tag id="Player Characters"/>
-  <tag id="Babies"/>
-  <tag id="Tweaks"/>
+  <tag id="Lua" />
+  <tag id="Player Characters" />
+  <tag id="Babies" />
+  <tag id="Tweaks" />
 </metadata>

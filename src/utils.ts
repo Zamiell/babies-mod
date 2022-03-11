@@ -319,10 +319,10 @@ export function spawnSlot(
   slotVariant: SlotVariant,
   startingPosition: Vector,
   seed: Seed,
-) {
+): Entity {
   const position = findFreePosition(startingPosition);
 
-  g.g.Spawn(
+  const slot = g.g.Spawn(
     EntityType.ENTITY_SLOT,
     slotVariant,
     position,
@@ -342,4 +342,6 @@ export function spawnSlot(
   );
 
   sfxManager.Play(SoundEffect.SOUND_SUMMONSOUND);
+
+  return slot;
 }

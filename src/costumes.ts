@@ -18,7 +18,7 @@ export function initCostumeProtector(mod: Mod): void {
  * Babies use a custom ANM2 file because they have different animations than a typical custom
  * character would.
  */
-export function setBabyANM2(player: EntityPlayer) {
+export function setBabyANM2(player: EntityPlayer): void {
   const sprite = player.GetSprite();
   sprite.Load(CUSTOM_PLAYER_ANM2, true);
 }
