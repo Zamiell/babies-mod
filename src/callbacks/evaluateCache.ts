@@ -2,7 +2,11 @@ import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
 import { getCurrentBaby } from "../utils";
 import { evaluateCacheBabyFunctionMap } from "./evaluateCacheBabyFunctionMap";
 
-export function main(player: EntityPlayer, cacheFlag: CacheFlag): void {
+export function init(mod: Mod): void {
+  mod.AddCallback(ModCallbacks.MC_EVALUATE_CACHE, main);
+}
+
+function main(player: EntityPlayer, cacheFlag: CacheFlag) {
   const character = player.GetPlayerType();
   const [babyType, baby, valid] = getCurrentBaby();
   if (!valid) {

@@ -1,7 +1,11 @@
 import { getCurrentBaby } from "../utils";
 import { inputActionBabyFunctionMap } from "./inputActionBabyFunctionMap";
 
-export function main(
+export function init(mod: Mod): void {
+  mod.AddCallback(ModCallbacks.MC_INPUT_ACTION, main);
+}
+
+function main(
   entity: Entity | undefined,
   inputHook: InputHook,
   buttonAction: ButtonAction,

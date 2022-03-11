@@ -1,8 +1,17 @@
-import { nextSeed, spawnCollectible } from "isaacscript-common";
+import {
+  ModCallbacksCustom,
+  ModUpgraded,
+  nextSeed,
+  spawnCollectible,
+} from "isaacscript-common";
 import g from "../globals";
 import { getCurrentBaby } from "../utils";
 
-export function main(slot: Entity): void {
+export function init(mod: ModUpgraded): void {
+  mod.AddCallbackCustom(ModCallbacksCustom.MC_POST_SLOT_DESTROYED, main);
+}
+
+function main(slot: Entity) {
   const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return;

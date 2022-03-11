@@ -2,7 +2,11 @@ import { updateCachedPlayer } from "../cache";
 import { addPlayerToCostumeProtector } from "../costumes";
 import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
 
-export function main(player: EntityPlayer): void {
+export function init(mod: Mod): void {
+  mod.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, main);
+}
+
+function main(player: EntityPlayer) {
   // log("MC_POST_PLAYER_INIT (Babies Mod)");
 
   // We don't care if this is a co-op baby

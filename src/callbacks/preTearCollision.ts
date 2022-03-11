@@ -1,7 +1,11 @@
 import { getCurrentBaby } from "../utils";
 import { preTearCollisionBabyFunctionMap } from "./preTearCollisionBabyFunctionMap";
 
-export function main(tear: EntityTear, collider: Entity): boolean | void {
+export function init(mod: Mod): void {
+  mod.AddCallback(ModCallbacks.MC_PRE_TEAR_COLLISION, main);
+}
+
+function main(tear: EntityTear, collider: Entity): boolean | void {
   const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return undefined;

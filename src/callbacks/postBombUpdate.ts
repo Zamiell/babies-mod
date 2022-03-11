@@ -1,7 +1,11 @@
 import { getCurrentBaby } from "../utils";
 import { postBombUpdateBabyFunctionMap } from "./postBombUpdateBabyFunctionMap";
 
-export function main(bomb: EntityBomb): void {
+export function init(mod: Mod): void {
+  mod.AddCallback(ModCallbacks.MC_POST_BOMB_UPDATE, main);
+}
+
+function main(bomb: EntityBomb) {
   const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return;

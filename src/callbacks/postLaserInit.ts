@@ -1,7 +1,11 @@
 import { getCurrentBaby } from "../utils";
 import { postLaserInitBabyFunctionMap } from "./postLaserInitBabyFunctionMap";
 
-export function main(laser: EntityLaser): void {
+export function init(mod: Mod): void {
+  mod.AddCallback(ModCallbacks.MC_POST_LASER_INIT, main);
+}
+
+function main(laser: EntityLaser) {
   const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return;

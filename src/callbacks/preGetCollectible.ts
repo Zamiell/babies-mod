@@ -2,7 +2,11 @@ import g from "../globals";
 import { getCurrentBaby } from "../utils";
 import { preGetCollectibleBabyFunctionMap } from "./preGetCollectibleBabyFunctionMap";
 
-export function main(
+export function init(mod: Mod): void {
+  mod.AddCallback(ModCallbacks.MC_PRE_GET_COLLECTIBLE, main);
+}
+
+function main(
   _itemPoolType: ItemPoolType,
   _decrease: boolean,
   _seed: int,

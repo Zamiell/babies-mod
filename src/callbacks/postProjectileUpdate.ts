@@ -1,7 +1,11 @@
 import { getCurrentBaby } from "../utils";
 import { postProjectileUpdateBabyFunctionMap } from "./postProjectileUpdateBabyFunctionMap";
 
-export function main(projectile: EntityProjectile): void {
+export function init(mod: Mod): void {
+  mod.AddCallback(ModCallbacks.MC_POST_PROJECTILE_UPDATE, main);
+}
+
+function main(projectile: EntityProjectile) {
   const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return;

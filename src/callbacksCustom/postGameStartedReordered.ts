@@ -1,11 +1,18 @@
-import { log } from "isaacscript-common";
+import { log, ModCallbacksCustom, ModUpgraded } from "isaacscript-common";
 import { BABIES } from "../babies";
 import g from "../globals";
 import { GlobalsRun } from "../types/GlobalsRun";
 import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
 import { giveItemAndRemoveFromPools } from "../utils";
 
-export function main(isContinued: boolean): void {
+export function init(mod: ModUpgraded): void {
+  mod.AddCallbackCustom(
+    ModCallbacksCustom.MC_POST_GAME_STARTED_REORDERED,
+    main,
+  );
+}
+
+function main(isContinued: boolean) {
   const startSeed = g.seeds.GetStartSeed();
   const startSeedString = g.seeds.GetStartSeedString();
   const character = g.p.GetPlayerType();

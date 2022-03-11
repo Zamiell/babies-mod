@@ -1,4 +1,10 @@
-import { getRandomArrayIndex, log, nextSeed } from "isaacscript-common";
+import {
+  getRandomArrayIndex,
+  log,
+  ModCallbacksCustom,
+  ModUpgraded,
+  nextSeed,
+} from "isaacscript-common";
 import { BABIES } from "../babies";
 import { babyAdd } from "../babyAdd";
 import { babyCheckValid } from "../babyCheckValid";
@@ -7,7 +13,11 @@ import g from "../globals";
 import { GlobalsRunLevel } from "../types/GlobalsRunLevel";
 import { getCurrentBaby } from "../utils";
 
-export function main(): void {
+export function init(mod: ModUpgraded): void {
+  mod.AddCallbackCustom(ModCallbacksCustom.MC_POST_NEW_LEVEL_REORDERED, main);
+}
+
+function main() {
   const gameFrameCount = g.g.GetFrameCount();
   const stage = g.l.GetStage();
   const stageType = g.l.GetStageType();

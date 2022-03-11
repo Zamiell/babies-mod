@@ -1,9 +1,17 @@
-import { PickingUpItem } from "isaacscript-common";
+import {
+  ModCallbacksCustom,
+  ModUpgraded,
+  PickingUpItem,
+} from "isaacscript-common";
 import g from "../globals";
 import { getCurrentBaby } from "../utils";
 import { postItemPickupBabyFunctionMap } from "./postItemPickupBabyFunctionMap";
 
-export function main(player: EntityPlayer, pickingUpItem: PickingUpItem): void {
+export function init(mod: ModUpgraded): void {
+  mod.AddCallbackCustom(ModCallbacksCustom.MC_POST_ITEM_PICKUP, main);
+}
+
+function main(player: EntityPlayer, pickingUpItem: PickingUpItem) {
   checkAddItem(pickingUpItem);
 
   const [babyType, , valid] = getCurrentBaby();

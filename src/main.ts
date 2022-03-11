@@ -1,9 +1,4 @@
-import {
-  log,
-  ModCallbacksCustom,
-  ModUpgraded,
-  upgradeMod,
-} from "isaacscript-common";
+import { log, ModUpgraded, upgradeMod } from "isaacscript-common";
 import { babiesCheckValid } from "./babiesCheckValid";
 import * as entityTakeDmg from "./callbacks/entityTakeDmg";
 import * as evaluateCache from "./callbacks/evaluateCache";
@@ -17,12 +12,9 @@ import * as postEntityKill from "./callbacks/postEntityKill";
 import * as postFamiliarInit from "./callbacks/postFamiliarInit";
 import * as postFamiliarUpdate from "./callbacks/postFamiliarUpdate";
 import * as postFireTear from "./callbacks/postFireTear";
-import * as postGameStarted from "./callbacks/postGameStarted";
 import * as postKnifeInit from "./callbacks/postKnifeInit";
 import * as postLaserInit from "./callbacks/postLaserInit";
 import * as postLaserUpdate from "./callbacks/postLaserUpdate";
-import * as postNewLevel from "./callbacks/postNewLevel";
-import * as postNewRoom from "./callbacks/postNewRoom";
 import * as postNPCInit from "./callbacks/postNPCInit";
 import * as postNPCUpdate from "./callbacks/postNPCUpdate";
 import * as postPickupInit from "./callbacks/postPickupInit";
@@ -41,10 +33,13 @@ import * as preTearCollision from "./callbacks/preTearCollision";
 import * as preUseItem from "./callbacks/preUseItem";
 import * as useItem from "./callbacks/useItem";
 import * as usePill from "./callbacks/usePill";
+import * as postGameStartedReordered from "./callbacksCustom/postGameStartedReordered";
 import * as postGridEntityBroken from "./callbacksCustom/postGridEntityBroken";
 import * as postGridEntityInit from "./callbacksCustom/postGridEntityInit";
 import * as postGridEntityUpdate from "./callbacksCustom/postGridEntityUpdate";
 import * as postItemPickup from "./callbacksCustom/postItemPickup";
+import * as postNewLevelReordered from "./callbacksCustom/postNewLevelReordered";
+import * as postNewRoomReordered from "./callbacksCustom/postNewRoomReordered";
 import * as postPickupCollect from "./callbacksCustom/postPickupCollect";
 import * as postPlayerChangeType from "./callbacksCustom/postPlayerChangeType";
 import * as postPurchase from "./callbacksCustom/postPurchase";
@@ -67,7 +62,8 @@ export default function main(): void {
   g.babiesMod = mod;
 
   babiesCheckValid();
-  registerCallbacks(mod);
+  registerCallbacksMain(mod);
+  registerCallbacksCustom(mod);
 }
 
 function welcomeBanner() {
@@ -79,103 +75,54 @@ function welcomeBanner() {
   log(welcomeTextBorder);
 }
 
-function registerCallbacks(mod: ModUpgraded) {
-  registerCallbacksMain(mod);
-  registerCallbacksWithExtraArgument(mod);
-  registerCallbacksCustom(mod);
-  registerCallbacksCustomWithExtraArgument(mod);
-}
-
 function registerCallbacksMain(mod: ModUpgraded) {
-  mod.AddCallback(ModCallbacks.MC_NPC_UPDATE, postNPCUpdate.main); // 0
-  mod.AddCallback(ModCallbacks.MC_POST_UPDATE, postUpdate.main); // 1
-  mod.AddCallback(ModCallbacks.MC_POST_RENDER, postRender.main); // 2
-  mod.AddCallback(ModCallbacks.MC_FAMILIAR_UPDATE, postFamiliarUpdate.main); // 6
-  mod.AddCallback(ModCallbacks.MC_FAMILIAR_INIT, postFamiliarInit.main); // 7
-  mod.AddCallback(ModCallbacks.MC_EVALUATE_CACHE, evaluateCache.main); // 8
-  mod.AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, postPlayerInit.main); // 9
-  mod.AddCallback(ModCallbacks.MC_USE_PILL, usePill.main); // 10
-  mod.AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, entityTakeDmg.main); // 11
-  mod.AddCallback(ModCallbacks.MC_INPUT_ACTION, inputAction.main); // 13
-  mod.AddCallback(ModCallbacks.MC_EXECUTE_CMD, executeCmd.main); // 22
-  mod.AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, preEntitySpawn.main); // 24
-  mod.AddCallback(ModCallbacks.MC_POST_NPC_INIT, postNPCInit.main); // 27
-  mod.AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, postPickupInit.main); // 34
-  mod.AddCallback(
-    ModCallbacks.MC_POST_PICKUP_SELECTION,
-    postPickupSelection.main,
-  ); // 37
-  mod.AddCallback(ModCallbacks.MC_POST_PICKUP_UPDATE, postPickupUpdate.main); // 38
-  mod.AddCallback(ModCallbacks.MC_POST_TEAR_INIT, postTearInit.main); // 39
-  mod.AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, postTearUpdate.main); // 40
-  mod.AddCallback(ModCallbacks.MC_PRE_TEAR_COLLISION, preTearCollision.main); // 42
-  mod.AddCallback(
-    ModCallbacks.MC_POST_PROJECTILE_UPDATE,
-    postProjectileUpdate.main,
-  ); // 44
-  mod.AddCallback(ModCallbacks.MC_POST_LASER_INIT, postLaserInit.main); // 47
-  mod.AddCallback(ModCallbacks.MC_POST_LASER_UPDATE, postLaserUpdate.main); // 48
-  mod.AddCallback(ModCallbacks.MC_POST_KNIFE_INIT, postKnifeInit.main); // 50
-  mod.AddCallback(ModCallbacks.MC_POST_EFFECT_INIT, postEffectInit.main); // 54
-  mod.AddCallback(ModCallbacks.MC_POST_EFFECT_UPDATE, postEffectUpdate.main); // 55
-  mod.AddCallback(ModCallbacks.MC_POST_BOMB_INIT, postBombInit.main); // 57
-  mod.AddCallback(ModCallbacks.MC_POST_BOMB_UPDATE, postBombUpdate.main); // 58
-  mod.AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, postFireTear.main); // 61
-  mod.AddCallback(ModCallbacks.MC_PRE_GET_COLLECTIBLE, preGetCollectible.main); // 62
-  mod.AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, postEntityKill.main); // 68
-  mod.AddCallback(
-    ModCallbacks.MC_PRE_ROOM_ENTITY_SPAWN,
-    preRoomEntitySpawn.main,
-  ); // 71
-}
-
-function registerCallbacksWithExtraArgument(mod: ModUpgraded) {
+  postNPCUpdate.init(mod); // 0
+  postUpdate.init(mod); // 1
+  postRender.init(mod); // 2
   useItem.init(mod); // 3
+  postFamiliarUpdate.init(mod); // 6
+  postFamiliarInit.init(mod); // 7
+  evaluateCache.init(mod); // 8
+  postPlayerInit.init(mod); // 9
+  usePill.init(mod); // 10
+  entityTakeDmg.init(mod); // 11
+  inputAction.init(mod); // 13
+  executeCmd.init(mod); // 22
   preUseItem.init(mod); // 23
+  preEntitySpawn.init(mod); // 24
+  postNPCInit.init(mod); // 27
+  postPickupInit.init(mod); // 34
+  postPickupSelection.init(mod); // 37
+  postPickupUpdate.init(mod); // 38
+  postTearInit.init(mod); // 39
+  postTearUpdate.init(mod); // 40
+  preTearCollision.init(mod); // 42
+  postProjectileUpdate.init(mod); // 44
+  postLaserInit.init(mod); // 47
+  postLaserUpdate.init(mod); // 48
+  postKnifeInit.init(mod); // 50
+  postEffectInit.init(mod); // 54
+  postEffectUpdate.init(mod); // 55
+  postBombInit.init(mod); // 57
+  postBombUpdate.init(mod); // 58
+  postFireTear.init(mod); // 61
+  preGetCollectible.init(mod); // 62
+  postEntityKill.init(mod); // 68
+  preRoomEntitySpawn.init(mod); // 71
 }
 
 function registerCallbacksCustom(mod: ModUpgraded) {
-  mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_POST_GAME_STARTED_REORDERED,
-    postGameStarted.main,
-  );
-  mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_POST_NEW_LEVEL_REORDERED,
-    postNewLevel.main,
-  );
-  mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_POST_NEW_ROOM_REORDERED,
-    postNewRoom.main,
-  );
-  mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_POST_PICKUP_COLLECT,
-    postPickupCollect.main,
-  );
-  mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_PRE_ITEM_PICKUP,
-    preItemPickup.main,
-  );
-  mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_POST_ITEM_PICKUP,
-    postItemPickup.main,
-  );
-  mod.AddCallbackCustom(ModCallbacksCustom.MC_POST_PURCHASE, postPurchase.main);
-  mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_POST_PLAYER_CHANGE_TYPE,
-    postPlayerChangeType.main,
-  );
-  mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_POST_SLOT_DESTROYED,
-    postSlotDestroyed.main,
-  );
-  mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_POST_GRID_ENTITY_UPDATE,
-    postGridEntityUpdate.main,
-  );
-}
-
-function registerCallbacksCustomWithExtraArgument(mod: ModUpgraded) {
+  postGameStartedReordered.init(mod);
+  postNewLevelReordered.init(mod);
+  postNewRoomReordered.init(mod);
+  postPickupCollect.init(mod);
+  preItemPickup.init(mod);
+  postItemPickup.init(mod);
+  postPurchase.init(mod);
+  postPlayerChangeType.init(mod);
+  postSlotDestroyed.init(mod);
   postTrinketBreak.init(mod);
   postGridEntityInit.init(mod);
+  postGridEntityUpdate.init(mod);
   postGridEntityBroken.init(mod);
 }

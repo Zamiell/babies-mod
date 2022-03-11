@@ -1,7 +1,11 @@
 import { getCurrentBaby } from "../utils";
 import { postFamiliarInitBabyFunctionMap } from "./postFamiliarInitBabyFunctionMap";
 
-export function main(familiar: EntityFamiliar): void {
+export function init(mod: Mod): void {
+  mod.AddCallback(ModCallbacks.MC_FAMILIAR_INIT, main);
+}
+
+function main(familiar: EntityFamiliar) {
   const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return;

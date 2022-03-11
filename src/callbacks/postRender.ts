@@ -19,7 +19,11 @@ const CLOCK_POSITION = Vector(30, 30);
 
 const clockSprite = initSprite("gfx/clock.anm2");
 
-export function main(): void {
+export function init(mod: Mod): void {
+  mod.AddCallback(ModCallbacks.MC_POST_RENDER, main);
+}
+
+function main() {
   updateCachedAPIFunctions();
   drawVersion();
 

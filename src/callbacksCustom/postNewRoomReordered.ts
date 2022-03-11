@@ -2,17 +2,23 @@ import {
   getRoomStageID,
   getRoomVariant,
   log,
+  ModCallbacksCustom,
+  ModUpgraded,
   repeat,
 } from "isaacscript-common";
 import { updateCachedAPIFunctions } from "../cache";
+import { postNewRoomBabyFunctionMap } from "../callbacks/postNewRoomBabyFunctionMap";
 import { NUM_SUCCUBI_IN_FLOCK } from "../constants";
 import g from "../globals";
 import { GlobalsRunBabyTears } from "../types/GlobalsRunBabyTears";
 import { GlobalsRunRoom } from "../types/GlobalsRunRoom";
 import { getCurrentBaby } from "../utils";
-import { postNewRoomBabyFunctionMap } from "./postNewRoomBabyFunctionMap";
 
-export function main(): void {
+export function init(mod: ModUpgraded): void {
+  mod.AddCallbackCustom(ModCallbacksCustom.MC_POST_NEW_ROOM_REORDERED, main);
+}
+
+function main() {
   updateCachedAPIFunctions();
 
   const gameFrameCount = g.g.GetFrameCount();

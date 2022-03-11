@@ -9,7 +9,11 @@ import { roomClearedBabyFunctionMap } from "../roomClearedBabyFunctionMap";
 import { getCurrentBaby } from "../utils";
 import { postUpdateBabyFunctionMap } from "./postUpdateBabyFunctionMap";
 
-export function main(): void {
+export function init(mod: Mod): void {
+  mod.AddCallback(ModCallbacks.MC_POST_UPDATE, main);
+}
+
+function main() {
   const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return;

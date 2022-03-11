@@ -2,7 +2,11 @@ import g from "../globals";
 import { getCurrentBaby } from "../utils";
 import { postEntityKillBabyFunctionMap } from "./postEntityKillBabyFunctionMap";
 
-export function main(entity: Entity): void {
+export function init(mod: Mod): void {
+  mod.AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, main);
+}
+
+function main(entity: Entity) {
   const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return;

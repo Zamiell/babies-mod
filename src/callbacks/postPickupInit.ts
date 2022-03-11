@@ -2,7 +2,11 @@ import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 import { getCurrentBaby } from "../utils";
 import { postPickupInitBabyFunctionMap } from "./postPickupInitBabyFunctionMap";
 
-export function main(pickup: EntityPickup): void {
+export function init(mod: Mod): void {
+  mod.AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, main);
+}
+
+function main(pickup: EntityPickup) {
   const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return;

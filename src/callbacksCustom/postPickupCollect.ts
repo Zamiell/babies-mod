@@ -1,7 +1,12 @@
+import { ModCallbacksCustom, ModUpgraded } from "isaacscript-common";
 import { getCurrentBaby } from "../utils";
 import { postPickupCollectBabyFunctionMap } from "./postPickupCollectBabyFunctionMap";
 
-export function main(): void {
+export function init(mod: ModUpgraded): void {
+  mod.AddCallbackCustom(ModCallbacksCustom.MC_POST_PICKUP_COLLECT, main);
+}
+
+function main() {
   const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return;

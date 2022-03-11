@@ -2,7 +2,11 @@ import { getCurrentBaby } from "../utils";
 import * as entityTakeDmgEntity from "./entityTakeDmgEntity";
 import * as entityTakeDmgPlayer from "./entityTakeDmgPlayer";
 
-export function main(
+export function init(mod: Mod): void {
+  mod.AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, main);
+}
+
+function main(
   entity: Entity,
   damageAmount: float,
   damageFlags: int,
