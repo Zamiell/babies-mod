@@ -50,8 +50,8 @@ postFireTearBabyFunctionMap.set(8, (tear: EntityTear) => {
   }
 
   // Spawn a new tear with a random velocity
-  const seed = tear.GetDropRNG().GetSeed();
-  const rotation = getRandomInt(0, 359, seed);
+  const rng = tear.GetDropRNG();
+  const rotation = getRandomInt(0, 359, rng);
   const velocity = tear.Velocity.Rotated(rotation);
   g.run.babyBool = true;
   g.p.FireTear(g.p.Position, velocity, false, true, false);

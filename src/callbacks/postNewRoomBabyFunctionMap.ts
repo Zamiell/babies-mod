@@ -12,7 +12,6 @@ import {
   inStartingRoom,
   isEven,
   log,
-  nextSeed,
   removeAllMatchingEntities,
   repeat,
   spawnCollectible,
@@ -146,12 +145,7 @@ postNewRoomBabyFunctionMap.set(118, () => {
   // Improved Secret Rooms
   repeat(baby.num, () => {
     const position = g.r.FindFreePickupSpawnPosition(center, 1, true);
-    g.run.randomSeed = nextSeed(g.run.randomSeed);
-    spawnCollectible(
-      CollectibleType.COLLECTIBLE_NULL,
-      position,
-      g.run.randomSeed,
-    );
+    spawnCollectible(CollectibleType.COLLECTIBLE_NULL, position, g.run.rng);
   });
 });
 
@@ -198,12 +192,7 @@ postNewRoomBabyFunctionMap.set(149, () => {
   // Improved Super Secret Rooms
   repeat(baby.num, () => {
     const position = g.r.FindFreePickupSpawnPosition(center, 1, true);
-    g.run.randomSeed = nextSeed(g.run.randomSeed);
-    spawnCollectible(
-      CollectibleType.COLLECTIBLE_NULL,
-      position,
-      g.run.randomSeed,
-    );
+    spawnCollectible(CollectibleType.COLLECTIBLE_NULL, position, g.run.rng);
   });
 });
 
@@ -218,17 +207,17 @@ postNewRoomBabyFunctionMap.set(158, () => {
   }
 
   // All special rooms are Angel Shops
-  g.run.room.seed = nextSeed(g.run.room.seed);
+  const angelSeed = g.run.room.rng.Next();
   const collectibleType = g.itemPool.GetCollectible(
     ItemPoolType.POOL_ANGEL,
     true,
-    g.run.room.seed,
+    angelSeed,
   );
   const position = gridToPos(6, 4);
   const collectible = spawnCollectible(
     collectibleType,
     position,
-    g.run.room.seed,
+    g.run.room.rng,
   );
   collectible.AutoUpdatePrice = false;
   collectible.Price = 15;
@@ -244,7 +233,7 @@ postNewRoomBabyFunctionMap.set(158, () => {
   // Spawn the two fires
   const firePositions = [gridToPos(3, 1), gridToPos(9, 1)];
   for (const firePosition of firePositions) {
-    g.run.room.seed = nextSeed(g.run.room.seed);
+    const fireplaceSeed = g.run.room.rng.Next();
     g.g.Spawn(
       EntityType.ENTITY_FIREPLACE,
       FireplaceVariant.BLUE,
@@ -252,7 +241,7 @@ postNewRoomBabyFunctionMap.set(158, () => {
       Vector.Zero,
       undefined,
       0,
-      g.run.room.seed,
+      fireplaceSeed,
     );
   }
 });
@@ -333,7 +322,7 @@ postNewRoomBabyFunctionMap.set(216, () => {
     const collectible = spawnCollectible(
       collectibleType,
       position,
-      g.run.room.seed,
+      g.run.room.rng,
     );
     collectible.AutoUpdatePrice = false;
     collectible.Price = price;
@@ -418,17 +407,17 @@ postNewRoomBabyFunctionMap.set(287, () => {
   }
 
   // All special rooms are Devil Rooms
-  g.run.room.seed = nextSeed(g.run.room.seed);
+  const devilSeed = g.run.room.rng.Next();
   const collectibleType = g.itemPool.GetCollectible(
     ItemPoolType.POOL_DEVIL,
     true,
-    g.run.room.seed,
+    devilSeed,
   );
   const position = gridToPos(6, 4);
   const collectible = spawnCollectible(
     collectibleType,
     position,
-    g.run.room.seed,
+    g.run.room.rng,
   );
   collectible.AutoUpdatePrice = false;
   collectible.Price = getCollectibleDevilHeartPrice(collectibleType, g.p);
@@ -444,7 +433,7 @@ postNewRoomBabyFunctionMap.set(287, () => {
   // Spawn the two fires
   const firePositions = [gridToPos(3, 1), gridToPos(9, 1)];
   for (const firePosition of firePositions) {
-    g.run.room.seed = nextSeed(g.run.room.seed);
+    const fireplaceSeed = g.run.room.rng.Next();
     g.g.Spawn(
       EntityType.ENTITY_FIREPLACE,
       FireplaceVariant.NORMAL,
@@ -452,7 +441,7 @@ postNewRoomBabyFunctionMap.set(287, () => {
       Vector.Zero,
       undefined,
       0,
-      g.run.room.seed,
+      fireplaceSeed,
     );
   }
 });
@@ -483,12 +472,7 @@ postNewRoomBabyFunctionMap.set(301, () => {
   // Improved Ultra Secret Rooms
   repeat(baby.num, () => {
     const position = g.r.FindFreePickupSpawnPosition(center, 1, true);
-    g.run.randomSeed = nextSeed(g.run.randomSeed);
-    spawnCollectible(
-      CollectibleType.COLLECTIBLE_NULL,
-      position,
-      g.run.randomSeed,
-    );
+    spawnCollectible(CollectibleType.COLLECTIBLE_NULL, position, g.run.rng);
   });
 });
 

@@ -1,7 +1,6 @@
 import {
   ModCallbacksCustom,
   ModUpgraded,
-  nextSeed,
   repeat,
   spawnCollectible,
 } from "isaacscript-common";
@@ -34,11 +33,6 @@ function walnut(player: EntityPlayer) {
   // Starts with Walnut (improved)
   repeat(baby.num, () => {
     const position = g.r.FindFreePickupSpawnPosition(player.Position, 1, true);
-    g.run.randomSeed = nextSeed(g.run.randomSeed);
-    spawnCollectible(
-      CollectibleType.COLLECTIBLE_NULL,
-      position,
-      g.run.randomSeed,
-    );
+    spawnCollectible(CollectibleType.COLLECTIBLE_NULL, position, g.run.rng);
   });
 }

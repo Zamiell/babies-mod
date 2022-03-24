@@ -2,7 +2,6 @@ import {
   addRoomClearCharge,
   BOMB_EXPLODE_FRAME,
   getRandom,
-  nextSeed,
   useActiveItemTemp,
 } from "isaacscript-common";
 import g from "../globals";
@@ -29,8 +28,7 @@ postBombUpdateBabyFunctionMap.set(75, (bomb: EntityBomb) => {
     bomb.SpawnerType === EntityType.ENTITY_PLAYER &&
     bomb.FrameCount === BOMB_EXPLODE_FRAME
   ) {
-    g.run.room.seed = nextSeed(g.run.room.seed);
-    const d6chance = getRandom(g.run.room.seed);
+    const d6chance = getRandom(g.run.room.rng);
     if (d6chance <= 0.5) {
       useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_D6);
     }

@@ -10,7 +10,6 @@ import {
   getRandomInt,
   getRandomRune,
   isSelfDamage,
-  nextSeed,
   openAllDoors,
   removeCollectibleFromItemTracker,
   repeat,
@@ -112,9 +111,9 @@ entityTakeDmgPlayerBabyFunctionMap.set(46, (player) => {
 // Revenge Baby
 entityTakeDmgPlayerBabyFunctionMap.set(50, (player) => {
   // Spawns a random heart on hit
-  g.run.randomSeed = nextSeed(g.run.randomSeed);
   const heartSubTypes = getEnumValues(HeartSubType);
-  const heartSubType = getRandomArrayElement(heartSubTypes, g.run.randomSeed);
+  const heartSubType = getRandomArrayElement(heartSubTypes, g.run.rng);
+  const seed = g.run.rng.Next();
   g.g.Spawn(
     EntityType.ENTITY_PICKUP,
     PickupVariant.PICKUP_HEART,
@@ -122,7 +121,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(50, (player) => {
     Vector.Zero,
     player,
     heartSubType,
-    g.run.randomSeed,
+    seed,
   );
 });
 
@@ -310,7 +309,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(200, (player) => {
 // Dented Baby
 entityTakeDmgPlayerBabyFunctionMap.set(204, (player) => {
   // Spawns a random key on hit
-  g.run.randomSeed = nextSeed(g.run.randomSeed);
+  const seed = g.run.rng.Next();
   g.g.Spawn(
     EntityType.ENTITY_PICKUP,
     PickupVariant.PICKUP_KEY,
@@ -318,7 +317,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(204, (player) => {
     Vector.Zero,
     player,
     0,
-    g.run.randomSeed,
+    seed,
   );
 });
 
@@ -381,7 +380,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(251, () => {
 // Rocker Baby
 entityTakeDmgPlayerBabyFunctionMap.set(258, (player) => {
   // Spawns a random bomb on hit
-  g.run.randomSeed = nextSeed(g.run.randomSeed);
+  const seed = g.run.rng.Next();
   g.g.Spawn(
     EntityType.ENTITY_PICKUP,
     PickupVariant.PICKUP_BOMB,
@@ -389,7 +388,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(258, (player) => {
     Vector.Zero,
     player,
     0,
-    g.run.randomSeed,
+    seed,
   );
 });
 
@@ -480,8 +479,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 // Tortoise Baby
 entityTakeDmgPlayerBabyFunctionMap.set(330, () => {
   // 0.5x speed + 50% chance to ignore damage
-  g.run.randomSeed = nextSeed(g.run.randomSeed);
-  const avoidChance = getRandom(g.run.randomSeed);
+  const avoidChance = getRandom(g.run.rng);
   if (avoidChance <= 0.5) {
     return false;
   }
@@ -687,12 +685,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(488, (player) => {
   // Random pill effect on hit
   let pillEffect: PillEffect;
   do {
-    g.run.randomSeed = nextSeed(g.run.randomSeed);
-    pillEffect = getRandomInt(
-      0,
-      PillEffect.NUM_PILL_EFFECTS - 1,
-      g.run.randomSeed,
-    );
+    pillEffect = getRandomInt(0, PillEffect.NUM_PILL_EFFECTS - 1, g.run.rng);
   } while (
     // Reroll the pill effect if it is a pill that Racing+ removes
     pillEffect === PillEffect.PILLEFFECT_AMNESIA || // 25
@@ -727,16 +720,15 @@ entityTakeDmgPlayerBabyFunctionMap.set(493, (player) => {
 entityTakeDmgPlayerBabyFunctionMap.set(499, (player) => {
   // Random card effect on hit
   const exceptions = [Card.CARD_SUICIDE_KING]; // It would be unfair to randomly die
-  g.run.randomSeed = nextSeed(g.run.randomSeed);
-  const card = getRandomCard(g.run.randomSeed, exceptions);
+  const card = getRandomCard(g.run.rng, exceptions);
   player.UseCard(card);
 });
 
 // Reaper Baby
 entityTakeDmgPlayerBabyFunctionMap.set(506, (player) => {
   // Spawns a random rune on hit
-  g.run.randomSeed = nextSeed(g.run.randomSeed);
-  const rune = getRandomRune(g.run.randomSeed);
+  const rune = getRandomRune(g.run.rng);
+  const seed = g.run.rng.Next();
   g.g.Spawn(
     EntityType.ENTITY_PICKUP,
     PickupVariant.PICKUP_TAROTCARD,
@@ -744,7 +736,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(506, (player) => {
     Vector.Zero,
     player,
     rune,
-    g.run.randomSeed,
+    seed,
   );
 });
 
@@ -824,8 +816,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.ILLUSION_BABY,
   (player) => {
     // Spawns a Crane Game on hit
-    g.run.craneGameSeed = nextSeed(g.run.craneGameSeed);
-    spawnSlot(SlotVariant.CRANE_GAME, player.Position, g.run.craneGameSeed);
+    spawnSlot(SlotVariant.CRANE_GAME, player.Position, g.run.craneGameRNG);
   },
 );
 
@@ -857,17 +848,12 @@ entityTakeDmgPlayerBabyFunctionMap.set(
     g.run.babyCounters += 1;
     if (g.run.babyCounters === 6) {
       g.run.babyCounters = 0;
-      g.run.randomSeed = nextSeed(g.run.randomSeed);
       const position = g.r.FindFreePickupSpawnPosition(
         player.Position,
         1,
         true,
       );
-      spawnCollectible(
-        CollectibleType.COLLECTIBLE_NULL,
-        position,
-        g.run.randomSeed,
-      );
+      spawnCollectible(CollectibleType.COLLECTIBLE_NULL, position, g.run.rng);
     }
   },
 );

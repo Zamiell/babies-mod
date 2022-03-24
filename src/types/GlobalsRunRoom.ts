@@ -1,3 +1,4 @@
+import { getRandomSeed, newRNG, setSeed } from "isaacscript-common";
 import { TearDescription } from "./TearDescription";
 
 // Per-room variables
@@ -5,7 +6,7 @@ export class GlobalsRunRoom {
   clearState: boolean;
   clearDelayFrame: int | null = null;
 
-  seed = 0 as Seed;
+  rng = newRNG();
   pseudoClear = true;
   doorSlotsModified: int[] = [];
 
@@ -14,8 +15,8 @@ export class GlobalsRunRoom {
 
   tears: TearDescription[] = [];
 
-  constructor(clearState = true, roomSeed = Random()) {
+  constructor(clearState = true, roomSeed = getRandomSeed()) {
     this.clearState = clearState;
-    this.seed = roomSeed;
+    setSeed(this.rng, roomSeed);
   }
 }

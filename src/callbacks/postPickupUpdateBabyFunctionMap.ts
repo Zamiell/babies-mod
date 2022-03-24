@@ -3,7 +3,6 @@ import {
   GAME_FRAMES_PER_SECOND,
   getCollectibleDevilHeartPrice,
   inStartingRoom,
-  nextSeed,
   repeat,
   spawnCollectible,
 } from "isaacscript-common";
@@ -100,11 +99,11 @@ postPickupUpdateBabyFunctionMap.set(158, (pickup: EntityPickup) => {
   if (isRerolledCollectibleBuggedHeart(pickup)) {
     // Rerolled items turn into hearts since this is a not an actual Devil Room,
     // so delete the heart and manually create another pedestal item
-    g.run.room.seed = nextSeed(g.run.room.seed);
+    const seed = g.run.room.rng.Next();
     const collectibleType = g.itemPool.GetCollectible(
       ItemPoolType.POOL_ANGEL,
       true,
-      g.run.room.seed,
+      seed,
     );
     const collectible = spawnCollectible(
       collectibleType,
@@ -249,11 +248,11 @@ postPickupUpdateBabyFunctionMap.set(287, (pickup: EntityPickup) => {
   } else if (isRerolledCollectibleBuggedHeart(pickup)) {
     // Rerolled items turn into hearts since this is a not an actual Devil Room,
     // so delete the heart and manually create another pedestal item
-    g.run.room.seed = nextSeed(g.run.room.seed);
+    const seed = g.run.room.rng.Next();
     const collectibleType = g.itemPool.GetCollectible(
       ItemPoolType.POOL_DEVIL,
       true,
-      g.run.room.seed,
+      seed,
     );
     const collectible = spawnCollectible(
       collectibleType,
@@ -312,11 +311,10 @@ postPickupUpdateBabyFunctionMap.set(381, (pickup: EntityPickup) => {
     (g.run.babyCountersRoom === 0 || g.run.babyCountersRoom === gameFrameCount)
   ) {
     const position = g.r.FindFreePickupSpawnPosition(pickup.Position, 1, true);
-    g.run.randomSeed = nextSeed(g.run.randomSeed);
     const collectible = spawnCollectible(
       CollectibleType.COLLECTIBLE_NULL,
       position,
-      g.run.randomSeed,
+      g.run.rng,
     );
 
     // We don't want it to automatically be bought
@@ -367,11 +365,10 @@ postPickupUpdateBabyFunctionMap.set(
     if (isRerolledCollectibleBuggedHeart(pickup)) {
       pickup.Remove();
 
-      g.run.room.seed = nextSeed(g.run.room.seed);
       const collectible = spawnCollectible(
         CollectibleType.COLLECTIBLE_NULL,
         pickup.Position,
-        g.run.room.seed,
+        g.run.room.rng,
       );
       collectible.AutoUpdatePrice = false;
       collectible.Price = 15;

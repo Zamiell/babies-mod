@@ -1,6 +1,5 @@
 import {
   getCollectibleMaxCharges,
-  nextSeed,
   playChargeSoundEffect,
   removeCollectibleFromItemTracker,
   repeat,
@@ -114,11 +113,10 @@ function clockworkAssembly(
   _RNG: RNG,
   player: EntityPlayer,
 ) {
-  g.run.clockworkAssemblySeed = nextSeed(g.run.clockworkAssemblySeed);
   spawnSlot(
     SlotVariant.SHOP_RESTOCK_MACHINE,
     player.Position,
-    g.run.clockworkAssemblySeed,
+    g.run.clockworkAssemblyRNG,
   );
 
   return true;

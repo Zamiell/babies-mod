@@ -1,3 +1,4 @@
+import { getRandomSeed, newRNG, setSeed } from "isaacscript-common";
 import { GlobalsRunBabyExplosion } from "./GlobalsRunBabyExplosion";
 import { GlobalsRunBabyNPC } from "./GlobalsRunBabyNPC";
 import { GlobalsRunBabyTears } from "./GlobalsRunBabyTears";
@@ -13,7 +14,7 @@ export class GlobalsRun {
   drawIntro = false;
   /** Keep track of all of the collectibles that we pick up over the course of the run. */
   passiveCollectibleTypes: int[] = [];
-  randomSeed: Seed;
+  rng = newRNG();
 
   // Tracking per level
   level = new GlobalsRunLevel();
@@ -47,12 +48,12 @@ export class GlobalsRun {
 
   // Item-specific variables
   flockOfSuccubi = false;
-  clockworkAssemblySeed = 0 as Seed;
-  craneGameSeed = 0 as Seed;
+  clockworkAssemblyRNG = newRNG();
+  craneGameRNG = newRNG();
 
-  constructor(randomSeed = Random()) {
-    this.randomSeed = randomSeed;
-    this.clockworkAssemblySeed = randomSeed;
-    this.craneGameSeed = randomSeed;
+  constructor(randomSeed = getRandomSeed()) {
+    setSeed(this.rng, randomSeed);
+    setSeed(this.clockworkAssemblyRNG, randomSeed);
+    setSeed(this.craneGameRNG, randomSeed);
   }
 }

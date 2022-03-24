@@ -3,7 +3,7 @@ import {
   getCollectibleMaxCharges,
   getEntities,
   getRandomInt,
-  nextSeed,
+  newRNG,
   sfxManager,
   spawnCollectible,
 } from "isaacscript-common";
@@ -49,7 +49,8 @@ export function getRandomOffsetPosition(
   offsetSize: int,
   seed: Seed,
 ): Vector {
-  const offsetDirection = getRandomInt(0, 3, seed);
+  const rng = newRNG(seed);
+  const offsetDirection = getRandomInt(1, 4, rng);
 
   let offsetX: int;
   let offsetY: int;
@@ -93,13 +94,9 @@ export function getRandomOffsetPosition(
 export function getRandomCollectibleTypeFromPool(
   itemPoolType: ItemPoolType,
 ): int | undefined {
-  g.run.room.seed = nextSeed(g.run.room.seed);
   g.run.babyBool = true;
-  const collectibleType = g.itemPool.GetCollectible(
-    itemPoolType,
-    true,
-    g.run.room.seed,
-  );
+  const seed = g.run.room.rng.Next();
+  const collectibleType = g.itemPool.GetCollectible(itemPoolType, true, seed);
   g.run.babyBool = false;
 
   return collectibleType;
@@ -146,16 +143,15 @@ export function spawnRandomPickup(
   noItems = false,
 ): void {
   // Spawn a random pickup
-  g.run.randomSeed = nextSeed(g.run.randomSeed);
   let pickupVariantChoice: int;
   if (noItems) {
     // Exclude trinkets and collectibles
-    pickupVariantChoice = getRandomInt(1, 9, g.run.randomSeed);
+    pickupVariantChoice = getRandomInt(1, 9, g.run.rng);
   } else {
-    pickupVariantChoice = getRandomInt(1, 11, g.run.randomSeed);
+    pickupVariantChoice = getRandomInt(1, 11, g.run.rng);
   }
 
-  g.run.randomSeed = nextSeed(g.run.randomSeed);
+  const seed = g.run.rng.Next();
   switch (pickupVariantChoice) {
     case 1: {
       // Random heart
@@ -166,7 +162,7 @@ export function spawnRandomPickup(
         velocity,
         undefined,
         0,
-        g.run.randomSeed,
+        seed,
       );
       break;
     }
@@ -180,7 +176,7 @@ export function spawnRandomPickup(
         velocity,
         undefined,
         0,
-        g.run.randomSeed,
+        seed,
       );
       break;
     }
@@ -194,7 +190,7 @@ export function spawnRandomPickup(
         velocity,
         undefined,
         0,
-        g.run.randomSeed,
+        seed,
       );
       break;
     }
@@ -208,7 +204,7 @@ export function spawnRandomPickup(
         velocity,
         undefined,
         0,
-        g.run.randomSeed,
+        seed,
       );
       break;
     }
@@ -222,7 +218,7 @@ export function spawnRandomPickup(
         velocity,
         undefined,
         0,
-        g.run.randomSeed,
+        seed,
       );
       break;
     }
@@ -236,7 +232,7 @@ export function spawnRandomPickup(
         velocity,
         undefined,
         0,
-        g.run.randomSeed,
+        seed,
       );
       break;
     }
@@ -250,7 +246,7 @@ export function spawnRandomPickup(
         velocity,
         undefined,
         0,
-        g.run.randomSeed,
+        seed,
       );
       break;
     }
@@ -264,7 +260,7 @@ export function spawnRandomPickup(
         velocity,
         undefined,
         0,
-        g.run.randomSeed,
+        seed,
       );
       break;
     }
@@ -278,7 +274,7 @@ export function spawnRandomPickup(
         velocity,
         undefined,
         0,
-        g.run.randomSeed,
+        seed,
       );
       break;
     }
@@ -292,18 +288,14 @@ export function spawnRandomPickup(
         velocity,
         undefined,
         0,
-        g.run.randomSeed,
+        seed,
       );
       break;
     }
 
     case 11: {
       // Random collectible
-      spawnCollectible(
-        CollectibleType.COLLECTIBLE_NULL,
-        position,
-        g.run.randomSeed,
-      );
+      spawnCollectible(CollectibleType.COLLECTIBLE_NULL, position, g.run.rng);
       break;
     }
 
@@ -318,10 +310,10 @@ export function spawnRandomPickup(
 export function spawnSlot(
   slotVariant: SlotVariant,
   startingPosition: Vector,
-  seed: Seed,
+  rng: RNG,
 ): Entity {
   const position = findFreePosition(startingPosition);
-
+  const seed = rng.Next();
   const slot = g.g.Spawn(
     EntityType.ENTITY_SLOT,
     slotVariant,

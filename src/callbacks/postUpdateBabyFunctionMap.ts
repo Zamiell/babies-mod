@@ -16,7 +16,6 @@ import {
   isAllRoomsClear,
   isEntityMoving,
   isShootActionPressedOnAnyInput,
-  nextSeed,
   sfxManager,
   useActiveItemTemp,
 } from "isaacscript-common";
@@ -189,11 +188,10 @@ postUpdateBabyFunctionMap.set(63, () => {
   // Every 5 seconds
   if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
     // Spawn a random poop
-    g.run.randomSeed = nextSeed(g.run.randomSeed);
     const poopVariant: PoopGridEntityVariant = getRandomInt(
       PoopGridEntityVariant.NORMAL,
       PoopGridEntityVariant.WHITE,
-      g.run.randomSeed,
+      g.run.rng,
     );
 
     if (
@@ -322,10 +320,9 @@ postUpdateBabyFunctionMap.set(128, () => {
   const randomFloorGridIndexes: int[] = [];
   do {
     // Get a random room index on the floor
-    g.run.randomSeed = nextSeed(g.run.randomSeed);
     const randomFloorGridIndex = getRandomArrayElement(
       allRoomGridIndexes,
-      g.run.randomSeed,
+      g.run.rng,
     );
 
     // Check to see if this is one of the indexes that we are already warping to

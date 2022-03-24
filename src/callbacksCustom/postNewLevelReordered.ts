@@ -3,7 +3,7 @@ import {
   log,
   ModCallbacksCustom,
   ModUpgraded,
-  nextSeed,
+  newRNG,
 } from "isaacscript-common";
 import { BABIES } from "../babies";
 import { babyAdd } from "../babyAdd";
@@ -59,8 +59,8 @@ function main() {
 }
 
 function getNewBaby(player: EntityPlayer) {
-  // We want to use a seed corresponding to the current floor
-  let seed = g.l.GetDungeonPlacementSeed();
+  const levelSeed = g.l.GetDungeonPlacementSeed();
+  const rng = newRNG(levelSeed);
 
   // Don't get a new baby if we did not start the run as the Random Baby character
   if (!g.run.startedRunAsRandomBaby) {
@@ -81,8 +81,7 @@ function getNewBaby(player: EntityPlayer) {
   let i = 0;
   do {
     i += 1;
-    seed = nextSeed(seed);
-    babyType = getRandomArrayIndex(BABIES, seed);
+    babyType = getRandomArrayIndex(BABIES, rng);
 
     // Don't randomly choose a co-op baby if we are choosing a specific one for debugging purposes
     if (g.debugBabyNum !== null) {

@@ -1,7 +1,6 @@
 import {
   ModCallbacksCustom,
   ModUpgraded,
-  nextSeed,
   spawnCollectible,
 } from "isaacscript-common";
 import g from "../globals";
@@ -23,10 +22,5 @@ function main(slot: Entity) {
   }
 
   // Broken machines drop pedestal items
-  g.run.randomSeed = nextSeed(g.run.randomSeed);
-  spawnCollectible(
-    CollectibleType.COLLECTIBLE_NULL,
-    slot.Position,
-    g.run.randomSeed,
-  );
+  spawnCollectible(CollectibleType.COLLECTIBLE_NULL, slot.Position, g.run.rng);
 }
