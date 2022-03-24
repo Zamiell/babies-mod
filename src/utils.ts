@@ -3,7 +3,6 @@ import {
   getCollectibleMaxCharges,
   getEntities,
   getRandomInt,
-  newRNG,
   sfxManager,
   spawnCollectible,
 } from "isaacscript-common";
@@ -49,8 +48,7 @@ export function getRandomOffsetPosition(
   offsetSize: int,
   seed: Seed,
 ): Vector {
-  const rng = newRNG(seed);
-  const offsetDirection = getRandomInt(1, 4, rng);
+  const offsetDirection = getRandomInt(1, 4, seed);
 
   let offsetX: int;
   let offsetY: int;

@@ -14,7 +14,7 @@ export const preItemPickupBabyFunctionMap = new Map<
 // Fancy Baby
 preItemPickupBabyFunctionMap.set(
   216,
-  (player: EntityPlayer, pickingUpItem: PickingUpItem) => {
+  (_player: EntityPlayer, pickingUpItem: PickingUpItem) => {
     if (pickingUpItem.itemType !== ItemType.ITEM_PASSIVE) {
       return;
     }
