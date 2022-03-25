@@ -1,3 +1,4 @@
+import { isCharacter } from "isaacscript-common";
 import { updateCachedPlayer } from "../cache";
 import { addPlayerToCostumeProtector } from "../costumes";
 import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
@@ -16,10 +17,7 @@ function main(player: EntityPlayer) {
 
   updateCachedPlayer(player);
 
-  const character = player.GetPlayerType();
-  if (character !== PlayerTypeCustom.PLAYER_RANDOM_BABY) {
-    return;
+  if (isCharacter(player, PlayerTypeCustom.PLAYER_RANDOM_BABY)) {
+    addPlayerToCostumeProtector(player);
   }
-
-  addPlayerToCostumeProtector(player);
 }

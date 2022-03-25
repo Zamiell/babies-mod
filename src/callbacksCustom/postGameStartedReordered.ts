@@ -1,4 +1,9 @@
-import { log, ModCallbacksCustom, ModUpgraded } from "isaacscript-common";
+import {
+  isCharacter,
+  log,
+  ModCallbacksCustom,
+  ModUpgraded,
+} from "isaacscript-common";
 import { BABIES } from "../babies";
 import g from "../globals";
 import { GlobalsRun } from "../types/GlobalsRun";
@@ -15,7 +20,6 @@ export function init(mod: ModUpgraded): void {
 function main(isContinued: boolean) {
   const startSeed = g.seeds.GetStartSeed();
   const startSeedString = g.seeds.GetStartSeedString();
-  const character = g.p.GetPlayerType();
   const isaacFrameCount = Isaac.GetFrameCount();
 
   log(
@@ -49,7 +53,7 @@ function main(isContinued: boolean) {
 
   // We want to keep track that we started the run as the "Random Baby" character,
   // in case the player changes their character later through Judas' Shadow, etc.
-  if (character === PlayerTypeCustom.PLAYER_RANDOM_BABY) {
+  if (isCharacter(g.p, PlayerTypeCustom.PLAYER_RANDOM_BABY)) {
     g.run.startedRunAsRandomBaby = true;
   } else {
     return;

@@ -1,3 +1,4 @@
+import { isCharacter } from "isaacscript-common";
 import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
 import { getCurrentBaby } from "../utils";
 import { evaluateCacheBabyFunctionMap } from "./evaluateCacheBabyFunctionMap";
@@ -7,7 +8,6 @@ export function init(mod: Mod): void {
 }
 
 function main(player: EntityPlayer, cacheFlag: CacheFlag) {
-  const character = player.GetPlayerType();
   const [babyType, baby, valid] = getCurrentBaby();
   if (!valid) {
     return;
@@ -16,7 +16,7 @@ function main(player: EntityPlayer, cacheFlag: CacheFlag) {
   // Give the Random Baby character a flat +1 damage as a bonus, similar to Samael
   if (
     cacheFlag === CacheFlag.CACHE_DAMAGE &&
-    character === PlayerTypeCustom.PLAYER_RANDOM_BABY
+    isCharacter(player, PlayerTypeCustom.PLAYER_RANDOM_BABY)
   ) {
     player.Damage += 1;
   }
