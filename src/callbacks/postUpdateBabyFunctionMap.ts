@@ -520,8 +520,10 @@ postUpdateBabyFunctionMap.set(211, () => {
       const index = g.r.GetGridIndex(tear.position);
       g.r.DestroyGrid(index, true);
       tear.position = tear.position.add(tear.velocity);
-      sfxManager.Play(SoundEffect.SOUND_ROCK_CRUMBLE, 0.5);
-      // (if the sound effect plays at full volume, it starts to get annoying)
+
+      // If the sound effect plays at full volume, it starts to get annoying
+      const volume = 0.5;
+      sfxManager.Play(SoundEffect.SOUND_ROCK_CRUMBLE, volume);
 
       // Make the shockwave deal damage to the player
       if (tear.position.Distance(g.p.Position) <= 40) {
@@ -531,7 +533,7 @@ postUpdateBabyFunctionMap.set(211, () => {
       // Make the shockwave deal damage to NPCs
       const entities = Isaac.FindInRadius(
         tear.position,
-        40,
+        DISTANCE_OF_GRID_TILE,
         EntityPartition.ENEMY,
       );
       for (const entity of entities) {

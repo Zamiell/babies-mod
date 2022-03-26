@@ -1,6 +1,7 @@
 import {
   addRoomClearCharge,
   BOMB_EXPLODE_FRAME,
+  directionToVector,
   getRandom,
   useActiveItemTemp,
 } from "isaacscript-common";
@@ -10,10 +11,10 @@ import { getRandomOffsetPosition } from "../utils";
 const SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER = 30;
 
 const SHOCKWAVE_BOMB_VELOCITIES: readonly Vector[] = [
-  Vector(1, 0).mul(SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER), // Right
-  Vector(0, 1).mul(SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER), // Up
-  Vector(-1, 0).mul(SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER), // Left
-  Vector(0, -1).mul(SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER), // Down
+  directionToVector(Direction.LEFT).mul(SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER), // 0
+  directionToVector(Direction.UP).mul(SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER), // 1
+  directionToVector(Direction.RIGHT).mul(SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER), // 2
+  directionToVector(Direction.DOWN).mul(SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER), // 3
 ];
 
 export const postBombUpdateBabyFunctionMap = new Map<
