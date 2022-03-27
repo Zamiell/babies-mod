@@ -51,7 +51,6 @@ function poop() {
     GridEntityType.GRID_POOP,
     PoopGridEntityVariant.WHITE,
     g.p.Position,
-    false,
   );
 
   sfxManager.Play(SoundEffect.SOUND_FART);

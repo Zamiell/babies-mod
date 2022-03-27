@@ -197,7 +197,7 @@ postUpdateBabyFunctionMap.set(63, () => {
       g.run.invulnerabilityUntilFrame = gameFrameCount + 25;
     }
 
-    Isaac.GridSpawn(GridEntityType.GRID_POOP, poopVariant, g.p.Position, false);
+    Isaac.GridSpawn(GridEntityType.GRID_POOP, poopVariant, g.p.Position);
 
     sfxManager.Play(SoundEffect.SOUND_FART);
   }
@@ -205,7 +205,7 @@ postUpdateBabyFunctionMap.set(63, () => {
 
 // Eye Patch Baby
 postUpdateBabyFunctionMap.set(64, () => {
-  Isaac.GridSpawn(GridEntityType.GRID_SPIKES, 0, g.p.Position, false);
+  Isaac.GridSpawn(GridEntityType.GRID_SPIKES, 0, g.p.Position);
 });
 
 // Scream Baby

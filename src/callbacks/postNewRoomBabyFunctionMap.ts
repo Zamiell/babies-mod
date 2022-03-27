@@ -561,7 +561,6 @@ postNewRoomBabyFunctionMap.set(535, () => {
       GridEntityType.GRID_TRAPDOOR,
       TrapdoorVariant.NORMAL,
       centerPos,
-      true,
     );
   }
 });

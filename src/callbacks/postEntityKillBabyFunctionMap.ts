@@ -26,7 +26,6 @@ postEntityKillBabyFunctionMap.set(38, (npc: EntityNPC) => {
     GridEntityType.GRID_POOP,
     PoopGridEntityVariant.NORMAL,
     npc.Position,
-    false,
   );
 });
 
@@ -165,7 +164,6 @@ postEntityKillBabyFunctionMap.set(451, (npc: EntityNPC) => {
     GridEntityType.GRID_POOP,
     PoopGridEntityVariant.BLACK,
     npc.Position,
-    false,
   );
 });
 
