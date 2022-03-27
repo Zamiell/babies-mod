@@ -5,6 +5,7 @@ import {
   getRandomInt,
   sfxManager,
   spawnCollectible,
+  VectorZero,
 } from "isaacscript-common";
 import { BABIES, UNKNOWN_BABY } from "./babies";
 import { ROOM_TYPES_TO_NOT_TRANSFORM } from "./constants";
@@ -137,7 +138,7 @@ export function shouldTransformRoomType(roomType: RoomType): boolean {
 
 export function spawnRandomPickup(
   position: Vector,
-  velocity: Vector = Vector.Zero,
+  velocity: Vector = VectorZero,
   noItems = false,
 ): void {
   // Spawn a random pickup
@@ -316,7 +317,7 @@ export function spawnSlot(
     EntityType.ENTITY_SLOT,
     slotVariant,
     position,
-    Vector.Zero,
+    VectorZero,
     undefined,
     0,
     seed,
@@ -327,7 +328,7 @@ export function spawnSlot(
     EffectVariant.POOF01,
     PoofSubType.NORMAL,
     position,
-    Vector.Zero,
+    VectorZero,
     undefined,
   );
 

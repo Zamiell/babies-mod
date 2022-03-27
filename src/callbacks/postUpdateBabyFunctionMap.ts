@@ -18,6 +18,7 @@ import {
   isShootActionPressedOnAnyInput,
   sfxManager,
   useActiveItemTemp,
+  VectorZero,
 } from "isaacscript-common";
 import { BABIES, RandomBabyType } from "../babies";
 import g from "../globals";
@@ -38,7 +39,7 @@ postUpdateBabyFunctionMap.set(6, () => {
       BombVariant.BOMB_TROLL,
       0,
       g.p.Position,
-      Vector.Zero,
+      VectorZero,
       undefined,
     );
   }
@@ -514,7 +515,7 @@ postUpdateBabyFunctionMap.set(211, () => {
         EffectVariant.ROCK_EXPLOSION,
         0,
         tear.position,
-        Vector.Zero,
+        VectorZero,
         g.p,
       );
       const index = g.r.GetGridIndex(tear.position);
@@ -858,7 +859,7 @@ postUpdateBabyFunctionMap.set(374, () => {
       EffectVariant.MOM_FOOT_STOMP,
       0,
       randomPosition,
-      Vector.Zero,
+      VectorZero,
       undefined,
     );
   }
@@ -876,7 +877,7 @@ postUpdateBabyFunctionMap.set(382, () => {
       BombVariant.BOMB_SUPERTROLL,
       0,
       g.p.Position,
-      Vector.Zero,
+      VectorZero,
       undefined,
     );
   }
@@ -943,7 +944,7 @@ postUpdateBabyFunctionMap.set(396, () => {
       EffectVariant.PLAYER_CREEP_RED,
       0,
       g.p.Position,
-      Vector.Zero,
+      VectorZero,
       g.p,
     ).ToEffect();
     if (creep !== undefined) {
@@ -963,7 +964,7 @@ postUpdateBabyFunctionMap.set(401, () => {
       0,
       0,
       g.p.Position,
-      Vector.Zero,
+      VectorZero,
       undefined,
     );
   }
@@ -993,7 +994,7 @@ postUpdateBabyFunctionMap.set(462, () => {
         EffectVariant.ROCK_EXPLOSION,
         0,
         tear.position,
-        Vector.Zero,
+        VectorZero,
         g.p,
       );
       const index = g.r.GetGridIndex(tear.position);
@@ -1053,7 +1054,7 @@ postUpdateBabyFunctionMap.set(485, () => {
       EffectVariantCustom.FETUS_BOSS_TARGET,
       0,
       Isaac.GetRandomPosition(),
-      Vector.Zero,
+      VectorZero,
       undefined,
     );
     const sprite = target.GetSprite();

@@ -2,6 +2,7 @@ import {
   MAX_NUM_FAMILIARS,
   removeCollectibleFromItemTracker,
   repeat,
+  VectorZero,
 } from "isaacscript-common";
 import { BABIES, RandomBabyType } from "./babies";
 import g from "./globals";
@@ -191,7 +192,7 @@ babyAddFunctionMap.set(RandomBabyType.FOUND_SOUL_BABY, () => {
     0,
     0,
     bottomLeftPosition,
-    Vector.Zero,
+    VectorZero,
     undefined,
   );
 });

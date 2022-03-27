@@ -16,6 +16,7 @@ import {
   sfxManager,
   spawnCollectible,
   useActiveItemTemp,
+  VectorZero,
 } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
 import g from "../globals";
@@ -103,7 +104,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(46, (player) => {
     PickupVariant.PICKUP_TAROTCARD,
     Card.CARD_SUN,
     player.Position,
-    Vector.Zero,
+    VectorZero,
     player,
   );
 });
@@ -118,7 +119,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(50, (player) => {
     EntityType.ENTITY_PICKUP,
     PickupVariant.PICKUP_HEART,
     player.Position,
-    Vector.Zero,
+    VectorZero,
     player,
     heartSubType,
     seed,
@@ -186,7 +187,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(101, (player) => {
     EffectVariant.PLAYER_CREEP_RED,
     0,
     player.Position,
-    Vector.Zero,
+    VectorZero,
     player,
   ).ToEffect();
   if (creep !== undefined) {
@@ -314,7 +315,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(204, (player) => {
     EntityType.ENTITY_PICKUP,
     PickupVariant.PICKUP_KEY,
     player.Position,
-    Vector.Zero,
+    VectorZero,
     player,
     0,
     seed,
@@ -361,7 +362,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(225, (player) => {
     dupeEnemy.variant,
     0,
     position,
-    Vector.Zero,
+    VectorZero,
     undefined,
   );
 });
@@ -385,7 +386,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(258, (player) => {
     EntityType.ENTITY_PICKUP,
     PickupVariant.PICKUP_BOMB,
     player.Position,
-    Vector.Zero,
+    VectorZero,
     player,
     0,
     seed,
@@ -453,7 +454,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(310, (player) => {
     PickupVariant.PICKUP_TAROTCARD,
     Card.CARD_STARS,
     player.Position,
-    Vector.Zero,
+    VectorZero,
     player,
   );
 });
@@ -538,7 +539,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(359, (player) => {
 
 // Fiery Baby
 entityTakeDmgPlayerBabyFunctionMap.set(366, (player) => {
-  player.ShootRedCandle(Vector.Zero);
+  player.ShootRedCandle(VectorZero);
 });
 
 // Dark Elf Baby
@@ -576,7 +577,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(428, (player) => {
     BombVariant.BOMB_GIGA,
     0,
     player.Position,
-    Vector.Zero,
+    VectorZero,
     undefined,
   ).ToBomb();
   if (bomb !== undefined) {
@@ -733,7 +734,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(506, (player) => {
     EntityType.ENTITY_PICKUP,
     PickupVariant.PICKUP_TAROTCARD,
     player.Position,
-    Vector.Zero,
+    VectorZero,
     player,
     rune,
     seed,
@@ -774,7 +775,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(555, (player) => {
     PickupVariant.PICKUP_TAROTCARD,
     Card.CARD_LOVERS,
     player.Position,
-    Vector.Zero,
+    VectorZero,
     player,
   );
 });

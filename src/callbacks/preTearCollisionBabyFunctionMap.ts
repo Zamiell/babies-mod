@@ -1,3 +1,4 @@
+import { VectorZero } from "isaacscript-common";
 import g from "../globals";
 
 export const preTearCollisionBabyFunctionMap = new Map<
@@ -27,7 +28,7 @@ preTearCollisionBabyFunctionMap.set(
         EffectVariant.PLAYER_CREEP_HOLYWATER,
         0,
         collider.Position,
-        Vector.Zero,
+        VectorZero,
         g.p,
       ).ToEffect();
       if (creep !== undefined) {

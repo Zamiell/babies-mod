@@ -1011,7 +1011,7 @@ function ccp:restoreCostumeInMineshaft(player)
 						end
 						spriteToUse[i].Color = pSprite.Color
 						spriteToUse[i]:SetFrame(animToUse, frameToUse)
-						spriteToUse[i]:Render(screenpos - game.ScreenShakeOffset, Vector.Zero, Vector.Zero)
+						spriteToUse[i]:Render(screenpos - game.ScreenShakeOffset, VectorZero, VectorZero)
 					end
 				end
 			end

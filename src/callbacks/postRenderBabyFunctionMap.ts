@@ -2,6 +2,7 @@ import {
   getEffects,
   getHUDOffsetVector,
   inMinibossRoomOf,
+  VectorZero,
 } from "isaacscript-common";
 import g from "../globals";
 
@@ -18,7 +19,7 @@ postRenderBabyFunctionMap.set(48, () => {
       opacity = 1;
     }
     g.run.babySprite.Color = Color(1, 1, 1, opacity);
-    g.run.babySprite.RenderLayer(0, Vector.Zero);
+    g.run.babySprite.RenderLayer(0, VectorZero);
   }
 });
 

@@ -5,6 +5,7 @@ import {
   getNPCs,
   repeat,
   setEntityRandomColor,
+  VectorZero,
 } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
 import g from "../globals";
@@ -32,7 +33,7 @@ postTearUpdateBabyFunctionMap.set(100, (tear: EntityTear) => {
       EffectVariant.HOT_BOMB_FIRE,
       0,
       tear.Position,
-      Vector.Zero,
+      VectorZero,
       undefined,
     );
     fire.SpriteScale = Vector(0.5, 0.5);
@@ -200,7 +201,7 @@ postTearUpdateBabyFunctionMap.set(380, (tear: EntityTear) => {
       EffectVariant.PLAYER_CREEP_BLACK,
       0,
       tear.Position,
-      Vector.Zero,
+      VectorZero,
       tear,
     ).ToEffect();
     if (creep !== undefined) {

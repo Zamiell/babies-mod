@@ -1,4 +1,9 @@
-import { copyColor, getNPCs, getRoomListIndex } from "isaacscript-common";
+import {
+  copyColor,
+  getNPCs,
+  getRoomListIndex,
+  VectorZero,
+} from "isaacscript-common";
 import { RandomBabyType } from "../babies";
 import g from "../globals";
 import { getCurrentBaby } from "../utils";
@@ -44,7 +49,7 @@ postEntityKillBabyFunctionMap.set(61, (npc: EntityNPC) => {
       npc.Type,
       npc.Variant,
       npc.Position,
-      Vector.Zero,
+      VectorZero,
       undefined,
       npc.SubType,
       npc.InitSeed,
@@ -125,7 +130,7 @@ postEntityKillBabyFunctionMap.set(376, (_npc: EntityNPC) => {
     FamiliarVariant.BOBS_BRAIN,
     0,
     g.p.Position,
-    Vector.Zero,
+    VectorZero,
     undefined,
   );
 
@@ -146,7 +151,7 @@ postEntityKillBabyFunctionMap.set(388, (npc: EntityNPC) => {
   g.run.room.tears.push({
     frame: 0,
     position: npc.Position,
-    velocity: Vector.Zero,
+    velocity: VectorZero,
     num: baby.num,
   });
 });
@@ -159,7 +164,7 @@ postEntityKillBabyFunctionMap.set(390, (npc: EntityNPC) => {
     EffectVariant.HOT_BOMB_FIRE,
     0,
     npc.Position,
-    Vector.Zero,
+    VectorZero,
     undefined,
   );
 });
@@ -181,7 +186,7 @@ postEntityKillBabyFunctionMap.set(491, (npc: EntityNPC) => {
     BombVariant.BOMB_TROLL,
     0,
     npc.Position,
-    Vector.Zero,
+    VectorZero,
     undefined,
   );
 });
@@ -194,7 +199,7 @@ postEntityKillBabyFunctionMap.set(
       EntityType.ENTITY_PICKUP,
       PickupVariant.PICKUP_CHEST,
       npc.Position,
-      Vector.Zero,
+      VectorZero,
       undefined,
       0,
       npc.InitSeed,

@@ -1,4 +1,8 @@
-import { GAME_FRAMES_PER_SECOND, getEffects } from "isaacscript-common";
+import {
+  GAME_FRAMES_PER_SECOND,
+  getEffects,
+  VectorZero,
+} from "isaacscript-common";
 import g from "../globals";
 import { EffectVariantCustom } from "../types/EffectVariantCustom";
 import { getCurrentBaby } from "../utils";
@@ -107,7 +111,7 @@ postEffectUpdateBabyFunctionMap.set(281, (effect: EntityEffect) => {
         EffectVariant.CRACK_THE_SKY,
         0,
         effect.Position,
-        Vector.Zero,
+        VectorZero,
         g.p,
       );
     }
@@ -125,7 +129,7 @@ postEffectUpdateBabyFunctionMap.set(485, (effect: EntityEffect) => {
       EffectVariantCustom.FETUS_BOSS_ROCKET,
       0,
       effect.Position,
-      Vector.Zero,
+      VectorZero,
       undefined,
     );
     const rocketHeightOffset = Vector(0, -300);

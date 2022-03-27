@@ -7,7 +7,7 @@ import {
   getNPCs,
   getRoomGridIndexesForType,
   getRooms,
-  gridToPos,
+  gridCoordinatesToWorldPosition,
   inMinibossRoomOf,
   inStartingRoom,
   isEven,
@@ -18,6 +18,7 @@ import {
   spawnGridEntityWithVariant,
   teleport,
   useActiveItemTemp,
+  VectorZero,
 } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
 import g from "../globals";
@@ -66,7 +67,7 @@ postNewRoomBabyFunctionMap.set(13, () => {
 // Glass Baby
 postNewRoomBabyFunctionMap.set(14, () => {
   // Spawn a laser ring around the player
-  const laser = g.p.FireTechXLaser(g.p.Position, Vector.Zero, 66).ToLaser();
+  const laser = g.p.FireTechXLaser(g.p.Position, VectorZero, 66).ToLaser();
   // (we copy the radius from Samael's Tech X ability)
   if (laser === undefined) {
     return;
@@ -213,7 +214,7 @@ postNewRoomBabyFunctionMap.set(158, () => {
     true,
     angelSeed,
   );
-  const position = gridToPos(6, 4);
+  const position = gridCoordinatesToWorldPosition(6, 4);
   const collectible = spawnCollectible(
     collectibleType,
     position,
@@ -231,14 +232,17 @@ postNewRoomBabyFunctionMap.set(158, () => {
   );
 
   // Spawn the two fires
-  const firePositions = [gridToPos(3, 1), gridToPos(9, 1)];
+  const firePositions = [
+    gridCoordinatesToWorldPosition(3, 1),
+    gridCoordinatesToWorldPosition(9, 1),
+  ];
   for (const firePosition of firePositions) {
     const fireplaceSeed = g.run.room.rng.Next();
     g.g.Spawn(
       EntityType.ENTITY_FIREPLACE,
       FireplaceVariant.BLUE,
       firePosition,
-      Vector.Zero,
+      VectorZero,
       undefined,
       0,
       fireplaceSeed,
@@ -318,7 +322,7 @@ postNewRoomBabyFunctionMap.set(216, () => {
       return;
     }
     const xy = positions[positionIndex];
-    const position = gridToPos(xy[0], xy[1]);
+    const position = gridCoordinatesToWorldPosition(xy[0], xy[1]);
     const collectible = spawnCollectible(
       collectibleType,
       position,
@@ -413,7 +417,7 @@ postNewRoomBabyFunctionMap.set(287, () => {
     true,
     devilSeed,
   );
-  const position = gridToPos(6, 4);
+  const position = gridCoordinatesToWorldPosition(6, 4);
   const collectible = spawnCollectible(
     collectibleType,
     position,
@@ -431,14 +435,17 @@ postNewRoomBabyFunctionMap.set(287, () => {
   );
 
   // Spawn the two fires
-  const firePositions = [gridToPos(3, 1), gridToPos(9, 1)];
+  const firePositions = [
+    gridCoordinatesToWorldPosition(3, 1),
+    gridCoordinatesToWorldPosition(9, 1),
+  ];
   for (const firePosition of firePositions) {
     const fireplaceSeed = g.run.room.rng.Next();
     g.g.Spawn(
       EntityType.ENTITY_FIREPLACE,
       FireplaceVariant.NORMAL,
       firePosition,
-      Vector.Zero,
+      VectorZero,
       undefined,
       0,
       fireplaceSeed,
@@ -565,7 +572,7 @@ postNewRoomBabyFunctionMap.set(535, () => {
 postNewRoomBabyFunctionMap.set(RandomBabyType.BROTHER_BOBBY, () => {
   const godheadTear = g.p.FireTear(
     g.p.Position,
-    Vector.Zero,
+    VectorZero,
     false,
     true,
     false,

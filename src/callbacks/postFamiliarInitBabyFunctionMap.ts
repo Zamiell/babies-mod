@@ -1,4 +1,4 @@
-import { repeat } from "isaacscript-common";
+import { repeat, VectorZero } from "isaacscript-common";
 import g from "../globals";
 
 export const postFamiliarInitBabyFunctionMap = new Map<
@@ -39,7 +39,7 @@ postFamiliarInitBabyFunctionMap.set(117, (familiar: EntityFamiliar) => {
         FamiliarVariant.DEAD_BIRD,
         0,
         g.p.Position,
-        Vector.Zero,
+        VectorZero,
         undefined,
       );
     });

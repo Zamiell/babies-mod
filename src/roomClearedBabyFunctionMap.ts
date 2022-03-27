@@ -5,6 +5,7 @@ import {
   repeat,
   spawnCollectible,
   useActiveItemTemp,
+  VectorZero,
 } from "isaacscript-common";
 import g from "./globals";
 import { getCurrentBaby } from "./utils";
@@ -22,7 +23,7 @@ roomClearedBabyFunctionMap.set(1, () => {
     EntityType.ENTITY_PICKUP,
     PickupVariant.PICKUP_HEART,
     g.p.Position,
-    Vector.Zero,
+    VectorZero,
     g.p,
     heartSubType,
     roomSeed,
@@ -63,7 +64,7 @@ roomClearedBabyFunctionMap.set(384, () => {
     EntityType.ENTITY_PICKUP,
     PickupVariant.PICKUP_BOMB,
     g.p.Position,
-    Vector.Zero,
+    VectorZero,
     g.p,
     0,
     roomSeed,
