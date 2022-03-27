@@ -1,4 +1,4 @@
-import { VectorZero } from "isaacscript-common";
+import { spawnEffect, VectorZero } from "isaacscript-common";
 import g from "../globals";
 
 export const preTearCollisionBabyFunctionMap = new Map<
@@ -23,17 +23,14 @@ preTearCollisionBabyFunctionMap.set(
   (tear: EntityTear, collider: Entity) => {
     // Splash tears
     if (tear.SubType === 1) {
-      const creep = Isaac.Spawn(
-        EntityType.ENTITY_EFFECT,
+      const creep = spawnEffect(
         EffectVariant.PLAYER_CREEP_HOLYWATER,
         0,
         collider.Position,
         VectorZero,
         g.p,
-      ).ToEffect();
-      if (creep !== undefined) {
-        creep.Timeout = 120;
-      }
+      );
+      creep.Timeout = 120;
     }
   },
 );

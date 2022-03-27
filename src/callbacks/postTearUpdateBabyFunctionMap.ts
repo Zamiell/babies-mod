@@ -5,6 +5,8 @@ import {
   getNPCs,
   repeat,
   setEntityRandomColor,
+  spawnEffect,
+  spawnProjectile,
   VectorZero,
 } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
@@ -28,14 +30,7 @@ postTearUpdateBabyFunctionMap.set(42, (tear: EntityTear) => {
 postTearUpdateBabyFunctionMap.set(100, (tear: EntityTear) => {
   // Fire trail tears
   if (tear.SubType === 1 && tear.FrameCount % 2 === 0) {
-    const fire = Isaac.Spawn(
-      EntityType.ENTITY_EFFECT,
-      EffectVariant.HOT_BOMB_FIRE,
-      0,
-      tear.Position,
-      VectorZero,
-      undefined,
-    );
+    const fire = spawnEffect(EffectVariant.HOT_BOMB_FIRE, 0, tear.Position);
     fire.SpriteScale = Vector(0.5, 0.5);
 
     // Fade the fire so that it is easier to see everything
@@ -80,22 +75,23 @@ postTearUpdateBabyFunctionMap.set(213, (tear: EntityTear) => {
 
 // Hanger Baby
 postTearUpdateBabyFunctionMap.set(228, (tear: EntityTear) => {
+  const roomFrameCount = g.r.GetFrameCount();
+
   // Abel's tears hurt you
   if (
     tear.FrameCount === 1 &&
     tear.SpawnerType === EntityType.ENTITY_FAMILIAR &&
     tear.SpawnerVariant === FamiliarVariant.ABEL
   ) {
-    if (g.r.GetFrameCount() >= 30) {
+    if (roomFrameCount >= 30) {
       // Abel is spawned on top of the player when the player first enters a room;
       // don't shoot if this is the case
-      g.g.Spawn(
-        EntityType.ENTITY_PROJECTILE,
-        ProjectileVariant.PROJECTILE_NORMAL,
+      spawnProjectile(
+        tear.Variant,
+        tear.SubType,
         tear.Position,
         tear.Velocity,
-        undefined,
-        0,
+        tear.SpawnerEntity,
         tear.InitSeed,
       );
     }
@@ -191,22 +187,21 @@ postTearUpdateBabyFunctionMap.set(331, (tear: EntityTear) => {
 
 // Octopus Baby
 postTearUpdateBabyFunctionMap.set(380, (tear: EntityTear) => {
+  const gameFrameCount = g.g.GetFrameCount();
+
   if (
     tear.SubType === 1 &&
-    g.g.GetFrameCount() % 5 === 0 // If we spawn creep on every frame, it becomes too thick
+    gameFrameCount % 5 === 0 // If we spawn creep on every frame, it becomes too thick
   ) {
     // Make the tear drip black creep
-    const creep = Isaac.Spawn(
-      EntityType.ENTITY_EFFECT,
+    const creep = spawnEffect(
       EffectVariant.PLAYER_CREEP_BLACK,
       0,
       tear.Position,
       VectorZero,
       tear,
-    ).ToEffect();
-    if (creep !== undefined) {
-      creep.Timeout = 240;
-    }
+    );
+    creep.Timeout = 240;
   }
 });
 
@@ -221,7 +216,6 @@ postTearUpdateBabyFunctionMap.set(455, (tear: EntityTear) => {
     return;
   }
 
-  // Every 4 seconds
   if (tear.FrameCount <= 4 * GAME_FRAMES_PER_SECOND) {
     // The PostTearUpdate callback will fire before the PostFireTear callback,
     // so do nothing if we are in on the first frame
@@ -257,7 +251,6 @@ postTearUpdateBabyFunctionMap.set(458, (tear: EntityTear) => {
     return;
   }
 
-  // Every 4 seconds
   if (tear.FrameCount <= 4 * GAME_FRAMES_PER_SECOND) {
     // The PostTearUpdate callback will fire before the PostFireTear callback,
     // so do nothing if we are in on the first frame

@@ -17,6 +17,10 @@ import {
   isEntityMoving,
   isShootActionPressedOnAnyInput,
   sfxManager,
+  spawn,
+  spawnBomb,
+  spawnEffect,
+  spawnProjectile,
   useActiveItemTemp,
   VectorZero,
 } from "isaacscript-common";
@@ -32,16 +36,8 @@ export const postUpdateBabyFunctionMap = new Map<int, () => void>();
 postUpdateBabyFunctionMap.set(6, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
-  // Every 3 seconds
   if (gameFrameCount % (3 * GAME_FRAMES_PER_SECOND) === 0) {
-    Isaac.Spawn(
-      EntityType.ENTITY_BOMB,
-      BombVariant.BOMB_TROLL,
-      0,
-      g.p.Position,
-      VectorZero,
-      undefined,
-    );
+    spawnBomb(BombVariant.BOMB_TROLL, 0, g.p.Position);
   }
 });
 
@@ -53,7 +49,6 @@ postUpdateBabyFunctionMap.set(17, () => {
     return;
   }
 
-  // Every 1 second
   if (gameFrameCount % GAME_FRAMES_PER_SECOND === 0) {
     useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_BUTTER_BEAN);
   }
@@ -175,7 +170,6 @@ postUpdateBabyFunctionMap.set(48, () => {
 postUpdateBabyFunctionMap.set(58, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
-  // Every 7 seconds
   if (gameFrameCount % (7 * GAME_FRAMES_PER_SECOND) === 0) {
     useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_MONSTER_MANUAL);
     sfxManager.Stop(SoundEffect.SOUND_SATAN_GROW);
@@ -186,7 +180,6 @@ postUpdateBabyFunctionMap.set(58, () => {
 postUpdateBabyFunctionMap.set(63, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
-  // Every 5 seconds
   if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
     // Spawn a random poop
     const poopVariant: PoopGridEntityVariant = getRandomInt(
@@ -244,7 +237,6 @@ postUpdateBabyFunctionMap.set(90, () => {
 postUpdateBabyFunctionMap.set(96, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
-  // Every 5 seconds
   if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
     useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_BEST_FRIEND);
   }
@@ -384,7 +376,6 @@ postUpdateBabyFunctionMap.set(147, () => {
 postUpdateBabyFunctionMap.set(155, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
-  // Every 1 second
   if (gameFrameCount % GAME_FRAMES_PER_SECOND === 0) {
     useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_TELEKINESIS);
   }
@@ -406,7 +397,6 @@ postUpdateBabyFunctionMap.set(156, () => {
     return;
   }
 
-  // Every 5 seconds
   if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
     useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_MEGA_BEAN);
   }
@@ -510,8 +500,7 @@ postUpdateBabyFunctionMap.set(211, () => {
     const tear = g.run.room.tears[i];
 
     if ((gameFrameCount - tear.frame) % 2 === 0) {
-      const explosion = Isaac.Spawn(
-        EntityType.ENTITY_EFFECT,
+      const explosion = spawnEffect(
         EffectVariant.ROCK_EXPLOSION,
         0,
         tear.position,
@@ -686,7 +675,6 @@ postUpdateBabyFunctionMap.set(267, () => {
 postUpdateBabyFunctionMap.set(270, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
-  // Every 5 seconds
   if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
     useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_WAIT_WHAT);
   }
@@ -701,7 +689,6 @@ postUpdateBabyFunctionMap.set(290, () => {
     return;
   }
 
-  // Every 5 seconds
   if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
     useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_DULL_RAZOR);
     sfxManager.Stop(SoundEffect.SOUND_ISAAC_HURT_GRUNT);
@@ -828,7 +815,6 @@ postUpdateBabyFunctionMap.set(348, () => {
 postUpdateBabyFunctionMap.set(349, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
-  // Every 10 seconds
   if (gameFrameCount % (10 * GAME_FRAMES_PER_SECOND) === 0) {
     useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_DELIRIOUS);
   }
@@ -849,19 +835,10 @@ postUpdateBabyFunctionMap.set(351, () => {
 // Pink Princess Baby
 postUpdateBabyFunctionMap.set(374, () => {
   const gameFrameCount = g.g.GetFrameCount();
-  const randomPosition = Isaac.GetRandomPosition();
 
-  // Every 4 seconds
   if (gameFrameCount % (4 * GAME_FRAMES_PER_SECOND) === 0) {
-    // Spawn a random stomp
-    Isaac.Spawn(
-      EntityType.ENTITY_EFFECT,
-      EffectVariant.MOM_FOOT_STOMP,
-      0,
-      randomPosition,
-      VectorZero,
-      undefined,
-    );
+    const randomPosition = Isaac.GetRandomPosition();
+    spawnEffect(EffectVariant.MOM_FOOT_STOMP, 0, randomPosition);
   }
 });
 
@@ -869,17 +846,8 @@ postUpdateBabyFunctionMap.set(374, () => {
 postUpdateBabyFunctionMap.set(382, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
-  // Every 5 seconds
   if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
-    // Spawn a Mega Troll Bomb
-    Isaac.Spawn(
-      EntityType.ENTITY_BOMB,
-      BombVariant.BOMB_SUPERTROLL,
-      0,
-      g.p.Position,
-      VectorZero,
-      undefined,
-    );
+    spawnBomb(BombVariant.BOMB_SUPERTROLL, 0, g.p.Position);
   }
 });
 
@@ -915,13 +883,11 @@ postUpdateBabyFunctionMap.set(388, () => {
     velocity = velocity.Normalized();
     velocity = velocity.mul(12);
 
-    Isaac.Spawn(
-      EntityType.ENTITY_PROJECTILE,
+    spawnProjectile(
       ProjectileVariant.PROJECTILE_NORMAL,
       0,
       tear.position,
       velocity,
-      undefined,
     );
 
     tear.num -= 1;
@@ -936,20 +902,16 @@ postUpdateBabyFunctionMap.set(388, () => {
 postUpdateBabyFunctionMap.set(396, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
-  // Every 5 frames
   if (gameFrameCount % 5 === 0) {
     // Drip creep
-    const creep = Isaac.Spawn(
-      EntityType.ENTITY_EFFECT,
+    const creep = spawnEffect(
       EffectVariant.PLAYER_CREEP_RED,
       0,
       g.p.Position,
       VectorZero,
       g.p,
-    ).ToEffect();
-    if (creep !== undefined) {
-      creep.Timeout = 240;
-    }
+    );
+    creep.Timeout = 240;
   }
 });
 
@@ -957,16 +919,8 @@ postUpdateBabyFunctionMap.set(396, () => {
 postUpdateBabyFunctionMap.set(401, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
-  // Every 1.5 seconds
   if (gameFrameCount % (1.5 * GAME_FRAMES_PER_SECOND) === 0) {
-    Isaac.Spawn(
-      EntityType.ENTITY_FLY,
-      0,
-      0,
-      g.p.Position,
-      VectorZero,
-      undefined,
-    );
+    spawn(EntityType.ENTITY_FLY, 0, 0, g.p.Position);
   }
 });
 
@@ -974,7 +928,6 @@ postUpdateBabyFunctionMap.set(401, () => {
 postUpdateBabyFunctionMap.set(449, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
-  // Every 7 seconds
   if (gameFrameCount % (7 * GAME_FRAMES_PER_SECOND) === 0) {
     useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_SPRINKLER);
   }
@@ -989,8 +942,7 @@ postUpdateBabyFunctionMap.set(462, () => {
     const tear = g.run.room.tears[i];
 
     if ((gameFrameCount - tear.frame) % 2 === 0) {
-      const explosion = Isaac.Spawn(
-        EntityType.ENTITY_EFFECT,
+      const explosion = spawnEffect(
         EffectVariant.ROCK_EXPLOSION,
         0,
         tear.position,
@@ -1049,13 +1001,10 @@ postUpdateBabyFunctionMap.set(485, () => {
 
   if (gameFrameCount % GAME_FRAMES_PER_SECOND === 0) {
     // Spawn a random rocket target
-    const target = Isaac.Spawn(
-      EntityType.ENTITY_EFFECT,
+    const target = spawnEffect(
       EffectVariantCustom.FETUS_BOSS_TARGET,
       0,
       Isaac.GetRandomPosition(),
-      VectorZero,
-      undefined,
     );
     const sprite = target.GetSprite();
     sprite.Play("Blink", true);
@@ -1079,7 +1028,6 @@ postUpdateBabyFunctionMap.set(508, () => {
   const roomClear = g.r.IsClear();
 
   if (
-    // Every 5 seconds
     gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0 &&
     // Monstro will target you if there are no enemies in the room (and this is unavoidable)
     !roomClear

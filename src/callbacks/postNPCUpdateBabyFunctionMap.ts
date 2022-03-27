@@ -1,3 +1,4 @@
+import { spawn } from "isaacscript-common";
 import g from "../globals";
 
 export const postNPCUpdateBabyFunctionMap = new Map<
@@ -69,13 +70,13 @@ postNPCUpdateBabyFunctionMap.set(514, (npc: EntityNPC) => {
     g.run.babyBool = true;
     const position = g.r.FindFreePickupSpawnPosition(npc.Position, 1, true);
     if (position.Distance(g.p.Position) > 40) {
-      const newNPC = g.g.Spawn(
+      const newNPC = spawn(
         npc.Type,
         npc.Variant,
+        npc.SubType,
         position,
         npc.Velocity,
         npc,
-        npc.SubType,
         npc.InitSeed,
       );
       newNPC.GetData().duplicated = true;

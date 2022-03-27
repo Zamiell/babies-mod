@@ -14,7 +14,15 @@ import {
   removeCollectibleFromItemTracker,
   repeat,
   sfxManager,
+  spawn,
+  spawnBomb,
+  spawnCard,
+  spawnCoin,
   spawnCollectible,
+  spawnEffect,
+  spawnHeart,
+  spawnKey,
+  spawnPickup,
   useActiveItemTemp,
   VectorZero,
 } from "isaacscript-common";
@@ -22,7 +30,7 @@ import { RandomBabyType } from "../babies";
 import g from "../globals";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 import { EntityDescription } from "../types/EntityDescription";
-import { getCurrentBaby, spawnRandomPickup, spawnSlot } from "../utils";
+import { getCurrentBaby, spawnRandomPickup, spawnSlotHelper } from "../utils";
 
 export const entityTakeDmgPlayerBabyFunctionMap = new Map<
   int,
@@ -99,14 +107,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(41, (player) => {
 
 // Blinding Baby
 entityTakeDmgPlayerBabyFunctionMap.set(46, (player) => {
-  Isaac.Spawn(
-    EntityType.ENTITY_PICKUP,
-    PickupVariant.PICKUP_TAROTCARD,
-    Card.CARD_SUN,
-    player.Position,
-    VectorZero,
-    player,
-  );
+  spawnCard(Card.CARD_SUN, player.Position, VectorZero, player);
 });
 
 // Revenge Baby
@@ -115,15 +116,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(50, (player) => {
   const heartSubTypes = getEnumValues(HeartSubType);
   const heartSubType = getRandomArrayElement(heartSubTypes, g.run.rng);
   const seed = g.run.rng.Next();
-  g.g.Spawn(
-    EntityType.ENTITY_PICKUP,
-    PickupVariant.PICKUP_HEART,
-    player.Position,
-    VectorZero,
-    player,
-    heartSubType,
-    seed,
-  );
+  spawnHeart(heartSubType, player.Position, VectorZero, player, seed);
 });
 
 // Apollyon Baby
@@ -182,18 +175,15 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 // D Baby
 entityTakeDmgPlayerBabyFunctionMap.set(101, (player) => {
   // Spawns creep on hit (improved)
-  const creep = Isaac.Spawn(
-    EntityType.ENTITY_EFFECT,
+  const creep = spawnEffect(
     EffectVariant.PLAYER_CREEP_RED,
     0,
     player.Position,
     VectorZero,
     player,
-  ).ToEffect();
-  if (creep !== undefined) {
-    creep.Scale = 10;
-    creep.Timeout = 240;
-  }
+  );
+  creep.Scale = 10;
+  creep.Timeout = 240;
 });
 
 // Cyber Baby
@@ -282,9 +272,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(177, (player) => {
     velocity = velocity.Normalized();
     const modifier = getRandomInt(4, 20);
     velocity = velocity.mul(modifier);
-    const coin = Isaac.Spawn(
-      EntityType.ENTITY_PICKUP,
-      PickupVariant.PICKUP_COIN,
+    const coin = spawnCoin(
       CoinSubType.COIN_PENNY,
       player.Position,
       velocity,
@@ -311,15 +299,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(200, (player) => {
 entityTakeDmgPlayerBabyFunctionMap.set(204, (player) => {
   // Spawns a random key on hit
   const seed = g.run.rng.Next();
-  g.g.Spawn(
-    EntityType.ENTITY_PICKUP,
-    PickupVariant.PICKUP_KEY,
-    player.Position,
-    VectorZero,
-    player,
-    0,
-    seed,
-  );
+  spawnKey(0, player.Position, VectorZero, player, seed);
 });
 
 // MeatBoy Baby
@@ -342,6 +322,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(225, (player) => {
       dupeEnemy = {
         type: npc.Type,
         variant: npc.Variant,
+        subType: npc.SubType,
       };
       break;
     }
@@ -352,19 +333,13 @@ entityTakeDmgPlayerBabyFunctionMap.set(225, (player) => {
     dupeEnemy = {
       type: EntityType.ENTITY_PORTAL,
       variant: 0,
+      subType: 0,
     };
   }
 
   // Spawn a new enemy
   const position = g.r.FindFreePickupSpawnPosition(player.Position, 1, true);
-  Isaac.Spawn(
-    dupeEnemy.type,
-    dupeEnemy.variant,
-    0,
-    position,
-    VectorZero,
-    undefined,
-  );
+  spawn(dupeEnemy.type, dupeEnemy.variant, dupeEnemy.subType, position);
 });
 
 // Beard Baby
@@ -382,13 +357,12 @@ entityTakeDmgPlayerBabyFunctionMap.set(251, () => {
 entityTakeDmgPlayerBabyFunctionMap.set(258, (player) => {
   // Spawns a random bomb on hit
   const seed = g.run.rng.Next();
-  g.g.Spawn(
-    EntityType.ENTITY_PICKUP,
+  spawnPickup(
     PickupVariant.PICKUP_BOMB,
+    0,
     player.Position,
     VectorZero,
     player,
-    0,
     seed,
   );
 });
@@ -449,14 +423,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(308, (player) => {
 
 // Starry Eyed Baby
 entityTakeDmgPlayerBabyFunctionMap.set(310, (player) => {
-  Isaac.Spawn(
-    EntityType.ENTITY_PICKUP,
-    PickupVariant.PICKUP_TAROTCARD,
-    Card.CARD_STARS,
-    player.Position,
-    VectorZero,
-    player,
-  );
+  spawnCard(Card.CARD_STARS, player.Position, VectorZero, player);
 });
 
 // Puzzle Baby
@@ -572,18 +539,9 @@ entityTakeDmgPlayerBabyFunctionMap.set(412, (player) => {
 
 // Magic Cat Baby
 entityTakeDmgPlayerBabyFunctionMap.set(428, (player) => {
-  const bomb = Isaac.Spawn(
-    EntityType.ENTITY_BOMB,
-    BombVariant.BOMB_GIGA,
-    0,
-    player.Position,
-    VectorZero,
-    undefined,
-  ).ToBomb();
-  if (bomb !== undefined) {
-    bomb.Visible = false;
-    bomb.SetExplosionCountdown(0);
-  }
+  const bomb = spawnBomb(BombVariant.BOMB_GIGA, 0, player.Position);
+  bomb.Visible = false;
+  bomb.SetExplosionCountdown(0);
 });
 
 // Cup Baby
@@ -730,15 +688,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(506, (player) => {
   // Spawns a random rune on hit
   const rune = getRandomRune(g.run.rng);
   const seed = g.run.rng.Next();
-  g.g.Spawn(
-    EntityType.ENTITY_PICKUP,
-    PickupVariant.PICKUP_TAROTCARD,
-    player.Position,
-    VectorZero,
-    player,
-    rune,
-    seed,
-  );
+  spawnCard(rune, player.Position, VectorZero, player, seed);
 });
 
 // Hooligan Baby
@@ -770,14 +720,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(552, (player) => {
 
 // Kinda Loveable Baby
 entityTakeDmgPlayerBabyFunctionMap.set(555, (player) => {
-  Isaac.Spawn(
-    EntityType.ENTITY_PICKUP,
-    PickupVariant.PICKUP_TAROTCARD,
-    Card.CARD_LOVERS,
-    player.Position,
-    VectorZero,
-    player,
-  );
+  spawnCard(Card.CARD_LOVERS, player.Position, VectorZero, player);
 });
 
 // Lost White Baby
@@ -816,8 +759,11 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.ILLUSION_BABY,
   (player) => {
-    // Spawns a Crane Game on hit
-    spawnSlot(SlotVariant.CRANE_GAME, player.Position, g.run.craneGameRNG);
+    spawnSlotHelper(
+      SlotVariant.CRANE_GAME,
+      player.Position,
+      g.run.craneGameRNG,
+    );
   },
 );
 

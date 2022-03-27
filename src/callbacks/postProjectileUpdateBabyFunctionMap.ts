@@ -1,4 +1,4 @@
-import { setEntityRandomColor } from "isaacscript-common";
+import { setEntityRandomColor, spawnBomb } from "isaacscript-common";
 import g from "../globals";
 import { getCurrentBaby } from "../utils";
 
@@ -52,13 +52,11 @@ postProjectileUpdateBabyFunctionMap.set(153, (projectile: EntityProjectile) => {
 
   // Projectiles are reflected as bombs
   if (projectile.Position.Distance(g.p.Position) <= baby.distance) {
-    Isaac.Spawn(
-      EntityType.ENTITY_BOMB,
+    spawnBomb(
       BombVariant.BOMB_NORMAL,
       0,
       projectile.Position,
       projectile.Velocity.mul(-1),
-      undefined,
     );
     projectile.Remove();
   }

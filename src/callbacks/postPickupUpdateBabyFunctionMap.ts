@@ -5,6 +5,8 @@ import {
   inStartingRoom,
   repeat,
   spawnCollectible,
+  spawnPickup,
+  spawnProjectile,
 } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
 import g from "../globals";
@@ -139,13 +141,12 @@ postPickupUpdateBabyFunctionMap.set(166, (pickup: EntityPickup) => {
     // the chest will not initialize properly for some reason)
     // (this does not work in the PostPickupInit callback because the position is not initialized)
     pickup.Remove();
-    g.g.Spawn(
-      EntityType.ENTITY_PICKUP,
+    spawnPickup(
       PickupVariant.PICKUP_MIMICCHEST,
+      0,
       pickup.Position,
       pickup.Velocity,
       pickup.Parent,
-      0,
       pickup.InitSeed,
     );
   } else if (
@@ -342,11 +343,8 @@ postPickupUpdateBabyFunctionMap.set(394, (pickup: EntityPickup) => {
     pickup.FrameCount % 35 === 0 && // Every 1.17 seconds
     !collected // Don't shoot if we already picked it up
   ) {
-    let velocity = g.p.Position.sub(pickup.Position);
-    velocity = velocity.Normalized();
-    velocity = velocity.mul(7);
-    Isaac.Spawn(
-      EntityType.ENTITY_PROJECTILE,
+    const velocity = g.p.Position.sub(pickup.Position).Normalized().mul(7);
+    spawnProjectile(
       ProjectileVariant.PROJECTILE_NORMAL,
       0,
       pickup.Position,

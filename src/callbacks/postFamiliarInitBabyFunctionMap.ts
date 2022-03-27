@@ -1,4 +1,4 @@
-import { repeat, VectorZero } from "isaacscript-common";
+import { repeat, spawnFamiliar } from "isaacscript-common";
 import g from "../globals";
 
 export const postFamiliarInitBabyFunctionMap = new Map<
@@ -34,14 +34,7 @@ postFamiliarInitBabyFunctionMap.set(117, (familiar: EntityFamiliar) => {
     // (1 is already spawned)
     g.run.babyBool = true;
     repeat(4, () => {
-      Isaac.Spawn(
-        EntityType.ENTITY_FAMILIAR,
-        FamiliarVariant.DEAD_BIRD,
-        0,
-        g.p.Position,
-        VectorZero,
-        undefined,
-      );
+      spawnFamiliar(FamiliarVariant.DEAD_BIRD, 0, g.p.Position);
     });
     g.run.babyBool = false;
   }

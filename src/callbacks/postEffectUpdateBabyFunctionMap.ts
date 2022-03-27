@@ -1,6 +1,7 @@
 import {
   GAME_FRAMES_PER_SECOND,
   getEffects,
+  spawnEffect,
   VectorZero,
 } from "isaacscript-common";
 import g from "../globals";
@@ -106,8 +107,7 @@ postEffectUpdateBabyFunctionMap.set(281, (effect: EntityEffect) => {
     if (closeEntities.length > 0) {
       // Fire the beam
       g.run.babyFrame = gameFrameCount + baby.cooldown;
-      Isaac.Spawn(
-        EntityType.ENTITY_EFFECT,
+      spawnEffect(
         EffectVariant.CRACK_THE_SKY,
         0,
         effect.Position,
@@ -124,13 +124,10 @@ postEffectUpdateBabyFunctionMap.set(485, (effect: EntityEffect) => {
     effect.Variant === EffectVariantCustom.FETUS_BOSS_TARGET &&
     effect.FrameCount === GAME_FRAMES_PER_SECOND
   ) {
-    const rocket = Isaac.Spawn(
-      EntityType.ENTITY_EFFECT,
+    const rocket = spawnEffect(
       EffectVariantCustom.FETUS_BOSS_ROCKET,
       0,
       effect.Position,
-      VectorZero,
-      undefined,
     );
     const rocketHeightOffset = Vector(0, -300);
     rocket.SpriteOffset = rocket.SpriteOffset.add(rocketHeightOffset);

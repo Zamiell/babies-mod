@@ -4,6 +4,8 @@ import {
   getRandomArrayElement,
   repeat,
   spawnCollectible,
+  spawnHeart,
+  spawnPickup,
   useActiveItemTemp,
   VectorZero,
 } from "isaacscript-common";
@@ -19,15 +21,7 @@ roomClearedBabyFunctionMap.set(1, () => {
   const heartSubType = getRandomArrayElement(heartSubTypes, roomSeed);
 
   // Random Heart
-  g.g.Spawn(
-    EntityType.ENTITY_PICKUP,
-    PickupVariant.PICKUP_HEART,
-    g.p.Position,
-    VectorZero,
-    g.p,
-    heartSubType,
-    roomSeed,
-  );
+  spawnHeart(heartSubType, g.p.Position, VectorZero, g.p, roomSeed);
 });
 
 // Bandaid Baby
@@ -60,13 +54,12 @@ roomClearedBabyFunctionMap.set(384, () => {
   const roomSeed = g.r.GetSpawnSeed();
 
   // Random Bomb
-  g.g.Spawn(
-    EntityType.ENTITY_PICKUP,
+  spawnPickup(
     PickupVariant.PICKUP_BOMB,
+    0,
     g.p.Position,
     VectorZero,
     g.p,
-    0,
     roomSeed,
   );
 });

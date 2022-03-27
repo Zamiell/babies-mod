@@ -4,7 +4,18 @@ import {
   getEntities,
   getRandomInt,
   sfxManager,
+  spawnBattery,
+  spawnCard,
+  spawnCoin,
   spawnCollectible,
+  spawnEffect,
+  spawnHeart,
+  spawnKey,
+  spawnPickup,
+  spawnPill,
+  spawnSack,
+  spawnSlot,
+  spawnTrinket,
   VectorZero,
 } from "isaacscript-common";
 import { BABIES, UNKNOWN_BABY } from "./babies";
@@ -154,55 +165,30 @@ export function spawnRandomPickup(
   switch (pickupVariantChoice) {
     case 1: {
       // Random heart
-      g.g.Spawn(
-        EntityType.ENTITY_PICKUP,
-        PickupVariant.PICKUP_HEART,
-        position,
-        velocity,
-        undefined,
-        0,
-        seed,
-      );
+      spawnHeart(0, position, velocity, undefined, seed);
       break;
     }
 
     case 2: {
       // Random coin
-      g.g.Spawn(
-        EntityType.ENTITY_PICKUP,
-        PickupVariant.PICKUP_COIN,
-        position,
-        velocity,
-        undefined,
-        0,
-        seed,
-      );
+      spawnCoin(0, position, velocity, undefined, seed);
       break;
     }
 
     case 3: {
       // Random key
-      g.g.Spawn(
-        EntityType.ENTITY_PICKUP,
-        PickupVariant.PICKUP_KEY,
-        position,
-        velocity,
-        undefined,
-        0,
-        seed,
-      );
+      spawnKey(0, position, velocity, undefined, seed);
       break;
     }
 
     case 4: {
       // Random bomb
-      g.g.Spawn(
-        EntityType.ENTITY_PICKUP,
+      spawnPickup(
         PickupVariant.PICKUP_BOMB,
+        0,
         position,
         velocity,
         undefined,
-        0,
         seed,
       );
       break;
@@ -210,13 +196,12 @@ export function spawnRandomPickup(
 
     case 5: {
       // Random chest
-      g.g.Spawn(
-        EntityType.ENTITY_PICKUP,
+      spawnPickup(
         PickupVariant.PICKUP_CHEST,
+        0,
         position,
         velocity,
         undefined,
-        0,
         seed,
       );
       break;
@@ -224,69 +209,35 @@ export function spawnRandomPickup(
 
     case 6: {
       // Random sack
-      g.g.Spawn(
-        EntityType.ENTITY_PICKUP,
-        PickupVariant.PICKUP_GRAB_BAG,
-        position,
-        velocity,
-        undefined,
-        0,
-        seed,
-      );
+      spawnSack(0, position, velocity, undefined, seed);
       break;
     }
 
     case 7: {
       // Random battery
-      g.g.Spawn(
-        EntityType.ENTITY_PICKUP,
-        PickupVariant.PICKUP_LIL_BATTERY,
-        position,
-        velocity,
-        undefined,
-        0,
-        seed,
-      );
+      spawnBattery(0, position, velocity, undefined, seed);
       break;
     }
 
     case 8: {
       // Random pill
-      g.g.Spawn(
-        EntityType.ENTITY_PICKUP,
-        PickupVariant.PICKUP_PILL,
-        position,
-        velocity,
-        undefined,
-        0,
-        seed,
-      );
+      spawnPill(PillColor.PILL_NULL, position, velocity, undefined, seed);
       break;
     }
 
     case 9: {
       // Random card / rune
-      g.g.Spawn(
-        EntityType.ENTITY_PICKUP,
-        PickupVariant.PICKUP_TAROTCARD,
-        position,
-        velocity,
-        undefined,
-        0,
-        seed,
-      );
+      spawnCard(Card.CARD_NULL, position, velocity, undefined, seed);
       break;
     }
 
     case 10: {
       // Random trinket
-      g.g.Spawn(
-        EntityType.ENTITY_PICKUP,
-        PickupVariant.PICKUP_TRINKET,
+      spawnTrinket(
+        TrinketType.TRINKET_NULL,
         position,
         velocity,
         undefined,
-        0,
         seed,
       );
       break;
@@ -306,32 +257,16 @@ export function spawnRandomPickup(
   }
 }
 
-export function spawnSlot(
+export function spawnSlotHelper(
   slotVariant: SlotVariant,
   startingPosition: Vector,
   rng: RNG,
 ): Entity {
   const position = findFreePosition(startingPosition);
   const seed = rng.Next();
-  const slot = g.g.Spawn(
-    EntityType.ENTITY_SLOT,
-    slotVariant,
-    position,
-    VectorZero,
-    undefined,
-    0,
-    seed,
-  );
+  const slot = spawnSlot(slotVariant, 0, position, VectorZero, undefined, seed);
 
-  Isaac.Spawn(
-    EntityType.ENTITY_EFFECT,
-    EffectVariant.POOF01,
-    PoofSubType.NORMAL,
-    position,
-    VectorZero,
-    undefined,
-  );
-
+  spawnEffect(EffectVariant.POOF01, PoofSubType.NORMAL, position);
   sfxManager.Play(SoundEffect.SOUND_SUMMONSOUND);
 
   return slot;

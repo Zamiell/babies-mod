@@ -7,7 +7,7 @@ import {
 import { NUM_SUCCUBI_IN_FLOCK } from "../constants";
 import g from "../globals";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
-import { getCurrentBaby, spawnSlot } from "../utils";
+import { getCurrentBaby, spawnSlotHelper } from "../utils";
 
 export function init(mod: Mod): void {
   mod.AddCallback(
@@ -113,7 +113,7 @@ function clockworkAssembly(
   _RNG: RNG,
   player: EntityPlayer,
 ) {
-  spawnSlot(
+  spawnSlotHelper(
     SlotVariant.SHOP_RESTOCK_MACHINE,
     player.Position,
     g.run.clockworkAssemblyRNG,

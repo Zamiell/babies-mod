@@ -11,9 +11,9 @@
   ],
   "license": "GPL-3.0",
   "dependencies": {
-    "isaac-typescript-definitions": "^1.0.386",
+    "isaac-typescript-definitions": "^1.0.387",
     "isaacscript": "^1.2.27",
-    "isaacscript-common": "^1.2.233",
+    "isaacscript-common": "^1.2.240",
     "isaacscript-lint": "^1.0.95"
   }
 }

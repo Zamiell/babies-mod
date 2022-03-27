@@ -2,7 +2,7 @@ import {
   MAX_NUM_FAMILIARS,
   removeCollectibleFromItemTracker,
   repeat,
-  VectorZero,
+  spawn,
 } from "isaacscript-common";
 import { BABIES, RandomBabyType } from "./babies";
 import g from "./globals";
@@ -187,12 +187,10 @@ babyAddFunctionMap.set(RandomBabyType.FOUND_SOUL_BABY, () => {
 
   const bottomLeftGridIndex = 92;
   const bottomLeftPosition = g.r.GetGridPosition(bottomLeftGridIndex);
-  Isaac.Spawn(
+  spawn(
     EntityType.ENTITY_DARK_ESAU,
-    0,
+    DarkEsauVariant.DARK_ESAU,
     0,
     bottomLeftPosition,
-    VectorZero,
-    undefined,
   );
 });

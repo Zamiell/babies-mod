@@ -14,8 +14,10 @@ import {
   log,
   removeAllMatchingEntities,
   repeat,
+  spawn,
   spawnCollectible,
   spawnGridEntityWithVariant,
+  spawnWithSeed,
   teleport,
   useActiveItemTemp,
   VectorZero,
@@ -238,13 +240,11 @@ postNewRoomBabyFunctionMap.set(158, () => {
   ];
   for (const firePosition of firePositions) {
     const fireplaceSeed = g.run.room.rng.Next();
-    g.g.Spawn(
+    spawnWithSeed(
       EntityType.ENTITY_FIREPLACE,
       FireplaceVariant.BLUE,
-      firePosition,
-      VectorZero,
-      undefined,
       0,
+      firePosition,
       fireplaceSeed,
     );
   }
@@ -343,13 +343,13 @@ postNewRoomBabyFunctionMap.set(242, () => {
 
 // Love Eye Baby
 postNewRoomBabyFunctionMap.set(249, () => {
+  // Make an exception for Boss Rooms and Devil Rooms
   const roomType = g.r.GetType();
   if (
     !g.run.babyBool ||
     roomType === RoomType.ROOM_BOSS ||
     roomType === RoomType.ROOM_DEVIL
   ) {
-    // Make an exception for Boss Rooms and Devil Rooms
     return;
   }
 
@@ -363,13 +363,13 @@ postNewRoomBabyFunctionMap.set(249, () => {
       continue;
     }
 
-    g.g.Spawn(
+    spawn(
       g.run.babyNPC.type,
       g.run.babyNPC.variant,
+      g.run.babyNPC.subType,
       npc.Position,
       npc.Velocity,
       undefined,
-      g.run.babyNPC.subType,
       npc.InitSeed,
     );
     npc.Remove();
@@ -441,13 +441,11 @@ postNewRoomBabyFunctionMap.set(287, () => {
   ];
   for (const firePosition of firePositions) {
     const fireplaceSeed = g.run.room.rng.Next();
-    g.g.Spawn(
+    spawnWithSeed(
       EntityType.ENTITY_FIREPLACE,
       FireplaceVariant.NORMAL,
-      firePosition,
-      VectorZero,
-      undefined,
       0,
+      firePosition,
       fireplaceSeed,
     );
   }

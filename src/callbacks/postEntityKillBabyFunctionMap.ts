@@ -2,6 +2,12 @@ import {
   copyColor,
   getNPCs,
   getRoomListIndex,
+  spawn,
+  spawnBomb,
+  spawnEffect,
+  spawnFamiliar,
+  spawnPickupWithSeed,
+  spawnWithSeed,
   VectorZero,
 } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
@@ -45,13 +51,11 @@ postEntityKillBabyFunctionMap.set(61, (npc: EntityNPC) => {
     npc.Type !== EntityType.ENTITY_MOVABLE_TNT &&
     !npc.HasEntityFlags(EntityFlag.FLAG_FRIENDLY)
   ) {
-    const friend = g.g.Spawn(
+    const friend = spawnWithSeed(
       npc.Type,
       npc.Variant,
-      npc.Position,
-      VectorZero,
-      undefined,
       npc.SubType,
+      npc.Position,
       npc.InitSeed,
     );
     friend.AddEntityFlags(EntityFlag.FLAG_CHARM); // 1 << 8
@@ -89,15 +93,15 @@ postEntityKillBabyFunctionMap.set(249, (npc: EntityNPC) => {
 
   // Respawn all of the existing enemies in the room
   for (const npc2 of getNPCs()) {
+    // Don't respawn the entity that just died
     if (npc2.Index !== npc.Index) {
-      // Don't respawn the entity that just died
-      g.g.Spawn(
+      spawn(
         npc.Type,
         npc.Variant,
+        npc.SubType,
         npc2.Position,
         npc2.Velocity,
         undefined,
-        npc.SubType,
         npc2.InitSeed,
       );
       npc2.Remove();
@@ -125,14 +129,7 @@ postEntityKillBabyFunctionMap.set(376, (_npc: EntityNPC) => {
   }
 
   // Spawn a new Bob's Brain familiar that we will re-skin to look like an egg
-  const brain = Isaac.Spawn(
-    EntityType.ENTITY_FAMILIAR,
-    FamiliarVariant.BOBS_BRAIN,
-    0,
-    g.p.Position,
-    VectorZero,
-    undefined,
-  );
+  const brain = spawnFamiliar(FamiliarVariant.BOBS_BRAIN, 0, g.p.Position);
 
   const sprite = brain.GetSprite();
   sprite.Load("gfx/003.059_bobs brain_custom.anm2", true);
@@ -159,14 +156,7 @@ postEntityKillBabyFunctionMap.set(388, (npc: EntityNPC) => {
 // Toast Baby
 postEntityKillBabyFunctionMap.set(390, (npc: EntityNPC) => {
   // Enemies leave a Red Candle fire upon death
-  Isaac.Spawn(
-    EntityType.ENTITY_EFFECT,
-    EffectVariant.HOT_BOMB_FIRE,
-    0,
-    npc.Position,
-    VectorZero,
-    undefined,
-  );
+  spawnEffect(EffectVariant.HOT_BOMB_FIRE, 0, npc.Position);
 });
 
 // Buttface Baby
@@ -181,27 +171,17 @@ postEntityKillBabyFunctionMap.set(451, (npc: EntityNPC) => {
 
 // Funny Baby
 postEntityKillBabyFunctionMap.set(491, (npc: EntityNPC) => {
-  Isaac.Spawn(
-    EntityType.ENTITY_BOMB,
-    BombVariant.BOMB_TROLL,
-    0,
-    npc.Position,
-    VectorZero,
-    undefined,
-  );
+  spawnBomb(BombVariant.BOMB_TROLL, 0, npc.Position);
 });
 
 // Rainbow Baby
 postEntityKillBabyFunctionMap.set(
   RandomBabyType.RAINBOW_BABY,
   (npc: EntityNPC) => {
-    g.g.Spawn(
-      EntityType.ENTITY_PICKUP,
+    spawnPickupWithSeed(
       PickupVariant.PICKUP_CHEST,
-      npc.Position,
-      VectorZero,
-      undefined,
       0,
+      npc.Position,
       npc.InitSeed,
     );
   },

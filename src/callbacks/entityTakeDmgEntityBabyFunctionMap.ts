@@ -1,4 +1,4 @@
-import { getRandom } from "isaacscript-common";
+import { getRandom, spawnEffect } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
 import g from "../globals";
 
@@ -136,13 +136,12 @@ entityTakeDmgEntityBabyFunctionMap.set(
       // 5% chance for a black hole to spawn
       const chance = getRandom(damageSource.Entity.InitSeed);
       if (chance <= 0.05) {
-        g.g.Spawn(
-          EntityType.ENTITY_EFFECT,
+        spawnEffect(
           EffectVariant.BLACK_HOLE,
+          0,
           damageSource.Position,
           damageSource.Entity.Velocity,
           undefined,
-          0,
           damageSource.Entity.InitSeed,
         );
       }

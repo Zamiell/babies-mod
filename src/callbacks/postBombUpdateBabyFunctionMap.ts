@@ -3,6 +3,7 @@ import {
   BOMB_EXPLODE_FRAME,
   directionToVector,
   getRandom,
+  spawnBomb,
   useActiveItemTemp,
 } from "isaacscript-common";
 import g from "../globals";
@@ -78,27 +79,23 @@ postBombUpdateBabyFunctionMap.set(284, (bomb: EntityBomb) => {
     data.doubled === undefined
   ) {
     const position = getRandomOffsetPosition(bomb.Position, 15, bomb.InitSeed);
-    const doubledBomb = g.g
-      .Spawn(
-        bomb.Type,
-        bomb.Variant,
-        position,
-        bomb.Velocity,
-        bomb.SpawnerEntity,
-        bomb.SubType,
-        bomb.InitSeed,
-      )
-      .ToBomb();
-    if (doubledBomb !== undefined) {
-      doubledBomb.Flags = bomb.Flags;
-      doubledBomb.IsFetus = bomb.IsFetus;
-      if (bomb.IsFetus) {
-        // There is a bug where Dr. Fetus bombs that are doubled have twice as long of a cooldown
-        doubledBomb.SetExplosionCountdown(28);
-      }
-      doubledBomb.ExplosionDamage = bomb.ExplosionDamage;
-      doubledBomb.RadiusMultiplier = bomb.RadiusMultiplier;
-      doubledBomb.GetData().doubled = true;
+    const doubledBomb = spawnBomb(
+      bomb.Variant,
+      bomb.SubType,
+      position,
+      bomb.Velocity,
+      bomb.SpawnerEntity,
+      bomb.InitSeed,
+    );
+    doubledBomb.Flags = bomb.Flags;
+    doubledBomb.IsFetus = bomb.IsFetus;
+    doubledBomb.ExplosionDamage = bomb.ExplosionDamage;
+    doubledBomb.RadiusMultiplier = bomb.RadiusMultiplier;
+    doubledBomb.GetData().doubled = true;
+
+    // There is a bug where Dr. Fetus bombs that are doubled have twice as long of a cooldown
+    if (bomb.IsFetus) {
+      doubledBomb.SetExplosionCountdown(28);
     }
   }
 });
@@ -116,13 +113,12 @@ postBombUpdateBabyFunctionMap.set(344, (bomb: EntityBomb) => {
 // Orange Ghost Baby
 postBombUpdateBabyFunctionMap.set(373, (bomb: EntityBomb) => {
   if (bomb.FrameCount === 1 && bomb.Variant !== BombVariant.BOMB_SUPERTROLL) {
-    g.g.Spawn(
-      bomb.Type,
+    spawnBomb(
       BombVariant.BOMB_SUPERTROLL,
+      bomb.SubType,
       bomb.Position,
       bomb.Velocity,
       bomb.SpawnerEntity,
-      bomb.SubType,
       bomb.InitSeed,
     );
     bomb.Remove();

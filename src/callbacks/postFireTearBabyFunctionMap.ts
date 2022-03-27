@@ -3,6 +3,9 @@ import {
   GAME_FRAMES_PER_SECOND,
   getFamiliars,
   getRandomInt,
+  spawnBomb,
+  spawnEffect,
+  spawnFamiliar,
   useActiveItemTemp,
 } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
@@ -110,13 +113,12 @@ postFireTearBabyFunctionMap.set(66, (tear: EntityTear) => {
   // Boomerang tears
   // We can't just use The Boomerang item because there is no way to avoid a long cooldown
   // So we spawn an effect instead
-  g.g.Spawn(
-    EntityType.ENTITY_EFFECT,
+  spawnEffect(
     EffectVariant.BOOMERANG,
+    0,
     tear.Position,
     tear.Velocity,
     tear.SpawnerEntity,
-    0,
     tear.InitSeed,
   );
   tear.Remove();
@@ -221,13 +223,12 @@ postFireTearBabyFunctionMap.set(185, (tear: EntityTear) => {
 
 // Sick Baby
 postFireTearBabyFunctionMap.set(187, (tear: EntityTear) => {
-  g.g.Spawn(
-    EntityType.ENTITY_FAMILIAR,
+  spawnFamiliar(
     FamiliarVariant.BLUE_FLY,
+    LocustSubtypes.LOCUST_OF_WRATH,
     tear.Position,
     tear.Velocity,
     tear.SpawnerEntity,
-    LocustSubtypes.LOCUST_OF_WRATH,
     tear.InitSeed,
   );
   tear.Remove();
@@ -356,13 +357,12 @@ postFireTearBabyFunctionMap.set(361, (tear: EntityTear) => {
   g.run.babyCounters += 1;
   if (g.run.babyCounters === baby.num) {
     g.run.babyCounters = 0;
-    g.g.Spawn(
-      EntityType.ENTITY_BOMB,
+    spawnBomb(
       BombVariant.BOMB_NORMAL,
+      0,
       tear.Position,
       tear.Velocity,
       tear.SpawnerEntity,
-      0,
       tear.InitSeed,
     );
     tear.Remove();
