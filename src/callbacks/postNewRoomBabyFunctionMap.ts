@@ -16,7 +16,7 @@ import {
   repeat,
   spawn,
   spawnCollectible,
-  spawnGridEntityWithVariant,
+  spawnGridWithVariant,
   spawnWithSeed,
   teleport,
   useActiveItemTemp,
@@ -227,7 +227,7 @@ postNewRoomBabyFunctionMap.set(158, () => {
 
   // Spawn the Angel Statue
   const oneTileAboveCenterGridIndex = 52;
-  spawnGridEntityWithVariant(
+  spawnGridWithVariant(
     GridEntityType.GRID_STATUE,
     StatueVariant.ANGEL,
     oneTileAboveCenterGridIndex,
@@ -428,7 +428,7 @@ postNewRoomBabyFunctionMap.set(287, () => {
 
   // Spawn the Devil Statue
   const oneTileAboveCenterGridIndex = 52;
-  spawnGridEntityWithVariant(
+  spawnGridWithVariant(
     GridEntityType.GRID_STATUE,
     StatueVariant.DEVIL,
     oneTileAboveCenterGridIndex,

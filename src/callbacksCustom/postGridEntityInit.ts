@@ -1,7 +1,7 @@
 import {
   ModCallbacksCustom,
   ModUpgraded,
-  removeGridEntity,
+  removeGrid,
 } from "isaacscript-common";
 import g from "../globals";
 import { getCurrentBaby } from "../utils";
@@ -23,9 +23,10 @@ function trapdoor(gridEntity: GridEntity) {
 
   // 535
   if (baby.name === "Eyebat Baby") {
+    // Floors are reversed
     const roomType = g.r.GetType();
     if (roomType === RoomType.ROOM_BOSS) {
-      removeGridEntity(gridEntity, false);
+      removeGrid(gridEntity, false);
     }
   }
 }
