@@ -50,15 +50,17 @@ import { MOD_NAME, VERSION } from "./constants";
 import { initCostumeProtector } from "./costumes";
 import g from "./globals";
 
-export default function main(): void {
+main();
+
+function main() {
   const modVanilla = RegisterMod(MOD_NAME, 1);
   const mod = upgradeMod(modVanilla);
 
   initCostumeProtector(mod);
   welcomeBanner();
 
-  // Store the mod reference so that we can use it elsewhere
-  // (this is needed for saving and loading the "save.dat" file)
+  // Store the mod reference so that we can use it elsewhere. (This is needed for saving and loading
+  // the "save.dat" file.)
   g.babiesMod = mod;
 
   babiesCheckValid();
