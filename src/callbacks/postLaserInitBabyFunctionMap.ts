@@ -4,8 +4,8 @@ export const postLaserInitBabyFunctionMap = new Map<
 >();
 
 // Belial Baby
-// Azazel-style Brimstone
 postLaserInitBabyFunctionMap.set(51, (laser: EntityLaser) => {
+  // Azazel-style Brimstone.
   const sprite = laser.GetSprite();
   const filename = sprite.GetFilename();
   if (filename === "gfx/007.001_Thick Red Laser.anm2") {

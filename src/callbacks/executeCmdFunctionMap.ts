@@ -6,12 +6,12 @@ export const executeCmdFunctionMap = new Map<
   (params: string) => void
 >();
 
-// "baby #" will restart as the specified baby
+// "baby #" will restart as the specified baby.
 executeCmdFunctionMap.set("baby", (params: string) => {
   setDebugBaby(params, true);
 });
 
-// "baby2" will lock in the specified baby but will not restart the current run
+// "baby2" will lock in the specified baby but will not restart the current run.
 executeCmdFunctionMap.set("baby2", (params: string) => {
   setDebugBaby(params, false);
 });

@@ -1,3 +1,4 @@
+import { ItemType } from "isaac-typescript-definitions";
 import {
   PickingUpItem,
   removeCollectibleFromItemTracker,
@@ -13,7 +14,7 @@ export const postItemPickupBabyFunctionMap = new Map<
 postItemPickupBabyFunctionMap.set(
   216,
   (player: EntityPlayer, pickingUpItem: PickingUpItem) => {
-    if (pickingUpItem.itemType !== ItemType.ITEM_PASSIVE) {
+    if (pickingUpItem.itemType !== ItemType.PASSIVE) {
       return;
     }
 

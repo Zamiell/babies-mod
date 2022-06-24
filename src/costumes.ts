@@ -1,6 +1,7 @@
-// Code relating to making the player always have the baby sprite
-// We use Sanio's Costume Protector library to accomplish this
+// This is code relating to making the player always have the baby sprite. We use Sanio's Costume
+// Protector library to accomplish this.
 
+import { NullItemID } from "isaac-typescript-definitions";
 import { BABIES, RandomBabyType } from "./babies";
 import * as costumeProtector from "./lib/characterCostumeProtector";
 import { NullItemIDCustom } from "./types/NullItemIDCustom";
@@ -9,6 +10,12 @@ import { getCurrentBaby } from "./utils";
 const CUSTOM_PLAYER_ANM2 = "gfx/001.000_player_custom_baby.anm2";
 const FIRST_BABY_WITH_SPRITE_IN_FAMILIAR_DIRECTORY =
   RandomBabyType.BROTHER_BOBBY;
+
+const firstBaby = BABIES[0];
+if (firstBaby === undefined) {
+  error("Failed to get the first baby.");
+}
+const DEFAULT_BABY_SPRITE = firstBaby.sprite;
 
 export function initCostumeProtector(mod: Mod): void {
   costumeProtector.Init(mod);
@@ -59,15 +66,15 @@ export function updatePlayerWithCostumeProtector(player: EntityPlayer): void {
 
 function getCostumeProtectorArguments(): [
   spritesheetPath: string,
-  flightCostumeNullItemID: NullItemIDCustom | undefined,
+  flightCostumeNullItemID: NullItemID | undefined,
 ] {
   const [babyType, baby, valid] = getCurrentBaby();
   if (!valid) {
-    return [`gfx/characters/player2/${BABIES[0].sprite}`, undefined];
+    return [`gfx/characters/player2/${DEFAULT_BABY_SPRITE}`, undefined];
   }
 
   const gfxDirectory =
-    babyType >= FIRST_BABY_WITH_SPRITE_IN_FAMILIAR_DIRECTORY
+    babyType >= (FIRST_BABY_WITH_SPRITE_IN_FAMILIAR_DIRECTORY as int)
       ? "gfx/familiar"
       : "gfx/characters/player2";
   const spritesheetPath = `${gfxDirectory}/${baby.sprite}`;

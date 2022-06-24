@@ -1,4 +1,9 @@
 import {
+  EffectVariant,
+  MinibossID,
+  RoomType,
+} from "isaac-typescript-definitions";
+import {
   getEffects,
   getHUDOffsetVector,
   inMinibossRoomOf,
@@ -10,9 +15,8 @@ export const postRenderBabyFunctionMap = new Map<int, () => void>();
 
 // Dark Baby
 postRenderBabyFunctionMap.set(48, () => {
-  // Temporary blindness
-  // Set the current fade
-  // (which is based on the game's frame count and set in the PostUpdate callback)
+  // Temporary blindness. Set the current fade (which is based on the game's frame count and set in
+  // the PostUpdate callback).
   if (g.run.babySprite !== null) {
     let opacity = g.run.babyCounters / 90;
     if (opacity > 1) {
@@ -34,11 +38,11 @@ postRenderBabyFunctionMap.set(125, () => {
   const inKrampusRoom = inMinibossRoomOf(MinibossID.KRAMPUS);
 
   if (
-    roomType !== RoomType.ROOM_DEVIL && // 14
-    roomType !== RoomType.ROOM_BLACK_MARKET && // 22
+    roomType !== RoomType.DEVIL && // 14
+    roomType !== RoomType.BLACK_MARKET && // 22
     !inKrampusRoom
   ) {
-    // Draw the key count next to the hearts
+    // Draw the key count next to the hearts.
     const HUDOffsetVector = getHUDOffsetVector();
     const x = 65 + HUDOffsetVector.X;
     const y = 12;
@@ -60,11 +64,11 @@ postRenderBabyFunctionMap.set(138, () => {
   const inKrampusRoom = inMinibossRoomOf(MinibossID.KRAMPUS);
 
   if (
-    roomType !== RoomType.ROOM_DEVIL && // 14
-    roomType !== RoomType.ROOM_BLACK_MARKET && // 22
+    roomType !== RoomType.DEVIL && // 14
+    roomType !== RoomType.BLACK_MARKET && // 22
     !inKrampusRoom
   ) {
-    // Draw the bomb count next to the hearts
+    // Draw the bomb count next to the hearts.
     const HUDOffsetVector = getHUDOffsetVector();
     const x = 65 + HUDOffsetVector.X;
     const y = 12;
@@ -77,10 +81,9 @@ postRenderBabyFunctionMap.set(138, () => {
 
 // Elf Baby
 postRenderBabyFunctionMap.set(377, () => {
-  // The Speak of Destiny effect is not spawned in the PostNewRoom callback
-  // Thus, we check for it on every frame instead
-  // As an unfortunate side effect,
-  // the Spear of Destiny will show as the vanilla graphic during room transitions
+  // The Speak of Destiny effect is not spawned in the PostNewRoom callback. Thus, we check for it
+  // on every frame instead. As an unfortunate side effect, the Spear of Destiny will show as the
+  // vanilla graphic during room transitions.
   const spears = getEffects(EffectVariant.SPEAR_OF_DESTINY);
   for (const spear of spears) {
     const sprite = spear.GetSprite();

@@ -1,8 +1,9 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import { getCurrentBaby } from "../utils";
 import { postFamiliarInitBabyFunctionMap } from "./postFamiliarInitBabyFunctionMap";
 
 export function init(mod: Mod): void {
-  mod.AddCallback(ModCallbacks.MC_FAMILIAR_INIT, main);
+  mod.AddCallback(ModCallback.POST_FAMILIAR_INIT, main);
 }
 
 function main(familiar: EntityFamiliar) {

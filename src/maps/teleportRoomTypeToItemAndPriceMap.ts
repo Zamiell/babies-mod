@@ -1,3 +1,4 @@
+import { CollectibleType, RoomType } from "isaac-typescript-definitions";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 
 enum TeleportPrice {
@@ -8,79 +9,77 @@ enum TeleportPrice {
 
 export const TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP: ReadonlyMap<
   RoomType,
-  [CollectibleTypeCustom, TeleportPrice]
+  [CollectibleType, TeleportPrice]
 > = new Map([
+  // 2
+  [RoomType.SHOP, [CollectibleTypeCustom.SHOP_TELEPORT, TeleportPrice.TEN]],
+
+  // 4
   [
-    RoomType.ROOM_SHOP,
-    [CollectibleTypeCustom.COLLECTIBLE_SHOP_TELEPORT, TeleportPrice.TEN],
-  ], // 2
+    RoomType.TREASURE,
+    [CollectibleTypeCustom.TREASURE_ROOM_TELEPORT, TeleportPrice.TEN],
+  ],
+
+  // 6
   [
-    RoomType.ROOM_TREASURE,
-    [
-      CollectibleTypeCustom.COLLECTIBLE_TREASURE_ROOM_TELEPORT,
-      TeleportPrice.TEN,
-    ],
-  ], // 4
+    RoomType.MINI_BOSS,
+    [CollectibleTypeCustom.MINIBOSS_ROOM_TELEPORT, TeleportPrice.TEN],
+  ],
+
+  // 9
+  [RoomType.ARCADE, [CollectibleTypeCustom.ARCADE_TELEPORT, TeleportPrice.TEN]],
+
+  // 10
   [
-    RoomType.ROOM_MINIBOSS,
-    [
-      CollectibleTypeCustom.COLLECTIBLE_MINIBOSS_ROOM_TELEPORT,
-      TeleportPrice.TEN,
-    ],
-  ], // 6
+    RoomType.CURSE,
+    [CollectibleTypeCustom.CURSE_ROOM_TELEPORT, TeleportPrice.TEN],
+  ],
+
+  // 11
   [
-    RoomType.ROOM_ARCADE,
-    [CollectibleTypeCustom.COLLECTIBLE_ARCADE_TELEPORT, TeleportPrice.TEN],
-  ], // 9
+    RoomType.CHALLENGE,
+    [CollectibleTypeCustom.CHALLENGE_ROOM_TELEPORT, TeleportPrice.TEN],
+  ],
+
+  // 12
   [
-    RoomType.ROOM_CURSE,
-    [CollectibleTypeCustom.COLLECTIBLE_CURSE_ROOM_TELEPORT, TeleportPrice.TEN],
-  ], // 10
+    RoomType.LIBRARY,
+    [CollectibleTypeCustom.LIBRARY_TELEPORT, TeleportPrice.FIFTEEN],
+  ],
+
+  // 13
   [
-    RoomType.ROOM_CHALLENGE,
-    [
-      CollectibleTypeCustom.COLLECTIBLE_CHALLENGE_ROOM_TELEPORT,
-      TeleportPrice.TEN,
-    ],
-  ], // 11
+    RoomType.SACRIFICE,
+    [CollectibleTypeCustom.SACRIFICE_ROOM_TELEPORT, TeleportPrice.TEN],
+  ],
+
+  // 18
   [
-    RoomType.ROOM_LIBRARY,
-    [CollectibleTypeCustom.COLLECTIBLE_LIBRARY_TELEPORT, TeleportPrice.FIFTEEN],
-  ], // 12
+    RoomType.CLEAN_BEDROOM,
+    [CollectibleTypeCustom.BEDROOM_CLEAN_TELEPORT, TeleportPrice.TEN],
+  ],
+
+  // 19
   [
-    RoomType.ROOM_SACRIFICE,
-    [
-      CollectibleTypeCustom.COLLECTIBLE_SACRIFICE_ROOM_TELEPORT,
-      TeleportPrice.TEN,
-    ],
-  ], // 13
+    RoomType.DIRTY_BEDROOM,
+    [CollectibleTypeCustom.BEDROOM_DIRTY_TELEPORT, TeleportPrice.TWENTY],
+  ],
+
+  // 20
   [
-    RoomType.ROOM_ISAACS,
-    [
-      CollectibleTypeCustom.COLLECTIBLE_BEDROOM_CLEAN_TELEPORT,
-      TeleportPrice.TEN,
-    ],
-  ], // 18
+    RoomType.CHEST,
+    [CollectibleTypeCustom.TREASURE_CHEST_ROOM_TELEPORT, TeleportPrice.TEN],
+  ],
+
+  // 21
   [
-    RoomType.ROOM_BARREN,
-    [
-      CollectibleTypeCustom.COLLECTIBLE_BEDROOM_DIRTY_TELEPORT,
-      TeleportPrice.TWENTY,
-    ],
-  ], // 19
+    RoomType.DICE,
+    [CollectibleTypeCustom.DICE_ROOM_TELEPORT, TeleportPrice.TEN],
+  ],
+
+  // 24
   [
-    RoomType.ROOM_CHEST,
-    [
-      CollectibleTypeCustom.COLLECTIBLE_TREASURE_CHEST_ROOM_TELEPORT,
-      TeleportPrice.TEN,
-    ],
-  ], // 20
-  [
-    RoomType.ROOM_DICE,
-    [CollectibleTypeCustom.COLLECTIBLE_DICE_ROOM_TELEPORT, TeleportPrice.TEN],
-  ], // 21
-  [
-    RoomType.ROOM_PLANETARIUM,
-    [CollectibleTypeCustom.COLLECTIBLE_PLANETARIUM_TELEPORT, TeleportPrice.TEN],
-  ], // 24
+    RoomType.PLANETARIUM,
+    [CollectibleTypeCustom.PLANETARIUM_TELEPORT, TeleportPrice.TEN],
+  ],
 ]);

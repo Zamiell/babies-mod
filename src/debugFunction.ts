@@ -22,7 +22,7 @@ export function debugFunction(): void {
 }
 
 export function setDebugBaby(params: string, restart: boolean): void {
-  // Check to see if this is a valid baby number
+  // Check to see if this is a valid baby number.
   let babyNum: number | null | undefined = tonumber(params);
   if (babyNum === undefined || babyNum < 0 || babyNum >= BABIES.length) {
     babyNum = null;

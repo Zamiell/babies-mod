@@ -1,11 +1,16 @@
+import {
+  EntityType,
+  FireplaceVariant,
+  ModCallback,
+} from "isaac-typescript-definitions";
 import { getCurrentBaby } from "../utils";
 
 export function init(mod: Mod): void {
-  mod.AddCallback(ModCallbacks.MC_PRE_ENTITY_SPAWN, main);
+  mod.AddCallback(ModCallback.PRE_ENTITY_SPAWN, main);
 }
 
 function main(
-  entityType: int,
+  entityType: EntityType,
   variant: int,
   subType: int,
   _position: Vector,
@@ -20,9 +25,9 @@ function main(
 
   if (
     baby.name === "Purple Baby" && // 252
-    entityType === EntityType.ENTITY_FIREPLACE &&
-    variant !== FireplaceVariant.BLUE &&
-    variant !== FireplaceVariant.WHITE
+    entityType === EntityType.FIREPLACE &&
+    variant !== (FireplaceVariant.BLUE as int) &&
+    variant !== (FireplaceVariant.WHITE as int)
   ) {
     return [entityType, FireplaceVariant.BLUE, subType, initSeed];
   }

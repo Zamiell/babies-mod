@@ -1,8 +1,9 @@
+import { CollectibleType } from "isaac-typescript-definitions";
 import {
   getRoomStageID,
   getRoomVariant,
   log,
-  ModCallbacksCustom,
+  ModCallbackCustom,
   ModUpgraded,
   repeat,
 } from "isaacscript-common";
@@ -15,7 +16,7 @@ import { GlobalsRunRoom } from "../types/GlobalsRunRoom";
 import { getCurrentBaby } from "../utils";
 
 export function init(mod: ModUpgraded): void {
-  mod.AddCallbackCustom(ModCallbacksCustom.MC_POST_NEW_ROOM_REORDERED, main);
+  mod.AddCallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED, main);
 }
 
 function main() {
@@ -40,10 +41,10 @@ function main() {
   g.run.babyCountersRoom = 0;
   g.run.babyTears = new GlobalsRunBabyTears();
 
-  // Handle items that are not tied to specific babies
+  // Handle items that are not tied to specific babies.
   resetFlockOfSuccubi();
 
-  // Do nothing if we are not a baby
+  // Do nothing if we are not a baby.
   const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return;
@@ -73,6 +74,6 @@ function resetFlockOfSuccubi() {
   g.run.flockOfSuccubi = false;
 
   repeat(NUM_SUCCUBI_IN_FLOCK, () => {
-    g.p.RemoveCollectible(CollectibleType.COLLECTIBLE_SUCCUBUS);
+    g.p.RemoveCollectible(CollectibleType.SUCCUBUS);
   });
 }

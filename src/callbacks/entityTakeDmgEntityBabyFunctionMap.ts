@@ -1,3 +1,9 @@
+import {
+  DamageFlag,
+  DamageFlagZero,
+  EffectVariant,
+  EntityType,
+} from "isaac-typescript-definitions";
 import { getRandom, spawnEffect } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
 import g from "../globals";
@@ -7,7 +13,7 @@ export const entityTakeDmgEntityBabyFunctionMap = new Map<
   (
     entity: Entity,
     damageAmount: float,
-    damageFlags: int,
+    damageFlags: BitFlags<DamageFlag>,
     damageSource: EntityRef,
     damageCountdownFrames: int,
   ) => boolean | void
@@ -24,13 +30,18 @@ entityTakeDmgEntityBabyFunctionMap.set(
     damageCountdownFrames,
   ) => {
     if (
-      damageSource.Type === EntityType.ENTITY_EFFECT &&
-      damageSource.Variant === EffectVariant.PLAYER_CREEP_RED
+      damageSource.Type === EntityType.EFFECT &&
+      damageSource.Variant === (EffectVariant.PLAYER_CREEP_RED as int)
     ) {
-      // Spawns creep on hit (improved)
-      // By default, player creep only deals 2 damage per tick, so increase the damage
+      // Spawns creep on hit (improved). By default, player creep only deals 2 damage per tick, so
+      // increase the damage.
       const damage = g.p.Damage * 2;
-      entity.TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames);
+      entity.TakeDamage(
+        damage,
+        DamageFlagZero,
+        EntityRef(g.p),
+        damageCountdownFrames,
+      );
       return false;
     }
 
@@ -48,15 +59,20 @@ entityTakeDmgEntityBabyFunctionMap.set(
     damageSource,
     damageCountdownFrames,
   ) => {
-    // Make the light beam damage be based on the player's damage
-    // (normally, light beams do 2 damage on every tick and are not based on the player's damage)
+    // Make the light beam damage be based on the player's damage. (Normally, light beams do 2
+    // damage on every tick and are not based on the player's damage.)
     if (
-      damageSource.Type === EntityType.ENTITY_EFFECT &&
-      damageSource.Variant === EffectVariant.CRACK_THE_SKY
+      damageSource.Type === EntityType.EFFECT &&
+      damageSource.Variant === (EffectVariant.CRACK_THE_SKY as int)
     ) {
       const damage = g.p.Damage;
       g.run.dealingExtraDamage = true;
-      entity.TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames);
+      entity.TakeDamage(
+        damage,
+        DamageFlagZero,
+        EntityRef(g.p),
+        damageCountdownFrames,
+      );
       g.run.dealingExtraDamage = false;
       return false;
     }
@@ -75,14 +91,16 @@ entityTakeDmgEntityBabyFunctionMap.set(
     damageSource,
     damageCountdownFrames,
   ) => {
-    // Make the Pony do extra damage
-    if (
-      damageSource.Type === EntityType.ENTITY_PLAYER &&
-      damageSource.Variant === 0
-    ) {
+    // Make the Pony do extra damage.
+    if (damageSource.Type === EntityType.PLAYER && damageSource.Variant === 0) {
       const damage = g.p.Damage * 4;
       g.run.dealingExtraDamage = true;
-      entity.TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames);
+      entity.TakeDamage(
+        damage,
+        DamageFlagZero,
+        EntityRef(g.p),
+        damageCountdownFrames,
+      );
       g.run.dealingExtraDamage = false;
       return false;
     }
@@ -101,16 +119,20 @@ entityTakeDmgEntityBabyFunctionMap.set(
     damageSource,
     damageCountdownFrames,
   ) => {
-    // Make the Spear of Destiny do extra damage
-    // (this does not work if we set effect.CollisionDamage in the PostEffectInit callback;
-    // the damage appears to be hard-coded)
+    // Make the Spear of Destiny do extra damage. (This does not work if we set
+    // effect.CollisionDamage in the PostEffectInit callback; the damage appears to be hard-coded.)
     if (
-      damageSource.Type === EntityType.ENTITY_EFFECT &&
-      damageSource.Variant === EffectVariant.SPEAR_OF_DESTINY
+      damageSource.Type === EntityType.EFFECT &&
+      damageSource.Variant === (EffectVariant.SPEAR_OF_DESTINY as int)
     ) {
       const damage = g.p.Damage * 4;
       g.run.dealingExtraDamage = true;
-      entity.TakeDamage(damage, 0, EntityRef(g.p), damageCountdownFrames);
+      entity.TakeDamage(
+        damage,
+        DamageFlagZero,
+        EntityRef(g.p),
+        damageCountdownFrames,
+      );
       g.run.dealingExtraDamage = false;
       return false;
     }
@@ -130,10 +152,10 @@ entityTakeDmgEntityBabyFunctionMap.set(
     _damageCountdownFrames,
   ) => {
     if (
-      damageSource.Type === EntityType.ENTITY_TEAR &&
+      damageSource.Type === EntityType.TEAR &&
       damageSource.Entity.SubType === 1
     ) {
-      // 5% chance for a black hole to spawn
+      // 5% chance for a black hole to spawn.
       const chance = getRandom(damageSource.Entity.InitSeed);
       if (chance <= 0.05) {
         spawnEffect(
@@ -158,7 +180,7 @@ entityTakeDmgEntityBabyFunctionMap.set(
     }
 
     const data = damageSource.Entity.GetData();
-    if (data.godHeadTear === true) {
+    if (data["godHeadTear"] === true) {
       const damage = g.p.Damage;
       g.run.dealingExtraDamage = true;
       entity.TakeDamage(

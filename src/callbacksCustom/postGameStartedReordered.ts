@@ -1,7 +1,8 @@
+import { CollectibleType, SeedEffect } from "isaac-typescript-definitions";
 import {
   isCharacter,
   log,
-  ModCallbacksCustom,
+  ModCallbackCustom,
   ModUpgraded,
 } from "isaacscript-common";
 import { BABIES } from "../babies";
@@ -11,10 +12,7 @@ import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
 import { giveItemAndRemoveFromPools } from "../utils";
 
 export function init(mod: ModUpgraded): void {
-  mod.AddCallbackCustom(
-    ModCallbacksCustom.MC_POST_GAME_STARTED_REORDERED,
-    main,
-  );
+  mod.AddCallbackCustom(ModCallbackCustom.POST_GAME_STARTED_REORDERED, main);
 }
 
 function main(isContinued: boolean) {
@@ -26,7 +24,7 @@ function main(isContinued: boolean) {
     `MC_POST_GAME_STARTED (Babies Mod) - Seed: ${startSeedString} - IsaacFrame: ${isaacFrameCount}`,
   );
 
-  // Don't do anything if this is not a new run
+  // Don't do anything if this is not a new run.
   if (isContinued) {
     return;
   }
@@ -34,40 +32,39 @@ function main(isContinued: boolean) {
   // Reset variables
   g.run = new GlobalsRun(startSeed);
 
-  // Also reset the list of past babies that have been chosen
+  // Also reset the list of past babies that have been chosen.
   g.pastBabies = [];
 
-  // Easter Eggs from babies are normally removed upon going to the next floor
-  // We also have to check to see if they reset the game while on a baby with a custom Easter Egg
-  // effect
+  // Easter Eggs from babies are normally removed upon going to the next floor. We also have to
+  // check to see if they reset the game while on a baby with a custom Easter Egg effect.
   for (const baby of BABIES) {
     if (baby.seed !== undefined) {
       g.seeds.RemoveSeedEffect(baby.seed);
     }
   }
 
-  // Also remove seeds that are turned on manually in the PostUpdate callback
-  if (g.seeds.HasSeedEffect(SeedEffect.SEED_OLD_TV)) {
-    g.seeds.RemoveSeedEffect(SeedEffect.SEED_OLD_TV);
+  // Also remove seeds that are turned on manually in the PostUpdate callback.
+  if (g.seeds.HasSeedEffect(SeedEffect.OLD_TV)) {
+    g.seeds.RemoveSeedEffect(SeedEffect.OLD_TV);
   }
 
-  // We want to keep track that we started the run as the "Random Baby" character,
-  // in case the player changes their character later through Judas' Shadow, etc.
-  if (isCharacter(g.p, PlayerTypeCustom.PLAYER_RANDOM_BABY)) {
+  // We want to keep track that we started the run as the "Random Baby" character, in case the
+  // player changes their character later through Judas' Shadow, etc.
+  if (isCharacter(g.p, PlayerTypeCustom.RANDOM_BABY)) {
     g.run.startedRunAsRandomBaby = true;
   } else {
+    // Early return if we are on the Random Baby character.
     return;
   }
-  // (only do the following things if we are on the Random Baby character)
 
-  // Random Baby always starts with the Schoolbag
-  giveItemAndRemoveFromPools(CollectibleType.COLLECTIBLE_SCHOOLBAG);
+  // Random Baby always starts with the Schoolbag.
+  giveItemAndRemoveFromPools(CollectibleType.SCHOOLBAG);
 
-  // Remove some items from pools
-  // Guillotine not display properly because Random Baby does not have a head
-  g.itemPool.RemoveCollectible(CollectibleType.COLLECTIBLE_GUILLOTINE); // 206
-  // Scissors will not display properly because Random Baby does not have a head
-  g.itemPool.RemoveCollectible(CollectibleType.COLLECTIBLE_SCISSORS); // 325
-  // Clicker can cause bugs that are too painful to work around
-  g.itemPool.RemoveCollectible(CollectibleType.COLLECTIBLE_CLICKER); // 482
+  // Remove some items from pools Guillotine not display properly because Random Baby does not have
+  // a head.
+  g.itemPool.RemoveCollectible(CollectibleType.GUILLOTINE); // 206
+  // Scissors will not display properly because Random Baby does not have a head.
+  g.itemPool.RemoveCollectible(CollectibleType.SCISSORS); // 325
+  // Clicker can cause bugs that are too painful to work around.
+  g.itemPool.RemoveCollectible(CollectibleType.CLICKER); // 482
 }

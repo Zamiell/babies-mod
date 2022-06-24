@@ -1,4 +1,12 @@
 import {
+  ActiveSlot,
+  CollectibleType,
+  ItemType,
+  LevelCurse,
+  PlayerForm,
+  TrinketType,
+} from "isaac-typescript-definitions";
+import {
   getCollectibleItemType,
   getEffectiveStage,
   hasFlag,
@@ -7,7 +15,6 @@ import {
 import { BABIES } from "./babies";
 import g from "./globals";
 import { BabyDescription } from "./types/BabyDescription";
-import { CollectibleTypeCustom } from "./types/CollectibleTypeCustom";
 
 export function babyCheckValid(player: EntityPlayer, babyType: int): boolean {
   const baby = BABIES[babyType];
@@ -15,12 +22,12 @@ export function babyCheckValid(player: EntityPlayer, babyType: int): boolean {
     error(`Baby ${babyType} was not found.`);
   }
 
-  // Check to see if we already got this baby in this run / multi-character custom challenge
+  // Check to see if we already got this baby in this run / multi-character custom challenge.
   if (g.pastBabies.includes(babyType)) {
     return false;
   }
 
-  // Check for overlapping items
+  // Check for overlapping items.
   if (baby.item !== undefined && player.HasCollectible(baby.item)) {
     return false;
   }
@@ -31,37 +38,37 @@ export function babyCheckValid(player: EntityPlayer, babyType: int): boolean {
     return false;
   }
 
-  // If the player does not have a slot for an active item, do not give them an active item baby
+  // If the player does not have a slot for an active item, do not give them an active item baby.
   if (!checkActiveItem(player, baby)) {
     return false;
   }
 
-  // Check for conflicting health values
+  // Check for conflicting health values.
   if (!checkHealth(player, baby)) {
     return false;
   }
 
-  // Check for inventory restrictions
+  // Check for inventory restrictions.
   if (!checkInventory(player, baby)) {
     return false;
   }
 
-  // Check for conflicting collectibles
+  // Check for conflicting collectibles.
   if (!checkCollectibles(player, baby)) {
     return false;
   }
 
-  // Check for conflicting trinkets
+  // Check for conflicting trinkets.
   if (!checkTrinkets(player, baby)) {
     return false;
   }
 
-  // Check for stage restrictions
+  // Check for stage restrictions.
   if (!checkStage(baby)) {
     return false;
   }
 
-  // Check for curse restrictions
+  // Check for curse restrictions.
   if (!checkCurses(baby)) {
     return false;
   }
@@ -71,25 +78,23 @@ export function babyCheckValid(player: EntityPlayer, babyType: int): boolean {
 
 function checkActiveItem(player: EntityPlayer, baby: BabyDescription) {
   const activeItem = player.GetActiveItem();
-  const secondaryActiveItem = player.GetActiveItem(ActiveSlot.SLOT_SECONDARY);
+  const secondaryActiveItem = player.GetActiveItem(ActiveSlot.SECONDARY);
 
   if (
     baby.item !== undefined &&
-    getCollectibleItemType(baby.item) === ItemType.ITEM_ACTIVE &&
-    activeItem !== 0
+    getCollectibleItemType(baby.item) === ItemType.ACTIVE &&
+    activeItem !== CollectibleType.NULL
   ) {
-    const hasSchoolbag = player.HasCollectible(
-      CollectibleType.COLLECTIBLE_SCHOOLBAG,
-    );
+    const hasSchoolbag = player.HasCollectible(CollectibleType.SCHOOLBAG);
     if (!hasSchoolbag) {
-      // Since the player already has an active item, there is no room for another active item
+      // Since the player already has an active item, there is no room for another active item.
       return false;
     }
 
     const hasItemInSchoolbag =
-      hasSchoolbag && secondaryActiveItem !== CollectibleType.COLLECTIBLE_NULL;
+      hasSchoolbag && secondaryActiveItem !== CollectibleType.NULL;
     if (hasItemInSchoolbag) {
-      // The player has both an active item and an item inside of the Schoolbag
+      // The player has both an active item and an item inside of the Schoolbag.
       return false;
     }
   }
@@ -108,10 +113,7 @@ function checkHealth(player: EntityPlayer, baby: BabyDescription) {
     return false;
   }
 
-  if (
-    babyItemSet.has(CollectibleType.COLLECTIBLE_POTATO_PEELER) &&
-    maxHearts === 0
-  ) {
+  if (babyItemSet.has(CollectibleType.POTATO_PEELER) && maxHearts === 0) {
     return false;
   }
 
@@ -119,7 +121,7 @@ function checkHealth(player: EntityPlayer, baby: BabyDescription) {
     baby.name === "MeatBoy Baby" && // 210
     maxHearts === 0
   ) {
-    // Potato Peeler effect on hit
+    // Potato Peeler effect on hit.
     return false;
   }
 
@@ -150,7 +152,7 @@ function checkInventory(player: EntityPlayer, baby: BabyDescription) {
     return false;
   }
 
-  if (babyItemsSet.has(CollectibleType.COLLECTIBLE_DOLLAR) && coins >= 50) {
+  if (babyItemsSet.has(CollectibleType.DOLLAR) && coins >= 50) {
     return false;
   }
 
@@ -177,148 +179,146 @@ function checkCollectibles(player: EntityPlayer, baby: BabyDescription) {
 
   if (
     (baby.mustHaveTears === true ||
-      babyItemsSet.has(CollectibleType.COLLECTIBLE_SOY_MILK)) &&
-    (player.HasCollectible(CollectibleType.COLLECTIBLE_DR_FETUS) || // 52
-      player.HasCollectible(CollectibleType.COLLECTIBLE_TECHNOLOGY) || // 68
-      player.HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE) || // 114
-      player.HasCollectible(CollectibleType.COLLECTIBLE_BRIMSTONE) || // 118
-      player.HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS) || // 168
-      player.HasCollectible(CollectibleType.COLLECTIBLE_TECH_X)) // 395
+      babyItemsSet.has(CollectibleType.SOY_MILK)) &&
+    (player.HasCollectible(CollectibleType.DR_FETUS) || // 52
+      player.HasCollectible(CollectibleType.TECHNOLOGY) || // 68
+      player.HasCollectible(CollectibleType.MOMS_KNIFE) || // 114
+      player.HasCollectible(CollectibleType.BRIMSTONE) || // 118
+      player.HasCollectible(CollectibleType.EPIC_FETUS) || // 168
+      player.HasCollectible(CollectibleType.TECH_X)) // 395
   ) {
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.COLLECTIBLE_ISAACS_TEARS) && // 323
-    player.HasCollectible(CollectibleType.COLLECTIBLE_IPECAC) // 149
+    babyItemsSet.has(CollectibleType.ISAACS_TEARS) && // 323
+    player.HasCollectible(CollectibleType.IPECAC) // 149
   ) {
     return false;
   }
 
   if (
-    (babyItemsSet.has(CollectibleType.COLLECTIBLE_COMPASS) || // 21
-      babyItemsSet.has(CollectibleType.COLLECTIBLE_TREASURE_MAP) || // 54
-      babyItemsSet.has(CollectibleType.COLLECTIBLE_BLUE_MAP)) && // 246
-    player.HasCollectible(CollectibleType.COLLECTIBLE_MIND) // 333
+    (babyItemsSet.has(CollectibleType.COMPASS) || // 21
+      babyItemsSet.has(CollectibleType.TREASURE_MAP) || // 54
+      babyItemsSet.has(CollectibleType.BLUE_MAP)) && // 246
+    player.HasCollectible(CollectibleType.MIND) // 333
   ) {
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.COLLECTIBLE_TECH_X) && // 395
-    player.HasCollectible(CollectibleType.COLLECTIBLE_DEAD_EYE) // 373
+    babyItemsSet.has(CollectibleType.TECH_X) && // 395
+    player.HasCollectible(CollectibleType.DEAD_EYE) // 373
   ) {
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.COLLECTIBLE_DEAD_EYE) && // 373
-    player.HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) // 395
+    babyItemsSet.has(CollectibleType.DEAD_EYE) && // 373
+    player.HasCollectible(CollectibleType.TECH_X) // 395
   ) {
     return false;
   }
 
   if (
     baby.name === "Belial Baby" && // 51
-    player.HasCollectible(CollectibleType.COLLECTIBLE_MEGA_BLAST)
+    player.HasCollectible(CollectibleType.MEGA_BLAST)
   ) {
     return false;
   }
 
   if (
     baby.name === "Goat Baby" && // 62
-    (player.HasCollectible(CollectibleType.COLLECTIBLE_GOAT_HEAD) || // 215
-      player.HasCollectible(CollectibleType.COLLECTIBLE_DUALITY)) // 498
+    (player.HasCollectible(CollectibleType.GOAT_HEAD) || // 215
+      player.HasCollectible(CollectibleType.DUALITY)) // 498
   ) {
     return false;
   }
 
   if (
     baby.name === "Aether Baby" && // 106
-    player.HasCollectible(CollectibleType.COLLECTIBLE_IPECAC)
+    player.HasCollectible(CollectibleType.IPECAC)
   ) {
     return false;
   }
 
   if (
     baby.name === "Masked Baby" && // 115
-    (player.HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) || // 69
-      player.HasCollectible(CollectibleType.COLLECTIBLE_BRIMSTONE) || // 118
-      player.HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) || // 229
-      player.HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE) || // 316
-      player.HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_THE_VOID)) // 399
+    (player.HasCollectible(CollectibleType.CHOCOLATE_MILK) || // 69
+      player.HasCollectible(CollectibleType.BRIMSTONE) || // 118
+      player.HasCollectible(CollectibleType.MONSTROS_LUNG) || // 229
+      player.HasCollectible(CollectibleType.CURSED_EYE) || // 316
+      player.HasCollectible(CollectibleType.MAW_OF_THE_VOID)) // 399
   ) {
-    // Can't shoot while moving
-    // This messes up with charge items
+    // Can't shoot while moving This messes up with charge items.
     return false;
   }
 
   if (
     baby.name === "Earwig Baby" && // 128
-    (player.HasCollectible(CollectibleType.COLLECTIBLE_COMPASS) || // 21
-      player.HasCollectible(CollectibleType.COLLECTIBLE_TREASURE_MAP) || // 54
-      player.HasCollectible(CollectibleType.COLLECTIBLE_MIND)) // 333
+    (player.HasCollectible(CollectibleType.COMPASS) || // 21
+      player.HasCollectible(CollectibleType.TREASURE_MAP) || // 54
+      player.HasCollectible(CollectibleType.MIND)) // 333
   ) {
-    // 3 rooms are already explored
-    // If the player has mapping, this effect is largely useless
-    // (but having the Blue Map is okay)
+    // 3 rooms are already explored. If the player has mapping, this effect is largely useless (but
+    // having the Blue Map is okay).
     return false;
   }
 
   if (
     baby.name === "Sloppy Baby" && // 146
-    (player.HasCollectible(CollectibleType.COLLECTIBLE_INNER_EYE) || // 2
-      player.HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER) || // 153
-      player.HasCollectible(CollectibleType.COLLECTIBLE_20_20) || // 245
-      player.HasCollectible(CollectibleType.COLLECTIBLE_THE_WIZ) || // 358
-      player.HasPlayerForm(PlayerForm.PLAYERFORM_BABY) || // 7
-      player.HasPlayerForm(PlayerForm.PLAYERFORM_BOOK_WORM)) // 10
+    (player.HasCollectible(CollectibleType.INNER_EYE) || // 2
+      player.HasCollectible(CollectibleType.MUTANT_SPIDER) || // 153
+      player.HasCollectible(CollectibleType.TWENTY_TWENTY) || // 245
+      player.HasCollectible(CollectibleType.THE_WIZ) || // 358
+      player.HasPlayerForm(PlayerForm.CONJOINED) || // 7
+      player.HasPlayerForm(PlayerForm.BOOKWORM)) // 10
   ) {
     return false;
   }
 
   if (
     baby.name === "Bawl Baby" && // 231
-    player.HasCollectible(CollectibleType.COLLECTIBLE_IPECAC)
+    player.HasCollectible(CollectibleType.IPECAC)
   ) {
     return false;
   }
 
   if (
     baby.name === "Tabby Baby" && // 269
-    player.HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE)
+    player.HasCollectible(CollectibleType.MOMS_KNIFE)
   ) {
     return false;
   }
 
   if (
     baby.name === "Red Demon Baby" && // 278
-    (player.HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS) || // 168
-      player.HasCollectible(CollectibleType.COLLECTIBLE_TECH_X)) // 395
+    (player.HasCollectible(CollectibleType.EPIC_FETUS) || // 168
+      player.HasCollectible(CollectibleType.TECH_X)) // 395
   ) {
     return false;
   }
 
   if (
     baby.name === "Fang Demon Baby" && // 281
-    (player.HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE) || // 114
-      player.HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS) || // 168
-      player.HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) || // 229
-      player.HasCollectible(CollectibleType.COLLECTIBLE_TECH_X)) // 395
+    (player.HasCollectible(CollectibleType.MOMS_KNIFE) || // 114
+      player.HasCollectible(CollectibleType.EPIC_FETUS) || // 168
+      player.HasCollectible(CollectibleType.MONSTROS_LUNG) || // 229
+      player.HasCollectible(CollectibleType.TECH_X)) // 395
   ) {
     return false;
   }
 
   if (
     baby.name === "Lantern Baby" && // 292
-    player.HasCollectible(CollectibleType.COLLECTIBLE_TRISAGION)
+    player.HasCollectible(CollectibleType.TRISAGION)
   ) {
     return false;
   }
 
   if (
     baby.name === "Cupcake Baby" && // 321
-    player.HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS)
+    player.HasCollectible(CollectibleType.EPIC_FETUS)
   ) {
     // High shot speed
     return false;
@@ -326,80 +326,78 @@ function checkCollectibles(player: EntityPlayer, baby: BabyDescription) {
 
   if (
     baby.name === "Slicer Baby" && // 331
-    player.HasCollectible(CollectibleType.COLLECTIBLE_IPECAC)
+    player.HasCollectible(CollectibleType.IPECAC)
   ) {
-    // Slice tears
-    // Ipecac causes the tears to explode instantly, which causes unavoidable damage
+    // Slice tears Ipecac causes the tears to explode instantly, which causes unavoidable damage.
     return false;
   }
 
   if (
     baby.name === "Mushroom Girl Baby" && // 361
-    player.HasCollectible(CollectibleType.COLLECTIBLE_DR_FETUS)
+    player.HasCollectible(CollectibleType.DR_FETUS)
   ) {
     return false;
   }
 
   if (
     baby.name === "Blue Ghost Baby" && // 370
-    player.HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE)
+    player.HasCollectible(CollectibleType.MOMS_KNIFE)
   ) {
     return false;
   }
 
   if (
     baby.name === "Yellow Princess Baby" && // 375
-    player.HasCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE)
+    player.HasCollectible(CollectibleType.FLAT_STONE)
   ) {
     return false;
   }
 
   if (
     baby.name === "Dino Baby" && // 376
-    player.HasCollectible(CollectibleType.COLLECTIBLE_BOBS_BRAIN)
+    player.HasCollectible(CollectibleType.BOBS_BRAIN)
   ) {
     return false;
   }
 
   if (
     baby.name === "Orange Pig Baby" && // 381
-    (player.HasCollectible(CollectibleType.COLLECTIBLE_DAMOCLES) ||
-      player.HasCollectible(CollectibleType.COLLECTIBLE_DAMOCLES_PASSIVE))
+    (player.HasCollectible(CollectibleType.DAMOCLES) ||
+      player.HasCollectible(CollectibleType.DAMOCLES_PASSIVE))
   ) {
-    // Double items
-    // Damocles does not work properly with this mechanic
+    // Double items Damocles does not work properly with this mechanic.
     return false;
   }
 
   if (
     baby.name === "Imp Baby" && // 386
-    player.HasCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS)
+    player.HasCollectible(CollectibleType.EPIC_FETUS)
   ) {
-    // Blender + flight + explosion immunity + blindfolded
-    // Epic Fetus overwrites Mom's Knife, which makes the baby not work properly
+    // Blender + flight + explosion immunity + blindfolded. Epic Fetus overwrites Mom's Knife, which
+    // makes the baby not work properly.
     return false;
   }
 
   if (
     baby.name === "Dark Space Soldier Baby" && // 398
-    player.HasCollectible(CollectibleType.COLLECTIBLE_IPECAC)
+    player.HasCollectible(CollectibleType.IPECAC)
   ) {
     return false;
   }
 
   if (
     baby.name === "Blurred Baby" && // 407
-    (player.HasCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE) ||
-      player.HasCollectible(CollectibleType.COLLECTIBLE_INCUBUS))
+    (player.HasCollectible(CollectibleType.FLAT_STONE) ||
+      player.HasCollectible(CollectibleType.INCUBUS))
   ) {
-    // Flat Stone is manually given, so we have to explicitly code a restriction
-    // Incubus will not fire the Ludo tears, ruining the build
+    // Flat Stone is manually given, so we have to explicitly code a restriction. Incubus will not
+    // fire the Ludo tears, ruining the build.
     return false;
   }
 
   if (
     baby.name === "Rojen Whitefox Baby" && // 446
-    player.HasCollectible(CollectibleType.COLLECTIBLE_POLAROID) // 327
+    player.HasCollectible(CollectibleType.POLAROID) // 327
   ) {
     return false;
   }
@@ -407,27 +405,27 @@ function checkCollectibles(player: EntityPlayer, baby: BabyDescription) {
   if (
     (baby.name === "Cursed Pillow Baby" || // 487
       baby.name === "Abel") && // 531
-    (player.HasCollectible(CollectibleType.COLLECTIBLE_INNER_EYE) || // 2
-      player.HasCollectible(CollectibleType.COLLECTIBLE_CUPIDS_ARROW) || // 48
-      player.HasCollectible(CollectibleType.COLLECTIBLE_MOMS_EYE) || // 55
-      player.HasCollectible(CollectibleType.COLLECTIBLE_LOKIS_HORNS) || // 87
-      player.HasCollectible(CollectibleType.COLLECTIBLE_MUTANT_SPIDER) || // 153
-      player.HasCollectible(CollectibleType.COLLECTIBLE_POLYPHEMUS) || // 169
-      player.HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) || // 229
-      player.HasCollectible(CollectibleType.COLLECTIBLE_DEATHS_TOUCH) || // 237
-      player.HasCollectible(CollectibleType.COLLECTIBLE_20_20) || // 245
-      player.HasCollectible(CollectibleType.COLLECTIBLE_SAGITTARIUS) || // 306
-      player.HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE) || // 316
-      player.HasCollectible(CollectibleType.COLLECTIBLE_DEAD_ONION) || // 336
-      player.HasCollectible(CollectibleType.COLLECTIBLE_EYE_OF_BELIAL) || // 462
-      player.HasCollectible(CollectibleType.COLLECTIBLE_LITTLE_HORN) || // 503
-      player.HasCollectible(CollectibleType.COLLECTIBLE_TRISAGION) || // 533
-      player.HasCollectible(CollectibleType.COLLECTIBLE_FLAT_STONE) || // 540
-      player.HasPlayerForm(PlayerForm.PLAYERFORM_BABY) || // 7
-      player.HasPlayerForm(PlayerForm.PLAYERFORM_BOOK_WORM)) // 10
+    (player.HasCollectible(CollectibleType.INNER_EYE) || // 2
+      player.HasCollectible(CollectibleType.CUPIDS_ARROW) || // 48
+      player.HasCollectible(CollectibleType.MOMS_EYE) || // 55
+      player.HasCollectible(CollectibleType.LOKIS_HORNS) || // 87
+      player.HasCollectible(CollectibleType.MUTANT_SPIDER) || // 153
+      player.HasCollectible(CollectibleType.POLYPHEMUS) || // 169
+      player.HasCollectible(CollectibleType.MONSTROS_LUNG) || // 229
+      player.HasCollectible(CollectibleType.DEATHS_TOUCH) || // 237
+      player.HasCollectible(CollectibleType.TWENTY_TWENTY) || // 245
+      player.HasCollectible(CollectibleType.SAGITTARIUS) || // 306
+      player.HasCollectible(CollectibleType.CURSED_EYE) || // 316
+      player.HasCollectible(CollectibleType.DEAD_ONION) || // 336
+      player.HasCollectible(CollectibleType.EYE_OF_BELIAL) || // 462
+      player.HasCollectible(CollectibleType.LITTLE_HORN) || // 503
+      player.HasCollectible(CollectibleType.TRISAGION) || // 533
+      player.HasCollectible(CollectibleType.FLAT_STONE) || // 540
+      player.HasPlayerForm(PlayerForm.CONJOINED) || // 7
+      player.HasPlayerForm(PlayerForm.BOOKWORM)) // 10
   ) {
-    // Missed tears cause damage and missed tears cause paralysis
-    // Piercing, multiple shots, and Flat Stone causes this to mess up
+    // Missed tears cause damage and missed tears cause paralysis. Piercing, multiple shots, and
+    // Flat Stone causes this to mess up.
     return false;
   }
 
@@ -437,7 +435,7 @@ function checkCollectibles(player: EntityPlayer, baby: BabyDescription) {
 function checkTrinkets(player: EntityPlayer, baby: BabyDescription) {
   if (
     baby.name === "Spike Baby" && // 166
-    player.HasTrinket(TrinketType.TRINKET_LEFT_HAND) // 61
+    player.HasTrinket(TrinketType.LEFT_HAND) // 61
   ) {
     return false;
   }
@@ -453,80 +451,67 @@ function checkStage(baby: BabyDescription) {
     return false;
   }
 
-  if (
-    babyItemsSet.has(CollectibleType.COLLECTIBLE_STEAM_SALE) &&
-    effectiveStage >= 7
-  ) {
-    // Only valid for floors with shops
+  if (babyItemsSet.has(CollectibleType.STEAM_SALE) && effectiveStage >= 7) {
+    // Only valid for floors with shops.
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.COLLECTIBLE_WE_NEED_TO_GO_DEEPER) &&
+    babyItemsSet.has(CollectibleType.WE_NEED_TO_GO_DEEPER) &&
     (effectiveStage <= 2 || effectiveStage >= 8)
   ) {
-    // Only valid for floors that the shovel will work on
+    // Only valid for floors that the shovel will work on.
+    return false;
+  }
+
+  if (babyItemsSet.has(CollectibleType.SCAPULAR) && effectiveStage >= 7) {
+    return false;
+  }
+
+  if (babyItemsSet.has(CollectibleType.CRYSTAL_BALL) && effectiveStage <= 2) {
+    return false;
+  }
+
+  if (babyItemsSet.has(CollectibleType.UNDEFINED) && effectiveStage <= 2) {
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.COLLECTIBLE_SCAPULAR) &&
-    effectiveStage >= 7
-  ) {
-    return false;
-  }
-
-  if (
-    babyItemsSet.has(CollectibleType.COLLECTIBLE_CRYSTAL_BALL) &&
-    effectiveStage <= 2
-  ) {
-    return false;
-  }
-
-  if (
-    babyItemsSet.has(CollectibleType.COLLECTIBLE_UNDEFINED) &&
-    effectiveStage <= 2
-  ) {
-    return false;
-  }
-
-  if (
-    (babyItemsSet.has(CollectibleType.COLLECTIBLE_GOAT_HEAD) || // 215
-      babyItemsSet.has(CollectibleType.COLLECTIBLE_DUALITY) || // 498
-      babyItemsSet.has(CollectibleType.COLLECTIBLE_EUCHARIST)) && // 499
+    (babyItemsSet.has(CollectibleType.GOAT_HEAD) || // 215
+      babyItemsSet.has(CollectibleType.DUALITY) || // 498
+      babyItemsSet.has(CollectibleType.EUCHARIST)) && // 499
     (effectiveStage === 1 || effectiveStage >= 9)
   ) {
-    // Only valid for floors with Devil Rooms
+    // Only valid for floors with Devil Rooms.
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.COLLECTIBLE_THERES_OPTIONS) && // 249
+    babyItemsSet.has(CollectibleType.THERES_OPTIONS) && // 249
     (effectiveStage === 6 || effectiveStage >= 8)
   ) {
-    // There won't be a boss item on floor 6 or floor 8 and beyond
+    // There won't be a boss item on floor 6 or floor 8 and beyond.
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.COLLECTIBLE_MORE_OPTIONS) && // 414
+    babyItemsSet.has(CollectibleType.MORE_OPTIONS) && // 414
     (effectiveStage === 1 || effectiveStage >= 7)
   ) {
-    // We always have More Options on Basement 1
-    // There are no Treasure Rooms on floors 7 and beyond
+    // We always have More Options on Basement 1 There are no Treasure Rooms on floors 7 and beyond.
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.COLLECTIBLE_VANISHING_TWIN) && // 697
+    babyItemsSet.has(CollectibleType.VANISHING_TWIN) && // 697
     (effectiveStage === 6 || effectiveStage >= 8)
   ) {
-    // Some floors have bosses that cannot be doubled
+    // Some floors have bosses that cannot be doubled.
     return false;
   }
 
-  if (baby.trinket === TrinketType.TRINKET_DEVILS_CROWN && effectiveStage > 6) {
-    // Devil's Crown doesn't do anything on floors that do not have Treasure Rooms
+  if (baby.trinket === TrinketType.DEVILS_CROWN && effectiveStage > 6) {
+    // Devil's Crown doesn't do anything on floors that do not have Treasure Rooms.
     return false;
   }
 
@@ -534,10 +519,9 @@ function checkStage(baby: BabyDescription) {
     baby.name === "Shadow Baby" && // 13
     (effectiveStage === 1 || effectiveStage >= 8)
   ) {
-    // Devil Rooms / Angel Rooms go to the Black Market instead
-    // Only valid for floors with Devil Rooms
-    // Not valid for floor 8 just in case the Black Market does not have a beam of light to the
-    // Cathedral
+    // Devil Rooms / Angel Rooms go to the Black Market instead. Only valid for floors with Devil
+    // Rooms. Not valid for floor 8 just in case the Black Market does not have a beam of light to
+    // the Cathedral.
     return false;
   }
 
@@ -545,7 +529,7 @@ function checkStage(baby: BabyDescription) {
     baby.name === "-0- Baby" && // 24
     effectiveStage === 5
   ) {
-    // -0- Baby cannot open the door to Mausoleum (since it requires health to be sacrificed)
+    // -0- Baby cannot open the door to Mausoleum (since it requires health to be sacrificed).
     return false;
   }
 
@@ -553,8 +537,8 @@ function checkStage(baby: BabyDescription) {
     baby.name === "Goat Baby" && // 62
     (effectiveStage <= 2 || effectiveStage >= 9)
   ) {
-    // Only valid for floors with Devil Rooms
-    // Also, we are guaranteed a Devil Room on Basement 2, so we don't want to have it there either
+    // Only valid for floors with Devil Rooms. Also, we are guaranteed a Devil Room on Basement 2,
+    // so we don't want to have it there either.
     return false;
   }
 
@@ -562,7 +546,7 @@ function checkStage(baby: BabyDescription) {
     baby.name === "Bomb Baby" && // 75
     effectiveStage === 10
   ) {
-    // 50% chance for bombs to have the D6 effect
+    // 50% chance for bombs to have the D6 effect.
     return false;
   }
 
@@ -570,8 +554,7 @@ function checkStage(baby: BabyDescription) {
     baby.name === "Nosferatu Baby" && // 109
     effectiveStage >= 8
   ) {
-    // Enemies have homing projectiles
-    // This makes end-game floors too difficult
+    // Enemies have homing projectiles This makes end-game floors too difficult.
     return false;
   }
 
@@ -579,8 +562,7 @@ function checkStage(baby: BabyDescription) {
     baby.name === "Pubic Baby" && // 110
     effectiveStage === 11
   ) {
-    // Must full clear
-    // Full clearing The Chest is too punishing
+    // Must full clear Full clearing The Chest is too punishing.
     return false;
   }
 
@@ -588,8 +570,8 @@ function checkStage(baby: BabyDescription) {
     baby.name === "Earwig Baby" && // 128
     effectiveStage === 1
   ) {
-    // 3 rooms are already explored
-    // This can make resetting slower, so don't have this baby on Basement 1
+    // 3 rooms are already explored. This can make resetting slower, so don't have this baby on
+    // Basement 1.
     return false;
   }
 
@@ -597,8 +579,7 @@ function checkStage(baby: BabyDescription) {
     baby.name === "Tears Baby" && // 136
     effectiveStage === 2
   ) {
-    // Starts with the Soul Jar
-    // Getting this on Basement 2 would cause a missed devil deal
+    // Starts with the Soul Jar. Getting this on Basement 2 would cause a missed devil deal.
     return false;
   }
 
@@ -606,7 +587,7 @@ function checkStage(baby: BabyDescription) {
     baby.name === "Twin Baby" && // 141
     effectiveStage === 8
   ) {
-    // If they mess up and go past the Boss Room, they can get the wrong path
+    // If they mess up and go past the Boss Room, they can get the wrong path.
     return false;
   }
 
@@ -614,8 +595,7 @@ function checkStage(baby: BabyDescription) {
     baby.name === "Chompers Baby" && // 143
     effectiveStage === 11
   ) {
-    // Everything is Red Poop
-    // There are almost no grid entities on The Chest
+    // Everything is Red Poop. There are almost no grid entities on The Chest.
     return false;
   }
 
@@ -623,8 +603,7 @@ function checkStage(baby: BabyDescription) {
     baby.name === "Ate Poop Baby" && // 173
     effectiveStage === 11
   ) {
-    // Destroying poops spawns random pickups
-    // There are hardly any poops on The Chest
+    // Destroying poops spawns random pickups. There are hardly any poops on The Chest.
     return false;
   }
 
@@ -640,8 +619,7 @@ function checkStage(baby: BabyDescription) {
     baby.name === "Gem Baby" && // 237
     effectiveStage >= 7
   ) {
-    // Pennies spawn as nickels
-    // Money is useless past Depths 2
+    // Pennies spawn as nickels. Money is useless past Depths 2.
     return false;
   }
 
@@ -649,7 +627,7 @@ function checkStage(baby: BabyDescription) {
     baby.name === "Puzzle Baby" && // 315
     effectiveStage === 10
   ) {
-    // The D6 effect on hit
+    // The D6 effect on hit.
     return false;
   }
 
@@ -657,8 +635,8 @@ function checkStage(baby: BabyDescription) {
     baby.name === "Scary Baby" && // 317
     effectiveStage === 6
   ) {
-    // Items cost hearts
-    // The player may not be able to take The Polaroid (when playing a normal run)
+    // Items cost hearts. The player may not be able to take The Polaroid (when playing a normal
+    // run).
     return false;
   }
 
@@ -666,8 +644,7 @@ function checkStage(baby: BabyDescription) {
     baby.name === "Red Wrestler Baby" && // 389
     effectiveStage === 11
   ) {
-    // Everything is TNT
-    // There are almost no grid entities on The Chest / Dark Room
+    // Everything is TNT. There are almost no grid entities on The Chest / Dark Room.
     return false;
   }
 
@@ -675,8 +652,7 @@ function checkStage(baby: BabyDescription) {
     baby.name === "Rich Baby" && // 424
     effectiveStage >= 7
   ) {
-    // Starts with 99 cents
-    // Money is useless past Depths
+    // Starts with 99 cents. Money is useless past Depths.
     return false;
   }
 
@@ -684,12 +660,12 @@ function checkStage(baby: BabyDescription) {
     baby.name === "Folder Baby" && // 430
     (effectiveStage === 1 || effectiveStage === 10)
   ) {
-    // Swaps item/shop pools + devil/angel pools
+    // Swaps item/shop pools + devil/angel pools.
     return false;
   }
 
   if (baby.name === "Breadmeat Hoodiebread Baby" && effectiveStage >= 8) {
-    // Everything is sped up
+    // Everything is sped up.
     return false;
   }
 
@@ -697,10 +673,9 @@ function checkStage(baby: BabyDescription) {
     baby.name === "Hooligan Baby" && // 514
     (effectiveStage === 6 || effectiveStage >= 8)
   ) {
-    // Double enemies
-    // Mom cannot be doubled, so don't give this baby on stage 6
-    // It Lives! cannot be doubled, so don't give this baby on stage 8
-    // Furthermore, double enemies would be too hard on the final stages
+    // Double enemies. Mom cannot be doubled, so don't give this baby on stage 6. It Lives cannot be
+    // doubled, so don't give this baby on stage 8. Furthermore, double enemies would be too hard on
+    // the final stages.
     return false;
   }
 
@@ -715,9 +690,8 @@ function checkStage(baby: BabyDescription) {
     baby.name === "Eyebat Baby" && // 535
     (effectiveStage === 6 || effectiveStage >= 8 || onRepentanceStage())
   ) {
-    // Floors are reversed
-    // We don't want to have this on any end floors so that we can simply the logic and always spawn
-    // a trapdoor
+    // Floors are reversed. We don't want to have this on any end floors so that we can simply the
+    // logic and always spawn a trapdoor.
     return false;
   }
 
@@ -725,7 +699,7 @@ function checkStage(baby: BabyDescription) {
     baby.name === "Demon Baby" && // 564
     (effectiveStage === 1 || effectiveStage >= 9)
   ) {
-    // Only valid for floors with Devil Rooms
+    // Only valid for floors with Devil Rooms.
     return false;
   }
 
@@ -733,8 +707,7 @@ function checkStage(baby: BabyDescription) {
     baby.name === "Ghost Baby" && // 565
     effectiveStage === 2
   ) {
-    // All items from the Shop pool
-    // On stage 2, they will miss a Devil Deal, which is not fair
+    // All items from the shop pool. On stage 2, they will miss a Devil Deal, which is not fair.
     return false;
   }
 
@@ -742,11 +715,9 @@ function checkStage(baby: BabyDescription) {
     baby.name === "Fate's Reward" && // 574
     (effectiveStage <= 2 || effectiveStage === 6 || effectiveStage >= 10)
   ) {
-    // Items cost money
-    // On stage 1, the player does not have 15 cents
-    // On stage 2, they will miss a Devil Deal, which is not fair
-    // On stage 6, they might not be able to buy the Polaroid (when playing on a normal run)
-    // On stage 10 and 11, there are no items
+    // Items cost money. On stage 1, the player does not have 15 cents. On stage 2, they will miss a
+    // Devil Deal, which is not fair. On stage 6, they might not be able to buy the Polaroid (when
+    // playing on a normal run). On stage 10 and 11, there are no items.
     return false;
   }
 
@@ -758,9 +729,9 @@ function checkCurses(baby: BabyDescription) {
 
   if (
     baby.name === "Eyebat Baby" && // 535
-    hasFlag(curses, LevelCurse.CURSE_OF_LABYRINTH)
+    hasFlag(curses, LevelCurse.LABYRINTH)
   ) {
-    // Floors are reversed
+    // Floors are reversed.
     return false;
   }
 
@@ -768,7 +739,7 @@ function checkCurses(baby: BabyDescription) {
 }
 
 function getBabyItemsSet(baby: BabyDescription) {
-  const babyItemsSet = new Set<CollectibleType | CollectibleTypeCustom>();
+  const babyItemsSet = new Set<CollectibleType>();
   if (baby.item !== undefined) {
     babyItemsSet.add(baby.item);
   }

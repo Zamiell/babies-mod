@@ -1,25 +1,27 @@
+import {
+  CollectibleType,
+  ItemType,
+  TrinketType,
+} from "isaac-typescript-definitions";
 import { getCollectibleItemType, log } from "isaacscript-common";
 import { BABIES } from "./babies";
-import { CollectibleTypeCustom } from "./types/CollectibleTypeCustom";
 
-const VALID_DUPLICATE_ITEMS: ReadonlySet<
-  CollectibleType | CollectibleTypeCustom
-> = new Set([
-  CollectibleType.COLLECTIBLE_POOP, // 36
-  CollectibleType.COLLECTIBLE_MOMS_KNIFE, // 114
-  CollectibleType.COLLECTIBLE_BRIMSTONE, // 118
-  CollectibleType.COLLECTIBLE_PONY, // 130
-  CollectibleType.COLLECTIBLE_CANDLE, // 164
-  CollectibleType.COLLECTIBLE_EPIC_FETUS, // 168
-  CollectibleType.COLLECTIBLE_SACRIFICIAL_DAGGER, // 172
-  CollectibleType.COLLECTIBLE_ABEL, // 188
-  CollectibleType.COLLECTIBLE_SAD_BOMBS, // 220
-  CollectibleType.COLLECTIBLE_FIRE_MIND, // 257
-  CollectibleType.COLLECTIBLE_HOW_TO_JUMP, // 282
-  CollectibleType.COLLECTIBLE_HOLY_MANTLE, // 313
-  CollectibleType.COLLECTIBLE_THE_WIZ, // 358
-  CollectibleType.COLLECTIBLE_INCUBUS, // 360
-  CollectibleType.COLLECTIBLE_MARKED, // 394
+const VALID_DUPLICATE_ITEMS: ReadonlySet<CollectibleType> = new Set([
+  CollectibleType.POOP, // 36
+  CollectibleType.MOMS_KNIFE, // 114
+  CollectibleType.BRIMSTONE, // 118
+  CollectibleType.PONY, // 130
+  CollectibleType.CANDLE, // 164
+  CollectibleType.EPIC_FETUS, // 168
+  CollectibleType.SACRIFICIAL_DAGGER, // 172
+  CollectibleType.ABEL, // 188
+  CollectibleType.SAD_BOMBS, // 220
+  CollectibleType.FIRE_MIND, // 257
+  CollectibleType.HOW_TO_JUMP, // 282
+  CollectibleType.HOLY_MANTLE, // 313
+  CollectibleType.THE_WIZ, // 358
+  CollectibleType.INCUBUS, // 360
+  CollectibleType.MARKED, // 394
 ]);
 
 export function babiesCheckValid(): void {
@@ -42,7 +44,7 @@ function babiesCheckValidDuplicateName() {
 
 function babiesCheckValidDuplicateItem() {
   BABIES.forEach((baby, i) => {
-    // Babies with 1 item
+    // Babies with 1 item.
     if (baby.item !== undefined && baby.item2 === undefined) {
       BABIES.forEach((baby2, j) => {
         if (i === j) {
@@ -60,7 +62,7 @@ function babiesCheckValidDuplicateItem() {
       });
     }
 
-    // Babies with 2 items
+    // Babies with 2 items.
     if (baby.item !== undefined && baby.item2 !== undefined) {
       BABIES.forEach((baby2, j) => {
         if (i === j) {
@@ -82,14 +84,14 @@ function babiesCheckValidDuplicateItem() {
 
     if (
       baby.item2 !== undefined &&
-      getCollectibleItemType(baby.item2) === ItemType.ITEM_ACTIVE
+      getCollectibleItemType(baby.item2) === ItemType.ACTIVE
     ) {
       log(`ERROR: Baby #${i} has an active item in the second slot.`);
     }
 
     if (
       baby.item3 !== undefined &&
-      getCollectibleItemType(baby.item3) === ItemType.ITEM_ACTIVE
+      getCollectibleItemType(baby.item3) === ItemType.ACTIVE
     ) {
       log(`ERROR: Baby #${i} has an active item in the third slot.`);
     }

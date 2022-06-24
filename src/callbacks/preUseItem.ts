@@ -1,40 +1,52 @@
+import {
+  ActiveSlot,
+  CollectibleAnimation,
+  CollectibleType,
+  GridEntityType,
+  ModCallback,
+  PillColor,
+  PillEffect,
+  PlayerItemAnimation,
+  PoopGridEntityVariant,
+  SoundEffect,
+} from "isaac-typescript-definitions";
 import { repeat, sfxManager } from "isaacscript-common";
 import g from "../globals";
 import { getCurrentBaby } from "../utils";
 
 export function init(mod: Mod): void {
   mod.AddCallback(
-    ModCallbacks.MC_PRE_USE_ITEM,
+    ModCallback.PRE_USE_ITEM,
     poop,
-    CollectibleType.COLLECTIBLE_POOP, // 36
+    CollectibleType.POOP, // 36
   );
 
   mod.AddCallback(
-    ModCallbacks.MC_PRE_USE_ITEM,
+    ModCallback.PRE_USE_ITEM,
     lemonMishap,
-    CollectibleType.COLLECTIBLE_LEMON_MISHAP, // 56
+    CollectibleType.LEMON_MISHAP, // 56
   );
 
   mod.AddCallback(
-    ModCallbacks.MC_PRE_USE_ITEM,
+    ModCallback.PRE_USE_ITEM,
     isaacsTears,
-    CollectibleType.COLLECTIBLE_ISAACS_TEARS, // 323
+    CollectibleType.ISAACS_TEARS, // 323
   );
 
   mod.AddCallback(
-    ModCallbacks.MC_PRE_USE_ITEM,
+    ModCallback.PRE_USE_ITEM,
     brownNugget,
-    CollectibleType.COLLECTIBLE_BROWN_NUGGET, // 504
+    CollectibleType.BROWN_NUGGET, // 504
   );
 
   mod.AddCallback(
-    ModCallbacks.MC_PRE_USE_ITEM,
+    ModCallback.PRE_USE_ITEM,
     sacrificialAltar,
-    CollectibleType.COLLECTIBLE_SACRIFICIAL_ALTAR, // 536
+    CollectibleType.SACRIFICIAL_ALTAR, // 536
   );
 }
 
-// CollectibleType.COLLECTIBLE_POOP (36)
+// CollectibleType.POOP (36)
 function poop() {
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
@@ -46,20 +58,20 @@ function poop() {
     return undefined;
   }
 
-  // Spawn White Poop next to the player
+  // Spawn White Poop next to the player.
   Isaac.GridSpawn(
-    GridEntityType.GRID_POOP,
+    GridEntityType.POOP,
     PoopGridEntityVariant.WHITE,
     g.p.Position,
   );
 
-  sfxManager.Play(SoundEffect.SOUND_FART);
+  sfxManager.Play(SoundEffect.FART);
 
-  // Cancel the original effect
+  // Cancel the original effect.
   return true;
 }
 
-// CollectibleType.COLLECTIBLE_LEMON_MISHAP (56)
+// CollectibleType.LEMON_MISHAP (56)
 function lemonMishap() {
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
@@ -71,18 +83,18 @@ function lemonMishap() {
     return undefined;
   }
 
-  g.p.UsePill(PillEffect.PILLEFFECT_LEMON_PARTY, PillColor.PILL_NULL);
+  g.p.UsePill(PillEffect.LEMON_PARTY, PillColor.NULL);
   g.p.AnimateCollectible(
-    CollectibleType.COLLECTIBLE_LEMON_MISHAP,
+    CollectibleType.LEMON_MISHAP,
     PlayerItemAnimation.USE_ITEM,
     CollectibleAnimation.PLAYER_PICKUP,
   );
 
-  // Cancel the original effect
+  // Cancel the original effect.
   return true;
 }
 
-// CollectibleType.COLLECTIBLE_ISAACS_TEARS (323)
+// CollectibleType.ISAACS_TEARS (323)
 function isaacsTears() {
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
@@ -101,25 +113,25 @@ function isaacsTears() {
     const velocity = baseVelocity.Rotated(45 * (i + 1));
     const tear = g.p.FireTear(g.p.Position, velocity, false, false, false);
 
-    // Increase the damage and make it look more impressive
+    // Increase the damage and make it look more impressive.
     tear.CollisionDamage = g.p.Damage * 2;
     tear.Scale = 2;
     tear.KnockbackMultiplier = 20;
   });
 
-  // When we return from the function below, no animation will play,
-  // so we have to explicitly perform one
+  // When we return from the function below, no animation will play, so we have to explicitly
+  // perform one.
   g.p.AnimateCollectible(
-    CollectibleType.COLLECTIBLE_ISAACS_TEARS,
+    CollectibleType.ISAACS_TEARS,
     PlayerItemAnimation.USE_ITEM,
     CollectibleAnimation.PLAYER_PICKUP,
   );
 
-  // Cancel the original effect
+  // Cancel the original effect.
   return true;
 }
 
-// CollectibleType.COLLECTIBLE_BROWN_NUGGET (504)
+// CollectibleType.BROWN_NUGGET (504)
 function brownNugget() {
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby, valid] = getCurrentBaby();
@@ -135,7 +147,7 @@ function brownNugget() {
     error(`The "delay" attribute was not defined for: ${baby.name}`);
   }
 
-  // Mark to spawn more of them on subsequent frames
+  // Mark to spawn more of them on subsequent frames.
   if (g.run.babyCounters === 0) {
     g.run.babyCounters = 1;
     g.run.babyFrame = gameFrameCount + baby.delay;
@@ -144,7 +156,7 @@ function brownNugget() {
   return undefined;
 }
 
-// CollectibleType.COLLECTIBLE_SACRIFICIAL_ALTAR (536)
+// CollectibleType.SACRIFICIAL_ALTAR (536)
 function sacrificialAltar(
   _collectibleType: number,
   _rng: RNG,
@@ -163,7 +175,7 @@ function sacrificialAltar(
   }
 
   // Prevent using Sacrificial Altar on this baby so that they don't delete the Incubus and become
-  // softlocked
+  // softlocked.
   player.AnimateSad();
   return true;
 }

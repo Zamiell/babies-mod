@@ -1,9 +1,10 @@
+import { ItemPoolType, ModCallback } from "isaac-typescript-definitions";
 import g from "../globals";
 import { getCurrentBaby } from "../utils";
 import { preGetCollectibleBabyFunctionMap } from "./preGetCollectibleBabyFunctionMap";
 
 export function init(mod: Mod): void {
-  mod.AddCallback(ModCallbacks.MC_PRE_GET_COLLECTIBLE, main);
+  mod.AddCallback(ModCallback.PRE_GET_COLLECTIBLE, main);
 }
 
 function main(

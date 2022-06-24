@@ -1,5 +1,6 @@
+import { CollectibleType } from "isaac-typescript-definitions";
 import {
-  ModCallbacksCustom,
+  ModCallbackCustom,
   ModUpgraded,
   spawnCollectible,
 } from "isaacscript-common";
@@ -7,7 +8,7 @@ import g from "../globals";
 import { getCurrentBaby } from "../utils";
 
 export function init(mod: ModUpgraded): void {
-  mod.AddCallbackCustom(ModCallbacksCustom.MC_POST_SLOT_DESTROYED, main);
+  mod.AddCallbackCustom(ModCallbackCustom.POST_SLOT_DESTROYED, main);
 }
 
 function main(slot: Entity) {
@@ -21,6 +22,6 @@ function main(slot: Entity) {
     return;
   }
 
-  // Broken machines drop pedestal items
-  spawnCollectible(CollectibleType.COLLECTIBLE_NULL, slot.Position, g.run.rng);
+  // Broken machines drop pedestal items.
+  spawnCollectible(CollectibleType.NULL, slot.Position, g.run.rng);
 }

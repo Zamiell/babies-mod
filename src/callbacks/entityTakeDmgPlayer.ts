@@ -1,3 +1,4 @@
+import { DamageFlag } from "isaac-typescript-definitions";
 import { hasFlag } from "isaacscript-common";
 import g from "../globals";
 import { getCurrentBaby } from "../utils";
@@ -6,7 +7,7 @@ import { entityTakeDmgPlayerBabyFunctionMap } from "./entityTakeDmgPlayerBabyFun
 export function main(
   player: EntityPlayer,
   damageAmount: float,
-  damageFlags: int,
+  damageFlags: BitFlags<DamageFlag>,
   damageSource: EntityRef,
   damageCountdownFrames: int,
 ): boolean | void {
@@ -20,7 +21,7 @@ export function main(
     return undefined;
   }
 
-  // Check to see if the player is supposed to be temporarily invulnerable
+  // Check to see if the player is supposed to be temporarily invulnerable.
   if (g.run.invulnerable) {
     return false;
   }
@@ -31,10 +32,10 @@ export function main(
     return false;
   }
 
-  // Check to see if this baby is immune to explosive damage
+  // Check to see if this baby is immune to explosive damage.
   if (
     baby.explosionImmunity === true &&
-    hasFlag(damageFlags, DamageFlag.DAMAGE_EXPLOSION)
+    hasFlag(damageFlags, DamageFlag.EXPLOSION)
   ) {
     return false;
   }

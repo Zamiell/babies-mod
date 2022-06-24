@@ -1,4 +1,9 @@
 import {
+  CollectibleType,
+  GridEntityType,
+  PoopGridEntityVariant,
+} from "isaac-typescript-definitions";
+import {
   DISTANCE_OF_GRID_TILE,
   isGridEntityBreakableByExplosion,
   isGridEntityBroken,
@@ -15,13 +20,13 @@ export const postGridEntityUpdateBabyFunctionMap = new Map<
 
 // Gold Baby
 postGridEntityUpdateBabyFunctionMap.set(15, (gridEntity: GridEntity) => {
-  // Gold gear + gold poops + gold rooms
+  // Gold gear + gold poops + gold rooms.
   const gridEntityType = gridEntity.GetType();
   const gridEntityVariant = gridEntity.GetVariant();
 
   if (
-    gridEntityType === GridEntityType.GRID_POOP &&
-    gridEntityVariant !== PoopGridEntityVariant.GOLDEN
+    gridEntityType === GridEntityType.POOP &&
+    gridEntityVariant !== (PoopGridEntityVariant.GOLDEN as int)
   ) {
     gridEntity.SetVariant(PoopGridEntityVariant.GOLDEN);
   }
@@ -29,15 +34,15 @@ postGridEntityUpdateBabyFunctionMap.set(15, (gridEntity: GridEntity) => {
 
 // Exploding Baby
 postGridEntityUpdateBabyFunctionMap.set(320, (gridEntity: GridEntity) => {
-  // Kamikaze! effect upon touching an breakable obstacle
+  // Kamikaze effect upon touching an breakable obstacle.
 
-  // For this baby, we store the Kamikaze cooldown in the "babyFrame" variable
-  // Do nothing if the Kamikaze effect is on cooldown
+  // For this baby, we store the Kamikaze cooldown in the "babyFrame" variable. Do nothing if the
+  // Kamikaze effect is on cooldown.
   if (g.run.babyFrame !== 0) {
     return;
   }
 
-  // Only trigger Kamikaze for grid entities that we are close enough to
+  // Only trigger Kamikaze for grid entities that we are close enough to.
   if (
     g.p.Position.Distance(gridEntity.Position) > KAMIKAZE_DISTANCE_THRESHOLD
   ) {
@@ -55,7 +60,7 @@ postGridEntityUpdateBabyFunctionMap.set(320, (gridEntity: GridEntity) => {
   const gameFrameCount = g.g.GetFrameCount();
 
   g.run.invulnerable = true;
-  useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_KAMIKAZE);
+  useActiveItemTemp(g.p, CollectibleType.KAMIKAZE);
   g.run.invulnerable = false;
   g.run.babyFrame = gameFrameCount + 10;
 });

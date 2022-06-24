@@ -1,4 +1,11 @@
 import {
+  Card,
+  CollectibleType,
+  LevelStage,
+  PickupVariant,
+  RoomType,
+} from "isaac-typescript-definitions";
+import {
   getCollectibleDevilHeartPrice,
   inStartingRoom,
   setEntityRandomColor,
@@ -21,9 +28,9 @@ postPickupInitBabyFunctionMap.set(36, (pickup: EntityPickup) => {
 postPickupInitBabyFunctionMap.set(37, (pickup: EntityPickup) => {
   const stage = g.l.GetStage();
 
-  // Make an exception for the 4 Golden Chests,
-  // as those will be made giant before the babies effect is removed
-  if (stage === 11 && inStartingRoom()) {
+  // Make an exception for the 4 Golden Chests, as those will be made giant before the babies effect
+  // is removed.
+  if (stage === LevelStage.DARK_ROOM_CHEST && inStartingRoom()) {
     return;
   }
 
@@ -38,12 +45,12 @@ postPickupInitBabyFunctionMap.set(42, (pickup: EntityPickup) => {
 
 // Shopkeeper Baby
 postPickupInitBabyFunctionMap.set(215, (pickup: EntityPickup) => {
-  // Free items in shops
-  if (pickup.Variant === PickupVariant.PICKUP_COLLECTIBLE) {
+  // Free items in shops.
+  if (pickup.Variant === PickupVariant.COLLECTIBLE) {
     const roomType = g.r.GetType();
     if (
-      roomType === RoomType.ROOM_SHOP || // 2
-      roomType === RoomType.ROOM_ERROR // 3
+      roomType === RoomType.SHOP || // 2
+      roomType === RoomType.ERROR // 3
     ) {
       pickup.Price = 0;
     }
@@ -52,32 +59,33 @@ postPickupInitBabyFunctionMap.set(215, (pickup: EntityPickup) => {
 
 // Wizard Baby
 postPickupInitBabyFunctionMap.set(253, (pickup: EntityPickup) => {
-  // Make all cards and runes face-up
-  if (pickup.Variant !== PickupVariant.PICKUP_TAROTCARD) {
+  // Make all cards and runes face-up.
+  if (pickup.Variant !== PickupVariant.TAROT_CARD) {
     return;
   }
 
+  const card = pickup as EntityPickupCard;
+
   if (
-    (pickup.SubType >= Card.CARD_FOOL && // 1
-      pickup.SubType <= Card.RUNE_ALGIZ) || // 39
-    // Blank Rune (40) and Black Rune (41) are handled in Racing+
-    pickup.SubType === Card.CARD_CHAOS || // 42
-    // Credit Card (43) has a unique card back in vanilla
-    pickup.SubType === Card.CARD_RULES || // 44
-    // A Card Against Humanity (45) has a unique card back in vanilla
-    pickup.SubType === Card.CARD_SUICIDE_KING || // 46
-    pickup.SubType === Card.CARD_GET_OUT_OF_JAIL || // 47
-    // (Get out of Jail Free Card has a unique card back in vanilla, but this one looks better)
-    pickup.SubType === Card.CARD_QUESTIONMARK || // 48
-    // Dice Shard (49) has a unique card back in vanilla
-    // Emergency Contact (50) has a unique card back in vanilla
-    // Holy Card (51) has a unique card back in vanilla
-    (pickup.SubType >= Card.CARD_HUGE_GROWTH && // 52
-      pickup.SubType <= Card.CARD_ERA_WALK) || // 54
-    (pickup.SubType >= Card.CARD_REVERSE_FOOL && // 56
-      pickup.SubType <= Card.CARD_REVERSE_WORLD) || // 77
-    pickup.SubType === Card.CARD_QUEEN_OF_HEARTS || // 79
-    pickup.SubType === Card.CARD_WILD // 80
+    (card.SubType >= Card.FOOL && // 1
+      card.SubType <= Card.RUNE_ALGIZ) || // 39
+    // Blank Rune (40) and Black Rune (41) are handled in Racing+.
+    card.SubType === Card.CHAOS || // 42
+    // Credit Card (43) has a unique card back in vanilla.
+    card.SubType === Card.RULES || // 44
+    // A Card Against Humanity (45) has a unique card back in vanilla.
+    card.SubType === Card.SUICIDE_KING || // 46
+    card.SubType === Card.GET_OUT_OF_JAIL_FREE || // 47
+    // (Get out of Jail Free Card has a unique card back in vanilla, but this one looks better.)
+    card.SubType === Card.QUESTION_MARK || // 48
+    // Dice Shard (49) has a unique card back in vanilla Emergency Contact (50) has a unique card
+    // back in vanilla Holy Card (51) has a unique card back in vanilla.
+    (card.SubType >= Card.HUGE_GROWTH && // 52
+      card.SubType <= Card.ERA_WALK) || // 54
+    (card.SubType >= Card.REVERSE_FOOL && // 56
+      card.SubType <= Card.REVERSE_WORLD) || // 77
+    card.SubType === Card.QUEEN_OF_HEARTS || // 79
+    card.SubType === Card.WILD // 80
   ) {
     const sprite = pickup.GetSprite();
     sprite.ReplaceSpritesheet(0, `gfx/cards/${pickup.SubType}.png`);
@@ -88,9 +96,12 @@ postPickupInitBabyFunctionMap.set(253, (pickup: EntityPickup) => {
 // Scary Baby
 postPickupInitBabyFunctionMap.set(317, (pickup: EntityPickup) => {
   // Items cost hearts
-  if (pickup.Variant === PickupVariant.PICKUP_COLLECTIBLE) {
+  if (pickup.Variant === PickupVariant.COLLECTIBLE) {
     pickup.AutoUpdatePrice = false;
-    pickup.Price = getCollectibleDevilHeartPrice(pickup.SubType, g.p);
+    pickup.Price = getCollectibleDevilHeartPrice(
+      pickup.SubType as CollectibleType,
+      g.p,
+    );
   }
 });
 
@@ -99,11 +110,11 @@ postPickupInitBabyFunctionMap.set(
   RandomBabyType.DEMON_BABY,
   (pickup: EntityPickup) => {
     // Free devil deals
-    if (pickup.Variant === PickupVariant.PICKUP_COLLECTIBLE) {
+    if (pickup.Variant === PickupVariant.COLLECTIBLE) {
       const roomType = g.r.GetType();
       if (
-        roomType === RoomType.ROOM_DEVIL || // 14
-        roomType === RoomType.ROOM_BLACK_MARKET // 22
+        roomType === RoomType.DEVIL || // 14
+        roomType === RoomType.BLACK_MARKET // 22
       ) {
         pickup.Price = 0;
       }
@@ -116,7 +127,7 @@ postPickupInitBabyFunctionMap.set(
   RandomBabyType.FATES_REWARD,
   (pickup: EntityPickup) => {
     // Items cost money
-    if (pickup.Variant === PickupVariant.PICKUP_COLLECTIBLE) {
+    if (pickup.Variant === PickupVariant.COLLECTIBLE) {
       pickup.AutoUpdatePrice = false;
       pickup.Price = 15;
     }

@@ -1,4 +1,25 @@
 import {
+  BombVariant,
+  CacheFlag,
+  Card,
+  CoinSubType,
+  CollectibleType,
+  DamageFlag,
+  DamageFlagZero,
+  DoorState,
+  EffectVariant,
+  EntityType,
+  HeartSubType,
+  KeySubType,
+  PickupVariant,
+  PillColor,
+  PillEffect,
+  SlotVariant,
+  SoundEffect,
+  UseFlag,
+} from "isaac-typescript-definitions";
+import {
+  addFlag,
   closeDoorFast,
   GAME_FRAMES_PER_SECOND,
   getDoors,
@@ -7,6 +28,7 @@ import {
   getRandom,
   getRandomArrayElement,
   getRandomCard,
+  getRandomEnumValue,
   getRandomInt,
   getRandomRune,
   isSelfDamage,
@@ -30,14 +52,18 @@ import { RandomBabyType } from "../babies";
 import g from "../globals";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 import { EntityDescription } from "../types/EntityDescription";
-import { getCurrentBaby, spawnRandomPickup, spawnSlotHelper } from "../utils";
+import {
+  getCurrentBabyDescription,
+  spawnRandomPickup,
+  spawnSlotHelper,
+} from "../utils";
 
 export const entityTakeDmgPlayerBabyFunctionMap = new Map<
   int,
   (
     player: EntityPlayer,
     damageAmount: float,
-    damageFlags: int,
+    damageFlags: BitFlags<DamageFlag>,
     damageSource: EntityRef,
     damageCountdownFrames: int,
   ) => boolean | void
@@ -62,7 +88,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(10, (player) => {
 
 // Wrapped Baby
 entityTakeDmgPlayerBabyFunctionMap.set(20, () => {
-  // Use Kamikaze on the next 5 frames
+  // Use Kamikaze on the next 5 frames.
   g.run.babyCounters = 5;
 });
 
@@ -76,7 +102,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 
 // Cry Baby
 entityTakeDmgPlayerBabyFunctionMap.set(32, () => {
-  // Enemies are fully healed on hit
+  // Enemies are fully healed on hit.
   for (const npc of getNPCs()) {
     if (npc.IsVulnerableEnemy()) {
       npc.HitPoints = npc.MaxHitPoints;
@@ -86,18 +112,18 @@ entityTakeDmgPlayerBabyFunctionMap.set(32, () => {
 
 // Yellow Baby
 entityTakeDmgPlayerBabyFunctionMap.set(33, (player) => {
-  player.UsePill(PillEffect.PILLEFFECT_LEMON_PARTY, 0);
+  player.UsePill(PillEffect.LEMON_PARTY, PillColor.NULL);
 });
 
 // Buddy Baby
 entityTakeDmgPlayerBabyFunctionMap.set(41, (player) => {
   const maxHearts = player.GetMaxHearts();
 
-  // Removes a heart container on hit
+  // Removes a heart container on hit.
   if (!g.run.babyBool && maxHearts >= 2) {
     player.AddMaxHearts(-2, true);
     g.run.babyBool = true;
-    useActiveItemTemp(player, CollectibleType.COLLECTIBLE_DULL_RAZOR);
+    useActiveItemTemp(player, CollectibleType.DULL_RAZOR);
     g.run.babyBool = false;
     return false;
   }
@@ -107,12 +133,12 @@ entityTakeDmgPlayerBabyFunctionMap.set(41, (player) => {
 
 // Blinding Baby
 entityTakeDmgPlayerBabyFunctionMap.set(46, (player) => {
-  spawnCard(Card.CARD_SUN, player.Position, VectorZero, player);
+  spawnCard(Card.SUN, player.Position, VectorZero, player);
 });
 
 // Revenge Baby
 entityTakeDmgPlayerBabyFunctionMap.set(50, (player) => {
-  // Spawns a random heart on hit
+  // Spawns a random heart on hit.
   const heartSubTypes = getEnumValues(HeartSubType);
   const heartSubType = getRandomArrayElement(heartSubTypes, g.run.rng);
   const seed = g.run.rng.Next();
@@ -126,26 +152,26 @@ entityTakeDmgPlayerBabyFunctionMap.set(56, (player) => {
 
 // Goat Baby
 entityTakeDmgPlayerBabyFunctionMap.set(62, (player) => {
-  const [, baby] = getCurrentBaby();
+  const baby = getCurrentBabyDescription();
   if (baby.numHits === undefined) {
     error(`The "numHits" attribute was not defined for: ${baby.name}`);
   }
 
-  // Guaranteed Devil Room + Angel Room after N hits
+  // Guaranteed Devil Room + Angel Room after N hits.
   g.run.babyCounters += 1;
   if (g.run.babyCounters >= baby.numHits && !g.run.babyBool) {
     g.run.babyBool = true;
-    sfxManager.Play(SoundEffect.SOUND_SATAN_GROW);
-    player.AddCollectible(CollectibleType.COLLECTIBLE_GOAT_HEAD);
-    removeCollectibleFromItemTracker(CollectibleType.COLLECTIBLE_GOAT_HEAD);
-    player.AddCollectible(CollectibleType.COLLECTIBLE_DUALITY);
-    removeCollectibleFromItemTracker(CollectibleType.COLLECTIBLE_DUALITY);
+    sfxManager.Play(SoundEffect.SATAN_GROW);
+    player.AddCollectible(CollectibleType.GOAT_HEAD);
+    removeCollectibleFromItemTracker(CollectibleType.GOAT_HEAD);
+    player.AddCollectible(CollectibleType.DUALITY);
+    removeCollectibleFromItemTracker(CollectibleType.DUALITY);
   }
 });
 
 // Ghoul Baby
 entityTakeDmgPlayerBabyFunctionMap.set(83, (player) => {
-  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_BOOK_OF_SECRETS);
+  useActiveItemTemp(player, CollectibleType.BOOK_OF_SECRETS);
 });
 
 // Half Head Baby
@@ -163,7 +189,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
       g.run.babyBool = true;
       player.TakeDamage(
         damageAmount,
-        0,
+        DamageFlagZero,
         EntityRef(player),
         damageCountdownFrames,
       );
@@ -174,7 +200,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 
 // D Baby
 entityTakeDmgPlayerBabyFunctionMap.set(101, (player) => {
-  // Spawns creep on hit (improved)
+  // Spawns creep on hit (improved).
   const creep = spawnEffect(
     EffectVariant.PLAYER_CREEP_RED,
     0,
@@ -204,7 +230,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
     // Keys are hearts
     if (!g.run.babyBool) {
       g.run.babyBool = true;
-      useActiveItemTemp(player, CollectibleType.COLLECTIBLE_DULL_RAZOR);
+      useActiveItemTemp(player, CollectibleType.DULL_RAZOR);
       g.run.babyBool = false;
       player.AddKeys(-1);
       return false;
@@ -216,7 +242,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 
 // Freaky Baby
 entityTakeDmgPlayerBabyFunctionMap.set(132, (player) => {
-  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_CONVERTER);
+  useActiveItemTemp(player, CollectibleType.CONVERTER);
 });
 
 // Mohawk Baby
@@ -224,7 +250,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(138, (player) => {
   // Bombs are hearts
   if (!g.run.babyBool) {
     g.run.babyBool = true;
-    useActiveItemTemp(player, CollectibleType.COLLECTIBLE_DULL_RAZOR);
+    useActiveItemTemp(player, CollectibleType.DULL_RAZOR);
     g.run.babyBool = false;
     player.AddBombs(-1);
     return false;
@@ -235,17 +261,17 @@ entityTakeDmgPlayerBabyFunctionMap.set(138, (player) => {
 
 // Rotten Meat Baby
 entityTakeDmgPlayerBabyFunctionMap.set(139, (player) => {
-  player.UseCard(Card.CARD_FOOL);
+  player.UseCard(Card.FOOL);
 });
 
 // Fat Baby
 entityTakeDmgPlayerBabyFunctionMap.set(148, (player) => {
-  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_NECRONOMICON);
+  useActiveItemTemp(player, CollectibleType.NECRONOMICON);
 });
 
 // Helmet Baby
 entityTakeDmgPlayerBabyFunctionMap.set(163, () => {
-  // Invulnerability when standing still
+  // Invulnerability when standing still.
   if (g.run.babyBool) {
     return false;
   }
@@ -273,38 +299,38 @@ entityTakeDmgPlayerBabyFunctionMap.set(177, (player) => {
     const modifier = getRandomInt(4, 20);
     velocity = velocity.mul(modifier);
     const coin = spawnCoin(
-      CoinSubType.COIN_PENNY,
+      CoinSubType.PENNY,
       player.Position,
       velocity,
       player,
     );
     const data = coin.GetData();
-    data.recovery = true;
+    data["recovery"] = true;
   });
-  sfxManager.Play(SoundEffect.SOUND_GOLD_HEART);
+  sfxManager.Play(SoundEffect.GOLD_HEART);
 });
 
 // Faded Baby
 entityTakeDmgPlayerBabyFunctionMap.set(186, (player) => {
-  // Random teleport on hit
-  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_TELEPORT);
+  // Random teleport on hit.
+  useActiveItemTemp(player, CollectibleType.TELEPORT);
 });
 
 // Small Face Baby
 entityTakeDmgPlayerBabyFunctionMap.set(200, (player) => {
-  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_MY_LITTLE_UNICORN);
+  useActiveItemTemp(player, CollectibleType.MY_LITTLE_UNICORN);
 });
 
 // Dented Baby
 entityTakeDmgPlayerBabyFunctionMap.set(204, (player) => {
-  // Spawns a random key on hit
+  // Spawns a random key on hit.
   const seed = g.run.rng.Next();
-  spawnKey(0, player.Position, VectorZero, player, seed);
+  spawnKey(KeySubType.NULL, player.Position, VectorZero, player, seed);
 });
 
 // MeatBoy Baby
 entityTakeDmgPlayerBabyFunctionMap.set(210, (player) => {
-  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_POTATO_PEELER);
+  useActiveItemTemp(player, CollectibleType.POTATO_PEELER);
 });
 
 // Conjoined Baby
@@ -314,8 +340,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(212, () => {
 
 // Zipper Baby
 entityTakeDmgPlayerBabyFunctionMap.set(225, (player) => {
-  // Extra enemies spawn on hit
-  // Find an existing enemy in the room
+  // Extra enemies spawn on hit Find an existing enemy in the room.
   let dupeEnemy: EntityDescription | undefined;
   for (const npc of getNPCs()) {
     if (!npc.IsBoss()) {
@@ -328,63 +353,56 @@ entityTakeDmgPlayerBabyFunctionMap.set(225, (player) => {
     }
   }
 
-  // There were no non-boss enemies in the room, so default to spawning a portal
+  // There were no non-boss enemies in the room, so default to spawning a portal.
   if (dupeEnemy === undefined) {
     dupeEnemy = {
-      type: EntityType.ENTITY_PORTAL,
+      type: EntityType.PORTAL,
       variant: 0,
       subType: 0,
     };
   }
 
-  // Spawn a new enemy
+  // Spawn a new enemy.
   const position = g.r.FindFreePickupSpawnPosition(player.Position, 1, true);
   spawn(dupeEnemy.type, dupeEnemy.variant, dupeEnemy.subType, position);
 });
 
 // Beard Baby
 entityTakeDmgPlayerBabyFunctionMap.set(227, (player) => {
-  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_CROOKED_PENNY);
+  useActiveItemTemp(player, CollectibleType.CROOKED_PENNY);
 });
 
 // Nuclear Baby
 entityTakeDmgPlayerBabyFunctionMap.set(251, () => {
-  // Mama Mega effect on hit
+  // Mama Mega effect on hit.
   g.r.MamaMegaExplossion();
 });
 
 // Rocker Baby
 entityTakeDmgPlayerBabyFunctionMap.set(258, (player) => {
-  // Spawns a random bomb on hit
+  // Spawns a random bomb on hit.
   const seed = g.run.rng.Next();
-  spawnPickup(
-    PickupVariant.PICKUP_BOMB,
-    0,
-    player.Position,
-    VectorZero,
-    player,
-    seed,
-  );
+  spawnPickup(PickupVariant.BOMB, 0, player.Position, VectorZero, player, seed);
 });
 
 // Coat Baby
 entityTakeDmgPlayerBabyFunctionMap.set(260, (player) => {
-  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_DECK_OF_CARDS);
+  useActiveItemTemp(player, CollectibleType.DECK_OF_CARDS);
 });
 
 // Gargoyle Baby
 entityTakeDmgPlayerBabyFunctionMap.set(276, (player) => {
-  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_HEAD_OF_KRAMPUS);
+  useActiveItemTemp(player, CollectibleType.HEAD_OF_KRAMPUS);
 });
 
 // Big Tongue Baby
 entityTakeDmgPlayerBabyFunctionMap.set(285, (player) => {
-  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_FLUSH);
+  useActiveItemTemp(player, CollectibleType.FLUSH);
 });
 
 // Banshee Baby
 entityTakeDmgPlayerBabyFunctionMap.set(293, (player) => {
-  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_CRACK_THE_SKY);
+  useActiveItemTemp(player, CollectibleType.CRACK_THE_SKY);
 });
 
 // Bloodied Baby
@@ -396,14 +414,14 @@ entityTakeDmgPlayerBabyFunctionMap.set(301, (player) => {
     doorStateMap.set(door.TargetRoomIndex, door.State);
   }
 
-  const useFlags = UseFlag.USE_NOANIM | UseFlag.USE_NOANNOUNCER;
-  player.UseCard(Card.CARD_SOUL_CAIN, useFlags);
+  const useFlags = addFlag(UseFlag.NO_ANIMATION, UseFlag.NO_ANNOUNCER_VOICE);
+  player.UseCard(Card.SOUL_CAIN, useFlags);
 
   if (roomClear) {
     return;
   }
 
-  // Soul of Cain will open all of the doors, but we only want to open the doors to the red rooms
+  // Soul of Cain will open all of the doors, but we only want to open the doors to the red rooms.
   for (const door of getDoors()) {
     const oldState = doorStateMap.get(door.TargetRoomIndex);
     if (oldState === undefined) {
@@ -418,17 +436,17 @@ entityTakeDmgPlayerBabyFunctionMap.set(301, (player) => {
 
 // X Mouth Baby
 entityTakeDmgPlayerBabyFunctionMap.set(308, (player) => {
-  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_MOVING_BOX);
+  useActiveItemTemp(player, CollectibleType.MOVING_BOX);
 });
 
 // Starry Eyed Baby
 entityTakeDmgPlayerBabyFunctionMap.set(310, (player) => {
-  spawnCard(Card.CARD_STARS, player.Position, VectorZero, player);
+  spawnCard(Card.STARS, player.Position, VectorZero, player);
 });
 
 // Puzzle Baby
 entityTakeDmgPlayerBabyFunctionMap.set(315, (player) => {
-  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_D6);
+  useActiveItemTemp(player, CollectibleType.D6);
 });
 
 // Fireball Baby
@@ -436,7 +454,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
   318,
   (_player, _damageAmount, _damageFlags, damageSource) => {
     // Immunity from fires
-    if (damageSource.Type === EntityType.ENTITY_FIREPLACE) {
+    if (damageSource.Type === EntityType.FIREPLACE) {
       return false;
     }
 
@@ -446,7 +464,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 
 // Tortoise Baby
 entityTakeDmgPlayerBabyFunctionMap.set(330, () => {
-  // 0.5x speed + 50% chance to ignore damage
+  // 0.5x speed + 50% chance to ignore damage.
   const avoidChance = getRandom(g.run.rng);
   if (avoidChance <= 0.5) {
     return false;
@@ -470,7 +488,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
       g.run.babyBool = true;
       player.TakeDamage(
         damageAmount,
-        0,
+        DamageFlagZero,
         EntityRef(player),
         damageCountdownFrames,
       );
@@ -481,27 +499,24 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 
 // Ballerina Baby
 entityTakeDmgPlayerBabyFunctionMap.set(323, (player) => {
-  // Summons a Restock Machine after 6 hits
+  // Summons a Restock Machine after 6 hits.
   g.run.babyCounters += 1;
   if (g.run.babyCounters === 6) {
     g.run.babyCounters = 0;
-    useActiveItemTemp(
-      player,
-      CollectibleTypeCustom.COLLECTIBLE_CLOCKWORK_ASSEMBLY,
-    );
+    useActiveItemTemp(player, CollectibleTypeCustom.CLOCKWORK_ASSEMBLY);
   }
 });
 
 // Hero Baby
 entityTakeDmgPlayerBabyFunctionMap.set(336, () => {
   // We want to evaluate the cache, but we can't do it here because the damage is not applied yet,
-  // so mark to do it later in the PostUpdate callback
+  // so mark to do it later in the PostUpdate callback.
   g.run.babyBool = true;
 });
 
 // Tanooki Baby
 entityTakeDmgPlayerBabyFunctionMap.set(359, (player) => {
-  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_MR_ME);
+  useActiveItemTemp(player, CollectibleType.MR_ME);
 });
 
 // Fiery Baby
@@ -511,19 +526,19 @@ entityTakeDmgPlayerBabyFunctionMap.set(366, (player) => {
 
 // Dark Elf Baby
 entityTakeDmgPlayerBabyFunctionMap.set(378, (player) => {
-  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_BOOK_OF_THE_DEAD);
+  useActiveItemTemp(player, CollectibleType.BOOK_OF_THE_DEAD);
 });
 
 // Fairyman Baby
 entityTakeDmgPlayerBabyFunctionMap.set(385, (player) => {
   g.run.babyCounters += 1;
-  player.AddCacheFlags(CacheFlag.CACHE_DAMAGE);
+  player.AddCacheFlags(CacheFlag.DAMAGE);
   player.EvaluateItems();
 });
 
 // Censored Baby
 entityTakeDmgPlayerBabyFunctionMap.set(408, (player) => {
-  // All enemies get confused on hit
+  // All enemies get confused on hit.
   const confusionFrames = 5 * GAME_FRAMES_PER_SECOND;
   for (const npc of getNPCs()) {
     if (npc.IsVulnerableEnemy()) {
@@ -534,25 +549,25 @@ entityTakeDmgPlayerBabyFunctionMap.set(408, (player) => {
 
 // Catsuit Baby
 entityTakeDmgPlayerBabyFunctionMap.set(412, (player) => {
-  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_GUPPYS_PAW);
+  useActiveItemTemp(player, CollectibleType.GUPPYS_PAW);
 });
 
 // Magic Cat Baby
 entityTakeDmgPlayerBabyFunctionMap.set(428, (player) => {
-  const bomb = spawnBomb(BombVariant.BOMB_GIGA, 0, player.Position);
+  const bomb = spawnBomb(BombVariant.GIGA, 0, player.Position);
   bomb.Visible = false;
   bomb.SetExplosionCountdown(0);
 });
 
 // Cup Baby
 entityTakeDmgPlayerBabyFunctionMap.set(435, (player) => {
-  player.UseCard(Card.CARD_HUMANITY);
-  // (the animation will automatically be canceled by the damage)
+  player.UseCard(Card.AGAINST_HUMANITY);
+  // (The animation will automatically be canceled by the damage.)
 });
 
-// Big Mouth Baby 2
+// Big Mouth Baby 2.
 entityTakeDmgPlayerBabyFunctionMap.set(438, (player) => {
-  const [, baby] = getCurrentBaby();
+  const baby = getCurrentBabyDescription();
   if (baby.numHits === undefined) {
     error(`The "numHits" attribute was not defined for: ${baby.name}`);
   }
@@ -560,13 +575,13 @@ entityTakeDmgPlayerBabyFunctionMap.set(438, (player) => {
   g.run.babyCounters += 1;
   if (g.run.babyCounters === baby.numHits) {
     g.run.babyCounters = 0;
-    useActiveItemTemp(player, CollectibleType.COLLECTIBLE_MEGA_MUSH);
+    useActiveItemTemp(player, CollectibleType.MEGA_MUSH);
   }
 });
 
 // TV Baby
 entityTakeDmgPlayerBabyFunctionMap.set(441, (player) => {
-  const [, baby] = getCurrentBaby();
+  const baby = getCurrentBabyDescription();
   if (baby.numHits === undefined) {
     error(`The "numHits" attribute was not defined for: ${baby.name}`);
   }
@@ -574,27 +589,27 @@ entityTakeDmgPlayerBabyFunctionMap.set(441, (player) => {
   g.run.babyCounters += 1;
   if (g.run.babyCounters === baby.numHits) {
     g.run.babyCounters = 0;
-    useActiveItemTemp(player, CollectibleType.COLLECTIBLE_MEGA_BLAST);
+    useActiveItemTemp(player, CollectibleType.MEGA_BLAST);
   }
 });
 
 // Steroids Baby
 entityTakeDmgPlayerBabyFunctionMap.set(444, (player) => {
-  // Forget Me Now on 2nd hit (per room)
+  // Forget Me Now on 2nd hit (per room).
   g.run.babyCountersRoom += 1;
   if (g.run.babyCountersRoom >= 2) {
-    useActiveItemTemp(player, CollectibleType.COLLECTIBLE_FORGET_ME_NOW);
+    useActiveItemTemp(player, CollectibleType.FORGET_ME_NOW);
   }
 });
 
 // Rojen Whitefox Baby
 entityTakeDmgPlayerBabyFunctionMap.set(446, (player) => {
-  useActiveItemTemp(player, CollectibleType.COLLECTIBLE_BOOK_OF_SHADOWS);
+  useActiveItemTemp(player, CollectibleType.BOOK_OF_SHADOWS);
 });
 
 // Handsome Mr. Frog Baby
 entityTakeDmgPlayerBabyFunctionMap.set(456, (player) => {
-  const [, baby] = getCurrentBaby();
+  const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for: ${baby.name}`);
   }
@@ -611,7 +626,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(463, (player) => {
 
 // Mufflerscarf Baby
 entityTakeDmgPlayerBabyFunctionMap.set(472, (player) => {
-  // All enemies get freezed on hit
+  // All enemies get freezed on hit.
   const freezeFrames = 5 * GAME_FRAMES_PER_SECOND;
   for (const npc of getNPCs()) {
     if (npc.IsVulnerableEnemy()) {
@@ -623,7 +638,11 @@ entityTakeDmgPlayerBabyFunctionMap.set(472, (player) => {
 // Scoreboard Baby
 entityTakeDmgPlayerBabyFunctionMap.set(
   474,
-  (_player: EntityPlayer, _damageAmount: float, damageFlags: int) => {
+  (
+    _player: EntityPlayer,
+    _damageAmount: float,
+    damageFlags: BitFlags<DamageFlag>,
+  ) => {
     const gameFrameCount = g.g.GetFrameCount();
 
     if (g.run.babyCounters !== 0) {
@@ -634,30 +653,26 @@ entityTakeDmgPlayerBabyFunctionMap.set(
       return;
     }
 
-    // Death in 1 minute
+    // Death in 1 minute.
     g.run.babyCounters = gameFrameCount + 60 * 30;
   },
 );
 
 // Egg Baby
 entityTakeDmgPlayerBabyFunctionMap.set(488, (player) => {
-  // Random pill effect on hit
-  let pillEffect: PillEffect;
-  do {
-    pillEffect = getRandomInt(0, PillEffect.NUM_PILL_EFFECTS - 1, g.run.rng);
-  } while (
-    // Reroll the pill effect if it is a pill that Racing+ removes
-    pillEffect === PillEffect.PILLEFFECT_AMNESIA || // 25
-    pillEffect === PillEffect.PILLEFFECT_QUESTIONMARK // 31
-  );
+  // Random pill effect on hit.
+  const pillEffect = getRandomEnumValue(PillEffect, g.run.rng, [
+    PillEffect.AMNESIA, // 25
+    PillEffect.QUESTION_MARKS, // 31
+  ]);
 
-  player.UsePill(pillEffect, 0);
-  // (the animation will automatically be canceled by the damage)
+  player.UsePill(pillEffect, PillColor.NULL);
+  // (The animation will automatically be canceled by the damage.)
 });
 
 // Glittery Peach Baby
 entityTakeDmgPlayerBabyFunctionMap.set(493, (player) => {
-  const [, baby] = getCurrentBaby();
+  const baby = getCurrentBabyDescription();
   if (baby.numHits === undefined) {
     error(`The "numHits" attribute was not defined for: ${baby.name}`);
   }
@@ -666,26 +681,25 @@ entityTakeDmgPlayerBabyFunctionMap.set(493, (player) => {
     return;
   }
 
-  // Teleport to the boss room after X hits
-  // (but only do it once per floor)
+  // Teleport to the boss room after X hits (but only do it once per floor).
   g.run.babyCounters += 1;
   if (g.run.babyCounters === baby.numHits) {
     g.run.babyBool = true;
-    player.UseCard(Card.CARD_EMPEROR);
+    player.UseCard(Card.EMPEROR);
   }
 });
 
 // Lazy Baby
 entityTakeDmgPlayerBabyFunctionMap.set(499, (player) => {
-  // Random card effect on hit
-  const exceptions = [Card.CARD_SUICIDE_KING]; // It would be unfair to randomly die
+  // Random card effect on hit.
+  const exceptions = [Card.SUICIDE_KING]; // It would be unfair to randomly die
   const card = getRandomCard(g.run.rng, exceptions);
   player.UseCard(card);
 });
 
 // Reaper Baby
 entityTakeDmgPlayerBabyFunctionMap.set(506, (player) => {
-  // Spawns a random rune on hit
+  // Spawns a random rune on hit.
   const rune = getRandomRune(g.run.rng);
   const seed = g.run.rng.Next();
   spawnCard(rune, player.Position, VectorZero, player, seed);
@@ -695,8 +709,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(506, (player) => {
 entityTakeDmgPlayerBabyFunctionMap.set(514, () => {
   const roomFrameCount = g.r.GetFrameCount();
 
-  // Double enemies
-  // Fix the bug where an enemy can sometimes spawn next to where the player spawns
+  // Double enemies. Fix the bug where an enemy can sometimes spawn next to where the player spawns.
   if (roomFrameCount === 0) {
     return false;
   }
@@ -706,7 +719,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(514, () => {
 
 // Koala Baby
 entityTakeDmgPlayerBabyFunctionMap.set(552, (player) => {
-  const [, baby] = getCurrentBaby();
+  const baby = getCurrentBabyDescription();
   if (baby.numHits === undefined) {
     error(`The "numHits" attribute was not defined for: ${baby.name}`);
   }
@@ -714,20 +727,20 @@ entityTakeDmgPlayerBabyFunctionMap.set(552, (player) => {
   g.run.babyCounters += 1;
   if (g.run.babyCounters === baby.numHits) {
     g.run.babyCounters = 0;
-    useActiveItemTemp(player, CollectibleType.COLLECTIBLE_GENESIS);
+    useActiveItemTemp(player, CollectibleType.GENESIS);
   }
 });
 
 // Kinda Loveable Baby
 entityTakeDmgPlayerBabyFunctionMap.set(555, (player) => {
-  spawnCard(Card.CARD_LOVERS, player.Position, VectorZero, player);
+  spawnCard(Card.LOVERS, player.Position, VectorZero, player);
 });
 
 // Lost White Baby
 entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.LOST_WHITE_BABY,
   (player) => {
-    useActiveItemTemp(player, CollectibleType.COLLECTIBLE_ETERNAL_D6);
+    useActiveItemTemp(player, CollectibleType.ETERNAL_D6);
   },
 );
 
@@ -735,7 +748,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.LOST_BLACK_BABY,
   (player) => {
-    useActiveItemTemp(player, CollectibleType.COLLECTIBLE_SPINDOWN_DICE);
+    useActiveItemTemp(player, CollectibleType.SPINDOWN_DICE);
   },
 );
 
@@ -743,7 +756,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.LOST_BLUE_BABY,
   (player) => {
-    useActiveItemTemp(player, CollectibleType.COLLECTIBLE_D10);
+    useActiveItemTemp(player, CollectibleType.D10);
   },
 );
 
@@ -751,7 +764,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.LOST_GREY_BABY,
   (player) => {
-    useActiveItemTemp(player, CollectibleType.COLLECTIBLE_D7);
+    useActiveItemTemp(player, CollectibleType.D7);
   },
 );
 
@@ -771,10 +784,10 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.SISTER_MAGGY,
   (player) => {
-    // Loses last item on 2nd hit (per room)
+    // Loses last item on 2nd hit (per room).
     g.run.babyCountersRoom += 1;
     if (g.run.babyCountersRoom === 2) {
-      // Take away an item
+      // Take away an item.
       const itemToTakeAway = g.run.passiveCollectibleTypes.pop();
       if (
         itemToTakeAway !== undefined &&
@@ -791,7 +804,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.SIREN_SHOOTER,
   (player) => {
-    // Spawns a pedestal item after 6 hits
+    // Spawns a pedestal item after 6 hits.
     g.run.babyCounters += 1;
     if (g.run.babyCounters === 6) {
       g.run.babyCounters = 0;
@@ -800,12 +813,12 @@ entityTakeDmgPlayerBabyFunctionMap.set(
         1,
         true,
       );
-      spawnCollectible(CollectibleType.COLLECTIBLE_NULL, position, g.run.rng);
+      spawnCollectible(CollectibleType.NULL, position, g.run.rng);
     }
   },
 );
 
 // Esau Jr. Baby
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.ESAU_JR, (player) => {
-  player.UseCard(Card.CARD_SOUL_JACOB);
+  player.UseCard(Card.SOUL_JACOB);
 });

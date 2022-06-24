@@ -1,3 +1,5 @@
+import { NullItemID, PlayerType } from "isaac-typescript-definitions";
+
 export function Init(mod: Mod): void;
 
 export function AddPlayer(

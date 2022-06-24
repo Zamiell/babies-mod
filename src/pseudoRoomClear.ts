@@ -1,3 +1,4 @@
+import { RoomType } from "isaac-typescript-definitions";
 import {
   getDoors,
   getNPCs,
@@ -8,20 +9,20 @@ import {
 import g from "./globals";
 import { getCurrentBaby } from "./utils";
 
-// Pseudo room clear should be disabled in certain room types
+// Pseudo room clear should be disabled in certain room types.
 const ROOM_TYPE_BLACKLIST: ReadonlySet<RoomType> = new Set([
-  RoomType.ROOM_BOSS, // 5
-  RoomType.ROOM_CHALLENGE, // 11
-  RoomType.ROOM_DEVIL, // 14
-  RoomType.ROOM_ANGEL, // 15
-  RoomType.ROOM_DUNGEON, // 16
-  RoomType.ROOM_BOSSRUSH, // 17
-  RoomType.ROOM_BLACK_MARKET, // 22
+  RoomType.BOSS, // 5
+  RoomType.CHALLENGE, // 11
+  RoomType.DEVIL, // 14
+  RoomType.ANGEL, // 15
+  RoomType.DUNGEON, // 16
+  RoomType.BOSS_RUSH, // 17
+  RoomType.BLACK_MARKET, // 22
 ]);
 
-// ModCallbacks.MC_POST_UPDATE (1)
-// (only called from certain babies)
+// ModCallback.POST_UPDATE (1)
 export function postUpdate(): void {
+  // This function is only called from certain babies.
   const roomType = g.r.GetType();
   const roomFrameCount = g.r.GetFrameCount();
   const roomClear = g.r.IsClear();
@@ -30,13 +31,13 @@ export function postUpdate(): void {
     return;
   }
 
-  // We need to wait for the room to initialize before enabling the pseudo clear feature
+  // We need to wait for the room to initialize before enabling the pseudo clear feature.
   if (roomFrameCount < 1) {
     return;
   }
 
-  // Customize the doors and initiate the pseudo clear feature
-  // (this does not work in the PostNewRoom callback or on frame 0)
+  // Customize the doors and initiate the pseudo clear feature. (This does not work in the
+  // PostNewRoom callback or on frame 0.)
   if (roomFrameCount === 1 && !roomClear) {
     initializeDoors();
     return;
@@ -55,18 +56,18 @@ function initializeDoors() {
   g.run.room.pseudoClear = false;
 
   const normalLookingDoors = getDoors(
-    RoomType.ROOM_DEFAULT, // 0
-    RoomType.ROOM_MINIBOSS, // 6
+    RoomType.DEFAULT, // 0
+    RoomType.MINI_BOSS, // 6
   );
   for (const door of normalLookingDoors) {
-    // Keep track of which doors we lock for later
+    // Keep track of which doors we lock for later.
     g.run.room.doorSlotsModified.push(door.Slot);
 
-    // Modify the door
+    // Modify the door.
     switch (baby.name) {
       // 27
       case "Black Baby": {
-        door.SetRoomTypes(door.CurrentRoomType, RoomType.ROOM_CURSE);
+        door.SetRoomTypes(door.CurrentRoomType, RoomType.CURSE);
         door.Open();
         break;
       }
@@ -79,7 +80,7 @@ function initializeDoors() {
 
       // 351
       case "Mouse Baby": {
-        door.SetRoomTypes(door.CurrentRoomType, RoomType.ROOM_SHOP);
+        door.SetRoomTypes(door.CurrentRoomType, RoomType.SHOP);
         door.SetLocked(true);
         break;
       }
@@ -94,12 +95,12 @@ function initializeDoors() {
 function checkPseudoClear() {
   const gameFrameCount = g.g.GetFrameCount();
 
-  // Don't do anything if the room is already cleared
+  // Don't do anything if the room is already cleared.
   if (g.run.room.pseudoClear) {
     return;
   }
 
-  // If a frame has passed since an enemy died, reset the delay counter
+  // If a frame has passed since an enemy died, reset the delay counter.
   if (
     g.run.room.clearDelayFrame !== null &&
     gameFrameCount >= g.run.room.clearDelayFrame
@@ -130,7 +131,7 @@ function areAnyNPCsAlive() {
   return false;
 }
 
-// This roughly emulates what happens when you normally clear a room
+// This roughly emulates what happens when you normally clear a room.
 function pseudoClearRoom() {
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
@@ -141,9 +142,9 @@ function pseudoClearRoom() {
   log("Room is now pseudo-cleared.");
 
   g.r.TriggerClear();
-  // (we already set the clear state of the room to be true)
+  // (We already set the clear state of the room to be true.)
 
-  // Reset all of the doors that we previously modified
+  // Reset all of the doors that we previously modified.
   for (const doorSlot of g.run.room.doorSlotsModified) {
     const door = g.r.GetDoor(doorSlot);
     if (door === undefined) {
@@ -153,7 +154,7 @@ function pseudoClearRoom() {
     switch (baby.name) {
       // 27
       case "Black Baby": {
-        door.SetRoomTypes(door.CurrentRoomType, RoomType.ROOM_DEFAULT);
+        door.SetRoomTypes(door.CurrentRoomType, RoomType.DEFAULT);
         break;
       }
 

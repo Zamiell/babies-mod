@@ -1,4 +1,12 @@
 import {
+  ActiveSlot,
+  ButtonAction,
+  ItemType,
+  Keyboard,
+  ModCallback,
+  RoomType,
+} from "isaac-typescript-definitions";
+import {
   getCollectibleItemType,
   getDefaultKColor,
   getHeartsUIWidth,
@@ -20,7 +28,7 @@ const CLOCK_POSITION = Vector(30, 30);
 const clockSprite = initSprite("gfx/clock.anm2");
 
 export function init(mod: Mod): void {
-  mod.AddCallback(ModCallbacks.MC_POST_RENDER, main);
+  mod.AddCallback(ModCallback.POST_RENDER, main);
 }
 
 function main() {
@@ -47,8 +55,8 @@ function drawBabyIntro() {
     return;
   }
 
-  // Make the baby description persist on the screen after the player presses the map button
-  if (isActionPressedOnAnyInput(ButtonAction.ACTION_MAP)) {
+  // Make the baby description persist on the screen after the player presses the map button.
+  if (isActionPressedOnAnyInput(ButtonAction.MAP)) {
     g.run.showIntroFrame = gameFrameCount + 60; // 2 seconds
   }
 
@@ -63,19 +71,19 @@ function drawBabyIntro() {
   let x: number;
   let y: number;
 
-  // Render the baby's name
+  // Render the baby's name.
   text = baby.name;
   x = centerPos.X - 3 * scale * text.length;
   y = centerPos.Y - 130;
   Isaac.RenderScaledText(text, x, y, scale, scale, 2, 2, 2, 2);
 
-  // Render the baby's description
+  // Render the baby's description.
   text = baby.description;
   x = centerPos.X - 3 * text.length;
   y += 25;
   Isaac.RenderText(text, x, y, 2, 2, 2, 2);
 
-  // The description might be really long and spill over onto a second line
+  // The description might be really long and spill over onto a second line.
   if (baby.description2 !== undefined) {
     text = baby.description2;
     x = centerPos.X - 3 * text.length;
@@ -95,9 +103,9 @@ function drawBabyNumber() {
   const HUDOffsetVector = getHUDOffsetVector();
   const heartsUIWidth = getHeartsUIWidth();
 
-  // Racing+ draws the number of sacrifices in the top left corner,
-  // which interferes with the baby number text
-  if (isRacingPlusEnabled() && roomType === RoomType.ROOM_SACRIFICE) {
+  // Racing+ draws the number of sacrifices in the top left corner, which interferes with the baby
+  // number text.
+  if (isRacingPlusEnabled() && roomType === RoomType.SACRIFICE) {
     return;
   }
 
@@ -108,8 +116,8 @@ function drawBabyNumber() {
     baby.name === "Hopeless Baby" || // 125
     baby.name === "Mohawk Baby" // 138
   ) {
-    // These babies draw text next to the hearts,
-    // so account for this so that the number text does not overlap
+    // These babies draw text next to the hearts, so account for this so that the number text does
+    // not overlap.
     x += 20;
   }
 
@@ -126,8 +134,8 @@ function drawVersion() {
     return;
   }
 
-  // Make the version persist for at least 2 seconds after the player presses "v"
-  if (Input.IsButtonPressed(Keyboard.KEY_V, 0)) {
+  // Make the version persist for at least 2 seconds after the player presses "v".
+  if (Input.IsButtonPressed(Keyboard.V, 0)) {
     g.run.showVersionFrame = gameFrameCount + 60;
   }
 
@@ -141,7 +149,7 @@ function drawVersion() {
   let x: number;
   let y: number;
 
-  // Render the version of the mod
+  // Render the version of the mod.
   text = MOD_NAME;
   scale = 1;
   x = centerPos.X - 3 * scale * text.length;
@@ -170,17 +178,17 @@ function drawTempIconNextToActiveCollectible() {
   }
 
   const itemType = getCollectibleItemType(baby.item);
-  if (itemType !== ItemType.ITEM_ACTIVE) {
+  if (itemType !== ItemType.ACTIVE) {
     return;
   }
 
-  const activeCollectibleType = g.p.GetActiveItem(ActiveSlot.SLOT_PRIMARY);
+  const activeCollectibleType = g.p.GetActiveItem(ActiveSlot.PRIMARY);
   if (activeCollectibleType !== baby.item) {
     return;
   }
 
-  // The player has the item in their main active slot
-  // Draw the icon in the bottom-right hand corner
+  // The player has the item in their main active slot. Draw the icon in the bottom-right hand
+  // corner.
   clockSprite.RenderLayer(0, CLOCK_POSITION);
 }
 

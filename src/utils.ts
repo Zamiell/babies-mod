@@ -1,4 +1,24 @@
 import {
+  BatterySubType,
+  Card,
+  CoinSubType,
+  CollectibleType,
+  EffectVariant,
+  EntityFlag,
+  EntityType,
+  HeartSubType,
+  ItemPoolType,
+  KeySubType,
+  PickupVariant,
+  PillColor,
+  PoofSubType,
+  RoomType,
+  SackSubType,
+  SlotVariant,
+  SoundEffect,
+  TrinketType,
+} from "isaac-typescript-definitions";
+import {
   findFreePosition,
   getCollectibleMaxCharges,
   getEntities,
@@ -31,8 +51,8 @@ import { CollectibleTypeCustom } from "./types/CollectibleTypeCustom";
 export function bigChestExists(): boolean {
   const numBigChests = Isaac.CountEntities(
     undefined,
-    EntityType.ENTITY_PICKUP,
-    PickupVariant.PICKUP_BIGCHEST,
+    EntityType.PICKUP,
+    PickupVariant.BIG_CHEST,
   );
   return numBigChests > 0;
 }
@@ -42,7 +62,7 @@ export function getCurrentBaby(): [
   baby: BabyDescription,
   valid: boolean,
 ] {
-  const babyType = g.run.babyType;
+  const { babyType } = g.run;
   if (babyType === null) {
     return [-1, UNKNOWN_BABY, false];
   }
@@ -53,6 +73,11 @@ export function getCurrentBaby(): [
   }
 
   return [babyType, baby, true];
+}
+
+export function getCurrentBabyDescription(): BabyDescription {
+  const [, baby] = getCurrentBaby();
+  return baby;
 }
 
 export function getRandomOffsetPosition(
@@ -113,7 +138,7 @@ export function getRandomCollectibleTypeFromPool(
 }
 
 export function giveItemAndRemoveFromPools(
-  collectibleType: CollectibleType | CollectibleTypeCustom,
+  collectibleType: CollectibleType,
 ): void {
   const maxCharges = getCollectibleMaxCharges(collectibleType);
   g.p.AddCollectible(collectibleType, maxCharges, false);
@@ -121,22 +146,22 @@ export function giveItemAndRemoveFromPools(
 }
 
 export function isRacingPlusEnabled(): boolean {
-  return CollectibleTypeCustom.COLLECTIBLE_CHECKPOINT !== -1;
+  return (CollectibleTypeCustom.CHECKPOINT as int) !== -1;
 }
 
 export function isRerolledCollectibleBuggedHeart(
   pickup: EntityPickup,
 ): boolean {
   return (
-    pickup.Variant === PickupVariant.PICKUP_HEART &&
-    pickup.SubType === HeartSubType.HEART_FULL &&
+    pickup.Variant === PickupVariant.HEART &&
+    pickup.SubType === (HeartSubType.FULL as int) &&
     pickup.Price === 99
   );
 }
 
 export function removeAllFriendlyEntities(): void {
   for (const entity of getEntities()) {
-    if (entity.HasEntityFlags(EntityFlag.FLAG_FRIENDLY)) {
+    if (entity.HasEntityFlags(EntityFlag.FRIENDLY)) {
       entity.Remove();
     }
   }
@@ -152,10 +177,10 @@ export function spawnRandomPickup(
   velocity: Vector = VectorZero,
   noItems = false,
 ): void {
-  // Spawn a random pickup
+  // Spawn a random pickup.
   let pickupVariantChoice: int;
   if (noItems) {
-    // Exclude trinkets and collectibles
+    // Exclude trinkets and collectibles.
     pickupVariantChoice = getRandomInt(1, 9, g.run.rng);
   } else {
     pickupVariantChoice = getRandomInt(1, 11, g.run.rng);
@@ -164,88 +189,68 @@ export function spawnRandomPickup(
   const seed = g.run.rng.Next();
   switch (pickupVariantChoice) {
     case 1: {
-      // Random heart
-      spawnHeart(0, position, velocity, undefined, seed);
+      // Random heart.
+      spawnHeart(HeartSubType.NULL, position, velocity, undefined, seed);
       break;
     }
 
     case 2: {
-      // Random coin
-      spawnCoin(0, position, velocity, undefined, seed);
+      // Random coin.
+      spawnCoin(CoinSubType.NULL, position, velocity, undefined, seed);
       break;
     }
 
     case 3: {
-      // Random key
-      spawnKey(0, position, velocity, undefined, seed);
+      // Random key.
+      spawnKey(KeySubType.NULL, position, velocity, undefined, seed);
       break;
     }
 
     case 4: {
-      // Random bomb
-      spawnPickup(
-        PickupVariant.PICKUP_BOMB,
-        0,
-        position,
-        velocity,
-        undefined,
-        seed,
-      );
+      // Random bomb.
+      spawnPickup(PickupVariant.BOMB, 0, position, velocity, undefined, seed);
       break;
     }
 
     case 5: {
-      // Random chest
-      spawnPickup(
-        PickupVariant.PICKUP_CHEST,
-        0,
-        position,
-        velocity,
-        undefined,
-        seed,
-      );
+      // Random chest.
+      spawnPickup(PickupVariant.CHEST, 0, position, velocity, undefined, seed);
       break;
     }
 
     case 6: {
-      // Random sack
-      spawnSack(0, position, velocity, undefined, seed);
+      // Random sack.
+      spawnSack(SackSubType.NULL, position, velocity, undefined, seed);
       break;
     }
 
     case 7: {
-      // Random battery
-      spawnBattery(0, position, velocity, undefined, seed);
+      // Random battery.
+      spawnBattery(BatterySubType.NULL, position, velocity, undefined, seed);
       break;
     }
 
     case 8: {
-      // Random pill
-      spawnPill(PillColor.PILL_NULL, position, velocity, undefined, seed);
+      // Random pill.
+      spawnPill(PillColor.NULL, position, velocity, undefined, seed);
       break;
     }
 
     case 9: {
-      // Random card / rune
-      spawnCard(Card.CARD_NULL, position, velocity, undefined, seed);
+      // Random card / rune.
+      spawnCard(Card.NULL, position, velocity, undefined, seed);
       break;
     }
 
     case 10: {
-      // Random trinket
-      spawnTrinket(
-        TrinketType.TRINKET_NULL,
-        position,
-        velocity,
-        undefined,
-        seed,
-      );
+      // Random trinket.
+      spawnTrinket(TrinketType.NULL, position, velocity, undefined, seed);
       break;
     }
 
     case 11: {
-      // Random collectible
-      spawnCollectible(CollectibleType.COLLECTIBLE_NULL, position, g.run.rng);
+      // Random collectible.
+      spawnCollectible(CollectibleType.NULL, position, g.run.rng);
       break;
     }
 
@@ -266,8 +271,8 @@ export function spawnSlotHelper(
   const seed = rng.Next();
   const slot = spawnSlot(slotVariant, 0, position, VectorZero, undefined, seed);
 
-  spawnEffect(EffectVariant.POOF01, PoofSubType.NORMAL, position);
-  sfxManager.Play(SoundEffect.SOUND_SUMMONSOUND);
+  spawnEffect(EffectVariant.POOF_1, PoofSubType.NORMAL, position);
+  sfxManager.Play(SoundEffect.SUMMON_SOUND);
 
   return slot;
 }

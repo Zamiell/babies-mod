@@ -1,8 +1,9 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import { getCurrentBaby } from "../utils";
 import { postEffectInitBabyFunctionMap } from "./postEffectInitBabyFunctionMap";
 
 export function init(mod: Mod): void {
-  mod.AddCallback(ModCallbacks.MC_POST_EFFECT_INIT, main);
+  mod.AddCallback(ModCallback.POST_EFFECT_INIT, main);
 }
 
 function main(effect: EntityEffect) {

@@ -1,3 +1,4 @@
+import { FamiliarVariant } from "isaac-typescript-definitions";
 import { getFamiliars } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
 import g from "../globals";
@@ -10,23 +11,21 @@ export const postFamiliarUpdateBabyFunctionMap = new Map<
 
 // Lil' Baby
 postFamiliarUpdateBabyFunctionMap.set(36, (familiar: EntityFamiliar) => {
-  // Everything is tiny
-  // For some reason, familiars reset their SpriteScale on every frame,
-  // so we have to constantly set it back
+  // Everything is tiny. For some reason, familiars reset their SpriteScale on every frame, so we
+  // have to constantly set it back.
   familiar.SpriteScale = Vector(0.5, 0.5);
 });
 
 // Big Baby
 postFamiliarUpdateBabyFunctionMap.set(37, (familiar: EntityFamiliar) => {
-  // Everything is giant
-  // For some reason, familiars reset their SpriteScale on every frame,
-  // so we have to constantly set it back
+  // Everything is giant. For some reason, familiars reset their SpriteScale on every frame, so we
+  // have to constantly set it back.
   familiar.SpriteScale = Vector(2, 2);
 });
 
 // Sucky Baby
 postFamiliarUpdateBabyFunctionMap.set(47, (familiar: EntityFamiliar) => {
-  // Keep it locked on the player to emulate a Succubus aura
+  // Keep it locked on the player to emulate a Succubus aura.
   if (familiar.Variant === FamiliarVariant.SUCCUBUS) {
     familiar.Position = g.p.Position;
   }
@@ -38,12 +37,12 @@ postFamiliarUpdateBabyFunctionMap.set(82, (familiar: EntityFamiliar) => {
     return;
   }
 
-  // All of the Gurdies will stack on top of each other, so manually keep them spread apart
+  // All of the Gurdies will stack on top of each other, so manually keep them spread apart.
   const lilGurdies = getFamiliars(FamiliarVariant.LIL_GURDY);
   for (const lilGurdy of lilGurdies) {
     if (
       familiar.Position.Distance(lilGurdy.Position) <= 1 &&
-      // Use the index as a priority of which familiar is forced to move away
+      // Use the index as a priority of which familiar is forced to move away.
       familiar.Index < lilGurdy.Index
     ) {
       lilGurdy.Position = getRandomOffsetPosition(
@@ -61,12 +60,12 @@ postFamiliarUpdateBabyFunctionMap.set(326, (familiar: EntityFamiliar) => {
     return;
   }
 
-  // All of the babies will stack on top of each other, so manually keep them spread apart
+  // All of the babies will stack on top of each other, so manually keep them spread apart.
   const roboBabies = getFamiliars(FamiliarVariant.ROBO_BABY_2);
   for (const roboBaby of roboBabies) {
     if (
       familiar.Position.Distance(roboBaby.Position) <= 1 &&
-      // Use the index as a priority of which Gurdy is forced to move away
+      // Use the index as a priority of which Gurdy is forced to move away.
       familiar.Index < roboBaby.Index
     ) {
       roboBaby.Position = getRandomOffsetPosition(

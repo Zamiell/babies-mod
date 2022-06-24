@@ -1,4 +1,11 @@
 import {
+  CollectibleType,
+  EntityCollisionClass,
+  ItemPoolType,
+  PickupVariant,
+  ProjectileVariant,
+} from "isaac-typescript-definitions";
+import {
   copyColor,
   GAME_FRAMES_PER_SECOND,
   getCollectibleDevilHeartPrice,
@@ -22,21 +29,21 @@ export const postPickupUpdateBabyFunctionMap = new Map<
 
 // Bugeyed Baby
 postPickupUpdateBabyFunctionMap.set(131, (pickup: EntityPickup) => {
-  // Change pickups into Blue Spiders
-  // (this cannot be in the PostPickupInit callback since the pickups do not have position there)
+  // Change pickups into Blue Spiders. (This cannot be in the PostPickupInit callback since the
+  // pickups do not have position there.)
   if (
     pickup.FrameCount === 1 && // Frame 0 does not work
-    pickup.Variant !== PickupVariant.PICKUP_COLLECTIBLE && // 100
-    pickup.Variant !== PickupVariant.PICKUP_SHOPITEM && // 150
-    pickup.Variant !== PickupVariant.PICKUP_BIGCHEST && // 340
-    pickup.Variant !== PickupVariant.PICKUP_TROPHY && // 370
-    pickup.Variant !== PickupVariant.PICKUP_BED && // 380
+    pickup.Variant !== PickupVariant.COLLECTIBLE && // 100
+    pickup.Variant !== PickupVariant.SHOP_ITEM && // 150
+    pickup.Variant !== PickupVariant.BIG_CHEST && // 340
+    pickup.Variant !== PickupVariant.TROPHY && // 370
+    pickup.Variant !== PickupVariant.BED && // 380
     pickup.Price === 0 // We don't want it to affect shop items
   ) {
     pickup.Remove();
 
     repeat(3, (i) => {
-      // We want to space out the spiders so that you can see each individual one
+      // We want to space out the spiders so that you can see each individual one.
       const position = Vector(
         pickup.Position.X + 15 * i,
         pickup.Position.Y + 15 * i,
@@ -49,18 +56,18 @@ postPickupUpdateBabyFunctionMap.set(131, (pickup: EntityPickup) => {
 // No Arms Baby
 postPickupUpdateBabyFunctionMap.set(140, (pickup: EntityPickup) => {
   if (
-    pickup.Variant !== PickupVariant.PICKUP_COLLECTIBLE && // 100
-    pickup.Variant !== PickupVariant.PICKUP_SHOPITEM && // 150
-    pickup.Variant !== PickupVariant.PICKUP_BIGCHEST && // 340
-    pickup.Variant !== PickupVariant.PICKUP_TROPHY && // 370
-    pickup.Variant !== PickupVariant.PICKUP_BED // 380
+    pickup.Variant !== PickupVariant.COLLECTIBLE && // 100
+    pickup.Variant !== PickupVariant.SHOP_ITEM && // 150
+    pickup.Variant !== PickupVariant.BIG_CHEST && // 340
+    pickup.Variant !== PickupVariant.TROPHY && // 370
+    pickup.Variant !== PickupVariant.BED // 380
   ) {
-    // Make it impossible for the player to pick up this pickup
-    if (pickup.EntityCollisionClass !== EntityCollisionClass.ENTCOLL_NONE) {
-      pickup.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE;
+    // Make it impossible for the player to pick up this pickup.
+    if (pickup.EntityCollisionClass !== EntityCollisionClass.NONE) {
+      pickup.EntityCollisionClass = EntityCollisionClass.NONE;
     }
 
-    // Make it bounce off the player if they get too close
+    // Make it bounce off the player if they get too close.
     if (g.p.Position.Distance(pickup.Position) <= 25) {
       const x = pickup.Position.X - g.p.Position.X;
       const y = pickup.Position.Y - g.p.Position.Y;
@@ -72,11 +79,11 @@ postPickupUpdateBabyFunctionMap.set(140, (pickup: EntityPickup) => {
 // Rictus Baby
 postPickupUpdateBabyFunctionMap.set(154, (pickup: EntityPickup) => {
   if (
-    pickup.Variant !== PickupVariant.PICKUP_COLLECTIBLE && // 100
-    pickup.Variant !== PickupVariant.PICKUP_SHOPITEM && // 150
-    pickup.Variant !== PickupVariant.PICKUP_BIGCHEST && // 340
-    pickup.Variant !== PickupVariant.PICKUP_TROPHY && // 370
-    pickup.Variant !== PickupVariant.PICKUP_BED && // 380
+    pickup.Variant !== PickupVariant.COLLECTIBLE && // 100
+    pickup.Variant !== PickupVariant.SHOP_ITEM && // 150
+    pickup.Variant !== PickupVariant.BIG_CHEST && // 340
+    pickup.Variant !== PickupVariant.TROPHY && // 370
+    pickup.Variant !== PickupVariant.BED && // 380
     pickup.Price === 0 && // We don't want it to affect shop items
     pickup.Position.Distance(g.p.Position) <= 80
   ) {
@@ -92,18 +99,18 @@ postPickupUpdateBabyFunctionMap.set(154, (pickup: EntityPickup) => {
 postPickupUpdateBabyFunctionMap.set(158, (pickup: EntityPickup) => {
   const roomType = g.r.GetType();
 
-  // Ignore some special rooms
+  // Ignore some special rooms.
   if (!shouldTransformRoomType(roomType)) {
     return;
   }
 
-  // All special rooms are Angel Shops
+  // All special rooms are Angel Shops.
   if (isRerolledCollectibleBuggedHeart(pickup)) {
-    // Rerolled items turn into hearts since this is a not an actual Devil Room,
-    // so delete the heart and manually create another pedestal item
+    // Rerolled items turn into hearts since this is a not an actual Devil Room, so delete the heart
+    // and manually create another pedestal item.
     const seed = g.run.room.rng.Next();
     const collectibleType = g.itemPool.GetCollectible(
-      ItemPoolType.POOL_ANGEL,
+      ItemPoolType.ANGEL,
       true,
       seed,
     );
@@ -115,7 +122,7 @@ postPickupUpdateBabyFunctionMap.set(158, (pickup: EntityPickup) => {
     collectible.AutoUpdatePrice = false;
     collectible.Price = 15;
 
-    // Remove the heart
+    // Remove the heart.
     pickup.Remove();
   }
 });
@@ -124,25 +131,24 @@ postPickupUpdateBabyFunctionMap.set(158, (pickup: EntityPickup) => {
 postPickupUpdateBabyFunctionMap.set(166, (pickup: EntityPickup) => {
   const data = pickup.GetData();
   if (
-    // Frame 0 does not work and frame 1 interferes with Racing+ replacement code
+    // Frame 0 does not work and frame 1 interferes with Racing+ replacement code.
     pickup.FrameCount === 2 &&
-    (pickup.Variant === PickupVariant.PICKUP_CHEST || // 50
-      pickup.Variant === PickupVariant.PICKUP_BOMBCHEST || // 51
-      pickup.Variant === PickupVariant.PICKUP_ETERNALCHEST || // 53
-      pickup.Variant === PickupVariant.PICKUP_LOCKEDCHEST || // 60
-      pickup.Variant === PickupVariant.PICKUP_REDCHEST) && // 360
-    // Racing+ will change some Spiked Chests / Mimic Chests to normal chests
-    // to prevent unavoidable damage in rooms with a 1x1 path
-    // It will set "data.unavoidableReplacement = true" when it does this
-    data.unavoidableReplacement === undefined
+    (pickup.Variant === PickupVariant.CHEST || // 50
+      pickup.Variant === PickupVariant.BOMB_CHEST || // 51
+      pickup.Variant === PickupVariant.ETERNAL_CHEST || // 53
+      pickup.Variant === PickupVariant.LOCKED_CHEST || // 60
+      pickup.Variant === PickupVariant.RED_CHEST) && // 360
+    // Racing+ will change some Spiked Chests / Mimic Chests to normal chests to prevent unavoidable
+    // damage in rooms with a 1x1 path. It will set "data.unavoidableReplacement = true" when it
+    // does this.
+    data["unavoidableReplacement"] === undefined
   ) {
-    // Replace all chests with Mimics (5.54)
-    // (this does not work in the PostPickupSelection callback because
-    // the chest will not initialize properly for some reason)
-    // (this does not work in the PostPickupInit callback because the position is not initialized)
+    // Replace all chests with Mimics (5.54). This does not work in the PostPickupSelection callback
+    // because the chest will not initialize properly for some reason. This does not work in the
+    // PostPickupInit callback because the position is not initialized.
     pickup.Remove();
     spawnPickup(
-      PickupVariant.PICKUP_MIMICCHEST,
+      PickupVariant.MIMIC_CHEST,
       0,
       pickup.Position,
       pickup.Velocity,
@@ -150,22 +156,18 @@ postPickupUpdateBabyFunctionMap.set(166, (pickup: EntityPickup) => {
       pickup.InitSeed,
     );
   } else if (
-    pickup.Variant === PickupVariant.PICKUP_SPIKEDCHEST &&
+    pickup.Variant === PickupVariant.SPIKED_CHEST &&
     pickup.SubType === 0 // SubType of 0 is open and 1 is closed
   ) {
-    // Replace the contents of the chest with an item
+    // Replace the contents of the chest with an item.
     pickup.Remove();
-    spawnCollectible(
-      CollectibleType.COLLECTIBLE_NULL,
-      pickup.Position,
-      pickup.InitSeed,
-    );
+    spawnCollectible(CollectibleType.NULL, pickup.Position, pickup.InitSeed);
   }
 });
 
 // Aban Baby
 postPickupUpdateBabyFunctionMap.set(177, (pickup: EntityPickup) => {
-  if (pickup.Variant !== PickupVariant.PICKUP_COIN) {
+  if (pickup.Variant !== PickupVariant.COIN) {
     return;
   }
 
@@ -175,38 +177,38 @@ postPickupUpdateBabyFunctionMap.set(177, (pickup: EntityPickup) => {
 
   if (
     collected || // Don't mess with coins anymore after we have picked them up
-    data.recovery === undefined // We only want to target manually spawned coins
+    data["recovery"] === undefined // We only want to target manually spawned coins
   ) {
     return;
   }
 
   if (pickup.FrameCount <= 2 * GAME_FRAMES_PER_SECOND) {
-    // Make it impossible for the player to pick up this pickup
-    if (pickup.EntityCollisionClass !== EntityCollisionClass.ENTCOLL_NONE) {
-      pickup.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE;
+    // Make it impossible for the player to pick up this pickup.
+    if (pickup.EntityCollisionClass !== EntityCollisionClass.NONE) {
+      pickup.EntityCollisionClass = EntityCollisionClass.NONE;
     }
 
-    // Make it bounce off the player if they get too close
+    // Make it bounce off the player if they get too close.
     if (g.p.Position.Distance(pickup.Position) <= 25) {
       const x = pickup.Position.X - g.p.Position.X;
       const y = pickup.Position.Y - g.p.Position.Y;
       pickup.Velocity = Vector(x / 2, y / 2);
     }
 
-    // Play the custom "Blink" animation
+    // Play the custom "Blink" animation.
     if (!sprite.IsPlaying("Blink")) {
       sprite.Play("Blink", true);
     }
   } else {
-    // The coin has been spawned for a while, so set the collision back to normal
-    pickup.EntityCollisionClass = EntityCollisionClass.ENTCOLL_ALL;
+    // The coin has been spawned for a while, so set the collision back to normal.
+    pickup.EntityCollisionClass = EntityCollisionClass.ALL;
 
-    // Stop the custom "Blink" animation
+    // Stop the custom "Blink" animation.
     if (!sprite.IsPlaying("Idle")) {
       sprite.Play("Idle", true);
     }
 
-    // Make it start to fade away
+    // Make it start to fade away.
     const color = pickup.GetColor();
     const fadeAmount = 1 - (pickup.FrameCount - 60) * 0.01;
     if (fadeAmount <= 0) {
@@ -221,9 +223,9 @@ postPickupUpdateBabyFunctionMap.set(177, (pickup: EntityPickup) => {
 
 // Fancy Baby
 postPickupUpdateBabyFunctionMap.set(216, (pickup: EntityPickup) => {
-  // Can purchase teleports to special rooms
+  // Can purchase teleports to special rooms.
   if (isRerolledCollectibleBuggedHeart(pickup) && inStartingRoom()) {
-    // Delete the rerolled teleports
+    // Delete the rerolled teleports.
     pickup.Remove();
   }
 });
@@ -232,26 +234,29 @@ postPickupUpdateBabyFunctionMap.set(216, (pickup: EntityPickup) => {
 postPickupUpdateBabyFunctionMap.set(287, (pickup: EntityPickup) => {
   const roomType = g.r.GetType();
 
-  // Ignore some special rooms
+  // Ignore some special rooms.
   if (!shouldTransformRoomType(roomType)) {
     return;
   }
 
-  // All special rooms are Devil Rooms
-  if (pickup.Variant === PickupVariant.PICKUP_COLLECTIBLE) {
-    // If the price is not correct, update it
-    // (we have to check on every frame in case the health situation changes)
-    const price = getCollectibleDevilHeartPrice(pickup.SubType, g.p);
-    if (pickup.Price !== price) {
+  // All special rooms are Devil Rooms.
+  if (pickup.Variant === PickupVariant.COLLECTIBLE) {
+    // If the price is not correct, update it. (We have to check on every frame in case the health
+    // situation changes.)
+    const price = getCollectibleDevilHeartPrice(
+      pickup.SubType as CollectibleType,
+      g.p,
+    );
+    if (pickup.Price !== (price as int)) {
       pickup.AutoUpdatePrice = false;
       pickup.Price = price;
     }
   } else if (isRerolledCollectibleBuggedHeart(pickup)) {
-    // Rerolled items turn into hearts since this is a not an actual Devil Room,
-    // so delete the heart and manually create another pedestal item
+    // Rerolled items turn into hearts since this is a not an actual Devil Room, so delete the heart
+    // and manually create another pedestal item.
     const seed = g.run.room.rng.Next();
     const collectibleType = g.itemPool.GetCollectible(
-      ItemPoolType.POOL_DEVIL,
+      ItemPoolType.DEVIL,
       true,
       seed,
     );
@@ -271,19 +276,22 @@ postPickupUpdateBabyFunctionMap.set(287, (pickup: EntityPickup) => {
 // Scary Baby
 postPickupUpdateBabyFunctionMap.set(317, (pickup: EntityPickup) => {
   // Items cost hearts
-  if (pickup.Variant === PickupVariant.PICKUP_COLLECTIBLE) {
-    // If the price is not correct, update it
-    // (we have to check on every frame in case the health situation changes)
-    const price = getCollectibleDevilHeartPrice(pickup.SubType, g.p);
-    if (pickup.Price !== price) {
+  if (pickup.Variant === PickupVariant.COLLECTIBLE) {
+    // If the price is not correct, update it. (We have to check on every frame in case the health
+    // situation changes.)
+    const price = getCollectibleDevilHeartPrice(
+      pickup.SubType as CollectibleType,
+      g.p,
+    );
+    if (pickup.Price !== (price as int)) {
       pickup.AutoUpdatePrice = false;
       pickup.Price = price;
     }
   } else if (isRerolledCollectibleBuggedHeart(pickup)) {
-    // Rerolled items turn into hearts since we are not in a Devil Room,
-    // so delete the heart and manually create another pedestal item
+    // Rerolled items turn into hearts since we are not in a Devil Room, so delete the heart and
+    // manually create another pedestal item.
     const collectible = spawnCollectible(
-      CollectibleType.COLLECTIBLE_NULL,
+      CollectibleType.NULL,
       pickup.Position,
       pickup.InitSeed,
     );
@@ -300,35 +308,34 @@ postPickupUpdateBabyFunctionMap.set(381, (pickup: EntityPickup) => {
   const gameFrameCount = g.g.GetFrameCount();
   const isFirstVisit = g.r.IsFirstVisit();
 
-  // Double items
-  // (we can't do this in the PostPickupInit callback because the position is not set)
+  // Double items. We can't do this in the PostPickupInit callback because the position is not set.
   if (
-    pickup.Variant === PickupVariant.PICKUP_COLLECTIBLE &&
+    pickup.Variant === PickupVariant.COLLECTIBLE &&
     isFirstVisit &&
-    // Frame 0 does not work
-    // Frame 1 works but we need to wait an extra frame for Racing+ to replace the pedestal
+    // Frame 0 does not work. Frame 1 works but we need to wait an extra frame for Racing+ to
+    // replace the pedestal.
     pickup.FrameCount === 2 &&
     pickup.State !== 2 && // We mark a state of 2 to indicate a duplicated pedestal
     (g.run.babyCountersRoom === 0 || g.run.babyCountersRoom === gameFrameCount)
   ) {
     const position = g.r.FindFreePickupSpawnPosition(pickup.Position, 1, true);
     const collectible = spawnCollectible(
-      CollectibleType.COLLECTIBLE_NULL,
+      CollectibleType.NULL,
       position,
       g.run.rng,
     );
 
-    // We don't want it to automatically be bought
+    // We don't want it to automatically be bought.
     collectible.Price = pickup.Price;
 
-    // We want it to keep the behavior of the room
+    // We want it to keep the behavior of the room.
     collectible.OptionsPickupIndex = pickup.OptionsPickupIndex;
 
-    // Mark it so that we don't duplicate it again
+    // Mark it so that we don't duplicate it again.
     collectible.State = 2;
 
-    // We only want to duplicate pedestals once per room to avoid duplicating rerolled pedestals
-    // (the state will go back to 0 for a rerolled pedestal)
+    // We only want to duplicate pedestals once per room to avoid duplicating rerolled pedestals.
+    // (The state will go back to 0 for a rerolled pedestal.)
     g.run.babyCountersRoom = gameFrameCount;
   }
 });
@@ -345,7 +352,7 @@ postPickupUpdateBabyFunctionMap.set(394, (pickup: EntityPickup) => {
   ) {
     const velocity = g.p.Position.sub(pickup.Position).Normalized().mul(7);
     spawnProjectile(
-      ProjectileVariant.PROJECTILE_NORMAL,
+      ProjectileVariant.NORMAL,
       0,
       pickup.Position,
       velocity,
@@ -358,13 +365,13 @@ postPickupUpdateBabyFunctionMap.set(394, (pickup: EntityPickup) => {
 postPickupUpdateBabyFunctionMap.set(
   RandomBabyType.FATES_REWARD,
   (pickup: EntityPickup) => {
-    // Rerolled items turn into hearts
-    // so delete the heart and manually create another pedestal item
+    // Rerolled items turn into hearts so delete the heart and manually create another pedestal
+    // item.
     if (isRerolledCollectibleBuggedHeart(pickup)) {
       pickup.Remove();
 
       const collectible = spawnCollectible(
-        CollectibleType.COLLECTIBLE_NULL,
+        CollectibleType.NULL,
         pickup.Position,
         g.run.room.rng,
       );

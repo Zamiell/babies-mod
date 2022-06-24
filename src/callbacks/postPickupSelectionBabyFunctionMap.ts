@@ -1,3 +1,9 @@
+import {
+  CoinSubType,
+  KeySubType,
+  PickupVariant,
+} from "isaac-typescript-definitions";
+
 export const postPickupSelectionBabyFunctionMap = new Map<
   int,
   (pickup: EntityPickup, variant: int, subType: int) => [int, int] | void
@@ -8,10 +14,10 @@ postPickupSelectionBabyFunctionMap.set(
   237,
   (_pickup: EntityPickup, variant: int, subType: int) => {
     if (
-      variant === PickupVariant.PICKUP_COIN &&
-      subType === CoinSubType.COIN_PENNY
+      variant === (PickupVariant.COIN as int) &&
+      subType === (CoinSubType.PENNY as int)
     ) {
-      return [PickupVariant.PICKUP_COIN, CoinSubType.COIN_NICKEL];
+      return [PickupVariant.COIN, CoinSubType.NICKEL];
     }
 
     return undefined;
@@ -22,10 +28,10 @@ postPickupSelectionBabyFunctionMap.set(
 postPickupSelectionBabyFunctionMap.set(
   342,
   (_pickup: EntityPickup, variant: int, subType: int) => {
-    // Convert all keys to bombs
-    if (variant === PickupVariant.PICKUP_KEY) {
-      return [PickupVariant.PICKUP_BOMB, subType];
-      // (use the same SubType, so e.g. a charged key would be converted to a golden bomb)
+    // Convert all keys to bombs.
+    if (variant === (PickupVariant.KEY as int)) {
+      return [PickupVariant.BOMB, subType];
+      // (use the same sub-type, so e.g. a charged key would be converted to a golden bomb)
     }
 
     return undefined;
@@ -36,14 +42,14 @@ postPickupSelectionBabyFunctionMap.set(
 postPickupSelectionBabyFunctionMap.set(
   395,
   (_pickup: EntityPickup, variant: int, subType: int) => {
-    // Convert all bombs to keys
-    if (variant === PickupVariant.PICKUP_BOMB) {
-      if (subType > KeySubType.KEY_CHARGED) {
-        // There are more bomb sub-types than key sub-types
+    // Convert all bombs to keys.
+    if (variant === (PickupVariant.BOMB as int)) {
+      if (subType > (KeySubType.CHARGED as int)) {
+        // There are more bomb sub-types than key sub-types.
         subType = 1;
       }
 
-      return [PickupVariant.PICKUP_KEY, subType];
+      return [PickupVariant.KEY, subType];
       // (use the same SubType, so e.g. a golden bomb would be converted to a charged key)
     }
 

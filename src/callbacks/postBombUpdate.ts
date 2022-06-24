@@ -1,8 +1,9 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import { getCurrentBaby } from "../utils";
 import { postBombUpdateBabyFunctionMap } from "./postBombUpdateBabyFunctionMap";
 
 export function init(mod: Mod): void {
-  mod.AddCallback(ModCallbacks.MC_POST_BOMB_UPDATE, main);
+  mod.AddCallback(ModCallback.POST_BOMB_UPDATE, main);
 }
 
 function main(bomb: EntityBomb) {

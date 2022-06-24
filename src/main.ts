@@ -26,13 +26,13 @@ import * as postRender from "./callbacks/postRender";
 import * as postTearInit from "./callbacks/postTearInit";
 import * as postTearUpdate from "./callbacks/postTearUpdate";
 import * as postUpdate from "./callbacks/postUpdate";
+import * as postUseItem from "./callbacks/postUseItem";
+import * as postUsePill from "./callbacks/postUsePill";
 import * as preEntitySpawn from "./callbacks/preEntitySpawn";
 import * as preGetCollectible from "./callbacks/preGetCollectible";
 import * as preRoomEntitySpawn from "./callbacks/preRoomEntitySpawn";
 import * as preTearCollision from "./callbacks/preTearCollision";
 import * as preUseItem from "./callbacks/preUseItem";
-import * as useItem from "./callbacks/useItem";
-import * as usePill from "./callbacks/usePill";
 import * as postGameStartedReordered from "./callbacksCustom/postGameStartedReordered";
 import * as postGridEntityBroken from "./callbacksCustom/postGridEntityBroken";
 import * as postGridEntityInit from "./callbacksCustom/postGridEntityInit";
@@ -81,12 +81,12 @@ function registerCallbacksMain(mod: ModUpgraded) {
   postNPCUpdate.init(mod); // 0
   postUpdate.init(mod); // 1
   postRender.init(mod); // 2
-  useItem.init(mod); // 3
+  postUseItem.init(mod); // 3
   postFamiliarUpdate.init(mod); // 6
   postFamiliarInit.init(mod); // 7
   evaluateCache.init(mod); // 8
   postPlayerInit.init(mod); // 9
-  usePill.init(mod); // 10
+  postUsePill.init(mod); // 10
   entityTakeDmg.init(mod); // 11
   inputAction.init(mod); // 13
   executeCmd.init(mod); // 22

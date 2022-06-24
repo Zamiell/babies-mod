@@ -1,4 +1,10 @@
 import {
+  BombVariant,
+  CollectibleType,
+  Direction,
+  EntityType,
+} from "isaac-typescript-definitions";
+import {
   addRoomClearCharge,
   BOMB_EXPLODE_FRAME,
   directionToVector,
@@ -25,14 +31,14 @@ export const postBombUpdateBabyFunctionMap = new Map<
 
 // Bomb Baby
 postBombUpdateBabyFunctionMap.set(75, (bomb: EntityBomb) => {
-  // 50% chance for bombs to have the D6 effect
+  // 50% chance for bombs to have the D6 effect.
   if (
-    bomb.SpawnerType === EntityType.ENTITY_PLAYER &&
+    bomb.SpawnerType === EntityType.PLAYER &&
     bomb.FrameCount === BOMB_EXPLODE_FRAME
   ) {
     const d6chance = getRandom(g.run.room.rng);
     if (d6chance <= 0.5) {
-      useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_D6);
+      useActiveItemTemp(g.p, CollectibleType.D6);
     }
   }
 });
@@ -41,7 +47,7 @@ postBombUpdateBabyFunctionMap.set(75, (bomb: EntityBomb) => {
 postBombUpdateBabyFunctionMap.set(97, (bomb: EntityBomb) => {
   // Recharge bombs
   if (
-    bomb.SpawnerType === EntityType.ENTITY_PLAYER &&
+    bomb.SpawnerType === EntityType.PLAYER &&
     bomb.FrameCount === BOMB_EXPLODE_FRAME
   ) {
     addRoomClearCharge(g.p, true);
@@ -53,7 +59,7 @@ postBombUpdateBabyFunctionMap.set(211, (bomb: EntityBomb) => {
   const gameFrameCount = g.g.GetFrameCount();
 
   if (
-    bomb.SpawnerType !== EntityType.ENTITY_PLAYER ||
+    bomb.SpawnerType !== EntityType.PLAYER ||
     bomb.FrameCount !== BOMB_EXPLODE_FRAME
   ) {
     return;
@@ -76,7 +82,7 @@ postBombUpdateBabyFunctionMap.set(284, (bomb: EntityBomb) => {
 
   if (
     bomb.FrameCount === 1 && // Frame 0 does not work
-    data.doubled === undefined
+    data["doubled"] === undefined
   ) {
     const position = getRandomOffsetPosition(bomb.Position, 15, bomb.InitSeed);
     const doubledBomb = spawnBomb(
@@ -91,9 +97,10 @@ postBombUpdateBabyFunctionMap.set(284, (bomb: EntityBomb) => {
     doubledBomb.IsFetus = bomb.IsFetus;
     doubledBomb.ExplosionDamage = bomb.ExplosionDamage;
     doubledBomb.RadiusMultiplier = bomb.RadiusMultiplier;
-    doubledBomb.GetData().doubled = true;
+    const doubledBombData = doubledBomb.GetData();
+    doubledBombData["doubled"] = true;
 
-    // There is a bug where Dr. Fetus bombs that are doubled have twice as long of a cooldown
+    // There is a bug where Dr. Fetus bombs that are doubled have twice as long of a cooldown.
     if (bomb.IsFetus) {
       doubledBomb.SetExplosionCountdown(28);
     }
@@ -103,7 +110,7 @@ postBombUpdateBabyFunctionMap.set(284, (bomb: EntityBomb) => {
 // Barbarian Baby
 postBombUpdateBabyFunctionMap.set(344, (bomb: EntityBomb) => {
   if (
-    bomb.SpawnerType === EntityType.ENTITY_PLAYER &&
+    bomb.SpawnerType === EntityType.PLAYER &&
     bomb.FrameCount === BOMB_EXPLODE_FRAME
   ) {
     g.r.MamaMegaExplossion();
@@ -112,9 +119,9 @@ postBombUpdateBabyFunctionMap.set(344, (bomb: EntityBomb) => {
 
 // Orange Ghost Baby
 postBombUpdateBabyFunctionMap.set(373, (bomb: EntityBomb) => {
-  if (bomb.FrameCount === 1 && bomb.Variant !== BombVariant.BOMB_SUPERTROLL) {
+  if (bomb.FrameCount === 1 && bomb.Variant !== BombVariant.MEGA_TROLL) {
     spawnBomb(
-      BombVariant.BOMB_SUPERTROLL,
+      BombVariant.MEGA_TROLL,
       bomb.SubType,
       bomb.Position,
       bomb.Velocity,

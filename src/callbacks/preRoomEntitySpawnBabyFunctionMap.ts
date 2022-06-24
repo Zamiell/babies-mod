@@ -1,3 +1,4 @@
+import { EntityType, GridEntityXMLType } from "isaac-typescript-definitions";
 import g from "../globals";
 import { shouldTransformRoomType } from "../utils";
 
@@ -5,7 +6,7 @@ const GRID_ENTITY_REPLACEMENT_EXCEPTIONS: ReadonlySet<GridEntityXMLType> =
   new Set([
     GridEntityXMLType.PRESSURE_PLATE,
     GridEntityXMLType.TRAPDOOR,
-    GridEntityXMLType.STAIRS,
+    GridEntityXMLType.TRAPDOOR,
   ]);
 
 export const preRoomEntitySpawnBabyFunctionMap = new Map<
@@ -18,9 +19,9 @@ preRoomEntitySpawnBabyFunctionMap.set(143, (entityType: int) => {
   if (
     g.r.IsFirstVisit() &&
     entityType >= 1000 && // We only care about grid entities
-    !GRID_ENTITY_REPLACEMENT_EXCEPTIONS.has(entityType) // Make an exception for certain entities
+    !GRID_ENTITY_REPLACEMENT_EXCEPTIONS.has(entityType as GridEntityXMLType)
   ) {
-    // Everything is Red Poop
+    // Everything is Red Poop.
     return [GridEntityXMLType.POOP_RED, 0, 0];
   }
 
@@ -31,8 +32,7 @@ preRoomEntitySpawnBabyFunctionMap.set(143, (entityType: int) => {
 preRoomEntitySpawnBabyFunctionMap.set(158, (_entityType: EntityType) => {
   const roomType = g.r.GetType();
 
-  // All special rooms are Angel Shops
-  // Ignore some select special rooms
+  // All special rooms are Angel Shops. Ignore some select special rooms.
   if (shouldTransformRoomType(roomType)) {
     return [999, 0, 0]; // Equal to 1000.0, which is a blank effect, which is essentially nothing
   }
@@ -44,8 +44,7 @@ preRoomEntitySpawnBabyFunctionMap.set(158, (_entityType: EntityType) => {
 preRoomEntitySpawnBabyFunctionMap.set(287, (_entityType: EntityType) => {
   const roomType = g.r.GetType();
 
-  // All special rooms are Devil Rooms
-  // Ignore some select special rooms
+  // All special rooms are Devil Rooms. Ignore some select special rooms.
   if (shouldTransformRoomType(roomType)) {
     return [999, 0, 0]; // Equal to 1000.0, which is a blank effect, which is essentially nothing
   }
@@ -58,7 +57,7 @@ preRoomEntitySpawnBabyFunctionMap.set(389, (entityType: int) => {
   if (
     g.r.IsFirstVisit() &&
     entityType >= 1000 && // We only care about grid entities
-    !GRID_ENTITY_REPLACEMENT_EXCEPTIONS.has(entityType) // Make an exception for certain entities
+    !GRID_ENTITY_REPLACEMENT_EXCEPTIONS.has(entityType as GridEntityXMLType)
   ) {
     // Everything is TNT
     return [GridEntityXMLType.TNT, 0, 0];

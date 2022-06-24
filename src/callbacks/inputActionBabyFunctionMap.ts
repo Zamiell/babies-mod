@@ -1,3 +1,8 @@
+import {
+  ButtonAction,
+  CollectibleType,
+  InputHook,
+} from "isaac-typescript-definitions";
 import { isActionPressedOnAnyInput, isShootAction } from "isaacscript-common";
 import { RandomBabyType } from "../babies";
 import g from "../globals";
@@ -36,17 +41,16 @@ inputActionBabyFunctionMap.set(
       return undefined;
     }
 
-    // Can't shoot while moving
-    // This ability does not interact well with charged items,
-    // so don't do anything if the player has a charged item
+    // Can't shoot while moving. This ability does not interact well with charged items, so don't do
+    // anything if the player has a charged item.
     if (
-      player.HasCollectible(CollectibleType.COLLECTIBLE_CHOCOLATE_MILK) || // 69
-      player.HasCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE) || // 114
-      player.HasCollectible(CollectibleType.COLLECTIBLE_BRIMSTONE) || // 118
-      player.HasCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG) || // 229
-      player.HasCollectible(CollectibleType.COLLECTIBLE_CURSED_EYE) || // 316
-      player.HasCollectible(CollectibleType.COLLECTIBLE_TECH_X) || // 395
-      player.HasCollectible(CollectibleType.COLLECTIBLE_MAW_OF_THE_VOID) // 399
+      player.HasCollectible(CollectibleType.CHOCOLATE_MILK) || // 69
+      player.HasCollectible(CollectibleType.MOMS_KNIFE) || // 114
+      player.HasCollectible(CollectibleType.BRIMSTONE) || // 118
+      player.HasCollectible(CollectibleType.MONSTROS_LUNG) || // 229
+      player.HasCollectible(CollectibleType.CURSED_EYE) || // 316
+      player.HasCollectible(CollectibleType.TECH_X) || // 395
+      player.HasCollectible(CollectibleType.MAW_OF_THE_VOID) // 399
     ) {
       return undefined;
     }
@@ -64,32 +68,32 @@ inputActionBabyFunctionMap.set(
     _inputHook: InputHook,
     buttonAction: ButtonAction,
   ) => {
-    // Can only move up + down + left + right
+    // Can only move up + down + left + right.
     if (
-      buttonAction === ButtonAction.ACTION_LEFT && // 0
-      (isActionPressedOnAnyInput(ButtonAction.ACTION_UP) || // 2
-        isActionPressedOnAnyInput(ButtonAction.ACTION_DOWN)) // 3
+      buttonAction === ButtonAction.LEFT && // 0
+      (isActionPressedOnAnyInput(ButtonAction.UP) || // 2
+        isActionPressedOnAnyInput(ButtonAction.DOWN)) // 3
     ) {
       return 0;
     }
     if (
-      buttonAction === ButtonAction.ACTION_RIGHT && // 1
-      (isActionPressedOnAnyInput(ButtonAction.ACTION_UP) || // 2
-        isActionPressedOnAnyInput(ButtonAction.ACTION_DOWN)) // 3
+      buttonAction === ButtonAction.RIGHT && // 1
+      (isActionPressedOnAnyInput(ButtonAction.UP) || // 2
+        isActionPressedOnAnyInput(ButtonAction.DOWN)) // 3
     ) {
       return 0;
     }
     if (
-      buttonAction === ButtonAction.ACTION_UP && // 2
-      (isActionPressedOnAnyInput(ButtonAction.ACTION_LEFT) || // 0
-        isActionPressedOnAnyInput(ButtonAction.ACTION_RIGHT)) // 1
+      buttonAction === ButtonAction.UP && // 2
+      (isActionPressedOnAnyInput(ButtonAction.LEFT) || // 0
+        isActionPressedOnAnyInput(ButtonAction.RIGHT)) // 1
     ) {
       return 0;
     }
     if (
-      buttonAction === ButtonAction.ACTION_DOWN && // 3
-      (isActionPressedOnAnyInput(ButtonAction.ACTION_LEFT) || // 0
-        isActionPressedOnAnyInput(ButtonAction.ACTION_RIGHT)) // 1
+      buttonAction === ButtonAction.DOWN && // 3
+      (isActionPressedOnAnyInput(ButtonAction.LEFT) || // 0
+        isActionPressedOnAnyInput(ButtonAction.RIGHT)) // 1
     ) {
       return 0;
     }
@@ -106,24 +110,23 @@ inputActionBabyFunctionMap.set(
     _inputHook: InputHook,
     buttonAction: ButtonAction,
   ) => {
-    // Blender + flight + explosion immunity + blindfolded
+    // Blender + flight + explosion immunity + blindfolded.
 
-    // The direction is stored in the "babyCounters" variable
-    // It can have these values:
-    // - ButtonAction.ACTION_SHOOTLEFT (4)
-    // - ButtonAction.ACTION_SHOOTRIGHT (5)
-    // - ButtonAction.ACTION_SHOOTUP (6)
-    // - ButtonAction.ACTION_SHOOTDOWN (7)
-    let direction = g.run.babyCounters;
+    // The direction is stored in the "babyCounters" variable It can have these values:
+    // - ButtonAction.SHOOT_LEFT (4)
+    // - ButtonAction.SHOOT_RIGHT (5)
+    // - ButtonAction.SHOOT_UP (6)
+    // - ButtonAction.SHOOT_DOWN (7)
+    let direction = g.run.babyCounters as ButtonAction;
 
-    // We need to swap right and up
-    if (direction === ButtonAction.ACTION_SHOOTRIGHT) {
-      direction = ButtonAction.ACTION_SHOOTUP;
-    } else if (direction === ButtonAction.ACTION_SHOOTUP) {
-      direction = ButtonAction.ACTION_SHOOTRIGHT;
+    // We need to swap right and up.
+    if (direction === ButtonAction.SHOOT_RIGHT) {
+      direction = ButtonAction.SHOOT_UP;
+    } else if (direction === ButtonAction.SHOOT_UP) {
+      direction = ButtonAction.SHOOT_RIGHT;
     }
 
-    // Make the player face in this direction
+    // Make the player face in this direction.
     if (buttonAction === direction) {
       return 1;
     }
@@ -143,7 +146,7 @@ inputActionBabyFunctionMap.set(
     // Can't shoot right
     if (
       inputHook === InputHook.IS_ACTION_PRESSED &&
-      buttonAction === ButtonAction.ACTION_SHOOTRIGHT
+      buttonAction === ButtonAction.SHOOT_RIGHT
     ) {
       return false;
     }
@@ -163,7 +166,7 @@ inputActionBabyFunctionMap.set(
     // Can't shoot left
     if (
       inputHook === InputHook.IS_ACTION_PRESSED &&
-      buttonAction === ButtonAction.ACTION_SHOOTLEFT
+      buttonAction === ButtonAction.SHOOT_LEFT
     ) {
       return false;
     }

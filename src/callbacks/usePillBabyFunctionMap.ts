@@ -1,3 +1,4 @@
+import { CacheFlag } from "isaac-typescript-definitions";
 import g from "../globals";
 
 export const usePillBabyFunctionMap = new Map<
@@ -8,6 +9,6 @@ export const usePillBabyFunctionMap = new Map<
 // Bubbles Baby
 usePillBabyFunctionMap.set(483, (player: EntityPlayer) => {
   g.run.babyCounters += 1;
-  player.AddCacheFlags(CacheFlag.CACHE_DAMAGE);
+  player.AddCacheFlags(CacheFlag.DAMAGE);
   player.EvaluateItems();
 });

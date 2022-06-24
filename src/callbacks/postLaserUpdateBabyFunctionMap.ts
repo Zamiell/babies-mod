@@ -1,3 +1,4 @@
+import { EntityType, SoundEffect } from "isaac-typescript-definitions";
 import {
   AZAZEL_DEFAULT_BRIMSTONE_DISTANCE,
   setEntityRandomColor,
@@ -13,7 +14,7 @@ export const postLaserUpdateBabyFunctionMap = new Map<
 // Glass Baby
 postLaserUpdateBabyFunctionMap.set(14, (laser: EntityLaser) => {
   const data = laser.GetData();
-  if (data.ring === true) {
+  if (data["ring"] === true) {
     // Keep the ring centered on the player.
     laser.Position = g.p.Position;
   }
@@ -32,16 +33,13 @@ postLaserUpdateBabyFunctionMap.set(51, (laser: EntityLaser) => {
   const sprite = laser.GetSprite();
   const filename = sprite.GetFilename();
 
-  if (
-    laser.SpawnerType === EntityType.ENTITY_PLAYER &&
-    laser.FrameCount === 0
-  ) {
-    // For simplicity and to make it more difficult,
-    // we will instead hard-code the default Azazel distance
+  if (laser.SpawnerType === EntityType.PLAYER && laser.FrameCount === 0) {
+    // For simplicity and to make it more difficult, we will instead hard-code the default Azazel
+    // distance.
     laser.SetMaxDistance(AZAZEL_DEFAULT_BRIMSTONE_DISTANCE);
 
     // Making the laser invisible earlier also muted the sound effect, so play it manually.
-    sfxManager.Play(SoundEffect.SOUND_BLOOD_LASER_LARGE, 0.75);
+    sfxManager.Play(SoundEffect.BLOOD_LASER_LARGE, 0.75);
     // (The Azazel brimstone is the "large" sound effect instead of the normal one for some reason.)
     // (A volume of 1 is a bit too loud.)
   }

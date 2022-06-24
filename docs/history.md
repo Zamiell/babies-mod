@@ -1,6 +1,8 @@
 # The Babies Mod Version History
 
-### *v1.4.10* - February 18th, 2022
+<!-- markdownlint-disable MD001 -->
+
+### _v1.4.10_ - February 18th, 2022
 
 - New baby: Esau Jr. Baby (#584) - Soul of Jacob and Esau effect on hit
 - Fixed the bug where Lil' Brimstone was invisible.
@@ -8,20 +10,20 @@
 - Fixed the bug where baby sprites would not work correctly under certain conditions.
 - Fixed the bug where jumping into a Womb trapdoor would softlock the game under certain conditions.
 
-### *v1.4.9* - January 2nd, 2022
+### _v1.4.9_ - January 2nd, 2022
 
 - Fixed the bug where in seeded races, Random Baby would be invisible during the custom death mechanic. (Thanks Moucheron Quipet)
 
-### *v1.4.8* - December 30th, 2021
+### _v1.4.8_ - December 30th, 2021
 
 - Eyebat Baby (#535) - "Starts with Paschal Candle" --> "Floors are reversed"
 - Rock Baby (#538) - "Floors are reversed" --> "Starts with Terra"
 
-### *v1.4.5* - December 30th, 2021
+### _v1.4.5_ - December 30th, 2021
 
 - Rock Baby (#538) - "Starts with Terra" --> "Floors are reversed"
 
-### *v1.4.4* - December 23rd, 2021
+### _v1.4.4_ - December 23rd, 2021
 
 - Magnet Baby (#26) - "Starts with Magneto" --> "Magnetizing tears"
 - Teeth Baby (#95) - "Starts with Dog Tooth" --> "Starts with Lemegeton"
@@ -40,7 +42,7 @@
 - Eyebat Baby (#535) - "n/a" --> "Starts with Paschal Candle"
 - Mr. E Baby (#543) - "Starts with Belly Jelly" --> "Starts with Purgatory"
 
-### *v1.4.2* - December 23rd, 2021
+### _v1.4.2_ - December 23rd, 2021
 
 - Bound Baby (#58) - Will no longer play the sound effect when a familiar is summoned.
 - Pretty Baby (#158) - "Summons a random familiar every 5 seconds" --> "All special rooms are Angel Shops"
@@ -48,7 +50,7 @@
 - Magic Cat Baby (#428) - "Constant Kidney Bean effect" --> "Giga Bomb effect on hit"
 - Breadmeat Hoodiebread Baby (#437) - "Starts with Eye of Greed" --> "Everything is sped up"
 
-### *v1.4.1* - December 23rd, 2021
+### _v1.4.1_ - December 23rd, 2021
 
 - Some babies have been changed:
   - -0- Baby (#24) - Can no longer be gotten on stage 5. (Thanks Gamonymous)
@@ -80,7 +82,7 @@
 - Fixed the bug where Found Soul Baby (#521) would spawn more than one Dark Esau with Birthright. (Thanks Gamonymous)
 - Fixed the bug where Fate's Reward (#574) had items costing 99 coins instead of 15 coins.
 
-### *v1.4.0* - December 15th, 2021
+### _v1.4.0_ - December 15th, 2021
 
 - 42 new babies have been added using the new Repentance baby sprites:
   - Found Soul Baby (#521) - Starts with a friendly Dark Esau
@@ -141,7 +143,7 @@
 - Fixed the bug where Black Baby (#27), Nerd Baby (#90), and Mouse Baby (#351) were not working correctly.
 - Thanks to Finalkids and Gamonymous for helping with the effects.
 
-### *v1.3.0* - December 11th, 2021
+### _v1.3.0_ - December 11th, 2021
 
 New features:
 
@@ -189,13 +191,13 @@ Bug fixes:
 - Fixed the bug where the sprite for Lil Monstro (#540) was not working correctly.
 - Fixed the bug where Invisible Baby (#541) would cast a shadow.
 
-### *v1.2.2* - July 27th, 2021
+### _v1.2.2_ - July 27th, 2021
 
 - Fixed many crashes with babies that had flight.
 - Fixed the bug where the baby sprite was glitchy when walking around.
 - Fixed the bug where the baby sprite was not updated in certain circumstances.
 
-### *v1.2.0* - June 28th, 2021
+### _v1.2.0_ - June 28th, 2021
 
 - The mod now works with Repentance.
 - Spider Baby is now #0.
@@ -205,17 +207,17 @@ Bug fixes:
 - Added Ersatz Baby (#490), who starts with Incubus.
 - Falling Baby is now #521 and starts with Twisted Pair.
 
-### *v1.1.1* - March 17th, 2021
+### _v1.1.1_ - March 17th, 2021
 
 - Fixed the bug where Lost Baby (#10), Hopeless Baby (#125), Mohawk Baby (#138), Aban Baby (#177), and Scoreboard Baby (#474) were not killed properly when their death conditions were met. (Thanks Gamonymous)
 
-### *v1.1.0* - March 15th, 2021
+### _v1.1.0_ - March 15th, 2021
 
 - The Babies Mod is rewritten using the IsaacScript framework.
 - Fixed the bug where you would get an error if you did not have Racing+ installed. (Thanks cantgirl)
 - Fixed the bug where Love Baby (#1) and Revenge Baby (#50) did not spawn random hearts correctly. (Thanks Dea1h)
 
-### *v1.0.7* - October 1st, 2020
+### _v1.0.7_ - October 1st, 2020
 
 - Fixed the bug where Fang Demon Baby (#281) soft-locked with the knife. (Thanks Hispa)
 - Fixed the bug where Lost Baby (#10), Hopeless Baby (#125), and Mohawk Baby (#138) did not show Lost-style health. (Thanks Hispa)
@@ -231,17 +233,17 @@ Bug fixes:
 - Hare Baby (#267) will no longer damage you in the starting room of a floor. (Thanks Hispa)
 - Added a known bug for Scream Baby (#81). (Thanks Moucheron Quipet)
 
-### *v1.0.5* - February 21st, 2020
+### _v1.0.5_ - February 21st, 2020
 
 - Monk Baby (#313) will no longer be chosen on floor 8.
 - Fixed the bug where 8 Ball Baby (#246) was not working properly.
 - Fixed the bug where Love Eye Baby (#249) was not working properly.
 
-### *v1.0.4* - November 22nd, 2019
+### _v1.0.4_ - November 22nd, 2019
 
 - Fixed some miscellaneous bugs.
 
-### *v1.0.0* - May 5th, 2019
+### _v1.0.0_ - May 5th, 2019
 
 - Babies now start with 3 red hearts outside of the Racing+ Season 5 custom challenge.
 - Bawl Baby tears will now scale with the player's damage. (damage / 2)
@@ -249,12 +251,12 @@ Bug fixes:
 - Elf Baby spear will now only deal 3x player's damage.
 - Fixed some miscellaneous bugs.
 
-### *v0.1.28* - November 11th, 2018
+### _v0.1.28_ - November 11th, 2018
 
 - Fixed the bug where Pubic Baby (#110) was not working correctly.
 - Fixed some miscellaneous bugs.
 
-### *v0.1.14* - November 11th, 2018
+### _v0.1.14_ - November 11th, 2018
 
 - The damage multiplier for Random Baby is changed from 1.35 to 1.0 (i.e. the same as Isaac).
 - The Babies Mod no longer uses the "Stat API 2.0" library due to many unfixed bugs by the developer.
@@ -267,23 +269,23 @@ Bug fixes:
   - Tooth Head Baby (#442) - Tooth tears
 - Fixed some miscellaneous bugs.
 
-### *v0.1.12* - November 4th, 2018
+### _v0.1.12_ - November 4th, 2018
 
 - Spartan Baby (#329) has a new ability: Spawns a pedestal item after 6 hits.
 - Did some minor balance changes.
 - Fixed some miscellaneous bugs.
 
-### *v0.1.6* - October 27th, 2018
+### _v0.1.6_ - October 27th, 2018
 
 - Did some minor balance changes.
 - Fixed some miscellaneous bugs.
 
-### *v0.1.1* - October 23rd, 2018
+### _v0.1.1_ - October 23rd, 2018
 
 - Fixed some miscellaneous bugs.
 - The baby's number is now shown on the screen.
 - You can now press the "v" key on the keyboard to show the version of the Babies Mod.
 
-### *v0.0.1* - October 22nd, 2018
+### _v0.0.1_ - October 22nd, 2018
 
 - The Babies Mod is released on the Steam Workshop!

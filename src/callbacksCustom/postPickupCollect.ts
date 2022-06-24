@@ -1,9 +1,9 @@
-import { ModCallbacksCustom, ModUpgraded } from "isaacscript-common";
+import { ModCallbackCustom, ModUpgraded } from "isaacscript-common";
 import { getCurrentBaby } from "../utils";
 import { postPickupCollectBabyFunctionMap } from "./postPickupCollectBabyFunctionMap";
 
 export function init(mod: ModUpgraded): void {
-  mod.AddCallbackCustom(ModCallbacksCustom.MC_POST_PICKUP_COLLECT, main);
+  mod.AddCallbackCustom(ModCallbackCustom.POST_PICKUP_COLLECT, main);
 }
 
 function main() {

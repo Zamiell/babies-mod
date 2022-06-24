@@ -1,9 +1,10 @@
+import { ModCallback, PickupVariant } from "isaac-typescript-definitions";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 import { getCurrentBaby } from "../utils";
 import { postPickupInitBabyFunctionMap } from "./postPickupInitBabyFunctionMap";
 
 export function init(mod: Mod): void {
-  mod.AddCallback(ModCallbacks.MC_POST_PICKUP_INIT, main);
+  mod.AddCallback(ModCallback.POST_PICKUP_INIT, main);
 }
 
 function main(pickup: EntityPickup) {
@@ -12,10 +13,10 @@ function main(pickup: EntityPickup) {
     return;
   }
 
-  // All baby effects should ignore the Checkpoint
+  // All baby effects should ignore the Checkpoint.
   if (
-    pickup.Variant === PickupVariant.PICKUP_COLLECTIBLE &&
-    pickup.SubType === CollectibleTypeCustom.COLLECTIBLE_CHECKPOINT
+    pickup.Variant === PickupVariant.COLLECTIBLE &&
+    pickup.SubType === (CollectibleTypeCustom.CHECKPOINT as int)
   ) {
     return;
   }

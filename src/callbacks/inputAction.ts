@@ -1,8 +1,13 @@
+import {
+  ButtonAction,
+  InputHook,
+  ModCallback,
+} from "isaac-typescript-definitions";
 import { getCurrentBaby } from "../utils";
 import { inputActionBabyFunctionMap } from "./inputActionBabyFunctionMap";
 
 export function init(mod: Mod): void {
-  mod.AddCallback(ModCallbacks.MC_INPUT_ACTION, main);
+  mod.AddCallback(ModCallback.INPUT_ACTION, main);
 }
 
 function main(

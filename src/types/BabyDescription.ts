@@ -1,4 +1,8 @@
-import { CollectibleTypeCustom } from "./CollectibleTypeCustom";
+import {
+  CollectibleType,
+  SeedEffect,
+  TrinketType,
+} from "isaac-typescript-definitions";
 
 export interface BabyDescription {
   // Mandatory properties
@@ -15,9 +19,9 @@ export interface BabyDescription {
   distance?: int;
   explosionImmunity?: boolean;
   flight?: boolean;
-  item?: CollectibleType | CollectibleTypeCustom;
-  item2?: CollectibleType | CollectibleTypeCustom;
-  item3?: CollectibleType | CollectibleTypeCustom;
+  item?: CollectibleType;
+  item2?: CollectibleType;
+  item3?: CollectibleType;
   itemNum?: int;
   max?: int;
   min?: int;

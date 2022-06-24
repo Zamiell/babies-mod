@@ -1,9 +1,3 @@
 <costumes anm2root="gfx/characters/">
-  <costume
-    anm2path="baby_flight.anm2"
-    priority="1"
-    type="none"
-    hasSkinAlt="true"
-    isFlying="true"
-  />
+  <costume anm2path="baby_flight.anm2" priority="1" type="none" hasSkinAlt="true" isFlying="true" />
 </costumes>

@@ -1,3 +1,4 @@
+import { DamageFlagZero, ItemType } from "isaac-typescript-definitions";
 import {
   getRoomGridIndexesForType,
   isQuestCollectible,
@@ -15,11 +16,11 @@ export const preItemPickupBabyFunctionMap = new Map<
 preItemPickupBabyFunctionMap.set(
   216,
   (_player: EntityPlayer, pickingUpItem: PickingUpItem) => {
-    if (pickingUpItem.itemType !== ItemType.ITEM_PASSIVE) {
+    if (pickingUpItem.itemType !== ItemType.PASSIVE) {
       return;
     }
 
-    // Can purchase teleports to special rooms
+    // Can purchase teleports to special rooms.
     const teleportRoomType = TELEPORT_COLLECTIBLE_TYPE_TO_ROOM_TYPE_MAP.get(
       pickingUpItem.subType,
     );
@@ -28,8 +29,8 @@ preItemPickupBabyFunctionMap.set(
     }
 
     const roomGridIndexes = getRoomGridIndexesForType(teleportRoomType);
-    if (roomGridIndexes.length > 0) {
-      const firstRoomGridIndex = roomGridIndexes[0];
+    const firstRoomGridIndex = roomGridIndexes[0];
+    if (firstRoomGridIndex !== undefined) {
       teleport(firstRoomGridIndex);
     }
   },
@@ -40,15 +41,15 @@ preItemPickupBabyFunctionMap.set(
   307,
   (player: EntityPlayer, pickingUpItem: PickingUpItem) => {
     if (
-      (pickingUpItem.itemType === ItemType.ITEM_PASSIVE ||
-        pickingUpItem.itemType === ItemType.ITEM_ACTIVE ||
-        pickingUpItem.itemType === ItemType.ITEM_FAMILIAR) &&
+      (pickingUpItem.itemType === ItemType.PASSIVE ||
+        pickingUpItem.itemType === ItemType.ACTIVE ||
+        pickingUpItem.itemType === ItemType.FAMILIAR) &&
       isQuestCollectible(pickingUpItem.subType)
     ) {
       return;
     }
 
-    // Taking items/pickups causes damage (1/2)
-    player.TakeDamage(1, 0, EntityRef(player), 0);
+    // Taking items/pickups causes damage (1/2).
+    player.TakeDamage(1, DamageFlagZero, EntityRef(player), 0);
   },
 );

@@ -1,3 +1,4 @@
+import { ItemPoolType, RoomType } from "isaac-typescript-definitions";
 import { RandomBabyType } from "../babies";
 import g from "../globals";
 import { getRandomCollectibleTypeFromPool } from "../utils";
@@ -13,23 +14,23 @@ preGetCollectibleBabyFunctionMap.set(430, () => {
 
   switch (roomType) {
     // 2
-    case RoomType.ROOM_SHOP: {
-      return getRandomCollectibleTypeFromPool(ItemPoolType.POOL_TREASURE);
+    case RoomType.SHOP: {
+      return getRandomCollectibleTypeFromPool(ItemPoolType.TREASURE);
     }
 
     // 4
-    case RoomType.ROOM_TREASURE: {
-      return getRandomCollectibleTypeFromPool(ItemPoolType.POOL_SHOP);
+    case RoomType.TREASURE: {
+      return getRandomCollectibleTypeFromPool(ItemPoolType.SHOP);
     }
 
     // 14
-    case RoomType.ROOM_DEVIL: {
-      return getRandomCollectibleTypeFromPool(ItemPoolType.POOL_ANGEL);
+    case RoomType.DEVIL: {
+      return getRandomCollectibleTypeFromPool(ItemPoolType.ANGEL);
     }
 
     // 15
-    case RoomType.ROOM_ANGEL: {
-      return getRandomCollectibleTypeFromPool(ItemPoolType.POOL_DEVIL);
+    case RoomType.ANGEL: {
+      return getRandomCollectibleTypeFromPool(ItemPoolType.DEVIL);
     }
 
     default: {
@@ -40,25 +41,25 @@ preGetCollectibleBabyFunctionMap.set(430, () => {
 
 // Little Gish
 preGetCollectibleBabyFunctionMap.set(RandomBabyType.LITTLE_GISH, () =>
-  getRandomCollectibleTypeFromPool(ItemPoolType.POOL_CURSE),
+  getRandomCollectibleTypeFromPool(ItemPoolType.CURSE),
 );
 
 // Ghost Baby
 preGetCollectibleBabyFunctionMap.set(RandomBabyType.GHOST_BABY, () =>
-  getRandomCollectibleTypeFromPool(ItemPoolType.POOL_SHOP),
+  getRandomCollectibleTypeFromPool(ItemPoolType.SHOP),
 );
 
 // Mongo Baby
 preGetCollectibleBabyFunctionMap.set(RandomBabyType.MONGO_BABY, () =>
-  getRandomCollectibleTypeFromPool(ItemPoolType.POOL_ANGEL),
+  getRandomCollectibleTypeFromPool(ItemPoolType.ANGEL),
 );
 
 // Incubus
 preGetCollectibleBabyFunctionMap.set(RandomBabyType.INCUBUS, () =>
-  getRandomCollectibleTypeFromPool(ItemPoolType.POOL_DEVIL),
+  getRandomCollectibleTypeFromPool(ItemPoolType.DEVIL),
 );
 
 // Boiled Baby
 preGetCollectibleBabyFunctionMap.set(RandomBabyType.BOILED_BABY, () =>
-  getRandomCollectibleTypeFromPool(ItemPoolType.POOL_ULTRA_SECRET),
+  getRandomCollectibleTypeFromPool(ItemPoolType.ULTRA_SECRET),
 );

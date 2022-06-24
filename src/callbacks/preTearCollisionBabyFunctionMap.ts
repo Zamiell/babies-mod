@@ -1,3 +1,4 @@
+import { CacheFlag, EffectVariant } from "isaac-typescript-definitions";
 import { spawnEffect, VectorZero } from "isaacscript-common";
 import g from "../globals";
 
@@ -24,7 +25,7 @@ preTearCollisionBabyFunctionMap.set(
     // Splash tears
     if (tear.SubType === 1) {
       const creep = spawnEffect(
-        EffectVariant.PLAYER_CREEP_HOLYWATER,
+        EffectVariant.PLAYER_CREEP_HOLY_WATER,
         0,
         collider.Position,
         VectorZero,
@@ -39,10 +40,10 @@ preTearCollisionBabyFunctionMap.set(
 preTearCollisionBabyFunctionMap.set(
   459,
   (tear: EntityTear, _collider: Entity) => {
-    // Accuracy increases tear rate
+    // Accuracy increases tear rate.
     if (tear.SubType === 1) {
       g.run.babyCounters += 1;
-      g.p.AddCacheFlags(CacheFlag.CACHE_FIREDELAY);
+      g.p.AddCacheFlags(CacheFlag.FIRE_DELAY);
       g.p.EvaluateItems();
     }
   },

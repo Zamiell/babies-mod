@@ -1,5 +1,7 @@
+import { EntityType } from "isaac-typescript-definitions";
+
 export interface GlobalsRunBabyNPC {
-  type: int;
+  entityType: EntityType;
   variant: int;
   subType: int;
 }

@@ -10,10 +10,10 @@ export class Globals {
   r = game.GetRoom();
 
   /**
-   * "Isaac.GetPlayer()" will return nil if called from the main menu.  We "lie" and say that it
-   * gets set to an EntityPlayer so that we don't have to do non-null assertions everywhere. In
-   * reality, the value will be set in the PostPlayerInit callback, which will happen before any
-   * other code gets run.
+   * "Isaac.GetPlayer()" will return nil if called from the main menu. We "lie" and say that it gets
+   * set to an EntityPlayer so that we don't have to do non-null assertions everywhere. In reality,
+   * the value will be set in the PostPlayerInit callback, which will happen before any other code
+   * gets run.
    */
   p = Isaac.GetPlayer();
 

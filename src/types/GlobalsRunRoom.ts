@@ -1,3 +1,4 @@
+import { DoorSlot } from "isaac-typescript-definitions";
 import { getRandomSeed, newRNG, setSeed } from "isaacscript-common";
 import { TearDescription } from "./TearDescription";
 
@@ -8,7 +9,7 @@ export class GlobalsRunRoom {
 
   rng = newRNG();
   pseudoClear = true;
-  doorSlotsModified: int[] = [];
+  doorSlotsModified: DoorSlot[] = [];
 
   /** For poops and TNT barrels. */
   softlock = false;

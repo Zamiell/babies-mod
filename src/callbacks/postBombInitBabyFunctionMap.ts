@@ -7,13 +7,13 @@ export const postBombInitBabyFunctionMap = new Map<
 
 // Lil' Baby
 postBombInitBabyFunctionMap.set(36, (bomb: EntityBomb) => {
-  // Everything is tiny
+  // Everything is tiny.
   bomb.SpriteScale = Vector(0.5, 0.5);
 });
 
 // Big Baby
 postBombInitBabyFunctionMap.set(37, (bomb: EntityBomb) => {
-  // Everything is giant
+  // Everything is giant.
   bomb.SpriteScale = Vector(2, 2);
 });
 

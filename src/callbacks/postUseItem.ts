@@ -1,4 +1,11 @@
 import {
+  ActiveSlot,
+  CollectibleType,
+  EntityType,
+  ModCallback,
+  SlotVariant,
+} from "isaac-typescript-definitions";
+import {
   getCollectibleMaxCharges,
   playChargeSoundEffect,
   removeCollectibleFromItemTracker,
@@ -11,43 +18,43 @@ import { getCurrentBaby, spawnSlotHelper } from "../utils";
 
 export function init(mod: Mod): void {
   mod.AddCallback(
-    ModCallbacks.MC_USE_ITEM,
+    ModCallback.POST_USE_ITEM,
     shoopDaWhoop,
-    CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP,
+    CollectibleType.SHOOP_DA_WHOOP,
   ); // 49
 
   mod.AddCallback(
-    ModCallbacks.MC_USE_ITEM,
+    ModCallback.POST_USE_ITEM,
     monstrosTooth,
-    CollectibleType.COLLECTIBLE_MONSTROS_TOOTH,
+    CollectibleType.MONSTROS_TOOTH,
   ); // 86
 
   mod.AddCallback(
-    ModCallbacks.MC_USE_ITEM,
+    ModCallback.POST_USE_ITEM,
     howToJump,
-    CollectibleType.COLLECTIBLE_HOW_TO_JUMP,
+    CollectibleType.HOW_TO_JUMP,
   ); // 282
 
   mod.AddCallback(
-    ModCallbacks.MC_USE_ITEM,
+    ModCallback.POST_USE_ITEM,
     clockworkAssembly,
-    CollectibleTypeCustom.COLLECTIBLE_CLOCKWORK_ASSEMBLY,
+    CollectibleTypeCustom.CLOCKWORK_ASSEMBLY,
   );
 
   mod.AddCallback(
-    ModCallbacks.MC_USE_ITEM,
+    ModCallback.POST_USE_ITEM,
     flockOfSuccubi,
-    CollectibleTypeCustom.COLLECTIBLE_FLOCK_OF_SUCCUBI,
+    CollectibleTypeCustom.FLOCK_OF_SUCCUBI,
   );
 
   mod.AddCallback(
-    ModCallbacks.MC_USE_ITEM,
+    ModCallback.POST_USE_ITEM,
     chargingStation,
-    CollectibleTypeCustom.COLLECTIBLE_CHARGING_STATION,
+    CollectibleTypeCustom.CHARGING_STATION,
   );
 }
 
-// CollectibleType.COLLECTIBLE_SHOOP_DA_WHOOP (49)
+// CollectibleType.SHOOP_DA_WHOOP (49)
 function shoopDaWhoop(
   _collectibleType: CollectibleType,
   _RNG: RNG,
@@ -65,11 +72,11 @@ function shoopDaWhoop(
   if (baby.name === "Scream Baby") {
     g.run.babyFrame = gameFrameCount;
     g.run.babyCounters = activeCharge;
-    g.run.babyNPC.type = batteryCharge;
+    g.run.babyNPC.entityType = batteryCharge as EntityType;
   }
 }
 
-// CollectibleType.COLLECTIBLE_MONSTROS_TOOTH (86)
+// CollectibleType.MONSTROS_TOOTH (86)
 function monstrosTooth() {
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby, valid] = getCurrentBaby();
@@ -79,7 +86,7 @@ function monstrosTooth() {
 
   // 221
   if (baby.name === "Drool Baby") {
-    // Summon extra Monstro's, spaced apart
+    // Summon extra Monstro's, spaced apart.
     g.run.babyCounters += 1;
     if (g.run.babyCounters === baby.num) {
       g.run.babyCounters = 0;
@@ -90,7 +97,7 @@ function monstrosTooth() {
   }
 }
 
-// CollectibleType.COLLECTIBLE_HOW_TO_JUMP (282)
+// CollectibleType.HOW_TO_JUMP (282)
 function howToJump() {
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby, valid] = getCurrentBaby();
@@ -107,7 +114,7 @@ function howToJump() {
   }
 }
 
-// CollectibleType.COLLECTIBLE_CLOCKWORK_ASSEMBLY
+// CollectibleType.CLOCKWORK_ASSEMBLY
 function clockworkAssembly(
   _collectibleType: CollectibleType,
   _RNG: RNG,
@@ -122,25 +129,25 @@ function clockworkAssembly(
   return true;
 }
 
-// CollectibleType.COLLECTIBLE_FLOCK_OF_SUCCUBI
+// CollectibleType.FLOCK_OF_SUCCUBI
 function flockOfSuccubi(
   _collectibleType: CollectibleType,
   _RNG: RNG,
   player: EntityPlayer,
 ) {
-  // Spawn N temporary Succubi
+  // Spawn N temporary Succubi.
   repeat(NUM_SUCCUBI_IN_FLOCK, () => {
-    player.AddCollectible(CollectibleType.COLLECTIBLE_SUCCUBUS, 0, false);
-    removeCollectibleFromItemTracker(CollectibleType.COLLECTIBLE_SUCCUBUS);
+    player.AddCollectible(CollectibleType.SUCCUBUS, 0, false);
+    removeCollectibleFromItemTracker(CollectibleType.SUCCUBUS);
   });
 
-  // Mark to remove the items upon entering a new room
+  // Mark to remove the items upon entering a new room.
   g.run.flockOfSuccubi = true;
 
   return true;
 }
 
-// CollectibleType.COLLECTIBLE_CHARGING_STATION
+// CollectibleType.CHARGING_STATION
 function chargingStation(
   _collectibleType: CollectibleType,
   _RNG: RNG,
@@ -152,14 +159,11 @@ function chargingStation(
     return false;
   }
 
-  const hasBattery = player.HasCollectible(CollectibleType.COLLECTIBLE_BATTERY);
+  const hasBattery = player.HasCollectible(CollectibleType.BATTERY);
 
-  for (const activeSlot of [
-    ActiveSlot.SLOT_SECONDARY,
-    ActiveSlot.SLOT_POCKET,
-  ]) {
+  for (const activeSlot of [ActiveSlot.SECONDARY, ActiveSlot.POCKET]) {
     const activeItem = player.GetActiveItem(activeSlot);
-    if (activeItem === CollectibleType.COLLECTIBLE_NULL) {
+    if (activeItem === CollectibleType.NULL) {
       continue;
     }
 

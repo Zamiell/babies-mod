@@ -1,13 +1,20 @@
 import {
+  ButtonAction,
+  CollectibleType,
+  DarkEsauVariant,
+  EntityType,
+  LevelCurse,
+} from "isaac-typescript-definitions";
+import {
   MAX_NUM_FAMILIARS,
   removeCollectibleFromItemTracker,
   repeat,
   spawn,
 } from "isaacscript-common";
-import { BABIES, RandomBabyType } from "./babies";
+import { RandomBabyType } from "./babies";
 import g from "./globals";
 import { initSprite } from "./sprite";
-import { getCurrentBaby } from "./utils";
+import { getCurrentBabyDescription } from "./utils";
 
 export const babyAddFunctionMap = new Map<int, () => void>();
 
@@ -28,19 +35,19 @@ babyAddFunctionMap.set(31, () => {
 
 // Noose Baby
 babyAddFunctionMap.set(39, () => {
-  const [, baby] = getCurrentBaby();
+  const baby = getCurrentBabyDescription();
   if (baby.time === undefined) {
     error(`The "time" attribute was not defined for: ${baby.name}`);
   }
 
-  // Don't shoot when the timer reaches 0
-  // Set the timer so that we don't take damage immediately upon reaching the floor
+  // Don't shoot when the timer reaches 0. Set the timer so that we don't take damage immediately
+  // upon reaching the floor.
   g.run.babyCounters = g.g.GetFrameCount() + baby.time;
 });
 
 // Hive Baby
 babyAddFunctionMap.set(40, () => {
-  // The game caps the current number of familiars
+  // The game caps the current number of familiars.
   const halfMaxFamiliars = MAX_NUM_FAMILIARS / 2;
   g.p.AddBlueFlies(halfMaxFamiliars, g.p.Position, undefined);
   repeat(halfMaxFamiliars, () => {
@@ -61,14 +68,14 @@ babyAddFunctionMap.set(48, () => {
 
 // Brownie Baby
 babyAddFunctionMap.set(107, () => {
-  const baby = BABIES[107];
+  const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
     error('Brownie Baby does not have a "num" property defined.');
   }
 
   for (const collectibleType of [
-    CollectibleType.COLLECTIBLE_CUBE_OF_MEAT,
-    CollectibleType.COLLECTIBLE_BALL_OF_BANDAGES,
+    CollectibleType.CUBE_OF_MEAT,
+    CollectibleType.BALL_OF_BANDAGES,
   ]) {
     repeat(baby.num, () => {
       g.p.AddCollectible(collectibleType);
@@ -101,16 +108,16 @@ babyAddFunctionMap.set(177, () => {
 
 // Fang Demon Baby
 babyAddFunctionMap.set(281, () => {
-  // These items will cause a softlock, so just remove them from all pools as a quick fix
-  g.itemPool.RemoveCollectible(CollectibleType.COLLECTIBLE_MOMS_KNIFE); // 114
-  g.itemPool.RemoveCollectible(CollectibleType.COLLECTIBLE_EPIC_FETUS); // 168
-  g.itemPool.RemoveCollectible(CollectibleType.COLLECTIBLE_MONSTROS_LUNG); // 229
-  g.itemPool.RemoveCollectible(CollectibleType.COLLECTIBLE_TECH_X); // 395
+  // These items will cause a softlock, so just remove them from all pools as a quick fix.
+  g.itemPool.RemoveCollectible(CollectibleType.MOMS_KNIFE); // 114
+  g.itemPool.RemoveCollectible(CollectibleType.EPIC_FETUS); // 168
+  g.itemPool.RemoveCollectible(CollectibleType.MONSTROS_LUNG); // 229
+  g.itemPool.RemoveCollectible(CollectibleType.TECH_X); // 395
 });
 
 // Vomit Baby
 babyAddFunctionMap.set(341, () => {
-  const [, baby] = getCurrentBaby();
+  const baby = getCurrentBabyDescription();
   if (baby.time === undefined) {
     error(`The "time" attribute was not defined for: ${baby.name}`);
   }
@@ -125,7 +132,7 @@ babyAddFunctionMap.set(343, () => {
 
 // Rabbit Baby
 babyAddFunctionMap.set(350, () => {
-  const [, baby] = getCurrentBaby();
+  const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for: ${baby.name}`);
   }
@@ -135,13 +142,13 @@ babyAddFunctionMap.set(350, () => {
 
 // Imp Baby
 babyAddFunctionMap.set(386, () => {
-  const [, baby] = getCurrentBaby();
+  const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
-  // Start the direction at left
-  g.run.babyCounters = ButtonAction.ACTION_SHOOTLEFT;
+  // Start the direction at left.
+  g.run.babyCounters = ButtonAction.SHOOT_LEFT;
   g.run.babyFrame = g.g.GetFrameCount() + baby.num;
 });
 
@@ -152,12 +159,12 @@ babyAddFunctionMap.set(424, () => {
 
 // Twitchy Baby
 babyAddFunctionMap.set(511, () => {
-  const [, baby] = getCurrentBaby();
+  const baby = getCurrentBabyDescription();
   if (baby.max === undefined) {
     error(`The "max" attribute was not defined for: ${baby.name}`);
   }
 
-  // Start with the slowest tears and mark to update them on this frame
+  // Start with the slowest tears and mark to update them on this frame.
   g.run.babyCounters = baby.max;
   g.run.babyFrame = g.g.GetFrameCount();
 });
@@ -172,25 +179,17 @@ babyAddFunctionMap.set(550, () => {
 
 // Cursed Room Baby
 babyAddFunctionMap.set(556, () => {
-  g.l.AddCurse(LevelCurse.CURSE_OF_THE_CURSED, false);
+  g.l.AddCurse(LevelCurse.CURSED, false);
 });
 
 // Found Soul Baby
 babyAddFunctionMap.set(RandomBabyType.FOUND_SOUL_BABY, () => {
-  const numDarkEsaus = Isaac.CountEntities(
-    undefined,
-    EntityType.ENTITY_DARK_ESAU,
-  );
+  const numDarkEsaus = Isaac.CountEntities(undefined, EntityType.DARK_ESAU);
   if (numDarkEsaus > 0) {
     return;
   }
 
   const bottomLeftGridIndex = 92;
   const bottomLeftPosition = g.r.GetGridPosition(bottomLeftGridIndex);
-  spawn(
-    EntityType.ENTITY_DARK_ESAU,
-    DarkEsauVariant.DARK_ESAU,
-    0,
-    bottomLeftPosition,
-  );
+  spawn(EntityType.DARK_ESAU, DarkEsauVariant.DARK_ESAU, 0, bottomLeftPosition);
 });

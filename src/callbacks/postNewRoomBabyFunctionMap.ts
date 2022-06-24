@@ -1,4 +1,28 @@
 import {
+  BrokenWatchState,
+  CollectibleType,
+  Direction,
+  EntityFlag,
+  EntityType,
+  FamiliarVariant,
+  FireplaceVariant,
+  GridEntityType,
+  GridRoom,
+  ItemPoolType,
+  LaserVariant,
+  LevelCurse,
+  MinibossID,
+  PillColor,
+  PillEffect,
+  RoomTransitionAnim,
+  RoomType,
+  StatueVariant,
+  TearFlag,
+  TrapdoorVariant,
+} from "isaac-typescript-definitions";
+import {
+  addFlag,
+  bitFlags,
   changeRoom,
   getCollectibleDevilHeartPrice,
   getDoors,
@@ -26,25 +50,36 @@ import { RandomBabyType } from "../babies";
 import g from "../globals";
 import { TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP } from "../maps/teleportRoomTypeToItemAndPriceMap";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
-import { getCurrentBaby, shouldTransformRoomType } from "../utils";
+import { getCurrentBabyDescription, shouldTransformRoomType } from "../utils";
+
+const FANCY_BABY_COLLECTIBLE_POSITIONS: ReadonlyArray<[x: int, y: int]> = [
+  [3, 1],
+  [9, 1],
+  [3, 5],
+  [9, 5],
+  [1, 1],
+  [11, 1],
+  [1, 5],
+  [11, 5],
+];
 
 export const postNewRoomBabyFunctionMap = new Map<int, () => void>();
 
-// This is used for several babies
+// This is used for several babies.
 function noHealth() {
   const roomType = g.r.GetType();
   const inKrampusRoom = inMinibossRoomOf(MinibossID.KRAMPUS);
 
-  // Get rid of the health UI by using Curse of the Unknown
-  // (but not in Devil Rooms or Black Markets)
+  // Get rid of the health UI by using Curse of the Unknown (but not in Devil Rooms or Black
+  // Markets).
   if (
-    (roomType === RoomType.ROOM_DEVIL || // 14
-      roomType === RoomType.ROOM_BLACK_MARKET) && // 22
+    (roomType === RoomType.DEVIL || // 14
+      roomType === RoomType.BLACK_MARKET) && // 22
     !inKrampusRoom
   ) {
-    g.l.RemoveCurses(LevelCurse.CURSE_OF_THE_UNKNOWN);
+    g.l.RemoveCurses(LevelCurse.UNKNOWN);
   } else {
-    g.l.AddCurse(LevelCurse.CURSE_OF_THE_UNKNOWN, false);
+    g.l.AddCurse(LevelCurse.UNKNOWN, false);
   }
 }
 
@@ -55,11 +90,11 @@ postNewRoomBabyFunctionMap.set(10, noHealth);
 postNewRoomBabyFunctionMap.set(13, () => {
   const roomType = g.r.GetType();
   if (
-    roomType === RoomType.ROOM_DEVIL || // 14
-    roomType === RoomType.ROOM_ANGEL // 15
+    roomType === RoomType.DEVIL || // 14
+    roomType === RoomType.ANGEL // 15
   ) {
     teleport(
-      GridRooms.ROOM_BLACK_MARKET_IDX,
+      GridRoom.BLACK_MARKET,
       Direction.NO_DIRECTION,
       RoomTransitionAnim.WALK,
     );
@@ -68,20 +103,20 @@ postNewRoomBabyFunctionMap.set(13, () => {
 
 // Glass Baby
 postNewRoomBabyFunctionMap.set(14, () => {
-  // Spawn a laser ring around the player
+  // Spawn a laser ring around the player.
   const laser = g.p.FireTechXLaser(g.p.Position, VectorZero, 66).ToLaser();
-  // (we copy the radius from Samael's Tech X ability)
+  // (We copy the radius from Samael's Tech X ability.)
   if (laser === undefined) {
     return;
   }
-  if (laser.Variant !== 2) {
-    laser.Variant = 2;
+  if (laser.Variant !== LaserVariant.THIN_RED) {
+    laser.Variant = LaserVariant.THIN_RED;
     laser.SpriteScale = Vector(0.5, 1);
   }
-  laser.TearFlags |= TearFlags.TEAR_CONTINUUM;
+  laser.TearFlags = addFlag(laser.TearFlags, TearFlag.CONTINUUM);
   laser.CollisionDamage *= 0.66;
   const data = laser.GetData();
-  data.ring = true;
+  data["ring"] = true;
 });
 
 // Gold Baby
@@ -93,19 +128,19 @@ postNewRoomBabyFunctionMap.set(15, () => {
 postNewRoomBabyFunctionMap.set(30, () => {
   // Sprinkler tears
   g.run.babyBool = true;
-  useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_SPRINKLER);
+  useActiveItemTemp(g.p, CollectibleType.SPRINKLER);
 });
 
 // Zombie Baby
 postNewRoomBabyFunctionMap.set(61, () => {
   for (const entity of getEntities()) {
-    if (entity.HasEntityFlags(EntityFlag.FLAG_FRIENDLY)) {
-      if (entity.Type === EntityType.ENTITY_BOIL) {
-        // Delete Boils, because they are supposed to be rooted to the spot
-        // and will look very buggy if they are moved
+    if (entity.HasEntityFlags(EntityFlag.FRIENDLY)) {
+      if (entity.Type === EntityType.BOIL) {
+        // Delete Boils, because they are supposed to be rooted to the spot and will look very buggy
+        // if they are moved.
         entity.Remove();
       } else {
-        // Teleport all friendly entities to where the player is
+        // Teleport all friendly entities to where the player is.
         entity.Position = g.p.Position;
       }
     }
@@ -118,12 +153,11 @@ postNewRoomBabyFunctionMap.set(90, () => {
     return;
   }
 
-  // Locked doors in uncleared rooms
-  // If the player leaves and re-enters an uncleared room, a normal door will stay locked
-  // So, unlock all normal doors if the room is already clear
+  // Locked doors in uncleared rooms. If the player leaves and re-enters an uncleared room, a normal
+  // door will stay locked. So, unlock all normal doors if the room is already clear.
   const normalLookingDoors = getDoors(
-    RoomType.ROOM_DEFAULT, // 1
-    RoomType.ROOM_MINIBOSS, // 6
+    RoomType.DEFAULT, // 1
+    RoomType.MINI_BOSS, // 6
   );
   const lockedDoors = normalLookingDoors.filter((door) => door.IsLocked());
   for (const door of lockedDoors) {
@@ -136,19 +170,19 @@ postNewRoomBabyFunctionMap.set(118, () => {
   const roomType = g.r.GetType();
   const isFirstVisit = g.r.IsFirstVisit();
   const center = g.r.GetCenterPos();
-  const [, baby] = getCurrentBaby();
+  const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
-  if (roomType !== RoomType.ROOM_SECRET || !isFirstVisit) {
+  if (roomType !== RoomType.SECRET || !isFirstVisit) {
     return;
   }
 
   // Improved Secret Rooms
   repeat(baby.num, () => {
     const position = g.r.FindFreePickupSpawnPosition(center, 1, true);
-    spawnCollectible(CollectibleType.COLLECTIBLE_NULL, position, g.run.rng);
+    spawnCollectible(CollectibleType.NULL, position, g.run.rng);
   });
 });
 
@@ -163,18 +197,18 @@ postNewRoomBabyFunctionMap.set(141, () => {
   // Uncontrollable Teleport 2.0
   const isFirstVisit = g.r.IsFirstVisit();
 
-  // We don't want to teleport away from the first room
+  // We don't want to teleport away from the first room.
   if (inStartingRoom() && isFirstVisit) {
     return;
   }
 
   if (g.run.babyBool) {
-    // We teleported to this room
+    // We teleported to this room.
     g.run.babyBool = false;
   } else {
-    // We are entering a new room
+    // We are entering a new room.
     g.run.babyBool = true;
-    useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_TELEPORT_2);
+    useActiveItemTemp(g.p, CollectibleType.TELEPORT_2);
   }
 });
 
@@ -183,19 +217,19 @@ postNewRoomBabyFunctionMap.set(149, () => {
   const roomType = g.r.GetType();
   const isFirstVisit = g.r.IsFirstVisit();
   const center = g.r.GetCenterPos();
-  const [, baby] = getCurrentBaby();
+  const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
-  if (roomType !== RoomType.ROOM_SUPERSECRET || !isFirstVisit) {
+  if (roomType !== RoomType.SUPER_SECRET || !isFirstVisit) {
     return;
   }
 
-  // Improved Super Secret Rooms
+  // Improved Super Secret Rooms.
   repeat(baby.num, () => {
     const position = g.r.FindFreePickupSpawnPosition(center, 1, true);
-    spawnCollectible(CollectibleType.COLLECTIBLE_NULL, position, g.run.rng);
+    spawnCollectible(CollectibleType.NULL, position, g.run.rng);
   });
 });
 
@@ -204,15 +238,15 @@ postNewRoomBabyFunctionMap.set(158, () => {
   const roomType = g.r.GetType();
   const isFirstVisit = g.r.IsFirstVisit();
 
-  // Ignore some special rooms
+  // Ignore some special rooms.
   if (!isFirstVisit || !shouldTransformRoomType(roomType)) {
     return;
   }
 
-  // All special rooms are Angel Shops
+  // All special rooms are Angel Shops.
   const angelSeed = g.run.room.rng.Next();
   const collectibleType = g.itemPool.GetCollectible(
-    ItemPoolType.POOL_ANGEL,
+    ItemPoolType.ANGEL,
     true,
     angelSeed,
   );
@@ -225,15 +259,15 @@ postNewRoomBabyFunctionMap.set(158, () => {
   collectible.AutoUpdatePrice = false;
   collectible.Price = 15;
 
-  // Spawn the Angel Statue
+  // Spawn the Angel Statue.
   const oneTileAboveCenterGridIndex = 52;
   spawnGridWithVariant(
-    GridEntityType.GRID_STATUE,
+    GridEntityType.STATUE,
     StatueVariant.ANGEL,
     oneTileAboveCenterGridIndex,
   );
 
-  // Spawn the two fires
+  // Spawn the two fires.
   const firePositions = [
     gridCoordinatesToWorldPosition(3, 1),
     gridCoordinatesToWorldPosition(9, 1),
@@ -241,7 +275,7 @@ postNewRoomBabyFunctionMap.set(158, () => {
   for (const firePosition of firePositions) {
     const fireplaceSeed = g.run.room.rng.Next();
     spawnWithSeed(
-      EntityType.ENTITY_FIREPLACE,
+      EntityType.FIREPLACE,
       FireplaceVariant.BLUE,
       0,
       firePosition,
@@ -256,12 +290,12 @@ postNewRoomBabyFunctionMap.set(181, () => {
   const roomType = g.r.GetType();
 
   if (
-    roomType === RoomType.ROOM_DUNGEON &&
-    // We want to be able to backtrack from a Black Market to a Crawlspace
-    previousRoomGridIndex !== GridRooms.ROOM_BLACK_MARKET_IDX
+    roomType === RoomType.DUNGEON &&
+    // We want to be able to backtrack from a Black Market to a Crawlspace.
+    previousRoomGridIndex !== (GridRoom.BLACK_MARKET as int)
   ) {
     teleport(
-      GridRooms.ROOM_BLACK_MARKET_IDX,
+      GridRoom.BLACK_MARKET,
       Direction.NO_DIRECTION,
       RoomTransitionAnim.WALK,
     );
@@ -277,20 +311,10 @@ postNewRoomBabyFunctionMap.set(216, () => {
     return;
   }
 
-  // Can purchase teleports to special rooms
-  const positions = [
-    [3, 1],
-    [9, 1],
-    [3, 5],
-    [9, 5],
-    [1, 1],
-    [11, 1],
-    [1, 5],
-    [11, 5],
-  ];
+  // Can purchase teleports to special rooms.
   let positionIndex = -1;
 
-  // Find the special rooms on the floor
+  // Find the special rooms on the floor.
   for (const roomDescriptor of getRooms()) {
     const roomData = roomDescriptor.Data;
     if (roomData === undefined) {
@@ -300,7 +324,7 @@ postNewRoomBabyFunctionMap.set(216, () => {
     const roomType = roomData.Type;
     const itemAndPrice = TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP.get(roomType);
     if (itemAndPrice === undefined) {
-      // This is not a special room
+      // This is not a special room.
       continue;
     }
 
@@ -308,21 +332,23 @@ postNewRoomBabyFunctionMap.set(216, () => {
     const price = itemAndPrice[1];
 
     if (
-      collectibleType ===
-        CollectibleTypeCustom.COLLECTIBLE_CHALLENGE_ROOM_TELEPORT &&
+      collectibleType === CollectibleTypeCustom.CHALLENGE_ROOM_TELEPORT &&
       isEven(stage)
     ) {
-      collectibleType =
-        CollectibleTypeCustom.COLLECTIBLE_BOSS_CHALLENGE_ROOM_TELEPORT;
+      collectibleType = CollectibleTypeCustom.BOSS_CHALLENGE_ROOM_TELEPORT;
     }
 
     positionIndex += 1;
-    if (positionIndex > positions.length) {
+    if (positionIndex > FANCY_BABY_COLLECTIBLE_POSITIONS.length) {
       log("Error: This floor has too many special rooms for Fancy Baby.");
       return;
     }
-    const xy = positions[positionIndex];
-    const position = gridCoordinatesToWorldPosition(xy[0], xy[1]);
+    const xy = FANCY_BABY_COLLECTIBLE_POSITIONS[positionIndex];
+    if (xy === undefined) {
+      error(`Failed to get the floor position for index: ${positionIndex}`);
+    }
+    const [x, y] = xy;
+    const position = gridCoordinatesToWorldPosition(x, y);
     const collectible = spawnCollectible(
       collectibleType,
       position,
@@ -337,34 +363,34 @@ postNewRoomBabyFunctionMap.set(216, () => {
 postNewRoomBabyFunctionMap.set(242, () => {
   // Random enemies
   if (!inStartingRoom()) {
-    useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_D10);
+    useActiveItemTemp(g.p, CollectibleType.D10);
   }
 });
 
 // Love Eye Baby
 postNewRoomBabyFunctionMap.set(249, () => {
-  // Make an exception for Boss Rooms and Devil Rooms
+  // Make an exception for Boss Rooms and Devil Rooms.
   const roomType = g.r.GetType();
   if (
     !g.run.babyBool ||
-    roomType === RoomType.ROOM_BOSS ||
-    roomType === RoomType.ROOM_DEVIL
+    roomType === RoomType.BOSS ||
+    roomType === RoomType.DEVIL
   ) {
     return;
   }
 
-  // Replace all of the existing enemies with the stored one
+  // Replace all of the existing enemies with the stored one.
   for (const npc of getNPCs()) {
-    // Make an exception for certain NPCs
+    // Make an exception for certain NPCs.
     if (
-      npc.Type === EntityType.ENTITY_SHOPKEEPER || // 17
-      npc.Type === EntityType.ENTITY_FIREPLACE // 33
+      npc.Type === EntityType.SHOPKEEPER || // 17
+      npc.Type === EntityType.FIREPLACE // 33
     ) {
       continue;
     }
 
     spawn(
-      g.run.babyNPC.type,
+      g.run.babyNPC.entityType,
       g.run.babyNPC.variant,
       g.run.babyNPC.subType,
       npc.Position,
@@ -380,23 +406,25 @@ postNewRoomBabyFunctionMap.set(249, () => {
 postNewRoomBabyFunctionMap.set(261, () => {
   const roomType = g.r.GetType();
 
-  if (roomType !== RoomType.ROOM_SECRET) {
+  if (roomType !== RoomType.SECRET) {
     return;
   }
 
   const superSecretRoomIndexes = getRoomGridIndexesForType(
-    RoomType.ROOM_SUPERSECRET,
+    RoomType.SUPER_SECRET,
   );
   if (superSecretRoomIndexes.length === 0) {
     return;
   }
   const firstSuperSecretRoomIndex = superSecretRoomIndexes[0];
-  teleport(firstSuperSecretRoomIndex);
+  if (firstSuperSecretRoomIndex !== undefined) {
+    teleport(firstSuperSecretRoomIndex);
+  }
 });
 
 // Ghost Baby 2
 postNewRoomBabyFunctionMap.set(282, () => {
-  // Constant Maw of the Void effect + flight
+  // Constant Maw of the Void effect + flight.
   g.p.SpawnMawOfVoid(30 * 60 * 60); // 1 hour
 });
 
@@ -405,15 +433,15 @@ postNewRoomBabyFunctionMap.set(287, () => {
   const roomType = g.r.GetType();
   const isFirstVisit = g.r.IsFirstVisit();
 
-  // Ignore some special rooms
+  // Ignore some special rooms.
   if (!isFirstVisit || !shouldTransformRoomType(roomType)) {
     return;
   }
 
-  // All special rooms are Devil Rooms
+  // All special rooms are Devil Rooms.
   const devilSeed = g.run.room.rng.Next();
   const collectibleType = g.itemPool.GetCollectible(
-    ItemPoolType.POOL_DEVIL,
+    ItemPoolType.DEVIL,
     true,
     devilSeed,
   );
@@ -426,15 +454,15 @@ postNewRoomBabyFunctionMap.set(287, () => {
   collectible.AutoUpdatePrice = false;
   collectible.Price = getCollectibleDevilHeartPrice(collectibleType, g.p);
 
-  // Spawn the Devil Statue
+  // Spawn the Devil Statue.
   const oneTileAboveCenterGridIndex = 52;
   spawnGridWithVariant(
-    GridEntityType.GRID_STATUE,
+    GridEntityType.STATUE,
     StatueVariant.DEVIL,
     oneTileAboveCenterGridIndex,
   );
 
-  // Spawn the two fires
+  // Spawn the two fires.
   const firePositions = [
     gridCoordinatesToWorldPosition(3, 1),
     gridCoordinatesToWorldPosition(9, 1),
@@ -442,7 +470,7 @@ postNewRoomBabyFunctionMap.set(287, () => {
   for (const firePosition of firePositions) {
     const fireplaceSeed = g.run.room.rng.Next();
     spawnWithSeed(
-      EntityType.ENTITY_FIREPLACE,
+      EntityType.FIREPLACE,
       FireplaceVariant.NORMAL,
       0,
       firePosition,
@@ -456,7 +484,7 @@ postNewRoomBabyFunctionMap.set(297, () => {
   const roomClear = g.r.IsClear();
 
   if (!roomClear) {
-    useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_MEAT_CLEAVER);
+    useActiveItemTemp(g.p, CollectibleType.MEAT_CLEAVER);
   }
 });
 
@@ -465,25 +493,25 @@ postNewRoomBabyFunctionMap.set(301, () => {
   const roomType = g.r.GetType();
   const isFirstVisit = g.r.IsFirstVisit();
   const center = g.r.GetCenterPos();
-  const [, baby] = getCurrentBaby();
+  const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
-  if (roomType !== RoomType.ROOM_ULTRASECRET || !isFirstVisit) {
+  if (roomType !== RoomType.ULTRA_SECRET || !isFirstVisit) {
     return;
   }
 
-  // Improved Ultra Secret Rooms
+  // Improved Ultra Secret Rooms.
   repeat(baby.num, () => {
     const position = g.r.FindFreePickupSpawnPosition(center, 1, true);
-    spawnCollectible(CollectibleType.COLLECTIBLE_NULL, position, g.run.rng);
+    spawnCollectible(CollectibleType.NULL, position, g.run.rng);
   });
 });
 
 // Twotone Baby
 postNewRoomBabyFunctionMap.set(346, () => {
-  useActiveItemTemp(g.p, CollectibleType.COLLECTIBLE_DATAMINER);
+  useActiveItemTemp(g.p, CollectibleType.DATAMINER);
 });
 
 // Mouse Baby
@@ -494,11 +522,10 @@ postNewRoomBabyFunctionMap.set(351, () => {
     return;
   }
 
-  // Coin doors in uncleared rooms
-  // If the player leaves and re-enters an uncleared room, a normal door will stay locked
-  // So, unlock all normal doors if the room is already clear
+  // Coin doors in uncleared rooms. If the player leaves and re-enters an uncleared room, a normal
+  // door will stay locked. So, unlock all normal doors if the room is already clear.
   for (const door of getDoors()) {
-    if (door.TargetRoomType === RoomType.ROOM_DEFAULT && door.IsLocked()) {
+    if (door.TargetRoomType === RoomType.DEFAULT && door.IsLocked()) {
       door.TryUnlock(g.p, true); // This has to be forced
     }
   }
@@ -506,21 +533,20 @@ postNewRoomBabyFunctionMap.set(351, () => {
 
 // Driver Baby
 postNewRoomBabyFunctionMap.set(431, () => {
-  // Slippery movement
-  // Prevent softlocks from Gaping Maws and cheap damage by Broken Gaping Maws
-  removeAllMatchingEntities(EntityType.ENTITY_GAPING_MAW);
-  removeAllMatchingEntities(EntityType.ENTITY_BROKEN_GAPING_MAW);
+  // Slippery movement. Prevent softlocks from Gaping Maws and cheap damage by Broken Gaping Maws.
+  removeAllMatchingEntities(EntityType.GAPING_MAW);
+  removeAllMatchingEntities(EntityType.BROKEN_GAPING_MAW);
 });
 
 // Breadmeat Hoodiebread Baby
 postNewRoomBabyFunctionMap.set(437, () => {
-  // Everything is sped up
+  // Everything is sped up.
   g.r.SetBrokenWatchState(BrokenWatchState.FAST);
 });
 
 // Psychic Baby
 postNewRoomBabyFunctionMap.set(504, () => {
-  // Disable the vanilla shooting behavior
+  // Disable the vanilla shooting behavior.
   const abels = getFamiliars(FamiliarVariant.ABEL);
   for (const abel of abels) {
     abel.FireCooldown = 1000000;
@@ -529,13 +555,12 @@ postNewRoomBabyFunctionMap.set(504, () => {
 
 // Silly Baby
 postNewRoomBabyFunctionMap.set(516, () => {
-  // Checking for the starting room can prevent crashes when reseeding happens
+  // Checking for the starting room can prevent crashes when reseeding happens.
   if (!inStartingRoom()) {
-    g.p.UsePill(PillEffect.PILLEFFECT_IM_EXCITED, PillColor.PILL_NULL);
+    g.p.UsePill(PillEffect.IM_EXCITED, PillColor.NULL);
     // If we try to cancel the animation now, it will bug out the player such that they will not be
-    // able to take pocket items or pedestal items
-    // This still happens even if we cancel the animation in the PostUpdate callback,
-    // so don't bother canceling it
+    // able to take pocket items or pedestal items. This still happens even if we cancel the
+    // animation in the PostUpdate callback, so don't bother canceling it.
   }
 });
 
@@ -549,19 +574,17 @@ postNewRoomBabyFunctionMap.set(535, () => {
   const isFirstVisit = g.r.IsFirstVisit();
 
   if (isFirstVisit) {
-    const bossRoomIndexes = getRoomGridIndexesForType(RoomType.ROOM_BOSS);
+    const bossRoomIndexes = getRoomGridIndexesForType(RoomType.BOSS);
     if (bossRoomIndexes.length === 0) {
       return;
     }
     const bossRoomIndex = bossRoomIndexes[0];
-    changeRoom(bossRoomIndex);
+    if (bossRoomIndex !== undefined) {
+      changeRoom(bossRoomIndex);
+    }
   } else {
     const centerPos = g.r.GetCenterPos();
-    Isaac.GridSpawn(
-      GridEntityType.GRID_TRAPDOOR,
-      TrapdoorVariant.NORMAL,
-      centerPos,
-    );
+    Isaac.GridSpawn(GridEntityType.TRAPDOOR, TrapdoorVariant.NORMAL, centerPos);
   }
 });
 
@@ -574,12 +597,12 @@ postNewRoomBabyFunctionMap.set(RandomBabyType.BROTHER_BOBBY, () => {
     true,
     false,
   );
-  godheadTear.TearFlags = TearFlags.TEAR_GLOW;
+  godheadTear.TearFlags = bitFlags(TearFlag.GLOW);
   godheadTear.SubType = 1;
   const sprite = godheadTear.GetSprite();
   sprite.Load("gfx/tear_blank.anm2", true);
   sprite.Play("RegularTear6", false);
 
   const data = godheadTear.GetData();
-  data.godHeadTear = true;
+  data["godHeadTear"] = true;
 });

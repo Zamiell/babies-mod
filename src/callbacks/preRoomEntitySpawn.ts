@@ -1,13 +1,14 @@
+import { EntityType, ModCallback } from "isaac-typescript-definitions";
 import g from "../globals";
 import { getCurrentBaby } from "../utils";
 import { preRoomEntitySpawnBabyFunctionMap } from "./preRoomEntitySpawnBabyFunctionMap";
 
 export function init(mod: Mod): void {
-  mod.AddCallback(ModCallbacks.MC_PRE_ROOM_ENTITY_SPAWN, main);
+  mod.AddCallback(ModCallback.PRE_ROOM_ENTITY_SPAWN, main);
 }
 
 function main(
-  entityType: int,
+  entityType: EntityType,
   _variant: int,
   _subType: int,
   _gridIndex: int,
@@ -19,7 +20,7 @@ function main(
     return undefined;
   }
 
-  // We only care about replacing things when the room is first loading and on the first visit
+  // We only care about replacing things when the room is first loading and on the first visit.
   if (roomFrameCount !== -1) {
     return undefined;
   }

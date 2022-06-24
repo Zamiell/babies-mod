@@ -29,16 +29,16 @@ export function display(): void {
     return;
   }
 
-  // Assume that if there are no elements in the digits array, then no sprites are loaded
+  // Assume that if there are no elements in the digits array, then no sprites are loaded.
   if (sprites.digits.length === 0) {
     loadSprites();
   }
 
-  // Find out how much time has passed since we got hit
+  // Find out how much time has passed since we got hit.
   const remainingFrames = finishTime - gameFrameCount;
   const remainingSeconds = remainingFrames / 30;
   const [hours, minute1, minute2, second1, second2, tenths] =
-    convertSecondsToStrings(remainingSeconds);
+    convertSecondsToTimerValues(remainingSeconds);
 
   const digitLength = 7.25;
   const hourAdjustment = 2;
@@ -50,7 +50,7 @@ export function display(): void {
   sprites.clock.RenderLayer(0, posClock);
 
   if (hours > 0) {
-    // The format of the time will be "#.##.##" (instead of "##.##", which is the default)
+    // The format of the time will be "#.##.##" (instead of "##.##", which is the default).
     hourAdjustment2 = 2;
     startingX += digitLength + hourAdjustment;
     const posHours = Vector(
@@ -58,40 +58,54 @@ export function display(): void {
       startingY,
     );
     const hoursDigitSprite = sprites.digits[4];
-    hoursDigitSprite.SetFrame("Default", hours);
-    hoursDigitSprite.RenderLayer(0, posHours);
+    if (hoursDigitSprite !== undefined) {
+      hoursDigitSprite.SetFrame("Default", hours);
+      hoursDigitSprite.RenderLayer(0, posHours);
+    }
 
     const posColon = Vector(startingX - digitLength + 7, startingY + 19);
     const colonHoursSprite = sprites.colons[1];
-    colonHoursSprite.RenderLayer(0, posColon);
+    if (colonHoursSprite !== undefined) {
+      colonHoursSprite.RenderLayer(0, posColon);
+    }
   }
 
   const posMinute1 = Vector(startingX, startingY);
   const minute1Sprite = sprites.digits[0];
-  minute1Sprite.SetFrame("Default", minute1);
-  minute1Sprite.RenderLayer(0, posMinute1);
+  if (minute1Sprite !== undefined) {
+    minute1Sprite.SetFrame("Default", minute1);
+    minute1Sprite.RenderLayer(0, posMinute1);
+  }
 
   const posMinute2 = Vector(startingX + digitLength, startingY);
   const minute2Sprite = sprites.digits[1];
-  minute2Sprite.SetFrame("Default", minute2);
-  minute2Sprite.RenderLayer(0, posMinute2);
+  if (minute2Sprite !== undefined) {
+    minute2Sprite.SetFrame("Default", minute2);
+    minute2Sprite.RenderLayer(0, posMinute2);
+  }
 
   const posColon1 = Vector(startingX + digitLength + 10, startingY + 19);
   const colonMinutesSprite = sprites.colons[0];
-  colonMinutesSprite.RenderLayer(0, posColon1);
+  if (colonMinutesSprite !== undefined) {
+    colonMinutesSprite.RenderLayer(0, posColon1);
+  }
 
   const posSecond1 = Vector(startingX + digitLength + 11, startingY);
   const second1Sprite = sprites.digits[2];
-  second1Sprite.SetFrame("Default", second1);
-  second1Sprite.RenderLayer(0, posSecond1);
+  if (second1Sprite !== undefined) {
+    second1Sprite.SetFrame("Default", second1);
+    second1Sprite.RenderLayer(0, posSecond1);
+  }
 
   const posSecond2 = Vector(
     startingX + digitLength + 11 + digitLength + 1 - hourAdjustment2,
     startingY,
   );
   const second2Sprite = sprites.digits[3];
-  second2Sprite.SetFrame("Default", second2);
-  second2Sprite.RenderLayer(0, posSecond2);
+  if (second2Sprite !== undefined) {
+    second2Sprite.SetFrame("Default", second2);
+    second2Sprite.RenderLayer(0, posSecond2);
+  }
 
   const posTenths = Vector(
     startingX +
@@ -123,11 +137,13 @@ function loadSprites() {
   sprites.digitMini = initSprite("gfx/timer/timerMini.anm2");
 }
 
-function convertSecondsToStrings(totalSeconds: int) {
-  // Calculate the hours digit
+function convertSecondsToTimerValues(
+  totalSeconds: int,
+): [int, int, int, int, int, int] {
+  // Calculate the hours digit.
   const hours = math.floor(totalSeconds / 3600);
 
-  // Calculate the minutes digits
+  // Calculate the minutes digits.
   let minutes = math.floor(totalSeconds / 60);
   if (hours > 0) {
     minutes -= hours * 60;
@@ -139,15 +155,21 @@ function convertSecondsToStrings(totalSeconds: int) {
     minutesString = minutes.toString();
   }
 
-  // The first character
+  // The first character.
   const minute1String = string.sub(minutesString, 1, 1);
-  const minute1 = parseInt(minute1String, 10);
+  const minute1 = tonumber(minute1String);
+  if (minute1 === undefined) {
+    error("Failed to parse the first minute of the timer.");
+  }
 
-  // The second character
+  // The second character.
   const minute2String = string.sub(minutesString, 2, 2);
-  const minute2 = parseInt(minute2String, 10);
+  const minute2 = tonumber(minute2String);
+  if (minute2 === undefined) {
+    error("Failed to parse the second minute of the timer.");
+  }
 
-  // Calculate the seconds digits
+  // Calculate the seconds digits.
   const seconds = math.floor(totalSeconds % 60);
   let secondsString: string;
   if (seconds < 10) {
@@ -156,15 +178,21 @@ function convertSecondsToStrings(totalSeconds: int) {
     secondsString = seconds.toString();
   }
 
-  // The first character
+  // The first character.
   const second1String = string.sub(secondsString, 1, 1);
-  const second1 = parseInt(second1String, 10);
+  const second1 = tonumber(second1String);
+  if (second1 === undefined) {
+    error("Failed to parse the first second of the timer.");
+  }
 
-  // The second character
+  // The second character.
   const second2String = string.sub(secondsString, 2, 2);
-  const second2 = parseInt(second2String, 10);
+  const second2 = tonumber(second2String);
+  if (second2 === undefined) {
+    error("Failed to parse the second second of the timer.");
+  }
 
-  // Calculate the tenths digit
+  // Calculate the tenths digit.
   const rawSeconds = totalSeconds % 60; // 0.000 to 59.999
   const decimals = rawSeconds - math.floor(rawSeconds);
   const tenths = math.floor(decimals * 10);

@@ -1,8 +1,9 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import { getCurrentBaby } from "../utils";
 import { postProjectileUpdateBabyFunctionMap } from "./postProjectileUpdateBabyFunctionMap";
 
 export function init(mod: Mod): void {
-  mod.AddCallback(ModCallbacks.MC_POST_PROJECTILE_UPDATE, main);
+  mod.AddCallback(ModCallback.POST_PROJECTILE_UPDATE, main);
 }
 
 function main(projectile: EntityProjectile) {

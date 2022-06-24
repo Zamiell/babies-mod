@@ -1,3 +1,4 @@
+import { EntityCollisionClass } from "isaac-typescript-definitions";
 import { RandomBabyType } from "../babies";
 
 export const postKnifeInitBabyFunctionMap = new Map<
@@ -9,8 +10,8 @@ export const postKnifeInitBabyFunctionMap = new Map<
 postKnifeInitBabyFunctionMap.set(
   RandomBabyType.BROTHER_BOBBY,
   (knife: EntityKnife) => {
-    // Make the knife invisible
-    knife.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE;
+    // Make the knife invisible.
+    knife.EntityCollisionClass = EntityCollisionClass.NONE;
     knife.Visible = false;
   },
 );

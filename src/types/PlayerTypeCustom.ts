@@ -1,3 +1,7 @@
-export enum PlayerTypeCustom {
-  PLAYER_RANDOM_BABY = Isaac.GetPlayerTypeByName("Random Baby"),
-}
+import { validateCustomEnum } from "isaacscript-common";
+
+export const PlayerTypeCustom = {
+  RANDOM_BABY: Isaac.GetPlayerTypeByName("Random Baby"),
+} as const;
+
+validateCustomEnum("PlayerTypeCustom", PlayerTypeCustom);

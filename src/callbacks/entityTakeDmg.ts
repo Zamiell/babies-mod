@@ -1,15 +1,16 @@
+import { DamageFlag, ModCallback } from "isaac-typescript-definitions";
 import { getCurrentBaby } from "../utils";
 import * as entityTakeDmgEntity from "./entityTakeDmgEntity";
 import * as entityTakeDmgPlayer from "./entityTakeDmgPlayer";
 
 export function init(mod: Mod): void {
-  mod.AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, main);
+  mod.AddCallback(ModCallback.ENTITY_TAKE_DMG, main);
 }
 
 function main(
   entity: Entity,
   damageAmount: float,
-  damageFlags: int,
+  damageFlags: BitFlags<DamageFlag>,
   damageSource: EntityRef,
   damageCountdownFrames: int,
 ): boolean | void {

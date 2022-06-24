@@ -1,4 +1,16 @@
 import {
+  CacheFlag,
+  DamageFlagZero,
+  EffectVariant,
+  EntityCollisionClass,
+  EntityGridCollisionClass,
+  EntityType,
+  FamiliarVariant,
+  PillColor,
+  PillEffect,
+  ProjectileVariant,
+} from "isaac-typescript-definitions";
+import {
   copyColor,
   GAME_FRAMES_PER_SECOND,
   getKnives,
@@ -12,7 +24,7 @@ import {
 import { RandomBabyType } from "../babies";
 import g from "../globals";
 import { TearData } from "../types/TearData";
-import { getCurrentBaby } from "../utils";
+import { getCurrentBabyDescription } from "../utils";
 
 export const postTearUpdateBabyFunctionMap = new Map<
   int,
@@ -33,7 +45,7 @@ postTearUpdateBabyFunctionMap.set(100, (tear: EntityTear) => {
     const fire = spawnEffect(EffectVariant.HOT_BOMB_FIRE, 0, tear.Position);
     fire.SpriteScale = Vector(0.5, 0.5);
 
-    // Fade the fire so that it is easier to see everything
+    // Fade the fire so that it is easier to see everything.
     const color = fire.GetColor();
     const fadeAmount = 0.5;
     const newColor = copyColor(color);
@@ -45,7 +57,7 @@ postTearUpdateBabyFunctionMap.set(100, (tear: EntityTear) => {
 // Skinny Baby
 postTearUpdateBabyFunctionMap.set(213, (tear: EntityTear) => {
   if (tear.SubType === 1 && tear.FrameCount >= 10) {
-    // Find the nearest alive & vulnerable enemy
+    // Find the nearest alive & vulnerable enemy.
     let closestNPC: EntityNPC | null = null;
     let closestDistance = math.huge;
     for (const npc of getNPCs()) {
@@ -77,17 +89,17 @@ postTearUpdateBabyFunctionMap.set(213, (tear: EntityTear) => {
 postTearUpdateBabyFunctionMap.set(228, (tear: EntityTear) => {
   const roomFrameCount = g.r.GetFrameCount();
 
-  // Abel's tears hurt you
+  // Abel's tears hurt you.
   if (
     tear.FrameCount === 1 &&
-    tear.SpawnerType === EntityType.ENTITY_FAMILIAR &&
-    tear.SpawnerVariant === FamiliarVariant.ABEL
+    tear.SpawnerType === EntityType.FAMILIAR &&
+    tear.SpawnerVariant === (FamiliarVariant.ABEL as int)
   ) {
     if (roomFrameCount >= 30) {
-      // Abel is spawned on top of the player when the player first enters a room;
-      // don't shoot if this is the case
+      // Abel is spawned on top of the player when the player first enters a room; don't shoot if
+      // this is the case.
       spawnProjectile(
-        tear.Variant,
+        tear.Variant as unknown as ProjectileVariant,
         tear.SubType,
         tear.Position,
         tear.Velocity,
@@ -106,7 +118,7 @@ postTearUpdateBabyFunctionMap.set(246, (tear: EntityTear) => {
     return;
   }
 
-  const [, baby] = getCurrentBaby();
+  const baby = getCurrentBabyDescription();
   if (baby.distance === undefined) {
     error(`The "distance" attribute was not defined for: ${baby.name}`);
   }
@@ -115,11 +127,11 @@ postTearUpdateBabyFunctionMap.set(246, (tear: EntityTear) => {
   positionMod = positionMod.Rotated(degrees);
   tear.Position = g.p.Position.add(positionMod);
 
-  // We want the tear to be moving perpendicular to the line between the player and the tear
+  // We want the tear to be moving perpendicular to the line between the player and the tear.
   tear.Velocity = Vector(baby.distance / 4, 0);
   tear.Velocity = tear.Velocity.Rotated(degrees);
 
-  // Keep it in the air for a while
+  // Keep it in the air for a while.
   if (tear.FrameCount < 150) {
     tear.FallingSpeed = 0;
   }
@@ -127,14 +139,11 @@ postTearUpdateBabyFunctionMap.set(246, (tear: EntityTear) => {
 
 // Lantern Baby
 postTearUpdateBabyFunctionMap.set(292, (tear: EntityTear) => {
-  // Emulate having a Godhead aura
-  if (
-    tear.Parent !== undefined &&
-    tear.Parent.Type === EntityType.ENTITY_PLAYER
-  ) {
+  // Emulate having a Godhead aura.
+  if (tear.Parent !== undefined && tear.Parent.Type === EntityType.PLAYER) {
     tear.Position = Vector(g.p.Position.X, g.p.Position.Y + 10);
 
-    // Clear the sprite for the Ludo tear
+    // Clear the sprite for the Ludo tear.
     tear.GetSprite().Reset();
   }
 });
@@ -168,7 +177,7 @@ postTearUpdateBabyFunctionMap.set(316, (tear: EntityTear) => {
 
 // Slicer Baby
 postTearUpdateBabyFunctionMap.set(331, (tear: EntityTear) => {
-  const [, baby] = getCurrentBaby();
+  const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for: ${baby.name}`);
   }
@@ -193,7 +202,7 @@ postTearUpdateBabyFunctionMap.set(380, (tear: EntityTear) => {
     tear.SubType === 1 &&
     gameFrameCount % 5 === 0 // If we spawn creep on every frame, it becomes too thick
   ) {
-    // Make the tear drip black creep
+    // Make the tear drip black creep.
     const creep = spawnEffect(
       EffectVariant.PLAYER_CREEP_BLACK,
       0,
@@ -217,16 +226,16 @@ postTearUpdateBabyFunctionMap.set(455, (tear: EntityTear) => {
   }
 
   if (tear.FrameCount <= 4 * GAME_FRAMES_PER_SECOND) {
-    // The PostTearUpdate callback will fire before the PostFireTear callback,
-    // so do nothing if we are in on the first frame
+    // The PostTearUpdate callback will fire before the PostFireTear callback, so do nothing if we
+    // are in on the first frame.
     const data = tear.GetData();
-    if (data.Height === undefined || data.Velocity === undefined) {
+    if (data["Height"] === undefined || data["Velocity"] === undefined) {
       return;
     }
     const tearData = data as unknown as TearData;
 
-    // If the tear bounced, then we need to update the stored velocity to the new velocity
-    // ("tear.Bounce" does not ever seem to go to true, so we can't use that)
+    // If the tear bounced, then we need to update the stored velocity to the new velocity.
+    // ("tear.Bounce" does not ever seem to go to true, so we can't use that.)
     if (
       (tear.Velocity.X > 0 && tearData.Velocity.X < 0) ||
       (tear.Velocity.X < 0 && tearData.Velocity.X > 0) ||
@@ -236,11 +245,11 @@ postTearUpdateBabyFunctionMap.set(455, (tear: EntityTear) => {
       tearData.Velocity = tear.Velocity;
     }
 
-    // Continue to apply the initial tear conditions for the duration of the tear
+    // Continue to apply the initial tear conditions for the duration of the tear.
     tear.Height = tearData.Height;
     tear.Velocity = tearData.Velocity;
   } else {
-    // The tear has lived long enough, so manually kill it
+    // The tear has lived long enough, so manually kill it.
     tear.Remove();
   }
 });
@@ -252,22 +261,22 @@ postTearUpdateBabyFunctionMap.set(458, (tear: EntityTear) => {
   }
 
   if (tear.FrameCount <= 4 * GAME_FRAMES_PER_SECOND) {
-    // The PostTearUpdate callback will fire before the PostFireTear callback,
-    // so do nothing if we are in on the first frame
+    // The PostTearUpdate callback will fire before the PostFireTear callback, so do nothing if we
+    // are in on the first frame.
     const data = tear.GetData();
-    if (data.Height === undefined) {
+    if (data["Height"] === undefined) {
       return;
     }
     const tearData = data as unknown as TearData;
 
-    // Continue to apply the initial tear conditions for the duration of the tear
+    // Continue to apply the initial tear conditions for the duration of the tear.
     tear.Height = tearData.Height;
 
-    // However, we can't apply a static velocity or else the shells won't home
+    // However, we can't apply a static velocity or else the shells won't home.
     tear.Velocity = tear.Velocity.Normalized();
     tear.Velocity = tear.Velocity.mul(10);
   } else {
-    // The tear has lived long enough, so manually kill it
+    // The tear has lived long enough, so manually kill it.
     tear.Remove();
   }
 });
@@ -276,12 +285,12 @@ postTearUpdateBabyFunctionMap.set(458, (tear: EntityTear) => {
 postTearUpdateBabyFunctionMap.set(459, (tear: EntityTear) => {
   if (
     tear.SubType === 1 &&
-    // Tears will not die if they hit an enemy, but they will die if they hit a wall or object
+    // Tears will not die if they hit an enemy, but they will die if they hit a wall or object.
     tear.IsDead()
   ) {
     // The streak ended
     g.run.babyCounters = 0;
-    g.p.AddCacheFlags(CacheFlag.CACHE_FIREDELAY);
+    g.p.AddCacheFlags(CacheFlag.FIRE_DELAY);
     g.p.EvaluateItems();
   }
 });
@@ -298,22 +307,21 @@ postTearUpdateBabyFunctionMap.set(470, (tear: EntityTear) => {
 
 // Cursed Pillow Baby
 postTearUpdateBabyFunctionMap.set(487, (tear: EntityTear) => {
-  const [, baby] = getCurrentBaby();
+  const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   if (
     tear.SubType === 1 &&
-    // Tears will not die if they hit an enemy, but they will die if they hit a wall or object
+    // Tears will not die if they hit an enemy, but they will die if they hit a wall or object.
     tear.IsDead()
   ) {
-    // Missing tears causes damage
-    // It only applies to the Nth missed tear
+    // Missing tears causes damage It only applies to the Nth missed tear.
     g.run.babyCounters += 1;
     if (g.run.babyCounters === baby.num) {
       g.run.babyCounters = 0;
-      g.p.TakeDamage(1, 0, EntityRef(g.p), 0);
+      g.p.TakeDamage(1, DamageFlagZero, EntityRef(g.p), 0);
     }
   }
 });
@@ -326,38 +334,37 @@ postTearUpdateBabyFunctionMap.set(
       return;
     }
 
-    // This tear is supposed to be attached to the knife
+    // This tear is supposed to be attached to the knife.
     const knives = getKnives();
-    if (knives.length > 0) {
-      const knife = knives[0];
+    const knife = knives[0];
+    if (knife !== undefined) {
       tear.Height = -10; // Keep it in the air forever
       tear.Position = knife.Position;
-      tear.EntityCollisionClass = EntityCollisionClass.ENTCOLL_NONE;
-      tear.GridCollisionClass = EntityGridCollisionClass.GRIDCOLL_NONE;
+      tear.EntityCollisionClass = EntityCollisionClass.NONE;
+      tear.GridCollisionClass = EntityGridCollisionClass.NONE;
     }
   },
 );
 
 // Abel
 postTearUpdateBabyFunctionMap.set(RandomBabyType.ABEL, (tear: EntityTear) => {
-  const [, baby] = getCurrentBaby();
+  const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   if (
     tear.SubType === 1 &&
-    // Tears will not die if they hit an enemy, but they will die if they hit a wall or object
+    // Tears will not die if they hit an enemy, but they will die if they hit a wall or object.
     tear.IsDead()
   ) {
-    // Missing tears causes Paralysis
-    // It only applies to the Nth missed tear
+    // Missing tears causes Paralysis It only applies to the Nth missed tear.
     g.run.babyCounters += 1;
     if (g.run.babyCounters === baby.num) {
       g.run.babyCounters = 0;
-      g.p.UsePill(PillEffect.PILLEFFECT_PARALYSIS, PillColor.PILL_NULL);
-      // (we can't cancel the animation or it will cause a bug where the player cannot pick up
-      // pedestal items)
+      g.p.UsePill(PillEffect.PARALYSIS, PillColor.NULL);
+      // (We can't cancel the animation or it will cause a bug where the player cannot pick up
+      // pedestal items.)
     }
   }
 });

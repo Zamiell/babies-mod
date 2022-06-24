@@ -1,8 +1,9 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import { getCurrentBaby } from "../utils";
 import { postTearUpdateBabyFunctionMap } from "./postTearUpdateBabyFunctionMap";
 
 export function init(mod: Mod): void {
-  mod.AddCallback(ModCallbacks.MC_POST_TEAR_UPDATE, main);
+  mod.AddCallback(ModCallback.POST_TEAR_UPDATE, main);
 }
 
 function main(tear: EntityTear) {

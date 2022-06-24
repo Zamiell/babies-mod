@@ -1,8 +1,9 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import { getCurrentBaby } from "../utils";
 import { postPickupSelectionBabyFunctionMap } from "./postPickupSelectionBabyFunctionMap";
 
 export function init(mod: Mod): void {
-  mod.AddCallback(ModCallbacks.MC_POST_PICKUP_SELECTION, main);
+  mod.AddCallback(ModCallback.POST_PICKUP_SELECTION, main);
 }
 
 function main(

@@ -1,3 +1,4 @@
+import { DamageFlag } from "isaac-typescript-definitions";
 import g from "../globals";
 import { getCurrentBaby } from "../utils";
 import { entityTakeDmgEntityBabyFunctionMap } from "./entityTakeDmgEntityBabyFunctionMap";
@@ -5,7 +6,7 @@ import { entityTakeDmgEntityBabyFunctionMap } from "./entityTakeDmgEntityBabyFun
 export function main(
   entity: Entity,
   damageAmount: float,
-  damageFlags: int,
+  damageFlags: BitFlags<DamageFlag>,
   damageSource: EntityRef,
   damageCountdownFrames: int,
 ): boolean | void {

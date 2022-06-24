@@ -1,9 +1,10 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import g from "../globals";
 import { getCurrentBaby } from "../utils";
 import { postEntityKillBabyFunctionMap } from "./postEntityKillBabyFunctionMap";
 
 export function init(mod: Mod): void {
-  mod.AddCallback(ModCallbacks.MC_POST_ENTITY_KILL, main);
+  mod.AddCallback(ModCallback.POST_ENTITY_KILL, main);
 }
 
 function main(entity: Entity) {
@@ -12,14 +13,14 @@ function main(entity: Entity) {
     return;
   }
 
-  // We only care if an actual enemy dies
+  // We only care if an actual enemy dies.
   const npc = entity.ToNPC();
   if (npc === undefined) {
     return;
   }
 
-  // With respect to the pseudo-room-clear feature,
-  // we don't want to clear the room too fast after an enemy dies
+  // With respect to the pseudo-room-clear feature, we don't want to clear the room too fast after
+  // an enemy dies.
   g.run.room.clearDelayFrame = g.g.GetFrameCount() + 1;
 
   const postEntityKillBabyFunction =
