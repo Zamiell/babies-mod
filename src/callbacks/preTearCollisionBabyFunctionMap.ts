@@ -1,15 +1,16 @@
 import { CacheFlag, EffectVariant } from "isaac-typescript-definitions";
 import { spawnEffect, VectorZero } from "isaacscript-common";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 
 export const preTearCollisionBabyFunctionMap = new Map<
-  int,
+  RandomBabyType,
   (tear: EntityTear, collider: Entity) => boolean | undefined
 >();
 
-// Mort Baby
+// 55
 preTearCollisionBabyFunctionMap.set(
-  55,
+  RandomBabyType.MORT,
   (tear: EntityTear, _collider: Entity) => {
     // Guppy tears
     if (tear.SubType === 1) {
@@ -20,9 +21,9 @@ preTearCollisionBabyFunctionMap.set(
   },
 );
 
-// Gills Baby
+// 410
 preTearCollisionBabyFunctionMap.set(
-  410,
+  RandomBabyType.GILLS,
   (tear: EntityTear, collider: Entity) => {
     // Splash tears
     if (tear.SubType === 1) {
@@ -40,9 +41,9 @@ preTearCollisionBabyFunctionMap.set(
   },
 );
 
-// Sad Bunny Baby
+// 459
 preTearCollisionBabyFunctionMap.set(
-  459,
+  RandomBabyType.SAD_BUNNY,
   (tear: EntityTear, _collider: Entity) => {
     // Accuracy increases tear rate.
     if (tear.SubType === 1) {

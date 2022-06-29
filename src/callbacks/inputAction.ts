@@ -15,9 +15,9 @@ function main(
   inputHook: InputHook,
   buttonAction: ButtonAction,
 ): number | boolean | undefined {
-  const [babyType, , valid] = getCurrentBaby();
-  if (!valid) {
-    return undefined;
+  const [babyType] = getCurrentBaby();
+  if (babyType === -1) {
+    return;
   }
 
   const inputActionBabyFunction = inputActionBabyFunctionMap.get(babyType);

@@ -26,12 +26,12 @@ import { TearData } from "../types/TearData";
 import { getCurrentBabyDescription } from "../utils";
 
 export const postFireTearBabyFunctionMap = new Map<
-  int,
+  RandomBabyType,
   (tear: EntityTear) => void
 >();
 
-// Spider Baby
-postFireTearBabyFunctionMap.set(0, (tear: EntityTear) => {
+// 0
+postFireTearBabyFunctionMap.set(RandomBabyType.SPIDER, (tear: EntityTear) => {
   g.run.babyCounters += 1;
   if (g.run.babyCounters === 2) {
     g.run.babyCounters = 0;
@@ -42,8 +42,8 @@ postFireTearBabyFunctionMap.set(0, (tear: EntityTear) => {
   }
 });
 
-// Bloat Baby
-postFireTearBabyFunctionMap.set(2, (tear: EntityTear) => {
+// 2
+postFireTearBabyFunctionMap.set(RandomBabyType.BLOAT, (tear: EntityTear) => {
   const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for: ${baby.name}`);
@@ -57,8 +57,8 @@ postFireTearBabyFunctionMap.set(2, (tear: EntityTear) => {
   }
 });
 
-// Cockeyed Baby
-postFireTearBabyFunctionMap.set(8, (tear: EntityTear) => {
+// 8
+postFireTearBabyFunctionMap.set(RandomBabyType.COCKEYED, (tear: EntityTear) => {
   if (g.run.babyBool) {
     return;
   }
@@ -72,55 +72,58 @@ postFireTearBabyFunctionMap.set(8, (tear: EntityTear) => {
   g.run.babyBool = false;
 });
 
-// Mag Baby
-postFireTearBabyFunctionMap.set(18, (tear: EntityTear) => {
+// 18
+postFireTearBabyFunctionMap.set(RandomBabyType.MAG, (tear: EntityTear) => {
   tear.ChangeVariant(TearVariant.METALLIC);
   tear.TearFlags = addFlag(tear.TearFlags, TearFlag.CONFUSION);
 });
 
-// Magnet Baby
-postFireTearBabyFunctionMap.set(26, (tear: EntityTear) => {
+// 26
+postFireTearBabyFunctionMap.set(RandomBabyType.MAGNET, (tear: EntityTear) => {
   tear.ChangeVariant(TearVariant.METALLIC);
   tear.TearFlags = addFlag(tear.TearFlags, TearFlag.MAGNETIZE);
 });
 
-// Blue Baby
-postFireTearBabyFunctionMap.set(30, (tear: EntityTear) => {
+// 30
+postFireTearBabyFunctionMap.set(RandomBabyType.BLUE, (tear: EntityTear) => {
   // Sprinkler tears need to originate at the player.
   tear.Position = g.p.Position;
 });
 
-// Long Baby
-postFireTearBabyFunctionMap.set(34, (tear: EntityTear) => {
+// 34
+postFireTearBabyFunctionMap.set(RandomBabyType.LONG, (tear: EntityTear) => {
   tear.TearFlags = addFlag(tear.TearFlags, TearFlag.FLAT);
 });
 
-// Green Baby
-postFireTearBabyFunctionMap.set(35, (tear: EntityTear) => {
+// 35
+postFireTearBabyFunctionMap.set(RandomBabyType.GREEN, (tear: EntityTear) => {
   tear.ChangeVariant(TearVariant.BOOGER);
   tear.TearFlags = addFlag(tear.TearFlags, TearFlag.BOOGER);
 });
 
-// Super Greed Baby
-postFireTearBabyFunctionMap.set(54, (tear: EntityTear) => {
-  tear.TearFlags = addFlag(tear.TearFlags, TearFlag.MIDAS);
-});
+// 54
+postFireTearBabyFunctionMap.set(
+  RandomBabyType.SUPER_GREED,
+  (tear: EntityTear) => {
+    tear.TearFlags = addFlag(tear.TearFlags, TearFlag.MIDAS);
+  },
+);
 
-// Mort Baby
-postFireTearBabyFunctionMap.set(55, (tear: EntityTear) => {
+// 55
+postFireTearBabyFunctionMap.set(RandomBabyType.MORT, (tear: EntityTear) => {
   // Mark that we shot this tear.
   tear.SubType = 1;
 });
 
-// Big Eyes Baby
-postFireTearBabyFunctionMap.set(59, (tear: EntityTear) => {
+// 59
+postFireTearBabyFunctionMap.set(RandomBabyType.BIG_EYES, (tear: EntityTear) => {
   // Tears cause self-knockback
   const knockbackVelocity = tear.Velocity.mul(-0.75);
   g.p.Velocity = g.p.Velocity.add(knockbackVelocity);
 });
 
-// Mustache Baby
-postFireTearBabyFunctionMap.set(66, (tear: EntityTear) => {
+// 66
+postFireTearBabyFunctionMap.set(RandomBabyType.MUSTACHE, (tear: EntityTear) => {
   // Boomerang tears. We can't just use The Boomerang item because there is no way to avoid a long
   // cooldown. So we spawn an effect instead.
   spawnEffect(
@@ -134,30 +137,36 @@ postFireTearBabyFunctionMap.set(66, (tear: EntityTear) => {
   tear.Remove();
 });
 
-// Alien Hominid Baby
-postFireTearBabyFunctionMap.set(74, (tear: EntityTear) => {
-  tear.ChangeVariant(TearVariant.TECH_SWORD_BEAM);
-});
+// 74
+postFireTearBabyFunctionMap.set(
+  RandomBabyType.ALIEN_HOMINID,
+  (tear: EntityTear) => {
+    tear.ChangeVariant(TearVariant.TECH_SWORD_BEAM);
+  },
+);
 
-// Scream Baby
-postFireTearBabyFunctionMap.set(81, (tear: EntityTear) => {
+// 81
+postFireTearBabyFunctionMap.set(RandomBabyType.SCREAM, (tear: EntityTear) => {
   useActiveItemTemp(g.p, CollectibleType.SHOOP_DA_WHOOP);
   tear.Remove();
 });
 
-// Square Eyes Baby
-postFireTearBabyFunctionMap.set(94, (tear: EntityTear) => {
-  tear.TearFlags = addFlag(tear.TearFlags, TearFlag.SQUARE);
-});
+// 94
+postFireTearBabyFunctionMap.set(
+  RandomBabyType.SQUARE_EYES,
+  (tear: EntityTear) => {
+    tear.TearFlags = addFlag(tear.TearFlags, TearFlag.SQUARE);
+  },
+);
 
-// Ed Baby
-postFireTearBabyFunctionMap.set(100, (tear: EntityTear) => {
+// 100
+postFireTearBabyFunctionMap.set(RandomBabyType.ED, (tear: EntityTear) => {
   // Mark that we shot this tear.
   tear.SubType = 1;
 });
 
-// Aether Baby
-postFireTearBabyFunctionMap.set(106, (tear: EntityTear) => {
+// 106
+postFireTearBabyFunctionMap.set(RandomBabyType.AETHER, (tear: EntityTear) => {
   // Shoot 8 tears at a time. (We store the rotation angle inside the "babyCounters" variable.)
   g.run.babyCounters += 45;
   if (g.run.babyCounters < 360) {
@@ -168,8 +177,8 @@ postFireTearBabyFunctionMap.set(106, (tear: EntityTear) => {
   }
 });
 
-// Eyemouth Baby
-postFireTearBabyFunctionMap.set(111, (tear: EntityTear) => {
+// 111
+postFireTearBabyFunctionMap.set(RandomBabyType.EYEMOUTH, (tear: EntityTear) => {
   const gameFrameCount = g.g.GetFrameCount();
 
   // Shoot an extra tear every 3rd shot.
@@ -182,37 +191,43 @@ postFireTearBabyFunctionMap.set(111, (tear: EntityTear) => {
   }
 });
 
-// V Baby
-postFireTearBabyFunctionMap.set(113, (tear: EntityTear) => {
+// 113
+postFireTearBabyFunctionMap.set(RandomBabyType.V, (tear: EntityTear) => {
   g.p.FireTechXLaser(tear.Position, tear.Velocity, 5);
   tear.Remove();
 });
 
-// Strange Mouth Baby
-postFireTearBabyFunctionMap.set(114, (tear: EntityTear) => {
-  tear.TearFlags = addFlag(tear.TearFlags, TearFlag.WIGGLE);
-});
+// 114
+postFireTearBabyFunctionMap.set(
+  RandomBabyType.STRANGE_MOUTH,
+  (tear: EntityTear) => {
+    tear.TearFlags = addFlag(tear.TearFlags, TearFlag.WIGGLE);
+  },
+);
 
-// Strange Shape Baby
-postFireTearBabyFunctionMap.set(130, (tear: EntityTear) => {
-  tear.TearFlags = addFlag(tear.TearFlags, TearFlag.PULSE);
-});
+// 130
+postFireTearBabyFunctionMap.set(
+  RandomBabyType.STRANGE_SHAPE,
+  (tear: EntityTear) => {
+    tear.TearFlags = addFlag(tear.TearFlags, TearFlag.PULSE);
+  },
+);
 
-// Crooked Baby
-postFireTearBabyFunctionMap.set(133, (tear: EntityTear) => {
+// 133
+postFireTearBabyFunctionMap.set(RandomBabyType.CROOKED, (tear: EntityTear) => {
   tear.Velocity = tear.Velocity.Rotated(-15);
 });
 
-// Cape Baby
-postFireTearBabyFunctionMap.set(152, (tear: EntityTear) => {
+// 152
+postFireTearBabyFunctionMap.set(RandomBabyType.CAPE, (tear: EntityTear) => {
   // Spray tears
   const angleModifier = math.random(0, 90) - 45;
   tear.Velocity = tear.Velocity.Rotated(angleModifier);
   tear.SetColor(FADED_YELLOW, 10000, 10000, false, false);
 });
 
-// Lights Baby
-postFireTearBabyFunctionMap.set(165, (tear: EntityTear) => {
+// 165
+postFireTearBabyFunctionMap.set(RandomBabyType.LIGHTS, (tear: EntityTear) => {
   const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for: ${baby.name}`);
@@ -225,13 +240,13 @@ postFireTearBabyFunctionMap.set(165, (tear: EntityTear) => {
   }
 });
 
-// Web Baby
-postFireTearBabyFunctionMap.set(185, (tear: EntityTear) => {
+// 185
+postFireTearBabyFunctionMap.set(RandomBabyType.WEB, (tear: EntityTear) => {
   tear.TearFlags = addFlag(tear.TearFlags, TearFlag.SLOW);
 });
 
-// Sick Baby
-postFireTearBabyFunctionMap.set(187, (tear: EntityTear) => {
+// 187
+postFireTearBabyFunctionMap.set(RandomBabyType.SICK, (tear: EntityTear) => {
   spawnFamiliar(
     FamiliarVariant.BLUE_FLY,
     BlueFlySubType.WRATH,
@@ -243,97 +258,103 @@ postFireTearBabyFunctionMap.set(187, (tear: EntityTear) => {
   tear.Remove();
 });
 
-// Cold Baby
-postFireTearBabyFunctionMap.set(194, (tear: EntityTear) => {
+// 194
+postFireTearBabyFunctionMap.set(RandomBabyType.COLD, (tear: EntityTear) => {
   tear.TearFlags = addFlag(tear.TearFlags, TearFlag.FREEZE);
   tear.SetColor(FADED_BLUE, 10000, 10000, false, false);
 });
 
-// Nice Baby
-postFireTearBabyFunctionMap.set(197, (tear: EntityTear) => {
+// 197
+postFireTearBabyFunctionMap.set(RandomBabyType.NICE, (tear: EntityTear) => {
   g.p.FireBrimstone(tear.Velocity);
   tear.Remove();
 });
 
-// Monocle Baby
-postFireTearBabyFunctionMap.set(206, (tear: EntityTear) => {
+// 206
+postFireTearBabyFunctionMap.set(RandomBabyType.MONOCLE, (tear: EntityTear) => {
   tear.Scale *= 3;
 });
 
-// Skinny Baby
-postFireTearBabyFunctionMap.set(213, (tear: EntityTear) => {
+// 213
+postFireTearBabyFunctionMap.set(RandomBabyType.SKINNY, (tear: EntityTear) => {
   // Mark that we shot this tear.
   tear.SubType = 1;
 });
 
-// Tilt Baby
-postFireTearBabyFunctionMap.set(230, (tear: EntityTear) => {
+// 230
+postFireTearBabyFunctionMap.set(RandomBabyType.TILT, (tear: EntityTear) => {
   tear.Velocity = tear.Velocity.Rotated(15);
 });
 
-// Bawl Baby
-postFireTearBabyFunctionMap.set(231, (tear: EntityTear) => {
+// 231
+postFireTearBabyFunctionMap.set(RandomBabyType.BAWL, (tear: EntityTear) => {
   tear.CollisionDamage = g.p.Damage / 2;
 });
 
-// 8 Ball Baby
-postFireTearBabyFunctionMap.set(246, (tear: EntityTear) => {
-  const baby = getCurrentBabyDescription();
-  if (baby.distance === undefined) {
-    error(`The "distance" attribute was not defined for: ${baby.name}`);
-  }
+// 246
+postFireTearBabyFunctionMap.set(
+  RandomBabyType.EIGHT_BALL,
+  (tear: EntityTear) => {
+    const baby = getCurrentBabyDescription();
+    if (baby.distance === undefined) {
+      error(`The "distance" attribute was not defined for: ${baby.name}`);
+    }
 
-  // Mark that we shot this tear.
-  tear.SubType = 1;
+    // Mark that we shot this tear.
+    tear.SubType = 1;
 
-  // We need to have spectral for this ability to work properly.
-  tear.TearFlags = addFlag(tear.TearFlags, TearFlag.SPECTRAL);
+    // We need to have spectral for this ability to work properly.
+    tear.TearFlags = addFlag(tear.TearFlags, TearFlag.SPECTRAL);
 
-  // Start with the tears directly above the player and moving towards the right.
-  tear.Position = Vector(0, baby.distance * -1);
-  tear.Velocity = Vector(baby.distance / 4, 0);
-  tear.FallingSpeed = 0;
-});
+    // Start with the tears directly above the player and moving towards the right.
+    tear.Position = Vector(0, baby.distance * -1);
+    tear.Velocity = Vector(baby.distance / 4, 0);
+    tear.FallingSpeed = 0;
+  },
+);
 
-// Orange Demon Baby
-postFireTearBabyFunctionMap.set(279, (tear: EntityTear) => {
-  // Explosivo tears Only do every other tear to avoid softlocks.
-  g.run.babyCounters += 1;
-  if (g.run.babyCounters === 2) {
-    g.run.babyCounters = 0;
-    tear.ChangeVariant(TearVariant.EXPLOSIVO);
-    tear.TearFlags = addFlag(tear.TearFlags, TearFlag.STICKY);
-  }
-});
+// 279
+postFireTearBabyFunctionMap.set(
+  RandomBabyType.ORANGE_DEMON,
+  (tear: EntityTear) => {
+    // Explosivo tears Only do every other tear to avoid softlocks.
+    g.run.babyCounters += 1;
+    if (g.run.babyCounters === 2) {
+      g.run.babyCounters = 0;
+      tear.ChangeVariant(TearVariant.EXPLOSIVO);
+      tear.TearFlags = addFlag(tear.TearFlags, TearFlag.STICKY);
+    }
+  },
+);
 
-// Butt Baby
-postFireTearBabyFunctionMap.set(288, (_tear: EntityTear) => {
+// 288
+postFireTearBabyFunctionMap.set(RandomBabyType.BUTT, (_tear: EntityTear) => {
   useActiveItemTemp(g.p, CollectibleType.BEAN);
 });
 
-// Speaker Baby
-postFireTearBabyFunctionMap.set(316, (tear: EntityTear) => {
+// 316
+postFireTearBabyFunctionMap.set(RandomBabyType.SPEAKER, (tear: EntityTear) => {
   // We mark it so that we can split it later.
   if (!g.run.babyBool) {
     tear.SubType = 1;
   }
 });
 
-// Slicer Baby
-postFireTearBabyFunctionMap.set(331, (tear: EntityTear) => {
+// 331
+postFireTearBabyFunctionMap.set(RandomBabyType.SLICER, (tear: EntityTear) => {
   // Make the Soy Milk tears do extra damage.
   tear.CollisionDamage = g.p.Damage * 3;
 });
 
-// Boxers Baby
-postFireTearBabyFunctionMap.set(337, (tear: EntityTear) => {
+// 337
+postFireTearBabyFunctionMap.set(RandomBabyType.BOXERS, (tear: EntityTear) => {
   // Turn all tears into Knockout Drops tears.
   tear.ChangeVariant(TearVariant.FIST);
   tear.TearFlags = addFlag(tear.TearFlags, TearFlag.PUNCH);
 });
 
-// X Baby
-postFireTearBabyFunctionMap.set(339, (tear: EntityTear) => {
+// 339
+postFireTearBabyFunctionMap.set(RandomBabyType.X, (tear: EntityTear) => {
   g.run.babyCounters += 1;
   tear.Velocity = tear.Velocity.Rotated(45);
   if (g.run.babyCounters < 4) {
@@ -343,98 +364,113 @@ postFireTearBabyFunctionMap.set(339, (tear: EntityTear) => {
   }
 });
 
-// O Baby 2
-postFireTearBabyFunctionMap.set(340, (tear: EntityTear) => {
+// 340
+postFireTearBabyFunctionMap.set(RandomBabyType.O_2, (tear: EntityTear) => {
   tear.TearFlags = addFlag(tear.TearFlags, TearFlag.SPIRAL);
 });
 
-// Locust Baby
-postFireTearBabyFunctionMap.set(345, (tear: EntityTear) => {
+// 345
+postFireTearBabyFunctionMap.set(RandomBabyType.LOCUST, (tear: EntityTear) => {
   tear.ChangeVariant(TearVariant.BOOGER);
   tear.TearFlags = addFlag(tear.TearFlags, TearFlag.BOOGER);
 });
 
-// Mushroom Girl Baby
-postFireTearBabyFunctionMap.set(361, (tear: EntityTear) => {
-  const baby = getCurrentBabyDescription();
-  if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for: ${baby.name}`);
-  }
+// 361
+postFireTearBabyFunctionMap.set(
+  RandomBabyType.MUSHROOM_GIRL,
+  (tear: EntityTear) => {
+    const baby = getCurrentBabyDescription();
+    if (baby.num === undefined) {
+      error(`The "num" attribute was not defined for: ${baby.name}`);
+    }
 
-  // Extra bomb shots
-  g.run.babyCounters += 1;
-  if (g.run.babyCounters === baby.num) {
-    g.run.babyCounters = 0;
-    spawnBomb(
-      BombVariant.NORMAL,
-      0,
-      tear.Position,
-      tear.Velocity,
-      tear.SpawnerEntity,
-      tear.InitSeed,
-    );
+    // Extra bomb shots
+    g.run.babyCounters += 1;
+    if (g.run.babyCounters === baby.num) {
+      g.run.babyCounters = 0;
+      spawnBomb(
+        BombVariant.NORMAL,
+        0,
+        tear.Position,
+        tear.Velocity,
+        tear.SpawnerEntity,
+        tear.InitSeed,
+      );
+      tear.Remove();
+    }
+  },
+);
+
+// 364
+postFireTearBabyFunctionMap.set(
+  RandomBabyType.TURTLE_DRAGON,
+  (tear: EntityTear) => {
+    // If we use "player.ShootRedCandle(tear.Velocity)", the fires have enormous speed and are hard
+    // to control.
+    const normalizedVelocity = tear.Velocity.Normalized();
+    g.p.ShootRedCandle(normalizedVelocity);
     tear.Remove();
-  }
-});
+  },
+);
 
-// Turtle Dragon Baby
-postFireTearBabyFunctionMap.set(364, (tear: EntityTear) => {
-  // If we use "player.ShootRedCandle(tear.Velocity)", the fires have enormous speed and are hard to
-  // control.
-  const normalizedVelocity = tear.Velocity.Normalized();
-  g.p.ShootRedCandle(normalizedVelocity);
-  tear.Remove();
-});
-
-// Arcade Baby
-postFireTearBabyFunctionMap.set(368, (tear: EntityTear) => {
+// 368
+postFireTearBabyFunctionMap.set(RandomBabyType.ARCADE, (tear: EntityTear) => {
   // Changing the variant does not actually increase the damage, only the appearance.
   tear.ChangeVariant(TearVariant.RAZOR);
   tear.CollisionDamage = g.p.Damage * 3;
 });
 
-// Pink Ghost Baby
-postFireTearBabyFunctionMap.set(372, (tear: EntityTear) => {
-  const hotPink = Color(2, 0.05, 1, 0.7, 1, 1, 1);
-  tear.SetColor(hotPink, 10000, 10000, false, false);
-  tear.TearFlags = addFlag(tear.TearFlags, TearFlag.CHARM);
-});
+// 372
+postFireTearBabyFunctionMap.set(
+  RandomBabyType.PINK_GHOST,
+  (tear: EntityTear) => {
+    const hotPink = Color(2, 0.05, 1, 0.7, 1, 1, 1);
+    tear.SetColor(hotPink, 10000, 10000, false, false);
+    tear.TearFlags = addFlag(tear.TearFlags, TearFlag.CHARM);
+  },
+);
 
-// Octopus Baby
-postFireTearBabyFunctionMap.set(380, (tear: EntityTear) => {
+// 380
+postFireTearBabyFunctionMap.set(RandomBabyType.OCTOPUS, (tear: EntityTear) => {
   // Mark that we shot this tear.
   tear.SubType = 1;
 });
 
-// Dark Space Soldier Baby.
-postFireTearBabyFunctionMap.set(398, (tear: EntityTear) => {
-  const baby = getCurrentBabyDescription();
-  if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for: ${baby.name}`);
-  }
+// 398
+postFireTearBabyFunctionMap.set(
+  RandomBabyType.DARK_SPACE_SOLDIER,
+  (tear: EntityTear) => {
+    const baby = getCurrentBabyDescription();
+    if (baby.num === undefined) {
+      error(`The "num" attribute was not defined for: ${baby.name}`);
+    }
 
-  g.run.babyCounters += 1;
-  if (g.run.babyCounters === baby.num) {
-    g.run.babyCounters = 0;
-    tear.ChangeVariant(TearVariant.CHAOS_CARD);
-  }
-});
+    g.run.babyCounters += 1;
+    if (g.run.babyCounters === baby.num) {
+      g.run.babyCounters = 0;
+      tear.ChangeVariant(TearVariant.CHAOS_CARD);
+    }
+  },
+);
 
-// Referee Baby
-postFireTearBabyFunctionMap.set(404, (tear: EntityTear) => {
+// 404
+postFireTearBabyFunctionMap.set(RandomBabyType.REFEREE, (tear: EntityTear) => {
   // Tomato tears
   tear.TearFlags = addFlag(tear.TearFlags, TearFlag.BAIT);
   tear.SetColor(FADED_RED, 10000, 10000, false, false);
 });
 
-// Astronaut Baby
-postFireTearBabyFunctionMap.set(406, (tear: EntityTear) => {
-  // Mark that we shot this tear.
-  tear.SubType = 1;
-});
+// 406
+postFireTearBabyFunctionMap.set(
+  RandomBabyType.ASTRONAUT,
+  (tear: EntityTear) => {
+    // Mark that we shot this tear.
+    tear.SubType = 1;
+  },
+);
 
-// Gills Baby
-postFireTearBabyFunctionMap.set(410, (tear: EntityTear) => {
+// 410
+postFireTearBabyFunctionMap.set(RandomBabyType.GILLS, (tear: EntityTear) => {
   const lightCyan = Color(0.7, 1.5, 2, 0.7, 1, 1, 1);
   tear.SetColor(lightCyan, 10000, 10000, false, false);
 
@@ -442,86 +478,101 @@ postFireTearBabyFunctionMap.set(410, (tear: EntityTear) => {
   tear.SubType = 1;
 });
 
-// Little Horn Baby
-postFireTearBabyFunctionMap.set(429, (tear: EntityTear) => {
-  const baby = getCurrentBabyDescription();
-  if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for: ${baby.name}`);
-  }
+// 429
+postFireTearBabyFunctionMap.set(
+  RandomBabyType.LITTLE_HORN,
+  (tear: EntityTear) => {
+    const baby = getCurrentBabyDescription();
+    if (baby.num === undefined) {
+      error(`The "num" attribute was not defined for: ${baby.name}`);
+    }
 
-  // Void tears
-  g.run.babyCounters += 1;
-  if (g.run.babyCounters === baby.num) {
-    g.run.babyCounters = 0;
-    tear.TearFlags = addFlag(tear.TearFlags, TearFlag.HORN);
-  }
-});
+    // Void tears
+    g.run.babyCounters += 1;
+    if (g.run.babyCounters === baby.num) {
+      g.run.babyCounters = 0;
+      tear.TearFlags = addFlag(tear.TearFlags, TearFlag.HORN);
+    }
+  },
+);
 
-// Tooth Head Baby
-postFireTearBabyFunctionMap.set(442, (tear: EntityTear) => {
-  // Changing the variant does not actually increase the damage, only the appearance.
-  tear.ChangeVariant(TearVariant.TOOTH);
-  tear.CollisionDamage = g.p.Damage * 3.2;
-});
+// 442
+postFireTearBabyFunctionMap.set(
+  RandomBabyType.TOOTH_HEAD,
+  (tear: EntityTear) => {
+    // Changing the variant does not actually increase the damage, only the appearance.
+    tear.ChangeVariant(TearVariant.TOOTH);
+    tear.CollisionDamage = g.p.Damage * 3.2;
+  },
+);
 
-// Green Koopa Baby
-postFireTearBabyFunctionMap.set(455, (tear: EntityTear) => {
-  // Turn all tears into green shell tears.
-  const sprite = tear.GetSprite();
-  sprite.Load("gfx/shell_green_tears.anm2", true);
-  sprite.Play("RegularTear1", false);
+// 455
+postFireTearBabyFunctionMap.set(
+  RandomBabyType.GREEN_KOOPA,
+  (tear: EntityTear) => {
+    // Turn all tears into green shell tears.
+    const sprite = tear.GetSprite();
+    sprite.Load("gfx/shell_green_tears.anm2", true);
+    sprite.Play("RegularTear1", false);
 
-  // Make it bouncy
-  tear.TearFlags = addFlag(
-    TearFlag.BOUNCE, // 1 << 19
-    TearFlag.POP, // 1 << 56
-  );
+    // Make it bouncy
+    tear.TearFlags = addFlag(
+      TearFlag.BOUNCE, // 1 << 19
+      TearFlag.POP, // 1 << 56
+    );
 
-  // Make it lower to the ground.
-  tear.Height = -5;
+    // Make it lower to the ground.
+    tear.Height = -5;
 
-  // Mark it as a special tear so that we can keep it updated.
-  tear.SubType = 1;
+    // Mark it as a special tear so that we can keep it updated.
+    tear.SubType = 1;
 
-  // Store the initial height and velocity.
-  const data = tear.GetData();
-  data["Height"] = tear.Height;
-  data["Velocity"] = tear.Velocity;
-});
+    // Store the initial height and velocity.
+    const data = tear.GetData();
+    data["Height"] = tear.Height;
+    data["Velocity"] = tear.Velocity;
+  },
+);
 
-// Red Koopa Baby
-postFireTearBabyFunctionMap.set(458, (tear: EntityTear) => {
-  // Turn all tears into red shell tears.
-  const sprite = tear.GetSprite();
-  sprite.Load("gfx/shell_red_tears.anm2", true);
-  sprite.Play("RegularTear1", false);
+// 458
+postFireTearBabyFunctionMap.set(
+  RandomBabyType.RED_KOOPA,
+  (tear: EntityTear) => {
+    // Turn all tears into red shell tears.
+    const sprite = tear.GetSprite();
+    sprite.Load("gfx/shell_red_tears.anm2", true);
+    sprite.Play("RegularTear1", false);
 
-  // Make it bouncy and homing.
-  tear.TearFlags = addFlag(
-    TearFlag.HOMING, // 1 << 2
-    TearFlag.BOUNCE, // 1 << 19
-    TearFlag.POP, // 1 << 56
-  );
+    // Make it bouncy and homing.
+    tear.TearFlags = addFlag(
+      TearFlag.HOMING, // 1 << 2
+      TearFlag.BOUNCE, // 1 << 19
+      TearFlag.POP, // 1 << 56
+    );
 
-  // Make it lower to the ground.
-  tear.Height = -5;
+    // Make it lower to the ground.
+    tear.Height = -5;
 
-  // Mark it as a special tear so that we can keep it updated.
-  tear.SubType = 1;
+    // Mark it as a special tear so that we can keep it updated.
+    tear.SubType = 1;
 
-  // Store the initial height. (Unlike Green Koopa Baby, we do not need to store the velocity.)
-  const data = tear.GetData() as unknown as TearData;
-  data.Height = tear.Height;
-});
+    // Store the initial height. (Unlike Green Koopa Baby, we do not need to store the velocity.)
+    const data = tear.GetData() as unknown as TearData;
+    data.Height = tear.Height;
+  },
+);
 
-// Sad Bunny Baby
-postFireTearBabyFunctionMap.set(459, (tear: EntityTear) => {
-  // Mark that we shot this tear.
-  tear.SubType = 1;
-});
+// 459
+postFireTearBabyFunctionMap.set(
+  RandomBabyType.SAD_BUNNY,
+  (tear: EntityTear) => {
+    // Mark that we shot this tear.
+    tear.SubType = 1;
+  },
+);
 
-// Voxdog Baby
-postFireTearBabyFunctionMap.set(462, (tear: EntityTear) => {
+// 462
+postFireTearBabyFunctionMap.set(RandomBabyType.VOXDOG, (tear: EntityTear) => {
   const gameFrameCount = g.g.GetFrameCount();
 
   // Shockwave tears
@@ -534,13 +585,16 @@ postFireTearBabyFunctionMap.set(462, (tear: EntityTear) => {
   tear.Remove();
 });
 
-// Blindcursed Baby
-postFireTearBabyFunctionMap.set(466, (tear: EntityTear) => {
-  tear.Visible = false;
-});
+// 466
+postFireTearBabyFunctionMap.set(
+  RandomBabyType.BLINDCURSED,
+  (tear: EntityTear) => {
+    tear.Visible = false;
+  },
+);
 
-// Fly Baby
-postFireTearBabyFunctionMap.set(469, (tear: EntityTear) => {
+// 469
+postFireTearBabyFunctionMap.set(RandomBabyType.FLY, (tear: EntityTear) => {
   tear.ChangeVariant(TearVariant.GODS_FLESH);
 
   tear.TearFlags = addFlag(
@@ -553,43 +607,53 @@ postFireTearBabyFunctionMap.set(469, (tear: EntityTear) => {
   );
 });
 
-// Headphone Baby
-postFireTearBabyFunctionMap.set(470, (tear: EntityTear) => {
-  // Soundwave tears (1/2)
-  tear.ChangeVariant(TearVariant.PUPULA);
-  // We don't give it a tear flag of TEAR_FLAT because that makes it look worse.
-  tear.Scale *= 10;
+// 470
+postFireTearBabyFunctionMap.set(
+  RandomBabyType.HEADPHONE,
+  (tear: EntityTear) => {
+    // Soundwave tears (1/2)
+    tear.ChangeVariant(TearVariant.PUPULA);
+    // We don't give it a tear flag of TEAR_FLAT because that makes it look worse.
+    tear.Scale *= 10;
 
-  // For some reason, changing the tear variant on this frame will cause the tear to point towards
-  // the right. To work around this, make the tear invisible and make it visible on the next frame.
-  tear.Visible = false;
-});
+    // For some reason, changing the tear variant on this frame will cause the tear to point towards
+    // the right. To work around this, make the tear invisible and make it visible on the next
+    // frame.
+    tear.Visible = false;
+  },
+);
 
-// Imp Baby 2
-postFireTearBabyFunctionMap.set(480, (tear: EntityTear) => {
+// 480
+postFireTearBabyFunctionMap.set(RandomBabyType.IMP_2, (tear: EntityTear) => {
   tear.SetColor(COLORS.Yellow, 3600, 100);
   tear.TearFlags = addFlag(tear.TearFlags, TearFlag.ACID);
 });
 
-// Cursed Pillow Baby
-postFireTearBabyFunctionMap.set(487, (tear: EntityTear) => {
-  // Mark that we shot this tear.
-  tear.SubType = 1;
-});
+// 487
+postFireTearBabyFunctionMap.set(
+  RandomBabyType.CURSED_PILLOW,
+  (tear: EntityTear) => {
+    // Mark that we shot this tear.
+    tear.SubType = 1;
+  },
+);
 
-// Pompadour Baby
-postFireTearBabyFunctionMap.set(494, (tear: EntityTear) => {
-  tear.ChangeVariant(TearVariant.GODS_FLESH);
-  tear.TearFlags = addFlag(tear.TearFlags, TearFlag.GODS_FLESH);
-});
+// 494
+postFireTearBabyFunctionMap.set(
+  RandomBabyType.POMPADOUR,
+  (tear: EntityTear) => {
+    tear.ChangeVariant(TearVariant.GODS_FLESH);
+    tear.TearFlags = addFlag(tear.TearFlags, TearFlag.GODS_FLESH);
+  },
+);
 
-// Ill Baby
-postFireTearBabyFunctionMap.set(498, (tear: EntityTear) => {
+// 498
+postFireTearBabyFunctionMap.set(RandomBabyType.ILL, (tear: EntityTear) => {
   tear.ChangeVariant(TearVariant.BOBS_HEAD);
 });
 
-// Mern Baby
-postFireTearBabyFunctionMap.set(500, (tear: EntityTear) => {
+// 500
+postFireTearBabyFunctionMap.set(RandomBabyType.MERN, (tear: EntityTear) => {
   const gameFrameCount = g.g.GetFrameCount();
 
   g.run.babyTears.numFired += 1;
@@ -601,8 +665,8 @@ postFireTearBabyFunctionMap.set(500, (tear: EntityTear) => {
   }
 });
 
-// Psychic Baby
-postFireTearBabyFunctionMap.set(504, (tear: EntityTear) => {
+// 504
+postFireTearBabyFunctionMap.set(RandomBabyType.PSYCHIC, (tear: EntityTear) => {
   const roomFrameCount = g.r.GetFrameCount();
   const roomShape = g.r.GetRoomShape();
 
@@ -625,25 +689,28 @@ postFireTearBabyFunctionMap.set(504, (tear: EntityTear) => {
   }
 });
 
-// Master Cook Baby
-postFireTearBabyFunctionMap.set(517, (tear: EntityTear) => {
-  tear.ChangeVariant(TearVariant.EGG);
-  tear.TearFlags = addFlag(tear.TearFlags, TearFlag.EGG);
-});
+// 517
+postFireTearBabyFunctionMap.set(
+  RandomBabyType.MASTER_COOK,
+  (tear: EntityTear) => {
+    tear.ChangeVariant(TearVariant.EGG);
+    tear.TearFlags = addFlag(tear.TearFlags, TearFlag.EGG);
+  },
+);
 
-// Abel
+// 568
 postFireTearBabyFunctionMap.set(RandomBabyType.ABEL, (tear: EntityTear) => {
   // Mark that we shot this tear.
   tear.SubType = 1;
 });
 
-// Rotten Baby
+// 570
 postFireTearBabyFunctionMap.set(RandomBabyType.ROTTEN, (tear: EntityTear) => {
   tear.Remove();
   g.p.AddBlueFlies(1, g.p.Position, undefined);
 });
 
-// Lil' Loki
+// 576
 postFireTearBabyFunctionMap.set(RandomBabyType.LIL_LOKI, (tear: EntityTear) => {
   // Cross tears. (We store the rotation angle in the "babyCounters" variable.)
   g.run.babyCounters += 90;
@@ -655,7 +722,7 @@ postFireTearBabyFunctionMap.set(RandomBabyType.LIL_LOKI, (tear: EntityTear) => {
   }
 });
 
-// Freezer Baby
+// 579
 postFireTearBabyFunctionMap.set(
   // Ice tears
   RandomBabyType.FREEZER,
@@ -665,7 +732,7 @@ postFireTearBabyFunctionMap.set(
   },
 );
 
-// Twisted Baby
+// 581
 postFireTearBabyFunctionMap.set(
   // Spore tears
   RandomBabyType.TWISTED,

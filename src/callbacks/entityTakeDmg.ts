@@ -14,9 +14,9 @@ function main(
   damageSource: EntityRef,
   damageCountdownFrames: int,
 ): boolean | undefined {
-  const [, , valid] = getCurrentBaby();
-  if (!valid) {
-    return undefined;
+  const [babyType] = getCurrentBaby();
+  if (babyType === -1) {
+    return;
   }
 
   const player = entity.ToPlayer();

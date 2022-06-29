@@ -1,16 +1,18 @@
+import { RandomBabyType } from "../enums/RandomBabyType";
+
 export const postTearInitBabyFunctionMap = new Map<
-  int,
+  RandomBabyType,
   (tear: EntityTear) => void
 >();
 
-// Lil' Baby
-postTearInitBabyFunctionMap.set(36, (tear: EntityTear) => {
+// 36
+postTearInitBabyFunctionMap.set(RandomBabyType.LIL, (tear: EntityTear) => {
   // Everything is tiny
   tear.SpriteScale = Vector(0.5, 0.5);
 });
 
-// Big Baby
-postTearInitBabyFunctionMap.set(37, (tear: EntityTear) => {
+// 37
+postTearInitBabyFunctionMap.set(RandomBabyType.BIG, (tear: EntityTear) => {
   // Everything is giant
   tear.SpriteScale = Vector(2, 2);
 });

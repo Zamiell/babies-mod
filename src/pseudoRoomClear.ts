@@ -47,8 +47,8 @@ export function postUpdate(): void {
 }
 
 function initializeDoors() {
-  const [, baby, valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType, baby] = getCurrentBaby();
+  if (babyType === -1) {
     return;
   }
 
@@ -133,8 +133,8 @@ function areAnyNPCsAlive() {
 
 // This roughly emulates what happens when you normally clear a room.
 function pseudoClearRoom() {
-  const [, baby, valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType, baby] = getCurrentBaby();
+  if (babyType === -1) {
     return;
   }
 

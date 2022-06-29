@@ -12,8 +12,8 @@ const sprites = {
 
 export function display(): void {
   const gameFrameCount = g.g.GetFrameCount();
-  const [, baby, valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType, baby] = getCurrentBaby();
+  if (babyType === -1) {
     return;
   }
 

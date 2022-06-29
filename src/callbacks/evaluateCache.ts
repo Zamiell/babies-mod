@@ -9,8 +9,8 @@ export function init(mod: Mod): void {
 }
 
 function main(player: EntityPlayer, cacheFlag: CacheFlag) {
-  const [babyType, baby, valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType, baby] = getCurrentBaby();
+  if (babyType === -1) {
     return;
   }
 

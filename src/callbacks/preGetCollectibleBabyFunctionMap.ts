@@ -1,15 +1,19 @@
-import { ItemPoolType, RoomType } from "isaac-typescript-definitions";
+import {
+  CollectibleType,
+  ItemPoolType,
+  RoomType,
+} from "isaac-typescript-definitions";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 import { getRandomCollectibleTypeFromPool } from "../utils";
 
 export const preGetCollectibleBabyFunctionMap = new Map<
-  int,
-  () => number | undefined
+  RandomBabyType,
+  () => CollectibleType | undefined
 >();
 
-// Folder Baby
-preGetCollectibleBabyFunctionMap.set(430, () => {
+// 430
+preGetCollectibleBabyFunctionMap.set(RandomBabyType.FOLDER, () => {
   const roomType = g.r.GetType();
 
   switch (roomType) {
@@ -39,27 +43,27 @@ preGetCollectibleBabyFunctionMap.set(430, () => {
   }
 });
 
-// Little Gish
+// 562
 preGetCollectibleBabyFunctionMap.set(RandomBabyType.LITTLE_GISH, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.CURSE),
 );
 
-// Ghost Baby
+// 565
 preGetCollectibleBabyFunctionMap.set(RandomBabyType.GHOST, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.SHOP),
 );
 
-// Mongo Baby
+// 572
 preGetCollectibleBabyFunctionMap.set(RandomBabyType.MONGO, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.ANGEL),
 );
 
-// Incubus
+// 573
 preGetCollectibleBabyFunctionMap.set(RandomBabyType.INCUBUS, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.DEVIL),
 );
 
-// Boiled Baby
+// 578
 preGetCollectibleBabyFunctionMap.set(RandomBabyType.BOILED, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.ULTRA_SECRET),
 );

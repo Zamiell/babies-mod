@@ -9,12 +9,13 @@ import {
   inMinibossRoomOf,
   VectorZero,
 } from "isaacscript-common";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 
-export const postRenderBabyFunctionMap = new Map<int, () => void>();
+export const postRenderBabyFunctionMap = new Map<RandomBabyType, () => void>();
 
-// Dark Baby
-postRenderBabyFunctionMap.set(48, () => {
+// 48
+postRenderBabyFunctionMap.set(RandomBabyType.DARK, () => {
   // Temporary blindness. Set the current fade (which is based on the game's frame count and set in
   // the PostUpdate callback).
   if (g.run.babySprite !== null) {
@@ -27,8 +28,8 @@ postRenderBabyFunctionMap.set(48, () => {
   }
 });
 
-// Hopeless Baby
-postRenderBabyFunctionMap.set(125, () => {
+// 125
+postRenderBabyFunctionMap.set(RandomBabyType.HOPELESS, () => {
   if (g.run.babySprite === null) {
     return;
   }
@@ -53,8 +54,8 @@ postRenderBabyFunctionMap.set(125, () => {
   }
 });
 
-// Mohawk Baby
-postRenderBabyFunctionMap.set(138, () => {
+// 138
+postRenderBabyFunctionMap.set(RandomBabyType.MOHAWK, () => {
   if (g.run.babySprite === null) {
     return;
   }
@@ -79,8 +80,8 @@ postRenderBabyFunctionMap.set(138, () => {
   }
 });
 
-// Elf Baby
-postRenderBabyFunctionMap.set(377, () => {
+// 377
+postRenderBabyFunctionMap.set(RandomBabyType.ELF, () => {
   // The Speak of Destiny effect is not spawned in the PostNewRoom callback. Thus, we check for it
   // on every frame instead. As an unfortunate side effect, the Spear of Destiny will show as the
   // vanilla graphic during room transitions.

@@ -5,16 +5,17 @@ import {
   PickingUpItem,
   teleport,
 } from "isaacscript-common";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import { TELEPORT_COLLECTIBLE_TYPE_TO_ROOM_TYPE_MAP } from "../maps/teleportCollectibleTypeToRoomTypeMap";
 
 export const preItemPickupBabyFunctionMap = new Map<
-  int,
+  RandomBabyType,
   (player: EntityPlayer, pickingUpItem: PickingUpItem) => void
 >();
 
-// Fancy Baby
+// 216
 preItemPickupBabyFunctionMap.set(
-  216,
+  RandomBabyType.FANCY,
   (_player: EntityPlayer, pickingUpItem: PickingUpItem) => {
     if (pickingUpItem.itemType !== ItemType.PASSIVE) {
       return;
@@ -36,9 +37,9 @@ preItemPickupBabyFunctionMap.set(
   },
 );
 
-// Corrupted Baby
+// 307
 preItemPickupBabyFunctionMap.set(
-  307,
+  RandomBabyType.CORRUPTED,
   (player: EntityPlayer, pickingUpItem: PickingUpItem) => {
     if (
       (pickingUpItem.itemType === ItemType.PASSIVE ||

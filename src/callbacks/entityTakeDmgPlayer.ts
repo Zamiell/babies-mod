@@ -12,9 +12,9 @@ export function main(
   damageCountdownFrames: int,
 ): boolean | undefined {
   const gameFrameCount = g.g.GetFrameCount();
-  const [babyType, baby, valid] = getCurrentBaby();
-  if (!valid) {
-    return undefined;
+  const [babyType, baby] = getCurrentBaby();
+  if (babyType === -1) {
+    return;
   }
 
   if (g.run.dealingExtraDamage) {

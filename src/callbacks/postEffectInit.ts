@@ -7,8 +7,8 @@ export function init(mod: Mod): void {
 }
 
 function main(effect: EntityEffect) {
-  const [babyType, , valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType] = getCurrentBaby();
+  if (babyType === -1) {
     return;
   }
 

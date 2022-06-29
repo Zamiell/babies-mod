@@ -35,8 +35,8 @@ function main() {
   updateCachedAPIFunctions();
   drawVersion();
 
-  const [, , valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType] = getCurrentBaby();
+  if (babyType === -1) {
     return;
   }
 
@@ -50,8 +50,8 @@ function main() {
 /** Show what the current baby does in the intro room (or if the player presses the map button). */
 function drawBabyIntro() {
   const gameFrameCount = g.g.GetFrameCount();
-  const [, baby, valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType, baby] = getCurrentBaby();
+  if (babyType === -1) {
     return;
   }
 
@@ -94,8 +94,8 @@ function drawBabyIntro() {
 
 /** Draw the baby's number next to the heart count. */
 function drawBabyNumber() {
-  const [babyType, baby, valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType, baby] = getCurrentBaby();
+  if (babyType === -1) {
     return;
   }
 
@@ -168,8 +168,8 @@ function drawVersion() {
  * the floor.
  */
 function drawTempIconNextToActiveCollectible() {
-  const [, baby, valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType, baby] = getCurrentBaby();
+  if (babyType === -1) {
     return;
   }
 
@@ -193,8 +193,8 @@ function drawTempIconNextToActiveCollectible() {
 }
 
 function drawBabyEffects() {
-  const [babyType, , valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType] = getCurrentBaby();
+  if (babyType === -1) {
     return;
   }
 

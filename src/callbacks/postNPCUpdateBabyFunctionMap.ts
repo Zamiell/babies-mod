@@ -1,26 +1,27 @@
 import { EntityFlag, EntityType } from "isaac-typescript-definitions";
 import { spawn } from "isaacscript-common";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 
 export const postNPCUpdateBabyFunctionMap = new Map<
-  int,
+  RandomBabyType,
   (npc: EntityNPC) => void
 >();
 
-// Lil' Baby
-postNPCUpdateBabyFunctionMap.set(36, (npc: EntityNPC) => {
+// 36
+postNPCUpdateBabyFunctionMap.set(RandomBabyType.LIL, (npc: EntityNPC) => {
   // Everything is tiny
   npc.Scale = 0.5;
 });
 
-// Big Baby
-postNPCUpdateBabyFunctionMap.set(37, (npc: EntityNPC) => {
+// 37
+postNPCUpdateBabyFunctionMap.set(RandomBabyType.BIG, (npc: EntityNPC) => {
   // Everything is giant
   npc.Scale = 2;
 });
 
-// Zombie Baby
-postNPCUpdateBabyFunctionMap.set(61, (npc: EntityNPC) => {
+// 61
+postNPCUpdateBabyFunctionMap.set(RandomBabyType.ZOMBIE, (npc: EntityNPC) => {
   // Brings back enemies from the dead Reapply the fade on every frame because enemies can be
   // unfaded occasionally.
   if (npc.HasEntityFlags(EntityFlag.FRIENDLY)) {
@@ -34,8 +35,8 @@ postNPCUpdateBabyFunctionMap.set(61, (npc: EntityNPC) => {
   }
 });
 
-// Hooligan Baby
-postNPCUpdateBabyFunctionMap.set(514, (npc: EntityNPC) => {
+// 514
+postNPCUpdateBabyFunctionMap.set(RandomBabyType.HOOLIGAN, (npc: EntityNPC) => {
   const data = npc.GetData();
 
   // Double enemies. (If we do this in the PostNPCInit callback, some positions are not yet

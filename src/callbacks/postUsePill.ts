@@ -7,9 +7,9 @@ export function init(mod: Mod): void {
 }
 
 function main(_pillEffect: PillEffect, player: EntityPlayer) {
-  const [babyType, , valid] = getCurrentBaby();
-  if (!valid) {
-    return;
+  const [babyType] = getCurrentBaby();
+  if (babyType === -1) {
+    return undefined;
   }
 
   const usePillBabyFunction = usePillBabyFunctionMap.get(babyType);

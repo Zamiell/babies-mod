@@ -52,10 +52,10 @@ import * as pseudoRoomClear from "../pseudoRoomClear";
 import { EffectVariantCustom } from "../types/EffectVariantCustom";
 import { bigChestExists, getCurrentBabyDescription } from "../utils";
 
-export const postUpdateBabyFunctionMap = new Map<int, () => void>();
+export const postUpdateBabyFunctionMap = new Map<RandomBabyType, () => void>();
 
-// Troll Baby
-postUpdateBabyFunctionMap.set(6, () => {
+// 6
+postUpdateBabyFunctionMap.set(RandomBabyType.TROLL, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   if (gameFrameCount % (3 * GAME_FRAMES_PER_SECOND) === 0) {
@@ -63,8 +63,8 @@ postUpdateBabyFunctionMap.set(6, () => {
   }
 });
 
-// Bean Baby
-postUpdateBabyFunctionMap.set(17, () => {
+// 17
+postUpdateBabyFunctionMap.set(RandomBabyType.BEAN, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   if (bigChestExists()) {
@@ -76,8 +76,8 @@ postUpdateBabyFunctionMap.set(17, () => {
   }
 });
 
-// Wrath Baby
-postUpdateBabyFunctionMap.set(19, () => {
+// 19
+postUpdateBabyFunctionMap.set(RandomBabyType.WRATH, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
@@ -89,8 +89,8 @@ postUpdateBabyFunctionMap.set(19, () => {
   }
 });
 
-// Wrapped Baby
-postUpdateBabyFunctionMap.set(20, () => {
+// 20
+postUpdateBabyFunctionMap.set(RandomBabyType.WRAPPED, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   // If the explosions happen too fast, it looks buggy, so do it instead every 3 frames.
@@ -101,19 +101,19 @@ postUpdateBabyFunctionMap.set(20, () => {
   }
 });
 
-// Black Baby
-postUpdateBabyFunctionMap.set(27, () => {
+// 27
+postUpdateBabyFunctionMap.set(RandomBabyType.BLACK, () => {
   pseudoRoomClear.postUpdate();
 });
 
-// Rage Baby
-postUpdateBabyFunctionMap.set(31, () => {
+// 31
+postUpdateBabyFunctionMap.set(RandomBabyType.RAGE, () => {
   // Infinite bombs
   g.p.AddBombs(1);
 });
 
-// Lil' Baby
-postUpdateBabyFunctionMap.set(36, () => {
+// 36
+postUpdateBabyFunctionMap.set(RandomBabyType.LIL, () => {
   // Everything is tiny. This does not work if we put it in the PostNewLevel callback for some
   // reason.
   if (g.p.SpriteScale.X > 0.5 || g.p.SpriteScale.Y > 0.5) {
@@ -121,8 +121,8 @@ postUpdateBabyFunctionMap.set(36, () => {
   }
 });
 
-// Big Baby
-postUpdateBabyFunctionMap.set(37, () => {
+// 37
+postUpdateBabyFunctionMap.set(RandomBabyType.BIG, () => {
   // Everything is giant. This does not work if we put it in the PostNewLevel callback for some
   // reason.
   if (g.p.SpriteScale.X < 2 || g.p.SpriteScale.Y < 2) {
@@ -130,8 +130,8 @@ postUpdateBabyFunctionMap.set(37, () => {
   }
 });
 
-// Noose Baby
-postUpdateBabyFunctionMap.set(39, () => {
+// 39
+postUpdateBabyFunctionMap.set(RandomBabyType.NOOSE, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const baby = getCurrentBabyDescription();
   if (baby.time === undefined) {
@@ -150,8 +150,8 @@ postUpdateBabyFunctionMap.set(39, () => {
   }
 });
 
-// Whore Baby
-postUpdateBabyFunctionMap.set(43, () => {
+// 43
+postUpdateBabyFunctionMap.set(RandomBabyType.WHORE, () => {
   const roomListIndex = getRoomListIndex();
 
   // All enemies explode. Perform the explosion that was initiated in the PostEntityKill callback.
@@ -169,8 +169,8 @@ postUpdateBabyFunctionMap.set(43, () => {
   }
 });
 
-// Dark Baby
-postUpdateBabyFunctionMap.set(48, () => {
+// 48
+postUpdateBabyFunctionMap.set(RandomBabyType.DARK, () => {
   const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for: ${baby.name}`);
@@ -190,8 +190,8 @@ postUpdateBabyFunctionMap.set(48, () => {
   }
 });
 
-// Bound Baby
-postUpdateBabyFunctionMap.set(58, () => {
+// 58
+postUpdateBabyFunctionMap.set(RandomBabyType.BOUND, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   if (gameFrameCount % (7 * GAME_FRAMES_PER_SECOND) === 0) {
@@ -200,8 +200,8 @@ postUpdateBabyFunctionMap.set(58, () => {
   }
 });
 
-// Butthole Baby
-postUpdateBabyFunctionMap.set(63, () => {
+// 63
+postUpdateBabyFunctionMap.set(RandomBabyType.BUTTHOLE, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
@@ -227,13 +227,13 @@ postUpdateBabyFunctionMap.set(63, () => {
   }
 });
 
-// Eye Patch Baby
-postUpdateBabyFunctionMap.set(64, () => {
+// 64
+postUpdateBabyFunctionMap.set(RandomBabyType.EYE_PATCH, () => {
   Isaac.GridSpawn(GridEntityType.SPIKES, 0, g.p.Position);
 });
 
-// Scream Baby
-postUpdateBabyFunctionMap.set(81, () => {
+// 81
+postUpdateBabyFunctionMap.set(RandomBabyType.SCREAM, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const activeCharge = g.p.GetActiveCharge();
   const batteryCharge = g.p.GetBatteryCharge();
@@ -252,13 +252,13 @@ postUpdateBabyFunctionMap.set(81, () => {
   }
 });
 
-// Nerd Baby
-postUpdateBabyFunctionMap.set(90, () => {
+// 90
+postUpdateBabyFunctionMap.set(RandomBabyType.NERD, () => {
   pseudoRoomClear.postUpdate();
 });
 
-// Frown Baby
-postUpdateBabyFunctionMap.set(96, () => {
+// 96
+postUpdateBabyFunctionMap.set(RandomBabyType.FROWN, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
@@ -266,8 +266,8 @@ postUpdateBabyFunctionMap.set(96, () => {
   }
 });
 
-// Pubic Baby
-postUpdateBabyFunctionMap.set(110, () => {
+// 110
+postUpdateBabyFunctionMap.set(RandomBabyType.PUBIC, () => {
   const roomClear = g.r.IsClear();
   const dimension = getDimension();
 
@@ -300,8 +300,8 @@ postUpdateBabyFunctionMap.set(110, () => {
   }
 });
 
-// Eyemouth Baby
-postUpdateBabyFunctionMap.set(111, () => {
+// 111
+postUpdateBabyFunctionMap.set(RandomBabyType.EYEMOUTH, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   if (g.run.babyTears.frame !== 0 && gameFrameCount >= g.run.babyTears.frame) {
@@ -310,8 +310,8 @@ postUpdateBabyFunctionMap.set(111, () => {
   }
 });
 
-// Hopeless Baby
-postUpdateBabyFunctionMap.set(125, () => {
+// 125
+postUpdateBabyFunctionMap.set(RandomBabyType.HOPELESS, () => {
   const keys = g.p.GetNumKeys();
 
   // Keys are hearts
@@ -322,8 +322,8 @@ postUpdateBabyFunctionMap.set(125, () => {
   }
 });
 
-// Earwig Baby
-postUpdateBabyFunctionMap.set(128, () => {
+// 128
+postUpdateBabyFunctionMap.set(RandomBabyType.EARWIG, () => {
   // 3 rooms are already explored.
   const startingRoomGridIndex = g.l.GetStartingRoomIndex();
   const centerPos = g.r.GetCenterPos();
@@ -367,8 +367,8 @@ postUpdateBabyFunctionMap.set(128, () => {
   g.p.Position = centerPos;
 });
 
-// Mohawk Baby
-postUpdateBabyFunctionMap.set(138, () => {
+// 138
+postUpdateBabyFunctionMap.set(RandomBabyType.MOHAWK, () => {
   const bombs = g.p.GetNumBombs();
 
   // Bombs are hearts
@@ -379,8 +379,8 @@ postUpdateBabyFunctionMap.set(138, () => {
   }
 });
 
-// Bluebird Baby
-postUpdateBabyFunctionMap.set(147, () => {
+// 147
+postUpdateBabyFunctionMap.set(RandomBabyType.BLUEBIRD, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   if (g.run.babyFrame !== 0 && gameFrameCount >= g.run.babyFrame) {
@@ -396,8 +396,8 @@ postUpdateBabyFunctionMap.set(147, () => {
   }
 });
 
-// Awaken Baby
-postUpdateBabyFunctionMap.set(155, () => {
+// 155
+postUpdateBabyFunctionMap.set(RandomBabyType.AWAKEN, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   if (gameFrameCount % GAME_FRAMES_PER_SECOND === 0) {
@@ -405,8 +405,8 @@ postUpdateBabyFunctionMap.set(155, () => {
   }
 });
 
-// Puff Baby
-postUpdateBabyFunctionMap.set(156, () => {
+// 156
+postUpdateBabyFunctionMap.set(RandomBabyType.PUFF, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const hearts = g.p.GetHearts();
   const soulHearts = g.p.GetSoulHearts();
@@ -426,8 +426,8 @@ postUpdateBabyFunctionMap.set(156, () => {
   }
 });
 
-// Digital Baby
-postUpdateBabyFunctionMap.set(162, () => {
+// 162
+postUpdateBabyFunctionMap.set(RandomBabyType.DIGITAL, () => {
   const roomFrameCount = g.r.GetFrameCount();
 
   if (!g.run.babyBool && roomFrameCount <= 1) {
@@ -439,8 +439,8 @@ postUpdateBabyFunctionMap.set(162, () => {
   }
 });
 
-// Helmet Baby
-postUpdateBabyFunctionMap.set(163, () => {
+// 163
+postUpdateBabyFunctionMap.set(RandomBabyType.HELMET, () => {
   // Check to see if they are pressing any movement buttons.
   const leftPressed = isActionPressedOnAnyInput(ButtonAction.LEFT);
   const rightPressed = isActionPressedOnAnyInput(ButtonAction.RIGHT);
@@ -477,8 +477,8 @@ postUpdateBabyFunctionMap.set(163, () => {
   }
 });
 
-// Black Eye Baby
-postUpdateBabyFunctionMap.set(164, () => {
+// 164
+postUpdateBabyFunctionMap.set(RandomBabyType.BLACK_EYE, () => {
   // Starts with Leprosy, +5 damage on Leprosy breaking. We use the "babyCounters" variable to track
   // how Leprocy familiars are in the room.
   const leprocyChunks = getFamiliars(FamiliarVariant.LEPROSY);
@@ -492,8 +492,8 @@ postUpdateBabyFunctionMap.set(164, () => {
   }
 });
 
-// Worry Baby
-postUpdateBabyFunctionMap.set(167, () => {
+// 167
+postUpdateBabyFunctionMap.set(RandomBabyType.WORRY, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
@@ -514,8 +514,8 @@ postUpdateBabyFunctionMap.set(167, () => {
   useActiveItemTemp(g.p, CollectibleType.TELEPORT);
 });
 
-// Skull Baby
-postUpdateBabyFunctionMap.set(211, () => {
+// 211
+postUpdateBabyFunctionMap.set(RandomBabyType.SKULL, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   // Shockwave bombs
@@ -570,8 +570,8 @@ postUpdateBabyFunctionMap.set(211, () => {
   }
 });
 
-// Drool Baby
-postUpdateBabyFunctionMap.set(221, () => {
+// 221
+postUpdateBabyFunctionMap.set(RandomBabyType.DROOL, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const roomClear = g.r.IsClear();
 
@@ -588,8 +588,8 @@ postUpdateBabyFunctionMap.set(221, () => {
   }
 });
 
-// Bawl Baby
-postUpdateBabyFunctionMap.set(231, () => {
+// 231
+postUpdateBabyFunctionMap.set(RandomBabyType.BAWL, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const hearts = g.p.GetHearts();
   const soulHearts = g.p.GetSoulHearts();
@@ -612,8 +612,8 @@ postUpdateBabyFunctionMap.set(231, () => {
   }
 });
 
-// Medusa Baby
-postUpdateBabyFunctionMap.set(250, () => {
+// 250
+postUpdateBabyFunctionMap.set(RandomBabyType.MEDUSA, () => {
   const bombs = g.p.GetNumBombs();
   const keys = g.p.GetNumKeys();
   const coins = g.p.GetNumCoins();
@@ -633,8 +633,8 @@ postUpdateBabyFunctionMap.set(250, () => {
   }
 });
 
-// Cloud Baby
-postUpdateBabyFunctionMap.set(256, () => {
+// 256
+postUpdateBabyFunctionMap.set(RandomBabyType.CLOUD, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
@@ -646,8 +646,8 @@ postUpdateBabyFunctionMap.set(256, () => {
   }
 });
 
-// Raccoon Baby
-postUpdateBabyFunctionMap.set(263, () => {
+// 263
+postUpdateBabyFunctionMap.set(RandomBabyType.RACCOON, () => {
   const roomFrameCount = g.r.GetFrameCount();
   const isFirstVisit = g.r.IsFirstVisit();
 
@@ -658,8 +658,8 @@ postUpdateBabyFunctionMap.set(263, () => {
   }
 });
 
-// Hare Baby
-postUpdateBabyFunctionMap.set(267, () => {
+// 267
+postUpdateBabyFunctionMap.set(RandomBabyType.HARE, () => {
   const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for: ${baby.name}`);
@@ -696,8 +696,8 @@ postUpdateBabyFunctionMap.set(267, () => {
   }
 });
 
-// Porcupine Baby
-postUpdateBabyFunctionMap.set(270, () => {
+// 270
+postUpdateBabyFunctionMap.set(RandomBabyType.PORCUPINE, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
@@ -705,8 +705,8 @@ postUpdateBabyFunctionMap.set(270, () => {
   }
 });
 
-// Heart Baby
-postUpdateBabyFunctionMap.set(290, () => {
+// 290
+postUpdateBabyFunctionMap.set(RandomBabyType.HEART, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   // Ignore the starting room.
@@ -720,8 +720,8 @@ postUpdateBabyFunctionMap.set(290, () => {
   }
 });
 
-// Rider Baby
-postUpdateBabyFunctionMap.set(295, () => {
+// 295
+postUpdateBabyFunctionMap.set(RandomBabyType.RIDER, () => {
   const activeItem = g.p.GetActiveItem();
 
   // Keep the pony fully charged.
@@ -731,8 +731,8 @@ postUpdateBabyFunctionMap.set(295, () => {
   }
 });
 
-// Pizza Baby
-postUpdateBabyFunctionMap.set(303, () => {
+// 303
+postUpdateBabyFunctionMap.set(RandomBabyType.PIZZA, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const baby = getCurrentBabyDescription();
   if (baby.delay === undefined) {
@@ -751,8 +751,8 @@ postUpdateBabyFunctionMap.set(303, () => {
   }
 });
 
-// Hotdog Baby
-postUpdateBabyFunctionMap.set(304, () => {
+// 304
+postUpdateBabyFunctionMap.set(RandomBabyType.HOTDOG, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const hearts = g.p.GetHearts();
   const soulHearts = g.p.GetSoulHearts();
@@ -773,8 +773,8 @@ postUpdateBabyFunctionMap.set(304, () => {
   }
 });
 
-// Exploding Baby
-postUpdateBabyFunctionMap.set(320, () => {
+// 320
+postUpdateBabyFunctionMap.set(RandomBabyType.EXPLODING, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   // Check to see if we need to reset the cooldown (after we used the Kamikaze effect upon touching
@@ -784,14 +784,14 @@ postUpdateBabyFunctionMap.set(320, () => {
   }
 });
 
-// Butterfly Baby 2
-postUpdateBabyFunctionMap.set(332, () => {
+// 332
+postUpdateBabyFunctionMap.set(RandomBabyType.BUTTERFLY_2, () => {
   // Flight + can walk through walls.
   g.p.GridCollisionClass = EntityGridCollisionClass.NONE;
 });
 
-// Hero Baby
-postUpdateBabyFunctionMap.set(336, () => {
+// 336
+postUpdateBabyFunctionMap.set(RandomBabyType.HERO, () => {
   if (g.run.babyBool) {
     g.run.babyBool = false;
     g.p.AddCacheFlags(CacheFlag.DAMAGE); // 1
@@ -800,8 +800,8 @@ postUpdateBabyFunctionMap.set(336, () => {
   }
 });
 
-// Vomit Baby
-postUpdateBabyFunctionMap.set(341, () => {
+// 341
+postUpdateBabyFunctionMap.set(RandomBabyType.VOMIT, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const baby = getCurrentBabyDescription();
   if (baby.time === undefined) {
@@ -825,8 +825,8 @@ postUpdateBabyFunctionMap.set(341, () => {
   }
 });
 
-// Fourtone Baby
-postUpdateBabyFunctionMap.set(348, () => {
+// 348
+postUpdateBabyFunctionMap.set(RandomBabyType.FOURTONE, () => {
   const activeItem = g.p.GetActiveItem();
 
   // Keep the Candle always fully charged.
@@ -836,8 +836,8 @@ postUpdateBabyFunctionMap.set(348, () => {
   }
 });
 
-// Grayscale Baby
-postUpdateBabyFunctionMap.set(349, () => {
+// 349
+postUpdateBabyFunctionMap.set(RandomBabyType.GRAYSCALE, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   if (gameFrameCount % (10 * GAME_FRAMES_PER_SECOND) === 0) {
@@ -845,20 +845,20 @@ postUpdateBabyFunctionMap.set(349, () => {
   }
 });
 
-// Rabbit Baby
-postUpdateBabyFunctionMap.set(350, () => {
+// 350
+postUpdateBabyFunctionMap.set(RandomBabyType.RABBIT, () => {
   // Starts with How to Jump; must jump often.
   g.p.AddCacheFlags(CacheFlag.SPEED);
   g.p.EvaluateItems();
 });
 
-// Mouse Baby
-postUpdateBabyFunctionMap.set(351, () => {
+// 351
+postUpdateBabyFunctionMap.set(RandomBabyType.MOUSE, () => {
   pseudoRoomClear.postUpdate();
 });
 
-// Pink Princess Baby
-postUpdateBabyFunctionMap.set(374, () => {
+// 374
+postUpdateBabyFunctionMap.set(RandomBabyType.PINK_PRINCESS, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   if (gameFrameCount % (4 * GAME_FRAMES_PER_SECOND) === 0) {
@@ -867,8 +867,8 @@ postUpdateBabyFunctionMap.set(374, () => {
   }
 });
 
-// Blue Pig Baby
-postUpdateBabyFunctionMap.set(382, () => {
+// 382
+postUpdateBabyFunctionMap.set(RandomBabyType.BLUE_PIG, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
@@ -876,8 +876,8 @@ postUpdateBabyFunctionMap.set(382, () => {
   }
 });
 
-// Imp Baby
-postUpdateBabyFunctionMap.set(386, () => {
+// 386
+postUpdateBabyFunctionMap.set(RandomBabyType.IMP, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
@@ -898,8 +898,8 @@ postUpdateBabyFunctionMap.set(386, () => {
   }
 });
 
-// Blue Wrestler Baby
-postUpdateBabyFunctionMap.set(388, () => {
+// 388
+postUpdateBabyFunctionMap.set(RandomBabyType.BLUE_WRESTLER, () => {
   // Enemies spawn projectiles upon death.
   for (let i = g.run.room.tears.length - 1; i >= 0; i--) {
     const tear = g.run.room.tears[i];
@@ -921,8 +921,8 @@ postUpdateBabyFunctionMap.set(388, () => {
   }
 });
 
-// Plague Baby
-postUpdateBabyFunctionMap.set(396, () => {
+// 396
+postUpdateBabyFunctionMap.set(RandomBabyType.PLAGUE, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   if (gameFrameCount % 5 === 0) {
@@ -938,8 +938,8 @@ postUpdateBabyFunctionMap.set(396, () => {
   }
 });
 
-// Corgi Baby
-postUpdateBabyFunctionMap.set(401, () => {
+// 401
+postUpdateBabyFunctionMap.set(RandomBabyType.CORGI, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   if (gameFrameCount % (1.5 * GAME_FRAMES_PER_SECOND) === 0) {
@@ -947,8 +947,8 @@ postUpdateBabyFunctionMap.set(401, () => {
   }
 });
 
-// Mutated Fish Baby
-postUpdateBabyFunctionMap.set(449, () => {
+// 449
+postUpdateBabyFunctionMap.set(RandomBabyType.MUTATED_FISH, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   if (gameFrameCount % (7 * GAME_FRAMES_PER_SECOND) === 0) {
@@ -956,8 +956,8 @@ postUpdateBabyFunctionMap.set(449, () => {
   }
 });
 
-// Voxdog Baby
-postUpdateBabyFunctionMap.set(462, () => {
+// 462
+postUpdateBabyFunctionMap.set(RandomBabyType.VOXDOG, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   // Shockwave tears
@@ -1005,8 +1005,8 @@ postUpdateBabyFunctionMap.set(462, () => {
   }
 });
 
-// Scoreboard Baby
-postUpdateBabyFunctionMap.set(474, () => {
+// 474
+postUpdateBabyFunctionMap.set(RandomBabyType.SCOREBOARD, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   if (g.run.babyCounters !== 0) {
@@ -1021,8 +1021,8 @@ postUpdateBabyFunctionMap.set(474, () => {
   }
 });
 
-// Cool Orange Baby
-postUpdateBabyFunctionMap.set(485, () => {
+// 485
+postUpdateBabyFunctionMap.set(RandomBabyType.COOL_ORANGE, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   if (gameFrameCount % GAME_FRAMES_PER_SECOND === 0) {
@@ -1038,8 +1038,8 @@ postUpdateBabyFunctionMap.set(485, () => {
   }
 });
 
-// Mern Baby
-postUpdateBabyFunctionMap.set(500, () => {
+// 500
+postUpdateBabyFunctionMap.set(RandomBabyType.MERN, () => {
   const gameFrameCount = g.g.GetFrameCount();
 
   if (g.run.babyTears.frame !== 0 && gameFrameCount >= g.run.babyTears.frame) {
@@ -1048,8 +1048,8 @@ postUpdateBabyFunctionMap.set(500, () => {
   }
 });
 
-// Sausage Lover Baby
-postUpdateBabyFunctionMap.set(508, () => {
+// 508
+postUpdateBabyFunctionMap.set(RandomBabyType.SAUSAGE_LOVER, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const roomClear = g.r.IsClear();
 
@@ -1062,8 +1062,8 @@ postUpdateBabyFunctionMap.set(508, () => {
   }
 });
 
-// Baggy Cap Baby
-postUpdateBabyFunctionMap.set(519, () => {
+// 519
+postUpdateBabyFunctionMap.set(RandomBabyType.BAGGY_CAP, () => {
   const roomClear = g.r.IsClear();
 
   // Check all of the doors.
@@ -1079,8 +1079,8 @@ postUpdateBabyFunctionMap.set(519, () => {
   }
 });
 
-// Twitchy Baby
-postUpdateBabyFunctionMap.set(511, () => {
+// 511
+postUpdateBabyFunctionMap.set(RandomBabyType.TWITCHY, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
@@ -1108,13 +1108,13 @@ postUpdateBabyFunctionMap.set(511, () => {
   }
 });
 
-// Bullet Baby
-postUpdateBabyFunctionMap.set(550, () => {
+// 550
+postUpdateBabyFunctionMap.set(RandomBabyType.BULLET, () => {
   // Infinite bombs
   g.p.AddBombs(1);
 });
 
-// Invisible Baby
+// 585
 postUpdateBabyFunctionMap.set(RandomBabyType.INVISIBLE, () => {
   const roomFrameCount = g.r.GetFrameCount();
 

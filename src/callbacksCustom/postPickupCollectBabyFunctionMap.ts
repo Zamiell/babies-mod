@@ -4,27 +4,31 @@ import {
   PillColor,
   PillEffect,
 } from "isaac-typescript-definitions";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 import { getCurrentBabyDescription } from "../utils";
 
-export const postPickupCollectBabyFunctionMap = new Map<int, () => void>();
+export const postPickupCollectBabyFunctionMap = new Map<
+  RandomBabyType,
+  () => void
+>();
 
-// Cute Baby
-postPickupCollectBabyFunctionMap.set(11, () => {
+// 11
+postPickupCollectBabyFunctionMap.set(RandomBabyType.CUTE, () => {
   // -1 damage per pickup taken.
   g.run.babyCounters += 1;
   g.p.AddCacheFlags(CacheFlag.DAMAGE);
   g.p.EvaluateItems();
 });
 
-// Bluebird Baby
-postPickupCollectBabyFunctionMap.set(147, () => {
+// 147
+postPickupCollectBabyFunctionMap.set(RandomBabyType.BLUEBIRD, () => {
   // Touching pickups causes paralysis (2/2).
   g.p.UsePill(PillEffect.PARALYSIS, PillColor.NULL);
 });
 
-// Worry Baby
-postPickupCollectBabyFunctionMap.set(167, () => {
+// 167
+postPickupCollectBabyFunctionMap.set(RandomBabyType.WORRY, () => {
   const gameFrameCount = g.g.GetFrameCount();
   const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
@@ -38,14 +42,14 @@ postPickupCollectBabyFunctionMap.set(167, () => {
   }
 });
 
-// Corrupted Baby
-postPickupCollectBabyFunctionMap.set(307, () => {
+// 307
+postPickupCollectBabyFunctionMap.set(RandomBabyType.CORRUPTED, () => {
   // Touching items/pickups causes damage (2/2).
   g.p.TakeDamage(1, DamageFlagZero, EntityRef(g.p), 0);
 });
 
-// Robbermask Baby
-postPickupCollectBabyFunctionMap.set(473, () => {
+// 473
+postPickupCollectBabyFunctionMap.set(RandomBabyType.ROBBERMASK, () => {
   // Touching pickups gives extra damage.
   g.run.babyCounters += 1;
   g.p.AddCacheFlags(CacheFlag.DAMAGE);

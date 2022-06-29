@@ -3,19 +3,20 @@ import {
   KeySubType,
   PickupVariant,
 } from "isaac-typescript-definitions";
+import { RandomBabyType } from "../enums/RandomBabyType";
 
 export const postPickupSelectionBabyFunctionMap = new Map<
-  int,
+  RandomBabyType,
   (
     pickup: EntityPickup,
-    variant: int,
+    variant: PickupVariant,
     subType: int,
   ) => [PickupVariant, int] | undefined
 >();
 
-// Gem Baby
+// 237
 postPickupSelectionBabyFunctionMap.set(
-  237,
+  RandomBabyType.GEM,
   (_pickup: EntityPickup, variant: int, subType: int) => {
     if (
       variant === (PickupVariant.COIN as int) &&
@@ -28,9 +29,9 @@ postPickupSelectionBabyFunctionMap.set(
   },
 );
 
-// Merman Baby
+// 342
 postPickupSelectionBabyFunctionMap.set(
-  342,
+  RandomBabyType.MERMAN,
   (_pickup: EntityPickup, variant: int, subType: int) => {
     // Convert all keys to bombs.
     if (variant === (PickupVariant.KEY as int)) {
@@ -42,9 +43,9 @@ postPickupSelectionBabyFunctionMap.set(
   },
 );
 
-// Mermaid Baby
+// 395
 postPickupSelectionBabyFunctionMap.set(
-  395,
+  RandomBabyType.MERMAID,
   (_pickup: EntityPickup, variant: int, subType: int) => {
     // Convert all bombs to keys.
     if (variant === (PickupVariant.BOMB as int)) {

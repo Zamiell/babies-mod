@@ -59,19 +59,18 @@ export function bigChestExists(): boolean {
 }
 
 export function getCurrentBaby(): [
-  // Normally, we would use "null" instead of "-1", but tuples cannot contain null in
+  // Normally, we would use "undefined" instead of "-1", but tuples cannot contain undefined in
   // TypeScriptToLua.
   babyType: RandomBabyType | -1,
   baby: BabyDescription,
-  valid: boolean,
 ] {
   const { babyType } = g.run;
   if (babyType === null) {
-    return [-1, UNKNOWN_BABY, false];
+    return [-1, UNKNOWN_BABY];
   }
 
   const baby = BABIES[babyType];
-  return [babyType, baby, true];
+  return [babyType, baby];
 }
 
 export function getCurrentBabyDescription(): BabyDescription {
@@ -127,7 +126,7 @@ export function getRandomOffsetPosition(
 
 export function getRandomCollectibleTypeFromPool(
   itemPoolType: ItemPoolType,
-): int | undefined {
+): CollectibleType | undefined {
   g.run.babyBool = true;
   const seed = g.run.room.rng.Next();
   const collectibleType = g.itemPool.GetCollectible(itemPoolType, true, seed);

@@ -16,25 +16,25 @@ import g from "./globals";
 import { initSprite } from "./sprite";
 import { getCurrentBabyDescription } from "./utils";
 
-export const babyAddFunctionMap = new Map<int, () => void>();
+export const babyAddFunctionMap = new Map<RandomBabyType, () => void>();
 
-// Gold Baby
-babyAddFunctionMap.set(15, () => {
+// 15
+babyAddFunctionMap.set(RandomBabyType.GOLD, () => {
   g.p.AddGoldenBomb();
   g.p.AddGoldenKey();
   g.p.AddGoldenHearts(12);
 });
 
-// Rage Baby
-babyAddFunctionMap.set(31, () => {
+// 31
+babyAddFunctionMap.set(RandomBabyType.RAGE, () => {
   const numBombs = g.p.GetNumBombs();
 
   g.run.babyCounters = numBombs;
   g.p.AddBombs(99);
 });
 
-// Noose Baby
-babyAddFunctionMap.set(39, () => {
+// 39
+babyAddFunctionMap.set(RandomBabyType.NOOSE, () => {
   const baby = getCurrentBabyDescription();
   if (baby.time === undefined) {
     error(`The "time" attribute was not defined for: ${baby.name}`);
@@ -45,8 +45,8 @@ babyAddFunctionMap.set(39, () => {
   g.run.babyCounters = g.g.GetFrameCount() + baby.time;
 });
 
-// Hive Baby
-babyAddFunctionMap.set(40, () => {
+// 40
+babyAddFunctionMap.set(RandomBabyType.HIVE, () => {
   // The game caps the current number of familiars.
   const halfMaxFamiliars = MAX_NUM_FAMILIARS / 2;
   g.p.AddBlueFlies(halfMaxFamiliars, g.p.Position, undefined);
@@ -55,19 +55,19 @@ babyAddFunctionMap.set(40, () => {
   });
 });
 
-// Whore Baby
-babyAddFunctionMap.set(43, () => {
+// 43
+babyAddFunctionMap.set(RandomBabyType.WHORE, () => {
   g.run.babyExplosions = [];
 });
 
-// Dark Baby
-babyAddFunctionMap.set(48, () => {
+// 48
+babyAddFunctionMap.set(RandomBabyType.DARK, () => {
   // Temporary blindness
   g.run.babySprite = initSprite("gfx/misc/black.anm2");
 });
 
-// Brownie Baby
-babyAddFunctionMap.set(107, () => {
+// 107
+babyAddFunctionMap.set(RandomBabyType.BROWNIE, () => {
   const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
     error('Brownie Baby does not have a "num" property defined.');
@@ -84,30 +84,30 @@ babyAddFunctionMap.set(107, () => {
   }
 });
 
-// Hopeless Baby
-babyAddFunctionMap.set(125, () => {
+// 125
+babyAddFunctionMap.set(RandomBabyType.HOPELESS, () => {
   // Keys are hearts
   g.p.AddKeys(2);
 
   g.run.babySprite = initSprite("gfx/custom-health/key.anm2");
 });
 
-// Mohawk Baby
-babyAddFunctionMap.set(138, () => {
+// 138
+babyAddFunctionMap.set(RandomBabyType.MOHAWK, () => {
   // Bombs are hearts
   g.p.AddBombs(2);
 
   g.run.babySprite = initSprite("gfx/custom-health/bomb.anm2");
 });
 
-// Aban Baby
-babyAddFunctionMap.set(177, () => {
+// 177
+babyAddFunctionMap.set(RandomBabyType.ABAN, () => {
   // Coins are hearts
   g.p.AddCoins(2);
 });
 
-// Fang Demon Baby
-babyAddFunctionMap.set(281, () => {
+// 281
+babyAddFunctionMap.set(RandomBabyType.FANG_DEMON, () => {
   // These items will cause a softlock, so just remove them from all pools as a quick fix.
   g.itemPool.RemoveCollectible(CollectibleType.MOMS_KNIFE); // 114
   g.itemPool.RemoveCollectible(CollectibleType.EPIC_FETUS); // 168
@@ -115,8 +115,8 @@ babyAddFunctionMap.set(281, () => {
   g.itemPool.RemoveCollectible(CollectibleType.TECH_X); // 395
 });
 
-// Vomit Baby
-babyAddFunctionMap.set(341, () => {
+// 341
+babyAddFunctionMap.set(RandomBabyType.VOMIT, () => {
   const baby = getCurrentBabyDescription();
   if (baby.time === undefined) {
     error(`The "time" attribute was not defined for: ${baby.name}`);
@@ -125,13 +125,13 @@ babyAddFunctionMap.set(341, () => {
   g.run.babyCounters = g.g.GetFrameCount() + baby.time;
 });
 
-// Cyborg Baby
-babyAddFunctionMap.set(343, () => {
+// 343
+babyAddFunctionMap.set(RandomBabyType.CYBORG, () => {
   Isaac.ExecuteCommand("debug 7");
 });
 
-// Rabbit Baby
-babyAddFunctionMap.set(350, () => {
+// 350
+babyAddFunctionMap.set(RandomBabyType.RABBIT, () => {
   const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for: ${baby.name}`);
@@ -140,8 +140,8 @@ babyAddFunctionMap.set(350, () => {
   g.run.babyFrame = g.g.GetFrameCount() + baby.num;
 });
 
-// Imp Baby
-babyAddFunctionMap.set(386, () => {
+// 386
+babyAddFunctionMap.set(RandomBabyType.IMP, () => {
   const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for: ${baby.name}`);
@@ -152,13 +152,13 @@ babyAddFunctionMap.set(386, () => {
   g.run.babyFrame = g.g.GetFrameCount() + baby.num;
 });
 
-// Rich Baby
-babyAddFunctionMap.set(424, () => {
+// 424
+babyAddFunctionMap.set(RandomBabyType.RICH, () => {
   g.p.AddCoins(99);
 });
 
-// Twitchy Baby
-babyAddFunctionMap.set(511, () => {
+// 511
+babyAddFunctionMap.set(RandomBabyType.TWITCHY, () => {
   const baby = getCurrentBabyDescription();
   if (baby.max === undefined) {
     error(`The "max" attribute was not defined for: ${baby.name}`);
@@ -169,20 +169,7 @@ babyAddFunctionMap.set(511, () => {
   g.run.babyFrame = g.g.GetFrameCount();
 });
 
-// Bullet Baby
-babyAddFunctionMap.set(550, () => {
-  const numBombs = g.p.GetNumBombs();
-
-  g.run.babyCounters = numBombs;
-  g.p.AddBombs(99);
-});
-
-// Cursed Room Baby
-babyAddFunctionMap.set(556, () => {
-  g.l.AddCurse(LevelCurse.CURSED, false);
-});
-
-// Found Soul Baby
+// 521
 babyAddFunctionMap.set(RandomBabyType.FOUND_SOUL, () => {
   const numDarkEsaus = Isaac.CountEntities(undefined, EntityType.DARK_ESAU);
   if (numDarkEsaus > 0) {
@@ -192,4 +179,17 @@ babyAddFunctionMap.set(RandomBabyType.FOUND_SOUL, () => {
   const bottomLeftGridIndex = 92;
   const bottomLeftPosition = g.r.GetGridPosition(bottomLeftGridIndex);
   spawn(EntityType.DARK_ESAU, DarkEsauVariant.DARK_ESAU, 0, bottomLeftPosition);
+});
+
+// 550
+babyAddFunctionMap.set(RandomBabyType.BULLET, () => {
+  const numBombs = g.p.GetNumBombs();
+
+  g.run.babyCounters = numBombs;
+  g.p.AddBombs(99);
+});
+
+// 556
+babyAddFunctionMap.set(RandomBabyType.CURSED_ROOM, () => {
+  g.l.AddCurse(LevelCurse.CURSED, false);
 });

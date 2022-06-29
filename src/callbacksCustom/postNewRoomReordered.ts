@@ -10,6 +10,7 @@ import {
 import { updateCachedAPIFunctions } from "../cache";
 import { postNewRoomBabyFunctionMap } from "../callbacks/postNewRoomBabyFunctionMap";
 import { NUM_SUCCUBI_IN_FLOCK } from "../constants";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 import { GlobalsRunBabyTears } from "../types/GlobalsRunBabyTears";
 import { GlobalsRunRoom } from "../types/GlobalsRunRoom";
@@ -27,7 +28,6 @@ function main() {
   const stageType = g.l.GetStageType();
   const roomStageID = getRoomStageID();
   const roomVariant = getRoomVariant();
-  const roomClear = g.r.IsClear();
   const roomSeed = g.r.GetSpawnSeed();
 
   log(
@@ -35,7 +35,7 @@ function main() {
   );
 
   // Reset room-related variables
-  g.run.room = new GlobalsRunRoom(roomClear, roomSeed);
+  g.run.room = new GlobalsRunRoom(roomSeed);
 
   // Reset baby-specific variables
   g.run.babyCountersRoom = 0;
@@ -45,8 +45,8 @@ function main() {
   resetFlockOfSuccubi();
 
   // Do nothing if we are not a baby.
-  const [babyType, , valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType] = getCurrentBaby();
+  if (babyType === -1) {
     return;
   }
 
@@ -60,7 +60,7 @@ function stopDrawingBabyIntroText() {
   }
 }
 
-function applyBabyTemporaryEffects(babyType: int) {
+function applyBabyTemporaryEffects(babyType: RandomBabyType) {
   const postNewRoomBabyFunction = postNewRoomBabyFunctionMap.get(babyType);
   if (postNewRoomBabyFunction !== undefined) {
     postNewRoomBabyFunction();

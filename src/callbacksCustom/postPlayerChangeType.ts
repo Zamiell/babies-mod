@@ -12,8 +12,8 @@ function main(player: EntityPlayer) {
     return;
   }
 
-  const [, , valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType] = getCurrentBaby();
+  if (babyType === -1) {
     return;
   }
 

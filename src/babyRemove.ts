@@ -5,8 +5,8 @@ import g from "./globals";
 import { getCurrentBaby } from "./utils";
 
 export function babyRemove(player: EntityPlayer, oldBabyCounters: int): void {
-  const [babyType, baby, valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType, baby] = getCurrentBaby();
+  if (babyType === -1) {
     return;
   }
 

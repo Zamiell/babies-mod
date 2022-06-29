@@ -1,23 +1,24 @@
 import { setEntityRandomColor } from "isaacscript-common";
+import { RandomBabyType } from "../enums/RandomBabyType";
 
 export const postBombInitBabyFunctionMap = new Map<
-  int,
+  RandomBabyType,
   (bomb: EntityBomb) => void
 >();
 
-// Lil' Baby
-postBombInitBabyFunctionMap.set(36, (bomb: EntityBomb) => {
+// 36
+postBombInitBabyFunctionMap.set(RandomBabyType.LIL, (bomb: EntityBomb) => {
   // Everything is tiny.
   bomb.SpriteScale = Vector(0.5, 0.5);
 });
 
-// Big Baby
-postBombInitBabyFunctionMap.set(37, (bomb: EntityBomb) => {
+// 37
+postBombInitBabyFunctionMap.set(RandomBabyType.BIG, (bomb: EntityBomb) => {
   // Everything is giant.
   bomb.SpriteScale = Vector(2, 2);
 });
 
-// Colorful Baby
-postBombInitBabyFunctionMap.set(42, (bomb: EntityBomb) => {
+// 42
+postBombInitBabyFunctionMap.set(RandomBabyType.COLORFUL, (bomb: EntityBomb) => {
   setEntityRandomColor(bomb);
 });

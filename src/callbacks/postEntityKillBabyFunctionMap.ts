@@ -26,12 +26,12 @@ import g from "../globals";
 import { getCurrentBabyDescription } from "../utils";
 
 export const postEntityKillBabyFunctionMap = new Map<
-  int,
+  RandomBabyType,
   (npc: EntityNPC) => void
 >();
 
-// Brown Baby
-postEntityKillBabyFunctionMap.set(38, (npc: EntityNPC) => {
+// 38
+postEntityKillBabyFunctionMap.set(RandomBabyType.BROWN, (npc: EntityNPC) => {
   // Spawns a poop per enemy killed.
   Isaac.GridSpawn(
     GridEntityType.POOP,
@@ -40,8 +40,8 @@ postEntityKillBabyFunctionMap.set(38, (npc: EntityNPC) => {
   );
 });
 
-// Whore Baby
-postEntityKillBabyFunctionMap.set(43, (npc: EntityNPC) => {
+// 43
+postEntityKillBabyFunctionMap.set(RandomBabyType.WHORE, (npc: EntityNPC) => {
   const roomListIndex = getRoomListIndex();
 
   // All enemies explode. We cannot explode enemies in the PostEntityKill callback due to a crash
@@ -52,8 +52,8 @@ postEntityKillBabyFunctionMap.set(43, (npc: EntityNPC) => {
   });
 });
 
-// Zombie Baby
-postEntityKillBabyFunctionMap.set(61, (npc: EntityNPC) => {
+// 61
+postEntityKillBabyFunctionMap.set(RandomBabyType.ZOMBIE, (npc: EntityNPC) => {
   if (
     !npc.IsBoss() &&
     npc.Type !== EntityType.MOVABLE_TNT &&
@@ -80,13 +80,13 @@ postEntityKillBabyFunctionMap.set(61, (npc: EntityNPC) => {
   }
 });
 
-// Turd Baby
-postEntityKillBabyFunctionMap.set(92, (npc: EntityNPC) => {
+// 92
+postEntityKillBabyFunctionMap.set(RandomBabyType.TURD, (npc: EntityNPC) => {
   g.g.Fart(npc.Position, 80, npc, 1, 0);
 });
 
-// Love Eye Baby
-postEntityKillBabyFunctionMap.set(249, (npc: EntityNPC) => {
+// 249
+postEntityKillBabyFunctionMap.set(RandomBabyType.LOVE_EYE, (npc: EntityNPC) => {
   if (g.run.babyBool) {
     return;
   }
@@ -117,15 +117,15 @@ postEntityKillBabyFunctionMap.set(249, (npc: EntityNPC) => {
   }
 });
 
-// Killer Baby
-postEntityKillBabyFunctionMap.set(291, (_npc: EntityNPC) => {
+// 291
+postEntityKillBabyFunctionMap.set(RandomBabyType.KILLER, (_npc: EntityNPC) => {
   g.run.babyCounters += 1;
   g.p.AddCacheFlags(CacheFlag.DAMAGE);
   g.p.EvaluateItems();
 });
 
-// Dino Baby
-postEntityKillBabyFunctionMap.set(376, (_npc: EntityNPC) => {
+// 376
+postEntityKillBabyFunctionMap.set(RandomBabyType.DINO, (_npc: EntityNPC) => {
   // Don't bother giving another egg if we already have a bunch.
   const numBrains = Isaac.CountEntities(
     undefined,
@@ -144,30 +144,33 @@ postEntityKillBabyFunctionMap.set(376, (_npc: EntityNPC) => {
   sprite.Play("Idle", true);
 });
 
-// Blue Wrestler Baby
-postEntityKillBabyFunctionMap.set(388, (npc: EntityNPC) => {
-  const baby = getCurrentBabyDescription();
-  if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for: ${baby.name}`);
-  }
+// 388
+postEntityKillBabyFunctionMap.set(
+  RandomBabyType.BLUE_WRESTLER,
+  (npc: EntityNPC) => {
+    const baby = getCurrentBabyDescription();
+    if (baby.num === undefined) {
+      error(`The "num" attribute was not defined for: ${baby.name}`);
+    }
 
-  // Enemies spawn projectiles upon death. Mark to fire some tears one frame at a time.
-  g.run.room.tears.push({
-    frame: 0,
-    position: npc.Position,
-    velocity: VectorZero,
-    num: baby.num,
-  });
-});
+    // Enemies spawn projectiles upon death. Mark to fire some tears one frame at a time.
+    g.run.room.tears.push({
+      frame: 0,
+      position: npc.Position,
+      velocity: VectorZero,
+      num: baby.num,
+    });
+  },
+);
 
-// Toast Baby
-postEntityKillBabyFunctionMap.set(390, (npc: EntityNPC) => {
+// 390
+postEntityKillBabyFunctionMap.set(RandomBabyType.TOAST, (npc: EntityNPC) => {
   // Enemies leave a Red Candle fire upon death.
   spawnEffect(EffectVariant.HOT_BOMB_FIRE, 0, npc.Position);
 });
 
-// Buttface Baby
-postEntityKillBabyFunctionMap.set(451, (npc: EntityNPC) => {
+// 451
+postEntityKillBabyFunctionMap.set(RandomBabyType.BUTTFACE, (npc: EntityNPC) => {
   Isaac.GridSpawn(
     GridEntityType.POOP,
     PoopGridEntityVariant.BLACK,
@@ -175,12 +178,12 @@ postEntityKillBabyFunctionMap.set(451, (npc: EntityNPC) => {
   );
 });
 
-// Funny Baby
-postEntityKillBabyFunctionMap.set(491, (npc: EntityNPC) => {
+// 491
+postEntityKillBabyFunctionMap.set(RandomBabyType.FUNNY, (npc: EntityNPC) => {
   spawnBomb(BombVariant.TROLL, 0, npc.Position);
 });
 
-// Rainbow Baby
+// 567
 postEntityKillBabyFunctionMap.set(RandomBabyType.RAINBOW, (npc: EntityNPC) => {
   spawnPickupWithSeed(PickupVariant.CHEST, 0, npc.Position, npc.InitSeed);
 });

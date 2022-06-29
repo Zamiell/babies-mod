@@ -63,9 +63,9 @@ function shoopDaWhoop(
   const gameFrameCount = g.g.GetFrameCount();
   const activeCharge = player.GetActiveCharge();
   const batteryCharge = player.GetBatteryCharge();
-  const [, baby, valid] = getCurrentBaby();
-  if (!valid) {
-    return;
+  const [babyType, baby] = getCurrentBaby();
+  if (babyType === -1) {
+    return undefined;
   }
 
   // 81
@@ -83,9 +83,9 @@ function monstrosTooth(
   _player: EntityPlayer,
 ): boolean | undefined {
   const gameFrameCount = g.g.GetFrameCount();
-  const [, baby, valid] = getCurrentBaby();
-  if (!valid) {
-    return;
+  const [babyType, baby] = getCurrentBaby();
+  if (babyType === -1) {
+    return undefined;
   }
 
   // 221
@@ -108,9 +108,9 @@ function howToJump(
   _player: EntityPlayer,
 ): boolean | undefined {
   const gameFrameCount = g.g.GetFrameCount();
-  const [, baby, valid] = getCurrentBaby();
-  if (!valid) {
-    return;
+  const [babyType, baby] = getCurrentBaby();
+  if (babyType === -1) {
+    return undefined;
   }
 
   // 350

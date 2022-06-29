@@ -17,8 +17,8 @@ export function init(mod: ModUpgraded): void {
 }
 
 function walnut(player: EntityPlayer) {
-  const [, baby, valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType, baby] = getCurrentBaby();
+  if (babyType === -1) {
     return;
   }
 

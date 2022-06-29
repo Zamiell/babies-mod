@@ -9,7 +9,7 @@ import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 
 export const entityTakeDmgEntityBabyFunctionMap = new Map<
-  int,
+  RandomBabyType,
   (
     entity: Entity,
     damageAmount: float,
@@ -19,9 +19,9 @@ export const entityTakeDmgEntityBabyFunctionMap = new Map<
   ) => boolean | undefined
 >();
 
-// D Baby
+// 101
 entityTakeDmgEntityBabyFunctionMap.set(
-  101,
+  RandomBabyType.D,
   (
     entity,
     _damageAmount,
@@ -49,9 +49,9 @@ entityTakeDmgEntityBabyFunctionMap.set(
   },
 );
 
-// Fang Demon Baby
+// 281
 entityTakeDmgEntityBabyFunctionMap.set(
-  281,
+  RandomBabyType.FANG_DEMON,
   (
     entity,
     _damageAmount,
@@ -81,9 +81,9 @@ entityTakeDmgEntityBabyFunctionMap.set(
   },
 );
 
-// Rider Baby
+// 295
 entityTakeDmgEntityBabyFunctionMap.set(
-  295,
+  RandomBabyType.RIDER,
   (
     entity,
     _damageAmount,
@@ -109,9 +109,9 @@ entityTakeDmgEntityBabyFunctionMap.set(
   },
 );
 
-// Elf Baby
+// 377
 entityTakeDmgEntityBabyFunctionMap.set(
-  377,
+  RandomBabyType.ELF,
   (
     entity,
     _damageAmount,
@@ -141,9 +141,9 @@ entityTakeDmgEntityBabyFunctionMap.set(
   },
 );
 
-// Astronaut Baby
+// 406
 entityTakeDmgEntityBabyFunctionMap.set(
-  406,
+  RandomBabyType.ASTRONAUT,
   (
     _entity,
     _damageAmount,
@@ -174,7 +174,7 @@ entityTakeDmgEntityBabyFunctionMap.set(
   },
 );
 
-// Brother Bobby
+// 559
 entityTakeDmgEntityBabyFunctionMap.set(
   RandomBabyType.BROTHER_BOBBY,
   (entity, _damageAmount, damageFlags, damageSource, damageCountdownFrames) => {

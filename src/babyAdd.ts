@@ -28,8 +28,8 @@ export function babyAdd(player: EntityPlayer): void {
   const keys = player.GetNumKeys();
   const secondaryActiveItem = g.p.GetActiveItem(ActiveSlot.SECONDARY);
   const playerHealth = getPlayerHealth(player);
-  const [babyType, baby, valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType, baby] = getCurrentBaby();
+  if (babyType === -1) {
     return;
   }
 

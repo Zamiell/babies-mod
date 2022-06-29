@@ -18,9 +18,9 @@ function main(
   _spawner: Entity | undefined,
   initSeed: int,
 ): [int, int, int, int] | undefined {
-  const [, baby, valid] = getCurrentBaby();
-  if (!valid) {
-    return undefined;
+  const [babyType, baby] = getCurrentBaby();
+  if (babyType === -1) {
+    return;
   }
 
   if (

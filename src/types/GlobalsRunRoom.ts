@@ -4,7 +4,6 @@ import { TearDescription } from "./TearDescription";
 
 // Per-room variables
 export class GlobalsRunRoom {
-  clearState: boolean;
   clearDelayFrame: int | null = null;
 
   rng = newRNG();
@@ -16,8 +15,7 @@ export class GlobalsRunRoom {
 
   tears: TearDescription[] = [];
 
-  constructor(clearState = true, roomSeed = getRandomSeed()) {
-    this.clearState = clearState;
+  constructor(roomSeed = getRandomSeed()) {
     setSeed(this.rng, roomSeed);
   }
 }

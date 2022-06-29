@@ -11,8 +11,8 @@ export function init(mod: ModUpgraded): void {
 }
 
 function main(player: EntityPlayer, pickingUpItem: PickingUpItem) {
-  const [babyType, , valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType] = getCurrentBaby();
+  if (babyType === -1) {
     return;
   }
 

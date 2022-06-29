@@ -48,8 +48,8 @@ export function init(mod: Mod): void {
 
 // CollectibleType.POOP (36)
 function poop() {
-  const [, baby, valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType, baby] = getCurrentBaby();
+  if (babyType === -1) {
     return undefined;
   }
 
@@ -73,8 +73,8 @@ function poop() {
 
 // CollectibleType.LEMON_MISHAP (56)
 function lemonMishap() {
-  const [, baby, valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType, baby] = getCurrentBaby();
+  if (babyType === -1) {
     return undefined;
   }
 
@@ -96,8 +96,8 @@ function lemonMishap() {
 
 // CollectibleType.ISAACS_TEARS (323)
 function isaacsTears() {
-  const [, baby, valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType, baby] = getCurrentBaby();
+  if (babyType === -1) {
     return undefined;
   }
 
@@ -134,8 +134,8 @@ function isaacsTears() {
 // CollectibleType.BROWN_NUGGET (504)
 function brownNugget() {
   const gameFrameCount = g.g.GetFrameCount();
-  const [, baby, valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType, baby] = getCurrentBaby();
+  if (babyType === -1) {
     return undefined;
   }
 
@@ -164,8 +164,8 @@ function sacrificialAltar(
   _useFlags: int,
   _activeSlot: ActiveSlot,
 ) {
-  const [, baby, valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType, baby] = getCurrentBaby();
+  if (babyType === -1) {
     return undefined;
   }
 

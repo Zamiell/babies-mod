@@ -63,7 +63,7 @@ const FANCY_BABY_COLLECTIBLE_POSITIONS: ReadonlyArray<[x: int, y: int]> = [
   [11, 5],
 ];
 
-export const postNewRoomBabyFunctionMap = new Map<int, () => void>();
+export const postNewRoomBabyFunctionMap = new Map<RandomBabyType, () => void>();
 
 // This is used for several babies.
 function noHealth() {
@@ -83,11 +83,11 @@ function noHealth() {
   }
 }
 
-// Lost Baby
-postNewRoomBabyFunctionMap.set(10, noHealth);
+// 10
+postNewRoomBabyFunctionMap.set(RandomBabyType.LOST, noHealth);
 
-// Shadow Baby
-postNewRoomBabyFunctionMap.set(13, () => {
+// 13
+postNewRoomBabyFunctionMap.set(RandomBabyType.SHADOW, () => {
   const roomType = g.r.GetType();
   if (
     roomType === RoomType.DEVIL || // 14
@@ -101,8 +101,8 @@ postNewRoomBabyFunctionMap.set(13, () => {
   }
 });
 
-// Glass Baby
-postNewRoomBabyFunctionMap.set(14, () => {
+// 14
+postNewRoomBabyFunctionMap.set(RandomBabyType.GLASS, () => {
   // Spawn a laser ring around the player.
   const laser = g.p.FireTechXLaser(g.p.Position, VectorZero, 66).ToLaser();
   // (We copy the radius from Samael's Tech X ability.)
@@ -119,20 +119,20 @@ postNewRoomBabyFunctionMap.set(14, () => {
   data["ring"] = true;
 });
 
-// Gold Baby
-postNewRoomBabyFunctionMap.set(15, () => {
+// 15
+postNewRoomBabyFunctionMap.set(RandomBabyType.GOLD, () => {
   g.r.TurnGold();
 });
 
-// Blue Baby
-postNewRoomBabyFunctionMap.set(30, () => {
+// 30
+postNewRoomBabyFunctionMap.set(RandomBabyType.BLUE, () => {
   // Sprinkler tears
   g.run.babyBool = true;
   useActiveItemTemp(g.p, CollectibleType.SPRINKLER);
 });
 
-// Zombie Baby
-postNewRoomBabyFunctionMap.set(61, () => {
+// 61
+postNewRoomBabyFunctionMap.set(RandomBabyType.ZOMBIE, () => {
   for (const entity of getEntities()) {
     if (entity.HasEntityFlags(EntityFlag.FRIENDLY)) {
       if (entity.Type === EntityType.BOIL) {
@@ -147,8 +147,8 @@ postNewRoomBabyFunctionMap.set(61, () => {
   }
 });
 
-// Nerd Baby
-postNewRoomBabyFunctionMap.set(90, () => {
+// 90
+postNewRoomBabyFunctionMap.set(RandomBabyType.NERD, () => {
   if (!g.r.IsClear()) {
     return;
   }
@@ -165,8 +165,8 @@ postNewRoomBabyFunctionMap.set(90, () => {
   }
 });
 
-// Statue Baby 2
-postNewRoomBabyFunctionMap.set(118, () => {
+// 118
+postNewRoomBabyFunctionMap.set(RandomBabyType.STATUE_2, () => {
   const roomType = g.r.GetType();
   const isFirstVisit = g.r.IsFirstVisit();
   const center = g.r.GetCenterPos();
@@ -186,14 +186,14 @@ postNewRoomBabyFunctionMap.set(118, () => {
   });
 });
 
-// Hopeless Baby
-postNewRoomBabyFunctionMap.set(125, noHealth);
+// 125
+postNewRoomBabyFunctionMap.set(RandomBabyType.HOPELESS, noHealth);
 
-// Mohawk Baby
-postNewRoomBabyFunctionMap.set(138, noHealth);
+// 138
+postNewRoomBabyFunctionMap.set(RandomBabyType.MOHAWK, noHealth);
 
-// Twin Baby
-postNewRoomBabyFunctionMap.set(141, () => {
+// 141
+postNewRoomBabyFunctionMap.set(RandomBabyType.TWIN, () => {
   // Uncontrollable Teleport 2.0
   const isFirstVisit = g.r.IsFirstVisit();
 
@@ -212,8 +212,8 @@ postNewRoomBabyFunctionMap.set(141, () => {
   }
 });
 
-// Butterfly Baby
-postNewRoomBabyFunctionMap.set(149, () => {
+// 149
+postNewRoomBabyFunctionMap.set(RandomBabyType.BUTTERFLY, () => {
   const roomType = g.r.GetType();
   const isFirstVisit = g.r.IsFirstVisit();
   const center = g.r.GetCenterPos();
@@ -233,8 +233,8 @@ postNewRoomBabyFunctionMap.set(149, () => {
   });
 });
 
-// Pretty Baby
-postNewRoomBabyFunctionMap.set(158, () => {
+// 158
+postNewRoomBabyFunctionMap.set(RandomBabyType.PRETTY, () => {
   const roomType = g.r.GetType();
   const isFirstVisit = g.r.IsFirstVisit();
 
@@ -284,8 +284,8 @@ postNewRoomBabyFunctionMap.set(158, () => {
   }
 });
 
-// Spelunker Baby
-postNewRoomBabyFunctionMap.set(181, () => {
+// 181
+postNewRoomBabyFunctionMap.set(RandomBabyType.SPELUNKER, () => {
   const previousRoomGridIndex = g.l.GetPreviousRoomIndex();
   const roomType = g.r.GetType();
 
@@ -302,8 +302,8 @@ postNewRoomBabyFunctionMap.set(181, () => {
   }
 });
 
-// Fancy Baby
-postNewRoomBabyFunctionMap.set(216, () => {
+// 216
+postNewRoomBabyFunctionMap.set(RandomBabyType.FANCY, () => {
   const stage = g.l.GetStage();
   const isFirstVisit = g.r.IsFirstVisit();
 
@@ -359,16 +359,16 @@ postNewRoomBabyFunctionMap.set(216, () => {
   }
 });
 
-// Beast Baby
-postNewRoomBabyFunctionMap.set(242, () => {
+// 242
+postNewRoomBabyFunctionMap.set(RandomBabyType.BEAST, () => {
   // Random enemies
   if (!inStartingRoom()) {
     useActiveItemTemp(g.p, CollectibleType.D10);
   }
 });
 
-// Love Eye Baby
-postNewRoomBabyFunctionMap.set(249, () => {
+// 249
+postNewRoomBabyFunctionMap.set(RandomBabyType.LOVE_EYE, () => {
   // Make an exception for Boss Rooms and Devil Rooms.
   const roomType = g.r.GetType();
   if (
@@ -402,8 +402,8 @@ postNewRoomBabyFunctionMap.set(249, () => {
   }
 });
 
-// Viking Baby
-postNewRoomBabyFunctionMap.set(261, () => {
+// 261
+postNewRoomBabyFunctionMap.set(RandomBabyType.VIKING, () => {
   const roomType = g.r.GetType();
 
   if (roomType !== RoomType.SECRET) {
@@ -422,14 +422,14 @@ postNewRoomBabyFunctionMap.set(261, () => {
   }
 });
 
-// Ghost Baby 2
-postNewRoomBabyFunctionMap.set(282, () => {
+// 282
+postNewRoomBabyFunctionMap.set(RandomBabyType.GHOST_2, () => {
   // Constant Maw of the Void effect + flight.
   g.p.SpawnMawOfVoid(30 * 60 * 60); // 1 hour
 });
 
-// Suit Baby
-postNewRoomBabyFunctionMap.set(287, () => {
+// 287
+postNewRoomBabyFunctionMap.set(RandomBabyType.SUIT, () => {
   const roomType = g.r.GetType();
   const isFirstVisit = g.r.IsFirstVisit();
 
@@ -479,8 +479,8 @@ postNewRoomBabyFunctionMap.set(287, () => {
   }
 });
 
-// Woodsman Baby
-postNewRoomBabyFunctionMap.set(297, () => {
+// 297
+postNewRoomBabyFunctionMap.set(RandomBabyType.WOODSMAN, () => {
   const roomClear = g.r.IsClear();
 
   if (!roomClear) {
@@ -488,8 +488,8 @@ postNewRoomBabyFunctionMap.set(297, () => {
   }
 });
 
-// Bloodied Baby
-postNewRoomBabyFunctionMap.set(301, () => {
+// 301
+postNewRoomBabyFunctionMap.set(RandomBabyType.BLOODIED, () => {
   const roomType = g.r.GetType();
   const isFirstVisit = g.r.IsFirstVisit();
   const center = g.r.GetCenterPos();
@@ -509,13 +509,13 @@ postNewRoomBabyFunctionMap.set(301, () => {
   });
 });
 
-// Twotone Baby
-postNewRoomBabyFunctionMap.set(346, () => {
+// 346
+postNewRoomBabyFunctionMap.set(RandomBabyType.TWOTONE, () => {
   useActiveItemTemp(g.p, CollectibleType.DATAMINER);
 });
 
-// Mouse Baby
-postNewRoomBabyFunctionMap.set(351, () => {
+// 351
+postNewRoomBabyFunctionMap.set(RandomBabyType.MOUSE, () => {
   const roomClear = g.r.IsClear();
 
   if (!roomClear) {
@@ -531,21 +531,21 @@ postNewRoomBabyFunctionMap.set(351, () => {
   }
 });
 
-// Driver Baby
-postNewRoomBabyFunctionMap.set(431, () => {
+// 431
+postNewRoomBabyFunctionMap.set(RandomBabyType.DRIVER, () => {
   // Slippery movement. Prevent softlocks from Gaping Maws and cheap damage by Broken Gaping Maws.
   removeAllMatchingEntities(EntityType.GAPING_MAW);
   removeAllMatchingEntities(EntityType.BROKEN_GAPING_MAW);
 });
 
-// Breadmeat Hoodiebread Baby
-postNewRoomBabyFunctionMap.set(437, () => {
+// 437
+postNewRoomBabyFunctionMap.set(RandomBabyType.BREADMEAT_HOODIEBREAD, () => {
   // Everything is sped up.
   g.r.SetBrokenWatchState(BrokenWatchState.FAST);
 });
 
-// Psychic Baby
-postNewRoomBabyFunctionMap.set(504, () => {
+// 504
+postNewRoomBabyFunctionMap.set(RandomBabyType.PSYCHIC, () => {
   // Disable the vanilla shooting behavior.
   const abels = getFamiliars(FamiliarVariant.ABEL);
   for (const abel of abels) {
@@ -553,8 +553,8 @@ postNewRoomBabyFunctionMap.set(504, () => {
   }
 });
 
-// Silly Baby
-postNewRoomBabyFunctionMap.set(516, () => {
+// 516
+postNewRoomBabyFunctionMap.set(RandomBabyType.SILLY, () => {
   // Checking for the starting room can prevent crashes when reseeding happens.
   if (!inStartingRoom()) {
     g.p.UsePill(PillEffect.IM_EXCITED, PillColor.NULL);
@@ -564,8 +564,8 @@ postNewRoomBabyFunctionMap.set(516, () => {
   }
 });
 
-// Eyebat Baby
-postNewRoomBabyFunctionMap.set(535, () => {
+// 535
+postNewRoomBabyFunctionMap.set(RandomBabyType.EYEBAT, () => {
   // Floors are reversed
   if (!inStartingRoom()) {
     return;
@@ -588,7 +588,7 @@ postNewRoomBabyFunctionMap.set(535, () => {
   }
 });
 
-// Brother Bobby
+// 559
 postNewRoomBabyFunctionMap.set(RandomBabyType.BROTHER_BOBBY, () => {
   const godheadTear = g.p.FireTear(
     g.p.Position,

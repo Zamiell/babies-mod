@@ -4,18 +4,18 @@ export function Init(mod: Mod): void;
 
 export function AddPlayer(
   player: EntityPlayer,
-  playerType: PlayerType | int,
+  playerType: PlayerType,
   spritesheetPath: string,
-  flightCostumeNullItemID?: NullItemID | int,
+  flightCostumeNullItemID?: NullItemID,
   flightSpritesheetPath?: string,
-  additionalCostumeNullItemID?: NullItemID | int,
+  additionalCostumeNullItemID?: NullItemID,
 ): void;
 
 export function UpdatePlayer(
   player: EntityPlayer,
-  playerType: PlayerType | int,
+  playerType: PlayerType,
   spritesheetPath?: string,
-  flightCostumeNullItemID?: NullItemID | int,
+  flightCostumeNullItemID?: NullItemID,
   flightSpritesheetPath?: string,
-  additionalCostumeNullItemID?: NullItemID | int,
+  additionalCostumeNullItemID?: NullItemID,
 ): void;

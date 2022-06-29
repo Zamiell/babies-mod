@@ -10,7 +10,6 @@ import {
   openAllDoors,
 } from "isaacscript-common";
 import g from "../globals";
-import { roomClearedBabyFunctionMap } from "../roomClearedBabyFunctionMap";
 import { getCurrentBaby } from "../utils";
 import { postUpdateBabyFunctionMap } from "./postUpdateBabyFunctionMap";
 
@@ -19,12 +18,10 @@ export function init(mod: Mod): void {
 }
 
 function main() {
-  const [babyType, , valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType] = getCurrentBaby();
+  if (babyType === -1) {
     return;
   }
-
-  checkRoomCleared();
 
   // Do custom baby effects.
   const postUpdateBabyFunction = postUpdateBabyFunctionMap.get(babyType);
@@ -37,42 +34,12 @@ function main() {
   checkTrapdoor();
 }
 
-// Certain babies do things if the room is cleared.
-function checkRoomCleared() {
-  const roomClear = g.r.IsClear();
-
-  // Check the clear status of the room and compare it to what it was a frame ago.
-  if (roomClear === g.run.room.clearState) {
-    return;
-  }
-
-  g.run.room.clearState = roomClear;
-
-  if (!roomClear) {
-    return;
-  }
-
-  roomCleared();
-}
-
-function roomCleared() {
-  const [babyType, , valid] = getCurrentBaby();
-  if (!valid) {
-    return;
-  }
-
-  const roomClearedBabyFunction = roomClearedBabyFunctionMap.get(babyType);
-  if (roomClearedBabyFunction !== undefined) {
-    roomClearedBabyFunction();
-  }
-}
-
 // On certain babies, destroy all poops and TNT barrels after a certain amount of time to prevent
 // softlocks.
 function checkSoftlockDestroyPoops() {
   const roomFrameCount = g.r.GetFrameCount();
-  const [, baby, valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType, baby] = getCurrentBaby();
+  if (babyType === -1) {
     return;
   }
 
@@ -111,8 +78,8 @@ function checkSoftlockDestroyPoops() {
 // enemies.
 function checkSoftlockIsland() {
   const roomFrameCount = g.r.GetFrameCount();
-  const [, baby, valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType, baby] = getCurrentBaby();
+  if (babyType === -1) {
     return;
   }
 
@@ -139,8 +106,8 @@ function checkSoftlockIsland() {
 
 function checkTrapdoor() {
   const playerSprite = g.p.GetSprite();
-  const [, baby, valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType, baby] = getCurrentBaby();
+  if (babyType === -1) {
     return;
   }
 

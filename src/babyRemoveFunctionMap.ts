@@ -19,41 +19,41 @@ import g from "./globals";
 import { getCurrentBabyDescription, removeAllFriendlyEntities } from "./utils";
 
 export const babyRemoveFunctionMap = new Map<
-  int,
+  RandomBabyType,
   (oldBabyCounters: int) => void
 >();
 
-// Spider Baby
-babyRemoveFunctionMap.set(0, () => {
+// 0
+babyRemoveFunctionMap.set(RandomBabyType.SPIDER, () => {
   removeAllMatchingEntities(EntityType.FAMILIAR, FamiliarVariant.BLUE_SPIDER);
 });
 
-// Rage Baby
-babyRemoveFunctionMap.set(31, (oldBabyCounters: int) => {
+// 31
+babyRemoveFunctionMap.set(RandomBabyType.RAGE, (oldBabyCounters: int) => {
   // Restore the bomb count to what it was before we got this baby.
   g.p.AddBombs(-99);
   g.p.AddBombs(oldBabyCounters);
 });
 
-// Hive Baby
-babyRemoveFunctionMap.set(40, () => {
+// 40
+babyRemoveFunctionMap.set(RandomBabyType.HIVE, () => {
   removeAllMatchingEntities(EntityType.FAMILIAR, FamiliarVariant.BLUE_SPIDER);
   removeAllMatchingEntities(EntityType.FAMILIAR, FamiliarVariant.BLUE_SPIDER);
 });
 
-// Zombie Baby
-babyRemoveFunctionMap.set(61, () => {
+// 61
+babyRemoveFunctionMap.set(RandomBabyType.ZOMBIE, () => {
   removeAllFriendlyEntities();
 });
 
-// Goat Baby
-babyRemoveFunctionMap.set(62, () => {
+// 62
+babyRemoveFunctionMap.set(RandomBabyType.GOAT, () => {
   g.p.RemoveCollectible(CollectibleType.GOAT_HEAD); // 215
   g.p.RemoveCollectible(CollectibleType.DUALITY); // 498
 });
 
-// Brownie Baby
-babyRemoveFunctionMap.set(107, () => {
+// 107
+babyRemoveFunctionMap.set(RandomBabyType.BROWNIE, () => {
   const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
     error('Brownie Baby does not have a "num" property defined.');
@@ -69,18 +69,18 @@ babyRemoveFunctionMap.set(107, () => {
   }
 });
 
-// Attractive Baby
-babyRemoveFunctionMap.set(157, () => {
+// 157
+babyRemoveFunctionMap.set(RandomBabyType.ATTRACTIVE, () => {
   removeAllFriendlyEntities();
 });
 
-// Digital Baby
-babyRemoveFunctionMap.set(162, () => {
+// 162
+babyRemoveFunctionMap.set(RandomBabyType.DIGITAL, () => {
   g.seeds.RemoveSeedEffect(SeedEffect.OLD_TV); // B00B T00B
 });
 
-// Helmet Baby
-babyRemoveFunctionMap.set(163, () => {
+// 163
+babyRemoveFunctionMap.set(RandomBabyType.HELMET, () => {
   // Make sure that the fade is removed (or else it will persist to the next character).
   const color = g.p.GetColor();
   const newColor = copyColor(color);
@@ -88,13 +88,13 @@ babyRemoveFunctionMap.set(163, () => {
   g.p.SetColor(newColor, 0, 0, true, true);
 });
 
-// Sick Baby
-babyRemoveFunctionMap.set(187, () => {
+// 187
+babyRemoveFunctionMap.set(RandomBabyType.SICK, () => {
   removeAllMatchingEntities(EntityType.FAMILIAR, FamiliarVariant.BLUE_FLY);
 });
 
-// Isaac Baby
-babyRemoveFunctionMap.set(219, () => {
+// 219
+babyRemoveFunctionMap.set(RandomBabyType.ISAAC, () => {
   // Starts with The Battery. We need to remove any additional charge that has accumulated.
   for (const slot of [ActiveSlot.PRIMARY, ActiveSlot.SECONDARY]) {
     if (
@@ -108,42 +108,42 @@ babyRemoveFunctionMap.set(219, () => {
   }
 });
 
-// Butterfly Baby 2
-babyRemoveFunctionMap.set(332, () => {
+// 332
+babyRemoveFunctionMap.set(RandomBabyType.BUTTERFLY_2, () => {
   g.p.GridCollisionClass = EntityGridCollisionClass.GROUND;
 });
 
-// Cyborg Baby
-babyRemoveFunctionMap.set(343, () => {
+// 343
+babyRemoveFunctionMap.set(RandomBabyType.CYBORG, () => {
   Isaac.ExecuteCommand("debug 7");
 });
 
-// Dino Baby
-babyRemoveFunctionMap.set(376, () => {
+// 376
+babyRemoveFunctionMap.set(RandomBabyType.DINO, () => {
   // Remove any leftover eggs.
   removeAllMatchingEntities(EntityType.FAMILIAR, FamiliarVariant.BOBS_BRAIN);
 });
 
-// Half Spider Baby
-babyRemoveFunctionMap.set(515, () => {
+// 515
+babyRemoveFunctionMap.set(RandomBabyType.HALF_SPIDER, () => {
   // Only one Pretty Fly is removed after removing a Halo of Flies. Thus, after removing 2x Halo of
   // Flies, one fly remains.
   g.p.RemoveCollectible(CollectibleType.HALO_OF_FLIES);
 });
 
-// Bullet Baby
-babyRemoveFunctionMap.set(550, (oldBabyCounters: int) => {
+// 550
+babyRemoveFunctionMap.set(RandomBabyType.BULLET, (oldBabyCounters: int) => {
   // Restore the bomb count to what it was before we got this baby.
   g.p.AddBombs(-99);
   g.p.AddBombs(oldBabyCounters);
 });
 
-// Cursed Room Baby
-babyRemoveFunctionMap.set(556, () => {
+// 556
+babyRemoveFunctionMap.set(RandomBabyType.CURSED_ROOM, () => {
   g.l.RemoveCurses(LevelCurse.CURSED);
 });
 
-// Rotten Baby
+// 570
 babyRemoveFunctionMap.set(RandomBabyType.ROTTEN, () => {
   // Remove all of the Blue Flies.
   removeAllMatchingEntities(EntityType.FAMILIAR, FamiliarVariant.BLUE_FLY);

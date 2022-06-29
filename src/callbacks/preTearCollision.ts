@@ -7,9 +7,9 @@ export function init(mod: Mod): void {
 }
 
 function main(tear: EntityTear, collider: Entity): boolean | undefined {
-  const [babyType, , valid] = getCurrentBaby();
-  if (!valid) {
-    return undefined;
+  const [babyType] = getCurrentBaby();
+  if (babyType === -1) {
+    return;
   }
 
   const preTearCollisionBabyFunction =

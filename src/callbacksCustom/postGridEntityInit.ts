@@ -13,8 +13,8 @@ export function init(mod: ModUpgraded): void {
 
 // GridEntityType.TRAPDOOR (17)
 function trapdoor(gridEntity: GridEntity) {
-  const [, baby, valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType, baby] = getCurrentBaby();
+  if (babyType === -1) {
     return;
   }
 

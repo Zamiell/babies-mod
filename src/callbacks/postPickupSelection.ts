@@ -8,12 +8,12 @@ export function init(mod: Mod): void {
 
 function main(
   pickup: EntityPickup,
-  variant: int,
+  variant: PickupVariant,
   subType: int,
 ): [PickupVariant, int] | undefined {
-  const [babyType, , valid] = getCurrentBaby();
-  if (!valid) {
-    return undefined;
+  const [babyType] = getCurrentBaby();
+  if (babyType === -1) {
+    return;
   }
 
   const postPickupSelectionBabyFunction =

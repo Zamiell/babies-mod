@@ -19,8 +19,8 @@ function main(
   _seed: int,
 ): [EntityType | GridEntityXMLType, int, int] | undefined {
   const roomFrameCount = g.r.GetFrameCount();
-  const [babyType, , valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType] = getCurrentBaby();
+  if (babyType === -1) {
     return undefined;
   }
 

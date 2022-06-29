@@ -2,11 +2,11 @@ import { EntityCollisionClass } from "isaac-typescript-definitions";
 import { RandomBabyType } from "../enums/RandomBabyType";
 
 export const postKnifeInitBabyFunctionMap = new Map<
-  int,
+  RandomBabyType,
   (knife: EntityKnife) => void
 >();
 
-// Brother Bobby
+// 559
 postKnifeInitBabyFunctionMap.set(
   RandomBabyType.BROTHER_BOBBY,
   (knife: EntityKnife) => {

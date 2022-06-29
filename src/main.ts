@@ -43,6 +43,7 @@ import * as postNewRoomReordered from "./callbacksCustom/postNewRoomReordered";
 import * as postPickupCollect from "./callbacksCustom/postPickupCollect";
 import * as postPlayerChangeType from "./callbacksCustom/postPlayerChangeType";
 import * as postPurchase from "./callbacksCustom/postPurchase";
+import * as postRoomClearChanged from "./callbacksCustom/postRoomClearChanged";
 import * as postSlotDestroyed from "./callbacksCustom/postSlotDestroyed";
 import * as postTrinketBreak from "./callbacksCustom/postTrinketBreak";
 import * as preItemPickup from "./callbacksCustom/preItemPickup";
@@ -122,6 +123,7 @@ function registerCallbacksCustom(mod: ModUpgraded) {
   postItemPickup.init(mod);
   postPurchase.init(mod);
   postPlayerChangeType.init(mod);
+  postRoomClearChanged.init(mod);
   postSlotDestroyed.init(mod);
   postTrinketBreak.init(mod);
   postGridEntityInit.init(mod);

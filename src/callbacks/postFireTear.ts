@@ -7,8 +7,8 @@ export function init(mod: Mod): void {
 }
 
 function main(tear: EntityTear) {
-  const [babyType, , valid] = getCurrentBaby();
-  if (!valid) {
+  const [babyType] = getCurrentBaby();
+  if (babyType === -1) {
     return;
   }
 

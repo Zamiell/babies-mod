@@ -1,23 +1,24 @@
 import { setEntityRandomColor } from "isaacscript-common";
+import { RandomBabyType } from "../enums/RandomBabyType";
 
 export const postNPCInitBabyFunctionMap = new Map<
-  int,
+  RandomBabyType,
   (npc: EntityNPC) => void
 >();
 
-// Lil' Baby
-postNPCInitBabyFunctionMap.set(36, (npc: EntityNPC) => {
+// 36
+postNPCInitBabyFunctionMap.set(RandomBabyType.LIL, (npc: EntityNPC) => {
   // Everything is giant
   npc.Scale = 0.5;
 });
 
-// Big Baby
-postNPCInitBabyFunctionMap.set(37, (npc: EntityNPC) => {
+// 37
+postNPCInitBabyFunctionMap.set(RandomBabyType.BIG, (npc: EntityNPC) => {
   // Everything is giant
   npc.Scale = 2;
 });
 
-// Colorful Baby
-postNPCInitBabyFunctionMap.set(42, (npc: EntityNPC) => {
+// 42
+postNPCInitBabyFunctionMap.set(RandomBabyType.COLORFUL, (npc: EntityNPC) => {
   setEntityRandomColor(npc);
 });

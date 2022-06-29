@@ -4,17 +4,18 @@ import {
   MIN_PLAYER_SPEED_STAT,
   repeat,
 } from "isaacscript-common";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 import { getCurrentBabyDescription } from "../utils";
 
 export const evaluateCacheBabyFunctionMap = new Map<
-  int,
+  RandomBabyType,
   (player: EntityPlayer, cacheFlag: CacheFlag) => void
 >();
 
-// Cute Baby
+// 11
 evaluateCacheBabyFunctionMap.set(
-  11,
+  RandomBabyType.CUTE,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.DAMAGE) {
       // -1 damage per pickup taken.
@@ -25,9 +26,9 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Lowface Baby
+// 73
 evaluateCacheBabyFunctionMap.set(
-  73,
+  RandomBabyType.LOWFACE,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     // 0.5x range
     if (cacheFlag === CacheFlag.RANGE) {
@@ -40,9 +41,9 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Derp Baby
+// 78
 evaluateCacheBabyFunctionMap.set(
-  78,
+  RandomBabyType.DERP,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.DAMAGE) {
       player.Damage *= 0.5;
@@ -50,9 +51,9 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Lipstick Baby
+// 105
 evaluateCacheBabyFunctionMap.set(
-  105,
+  RandomBabyType.LIPSTICK,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.RANGE) {
       player.TearHeight *= 2;
@@ -60,9 +61,9 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Tusks Baby
+// 124
 evaluateCacheBabyFunctionMap.set(
-  124,
+  RandomBabyType.TUSKS,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.DAMAGE) {
       player.Damage *= 2;
@@ -70,9 +71,9 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Cape Baby
+// 152
 evaluateCacheBabyFunctionMap.set(
-  152,
+  RandomBabyType.CAPE,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.FIRE_DELAY) {
       player.MaxFireDelay = 1;
@@ -80,9 +81,9 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Black Eye Baby
+// 164
 evaluateCacheBabyFunctionMap.set(
-  164,
+  RandomBabyType.BLACK_EYE,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     // Starts with Leprosy, +5 damage on Leprosy breaking.
     if (cacheFlag !== CacheFlag.DAMAGE) {
@@ -99,9 +100,9 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Sick Baby
+// 187
 evaluateCacheBabyFunctionMap.set(
-  187,
+  RandomBabyType.SICK,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     // Explosive fly tears
     if (cacheFlag === CacheFlag.FIRE_DELAY) {
@@ -110,9 +111,9 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Blisters Baby
+// 240
 evaluateCacheBabyFunctionMap.set(
-  240,
+  RandomBabyType.BLISTERS,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     // This is the minimum shot speed that you can set.
     if (cacheFlag === CacheFlag.SHOT_SPEED) {
@@ -121,9 +122,9 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Snail Baby
+// 244
 evaluateCacheBabyFunctionMap.set(
-  244,
+  RandomBabyType.SNAIL,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.SPEED) {
       player.MoveSpeed *= 0.5;
@@ -131,9 +132,9 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Killer Baby
+// 291
 evaluateCacheBabyFunctionMap.set(
-  291,
+  RandomBabyType.KILLER,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.DAMAGE) {
       repeat(g.run.babyCounters, () => {
@@ -143,9 +144,9 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Cupcake Baby
+// 321
 evaluateCacheBabyFunctionMap.set(
-  321,
+  RandomBabyType.CUPCAKE,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.SHOT_SPEED) {
       player.ShotSpeed = 4;
@@ -153,9 +154,9 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Skinless Baby
+// 322
 evaluateCacheBabyFunctionMap.set(
-  322,
+  RandomBabyType.SKINLESS,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.DAMAGE) {
       player.Damage *= 2;
@@ -163,9 +164,9 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Hero Baby
+// 336
 evaluateCacheBabyFunctionMap.set(
-  336,
+  RandomBabyType.HERO,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     const hearts = player.GetHearts();
     const soulHearts = player.GetSoulHearts();
@@ -183,9 +184,9 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Rabbit Baby
+// 350
 evaluateCacheBabyFunctionMap.set(
-  350,
+  RandomBabyType.RABBIT,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     // Starts with How to Jump; must jump often. Speed has a lower bound of 0.1, so we cannot set it
     // lower than this.
@@ -198,9 +199,9 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Scared Ghost Baby
+// 369
 evaluateCacheBabyFunctionMap.set(
-  369,
+  RandomBabyType.SCARED_GHOST,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.SPEED) {
       player.MoveSpeed *= 2;
@@ -208,9 +209,9 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Blue Ghost Baby
+// 370
 evaluateCacheBabyFunctionMap.set(
-  370,
+  RandomBabyType.BLUE_GHOST,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.FIRE_DELAY) {
       player.MaxFireDelay = 1;
@@ -218,9 +219,9 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Red Ghost Baby
+// 371
 evaluateCacheBabyFunctionMap.set(
-  371,
+  RandomBabyType.RED_GHOST,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.DAMAGE) {
       player.Damage += 10;
@@ -228,9 +229,9 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Fairyman Baby
+// 385
 evaluateCacheBabyFunctionMap.set(
-  385,
+  RandomBabyType.FAIRYMAN,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.DAMAGE) {
       repeat(g.run.babyCounters, () => {
@@ -240,9 +241,9 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Firemage Baby
+// 419
 evaluateCacheBabyFunctionMap.set(
-  419,
+  RandomBabyType.FIREMAGE,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.LUCK) {
       player.Luck += 13;
@@ -250,9 +251,9 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Sad Bunny Baby
+// 459
 evaluateCacheBabyFunctionMap.set(
-  459,
+  RandomBabyType.SAD_BUNNY,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.FIRE_DELAY) {
       repeat(g.run.babyCounters, () => {
@@ -262,9 +263,9 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Voxdog Baby
+// 462
 evaluateCacheBabyFunctionMap.set(
-  462,
+  RandomBabyType.VOXDOG,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     // Shockwave tears
     if (cacheFlag === CacheFlag.FIRE_DELAY) {
@@ -273,9 +274,9 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Robbermask Baby
+// 473
 evaluateCacheBabyFunctionMap.set(
-  473,
+  RandomBabyType.ROBBERMASK,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.DAMAGE) {
       repeat(g.run.babyCounters, () => {
@@ -285,9 +286,9 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Bubbles Baby
+// 483
 evaluateCacheBabyFunctionMap.set(
-  483,
+  RandomBabyType.BUBBLES,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.DAMAGE) {
       repeat(g.run.babyCounters, () => {
@@ -297,9 +298,9 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Psychic Baby
+// 504
 evaluateCacheBabyFunctionMap.set(
-  504,
+  RandomBabyType.PSYCHIC,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.DAMAGE) {
       player.Damage *= 2;
@@ -307,9 +308,9 @@ evaluateCacheBabyFunctionMap.set(
   },
 );
 
-// Twitchy Baby
+// 511
 evaluateCacheBabyFunctionMap.set(
-  511,
+  RandomBabyType.TWITCHY,
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     // Tear rate oscillates
     if (cacheFlag === CacheFlag.FIRE_DELAY) {

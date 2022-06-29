@@ -12,6 +12,7 @@ import {
   spawnBomb,
   useActiveItemTemp,
 } from "isaacscript-common";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 import { getRandomOffsetPosition } from "../utils";
 
@@ -25,12 +26,12 @@ const SHOCKWAVE_BOMB_VELOCITIES: readonly Vector[] = [
 ];
 
 export const postBombUpdateBabyFunctionMap = new Map<
-  int,
+  RandomBabyType,
   (bomb: EntityBomb) => void
 >();
 
-// Bomb Baby
-postBombUpdateBabyFunctionMap.set(75, (bomb: EntityBomb) => {
+// 75
+postBombUpdateBabyFunctionMap.set(RandomBabyType.BOMB, (bomb: EntityBomb) => {
   // 50% chance for bombs to have the D6 effect.
   if (
     bomb.SpawnerType === EntityType.PLAYER &&
@@ -43,8 +44,8 @@ postBombUpdateBabyFunctionMap.set(75, (bomb: EntityBomb) => {
   }
 });
 
-// Tongue Baby
-postBombUpdateBabyFunctionMap.set(97, (bomb: EntityBomb) => {
+// 97
+postBombUpdateBabyFunctionMap.set(RandomBabyType.TONGUE, (bomb: EntityBomb) => {
   // Recharge bombs
   if (
     bomb.SpawnerType === EntityType.PLAYER &&
@@ -54,8 +55,8 @@ postBombUpdateBabyFunctionMap.set(97, (bomb: EntityBomb) => {
   }
 });
 
-// Skull Baby
-postBombUpdateBabyFunctionMap.set(211, (bomb: EntityBomb) => {
+// 211
+postBombUpdateBabyFunctionMap.set(RandomBabyType.SKULL, (bomb: EntityBomb) => {
   const gameFrameCount = g.g.GetFrameCount();
 
   if (
@@ -76,8 +77,8 @@ postBombUpdateBabyFunctionMap.set(211, (bomb: EntityBomb) => {
   }
 });
 
-// Bony Baby
-postBombUpdateBabyFunctionMap.set(284, (bomb: EntityBomb) => {
+// 284
+postBombUpdateBabyFunctionMap.set(RandomBabyType.BONY, (bomb: EntityBomb) => {
   const data = bomb.GetData();
 
   if (
@@ -107,27 +108,33 @@ postBombUpdateBabyFunctionMap.set(284, (bomb: EntityBomb) => {
   }
 });
 
-// Barbarian Baby
-postBombUpdateBabyFunctionMap.set(344, (bomb: EntityBomb) => {
-  if (
-    bomb.SpawnerType === EntityType.PLAYER &&
-    bomb.FrameCount === BOMB_EXPLODE_FRAME
-  ) {
-    g.r.MamaMegaExplossion();
-  }
-});
+// 344
+postBombUpdateBabyFunctionMap.set(
+  RandomBabyType.BARBARIAN,
+  (bomb: EntityBomb) => {
+    if (
+      bomb.SpawnerType === EntityType.PLAYER &&
+      bomb.FrameCount === BOMB_EXPLODE_FRAME
+    ) {
+      g.r.MamaMegaExplossion();
+    }
+  },
+);
 
-// Orange Ghost Baby
-postBombUpdateBabyFunctionMap.set(373, (bomb: EntityBomb) => {
-  if (bomb.FrameCount === 1 && bomb.Variant !== BombVariant.MEGA_TROLL) {
-    spawnBomb(
-      BombVariant.MEGA_TROLL,
-      bomb.SubType,
-      bomb.Position,
-      bomb.Velocity,
-      bomb.SpawnerEntity,
-      bomb.InitSeed,
-    );
-    bomb.Remove();
-  }
-});
+// 373
+postBombUpdateBabyFunctionMap.set(
+  RandomBabyType.ORANGE_GHOST,
+  (bomb: EntityBomb) => {
+    if (bomb.FrameCount === 1 && bomb.Variant !== BombVariant.MEGA_TROLL) {
+      spawnBomb(
+        BombVariant.MEGA_TROLL,
+        bomb.SubType,
+        bomb.Position,
+        bomb.Velocity,
+        bomb.SpawnerEntity,
+        bomb.InitSeed,
+      );
+      bomb.Remove();
+    }
+  },
+);

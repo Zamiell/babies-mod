@@ -8,7 +8,7 @@ import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 
 export const inputActionBabyFunctionMap = new Map<
-  int,
+  RandomBabyType,
   (
     entity: Entity | undefined,
     inputHook: InputHook,
@@ -16,9 +16,9 @@ export const inputActionBabyFunctionMap = new Map<
   ) => number | boolean | undefined
 >();
 
-// Masked Baby
+// 115
 inputActionBabyFunctionMap.set(
-  115,
+  RandomBabyType.MASKED,
   (
     entity: Entity | undefined,
     inputHook: InputHook,
@@ -60,9 +60,9 @@ inputActionBabyFunctionMap.set(
   },
 );
 
-// Piece A Baby
+// 179
 inputActionBabyFunctionMap.set(
-  179,
+  RandomBabyType.PIECE_A,
   (
     _entity: Entity | undefined,
     _inputHook: InputHook,
@@ -102,9 +102,9 @@ inputActionBabyFunctionMap.set(
   },
 );
 
-// Imp Baby
+// 386
 inputActionBabyFunctionMap.set(
-  386,
+  RandomBabyType.IMP,
   (
     _entity: Entity | undefined,
     _inputHook: InputHook,
@@ -135,7 +135,7 @@ inputActionBabyFunctionMap.set(
   },
 );
 
-// Solomon's Baby A
+// 531
 inputActionBabyFunctionMap.set(
   RandomBabyType.SOLOMONS_A,
   (
@@ -155,7 +155,7 @@ inputActionBabyFunctionMap.set(
   },
 );
 
-// Solomon's Baby B
+// 532
 inputActionBabyFunctionMap.set(
   RandomBabyType.SOLOMONS_B,
   (

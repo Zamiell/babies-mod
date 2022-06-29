@@ -1,4 +1,8 @@
-import { ItemPoolType, ModCallback } from "isaac-typescript-definitions";
+import {
+  CollectibleType,
+  ItemPoolType,
+  ModCallback,
+} from "isaac-typescript-definitions";
 import g from "../globals";
 import { getCurrentBaby } from "../utils";
 import { preGetCollectibleBabyFunctionMap } from "./preGetCollectibleBabyFunctionMap";
@@ -11,9 +15,9 @@ function main(
   _itemPoolType: ItemPoolType,
   _decrease: boolean,
   _seed: int,
-): number | undefined {
-  const [babyType, , valid] = getCurrentBaby();
-  if (!valid) {
+): CollectibleType | undefined {
+  const [babyType] = getCurrentBaby();
+  if (babyType === -1) {
     return undefined;
   }
 

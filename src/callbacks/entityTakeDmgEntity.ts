@@ -10,9 +10,9 @@ export function main(
   damageSource: EntityRef,
   damageCountdownFrames: int,
 ): boolean | undefined {
-  const [babyType, , valid] = getCurrentBaby();
-  if (!valid) {
-    return undefined;
+  const [babyType] = getCurrentBaby();
+  if (babyType === -1) {
+    return;
   }
 
   if (g.run.dealingExtraDamage) {

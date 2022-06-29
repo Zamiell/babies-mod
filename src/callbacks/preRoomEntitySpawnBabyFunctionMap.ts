@@ -1,4 +1,5 @@
 import { EntityType, GridEntityXMLType } from "isaac-typescript-definitions";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 import { shouldTransformRoomType } from "../utils";
 
@@ -10,15 +11,15 @@ const GRID_ENTITY_REPLACEMENT_EXCEPTIONS: ReadonlySet<GridEntityXMLType> =
   ]);
 
 export const preRoomEntitySpawnBabyFunctionMap = new Map<
-  int,
+  RandomBabyType,
   (
     entityType: EntityType | GridEntityXMLType,
   ) => [EntityType | GridEntityXMLType, int, int] | undefined
 >();
 
-// Chompers Baby
+// 143
 preRoomEntitySpawnBabyFunctionMap.set(
-  143,
+  RandomBabyType.CHOMPERS,
   (entityType: EntityType | GridEntityXMLType) => {
     if (
       g.r.IsFirstVisit() &&
@@ -35,9 +36,9 @@ preRoomEntitySpawnBabyFunctionMap.set(
   },
 );
 
-// Pretty Baby
+// 158
 preRoomEntitySpawnBabyFunctionMap.set(
-  158,
+  RandomBabyType.PRETTY,
   (_entityType: EntityType | GridEntityXMLType) => {
     const roomType = g.r.GetType();
 
@@ -50,9 +51,9 @@ preRoomEntitySpawnBabyFunctionMap.set(
   },
 );
 
-// Suit Baby
+// 287
 preRoomEntitySpawnBabyFunctionMap.set(
-  287,
+  RandomBabyType.SUIT,
   (_entityType: EntityType | GridEntityXMLType) => {
     const roomType = g.r.GetType();
 
@@ -65,9 +66,9 @@ preRoomEntitySpawnBabyFunctionMap.set(
   },
 );
 
-// Red Wrestler Baby
+// 389
 preRoomEntitySpawnBabyFunctionMap.set(
-  389,
+  RandomBabyType.RED_WRESTLER,
   (entityType: EntityType | GridEntityXMLType) => {
     if (
       g.r.IsFirstVisit() &&

@@ -15,13 +15,17 @@ import {
   useActiveItemTemp,
   VectorZero,
 } from "isaacscript-common";
-import g from "./globals";
-import { getCurrentBabyDescription } from "./utils";
+import { RandomBabyType } from "../enums/RandomBabyType";
+import g from "../globals";
+import { getCurrentBabyDescription } from "../utils";
 
-export const roomClearedBabyFunctionMap = new Map<int, () => void>();
+export const postRoomClearChangedBabyFunctionMap = new Map<
+  RandomBabyType,
+  () => void
+>();
 
-// Love Baby
-roomClearedBabyFunctionMap.set(1, () => {
+// 1
+postRoomClearChangedBabyFunctionMap.set(RandomBabyType.LOVE, () => {
   const roomSeed = g.r.GetSpawnSeed();
   const heartSubTypes = getEnumValues(HeartSubType);
   const heartSubType = getRandomArrayElement(heartSubTypes, roomSeed);
@@ -30,8 +34,8 @@ roomClearedBabyFunctionMap.set(1, () => {
   spawnHeart(heartSubType, g.p.Position, VectorZero, g.p, roomSeed);
 });
 
-// Bandaid Baby
-roomClearedBabyFunctionMap.set(88, () => {
+// 88
+postRoomClearChangedBabyFunctionMap.set(RandomBabyType.BANDAID, () => {
   const roomType = g.r.GetType();
   const roomSeed = g.r.GetSpawnSeed();
 
@@ -44,27 +48,27 @@ roomClearedBabyFunctionMap.set(88, () => {
   spawnCollectible(CollectibleType.NULL, position, roomSeed);
 });
 
-// Jammies Baby
-roomClearedBabyFunctionMap.set(192, () => {
+// 192
+postRoomClearChangedBabyFunctionMap.set(RandomBabyType.JAMMIES, () => {
   // Extra charge per room cleared.
   addRoomClearCharge(g.p);
 });
 
-// 2600 Baby
-roomClearedBabyFunctionMap.set(347, () => {
+// 347
+postRoomClearChangedBabyFunctionMap.set(RandomBabyType.N_2600, () => {
   useActiveItemTemp(g.p, CollectibleType.FRIEND_FINDER);
 });
 
-// Fishman Baby
-roomClearedBabyFunctionMap.set(384, () => {
+// 384
+postRoomClearChangedBabyFunctionMap.set(RandomBabyType.FISHMAN, () => {
   const roomSeed = g.r.GetSpawnSeed();
 
   // Random Bomb
   spawnPickup(PickupVariant.BOMB, 0, g.p.Position, VectorZero, g.p, roomSeed);
 });
 
-// Hive King Baby
-roomClearedBabyFunctionMap.set(546, () => {
+// 546
+postRoomClearChangedBabyFunctionMap.set(RandomBabyType.HIVE_KING, () => {
   let gaveGiantCell = false;
   if (g.p.HasCollectible(CollectibleType.GIANT_CELL)) {
     g.p.AddCollectible(CollectibleType.GIANT_CELL, 0, false);
@@ -78,8 +82,8 @@ roomClearedBabyFunctionMap.set(546, () => {
   }
 });
 
-// Pegasus Baby
-roomClearedBabyFunctionMap.set(542, () => {
+// 542
+postRoomClearChangedBabyFunctionMap.set(RandomBabyType.PEGASUS, () => {
   const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for: ${baby.name}`);
