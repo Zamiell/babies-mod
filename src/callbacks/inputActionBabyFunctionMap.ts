@@ -4,7 +4,7 @@ import {
   InputHook,
 } from "isaac-typescript-definitions";
 import { isActionPressedOnAnyInput, isShootAction } from "isaacscript-common";
-import { RandomBabyType } from "../babies";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 
 export const inputActionBabyFunctionMap = new Map<
@@ -13,7 +13,7 @@ export const inputActionBabyFunctionMap = new Map<
     entity: Entity | undefined,
     inputHook: InputHook,
     buttonAction: ButtonAction,
-  ) => number | boolean | void
+  ) => number | boolean | undefined
 >();
 
 // Masked Baby
@@ -137,7 +137,7 @@ inputActionBabyFunctionMap.set(
 
 // Solomon's Baby A
 inputActionBabyFunctionMap.set(
-  RandomBabyType.SOLOMONS_BABY_A,
+  RandomBabyType.SOLOMONS_A,
   (
     _entity: Entity | undefined,
     inputHook: InputHook,
@@ -157,7 +157,7 @@ inputActionBabyFunctionMap.set(
 
 // Solomon's Baby B
 inputActionBabyFunctionMap.set(
-  RandomBabyType.SOLOMONS_BABY_B,
+  RandomBabyType.SOLOMONS_B,
   (
     _entity: Entity | undefined,
     inputHook: InputHook,

@@ -1,4 +1,8 @@
-import { EntityType, ModCallback } from "isaac-typescript-definitions";
+import {
+  EntityType,
+  GridEntityXMLType,
+  ModCallback,
+} from "isaac-typescript-definitions";
 import g from "../globals";
 import { getCurrentBaby } from "../utils";
 import { preRoomEntitySpawnBabyFunctionMap } from "./preRoomEntitySpawnBabyFunctionMap";
@@ -8,12 +12,12 @@ export function init(mod: Mod): void {
 }
 
 function main(
-  entityType: EntityType,
+  entityTypeOrGridEntityXMLType: EntityType | GridEntityXMLType,
   _variant: int,
   _subType: int,
   _gridIndex: int,
   _seed: int,
-): [int, int, int] | void {
+): [EntityType | GridEntityXMLType, int, int] | undefined {
   const roomFrameCount = g.r.GetFrameCount();
   const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
@@ -28,7 +32,7 @@ function main(
   const preRoomEntitySpawnBabyFunction =
     preRoomEntitySpawnBabyFunctionMap.get(babyType);
   if (preRoomEntitySpawnBabyFunction !== undefined) {
-    return preRoomEntitySpawnBabyFunction(entityType);
+    return preRoomEntitySpawnBabyFunction(entityTypeOrGridEntityXMLType);
   }
 
   return undefined;

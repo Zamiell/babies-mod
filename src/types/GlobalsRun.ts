@@ -1,5 +1,6 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 import { getRandomSeed, newRNG, setSeed } from "isaacscript-common";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import { GlobalsRunBabyExplosion } from "./GlobalsRunBabyExplosion";
 import { GlobalsRunBabyNPC } from "./GlobalsRunBabyNPC";
 import { GlobalsRunBabyTears } from "./GlobalsRunBabyTears";
@@ -11,7 +12,7 @@ export class GlobalsRun {
   // Tracking per run
   /** Set to true in the PostGameStarted callback. */
   startedRunAsRandomBaby = false;
-  babyType: number | null = null;
+  babyType: RandomBabyType | null = null;
   drawIntro = false;
   /** Keep track of all of the collectibles that we pick up over the course of the run. */
   passiveCollectibleTypes: CollectibleType[] = [];

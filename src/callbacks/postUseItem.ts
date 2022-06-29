@@ -59,7 +59,7 @@ function shoopDaWhoop(
   _collectibleType: CollectibleType,
   _RNG: RNG,
   player: EntityPlayer,
-) {
+): boolean | undefined {
   const gameFrameCount = g.g.GetFrameCount();
   const activeCharge = player.GetActiveCharge();
   const batteryCharge = player.GetBatteryCharge();
@@ -77,7 +77,11 @@ function shoopDaWhoop(
 }
 
 // CollectibleType.MONSTROS_TOOTH (86)
-function monstrosTooth() {
+function monstrosTooth(
+  _collectibleType: CollectibleType,
+  _RNG: RNG,
+  _player: EntityPlayer,
+): boolean | undefined {
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
@@ -98,7 +102,11 @@ function monstrosTooth() {
 }
 
 // CollectibleType.HOW_TO_JUMP (282)
-function howToJump() {
+function howToJump(
+  _collectibleType: CollectibleType,
+  _RNG: RNG,
+  _player: EntityPlayer,
+): boolean | undefined {
   const gameFrameCount = g.g.GetFrameCount();
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
@@ -119,7 +127,7 @@ function clockworkAssembly(
   _collectibleType: CollectibleType,
   _RNG: RNG,
   player: EntityPlayer,
-) {
+): boolean | undefined {
   spawnSlotHelper(
     SlotVariant.SHOP_RESTOCK_MACHINE,
     player.Position,
@@ -134,7 +142,7 @@ function flockOfSuccubi(
   _collectibleType: CollectibleType,
   _RNG: RNG,
   player: EntityPlayer,
-) {
+): boolean | undefined {
   // Spawn N temporary Succubi.
   repeat(NUM_SUCCUBI_IN_FLOCK, () => {
     player.AddCollectible(CollectibleType.SUCCUBUS, 0, false);
@@ -152,7 +160,7 @@ function chargingStation(
   _collectibleType: CollectibleType,
   _RNG: RNG,
   player: EntityPlayer,
-) {
+): boolean | undefined {
   const numCoins = player.GetNumCoins();
 
   if (numCoins === 0) {

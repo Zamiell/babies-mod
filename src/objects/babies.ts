@@ -12,137 +12,138 @@ import {
   SeedEffect,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { BabyDescription } from "./types/BabyDescription";
-import { CollectibleTypeCustom } from "./types/CollectibleTypeCustom";
+import { RandomBabyType } from "../enums/RandomBabyType";
+import { BabyDescription } from "../types/BabyDescription";
+import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 
-export const BABIES: readonly BabyDescription[] = [
-  {
+export const BABIES: { readonly [key in RandomBabyType]: BabyDescription } = {
+  [RandomBabyType.SPIDER]: {
     name: "Spider Baby",
     description: "Shoots a Blue Spider every 2nd tear",
     sprite: "000_baby_spider.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.LOVE]: {
     name: "Love Baby",
     description: "Spawns a random heart on room clear",
     sprite: "001_baby_love.png",
   },
-  {
+  [RandomBabyType.BLOAT]: {
     name: "Bloat Baby",
     description: "Syringe tears", // Euthanasia
     sprite: "002_baby_bloat.png",
     num: 3,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.WATER]: {
     name: "Water Baby",
     description: "Starts with Isaac's Tears (improved)",
     sprite: "003_baby_water.png",
     item: CollectibleType.ISAACS_TEARS,
   },
-  {
+  [RandomBabyType.PSY]: {
     name: "Psy Baby",
     description: "Starts with Spoon Bender",
     sprite: "004_baby_psy.png",
     item: CollectibleType.SPOON_BENDER,
   },
-  {
+  [RandomBabyType.CURSED]: {
     name: "Cursed Baby",
     description: "Starts with Cursed Eye",
     sprite: "005_baby_cursed.png",
     item: CollectibleType.CURSED_EYE,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.TROLL]: {
     name: "Troll Baby",
     description: "Spawns a Troll Bomb every 3 seconds",
     sprite: "006_baby_troll.png",
   },
-  {
+  [RandomBabyType.YBAB]: {
     name: "Ybab Baby",
     description: "Starts with Analog Stick",
     sprite: "007_baby_ybab.png",
     item: CollectibleType.ANALOG_STICK,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.COCKEYED]: {
     name: "Cockeyed Baby",
     description: "Shoots extra tears with random velocity",
     sprite: "008_baby_cockeyed.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.HOST]: {
     name: "Host Baby",
     description: "Spawns 10 Blue Spiders on hit",
     sprite: "009_baby_host.png",
   },
-  {
+  [RandomBabyType.LOST]: {
     name: "Lost Baby",
     description: "Starts with Holy Mantle + Lost-style health",
     sprite: "010_baby_lost.png",
     item: CollectibleType.HOLY_MANTLE,
   },
-  {
+  [RandomBabyType.CUTE]: {
     name: "Cute Baby",
     description: "-1 damage per pickup taken",
     sprite: "011_baby_cute.png",
   },
-  {
+  [RandomBabyType.CROW]: {
     name: "Crow Baby",
     description: "Starts with Dead Bird (improved)",
     sprite: "012_baby_crow.png",
     item: CollectibleType.DEAD_BIRD,
   },
-  {
+  [RandomBabyType.SHADOW]: {
     name: "Shadow Baby",
     description: "Devil Rooms / Angel Rooms go to the Black Market instead",
     sprite: "013_baby_shadow.png",
   },
-  {
+  [RandomBabyType.GLASS]: {
     name: "Glass Baby",
     description: "Orbiting laser ring",
     sprite: "014_baby_glass.png",
   },
-  {
+  [RandomBabyType.GOLD]: {
     name: "Gold Baby",
     description: "Gold gear + gold poops + gold rooms",
     sprite: "015_baby_gold.png",
   },
-  {
+  [RandomBabyType.CY]: {
     name: "Cy-Baby",
     description: "Starts with Technology 2",
     sprite: "016_baby_cy.png",
     item: CollectibleType.TECHNOLOGY_2,
   },
-  {
+  [RandomBabyType.BEAN]: {
     name: "Bean Baby",
     description: "Constant Butter Bean effect",
     sprite: "017_baby_bean.png",
   },
-  {
+  [RandomBabyType.MAG]: {
     name: "Mag Baby",
     description: "Confusion tears",
     sprite: "018_baby_mag.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.WRATH]: {
     name: "Wrath Baby",
     description: "Anarchist Cookbook effect every 7 seconds",
     sprite: "019_baby_wrath.png",
     num: 210, // 7 seconds (in game frames)
   },
-  {
+  [RandomBabyType.WRAPPED]: {
     name: "Wrapped Baby",
     description: "5x Kamikaze! effect on hit",
     sprite: "020_baby_wrapped.png",
   },
-  {
+  [RandomBabyType.BEGOTTEN]: {
     name: "Begotten Baby",
     description: "Starts with Eve's Mascara",
     sprite: "021_baby_begotten.png",
     item: CollectibleType.EVES_MASCARA,
   },
-  {
+  [RandomBabyType.DEAD]: {
     name: "Dead Baby",
     description: "Starts with ???'s Only Friend + blindfolded",
     sprite: "022_baby_dead.png",
@@ -151,166 +152,166 @@ export const BABIES: readonly BabyDescription[] = [
     blindfolded: true,
     softlockPreventionDestroyPoops: true, // ???'s Only Friend cannot kill poops
   },
-  {
+  [RandomBabyType.FIGHTING]: {
     name: "Fighting Baby",
     description: "Starts with Bloody Lust",
     sprite: "023_baby_fighting.png",
     item: CollectibleType.BLOODY_LUST,
   },
-  {
+  [RandomBabyType.ZERO]: {
     name: "-0- Baby",
     description: "Invulnerability",
     sprite: "024_baby_0.png",
   },
-  {
+  [RandomBabyType.GLITCH]: {
     name: "Glitch Baby",
     description: "Starts with GB Bug",
     sprite: "025_baby_glitch.png",
     item: CollectibleType.GB_BUG,
   },
-  {
+  [RandomBabyType.MAGNET]: {
     name: "Magnet Baby",
     description: "Magnetizing tears",
     sprite: "026_baby_magnet.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.BLACK]: {
     name: "Black Baby",
     description: "Curse Room doors in uncleared rooms",
     sprite: "027_baby_black.png",
   },
-  {
+  [RandomBabyType.RED]: {
     name: "Red Baby",
     description: "Starts with 5x Distant Admiration",
     sprite: "028_baby_red.png",
     item: CollectibleType.DISTANT_ADMIRATION,
     itemNum: 5,
   },
-  {
+  [RandomBabyType.WHITE]: {
     name: "White Baby",
     description: "Starts with Hallowed Ground",
     sprite: "029_baby_white.png",
     item: CollectibleType.HALLOWED_GROUND,
   },
-  {
+  [RandomBabyType.BLUE]: {
     name: "Blue Baby",
     description: "Sprinkler tears",
     sprite: "030_baby_blue.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.RAGE]: {
     name: "Rage Baby",
     description: "Starts with Sad Bombs + infinite bombs + blindfolded",
     sprite: "031_baby_rage.png",
     item: CollectibleType.SAD_BOMBS,
     blindfolded: true,
   },
-  {
+  [RandomBabyType.CRY]: {
     name: "Cry Baby",
     description: "Enemies are fully healed on hit",
     sprite: "032_baby_cry.png",
   },
-  {
+  [RandomBabyType.YELLOW]: {
     name: "Yellow Baby",
     description: "Lemon Party effect on hit",
     sprite: "033_baby_yellow.png",
   },
-  {
+  [RandomBabyType.LONG]: {
     name: "Long Baby",
     description: "Flat tears",
     sprite: "034_baby_long.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.GREEN]: {
     name: "Green Baby",
     description: "Booger tears",
     sprite: "035_baby_green.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.LIL]: {
     name: "Lil' Baby",
     description: "Everything is tiny",
     sprite: "036_baby_lil.png",
   },
-  {
+  [RandomBabyType.BIG]: {
     name: "Big Baby",
     description: "Everything is giant",
     sprite: "037_baby_big.png",
   },
-  {
+  [RandomBabyType.BROWN]: {
     name: "Brown Baby",
     description: "Starts with Dirty Mind + spawns a poop per enemy killed",
     sprite: "038_baby_brown.png",
     item: CollectibleType.DIRTY_MIND,
   },
-  {
+  [RandomBabyType.NOOSE]: {
     name: "Noose Baby",
     description: "Don't shoot when the timer reaches 0",
     sprite: "039_baby_noose.png",
     time: 6 * 30, // 6 seconds (in game frames)
   },
-  {
+  [RandomBabyType.HIVE]: {
     name: "Hive Baby",
     description: "Starts with Hive Mind + max Blue Flies + max Blue Spiders",
     sprite: "040_baby_hive.png",
     item: CollectibleType.HIVE_MIND,
   },
-  {
+  [RandomBabyType.BUDDY]: {
     name: "Buddy Baby",
     description: "Removes a heart container on hit",
     sprite: "041_baby_buddy.png",
   },
-  {
+  [RandomBabyType.COLORFUL]: {
     name: "Colorful Baby",
     description: "Acid trip",
     sprite: "042_baby_colorful.png",
   },
-  {
+  [RandomBabyType.WHORE]: {
     name: "Whore Baby",
     description: "All enemies explode",
     sprite: "043_baby_whore.png",
   },
-  {
+  [RandomBabyType.CRACKED]: {
     name: "Cracked Baby",
     description: "Starts with Cracked Dice",
     sprite: "044_baby_cracked.png",
     trinket: TrinketType.CRACKED_DICE,
   },
-  {
+  [RandomBabyType.DRIPPING]: {
     name: "Dripping Baby",
     description: "Starts with Isaac's Heart",
     sprite: "045_baby_dripping.png",
     item: CollectibleType.ISAACS_HEART,
   },
-  {
+  [RandomBabyType.BLINDING]: {
     name: "Blinding Baby",
     description: "Spawns a Sun Card on hit",
     sprite: "046_baby_blinding.png",
   },
-  {
+  [RandomBabyType.SUCKY]: {
     name: "Sucky Baby",
     description: "Succubus aura",
     sprite: "047_baby_sucky.png",
     item: CollectibleType.SUCCUBUS,
   },
-  {
+  [RandomBabyType.DARK]: {
     name: "Dark Baby",
     description: "Temporary blindness",
     sprite: "048_baby_dark.png",
     num: 110,
   },
-  {
+  [RandomBabyType.PICKY]: {
     name: "Picky Baby",
     description: "Starts with More Options",
     sprite: "049_baby_picky.png",
     item: CollectibleType.MORE_OPTIONS,
   },
-  {
+  [RandomBabyType.REVENGE]: {
     name: "Revenge Baby",
     description: "Spawns a random heart on hit",
     sprite: "050_baby_revenge.png",
   },
-  {
+  [RandomBabyType.BELIAL]: {
     name: "Belial Baby",
     description: "Starts with Azazel-style Brimstone + flight",
     sprite: "051_baby_belial.png",
@@ -318,119 +319,119 @@ export const BABIES: readonly BabyDescription[] = [
     flight: true,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.SALE]: {
     name: "Sale Baby",
     description: "Starts with Steam Sale",
     sprite: "052_baby_sale.png",
     item: CollectibleType.STEAM_SALE,
   },
-  {
+  [RandomBabyType.GOAT_HEAD]: {
     name: "Goat Head Baby",
     description: "Starts with Goat Head",
     sprite: "053_baby_goatbaby.png",
     item: CollectibleType.GOAT_HEAD,
   },
-  {
+  [RandomBabyType.SUPER_GREED]: {
     name: "Super Greed Baby",
     description: "Midas tears",
     sprite: "054_baby_super greedbaby.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.MORT]: {
     name: "Mort Baby",
     description: "Guppy tears",
     sprite: "055_baby_mort.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.APOLLYON]: {
     name: "Apollyon Baby",
     description: "Black rune effect on hit",
     sprite: "056_baby_apollyon.png",
   },
-  {
+  [RandomBabyType.BONE]: {
     // The achievement is called "Bone Baby" while the sprite filename is called "baby_boner".
     name: "Bone Baby",
     description: "Starts with Brittle Bones",
     sprite: "057_baby_boner.png",
     item: CollectibleType.BRITTLE_BONES,
   },
-  {
+  [RandomBabyType.BOUND]: {
     name: "Bound Baby",
     description: "Monster Manual effect every 7 seconds",
     sprite: "058_baby_bound.png",
   },
-  {
+  [RandomBabyType.BIG_EYES]: {
     name: "Big Eyes Baby",
     description: "Tears cause self-knockback",
     sprite: "059_baby_bigeyes.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.SLEEP]: {
     name: "Sleep Baby",
     description: "Starts with Broken Modem",
     sprite: "060_baby_sleep.png",
     item: CollectibleType.BROKEN_MODEM,
   },
-  {
+  [RandomBabyType.ZOMBIE]: {
     name: "Zombie Baby",
     description: "Brings back enemies from the dead",
     sprite: "061_baby_zombie.png",
   },
-  {
+  [RandomBabyType.GOAT]: {
     name: "Goat Baby",
     description: "Guaranteed Devil Room + Angel Room after 6 hits",
     sprite: "062_baby_goat.png",
     numHits: 6,
   },
-  {
+  [RandomBabyType.BUTTHOLE]: {
     name: "Butthole Baby",
     description: "Spawns a random poop every 5 seconds",
     sprite: "063_baby_butthole.png",
   },
-  {
+  [RandomBabyType.EYE_PATCH]: {
     name: "Eye Patch Baby",
     description: "Starts with Callus + makes spikes",
     sprite: "064_baby_eyepatch.png",
     trinket: TrinketType.CALLUS,
   },
-  {
+  [RandomBabyType.BLOOD_EYES]: {
     name: "Blood Eyes Baby",
     description: "Starts with Haemolacria",
     sprite: "065_baby_bloodeyes.png",
     item: CollectibleType.HAEMOLACRIA,
   },
-  {
+  [RandomBabyType.MUSTACHE]: {
     name: "Mustache Baby",
     description: "Boomerang tears",
     sprite: "066_baby_mustache.png",
     mustHaveTears: true,
     softlockPreventionDestroyPoops: true, // Boomerangs cannot kill poops
   },
-  {
+  [RandomBabyType.SPITTLE]: {
     name: "Spittle Baby",
     description: "Starts with Dead Onion",
     sprite: "067_baby_spittle.png",
     item: CollectibleType.DEAD_ONION,
   },
-  {
+  [RandomBabyType.BRIAN]: {
     name: "Brain Baby",
     description: "Starts with The Mind",
     sprite: "068_baby_brain.png",
     item: CollectibleType.MIND,
   },
-  {
+  [RandomBabyType.THREE_EYES]: {
     name: "3 Eyes Baby",
     description: "Starts with The Inner Eye",
     sprite: "069_baby_threeeyes.png",
     item: CollectibleType.INNER_EYE,
   },
-  {
+  [RandomBabyType.VIRIDIAN]: {
     name: "Viridian Baby",
     description: "Starts with How to Jump",
     sprite: "070_baby_viridian.png",
     item: CollectibleType.HOW_TO_JUMP,
   },
-  {
+  [RandomBabyType.BLOCKHEAD]: {
     name: "Blockhead Baby",
     description: "Starts with Dr. Fetus + Soy Milk + explosion immunity",
     sprite: "071_baby_blockhead.png",
@@ -438,81 +439,81 @@ export const BABIES: readonly BabyDescription[] = [
     item2: CollectibleType.SOY_MILK,
     explosionImmunity: true,
   },
-  {
+  [RandomBabyType.WORM]: {
     name: "Worm Baby",
     description: "Starts with 5x Little Chubby",
     sprite: "072_baby_worm.png",
     item: CollectibleType.LITTLE_CHUBBY,
     itemNum: 5,
   },
-  {
+  [RandomBabyType.LOWFACE]: {
     name: "Lowface Baby",
     description: "0.5x range",
     sprite: "073_baby_lowface.png",
   },
-  {
+  [RandomBabyType.ALIEN_HOMINID]: {
     name: "Alien Hominid Baby",
     description: "Starts with beam sword tears",
     sprite: "074_baby_alienhominid.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.BOMB]: {
     name: "Bomb Baby",
     description: "50% chance for bombs to have the D6 effect",
     sprite: "075_baby_bomb.png",
     requireBombs: true,
   },
-  {
+  [RandomBabyType.VIDEO]: {
     name: "Video Baby",
     description: "Starts with Tech X",
     sprite: "076_baby_video.png",
     item: CollectibleType.TECH_X,
   },
-  {
+  [RandomBabyType.PARASITE]: {
     name: "Parasite Baby",
     description: "Starts with The Parasite",
     sprite: "077_baby_parasite.png",
     item: CollectibleType.PARASITE,
   },
-  {
+  [RandomBabyType.DERP]: {
     name: "Derp Baby",
     description: "Starts with Cube of Meat + BFFS! + 0.5x damage",
     sprite: "078_baby_derp.png",
     item: CollectibleType.CUBE_OF_MEAT,
     item2: CollectibleType.BFFS,
   },
-  {
+  [RandomBabyType.LOBOTOMY]: {
     name: "Lobotomy Baby",
     description: "Starts with Delirious",
     sprite: "079_baby_lobotomy.png",
     item: CollectibleType.DELIRIOUS,
   },
-  {
+  [RandomBabyType.CHOKE]: {
     name: "Choke Baby",
     description: "Starts with Kidney Stone",
     sprite: "080_baby_choke.png",
     item: CollectibleType.KIDNEY_STONE,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.SCREAM]: {
     name: "Scream Baby",
     description: "Shoop tears",
     sprite: "081_baby_scream.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.GURDY]: {
     name: "Gurdy Baby",
     description: "Starts with 20x Lil Gurdy",
     sprite: "082_baby_gurdy.png",
     item: CollectibleType.LIL_GURDY,
     itemNum: 20,
   },
-  {
+  [RandomBabyType.GHOUL]: {
     name: "Ghoul Baby",
     description: "Book of Secrets effect on hit",
     sprite: "083_baby_ghoul.png",
   },
-  {
+  [RandomBabyType.GOATEE]: {
     name: "Goatee Baby",
     description: "Starts with Death's Touch and Lachryphagy",
     sprite: "084_baby_goatee.png",
@@ -520,88 +521,88 @@ export const BABIES: readonly BabyDescription[] = [
     item2: CollectibleType.LACHRYPHAGY,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.SHADES]: {
     name: "Shades Baby",
     description: "Starts with X-Ray Vision",
     sprite: "085_baby_shades.png",
     item: CollectibleType.XRAY_VISION,
   },
-  {
+  [RandomBabyType.STATUE]: {
     name: "Statue Baby",
     description: "Starts with Duality",
     sprite: "086_baby_statue.png",
     item: CollectibleType.DUALITY,
   },
-  {
+  [RandomBabyType.BLOODSUCKER]: {
     name: "Bloodsucker Baby",
     description: "Starts with 3x Lil Delirium",
     sprite: "087_baby_bloodsucker.png",
     item: CollectibleType.LIL_DELIRIUM,
     itemNum: 3,
   },
-  {
+  [RandomBabyType.BANDAID]: {
     name: "Bandaid Baby",
     description: "Spawns a random pedestal item on room clear",
     sprite: "088_baby_bandaid.png",
   },
-  {
+  [RandomBabyType.EYEBROWS]: {
     name: "Eyebrows Baby",
     description: "Starts with Guppy's Hair Ball",
     sprite: "089_baby_eyebrows.png",
     item: CollectibleType.GUPPYS_HAIRBALL,
   },
-  {
+  [RandomBabyType.NERD]: {
     name: "Nerd Baby",
     description: "Locked doors in uncleared rooms",
     sprite: "090_baby_nerd.png",
     requireKeys: true,
   },
-  {
+  [RandomBabyType.BOSS]: {
     name: "Boss Baby",
     description: "Starts with There's Options",
     sprite: "091_baby_boss.png",
     item: CollectibleType.THERES_OPTIONS,
   },
-  {
+  [RandomBabyType.TURD]: {
     name: "Turd Baby",
     description: "Enemies fart on death",
     sprite: "092_baby_turd.png",
   },
-  {
+  [RandomBabyType.O]: {
     name: "O Baby",
     description: "Starts with Tiny Planet",
     sprite: "093_baby_o.png",
     item: CollectibleType.TINY_PLANET,
   },
-  {
+  [RandomBabyType.SQUARE_EYES]: {
     name: "Square Eyes Baby",
     description: "Square tears",
     sprite: "094_baby_squareeyes.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.TEETH]: {
     name: "Teeth Baby",
     description: "Starts with Lemegeton",
     sprite: "095_baby_teeth.png",
     item: CollectibleType.LEMEGETON,
   },
-  {
+  [RandomBabyType.FROWN]: {
     name: "Frown Baby",
     description: "Summons Best Friend every 5 seconds",
     sprite: "096_baby_frown.png",
   },
-  {
+  [RandomBabyType.TONGUE]: {
     name: "Tongue Baby",
     description: "Recharge bombs",
     sprite: "097_baby_tongue.png",
     requireBombs: true,
   },
-  {
+  [RandomBabyType.HALF_HEAD]: {
     name: "Half Head Baby",
     description: "Takes 2x damage",
     sprite: "098_baby_halfhead.png",
   },
-  {
+  [RandomBabyType.MAKEUP]: {
     name: "Makeup Baby",
     description: "7-shot",
     sprite: "099_baby_makeup.png",
@@ -609,104 +610,104 @@ export const BABIES: readonly BabyDescription[] = [
     itemNum: 6,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.ED]: {
     name: "Ed Baby",
     description: "Fire trail tears",
     sprite: "100_baby_ed.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.D]: {
     name: "D Baby",
     description: "Spawns creep on hit (improved)",
     sprite: "101_baby_d.png",
   },
-  {
+  [RandomBabyType.GUPPY]: {
     name: "Guppy Baby",
     description: "Starts with Guppy's Head",
     sprite: "102_baby_guppy.png",
     item: CollectibleType.GUPPYS_HEAD,
   },
-  {
+  [RandomBabyType.PUKE]: {
     name: "Puke Baby",
     description: "Starts with Ipecac",
     sprite: "103_baby_puke.png",
     item: CollectibleType.IPECAC,
   },
-  {
+  [RandomBabyType.DUMB]: {
     name: "Dumb Baby",
     description: "Starts with No. 2",
     sprite: "104_baby_dumb.png",
     item: CollectibleType.NUMBER_TWO,
   },
-  {
+  [RandomBabyType.LIPSTICK]: {
     name: "Lipstick Baby",
     description: "2x range",
     sprite: "105_baby_lipstick.png",
   },
-  {
+  [RandomBabyType.AETHER]: {
     name: "Aether Baby",
     description: "All direction tears",
     sprite: "106_baby_aether.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.BROWNIE]: {
     name: "Brownie Baby",
     description: "Starts with Level 4 Meatboy + Level 4 Meatgirl",
     sprite: "107_baby_brownie.png",
     num: 4,
   },
-  {
+  [RandomBabyType.VVVVVV]: {
     name: "VVVVVV Baby",
     description: "Starts with Anti-Gravity",
     sprite: "108_baby_vvvvvv.png",
     item: CollectibleType.ANTI_GRAVITY,
   },
-  {
+  [RandomBabyType.NOSFERATU]: {
     name: "Nosferatu Baby",
     description: "Enemies have homing projectiles",
     sprite: "109_baby_nosferatu.png",
   },
-  {
+  [RandomBabyType.PUBIC]: {
     name: "Pubic Baby",
     description: "Must full clear",
     sprite: "110_baby_pubic.png",
   },
-  {
+  [RandomBabyType.EYEMOUTH]: {
     name: "Eyemouth Baby",
     description: "Shoots an extra tear every 3rd shot",
     sprite: "111_baby_eyemouth.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.WEIRDO]: {
     name: "Weirdo Baby",
     description: "Starts with The Ludovico Technique",
     sprite: "112_baby_weirdo.png",
     item: CollectibleType.LUDOVICO_TECHNIQUE,
   },
-  {
+  [RandomBabyType.V]: {
     name: "V Baby",
     description: "Electric ring tears",
     sprite: "113_baby_v.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.STRANGE_MOUTH]: {
     name: "Strange Mouth Baby",
     description: "Wiggle tears",
     sprite: "114_baby_strangemouth.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.MASKED]: {
     name: "Masked Baby",
     description: "Can't shoot while moving",
     sprite: "115_baby_masked.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.CYBER]: {
     name: "Cyber Baby",
     description: "Spawns a random pickup on hit",
     sprite: "116_baby_cyber.png",
   },
-  {
+  [RandomBabyType.AXE_WOUND]: {
     name: "Axe Wound Baby",
     description: "Starts with Sacrificial Dagger + flight",
     description2: "+ explosion immunity + blindfolded",
@@ -716,247 +717,247 @@ export const BABIES: readonly BabyDescription[] = [
     explosionImmunity: true,
     blindfolded: true,
   },
-  {
+  [RandomBabyType.STATUE_2]: {
     name: "Statue Baby 2",
     description: "Improved Secret Rooms",
     sprite: "118_baby_statue.png",
     num: 4, // Number of collectibles
   },
-  {
+  [RandomBabyType.GRIN]: {
     name: "Grin Baby",
     description: "Starts with Godhead",
     sprite: "119_baby_grin.png",
     item: CollectibleType.GODHEAD,
   },
-  {
+  [RandomBabyType.UPSET]: {
     name: "Upset Baby",
     description: "Starts with Sad Bombs",
     sprite: "120_baby_upset.png",
     item: CollectibleType.SAD_BOMBS,
     requireBombs: true,
   },
-  {
+  [RandomBabyType.PLASTIC]: {
     name: "Plastic Baby",
     description: "Starts with Rubber Cement",
     sprite: "121_baby_plastic.png",
     item: CollectibleType.RUBBER_CEMENT,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.MONOCHROME]: {
     name: "Monochrome Baby",
     description: "Starts with Dead Eye",
     sprite: "122_baby_monochrome.png",
     item: CollectibleType.DEAD_EYE,
   },
-  {
+  [RandomBabyType.ONE_TOOTH]: {
     name: "One Tooth Baby",
     description: "Starts with Rainbow Worm",
     sprite: "123_baby_onetooth.png",
     trinket: TrinketType.RAINBOW_WORM,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.TUSKS]: {
     name: "Tusks Baby",
     description: "2x damage",
     sprite: "124_baby_tusks.png",
   },
-  {
+  [RandomBabyType.HOPELESS]: {
     name: "Hopeless Baby",
     description: "+2 keys + keys are hearts",
     sprite: "125_baby_hopeless.png",
   },
-  {
+  [RandomBabyType.BIG_MOUTH]: {
     name: "Big Mouth Baby",
     description: "Starts with 10x Jaw Bone",
     sprite: "126_baby_bigmouth.png",
     item: CollectibleType.JAW_BONE,
     itemNum: 10,
   },
-  {
+  [RandomBabyType.PEE_EYES]: {
     name: "Pee Eyes Baby",
     description: "Starts with Number One",
     sprite: "127_baby_peeeyes.png",
     item: CollectibleType.NUMBER_ONE,
   },
-  {
+  [RandomBabyType.EARWIG]: {
     name: "Earwig Baby",
     description: "3 rooms are already explored",
     sprite: "128_baby_earwig.png",
     num: 3, // The amount of rooms explored
   },
-  {
+  [RandomBabyType.NINKUMPOOP]: {
     name: "Ninkumpoop Baby",
     description: "Starts with Ouroboros Worm",
     sprite: "129_baby_ninkumpoop.png",
     trinket: TrinketType.OUROBOROS_WORM,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.STRANGE_SHAPE]: {
     name: "Strange Shape Baby",
     description: "Pulsing tears",
     sprite: "130_baby_strangeshape.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.BUGEYED]: {
     name: "Bugeyed Baby",
     description: "Pickups turn into Blue Spiders",
     sprite: "131_baby_bugeyed.png",
   },
-  {
+  [RandomBabyType.FREAKY]: {
     name: "Freaky Baby",
     description: "Converter effect on hit",
     sprite: "132_baby_freaky.png",
   },
-  {
+  [RandomBabyType.CROOKED]: {
     name: "Crooked Baby",
     description: "Tears angled by 15 degrees to the left",
     sprite: "133_baby_crooked.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.SPIDER_LEGS]: {
     name: "Spider Legs Baby",
     description: "Starts with 15x Sissy Longlegs",
     sprite: "134_baby_spiderlegs.png",
     item: CollectibleType.SISSY_LONGLEGS,
     itemNum: 15,
   },
-  {
+  [RandomBabyType.SMILING]: {
     name: "Smiling Baby",
     description: "Starts with Sacred Heart",
     sprite: "135_baby_smiling.png",
     item: CollectibleType.SACRED_HEART,
   },
-  {
+  [RandomBabyType.TEARS]: {
     name: "Tears Baby",
     description: "Starts with the Paschal Candle",
     sprite: "136_baby_tears.png",
     item: CollectibleType.PASCHAL_CANDLE,
   },
-  {
+  [RandomBabyType.BOWLING]: {
     name: "Bowling Baby",
     description: "Starts with Flat Stone",
     sprite: "137_baby_bowling.png",
     item: CollectibleType.FLAT_STONE,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.MOHAWK]: {
     name: "Mohawk Baby",
     description: "+2 bombs + bombs are hearts",
     sprite: "138_baby_mohawk.png",
   },
-  {
+  [RandomBabyType.ROTTEN_MEAT]: {
     name: "Rotten Meat Baby",
     description: "Teleport to starting room on hit",
     sprite: "139_baby_rottenmeat.png",
   },
-  {
+  [RandomBabyType.NO_ARMS]: {
     name: "No Arms Baby",
     description: "Pickups are bouncy",
     sprite: "140_baby_noarms.png",
   },
-  {
+  [RandomBabyType.TWIN]: {
     name: "Twin Baby",
     description: "Uncontrollable Teleport 2.0",
     sprite: "141_baby_twin2.png",
   },
-  {
+  [RandomBabyType.UGLY_GIRL]: {
     name: "Ugly Girl Baby",
     description: "Starts with Ipecac + Dr. Fetus",
     sprite: "142_baby_uglygirl.png",
     item: CollectibleType.IPECAC,
     item2: CollectibleType.DR_FETUS,
   },
-  {
+  [RandomBabyType.CHOMPERS]: {
     name: "Chompers Baby",
     description: "Everything is Red Poop",
     sprite: "143_baby_chompers.png",
   },
-  {
+  [RandomBabyType.CAMILLO_JR]: {
     name: "Camillo Jr. Baby",
     description: "Starts with Tech.5",
     sprite: "144_baby_camillojr.png",
     item: CollectibleType.TECH_5,
   },
-  {
+  [RandomBabyType.EYELESS]: {
     name: "Eyeless Baby",
     description: "Starts with 20x The Peeper",
     sprite: "145_baby_eyeless.png",
     item: CollectibleType.PEEPER,
     itemNum: 20,
   },
-  {
+  [RandomBabyType.SLOPPY]: {
     name: "Sloppy Baby",
     description: "Starts with Epic Fetus (improved)",
     sprite: "146_baby_sloppy.png",
     item: CollectibleType.EPIC_FETUS,
   },
-  {
+  [RandomBabyType.BLUEBIRD]: {
     name: "Bluebird Baby",
     description: "Touching items/pickups causes paralysis",
     sprite: "147_baby_bluebird.png",
   },
-  {
+  [RandomBabyType.FAT]: {
     name: "Fat Baby",
     description: "Necronomicon effect on hit",
     sprite: "148_baby_fat.png",
   },
-  {
+  [RandomBabyType.BUTTERFLY]: {
     name: "Butterfly Baby",
     description: "Improved Super Secret Rooms",
     sprite: "149_baby_butterfly.png",
     num: 4, // Number of collectibles
   },
-  {
+  [RandomBabyType.GOGGLES]: {
     name: "Goggles Baby",
     description: "Starts with 20/20",
     sprite: "150_baby_goggles.png",
     item: CollectibleType.TWENTY_TWENTY,
   },
-  {
+  [RandomBabyType.APATHETIC]: {
     name: "Apathetic Baby",
     description: "Starts with Diplopia",
     sprite: "151_baby_apathetic.png",
     item: CollectibleType.DIPLOPIA,
   },
-  {
+  [RandomBabyType.CAPE]: {
     name: "Cape Baby",
     description: "Spray tears",
     sprite: "152_baby_cape.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.SORROW]: {
     name: "Sorrow Baby",
     description: "Projectiles are reflected as bombs",
     sprite: "153_baby_sorrow.png",
     distance: 50,
   },
-  {
+  [RandomBabyType.RICTUS]: {
     name: "Rictus Baby",
     description: "Scared pickups",
     sprite: "154_baby_rictus.png",
   },
-  {
+  [RandomBabyType.AWAKEN]: {
     name: "Awaken Baby",
     description: "Constant Telekinesis effect",
     sprite: "155_baby_awaken.png",
   },
-  {
+  [RandomBabyType.PUFF]: {
     name: "Puff Baby",
     description: "Mega Bean effect every 5 seconds",
     sprite: "156_baby_puff.png",
   },
-  {
+  [RandomBabyType.ATTRACTIVE]: {
     name: "Attractive Baby",
     description: "All enemies are permanently charmed",
     sprite: "157_baby_attractive.png",
     seed: SeedEffect.ALWAYS_CHARMED,
   },
-  {
+  [RandomBabyType.PRETTY]: {
     name: "Pretty Baby",
     description: "All special rooms are Angel Shops",
     sprite: "158_baby_pretty.png",
   },
-  {
+  [RandomBabyType.CRACKED_INFAMY]: {
     name: "Cracked Infamy Baby",
     description: "Starts with Dr. Fetus + Remote Detonator",
     sprite: "159_baby_crackedinfamy.png",
@@ -964,355 +965,355 @@ export const BABIES: readonly BabyDescription[] = [
     item2: CollectibleType.DR_FETUS,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.DISTENDED]: {
     name: "Distended Baby",
     description: "Starts with Contagion",
     sprite: "160_baby_distended.png",
     item: CollectibleType.CONTAGION,
   },
-  {
+  [RandomBabyType.MEAN]: {
     name: "Mean Baby",
     description: "Starts with Epic Fetus",
     sprite: "161_baby_mean.png",
     item: CollectibleType.EPIC_FETUS,
   },
-  {
+  [RandomBabyType.DIGITAL]: {
     name: "Digital Baby",
     description: "B00B T00B",
     sprite: "162_baby_digital.png",
     // This baby grants SeedEffect.OLD_TV. However, applying this in the PostNewLevel callback can
     // cause game crashes. Instead, we manually apply it in the PostUpdate callback.
   },
-  {
+  [RandomBabyType.HELMET]: {
     name: "Helmet Baby",
     description: "Invulnerability when standing still",
     sprite: "163_baby_helmet.png",
   },
-  {
+  [RandomBabyType.BLACK_EYE]: {
     name: "Black Eye Baby",
     description: "Starts with Leprosy, +5 damage on Leprosy breaking",
     sprite: "164_baby_blackeye.png",
     item: CollectibleType.LEPROSY,
     num: 5,
   },
-  {
+  [RandomBabyType.LIGHTS]: {
     name: "Lights Baby",
     description: "Holy tears",
     sprite: "165_baby_lights.png",
     num: 3,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.SPIKE]: {
     name: "Spike Baby",
     description: "All chests are Mimics + all chests have items",
     sprite: "166_baby_spike.png",
   },
-  {
+  [RandomBabyType.WORRY]: {
     name: "Worry Baby",
     description: "Touching items/pickups causes teleportation",
     sprite: "167_baby_worry.png",
     num: 1, // The number of frames in the future to teleport after touching a pickup
   },
-  {
+  [RandomBabyType.EARS]: {
     name: "Ears Baby",
     description: "Starts with 3x Mystery Sack",
     sprite: "168_baby_ears.png",
     item: CollectibleType.MYSTERY_SACK,
     itemNum: 3,
   },
-  {
+  [RandomBabyType.FUNERAL]: {
     name: "Funeral Baby",
     description: "Starts with Death's Touch",
     sprite: "169_baby_funeral.png",
     item: CollectibleType.DEATHS_TOUCH,
   },
-  {
+  [RandomBabyType.LIBRA]: {
     name: "Libra Baby",
     description: "Starts with Libra",
     sprite: "170_baby_libra.png",
     item: CollectibleType.LIBRA,
   },
-  {
+  [RandomBabyType.GAPPY]: {
     name: "Gappy Baby",
     description: "Destroying machines gives items",
     sprite: "171_baby_gappy.png",
   },
-  {
+  [RandomBabyType.SUNBURN]: {
     name: "Sunburn Baby",
     description: "Starts with Ghost Pepper",
     sprite: "172_baby_sunburn.png",
     item: CollectibleType.GHOST_PEPPER,
   },
-  {
+  [RandomBabyType.ATE_POOP]: {
     name: "Ate Poop Baby",
     description: "Destroying poops spawns random pickups",
     sprite: "173_baby_atepoop.png",
   },
-  {
+  [RandomBabyType.ELECTRIC]: {
     name: "Electric Baby",
     description: "Starts with Jacob's Ladder",
     sprite: "174_baby_electris.png",
     item: CollectibleType.JACOBS_LADDER,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.BLOOD_HOLE]: {
     name: "Blood Hole Baby",
     description: "Starts with Proptosis",
     sprite: "175_baby_bloodhole.png",
     item: CollectibleType.PROPTOSIS,
   },
-  {
+  [RandomBabyType.TRANSFORMING]: {
     name: "Transforming Baby",
     description: "Starts with Technology Zero",
     sprite: "176_baby_transforming.png",
     item: CollectibleType.TECHNOLOGY_ZERO,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.ABAN]: {
     name: "Aban Baby",
     description: "+2 coins + Sonic-style health",
     sprite: "177_baby_aban.png",
   },
-  {
+  [RandomBabyType.BANDAGE_GIRL]: {
     name: "Bandage Girl Baby",
     description: "Starts with Cube of Meat + Ball of Bandages",
     sprite: "178_baby_bandagegirl.png",
     item: CollectibleType.CUBE_OF_MEAT,
     item2: CollectibleType.BALL_OF_BANDAGES,
   },
-  {
+  [RandomBabyType.PIECE_A]: {
     name: "Piece A Baby",
     description: "Can only move up + down + left + right",
     sprite: "179_baby_piecea.png",
   },
-  {
+  [RandomBabyType.PIECE_B]: {
     name: "Piece B Baby",
     description: "Starts with Charging Station",
     sprite: "180_baby_pieceb.png",
     item: CollectibleTypeCustom.CHARGING_STATION,
     requireCoins: true,
   },
-  {
+  [RandomBabyType.SPELUNKER]: {
     name: "Spelunker Baby",
     description: "Starts with Stud Finder; Crawlspace --> Black Market",
     sprite: "181_baby_spelunker.png",
     trinket: TrinketType.STUD_FINDER,
   },
-  {
+  [RandomBabyType.FROG]: {
     name: "Frog Baby",
     description: "Starts with Scorpio",
     sprite: "182_baby_frog.png",
     item: CollectibleType.SCORPIO,
   },
-  {
+  [RandomBabyType.CROOK]: {
     name: "Crook Baby",
     description: "Starts with Mr. ME!",
     sprite: "183_baby_crook.png",
     item: CollectibleType.MR_ME,
   },
-  {
+  [RandomBabyType.DON]: {
     name: "Don Baby",
     description: "Starts with Bob's Brain",
     sprite: "184_baby_don.png",
     item: CollectibleType.BOBS_BRAIN,
   },
-  {
+  [RandomBabyType.WEB]: {
     name: "Web Baby",
     description: "Slow tears",
     sprite: "185_baby_web.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.FADED]: {
     name: "Faded Baby",
     description: "Random teleport on hit",
     sprite: "186_baby_faded.png",
   },
-  {
+  [RandomBabyType.SICK]: {
     name: "Sick Baby",
     description: "Shoots explosive flies + flight",
     sprite: "187_baby_sick.png",
     flight: true,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.DR_FETUS]: {
     name: "Dr. Fetus Baby",
     description: "Starts with Dr. Fetus",
     sprite: "188_baby_drfetus.png",
     item: CollectibleType.DR_FETUS,
   },
-  {
+  [RandomBabyType.SPECTRAL]: {
     name: "Spectral Baby",
     description: "Starts with Ouija Board",
     sprite: "189_baby_spectral.png",
     item: CollectibleType.OUIJA_BOARD,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.RED_SKELETON]: {
     name: "Red Skeleton Baby",
     description: "Starts with 3x Slipped Rib",
     sprite: "190_baby_redskeleton.png",
     item: CollectibleType.SLIPPED_RIB,
     itemNum: 3,
   },
-  {
+  [RandomBabyType.SKELETON]: {
     name: "Skeleton Baby",
     description: "Starts with Compound Fracture",
     sprite: "191_baby_skeleton.png",
     item: CollectibleType.COMPOUND_FRACTURE,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.JAMMIES]: {
     name: "Jammies Baby",
     description: "Extra charge on room clear",
     sprite: "192_baby_jammies.png",
   },
-  {
+  [RandomBabyType.NEW_JAMMIES]: {
     name: "New Jammies Baby",
     description: "Starts with 5x Big Chubby",
     sprite: "193_baby_newjammies.png",
     item: CollectibleType.BIG_CHUBBY,
     itemNum: 5,
   },
-  {
+  [RandomBabyType.COLD]: {
     name: "Cold Baby",
     description: "Freeze tears",
     sprite: "194_baby_cold.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.OLD_MAN]: {
     name: "Old Man Baby",
     description: "Starts with Dad's Key",
     sprite: "195_baby_oldman.png",
     item: CollectibleType.DADS_KEY,
   },
-  {
+  [RandomBabyType.SPOOKED]: {
     name: "Spooked Baby",
     description: "All enemies are permanently feared",
     sprite: "196_baby_spooked.png",
     seed: SeedEffect.ALWAYS_AFRAID,
   },
-  {
+  [RandomBabyType.NICE]: {
     name: "Nice Baby",
     description: "Brimstone tears",
     sprite: "197_baby_nice.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.DOTS]: {
     name: "Dots Baby",
     description: "Starts with Cricket's Body",
     sprite: "198_baby_dots.png",
     item: CollectibleType.CRICKETS_BODY,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.PEELING]: {
     name: "Peeling Baby",
     description: "Starts with Potato Peeler",
     sprite: "199_baby_peeling.png",
     item: CollectibleType.POTATO_PEELER,
   },
-  {
+  [RandomBabyType.SMALL_FACE]: {
     name: "Small Face Baby",
     description: "My Little Unicorn effect on hit",
     sprite: "200_baby_smallface.png",
   },
-  {
+  [RandomBabyType.GOOD]: {
     name: "Good Baby",
     description: "Starts with 15x Seraphim",
     sprite: "201_baby_good.png",
     item: CollectibleType.SERAPHIM,
     itemNum: 15,
   },
-  {
+  [RandomBabyType.BLINDFOLD]: {
     name: "Blindfold Baby",
     description: "Starts with Incubus + blindfolded",
     sprite: "202_baby_blindfold.png",
     item: CollectibleType.INCUBUS,
     blindfolded: true,
   },
-  {
+  [RandomBabyType.PIPE]: {
     name: "Pipe Baby",
     description: "Starts with Tractor Beam",
     sprite: "203_baby_pipe.png",
     item: CollectibleType.TRACTOR_BEAM,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.DENTED]: {
     name: "Dented Baby",
     description: "Spawns a random key on hit",
     sprite: "204_baby_dented.png",
   },
-  {
+  [RandomBabyType.STEVEN]: {
     name: "Steven Baby",
     description: "Starts with 20x Little Steven",
     sprite: "205_baby_steven.png",
     item: CollectibleType.LITTLE_STEVEN,
     itemNum: 20,
   },
-  {
+  [RandomBabyType.MONOCLE]: {
     name: "Monocle Baby",
     description: "3x tear size",
     sprite: "206_baby_monocle.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.BELIAL_2]: {
     name: "Belial Baby 2",
     description: "Starts with Eye of Belial",
     sprite: "207_baby_belial.png",
     item: CollectibleType.EYE_OF_BELIAL,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.MONSTRO]: {
     name: "Monstro Baby",
     description: "Starts with 5x Lil Monstro",
     sprite: "208_baby_monstro.png",
     item: CollectibleType.LIL_MONSTRO,
     itemNum: 5,
   },
-  {
+  [RandomBabyType.FEZ]: {
     name: "Fez Baby",
     description: "Starts with The Book of Belial",
     sprite: "209_baby_fez.png",
     item: CollectibleType.BOOK_OF_BELIAL,
   },
-  {
+  [RandomBabyType.MEATBOY]: {
     name: "MeatBoy Baby",
     description: "Potato Peeler effect on hit",
     sprite: "210_baby_meatboy.png",
   },
-  {
+  [RandomBabyType.SKULL]: {
     name: "Skull Baby",
     description: "Shockwave bombs",
     sprite: "211_baby_skull.png",
     requireBombs: true,
   },
-  {
+  [RandomBabyType.CONJOINED]: {
     name: "Conjoined Baby",
     description: "Doors open on hit",
     sprite: "212_baby_conjoined.png",
   },
-  {
+  [RandomBabyType.SKINNY]: {
     name: "Skinny Baby",
     description: "Super homing tears",
     sprite: "213_baby_skinny.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.BASIC_SPIDER]: {
     name: "Basic Spider Baby",
     description: "Starts with Mutant Spider",
     sprite: "214_baby_spider.png",
     item: CollectibleType.MUTANT_SPIDER,
   },
-  {
+  [RandomBabyType.SHOPKEEPER]: {
     name: "Shopkeeper Baby",
     description: "Free shop items",
     sprite: "215_baby_shopkeeper.png",
   },
-  {
+  [RandomBabyType.FANCY]: {
     name: "Fancy Baby",
     description: "Can purchase teleports to special rooms",
     sprite: "216_baby_fancy.png",
   },
-  {
+  [RandomBabyType.CHUBBY]: {
     name: "Chubby Baby",
     description: "Starts with Technology Zero + Tiny Planet",
     sprite: "217_baby_chubby.png",
@@ -1320,110 +1321,110 @@ export const BABIES: readonly BabyDescription[] = [
     item2: CollectibleType.TINY_PLANET,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.CYCLOPS]: {
     name: "Cyclops Baby",
     description: "Starts with Polyphemus",
     sprite: "218_baby_cyclops.png",
     item: CollectibleType.POLYPHEMUS,
   },
-  {
+  [RandomBabyType.ISAAC]: {
     name: "Isaac Baby",
     description: "Starts with The Battery",
     sprite: "219_baby_isaac.png",
     item: CollectibleType.BATTERY,
   },
-  {
+  [RandomBabyType.PLUG]: {
     name: "Plug Baby",
     description: "Starts with the Sharp Plug",
     sprite: "220_baby_plug.png",
     item: CollectibleType.SHARP_PLUG,
   },
-  {
+  [RandomBabyType.DROOL]: {
     name: "Drool Baby",
     description: "Starts with Monstro's Tooth (improved)",
     sprite: "221_baby_drool.png",
     item: CollectibleType.MONSTROS_TOOTH,
     num: 4, // Amount of Monstro's to summon
   },
-  {
+  [RandomBabyType.WINK]: {
     name: "Wink Baby",
     description: "Starts with Vanishing Twin",
     sprite: "222_baby_wink.png",
     item: CollectibleType.VANISHING_TWIN,
   },
-  {
+  [RandomBabyType.POX]: {
     name: "Pox Baby",
     description: "Starts with Toxic Shock",
     sprite: "223_baby_pox.png",
     item: CollectibleType.TOXIC_SHOCK,
   },
-  {
+  [RandomBabyType.ONION]: {
     name: "Onion Baby",
     description: "Projectiles have 2x speed",
     sprite: "224_baby_onion.png",
   },
-  {
+  [RandomBabyType.ZIPPER]: {
     name: "Zipper Baby",
     description: "Extra enemies spawn on hit",
     sprite: "225_baby_zipper.png",
   },
-  {
+  [RandomBabyType.BUCKTEETH]: {
     name: "Buckteeth Baby",
     description: "Starts with 15x Angry Fly",
     sprite: "226_baby_buckteeth.png",
     item: CollectibleType.ANGRY_FLY,
     itemNum: 15,
   },
-  {
+  [RandomBabyType.BEARD]: {
     name: "Beard Baby",
     description: "Starts with Ocular Rift",
     sprite: "227_baby_beard.png",
     item: CollectibleType.OCULAR_RIFT,
   },
-  {
+  [RandomBabyType.HANGER]: {
     name: "Hanger Baby",
     description: "Starts with Abel; Abel's tears hurt you",
     sprite: "228_baby_hanger.png",
     item: CollectibleType.ABEL,
   },
-  {
+  [RandomBabyType.VAMPIRE]: {
     name: "Vampire Baby",
     description: "Starts with Contract From Below",
     sprite: "229_baby_vampire.png",
     item: CollectibleType.CONTRACT_FROM_BELOW,
   },
-  {
+  [RandomBabyType.TILT]: {
     name: "Tilt Baby",
     description: "Tears angled by 15 degrees to the right",
     sprite: "230_baby_tilt.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.BAWL]: {
     name: "Bawl Baby",
     description: "Constant Isaac's Tears effect + blindfolded",
     sprite: "231_baby_bawl.png",
     blindfolded: true,
     softlockPreventionIsland: true,
   },
-  {
+  [RandomBabyType.LEMON]: {
     name: "Lemon Baby",
     description: "Starts with Lemon Mishap (improved)",
     sprite: "232_baby_lemon.png",
     item: CollectibleType.LEMON_MISHAP,
   },
-  {
+  [RandomBabyType.PUNKBOY]: {
     name: "Punkboy Baby",
     description: "Starts with The Polaroid",
     sprite: "233_baby_punkboy.png",
     item: CollectibleType.POLAROID,
   },
-  {
+  [RandomBabyType.PUNKGIRL]: {
     name: "Punkgirl Baby",
     description: "Starts with The Negative",
     sprite: "234_baby_punkgirl.png",
     item: CollectibleType.NEGATIVE,
   },
-  {
+  [RandomBabyType.COMPUTER]: {
     name: "Computer Baby",
     description: "Starts with Technology + Technology 2",
     sprite: "235_baby_computer.png",
@@ -1431,67 +1432,67 @@ export const BABIES: readonly BabyDescription[] = [
     item2: CollectibleType.TECHNOLOGY_2,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.MASK]: {
     name: "Mask Baby",
     description: "All enemies are permanently confused",
     sprite: "236_baby_mask.png",
     seed: SeedEffect.ALWAYS_CONFUSED,
   },
-  {
+  [RandomBabyType.GEM]: {
     name: "Gem Baby",
     description: "Pennies spawn as nickels",
     sprite: "237_baby_gem.png",
   },
-  {
+  [RandomBabyType.SHARK]: {
     name: "Shark Baby",
     description: "Starts with 5x Fate's Reward",
     sprite: "238_baby_shark.png",
     item: CollectibleType.FATES_REWARD,
     itemNum: 5,
   },
-  {
+  [RandomBabyType.BERET]: {
     name: "Beret Baby",
     description: "All champions",
     sprite: "239_baby_beret.png",
     seed: SeedEffect.ALL_CHAMPIONS,
     noEndFloors: true,
   },
-  {
+  [RandomBabyType.BLISTERS]: {
     name: "Blisters Baby",
     description: "Low shot speed",
     sprite: "240_baby_blisters.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.RADIOACTIVE]: {
     name: "Radioactive Baby",
     description: "Starts with Mysterious Liquid",
     sprite: "241_baby_radioactive.png",
     item: CollectibleType.MYSTERIOUS_LIQUID,
   },
-  {
+  [RandomBabyType.BEAST]: {
     name: "Beast Baby",
     description: "Random enemies",
     sprite: "242_baby_beast.png",
   },
-  {
+  [RandomBabyType.DARK_2]: {
     name: "Dark Baby 2",
     description: "Starts with Strange Attractor",
     sprite: "243_baby_dark.png",
     item: CollectibleType.STRANGE_ATTRACTOR,
   },
-  {
+  [RandomBabyType.SNAIL]: {
     name: "Snail Baby",
     description: "0.5x speed",
     sprite: "244_baby_snail.png",
   },
-  {
+  [RandomBabyType.BLOOD]: {
     name: "Blood Baby",
     description: "Starts with 5x Forever Alone",
     sprite: "245_baby_blood.png",
     item: CollectibleType.FOREVER_ALONE,
     itemNum: 5,
   },
-  {
+  [RandomBabyType.EIGHT_BALL]: {
     name: "8 Ball Baby",
     description: "Orbiting tears",
     sprite: "246_baby_8ball.png",
@@ -1499,109 +1500,109 @@ export const BABIES: readonly BabyDescription[] = [
     distance: 90,
     softlockPreventionIsland: true,
   },
-  {
+  [RandomBabyType.WISP]: {
     name: "Wisp Baby",
     description: "Starts with Crack the Sky",
     sprite: "247_baby_wisp.png",
     item: CollectibleType.CRACK_THE_SKY,
   },
-  {
+  [RandomBabyType.CACTUS]: {
     name: "Cactus Baby",
     description: "Starts with Locust of Famine",
     sprite: "248_baby_cactus.png",
     trinket: TrinketType.LOCUST_OF_FAMINE,
   },
-  {
+  [RandomBabyType.LOVE_EYE]: {
     name: "Love Eye Baby",
     description: "Falls in loves with the first enemy killed",
     sprite: "249_baby_loveeye.png",
   },
-  {
+  [RandomBabyType.MEDUSA]: {
     name: "Medusa Baby",
     description: "Coins refill bombs and keys when depleted",
     sprite: "250_baby_medusa.png",
     requireCoins: true,
   },
-  {
+  [RandomBabyType.NUCLEAR]: {
     name: "Nuclear Baby",
     description: "Mama Mega effect on hit",
     sprite: "251_baby_nuclear.png",
   },
-  {
+  [RandomBabyType.PURPLE]: {
     name: "Purple Baby",
     description: "Fires are holy",
     sprite: "252_baby_purple.png",
   },
-  {
+  [RandomBabyType.WIZARD]: {
     name: "Wizard Baby",
     description: "Most cards are face up",
     sprite: "253_baby_wizard.png",
   },
-  {
+  [RandomBabyType.EARTH]: {
     name: "Earth Baby",
     description: "Starts with Fruit Cake",
     sprite: "254_baby_earth.png",
     item: CollectibleType.FRUIT_CAKE,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.SATURN]: {
     name: "Saturn Baby",
     description: "Starts with Continuum",
     sprite: "255_baby_saturn.png",
     item: CollectibleType.CONTINUUM,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.CLOUD]: {
     name: "Cloud Baby",
     description: "Ventricle Razor effect every 15 seconds",
     sprite: "256_baby_cloud.png",
     num: 30 * 15, // In game frames
   },
-  {
+  [RandomBabyType.TUBE]: {
     name: "Tube Baby",
     description: "Starts with Varicose Veins",
     sprite: "257_baby_tube.png",
     item: CollectibleType.VARICOSE_VEINS,
   },
-  {
+  [RandomBabyType.ROCKER]: {
     name: "Rocker Baby",
     description: "Spawns a random bomb on hit",
     sprite: "258_baby_rocker.png",
   },
-  {
+  [RandomBabyType.KING]: {
     name: "King Baby",
     description: "Starts with Crown of Light",
     sprite: "259_baby_king.png",
     item: CollectibleType.CROWN_OF_LIGHT,
   },
-  {
+  [RandomBabyType.COAT]: {
     name: "Coat Baby",
     description: "Spawns a random card on hit",
     sprite: "260_baby_coat.png",
   },
-  {
+  [RandomBabyType.VIKING]: {
     name: "Viking Baby",
     description: "Secret Room --> Super Secret Room",
     sprite: "261_baby_viking.png",
   },
-  {
+  [RandomBabyType.PANDA]: {
     name: "Panda Baby",
     description: "Starts with The Poop (improved)",
     sprite: "262_baby_panda.png",
     item: CollectibleType.POOP,
   },
-  {
+  [RandomBabyType.RACCOON]: {
     name: "Raccoon Baby",
     description: "Random rocks",
     sprite: "263_baby_raccoon.png",
   },
-  {
+  [RandomBabyType.BEAR]: {
     name: "Bear Baby",
     description: "Starts with Mystery Gift",
     sprite: "264_baby_bear.png",
     item: CollectibleType.MYSTERY_GIFT,
   },
-  {
+  [RandomBabyType.POLAR_BEAR]: {
     name: "Polar Bear Baby",
     description: "Starts with Lil Brimstone + Robo Baby + Baby Bender",
     sprite: "265_baby_polarbear.png",
@@ -1609,19 +1610,19 @@ export const BABIES: readonly BabyDescription[] = [
     item2: CollectibleType.ROBO_BABY,
     trinket: TrinketType.BABY_BENDER,
   },
-  {
+  [RandomBabyType.LOVEBEAR]: {
     name: "Lovebear Baby",
     description: "Starts with The Relic",
     sprite: "266_baby_lovebear.png",
     item: CollectibleType.RELIC,
   },
-  {
+  [RandomBabyType.HARE]: {
     name: "Hare Baby",
     description: "Takes damage when standing still",
     num: 15, // Amount of frames standing still before taking damage
     sprite: "267_baby_hare.png",
   },
-  {
+  [RandomBabyType.SQUIRREL]: {
     name: "Squirrel Baby",
     description: "Starts with Walnut (improved)",
     sprite: "268_baby_squirrel.png",
@@ -1629,78 +1630,78 @@ export const BABIES: readonly BabyDescription[] = [
     requireBombs: true,
     num: 5,
   },
-  {
+  [RandomBabyType.TABBY]: {
     name: "Tabby Baby",
     description: "Starts with Gello",
     sprite: "269_baby_tabby.png",
     item: CollectibleType.GELLO,
   },
-  {
+  [RandomBabyType.PORCUPINE]: {
     name: "Porcupine Baby",
     description: "Wait What? effect every 5 seconds",
     sprite: "270_baby_porcupine.png",
   },
-  {
+  [RandomBabyType.PUPPY]: {
     name: "Puppy Baby",
     description: "Starts with Cricket's Head",
     sprite: "271_baby_puppy.png",
     item: CollectibleType.CRICKETS_HEAD,
   },
-  {
+  [RandomBabyType.PARROT]: {
     name: "Parrot Baby",
     description: "Starts with The Pony",
     sprite: "272_baby_parrot.png",
     item: CollectibleType.PONY,
   },
-  {
+  [RandomBabyType.CHAMELEON]: {
     name: "Chameleon Baby",
     description: "Starts with 5x Rotten Baby",
     sprite: "273_baby_chameleon.png",
     item: CollectibleType.ROTTEN_BABY,
     itemNum: 5,
   },
-  {
+  [RandomBabyType.BOULDER]: {
     name: "Boulder Baby",
     description: "Starts with Leo",
     sprite: "274_baby_boulder.png",
     item: CollectibleType.LEO,
   },
-  {
+  [RandomBabyType.AQUA]: {
     name: "Aqua Baby",
     description: "Starts with Taurus",
     sprite: "275_baby_aqua.png",
     item: CollectibleType.TAURUS,
   },
-  {
+  [RandomBabyType.GARGOYLE]: {
     name: "Gargoyle Baby",
     description: "Head of Krampus effect on hit",
     sprite: "276_baby_gargoyle.png",
   },
-  {
+  [RandomBabyType.SPIKY_DEMON]: {
     name: "Spiky Demon Baby",
     description: "Starts with Dark Arts",
     item: CollectibleType.DARK_ARTS,
     sprite: "277_baby_spikydemon.png",
   },
-  {
+  [RandomBabyType.RED_DEMON]: {
     name: "Red Demon Baby",
     description: "Starts with Brimstone + Anti-Gravity",
     sprite: "278_baby_reddemon.png",
     item: CollectibleType.BRIMSTONE,
     item2: CollectibleType.ANTI_GRAVITY,
   },
-  {
+  [RandomBabyType.ORANGE_DEMON]: {
     name: "Orange Demon Baby",
     description: "Explosivo tears",
     sprite: "279_baby_orangedemon.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.EYE_DEMON]: {
     name: "Eye Demon Baby",
     description: "Enemies have Continuum projectiles",
     sprite: "280_baby_eyedemon.png",
   },
-  {
+  [RandomBabyType.FANG_DEMON]: {
     name: "Fang Demon Baby",
     description: "Directed light beams",
     sprite: "281_baby_fangdemon.png",
@@ -1711,67 +1712,67 @@ export const BABIES: readonly BabyDescription[] = [
     mustHaveTears: true,
     softlockPreventionDestroyPoops: true, // Light beams cannot kill poops
   },
-  {
+  [RandomBabyType.GHOST_2]: {
     name: "Ghost Baby 2",
     description: "Constant Maw of the Void effect + flight + blindfolded",
     sprite: "282_baby_ghost.png",
     blindfolded: true,
     flight: true,
   },
-  {
+  [RandomBabyType.ARACHNID]: {
     name: "Arachnid Baby",
     description: "Starts with 5x Daddy Longlegs",
     sprite: "283_baby_arachnid.png",
     item: CollectibleType.DADDY_LONGLEGS,
     itemNum: 5,
   },
-  {
+  [RandomBabyType.BONY]: {
     name: "Bony Baby",
     description: "All bombs are doubled",
     sprite: "284_baby_bony.png",
     requireBombs: true,
   },
-  {
+  [RandomBabyType.BIG_TONGUE]: {
     name: "Big Tongue Baby",
     description: "Flush effect on hit",
     sprite: "285_baby_bigtongue.png",
   },
-  {
+  [RandomBabyType.THREE_D]: {
     name: "3D Baby",
     description: "Starts with My Reflection",
     sprite: "286_baby_3d.png",
     item: CollectibleType.MY_REFLECTION,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.SUIT]: {
     name: "Suit Baby",
     description: "All special rooms are Devil Rooms",
     sprite: "287_baby_suit.png",
   },
-  {
+  [RandomBabyType.BUTT]: {
     name: "Butt Baby",
     description: "Farts after shooting",
     sprite: "288_baby_butt.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.CUPID]: {
     name: "Cupid Baby",
     description: "Starts with Cupid's Arrow",
     sprite: "289_baby_cupid.png",
     item: CollectibleType.CUPIDS_ARROW,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.HEART]: {
     name: "Heart Baby",
     description: "Dull Razor effect every 5 seconds",
     sprite: "290_baby_heart.png",
   },
-  {
+  [RandomBabyType.KILLER]: {
     name: "Killer Baby",
     description: "+0.2 damage per enemy killed",
     sprite: "291_baby_killer.png",
   },
-  {
+  [RandomBabyType.LANTERN]: {
     name: "Lantern Baby",
     description: "Godhead aura + flight + blindfolded",
     sprite: "292_baby_lantern.png",
@@ -1782,76 +1783,76 @@ export const BABIES: readonly BabyDescription[] = [
     blindfolded2: true,
     // This baby is not actually blindfolded because we use The Ludovico Technique.
   },
-  {
+  [RandomBabyType.BANSHEE]: {
     name: "Banshee Baby",
     description: "Crack the Sky effect on hit",
     sprite: "293_baby_banshee.png",
   },
-  {
+  [RandomBabyType.RANGER]: {
     name: "Ranger Baby",
     description: "Starts with 3x Lil Chest",
     sprite: "294_baby_ranger.png",
     item: CollectibleType.LIL_CHEST,
     itemNum: 3,
   },
-  {
+  [RandomBabyType.RIDER]: {
     name: "Rider Baby",
     description: "Starts with A Pony (improved) + blindfolded",
     sprite: "295_baby_rider.png",
     item: CollectibleType.PONY,
     blindfolded: true,
   },
-  {
+  [RandomBabyType.CHOCO]: {
     name: "Choco Baby",
     description: "Starts with Chocolate Milk",
     sprite: "296_baby_choco.png",
     item: CollectibleType.CHOCOLATE_MILK,
   },
-  {
+  [RandomBabyType.WOODSMAN]: {
     name: "Woodsman Baby",
     description: "Meat Cleaver effect on room enter",
     sprite: "297_baby_woodsman.png",
   },
-  {
+  [RandomBabyType.BRUNETTE]: {
     name: "Brunette Baby",
     description: "Starts with The Poop + Brown Cap",
     sprite: "298_baby_brunette.png",
     item: CollectibleType.POOP,
     trinket: TrinketType.BROWN_CAP,
   },
-  {
+  [RandomBabyType.BLONDE]: {
     name: "Blonde Baby",
     description: "Starts with Dad's Ring",
     sprite: "299_baby_blonde.png",
     item: CollectibleType.DADS_RING,
   },
-  {
+  [RandomBabyType.BLUE_HAIR]: {
     name: "Blue Hair Baby",
     description: "Starts with The Candle",
     sprite: "300_baby_bluehair.png",
     item: CollectibleType.CANDLE,
   },
-  {
+  [RandomBabyType.BLOODIED]: {
     name: "Bloodied Baby",
     description: "Create red doors on hit + improved Ultra Secret Rooms",
     sprite: "301_baby_bloodied.png",
     num: 5, // Number of collectibles
   },
-  {
+  [RandomBabyType.CHEESE]: {
     name: "Cheese Baby",
     description: "The Bean + Gigante Bean",
     sprite: "302_baby_cheese.png",
     item: CollectibleType.BEAN,
     trinket: TrinketType.GIGANTE_BEAN,
   },
-  {
+  [RandomBabyType.PIZZA]: {
     name: "Pizza Baby",
     description: "Starts with Brown Nugget (improved)",
     sprite: "303_baby_pizza.png",
     item: CollectibleType.BROWN_NUGGET,
     delay: 3, // In game frames
   },
-  {
+  [RandomBabyType.HOTDOG]: {
     name: "Hotdog Baby",
     description:
       "Constant The Bean effect + flight + explosion immunity + blindfolded",
@@ -1861,129 +1862,129 @@ export const BABIES: readonly BabyDescription[] = [
     blindfolded: true,
     noEndFloors: true,
   },
-  {
+  [RandomBabyType.NATURE]: {
     name: "Nature Baby",
     description: "Starts with Sprinkler",
     sprite: "305_baby_pear.png",
     item: CollectibleType.SPRINKLER,
   },
-  {
+  [RandomBabyType.BORG]: {
     name: "Borg Baby",
     description: "Starts with Teleport 2.0",
     sprite: "306_baby_borg.png",
     item: CollectibleType.TELEPORT_2,
   },
-  {
+  [RandomBabyType.CORRUPTED]: {
     name: "Corrupted Baby",
     description: "Touching items/pickups causes damage",
     sprite: "307_baby_corrupted.png",
   },
-  {
+  [RandomBabyType.X_MOUTH]: {
     name: "X Mouth Baby",
     description: "Moving Box effect on hit",
     sprite: "308_baby_xmouth.png",
   },
-  {
+  [RandomBabyType.X_EYED]: {
     name: "X Eyed Baby",
     description: "Starts with Marked",
     sprite: "309_baby_xeyes.png",
     item: CollectibleType.MARKED,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.STARRY_EYED]: {
     name: "Starry Eyed Baby",
     description: "Spawns a Stars Card on hit",
     sprite: "310_baby_stareyes.png",
   },
-  {
+  [RandomBabyType.SURGEON]: {
     name: "Surgeon Baby",
     description: "Starts with Ventricle Razor",
     sprite: "311_baby_surgeon.png",
     item: CollectibleType.VENTRICLE_RAZOR,
   },
-  {
+  [RandomBabyType.SWORD]: {
     name: "Sword Baby",
     description: "Starts with Sacrificial Dagger",
     sprite: "312_baby_sword.png",
     item: CollectibleType.SACRIFICIAL_DAGGER,
   },
-  {
+  [RandomBabyType.MONK]: {
     name: "Monk Baby",
     description: "Starts with Mom's Bracelet",
     sprite: "313_baby_monk.png",
     item: CollectibleType.MOMS_BRACELET,
   },
-  {
+  [RandomBabyType.DISCO]: {
     name: "Disco Baby",
     description: "Starts with 10x Angelic Prism",
     sprite: "314_baby_disco.png",
     item: CollectibleType.ANGELIC_PRISM,
     itemNum: 10,
   },
-  {
+  [RandomBabyType.PUZZLE]: {
     name: "Puzzle Baby",
     description: "The D6 effect on hit",
     sprite: "315_baby_puzzle.png",
   },
-  {
+  [RandomBabyType.SPEAKER]: {
     name: "Speaker Baby",
     description: "X splitting tears",
     sprite: "316_baby_speaker.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.SCARY]: {
     name: "Scary Baby",
     description: "Items cost hearts",
     sprite: "317_baby_scary.png",
   },
-  {
+  [RandomBabyType.FIREBALL]: {
     name: "Fireball Baby",
     description: "Explosion immunity + fire immunity",
     sprite: "318_baby_fireball.png",
     explosionImmunity: true,
   },
-  {
+  [RandomBabyType.MAW]: {
     name: "Maw Baby",
     description: "Starts with Maw of the Void",
     sprite: "319_baby_maw.png",
     item: CollectibleType.MAW_OF_THE_VOID,
   },
-  {
+  [RandomBabyType.EXPLODING]: {
     name: "Exploding Baby",
     description: "Kamikaze! effect upon touching a breakable obstacle",
     sprite: "320_baby_exploding.png",
     explosionImmunity: true,
   },
-  {
+  [RandomBabyType.CUPCAKE]: {
     name: "Cupcake Baby",
     description: "High shot speed",
     sprite: "321_baby_cupcake.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.SKINLESS]: {
     name: "Skinless Baby",
     description: "2x damage + takes 2x damage",
     sprite: "322_baby_skinless.png",
   },
-  {
+  [RandomBabyType.BALLERINA]: {
     name: "Ballerina Baby",
     description: "Summons a Restock Machine after 6 hits",
     sprite: "323_baby_ballerina.png",
   },
-  {
+  [RandomBabyType.GOBLIN]: {
     name: "Goblin Baby",
     description: "Starts with Rotten Penny",
     sprite: "324_baby_goblin.png",
     trinket: TrinketType.ROTTEN_PENNY,
   },
-  {
+  [RandomBabyType.COOL_GOBLIN]: {
     name: "Cool Goblin Baby",
     description: "Starts with 5x Acid Baby",
     sprite: "325_baby_coolgoblin.png",
     item: CollectibleType.ACID_BABY,
     itemNum: 5,
   },
-  {
+  [RandomBabyType.GEEK]: {
     name: "Geek Baby",
     description: "Starts with 20x Robo-Baby 2.0 + blindfolded",
     sprite: "326_baby_geek.png",
@@ -1992,32 +1993,32 @@ export const BABIES: readonly BabyDescription[] = [
     blindfolded: true,
     softlockPreventionDestroyPoops: true, // Robo-Baby 2.0 will not kill poops
   },
-  {
+  [RandomBabyType.LONG_BEARD]: {
     name: "Long Beard Baby",
     description: "Starts with 10x Gemini",
     sprite: "327_baby_longbeard.png",
     item: CollectibleType.GEMINI,
     itemNum: 10,
   },
-  {
+  [RandomBabyType.MUTTONCHOPS]: {
     name: "Muttonchops Baby",
     description: "Starts with Lachryphagy",
     sprite: "328_baby_muttonchops.png",
     item: CollectibleType.LACHRYPHAGY,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.SPARTAN]: {
     name: "Spartan Baby",
     description: "Starts with Spirit Sword",
     sprite: "329_baby_spartan.png",
     item: CollectibleType.SPIRIT_SWORD,
   },
-  {
+  [RandomBabyType.TORTOISE]: {
     name: "Tortoise Baby",
     description: "50% chance to ignore damage",
     sprite: "330_baby_tortoise.png",
   },
-  {
+  [RandomBabyType.SLICER]: {
     name: "Slicer Baby",
     description: "Slice tears",
     sprite: "331_baby_slicer.png",
@@ -2026,46 +2027,46 @@ export const BABIES: readonly BabyDescription[] = [
     mustHaveTears: true,
     num: 5, // Frames until it disappears
   },
-  {
+  [RandomBabyType.BUTTERFLY_2]: {
     name: "Butterfly Baby 2",
     description: "Flight + can walk through walls",
     sprite: "332_baby_butterfly.png",
     // We do not need to explicitly give this character flight, because the grid collision does the
     // same thing.
   },
-  {
+  [RandomBabyType.HOMELESS]: {
     name: "Homeless Baby",
     description: "Starts with 15x Buddy in a Box",
     sprite: "333_baby_homeless.png",
     item: CollectibleType.BUDDY_IN_A_BOX,
     itemNum: 15,
   },
-  {
+  [RandomBabyType.LUMBERJACK]: {
     name: "Lumberjack Baby",
     description: "Starts with 3x Sack of Sacks",
     sprite: "334_baby_lumberjack.png",
     item: CollectibleType.SACK_OF_SACKS,
     itemNum: 3,
   },
-  {
+  [RandomBabyType.CYBERSPACE]: {
     name: "Cyberspace Baby",
     description: "Starts with Brimstone + Spoon Bender",
     sprite: "335_baby_cyberspace.png",
     item: CollectibleType.BRIMSTONE,
     item2: CollectibleType.SPOON_BENDER,
   },
-  {
+  [RandomBabyType.HERO]: {
     name: "Hero Baby",
     description: "3x damage + 3x tear rate when at 1 heart or less",
     sprite: "336_baby_hero.png",
   },
-  {
+  [RandomBabyType.BOXERS]: {
     name: "Boxers Baby",
     description: "Knockout Drops tears",
     sprite: "337_baby_boxers.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.WING_HELMET]: {
     name: "Wing Helmet Baby",
     description: "Starts with The Ludovico Technique + The Parasite",
     sprite: "338_baby_winghelmet.png",
@@ -2073,58 +2074,58 @@ export const BABIES: readonly BabyDescription[] = [
     item2: CollectibleType.PARASITE,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.X]: {
     name: "X Baby",
     description: "Shoots 4 tears diagonally",
     sprite: "339_baby_x.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.O_2]: {
     name: "O Baby 2",
     description: "Spiral tears",
     sprite: "340_baby_o.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.VOMIT]: {
     name: "Vomit Baby",
     description: "Must stand still every 10 seconds",
     sprite: "341_baby_vomit.png",
     time: 10 * 30, // 10 seconds (in game frames)
   },
-  {
+  [RandomBabyType.MERMAN]: {
     name: "Merman Baby",
     description: "Keys spawn as bombs",
     sprite: "342_baby_merman.png",
   },
-  {
+  [RandomBabyType.CYBORG]: {
     name: "Cyborg Baby",
     description: "Sees numerical damage values", // debug 7
     sprite: "343_baby_cyborg.png",
   },
-  {
+  [RandomBabyType.BARBARIAN]: {
     name: "Barbarian Baby",
     description: "Mama Mega bombs",
     sprite: "344_baby_barbarian.png",
     requireBombs: true,
   },
-  {
+  [RandomBabyType.LOCUST]: {
     name: "Locust Baby",
     description: "Starts with Soy Milk + booger tears",
     sprite: "345_baby_locust.png",
     item: CollectibleType.SOY_MILK,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.TWOTONE]: {
     name: "Twotone Baby",
     description: "Dataminer effect on room enter",
     sprite: "346_baby_twotone.png",
   },
-  {
+  [RandomBabyType.N_2600]: {
     name: "2600 Baby",
     description: "Friend Finder effect on room clear",
     sprite: "347_baby_2600.png",
   },
-  {
+  [RandomBabyType.FOURTONE]: {
     name: "Fourtone Baby",
     description: "Starts with The Candle + blindfolded + instant recharge",
     sprite: "348_baby_fourtone.png",
@@ -2132,94 +2133,94 @@ export const BABIES: readonly BabyDescription[] = [
     blindfolded: true,
     softlockPreventionDestroyPoops: true, // The Candle cannot kill poops
   },
-  {
+  [RandomBabyType.GRAYSCALE]: {
     name: "Grayscale Baby",
     description: "Delirious effect every 10 seconds",
     sprite: "349_baby_grayscale.png",
   },
-  {
+  [RandomBabyType.RABBIT]: {
     name: "Rabbit Baby",
     description: "Starts with How to Jump; must jump often",
     sprite: "350_baby_rabbit.png",
     item: CollectibleType.HOW_TO_JUMP,
     num: 45 * 2, // Amount of game frames between forced book uses
   },
-  {
+  [RandomBabyType.MOUSE]: {
     name: "Mouse Baby",
     description: "Coin doors in uncleared rooms",
     sprite: "351_baby_mouse.png",
     item: CollectibleType.PAY_TO_PLAY,
     requireCoins: true,
   },
-  {
+  [RandomBabyType.CRITTER]: {
     name: "Critter Baby",
     description: "Starts with Infestation 2",
     sprite: "352_baby_critter.png",
     item: CollectibleType.INFESTATION_2,
   },
-  {
+  [RandomBabyType.BLUE_ROBOT]: {
     name: "Blue Robot Baby",
     description: "Starts with Berserk!",
     sprite: "353_baby_bluerobot.png",
     item: CollectibleType.BERSERK,
   },
-  {
+  [RandomBabyType.PILOT]: {
     name: "Pilot Baby",
     description: "Starts with Dr. Fetus + Haemolacria",
     sprite: "354_baby_pilot.png",
     item: CollectibleType.DR_FETUS,
     item2: CollectibleType.HAEMOLACRIA,
   },
-  {
+  [RandomBabyType.RED_PLUMBER]: {
     name: "Red Plumber Baby",
     description: "Starts with Locust of War",
     sprite: "355_baby_redplumber.png",
     trinket: TrinketType.LOCUST_OF_WRATH,
   },
-  {
+  [RandomBabyType.GREEN_PLUMBER]: {
     name: "Green Plumber Baby",
     description: "Starts with Locust of Pestilence",
     sprite: "356_baby_greenplumber.png",
     trinket: TrinketType.LOCUST_OF_PESTILENCE,
   },
-  {
+  [RandomBabyType.YELLOW_PLUMBER]: {
     name: "Yellow Plumber Baby",
     description: "Starts with Locust of Conquest",
     sprite: "357_baby_yellowplumber.png",
     trinket: TrinketType.LOCUST_OF_CONQUEST,
   },
-  {
+  [RandomBabyType.PURPLE_PLUMBER]: {
     name: "Purple Plumber Baby",
     description: "Starts with Locust of Death",
     sprite: "358_baby_purpleplumber.png",
     trinket: TrinketType.LOCUST_OF_DEATH,
   },
-  {
+  [RandomBabyType.TANOOKI]: {
     name: "Tanooki Baby",
     description: "Mr. ME! effect on hit",
     sprite: "359_baby_tanooki.png",
   },
-  {
+  [RandomBabyType.MUSHROOM_MAN]: {
     name: "Mushroom Man Baby",
     description: "Starts with Magic Mushroom",
     sprite: "360_baby_mushroomman.png",
     item: CollectibleType.MAGIC_MUSHROOM,
   },
-  {
+  [RandomBabyType.MUSHROOM_GIRL]: {
     name: "Mushroom Girl Baby",
     description: "Every 8th tear is a bomb",
     sprite: "361_baby_mushroomgirl.png",
     num: 8,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.CANNONBALL]: {
     name: "Cannonball Baby",
     description: "Starts with 15x Samson's Chains",
     sprite: "362_baby_cannonball.png",
     item: CollectibleType.SAMSONS_CHAINS,
     itemNum: 15,
   },
-  {
+  [RandomBabyType.FROGGY]: {
     name: "Froggy Baby",
     description: "Starts with Ludo + Brimstone + Wiggle Worm",
     sprite: "363_baby_froggy.png",
@@ -2228,70 +2229,70 @@ export const BABIES: readonly BabyDescription[] = [
     trinket: TrinketType.WIGGLE_WORM,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.TURTLE_DRAGON]: {
     name: "Turtle Dragon Baby",
     description: "Fiery tears",
     sprite: "364_baby_turtledragon.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.SHELL_SUIT]: {
     name: "Shell Suit Baby",
     description: "Starts with Burnt Penny",
     sprite: "365_baby_shellsuit.png",
     trinket: TrinketType.BURNT_PENNY,
   },
-  {
+  [RandomBabyType.FIERY]: {
     name: "Fiery Baby",
     description: "Spawns a fire on hit",
     sprite: "366_baby_fiery.png",
   },
-  {
+  [RandomBabyType.MEAN_MUSHROOM]: {
     name: "Mean Mushroom Baby",
     description: "Starts with 5x Sack of Pennies",
     sprite: "367_baby_meanmushroom.png",
     item: CollectibleType.SACK_OF_PENNIES,
     itemNum: 5,
   },
-  {
+  [RandomBabyType.ARCADE]: {
     name: "Arcade Baby",
     description: "Razor blade tears",
     sprite: "368_baby_arcade.png",
     num: 3,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.SCARED_GHOST]: {
     name: "Scared Ghost Baby",
     description: "2x speed",
     sprite: "369_baby_scaredghost.png",
   },
-  {
+  [RandomBabyType.BLUE_GHOST]: {
     name: "Blue Ghost Baby",
     description: "Max tear rate",
     sprite: "370_baby_blueghost.png",
   },
-  {
+  [RandomBabyType.RED_GHOST]: {
     name: "Red Ghost Baby",
     description: "+10 damage",
     sprite: "371_baby_redghost.png",
   },
-  {
+  [RandomBabyType.PINK_GHOST]: {
     name: "Pink Ghost Baby",
     description: "Charm tears",
     sprite: "372_baby_pinkghost.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.ORANGE_GHOST]: {
     name: "Orange Ghost Baby",
     description: "Placed bombs are Mega Troll Bombs",
     sprite: "373_baby_orangeghost.png",
     requireBombs: true,
   },
-  {
+  [RandomBabyType.PINK_PRINCESS]: {
     name: "Pink Princess Baby",
     description: "Summons random stomps",
     sprite: "374_baby_pinkprincess.png",
   },
-  {
+  [RandomBabyType.YELLOW_PRINCESS]: {
     name: "Yellow Princess Baby",
     description: "Starts with Ipecac + Trisagion + Flat Stone",
     sprite: "375_baby_yellowprincess.png",
@@ -2300,12 +2301,12 @@ export const BABIES: readonly BabyDescription[] = [
     item3: CollectibleType.FLAT_STONE,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.DINO]: {
     name: "Dino Baby",
     description: "Gains a explosive egg per enemy killed",
     sprite: "376_baby_dino.png",
   },
-  {
+  [RandomBabyType.ELF]: {
     name: "Elf Baby",
     description: "Starts with Spear of Destiny (improved) + flight",
     description2: "+ explosion immunity + blindfolded",
@@ -2315,52 +2316,52 @@ export const BABIES: readonly BabyDescription[] = [
     explosionImmunity: true,
     blindfolded: true,
   },
-  {
+  [RandomBabyType.DARK_ELF]: {
     name: "Dark Elf Baby",
     description: "Book of the Dead effect on hit",
     sprite: "378_baby_darkelf.png",
   },
-  {
+  [RandomBabyType.DARK_KNIGHT]: {
     name: "Dark Knight Baby",
     description: "Starts with 5x Dry Baby",
     sprite: "379_baby_darkknight.png",
     item: CollectibleType.DRY_BABY,
     itemNum: 5,
   },
-  {
+  [RandomBabyType.OCTOPUS]: {
     name: "Octopus Baby",
     description: "Tears make black creep",
     sprite: "380_baby_octopus.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.ORANGE_PIG]: {
     name: "Orange Pig Baby",
     description: "Double items",
     sprite: "381_baby_orangepig.png",
   },
-  {
+  [RandomBabyType.BLUE_PIG]: {
     name: "Blue Pig Baby",
     description: "Spawns a Mega Troll Bomb every 5 seconds",
     sprite: "382_baby_bluepig.png",
   },
-  {
+  [RandomBabyType.ELF_PRINCESS]: {
     name: "Elf Princess Baby",
     description: "Starts with 10x Mom's Razor",
     sprite: "383_baby_elfprincess.png",
     item: CollectibleType.MOMS_RAZOR,
     itemNum: 10,
   },
-  {
+  [RandomBabyType.FISHMAN]: {
     name: "Fishman Baby",
     description: "Spawns a random bomb on room clear",
     sprite: "384_baby_fishman.png",
   },
-  {
+  [RandomBabyType.FAIRYMAN]: {
     name: "Fairyman Baby",
     description: "-30% damage on hit",
     sprite: "385_baby_fairyman.png",
   },
-  {
+  [RandomBabyType.IMP]: {
     name: "Imp Baby",
     description: "Blender + flight + explosion immunity + blindfolded",
     sprite: "386_baby_imp.png",
@@ -2372,43 +2373,43 @@ export const BABIES: readonly BabyDescription[] = [
     noEndFloors: true,
     num: 3, // In game frames
   },
-  {
+  [RandomBabyType.WORM_2]: {
     name: "Worm Baby 2",
     description: "Starts with 20x Leech",
     sprite: "387_baby_worm.png",
     item: CollectibleType.LEECH,
     itemNum: 20,
   },
-  {
+  [RandomBabyType.BLUE_WRESTLER]: {
     name: "Blue Wrestler Baby",
     description: "Enemies spawn projectiles upon death",
     sprite: "388_baby_bluewrestler.png",
     num: 6,
   },
-  {
+  [RandomBabyType.RED_WRESTLER]: {
     name: "Red Wrestler Baby",
     description: "Everything is TNT",
     sprite: "389_baby_redwrestler.png",
   },
-  {
+  [RandomBabyType.TOAST]: {
     name: "Toast Baby",
     description: "Enemies leave a Red Candle fire upon death",
     sprite: "390_baby_toast.png",
   },
-  {
+  [RandomBabyType.ROBOBOY]: {
     name: "Roboboy Baby",
     description: "Starts with Technology + A Lump of Coal",
     sprite: "391_baby_roboboy.png",
     item: CollectibleType.TECHNOLOGY,
     item2: CollectibleType.LUMP_OF_COAL,
   },
-  {
+  [RandomBabyType.LIBERTY]: {
     name: "Liberty Baby",
     description: "Starts with Azazel's Rage",
     sprite: "392_baby_liberty.png",
     item: CollectibleType.AZAZELS_RAGE,
   },
-  {
+  [RandomBabyType.DREAM_KNIGHT]: {
     name: "Dream Knight Baby",
     description: "Starts with Super Bum",
     sprite: "393_baby_dreamknight.png",
@@ -2416,84 +2417,84 @@ export const BABIES: readonly BabyDescription[] = [
     item2: CollectibleType.DARK_BUM,
     item3: CollectibleType.KEY_BUM,
   },
-  {
+  [RandomBabyType.COWBOY]: {
     name: "Cowboy Baby",
     description: "Pickups shoot",
     sprite: "394_baby_cowboy.png",
   },
-  {
+  [RandomBabyType.MERMAID]: {
     name: "Mermaid Baby",
     description: "Bombs spawn as keys",
     sprite: "395_baby_mermaid.png",
   },
-  {
+  [RandomBabyType.PLAGUE]: {
     name: "Plague Baby",
     description: "Leaves a trail of creep",
     sprite: "396_baby_plague.png",
   },
-  {
+  [RandomBabyType.SPACE_SOLDIER]: {
     name: "Space Soldier Baby",
     description: "Starts with Void",
     sprite: "397_baby_spacesoldier.png",
     item: CollectibleType.VOID,
   },
-  {
+  [RandomBabyType.DARK_SPACE_SOLDIER]: {
     name: "Dark Space Soldier Baby",
     description: "Chaos card tears (every 5th tear)",
     sprite: "398_baby_darkspacesoldier.png",
     num: 5,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.GAS_MASK]: {
     name: "Gas Mask Baby",
     description: "Starts with Wait What?",
     sprite: "399_baby_gasmask.png",
     item: CollectibleType.WAIT_WHAT,
   },
-  {
+  [RandomBabyType.TOMBOY]: {
     name: "Tomboy Baby",
     description: "Starts with We Need to Go Deeper! (uncharged)",
     sprite: "400_baby_tomboy.png",
     item: CollectibleType.WE_NEED_TO_GO_DEEPER,
     uncharged: true,
   },
-  {
+  [RandomBabyType.CORGI]: {
     name: "Corgi Baby",
     description: "Spawns a fly every 1.5 seconds",
     sprite: "401_baby_corgi.png",
   },
-  {
+  [RandomBabyType.UNICORN]: {
     name: "Unicorn Baby",
     description: "Starts with Unicorn Stump + Cube of Meat",
     sprite: "402_baby_unicorn.png",
     item: CollectibleType.UNICORN_STUMP,
     item2: CollectibleType.CUBE_OF_MEAT,
   },
-  {
+  [RandomBabyType.PIXIE]: {
     name: "Pixie Baby",
     description: "Starts with 3x YO LISTEN! (improved)",
     sprite: "403_baby_pixie.png",
     item: CollectibleType.YO_LISTEN,
     itemNum: 3,
   },
-  {
+  [RandomBabyType.REFEREE]: {
     name: "Referee Baby",
     description: "Tomato tears",
     sprite: "404_baby_referee.png",
   },
-  {
+  [RandomBabyType.DEAL_WITH_IT]: {
     name: "Deal With It Baby",
     description: "Starts with Teleport",
     sprite: "405_baby_dealwithit.png",
     item: CollectibleType.TELEPORT,
   },
-  {
+  [RandomBabyType.ASTRONAUT]: {
     name: "Astronaut Baby",
     description: "Tears have a 5% chance to create a Black Hole effect",
     sprite: "406_baby_astronaut.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.BLURRED]: {
     name: "Blurred Baby",
     description: "Starts with Ipecac + Ludo + Flat Stone",
     sprite: "407_baby_blurred.png",
@@ -2502,261 +2503,261 @@ export const BABIES: readonly BabyDescription[] = [
     item3: CollectibleType.FLAT_STONE,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.CENSORED]: {
     name: "Censored Baby",
     description: "Starts with Eternal D6",
     sprite: "408_baby_censored.png",
     item: CollectibleType.ETERNAL_D6,
   },
-  {
+  [RandomBabyType.COOL_GHOST]: {
     name: "Cool Ghost Baby",
     description: "Starts with Flock of Succubi",
     sprite: "409_baby_coolghost.png",
     item: CollectibleTypeCustom.FLOCK_OF_SUCCUBI,
   },
-  {
+  [RandomBabyType.GILLS]: {
     name: "Gills Baby",
     description: "Splash tears",
     sprite: "410_baby_gills.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.BLUE_HAT]: {
     name: "Blue Hat Baby",
     description: "Starts with Blue Map",
     sprite: "411_baby_bluehat.png",
     item: CollectibleType.BLUE_MAP,
   },
-  {
+  [RandomBabyType.CATSUIT]: {
     name: "Catsuit Baby",
     description: "Guppy's Paw effect on hit",
     sprite: "412_baby_catsuit.png",
   },
-  {
+  [RandomBabyType.PIRATE]: {
     name: "Pirate Baby",
     description: "Starts with Treasure Map",
     sprite: "413_baby_pirate.png",
     item: CollectibleType.TREASURE_MAP,
   },
-  {
+  [RandomBabyType.SUPER_ROBO]: {
     name: "Super Robo Baby",
     description: "Starts with Broken Remote",
     sprite: "414_baby_superrobo.png",
     trinket: TrinketType.BROKEN_REMOTE,
   },
-  {
+  [RandomBabyType.LIGHTMAGE]: {
     name: "Lightmage Baby",
     description: "Starts with Trisagion",
     sprite: "415_baby_lightmage.png",
     item: CollectibleType.TRISAGION,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.PUNCHER]: {
     name: "Puncher Baby",
     description: "Starts with 10x Punching Bag",
     sprite: "416_baby_puncher.png",
     item: CollectibleType.PUNCHING_BAG,
     itemNum: 10,
   },
-  {
+  [RandomBabyType.HOLY_KNIGHT]: {
     name: "Holy Knight Baby",
     description: "Starts with Eucharist",
     sprite: "417_baby_holyknight.png",
     item: CollectibleType.EUCHARIST,
   },
-  {
+  [RandomBabyType.SHADOWMAGE]: {
     name: "Shadowmage Baby",
     description: "Starts with Spindown Dice",
     sprite: "418_baby_shadowmage.png",
     item: CollectibleType.SPINDOWN_DICE,
   },
-  {
+  [RandomBabyType.FIREMAGE]: {
     name: "Firemage Baby",
     description: "Starts with Fire Mind + 13 luck",
     sprite: "419_baby_firemage.png",
     item: CollectibleType.FIRE_MIND,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.PRIEST]: {
     name: "Priest Baby",
     description: "Starts with Anima Sola",
     sprite: "420_baby_priest.png",
     item: CollectibleType.ANIMA_SOLA,
   },
-  {
+  [RandomBabyType.ZIPPER_2]: {
     name: "Zipper Baby 2",
     description: "Starts with Door Stop",
     sprite: "421_baby_zipper.png",
     trinket: TrinketType.DOOR_STOP,
   },
-  {
+  [RandomBabyType.BAG]: {
     name: "Bag Baby",
     description: "Starts with The Swarm",
     sprite: "422_baby_bag.png",
     item: CollectibleType.SWARM,
   },
-  {
+  [RandomBabyType.SAILOR]: {
     name: "Sailor Baby",
     description: "Starts with The Compass",
     sprite: "423_baby_sailor.png",
     item: CollectibleType.COMPASS,
   },
-  {
+  [RandomBabyType.RICH]: {
     name: "Rich Baby",
     description: "Starts with 99 cents",
     sprite: "424_baby_rich.png",
   },
-  {
+  [RandomBabyType.TOGA]: {
     name: "Toga Baby",
     description: "Starts with Finger! (improved)",
     sprite: "425_baby_toga.png",
     item: CollectibleType.FINGER,
     itemNum: 10,
   },
-  {
+  [RandomBabyType.KNIGHT]: {
     name: "Knight Baby",
     description: "Starts with 5x 7 Seals",
     sprite: "426_baby_knight.png",
     item: CollectibleType.SEVEN_SEALS,
     itemNum: 5,
   },
-  {
+  [RandomBabyType.BLACK_KNIGHT]: {
     name: "Black Knight Baby",
     description: "Starts with Black Hole",
     sprite: "427_baby_blackknight.png",
     item: CollectibleType.BLACK_HOLE,
   },
-  {
+  [RandomBabyType.MAGIC_CAT]: {
     name: "Magic Cat Baby",
     description: "Giga Bomb effect on hit",
     sprite: "428_baby_magiccat.png",
   },
-  {
+  [RandomBabyType.LITTLE_HORN]: {
     name: "Little Horn Baby",
     description: "Void tears (every 5th tear)",
     sprite: "429_baby_littlehorn.png",
     num: 5,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.FOLDER]: {
     name: "Folder Baby",
     description: "Swaps item/shop pools + devil/angel pools",
     sprite: "430_baby_folder.png",
   },
-  {
+  [RandomBabyType.DRIVER]: {
     name: "Driver Baby",
     description: "Slippery movement",
     sprite: "431_baby_driver.png",
     seed: SeedEffect.ICE_PHYSICS,
   },
-  {
+  [RandomBabyType.DRAGON]: {
     name: "Dragon Baby",
     description: "Starts with Lil Brimstone",
     sprite: "432_baby_dragon.png",
     item: CollectibleType.LIL_BRIMSTONE,
   },
-  {
+  [RandomBabyType.DOWNWELL]: {
     name: "Downwell Baby",
     description: "Starts with Eden's Soul",
     sprite: "433_baby_downwell.png",
     item: CollectibleType.EDENS_SOUL,
     uncharged: true,
   },
-  {
+  [RandomBabyType.CYLINDER]: {
     name: "Cylinder Baby",
     description: "Tear size increases with distance",
     sprite: "434_baby_cylinder.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.CUP]: {
     name: "Cup Baby",
     description: "Card Against Humanity on hit",
     sprite: "435_baby_cup.png",
   },
-  {
+  [RandomBabyType.CAVE_ROBOT]: {
     name: "Cave Robot Baby",
     description: "Starts with Hairpin",
     sprite: "436_baby_cave_robot.png",
     trinket: TrinketType.HAIRPIN,
   },
-  {
+  [RandomBabyType.BREADMEAT_HOODIEBREAD]: {
     name: "Breadmeat Hoodiebread Baby",
     description: "Everything is sped up",
     sprite: "437_baby_breadmeat_hoodiebread.png",
   },
-  {
+  [RandomBabyType.BIG_MOUTH_2]: {
     name: "Big Mouth Baby 2",
     description: "Mega Mush effect after 6 hits",
     sprite: "438_baby_bigmouth.png",
     numHits: 6,
   },
-  {
+  [RandomBabyType.AFRO_RAINBOW]: {
     name: "Afro Rainbow Baby",
     description: "Starts with 20x Rainbow Baby",
     sprite: "439_baby_afro_rainbow.png",
     item: CollectibleType.RAINBOW_BABY,
     itemNum: 20,
   },
-  {
+  [RandomBabyType.AFRO]: {
     name: "Afro Baby",
     description: "Starts with D1",
     sprite: "440_baby_afro.png",
     item: CollectibleType.D1,
   },
-  {
+  [RandomBabyType.TV]: {
     name: "TV Baby",
     description: "Mega Blast effect after 6 hits",
     sprite: "441_baby_tv.png",
     numHits: 6,
   },
-  {
+  [RandomBabyType.TOOTH_HEAD]: {
     name: "Tooth Head Baby",
     description: "Tooth tears",
     sprite: "442_baby_tooth.png",
     num: 3,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.TIRED]: {
     name: "Tired Baby",
     description: "Starts with 5x Bum Friend",
     sprite: "443_baby_tired.png",
     item: CollectibleType.BUM_FRIEND,
     itemNum: 5,
   },
-  {
+  [RandomBabyType.STEROIDS]: {
     name: "Steroids Baby",
     description: "Forget Me Now on 2nd hit (per room)",
     sprite: "444_baby_steroids.png",
   },
-  {
+  [RandomBabyType.SOAP_MONSTER]: {
     name: "Soap Monster Baby",
     description: "Starts with Butter",
     sprite: "445_baby_soap_monster.png",
     trinket: TrinketType.BUTTER,
   },
-  {
+  [RandomBabyType.ROJEN_WHITEFOX]: {
     name: "Rojen Whitefox Baby",
     description: "Shield on hit",
     sprite: "446_baby_rojen_whitefox.png",
   },
-  {
+  [RandomBabyType.ROCKET]: {
     name: "Rocket Baby",
     description: "Starts with Super Magnet",
     sprite: "447_baby_rocket.png",
     trinket: TrinketType.SUPER_MAGNET,
   },
-  {
+  [RandomBabyType.NURF]: {
     name: "Nurf Baby",
     description: "Starts with 3x Rune Bag",
     sprite: "448_baby_nurf.png",
     item: CollectibleType.RUNE_BAG,
     itemNum: 3,
   },
-  {
+  [RandomBabyType.MUTATED_FISH]: {
     name: "Mutated Fish Baby",
     description: "Summons a Sprinkler every 7 seconds",
     sprite: "449_baby_mutated_fish.png",
   },
-  {
+  [RandomBabyType.MOTH]: {
     name: "Moth Baby",
     description: "Starts with Soy Milk + Ipecac",
     sprite: "450_baby_moth.png",
@@ -2764,62 +2765,62 @@ export const BABIES: readonly BabyDescription[] = [
     item2: CollectibleType.IPECAC,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.BUTTFACE]: {
     name: "Buttface Baby",
     description: "Spawns a Black Poop per enemy killed",
     sprite: "451_baby_buttface.png",
   },
-  {
+  [RandomBabyType.FLYING_CANDLE]: {
     name: "Flying Candle Baby",
     description: "Starts with Night Light",
     sprite: "452_baby_flying_candle.png",
     item: CollectibleType.NIGHT_LIGHT,
   },
-  {
+  [RandomBabyType.GRAVEN]: {
     name: "Graven Baby",
     description: "Starts with Level 4 Bumbo (improved)",
     sprite: "453_baby_graven.png",
     item: CollectibleType.BUMBO,
   },
-  {
+  [RandomBabyType.GIZZY_CHARGESHOT]: {
     name: "Gizzy Chargeshot Baby",
     description: "Starts with Poke Go",
     sprite: "454_baby_gizzy_chargeshot.png",
     item: CollectibleType.POKE_GO,
     // Adding multiple Poke Gos does nothing.
   },
-  {
+  [RandomBabyType.GREEN_KOOPA]: {
     name: "Green Koopa Baby",
     description: "Shoots bouncy green shells",
     sprite: "455_baby_green_koopa.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.HANDSOME_MR_FROG]: {
     name: "Handsome Mr. Frog Baby",
     description: "Spawns 20 Blue Flies on hit",
     sprite: "456_baby_handsome_mrfrog.png",
     num: 20,
   },
-  {
+  [RandomBabyType.PUMPKIN_GUY]: {
     name: "Pumpkin Guy Baby",
     description: "Starts with Pop!",
     sprite: "457_baby_pumpkin_guy.png",
     item: CollectibleType.POP,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.RED_KOOPA]: {
     name: "Red Koopa Baby",
     description: "Shoots bouncy & homing red shells",
     sprite: "458_baby_red_koopa.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.SAD_BUNNY]: {
     name: "Sad Bunny Baby",
     description: "Accuracy increases tear rate",
     sprite: "459_baby_sad_bunny.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.SATURN_2]: {
     name: "Saturn Baby 2",
     description: "Starts with The Ludovico Technique + Strange Attractor",
     sprite: "460_baby_saturn.png",
@@ -2827,25 +2828,25 @@ export const BABIES: readonly BabyDescription[] = [
     item2: CollectibleType.STRANGE_ATTRACTOR,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.TOAST_BOY]: {
     name: "Toast Boy Baby",
     description: "Starts with 5x Friend Zone",
     sprite: "461_baby_toast_boy.png",
     item: CollectibleType.FRIEND_ZONE,
     itemNum: 5,
   },
-  {
+  [RandomBabyType.VOXDOG]: {
     name: "Voxdog Baby",
     description: "Shockwave tears",
     sprite: "462_baby_voxdog.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.N_404]: {
     name: "404 Baby",
     description: "-1 coin/bomb/key on hit",
     sprite: "463_baby_404.png",
   },
-  {
+  [RandomBabyType.ARROWHEAD]: {
     name: "Arrowhead Baby",
     description: "Starts with Technology Zero + Cupid's Arrow",
     sprite: "464_baby_arrowhead.png",
@@ -2853,259 +2854,259 @@ export const BABIES: readonly BabyDescription[] = [
     item2: CollectibleType.CUPIDS_ARROW,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.BEANIE]: {
     name: "Beanie Baby",
     description: "Starts with Smelter",
     sprite: "465_baby_beanie.png",
     item: CollectibleType.SMELTER,
   },
-  {
+  [RandomBabyType.BLINDCURSED]: {
     name: "Blindcursed Baby",
     description: "Invisible tears",
     sprite: "466_baby_blindcursed.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.BURNING]: {
     name: "Burning Baby",
     description: "Starts with Fire Mind",
     sprite: "467_baby_burning.png",
     item: CollectibleType.FIRE_MIND,
   },
-  {
+  [RandomBabyType.CURSOR]: {
     name: "Cursor Baby",
     description: "Starts with Pause",
     sprite: "468_baby_cursor.png",
     item: CollectibleType.PAUSE,
   },
-  {
+  [RandomBabyType.FLY]: {
     name: "Fly Baby",
     description: "Mass splitting tears",
     sprite: "469_baby_flybaby.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.HEADPHONE]: {
     name: "Headphone Baby",
     description: "Soundwave tears",
     sprite: "470_baby_headphone.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.KNIFE]: {
     name: "Knife Baby",
     description: "Starts with Mom's Knife",
     sprite: "471_baby_knife.png",
     item: CollectibleType.MOMS_KNIFE,
   },
-  {
+  [RandomBabyType.MUFFLERSCARF]: {
     name: "Mufflerscarf Baby",
     description: "All enemies get freezed on hit",
     sprite: "472_baby_mufflerscarf.png",
   },
-  {
+  [RandomBabyType.ROBBERMASK]: {
     name: "Robbermask Baby",
     description: "+1 damage per pickup taken",
     sprite: "473_baby_robbermask.png",
   },
-  {
+  [RandomBabyType.SCOREBOARD]: {
     name: "Scoreboard Baby",
     description: "Dies 1 minute after getting hit",
     sprite: "474_baby_scoreboard.png",
   },
-  {
+  [RandomBabyType.SO_MANY_EYES]: {
     name: "So Many Eyes Baby",
     description: "Starts with Mutant Spider + The Inner Eye",
     sprite: "475_baby_somanyeyes.png",
     item: CollectibleType.MUTANT_SPIDER,
     item2: CollectibleType.INNER_EYE,
   },
-  {
+  [RandomBabyType.TEXT]: {
     name: "Text Baby",
     description: "Starts with Glitched Crown",
     sprite: "476_baby_text.png",
     item: CollectibleType.GLITCHED_CROWN,
   },
-  {
+  [RandomBabyType.WING]: {
     name: "Wing Baby",
     description: "Starts with White Pony",
     sprite: "477_baby_wing.png",
     item: CollectibleType.WHITE_PONY,
   },
-  {
+  [RandomBabyType.TOOTH]: {
     name: "Tooth Baby",
     description: "Starts with Dead Tooth",
     sprite: "478_baby_tooth.png",
     item: CollectibleType.DEAD_TOOTH,
   },
-  {
+  [RandomBabyType.HAUNT]: {
     name: "Haunt Baby",
     description: "Starts with 10x Lil Haunt",
     sprite: "479_baby_haunt.png",
     item: CollectibleType.LIL_HAUNT,
     itemNum: 10,
   },
-  {
+  [RandomBabyType.IMP_2]: {
     name: "Imp Baby 2",
     description: "Acid tears",
     sprite: "480_baby_imp.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.N_32_BIT]: {
     name: "32bit Baby",
     description: "No HUD",
     sprite: "481_baby_32bit.png",
     seed: SeedEffect.NO_HUD,
   },
-  {
+  [RandomBabyType.ADVENTURE]: {
     name: "Adventure Baby",
     description: "Starts with Moving Box",
     sprite: "482_baby_adventure.png",
     item: CollectibleType.MOVING_BOX,
   },
-  {
+  [RandomBabyType.BUBBLES]: {
     name: "Bubbles Baby",
     description: "+1 damage per pill used",
     sprite: "483_baby_bubbles.png",
   },
-  {
+  [RandomBabyType.BULB]: {
     name: "Bulb Baby",
     description: "Starts with Vibrant Bulb",
     sprite: "484_baby_bulb.png",
     trinket: TrinketType.VIBRANT_BULB,
   },
-  {
+  [RandomBabyType.COOL_ORANGE]: {
     name: "Cool Orange Baby",
     description: "Summons random missiles",
     sprite: "485_baby_coolorange.png",
   },
-  {
+  [RandomBabyType.CRAZY_GHOST]: {
     name: "Crazy Ghost Baby",
     description: "Starts with 20x Ghost Baby",
     sprite: "486_baby_crazyghost.png",
     item: CollectibleType.GHOST_BABY,
     itemNum: 20,
   },
-  {
+  [RandomBabyType.CURSED_PILLOW]: {
     name: "Cursed Pillow Baby",
     description: "Every 4th missed tear causes damage",
     sprite: "487_baby_cursedpillow.png",
     num: 4,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.EGG]: {
     name: "Egg Baby",
     description: "Random pill effect on hit",
     sprite: "488_baby_egg.png",
   },
-  {
+  [RandomBabyType.FACTORY]: {
     name: "Factory Baby",
     description: "Starts with Clockwork Assembly",
     sprite: "489_baby_factory.png",
     item: CollectibleTypeCustom.CLOCKWORK_ASSEMBLY,
   },
-  {
+  [RandomBabyType.ERSATZ]: {
     name: "Ersatz Baby",
     description: "Starts with Incubus",
     sprite: "490_baby_ersatz.png",
     item: CollectibleType.INCUBUS,
   },
-  {
+  [RandomBabyType.FUNNY]: {
     name: "Funny Baby",
     description: "Enemies spawn Troll Bombs on death",
     sprite: "491_baby_funny.png",
   },
-  {
+  [RandomBabyType.GAMER]: {
     name: "Gamer Baby",
     description: "Constant Retro Vision pill effect",
     sprite: "492_baby_gamer.png",
     seed: SeedEffect.RETRO_VISION,
   },
-  {
+  [RandomBabyType.GLITTERY_PEACH]: {
     name: "Glittery Peach Baby",
     description: "Teleports to the boss room after 6 hits",
     sprite: "493_baby_glitterypeach.png",
     numHits: 6,
   },
-  {
+  [RandomBabyType.POMPADOUR]: {
     name: "Pompadour Baby",
     description: "Shrink tears",
     sprite: "494_baby_pompadour.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.HEAD_KICK]: {
     name: "Head Kick Baby",
     description: "Starts with Kamikaze! + explosion immunity",
     sprite: "495_baby_headkick.png",
     item: CollectibleType.KAMIKAZE,
     explosionImmunity: true,
   },
-  {
+  [RandomBabyType.HORN]: {
     name: "Horn Baby",
     description: "Starts with Dark Bum",
     sprite: "496_baby_horn.png",
     item: CollectibleType.DARK_BUM,
   },
-  {
+  [RandomBabyType.ICHOR]: {
     name: "Ichor Baby",
     description: "Starts with 5x Lil Spewer",
     sprite: "497_baby_ichor.png",
     item: CollectibleType.LIL_SPEWER,
     itemNum: 5,
   },
-  {
+  [RandomBabyType.ILL]: {
     name: "Ill Baby",
     description: "Bob's Rotten Head tears",
     sprite: "498_baby_ill.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.LAZY]: {
     name: "Lazy Baby",
     description: "Random card effect on hit",
     sprite: "499_baby_lazy.png",
   },
-  {
+  [RandomBabyType.MERN]: {
     name: "Mern Baby",
     description: "Double tears",
     sprite: "500_baby_mern.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.NECRO]: {
     name: "Necro Baby",
     description: "Starts with Book of the Dead",
     sprite: "501_baby_necro.png",
     item: CollectibleType.BOOK_OF_THE_DEAD,
   },
-  {
+  [RandomBabyType.PEEPING]: {
     name: "Peeping Baby",
     description: "Starts with 8x Bloodshot Eye",
     sprite: "502_baby_peeping.png",
     item: CollectibleType.BLOODSHOT_EYE,
     itemNum: 8,
   },
-  {
+  [RandomBabyType.PENANCE]: {
     name: "Penance Baby",
     description: "Starts with 3x Sworn Protector",
     sprite: "503_baby_penance.png",
     item: CollectibleType.SWORN_PROTECTOR,
     itemNum: 3,
   },
-  {
+  [RandomBabyType.PSYCHIC]: {
     name: "Psychic Baby",
     description: "Starts with Abel; tears come from Abel; 2x damage",
     sprite: "504_baby_psychic.png",
     item: CollectibleType.ABEL,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.PUPPET]: {
     name: "Puppet Baby",
     description: "Starts with Salvation",
     sprite: "505_baby_puppet.png",
     item: CollectibleType.SALVATION,
   },
-  {
+  [RandomBabyType.REAPER]: {
     name: "Reaper Baby",
     description: "Spawns a random rune on hit",
     sprite: "506_baby_reaper.png",
   },
-  {
+  [RandomBabyType.ROAD_KILL]: {
     name: "Road Kill Baby",
     description: "Starts with Pointy Rib x3 + blindfolded",
     sprite: "507_baby_roadkill.png",
@@ -3113,25 +3114,25 @@ export const BABIES: readonly BabyDescription[] = [
     num: 3,
     blindfolded: true,
   },
-  {
+  [RandomBabyType.SAUSAGE_LOVER]: {
     name: "Sausage Lover Baby",
     description: "Summons Monstro every 5 seconds",
     sprite: "508_baby_sausagelover.png",
   },
-  {
+  [RandomBabyType.SCRIBBLE]: {
     name: "Scribble Baby",
     description: "Starts with Lead Pencil",
     sprite: "509_baby_scribble.png",
     item: CollectibleType.LEAD_PENCIL,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.STAR_PLANT]: {
     name: "Star Plant Baby",
     description: "Starts with Dim Bulb",
     sprite: "510_baby_starplant.png",
     trinket: TrinketType.DIM_BULB,
   },
-  {
+  [RandomBabyType.TWITCHY]: {
     name: "Twitchy Baby",
     description: "Tear rate oscillates",
     sprite: "511_baby_twitchy.png",
@@ -3140,269 +3141,269 @@ export const BABIES: readonly BabyDescription[] = [
     min: -4, // Tear delay change
     max: 4, // Tear delay change
   },
-  {
+  [RandomBabyType.WITCH]: {
     name: "Witch Baby",
     description: "Starts with Crystal Ball (uncharged)",
     sprite: "512_baby_witch.png",
     item: CollectibleType.CRYSTAL_BALL,
     uncharged: true,
   },
-  {
+  [RandomBabyType.WORKSHOP]: {
     name: "Workshop Baby",
     description: "Starts with Humbling Bundle",
     sprite: "513_baby_workshop.png",
     item: CollectibleType.HUMBLING_BUNDLE,
   },
-  {
+  [RandomBabyType.HOOLIGAN]: {
     name: "Hooligan Baby",
     description: "Double enemies",
     sprite: "514_baby_hooligan.png",
   },
-  {
+  [RandomBabyType.HALF_SPIDER]: {
     name: "Half Spider Baby",
     description: "Starts with 3x Pretty Fly",
     sprite: "515_baby_halfspider.png",
     item: CollectibleType.HALO_OF_FLIES,
     itemNum: 2,
   },
-  {
+  [RandomBabyType.SILLY]: {
     name: "Silly Baby",
     description: "Constant I'm Excited pill effect",
     sprite: "516_baby_silly.png",
   },
-  {
+  [RandomBabyType.MASTER_COOK]: {
     name: "Master Cook Baby",
     description: "Egg tears",
     sprite: "517_baby_mastercook.png",
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.GREEN_PEPPER]: {
     name: "Green Pepper Baby",
     description: "Starts with Abyss",
     sprite: "518_baby_greenpepper.png",
     item: CollectibleType.ABYSS,
   },
-  {
+  [RandomBabyType.BAGGY_CAP]: {
     name: "Baggy Cap Baby",
     description: "Cannot bomb through rooms",
     sprite: "519_baby_baggycap.png",
     requireBombs: true,
   },
-  {
+  [RandomBabyType.STYLISH]: {
     name: "Stylish Baby",
     description: "Starts with Store Credit",
     sprite: "520_baby_stylish.png",
     trinket: TrinketType.STORE_CREDIT,
   },
-  {
+  [RandomBabyType.FOUND_SOUL]: {
     name: "Found Soul Baby",
     description: "Starts with a friendly Dark Esau",
     sprite: "059_found_soul.png", // 521
   },
-  {
+  [RandomBabyType.LOST_WHITE]: {
     name: "Lost White Baby",
     description: "Eternal D6 effect on hit",
     sprite: "60_baby_lost_white.png", // 522
   },
-  {
+  [RandomBabyType.LOST_BLACK]: {
     name: "Lost Black Baby",
     description: "Spindown Dice effect on hit",
     sprite: "61_baby_lost_black.png", // 523
   },
-  {
+  [RandomBabyType.LOST_BLUE]: {
     name: "Lost Blue Baby",
     description: "D10 effect on hit", // Re-roll enemies
     sprite: "62_baby_lost_blue.png", // 524
   },
-  {
+  [RandomBabyType.LOST_GREY]: {
     name: "Lost Grey Baby",
     description: "D7 effect on hit", // Restart the room
     sprite: "63_baby_lost_grey.png", // 525
   },
-  {
+  [RandomBabyType.WISP_2]: {
     name: "Wisp Baby 2",
     description: "Starts with Book of Virtues",
     sprite: "064_baby_wisp.png", // 526
     item: CollectibleType.BOOK_OF_VIRTUES,
   },
-  {
+  [RandomBabyType.DOUBLE]: {
     name: "Double Baby",
     description: "Starts with Flip",
     sprite: "065_baby_double.png", // 527
     item: CollectibleType.FLIP,
   },
-  {
+  [RandomBabyType.GLOWING]: {
     name: "Glowing Baby",
     description: "Starts with Monstrance",
     sprite: "066_baby_glowing.png", // 528
     item: CollectibleType.MONSTRANCE,
   },
-  {
+  [RandomBabyType.ILLUSION]: {
     name: "Illusion Baby",
     description: "Spawns a Crane Game on hit",
     sprite: "067_baby_illusion.png", // 529
   },
-  {
+  [RandomBabyType.HOPE]: {
     name: "Hope Baby",
     description: "Starts with Found Soul",
     sprite: "068_baby_hope.png", // 530
     trinket: TrinketType.FOUND_SOUL,
   },
-  {
+  [RandomBabyType.SOLOMONS_A]: {
     name: "Solomon's Baby A",
     description: "Can't shoot right",
     sprite: "069_baby_solomon_a.png", // 531
   },
-  {
+  [RandomBabyType.SOLOMONS_B]: {
     name: "Solomon's Baby B",
     description: "Can't shoot left",
     sprite: "070_baby_solomon_b.png", // 532
   },
-  {
+  [RandomBabyType.THIRTEENTH]: {
     name: "Thirteenth Baby",
     description: "Starts with Sacrificial Dagger",
     sprite: "533_baby_thirteenth.png",
     item: CollectibleType.SACRIFICIAL_DAGGER,
   },
-  {
+  [RandomBabyType.BERRY]: {
     name: "Berry Baby",
     description: "Starts with Red Stew",
     sprite: "534_baby_goldberry.png",
     item: CollectibleType.RED_STEW,
   },
-  {
+  [RandomBabyType.EYEBAT]: {
     name: "Eyebat Baby",
     description: "Floors are reversed",
     sprite: "535_baby_eyebat.png",
   },
-  {
+  [RandomBabyType.BABY_IS_YOU]: {
     name: "Baby Is You",
     description: "Starts with Luna",
     sprite: "536_baby_isyou.png",
     item: CollectibleType.LUNA,
   },
-  {
+  [RandomBabyType.VESSEL]: {
     name: "Vessel Baby",
     description: "Starts with 5x Worm Friend",
     sprite: "537_baby_vessel.png",
     item: CollectibleType.WORM_FRIEND,
     itemNum: 5,
   },
-  {
+  [RandomBabyType.ROCK]: {
     name: "Rock Baby",
     description: "Starts with Terra",
     sprite: "538_baby_rock.png",
     item: CollectibleType.TERRA,
   },
-  {
+  [RandomBabyType.JANITOR]: {
     name: "Janitor Baby",
     description: "Starts with Aquarius + Playdough Cookie",
     sprite: "539_baby_janitor.png",
     item: CollectibleType.AQUARIUS,
     item2: CollectibleType.PLAYDOUGH_COOKIE,
   },
-  {
+  [RandomBabyType.MEATY]: {
     name: "Meaty Baby",
     description: "Starts with Mars",
     sprite: "540_baby_meaty.png",
     item: CollectibleType.MARS,
   },
-  {
+  [RandomBabyType.PIG]: {
     name: "Pig Baby",
     description: "Starts with Bloody Gust",
     sprite: "541_baby_pig.png",
     item: CollectibleType.BLOODY_GUST,
   },
-  {
+  [RandomBabyType.PEGASUS]: {
     name: "Pegasus Baby",
     description: "3x Keeper's Box effect on room clear",
     sprite: "542_baby_pegasus.png",
     num: 3,
   },
-  {
+  [RandomBabyType.MR_E]: {
     name: "Mr. E Baby",
     description: "Starts with Purgatory",
     sprite: "543_baby_mre.png",
     item: CollectibleType.PURGATORY,
   },
-  {
+  [RandomBabyType.SLAB]: {
     name: "Slab Baby",
     description: "Starts with Bag of Crafting",
     sprite: "544_baby_slab.png",
     item: CollectibleType.BAG_OF_CRAFTING,
   },
-  {
+  [RandomBabyType.POG]: {
     name: "Pog Baby",
     description: "Starts with Sacred Orb",
     sprite: "545_baby_pog.png",
     item: CollectibleType.SACRED_ORB,
   },
-  {
+  [RandomBabyType.HIVE_KING]: {
     name: "Hive King Baby",
     description: "Giant cell effect on room clear",
     sprite: "546_baby_hiveking.png",
   },
-  {
+  [RandomBabyType.PILL_SHIP]: {
     name: "Pill Ship Baby",
     description: "Starts with Neptunus",
     sprite: "547_baby_pillship.png",
     item: CollectibleType.NEPTUNUS,
   },
-  {
+  [RandomBabyType.POINT]: {
     name: "Point Baby",
     description: "SUPERHOT",
     sprite: "548_baby_point.png",
     seed: SeedEffect.SUPER_HOT,
   },
-  {
+  [RandomBabyType.WYRM]: {
     name: "Wyrm Baby",
     description: "Starts with C Section",
     sprite: "549_baby_gunwyrm.png",
     item: CollectibleType.C_SECTION,
   },
-  {
+  [RandomBabyType.BULLET]: {
     name: "Bullet Baby",
     description: "Starts with Rocket in a Jar + infinite bombs + blindfolded",
     sprite: "550_baby_bullet.png",
     item: CollectibleType.ROCKET_IN_A_JAR,
     blindfolded: true,
   },
-  {
+  [RandomBabyType.PURPLE_HORSE]: {
     name: "Purple Horse Baby",
     description: "Starts with Blessed Penny",
     sprite: "551_baby_purplehorse.png",
     trinket: TrinketType.BLESSED_PENNY,
   },
-  {
+  [RandomBabyType.KOALA]: {
     name: "Koala Baby",
     description: "Genesis effect after 6 hits",
     sprite: "552_baby_koala.png",
     numHits: 6,
   },
-  {
+  [RandomBabyType.CLIFF_HANGER]: {
     name: "Cliff Hanger Baby",
     description: "Starts with Options?",
     sprite: "553_baby_cliffhanger.png",
     item: CollectibleType.OPTIONS,
   },
-  {
+  [RandomBabyType.PENGUIN]: {
     name: "Penguin Baby",
     description: "Starts with Blood Puppy",
     sprite: "554_baby_penguin.png",
     item: CollectibleType.BLOOD_PUPPY,
   },
-  {
+  [RandomBabyType.KINDA_LOVABLE]: {
     name: "Kinda Loveable Baby",
     description: "Spawns a Lovers card on hit",
     sprite: "555_baby_kindaloveable.png",
   },
-  {
+  [RandomBabyType.CURSED_ROOM]: {
     name: "Cursed Room Baby",
     description: "Starts with Holy Mantle + Curse of the Cursed",
     sprite: "556_baby_cursedroom.png",
     item: CollectibleType.HOLY_MANTLE,
   },
-  {
+  [RandomBabyType.PROTO]: {
     name: "Proto Baby",
     description: "Starts with Brimstone + Haemolacria",
     sprite: "557_baby_proto.png",
@@ -3410,7 +3411,7 @@ export const BABIES: readonly BabyDescription[] = [
     item2: CollectibleType.HAEMOLACRIA,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.FALLING]: {
     name: "Falling Baby",
     description: "Starts with Twisted Pair",
     // There are two sprites with the prefix of "490_" and this is the second one, so we assign it
@@ -3418,141 +3419,141 @@ export const BABIES: readonly BabyDescription[] = [
     sprite: "490_baby_falling.png", // 558
     item: CollectibleType.TWISTED_PAIR,
   },
-  {
+  [RandomBabyType.BROTHER_BOBBY]: {
     name: "Brother Bobby", // CollectibleType.BROTHER_BOBBY (8)
     description: "Slings Godhead aura (improved)",
     sprite: "familiar_shooters_01_brotherbobby.png", // 559
     item: CollectibleType.MOMS_KNIFE,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.SISTER_MAGGY]: {
     name: "Sister Maggy", // CollectibleType.SISTER_MAGGY (67)
     description: "Loses last item on 2nd hit (per room)",
     sprite: "familiar_shooters_07_sistermaggie.png", // 560
   },
-  {
+  [RandomBabyType.ROBO]: {
     name: "Robo-Baby", // CollectibleType.ROBO_BABY (95)
     description: "Starts with Technology",
     sprite: "familiar_shooters_06_robobaby.png", // 561
     item: CollectibleType.TECHNOLOGY,
   },
-  {
+  [RandomBabyType.LITTLE_GISH]: {
     name: "Little Gish", // CollectibleType.LITTLE_GISH (99)
     description: "All items from the Curse Room pool",
     sprite: "familiar_shooters_04_littlegish.png", // 562
   },
-  {
+  [RandomBabyType.LITTLE_STEVEN]: {
     name: "Little Steven", // CollectibleType.LITTLE_STEVEN (100)
     description: "Starts with Chaos",
     sprite: "familiar_shooters_05_littlesteve.png", // 563
     item: CollectibleType.CHAOS,
   },
-  {
+  [RandomBabyType.DEMON]: {
     name: "Demon Baby", // CollectibleType.DEMON_BABY (113)
     description: "Free devil deals",
     sprite: "familiar_shooters_02_demonbaby.png", // 564
   },
-  {
+  [RandomBabyType.GHOST]: {
     name: "Ghost Baby", // CollectibleType.GHOST_BABY (163)
     description: "All items from the shop pool",
     sprite: "familiar_shooters_09_ghostbaby.png", // 565
   },
-  {
+  [RandomBabyType.HARLEQUIN]: {
     name: "Harlequin Baby", // CollectibleType.HARLEQUIN_BABY (167)
     description: "Starts with The Wiz",
     sprite: "familiar_shooters_10_harlequinbaby.png", // 566
     item: CollectibleType.THE_WIZ,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.RAINBOW]: {
     name: "Rainbow Baby", // CollectibleType.RAINBOW_BABY (174)
     description: "Chest per enemy killed",
     sprite: "familiar_shooters_11_rainbowbaby.png", // 567
   },
-  {
+  [RandomBabyType.ABEL]: {
     name: "Abel", // CollectibleType.ABEL (188)
     description: "Every 5th missed tear causes paralysis",
     sprite: "familiar_shooters_08_abel.png", // 568
     num: 5,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.ROBO_2]: {
     name: "Robo-Baby 2.0", // CollectibleType.ROBO_BABY_2 (267)
     description: "Starts with Undefined (uncharged)",
     sprite: "familiar_shooters_267_robobaby20.png", // 569
     item: CollectibleType.UNDEFINED,
     uncharged: true,
   },
-  {
+  [RandomBabyType.ROTTEN]: {
     name: "Rotten Baby", // CollectibleType.ROTTEN_BABY (268)
     description: "Shoots Blue Flies + flight",
     sprite: "familiar_shooters_268_rottenbaby.png", // 570
     flight: true,
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.LIL_BRIMSTONE]: {
     name: "Lil Brimstone", // CollectibleType.LIL_BRIMSTONE (275)
     description: "Starts with Brimstone",
     // We cannot use the vanilla sprite since it has extra frames for charging.
     sprite: "familiar_shooters_275_lilbrimstone_custom.png", // 571
     item: CollectibleType.BRIMSTONE,
   },
-  {
+  [RandomBabyType.MONGO]: {
     name: "Mongo Baby", // CollectibleType.MONGO_BABY (322)
     description: "All items from the Angel Room pool",
     sprite: "familiar_shooters_322_mongobaby.png", // 572
   },
-  {
+  [RandomBabyType.INCUBUS]: {
     name: "Incubus", // CollectibleType.INCUBUS (360)
     description: "All items from the Devil Room pool",
     sprite: "familiar_shooters_80_incubus.png", // 573
   },
-  {
+  [RandomBabyType.FATES_REWARD]: {
     name: "Fate's Reward", // CollectibleType.FATES_REWARD (361)
     description: "Items cost money",
     sprite: "familiar_shooters_81_fatesreward.png", // 574
   },
-  {
+  [RandomBabyType.SERAPHIM]: {
     name: "Seraphim", // CollectibleType.SERAPHIM (390)
     description: "Censer aura",
     sprite: "familiars_shooters_92_seraphim.png", // 575
     item: CollectibleType.CENSER,
   },
-  {
+  [RandomBabyType.LIL_LOKI]: {
     name: "Lil' Loki", // CollectibleType.LIL_LOKI (435)
     description: "Cross tears",
     sprite: "familiar_097_shooters_lilloki.png", // 576
     mustHaveTears: true,
   },
-  {
+  [RandomBabyType.LIL_MONSTRO]: {
     name: "Lil Monstro", // CollectibleType.LIL_MONSTRO (471)
     description: "Starts with Monstro's Lung",
     // We cannot use the vanilla sprite since it does not follow the same format.
     sprite: "familiar_108_lilmonstro_custom.png", // 577
     item: CollectibleType.MONSTROS_LUNG,
   },
-  {
+  [RandomBabyType.BOILED]: {
     name: "Boiled Baby", // CollectibleType.BOILED_BABY (607)
     description: "All items from the Ultra Secret Room pool",
     // We cannot use the vanilla sprite since it is unidirectional.
     sprite: "003.208_boilbaby_custom.png", // 578
   },
-  {
+  [RandomBabyType.FREEZER]: {
     name: "Freezer Baby", // CollectibleType.FREEZER_BABY (608)
     description: "Ice tears",
     sprite: "003.209_freezerbaby.png", // 579
   },
-  {
+  [RandomBabyType.LIL_ABADDON]: {
     name: "Lil Abaddon", // CollectibleType.LIL_ABADDON (679)
     description: "Starts with Devil's Crown",
     sprite: "familiar_lil_abaddon.png", // 580
   },
-  {
+  [RandomBabyType.TWISTED]: {
     name: "Twisted Baby", // CollectibleType.TWISTED_PAIR (698)
     description: "Spore tears",
     sprite: "familiar_twisted_pair_custom.png", // 581
   },
-  {
+  [RandomBabyType.GELLO]: {
     name: "Gello", // CollectibleType.GELLO (728)
     description: "Starts with Sol",
     // In vanilla, there are spritesheets for each component of Gello, so this is a custom
@@ -3560,23 +3561,23 @@ export const BABIES: readonly BabyDescription[] = [
     sprite: "familiar_gello_custom.png", // 582
     item: CollectibleType.SOL,
   },
-  {
+  [RandomBabyType.ESAU_JR]: {
     name: "Esau Jr. Baby",
     description: "Soul of Jacob and Esau effect on hit",
     sprite: "familiar_esau_jr.png", // 583
   },
-  {
+  [RandomBabyType.SIREN_SHOOTER]: {
     name: "Siren Shooter",
     description: "Spawns a pedestal item after 6 hits",
     sprite: "familiar_siren_shooter.png", // 584
   },
-  {
+  [RandomBabyType.INVISIBLE]: {
     name: "Invisible Baby",
     description: "Invisibility",
     // This file does not actually exist, but we cannot specify a blank string.
     sprite: "invisible_baby.png", // 585
   },
-];
+} as const;
 
 export const UNKNOWN_BABY: BabyDescription = {
   name: "Unknown Baby",
@@ -3584,53 +3585,3 @@ export const UNKNOWN_BABY: BabyDescription = {
   // This file does not actually exist, but we cannot specify a blank string.
   sprite: "unknown.png",
 } as const;
-
-export enum RandomBabyType {
-  // Repentance babies that have a weird sprite number prefix (59 through 70).
-  FOUND_SOUL_BABY = 521,
-  LOST_WHITE_BABY = 522,
-  LOST_BLACK_BABY = 523,
-  LOST_BLUE_BABY = 524,
-  LOST_GREY_BABY = 525,
-  WISP_BABY = 526,
-  DOUBLE_BABY = 527,
-  GLOWING_BABY = 528,
-  ILLUSION_BABY = 529,
-  HOPE_BABY = 530,
-  SOLOMONS_BABY_A = 531,
-  SOLOMONS_BABY_B = 532,
-
-  // Babies with a duplicate sprite number prefix.
-  FALLING_BABY = 558,
-
-  // Baby familiars (ordered by CollectibleType).
-  BROTHER_BOBBY = 559,
-  SISTER_MAGGY = 560,
-  ROBO_BABY = 561,
-  LITTLE_GISH = 562,
-  LITTLE_STEVEN = 563,
-  DEMON_BABY = 564,
-  GHOST_BABY = 565,
-  HARLEQUIN_BABY = 566,
-  RAINBOW_BABY = 567,
-  ABEL = 568,
-  ROBO_BABY_2 = 569,
-  ROTTEN_BABY = 570,
-  LIL_BRIMSTONE = 571,
-  MONGO_BABY = 572,
-  INCUBUS = 573,
-  FATES_REWARD = 574,
-  SERAPHIM = 575,
-  LIL_LOKI = 576,
-  LIL_MONSTRO = 577,
-  BOILED_BABY = 578,
-  FREEZER_BABY = 579,
-  LIL_ABADDON = 580,
-  TWISTED_BABY = 581,
-  GELLO = 582,
-
-  // Other
-  ESAU_JR = 583,
-  SIREN_SHOOTER = 584,
-  INVISIBLE_BABY = 585,
-}

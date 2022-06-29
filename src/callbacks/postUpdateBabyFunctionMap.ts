@@ -46,7 +46,7 @@ import {
   useActiveItemTemp,
   VectorZero,
 } from "isaacscript-common";
-import { RandomBabyType } from "../babies";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 import * as pseudoRoomClear from "../pseudoRoomClear";
 import { EffectVariantCustom } from "../types/EffectVariantCustom";
@@ -1115,7 +1115,7 @@ postUpdateBabyFunctionMap.set(550, () => {
 });
 
 // Invisible Baby
-postUpdateBabyFunctionMap.set(RandomBabyType.INVISIBLE_BABY, () => {
+postUpdateBabyFunctionMap.set(RandomBabyType.INVISIBLE, () => {
   const roomFrameCount = g.r.GetFrameCount();
 
   if (roomFrameCount === 1) {

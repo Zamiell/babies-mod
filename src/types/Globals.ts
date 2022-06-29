@@ -1,4 +1,5 @@
 import { game } from "isaacscript-common";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import { GlobalsRun } from "./GlobalsRun";
 
 export class Globals {
@@ -33,7 +34,7 @@ export class Globals {
   pastBabies: int[] = [];
 
   /** Used for testing specific babies. */
-  debugBabyNum: number | null = null;
+  debugBabyNum: RandomBabyType | undefined;
 
   constructor() {
     this.font.droid.Load("font/droid.fnt");

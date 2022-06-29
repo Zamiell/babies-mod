@@ -1,4 +1,4 @@
-import { ModCallback } from "isaac-typescript-definitions";
+import { ModCallback, PickupVariant } from "isaac-typescript-definitions";
 import { getCurrentBaby } from "../utils";
 import { postPickupSelectionBabyFunctionMap } from "./postPickupSelectionBabyFunctionMap";
 
@@ -10,7 +10,7 @@ function main(
   pickup: EntityPickup,
   variant: int,
   subType: int,
-): [int, int] | void {
+): [PickupVariant, int] | undefined {
   const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return undefined;

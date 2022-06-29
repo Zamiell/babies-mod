@@ -14,7 +14,7 @@ function main(
   entity: Entity | undefined,
   inputHook: InputHook,
   buttonAction: ButtonAction,
-): number | boolean | void {
+): number | boolean | undefined {
   const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return undefined;

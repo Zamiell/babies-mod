@@ -1,5 +1,5 @@
 import { EntityCollisionClass } from "isaac-typescript-definitions";
-import { RandomBabyType } from "../babies";
+import { RandomBabyType } from "../enums/RandomBabyType";
 
 export const postKnifeInitBabyFunctionMap = new Map<
   int,

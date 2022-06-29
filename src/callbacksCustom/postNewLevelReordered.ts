@@ -1,15 +1,15 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 import {
-  getRandomArrayIndex,
+  getRandomEnumValue,
   log,
   ModCallbackCustom,
   ModUpgraded,
   newRNG,
 } from "isaacscript-common";
-import { BABIES } from "../babies";
 import { babyAdd } from "../babyAdd";
 import { babyCheckValid } from "../babyCheckValid";
 import { babyRemove } from "../babyRemove";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 import { GlobalsRunLevel } from "../types/GlobalsRunLevel";
 import { getCurrentBaby } from "../utils";
@@ -78,14 +78,14 @@ function getNewBaby(player: EntityPlayer) {
 
   // Get a random co-op baby based on the seed of the floor (but reroll the baby if they have any
   // overlapping items).
-  let babyType: int;
-  let i = 0;
+  let babyType: RandomBabyType;
+  let numTries = 0;
   do {
-    i += 1;
-    babyType = getRandomArrayIndex(BABIES, rng);
+    numTries += 1;
+    babyType = getRandomEnumValue(RandomBabyType, rng);
 
     // Don't randomly choose a co-op baby if we are choosing a specific one for debugging purposes.
-    if (g.debugBabyNum !== null) {
+    if (g.debugBabyNum !== undefined) {
       babyType = g.debugBabyNum;
       break;
     }
@@ -100,5 +100,5 @@ function getNewBaby(player: EntityPlayer) {
 
   const [, baby] = getCurrentBaby();
   log(`Randomly chose baby: ${babyType} - ${baby.name} - ${baby.description}`);
-  log(`Tries: ${i}, total past babies: ${g.pastBabies.length}`);
+  log(`Tries: ${numTries}, total past babies: ${g.pastBabies.length}`);
 }

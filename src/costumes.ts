@@ -2,20 +2,16 @@
 // Protector library to accomplish this.
 
 import { NullItemID } from "isaac-typescript-definitions";
-import { BABIES, RandomBabyType } from "./babies";
+import { RandomBabyType } from "./enums/RandomBabyType";
 import * as costumeProtector from "./lib/characterCostumeProtector";
+import { BABIES } from "./objects/babies";
 import { NullItemIDCustom } from "./types/NullItemIDCustom";
 import { getCurrentBaby } from "./utils";
 
 const CUSTOM_PLAYER_ANM2 = "gfx/001.000_player_custom_baby.anm2";
 const FIRST_BABY_WITH_SPRITE_IN_FAMILIAR_DIRECTORY =
   RandomBabyType.BROTHER_BOBBY;
-
-const firstBaby = BABIES[0];
-if (firstBaby === undefined) {
-  error("Failed to get the first baby.");
-}
-const DEFAULT_BABY_SPRITE = firstBaby.sprite;
+const DEFAULT_BABY_SPRITE = BABIES[0].sprite;
 
 export function initCostumeProtector(mod: Mod): void {
   costumeProtector.Init(mod);
@@ -74,7 +70,7 @@ function getCostumeProtectorArguments(): [
   }
 
   const gfxDirectory =
-    babyType >= (FIRST_BABY_WITH_SPRITE_IN_FAMILIAR_DIRECTORY as int)
+    babyType >= FIRST_BABY_WITH_SPRITE_IN_FAMILIAR_DIRECTORY
       ? "gfx/familiar"
       : "gfx/characters/player2";
   const spritesheetPath = `${gfxDirectory}/${baby.sprite}`;

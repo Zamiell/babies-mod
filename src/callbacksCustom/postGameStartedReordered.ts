@@ -5,11 +5,18 @@ import {
   ModCallbackCustom,
   ModUpgraded,
 } from "isaacscript-common";
-import { BABIES } from "../babies";
 import g from "../globals";
+import { BABIES } from "../objects/babies";
 import { GlobalsRun } from "../types/GlobalsRun";
 import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
 import { giveItemAndRemoveFromPools } from "../utils";
+
+const ALL_BABY_SEED_EFFECTS: SeedEffect[] = [];
+for (const baby of Object.values(BABIES)) {
+  if (baby.seed !== undefined) {
+    ALL_BABY_SEED_EFFECTS.push(baby.seed);
+  }
+}
 
 export function init(mod: ModUpgraded): void {
   mod.AddCallbackCustom(ModCallbackCustom.POST_GAME_STARTED_REORDERED, main);
@@ -37,10 +44,8 @@ function main(isContinued: boolean) {
 
   // Easter Eggs from babies are normally removed upon going to the next floor. We also have to
   // check to see if they reset the game while on a baby with a custom Easter Egg effect.
-  for (const baby of BABIES) {
-    if (baby.seed !== undefined) {
-      g.seeds.RemoveSeedEffect(baby.seed);
-    }
+  for (const seed of ALL_BABY_SEED_EFFECTS) {
+    g.seeds.RemoveSeedEffect(seed);
   }
 
   // Also remove seeds that are turned on manually in the PostUpdate callback.

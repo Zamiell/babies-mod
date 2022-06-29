@@ -46,7 +46,7 @@ import {
   useActiveItemTemp,
   VectorZero,
 } from "isaacscript-common";
-import { RandomBabyType } from "../babies";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 import { TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP } from "../maps/teleportRoomTypeToItemAndPriceMap";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";

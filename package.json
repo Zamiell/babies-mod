@@ -13,11 +13,11 @@
   "type": "commonjs",
   "dependencies": {
     "@types/node": "^18.0.0",
-    "isaac-typescript-definitions": "^2.1.1",
-    "isaacscript": "^2.5.2",
-    "isaacscript-common": "^3.9.0",
-    "isaacscript-lint": "^2.0.2",
-    "isaacscript-spell": "^1.2.2",
+    "isaac-typescript-definitions": "^3.0.10",
+    "isaacscript": "^2.7.0",
+    "isaacscript-common": "^4.2.3",
+    "isaacscript-lint": "^3.0.0",
+    "isaacscript-spell": "^1.2.4",
     "ts-node": "^10.8.1",
     "typescript": "^4.7.4",
     "typescript-to-lua": "^1.6.1"

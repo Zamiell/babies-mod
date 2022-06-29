@@ -21,7 +21,7 @@ import {
   spawnWithSeed,
   VectorZero,
 } from "isaacscript-common";
-import { RandomBabyType } from "../babies";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 import { getCurrentBabyDescription } from "../utils";
 
@@ -181,9 +181,6 @@ postEntityKillBabyFunctionMap.set(491, (npc: EntityNPC) => {
 });
 
 // Rainbow Baby
-postEntityKillBabyFunctionMap.set(
-  RandomBabyType.RAINBOW_BABY,
-  (npc: EntityNPC) => {
-    spawnPickupWithSeed(PickupVariant.CHEST, 0, npc.Position, npc.InitSeed);
-  },
-);
+postEntityKillBabyFunctionMap.set(RandomBabyType.RAINBOW, (npc: EntityNPC) => {
+  spawnPickupWithSeed(PickupVariant.CHEST, 0, npc.Position, npc.InitSeed);
+});

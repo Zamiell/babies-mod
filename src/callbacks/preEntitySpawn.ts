@@ -15,9 +15,9 @@ function main(
   subType: int,
   _position: Vector,
   _velocity: Vector,
-  _spawner: Entity,
+  _spawner: Entity | undefined,
   initSeed: int,
-): [int, int, int, int] | void {
+): [int, int, int, int] | undefined {
   const [, baby, valid] = getCurrentBaby();
   if (!valid) {
     return undefined;

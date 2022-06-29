@@ -10,7 +10,7 @@ import {
   inStartingRoom,
   setEntityRandomColor,
 } from "isaacscript-common";
-import { RandomBabyType } from "../babies";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 
 export const postPickupInitBabyFunctionMap = new Map<
@@ -107,7 +107,7 @@ postPickupInitBabyFunctionMap.set(317, (pickup: EntityPickup) => {
 
 // Demon Baby
 postPickupInitBabyFunctionMap.set(
-  RandomBabyType.DEMON_BABY,
+  RandomBabyType.DEMON,
   (pickup: EntityPickup) => {
     // Free devil deals
     if (pickup.Variant === PickupVariant.COLLECTIBLE) {

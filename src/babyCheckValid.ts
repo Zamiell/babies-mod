@@ -12,15 +12,16 @@ import {
   hasFlag,
   onRepentanceStage,
 } from "isaacscript-common";
-import { BABIES } from "./babies";
+import { RandomBabyType } from "./enums/RandomBabyType";
 import g from "./globals";
+import { BABIES } from "./objects/babies";
 import { BabyDescription } from "./types/BabyDescription";
 
-export function babyCheckValid(player: EntityPlayer, babyType: int): boolean {
+export function babyCheckValid(
+  player: EntityPlayer,
+  babyType: RandomBabyType,
+): boolean {
   const baby = BABIES[babyType];
-  if (baby === undefined) {
-    error(`Baby ${babyType} was not found.`);
-  }
 
   // Check to see if we already got this baby in this run / multi-character custom challenge.
   if (g.pastBabies.includes(babyType)) {
@@ -91,8 +92,7 @@ function checkActiveItem(player: EntityPlayer, baby: BabyDescription) {
       return false;
     }
 
-    const hasItemInSchoolbag =
-      hasSchoolbag && secondaryActiveItem !== CollectibleType.NULL;
+    const hasItemInSchoolbag = secondaryActiveItem !== CollectibleType.NULL;
     if (hasItemInSchoolbag) {
       // The player has both an active item and an item inside of the Schoolbag.
       return false;

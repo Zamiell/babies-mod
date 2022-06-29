@@ -10,7 +10,7 @@ export function main(
   damageFlags: BitFlags<DamageFlag>,
   damageSource: EntityRef,
   damageCountdownFrames: int,
-): boolean | void {
+): boolean | undefined {
   const gameFrameCount = g.g.GetFrameCount();
   const [babyType, baby, valid] = getCurrentBaby();
   if (!valid) {

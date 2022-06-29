@@ -6,62 +6,80 @@ const GRID_ENTITY_REPLACEMENT_EXCEPTIONS: ReadonlySet<GridEntityXMLType> =
   new Set([
     GridEntityXMLType.PRESSURE_PLATE,
     GridEntityXMLType.TRAPDOOR,
-    GridEntityXMLType.TRAPDOOR,
+    GridEntityXMLType.CRAWL_SPACE,
   ]);
 
 export const preRoomEntitySpawnBabyFunctionMap = new Map<
   int,
-  (entityType: EntityType) => [int, int, int] | void
+  (
+    entityType: EntityType | GridEntityXMLType,
+  ) => [EntityType | GridEntityXMLType, int, int] | undefined
 >();
 
 // Chompers Baby
-preRoomEntitySpawnBabyFunctionMap.set(143, (entityType: int) => {
-  if (
-    g.r.IsFirstVisit() &&
-    entityType >= 1000 && // We only care about grid entities
-    !GRID_ENTITY_REPLACEMENT_EXCEPTIONS.has(entityType as GridEntityXMLType)
-  ) {
-    // Everything is Red Poop.
-    return [GridEntityXMLType.POOP_RED, 0, 0];
-  }
+preRoomEntitySpawnBabyFunctionMap.set(
+  143,
+  (entityType: EntityType | GridEntityXMLType) => {
+    if (
+      g.r.IsFirstVisit() &&
+      (entityType as int) >= 1000 && // We only care about grid entities.
+      !GRID_ENTITY_REPLACEMENT_EXCEPTIONS.has(
+        entityType as unknown as GridEntityXMLType,
+      )
+    ) {
+      // Everything is Red Poop.
+      return [GridEntityXMLType.POOP_RED, 0, 0];
+    }
 
-  return undefined;
-});
+    return undefined;
+  },
+);
 
 // Pretty Baby
-preRoomEntitySpawnBabyFunctionMap.set(158, (_entityType: EntityType) => {
-  const roomType = g.r.GetType();
+preRoomEntitySpawnBabyFunctionMap.set(
+  158,
+  (_entityType: EntityType | GridEntityXMLType) => {
+    const roomType = g.r.GetType();
 
-  // All special rooms are Angel Shops. Ignore some select special rooms.
-  if (shouldTransformRoomType(roomType)) {
-    return [999, 0, 0]; // Equal to 1000.0, which is a blank effect, which is essentially nothing
-  }
+    // All special rooms are Angel Shops. Ignore some select special rooms.
+    if (shouldTransformRoomType(roomType)) {
+      return [999, 0, 0]; // Equal to 1000.0, which is a blank effect, which is essentially nothing.
+    }
 
-  return undefined;
-});
+    return undefined;
+  },
+);
 
 // Suit Baby
-preRoomEntitySpawnBabyFunctionMap.set(287, (_entityType: EntityType) => {
-  const roomType = g.r.GetType();
+preRoomEntitySpawnBabyFunctionMap.set(
+  287,
+  (_entityType: EntityType | GridEntityXMLType) => {
+    const roomType = g.r.GetType();
 
-  // All special rooms are Devil Rooms. Ignore some select special rooms.
-  if (shouldTransformRoomType(roomType)) {
-    return [999, 0, 0]; // Equal to 1000.0, which is a blank effect, which is essentially nothing
-  }
+    // All special rooms are Devil Rooms. Ignore some select special rooms.
+    if (shouldTransformRoomType(roomType)) {
+      return [999, 0, 0]; // Equal to 1000.0, which is a blank effect, which is essentially nothing.
+    }
 
-  return undefined;
-});
+    return undefined;
+  },
+);
 
 // Red Wrestler Baby
-preRoomEntitySpawnBabyFunctionMap.set(389, (entityType: int) => {
-  if (
-    g.r.IsFirstVisit() &&
-    entityType >= 1000 && // We only care about grid entities
-    !GRID_ENTITY_REPLACEMENT_EXCEPTIONS.has(entityType as GridEntityXMLType)
-  ) {
-    // Everything is TNT
-    return [GridEntityXMLType.TNT, 0, 0];
-  }
+preRoomEntitySpawnBabyFunctionMap.set(
+  389,
+  (entityType: EntityType | GridEntityXMLType) => {
+    if (
+      g.r.IsFirstVisit() &&
+      (entityType as int) >= 1000 && // We only care about grid entities
+      !GRID_ENTITY_REPLACEMENT_EXCEPTIONS.has(
+        entityType as unknown as GridEntityXMLType,
+      )
+    ) {
+      // Everything is TNT
+      return [GridEntityXMLType.TNT, 0, 0];
+    }
 
-  return undefined;
-});
+    return undefined;
+  },
+);

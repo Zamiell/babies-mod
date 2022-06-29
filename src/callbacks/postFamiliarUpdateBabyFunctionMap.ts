@@ -1,6 +1,6 @@
 import { FamiliarVariant } from "isaac-typescript-definitions";
 import { getFamiliars } from "isaacscript-common";
-import { RandomBabyType } from "../babies";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 import { getRandomOffsetPosition } from "../utils";
 

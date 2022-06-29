@@ -38,9 +38,10 @@ import {
   spawnTrinket,
   VectorZero,
 } from "isaacscript-common";
-import { BABIES, UNKNOWN_BABY } from "./babies";
 import { ROOM_TYPES_TO_NOT_TRANSFORM } from "./constants";
+import { RandomBabyType } from "./enums/RandomBabyType";
 import g from "./globals";
+import { BABIES, UNKNOWN_BABY } from "./objects/babies";
 import { BabyDescription } from "./types/BabyDescription";
 import { CollectibleTypeCustom } from "./types/CollectibleTypeCustom";
 
@@ -58,7 +59,9 @@ export function bigChestExists(): boolean {
 }
 
 export function getCurrentBaby(): [
-  babyType: int,
+  // Normally, we would use "null" instead of "-1", but tuples cannot contain null in
+  // TypeScriptToLua.
+  babyType: RandomBabyType | -1,
   baby: BabyDescription,
   valid: boolean,
 ] {
@@ -68,10 +71,6 @@ export function getCurrentBaby(): [
   }
 
   const baby = BABIES[babyType];
-  if (baby === undefined) {
-    error(`Baby ${babyType} was not found.`);
-  }
-
   return [babyType, baby, true];
 }
 

@@ -19,8 +19,8 @@ import {
   spawnFamiliar,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { RandomBabyType } from "../babies";
 import { FADED_BLUE, FADED_RED, FADED_YELLOW } from "../constants";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 import { TearData } from "../types/TearData";
 import { getCurrentBabyDescription } from "../utils";
@@ -638,13 +638,10 @@ postFireTearBabyFunctionMap.set(RandomBabyType.ABEL, (tear: EntityTear) => {
 });
 
 // Rotten Baby
-postFireTearBabyFunctionMap.set(
-  RandomBabyType.ROTTEN_BABY,
-  (tear: EntityTear) => {
-    tear.Remove();
-    g.p.AddBlueFlies(1, g.p.Position, undefined);
-  },
-);
+postFireTearBabyFunctionMap.set(RandomBabyType.ROTTEN, (tear: EntityTear) => {
+  tear.Remove();
+  g.p.AddBlueFlies(1, g.p.Position, undefined);
+});
 
 // Lil' Loki
 postFireTearBabyFunctionMap.set(RandomBabyType.LIL_LOKI, (tear: EntityTear) => {
@@ -661,7 +658,7 @@ postFireTearBabyFunctionMap.set(RandomBabyType.LIL_LOKI, (tear: EntityTear) => {
 // Freezer Baby
 postFireTearBabyFunctionMap.set(
   // Ice tears
-  RandomBabyType.FREEZER_BABY,
+  RandomBabyType.FREEZER,
   (tear: EntityTear) => {
     tear.TearFlags = addFlag(tear.TearFlags, TearFlag.ICE);
     tear.SetColor(FADED_BLUE, 10000, 10000, false, false);
@@ -671,7 +668,7 @@ postFireTearBabyFunctionMap.set(
 // Twisted Baby
 postFireTearBabyFunctionMap.set(
   // Spore tears
-  RandomBabyType.TWISTED_BABY,
+  RandomBabyType.TWISTED,
   (tear: EntityTear) => {
     tear.TearFlags = addFlag(tear.TearFlags, TearFlag.SPORE);
     tear.ChangeVariant(TearVariant.SPORE);

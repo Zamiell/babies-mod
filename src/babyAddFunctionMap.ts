@@ -11,7 +11,7 @@ import {
   repeat,
   spawn,
 } from "isaacscript-common";
-import { RandomBabyType } from "./babies";
+import { RandomBabyType } from "./enums/RandomBabyType";
 import g from "./globals";
 import { initSprite } from "./sprite";
 import { getCurrentBabyDescription } from "./utils";
@@ -183,7 +183,7 @@ babyAddFunctionMap.set(556, () => {
 });
 
 // Found Soul Baby
-babyAddFunctionMap.set(RandomBabyType.FOUND_SOUL_BABY, () => {
+babyAddFunctionMap.set(RandomBabyType.FOUND_SOUL, () => {
   const numDarkEsaus = Isaac.CountEntities(undefined, EntityType.DARK_ESAU);
   if (numDarkEsaus > 0) {
     return;

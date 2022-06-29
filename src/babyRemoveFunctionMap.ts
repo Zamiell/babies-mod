@@ -14,7 +14,7 @@ import {
   repeat,
   sfxManager,
 } from "isaacscript-common";
-import { RandomBabyType } from "./babies";
+import { RandomBabyType } from "./enums/RandomBabyType";
 import g from "./globals";
 import { getCurrentBabyDescription, removeAllFriendlyEntities } from "./utils";
 
@@ -144,7 +144,7 @@ babyRemoveFunctionMap.set(556, () => {
 });
 
 // Rotten Baby
-babyRemoveFunctionMap.set(RandomBabyType.ROTTEN_BABY, () => {
+babyRemoveFunctionMap.set(RandomBabyType.ROTTEN, () => {
   // Remove all of the Blue Flies.
   removeAllMatchingEntities(EntityType.FAMILIAR, FamiliarVariant.BLUE_FLY);
 });

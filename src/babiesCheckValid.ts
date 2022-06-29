@@ -4,7 +4,7 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { getCollectibleItemType, log } from "isaacscript-common";
-import { BABIES } from "./babies";
+import { BABIES } from "./objects/babies";
 
 const VALID_DUPLICATE_ITEMS: ReadonlySet<CollectibleType> = new Set([
   CollectibleType.POOP, // 36
@@ -33,20 +33,20 @@ export function babiesCheckValid(): void {
 function babiesCheckValidDuplicateName() {
   const nameSet = new Set<string>();
 
-  BABIES.forEach((baby, i) => {
+  for (const [babyType, baby] of Object.entries(BABIES)) {
     if (nameSet.has(baby.name)) {
-      log(`ERROR: Baby #${i} has a duplicate name: ${baby.name}`);
+      log(`ERROR: Baby #${babyType} has a duplicate name: ${baby.name}`);
     } else {
       nameSet.add(baby.name);
     }
-  });
+  }
 }
 
 function babiesCheckValidDuplicateItem() {
-  BABIES.forEach((baby, i) => {
+  for (const [i, baby] of Object.entries(BABIES)) {
     // Babies with 1 item.
     if (baby.item !== undefined && baby.item2 === undefined) {
-      BABIES.forEach((baby2, j) => {
+      for (const [j, baby2] of Object.entries(BABIES)) {
         if (i === j) {
           return;
         }
@@ -59,12 +59,12 @@ function babiesCheckValidDuplicateItem() {
         ) {
           log(`ERROR: Baby #${i} has a duplicate item: ${baby.item}`);
         }
-      });
+      }
     }
 
     // Babies with 2 items.
     if (baby.item !== undefined && baby.item2 !== undefined) {
-      BABIES.forEach((baby2, j) => {
+      for (const [j, baby2] of Object.entries(BABIES)) {
         if (i === j) {
           return;
         }
@@ -79,7 +79,7 @@ function babiesCheckValidDuplicateItem() {
             `ERROR: Baby #${i} has a duplicate pair of items: ${baby.item} & ${baby.item2}`,
           );
         }
-      });
+      }
     }
 
     if (
@@ -95,13 +95,13 @@ function babiesCheckValidDuplicateItem() {
     ) {
       log(`ERROR: Baby #${i} has an active item in the third slot.`);
     }
-  });
+  }
 }
 
 function babiesCheckValidDuplicateTrinket() {
   const trinketSet = new Set<TrinketType>();
 
-  BABIES.forEach((baby, i) => {
+  for (const [i, baby] of Object.entries(BABIES)) {
     if (baby.trinket !== undefined) {
       if (trinketSet.has(baby.trinket)) {
         log(`ERROR: Baby #${i} has a duplicate trinket: ${baby.trinket}`);
@@ -109,5 +109,5 @@ function babiesCheckValidDuplicateTrinket() {
         trinketSet.add(baby.trinket);
       }
     }
-  });
+  }
 }

@@ -1,11 +1,11 @@
 import { ItemPoolType, RoomType } from "isaac-typescript-definitions";
-import { RandomBabyType } from "../babies";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 import { getRandomCollectibleTypeFromPool } from "../utils";
 
 export const preGetCollectibleBabyFunctionMap = new Map<
   int,
-  () => number | void
+  () => number | undefined
 >();
 
 // Folder Baby
@@ -45,12 +45,12 @@ preGetCollectibleBabyFunctionMap.set(RandomBabyType.LITTLE_GISH, () =>
 );
 
 // Ghost Baby
-preGetCollectibleBabyFunctionMap.set(RandomBabyType.GHOST_BABY, () =>
+preGetCollectibleBabyFunctionMap.set(RandomBabyType.GHOST, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.SHOP),
 );
 
 // Mongo Baby
-preGetCollectibleBabyFunctionMap.set(RandomBabyType.MONGO_BABY, () =>
+preGetCollectibleBabyFunctionMap.set(RandomBabyType.MONGO, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.ANGEL),
 );
 
@@ -60,6 +60,6 @@ preGetCollectibleBabyFunctionMap.set(RandomBabyType.INCUBUS, () =>
 );
 
 // Boiled Baby
-preGetCollectibleBabyFunctionMap.set(RandomBabyType.BOILED_BABY, () =>
+preGetCollectibleBabyFunctionMap.set(RandomBabyType.BOILED, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.ULTRA_SECRET),
 );

@@ -6,7 +6,11 @@ import {
 
 export const postPickupSelectionBabyFunctionMap = new Map<
   int,
-  (pickup: EntityPickup, variant: int, subType: int) => [int, int] | void
+  (
+    pickup: EntityPickup,
+    variant: int,
+    subType: int,
+  ) => [PickupVariant, int] | undefined
 >();
 
 // Gem Baby

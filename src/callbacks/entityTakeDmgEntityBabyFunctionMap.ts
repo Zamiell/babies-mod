@@ -5,7 +5,7 @@ import {
   EntityType,
 } from "isaac-typescript-definitions";
 import { getRandom, spawnEffect } from "isaacscript-common";
-import { RandomBabyType } from "../babies";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 
 export const entityTakeDmgEntityBabyFunctionMap = new Map<
@@ -16,7 +16,7 @@ export const entityTakeDmgEntityBabyFunctionMap = new Map<
     damageFlags: BitFlags<DamageFlag>,
     damageSource: EntityRef,
     damageCountdownFrames: int,
-  ) => boolean | void
+  ) => boolean | undefined
 >();
 
 // D Baby
@@ -153,6 +153,7 @@ entityTakeDmgEntityBabyFunctionMap.set(
   ) => {
     if (
       damageSource.Type === EntityType.TEAR &&
+      damageSource.Entity !== undefined &&
       damageSource.Entity.SubType === 1
     ) {
       // 5% chance for a black hole to spawn.
@@ -168,6 +169,8 @@ entityTakeDmgEntityBabyFunctionMap.set(
         );
       }
     }
+
+    return undefined;
   },
 );
 

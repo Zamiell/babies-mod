@@ -4,6 +4,7 @@ import {
   ModUpgraded,
   spawnCollectible,
 } from "isaacscript-common";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 import { getCurrentBaby } from "../utils";
 
@@ -17,8 +18,8 @@ function main(slot: Entity) {
     return;
   }
 
-  // Gappy Baby
-  if (babyType !== 171) {
+  // 171
+  if (babyType !== RandomBabyType.GAPPY) {
     return;
   }
 

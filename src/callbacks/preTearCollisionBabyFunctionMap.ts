@@ -4,7 +4,7 @@ import g from "../globals";
 
 export const preTearCollisionBabyFunctionMap = new Map<
   int,
-  (tear: EntityTear, collider: Entity) => boolean | void
+  (tear: EntityTear, collider: Entity) => boolean | undefined
 >();
 
 // Mort Baby
@@ -15,6 +15,8 @@ preTearCollisionBabyFunctionMap.set(
     if (tear.SubType === 1) {
       g.p.AddBlueFlies(1, g.p.Position, undefined);
     }
+
+    return undefined;
   },
 );
 
@@ -33,6 +35,8 @@ preTearCollisionBabyFunctionMap.set(
       );
       creep.Timeout = 120;
     }
+
+    return undefined;
   },
 );
 
@@ -46,5 +50,7 @@ preTearCollisionBabyFunctionMap.set(
       g.p.AddCacheFlags(CacheFlag.FIRE_DELAY);
       g.p.EvaluateItems();
     }
+
+    return undefined;
   },
 );

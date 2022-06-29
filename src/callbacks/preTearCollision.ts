@@ -6,7 +6,7 @@ export function init(mod: Mod): void {
   mod.AddCallback(ModCallback.PRE_TEAR_COLLISION, main);
 }
 
-function main(tear: EntityTear, collider: Entity): boolean | void {
+function main(tear: EntityTear, collider: Entity): boolean | undefined {
   const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return undefined;

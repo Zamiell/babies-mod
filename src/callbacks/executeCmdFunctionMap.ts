@@ -21,6 +21,6 @@ executeCmdFunctionMap.set("babydebug", (_params: string) => {
 });
 
 executeCmdFunctionMap.set("disable", (_params: string) => {
-  g.debugBabyNum = null;
+  g.debugBabyNum = undefined;
   Isaac.ExecuteCommand("restart");
 });

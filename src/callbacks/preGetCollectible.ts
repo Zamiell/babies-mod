@@ -11,7 +11,7 @@ function main(
   _itemPoolType: ItemPoolType,
   _decrease: boolean,
   _seed: int,
-): number | void {
+): number | undefined {
   const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return undefined;

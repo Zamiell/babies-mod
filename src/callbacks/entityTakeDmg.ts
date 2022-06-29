@@ -13,7 +13,7 @@ function main(
   damageFlags: BitFlags<DamageFlag>,
   damageSource: EntityRef,
   damageCountdownFrames: int,
-): boolean | void {
+): boolean | undefined {
   const [, , valid] = getCurrentBaby();
   if (!valid) {
     return undefined;

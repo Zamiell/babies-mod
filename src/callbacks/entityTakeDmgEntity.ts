@@ -9,7 +9,7 @@ export function main(
   damageFlags: BitFlags<DamageFlag>,
   damageSource: EntityRef,
   damageCountdownFrames: int,
-): boolean | void {
+): boolean | undefined {
   const [babyType, , valid] = getCurrentBaby();
   if (!valid) {
     return undefined;

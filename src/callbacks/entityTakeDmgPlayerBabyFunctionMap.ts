@@ -48,7 +48,7 @@ import {
   useActiveItemTemp,
   VectorZero,
 } from "isaacscript-common";
-import { RandomBabyType } from "../babies";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 import { EntityDescription } from "../types/EntityDescription";
@@ -66,7 +66,7 @@ export const entityTakeDmgPlayerBabyFunctionMap = new Map<
     damageFlags: BitFlags<DamageFlag>,
     damageSource: EntityRef,
     damageCountdownFrames: int,
-  ) => boolean | void
+  ) => boolean | undefined
 >();
 
 // Host Baby
@@ -74,6 +74,8 @@ entityTakeDmgPlayerBabyFunctionMap.set(9, (player) => {
   repeat(10, () => {
     player.AddBlueSpider(player.Position);
   });
+
+  return undefined;
 });
 
 // Lost Baby
@@ -90,6 +92,8 @@ entityTakeDmgPlayerBabyFunctionMap.set(10, (player) => {
 entityTakeDmgPlayerBabyFunctionMap.set(20, () => {
   // Use Kamikaze on the next 5 frames.
   g.run.babyCounters = 5;
+
+  return undefined;
 });
 
 // -0- Baby
@@ -108,11 +112,15 @@ entityTakeDmgPlayerBabyFunctionMap.set(32, () => {
       npc.HitPoints = npc.MaxHitPoints;
     }
   }
+
+  return undefined;
 });
 
 // Yellow Baby
 entityTakeDmgPlayerBabyFunctionMap.set(33, (player) => {
   player.UsePill(PillEffect.LEMON_PARTY, PillColor.NULL);
+
+  return undefined;
 });
 
 // Buddy Baby
@@ -134,6 +142,8 @@ entityTakeDmgPlayerBabyFunctionMap.set(41, (player) => {
 // Blinding Baby
 entityTakeDmgPlayerBabyFunctionMap.set(46, (player) => {
   spawnCard(Card.SUN, player.Position, VectorZero, player);
+
+  return undefined;
 });
 
 // Revenge Baby
@@ -143,11 +153,15 @@ entityTakeDmgPlayerBabyFunctionMap.set(50, (player) => {
   const heartSubType = getRandomArrayElement(heartSubTypes, g.run.rng);
   const seed = g.run.rng.Next();
   spawnHeart(heartSubType, player.Position, VectorZero, player, seed);
+
+  return undefined;
 });
 
 // Apollyon Baby
 entityTakeDmgPlayerBabyFunctionMap.set(56, (player) => {
   player.UseCard(Card.RUNE_BLACK);
+
+  return undefined;
 });
 
 // Goat Baby
@@ -167,11 +181,15 @@ entityTakeDmgPlayerBabyFunctionMap.set(62, (player) => {
     player.AddCollectible(CollectibleType.DUALITY);
     removeCollectibleFromItemTracker(CollectibleType.DUALITY);
   }
+
+  return undefined;
 });
 
 // Ghoul Baby
 entityTakeDmgPlayerBabyFunctionMap.set(83, (player) => {
   useActiveItemTemp(player, CollectibleType.BOOK_OF_SECRETS);
+
+  return undefined;
 });
 
 // Half Head Baby
@@ -195,6 +213,8 @@ entityTakeDmgPlayerBabyFunctionMap.set(
       );
       g.run.babyBool = false;
     }
+
+    return undefined;
   },
 );
 
@@ -210,11 +230,15 @@ entityTakeDmgPlayerBabyFunctionMap.set(101, (player) => {
   );
   creep.Scale = 10;
   creep.Timeout = 240;
+
+  return undefined;
 });
 
 // Cyber Baby
 entityTakeDmgPlayerBabyFunctionMap.set(116, (player) => {
   spawnRandomPickup(player.Position);
+
+  return undefined;
 });
 
 // Hopeless Baby
@@ -243,6 +267,8 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 // Freaky Baby
 entityTakeDmgPlayerBabyFunctionMap.set(132, (player) => {
   useActiveItemTemp(player, CollectibleType.CONVERTER);
+
+  return undefined;
 });
 
 // Mohawk Baby
@@ -262,11 +288,15 @@ entityTakeDmgPlayerBabyFunctionMap.set(138, (player) => {
 // Rotten Meat Baby
 entityTakeDmgPlayerBabyFunctionMap.set(139, (player) => {
   player.UseCard(Card.FOOL);
+
+  return undefined;
 });
 
 // Fat Baby
 entityTakeDmgPlayerBabyFunctionMap.set(148, (player) => {
   useActiveItemTemp(player, CollectibleType.NECRONOMICON);
+
+  return undefined;
 });
 
 // Helmet Baby
@@ -308,17 +338,23 @@ entityTakeDmgPlayerBabyFunctionMap.set(177, (player) => {
     data["recovery"] = true;
   });
   sfxManager.Play(SoundEffect.GOLD_HEART);
+
+  return undefined;
 });
 
 // Faded Baby
 entityTakeDmgPlayerBabyFunctionMap.set(186, (player) => {
   // Random teleport on hit.
   useActiveItemTemp(player, CollectibleType.TELEPORT);
+
+  return undefined;
 });
 
 // Small Face Baby
 entityTakeDmgPlayerBabyFunctionMap.set(200, (player) => {
   useActiveItemTemp(player, CollectibleType.MY_LITTLE_UNICORN);
+
+  return undefined;
 });
 
 // Dented Baby
@@ -326,16 +362,22 @@ entityTakeDmgPlayerBabyFunctionMap.set(204, (player) => {
   // Spawns a random key on hit.
   const seed = g.run.rng.Next();
   spawnKey(KeySubType.NULL, player.Position, VectorZero, player, seed);
+
+  return undefined;
 });
 
 // MeatBoy Baby
 entityTakeDmgPlayerBabyFunctionMap.set(210, (player) => {
   useActiveItemTemp(player, CollectibleType.POTATO_PEELER);
+
+  return undefined;
 });
 
 // Conjoined Baby
 entityTakeDmgPlayerBabyFunctionMap.set(212, () => {
   openAllDoors();
+
+  return undefined;
 });
 
 // Zipper Baby
@@ -365,17 +407,23 @@ entityTakeDmgPlayerBabyFunctionMap.set(225, (player) => {
   // Spawn a new enemy.
   const position = g.r.FindFreePickupSpawnPosition(player.Position, 1, true);
   spawn(dupeEnemy.type, dupeEnemy.variant, dupeEnemy.subType, position);
+
+  return undefined;
 });
 
 // Beard Baby
 entityTakeDmgPlayerBabyFunctionMap.set(227, (player) => {
   useActiveItemTemp(player, CollectibleType.CROOKED_PENNY);
+
+  return undefined;
 });
 
 // Nuclear Baby
 entityTakeDmgPlayerBabyFunctionMap.set(251, () => {
   // Mama Mega effect on hit.
   g.r.MamaMegaExplossion();
+
+  return undefined;
 });
 
 // Rocker Baby
@@ -383,26 +431,36 @@ entityTakeDmgPlayerBabyFunctionMap.set(258, (player) => {
   // Spawns a random bomb on hit.
   const seed = g.run.rng.Next();
   spawnPickup(PickupVariant.BOMB, 0, player.Position, VectorZero, player, seed);
+
+  return undefined;
 });
 
 // Coat Baby
 entityTakeDmgPlayerBabyFunctionMap.set(260, (player) => {
   useActiveItemTemp(player, CollectibleType.DECK_OF_CARDS);
+
+  return undefined;
 });
 
 // Gargoyle Baby
 entityTakeDmgPlayerBabyFunctionMap.set(276, (player) => {
   useActiveItemTemp(player, CollectibleType.HEAD_OF_KRAMPUS);
+
+  return undefined;
 });
 
 // Big Tongue Baby
 entityTakeDmgPlayerBabyFunctionMap.set(285, (player) => {
   useActiveItemTemp(player, CollectibleType.FLUSH);
+
+  return undefined;
 });
 
 // Banshee Baby
 entityTakeDmgPlayerBabyFunctionMap.set(293, (player) => {
   useActiveItemTemp(player, CollectibleType.CRACK_THE_SKY);
+
+  return undefined;
 });
 
 // Bloodied Baby
@@ -432,21 +490,29 @@ entityTakeDmgPlayerBabyFunctionMap.set(301, (player) => {
       closeDoorFast(door);
     }
   }
+
+  return undefined;
 });
 
 // X Mouth Baby
 entityTakeDmgPlayerBabyFunctionMap.set(308, (player) => {
   useActiveItemTemp(player, CollectibleType.MOVING_BOX);
+
+  return undefined;
 });
 
 // Starry Eyed Baby
 entityTakeDmgPlayerBabyFunctionMap.set(310, (player) => {
   spawnCard(Card.STARS, player.Position, VectorZero, player);
+
+  return undefined;
 });
 
 // Puzzle Baby
 entityTakeDmgPlayerBabyFunctionMap.set(315, (player) => {
   useActiveItemTemp(player, CollectibleType.D6);
+
+  return undefined;
 });
 
 // Fireball Baby
@@ -494,6 +560,8 @@ entityTakeDmgPlayerBabyFunctionMap.set(
       );
       g.run.babyBool = false;
     }
+
+    return undefined;
   },
 );
 
@@ -505,6 +573,8 @@ entityTakeDmgPlayerBabyFunctionMap.set(323, (player) => {
     g.run.babyCounters = 0;
     useActiveItemTemp(player, CollectibleTypeCustom.CLOCKWORK_ASSEMBLY);
   }
+
+  return undefined;
 });
 
 // Hero Baby
@@ -512,21 +582,29 @@ entityTakeDmgPlayerBabyFunctionMap.set(336, () => {
   // We want to evaluate the cache, but we can't do it here because the damage is not applied yet,
   // so mark to do it later in the PostUpdate callback.
   g.run.babyBool = true;
+
+  return undefined;
 });
 
 // Tanooki Baby
 entityTakeDmgPlayerBabyFunctionMap.set(359, (player) => {
   useActiveItemTemp(player, CollectibleType.MR_ME);
+
+  return undefined;
 });
 
 // Fiery Baby
 entityTakeDmgPlayerBabyFunctionMap.set(366, (player) => {
   player.ShootRedCandle(VectorZero);
+
+  return undefined;
 });
 
 // Dark Elf Baby
 entityTakeDmgPlayerBabyFunctionMap.set(378, (player) => {
   useActiveItemTemp(player, CollectibleType.BOOK_OF_THE_DEAD);
+
+  return undefined;
 });
 
 // Fairyman Baby
@@ -534,6 +612,8 @@ entityTakeDmgPlayerBabyFunctionMap.set(385, (player) => {
   g.run.babyCounters += 1;
   player.AddCacheFlags(CacheFlag.DAMAGE);
   player.EvaluateItems();
+
+  return undefined;
 });
 
 // Censored Baby
@@ -545,11 +625,15 @@ entityTakeDmgPlayerBabyFunctionMap.set(408, (player) => {
       npc.AddConfusion(EntityRef(player), confusionFrames, false);
     }
   }
+
+  return undefined;
 });
 
 // Catsuit Baby
 entityTakeDmgPlayerBabyFunctionMap.set(412, (player) => {
   useActiveItemTemp(player, CollectibleType.GUPPYS_PAW);
+
+  return undefined;
 });
 
 // Magic Cat Baby
@@ -557,12 +641,16 @@ entityTakeDmgPlayerBabyFunctionMap.set(428, (player) => {
   const bomb = spawnBomb(BombVariant.GIGA, 0, player.Position);
   bomb.Visible = false;
   bomb.SetExplosionCountdown(0);
+
+  return undefined;
 });
 
 // Cup Baby
 entityTakeDmgPlayerBabyFunctionMap.set(435, (player) => {
   player.UseCard(Card.AGAINST_HUMANITY);
   // (The animation will automatically be canceled by the damage.)
+
+  return undefined;
 });
 
 // Big Mouth Baby 2.
@@ -577,6 +665,8 @@ entityTakeDmgPlayerBabyFunctionMap.set(438, (player) => {
     g.run.babyCounters = 0;
     useActiveItemTemp(player, CollectibleType.MEGA_MUSH);
   }
+
+  return undefined;
 });
 
 // TV Baby
@@ -591,6 +681,8 @@ entityTakeDmgPlayerBabyFunctionMap.set(441, (player) => {
     g.run.babyCounters = 0;
     useActiveItemTemp(player, CollectibleType.MEGA_BLAST);
   }
+
+  return undefined;
 });
 
 // Steroids Baby
@@ -600,11 +692,15 @@ entityTakeDmgPlayerBabyFunctionMap.set(444, (player) => {
   if (g.run.babyCountersRoom >= 2) {
     useActiveItemTemp(player, CollectibleType.FORGET_ME_NOW);
   }
+
+  return undefined;
 });
 
 // Rojen Whitefox Baby
 entityTakeDmgPlayerBabyFunctionMap.set(446, (player) => {
   useActiveItemTemp(player, CollectibleType.BOOK_OF_SHADOWS);
+
+  return undefined;
 });
 
 // Handsome Mr. Frog Baby
@@ -615,6 +711,8 @@ entityTakeDmgPlayerBabyFunctionMap.set(456, (player) => {
   }
 
   player.AddBlueFlies(baby.num, player.Position, undefined);
+
+  return undefined;
 });
 
 // 404 Baby
@@ -622,6 +720,8 @@ entityTakeDmgPlayerBabyFunctionMap.set(463, (player) => {
   player.AddCoins(-1);
   player.AddBombs(-1);
   player.AddKeys(-1);
+
+  return undefined;
 });
 
 // Mufflerscarf Baby
@@ -633,6 +733,8 @@ entityTakeDmgPlayerBabyFunctionMap.set(472, (player) => {
       npc.AddFreeze(EntityRef(player), freezeFrames);
     }
   }
+
+  return undefined;
 });
 
 // Scoreboard Baby
@@ -655,6 +757,8 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 
     // Death in 1 minute.
     g.run.babyCounters = gameFrameCount + 60 * 30;
+
+    return undefined;
   },
 );
 
@@ -668,6 +772,8 @@ entityTakeDmgPlayerBabyFunctionMap.set(488, (player) => {
 
   player.UsePill(pillEffect, PillColor.NULL);
   // (The animation will automatically be canceled by the damage.)
+
+  return undefined;
 });
 
 // Glittery Peach Baby
@@ -687,6 +793,8 @@ entityTakeDmgPlayerBabyFunctionMap.set(493, (player) => {
     g.run.babyBool = true;
     player.UseCard(Card.EMPEROR);
   }
+
+  return undefined;
 });
 
 // Lazy Baby
@@ -695,6 +803,8 @@ entityTakeDmgPlayerBabyFunctionMap.set(499, (player) => {
   const exceptions = [Card.SUICIDE_KING]; // It would be unfair to randomly die
   const card = getRandomCard(g.run.rng, exceptions);
   player.UseCard(card);
+
+  return undefined;
 });
 
 // Reaper Baby
@@ -703,6 +813,8 @@ entityTakeDmgPlayerBabyFunctionMap.set(506, (player) => {
   const rune = getRandomRune(g.run.rng);
   const seed = g.run.rng.Next();
   spawnCard(rune, player.Position, VectorZero, player, seed);
+
+  return undefined;
 });
 
 // Hooligan Baby
@@ -729,56 +841,51 @@ entityTakeDmgPlayerBabyFunctionMap.set(552, (player) => {
     g.run.babyCounters = 0;
     useActiveItemTemp(player, CollectibleType.GENESIS);
   }
+
+  return undefined;
 });
 
 // Kinda Loveable Baby
 entityTakeDmgPlayerBabyFunctionMap.set(555, (player) => {
   spawnCard(Card.LOVERS, player.Position, VectorZero, player);
+
+  return undefined;
 });
 
 // Lost White Baby
-entityTakeDmgPlayerBabyFunctionMap.set(
-  RandomBabyType.LOST_WHITE_BABY,
-  (player) => {
-    useActiveItemTemp(player, CollectibleType.ETERNAL_D6);
-  },
-);
+entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.LOST_WHITE, (player) => {
+  useActiveItemTemp(player, CollectibleType.ETERNAL_D6);
+
+  return undefined;
+});
 
 // Lost Black Baby
-entityTakeDmgPlayerBabyFunctionMap.set(
-  RandomBabyType.LOST_BLACK_BABY,
-  (player) => {
-    useActiveItemTemp(player, CollectibleType.SPINDOWN_DICE);
-  },
-);
+entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.LOST_BLACK, (player) => {
+  useActiveItemTemp(player, CollectibleType.SPINDOWN_DICE);
+
+  return undefined;
+});
 
 // Lost Blue Baby
-entityTakeDmgPlayerBabyFunctionMap.set(
-  RandomBabyType.LOST_BLUE_BABY,
-  (player) => {
-    useActiveItemTemp(player, CollectibleType.D10);
-  },
-);
+entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.LOST_BLUE, (player) => {
+  useActiveItemTemp(player, CollectibleType.D10);
+
+  return undefined;
+});
 
 // Lost Grey Baby
-entityTakeDmgPlayerBabyFunctionMap.set(
-  RandomBabyType.LOST_GREY_BABY,
-  (player) => {
-    useActiveItemTemp(player, CollectibleType.D7);
-  },
-);
+entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.LOST_GREY, (player) => {
+  useActiveItemTemp(player, CollectibleType.D7);
+
+  return undefined;
+});
 
 // Illusion Baby
-entityTakeDmgPlayerBabyFunctionMap.set(
-  RandomBabyType.ILLUSION_BABY,
-  (player) => {
-    spawnSlotHelper(
-      SlotVariant.CRANE_GAME,
-      player.Position,
-      g.run.craneGameRNG,
-    );
-  },
-);
+entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.ILLUSION, (player) => {
+  spawnSlotHelper(SlotVariant.CRANE_GAME, player.Position, g.run.craneGameRNG);
+
+  return undefined;
+});
 
 // Sister Maggy
 entityTakeDmgPlayerBabyFunctionMap.set(
@@ -797,6 +904,8 @@ entityTakeDmgPlayerBabyFunctionMap.set(
         removeCollectibleFromItemTracker(itemToTakeAway);
       }
     }
+
+    return undefined;
   },
 );
 
@@ -815,10 +924,14 @@ entityTakeDmgPlayerBabyFunctionMap.set(
       );
       spawnCollectible(CollectibleType.NULL, position, g.run.rng);
     }
+
+    return undefined;
   },
 );
 
 // Esau Jr. Baby
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.ESAU_JR, (player) => {
   player.UseCard(Card.SOUL_JACOB);
+
+  return undefined;
 });

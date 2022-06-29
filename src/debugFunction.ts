@@ -3,7 +3,7 @@ import {
   saveDataManagerSetGlobal,
   setLogFunctionsGlobal,
 } from "isaacscript-common";
-import { BABIES } from "./babies";
+import { MAX_BABY_TYPE } from "./enums/RandomBabyType";
 import g from "./globals";
 
 function debugCode() {}
@@ -23,9 +23,13 @@ export function debugFunction(): void {
 
 export function setDebugBaby(params: string, restart: boolean): void {
   // Check to see if this is a valid baby number.
-  let babyNum: number | null | undefined = tonumber(params);
-  if (babyNum === undefined || babyNum < 0 || babyNum >= BABIES.length) {
-    babyNum = null;
+  let babyNum = tonumber(params);
+  if (
+    babyNum === undefined ||
+    babyNum < 0 ||
+    babyNum > (MAX_BABY_TYPE as int)
+  ) {
+    babyNum = undefined;
   }
 
   g.debugBabyNum = babyNum;
