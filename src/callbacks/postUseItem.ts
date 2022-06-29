@@ -74,6 +74,8 @@ function shoopDaWhoop(
     g.run.babyCounters = activeCharge;
     g.run.babyNPC.entityType = batteryCharge as EntityType;
   }
+
+  return undefined;
 }
 
 // CollectibleType.MONSTROS_TOOTH (86)
@@ -99,6 +101,8 @@ function monstrosTooth(
       g.run.babyFrame = gameFrameCount + 15;
     }
   }
+
+  return undefined;
 }
 
 // CollectibleType.HOW_TO_JUMP (282)
@@ -120,6 +124,8 @@ function howToJump(
     }
     g.run.babyFrame = gameFrameCount + baby.num;
   }
+
+  return undefined;
 }
 
 // CollectibleType.CLOCKWORK_ASSEMBLY
@@ -164,7 +170,7 @@ function chargingStation(
   const numCoins = player.GetNumCoins();
 
   if (numCoins === 0) {
-    return false;
+    return undefined;
   }
 
   const hasBattery = player.HasCollectible(CollectibleType.BATTERY);
@@ -194,5 +200,5 @@ function chargingStation(
     return true;
   }
 
-  return false;
+  return undefined;
 }

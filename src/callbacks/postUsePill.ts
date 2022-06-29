@@ -16,4 +16,6 @@ function main(_pillEffect: PillEffect, player: EntityPlayer) {
   if (usePillBabyFunction !== undefined) {
     usePillBabyFunction(player);
   }
+
+  return undefined;
 }
