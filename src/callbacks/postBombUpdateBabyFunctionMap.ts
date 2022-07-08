@@ -51,7 +51,7 @@ postBombUpdateBabyFunctionMap.set(RandomBabyType.TONGUE, (bomb: EntityBomb) => {
     bomb.SpawnerType === EntityType.PLAYER &&
     bomb.FrameCount === BOMB_EXPLODE_FRAME
   ) {
-    addRoomClearCharge(g.p, true);
+    addRoomClearCharge(g.p, false);
   }
 });
 
