@@ -12,6 +12,7 @@ import {
 } from "isaac-typescript-definitions";
 import {
   copyColor,
+  game,
   GAME_FRAMES_PER_SECOND,
   getKnives,
   getNPCs,
@@ -210,7 +211,7 @@ postTearUpdateBabyFunctionMap.set(RandomBabyType.SLICER, (tear: EntityTear) => {
 postTearUpdateBabyFunctionMap.set(
   RandomBabyType.OCTOPUS,
   (tear: EntityTear) => {
-    const gameFrameCount = g.g.GetFrameCount();
+    const gameFrameCount = game.GetFrameCount();
 
     if (
       tear.SubType === 1 &&

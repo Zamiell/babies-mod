@@ -1,5 +1,6 @@
 import { CacheFlag } from "isaac-typescript-definitions";
 import {
+  game,
   MIN_PLAYER_SHOT_SPEED_STAT,
   MIN_PLAYER_SPEED_STAT,
   repeat,
@@ -192,7 +193,7 @@ evaluateCacheBabyFunctionMap.set(
     // lower than this.
     if (
       cacheFlag === CacheFlag.SPEED &&
-      g.g.GetFrameCount() >= g.run.babyFrame
+      game.GetFrameCount() >= g.run.babyFrame
     ) {
       player.MoveSpeed = MIN_PLAYER_SPEED_STAT;
     }

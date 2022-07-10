@@ -4,6 +4,7 @@ import {
   PillColor,
   PillEffect,
 } from "isaac-typescript-definitions";
+import { game } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 import { getCurrentBabyDescription } from "../utils";
@@ -29,7 +30,7 @@ postPickupCollectBabyFunctionMap.set(RandomBabyType.BLUEBIRD, () => {
 
 // 167
 postPickupCollectBabyFunctionMap.set(RandomBabyType.WORRY, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
   const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for: ${baby.name}`);

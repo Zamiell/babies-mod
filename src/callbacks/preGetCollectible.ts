@@ -3,6 +3,7 @@ import {
   ItemPoolType,
   ModCallback,
 } from "isaac-typescript-definitions";
+import { game } from "isaacscript-common";
 import g from "../globals";
 import { getCurrentBaby } from "../utils";
 import { preGetCollectibleBabyFunctionMap } from "./preGetCollectibleBabyFunctionMap";
@@ -22,7 +23,7 @@ function main(
   }
 
   // Racing+ gets collectibles on run start to check for a fully-unlocked save file.
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
   if (gameFrameCount < 1) {
     return undefined;
   }

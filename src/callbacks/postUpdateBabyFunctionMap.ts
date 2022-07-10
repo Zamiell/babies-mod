@@ -24,6 +24,7 @@ import {
   changeRoom,
   copyColor,
   DISTANCE_OF_GRID_TILE,
+  game,
   GAME_FRAMES_PER_SECOND,
   getAllRoomGridIndexes,
   getDefaultColor,
@@ -56,7 +57,7 @@ export const postUpdateBabyFunctionMap = new Map<RandomBabyType, () => void>();
 
 // 6
 postUpdateBabyFunctionMap.set(RandomBabyType.TROLL, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   if (gameFrameCount % (3 * GAME_FRAMES_PER_SECOND) === 0) {
     spawnBomb(BombVariant.TROLL, 0, g.p.Position);
@@ -65,7 +66,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.TROLL, () => {
 
 // 17
 postUpdateBabyFunctionMap.set(RandomBabyType.BEAN, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   if (bigChestExists()) {
     return;
@@ -78,7 +79,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.BEAN, () => {
 
 // 19
 postUpdateBabyFunctionMap.set(RandomBabyType.WRATH, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
   const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for: ${baby.name}`);
@@ -91,7 +92,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.WRATH, () => {
 
 // 20
 postUpdateBabyFunctionMap.set(RandomBabyType.WRAPPED, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   // If the explosions happen too fast, it looks buggy, so do it instead every 3 frames.
   if (gameFrameCount % 3 === 0 && g.run.babyCounters > 0) {
@@ -132,7 +133,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.BIG, () => {
 
 // 39
 postUpdateBabyFunctionMap.set(RandomBabyType.NOOSE, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
   const baby = getCurrentBabyDescription();
   if (baby.time === undefined) {
     error(`The "time" attribute was not defined for: ${baby.name}`);
@@ -192,7 +193,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.DARK, () => {
 
 // 58
 postUpdateBabyFunctionMap.set(RandomBabyType.BOUND, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   if (gameFrameCount % (7 * GAME_FRAMES_PER_SECOND) === 0) {
     useActiveItemTemp(g.p, CollectibleType.MONSTER_MANUAL);
@@ -202,7 +203,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.BOUND, () => {
 
 // 63
 postUpdateBabyFunctionMap.set(RandomBabyType.BUTTHOLE, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
     // Spawn a random poop.
@@ -234,7 +235,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.EYE_PATCH, () => {
 
 // 81
 postUpdateBabyFunctionMap.set(RandomBabyType.SCREAM, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
   const activeCharge = g.p.GetActiveCharge();
   const batteryCharge = g.p.GetBatteryCharge();
 
@@ -259,7 +260,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.NERD, () => {
 
 // 96
 postUpdateBabyFunctionMap.set(RandomBabyType.FROWN, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
     useActiveItemTemp(g.p, CollectibleType.BEST_FRIEND);
@@ -302,7 +303,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.PUBIC, () => {
 
 // 111
 postUpdateBabyFunctionMap.set(RandomBabyType.EYEMOUTH, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   if (g.run.babyTears.frame !== 0 && gameFrameCount >= g.run.babyTears.frame) {
     g.run.babyTears.frame = 0;
@@ -381,7 +382,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.MOHAWK, () => {
 
 // 147
 postUpdateBabyFunctionMap.set(RandomBabyType.BLUEBIRD, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   if (g.run.babyFrame !== 0 && gameFrameCount >= g.run.babyFrame) {
     g.run.babyFrame = 0;
@@ -398,7 +399,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.BLUEBIRD, () => {
 
 // 155
 postUpdateBabyFunctionMap.set(RandomBabyType.AWAKEN, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   if (gameFrameCount % GAME_FRAMES_PER_SECOND === 0) {
     useActiveItemTemp(g.p, CollectibleType.TELEKINESIS);
@@ -407,7 +408,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.AWAKEN, () => {
 
 // 156
 postUpdateBabyFunctionMap.set(RandomBabyType.PUFF, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
   const hearts = g.p.GetHearts();
   const soulHearts = g.p.GetSoulHearts();
   const boneHearts = g.p.GetBoneHearts();
@@ -494,7 +495,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.BLACK_EYE, () => {
 
 // 167
 postUpdateBabyFunctionMap.set(RandomBabyType.WORRY, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
   const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for: ${baby.name}`);
@@ -516,7 +517,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.WORRY, () => {
 
 // 211
 postUpdateBabyFunctionMap.set(RandomBabyType.SKULL, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   // Shockwave bombs
   for (let i = g.run.room.tears.length - 1; i >= 0; i--) {
@@ -572,7 +573,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.SKULL, () => {
 
 // 221
 postUpdateBabyFunctionMap.set(RandomBabyType.DROOL, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
   const roomClear = g.r.IsClear();
 
   // Starts with Monstro's Tooth (improved).
@@ -590,7 +591,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.DROOL, () => {
 
 // 231
 postUpdateBabyFunctionMap.set(RandomBabyType.BAWL, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
   const hearts = g.p.GetHearts();
   const soulHearts = g.p.GetSoulHearts();
   const boneHearts = g.p.GetBoneHearts();
@@ -635,7 +636,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.MEDUSA, () => {
 
 // 256
 postUpdateBabyFunctionMap.set(RandomBabyType.CLOUD, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
   const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for: ${baby.name}`);
@@ -698,7 +699,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.HARE, () => {
 
 // 270
 postUpdateBabyFunctionMap.set(RandomBabyType.PORCUPINE, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
     useActiveItemTemp(g.p, CollectibleType.WAIT_WHAT);
@@ -707,7 +708,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.PORCUPINE, () => {
 
 // 290
 postUpdateBabyFunctionMap.set(RandomBabyType.HEART, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   // Ignore the starting room.
   if (inStartingRoom()) {
@@ -733,7 +734,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.RIDER, () => {
 
 // 303
 postUpdateBabyFunctionMap.set(RandomBabyType.PIZZA, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
   const baby = getCurrentBabyDescription();
   if (baby.delay === undefined) {
     error(`The "delay" attribute was not defined for: ${baby.name}`);
@@ -753,7 +754,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.PIZZA, () => {
 
 // 304
 postUpdateBabyFunctionMap.set(RandomBabyType.HOTDOG, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
   const hearts = g.p.GetHearts();
   const soulHearts = g.p.GetSoulHearts();
   const boneHearts = g.p.GetBoneHearts();
@@ -775,7 +776,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.HOTDOG, () => {
 
 // 320
 postUpdateBabyFunctionMap.set(RandomBabyType.EXPLODING, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   // Check to see if we need to reset the cooldown (after we used the Kamikaze effect upon touching
   // an obstacle).
@@ -802,7 +803,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.HERO, () => {
 
 // 341
 postUpdateBabyFunctionMap.set(RandomBabyType.VOMIT, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
   const baby = getCurrentBabyDescription();
   if (baby.time === undefined) {
     error(`The "time" attribute was not defined for: ${baby.name}`);
@@ -838,7 +839,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.FOURTONE, () => {
 
 // 349
 postUpdateBabyFunctionMap.set(RandomBabyType.GRAYSCALE, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   if (gameFrameCount % (10 * GAME_FRAMES_PER_SECOND) === 0) {
     useActiveItemTemp(g.p, CollectibleType.DELIRIOUS);
@@ -859,7 +860,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.MOUSE, () => {
 
 // 374
 postUpdateBabyFunctionMap.set(RandomBabyType.PINK_PRINCESS, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   if (gameFrameCount % (4 * GAME_FRAMES_PER_SECOND) === 0) {
     const randomPosition = Isaac.GetRandomPosition();
@@ -869,7 +870,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.PINK_PRINCESS, () => {
 
 // 382
 postUpdateBabyFunctionMap.set(RandomBabyType.BLUE_PIG, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
     spawnBomb(BombVariant.MEGA_TROLL, 0, g.p.Position);
@@ -878,7 +879,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.BLUE_PIG, () => {
 
 // 386
 postUpdateBabyFunctionMap.set(RandomBabyType.IMP, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
   const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for: ${baby.name}`);
@@ -923,7 +924,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.BLUE_WRESTLER, () => {
 
 // 396
 postUpdateBabyFunctionMap.set(RandomBabyType.PLAGUE, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   if (gameFrameCount % 5 === 0) {
     // Drip creep
@@ -940,7 +941,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.PLAGUE, () => {
 
 // 401
 postUpdateBabyFunctionMap.set(RandomBabyType.CORGI, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   if (gameFrameCount % (1.5 * GAME_FRAMES_PER_SECOND) === 0) {
     spawn(EntityType.FLY, 0, 0, g.p.Position);
@@ -949,7 +950,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.CORGI, () => {
 
 // 449
 postUpdateBabyFunctionMap.set(RandomBabyType.MUTATED_FISH, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   if (gameFrameCount % (7 * GAME_FRAMES_PER_SECOND) === 0) {
     useActiveItemTemp(g.p, CollectibleType.SPRINKLER);
@@ -958,7 +959,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.MUTATED_FISH, () => {
 
 // 462
 postUpdateBabyFunctionMap.set(RandomBabyType.VOXDOG, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   // Shockwave tears
   for (let i = g.run.room.tears.length - 1; i >= 0; i--) {
@@ -1007,7 +1008,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.VOXDOG, () => {
 
 // 474
 postUpdateBabyFunctionMap.set(RandomBabyType.SCOREBOARD, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   if (g.run.babyCounters !== 0) {
     const remainingTime = g.run.babyCounters - gameFrameCount;
@@ -1023,7 +1024,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.SCOREBOARD, () => {
 
 // 485
 postUpdateBabyFunctionMap.set(RandomBabyType.COOL_ORANGE, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   if (gameFrameCount % GAME_FRAMES_PER_SECOND === 0) {
     // Spawn a random rocket target.
@@ -1040,7 +1041,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.COOL_ORANGE, () => {
 
 // 500
 postUpdateBabyFunctionMap.set(RandomBabyType.MERN, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   if (g.run.babyTears.frame !== 0 && gameFrameCount >= g.run.babyTears.frame) {
     g.run.babyTears.frame = 0;
@@ -1050,7 +1051,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.MERN, () => {
 
 // 508
 postUpdateBabyFunctionMap.set(RandomBabyType.SAUSAGE_LOVER, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
   const roomClear = g.r.IsClear();
 
   if (
@@ -1081,7 +1082,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.BAGGY_CAP, () => {
 
 // 511
 postUpdateBabyFunctionMap.set(RandomBabyType.TWITCHY, () => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
   const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {
     error(`The "num" attribute was not defined for: ${baby.name}`);

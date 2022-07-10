@@ -11,6 +11,7 @@ import {
 } from "isaac-typescript-definitions";
 import {
   copyColor,
+  game,
   getNPCs,
   getRoomListIndex,
   spawn,
@@ -82,7 +83,7 @@ postEntityKillBabyFunctionMap.set(RandomBabyType.ZOMBIE, (npc: EntityNPC) => {
 
 // 92
 postEntityKillBabyFunctionMap.set(RandomBabyType.TURD, (npc: EntityNPC) => {
-  g.g.Fart(npc.Position, 80, npc, 1, 0);
+  game.Fart(npc.Position, 80, npc, 1, 0);
 });
 
 // 249

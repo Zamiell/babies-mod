@@ -7,6 +7,7 @@ import {
 } from "isaac-typescript-definitions";
 import {
   copyColor,
+  game,
   GAME_FRAMES_PER_SECOND,
   getCollectibleDevilHeartPrice,
   inStartingRoom,
@@ -340,7 +341,7 @@ postPickupUpdateBabyFunctionMap.set(
 postPickupUpdateBabyFunctionMap.set(
   RandomBabyType.ORANGE_PIG,
   (pickup: EntityPickup) => {
-    const gameFrameCount = g.g.GetFrameCount();
+    const gameFrameCount = game.GetFrameCount();
     const isFirstVisit = g.r.IsFirstVisit();
 
     // Double items. We can't do this in the PostPickupInit callback because the position is not

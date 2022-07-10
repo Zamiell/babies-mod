@@ -10,7 +10,7 @@ import {
   PoopGridEntityVariant,
   SoundEffect,
 } from "isaac-typescript-definitions";
-import { repeat, sfxManager } from "isaacscript-common";
+import { game, repeat, sfxManager } from "isaacscript-common";
 import g from "../globals";
 import { getCurrentBaby } from "../utils";
 
@@ -133,7 +133,7 @@ function isaacsTears() {
 
 // CollectibleType.BROWN_NUGGET (504)
 function brownNugget() {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
   const [babyType, baby] = getCurrentBaby();
   if (babyType === -1) {
     return undefined;

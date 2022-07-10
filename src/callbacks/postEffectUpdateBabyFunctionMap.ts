@@ -6,6 +6,7 @@ import {
   PlayerForm,
 } from "isaac-typescript-definitions";
 import {
+  game,
   GAME_FRAMES_PER_SECOND,
   getEffects,
   spawnEffect,
@@ -107,7 +108,7 @@ postEffectUpdateBabyFunctionMap.set(
 
     const distance = 30;
 
-    const gameFrameCount = g.g.GetFrameCount();
+    const gameFrameCount = game.GetFrameCount();
     const baby = getCurrentBabyDescription();
     if (baby.cooldown === undefined) {
       error(`The "cooldown" attribute was not defined for: ${baby.name}`);

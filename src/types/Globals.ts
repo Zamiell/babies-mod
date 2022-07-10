@@ -6,7 +6,6 @@ export class Globals {
   babiesMod: Mod | null = null;
 
   // Cache some API classes.
-  g = game;
   l = game.GetLevel();
   r = game.GetRoom();
   seeds = game.GetSeeds();

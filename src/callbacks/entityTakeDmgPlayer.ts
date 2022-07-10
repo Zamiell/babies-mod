@@ -1,5 +1,5 @@
 import { DamageFlag } from "isaac-typescript-definitions";
-import { hasFlag } from "isaacscript-common";
+import { game, hasFlag } from "isaacscript-common";
 import g from "../globals";
 import { getCurrentBaby } from "../utils";
 import { entityTakeDmgPlayerBabyFunctionMap } from "./entityTakeDmgPlayerBabyFunctionMap";
@@ -11,7 +11,7 @@ export function main(
   damageSource: EntityRef,
   damageCountdownFrames: int,
 ): boolean | undefined {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
   const [babyType, baby] = getCurrentBaby();
   if (babyType === -1) {
     return;

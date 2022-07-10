@@ -1,4 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
+import { game } from "isaacscript-common";
 import g from "../globals";
 import { getCurrentBaby } from "../utils";
 import { postEntityKillBabyFunctionMap } from "./postEntityKillBabyFunctionMap";
@@ -21,7 +22,7 @@ function main(entity: Entity) {
 
   // With respect to the pseudo-room-clear feature, we don't want to clear the room too fast after
   // an enemy dies.
-  g.run.room.clearDelayFrame = g.g.GetFrameCount() + 1;
+  g.run.room.clearDelayFrame = game.GetFrameCount() + 1;
 
   const postEntityKillBabyFunction =
     postEntityKillBabyFunctionMap.get(babyType);

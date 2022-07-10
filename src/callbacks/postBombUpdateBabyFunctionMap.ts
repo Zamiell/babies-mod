@@ -8,6 +8,7 @@ import {
   addRoomClearCharge,
   BOMB_EXPLODE_FRAME,
   directionToVector,
+  game,
   getRandom,
   spawnBomb,
   useActiveItemTemp,
@@ -57,7 +58,7 @@ postBombUpdateBabyFunctionMap.set(RandomBabyType.TONGUE, (bomb: EntityBomb) => {
 
 // 211
 postBombUpdateBabyFunctionMap.set(RandomBabyType.SKULL, (bomb: EntityBomb) => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   if (
     bomb.SpawnerType !== EntityType.PLAYER ||

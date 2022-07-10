@@ -21,6 +21,7 @@ import {
 import {
   addFlag,
   closeDoorFast,
+  game,
   GAME_FRAMES_PER_SECOND,
   getDoors,
   getEnumValues,
@@ -756,7 +757,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
     _damageAmount: float,
     damageFlags: BitFlags<DamageFlag>,
   ) => {
-    const gameFrameCount = g.g.GetFrameCount();
+    const gameFrameCount = game.GetFrameCount();
 
     if (g.run.babyCounters !== 0) {
       return;

@@ -6,6 +6,7 @@ import {
   SlotVariant,
 } from "isaac-typescript-definitions";
 import {
+  game,
   getCollectibleMaxCharges,
   playChargeSoundEffect,
   removeCollectibleFromItemTracker,
@@ -60,7 +61,7 @@ function shoopDaWhoop(
   _RNG: RNG,
   player: EntityPlayer,
 ): boolean | undefined {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
   const activeCharge = player.GetActiveCharge();
   const batteryCharge = player.GetBatteryCharge();
   const [babyType, baby] = getCurrentBaby();
@@ -84,7 +85,7 @@ function monstrosTooth(
   _RNG: RNG,
   _player: EntityPlayer,
 ): boolean | undefined {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
   const [babyType, baby] = getCurrentBaby();
   if (babyType === -1) {
     return undefined;
@@ -111,7 +112,7 @@ function howToJump(
   _RNG: RNG,
   _player: EntityPlayer,
 ): boolean | undefined {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
   const [babyType, baby] = getCurrentBaby();
   if (babyType === -1) {
     return undefined;

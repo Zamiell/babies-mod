@@ -1,5 +1,6 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 import {
+  game,
   getRandomEnumValue,
   log,
   ModCallbackCustom,
@@ -19,7 +20,7 @@ export function init(mod: ModUpgraded): void {
 }
 
 function main() {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
   const stage = g.l.GetStage();
   const stageType = g.l.GetStageType();
 

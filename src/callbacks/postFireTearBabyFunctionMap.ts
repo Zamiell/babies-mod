@@ -11,6 +11,7 @@ import {
 import {
   addFlag,
   COLORS,
+  game,
   GAME_FRAMES_PER_SECOND,
   getFamiliars,
   getRandomInt,
@@ -179,7 +180,7 @@ postFireTearBabyFunctionMap.set(RandomBabyType.AETHER, (tear: EntityTear) => {
 
 // 111
 postFireTearBabyFunctionMap.set(RandomBabyType.EYEMOUTH, (tear: EntityTear) => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   // Shoot an extra tear every 3rd shot.
   g.run.babyTears.numFired += 1;
@@ -573,7 +574,7 @@ postFireTearBabyFunctionMap.set(
 
 // 462
 postFireTearBabyFunctionMap.set(RandomBabyType.VOXDOG, (tear: EntityTear) => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   // Shockwave tears
   g.run.room.tears.push({
@@ -654,7 +655,7 @@ postFireTearBabyFunctionMap.set(RandomBabyType.ILL, (tear: EntityTear) => {
 
 // 500
 postFireTearBabyFunctionMap.set(RandomBabyType.MERN, (tear: EntityTear) => {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   g.run.babyTears.numFired += 1;
   if (g.run.babyTears.numFired >= 2) {

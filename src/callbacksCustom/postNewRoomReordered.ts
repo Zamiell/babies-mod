@@ -1,5 +1,6 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 import {
+  game,
   getRoomStageID,
   getRoomVariant,
   log,
@@ -23,7 +24,7 @@ export function init(mod: ModUpgraded): void {
 function main() {
   updateCachedAPIFunctions();
 
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
   const stage = g.l.GetStage();
   const stageType = g.l.GetStageType();
   const roomStageID = getRoomStageID();

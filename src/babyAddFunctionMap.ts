@@ -6,6 +6,7 @@ import {
   LevelCurse,
 } from "isaac-typescript-definitions";
 import {
+  game,
   MAX_NUM_FAMILIARS,
   removeCollectibleFromItemTracker,
   repeat,
@@ -42,7 +43,7 @@ babyAddFunctionMap.set(RandomBabyType.NOOSE, () => {
 
   // Don't shoot when the timer reaches 0. Set the timer so that we don't take damage immediately
   // upon reaching the floor.
-  g.run.babyCounters = g.g.GetFrameCount() + baby.time;
+  g.run.babyCounters = game.GetFrameCount() + baby.time;
 });
 
 // 40
@@ -122,7 +123,7 @@ babyAddFunctionMap.set(RandomBabyType.VOMIT, () => {
     error(`The "time" attribute was not defined for: ${baby.name}`);
   }
 
-  g.run.babyCounters = g.g.GetFrameCount() + baby.time;
+  g.run.babyCounters = game.GetFrameCount() + baby.time;
 });
 
 // 343
@@ -137,7 +138,7 @@ babyAddFunctionMap.set(RandomBabyType.RABBIT, () => {
     error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
-  g.run.babyFrame = g.g.GetFrameCount() + baby.num;
+  g.run.babyFrame = game.GetFrameCount() + baby.num;
 });
 
 // 386
@@ -149,7 +150,7 @@ babyAddFunctionMap.set(RandomBabyType.IMP, () => {
 
   // Start the direction at left.
   g.run.babyCounters = ButtonAction.SHOOT_LEFT;
-  g.run.babyFrame = g.g.GetFrameCount() + baby.num;
+  g.run.babyFrame = game.GetFrameCount() + baby.num;
 });
 
 // 424
@@ -166,7 +167,7 @@ babyAddFunctionMap.set(RandomBabyType.TWITCHY, () => {
 
   // Start with the slowest tears and mark to update them on this frame.
   g.run.babyCounters = baby.max;
-  g.run.babyFrame = g.g.GetFrameCount();
+  g.run.babyFrame = game.GetFrameCount();
 });
 
 // 521

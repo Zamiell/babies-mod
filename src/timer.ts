@@ -1,4 +1,4 @@
-import { repeat } from "isaacscript-common";
+import { game, repeat } from "isaacscript-common";
 import g from "./globals";
 import { initSprite } from "./sprite";
 import { getCurrentBaby } from "./utils";
@@ -11,7 +11,7 @@ const sprites = {
 };
 
 export function display(): void {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
   const [babyType, baby] = getCurrentBaby();
   if (babyType === -1) {
     return;

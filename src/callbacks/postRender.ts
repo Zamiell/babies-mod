@@ -7,6 +7,7 @@ import {
   RoomType,
 } from "isaac-typescript-definitions";
 import {
+  game,
   getCollectibleItemType,
   getDefaultKColor,
   getHeartsUIWidth,
@@ -49,7 +50,7 @@ function main() {
 
 /** Show what the current baby does in the intro room (or if the player presses the map button). */
 function drawBabyIntro() {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
   const [babyType, baby] = getCurrentBaby();
   if (babyType === -1) {
     return;
@@ -127,8 +128,8 @@ function drawBabyNumber() {
 }
 
 function drawVersion() {
-  const gameFrameCount = g.g.GetFrameCount();
-  const isPaused = g.g.IsPaused();
+  const gameFrameCount = game.GetFrameCount();
+  const isPaused = game.IsPaused();
 
   if (isPaused) {
     return;

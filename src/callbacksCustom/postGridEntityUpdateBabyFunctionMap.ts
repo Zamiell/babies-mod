@@ -5,6 +5,7 @@ import {
 } from "isaac-typescript-definitions";
 import {
   DISTANCE_OF_GRID_TILE,
+  game,
   isGridEntityBreakableByExplosion,
   isGridEntityBroken,
   useActiveItemTemp,
@@ -63,7 +64,7 @@ postGridEntityUpdateBabyFunctionMap.set(
       return;
     }
 
-    const gameFrameCount = g.g.GetFrameCount();
+    const gameFrameCount = game.GetFrameCount();
 
     g.run.invulnerable = true;
     useActiveItemTemp(g.p, CollectibleType.KAMIKAZE);

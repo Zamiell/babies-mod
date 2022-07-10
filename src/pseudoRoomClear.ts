@@ -1,5 +1,6 @@
 import { RoomType } from "isaac-typescript-definitions";
 import {
+  game,
   getDoors,
   getNPCs,
   isAliveExceptionNPC,
@@ -93,7 +94,7 @@ function initializeDoors() {
 }
 
 function checkPseudoClear() {
-  const gameFrameCount = g.g.GetFrameCount();
+  const gameFrameCount = game.GetFrameCount();
 
   // Don't do anything if the room is already cleared.
   if (g.run.room.pseudoClear) {
