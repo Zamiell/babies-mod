@@ -22,12 +22,12 @@ import {
 } from "isaac-typescript-definitions";
 import {
   changeRoom,
+  ColorDefault,
   copyColor,
   DISTANCE_OF_GRID_TILE,
   game,
   GAME_FRAMES_PER_SECOND,
   getAllRoomGridIndexes,
-  getDefaultColor,
   getDimension,
   getDoors,
   getFamiliars,
@@ -678,7 +678,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.HARE, () => {
   // Takes damage when standing still.
   if (isEntityMoving(g.p, 1)) {
     g.run.babyCounters = 0;
-    sprite.Color = getDefaultColor();
+    sprite.Color = ColorDefault;
     return;
   }
 

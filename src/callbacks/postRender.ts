@@ -7,13 +7,14 @@ import {
   RoomType,
 } from "isaac-typescript-definitions";
 import {
+  fonts,
   game,
   getCollectibleItemType,
-  getDefaultKColor,
   getHeartsUIWidth,
   getHUDOffsetVector,
   getScreenCenterPos,
   isActionPressedOnAnyInput,
+  KColorDefault,
 } from "isaacscript-common";
 import { updateCachedAPIFunctions } from "../cache";
 import { MOD_NAME, VERSION } from "../constants";
@@ -124,7 +125,7 @@ function drawBabyNumber() {
 
   const y = 10;
 
-  g.font.droid.DrawString(text, x, y, getDefaultKColor(), 0, true);
+  fonts.droid.DrawString(text, x, y, KColorDefault, 0, true);
 }
 
 function drawVersion() {

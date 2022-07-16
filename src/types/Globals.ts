@@ -19,10 +19,6 @@ export class Globals {
    */
   p = Isaac.GetPlayer();
 
-  font = {
-    droid: Font(),
-  };
-
   /** Per-run variables. */
   run = new GlobalsRun();
 
@@ -34,8 +30,4 @@ export class Globals {
 
   /** Used for testing specific babies. */
   debugBabyNum: RandomBabyType | undefined;
-
-  constructor() {
-    this.font.droid.Load("font/droid.fnt");
-  }
 }
