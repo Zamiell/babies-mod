@@ -29,4 +29,4 @@ export const ROOM_TYPES_TO_NOT_TRANSFORM: ReadonlySet<RoomType> = new Set([
 ]);
 
 // The version is updated automatically by IsaacScript.
-export const VERSION = "1.4.12";
+export const VERSION = "1.5.0";
