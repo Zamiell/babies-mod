@@ -184,7 +184,7 @@ postEntityKillBabyFunctionMap.set(RandomBabyType.FUNNY, (npc: EntityNPC) => {
   spawnBomb(BombVariant.TROLL, 0, npc.Position);
 });
 
-// 567
+// 569
 postEntityKillBabyFunctionMap.set(RandomBabyType.RAINBOW, (npc: EntityNPC) => {
   spawnPickupWithSeed(PickupVariant.CHEST, 0, npc.Position, npc.InitSeed);
 });

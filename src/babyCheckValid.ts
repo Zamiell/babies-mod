@@ -149,7 +149,7 @@ function checkCoins(
     return false;
   }
 
-  // 574
+  // 576
   if (babyType === RandomBabyType.FATES_REWARD && coins < 15) {
     return false;
   }
@@ -426,7 +426,7 @@ function checkCollectibles(
 
   if (
     (babyType === RandomBabyType.CURSED_PILLOW || // 487
-      babyType === RandomBabyType.ABEL) && // 531
+      babyType === RandomBabyType.ABEL) && // 570
     (player.HasCollectible(CollectibleType.INNER_EYE) || // 2
       player.HasCollectible(CollectibleType.CUPIDS_ARROW) || // 48
       player.HasCollectible(CollectibleType.MOMS_EYE) || // 55
@@ -724,7 +724,7 @@ function checkStage(babyType: RandomBabyType, baby: BabyDescription): boolean {
   }
 
   if (
-    babyType === RandomBabyType.DEMON && // 564
+    babyType === RandomBabyType.DEMON && // 566
     (effectiveStage === 1 || effectiveStage >= 9)
   ) {
     // Only valid for floors with Devil Rooms.
@@ -732,7 +732,7 @@ function checkStage(babyType: RandomBabyType, baby: BabyDescription): boolean {
   }
 
   if (
-    babyType === RandomBabyType.GHOST && // 565
+    babyType === RandomBabyType.GHOST && // 567
     effectiveStage === 2
   ) {
     // All items from the shop pool. On stage 2, they will miss a Devil Deal, which is not fair.
@@ -740,7 +740,7 @@ function checkStage(babyType: RandomBabyType, baby: BabyDescription): boolean {
   }
 
   if (
-    babyType === RandomBabyType.FATES_REWARD && // 574
+    babyType === RandomBabyType.FATES_REWARD && // 576
     (effectiveStage <= 2 || effectiveStage === 6 || effectiveStage >= 10)
   ) {
     // Items cost money. On stage 1, the player does not have 15 cents. On stage 2, they will miss a

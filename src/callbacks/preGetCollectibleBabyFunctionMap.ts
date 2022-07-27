@@ -43,27 +43,27 @@ preGetCollectibleBabyFunctionMap.set(RandomBabyType.FOLDER, () => {
   }
 });
 
-// 562
+// 564
 preGetCollectibleBabyFunctionMap.set(RandomBabyType.LITTLE_GISH, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.CURSE),
 );
 
-// 565
+// 567
 preGetCollectibleBabyFunctionMap.set(RandomBabyType.GHOST, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.SHOP),
 );
 
-// 572
+// 574
 preGetCollectibleBabyFunctionMap.set(RandomBabyType.MONGO, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.ANGEL),
 );
 
-// 573
+// 575
 preGetCollectibleBabyFunctionMap.set(RandomBabyType.INCUBUS, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.DEVIL),
 );
 
-// 578
+// 580
 preGetCollectibleBabyFunctionMap.set(RandomBabyType.BOILED, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.ULTRA_SECRET),
 );

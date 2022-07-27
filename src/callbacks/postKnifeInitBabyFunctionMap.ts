@@ -6,7 +6,7 @@ export const postKnifeInitBabyFunctionMap = new Map<
   (knife: EntityKnife) => void
 >();
 
-// 559
+// 561
 postKnifeInitBabyFunctionMap.set(
   RandomBabyType.BROTHER_BOBBY,
   (knife: EntityKnife) => {

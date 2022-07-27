@@ -407,7 +407,7 @@ postPickupUpdateBabyFunctionMap.set(
   },
 );
 
-// 574
+// 576
 postPickupUpdateBabyFunctionMap.set(
   RandomBabyType.FATES_REWARD,
   (pickup: EntityPickup) => {

@@ -699,19 +699,19 @@ postFireTearBabyFunctionMap.set(
   },
 );
 
-// 568
+// 570
 postFireTearBabyFunctionMap.set(RandomBabyType.ABEL, (tear: EntityTear) => {
   // Mark that we shot this tear.
   tear.SubType = 1;
 });
 
-// 570
+// 572
 postFireTearBabyFunctionMap.set(RandomBabyType.ROTTEN, (tear: EntityTear) => {
   tear.Remove();
   g.p.AddBlueFlies(1, g.p.Position, undefined);
 });
 
-// 576
+// 578
 postFireTearBabyFunctionMap.set(RandomBabyType.LIL_LOKI, (tear: EntityTear) => {
   // Cross tears. (We store the rotation angle in the "babyCounters" variable.)
   g.run.babyCounters += 90;
@@ -723,7 +723,7 @@ postFireTearBabyFunctionMap.set(RandomBabyType.LIL_LOKI, (tear: EntityTear) => {
   }
 });
 
-// 579
+// 581
 postFireTearBabyFunctionMap.set(
   // Ice tears
   RandomBabyType.FREEZER,
@@ -733,7 +733,7 @@ postFireTearBabyFunctionMap.set(
   },
 );
 
-// 581
+// 583
 postFireTearBabyFunctionMap.set(
   // Spore tears
   RandomBabyType.TWISTED,

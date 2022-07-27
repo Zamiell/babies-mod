@@ -174,7 +174,7 @@ entityTakeDmgEntityBabyFunctionMap.set(
   },
 );
 
-// 559
+// 561
 entityTakeDmgEntityBabyFunctionMap.set(
   RandomBabyType.BROTHER_BOBBY,
   (entity, _damageAmount, damageFlags, damageSource, damageCountdownFrames) => {
