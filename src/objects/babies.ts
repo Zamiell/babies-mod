@@ -4534,14 +4534,14 @@ export const BABIES: { readonly [key in RandomBabyType]: BabyDescription } = {
   // 558
   [RandomBabyType.FINGER]: {
     name: "Finger Baby",
-    description: "???",
+    description: "All items from the Secret Room pool",
     sprite: "558_baby_finger.png",
   },
 
   // 559
   [RandomBabyType.BALD]: {
     name: "Bald Baby",
-    description: "???",
+    description: "All items from the Boss Room pool",
     sprite: "559_baby_bald.png",
   },
 

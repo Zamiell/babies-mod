@@ -3,6 +3,12 @@
 <!-- cspell:ignore cantgirl,Finalkids,Hispa,lenamek,Moucheron,Quipet,Sanio,sisuka -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.5.0_ - July 26th, 2022
+
+- New babies:
+  - Finger Baby (#558) - "All items from the Secret Room pool"
+  - Bald Baby (#559) - "All items from the Boss Room pool"
+
 ### _v1.4.10_ - February 18th, 2022
 
 - New baby: Esau Jr. Baby (#584) - Soul of Jacob and Esau effect on hit

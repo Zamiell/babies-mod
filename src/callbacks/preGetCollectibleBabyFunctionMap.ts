@@ -43,6 +43,16 @@ preGetCollectibleBabyFunctionMap.set(RandomBabyType.FOLDER, () => {
   }
 });
 
+// 559
+preGetCollectibleBabyFunctionMap.set(RandomBabyType.FINGER, () =>
+  getRandomCollectibleTypeFromPool(ItemPoolType.SECRET),
+);
+
+// 559
+preGetCollectibleBabyFunctionMap.set(RandomBabyType.BALD, () =>
+  getRandomCollectibleTypeFromPool(ItemPoolType.BOSS),
+);
+
 // 564
 preGetCollectibleBabyFunctionMap.set(RandomBabyType.LITTLE_GISH, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.CURSE),
