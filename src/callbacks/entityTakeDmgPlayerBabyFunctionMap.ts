@@ -322,13 +322,13 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.ABAN, (player) => {
     return;
   }
 
-  player.AddCoins(-99);
+  player.AddCoins(-999);
   repeat(coins, () => {
     const randomPosition = Isaac.GetRandomPosition();
     let velocity = player.Position.sub(randomPosition);
     velocity = velocity.Normalized();
-    const modifier = getRandomInt(4, 20);
-    velocity = velocity.mul(modifier);
+    const multiplier = getRandomInt(4, 20);
+    velocity = velocity.mul(multiplier);
     const coin = spawnCoin(
       CoinSubType.PENNY,
       player.Position,

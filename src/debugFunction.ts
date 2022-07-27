@@ -1,24 +1,17 @@
-import {
-  log,
-  saveDataManagerSetGlobal,
-  setLogFunctionsGlobal,
-} from "isaacscript-common";
+import { log, printConsole, setLogFunctionsGlobal } from "isaacscript-common";
 import { MAX_BABY_TYPE } from "./enums/RandomBabyType";
 import g from "./globals";
 
 function debugCode() {}
 
 export function debugFunction(): void {
-  log("Entering debug function.");
-
-  saveDataManagerSetGlobal();
   setLogFunctionsGlobal();
 
+  log("Entering debug function.");
   debugCode();
-
   log("Exiting debug function.");
 
-  Isaac.ConsoleOutput("Executed debug function.");
+  printConsole("Executed debug function.");
 }
 
 export function setDebugBaby(params: string, restart: boolean): void {
