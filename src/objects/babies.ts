@@ -981,8 +981,8 @@ export const BABIES: { readonly [key in RandomBabyType]: BabyDescription } = {
     name: "Digital Baby",
     description: "B00B T00B",
     sprite: "162_baby_digital.png",
-    // This baby grants SeedEffect.OLD_TV. However, applying this in the PostNewLevel callback can
-    // cause game crashes. Instead, we manually apply it in the PostUpdate callback.
+    // This baby grants SeedEffect.OLD_TV. However, applying this in the `POST_NEW_LEVEL` callback
+    // can cause game crashes. Instead, we manually apply it in the `POST_UPDATE` callback.
   },
   [RandomBabyType.HELMET]: {
     name: "Helmet Baby",

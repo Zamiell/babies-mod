@@ -9,7 +9,7 @@ export const usePillBabyFunctionMap = new Map<
 
 // 483
 usePillBabyFunctionMap.set(RandomBabyType.BUBBLES, (player: EntityPlayer) => {
-  g.run.babyCounters += 1;
+  g.run.babyCounters++;
   player.AddCacheFlags(CacheFlag.DAMAGE);
   player.EvaluateItems();
 });

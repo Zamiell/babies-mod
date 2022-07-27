@@ -59,7 +59,7 @@ postFamiliarInitBabyFunctionMap.set(
       g.run.babyCounters < 3
     ) {
       // We use the "babyCounters" variable to track how Leprocy familiars are in the room.
-      g.run.babyCounters += 1;
+      g.run.babyCounters++;
     }
   },
 );

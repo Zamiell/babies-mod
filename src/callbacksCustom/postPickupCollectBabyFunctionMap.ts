@@ -17,7 +17,7 @@ export const postPickupCollectBabyFunctionMap = new Map<
 // 11
 postPickupCollectBabyFunctionMap.set(RandomBabyType.CUTE, () => {
   // -1 damage per pickup taken.
-  g.run.babyCounters += 1;
+  g.run.babyCounters++;
   g.p.AddCacheFlags(CacheFlag.DAMAGE);
   g.p.EvaluateItems();
 });
@@ -52,7 +52,7 @@ postPickupCollectBabyFunctionMap.set(RandomBabyType.CORRUPTED, () => {
 // 473
 postPickupCollectBabyFunctionMap.set(RandomBabyType.ROBBERMASK, () => {
   // Touching pickups gives extra damage.
-  g.run.babyCounters += 1;
+  g.run.babyCounters++;
   g.p.AddCacheFlags(CacheFlag.DAMAGE);
   g.p.EvaluateItems();
 });

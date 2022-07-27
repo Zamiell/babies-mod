@@ -5,6 +5,7 @@ import {
   repeat,
   spawnCollectible,
 } from "isaacscript-common";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 import { getCurrentBaby } from "../utils";
 
@@ -23,7 +24,7 @@ function walnut(player: EntityPlayer) {
   }
 
   // 268
-  if (baby.name !== "Squirrel Baby") {
+  if (babyType !== RandomBabyType.SQUIRREL) {
     return;
   }
 

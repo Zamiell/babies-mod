@@ -1,5 +1,10 @@
 import { GridEntityType, RoomType } from "isaac-typescript-definitions";
-import { ModCallbackCustom, ModUpgraded, removeGrid } from "isaacscript-common";
+import {
+  ModCallbackCustom,
+  ModUpgraded,
+  removeGridEntity,
+} from "isaacscript-common";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 import { getCurrentBaby } from "../utils";
 
@@ -13,17 +18,17 @@ export function init(mod: ModUpgraded): void {
 
 // GridEntityType.TRAPDOOR (17)
 function trapdoor(gridEntity: GridEntity) {
-  const [babyType, baby] = getCurrentBaby();
+  const [babyType] = getCurrentBaby();
   if (babyType === -1) {
     return;
   }
 
   // 535
-  if (baby.name === "Eyebat Baby") {
-    // Floors are reversed
+  if (babyType === RandomBabyType.EYEBAT) {
+    // Floors are reversed.
     const roomType = g.r.GetType();
     if (roomType === RoomType.BOSS) {
-      removeGrid(gridEntity, false);
+      removeGridEntity(gridEntity, false);
     }
   }
 }

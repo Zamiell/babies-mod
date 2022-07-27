@@ -19,7 +19,7 @@ function main(player: EntityPlayer, cacheFlag: CacheFlag) {
     cacheFlag === CacheFlag.DAMAGE &&
     isCharacter(player, PlayerTypeCustom.RANDOM_BABY)
   ) {
-    player.Damage += 1;
+    player.Damage++;
   }
 
   // Handle flying characters.

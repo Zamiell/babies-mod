@@ -173,7 +173,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.GOAT, (player) => {
   }
 
   // Guaranteed Devil Room + Angel Room after N hits.
-  g.run.babyCounters += 1;
+  g.run.babyCounters++;
   if (g.run.babyCounters >= baby.numHits && !g.run.babyBool) {
     g.run.babyBool = true;
     sfxManager.Play(SoundEffect.SATAN_GROW);
@@ -571,7 +571,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 // 323
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.BALLERINA, (player) => {
   // Summons a Restock Machine after 6 hits.
-  g.run.babyCounters += 1;
+  g.run.babyCounters++;
   if (g.run.babyCounters === 6) {
     g.run.babyCounters = 0;
     useActiveItemTemp(player, CollectibleTypeCustom.CLOCKWORK_ASSEMBLY);
@@ -583,7 +583,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.BALLERINA, (player) => {
 // 336
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.HERO, () => {
   // We want to evaluate the cache, but we can't do it here because the damage is not applied yet,
-  // so mark to do it later in the PostUpdate callback.
+  // so mark to do it later in the `POST_UPDATE` callback.
   g.run.babyBool = true;
 
   return undefined;
@@ -612,7 +612,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.DARK_ELF, (player) => {
 
 // 385
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.FAIRYMAN, (player) => {
-  g.run.babyCounters += 1;
+  g.run.babyCounters++;
   player.AddCacheFlags(CacheFlag.DAMAGE);
   player.EvaluateItems();
 
@@ -663,7 +663,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.BIG_MOUTH_2, (player) => {
     error(`The "numHits" attribute was not defined for: ${baby.name}`);
   }
 
-  g.run.babyCounters += 1;
+  g.run.babyCounters++;
   if (g.run.babyCounters === baby.numHits) {
     g.run.babyCounters = 0;
     useActiveItemTemp(player, CollectibleType.MEGA_MUSH);
@@ -679,7 +679,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.TV, (player) => {
     error(`The "numHits" attribute was not defined for: ${baby.name}`);
   }
 
-  g.run.babyCounters += 1;
+  g.run.babyCounters++;
   if (g.run.babyCounters === baby.numHits) {
     g.run.babyCounters = 0;
     useActiveItemTemp(player, CollectibleType.MEGA_BLAST);
@@ -691,7 +691,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.TV, (player) => {
 // 444
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.STEROIDS, (player) => {
   // Forget Me Now on 2nd hit (per room).
-  g.run.babyCountersRoom += 1;
+  g.run.babyCountersRoom++;
   if (g.run.babyCountersRoom >= 2) {
     useActiveItemTemp(player, CollectibleType.FORGET_ME_NOW);
   }
@@ -802,7 +802,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
     }
 
     // Teleport to the boss room after X hits (but only do it once per floor).
-    g.run.babyCounters += 1;
+    g.run.babyCounters++;
     if (g.run.babyCounters === baby.numHits) {
       g.run.babyBool = true;
       player.UseCard(Card.EMPEROR);
@@ -886,7 +886,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.KOALA, (player) => {
     error(`The "numHits" attribute was not defined for: ${baby.name}`);
   }
 
-  g.run.babyCounters += 1;
+  g.run.babyCounters++;
   if (g.run.babyCounters === baby.numHits) {
     g.run.babyCounters = 0;
     useActiveItemTemp(player, CollectibleType.GENESIS);
@@ -910,7 +910,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.SISTER_MAGGY,
   (player) => {
     // Loses last item on 2nd hit (per room).
-    g.run.babyCountersRoom += 1;
+    g.run.babyCountersRoom++;
     if (g.run.babyCountersRoom === 2) {
       // Take away an item.
       const itemToTakeAway = g.run.passiveCollectibleTypes.pop();
@@ -939,7 +939,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.SIREN_SHOOTER,
   (player) => {
     // Spawns a pedestal item after 6 hits.
-    g.run.babyCounters += 1;
+    g.run.babyCounters++;
     if (g.run.babyCounters === 6) {
       g.run.babyCounters = 0;
       const position = g.r.FindFreePickupSpawnPosition(

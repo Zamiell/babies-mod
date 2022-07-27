@@ -354,7 +354,7 @@ postTearUpdateBabyFunctionMap.set(
       tear.IsDead()
     ) {
       // Missing tears causes damage It only applies to the Nth missed tear.
-      g.run.babyCounters += 1;
+      g.run.babyCounters++;
       if (g.run.babyCounters === baby.num) {
         g.run.babyCounters = 0;
         g.p.TakeDamage(1, DamageFlagZero, EntityRef(g.p), 0);
@@ -396,7 +396,7 @@ postTearUpdateBabyFunctionMap.set(RandomBabyType.ABEL, (tear: EntityTear) => {
     tear.IsDead()
   ) {
     // Missing tears causes Paralysis It only applies to the Nth missed tear.
-    g.run.babyCounters += 1;
+    g.run.babyCounters++;
     if (g.run.babyCounters === baby.num) {
       g.run.babyCounters = 0;
       g.p.UsePill(PillEffect.PARALYSIS, PillColor.NULL);

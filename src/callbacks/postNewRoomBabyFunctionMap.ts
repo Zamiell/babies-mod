@@ -40,7 +40,7 @@ import {
   repeat,
   spawn,
   spawnCollectible,
-  spawnGridWithVariant,
+  spawnGridEntityWithVariant,
   spawnWithSeed,
   teleport,
   useActiveItemTemp,
@@ -261,7 +261,7 @@ postNewRoomBabyFunctionMap.set(RandomBabyType.PRETTY, () => {
 
   // Spawn the Angel Statue.
   const oneTileAboveCenterGridIndex = 52;
-  spawnGridWithVariant(
+  spawnGridEntityWithVariant(
     GridEntityType.STATUE,
     StatueVariant.ANGEL,
     oneTileAboveCenterGridIndex,
@@ -338,7 +338,7 @@ postNewRoomBabyFunctionMap.set(RandomBabyType.FANCY, () => {
       collectibleType = CollectibleTypeCustom.BOSS_CHALLENGE_ROOM_TELEPORT;
     }
 
-    positionIndex += 1;
+    positionIndex++;
     if (positionIndex > FANCY_BABY_COLLECTIBLE_POSITIONS.length) {
       log("Error: This floor has too many special rooms for Fancy Baby.");
       return;
@@ -456,7 +456,7 @@ postNewRoomBabyFunctionMap.set(RandomBabyType.SUIT, () => {
 
   // Spawn the Devil Statue.
   const oneTileAboveCenterGridIndex = 52;
-  spawnGridWithVariant(
+  spawnGridEntityWithVariant(
     GridEntityType.STATUE,
     StatueVariant.DEVIL,
     oneTileAboveCenterGridIndex,
@@ -560,7 +560,7 @@ postNewRoomBabyFunctionMap.set(RandomBabyType.SILLY, () => {
     g.p.UsePill(PillEffect.IM_EXCITED, PillColor.NULL);
     // If we try to cancel the animation now, it will bug out the player such that they will not be
     // able to take pocket items or pedestal items. This still happens even if we cancel the
-    // animation in the PostUpdate callback, so don't bother canceling it.
+    // animation in the `POST_UPDATE` callback, so don't bother canceling it.
   }
 });
 

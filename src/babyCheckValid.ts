@@ -44,40 +44,42 @@ export function babyCheckValid(
     return false;
   }
 
-  // Check for conflicting health values.
-  if (!checkHealth(player, baby)) {
+  if (!checkHealth(player, babyType, baby)) {
     return false;
   }
 
-  // Check for inventory restrictions.
-  if (!checkInventory(player, baby)) {
+  if (!checkCoins(player, babyType, baby)) {
     return false;
   }
 
-  // Check for conflicting collectibles.
-  if (!checkCollectibles(player, baby)) {
+  if (!checkBombs(player, babyType, baby)) {
     return false;
   }
 
-  // Check for conflicting trinkets.
-  if (!checkTrinkets(player, baby)) {
+  if (!checkKeys(player, baby)) {
     return false;
   }
 
-  // Check for stage restrictions.
-  if (!checkStage(baby)) {
+  if (!checkCollectibles(player, babyType, baby)) {
     return false;
   }
 
-  // Check for curse restrictions.
-  if (!checkCurses(baby)) {
+  if (!checkTrinkets(player, babyType)) {
+    return false;
+  }
+
+  if (!checkStage(babyType, baby)) {
+    return false;
+  }
+
+  if (!checkCurses(babyType)) {
     return false;
   }
 
   return true;
 }
 
-function checkActiveItem(player: EntityPlayer, baby: BabyDescription) {
+function checkActiveItem(player: EntityPlayer, baby: BabyDescription): boolean {
   const activeItem = player.GetActiveItem();
   const secondaryActiveItem = player.GetActiveItem(ActiveSlot.SECONDARY);
 
@@ -102,7 +104,11 @@ function checkActiveItem(player: EntityPlayer, baby: BabyDescription) {
   return true;
 }
 
-function checkHealth(player: EntityPlayer, baby: BabyDescription) {
+function checkHealth(
+  player: EntityPlayer,
+  babyType: RandomBabyType,
+  baby: BabyDescription,
+): boolean {
   const maxHearts = player.GetMaxHearts();
   const soulHearts = player.GetSoulHearts();
   const boneHearts = player.GetBoneHearts();
@@ -117,10 +123,8 @@ function checkHealth(player: EntityPlayer, baby: BabyDescription) {
     return false;
   }
 
-  if (
-    baby.name === "MeatBoy Baby" && // 210
-    maxHearts === 0
-  ) {
+  // 210
+  if (babyType === RandomBabyType.MEATBOY && maxHearts === 0) {
     // Potato Peeler effect on hit.
     return false;
   }
@@ -128,27 +132,25 @@ function checkHealth(player: EntityPlayer, baby: BabyDescription) {
   return true;
 }
 
-function checkInventory(player: EntityPlayer, baby: BabyDescription) {
+function checkCoins(
+  player: EntityPlayer,
+  babyType: RandomBabyType,
+  baby: BabyDescription,
+): boolean {
   const coins = player.GetNumCoins();
-  const bombs = player.GetNumBombs();
-  const keys = player.GetNumKeys();
   const babyItemsSet = getBabyItemsSet(baby);
 
   if (baby.requireCoins === true && coins === 0) {
     return false;
   }
 
-  if (
-    baby.name === "Fancy Baby" && // 216
-    coins < 10
-  ) {
+  // 216
+  if (babyType === RandomBabyType.FANCY && coins < 10) {
     return false;
   }
 
-  if (
-    baby.name === "Fate's Reward" && // 537
-    coins < 15
-  ) {
+  // 574
+  if (babyType === RandomBabyType.FATES_REWARD && coins < 15) {
     return false;
   }
 
@@ -156,16 +158,32 @@ function checkInventory(player: EntityPlayer, baby: BabyDescription) {
     return false;
   }
 
+  return true;
+}
+
+function checkBombs(
+  player: EntityPlayer,
+  babyType: RandomBabyType,
+  baby: BabyDescription,
+): boolean {
+  const bombs = player.GetNumBombs();
+
   if (baby.requireBombs === true && bombs === 0) {
     return false;
   }
 
   if (
-    (baby.name === "Rage Baby" || baby.name === "Bullet Baby") &&
+    (babyType === RandomBabyType.RAGE || babyType === RandomBabyType.BULLET) &&
     bombs >= 50
   ) {
     return false;
   }
+
+  return true;
+}
+
+function checkKeys(player: EntityPlayer, baby: BabyDescription): boolean {
+  const keys = player.GetNumKeys();
 
   if (baby.requireKeys === true && keys === 0) {
     return false;
@@ -174,7 +192,11 @@ function checkInventory(player: EntityPlayer, baby: BabyDescription) {
   return true;
 }
 
-function checkCollectibles(player: EntityPlayer, baby: BabyDescription) {
+function checkCollectibles(
+  player: EntityPlayer,
+  babyType: RandomBabyType,
+  baby: BabyDescription,
+): boolean {
   const babyItemsSet = getBabyItemsSet(baby);
 
   if (
@@ -221,14 +243,14 @@ function checkCollectibles(player: EntityPlayer, baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Belial Baby" && // 51
+    babyType === RandomBabyType.BELIAL && // 51
     player.HasCollectible(CollectibleType.MEGA_BLAST)
   ) {
     return false;
   }
 
   if (
-    baby.name === "Goat Baby" && // 62
+    babyType === RandomBabyType.GOAT && // 62
     (player.HasCollectible(CollectibleType.GOAT_HEAD) || // 215
       player.HasCollectible(CollectibleType.DUALITY)) // 498
   ) {
@@ -236,14 +258,14 @@ function checkCollectibles(player: EntityPlayer, baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Aether Baby" && // 106
+    babyType === RandomBabyType.AETHER && // 106
     player.HasCollectible(CollectibleType.IPECAC)
   ) {
     return false;
   }
 
   if (
-    baby.name === "Masked Baby" && // 115
+    babyType === RandomBabyType.MASKED && // 115
     (player.HasCollectible(CollectibleType.CHOCOLATE_MILK) || // 69
       player.HasCollectible(CollectibleType.BRIMSTONE) || // 118
       player.HasCollectible(CollectibleType.MONSTROS_LUNG) || // 229
@@ -255,7 +277,7 @@ function checkCollectibles(player: EntityPlayer, baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Earwig Baby" && // 128
+    babyType === RandomBabyType.EARWIG && // 128
     (player.HasCollectible(CollectibleType.COMPASS) || // 21
       player.HasCollectible(CollectibleType.TREASURE_MAP) || // 54
       player.HasCollectible(CollectibleType.MIND)) // 333
@@ -266,7 +288,7 @@ function checkCollectibles(player: EntityPlayer, baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Sloppy Baby" && // 146
+    babyType === RandomBabyType.SLOPPY && // 146
     (player.HasCollectible(CollectibleType.INNER_EYE) || // 2
       player.HasCollectible(CollectibleType.MUTANT_SPIDER) || // 153
       player.HasCollectible(CollectibleType.TWENTY_TWENTY) || // 245
@@ -278,21 +300,21 @@ function checkCollectibles(player: EntityPlayer, baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Bawl Baby" && // 231
+    babyType === RandomBabyType.BAWL && // 231
     player.HasCollectible(CollectibleType.IPECAC)
   ) {
     return false;
   }
 
   if (
-    baby.name === "Tabby Baby" && // 269
+    babyType === RandomBabyType.TABBY && // 269
     player.HasCollectible(CollectibleType.MOMS_KNIFE)
   ) {
     return false;
   }
 
   if (
-    baby.name === "Red Demon Baby" && // 278
+    babyType === RandomBabyType.RED_DEMON && // 278
     (player.HasCollectible(CollectibleType.EPIC_FETUS) || // 168
       player.HasCollectible(CollectibleType.TECH_X)) // 395
   ) {
@@ -300,7 +322,7 @@ function checkCollectibles(player: EntityPlayer, baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Fang Demon Baby" && // 281
+    babyType === RandomBabyType.FANG_DEMON && // 281
     (player.HasCollectible(CollectibleType.MOMS_KNIFE) || // 114
       player.HasCollectible(CollectibleType.EPIC_FETUS) || // 168
       player.HasCollectible(CollectibleType.MONSTROS_LUNG) || // 229
@@ -310,14 +332,14 @@ function checkCollectibles(player: EntityPlayer, baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Lantern Baby" && // 292
+    babyType === RandomBabyType.LANTERN && // 292
     player.HasCollectible(CollectibleType.TRISAGION)
   ) {
     return false;
   }
 
   if (
-    baby.name === "Cupcake Baby" && // 321
+    babyType === RandomBabyType.CUPCAKE && // 321
     player.HasCollectible(CollectibleType.EPIC_FETUS)
   ) {
     // High shot speed
@@ -325,7 +347,7 @@ function checkCollectibles(player: EntityPlayer, baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Slicer Baby" && // 331
+    babyType === RandomBabyType.SLICER && // 331
     player.HasCollectible(CollectibleType.IPECAC)
   ) {
     // Slice tears Ipecac causes the tears to explode instantly, which causes unavoidable damage.
@@ -333,35 +355,35 @@ function checkCollectibles(player: EntityPlayer, baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Mushroom Girl Baby" && // 361
+    babyType === RandomBabyType.MUSHROOM_GIRL && // 361
     player.HasCollectible(CollectibleType.DR_FETUS)
   ) {
     return false;
   }
 
   if (
-    baby.name === "Blue Ghost Baby" && // 370
+    babyType === RandomBabyType.BLUE_GHOST && // 370
     player.HasCollectible(CollectibleType.MOMS_KNIFE)
   ) {
     return false;
   }
 
   if (
-    baby.name === "Yellow Princess Baby" && // 375
+    babyType === RandomBabyType.YELLOW_PRINCESS && // 375
     player.HasCollectible(CollectibleType.FLAT_STONE)
   ) {
     return false;
   }
 
   if (
-    baby.name === "Dino Baby" && // 376
+    babyType === RandomBabyType.DINO && // 376
     player.HasCollectible(CollectibleType.BOBS_BRAIN)
   ) {
     return false;
   }
 
   if (
-    baby.name === "Orange Pig Baby" && // 381
+    babyType === RandomBabyType.ORANGE_PIG && // 381
     (player.HasCollectible(CollectibleType.DAMOCLES) ||
       player.HasCollectible(CollectibleType.DAMOCLES_PASSIVE))
   ) {
@@ -370,7 +392,7 @@ function checkCollectibles(player: EntityPlayer, baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Imp Baby" && // 386
+    babyType === RandomBabyType.IMP && // 386
     player.HasCollectible(CollectibleType.EPIC_FETUS)
   ) {
     // Blender + flight + explosion immunity + blindfolded. Epic Fetus overwrites Mom's Knife, which
@@ -379,14 +401,14 @@ function checkCollectibles(player: EntityPlayer, baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Dark Space Soldier Baby" && // 398
+    babyType === RandomBabyType.DARK_SPACE_SOLDIER && // 398
     player.HasCollectible(CollectibleType.IPECAC)
   ) {
     return false;
   }
 
   if (
-    baby.name === "Blurred Baby" && // 407
+    babyType === RandomBabyType.BLURRED && // 407
     (player.HasCollectible(CollectibleType.FLAT_STONE) ||
       player.HasCollectible(CollectibleType.INCUBUS))
   ) {
@@ -396,15 +418,15 @@ function checkCollectibles(player: EntityPlayer, baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Rojen Whitefox Baby" && // 446
+    babyType === RandomBabyType.ROJEN_WHITEFOX && // 446
     player.HasCollectible(CollectibleType.POLAROID) // 327
   ) {
     return false;
   }
 
   if (
-    (baby.name === "Cursed Pillow Baby" || // 487
-      baby.name === "Abel") && // 531
+    (babyType === RandomBabyType.CURSED_PILLOW || // 487
+      babyType === RandomBabyType.ABEL) && // 531
     (player.HasCollectible(CollectibleType.INNER_EYE) || // 2
       player.HasCollectible(CollectibleType.CUPIDS_ARROW) || // 48
       player.HasCollectible(CollectibleType.MOMS_EYE) || // 55
@@ -432,9 +454,12 @@ function checkCollectibles(player: EntityPlayer, baby: BabyDescription) {
   return true;
 }
 
-function checkTrinkets(player: EntityPlayer, baby: BabyDescription) {
+function checkTrinkets(
+  player: EntityPlayer,
+  babyType: RandomBabyType,
+): boolean {
   if (
-    baby.name === "Spike Baby" && // 166
+    babyType === RandomBabyType.SPIKE && // 166
     player.HasTrinket(TrinketType.LEFT_HAND) // 61
   ) {
     return false;
@@ -443,7 +468,7 @@ function checkTrinkets(player: EntityPlayer, baby: BabyDescription) {
   return true;
 }
 
-function checkStage(baby: BabyDescription) {
+function checkStage(babyType: RandomBabyType, baby: BabyDescription): boolean {
   const effectiveStage = getEffectiveStage();
   const babyItemsSet = getBabyItemsSet(baby);
 
@@ -516,7 +541,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Shadow Baby" && // 13
+    babyType === RandomBabyType.SHADOW && // 13
     (effectiveStage === 1 || effectiveStage >= 8)
   ) {
     // Devil Rooms / Angel Rooms go to the Black Market instead. Only valid for floors with Devil
@@ -526,7 +551,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "-0- Baby" && // 24
+    babyType === RandomBabyType.ZERO && // 24
     effectiveStage === 5
   ) {
     // -0- Baby cannot open the door to Mausoleum (since it requires health to be sacrificed).
@@ -534,7 +559,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Goat Baby" && // 62
+    babyType === RandomBabyType.GOAT && // 62
     (effectiveStage <= 2 || effectiveStage >= 9)
   ) {
     // Only valid for floors with Devil Rooms. Also, we are guaranteed a Devil Room on Basement 2,
@@ -543,7 +568,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Bomb Baby" && // 75
+    babyType === RandomBabyType.BOMB && // 75
     effectiveStage === 10
   ) {
     // 50% chance for bombs to have the D6 effect.
@@ -551,7 +576,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Nosferatu Baby" && // 109
+    babyType === RandomBabyType.NOSFERATU && // 109
     effectiveStage >= 8
   ) {
     // Enemies have homing projectiles This makes end-game floors too difficult.
@@ -559,7 +584,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Pubic Baby" && // 110
+    babyType === RandomBabyType.PUBIC && // 110
     effectiveStage === 11
   ) {
     // Must full clear Full clearing The Chest is too punishing.
@@ -567,7 +592,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Earwig Baby" && // 128
+    babyType === RandomBabyType.EARWIG && // 128
     effectiveStage === 1
   ) {
     // 3 rooms are already explored. This can make resetting slower, so don't have this baby on
@@ -576,7 +601,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Tears Baby" && // 136
+    babyType === RandomBabyType.TEARS && // 136
     effectiveStage === 2
   ) {
     // Starts with the Soul Jar. Getting this on Basement 2 would cause a missed devil deal.
@@ -584,7 +609,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Twin Baby" && // 141
+    babyType === RandomBabyType.TWIN && // 141
     effectiveStage === 8
   ) {
     // If they mess up and go past the Boss Room, they can get the wrong path.
@@ -592,7 +617,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Chompers Baby" && // 143
+    babyType === RandomBabyType.CHOMPERS && // 143
     effectiveStage === 11
   ) {
     // Everything is Red Poop. There are almost no grid entities on The Chest.
@@ -600,7 +625,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Ate Poop Baby" && // 173
+    babyType === RandomBabyType.ATE_POOP && // 173
     effectiveStage === 11
   ) {
     // Destroying poops spawns random pickups. There are hardly any poops on The Chest.
@@ -608,7 +633,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Shopkeeper Baby" && // 215
+    babyType === RandomBabyType.SHOPKEEPER && // 215
     effectiveStage >= 7
   ) {
     // Free shop items
@@ -616,7 +641,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Gem Baby" && // 237
+    babyType === RandomBabyType.GEM && // 237
     effectiveStage >= 7
   ) {
     // Pennies spawn as nickels. Money is useless past Depths 2.
@@ -624,7 +649,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Puzzle Baby" && // 315
+    babyType === RandomBabyType.PUZZLE && // 315
     effectiveStage === 10
   ) {
     // The D6 effect on hit.
@@ -632,7 +657,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Scary Baby" && // 317
+    babyType === RandomBabyType.SCARY && // 317
     effectiveStage === 6
   ) {
     // Items cost hearts. The player may not be able to take The Polaroid (when playing a normal
@@ -641,7 +666,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Red Wrestler Baby" && // 389
+    babyType === RandomBabyType.RED_WRESTLER && // 389
     effectiveStage === 11
   ) {
     // Everything is TNT. There are almost no grid entities on The Chest / Dark Room.
@@ -649,7 +674,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Rich Baby" && // 424
+    babyType === RandomBabyType.RICH && // 424
     effectiveStage >= 7
   ) {
     // Starts with 99 cents. Money is useless past Depths.
@@ -657,20 +682,23 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Folder Baby" && // 430
+    babyType === RandomBabyType.FOLDER && // 430
     (effectiveStage === 1 || effectiveStage === 10)
   ) {
     // Swaps item/shop pools + devil/angel pools.
     return false;
   }
 
-  if (baby.name === "Breadmeat Hoodiebread Baby" && effectiveStage >= 8) {
+  if (
+    babyType === RandomBabyType.BREADMEAT_HOODIEBREAD &&
+    effectiveStage >= 8
+  ) {
     // Everything is sped up.
     return false;
   }
 
   if (
-    baby.name === "Hooligan Baby" && // 514
+    babyType === RandomBabyType.HOOLIGAN && // 514
     (effectiveStage === 6 || effectiveStage >= 8)
   ) {
     // Double enemies. Mom cannot be doubled, so don't give this baby on stage 6. It Lives cannot be
@@ -680,14 +708,14 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Baggy Cap Baby" && // 519
+    babyType === RandomBabyType.BAGGY_CAP && // 519
     effectiveStage === 11
   ) {
     return false;
   }
 
   if (
-    baby.name === "Eyebat Baby" && // 535
+    babyType === RandomBabyType.EYEBAT && // 535
     (effectiveStage === 6 || effectiveStage >= 8 || onRepentanceStage())
   ) {
     // Floors are reversed. We don't want to have this on any end floors so that we can simply the
@@ -696,7 +724,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Demon Baby" && // 564
+    babyType === RandomBabyType.DEMON && // 564
     (effectiveStage === 1 || effectiveStage >= 9)
   ) {
     // Only valid for floors with Devil Rooms.
@@ -704,7 +732,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Ghost Baby" && // 565
+    babyType === RandomBabyType.GHOST && // 565
     effectiveStage === 2
   ) {
     // All items from the shop pool. On stage 2, they will miss a Devil Deal, which is not fair.
@@ -712,7 +740,7 @@ function checkStage(baby: BabyDescription) {
   }
 
   if (
-    baby.name === "Fate's Reward" && // 574
+    babyType === RandomBabyType.FATES_REWARD && // 574
     (effectiveStage <= 2 || effectiveStage === 6 || effectiveStage >= 10)
   ) {
     // Items cost money. On stage 1, the player does not have 15 cents. On stage 2, they will miss a
@@ -724,11 +752,11 @@ function checkStage(baby: BabyDescription) {
   return true;
 }
 
-function checkCurses(baby: BabyDescription) {
+function checkCurses(babyType: RandomBabyType): boolean {
   const curses = g.l.GetCurses();
 
   if (
-    baby.name === "Eyebat Baby" && // 535
+    babyType === RandomBabyType.EYEBAT && // 535
     hasFlag(curses, LevelCurse.LABYRINTH)
   ) {
     // Floors are reversed.
@@ -738,7 +766,7 @@ function checkCurses(baby: BabyDescription) {
   return true;
 }
 
-function getBabyItemsSet(baby: BabyDescription) {
+function getBabyItemsSet(baby: BabyDescription): Set<CollectibleType> {
   const babyItemsSet = new Set<CollectibleType>();
   if (baby.item !== undefined) {
     babyItemsSet.add(baby.item);

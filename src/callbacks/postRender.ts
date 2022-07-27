@@ -14,10 +14,12 @@ import {
   getHUDOffsetVector,
   getScreenCenterPos,
   isActionPressedOnAnyInput,
+  isKeyboardPressed,
   KColorDefault,
 } from "isaacscript-common";
 import { updateCachedAPIFunctions } from "../cache";
 import { MOD_NAME, VERSION } from "../constants";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 import { initSprite } from "../sprite";
 import * as timer from "../timer";
@@ -96,7 +98,7 @@ function drawBabyIntro() {
 
 /** Draw the baby's number next to the heart count. */
 function drawBabyNumber() {
-  const [babyType, baby] = getCurrentBaby();
+  const [babyType] = getCurrentBaby();
   if (babyType === -1) {
     return;
   }
@@ -115,8 +117,8 @@ function drawBabyNumber() {
 
   let x = HUDOffsetVector.X + heartsUIWidth + UI_HEARTS_RIGHT_SPACING;
   if (
-    baby.name === "Hopeless Baby" || // 125
-    baby.name === "Mohawk Baby" // 138
+    babyType === RandomBabyType.HOPELESS || // 125
+    babyType === RandomBabyType.MOHAWK // 138
   ) {
     // These babies draw text next to the hearts, so account for this so that the number text does
     // not overlap.
@@ -137,7 +139,7 @@ function drawVersion() {
   }
 
   // Make the version persist for at least 2 seconds after the player presses "v".
-  if (Input.IsButtonPressed(Keyboard.V, 0)) {
+  if (isKeyboardPressed(Keyboard.V)) {
     g.run.showVersionFrame = gameFrameCount + 60;
   }
 

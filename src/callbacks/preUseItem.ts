@@ -11,6 +11,7 @@ import {
   SoundEffect,
 } from "isaac-typescript-definitions";
 import { game, repeat, sfxManager } from "isaacscript-common";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 import { getCurrentBaby } from "../utils";
 
@@ -48,13 +49,13 @@ export function init(mod: Mod): void {
 
 // CollectibleType.POOP (36)
 function poop() {
-  const [babyType, baby] = getCurrentBaby();
+  const [babyType] = getCurrentBaby();
   if (babyType === -1) {
     return undefined;
   }
 
   // 262
-  if (baby.name !== "Panda Baby") {
+  if (babyType !== RandomBabyType.PANDA) {
     return undefined;
   }
 
@@ -73,13 +74,13 @@ function poop() {
 
 // CollectibleType.LEMON_MISHAP (56)
 function lemonMishap() {
-  const [babyType, baby] = getCurrentBaby();
+  const [babyType] = getCurrentBaby();
   if (babyType === -1) {
     return undefined;
   }
 
   // 232
-  if (baby.name !== "Lemon Baby") {
+  if (babyType !== RandomBabyType.LEMON) {
     return undefined;
   }
 
@@ -96,13 +97,13 @@ function lemonMishap() {
 
 // CollectibleType.ISAACS_TEARS (323)
 function isaacsTears() {
-  const [babyType, baby] = getCurrentBaby();
+  const [babyType] = getCurrentBaby();
   if (babyType === -1) {
     return undefined;
   }
 
   // 3
-  if (baby.name !== "Water Baby") {
+  if (babyType !== RandomBabyType.WATER) {
     return undefined;
   }
 
@@ -140,7 +141,7 @@ function brownNugget() {
   }
 
   // 303
-  if (baby.name !== "Pizza Baby") {
+  if (babyType !== RandomBabyType.PIZZA) {
     return undefined;
   }
   if (baby.delay === undefined) {
@@ -164,13 +165,13 @@ function sacrificialAltar(
   _useFlags: int,
   _activeSlot: ActiveSlot,
 ) {
-  const [babyType, baby] = getCurrentBaby();
+  const [babyType] = getCurrentBaby();
   if (babyType === -1) {
     return undefined;
   }
 
   // 202
-  if (baby.name !== "Blindfold Baby") {
+  if (babyType !== RandomBabyType.BLINDFOLD) {
     return undefined;
   }
 

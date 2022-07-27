@@ -41,9 +41,9 @@ function main() {
   // Reset baby-specific variables
   g.run.babyBool = false;
   g.run.babyCounters = 0;
-  // `babyCountersRoom` are reset in the PostNewRoom callback.
+  // `babyCountersRoom` are reset in the `POST_NEW_ROOM` callback.
   g.run.babyFrame = 0;
-  // `babyTears` are reset in the PostNewRoom callback.
+  // `babyTears` are reset in the `POST_NEW_ROOM` callback.
   g.run.babyNPC = {
     entityType: 0,
     variant: 0,
@@ -82,7 +82,7 @@ function getNewBaby(player: EntityPlayer) {
   let babyType: RandomBabyType;
   let numTries = 0;
   do {
-    numTries += 1;
+    numTries++;
     babyType = getRandomEnumValue(RandomBabyType, rng);
 
     // Don't randomly choose a co-op baby if we are choosing a specific one for debugging purposes.

@@ -3,6 +3,7 @@ import {
   FireplaceVariant,
   ModCallback,
 } from "isaac-typescript-definitions";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import { getCurrentBaby } from "../utils";
 
 export function init(mod: Mod): void {
@@ -18,13 +19,13 @@ function main(
   _spawner: Entity | undefined,
   initSeed: int,
 ): [int, int, int, int] | undefined {
-  const [babyType, baby] = getCurrentBaby();
+  const [babyType] = getCurrentBaby();
   if (babyType === -1) {
     return;
   }
 
   if (
-    baby.name === "Purple Baby" && // 252
+    babyType === RandomBabyType.PURPLE && // 252
     entityType === EntityType.FIREPLACE &&
     variant !== (FireplaceVariant.BLUE as int) &&
     variant !== (FireplaceVariant.WHITE as int)

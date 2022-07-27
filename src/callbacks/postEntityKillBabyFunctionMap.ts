@@ -45,8 +45,8 @@ postEntityKillBabyFunctionMap.set(RandomBabyType.BROWN, (npc: EntityNPC) => {
 postEntityKillBabyFunctionMap.set(RandomBabyType.WHORE, (npc: EntityNPC) => {
   const roomListIndex = getRoomListIndex();
 
-  // All enemies explode. We cannot explode enemies in the PostEntityKill callback due to a crash
-  // having to do with black hearts. So, mark to explode in the PostUpdate callback.
+  // All enemies explode. We cannot explode enemies in the `POST_ENTITY_KILL` callback due to a
+  // crash having to do with black hearts. So, mark to explode in the `POST_UPDATE` callback.
   g.run.babyExplosions.push({
     roomListIndex,
     position: npc.Position,
@@ -120,7 +120,7 @@ postEntityKillBabyFunctionMap.set(RandomBabyType.LOVE_EYE, (npc: EntityNPC) => {
 
 // 291
 postEntityKillBabyFunctionMap.set(RandomBabyType.KILLER, (_npc: EntityNPC) => {
-  g.run.babyCounters += 1;
+  g.run.babyCounters++;
   g.p.AddCacheFlags(CacheFlag.DAMAGE);
   g.p.EvaluateItems();
 });

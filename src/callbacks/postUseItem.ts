@@ -13,6 +13,7 @@ import {
   repeat,
 } from "isaacscript-common";
 import { NUM_SUCCUBI_IN_FLOCK } from "../constants";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 import { getCurrentBaby, spawnSlotHelper } from "../utils";
@@ -64,13 +65,13 @@ function shoopDaWhoop(
   const gameFrameCount = game.GetFrameCount();
   const activeCharge = player.GetActiveCharge();
   const batteryCharge = player.GetBatteryCharge();
-  const [babyType, baby] = getCurrentBaby();
+  const [babyType] = getCurrentBaby();
   if (babyType === -1) {
     return undefined;
   }
 
   // 81
-  if (baby.name === "Scream Baby") {
+  if (babyType === RandomBabyType.SCREAM) {
     g.run.babyFrame = gameFrameCount;
     g.run.babyCounters = activeCharge;
     g.run.babyNPC.entityType = batteryCharge as EntityType;
@@ -92,9 +93,9 @@ function monstrosTooth(
   }
 
   // 221
-  if (baby.name === "Drool Baby") {
+  if (babyType === RandomBabyType.DROOL) {
     // Summon extra Monstro's, spaced apart.
-    g.run.babyCounters += 1;
+    g.run.babyCounters++;
     if (g.run.babyCounters === baby.num) {
       g.run.babyCounters = 0;
       g.run.babyFrame = 0;
@@ -119,7 +120,7 @@ function howToJump(
   }
 
   // 350
-  if (baby.name === "Rabbit Baby") {
+  if (babyType === RandomBabyType.RABBIT) {
     if (baby.num === undefined) {
       error(`The "num" attribute was not defined for: ${baby.name}`);
     }

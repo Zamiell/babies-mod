@@ -48,7 +48,7 @@ function main(isContinued: boolean) {
     g.seeds.RemoveSeedEffect(seed);
   }
 
-  // Also remove seeds that are turned on manually in the PostUpdate callback.
+  // Also remove seeds that are turned on manually in the `POST_UPDATE` callback.
   if (g.seeds.HasSeedEffect(SeedEffect.OLD_TV)) {
     g.seeds.RemoveSeedEffect(SeedEffect.OLD_TV);
   }

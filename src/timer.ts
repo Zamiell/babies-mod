@@ -1,4 +1,5 @@
 import { game, repeat } from "isaacscript-common";
+import { RandomBabyType } from "./enums/RandomBabyType";
 import g from "./globals";
 import { initSprite } from "./sprite";
 import { getCurrentBaby } from "./utils";
@@ -12,16 +13,16 @@ const sprites = {
 
 export function display(): void {
   const gameFrameCount = game.GetFrameCount();
-  const [babyType, baby] = getCurrentBaby();
+  const [babyType] = getCurrentBaby();
   if (babyType === -1) {
     return;
   }
 
   let finishTime: int | undefined;
   if (
-    baby.name === "Noose Baby" || // 39
-    baby.name === "Vomit Baby" || // 341
-    baby.name === "Scoreboard Baby" // 474
+    babyType === RandomBabyType.NOOSE || // 39
+    babyType === RandomBabyType.VOMIT || // 341
+    babyType === RandomBabyType.SCOREBOARD // 474
   ) {
     finishTime = g.run.babyCounters;
   }

@@ -17,7 +17,7 @@ export const postRenderBabyFunctionMap = new Map<RandomBabyType, () => void>();
 // 48
 postRenderBabyFunctionMap.set(RandomBabyType.DARK, () => {
   // Temporary blindness. Set the current fade (which is based on the game's frame count and set in
-  // the PostUpdate callback).
+  // the `POST_UPDATE` callback).
   if (g.run.babySprite !== null) {
     let opacity = g.run.babyCounters / 90;
     if (opacity > 1) {
@@ -82,8 +82,8 @@ postRenderBabyFunctionMap.set(RandomBabyType.MOHAWK, () => {
 
 // 377
 postRenderBabyFunctionMap.set(RandomBabyType.ELF, () => {
-  // The Speak of Destiny effect is not spawned in the PostNewRoom callback. Thus, we check for it
-  // on every frame instead. As an unfortunate side effect, the Spear of Destiny will show as the
+  // The Speak of Destiny effect is not spawned in the `POST_NEW_ROOM` callback. Thus, we check for
+  // it on every frame instead. As an unfortunate side effect, the Spear of Destiny will show as the
   // vanilla graphic during room transitions.
   const spears = getEffects(EffectVariant.SPEAR_OF_DESTINY);
   for (const spear of spears) {

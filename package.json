@@ -12,14 +12,14 @@
   "license": "GPL-3.0",
   "type": "commonjs",
   "dependencies": {
-    "@types/node": "^18.0.5",
-    "isaac-typescript-definitions": "^3.0.22",
-    "isaacscript": "^2.9.3",
-    "isaacscript-common": "^6.4.0",
-    "isaacscript-lint": "^3.0.0",
+    "@types/node": "^18.6.1",
+    "isaac-typescript-definitions": "^3.1.0",
+    "isaacscript": "^2.9.15",
+    "isaacscript-common": "^6.17.0",
+    "isaacscript-lint": "^4.0.3",
     "isaacscript-spell": "^1.2.7",
     "ts-node": "^10.9.1",
     "typescript": "^4.7.4",
-    "typescript-to-lua": "^1.6.3"
+    "typescript-to-lua": "^1.7.1"
   }
 }

@@ -5,6 +5,7 @@ import {
   ModCallbackCustom,
   ModUpgraded,
 } from "isaacscript-common";
+import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 import { getCurrentBaby, spawnRandomPickup } from "../utils";
 
@@ -17,14 +18,14 @@ export function init(mod: ModUpgraded): void {
 }
 
 function poop(gridEntity: GridEntity) {
-  const [babyType, baby] = getCurrentBaby();
+  const [babyType] = getCurrentBaby();
   if (babyType === -1) {
     return;
   }
 
   // 173
   // Destroying poops spawns random pickups.
-  if (baby.name !== "Ate Poop Baby") {
+  if (babyType !== RandomBabyType.ATE_POOP) {
     return;
   }
 

@@ -40,7 +40,7 @@ export function addPlayerToCostumeProtector(player: EntityPlayer): void {
     flightCostumeNullItemID,
   );
 
-  // The sprite will be also replaced when the baby gets applied in the PostNewLevel callback
+  // The sprite will be also replaced when the baby gets applied in the `POST_NEW_LEVEL` callback
   // However, we still initialize it "properly" for the case where the PostPlayerInit callback gets
   // re-entered (e.g. when the player uses Genesis)
 }
@@ -75,7 +75,9 @@ function getCostumeProtectorArguments(): [
       : "gfx/characters/player2";
   const spritesheetPath = `${gfxDirectory}/${baby.sprite}`;
   const flightCostumeNullItemID =
-    baby.name === "Butterfly Baby 2" ? undefined : NullItemIDCustom.BABY_FLYING;
+    babyType === RandomBabyType.BUTTERFLY_2
+      ? undefined
+      : NullItemIDCustom.BABY_FLYING;
 
   return [spritesheetPath, flightCostumeNullItemID];
 }

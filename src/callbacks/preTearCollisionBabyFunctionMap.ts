@@ -47,7 +47,7 @@ preTearCollisionBabyFunctionMap.set(
   (tear: EntityTear, _collider: Entity) => {
     // Accuracy increases tear rate.
     if (tear.SubType === 1) {
-      g.run.babyCounters += 1;
+      g.run.babyCounters++;
       g.p.AddCacheFlags(CacheFlag.FIRE_DELAY);
       g.p.EvaluateItems();
     }

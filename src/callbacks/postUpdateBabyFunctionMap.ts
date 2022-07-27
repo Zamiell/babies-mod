@@ -97,7 +97,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.WRAPPED, () => {
   // If the explosions happen too fast, it looks buggy, so do it instead every 3 frames.
   if (gameFrameCount % 3 === 0 && g.run.babyCounters > 0) {
     // This should not cause any damage since the player will have invulnerability frames.
-    g.run.babyCounters -= 1;
+    g.run.babyCounters--;
     useActiveItemTemp(g.p, CollectibleType.KAMIKAZE);
   }
 });
@@ -115,7 +115,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.RAGE, () => {
 
 // 36
 postUpdateBabyFunctionMap.set(RandomBabyType.LIL, () => {
-  // Everything is tiny. This does not work if we put it in the PostNewLevel callback for some
+  // Everything is tiny. This does not work if we put it in the `POST_NEW_LEVEL` callback for some
   // reason.
   if (g.p.SpriteScale.X > 0.5 || g.p.SpriteScale.Y > 0.5) {
     g.p.SpriteScale = Vector(0.5, 0.5);
@@ -124,7 +124,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.LIL, () => {
 
 // 37
 postUpdateBabyFunctionMap.set(RandomBabyType.BIG, () => {
-  // Everything is giant. This does not work if we put it in the PostNewLevel callback for some
+  // Everything is giant. This does not work if we put it in the `POST_NEW_LEVEL` callback for some
   // reason.
   if (g.p.SpriteScale.X < 2 || g.p.SpriteScale.Y < 2) {
     g.p.SpriteScale = Vector(2, 2);
@@ -155,8 +155,8 @@ postUpdateBabyFunctionMap.set(RandomBabyType.NOOSE, () => {
 postUpdateBabyFunctionMap.set(RandomBabyType.WHORE, () => {
   const roomListIndex = getRoomListIndex();
 
-  // All enemies explode. Perform the explosion that was initiated in the PostEntityKill callback.
-  // We iterate backwards because we need to remove elements from the array.
+  // All enemies explode. Perform the explosion that was initiated in the `POST_ENTITY_KILL`
+  // callback. We iterate backwards because we need to remove elements from the array.
   for (let i = g.run.babyExplosions.length - 1; i >= 0; i--) {
     const explosion = g.run.babyExplosions[i];
     if (explosion === undefined) {
@@ -179,12 +179,12 @@ postUpdateBabyFunctionMap.set(RandomBabyType.DARK, () => {
 
   // Temporary blindness Make the counters tick from 0 --> max --> 0, etc.
   if (!g.run.babyBool) {
-    g.run.babyCounters += 1;
+    g.run.babyCounters++;
     if (g.run.babyCounters === baby.num) {
       g.run.babyBool = true;
     }
   } else {
-    g.run.babyCounters -= 1;
+    g.run.babyCounters--;
     if (g.run.babyCounters === 0) {
       g.run.babyBool = false;
     }
@@ -434,8 +434,8 @@ postUpdateBabyFunctionMap.set(RandomBabyType.DIGITAL, () => {
   if (!g.run.babyBool && roomFrameCount <= 1) {
     g.run.babyBool = true;
 
-    // This baby grants SeedEffect.OLD_TV. However, applying this in the PostNewLevel callback can
-    // cause game crashes. Instead, we manually apply it in the PostUpdate callback.
+    // This baby grants SeedEffect.OLD_TV. However, applying this in the `POST_NEW_LEVEL` callback
+    // can cause game crashes. Instead, we manually apply it in the `POST_UPDATE` callback.
     g.seeds.AddSeedEffect(SeedEffect.OLD_TV);
   }
 });
@@ -484,10 +484,10 @@ postUpdateBabyFunctionMap.set(RandomBabyType.BLACK_EYE, () => {
   // how Leprocy familiars are in the room.
   const leprocyChunks = getFamiliars(FamiliarVariant.LEPROSY);
   if (leprocyChunks.length < g.run.babyCounters) {
-    g.run.babyCounters -= 1;
+    g.run.babyCounters--;
 
     // We use the "babyFrame" variable to track how many damage ups we have received.
-    g.run.babyFrame += 1;
+    g.run.babyFrame++;
     g.p.AddCacheFlags(CacheFlag.DAMAGE);
     g.p.EvaluateItems();
   }
@@ -652,7 +652,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.RACCOON, () => {
   const roomFrameCount = g.r.GetFrameCount();
   const isFirstVisit = g.r.IsFirstVisit();
 
-  // Reroll all of the rocks in the room. This does not work if we do it in the PostNewRoom
+  // Reroll all of the rocks in the room. This does not work if we do it in the `POST_NEW_ROOM`
   // callback. This does not work if we do it on the 0th frame.
   if (roomFrameCount === 1 && isFirstVisit) {
     useActiveItemTemp(g.p, CollectibleType.D12);
@@ -682,7 +682,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.HARE, () => {
     return;
   }
 
-  g.run.babyCounters += 1;
+  g.run.babyCounters++;
   if (g.run.babyCounters > framesBeforeTakingDamage) {
     g.run.babyCounters = framesBeforeTakingDamage;
   }
@@ -741,7 +741,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.PIZZA, () => {
   }
 
   if (g.run.babyFrame !== 0 && gameFrameCount >= g.run.babyFrame) {
-    g.run.babyCounters += 1;
+    g.run.babyCounters++;
     g.run.babyFrame = gameFrameCount + baby.delay;
     useActiveItemTemp(g.p, CollectibleType.BROWN_NUGGET);
     if (g.run.babyCounters === 19) {
@@ -893,7 +893,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.IMP, () => {
   g.run.babyFrame += baby.num;
 
   // Rotate through the four directions.
-  g.run.babyCounters += 1;
+  g.run.babyCounters++;
   if (g.run.babyCounters >= 8) {
     g.run.babyCounters = 4;
   }
@@ -914,7 +914,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.BLUE_WRESTLER, () => {
 
     spawnProjectile(ProjectileVariant.NORMAL, 0, tear.position, velocity);
 
-    tear.num -= 1;
+    tear.num--;
     if (tear.num === 0) {
       // The dead enemy has shot all of its tears, so we remove the tracking element for it.
       g.run.room.tears.splice(i, 1);
@@ -1092,13 +1092,13 @@ postUpdateBabyFunctionMap.set(RandomBabyType.TWITCHY, () => {
     g.run.babyFrame += baby.num;
     if (g.run.babyBool) {
       // Tear rate is increasing.
-      g.run.babyCounters += 1;
+      g.run.babyCounters++;
       if (g.run.babyCounters === baby.max) {
         g.run.babyBool = false;
       }
     } else {
       // Tear rate is decreasing.
-      g.run.babyCounters -= 1;
+      g.run.babyCounters--;
       if (g.run.babyCounters === baby.min) {
         g.run.babyBool = true;
       }
@@ -1121,7 +1121,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.INVISIBLE, () => {
 
   if (roomFrameCount === 1) {
     // The sprite is a blank PNG, but we also want to remove the shadow. Doing this in the
-    // PostNewRoom callback won't work. Doing this on frame 0 won't work.
+    // `POST_NEW_ROOM` callback won't work. Doing this on frame 0 won't work.
     g.p.Visible = false;
   }
 });

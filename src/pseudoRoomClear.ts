@@ -7,6 +7,7 @@ import {
   isAllPressurePlatesPushed,
   log,
 } from "isaacscript-common";
+import { RandomBabyType } from "./enums/RandomBabyType";
 import g from "./globals";
 import { getCurrentBaby } from "./utils";
 
@@ -38,7 +39,7 @@ export function postUpdate(): void {
   }
 
   // Customize the doors and initiate the pseudo clear feature. (This does not work in the
-  // PostNewRoom callback or on frame 0.)
+  // `POST_NEW_ROOM` callback or on frame 0.)
   if (roomFrameCount === 1 && !roomClear) {
     initializeDoors();
     return;
@@ -48,7 +49,7 @@ export function postUpdate(): void {
 }
 
 function initializeDoors() {
-  const [babyType, baby] = getCurrentBaby();
+  const [babyType] = getCurrentBaby();
   if (babyType === -1) {
     return;
   }
@@ -65,22 +66,22 @@ function initializeDoors() {
     g.run.room.doorSlotsModified.push(door.Slot);
 
     // Modify the door.
-    switch (baby.name) {
+    switch (babyType) {
       // 27
-      case "Black Baby": {
+      case RandomBabyType.BLACK: {
         door.SetRoomTypes(door.CurrentRoomType, RoomType.CURSE);
         door.Open();
         break;
       }
 
       // 90
-      case "Nerd Baby": {
+      case RandomBabyType.NERD: {
         door.SetLocked(true);
         break;
       }
 
       // 351
-      case "Mouse Baby": {
+      case RandomBabyType.MOUSE: {
         door.SetRoomTypes(door.CurrentRoomType, RoomType.SHOP);
         door.SetLocked(true);
         break;
@@ -134,7 +135,7 @@ function areAnyNPCsAlive() {
 
 // This roughly emulates what happens when you normally clear a room.
 function pseudoClearRoom() {
-  const [babyType, baby] = getCurrentBaby();
+  const [babyType] = getCurrentBaby();
   if (babyType === -1) {
     return;
   }
@@ -152,21 +153,21 @@ function pseudoClearRoom() {
       continue;
     }
 
-    switch (baby.name) {
+    switch (babyType) {
       // 27
-      case "Black Baby": {
+      case RandomBabyType.BLACK: {
         door.SetRoomTypes(door.CurrentRoomType, RoomType.DEFAULT);
         break;
       }
 
       // 90
-      case "Nerd Baby": {
+      case RandomBabyType.NERD: {
         door.TryUnlock(g.p, true); // This has to be forced
         break;
       }
 
       // 351
-      case "Mouse Baby": {
+      case RandomBabyType.MOUSE: {
         door.TryUnlock(g.p, true); // This has to be forced
         break;
       }

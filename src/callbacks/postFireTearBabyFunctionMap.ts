@@ -33,7 +33,7 @@ export const postFireTearBabyFunctionMap = new Map<
 
 // 0
 postFireTearBabyFunctionMap.set(RandomBabyType.SPIDER, (tear: EntityTear) => {
-  g.run.babyCounters += 1;
+  g.run.babyCounters++;
   if (g.run.babyCounters === 2) {
     g.run.babyCounters = 0;
 
@@ -50,7 +50,7 @@ postFireTearBabyFunctionMap.set(RandomBabyType.BLOAT, (tear: EntityTear) => {
     error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
-  g.run.babyCounters += 1;
+  g.run.babyCounters++;
   if (g.run.babyCounters === baby.num) {
     g.run.babyCounters = 0;
     tear.ChangeVariant(TearVariant.NEEDLE);
@@ -183,7 +183,7 @@ postFireTearBabyFunctionMap.set(RandomBabyType.EYEMOUTH, (tear: EntityTear) => {
   const gameFrameCount = game.GetFrameCount();
 
   // Shoot an extra tear every 3rd shot.
-  g.run.babyTears.numFired += 1;
+  g.run.babyTears.numFired++;
   if (g.run.babyTears.numFired >= 4) {
     // Mark to fire a tear 1 frame from now.
     g.run.babyTears.numFired = 0;
@@ -234,7 +234,7 @@ postFireTearBabyFunctionMap.set(RandomBabyType.LIGHTS, (tear: EntityTear) => {
     error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
-  g.run.babyCounters += 1;
+  g.run.babyCounters++;
   if (g.run.babyCounters === baby.num) {
     g.run.babyCounters = 0;
     tear.TearFlags = addFlag(tear.TearFlags, TearFlag.LIGHT_FROM_HEAVEN);
@@ -319,7 +319,7 @@ postFireTearBabyFunctionMap.set(
   RandomBabyType.ORANGE_DEMON,
   (tear: EntityTear) => {
     // Explosivo tears Only do every other tear to avoid softlocks.
-    g.run.babyCounters += 1;
+    g.run.babyCounters++;
     if (g.run.babyCounters === 2) {
       g.run.babyCounters = 0;
       tear.ChangeVariant(TearVariant.EXPLOSIVO);
@@ -356,7 +356,7 @@ postFireTearBabyFunctionMap.set(RandomBabyType.BOXERS, (tear: EntityTear) => {
 
 // 339
 postFireTearBabyFunctionMap.set(RandomBabyType.X, (tear: EntityTear) => {
-  g.run.babyCounters += 1;
+  g.run.babyCounters++;
   tear.Velocity = tear.Velocity.Rotated(45);
   if (g.run.babyCounters < 4) {
     g.p.FireTear(g.p.Position, tear.Velocity.Rotated(45), false, true, false);
@@ -386,7 +386,7 @@ postFireTearBabyFunctionMap.set(
     }
 
     // Extra bomb shots
-    g.run.babyCounters += 1;
+    g.run.babyCounters++;
     if (g.run.babyCounters === baby.num) {
       g.run.babyCounters = 0;
       spawnBomb(
@@ -446,7 +446,7 @@ postFireTearBabyFunctionMap.set(
       error(`The "num" attribute was not defined for: ${baby.name}`);
     }
 
-    g.run.babyCounters += 1;
+    g.run.babyCounters++;
     if (g.run.babyCounters === baby.num) {
       g.run.babyCounters = 0;
       tear.ChangeVariant(TearVariant.CHAOS_CARD);
@@ -489,7 +489,7 @@ postFireTearBabyFunctionMap.set(
     }
 
     // Void tears
-    g.run.babyCounters += 1;
+    g.run.babyCounters++;
     if (g.run.babyCounters === baby.num) {
       g.run.babyCounters = 0;
       tear.TearFlags = addFlag(tear.TearFlags, TearFlag.HORN);
@@ -657,7 +657,7 @@ postFireTearBabyFunctionMap.set(RandomBabyType.ILL, (tear: EntityTear) => {
 postFireTearBabyFunctionMap.set(RandomBabyType.MERN, (tear: EntityTear) => {
   const gameFrameCount = game.GetFrameCount();
 
-  g.run.babyTears.numFired += 1;
+  g.run.babyTears.numFired++;
   if (g.run.babyTears.numFired >= 2) {
     // Mark to fire a tear 1 frame from now.
     g.run.babyTears.numFired = 0;

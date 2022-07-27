@@ -21,7 +21,7 @@ evaluateCacheBabyFunctionMap.set(
     if (cacheFlag === CacheFlag.DAMAGE) {
       // -1 damage per pickup taken.
       repeat(g.run.babyCounters, () => {
-        player.Damage -= 1;
+        player.Damage--;
       });
     }
   },
@@ -258,7 +258,7 @@ evaluateCacheBabyFunctionMap.set(
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.FIRE_DELAY) {
       repeat(g.run.babyCounters, () => {
-        player.MaxFireDelay -= 1;
+        player.MaxFireDelay--;
       });
     }
   },
@@ -281,7 +281,7 @@ evaluateCacheBabyFunctionMap.set(
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.DAMAGE) {
       repeat(g.run.babyCounters, () => {
-        player.Damage += 1;
+        player.Damage++;
       });
     }
   },
@@ -293,7 +293,7 @@ evaluateCacheBabyFunctionMap.set(
   (player: EntityPlayer, cacheFlag: CacheFlag) => {
     if (cacheFlag === CacheFlag.DAMAGE) {
       repeat(g.run.babyCounters, () => {
-        player.Damage += 1;
+        player.Damage++;
       });
     }
   },
