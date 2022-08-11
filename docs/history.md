@@ -106,7 +106,7 @@
   - Solomon's Baby B (#532) - Can't shoot left
   - Thirteenth Baby (#533) - Starts with Sacrificial Dagger
   - Berry Baby (#534) - Starts with Red Stew
-  - Eyebat Baby (#535) - TODO
+  - Eyebat Baby (#535) - Floors are reversed
   - Baby Is You (#536) - Starts with Luna
   - Vessel Baby (#537) - Starts with 5x Worm Friend
   - Rock Baby (#538) - Starts with Terra
