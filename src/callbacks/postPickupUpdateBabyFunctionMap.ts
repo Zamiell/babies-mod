@@ -6,7 +6,6 @@ import {
   ProjectileVariant,
 } from "isaac-typescript-definitions";
 import {
-  copyColor,
   game,
   GAME_FRAMES_PER_SECOND,
   getCollectibleDevilHeartPrice,
@@ -224,17 +223,6 @@ postPickupUpdateBabyFunctionMap.set(
       // Stop the custom "Blink" animation.
       if (!sprite.IsPlaying("Idle")) {
         sprite.Play("Idle", true);
-      }
-
-      // Make it start to fade away.
-      const color = pickup.GetColor();
-      const fadeAmount = 1 - (pickup.FrameCount - 60) * 0.01;
-      if (fadeAmount <= 0) {
-        pickup.Remove();
-      } else {
-        const newColor = copyColor(color);
-        newColor.A = fadeAmount;
-        pickup.SetColor(newColor, 0, 0, true, true);
       }
     }
   },

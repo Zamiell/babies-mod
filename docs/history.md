@@ -3,6 +3,10 @@
 <!-- cspell:ignore cantgirl,Finalkids,Hispa,lenamek,Moucheron,Quipet,Sanio,sisuka -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.5.2_ - August 14th, 2022
+
+- Fixed the bug where the Aban Baby coins would not properly be removed when leaving the room.
+
 ### _v1.5.0_ - July 26th, 2022
 
 - New babies:

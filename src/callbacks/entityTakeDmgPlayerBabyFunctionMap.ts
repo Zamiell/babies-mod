@@ -335,6 +335,11 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.ABAN, (player) => {
       velocity,
       player,
     );
+
+    // Make it fade away.
+    coin.Timeout = 160; // 5.3 seconds
+
+    // We also want it to bounce off the player immediately upon spawning.
     const data = coin.GetData();
     data["recovery"] = true;
   });

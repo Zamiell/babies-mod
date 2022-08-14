@@ -11,6 +11,7 @@
   "files.associations": {
     "*.anm2": "xml", // anm2 files are just XML files.
     "*.dat": "json", // Nearly all mods save JSON to the "save#.dat" file.
+    ".env*": "shellscript", // e.g. ".env.example" is the same as ".env".
   },
 
   // We want to always use "lf" to be consistent with all platforms.
@@ -20,19 +21,11 @@
   "files.trimTrailingWhitespace": true,
 
   // Configure glob patterns for excluding files and folders in full text searches and quick open.
-  // (File extensions must be specified or the glob won't work properly.)
   "search.exclude": {
     "**/*.png": true,
     "**/*.wav": true,
-    "dist/**/*.ts": true,
-    "dist/**/*.js": true,
-    "dist/**/*.map": true,
-    "dist/**/*.json": true,
-    "dist/**/*.lua": true,
-    "node_modules/**/*.ts": true,
-    "node_modules/**/*.js": true,
-    "node_modules/**/*.json": true,
-    "node_modules/**/*.lua": true,
+    "**/dist/": true,
+    "**/node_modules/": true,
   },
 
   // -----------------
