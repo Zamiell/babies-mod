@@ -9,10 +9,10 @@ export function init(mod: Mod): void {
 
 function main(
   entity: Entity,
-  damageAmount: float,
+  amount: float,
   damageFlags: BitFlags<DamageFlag>,
-  damageSource: EntityRef,
-  damageCountdownFrames: int,
+  source: EntityRef,
+  countdownFrames: int,
 ): boolean | undefined {
   const [babyType] = getCurrentBaby();
   if (babyType === -1) {
@@ -23,18 +23,18 @@ function main(
   if (player !== undefined) {
     return entityTakeDmgPlayer.main(
       player,
-      damageAmount,
+      amount,
       damageFlags,
-      damageSource,
-      damageCountdownFrames,
+      source,
+      countdownFrames,
     );
   }
 
   return entityTakeDmgEntity.main(
     entity,
-    damageAmount,
+    amount,
     damageFlags,
-    damageSource,
-    damageCountdownFrames,
+    source,
+    countdownFrames,
   );
 }

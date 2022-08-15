@@ -63,10 +63,10 @@ export const entityTakeDmgPlayerBabyFunctionMap = new Map<
   RandomBabyType,
   (
     player: EntityPlayer,
-    damageAmount: float,
+    amount: float,
     damageFlags: BitFlags<DamageFlag>,
-    damageSource: EntityRef,
-    damageCountdownFrames: int,
+    source: EntityRef,
+    countdownFrames: int,
   ) => boolean | undefined
 >();
 
@@ -90,7 +90,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.LOST, (player) => {
 });
 
 // 20
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.WRAPPED, () => {
+entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.WRAPPED, (_player) => {
   // Use Kamikaze on the next 5 frames.
   g.run.babyCounters = 5;
 
@@ -106,7 +106,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 );
 
 // 32
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.CRY, () => {
+entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.CRY, (_player) => {
   // Enemies are fully healed on hit.
   for (const npc of getNPCs()) {
     if (npc.IsVulnerableEnemy()) {
@@ -301,7 +301,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.FAT, (player) => {
 });
 
 // 163
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.HELMET, () => {
+entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.HELMET, (_player) => {
   // Invulnerability when standing still.
   if (g.run.babyBool) {
     return false;
@@ -380,7 +380,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.MEATBOY, (player) => {
 });
 
 // 212
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.CONJOINED, () => {
+entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.CONJOINED, (_player) => {
   openAllDoors();
 
   return undefined;
@@ -425,7 +425,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.BEARD, (player) => {
 });
 
 // 251
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.NUCLEAR, () => {
+entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.NUCLEAR, (_player) => {
   // Mama Mega effect on hit.
   g.r.MamaMegaExplossion();
 
@@ -526,7 +526,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.PUZZLE, (player) => {
 // 318
 entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.FIREBALL,
-  (_player, _damageAmount, _damageFlags, damageSource) => {
+  (_player, _amount, _damageFlags, damageSource) => {
     // Immunity from fires
     if (damageSource.Type === EntityType.FIREPLACE) {
       return false;
@@ -537,7 +537,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 );
 
 // 330
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.TORTOISE, () => {
+entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.TORTOISE, (_player) => {
   // 0.5x speed + 50% chance to ignore damage.
   const avoidChance = getRandom(g.run.rng);
   if (avoidChance <= 0.5) {
@@ -550,21 +550,15 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.TORTOISE, () => {
 // 322
 entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.SKINLESS,
-  (
-    player,
-    damageAmount,
-    _damageFlags,
-    _damageSource,
-    damageCountdownFrames,
-  ) => {
+  (player, amount, _damageFlags, _source, countdownFrames) => {
     // Take double damage
     if (!g.run.babyBool) {
       g.run.babyBool = true;
       player.TakeDamage(
-        damageAmount,
+        amount,
         DamageFlagZero,
         EntityRef(player),
-        damageCountdownFrames,
+        countdownFrames,
       );
       g.run.babyBool = false;
     }
@@ -586,7 +580,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.BALLERINA, (player) => {
 });
 
 // 336
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.HERO, () => {
+entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.HERO, (_player) => {
   // We want to evaluate the cache, but we can't do it here because the damage is not applied yet,
   // so mark to do it later in the `POST_UPDATE` callback.
   g.run.babyBool = true;
@@ -759,7 +753,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.SCOREBOARD,
   (
     _player: EntityPlayer,
-    _damageAmount: float,
+    _amount: float,
     damageFlags: BitFlags<DamageFlag>,
   ) => {
     const gameFrameCount = game.GetFrameCount();
@@ -838,7 +832,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.REAPER, (player) => {
 });
 
 // 514
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.HOOLIGAN, () => {
+entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.HOOLIGAN, (_player) => {
   const roomFrameCount = g.r.GetFrameCount();
 
   // Double enemies. Fix the bug where an enemy can sometimes spawn next to where the player spawns.

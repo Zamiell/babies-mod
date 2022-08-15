@@ -5,10 +5,10 @@ import { entityTakeDmgEntityBabyFunctionMap } from "./entityTakeDmgEntityBabyFun
 
 export function main(
   entity: Entity,
-  damageAmount: float,
+  amount: float,
   damageFlags: BitFlags<DamageFlag>,
-  damageSource: EntityRef,
-  damageCountdownFrames: int,
+  source: EntityRef,
+  countdownFrames: int,
 ): boolean | undefined {
   const [babyType] = getCurrentBaby();
   if (babyType === -1) {
@@ -30,10 +30,10 @@ export function main(
   if (entityTakeDmgEntityBabyFunction !== undefined) {
     return entityTakeDmgEntityBabyFunction(
       entity,
-      damageAmount,
+      amount,
       damageFlags,
-      damageSource,
-      damageCountdownFrames,
+      source,
+      countdownFrames,
     );
   }
 

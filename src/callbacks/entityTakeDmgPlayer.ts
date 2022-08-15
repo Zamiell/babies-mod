@@ -6,10 +6,10 @@ import { entityTakeDmgPlayerBabyFunctionMap } from "./entityTakeDmgPlayerBabyFun
 
 export function main(
   player: EntityPlayer,
-  damageAmount: float,
+  amount: float,
   damageFlags: BitFlags<DamageFlag>,
-  damageSource: EntityRef,
-  damageCountdownFrames: int,
+  source: EntityRef,
+  countdownFrames: int,
 ): boolean | undefined {
   const gameFrameCount = game.GetFrameCount();
   const [babyType, baby] = getCurrentBaby();
@@ -45,10 +45,10 @@ export function main(
   if (entityTakeDmgPlayerBabyFunction !== undefined) {
     return entityTakeDmgPlayerBabyFunction(
       player,
-      damageAmount,
+      amount,
       damageFlags,
-      damageSource,
-      damageCountdownFrames,
+      source,
+      countdownFrames,
     );
   }
 
