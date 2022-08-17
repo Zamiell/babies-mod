@@ -12,10 +12,10 @@
   "license": "GPL-3.0",
   "type": "commonjs",
   "dependencies": {
-    "@types/node": "^18.7.3",
-    "isaac-typescript-definitions": "^3.5.2",
+    "@types/node": "^18.7.6",
+    "isaac-typescript-definitions": "^4.0.0",
     "isaacscript": "^2.15.1",
-    "isaacscript-common": "^8.4.6",
+    "isaacscript-common": "^9.0.0",
     "isaacscript-lint": "^4.1.2",
     "isaacscript-spell": "^1.2.8",
     "ts-node": "^10.9.1",

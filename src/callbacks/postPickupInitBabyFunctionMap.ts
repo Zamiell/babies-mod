@@ -1,5 +1,5 @@
 import {
-  Card,
+  CardType,
   CollectibleType,
   LevelStage,
   PickupVariant,
@@ -81,25 +81,25 @@ postPickupInitBabyFunctionMap.set(
     const card = pickup as EntityPickupCard;
 
     if (
-      (card.SubType >= Card.FOOL && // 1
-        card.SubType <= Card.RUNE_ALGIZ) || // 39
+      (card.SubType >= CardType.FOOL && // 1
+        card.SubType <= CardType.RUNE_ALGIZ) || // 39
       // Blank Rune (40) and Black Rune (41) are handled in Racing+.
-      card.SubType === Card.CHAOS || // 42
+      card.SubType === CardType.CHAOS || // 42
       // Credit Card (43) has a unique card back in vanilla.
-      card.SubType === Card.RULES || // 44
+      card.SubType === CardType.RULES || // 44
       // A Card Against Humanity (45) has a unique card back in vanilla.
-      card.SubType === Card.SUICIDE_KING || // 46
-      card.SubType === Card.GET_OUT_OF_JAIL_FREE || // 47
+      card.SubType === CardType.SUICIDE_KING || // 46
+      card.SubType === CardType.GET_OUT_OF_JAIL_FREE || // 47
       // (Get out of Jail Free Card has a unique card back in vanilla, but this one looks better.)
-      card.SubType === Card.QUESTION_MARK || // 48
+      card.SubType === CardType.QUESTION_MARK || // 48
       // Dice Shard (49) has a unique card back in vanilla Emergency Contact (50) has a unique card
       // back in vanilla Holy Card (51) has a unique card back in vanilla.
-      (card.SubType >= Card.HUGE_GROWTH && // 52
-        card.SubType <= Card.ERA_WALK) || // 54
-      (card.SubType >= Card.REVERSE_FOOL && // 56
-        card.SubType <= Card.REVERSE_WORLD) || // 77
-      card.SubType === Card.QUEEN_OF_HEARTS || // 79
-      card.SubType === Card.WILD // 80
+      (card.SubType >= CardType.HUGE_GROWTH && // 52
+        card.SubType <= CardType.ERA_WALK) || // 54
+      (card.SubType >= CardType.REVERSE_FOOL && // 56
+        card.SubType <= CardType.REVERSE_WORLD) || // 77
+      card.SubType === CardType.QUEEN_OF_HEARTS || // 79
+      card.SubType === CardType.WILD // 80
     ) {
       const sprite = pickup.GetSprite();
       sprite.ReplaceSpritesheet(0, `gfx/cards/${pickup.SubType}.png`);

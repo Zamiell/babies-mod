@@ -1,6 +1,6 @@
 import {
   BatterySubType,
-  Card,
+  CardType,
   CoinSubType,
   CollectibleType,
   EffectVariant,
@@ -236,7 +236,7 @@ export function spawnRandomPickup(
 
     case 9: {
       // Random card / rune.
-      spawnCard(Card.NULL, position, velocity, undefined, seed);
+      spawnCard(CardType.NULL, position, velocity, undefined, seed);
       break;
     }
 

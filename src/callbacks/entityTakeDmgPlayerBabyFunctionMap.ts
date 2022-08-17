@@ -1,7 +1,7 @@
 import {
   BombVariant,
   CacheFlag,
-  Card,
+  CardType,
   CoinSubType,
   CollectibleType,
   DamageFlag,
@@ -142,7 +142,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.BUDDY, (player) => {
 
 // 46
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.BLINDING, (player) => {
-  spawnCard(Card.SUN, player.Position, VectorZero, player);
+  spawnCard(CardType.SUN, player.Position, VectorZero, player);
 
   return undefined;
 });
@@ -160,7 +160,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.REVENGE, (player) => {
 
 // 56
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.APOLLYON, (player) => {
-  player.UseCard(Card.RUNE_BLACK);
+  player.UseCard(CardType.RUNE_BLACK);
 
   return undefined;
 });
@@ -288,7 +288,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.MOHAWK, (player) => {
 
 // 139
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.ROTTEN_MEAT, (player) => {
-  player.UseCard(Card.FOOL);
+  player.UseCard(CardType.FOOL);
 
   return undefined;
 });
@@ -481,7 +481,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.BLOODIED, (player) => {
   }
 
   const useFlags = addFlag(UseFlag.NO_ANIMATION, UseFlag.NO_ANNOUNCER_VOICE);
-  player.UseCard(Card.SOUL_CAIN, useFlags);
+  player.UseCard(CardType.SOUL_CAIN, useFlags);
 
   if (roomClear) {
     return;
@@ -511,7 +511,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.X_MOUTH, (player) => {
 
 // 310
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.STARRY_EYED, (player) => {
-  spawnCard(Card.STARS, player.Position, VectorZero, player);
+  spawnCard(CardType.STARS, player.Position, VectorZero, player);
 
   return undefined;
 });
@@ -649,7 +649,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.MAGIC_CAT, (player) => {
 
 // 435
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.CUP, (player) => {
-  player.UseCard(Card.AGAINST_HUMANITY);
+  player.UseCard(CardType.AGAINST_HUMANITY);
   // (The animation will automatically be canceled by the damage.)
 
   return undefined;
@@ -804,7 +804,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
     g.run.babyCounters++;
     if (g.run.babyCounters === baby.numHits) {
       g.run.babyBool = true;
-      player.UseCard(Card.EMPEROR);
+      player.UseCard(CardType.EMPEROR);
     }
 
     return undefined;
@@ -814,7 +814,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 // 499
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.LAZY, (player) => {
   // Random card effect on hit.
-  const exceptions = [Card.SUICIDE_KING]; // It would be unfair to randomly die
+  const exceptions = [CardType.SUICIDE_KING]; // It would be unfair to randomly die.
   const card = getRandomCard(g.run.rng, exceptions);
   player.UseCard(card);
 
@@ -898,7 +898,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.KOALA, (player) => {
 entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.KINDA_LOVABLE,
   (player) => {
-    spawnCard(Card.LOVERS, player.Position, VectorZero, player);
+    spawnCard(CardType.LOVERS, player.Position, VectorZero, player);
 
     return undefined;
   },
@@ -928,7 +928,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 
 // 585
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.ESAU_JR, (player) => {
-  player.UseCard(Card.SOUL_JACOB);
+  player.UseCard(CardType.SOUL_JACOB);
 
   return undefined;
 });
