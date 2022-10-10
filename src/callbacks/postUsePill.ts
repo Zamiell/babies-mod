@@ -1,8 +1,9 @@
 import { ModCallback, PillEffect } from "isaac-typescript-definitions";
+import { mod } from "../mod";
 import { getCurrentBaby } from "../utils";
 import { usePillBabyFunctionMap } from "./usePillBabyFunctionMap";
 
-export function init(mod: Mod): void {
+export function init(): void {
   mod.AddCallback(ModCallback.POST_USE_PILL, main);
 }
 

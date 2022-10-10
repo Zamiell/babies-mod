@@ -4,10 +4,11 @@ import {
   ModCallback,
 } from "isaac-typescript-definitions";
 import g from "../globals";
+import { mod } from "../mod";
 import { getCurrentBaby } from "../utils";
 import { preRoomEntitySpawnBabyFunctionMap } from "./preRoomEntitySpawnBabyFunctionMap";
 
-export function init(mod: Mod): void {
+export function init(): void {
   mod.AddCallback(ModCallback.PRE_ROOM_ENTITY_SPAWN, main);
 }
 

@@ -39,7 +39,6 @@ import {
   removeAllMatchingEntities,
   repeat,
   spawn,
-  spawnCollectible,
   spawnGridEntityWithVariant,
   spawnWithSeed,
   teleport,
@@ -49,6 +48,7 @@ import {
 import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
 import { TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP } from "../maps/teleportRoomTypeToItemAndPriceMap";
+import { mod } from "../mod";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 import { getCurrentBabyDescription, shouldTransformRoomType } from "../utils";
 
@@ -182,7 +182,7 @@ postNewRoomBabyFunctionMap.set(RandomBabyType.STATUE_2, () => {
   // Improved Secret Rooms
   repeat(baby.num, () => {
     const position = g.r.FindFreePickupSpawnPosition(center, 1, true);
-    spawnCollectible(CollectibleType.NULL, position, g.run.rng);
+    mod.spawnCollectible(CollectibleType.NULL, position, g.run.rng);
   });
 });
 
@@ -229,7 +229,7 @@ postNewRoomBabyFunctionMap.set(RandomBabyType.BUTTERFLY, () => {
   // Improved Super Secret Rooms.
   repeat(baby.num, () => {
     const position = g.r.FindFreePickupSpawnPosition(center, 1, true);
-    spawnCollectible(CollectibleType.NULL, position, g.run.rng);
+    mod.spawnCollectible(CollectibleType.NULL, position, g.run.rng);
   });
 });
 
@@ -251,7 +251,7 @@ postNewRoomBabyFunctionMap.set(RandomBabyType.PRETTY, () => {
     angelSeed,
   );
   const position = gridCoordinatesToWorldPosition(6, 4);
-  const collectible = spawnCollectible(
+  const collectible = mod.spawnCollectible(
     collectibleType,
     position,
     g.run.room.rng,
@@ -349,7 +349,7 @@ postNewRoomBabyFunctionMap.set(RandomBabyType.FANCY, () => {
     }
     const [x, y] = xy;
     const position = gridCoordinatesToWorldPosition(x, y);
-    const collectible = spawnCollectible(
+    const collectible = mod.spawnCollectible(
       collectibleType,
       position,
       g.run.room.rng,
@@ -446,7 +446,7 @@ postNewRoomBabyFunctionMap.set(RandomBabyType.SUIT, () => {
     devilSeed,
   );
   const position = gridCoordinatesToWorldPosition(6, 4);
-  const collectible = spawnCollectible(
+  const collectible = mod.spawnCollectible(
     collectibleType,
     position,
     g.run.room.rng,
@@ -505,7 +505,7 @@ postNewRoomBabyFunctionMap.set(RandomBabyType.BLOODIED, () => {
   // Improved Ultra Secret Rooms.
   repeat(baby.num, () => {
     const position = g.r.FindFreePickupSpawnPosition(center, 1, true);
-    spawnCollectible(CollectibleType.NULL, position, g.run.rng);
+    mod.spawnCollectible(CollectibleType.NULL, position, g.run.rng);
   });
 });
 

@@ -1,4 +1,4 @@
-import { log, ModUpgraded, upgradeMod } from "isaacscript-common";
+import { log } from "isaacscript-common";
 import { babiesCheckValid } from "./babiesCheckValid";
 import * as entityTakeDmg from "./callbacks/entityTakeDmg";
 import * as evaluateCache from "./callbacks/evaluateCache";
@@ -50,14 +50,12 @@ import * as preItemPickup from "./callbacksCustom/preItemPickup";
 import { MOD_NAME, VERSION } from "./constants";
 import { initCostumeProtector } from "./costumes";
 import g from "./globals";
+import { mod } from "./mod";
 
 main();
 
 function main() {
-  const modVanilla = RegisterMod(MOD_NAME, 1);
-  const mod = upgradeMod(modVanilla);
-
-  initCostumeProtector(mod);
+  initCostumeProtector();
   welcomeBanner();
 
   // Store the mod reference so that we can use it elsewhere. (This is needed for saving and loading
@@ -65,8 +63,8 @@ function main() {
   g.babiesMod = mod;
 
   babiesCheckValid();
-  registerCallbacksMain(mod);
-  registerCallbacksCustom(mod);
+  registerCallbacksMain();
+  registerCallbacksCustom();
 }
 
 function welcomeBanner() {
@@ -78,55 +76,55 @@ function welcomeBanner() {
   log(welcomeTextBorder);
 }
 
-function registerCallbacksMain(mod: ModUpgraded) {
-  postNPCUpdate.init(mod); // 0
-  postUpdate.init(mod); // 1
-  postRender.init(mod); // 2
-  postUseItem.init(mod); // 3
-  postFamiliarUpdate.init(mod); // 6
-  postFamiliarInit.init(mod); // 7
-  evaluateCache.init(mod); // 8
-  postPlayerInit.init(mod); // 9
-  postUsePill.init(mod); // 10
-  entityTakeDmg.init(mod); // 11
-  inputAction.init(mod); // 13
-  executeCmd.init(mod); // 22
-  preUseItem.init(mod); // 23
-  preEntitySpawn.init(mod); // 24
-  postNPCInit.init(mod); // 27
-  postPickupInit.init(mod); // 34
-  postPickupSelection.init(mod); // 37
-  postPickupUpdate.init(mod); // 38
-  postTearInit.init(mod); // 39
-  postTearUpdate.init(mod); // 40
-  preTearCollision.init(mod); // 42
-  postProjectileUpdate.init(mod); // 44
-  postLaserInit.init(mod); // 47
-  postLaserUpdate.init(mod); // 48
-  postKnifeInit.init(mod); // 50
-  postEffectInit.init(mod); // 54
-  postEffectUpdate.init(mod); // 55
-  postBombInit.init(mod); // 57
-  postBombUpdate.init(mod); // 58
-  postFireTear.init(mod); // 61
-  preGetCollectible.init(mod); // 62
-  postEntityKill.init(mod); // 68
-  preRoomEntitySpawn.init(mod); // 71
+function registerCallbacksMain() {
+  postNPCUpdate.init(); // 0
+  postUpdate.init(); // 1
+  postRender.init(); // 2
+  postUseItem.init(); // 3
+  postFamiliarUpdate.init(); // 6
+  postFamiliarInit.init(); // 7
+  evaluateCache.init(); // 8
+  postPlayerInit.init(); // 9
+  postUsePill.init(); // 10
+  entityTakeDmg.init(); // 11
+  inputAction.init(); // 13
+  executeCmd.init(); // 22
+  preUseItem.init(); // 23
+  preEntitySpawn.init(); // 24
+  postNPCInit.init(); // 27
+  postPickupInit.init(); // 34
+  postPickupSelection.init(); // 37
+  postPickupUpdate.init(); // 38
+  postTearInit.init(); // 39
+  postTearUpdate.init(); // 40
+  preTearCollision.init(); // 42
+  postProjectileUpdate.init(); // 44
+  postLaserInit.init(); // 47
+  postLaserUpdate.init(); // 48
+  postKnifeInit.init(); // 50
+  postEffectInit.init(); // 54
+  postEffectUpdate.init(); // 55
+  postBombInit.init(); // 57
+  postBombUpdate.init(); // 58
+  postFireTear.init(); // 61
+  preGetCollectible.init(); // 62
+  postEntityKill.init(); // 68
+  preRoomEntitySpawn.init(); // 71
 }
 
-function registerCallbacksCustom(mod: ModUpgraded) {
-  postGameStartedReordered.init(mod);
-  postNewLevelReordered.init(mod);
-  postNewRoomReordered.init(mod);
-  postPickupCollect.init(mod);
-  preItemPickup.init(mod);
-  postItemPickup.init(mod);
-  postPurchase.init(mod);
-  postPlayerChangeType.init(mod);
-  postRoomClearChanged.init(mod);
-  postSlotDestroyed.init(mod);
-  postTrinketBreak.init(mod);
-  postGridEntityInit.init(mod);
-  postGridEntityUpdate.init(mod);
-  postGridEntityBroken.init(mod);
+function registerCallbacksCustom() {
+  postGameStartedReordered.init();
+  postNewLevelReordered.init();
+  postNewRoomReordered.init();
+  postPickupCollect.init();
+  preItemPickup.init();
+  postItemPickup.init();
+  postPurchase.init();
+  postPlayerChangeType.init();
+  postRoomClearChanged.init();
+  postSlotDestroyed.init();
+  postTrinketBreak.init();
+  postGridEntityInit.init();
+  postGridEntityUpdate.init();
+  postGridEntityBroken.init();
 }

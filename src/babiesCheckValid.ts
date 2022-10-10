@@ -19,7 +19,7 @@ const VALID_DUPLICATE_ITEMS: ReadonlySet<CollectibleType> = new Set([
   CollectibleType.FIRE_MIND, // 257
   CollectibleType.HOW_TO_JUMP, // 282
   CollectibleType.HOLY_MANTLE, // 313
-  CollectibleType.THE_WIZ, // 358
+  CollectibleType.WIZ, // 358
   CollectibleType.INCUBUS, // 360
   CollectibleType.MARKED, // 394
 ]);

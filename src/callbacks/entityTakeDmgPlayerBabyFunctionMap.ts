@@ -41,7 +41,6 @@ import {
   spawnBomb,
   spawnCard,
   spawnCoin,
-  spawnCollectible,
   spawnEffect,
   spawnHeart,
   spawnKey,
@@ -51,6 +50,7 @@ import {
 } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
+import { mod } from "../mod";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 import { EntityDescription } from "../types/EntityDescription";
 import {
@@ -72,8 +72,16 @@ export const entityTakeDmgPlayerBabyFunctionMap = new Map<
 
 // 9
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.HOST, (player) => {
-  repeat(10, () => {
-    player.AddBlueSpider(player.Position);
+  const baby = getCurrentBabyDescription();
+  if (baby.num === undefined) {
+    error(`The "num" attribute was not defined for: ${baby.name}`);
+  }
+
+  repeat(baby.num, () => {
+    // We use a random position so that all of the spiders don't instantly die. (They will over-kill
+    // whatever they touch, leaving no spiders left over.)
+    const randomPosition = g.r.GetRandomPosition(0);
+    player.AddBlueSpider(randomPosition);
   });
 
   return undefined;
@@ -946,7 +954,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
         1,
         true,
       );
-      spawnCollectible(CollectibleType.NULL, position, g.run.rng);
+      mod.spawnCollectible(CollectibleType.NULL, position, g.run.rng);
     }
 
     return undefined;

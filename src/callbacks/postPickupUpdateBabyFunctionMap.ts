@@ -11,12 +11,12 @@ import {
   getCollectibleDevilHeartPrice,
   inStartingRoom,
   repeat,
-  spawnCollectible,
   spawnPickup,
   spawnProjectile,
 } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
+import { mod } from "../mod";
 import {
   isRerolledCollectibleBuggedHeart,
   shouldTransformRoomType,
@@ -125,7 +125,7 @@ postPickupUpdateBabyFunctionMap.set(
         true,
         seed,
       );
-      const collectible = spawnCollectible(
+      const collectible = mod.spawnCollectible(
         collectibleType,
         pickup.Position,
         pickup.InitSeed,
@@ -175,7 +175,11 @@ postPickupUpdateBabyFunctionMap.set(
     ) {
       // Replace the contents of the chest with an item.
       pickup.Remove();
-      spawnCollectible(CollectibleType.NULL, pickup.Position, pickup.InitSeed);
+      mod.spawnCollectible(
+        CollectibleType.NULL,
+        pickup.Position,
+        pickup.InitSeed,
+      );
     }
   },
 );
@@ -272,7 +276,7 @@ postPickupUpdateBabyFunctionMap.set(
         true,
         seed,
       );
-      const collectible = spawnCollectible(
+      const collectible = mod.spawnCollectible(
         collectibleType,
         pickup.Position,
         pickup.InitSeed,
@@ -308,7 +312,7 @@ postPickupUpdateBabyFunctionMap.set(
     } else if (isRerolledCollectibleBuggedHeart(pickup)) {
       // Rerolled items turn into hearts since we are not in a Devil Room, so delete the heart and
       // manually create another pedestal item.
-      const collectible = spawnCollectible(
+      const collectible = mod.spawnCollectible(
         CollectibleType.NULL,
         pickup.Position,
         pickup.InitSeed,
@@ -349,7 +353,7 @@ postPickupUpdateBabyFunctionMap.set(
         1,
         true,
       );
-      const collectible = spawnCollectible(
+      const collectible = mod.spawnCollectible(
         CollectibleType.NULL,
         position,
         g.run.rng,
@@ -404,7 +408,7 @@ postPickupUpdateBabyFunctionMap.set(
     if (isRerolledCollectibleBuggedHeart(pickup)) {
       pickup.Remove();
 
-      const collectible = spawnCollectible(
+      const collectible = mod.spawnCollectible(
         CollectibleType.NULL,
         pickup.Position,
         g.run.room.rng,

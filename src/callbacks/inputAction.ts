@@ -3,10 +3,11 @@ import {
   InputHook,
   ModCallback,
 } from "isaac-typescript-definitions";
+import { mod } from "../mod";
 import { getCurrentBaby } from "../utils";
 import { inputActionBabyFunctionMap } from "./inputActionBabyFunctionMap";
 
-export function init(mod: Mod): void {
+export function init(): void {
   mod.AddCallback(ModCallback.INPUT_ACTION, main);
 }
 

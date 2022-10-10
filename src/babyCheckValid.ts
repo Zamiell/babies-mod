@@ -292,7 +292,7 @@ function checkCollectibles(
     (player.HasCollectible(CollectibleType.INNER_EYE) || // 2
       player.HasCollectible(CollectibleType.MUTANT_SPIDER) || // 153
       player.HasCollectible(CollectibleType.TWENTY_TWENTY) || // 245
-      player.HasCollectible(CollectibleType.THE_WIZ) || // 358
+      player.HasCollectible(CollectibleType.WIZ) || // 358
       player.HasPlayerForm(PlayerForm.CONJOINED) || // 7
       player.HasPlayerForm(PlayerForm.BOOKWORM)) // 10
   ) {

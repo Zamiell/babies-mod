@@ -1,15 +1,11 @@
 import { CollectibleType, TrinketType } from "isaac-typescript-definitions";
-import {
-  ModCallbackCustom,
-  ModUpgraded,
-  repeat,
-  spawnCollectible,
-} from "isaacscript-common";
+import { ModCallbackCustom, repeat } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
+import { mod } from "../mod";
 import { getCurrentBaby } from "../utils";
 
-export function init(mod: ModUpgraded): void {
+export function init(): void {
   mod.AddCallbackCustom(
     ModCallbackCustom.POST_TRINKET_BREAK,
     walnut,
@@ -35,6 +31,6 @@ function walnut(player: EntityPlayer) {
   // Starts with Walnut (improved).
   repeat(baby.num, () => {
     const position = g.r.FindFreePickupSpawnPosition(player.Position, 1, true);
-    spawnCollectible(CollectibleType.NULL, position, g.run.rng);
+    mod.spawnCollectible(CollectibleType.NULL, position, g.run.rng);
   });
 }

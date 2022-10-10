@@ -10,10 +10,11 @@ import {
   openAllDoors,
 } from "isaacscript-common";
 import g from "../globals";
+import { mod } from "../mod";
 import { getCurrentBaby } from "../utils";
 import { postUpdateBabyFunctionMap } from "./postUpdateBabyFunctionMap";
 
-export function init(mod: Mod): void {
+export function init(): void {
   mod.AddCallback(ModCallback.POST_UPDATE, main);
 }
 

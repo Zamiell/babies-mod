@@ -3,13 +3,13 @@ import {
   DISTANCE_OF_GRID_TILE,
   getRoomListIndex,
   ModCallbackCustom,
-  ModUpgraded,
 } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
+import { mod } from "../mod";
 import { getCurrentBaby, spawnRandomPickup } from "../utils";
 
-export function init(mod: ModUpgraded): void {
+export function init(): void {
   mod.AddCallbackCustom(
     ModCallbackCustom.POST_GRID_ENTITY_BROKEN,
     poop,

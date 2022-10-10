@@ -1,10 +1,11 @@
 import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
 import { isCharacter } from "isaacscript-common";
+import { mod } from "../mod";
 import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
 import { getCurrentBaby } from "../utils";
 import { evaluateCacheBabyFunctionMap } from "./evaluateCacheBabyFunctionMap";
 
-export function init(mod: Mod): void {
+export function init(): void {
   mod.AddCallback(ModCallback.EVALUATE_CACHE, main);
 }
 

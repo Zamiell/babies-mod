@@ -21,6 +21,7 @@ import { updateCachedAPIFunctions } from "../cache";
 import { MOD_NAME, VERSION } from "../constants";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
+import { mod } from "../mod";
 import { initSprite } from "../sprite";
 import * as timer from "../timer";
 import { getCurrentBaby, isRacingPlusEnabled } from "../utils";
@@ -31,7 +32,7 @@ const CLOCK_POSITION = Vector(30, 30);
 
 const clockSprite = initSprite("gfx/clock.anm2");
 
-export function init(mod: Mod): void {
+export function init(): void {
   mod.AddCallback(ModCallback.POST_RENDER, main);
 }
 

@@ -1,11 +1,7 @@
 import { CollectibleType, SeedEffect } from "isaac-typescript-definitions";
-import {
-  isCharacter,
-  log,
-  ModCallbackCustom,
-  ModUpgraded,
-} from "isaacscript-common";
+import { isCharacter, log, ModCallbackCustom } from "isaacscript-common";
 import g from "../globals";
+import { mod } from "../mod";
 import { BABIES } from "../objects/babies";
 import { GlobalsRun } from "../types/GlobalsRun";
 import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
@@ -18,7 +14,7 @@ for (const baby of Object.values(BABIES)) {
   }
 }
 
-export function init(mod: ModUpgraded): void {
+export function init(): void {
   mod.AddCallbackCustom(ModCallbackCustom.POST_GAME_STARTED_REORDERED, main);
 }
 

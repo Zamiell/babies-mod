@@ -5,7 +5,6 @@ import {
   getRoomVariant,
   log,
   ModCallbackCustom,
-  ModUpgraded,
   repeat,
 } from "isaacscript-common";
 import { updateCachedAPIFunctions } from "../cache";
@@ -13,11 +12,12 @@ import { postNewRoomBabyFunctionMap } from "../callbacks/postNewRoomBabyFunction
 import { NUM_SUCCUBI_IN_FLOCK } from "../constants";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
+import { mod } from "../mod";
 import { GlobalsRunBabyTears } from "../types/GlobalsRunBabyTears";
 import { GlobalsRunRoom } from "../types/GlobalsRunRoom";
 import { getCurrentBaby } from "../utils";
 
-export function init(mod: ModUpgraded): void {
+export function init(): void {
   mod.AddCallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED, main);
 }
 

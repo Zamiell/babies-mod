@@ -95,6 +95,7 @@ export const BABIES: { readonly [key in RandomBabyType]: BabyDescription } = {
     name: "Host Baby",
     description: "Spawns 10 Blue Spiders on hit",
     sprite: "009_baby_host.png",
+    num: 10,
   },
 
   // 10
@@ -805,7 +806,7 @@ export const BABIES: { readonly [key in RandomBabyType]: BabyDescription } = {
     name: "Makeup Baby",
     description: "7-shot",
     sprite: "099_baby_makeup.png",
-    item: CollectibleType.THE_WIZ,
+    item: CollectibleType.WIZ,
     itemNum: 6,
     mustHaveTears: true,
   },
@@ -4617,7 +4618,7 @@ export const BABIES: { readonly [key in RandomBabyType]: BabyDescription } = {
     name: "Harlequin Baby", // CollectibleType.HARLEQUIN_BABY (167)
     description: "Starts with The Wiz",
     sprite: "familiar_shooters_10_harlequinbaby.png",
-    item: CollectibleType.THE_WIZ,
+    item: CollectibleType.WIZ,
     mustHaveTears: true,
   },
 

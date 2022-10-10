@@ -1,14 +1,11 @@
 import { GridEntityType, RoomType } from "isaac-typescript-definitions";
-import {
-  ModCallbackCustom,
-  ModUpgraded,
-  removeGridEntity,
-} from "isaacscript-common";
+import { ModCallbackCustom, removeGridEntity } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
+import { mod } from "../mod";
 import { getCurrentBaby } from "../utils";
 
-export function init(mod: ModUpgraded): void {
+export function init(): void {
   mod.AddCallbackCustom(
     ModCallbackCustom.POST_GRID_ENTITY_INIT,
     trapdoor,

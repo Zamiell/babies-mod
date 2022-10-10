@@ -2,9 +2,10 @@ import { ModCallback, PlayerVariant } from "isaac-typescript-definitions";
 import { isCharacter } from "isaacscript-common";
 import { updateCachedPlayer } from "../cache";
 import { addPlayerToCostumeProtector } from "../costumes";
+import { mod } from "../mod";
 import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
 
-export function init(mod: Mod): void {
+export function init(): void {
   mod.AddCallback(ModCallback.POST_PLAYER_INIT, main);
 }
 

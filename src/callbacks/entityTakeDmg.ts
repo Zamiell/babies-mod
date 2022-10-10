@@ -1,9 +1,10 @@
 import { DamageFlag, ModCallback } from "isaac-typescript-definitions";
+import { mod } from "../mod";
 import { getCurrentBaby } from "../utils";
 import * as entityTakeDmgEntity from "./entityTakeDmgEntity";
 import * as entityTakeDmgPlayer from "./entityTakeDmgPlayer";
 
-export function init(mod: Mod): void {
+export function init(): void {
   mod.AddCallback(ModCallback.ENTITY_TAKE_DMG, main);
 }
 

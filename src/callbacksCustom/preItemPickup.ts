@@ -1,12 +1,9 @@
-import {
-  ModCallbackCustom,
-  ModUpgraded,
-  PickingUpItem,
-} from "isaacscript-common";
+import { ModCallbackCustom, PickingUpItem } from "isaacscript-common";
+import { mod } from "../mod";
 import { getCurrentBaby } from "../utils";
 import { preItemPickupBabyFunctionMap } from "./preItemPickupBabyFunctionMap";
 
-export function init(mod: ModUpgraded): void {
+export function init(): void {
   mod.AddCallbackCustom(ModCallbackCustom.PRE_ITEM_PICKUP, main);
 }
 

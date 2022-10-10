@@ -1,8 +1,9 @@
 import { ModCallback } from "isaac-typescript-definitions";
+import { mod } from "../mod";
 import { getCurrentBaby } from "../utils";
 import { postFireTearBabyFunctionMap } from "./postFireTearBabyFunctionMap";
 
-export function init(mod: Mod): void {
+export function init(): void {
   mod.AddCallback(ModCallback.POST_FIRE_TEAR, main);
 }
 

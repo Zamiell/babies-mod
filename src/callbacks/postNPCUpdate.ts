@@ -1,8 +1,9 @@
 import { ModCallback } from "isaac-typescript-definitions";
+import { mod } from "../mod";
 import { getCurrentBaby } from "../utils";
 import { postNPCUpdateBabyFunctionMap } from "./postNPCUpdateBabyFunctionMap";
 
-export function init(mod: Mod): void {
+export function init(): void {
   mod.AddCallback(ModCallback.POST_NPC_UPDATE, main);
 }
 

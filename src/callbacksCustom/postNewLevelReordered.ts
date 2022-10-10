@@ -4,7 +4,6 @@ import {
   getRandomEnumValue,
   log,
   ModCallbackCustom,
-  ModUpgraded,
   newRNG,
 } from "isaacscript-common";
 import { babyAdd } from "../babyAdd";
@@ -12,10 +11,11 @@ import { babyCheckValid } from "../babyCheckValid";
 import { babyRemove } from "../babyRemove";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
+import { mod } from "../mod";
 import { GlobalsRunLevel } from "../types/GlobalsRunLevel";
 import { getCurrentBaby } from "../utils";
 
-export function init(mod: ModUpgraded): void {
+export function init(): void {
   mod.AddCallbackCustom(ModCallbackCustom.POST_NEW_LEVEL_REORDERED, main);
 }
 

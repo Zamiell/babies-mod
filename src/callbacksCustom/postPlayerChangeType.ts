@@ -1,9 +1,10 @@
-import { ModCallbackCustom, ModUpgraded } from "isaacscript-common";
+import { ModCallbackCustom } from "isaacscript-common";
 import { addPlayerToCostumeProtector } from "../costumes";
 import g from "../globals";
+import { mod } from "../mod";
 import { getCurrentBaby } from "../utils";
 
-export function init(mod: ModUpgraded): void {
+export function init(): void {
   mod.AddCallbackCustom(ModCallbackCustom.POST_PLAYER_CHANGE_TYPE, main);
 }
 

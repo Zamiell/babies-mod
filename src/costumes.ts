@@ -4,6 +4,7 @@
 import { NullItemID } from "isaac-typescript-definitions";
 import { RandomBabyType } from "./enums/RandomBabyType";
 import * as costumeProtector from "./lib/characterCostumeProtector";
+import { mod } from "./mod";
 import { BABIES } from "./objects/babies";
 import { NullItemIDCustom } from "./types/NullItemIDCustom";
 import { getCurrentBaby } from "./utils";
@@ -13,7 +14,7 @@ const FIRST_BABY_WITH_SPRITE_IN_FAMILIAR_DIRECTORY =
   RandomBabyType.BROTHER_BOBBY;
 const DEFAULT_BABY_SPRITE = BABIES[0].sprite;
 
-export function initCostumeProtector(mod: Mod): void {
+export function initCostumeProtector(): void {
   costumeProtector.Init(mod);
 }
 

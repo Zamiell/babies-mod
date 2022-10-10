@@ -9,7 +9,6 @@ import {
   getEnumValues,
   getRandomArrayElement,
   repeat,
-  spawnCollectible,
   spawnHeart,
   spawnPickup,
   useActiveItemTemp,
@@ -17,6 +16,7 @@ import {
 } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
+import { mod } from "../mod";
 import { getCurrentBabyDescription } from "../utils";
 
 export const postRoomClearChangedBabyFunctionMap = new Map<
@@ -45,7 +45,7 @@ postRoomClearChangedBabyFunctionMap.set(RandomBabyType.BANDAID, () => {
 
   // Random collectible
   const position = g.r.FindFreePickupSpawnPosition(g.p.Position, 1, true);
-  spawnCollectible(CollectibleType.NULL, position, roomSeed);
+  mod.spawnCollectible(CollectibleType.NULL, position, roomSeed);
 });
 
 // 192

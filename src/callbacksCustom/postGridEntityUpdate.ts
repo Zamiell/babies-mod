@@ -1,8 +1,9 @@
-import { ModCallbackCustom, ModUpgraded } from "isaacscript-common";
+import { ModCallbackCustom } from "isaacscript-common";
+import { mod } from "../mod";
 import { getCurrentBaby } from "../utils";
 import { postGridEntityUpdateBabyFunctionMap } from "./postGridEntityUpdateBabyFunctionMap";
 
-export function init(mod: ModUpgraded): void {
+export function init(): void {
   mod.AddCallbackCustom(ModCallbackCustom.POST_GRID_ENTITY_UPDATE, main);
 }
 

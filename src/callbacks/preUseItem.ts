@@ -13,9 +13,10 @@ import {
 import { game, repeat, sfxManager } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
+import { mod } from "../mod";
 import { getCurrentBaby } from "../utils";
 
-export function init(mod: Mod): void {
+export function init(): void {
   mod.AddCallback(
     ModCallback.PRE_USE_ITEM,
     poop,

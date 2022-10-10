@@ -27,7 +27,6 @@ import {
   spawnBattery,
   spawnCard,
   spawnCoin,
-  spawnCollectible,
   spawnEffect,
   spawnHeart,
   spawnKey,
@@ -41,6 +40,7 @@ import {
 import { ROOM_TYPES_TO_NOT_TRANSFORM } from "./constants";
 import { RandomBabyType } from "./enums/RandomBabyType";
 import g from "./globals";
+import { mod } from "./mod";
 import { BABIES, UNKNOWN_BABY } from "./objects/babies";
 import { BabyDescription } from "./types/BabyDescription";
 import { CollectibleTypeCustom } from "./types/CollectibleTypeCustom";
@@ -248,7 +248,7 @@ export function spawnRandomPickup(
 
     case 11: {
       // Random collectible.
-      spawnCollectible(CollectibleType.NULL, position, g.run.rng);
+      mod.spawnCollectible(CollectibleType.NULL, position, g.run.rng);
       break;
     }
 

@@ -85,7 +85,7 @@ postEffectUpdateBabyFunctionMap.set(
       !g.p.HasCollectible(CollectibleType.INNER_EYE) && // 2
       !g.p.HasCollectible(CollectibleType.MUTANT_SPIDER) && // 153
       !g.p.HasCollectible(CollectibleType.TWENTY_TWENTY) && // 245
-      !g.p.HasCollectible(CollectibleType.THE_WIZ) && // 358
+      !g.p.HasCollectible(CollectibleType.WIZ) && // 358
       !g.p.HasPlayerForm(PlayerForm.CONJOINED) && // 7
       !g.p.HasPlayerForm(PlayerForm.BOOKWORM) // 10
     ) {

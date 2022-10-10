@@ -1,7 +1,8 @@
 import { ModCallback } from "isaac-typescript-definitions";
+import { mod } from "../mod";
 import { executeCmdFunctionMap } from "./executeCmdFunctionMap";
 
-export function init(mod: Mod): void {
+export function init(): void {
   mod.AddCallback(ModCallback.EXECUTE_CMD, main);
 }
 

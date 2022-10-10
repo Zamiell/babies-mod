@@ -1,9 +1,10 @@
 import { ModCallback, PickupVariant } from "isaac-typescript-definitions";
+import { mod } from "../mod";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 import { getCurrentBaby } from "../utils";
 import { postPickupInitBabyFunctionMap } from "./postPickupInitBabyFunctionMap";
 
-export function init(mod: Mod): void {
+export function init(): void {
   mod.AddCallback(ModCallback.POST_PICKUP_INIT, main);
 }
 

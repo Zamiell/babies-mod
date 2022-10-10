@@ -1,8 +1,9 @@
-import { ModCallbackCustom, ModUpgraded } from "isaacscript-common";
+import { ModCallbackCustom } from "isaacscript-common";
+import { mod } from "../mod";
 import { getCurrentBaby } from "../utils";
 import { postRoomClearChangedBabyFunctionMap } from "./postRoomClearChangedBabyFunctionMap";
 
-export function init(mod: ModUpgraded): void {
+export function init(): void {
   mod.AddCallbackCustom(
     ModCallbackCustom.POST_ROOM_CLEAR_CHANGED,
     roomCleared,
