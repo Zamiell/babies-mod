@@ -12,12 +12,11 @@ import {
   SeedEffect,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { newObjectWithEnumKeys } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { BabyDescription } from "../types/BabyDescription";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 
-export const BABIES = newObjectWithEnumKeys(RandomBabyType, {
+export const BABIES: { readonly [key in RandomBabyType]: BabyDescription } = {
   // 0
   [RandomBabyType.SPIDER]: {
     name: "Spider Baby",
@@ -4793,7 +4792,7 @@ export const BABIES = newObjectWithEnumKeys(RandomBabyType, {
     // This file does not actually exist, but we cannot specify a blank string.
     sprite: "invisible_baby.png",
   },
-} as const);
+} as const;
 
 export const UNKNOWN_BABY: BabyDescription = {
   name: "Unknown Baby",
