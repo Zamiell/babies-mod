@@ -2566,19 +2566,19 @@ is-yarn-global@^0.4.0:
   resolved "https://registry.yarnpkg.com/is-yarn-global/-/is-yarn-global-0.4.0.tgz#714d94453327db9ea98fbf1a0c5f2b88f59ddd5c"
   integrity sha512-HneQBCrXGBy15QnaDfcn6OLoU8AQPAa0Qn0IeJR/QCo4E8dNZaGGwxpCwWyEBQC5QvFonP8d6t60iGpAHVAfNA==
 
-isaac-typescript-definitions@^9.0.3:
-  version "9.0.3"
-  resolved "https://registry.yarnpkg.com/isaac-typescript-definitions/-/isaac-typescript-definitions-9.0.3.tgz#d79123bed585e665ec6d7f76df2f084cf2b859ab"
-  integrity sha512-SRD/8jPigqfp0TBmal9E622/GXEZ1NTzZNsjw0HpcohQiVhSgdxoAJGpaJPi/mZ9VYwHPrx2aNxp4oJ46UEQCw==
+isaac-typescript-definitions@^9.0.6:
+  version "9.0.6"
+  resolved "https://registry.yarnpkg.com/isaac-typescript-definitions/-/isaac-typescript-definitions-9.0.6.tgz#e31ee446f65c9c9dfac7314c767336d70b9c39d9"
+  integrity sha512-D0Qn4ahiBHEQMCSbB/JM2hEWOfAxLcqz+Vg1XRk3f+AfgHc1gYKFH68YpLW2VmUHISQmotnooetcsleX4EDQ1w==
   dependencies:
     lua-types "^2.13.0"
 
-isaacscript-common@^15.0.0:
-  version "15.0.0"
-  resolved "https://registry.yarnpkg.com/isaacscript-common/-/isaacscript-common-15.0.0.tgz#2f60ffcf917e4f3e62b808c14c814ceef195745a"
-  integrity sha512-MkwAWTqKduhdy2WRqpKtMr7uI7DR1C1Y+j5tje83noFzuutAcz87JgvxsDjt7+Chqea5GpnuODidw0CROzWTVQ==
+isaacscript-common@^15.4.3:
+  version "15.4.3"
+  resolved "https://registry.yarnpkg.com/isaacscript-common/-/isaacscript-common-15.4.3.tgz#cbe04b52646b773a0db83f8c07620cd8dec5f55d"
+  integrity sha512-ri3JhSX90qDl7BcA0VeJAw/nbNYKel9b+taaU7PODfja3b/C0KerjgtOXp4hZ7GcodfLftg58tLgiMS9uoqPoA==
   dependencies:
-    isaac-typescript-definitions "^9.0.3"
+    isaac-typescript-definitions "^9.0.6"
 
 isaacscript-lint@^4.2.0:
   version "4.2.0"
@@ -2605,10 +2605,10 @@ isaacscript-lint@^4.2.0:
     prettier-plugin-organize-imports "^3.1.1"
     ts-prune "^0.10.3"
 
-isaacscript-spell@^1.2.16:
-  version "1.2.16"
-  resolved "https://registry.yarnpkg.com/isaacscript-spell/-/isaacscript-spell-1.2.16.tgz#3bd80b91c34f20f00a990a55b75730b4c17d1066"
-  integrity sha512-Lxc7WpUQ5vs1pCelT+721k3G6TKTfkt9DZN6P9XlfTuC1htjU+f2SZCRtEd2tITT9iN8tYmXV1jMEV+6zEDF8A==
+isaacscript-spell@^1.2.17:
+  version "1.2.17"
+  resolved "https://registry.yarnpkg.com/isaacscript-spell/-/isaacscript-spell-1.2.17.tgz#b9fef6e13adbe4efffb3497d8b4d526d5de9348e"
+  integrity sha512-SuXqvgkp0BPVFgjcsgf6LxKoiyarFluGKOVrjl5+MXGGN8msK+t86TyCul8e1dvRveECwDag5oDXNktKucdKEA==
 
 isaacscript-tsconfig@^2.2.0:
   version "2.2.0"
