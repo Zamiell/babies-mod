@@ -1,5 +1,4 @@
 import {
-  BombVariant,
   FamiliarVariant,
   RoomShape,
   TearFlag,
@@ -7,94 +6,23 @@ import {
 } from "isaac-typescript-definitions";
 import {
   addFlag,
-  COLORS,
   game,
   GAME_FRAMES_PER_SECOND,
   getFamiliars,
-  spawnBomb,
 } from "isaacscript-common";
 import { FADED_BLUE, FADED_RED } from "../constants";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { TearData } from "../types/TearData";
+import { setTearColor } from "../utils";
 import { getCurrentBabyDescription } from "../utilsBaby";
+
+const LIGHT_CYAN = Color(0.7, 1.5, 2, 0.7, 1, 1, 1);
 
 export const postFireTearBabyFunctionMap = new Map<
   RandomBabyType,
   (tear: EntityTear) => void
 >();
-
-// 340
-postFireTearBabyFunctionMap.set(RandomBabyType.O_2, (tear: EntityTear) => {
-  tear.TearFlags = addFlag(tear.TearFlags, TearFlag.SPIRAL);
-});
-
-// 345
-postFireTearBabyFunctionMap.set(RandomBabyType.LOCUST, (tear: EntityTear) => {
-  tear.ChangeVariant(TearVariant.BOOGER);
-  tear.TearFlags = addFlag(tear.TearFlags, TearFlag.BOOGER);
-});
-
-// 361
-postFireTearBabyFunctionMap.set(
-  RandomBabyType.MUSHROOM_GIRL,
-  (tear: EntityTear) => {
-    const baby = getCurrentBabyDescription();
-    if (baby.num === undefined) {
-      error(`The "num" attribute was not defined for: ${baby.name}`);
-    }
-
-    // Extra bomb shots
-    g.run.babyCounters++;
-    if (g.run.babyCounters === baby.num) {
-      g.run.babyCounters = 0;
-      spawnBomb(
-        BombVariant.NORMAL,
-        0,
-        tear.Position,
-        tear.Velocity,
-        tear.SpawnerEntity,
-        tear.InitSeed,
-      );
-      tear.Remove();
-    }
-  },
-);
-
-// 364
-postFireTearBabyFunctionMap.set(
-  RandomBabyType.TURTLE_DRAGON,
-  (tear: EntityTear) => {
-    // If we use "player.ShootRedCandle(tear.Velocity)", the fires have enormous speed and are hard
-    // to control.
-    const normalizedVelocity = tear.Velocity.Normalized();
-    g.p.ShootRedCandle(normalizedVelocity);
-    tear.Remove();
-  },
-);
-
-// 368
-postFireTearBabyFunctionMap.set(RandomBabyType.ARCADE, (tear: EntityTear) => {
-  // Changing the variant does not actually increase the damage, only the appearance.
-  tear.ChangeVariant(TearVariant.RAZOR);
-  tear.CollisionDamage = g.p.Damage * 3;
-});
-
-// 372
-postFireTearBabyFunctionMap.set(
-  RandomBabyType.PINK_GHOST,
-  (tear: EntityTear) => {
-    const hotPink = Color(2, 0.05, 1, 0.7, 1, 1, 1);
-    tear.SetColor(hotPink, 10000, 10000, false, false);
-    tear.TearFlags = addFlag(tear.TearFlags, TearFlag.CHARM);
-  },
-);
-
-// 380
-postFireTearBabyFunctionMap.set(RandomBabyType.OCTOPUS, (tear: EntityTear) => {
-  // Mark that we shot this tear.
-  tear.SubType = 1;
-});
 
 // 398
 postFireTearBabyFunctionMap.set(
@@ -117,7 +45,7 @@ postFireTearBabyFunctionMap.set(
 postFireTearBabyFunctionMap.set(RandomBabyType.REFEREE, (tear: EntityTear) => {
   // Tomato tears
   tear.TearFlags = addFlag(tear.TearFlags, TearFlag.BAIT);
-  tear.SetColor(FADED_RED, 10000, 10000, false, false);
+  setTearColor(tear, FADED_RED);
 });
 
 // 406
@@ -131,8 +59,7 @@ postFireTearBabyFunctionMap.set(
 
 // 410
 postFireTearBabyFunctionMap.set(RandomBabyType.GILLS, (tear: EntityTear) => {
-  const lightCyan = Color(0.7, 1.5, 2, 0.7, 1, 1, 1);
-  tear.SetColor(lightCyan, 10000, 10000, false, false);
+  setTearColor(tear, LIGHT_CYAN);
 
   // Mark that we shot this tear.
   tear.SubType = 1;
@@ -283,12 +210,6 @@ postFireTearBabyFunctionMap.set(
   },
 );
 
-// 480
-postFireTearBabyFunctionMap.set(RandomBabyType.IMP_2, (tear: EntityTear) => {
-  tear.SetColor(COLORS.Yellow, 3600, 100);
-  tear.TearFlags = addFlag(tear.TearFlags, TearFlag.ACID);
-});
-
 // 487
 postFireTearBabyFunctionMap.set(
   RandomBabyType.CURSED_PILLOW,
@@ -388,7 +309,7 @@ postFireTearBabyFunctionMap.set(
   RandomBabyType.FREEZER,
   (tear: EntityTear) => {
     tear.TearFlags = addFlag(tear.TearFlags, TearFlag.ICE);
-    tear.SetColor(FADED_BLUE, 10000, 10000, false, false);
+    setTearColor(tear, FADED_BLUE);
   },
 );
 

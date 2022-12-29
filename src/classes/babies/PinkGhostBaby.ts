@@ -1,14 +1,15 @@
 import { ModCallback, TearFlag } from "isaac-typescript-definitions";
 import { addFlag, Callback } from "isaacscript-common";
-import { FADED_BLUE } from "../../constants";
 import { setTearColor } from "../../utils";
 import { Baby } from "../Baby";
 
-/** Freeze tears. */
-export class ColdBaby extends Baby {
+const HOT_PINK = Color(2, 0.05, 1, 0.7, 1, 1, 1);
+
+/** Charm tears. */
+export class PinkGhostBaby extends Baby {
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
-    tear.TearFlags = addFlag(tear.TearFlags, TearFlag.FREEZE);
-    setTearColor(tear, FADED_BLUE);
+    setTearColor(tear, HOT_PINK);
+    tear.TearFlags = addFlag(tear.TearFlags, TearFlag.CHARM);
   }
 }

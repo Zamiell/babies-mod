@@ -152,6 +152,10 @@ export function removeAllFriendlyEntities(): void {
   }
 }
 
+export function setTearColor(tear: EntityTear, color: Color): void {
+  tear.SetColor(color, 10000, 10000);
+}
+
 /** For special babies that transform all special rooms into something else. */
 export function shouldTransformRoomType(roomType: RoomType): boolean {
   return !ROOM_TYPES_TO_NOT_TRANSFORM.has(roomType);

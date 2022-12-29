@@ -15,6 +15,7 @@ import {
 import { GAME_FRAMES_PER_SECOND, HasAllEnumKeys } from "isaacscript-common";
 import { AetherBaby } from "../classes/babies/AetherBaby";
 import { AlienHominidBaby } from "../classes/babies/AlienHominidBaby";
+import { ArcadeBaby } from "../classes/babies/ArcadeBaby";
 import { BawlBaby } from "../classes/babies/BawlBaby";
 import { BeanBaby } from "../classes/babies/BeanBaby";
 import { BigEyesBaby } from "../classes/babies/BigEyesBaby";
@@ -37,7 +38,9 @@ import { GlassBaby } from "../classes/babies/GlassBaby";
 import { GoldBaby } from "../classes/babies/GoldBaby";
 import { GreenBaby } from "../classes/babies/GreenBaby";
 import { HostBaby } from "../classes/babies/HostBaby";
+import { ImpBaby2 } from "../classes/babies/ImpBaby2";
 import { LightsBaby } from "../classes/babies/LightsBaby";
+import { LocustBaby } from "../classes/babies/LocustBaby";
 import { LongBaby } from "../classes/babies/LongBaby";
 import { LostBaby } from "../classes/babies/LostBaby";
 import { LoveBaby } from "../classes/babies/LoveBaby";
@@ -47,7 +50,10 @@ import { MonocleBaby } from "../classes/babies/MonocleBaby";
 import { MortBaby } from "../classes/babies/MortBaby";
 import { MustacheBaby } from "../classes/babies/MustacheBaby";
 import { NiceBaby } from "../classes/babies/NiceBaby";
+import { OBaby2 } from "../classes/babies/OBaby2";
+import { OctopusBaby } from "../classes/babies/OctopusBaby";
 import { OrangeDemonBaby } from "../classes/babies/OrangeDemonBaby";
+import { PinkGhostBaby } from "../classes/babies/PinkGhostBaby";
 import { RageBaby } from "../classes/babies/RageBaby";
 import { ScreamBaby } from "../classes/babies/ScreamBaby";
 import { ShadowBaby } from "../classes/babies/ShadowBaby";
@@ -62,6 +68,7 @@ import { StrangeShapeBaby } from "../classes/babies/StrangeShapeBaby";
 import { SuperGreedBaby } from "../classes/babies/SuperGreedBaby";
 import { TiltBaby } from "../classes/babies/TiltBaby";
 import { TrollBaby } from "../classes/babies/TrollBaby";
+import { TurtleDragonBaby } from "../classes/babies/TurtleDragonBaby";
 import { VBaby } from "../classes/babies/VBaby";
 import { WaterBaby } from "../classes/babies/WaterBaby";
 import { WebBaby } from "../classes/babies/WebBaby";
@@ -2885,6 +2892,7 @@ export const BABIES = {
     description: "Spiral tears",
     sprite: "340_baby_o.png",
     mustHaveTears: true,
+    class: OBaby2,
   },
 
   // 341
@@ -2924,6 +2932,7 @@ export const BABIES = {
     sprite: "345_baby_locust.png",
     item: CollectibleType.SOY_MILK,
     mustHaveTears: true,
+    class: LocustBaby,
   },
 
   // 346
@@ -3082,6 +3091,7 @@ export const BABIES = {
     description: "Fiery tears",
     sprite: "364_baby_turtledragon.png",
     mustHaveTears: true,
+    class: TurtleDragonBaby,
   },
 
   // 365
@@ -3115,6 +3125,7 @@ export const BABIES = {
     sprite: "368_baby_arcade.png",
     num: 3,
     mustHaveTears: true,
+    class: ArcadeBaby,
   },
 
   // 369
@@ -3144,6 +3155,7 @@ export const BABIES = {
     description: "Charm tears",
     sprite: "372_baby_pinkghost.png",
     mustHaveTears: true,
+    class: PinkGhostBaby,
   },
 
   // 373
@@ -3210,9 +3222,10 @@ export const BABIES = {
   // 380
   [RandomBabyType.OCTOPUS]: {
     name: "Octopus Baby",
-    description: "Tears make black creep",
+    description: "Black creep tears",
     sprite: "380_baby_octopus.png",
     mustHaveTears: true,
+    class: OctopusBaby,
   },
 
   // 381
@@ -4028,6 +4041,7 @@ export const BABIES = {
     description: "Acid tears",
     sprite: "480_baby_imp.png",
     mustHaveTears: true,
+    class: ImpBaby2,
   },
 
   // 481
