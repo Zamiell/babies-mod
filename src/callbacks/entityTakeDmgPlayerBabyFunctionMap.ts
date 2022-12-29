@@ -65,25 +65,6 @@ export const entityTakeDmgPlayerBabyFunctionMap = new Map<
   ) => boolean | undefined
 >();
 
-// 32
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.CRY, (_player) => {
-  // Enemies are fully healed on hit.
-  for (const npc of getNPCs()) {
-    if (npc.IsVulnerableEnemy()) {
-      npc.HitPoints = npc.MaxHitPoints;
-    }
-  }
-
-  return undefined;
-});
-
-// 33
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.YELLOW, (player) => {
-  player.UsePill(PillEffect.LEMON_PARTY, PillColor.NULL);
-
-  return undefined;
-});
-
 // 41
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.BUDDY, (player) => {
   const maxHearts = player.GetMaxHearts();

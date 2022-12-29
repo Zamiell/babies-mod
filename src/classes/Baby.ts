@@ -4,6 +4,10 @@ import { g } from "../globals";
 import { mod } from "../mod";
 import { BabyDescription } from "../types/BabyDescription";
 
+/**
+ * The base class that each baby class extends from. This sets up the callback class methods to only
+ * be fired if the relevant baby is active.
+ */
 export class Baby extends ModFeature {
   babyType: RandomBabyType;
   babyDescription: BabyDescription;

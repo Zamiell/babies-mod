@@ -2,7 +2,6 @@ import {
   BlueFlySubType,
   BombVariant,
   CollectibleType,
-  EffectVariant,
   FamiliarVariant,
   RoomShape,
   TearFlag,
@@ -15,7 +14,6 @@ import {
   GAME_FRAMES_PER_SECOND,
   getFamiliars,
   spawnBomb,
-  spawnEffect,
   spawnFamiliar,
   useActiveItemTemp,
 } from "isaacscript-common";
@@ -29,61 +27,6 @@ export const postFireTearBabyFunctionMap = new Map<
   RandomBabyType,
   (tear: EntityTear) => void
 >();
-
-// 34
-postFireTearBabyFunctionMap.set(RandomBabyType.LONG, (tear: EntityTear) => {
-  tear.TearFlags = addFlag(tear.TearFlags, TearFlag.FLAT);
-});
-
-// 35
-postFireTearBabyFunctionMap.set(RandomBabyType.GREEN, (tear: EntityTear) => {
-  tear.ChangeVariant(TearVariant.BOOGER);
-  tear.TearFlags = addFlag(tear.TearFlags, TearFlag.BOOGER);
-});
-
-// 54
-postFireTearBabyFunctionMap.set(
-  RandomBabyType.SUPER_GREED,
-  (tear: EntityTear) => {
-    tear.TearFlags = addFlag(tear.TearFlags, TearFlag.MIDAS);
-  },
-);
-
-// 55
-postFireTearBabyFunctionMap.set(RandomBabyType.MORT, (tear: EntityTear) => {
-  // Mark that we shot this tear.
-  tear.SubType = 1;
-});
-
-// 59
-postFireTearBabyFunctionMap.set(RandomBabyType.BIG_EYES, (tear: EntityTear) => {
-  // Tears cause self-knockback
-  const knockbackVelocity = tear.Velocity.mul(-0.75);
-  g.p.Velocity = g.p.Velocity.add(knockbackVelocity);
-});
-
-// 66
-postFireTearBabyFunctionMap.set(RandomBabyType.MUSTACHE, (tear: EntityTear) => {
-  // Boomerang tears. We can't just use The Boomerang item because there is no way to avoid a long
-  // cooldown. So we spawn an effect instead.
-  spawnEffect(
-    EffectVariant.BOOMERANG,
-    0,
-    tear.Position,
-    tear.Velocity,
-    tear.SpawnerEntity,
-    tear.InitSeed,
-  );
-  tear.Remove();
-});
-
-// 74
-postFireTearBabyFunctionMap.set(
-  RandomBabyType.ALIEN_HOMINID,
-  (tear: EntityTear) => {
-    tear.ChangeVariant(TearVariant.TECH_SWORD_BEAM);
-  },
-);
 
 // 81
 postFireTearBabyFunctionMap.set(RandomBabyType.SCREAM, (tear: EntityTear) => {

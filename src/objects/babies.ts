@@ -19,21 +19,27 @@ import { BloatBaby } from "../classes/babies/BloatBaby";
 import { BlueBaby } from "../classes/babies/BlueBaby";
 import { CockeyedBaby } from "../classes/babies/CockeyedBaby";
 import { CrowBaby } from "../classes/babies/CrowBaby";
+import { CryBaby } from "../classes/babies/CryBaby";
 import { CuteBaby } from "../classes/babies/CuteBaby";
 import { GlassBaby } from "../classes/babies/GlassBaby";
 import { GoldBaby } from "../classes/babies/GoldBaby";
+import { GreenBaby } from "../classes/babies/GreenBaby";
 import { HostBaby } from "../classes/babies/HostBaby";
+import { LongBaby } from "../classes/babies/LongBaby";
 import { LostBaby } from "../classes/babies/LostBaby";
 import { LoveBaby } from "../classes/babies/LoveBaby";
 import { MagBaby } from "../classes/babies/MagBaby";
 import { MagnetBaby } from "../classes/babies/MagnetBaby";
+import { MortBaby } from "../classes/babies/MortBaby";
 import { RageBaby } from "../classes/babies/RageBaby";
 import { ShadowBaby } from "../classes/babies/ShadowBaby";
 import { SpiderBaby } from "../classes/babies/SpiderBaby";
+import { SuperGreedBaby } from "../classes/babies/SuperGreedBaby";
 import { TrollBaby } from "../classes/babies/TrollBaby";
 import { WaterBaby } from "../classes/babies/WaterBaby";
 import { WrappedBaby } from "../classes/babies/WrappedBaby";
 import { WrathBaby } from "../classes/babies/WrathBaby";
+import { YellowBaby } from "../classes/babies/YellowBaby";
 import { ZeroBaby } from "../classes/babies/ZeroBaby";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { BabyDescription } from "../types/BabyDescription";
@@ -323,6 +329,7 @@ export const BABIES = {
     name: "Cry Baby",
     description: "Enemies are fully healed on hit",
     sprite: "032_baby_cry.png",
+    class: CryBaby,
   },
 
   // 33
@@ -330,6 +337,7 @@ export const BABIES = {
     name: "Yellow Baby",
     description: "Lemon Party effect on hit",
     sprite: "033_baby_yellow.png",
+    class: YellowBaby,
   },
 
   // 34
@@ -338,6 +346,7 @@ export const BABIES = {
     description: "Flat tears",
     sprite: "034_baby_long.png",
     mustHaveTears: true,
+    class: LongBaby,
   },
 
   // 35
@@ -346,6 +355,7 @@ export const BABIES = {
     description: "Booger tears",
     sprite: "035_baby_green.png",
     mustHaveTears: true,
+    class: GreenBaby,
   },
 
   // 36
@@ -493,6 +503,7 @@ export const BABIES = {
     description: "Midas tears",
     sprite: "054_baby_super greedbaby.png",
     mustHaveTears: true,
+    class: SuperGreedBaby,
   },
 
   // 55
@@ -501,6 +512,7 @@ export const BABIES = {
     description: "Guppy tears",
     sprite: "055_baby_mort.png",
     mustHaveTears: true,
+    class: MortBaby,
   },
 
   // 56
@@ -650,7 +662,7 @@ export const BABIES = {
   // 74
   [RandomBabyType.ALIEN_HOMINID]: {
     name: "Alien Hominid Baby",
-    description: "Starts with beam sword tears",
+    description: "Beam sword tears",
     sprite: "074_baby_alienhominid.png",
     mustHaveTears: true,
   },
