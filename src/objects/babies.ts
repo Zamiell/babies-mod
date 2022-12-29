@@ -42,6 +42,8 @@ import { ScreamBaby } from "../classes/babies/ScreamBaby";
 import { ShadowBaby } from "../classes/babies/ShadowBaby";
 import { SpiderBaby } from "../classes/babies/SpiderBaby";
 import { SquareEyesBaby } from "../classes/babies/SquareEyesBaby";
+import { StrangeMouthBaby } from "../classes/babies/StrangeMouthBaby";
+import { StrangeShapeBaby } from "../classes/babies/StrangeShapeBaby";
 import { SuperGreedBaby } from "../classes/babies/SuperGreedBaby";
 import { TrollBaby } from "../classes/babies/TrollBaby";
 import { VBaby } from "../classes/babies/VBaby";
@@ -1002,6 +1004,7 @@ export const BABIES = {
     description: "Wiggle tears",
     sprite: "114_baby_strangemouth.png",
     mustHaveTears: true,
+    class: StrangeMouthBaby,
   },
 
   // 115
@@ -1136,6 +1139,7 @@ export const BABIES = {
     description: "Pulsing tears",
     sprite: "130_baby_strangeshape.png",
     mustHaveTears: true,
+    class: StrangeShapeBaby,
   },
 
   // 131

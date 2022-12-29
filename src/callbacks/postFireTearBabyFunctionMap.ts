@@ -28,22 +28,6 @@ export const postFireTearBabyFunctionMap = new Map<
   (tear: EntityTear) => void
 >();
 
-// 114
-postFireTearBabyFunctionMap.set(
-  RandomBabyType.STRANGE_MOUTH,
-  (tear: EntityTear) => {
-    tear.TearFlags = addFlag(tear.TearFlags, TearFlag.WIGGLE);
-  },
-);
-
-// 130
-postFireTearBabyFunctionMap.set(
-  RandomBabyType.STRANGE_SHAPE,
-  (tear: EntityTear) => {
-    tear.TearFlags = addFlag(tear.TearFlags, TearFlag.PULSE);
-  },
-);
-
 // 133
 postFireTearBabyFunctionMap.set(RandomBabyType.CROOKED, (tear: EntityTear) => {
   tear.Velocity = tear.Velocity.Rotated(-15);
@@ -51,7 +35,6 @@ postFireTearBabyFunctionMap.set(RandomBabyType.CROOKED, (tear: EntityTear) => {
 
 // 152
 postFireTearBabyFunctionMap.set(RandomBabyType.CAPE, (tear: EntityTear) => {
-  // Spray tears
   const angleModifier = math.random(0, 90) - 45;
   tear.Velocity = tear.Velocity.Rotated(angleModifier);
   tear.SetColor(FADED_YELLOW, 10000, 10000, false, false);
