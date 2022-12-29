@@ -1,6 +1,5 @@
 import {
   BombVariant,
-  CollectibleType,
   FamiliarVariant,
   RoomShape,
   TearFlag,
@@ -13,7 +12,6 @@ import {
   GAME_FRAMES_PER_SECOND,
   getFamiliars,
   spawnBomb,
-  useActiveItemTemp,
 } from "isaacscript-common";
 import { FADED_BLUE, FADED_RED } from "../constants";
 import { RandomBabyType } from "../enums/RandomBabyType";
@@ -25,79 +23,6 @@ export const postFireTearBabyFunctionMap = new Map<
   RandomBabyType,
   (tear: EntityTear) => void
 >();
-
-// 246
-postFireTearBabyFunctionMap.set(
-  RandomBabyType.EIGHT_BALL,
-  (tear: EntityTear) => {
-    const baby = getCurrentBabyDescription();
-    if (baby.distance === undefined) {
-      error(`The "distance" attribute was not defined for: ${baby.name}`);
-    }
-
-    // Mark that we shot this tear.
-    tear.SubType = 1;
-
-    // We need to have spectral for this ability to work properly.
-    tear.TearFlags = addFlag(tear.TearFlags, TearFlag.SPECTRAL);
-
-    // Start with the tears directly above the player and moving towards the right.
-    tear.Position = Vector(0, baby.distance * -1);
-    tear.Velocity = Vector(baby.distance / 4, 0);
-    tear.FallingSpeed = 0;
-  },
-);
-
-// 279
-postFireTearBabyFunctionMap.set(
-  RandomBabyType.ORANGE_DEMON,
-  (tear: EntityTear) => {
-    // Explosivo tears Only do every other tear to avoid softlocks.
-    g.run.babyCounters++;
-    if (g.run.babyCounters === 2) {
-      g.run.babyCounters = 0;
-      tear.ChangeVariant(TearVariant.EXPLOSIVO);
-      tear.TearFlags = addFlag(tear.TearFlags, TearFlag.STICKY);
-    }
-  },
-);
-
-// 288
-postFireTearBabyFunctionMap.set(RandomBabyType.BUTT, (_tear: EntityTear) => {
-  useActiveItemTemp(g.p, CollectibleType.BEAN);
-});
-
-// 316
-postFireTearBabyFunctionMap.set(RandomBabyType.SPEAKER, (tear: EntityTear) => {
-  // We mark it so that we can split it later.
-  if (!g.run.babyBool) {
-    tear.SubType = 1;
-  }
-});
-
-// 331
-postFireTearBabyFunctionMap.set(RandomBabyType.SLICER, (tear: EntityTear) => {
-  // Make the Soy Milk tears do extra damage.
-  tear.CollisionDamage = g.p.Damage * 3;
-});
-
-// 337
-postFireTearBabyFunctionMap.set(RandomBabyType.BOXERS, (tear: EntityTear) => {
-  // Turn all tears into Knockout Drops tears.
-  tear.ChangeVariant(TearVariant.FIST);
-  tear.TearFlags = addFlag(tear.TearFlags, TearFlag.PUNCH);
-});
-
-// 339
-postFireTearBabyFunctionMap.set(RandomBabyType.X, (tear: EntityTear) => {
-  g.run.babyCounters++;
-  tear.Velocity = tear.Velocity.Rotated(45);
-  if (g.run.babyCounters < 4) {
-    g.p.FireTear(g.p.Position, tear.Velocity.Rotated(45), false, true, false);
-  } else {
-    g.run.babyCounters = 0;
-  }
-});
 
 // 340
 postFireTearBabyFunctionMap.set(RandomBabyType.O_2, (tear: EntityTear) => {

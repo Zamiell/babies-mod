@@ -21,6 +21,8 @@ import { BigEyesBaby } from "../classes/babies/BigEyesBaby";
 import { BlackBaby } from "../classes/babies/BlackBaby";
 import { BloatBaby } from "../classes/babies/BloatBaby";
 import { BlueBaby } from "../classes/babies/BlueBaby";
+import { BoxersBaby } from "../classes/babies/BoxersBaby";
+import { ButtBaby } from "../classes/babies/ButtBaby";
 import { CapeBaby } from "../classes/babies/CapeBaby";
 import { CockeyedBaby } from "../classes/babies/CockeyedBaby";
 import { ColdBaby } from "../classes/babies/ColdBaby";
@@ -29,6 +31,7 @@ import { CrowBaby } from "../classes/babies/CrowBaby";
 import { CryBaby } from "../classes/babies/CryBaby";
 import { CuteBaby } from "../classes/babies/CuteBaby";
 import { EdBaby } from "../classes/babies/EdBaby";
+import { EightBallBaby } from "../classes/babies/EightBallBaby";
 import { EyemouthBaby } from "../classes/babies/EyemouthBaby";
 import { GlassBaby } from "../classes/babies/GlassBaby";
 import { GoldBaby } from "../classes/babies/GoldBaby";
@@ -44,11 +47,14 @@ import { MonocleBaby } from "../classes/babies/MonocleBaby";
 import { MortBaby } from "../classes/babies/MortBaby";
 import { MustacheBaby } from "../classes/babies/MustacheBaby";
 import { NiceBaby } from "../classes/babies/NiceBaby";
+import { OrangeDemonBaby } from "../classes/babies/OrangeDemonBaby";
 import { RageBaby } from "../classes/babies/RageBaby";
 import { ScreamBaby } from "../classes/babies/ScreamBaby";
 import { ShadowBaby } from "../classes/babies/ShadowBaby";
 import { SickBaby } from "../classes/babies/SickBaby";
 import { SkinnyBaby } from "../classes/babies/SkinnyBaby";
+import { SlicerBaby } from "../classes/babies/SlicerBaby";
+import { SpeakerBaby } from "../classes/babies/SpeakerBaby";
 import { SpiderBaby } from "../classes/babies/SpiderBaby";
 import { SquareEyesBaby } from "../classes/babies/SquareEyesBaby";
 import { StrangeMouthBaby } from "../classes/babies/StrangeMouthBaby";
@@ -61,6 +67,7 @@ import { WaterBaby } from "../classes/babies/WaterBaby";
 import { WebBaby } from "../classes/babies/WebBaby";
 import { WrappedBaby } from "../classes/babies/WrappedBaby";
 import { WrathBaby } from "../classes/babies/WrathBaby";
+import { XBaby } from "../classes/babies/XBaby";
 import { YellowBaby } from "../classes/babies/YellowBaby";
 import { ZeroBaby } from "../classes/babies/ZeroBaby";
 import { RandomBabyType } from "../enums/RandomBabyType";
@@ -2097,6 +2104,7 @@ export const BABIES = {
     mustHaveTears: true,
     distance: 90,
     softlockPreventionIsland: true,
+    class: EightBallBaby,
   },
 
   // 247
@@ -2359,6 +2367,7 @@ export const BABIES = {
     description: "Explosivo tears",
     sprite: "279_baby_orangedemon.png",
     mustHaveTears: true,
+    class: OrangeDemonBaby,
   },
 
   // 280
@@ -2436,6 +2445,7 @@ export const BABIES = {
     description: "Farts after shooting",
     sprite: "288_baby_butt.png",
     mustHaveTears: true,
+    class: ButtBaby,
   },
 
   // 289
@@ -2669,6 +2679,7 @@ export const BABIES = {
     description: "X splitting tears",
     sprite: "316_baby_speaker.png",
     mustHaveTears: true,
+    class: SpeakerBaby,
   },
 
   // 317
@@ -2794,6 +2805,7 @@ export const BABIES = {
     item2: CollectibleType.PROPTOSIS,
     mustHaveTears: true,
     num: 5, // Frames until it disappears
+    class: SlicerBaby,
   },
 
   // 332
@@ -2845,6 +2857,7 @@ export const BABIES = {
     description: "Knockout Drops tears",
     sprite: "337_baby_boxers.png",
     mustHaveTears: true,
+    class: BoxersBaby,
   },
 
   // 338
@@ -2863,6 +2876,7 @@ export const BABIES = {
     description: "Shoots 4 tears diagonally",
     sprite: "339_baby_x.png",
     mustHaveTears: true,
+    class: XBaby,
   },
 
   // 340
