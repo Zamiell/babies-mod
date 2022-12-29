@@ -2,7 +2,7 @@ import { CollectibleType } from "isaac-typescript-definitions";
 import { removeDeadEyeMultiplier, setBlindfold } from "isaacscript-common";
 import { babyRemoveFunctionMap } from "./babyRemoveFunctionMap";
 import { g } from "./globals";
-import { BABY_CLASSES } from "./objects/babies";
+import { BABY_CLASSES } from "./objects/babyClasses";
 import { getCurrentBaby } from "./utils";
 
 export function babyRemove(player: EntityPlayer, oldBabyCounters: int): void {

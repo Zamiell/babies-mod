@@ -39,6 +39,9 @@ export interface BabyDescription {
   trinket?: TrinketType;
   uncharged?: boolean;
 
-  /** The associated class that provides the logic for the baby, if any. */
+  /**
+   * The associated class that provides the logic for the baby, if any. We cannot specify the type
+   * as `typeof Baby` since that would cause a dependency cycle.
+   */
   class?: unknown;
 }
