@@ -1,6 +1,6 @@
 import { ModFeature } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
-import g from "../globals";
+import { g } from "../globals";
 import { mod } from "../mod";
 
 export class Baby extends ModFeature {

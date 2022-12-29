@@ -20,7 +20,7 @@ import {
 import { updateCachedAPIFunctions } from "../cache";
 import { MOD_NAME, VERSION } from "../constants";
 import { RandomBabyType } from "../enums/RandomBabyType";
-import g from "../globals";
+import { g } from "../globals";
 import { mod } from "../mod";
 import { initSprite } from "../sprite";
 import * as timer from "../timer";

@@ -6,7 +6,7 @@ import {
 } from "isaac-typescript-definitions";
 import { getRandom, spawnEffect } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
-import g from "../globals";
+import { g } from "../globals";
 
 export const entityTakeDmgEntityBabyFunctionMap = new Map<
   RandomBabyType,

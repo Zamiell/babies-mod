@@ -9,7 +9,7 @@ import {
   playerHasCollectible,
 } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
-import g from "../globals";
+import { g } from "../globals";
 
 const COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS = [
   CollectibleType.CHOCOLATE_MILK, // 69

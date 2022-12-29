@@ -1,7 +1,6 @@
 import { Globals } from "./types/Globals";
 
-const g = new Globals();
-export default g;
+export const g = new Globals();
 
 // Set a global variable so that other mods can access our scoped global variables.
 declare let BabiesModGlobals: Globals;

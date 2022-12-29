@@ -19,7 +19,7 @@ import {
 } from "isaacscript-common";
 import { babyAddFunctionMap } from "./babyAddFunctionMap";
 import { setBabyANM2, updatePlayerWithCostumeProtector } from "./costumes";
-import g from "./globals";
+import { g } from "./globals";
 import { getCurrentBaby, giveItemAndRemoveFromPools } from "./utils";
 
 export function babyAdd(player: EntityPlayer): void {

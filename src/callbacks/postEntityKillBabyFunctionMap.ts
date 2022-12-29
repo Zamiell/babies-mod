@@ -23,7 +23,7 @@ import {
   VectorZero,
 } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
-import g from "../globals";
+import { g } from "../globals";
 import { getCurrentBabyDescription } from "../utils";
 
 export const postEntityKillBabyFunctionMap = new Map<

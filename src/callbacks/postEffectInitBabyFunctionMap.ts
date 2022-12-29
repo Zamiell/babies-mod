@@ -1,7 +1,7 @@
 import { EffectVariant } from "isaac-typescript-definitions";
 import { setEntityRandomColor } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
-import g from "../globals";
+import { g } from "../globals";
 
 export const postEffectInitBabyFunctionMap = new Map<
   RandomBabyType,

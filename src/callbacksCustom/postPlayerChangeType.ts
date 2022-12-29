@@ -1,6 +1,6 @@
 import { ModCallbackCustom } from "isaacscript-common";
 import { addPlayerToCostumeProtector } from "../costumes";
-import g from "../globals";
+import { g } from "../globals";
 import { mod } from "../mod";
 import { getCurrentBaby } from "../utils";
 

@@ -1,7 +1,7 @@
 import { EntityFlag, EntityType } from "isaac-typescript-definitions";
 import { spawn } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
-import g from "../globals";
+import { g } from "../globals";
 
 export const postNPCUpdateBabyFunctionMap = new Map<
   RandomBabyType,

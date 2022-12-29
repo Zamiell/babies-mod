@@ -1,6 +1,6 @@
 import { EntityType, GridEntityXMLType } from "isaac-typescript-definitions";
 import { RandomBabyType } from "../enums/RandomBabyType";
-import g from "../globals";
+import { g } from "../globals";
 import { shouldTransformRoomType } from "../utils";
 
 const GRID_ENTITY_REPLACEMENT_EXCEPTIONS: ReadonlySet<GridEntityXMLType> =

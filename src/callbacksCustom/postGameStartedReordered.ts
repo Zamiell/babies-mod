@@ -1,6 +1,6 @@
 import { CollectibleType, SeedEffect } from "isaac-typescript-definitions";
 import { isCharacter, log, ModCallbackCustom } from "isaacscript-common";
-import g from "../globals";
+import { g } from "../globals";
 import { mod } from "../mod";
 import { BABIES } from "../objects/babies";
 import { GlobalsRun } from "../types/GlobalsRun";

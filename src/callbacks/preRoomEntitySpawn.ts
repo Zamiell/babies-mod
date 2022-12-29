@@ -3,7 +3,7 @@ import {
   GridEntityXMLType,
   ModCallback,
 } from "isaac-typescript-definitions";
-import g from "../globals";
+import { g } from "../globals";
 import { mod } from "../mod";
 import { getCurrentBaby } from "../utils";
 import { preRoomEntitySpawnBabyFunctionMap } from "./preRoomEntitySpawnBabyFunctionMap";

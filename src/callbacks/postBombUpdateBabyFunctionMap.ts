@@ -14,7 +14,7 @@ import {
   useActiveItemTemp,
 } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
-import g from "../globals";
+import { g } from "../globals";
 import { getRandomOffsetPosition } from "../utils";
 
 const SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER = 30;

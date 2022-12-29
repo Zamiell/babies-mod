@@ -48,7 +48,7 @@ import {
   VectorZero,
 } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
-import g from "../globals";
+import { g } from "../globals";
 import * as pseudoRoomClear from "../pseudoRoomClear";
 import { EffectVariantCustom } from "../types/EffectVariantCustom";
 import { bigChestExists, getCurrentBabyDescription } from "../utils";

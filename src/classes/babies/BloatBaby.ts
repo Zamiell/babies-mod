@@ -4,7 +4,7 @@ import {
   TearVariant,
 } from "isaac-typescript-definitions";
 import { addFlag, Callback } from "isaacscript-common";
-import g from "../../globals";
+import { g } from "../../globals";
 import { getCurrentBabyDescription } from "../../utils";
 import { Baby } from "../Baby";
 

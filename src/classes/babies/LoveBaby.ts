@@ -6,7 +6,7 @@ import {
   spawnHeart,
   VectorZero,
 } from "isaacscript-common";
-import g from "../../globals";
+import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Spawns a random heart on room clear. */

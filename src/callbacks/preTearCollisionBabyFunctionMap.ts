@@ -1,7 +1,7 @@
 import { CacheFlag, EffectVariant } from "isaac-typescript-definitions";
 import { spawnEffect, VectorZero } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
-import g from "../globals";
+import { g } from "../globals";
 
 export const preTearCollisionBabyFunctionMap = new Map<
   RandomBabyType,

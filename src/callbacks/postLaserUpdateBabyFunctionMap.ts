@@ -5,7 +5,7 @@ import {
   sfxManager,
 } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
-import g from "../globals";
+import { g } from "../globals";
 
 export const postLaserUpdateBabyFunctionMap = new Map<
   RandomBabyType,

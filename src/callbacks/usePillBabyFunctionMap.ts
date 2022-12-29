@@ -1,6 +1,6 @@
 import { CacheFlag } from "isaac-typescript-definitions";
 import { RandomBabyType } from "../enums/RandomBabyType";
-import g from "../globals";
+import { g } from "../globals";
 
 export const usePillBabyFunctionMap = new Map<
   RandomBabyType,

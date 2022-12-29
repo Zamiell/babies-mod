@@ -10,7 +10,7 @@ import { babyAdd } from "../babyAdd";
 import { babyCheckValid } from "../babyCheckValid";
 import { babyRemove } from "../babyRemove";
 import { RandomBabyType } from "../enums/RandomBabyType";
-import g from "../globals";
+import { g } from "../globals";
 import { mod } from "../mod";
 import { GlobalsRunLevel } from "../types/GlobalsRunLevel";
 import { getCurrentBaby } from "../utils";

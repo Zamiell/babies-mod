@@ -13,7 +13,7 @@ import {
   VectorZero,
 } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
-import g from "../globals";
+import { g } from "../globals";
 import { EffectVariantCustom } from "../types/EffectVariantCustom";
 import { getCurrentBabyDescription } from "../utils";
 

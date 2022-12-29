@@ -1,5 +1,5 @@
 import { DamageFlag } from "isaac-typescript-definitions";
-import g from "../globals";
+import { g } from "../globals";
 import { getCurrentBaby } from "../utils";
 import { entityTakeDmgEntityBabyFunctionMap } from "./entityTakeDmgEntityBabyFunctionMap";
 

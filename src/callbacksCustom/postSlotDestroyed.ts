@@ -1,7 +1,7 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 import { ModCallbackCustom } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
-import g from "../globals";
+import { g } from "../globals";
 import { mod } from "../mod";
 import { getCurrentBaby } from "../utils";
 

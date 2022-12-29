@@ -15,7 +15,7 @@ import {
   sfxManager,
 } from "isaacscript-common";
 import { RandomBabyType } from "./enums/RandomBabyType";
-import g from "./globals";
+import { g } from "./globals";
 import { getCurrentBabyDescription, removeAllFriendlyEntities } from "./utils";
 
 export const babyRemoveFunctionMap = new Map<

@@ -13,7 +13,7 @@ import {
   spawn,
 } from "isaacscript-common";
 import { RandomBabyType } from "./enums/RandomBabyType";
-import g from "./globals";
+import { g } from "./globals";
 import { initSprite } from "./sprite";
 import { getCurrentBabyDescription } from "./utils";
 

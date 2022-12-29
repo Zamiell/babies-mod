@@ -23,7 +23,7 @@ import {
   VectorZero,
 } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
-import g from "../globals";
+import { g } from "../globals";
 import { TearData } from "../types/TearData";
 import { getCurrentBabyDescription } from "../utils";
 

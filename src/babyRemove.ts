@@ -1,7 +1,7 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 import { removeDeadEyeMultiplier, setBlindfold } from "isaacscript-common";
 import { babyRemoveFunctionMap } from "./babyRemoveFunctionMap";
-import g from "./globals";
+import { g } from "./globals";
 import { BABY_CLASSES } from "./objects/babies";
 import { getCurrentBaby } from "./utils";
 

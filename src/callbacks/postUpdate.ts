@@ -9,7 +9,7 @@ import {
   log,
   openAllDoors,
 } from "isaacscript-common";
-import g from "../globals";
+import { g } from "../globals";
 import { mod } from "../mod";
 import { getCurrentBaby } from "../utils";
 import { postUpdateBabyFunctionMap } from "./postUpdateBabyFunctionMap";

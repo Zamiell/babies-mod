@@ -49,7 +49,7 @@ import * as postTrinketBreak from "./callbacksCustom/postTrinketBreak";
 import * as preItemPickup from "./callbacksCustom/preItemPickup";
 import { MOD_NAME, VERSION } from "./constants";
 import { initCostumeProtector } from "./costumes";
-import g from "./globals";
+import { g } from "./globals";
 import { mod } from "./mod";
 
 main();

@@ -1,5 +1,5 @@
 import { debugFunction, setDebugBaby } from "../debugFunction";
-import g from "../globals";
+import { g } from "../globals";
 
 export const executeCmdFunctionMap = new Map<
   string,

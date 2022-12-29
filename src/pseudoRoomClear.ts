@@ -8,7 +8,7 @@ import {
   log,
 } from "isaacscript-common";
 import { RandomBabyType } from "./enums/RandomBabyType";
-import g from "./globals";
+import { g } from "./globals";
 import { getCurrentBaby } from "./utils";
 
 // Pseudo room clear should be disabled in certain room types.

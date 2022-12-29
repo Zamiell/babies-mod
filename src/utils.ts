@@ -42,7 +42,7 @@ import {
 } from "isaacscript-common";
 import { ROOM_TYPES_TO_NOT_TRANSFORM } from "./constants";
 import { RandomBabyType } from "./enums/RandomBabyType";
-import g from "./globals";
+import { g } from "./globals";
 import { mod } from "./mod";
 import { BABIES, UNKNOWN_BABY } from "./objects/babies";
 import { BabyDescription } from "./types/BabyDescription";

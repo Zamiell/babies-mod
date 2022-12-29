@@ -11,7 +11,7 @@ import { updateCachedAPIFunctions } from "../cache";
 import { postNewRoomBabyFunctionMap } from "../callbacks/postNewRoomBabyFunctionMap";
 import { NUM_SUCCUBI_IN_FLOCK } from "../constants";
 import { RandomBabyType } from "../enums/RandomBabyType";
-import g from "../globals";
+import { g } from "../globals";
 import { mod } from "../mod";
 import { GlobalsRunBabyTears } from "../types/GlobalsRunBabyTears";
 import { GlobalsRunRoom } from "../types/GlobalsRunRoom";

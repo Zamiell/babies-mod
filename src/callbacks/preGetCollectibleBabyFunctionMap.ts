@@ -5,7 +5,7 @@ import {
   RoomType,
 } from "isaac-typescript-definitions";
 import { RandomBabyType } from "../enums/RandomBabyType";
-import g from "../globals";
+import { g } from "../globals";
 import {
   getRandomCollectibleTypeFromPool,
   getRandomCollectibleTypeWithTag,

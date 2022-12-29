@@ -1,6 +1,6 @@
 import { ItemType } from "isaac-typescript-definitions";
 import { ModCallbackCustom, PickingUpItem } from "isaacscript-common";
-import g from "../globals";
+import { g } from "../globals";
 import { mod } from "../mod";
 import { getCurrentBaby } from "../utils";
 import { postItemPickupBabyFunctionMap } from "./postItemPickupBabyFunctionMap";

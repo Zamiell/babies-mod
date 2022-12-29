@@ -10,7 +10,7 @@ import {
   VectorZero,
 } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
-import g from "../globals";
+import { g } from "../globals";
 
 export const postRenderBabyFunctionMap = new Map<RandomBabyType, () => void>();
 

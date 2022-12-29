@@ -13,7 +13,7 @@ import {
   onRepentanceStage,
 } from "isaacscript-common";
 import { RandomBabyType } from "./enums/RandomBabyType";
-import g from "./globals";
+import { g } from "./globals";
 import { BABIES } from "./objects/babies";
 import { BabyDescription } from "./types/BabyDescription";
 
