@@ -12,7 +12,7 @@ import { Baby } from "../Baby";
 /** Spawns a random heart on room clear. */
 export class LoveBaby extends Baby {
   @Callback(ModCallback.PRE_SPAWN_CLEAR_AWARD)
-  private preSpawnClearAward(): boolean | undefined {
+  preSpawnClearAward(): boolean | undefined {
     const roomSeed = g.r.GetSpawnSeed();
     const heartSubTypes = getEnumValues(HeartSubType);
     const heartSubType = getRandomArrayElement(heartSubTypes, roomSeed);

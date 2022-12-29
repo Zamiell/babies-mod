@@ -9,7 +9,7 @@ import { Baby } from "../Baby";
 
 export class BloatBaby extends Baby {
   @Callback(ModCallback.POST_FIRE_TEAR)
-  private postFireTear(tear: EntityTear): void {
+  postFireTear(tear: EntityTear): void {
     const num = this.getAttribute("num");
 
     g.run.babyCounters++;

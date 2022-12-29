@@ -5,23 +5,20 @@ import { mod } from "../mod";
 import { BabyDescription } from "../types/BabyDescription";
 
 export class Baby extends ModFeature {
-  protected randomBabyType: RandomBabyType;
-  protected babyDescription: BabyDescription;
+  babyType: RandomBabyType;
+  babyDescription: BabyDescription;
 
-  protected override callbackConditionalFunc = (): boolean =>
-    g.run.babyType === this.randomBabyType;
+  override callbackConditionalFunc = (): boolean =>
+    g.run.babyType === this.babyType;
 
-  constructor(
-    randomBabyType: RandomBabyType,
-    babyDescription: BabyDescription,
-  ) {
+  constructor(babyType: RandomBabyType, babyDescription: BabyDescription) {
     super(mod);
 
-    this.randomBabyType = randomBabyType;
+    this.babyType = babyType;
     this.babyDescription = babyDescription;
   }
 
-  protected getAttribute<T extends keyof BabyDescription>(
+  getAttribute<T extends keyof BabyDescription>(
     attributeName: T,
   ): NonNullable<BabyDescription[T]> {
     const attribute = this.babyDescription[attributeName];
@@ -35,13 +32,13 @@ export class Baby extends ModFeature {
   }
 
   /** Called from "babyCheckValid.ts". */
-  public isValid(): boolean {
+  isValid(): boolean {
     return true;
   }
 
   /** Called from "babyAdd.ts". */
-  public onAdd(): void {}
+  onAdd(): void {}
 
   /** Called from "babyRemove.ts". */
-  public onRemove(): void {}
+  onRemove(): void {}
 }

@@ -11,14 +11,14 @@ import { Baby } from "../Baby";
 /** -1 damage per pickup taken. */
 export class CuteBaby extends Baby {
   @Callback(ModCallback.EVALUATE_CACHE, CacheFlag.DAMAGE)
-  private evaluateCacheDamage(player: EntityPlayer): void {
+  evaluateCacheDamage(player: EntityPlayer): void {
     repeat(g.run.babyCounters, () => {
       player.Damage--;
     });
   }
 
   @CallbackCustom(ModCallbackCustom.POST_PICKUP_COLLECT)
-  private postPickupCollect(): void {
+  postPickupCollect(): void {
     g.run.babyCounters++;
     g.p.AddCacheFlags(CacheFlag.DAMAGE);
     g.p.EvaluateItems();

@@ -14,6 +14,7 @@ import {
 } from "isaac-typescript-definitions";
 import { GAME_FRAMES_PER_SECOND, HasAllEnumKeys } from "isaacscript-common";
 import { BeanBaby } from "../classes/babies/BeanBaby";
+import { BlackBaby } from "../classes/babies/BlackBaby";
 import { BloatBaby } from "../classes/babies/BloatBaby";
 import { CockeyedBaby } from "../classes/babies/CockeyedBaby";
 import { CrowBaby } from "../classes/babies/CrowBaby";
@@ -24,12 +25,14 @@ import { HostBaby } from "../classes/babies/HostBaby";
 import { LostBaby } from "../classes/babies/LostBaby";
 import { LoveBaby } from "../classes/babies/LoveBaby";
 import { MagBaby } from "../classes/babies/MagBaby";
+import { MagnetBaby } from "../classes/babies/MagnetBaby";
 import { ShadowBaby } from "../classes/babies/ShadowBaby";
 import { SpiderBaby } from "../classes/babies/SpiderBaby";
 import { TrollBaby } from "../classes/babies/TrollBaby";
 import { WaterBaby } from "../classes/babies/WaterBaby";
 import { WrappedBaby } from "../classes/babies/WrappedBaby";
 import { WrathBaby } from "../classes/babies/WrathBaby";
+import { ZeroBaby } from "../classes/babies/ZeroBaby";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { BabyDescription } from "../types/BabyDescription";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
@@ -249,6 +252,7 @@ export const BABIES = {
     name: "-0- Baby",
     description: "Invulnerability",
     sprite: "024_baby_0.png",
+    class: ZeroBaby,
   },
 
   // 25
@@ -265,6 +269,7 @@ export const BABIES = {
     description: "Magnetizing tears",
     sprite: "026_baby_magnet.png",
     mustHaveTears: true,
+    class: MagnetBaby,
   },
 
   // 27
@@ -272,6 +277,7 @@ export const BABIES = {
     name: "Black Baby",
     description: "Curse Room doors in uncleared rooms",
     sprite: "027_baby_black.png",
+    class: BlackBaby,
   },
 
   // 28

@@ -6,7 +6,7 @@ import { Baby } from "../Baby";
 /** Spawns N Blue Spiders on hit. */
 export class HostBaby extends Baby {
   @Callback(ModCallback.ENTITY_TAKE_DMG, EntityType.PLAYER)
-  private entityTakeDmgPlayer(entity: Entity): boolean | undefined {
+  entityTakeDmgPlayer(entity: Entity): boolean | undefined {
     const num = this.getAttribute("num");
 
     const player = entity.ToPlayer();

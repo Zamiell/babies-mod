@@ -9,7 +9,6 @@ import {
 } from "isaacscript-common";
 import { RandomBabyType } from "./enums/RandomBabyType";
 import { g } from "./globals";
-import { getCurrentBaby } from "./utilsBaby";
 
 // Pseudo room clear should be disabled in certain room types.
 const ROOM_TYPE_BLACKLIST: ReadonlySet<RoomType> = new Set([
@@ -23,7 +22,7 @@ const ROOM_TYPE_BLACKLIST: ReadonlySet<RoomType> = new Set([
 ]);
 
 // ModCallback.POST_UPDATE (1)
-export function postUpdate(): void {
+export function postUpdate(babyType: RandomBabyType): void {
   // This function is only called from certain babies.
   const roomType = g.r.GetType();
   const roomFrameCount = g.r.GetFrameCount();
@@ -41,19 +40,14 @@ export function postUpdate(): void {
   // Customize the doors and initiate the pseudo clear feature. (This does not work in the
   // `POST_NEW_ROOM` callback or on frame 0.)
   if (roomFrameCount === 1 && !roomClear) {
-    initializeDoors();
+    initializeDoors(babyType);
     return;
   }
 
-  checkPseudoClear();
+  checkPseudoClear(babyType);
 }
 
-function initializeDoors() {
-  const [babyType] = getCurrentBaby();
-  if (babyType === -1) {
-    return;
-  }
-
+function initializeDoors(babyType: RandomBabyType) {
   g.r.SetClear(true);
   g.run.room.pseudoClear = false;
 
@@ -94,7 +88,7 @@ function initializeDoors() {
   }
 }
 
-function checkPseudoClear() {
+function checkPseudoClear(babyType: RandomBabyType) {
   const gameFrameCount = game.GetFrameCount();
 
   // Don't do anything if the room is already cleared.
@@ -115,7 +109,7 @@ function checkPseudoClear() {
     !areAnyNPCsAlive() &&
     isAllPressurePlatesPushed()
   ) {
-    pseudoClearRoom();
+    pseudoClearRoom(babyType);
   }
 }
 
@@ -134,12 +128,7 @@ function areAnyNPCsAlive() {
 }
 
 // This roughly emulates what happens when you normally clear a room.
-function pseudoClearRoom() {
-  const [babyType] = getCurrentBaby();
-  if (babyType === -1) {
-    return;
-  }
-
+function pseudoClearRoom(babyType: RandomBabyType) {
   g.run.room.pseudoClear = true;
   log("Room is now pseudo-cleared.");
 

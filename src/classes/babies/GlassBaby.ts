@@ -23,7 +23,7 @@ const RING_SPRITE_SCALE: Readonly<Vector> = Vector(0.5, 1);
 /** Orbiting laser ring. */
 export class GlassBaby extends Baby {
   @Callback(ModCallback.POST_LASER_UPDATE)
-  private postLaserUpdate(laser: EntityLaser): void {
+  postLaserUpdate(laser: EntityLaser): void {
     const data = laser.GetData();
     if (data[DATA_KEY] === true) {
       // Keep the ring centered on the player.
@@ -33,7 +33,7 @@ export class GlassBaby extends Baby {
 
   /** Spawn a laser ring around the player. */
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
-  private postNewRoomReordered(): void {
+  postNewRoomReordered(): void {
     const laser = g.p.FireTechXLaser(g.p.Position, VectorZero, RING_RADIUS);
 
     laser.Variant = LaserVariant.THIN_RED;

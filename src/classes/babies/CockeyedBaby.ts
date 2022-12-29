@@ -6,7 +6,7 @@ import { Baby } from "../Baby";
 /** Shoots extra tears with random velocity. */
 export class CockeyedBaby extends Baby {
   @Callback(ModCallback.POST_FIRE_TEAR)
-  private postFireTear(tear: EntityTear): void {
+  postFireTear(tear: EntityTear): void {
     if (g.run.babyBool) {
       return;
     }

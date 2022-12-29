@@ -11,7 +11,7 @@ import { Baby } from "../Baby";
 export class WrappedBaby extends Baby {
   // 1
   @Callback(ModCallback.POST_UPDATE)
-  private postUpdate(): void {
+  postUpdate(): void {
     const gameFrameCount = game.GetFrameCount();
 
     // If the explosions happen too fast, it looks buggy, so do it instead every 3 frames.
@@ -24,7 +24,7 @@ export class WrappedBaby extends Baby {
 
   // 11
   @Callback(ModCallback.ENTITY_TAKE_DMG, EntityType.PLAYER)
-  private entityTakeDmgPlayer(): boolean | undefined {
+  entityTakeDmgPlayer(): boolean | undefined {
     const num = this.getAttribute("num");
 
     g.run.babyCounters = num;

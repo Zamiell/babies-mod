@@ -546,12 +546,6 @@ function checkStage(babyType: RandomBabyType, baby: BabyDescription): boolean {
     return false;
   }
 
-  // 24
-  if (babyType === RandomBabyType.ZERO && effectiveStage === 5) {
-    // -0- Baby cannot open the door to Mausoleum (since it requires health to be sacrificed).
-    return false;
-  }
-
   // 62
   if (
     babyType === RandomBabyType.GOAT &&

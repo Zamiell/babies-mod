@@ -30,12 +30,6 @@ export const postFireTearBabyFunctionMap = new Map<
   (tear: EntityTear) => void
 >();
 
-// 26
-postFireTearBabyFunctionMap.set(RandomBabyType.MAGNET, (tear: EntityTear) => {
-  tear.ChangeVariant(TearVariant.METALLIC);
-  tear.TearFlags = addFlag(tear.TearFlags, TearFlag.MAGNETIZE);
-});
-
 // 30
 postFireTearBabyFunctionMap.set(RandomBabyType.BLUE, (tear: EntityTear) => {
   // Sprinkler tears need to originate at the player.

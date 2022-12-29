@@ -9,12 +9,12 @@ import { Baby } from "../Baby";
 
 /** Shoots a Blue Spider every Nth tear. */
 export class SpiderBaby extends Baby {
-  public override onRemove(): void {
+  override onRemove(): void {
     removeAllMatchingEntities(EntityType.FAMILIAR, FamiliarVariant.BLUE_SPIDER);
   }
 
   @Callback(ModCallback.POST_FIRE_TEAR)
-  private postFireTear(tear: EntityTear) {
+  postFireTear(tear: EntityTear): void {
     const num = this.getAttribute("num");
 
     g.run.babyCounters++;

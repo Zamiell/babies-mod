@@ -65,14 +65,6 @@ export const entityTakeDmgPlayerBabyFunctionMap = new Map<
   ) => boolean | undefined
 >();
 
-// 24
-entityTakeDmgPlayerBabyFunctionMap.set(
-  RandomBabyType.ZERO,
-  () =>
-    // Invulnerability
-    false,
-);
-
 // 32
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.CRY, (_player) => {
   // Enemies are fully healed on hit.

@@ -56,11 +56,6 @@ import { getCurrentBabyDescription } from "../utilsBaby";
 
 export const postUpdateBabyFunctionMap = new Map<RandomBabyType, () => void>();
 
-// 27
-postUpdateBabyFunctionMap.set(RandomBabyType.BLACK, () => {
-  pseudoRoomClear.postUpdate();
-});
-
 // 31
 postUpdateBabyFunctionMap.set(RandomBabyType.RAGE, () => {
   // Infinite bombs
@@ -209,7 +204,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.SCREAM, () => {
 
 // 90
 postUpdateBabyFunctionMap.set(RandomBabyType.NERD, () => {
-  pseudoRoomClear.postUpdate();
+  pseudoRoomClear.postUpdate(RandomBabyType.NERD);
 });
 
 // 96
@@ -809,7 +804,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.RABBIT, () => {
 
 // 351
 postUpdateBabyFunctionMap.set(RandomBabyType.MOUSE, () => {
-  pseudoRoomClear.postUpdate();
+  pseudoRoomClear.postUpdate(RandomBabyType.MOUSE);
 });
 
 // 374

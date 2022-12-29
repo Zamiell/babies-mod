@@ -26,7 +26,7 @@ import { Baby } from "../Baby";
 /**  */
 export class Baby extends Baby {
   @Callback(ModCallback.POST_UPDATE)
-  private postUpdate(): void {
+  postUpdate(): void {
 
   }
 }

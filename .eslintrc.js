@@ -16,5 +16,20 @@ module.exports = {
 
   rules: {
     "class-methods-use-this": "off",
+    "no-restricted-syntax": [
+      "error",
+      {
+        selector: "MethodDefinition[accessibility='public']",
+        message: 'Using "public" class method modifiers are not allowed.',
+      },
+      {
+        selector: "MethodDefinition[accessibility='private']",
+        message: 'Using "private" class method modifiers are not allowed.',
+      },
+      {
+        selector: "MethodDefinition[accessibility='protected']",
+        message: 'Using "protected" class method modifiers are not allowed.',
+      },
+    ],
   },
 };

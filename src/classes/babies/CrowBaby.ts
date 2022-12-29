@@ -6,7 +6,7 @@ import { Baby } from "../Baby";
 /** Starts with Dead Bird (improved). */
 export class CrowBaby extends Baby {
   @Callback(ModCallback.POST_FAMILIAR_INIT, FamiliarVariant.DEAD_BIRD)
-  private postFamiliarInitDeadBird(): void {
+  postFamiliarInitDeadBird(): void {
     if (g.run.babyBool) {
       return;
     }

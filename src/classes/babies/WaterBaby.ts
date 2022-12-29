@@ -14,7 +14,7 @@ const BASE_VELOCITY: Readonly<Vector> = Vector(10, 0);
 /** Starts with Isaac's Tears (improved). */
 export class WaterBaby extends Baby {
   @Callback(ModCallback.PRE_USE_ITEM, CollectibleType.ISAACS_TEARS)
-  private preUseItem(): boolean | undefined {
+  preUseItem(): boolean | undefined {
     repeat(NUM_VANILLA_ISAAC_TEARS_TEARS, (i) => {
       const velocity = BASE_VELOCITY.Rotated(45 * (i + 1));
       const tear = g.p.FireTear(g.p.Position, velocity, false, false, false);

@@ -8,7 +8,7 @@ import { Baby } from "../Baby";
 
 /** Gold gear + gold poops + gold rooms. */
 export class GoldBaby extends Baby {
-  public override onAdd(): void {
+  override onAdd(): void {
     g.p.AddGoldenBomb();
     g.p.AddGoldenKey();
     g.p.AddGoldenHearts(12);
@@ -18,7 +18,7 @@ export class GoldBaby extends Baby {
     ModCallbackCustom.POST_GRID_ENTITY_UPDATE,
     GridEntityType.POOP,
   )
-  private postGridEntityUpdatePoop(gridEntity: GridEntity): void {
+  postGridEntityUpdatePoop(gridEntity: GridEntity): void {
     const gridEntityPoop = gridEntity as GridEntityPoop;
     const gridEntityVariant = gridEntityPoop.GetVariant();
 
@@ -28,7 +28,7 @@ export class GoldBaby extends Baby {
   }
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
-  private postNewRoomReordered(): void {
+  postNewRoomReordered(): void {
     g.r.TurnGold();
   }
 }

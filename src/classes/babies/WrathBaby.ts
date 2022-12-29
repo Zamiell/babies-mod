@@ -6,7 +6,7 @@ import { Baby } from "../Baby";
 /** Anarchist Cookbook effect every N seconds. */
 export class WrathBaby extends Baby {
   @Callback(ModCallback.POST_UPDATE)
-  private postUpdate(): void {
+  postUpdate(): void {
     const gameFrameCount = game.GetFrameCount();
     const num = this.getAttribute("num");
 

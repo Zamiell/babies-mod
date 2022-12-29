@@ -12,7 +12,7 @@ import { Baby } from "../Baby";
 /** Constant Butter Bean effect. */
 export class BeanBaby extends Baby {
   @Callback(ModCallback.POST_UPDATE)
-  private postUpdate(): void {
+  postUpdate(): void {
     const gameFrameCount = game.GetFrameCount();
 
     if (bigChestExists()) {
