@@ -1,19 +1,5 @@
 TODO:
 
-List of potentially good effects:
-- Starts with Astral Projection
-- Starts with Binge Eater
-- Starts with Vasculitis
-- Starts with Brimstone Bombs
-- Starts with Revelation
-- Starts with Urn of Souls
-- Starts with Bot Fly
-- Starts with Saturnus
-- Starts with The Stairway
-- Starts with Psy Fly
-- Starts with The Intruder
-- Starts with Eye of the Occult
-
 List of hard babies:
 - Troll Baby (#6) - Spawns a Troll Bomb every 3 seconds
 - Noose Baby (#39) - Don't shoot when the timer reaches 0

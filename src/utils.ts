@@ -25,6 +25,7 @@ import {
   getEntities,
   getRandomInt,
   getRandomSetElement,
+  isHeart,
   sfxManager,
   spawnBattery,
   spawnCard,
@@ -160,8 +161,8 @@ export function isRerolledCollectibleBuggedHeart(
   pickup: EntityPickup,
 ): boolean {
   return (
-    pickup.Variant === PickupVariant.HEART &&
-    pickup.SubType === (HeartSubType.FULL as int) &&
+    isHeart(pickup) &&
+    pickup.SubType === HeartSubType.FULL &&
     pickup.Price === 99
   );
 }

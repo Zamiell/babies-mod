@@ -3,6 +3,7 @@ import {
   SeedEffect,
   TrinketType,
 } from "isaac-typescript-definitions";
+import { Baby } from "../classes/Baby";
 
 export interface BabyDescription {
   // Mandatory properties
@@ -38,4 +39,7 @@ export interface BabyDescription {
   time?: int;
   trinket?: TrinketType;
   uncharged?: boolean;
+
+  /** The associated class that provides the logic for the baby, if any. */
+  class?: typeof Baby;
 }

@@ -1,4 +1,5 @@
 import {
+  ChestSubType,
   CollectibleType,
   EntityCollisionClass,
   ItemPoolType,
@@ -10,6 +11,8 @@ import {
   GAME_FRAMES_PER_SECOND,
   getCollectibleDevilHeartPrice,
   inStartingRoom,
+  isChest,
+  isCollectible,
   repeat,
   spawnPickup,
   spawnProjectile,
@@ -143,23 +146,16 @@ postPickupUpdateBabyFunctionMap.set(
 postPickupUpdateBabyFunctionMap.set(
   RandomBabyType.SPIKE,
   (pickup: EntityPickup) => {
-    const data = pickup.GetData();
+    // All chests are Mimics + all chests have items.
     if (
-      // Frame 0 does not work and frame 1 interferes with Racing+ replacement code.
-      pickup.FrameCount === 2 &&
-      (pickup.Variant === PickupVariant.CHEST || // 50
-        pickup.Variant === PickupVariant.BOMB_CHEST || // 51
-        pickup.Variant === PickupVariant.ETERNAL_CHEST || // 53
-        pickup.Variant === PickupVariant.LOCKED_CHEST || // 60
-        pickup.Variant === PickupVariant.RED_CHEST) && // 360
-      // Racing+ will change some Spiked Chests / Mimic Chests to normal chests to prevent
-      // unavoidable damage in rooms with a 1x1 path. It will set "data.unavoidableReplacement =
-      // true" when it does this.
-      data["unavoidableReplacement"] === undefined
+      // Frame 0 does not work.
+      pickup.FrameCount === 1 &&
+      isChest(pickup) &&
+      pickup.Variant !== PickupVariant.MIMIC_CHEST
     ) {
-      // Replace all chests with Mimics (5.54). This does not work in the PostPickupSelection
-      // callback because the chest will not initialize properly for some reason. This does not work
-      // in the PostPickupInit callback because the position is not initialized.
+      // Replace all chests with Mimics. This does not work in the `POST_PICKUP_SELECTION` callback
+      // because the chest will not initialize properly for some reason. This does not work in the
+      // `POST_PICKUP_INIT` callback because the position is not initialized.
       pickup.Remove();
       spawnPickup(
         PickupVariant.MIMIC_CHEST,
@@ -171,7 +167,7 @@ postPickupUpdateBabyFunctionMap.set(
       );
     } else if (
       pickup.Variant === PickupVariant.SPIKED_CHEST &&
-      pickup.SubType === 0 // SubType of 0 is open and 1 is closed
+      pickup.SubType === (ChestSubType.OPENED as int)
     ) {
       // Replace the contents of the chest with an item.
       pickup.Remove();
@@ -256,13 +252,10 @@ postPickupUpdateBabyFunctionMap.set(
     }
 
     // All special rooms are Devil Rooms.
-    if (pickup.Variant === PickupVariant.COLLECTIBLE) {
+    if (isCollectible(pickup)) {
       // If the price is not correct, update it. (We have to check on every frame in case the health
       // situation changes.)
-      const price = getCollectibleDevilHeartPrice(
-        pickup.SubType as CollectibleType,
-        g.p,
-      );
+      const price = getCollectibleDevilHeartPrice(pickup.SubType, g.p);
       if (pickup.Price !== (price as int)) {
         pickup.AutoUpdatePrice = false;
         pickup.Price = price;
@@ -298,13 +291,10 @@ postPickupUpdateBabyFunctionMap.set(
   RandomBabyType.SCARY,
   (pickup: EntityPickup) => {
     // Items cost hearts
-    if (pickup.Variant === PickupVariant.COLLECTIBLE) {
+    if (isCollectible(pickup)) {
       // If the price is not correct, update it. (We have to check on every frame in case the health
       // situation changes.)
-      const price = getCollectibleDevilHeartPrice(
-        pickup.SubType as CollectibleType,
-        g.p,
-      );
+      const price = getCollectibleDevilHeartPrice(pickup.SubType, g.p);
       if (pickup.Price !== (price as int)) {
         pickup.AutoUpdatePrice = false;
         pickup.Price = price;
@@ -339,11 +329,10 @@ postPickupUpdateBabyFunctionMap.set(
     // Double items. We can't do this in the PostPickupInit callback because the position is not
     // set.
     if (
-      pickup.Variant === PickupVariant.COLLECTIBLE &&
+      isCollectible(pickup) &&
       isFirstVisit &&
-      // Frame 0 does not work. Frame 1 works but we need to wait an extra frame for Racing+ to
-      // replace the pedestal.
-      pickup.FrameCount === 2 &&
+      // Frame 0 does not work.
+      pickup.FrameCount === 1 &&
       pickup.State !== 2 && // We mark a state of 2 to indicate a duplicated pedestal
       (g.run.babyCountersRoom === 0 ||
         g.run.babyCountersRoom === gameFrameCount)

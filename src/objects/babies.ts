@@ -13,6 +13,7 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { HasAllEnumKeys } from "isaacscript-common";
+import { SpiderBaby } from "../babies/SpiderBaby";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { BabyDescription } from "../types/BabyDescription";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
@@ -24,6 +25,7 @@ export const BABIES = {
     description: "Shoots a Blue Spider every 2nd tear",
     sprite: "000_baby_spider.png",
     mustHaveTears: true,
+    class: SpiderBaby,
   },
 
   // 1
@@ -4550,50 +4552,57 @@ export const BABIES = {
   // 560
   [RandomBabyType.HEX]: {
     name: "Hex Baby",
-    description: "???",
+    description: "Starts with Eye of the Occult",
     sprite: "560_baby_hex.png",
+    item: CollectibleType.EYE_OF_THE_OCCULT,
   },
 
   // 561
   [RandomBabyType.SINGING]: {
     name: "Singing Baby",
-    description: "???",
+    description: "Starts with Astral Projection",
     sprite: "561_baby_singing.png",
+    item: CollectibleType.ASTRAL_PROJECTION,
   },
 
   // 562
   [RandomBabyType.JUNK]: {
     name: "Junk Baby",
-    description: "???",
+    description: "Starts with Binge Eater",
     sprite: "562_baby_junk.png",
+    item: CollectibleType.BINGE_EATER,
   },
 
   // 563
   [RandomBabyType.LUCKY]: {
     name: "Lucky Baby",
-    description: "???",
+    description: "Starts with The Stairway",
     sprite: "563_baby_lucky.png",
+    item: CollectibleType.STAIRWAY,
   },
 
   // 564
   [RandomBabyType.FINGER_2]: {
     name: "Finger Baby 2",
-    description: "???",
+    description: "Starts with Urn of Souls",
     sprite: "564_baby_finger.png",
+    item: CollectibleType.URN_OF_SOULS,
   },
 
   // 565
   [RandomBabyType.SUCKY_2]: {
     name: "Sucky Baby 2",
-    description: "???",
+    description: "Starts with Psy Fly",
     sprite: "565_baby_sucky.png",
+    item: CollectibleType.PSY_FLY,
   },
 
   // 566
   [RandomBabyType.DOOR_MIMIC]: {
     name: "Door Mimic Baby",
-    description: "???",
+    description: "Starts with Bot Fly",
     sprite: "566_baby_doormimic.png", // cspell:ignore doormimic
+    item: CollectibleType.BOT_FLY,
   },
 
   // 567
@@ -4607,43 +4616,49 @@ export const BABIES = {
   // 568
   [RandomBabyType.MOON_JELLY]: {
     name: "Moon Jelly Baby",
-    description: "???",
+    description: "Starts with Saturnus",
     sprite: "568_baby_moonjelly.png", // cspell:ignore moonjelly
+    item: CollectibleType.SATURNUS,
   },
 
   // 569
   [RandomBabyType.EXCELSIOR]: {
     name: "Excelsior Baby",
-    description: "???",
+    description: "Starts with Revelation",
     sprite: "569_baby_excelsior.png",
+    item: CollectibleType.REVELATION,
   },
 
   // 570
   [RandomBabyType.PAINFUL]: {
     name: "Painful Baby",
-    description: "???",
+    description: "Starts with Vasculitis",
     sprite: "570_baby_painful.png",
+    item: CollectibleType.VASCULITIS,
   },
 
   // 571
   [RandomBabyType.POINTLESS]: {
     name: "Pointless Baby",
-    description: "???",
+    description: "Items are replaced with 6 cards",
     sprite: "571_baby_pointless.png",
+    num: 6,
   },
 
   // 572
   [RandomBabyType.DOLEFUL]: {
     name: "Doleful Baby",
-    description: "???",
+    description: "Starts with The Intruder",
     sprite: "572_baby_doleful.png",
+    item: CollectibleType.INTRUDER,
   },
 
   // 573
   [RandomBabyType.CUBIC]: {
     name: "Cubic Baby",
-    description: "???",
+    description: "Starts with Brimstone Bombs",
     sprite: "573_baby_cubic.png",
+    item: CollectibleType.BRIMSTONE_BOMBS,
   },
 
   // 574

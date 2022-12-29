@@ -14,5 +14,7 @@ module.exports = {
     project: "./tsconfig.eslint.json",
   },
 
-  rules: {},
+  rules: {
+    "class-methods-use-this": "off",
+  },
 };

@@ -1,4 +1,5 @@
-import { ModCallback, PickupVariant } from "isaac-typescript-definitions";
+import { ModCallback } from "isaac-typescript-definitions";
+import { isCollectible } from "isaacscript-common";
 import { mod } from "../mod";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 import { getCurrentBaby } from "../utils";
@@ -16,8 +17,8 @@ function main(pickup: EntityPickup) {
 
   // All baby effects should ignore the Checkpoint.
   if (
-    pickup.Variant === PickupVariant.COLLECTIBLE &&
-    pickup.SubType === (CollectibleTypeCustom.CHECKPOINT as int)
+    isCollectible(pickup) &&
+    pickup.SubType === CollectibleTypeCustom.CHECKPOINT
   ) {
     return;
   }

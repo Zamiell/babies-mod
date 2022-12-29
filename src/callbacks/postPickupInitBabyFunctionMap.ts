@@ -1,6 +1,5 @@
 import {
   CardType,
-  CollectibleType,
   LevelStage,
   PickupVariant,
   RoomType,
@@ -8,10 +7,14 @@ import {
 import {
   getCollectibleDevilHeartPrice,
   inStartingRoom,
+  isCollectible,
+  repeat,
   setEntityRandomColor,
+  spawnCard,
 } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
+import { getCurrentBabyDescription } from "../utils";
 
 export const postPickupInitBabyFunctionMap = new Map<
   RandomBabyType,
@@ -57,7 +60,7 @@ postPickupInitBabyFunctionMap.set(
   RandomBabyType.SHOPKEEPER,
   (pickup: EntityPickup) => {
     // Free items in shops.
-    if (pickup.Variant === PickupVariant.COLLECTIBLE) {
+    if (isCollectible(pickup)) {
       const roomType = g.r.GetType();
       if (
         roomType === RoomType.SHOP || // 2
@@ -113,12 +116,31 @@ postPickupInitBabyFunctionMap.set(
   RandomBabyType.SCARY,
   (pickup: EntityPickup) => {
     // Items cost hearts
-    if (pickup.Variant === PickupVariant.COLLECTIBLE) {
+    if (isCollectible(pickup)) {
       pickup.AutoUpdatePrice = false;
-      pickup.Price = getCollectibleDevilHeartPrice(
-        pickup.SubType as CollectibleType,
-        g.p,
-      );
+      pickup.Price = getCollectibleDevilHeartPrice(pickup.SubType, g.p);
+    }
+  },
+);
+
+// 571
+postPickupInitBabyFunctionMap.set(
+  RandomBabyType.POINTLESS,
+  (pickup: EntityPickup) => {
+    const baby = getCurrentBabyDescription();
+    if (baby.num === undefined) {
+      error(`The "num" attribute was not defined for: ${baby.name}`);
+    }
+
+    // Items are replaced with N cards.
+    if (isCollectible(pickup)) {
+      pickup.Remove();
+      repeat(baby.num, () => {
+        // We want to spawn the cards at an offset so that they don't appear on top of each other.
+        const offset = RandomVector().mul(0.01);
+        const position = pickup.Position.add(offset);
+        spawnCard(CardType.NULL, position);
+      });
     }
   },
 );
@@ -128,7 +150,7 @@ postPickupInitBabyFunctionMap.set(
   RandomBabyType.DEMON,
   (pickup: EntityPickup) => {
     // Free devil deals
-    if (pickup.Variant === PickupVariant.COLLECTIBLE) {
+    if (isCollectible(pickup)) {
       const roomType = g.r.GetType();
       if (
         roomType === RoomType.DEVIL || // 14
@@ -145,7 +167,7 @@ postPickupInitBabyFunctionMap.set(
   RandomBabyType.FATES_REWARD,
   (pickup: EntityPickup) => {
     // Items cost money
-    if (pickup.Variant === PickupVariant.COLLECTIBLE) {
+    if (isCollectible(pickup)) {
       pickup.AutoUpdatePrice = false;
       pickup.Price = 15;
     }

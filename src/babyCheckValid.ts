@@ -540,8 +540,9 @@ function checkStage(babyType: RandomBabyType, baby: BabyDescription): boolean {
     return false;
   }
 
+  // 13
   if (
-    babyType === RandomBabyType.SHADOW && // 13
+    babyType === RandomBabyType.SHADOW &&
     (effectiveStage === 1 || effectiveStage >= 8)
   ) {
     // Devil Rooms / Angel Rooms go to the Black Market instead. Only valid for floors with Devil
@@ -550,16 +551,15 @@ function checkStage(babyType: RandomBabyType, baby: BabyDescription): boolean {
     return false;
   }
 
-  if (
-    babyType === RandomBabyType.ZERO && // 24
-    effectiveStage === 5
-  ) {
+  // 24
+  if (babyType === RandomBabyType.ZERO && effectiveStage === 5) {
     // -0- Baby cannot open the door to Mausoleum (since it requires health to be sacrificed).
     return false;
   }
 
+  // 62
   if (
-    babyType === RandomBabyType.GOAT && // 62
+    babyType === RandomBabyType.GOAT &&
     (effectiveStage <= 2 || effectiveStage >= 9)
   ) {
     // Only valid for floors with Devil Rooms. Also, we are guaranteed a Devil Room on Basement 2,
@@ -567,128 +567,102 @@ function checkStage(babyType: RandomBabyType, baby: BabyDescription): boolean {
     return false;
   }
 
-  if (
-    babyType === RandomBabyType.BOMB && // 75
-    effectiveStage === 10
-  ) {
+  // 75
+  if (babyType === RandomBabyType.BOMB && effectiveStage === 10) {
     // 50% chance for bombs to have the D6 effect.
     return false;
   }
 
-  if (
-    babyType === RandomBabyType.NOSFERATU && // 109
-    effectiveStage >= 8
-  ) {
+  // 109
+  if (babyType === RandomBabyType.NOSFERATU && effectiveStage >= 8) {
     // Enemies have homing projectiles This makes end-game floors too difficult.
     return false;
   }
 
-  if (
-    babyType === RandomBabyType.PUBIC && // 110
-    effectiveStage === 11
-  ) {
+  // 110
+  if (babyType === RandomBabyType.PUBIC && effectiveStage === 11) {
     // Must full clear Full clearing The Chest is too punishing.
     return false;
   }
 
-  if (
-    babyType === RandomBabyType.EARWIG && // 128
-    effectiveStage === 1
-  ) {
+  // 128
+  if (babyType === RandomBabyType.EARWIG && effectiveStage === 1) {
     // 3 rooms are already explored. This can make resetting slower, so don't have this baby on
     // Basement 1.
     return false;
   }
 
-  if (
-    babyType === RandomBabyType.TEARS && // 136
-    effectiveStage === 2
-  ) {
+  // 136
+  if (babyType === RandomBabyType.TEARS && effectiveStage === 2) {
     // Starts with the Soul Jar. Getting this on Basement 2 would cause a missed devil deal.
     return false;
   }
 
-  if (
-    babyType === RandomBabyType.TWIN && // 141
-    effectiveStage === 8
-  ) {
+  // 141
+  if (babyType === RandomBabyType.TWIN && effectiveStage === 8) {
     // If they mess up and go past the Boss Room, they can get the wrong path.
     return false;
   }
 
-  if (
-    babyType === RandomBabyType.CHOMPERS && // 143
-    effectiveStage === 11
-  ) {
+  // 143
+  if (babyType === RandomBabyType.CHOMPERS && effectiveStage === 11) {
     // Everything is Red Poop. There are almost no grid entities on The Chest.
     return false;
   }
 
-  if (
-    babyType === RandomBabyType.ATE_POOP && // 173
-    effectiveStage === 11
-  ) {
+  // 173
+  if (babyType === RandomBabyType.ATE_POOP && effectiveStage === 11) {
     // Destroying poops spawns random pickups. There are hardly any poops on The Chest.
     return false;
   }
 
-  if (
-    babyType === RandomBabyType.SHOPKEEPER && // 215
-    effectiveStage >= 7
-  ) {
+  // 215
+  if (babyType === RandomBabyType.SHOPKEEPER && effectiveStage >= 7) {
     // Free shop items
     return false;
   }
 
-  if (
-    babyType === RandomBabyType.GEM && // 237
-    effectiveStage >= 7
-  ) {
+  // 237
+  if (babyType === RandomBabyType.GEM && effectiveStage >= 7) {
     // Pennies spawn as nickels. Money is useless past Depths 2.
     return false;
   }
 
-  if (
-    babyType === RandomBabyType.PUZZLE && // 315
-    effectiveStage === 10
-  ) {
+  // 315
+  if (babyType === RandomBabyType.PUZZLE && effectiveStage === 10) {
     // The D6 effect on hit.
     return false;
   }
 
-  if (
-    babyType === RandomBabyType.SCARY && // 317
-    effectiveStage === 6
-  ) {
+  // 317
+  if (babyType === RandomBabyType.SCARY && effectiveStage === 6) {
     // Items cost hearts. The player may not be able to take The Polaroid (when playing a normal
     // run).
     return false;
   }
 
-  if (
-    babyType === RandomBabyType.RED_WRESTLER && // 389
-    effectiveStage === 11
-  ) {
+  // 389
+  if (babyType === RandomBabyType.RED_WRESTLER && effectiveStage === 11) {
     // Everything is TNT. There are almost no grid entities on The Chest / Dark Room.
     return false;
   }
 
-  if (
-    babyType === RandomBabyType.RICH && // 424
-    effectiveStage >= 7
-  ) {
+  // 424
+  if (babyType === RandomBabyType.RICH && effectiveStage >= 7) {
     // Starts with 99 cents. Money is useless past Depths.
     return false;
   }
 
+  // 430
   if (
-    babyType === RandomBabyType.FOLDER && // 430
+    babyType === RandomBabyType.FOLDER &&
     (effectiveStage === 1 || effectiveStage === 10)
   ) {
     // Swaps item/shop pools + devil/angel pools.
     return false;
   }
 
+  // 437
   if (
     babyType === RandomBabyType.BREADMEAT_HOODIEBREAD &&
     effectiveStage >= 8
@@ -697,8 +671,9 @@ function checkStage(babyType: RandomBabyType, baby: BabyDescription): boolean {
     return false;
   }
 
+  // 514
   if (
-    babyType === RandomBabyType.HOOLIGAN && // 514
+    babyType === RandomBabyType.HOOLIGAN &&
     (effectiveStage === 6 || effectiveStage >= 8)
   ) {
     // Double enemies. Mom cannot be doubled, so don't give this baby on stage 6. It Lives cannot be
@@ -707,15 +682,14 @@ function checkStage(babyType: RandomBabyType, baby: BabyDescription): boolean {
     return false;
   }
 
-  if (
-    babyType === RandomBabyType.BAGGY_CAP && // 519
-    effectiveStage === 11
-  ) {
+  // 519
+  if (babyType === RandomBabyType.BAGGY_CAP && effectiveStage === 11) {
     return false;
   }
 
+  // 535
   if (
-    babyType === RandomBabyType.EYEBAT && // 535
+    babyType === RandomBabyType.EYEBAT &&
     (effectiveStage === 6 || effectiveStage >= 8 || onRepentanceStage())
   ) {
     // Floors are reversed. We don't want to have this on any end floors so that we can simply the
@@ -723,24 +697,35 @@ function checkStage(babyType: RandomBabyType, baby: BabyDescription): boolean {
     return false;
   }
 
+  // 571
   if (
-    babyType === RandomBabyType.DEMON && // 581
+    babyType === RandomBabyType.POINTLESS &&
+    (effectiveStage === 1 || effectiveStage === 2)
+  ) {
+    // - Ban it on the first floor so that it does not conflict with resetting for a Treasure Room
+    //   item.
+    // - Ban it on the second floor so that it does not conflict with the first devil deal.
+    return false;
+  }
+
+  // 581
+  if (
+    babyType === RandomBabyType.DEMON &&
     (effectiveStage === 1 || effectiveStage >= 9)
   ) {
     // Only valid for floors with Devil Rooms.
     return false;
   }
 
-  if (
-    babyType === RandomBabyType.GHOST && // 582
-    effectiveStage === 2
-  ) {
+  // 582
+  if (babyType === RandomBabyType.GHOST && effectiveStage === 2) {
     // All items from the shop pool. On stage 2, they will miss a Devil Deal, which is not fair.
     return false;
   }
 
+  // 591
   if (
-    babyType === RandomBabyType.FATES_REWARD && // 591
+    babyType === RandomBabyType.FATES_REWARD &&
     (effectiveStage <= 2 || effectiveStage === 6 || effectiveStage >= 10)
   ) {
     // Items cost money. On stage 1, the player does not have 15 cents. On stage 2, they will miss a
