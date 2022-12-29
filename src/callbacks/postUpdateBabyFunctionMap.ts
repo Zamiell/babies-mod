@@ -56,31 +56,6 @@ import { getCurrentBabyDescription } from "../utilsBaby";
 
 export const postUpdateBabyFunctionMap = new Map<RandomBabyType, () => void>();
 
-// 19
-postUpdateBabyFunctionMap.set(RandomBabyType.WRATH, () => {
-  const gameFrameCount = game.GetFrameCount();
-  const baby = getCurrentBabyDescription();
-  if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for: ${baby.name}`);
-  }
-
-  if (gameFrameCount % baby.num === 0) {
-    useActiveItemTemp(g.p, CollectibleType.ANARCHIST_COOKBOOK);
-  }
-});
-
-// 20
-postUpdateBabyFunctionMap.set(RandomBabyType.WRAPPED, () => {
-  const gameFrameCount = game.GetFrameCount();
-
-  // If the explosions happen too fast, it looks buggy, so do it instead every 3 frames.
-  if (gameFrameCount % 3 === 0 && g.run.babyCounters > 0) {
-    // This should not cause any damage since the player will have invulnerability frames.
-    g.run.babyCounters--;
-    useActiveItemTemp(g.p, CollectibleType.KAMIKAZE);
-  }
-});
-
 // 27
 postUpdateBabyFunctionMap.set(RandomBabyType.BLACK, () => {
   pseudoRoomClear.postUpdate();

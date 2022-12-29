@@ -65,14 +65,6 @@ export const entityTakeDmgPlayerBabyFunctionMap = new Map<
   ) => boolean | undefined
 >();
 
-// 20
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.WRAPPED, (_player) => {
-  // Use Kamikaze on the next 5 frames.
-  g.run.babyCounters = 5;
-
-  return undefined;
-});
-
 // 24
 entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.ZERO,

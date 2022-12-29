@@ -3,7 +3,7 @@ import { Callback, repeat } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
-/** Spawns 10 Blue Spiders on hit. */
+/** Spawns N Blue Spiders on hit. */
 export class HostBaby extends Baby {
   @Callback(ModCallback.ENTITY_TAKE_DMG, EntityType.PLAYER)
   private entityTakeDmgPlayer(entity: Entity): boolean | undefined {

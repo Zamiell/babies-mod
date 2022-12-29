@@ -30,12 +30,6 @@ export const postFireTearBabyFunctionMap = new Map<
   (tear: EntityTear) => void
 >();
 
-// 18
-postFireTearBabyFunctionMap.set(RandomBabyType.MAG, (tear: EntityTear) => {
-  tear.ChangeVariant(TearVariant.METALLIC);
-  tear.TearFlags = addFlag(tear.TearFlags, TearFlag.CONFUSION);
-});
-
 // 26
 postFireTearBabyFunctionMap.set(RandomBabyType.MAGNET, (tear: EntityTear) => {
   tear.ChangeVariant(TearVariant.METALLIC);

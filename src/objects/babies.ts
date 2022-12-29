@@ -12,7 +12,7 @@ import {
   SeedEffect,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { HasAllEnumKeys } from "isaacscript-common";
+import { GAME_FRAMES_PER_SECOND, HasAllEnumKeys } from "isaacscript-common";
 import { BeanBaby } from "../classes/babies/BeanBaby";
 import { BloatBaby } from "../classes/babies/BloatBaby";
 import { CockeyedBaby } from "../classes/babies/CockeyedBaby";
@@ -23,10 +23,13 @@ import { GoldBaby } from "../classes/babies/GoldBaby";
 import { HostBaby } from "../classes/babies/HostBaby";
 import { LostBaby } from "../classes/babies/LostBaby";
 import { LoveBaby } from "../classes/babies/LoveBaby";
+import { MagBaby } from "../classes/babies/MagBaby";
 import { ShadowBaby } from "../classes/babies/ShadowBaby";
 import { SpiderBaby } from "../classes/babies/SpiderBaby";
 import { TrollBaby } from "../classes/babies/TrollBaby";
 import { WaterBaby } from "../classes/babies/WaterBaby";
+import { WrappedBaby } from "../classes/babies/WrappedBaby";
+import { WrathBaby } from "../classes/babies/WrathBaby";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { BabyDescription } from "../types/BabyDescription";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
@@ -38,6 +41,7 @@ export const BABIES = {
     description: "Shoots a Blue Spider every 2nd tear",
     sprite: "000_baby_spider.png",
     mustHaveTears: true,
+    num: 2,
     class: SpiderBaby,
   },
 
@@ -192,6 +196,7 @@ export const BABIES = {
     description: "Confusion tears",
     sprite: "018_baby_mag.png",
     mustHaveTears: true,
+    class: MagBaby,
   },
 
   // 19
@@ -199,14 +204,17 @@ export const BABIES = {
     name: "Wrath Baby",
     description: "Anarchist Cookbook effect every 7 seconds",
     sprite: "019_baby_wrath.png",
-    num: 210, // 7 seconds (in game frames)
+    num: 7 * GAME_FRAMES_PER_SECOND,
+    class: WrathBaby,
   },
 
   // 20
   [RandomBabyType.WRAPPED]: {
     name: "Wrapped Baby",
-    description: "5x Kamikaze! effect on hit",
+    description: "5x Kamikaze effect on hit",
     sprite: "020_baby_wrapped.png",
+    num: 5,
+    class: WrappedBaby,
   },
 
   // 21
@@ -357,7 +365,7 @@ export const BABIES = {
     name: "Noose Baby",
     description: "Don't shoot when the timer reaches 0",
     sprite: "039_baby_noose.png",
-    time: 6 * 30, // 6 seconds (in game frames)
+    time: 6 * GAME_FRAMES_PER_SECOND,
   },
 
   // 40
@@ -2803,7 +2811,7 @@ export const BABIES = {
     name: "Vomit Baby",
     description: "Must stand still every 10 seconds",
     sprite: "341_baby_vomit.png",
-    time: 10 * 30, // 10 seconds (in game frames)
+    time: 10 * GAME_FRAMES_PER_SECOND,
   },
 
   // 342
