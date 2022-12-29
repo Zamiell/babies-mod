@@ -13,7 +13,7 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { HasAllEnumKeys } from "isaacscript-common";
-import { SpiderBaby } from "../babies/SpiderBaby";
+import { SpiderBaby } from "../classes/babies/SpiderBaby";
 import { Baby } from "../classes/Baby";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { BabyDescription } from "../types/BabyDescription";

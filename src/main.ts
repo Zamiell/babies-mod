@@ -31,6 +31,7 @@ import * as postUsePill from "./callbacks/postUsePill";
 import * as preEntitySpawn from "./callbacks/preEntitySpawn";
 import * as preGetCollectible from "./callbacks/preGetCollectible";
 import * as preRoomEntitySpawn from "./callbacks/preRoomEntitySpawn";
+import * as preSpawnClearAward from "./callbacks/preSpawnClearAward";
 import * as preTearCollision from "./callbacks/preTearCollision";
 import * as preUseItem from "./callbacks/preUseItem";
 import * as postGameStartedReordered from "./callbacksCustom/postGameStartedReordered";
@@ -43,7 +44,6 @@ import * as postNewRoomReordered from "./callbacksCustom/postNewRoomReordered";
 import * as postPickupCollect from "./callbacksCustom/postPickupCollect";
 import * as postPlayerChangeType from "./callbacksCustom/postPlayerChangeType";
 import * as postPurchase from "./callbacksCustom/postPurchase";
-import * as postRoomClearChanged from "./callbacksCustom/postRoomClearChanged";
 import * as postSlotDestroyed from "./callbacksCustom/postSlotDestroyed";
 import * as postTrinketBreak from "./callbacksCustom/postTrinketBreak";
 import * as preItemPickup from "./callbacksCustom/preItemPickup";
@@ -109,6 +109,7 @@ function registerCallbacksMain() {
   postFireTear.init(); // 61
   preGetCollectible.init(); // 62
   postEntityKill.init(); // 68
+  preSpawnClearAward.init(); // 70
   preRoomEntitySpawn.init(); // 71
 }
 
@@ -121,7 +122,6 @@ function registerCallbacksCustom() {
   postItemPickup.init();
   postPurchase.init();
   postPlayerChangeType.init();
-  postRoomClearChanged.init();
   postSlotDestroyed.init();
   postTrinketBreak.init();
   postGridEntityInit.init();

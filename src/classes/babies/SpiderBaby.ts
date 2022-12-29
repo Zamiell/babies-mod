@@ -4,8 +4,8 @@ import {
   ModCallback,
 } from "isaac-typescript-definitions";
 import { Callback, removeAllMatchingEntities } from "isaacscript-common";
-import { Baby } from "../classes/Baby";
-import g from "../globals";
+import g from "../../globals";
+import { Baby } from "../Baby";
 
 /** Shoots a Blue Spider every 2nd tear. */
 export class SpiderBaby extends Baby {

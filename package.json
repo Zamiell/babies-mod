@@ -12,7 +12,7 @@
   "license": "GPL-3.0",
   "type": "commonjs",
   "dependencies": {
-    "isaac-typescript-definitions": "^10.0.4",
+    "isaac-typescript-definitions": "^10.0.5",
     "isaacscript": "^3.4.0",
     "isaacscript-common": "^17.7.1",
     "isaacscript-lint": "^4.3.0",

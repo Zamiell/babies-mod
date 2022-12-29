@@ -15,7 +15,6 @@ const CUSTOM_CALLBACKS_USED = [
   ModCallbackCustom.POST_ITEM_PICKUP,
   ModCallbackCustom.POST_PURCHASE,
   ModCallbackCustom.POST_PLAYER_CHANGE_TYPE,
-  ModCallbackCustom.POST_ROOM_CLEAR_CHANGED,
   ModCallbackCustom.POST_SLOT_DESTROYED,
   ModCallbackCustom.POST_TRINKET_BREAK,
   ModCallbackCustom.POST_GRID_ENTITY_INIT,
