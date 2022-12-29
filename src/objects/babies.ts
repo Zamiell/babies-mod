@@ -15,12 +15,16 @@ import {
 import { GAME_FRAMES_PER_SECOND, HasAllEnumKeys } from "isaacscript-common";
 import { AetherBaby } from "../classes/babies/AetherBaby";
 import { AlienHominidBaby } from "../classes/babies/AlienHominidBaby";
+import { BawlBaby } from "../classes/babies/BawlBaby";
 import { BeanBaby } from "../classes/babies/BeanBaby";
 import { BigEyesBaby } from "../classes/babies/BigEyesBaby";
 import { BlackBaby } from "../classes/babies/BlackBaby";
 import { BloatBaby } from "../classes/babies/BloatBaby";
 import { BlueBaby } from "../classes/babies/BlueBaby";
+import { CapeBaby } from "../classes/babies/CapeBaby";
 import { CockeyedBaby } from "../classes/babies/CockeyedBaby";
+import { ColdBaby } from "../classes/babies/ColdBaby";
+import { CrookedBaby } from "../classes/babies/CrookedBaby";
 import { CrowBaby } from "../classes/babies/CrowBaby";
 import { CryBaby } from "../classes/babies/CryBaby";
 import { CuteBaby } from "../classes/babies/CuteBaby";
@@ -30,24 +34,31 @@ import { GlassBaby } from "../classes/babies/GlassBaby";
 import { GoldBaby } from "../classes/babies/GoldBaby";
 import { GreenBaby } from "../classes/babies/GreenBaby";
 import { HostBaby } from "../classes/babies/HostBaby";
+import { LightsBaby } from "../classes/babies/LightsBaby";
 import { LongBaby } from "../classes/babies/LongBaby";
 import { LostBaby } from "../classes/babies/LostBaby";
 import { LoveBaby } from "../classes/babies/LoveBaby";
 import { MagBaby } from "../classes/babies/MagBaby";
 import { MagnetBaby } from "../classes/babies/MagnetBaby";
+import { MonocleBaby } from "../classes/babies/MonocleBaby";
 import { MortBaby } from "../classes/babies/MortBaby";
 import { MustacheBaby } from "../classes/babies/MustacheBaby";
+import { NiceBaby } from "../classes/babies/NiceBaby";
 import { RageBaby } from "../classes/babies/RageBaby";
 import { ScreamBaby } from "../classes/babies/ScreamBaby";
 import { ShadowBaby } from "../classes/babies/ShadowBaby";
+import { SickBaby } from "../classes/babies/SickBaby";
+import { SkinnyBaby } from "../classes/babies/SkinnyBaby";
 import { SpiderBaby } from "../classes/babies/SpiderBaby";
 import { SquareEyesBaby } from "../classes/babies/SquareEyesBaby";
 import { StrangeMouthBaby } from "../classes/babies/StrangeMouthBaby";
 import { StrangeShapeBaby } from "../classes/babies/StrangeShapeBaby";
 import { SuperGreedBaby } from "../classes/babies/SuperGreedBaby";
+import { TiltBaby } from "../classes/babies/TiltBaby";
 import { TrollBaby } from "../classes/babies/TrollBaby";
 import { VBaby } from "../classes/babies/VBaby";
 import { WaterBaby } from "../classes/babies/WaterBaby";
+import { WebBaby } from "../classes/babies/WebBaby";
 import { WrappedBaby } from "../classes/babies/WrappedBaby";
 import { WrathBaby } from "../classes/babies/WrathBaby";
 import { YellowBaby } from "../classes/babies/YellowBaby";
@@ -1159,9 +1170,10 @@ export const BABIES = {
   // 133
   [RandomBabyType.CROOKED]: {
     name: "Crooked Baby",
-    description: "Tears angled by 15 degrees to the left",
+    description: "Left angled tears",
     sprite: "133_baby_crooked.png",
     mustHaveTears: true,
+    class: CrookedBaby,
   },
 
   // 134
@@ -1311,6 +1323,7 @@ export const BABIES = {
     description: "Spray tears",
     sprite: "152_baby_cape.png",
     mustHaveTears: true,
+    class: CapeBaby,
   },
 
   // 153
@@ -1415,6 +1428,7 @@ export const BABIES = {
     sprite: "165_baby_lights.png",
     num: 3,
     mustHaveTears: true,
+    class: LightsBaby,
   },
 
   // 166
@@ -1572,9 +1586,10 @@ export const BABIES = {
   // 185
   [RandomBabyType.WEB]: {
     name: "Web Baby",
-    description: "Slow tears",
+    description: "Slowing tears",
     sprite: "185_baby_web.png",
     mustHaveTears: true,
+    class: WebBaby,
   },
 
   // 186
@@ -1591,6 +1606,7 @@ export const BABIES = {
     sprite: "187_baby_sick.png",
     flight: true,
     mustHaveTears: true,
+    class: SickBaby,
   },
 
   // 188
@@ -1650,6 +1666,7 @@ export const BABIES = {
     description: "Freeze tears",
     sprite: "194_baby_cold.png",
     mustHaveTears: true,
+    class: ColdBaby,
   },
 
   // 195
@@ -1674,6 +1691,7 @@ export const BABIES = {
     description: "Brimstone tears",
     sprite: "197_baby_nice.png",
     mustHaveTears: true,
+    class: NiceBaby,
   },
 
   // 198
@@ -1749,6 +1767,8 @@ export const BABIES = {
     description: "3x tear size",
     sprite: "206_baby_monocle.png",
     mustHaveTears: true,
+    num: 3,
+    class: MonocleBaby,
   },
 
   // 207
@@ -1805,6 +1825,7 @@ export const BABIES = {
     description: "Super homing tears",
     sprite: "213_baby_skinny.png",
     mustHaveTears: true,
+    class: SkinnyBaby,
   },
 
   // 214
@@ -1938,9 +1959,10 @@ export const BABIES = {
   // 230
   [RandomBabyType.TILT]: {
     name: "Tilt Baby",
-    description: "Tears angled by 15 degrees to the right",
+    description: "Right angled tears",
     sprite: "230_baby_tilt.png",
     mustHaveTears: true,
+    class: TiltBaby,
   },
 
   // 231
@@ -1950,6 +1972,7 @@ export const BABIES = {
     sprite: "231_baby_bawl.png",
     blindfolded: true,
     softlockPreventionIsland: true,
+    class: BawlBaby,
   },
 
   // 232

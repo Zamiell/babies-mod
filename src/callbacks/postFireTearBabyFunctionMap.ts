@@ -1,5 +1,4 @@
 import {
-  BlueFlySubType,
   BombVariant,
   CollectibleType,
   FamiliarVariant,
@@ -14,10 +13,9 @@ import {
   GAME_FRAMES_PER_SECOND,
   getFamiliars,
   spawnBomb,
-  spawnFamiliar,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { FADED_BLUE, FADED_RED, FADED_YELLOW } from "../constants";
+import { FADED_BLUE, FADED_RED } from "../constants";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { TearData } from "../types/TearData";
@@ -27,83 +25,6 @@ export const postFireTearBabyFunctionMap = new Map<
   RandomBabyType,
   (tear: EntityTear) => void
 >();
-
-// 133
-postFireTearBabyFunctionMap.set(RandomBabyType.CROOKED, (tear: EntityTear) => {
-  tear.Velocity = tear.Velocity.Rotated(-15);
-});
-
-// 152
-postFireTearBabyFunctionMap.set(RandomBabyType.CAPE, (tear: EntityTear) => {
-  const angleModifier = math.random(0, 90) - 45;
-  tear.Velocity = tear.Velocity.Rotated(angleModifier);
-  tear.SetColor(FADED_YELLOW, 10000, 10000, false, false);
-});
-
-// 165
-postFireTearBabyFunctionMap.set(RandomBabyType.LIGHTS, (tear: EntityTear) => {
-  const baby = getCurrentBabyDescription();
-  if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for: ${baby.name}`);
-  }
-
-  g.run.babyCounters++;
-  if (g.run.babyCounters === baby.num) {
-    g.run.babyCounters = 0;
-    tear.TearFlags = addFlag(tear.TearFlags, TearFlag.LIGHT_FROM_HEAVEN);
-  }
-});
-
-// 185
-postFireTearBabyFunctionMap.set(RandomBabyType.WEB, (tear: EntityTear) => {
-  tear.TearFlags = addFlag(tear.TearFlags, TearFlag.SLOW);
-});
-
-// 187
-postFireTearBabyFunctionMap.set(RandomBabyType.SICK, (tear: EntityTear) => {
-  spawnFamiliar(
-    FamiliarVariant.BLUE_FLY,
-    BlueFlySubType.WRATH,
-    tear.Position,
-    tear.Velocity,
-    tear.SpawnerEntity,
-    tear.InitSeed,
-  );
-  tear.Remove();
-});
-
-// 194
-postFireTearBabyFunctionMap.set(RandomBabyType.COLD, (tear: EntityTear) => {
-  tear.TearFlags = addFlag(tear.TearFlags, TearFlag.FREEZE);
-  tear.SetColor(FADED_BLUE, 10000, 10000, false, false);
-});
-
-// 197
-postFireTearBabyFunctionMap.set(RandomBabyType.NICE, (tear: EntityTear) => {
-  g.p.FireBrimstone(tear.Velocity);
-  tear.Remove();
-});
-
-// 206
-postFireTearBabyFunctionMap.set(RandomBabyType.MONOCLE, (tear: EntityTear) => {
-  tear.Scale *= 3;
-});
-
-// 213
-postFireTearBabyFunctionMap.set(RandomBabyType.SKINNY, (tear: EntityTear) => {
-  // Mark that we shot this tear.
-  tear.SubType = 1;
-});
-
-// 230
-postFireTearBabyFunctionMap.set(RandomBabyType.TILT, (tear: EntityTear) => {
-  tear.Velocity = tear.Velocity.Rotated(15);
-});
-
-// 231
-postFireTearBabyFunctionMap.set(RandomBabyType.BAWL, (tear: EntityTear) => {
-  tear.CollisionDamage = g.p.Damage / 2;
-});
 
 // 246
 postFireTearBabyFunctionMap.set(
