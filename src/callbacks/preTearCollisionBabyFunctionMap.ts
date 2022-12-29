@@ -12,7 +12,6 @@ export const preTearCollisionBabyFunctionMap = new Map<
 preTearCollisionBabyFunctionMap.set(
   RandomBabyType.MORT,
   (tear: EntityTear, _collider: Entity) => {
-    // Guppy tears
     if (tear.SubType === 1) {
       g.p.AddBlueFlies(1, g.p.Position, undefined);
     }

@@ -28,38 +28,6 @@ export const postFireTearBabyFunctionMap = new Map<
   (tear: EntityTear) => void
 >();
 
-// 106
-postFireTearBabyFunctionMap.set(RandomBabyType.AETHER, (tear: EntityTear) => {
-  // Shoot 8 tears at a time. (We store the rotation angle inside the "babyCounters" variable.)
-  g.run.babyCounters += 45;
-  if (g.run.babyCounters < 360) {
-    const velocity = tear.Velocity.Rotated(g.run.babyCounters);
-    g.p.FireTear(g.p.Position, velocity, false, true, false);
-  } else {
-    g.run.babyCounters = 0;
-  }
-});
-
-// 111
-postFireTearBabyFunctionMap.set(RandomBabyType.EYEMOUTH, (tear: EntityTear) => {
-  const gameFrameCount = game.GetFrameCount();
-
-  // Shoot an extra tear every 3rd shot.
-  g.run.babyTears.numFired++;
-  if (g.run.babyTears.numFired >= 4) {
-    // Mark to fire a tear 1 frame from now.
-    g.run.babyTears.numFired = 0;
-    g.run.babyTears.frame = gameFrameCount + 1;
-    g.run.babyTears.velocity = Vector(tear.Velocity.X, tear.Velocity.Y);
-  }
-});
-
-// 113
-postFireTearBabyFunctionMap.set(RandomBabyType.V, (tear: EntityTear) => {
-  g.p.FireTechXLaser(tear.Position, tear.Velocity, 5);
-  tear.Remove();
-});
-
 // 114
 postFireTearBabyFunctionMap.set(
   RandomBabyType.STRANGE_MOUTH,

@@ -13,6 +13,7 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { GAME_FRAMES_PER_SECOND, HasAllEnumKeys } from "isaacscript-common";
+import { AetherBaby } from "../classes/babies/AetherBaby";
 import { AlienHominidBaby } from "../classes/babies/AlienHominidBaby";
 import { BeanBaby } from "../classes/babies/BeanBaby";
 import { BlackBaby } from "../classes/babies/BlackBaby";
@@ -22,6 +23,8 @@ import { CockeyedBaby } from "../classes/babies/CockeyedBaby";
 import { CrowBaby } from "../classes/babies/CrowBaby";
 import { CryBaby } from "../classes/babies/CryBaby";
 import { CuteBaby } from "../classes/babies/CuteBaby";
+import { EdBaby } from "../classes/babies/EdBaby";
+import { EyemouthBaby } from "../classes/babies/EyeMouthBaby";
 import { GlassBaby } from "../classes/babies/GlassBaby";
 import { GoldBaby } from "../classes/babies/GoldBaby";
 import { GreenBaby } from "../classes/babies/GreenBaby";
@@ -33,10 +36,13 @@ import { MagBaby } from "../classes/babies/MagBaby";
 import { MagnetBaby } from "../classes/babies/MagnetBaby";
 import { MortBaby } from "../classes/babies/MortBaby";
 import { RageBaby } from "../classes/babies/RageBaby";
+import { ScreamBaby } from "../classes/babies/ScreamBaby";
 import { ShadowBaby } from "../classes/babies/ShadowBaby";
 import { SpiderBaby } from "../classes/babies/SpiderBaby";
+import { SquareEyesBaby } from "../classes/babies/SquareEyesBaby";
 import { SuperGreedBaby } from "../classes/babies/SuperGreedBaby";
 import { TrollBaby } from "../classes/babies/TrollBaby";
+import { VBaby } from "../classes/babies/VBaby";
 import { WaterBaby } from "../classes/babies/WaterBaby";
 import { WrappedBaby } from "../classes/babies/WrappedBaby";
 import { WrathBaby } from "../classes/babies/WrathBaby";
@@ -725,6 +731,7 @@ export const BABIES = {
     description: "Shoop tears",
     sprite: "081_baby_scream.png",
     mustHaveTears: true,
+    class: ScreamBaby,
   },
 
   // 82
@@ -830,6 +837,7 @@ export const BABIES = {
     description: "Square tears",
     sprite: "094_baby_squareeyes.png",
     mustHaveTears: true,
+    class: SquareEyesBaby,
   },
 
   // 95
@@ -878,6 +886,7 @@ export const BABIES = {
     description: "Fire trail tears",
     sprite: "100_baby_ed.png",
     mustHaveTears: true,
+    class: EdBaby,
   },
 
   // 101
@@ -924,6 +933,7 @@ export const BABIES = {
     description: "All direction tears",
     sprite: "106_baby_aether.png",
     mustHaveTears: true,
+    class: AetherBaby,
   },
 
   // 107
@@ -962,6 +972,7 @@ export const BABIES = {
     description: "Shoots an extra tear every 3rd shot",
     sprite: "111_baby_eyemouth.png",
     mustHaveTears: true,
+    class: EyemouthBaby,
   },
 
   // 112
@@ -978,6 +989,7 @@ export const BABIES = {
     description: "Electric ring tears",
     sprite: "113_baby_v.png",
     mustHaveTears: true,
+    class: VBaby,
   },
 
   // 114

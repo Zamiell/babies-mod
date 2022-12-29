@@ -1,12 +1,15 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { Callback } from "isaacscript-common";
+import { g } from "../../globals";
 import { Baby } from "../Baby";
 
-/** Fire trail tears. */
-export class EdBaby extends Baby {
+const RING_RADIUS = 5;
+
+/** Electric ring tears. */
+export class VBaby extends Baby {
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
-    // Mark that we shot this tear.
-    tear.SubType = 1;
+    g.p.FireTechXLaser(tear.Position, tear.Velocity, RING_RADIUS);
+    tear.Remove();
   }
 }
