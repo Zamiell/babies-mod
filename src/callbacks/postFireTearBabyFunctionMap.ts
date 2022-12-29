@@ -17,8 +17,6 @@ import { TearData } from "../types/TearData";
 import { setTearColor } from "../utils";
 import { getCurrentBabyDescription } from "../utilsBaby";
 
-const LIGHT_CYAN = Color(0.7, 1.5, 2, 0.7, 1, 1, 1);
-
 export const postFireTearBabyFunctionMap = new Map<
   RandomBabyType,
   (tear: EntityTear) => void
@@ -52,18 +50,9 @@ postFireTearBabyFunctionMap.set(RandomBabyType.REFEREE, (tear: EntityTear) => {
 postFireTearBabyFunctionMap.set(
   RandomBabyType.ASTRONAUT,
   (tear: EntityTear) => {
-    // Mark that we shot this tear.
-    tear.SubType = 1;
+    tear.SubType = 1; // Mark that we shot this tear.
   },
 );
-
-// 410
-postFireTearBabyFunctionMap.set(RandomBabyType.GILLS, (tear: EntityTear) => {
-  setTearColor(tear, LIGHT_CYAN);
-
-  // Mark that we shot this tear.
-  tear.SubType = 1;
-});
 
 // 429
 postFireTearBabyFunctionMap.set(
@@ -153,8 +142,7 @@ postFireTearBabyFunctionMap.set(
 postFireTearBabyFunctionMap.set(
   RandomBabyType.SAD_BUNNY,
   (tear: EntityTear) => {
-    // Mark that we shot this tear.
-    tear.SubType = 1;
+    tear.SubType = 1; // Mark that we shot this tear.
   },
 );
 
@@ -214,8 +202,7 @@ postFireTearBabyFunctionMap.set(
 postFireTearBabyFunctionMap.set(
   RandomBabyType.CURSED_PILLOW,
   (tear: EntityTear) => {
-    // Mark that we shot this tear.
-    tear.SubType = 1;
+    tear.SubType = 1; // Mark that we shot this tear.
   },
 );
 
@@ -278,30 +265,6 @@ postFireTearBabyFunctionMap.set(
     tear.TearFlags = addFlag(tear.TearFlags, TearFlag.EGG);
   },
 );
-
-// 585
-postFireTearBabyFunctionMap.set(RandomBabyType.ABEL, (tear: EntityTear) => {
-  // Mark that we shot this tear.
-  tear.SubType = 1;
-});
-
-// 587
-postFireTearBabyFunctionMap.set(RandomBabyType.ROTTEN, (tear: EntityTear) => {
-  tear.Remove();
-  g.p.AddBlueFlies(1, g.p.Position, undefined);
-});
-
-// 593
-postFireTearBabyFunctionMap.set(RandomBabyType.LIL_LOKI, (tear: EntityTear) => {
-  // Cross tears. (We store the rotation angle in the "babyCounters" variable.)
-  g.run.babyCounters += 90;
-  if (g.run.babyCounters < 360) {
-    const velocity = tear.Velocity.Rotated(g.run.babyCounters);
-    g.p.FireTear(g.p.Position, velocity, false, true, false);
-  } else {
-    g.run.babyCounters = 0;
-  }
-});
 
 // 596
 postFireTearBabyFunctionMap.set(

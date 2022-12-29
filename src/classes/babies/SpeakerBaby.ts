@@ -7,9 +7,8 @@ import { Baby } from "../Baby";
 export class SpeakerBaby extends Baby {
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
-    // Mark that we shot this tear.
     if (!g.run.babyBool) {
-      tear.SubType = 1;
+      tear.SubType = 1; // Mark that we shot this tear.
     }
   }
 }

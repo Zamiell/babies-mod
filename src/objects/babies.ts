@@ -13,6 +13,7 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { GAME_FRAMES_PER_SECOND, HasAllEnumKeys } from "isaacscript-common";
+import { Abel } from "../classes/babies/Abel";
 import { AetherBaby } from "../classes/babies/AetherBaby";
 import { AlienHominidBaby } from "../classes/babies/AlienHominidBaby";
 import { ArcadeBaby } from "../classes/babies/ArcadeBaby";
@@ -34,12 +35,14 @@ import { CuteBaby } from "../classes/babies/CuteBaby";
 import { EdBaby } from "../classes/babies/EdBaby";
 import { EightBallBaby } from "../classes/babies/EightBallBaby";
 import { EyemouthBaby } from "../classes/babies/EyemouthBaby";
+import { GillsBaby } from "../classes/babies/GillsBaby";
 import { GlassBaby } from "../classes/babies/GlassBaby";
 import { GoldBaby } from "../classes/babies/GoldBaby";
 import { GreenBaby } from "../classes/babies/GreenBaby";
 import { HostBaby } from "../classes/babies/HostBaby";
 import { ImpBaby2 } from "../classes/babies/ImpBaby2";
 import { LightsBaby } from "../classes/babies/LightsBaby";
+import { LilLoki } from "../classes/babies/LilLoki";
 import { LocustBaby } from "../classes/babies/LocustBaby";
 import { LongBaby } from "../classes/babies/LongBaby";
 import { LostBaby } from "../classes/babies/LostBaby";
@@ -48,6 +51,7 @@ import { MagBaby } from "../classes/babies/MagBaby";
 import { MagnetBaby } from "../classes/babies/MagnetBaby";
 import { MonocleBaby } from "../classes/babies/MonocleBaby";
 import { MortBaby } from "../classes/babies/MortBaby";
+import { MushroomGirlBaby } from "../classes/babies/MushroomGirlBaby";
 import { MustacheBaby } from "../classes/babies/MustacheBaby";
 import { NiceBaby } from "../classes/babies/NiceBaby";
 import { OBaby2 } from "../classes/babies/OBaby2";
@@ -55,6 +59,7 @@ import { OctopusBaby } from "../classes/babies/OctopusBaby";
 import { OrangeDemonBaby } from "../classes/babies/OrangeDemonBaby";
 import { PinkGhostBaby } from "../classes/babies/PinkGhostBaby";
 import { RageBaby } from "../classes/babies/RageBaby";
+import { RottenBaby } from "../classes/babies/RottenBaby";
 import { ScreamBaby } from "../classes/babies/ScreamBaby";
 import { ShadowBaby } from "../classes/babies/ShadowBaby";
 import { SickBaby } from "../classes/babies/SickBaby";
@@ -396,7 +401,7 @@ export const BABIES = {
 
   // 36
   [RandomBabyType.LIL]: {
-    name: "Lil' Baby",
+    name: "Lil Baby",
     description: "Everything is tiny",
     sprite: "036_baby_lil.png",
   },
@@ -3063,6 +3068,7 @@ export const BABIES = {
     sprite: "361_baby_mushroomgirl.png",
     num: 8,
     mustHaveTears: true,
+    class: MushroomGirlBaby,
   },
 
   // 362
@@ -3473,6 +3479,7 @@ export const BABIES = {
     description: "Splash tears",
     sprite: "410_baby_gills.png",
     mustHaveTears: true,
+    class: GillsBaby,
   },
 
   // 411
@@ -4887,6 +4894,7 @@ export const BABIES = {
     sprite: "familiar_shooters_08_abel.png",
     num: 5,
     mustHaveTears: true,
+    class: Abel,
   },
 
   // 586
@@ -4905,6 +4913,7 @@ export const BABIES = {
     sprite: "familiar_shooters_268_rottenbaby.png",
     flight: true,
     mustHaveTears: true,
+    class: RottenBaby,
   },
 
   // 588
@@ -4947,10 +4956,11 @@ export const BABIES = {
 
   // 593
   [RandomBabyType.LIL_LOKI]: {
-    name: "Lil' Loki", // CollectibleType.LIL_LOKI (435)
+    name: "Lil Loki", // CollectibleType.LIL_LOKI (435)
     description: "Cross tears",
     sprite: "familiar_097_shooters_lilloki.png",
     mustHaveTears: true,
+    class: LilLoki,
   },
 
   // 594

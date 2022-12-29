@@ -16,7 +16,7 @@
 ### _v1.4.10_ - February 18th, 2022
 
 - New baby: Esau Jr. Baby (#584) - Soul of Jacob and Esau effect on hit
-- Fixed the bug where Lil' Brimstone was invisible.
+- Fixed the bug where Lil Brimstone was invisible.
 - Fixed the bug where the sprite for Boiled Baby was not working correctly.
 - Fixed the bug where baby sprites would not work correctly under certain conditions.
 - Fixed the bug where jumping into a Womb trapdoor would softlock the game under certain conditions.
@@ -149,7 +149,7 @@
   - Referee Baby (#404) - "Starts with Crooked Penny" --> "Tomato tears"
   - Text Baby (#476) - "0.5x damage" --> "Starts with Glitched Crown"
   - Brother Bobby (#559) - The aura now scales with the player's damage.
-- Fixed the bug where tiny enemies from Lil' Baby (#36) would lose the size multiplier if they went underground.
+- Fixed the bug where tiny enemies from Lil Baby (#36) would lose the size multiplier if they went underground.
 - Fixed the bug where giant enemies from Big Baby (#37) would lose the size multiplier if they went underground.
 - Fixed the bug where Black Baby (#27), Nerd Baby (#90), and Mouse Baby (#351) were not working correctly.
 - Thanks to Finalkids and Gamonymous for helping with the effects.
