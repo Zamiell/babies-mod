@@ -3,9 +3,36 @@ import {
   CollectibleType,
   InputHook,
 } from "isaac-typescript-definitions";
-import { isActionPressedOnAnyInput, isShootAction } from "isaacscript-common";
+import {
+  isActionPressed,
+  isShootAction,
+  playerHasCollectible,
+} from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
+
+const COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS = [
+  CollectibleType.CHOCOLATE_MILK, // 69
+  CollectibleType.MOMS_KNIFE, // 114
+  CollectibleType.BRIMSTONE, // 118
+  CollectibleType.MONSTROS_LUNG, // 229
+  CollectibleType.CURSED_EYE, // 316
+  CollectibleType.TECH_X, // 395
+  CollectibleType.MAW_OF_THE_VOID, // 399
+] as const;
+
+const BUTTON_ACTIONS_LEFT_RIGHT = [ButtonAction.LEFT, ButtonAction.RIGHT];
+const BUTTON_ACTIONS_UP_DOWN = [ButtonAction.UP, ButtonAction.DOWN];
+
+const PIECE_A_ILLEGAL_INPUTS: ReadonlyMap<
+  ButtonAction,
+  readonly ButtonAction[]
+> = new Map([
+  [ButtonAction.LEFT, BUTTON_ACTIONS_UP_DOWN], // 0
+  [ButtonAction.RIGHT, BUTTON_ACTIONS_UP_DOWN], // 1
+  [ButtonAction.UP, BUTTON_ACTIONS_LEFT_RIGHT], // 2
+  [ButtonAction.DOWN, BUTTON_ACTIONS_LEFT_RIGHT], // 3
+]);
 
 export const inputActionBabyFunctionMap = new Map<
   RandomBabyType,
@@ -44,13 +71,7 @@ inputActionBabyFunctionMap.set(
     // Can't shoot while moving. This ability does not interact well with charged items, so don't do
     // anything if the player has a charged item.
     if (
-      player.HasCollectible(CollectibleType.CHOCOLATE_MILK) || // 69
-      player.HasCollectible(CollectibleType.MOMS_KNIFE) || // 114
-      player.HasCollectible(CollectibleType.BRIMSTONE) || // 118
-      player.HasCollectible(CollectibleType.MONSTROS_LUNG) || // 229
-      player.HasCollectible(CollectibleType.CURSED_EYE) || // 316
-      player.HasCollectible(CollectibleType.TECH_X) || // 395
-      player.HasCollectible(CollectibleType.MAW_OF_THE_VOID) // 399
+      playerHasCollectible(player, ...COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS)
     ) {
       return undefined;
     }
@@ -64,41 +85,30 @@ inputActionBabyFunctionMap.set(
 inputActionBabyFunctionMap.set(
   RandomBabyType.PIECE_A,
   (
-    _entity: Entity | undefined,
+    entity: Entity | undefined,
     _inputHook: InputHook,
     buttonAction: ButtonAction,
   ) => {
-    // Can only move up + down + left + right.
-    if (
-      buttonAction === ButtonAction.LEFT && // 0
-      (isActionPressedOnAnyInput(ButtonAction.UP) || // 2
-        isActionPressedOnAnyInput(ButtonAction.DOWN)) // 3
-    ) {
-      return 0;
-    }
-    if (
-      buttonAction === ButtonAction.RIGHT && // 1
-      (isActionPressedOnAnyInput(ButtonAction.UP) || // 2
-        isActionPressedOnAnyInput(ButtonAction.DOWN)) // 3
-    ) {
-      return 0;
-    }
-    if (
-      buttonAction === ButtonAction.UP && // 2
-      (isActionPressedOnAnyInput(ButtonAction.LEFT) || // 0
-        isActionPressedOnAnyInput(ButtonAction.RIGHT)) // 1
-    ) {
-      return 0;
-    }
-    if (
-      buttonAction === ButtonAction.DOWN && // 3
-      (isActionPressedOnAnyInput(ButtonAction.LEFT) || // 0
-        isActionPressedOnAnyInput(ButtonAction.RIGHT)) // 1
-    ) {
-      return 0;
+    if (entity === undefined) {
+      return;
     }
 
-    return undefined;
+    const player = entity.ToPlayer();
+    if (player === undefined) {
+      return;
+    }
+
+    // Can only move up + down + left + right.
+    const illegalInputs = PIECE_A_ILLEGAL_INPUTS.get(buttonAction);
+    if (illegalInputs === undefined) {
+      return undefined;
+    }
+
+    const pressingIllegalInput = isActionPressed(
+      player.ControllerIndex,
+      ...illegalInputs,
+    );
+    return pressingIllegalInput ? 0 : undefined;
   },
 );
 

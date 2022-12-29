@@ -12,11 +12,12 @@ import {
   SeedEffect,
   TrinketType,
 } from "isaac-typescript-definitions";
+import { HasAllEnumKeys } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { BabyDescription } from "../types/BabyDescription";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 
-export const BABIES: { readonly [key in RandomBabyType]: BabyDescription } = {
+export const BABIES = {
   // 0
   [RandomBabyType.SPIDER]: {
     name: "Spider Baby",
@@ -4567,9 +4568,93 @@ export const BABIES: { readonly [key in RandomBabyType]: BabyDescription } = {
     sprite: "562_baby_junk.png",
   },
 
+  // 563
+  [RandomBabyType.LUCKY]: {
+    name: "Lucky Baby",
+    description: "???",
+    sprite: "563_baby_lucky.png",
+  },
+
+  // 564
+  [RandomBabyType.FINGER_2]: {
+    name: "Finger Baby 2",
+    description: "???",
+    sprite: "564_baby_finger.png",
+  },
+
+  // 565
+  [RandomBabyType.SUCKY_2]: {
+    name: "Sucky Baby 2",
+    description: "???",
+    sprite: "565_baby_sucky.png",
+  },
+
+  // 566
+  [RandomBabyType.DOOR_MIMIC]: {
+    name: "Door Mimic Baby",
+    description: "???",
+    sprite: "566_baby_doormimic.png", // cspell:ignore doormimic
+  },
+
+  // 567
+  [RandomBabyType.KYUUKYUU]: {
+    name: "Kyuukyuu Baby",
+    description: "???",
+    sprite: "567_baby_kyuukyuu.png",
+  },
+
+  // 568
+  [RandomBabyType.MOON_JELLY]: {
+    name: "Moon Jelly Baby",
+    description: "???",
+    sprite: "568_baby_moonjelly.png", // cspell:ignore moonjelly
+  },
+
+  // 569
+  [RandomBabyType.EXCELSIOR]: {
+    name: "Excelsior Baby",
+    description: "???",
+    sprite: "569_baby_excelsior.png",
+  },
+
+  // 570
+  [RandomBabyType.PAINFUL]: {
+    name: "Painful Baby",
+    description: "???",
+    sprite: "570_baby_painful.png",
+  },
+
+  // 571
+  [RandomBabyType.POINTLESS]: {
+    name: "Pointless Baby",
+    description: "???",
+    sprite: "571_baby_pointless.png",
+  },
+
+  // 572
+  [RandomBabyType.DOLEFUL]: {
+    name: "Doleful Baby",
+    description: "???",
+    sprite: "572_baby_doleful.png",
+  },
+
+  // 573
+  [RandomBabyType.CUBIC]: {
+    name: "Cubic Baby",
+    description: "???",
+    sprite: "573_baby_cubic.png",
+  },
+
+  // 574
+  [RandomBabyType.FOOD_REVIEWER]: {
+    name: "Food Reviewer Baby",
+    description: "???",
+    sprite: "574_baby_foodreviewer.png", // cspell:ignore foodreviewer
+  },
+
   // -----------------------------------------------------------------------------------------------
 
-  // 563
+  // 575
   [RandomBabyType.FALLING]: {
     name: "Falling Baby",
     description: "Starts with Twisted Pair",
@@ -4581,7 +4666,7 @@ export const BABIES: { readonly [key in RandomBabyType]: BabyDescription } = {
 
   // -----------------------------------------------------------------------------------------------
 
-  // 564
+  // 576
   [RandomBabyType.BROTHER_BOBBY]: {
     name: "Brother Bobby", // CollectibleType.BROTHER_BOBBY (8)
     description: "Slings Godhead aura (improved)",
@@ -4590,14 +4675,14 @@ export const BABIES: { readonly [key in RandomBabyType]: BabyDescription } = {
     mustHaveTears: true,
   },
 
-  // 565
+  // 577
   [RandomBabyType.SISTER_MAGGY]: {
     name: "Sister Maggy", // CollectibleType.SISTER_MAGGY (67)
     description: "Loses last item on 2nd hit (per room)",
     sprite: "familiar_shooters_07_sistermaggie.png",
   },
 
-  // 566
+  // 578
   [RandomBabyType.ROBO]: {
     name: "Robo-Baby", // CollectibleType.ROBO_BABY (95)
     description: "Starts with Technology",
@@ -4605,14 +4690,14 @@ export const BABIES: { readonly [key in RandomBabyType]: BabyDescription } = {
     item: CollectibleType.TECHNOLOGY,
   },
 
-  // 567
+  // 579
   [RandomBabyType.LITTLE_GISH]: {
     name: "Little Gish", // CollectibleType.LITTLE_GISH (99)
     description: "All items from the Curse Room pool",
     sprite: "familiar_shooters_04_littlegish.png",
   },
 
-  // 568
+  // 580
   [RandomBabyType.LITTLE_STEVEN]: {
     name: "Little Steven", // CollectibleType.LITTLE_STEVEN (100)
     description: "Starts with Chaos",
@@ -4620,21 +4705,21 @@ export const BABIES: { readonly [key in RandomBabyType]: BabyDescription } = {
     item: CollectibleType.CHAOS,
   },
 
-  // 569
+  // 581
   [RandomBabyType.DEMON]: {
     name: "Demon Baby", // CollectibleType.DEMON_BABY (113)
     description: "Free devil deals",
     sprite: "familiar_shooters_02_demonbaby.png",
   },
 
-  // 570
+  // 582
   [RandomBabyType.GHOST]: {
     name: "Ghost Baby", // CollectibleType.GHOST_BABY (163)
     description: "All items from the shop pool",
     sprite: "familiar_shooters_09_ghostbaby.png",
   },
 
-  // 571
+  // 583
   [RandomBabyType.HARLEQUIN]: {
     name: "Harlequin Baby", // CollectibleType.HARLEQUIN_BABY (167)
     description: "Starts with The Wiz",
@@ -4643,14 +4728,14 @@ export const BABIES: { readonly [key in RandomBabyType]: BabyDescription } = {
     mustHaveTears: true,
   },
 
-  // 572
+  // 584
   [RandomBabyType.RAINBOW]: {
     name: "Rainbow Baby", // CollectibleType.RAINBOW_BABY (174)
     description: "Chest per enemy killed",
     sprite: "familiar_shooters_11_rainbowbaby.png",
   },
 
-  // 573
+  // 585
   [RandomBabyType.ABEL]: {
     name: "Abel", // CollectibleType.ABEL (188)
     description: "Every 5th missed tear causes paralysis",
@@ -4659,7 +4744,7 @@ export const BABIES: { readonly [key in RandomBabyType]: BabyDescription } = {
     mustHaveTears: true,
   },
 
-  // 574
+  // 586
   [RandomBabyType.ROBO_2]: {
     name: "Robo-Baby 2.0", // CollectibleType.ROBO_BABY_2 (267)
     description: "Starts with Undefined (uncharged)",
@@ -4668,7 +4753,7 @@ export const BABIES: { readonly [key in RandomBabyType]: BabyDescription } = {
     uncharged: true,
   },
 
-  // 575
+  // 587
   [RandomBabyType.ROTTEN]: {
     name: "Rotten Baby", // CollectibleType.ROTTEN_BABY (268)
     description: "Shoots Blue Flies + flight",
@@ -4677,7 +4762,7 @@ export const BABIES: { readonly [key in RandomBabyType]: BabyDescription } = {
     mustHaveTears: true,
   },
 
-  // 576
+  // 588
   [RandomBabyType.LIL_BRIMSTONE]: {
     name: "Lil Brimstone", // CollectibleType.LIL_BRIMSTONE (275)
     description: "Starts with Brimstone",
@@ -4686,28 +4771,28 @@ export const BABIES: { readonly [key in RandomBabyType]: BabyDescription } = {
     item: CollectibleType.BRIMSTONE,
   },
 
-  // 577
+  // 589
   [RandomBabyType.MONGO]: {
     name: "Mongo Baby", // CollectibleType.MONGO_BABY (322)
     description: "All items from the Angel Room pool",
     sprite: "familiar_shooters_322_mongobaby.png",
   },
 
-  // 578
+  // 590
   [RandomBabyType.INCUBUS]: {
     name: "Incubus", // CollectibleType.INCUBUS (360)
     description: "All items from the Devil Room pool",
     sprite: "familiar_shooters_80_incubus.png",
   },
 
-  // 579
+  // 591
   [RandomBabyType.FATES_REWARD]: {
     name: "Fate's Reward", // CollectibleType.FATES_REWARD (361)
     description: "Items cost money",
     sprite: "familiar_shooters_81_fatesreward.png",
   },
 
-  // 580
+  // 592
   [RandomBabyType.SERAPHIM]: {
     name: "Seraphim", // CollectibleType.SERAPHIM (390)
     description: "Censer aura",
@@ -4715,7 +4800,7 @@ export const BABIES: { readonly [key in RandomBabyType]: BabyDescription } = {
     item: CollectibleType.CENSER,
   },
 
-  // 581
+  // 593
   [RandomBabyType.LIL_LOKI]: {
     name: "Lil' Loki", // CollectibleType.LIL_LOKI (435)
     description: "Cross tears",
@@ -4723,7 +4808,7 @@ export const BABIES: { readonly [key in RandomBabyType]: BabyDescription } = {
     mustHaveTears: true,
   },
 
-  // 582
+  // 594
   [RandomBabyType.LIL_MONSTRO]: {
     name: "Lil Monstro", // CollectibleType.LIL_MONSTRO (471)
     description: "Starts with Monstro's Lung",
@@ -4732,7 +4817,7 @@ export const BABIES: { readonly [key in RandomBabyType]: BabyDescription } = {
     item: CollectibleType.MONSTROS_LUNG,
   },
 
-  // 583
+  // 595
   [RandomBabyType.BOILED]: {
     name: "Boiled Baby", // CollectibleType.BOILED_BABY (607)
     description: "All items from the Ultra Secret Room pool",
@@ -4740,28 +4825,35 @@ export const BABIES: { readonly [key in RandomBabyType]: BabyDescription } = {
     sprite: "003.208_boilbaby_custom.png",
   },
 
-  // 584
+  // 596
   [RandomBabyType.FREEZER]: {
     name: "Freezer Baby", // CollectibleType.FREEZER_BABY (608)
     description: "Ice tears",
     sprite: "003.209_freezerbaby.png",
   },
 
-  // 585
+  // 597
   [RandomBabyType.LIL_ABADDON]: {
     name: "Lil Abaddon", // CollectibleType.LIL_ABADDON (679)
     description: "Starts with Devil's Crown",
     sprite: "familiar_lil_abaddon.png",
   },
 
-  // 586
+  // 598
   [RandomBabyType.TWISTED]: {
     name: "Twisted Baby", // CollectibleType.TWISTED_PAIR (698)
     description: "Spore tears",
     sprite: "familiar_twisted_pair_custom.png",
   },
 
-  // 587
+  // 599
+  [RandomBabyType.ESAU_JR]: {
+    name: "Esau Jr. Baby",
+    description: "Soul of Jacob and Esau effect on hit",
+    sprite: "familiar_esau_jr.png",
+  },
+
+  // 600
   [RandomBabyType.GELLO]: {
     name: "Gello", // CollectibleType.GELLO (728)
     description: "Starts with Sol",
@@ -4771,28 +4863,21 @@ export const BABIES: { readonly [key in RandomBabyType]: BabyDescription } = {
     item: CollectibleType.SOL,
   },
 
-  // 588
-  [RandomBabyType.ESAU_JR]: {
-    name: "Esau Jr. Baby",
-    description: "Soul of Jacob and Esau effect on hit",
-    sprite: "familiar_esau_jr.png",
-  },
-
-  // 589
+  // 601
   [RandomBabyType.SIREN_SHOOTER]: {
     name: "Siren Shooter",
     description: "Spawns a pedestal item after 6 hits",
     sprite: "familiar_siren_shooter.png",
   },
 
-  // 590
+  // 602
   [RandomBabyType.INVISIBLE]: {
     name: "Invisible Baby",
     description: "Invisibility",
     // This file does not actually exist, but we cannot specify a blank string.
     sprite: "invisible_baby.png",
   },
-} as const;
+} as const satisfies HasAllEnumKeys<RandomBabyType, BabyDescription>;
 
 export const UNKNOWN_BABY: BabyDescription = {
   name: "Unknown Baby",

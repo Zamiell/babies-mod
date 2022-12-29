@@ -598,43 +598,55 @@ export enum RandomBabyType {
   HEX = 560,
   SINGING = 561,
   JUNK = 562,
+  LUCKY = 563,
+  FINGER_2 = 564,
+  SUCKY_2 = 565,
+  DOOR_MIMIC = 566,
+  KYUUKYUU = 567,
+  MOON_JELLY = 568,
+  EXCELSIOR = 569,
+  PAINFUL = 570,
+  POINTLESS = 571,
+  DOLEFUL = 572,
+  CUBIC = 573,
+  FOOD_REVIEWER = 574,
 
   /**
    * There are two sprites with the prefix of "490_" and this is the second one, so we assign it at
    * the end.
    */
-  FALLING = 563,
+  FALLING = 575,
 
   // Familiar babies are ordered by `CollectibleType`.
-  BROTHER_BOBBY = 564,
-  SISTER_MAGGY = 565,
-  ROBO = 566,
-  LITTLE_GISH = 567,
-  LITTLE_STEVEN = 568,
-  DEMON = 569,
-  GHOST = 570,
-  HARLEQUIN = 571,
-  RAINBOW = 572,
-  ABEL = 573,
-  ROBO_2 = 574,
-  ROTTEN = 575,
-  LIL_BRIMSTONE = 576,
-  MONGO = 577,
-  INCUBUS = 578,
-  FATES_REWARD = 579,
-  SERAPHIM = 580,
-  LIL_LOKI = 581,
-  LIL_MONSTRO = 582,
-  BOILED = 583,
-  FREEZER = 584,
-  LIL_ABADDON = 585,
-  TWISTED = 586,
-  GELLO = 587,
+  BROTHER_BOBBY = 576, // 8
+  SISTER_MAGGY = 577, // 67
+  ROBO = 578, // 95
+  LITTLE_GISH = 579, // 99
+  LITTLE_STEVEN = 580, // 100
+  DEMON = 581, // 113
+  GHOST = 582, // 163
+  HARLEQUIN = 583, // 167
+  RAINBOW = 584, // 174
+  ABEL = 585, // 188
+  ROBO_2 = 586, // 267
+  ROTTEN = 587, // 268
+  LIL_BRIMSTONE = 588, // 275
+  MONGO = 589, // 322
+  INCUBUS = 590, // 360
+  FATES_REWARD = 591, // 361
+  SERAPHIM = 592, // 390
+  LIL_LOKI = 593, // 435
+  LIL_MONSTRO = 594, // 471
+  BOILED = 595, // 607
+  FREEZER = 596, // 608
+  LIL_ABADDON = 597, // 679
+  TWISTED = 598, // 698 (not called Twisted Pair because you only play as one baby)
+  ESAU_JR = 599, // 703 (granted after using the collectible five times)
+  GELLO = 600, // 728
+  SIREN_SHOOTER = 601, // Not associated with a collectible; it only appears on The Siren boss fight.
 
   // Other
-  ESAU_JR = 588,
-  SIREN_SHOOTER = 589,
-  INVISIBLE = 590,
+  INVISIBLE = 602,
 }
 
 export const MAX_BABY_TYPE = getLastEnumValue(RandomBabyType);
