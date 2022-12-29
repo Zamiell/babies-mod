@@ -33,18 +33,22 @@ import { ColdBaby } from "../classes/babies/ColdBaby";
 import { CrookedBaby } from "../classes/babies/CrookedBaby";
 import { CrowBaby } from "../classes/babies/CrowBaby";
 import { CryBaby } from "../classes/babies/CryBaby";
+import { CursedPillowBaby } from "../classes/babies/CursedPillowBaby";
 import { CuteBaby } from "../classes/babies/CuteBaby";
 import { DarkSpaceSoldierBaby } from "../classes/babies/DarkSpaceSoliderBaby";
 import { EdBaby } from "../classes/babies/EdBaby";
 import { EightBallBaby } from "../classes/babies/EightBallBaby";
 import { EyemouthBaby } from "../classes/babies/EyemouthBaby";
 import { FlyBaby } from "../classes/babies/FlyBaby";
+import { FreezerBaby } from "../classes/babies/FreezerBaby";
 import { GillsBaby } from "../classes/babies/GillsBaby";
 import { GlassBaby } from "../classes/babies/GlassBaby";
 import { GoldBaby } from "../classes/babies/GoldBaby";
 import { GreenBaby } from "../classes/babies/GreenBaby";
 import { GreenKoopaBaby } from "../classes/babies/GreenKoopaBaby";
+import { HeadphoneBaby } from "../classes/babies/HeadphoneBaby";
 import { HostBaby } from "../classes/babies/HostBaby";
+import { IllBaby } from "../classes/babies/IllBaby";
 import { ImpBaby2 } from "../classes/babies/ImpBaby2";
 import { LightsBaby } from "../classes/babies/LightsBaby";
 import { LilLoki } from "../classes/babies/LilLoki";
@@ -55,6 +59,8 @@ import { LostBaby } from "../classes/babies/LostBaby";
 import { LoveBaby } from "../classes/babies/LoveBaby";
 import { MagBaby } from "../classes/babies/MagBaby";
 import { MagnetBaby } from "../classes/babies/MagnetBaby";
+import { MasterCookBaby } from "../classes/babies/MasterCookBaby";
+import { MernBaby } from "../classes/babies/MernBaby";
 import { MonocleBaby } from "../classes/babies/MonocleBaby";
 import { MortBaby } from "../classes/babies/MortBaby";
 import { MushroomGirlBaby } from "../classes/babies/MushroomGirlBaby";
@@ -64,6 +70,8 @@ import { OBaby2 } from "../classes/babies/OBaby2";
 import { OctopusBaby } from "../classes/babies/OctopusBaby";
 import { OrangeDemonBaby } from "../classes/babies/OrangeDemonBaby";
 import { PinkGhostBaby } from "../classes/babies/PinkGhostBaby";
+import { PompadourBaby } from "../classes/babies/PompadourBaby";
+import { PsychicBaby } from "../classes/babies/PsychicBaby";
 import { RageBaby } from "../classes/babies/RageBaby";
 import { RedKoopaBaby } from "../classes/babies/RedKoopaBaby";
 import { RefereeBaby } from "../classes/babies/RefereeBaby";
@@ -84,6 +92,7 @@ import { TiltBaby } from "../classes/babies/TiltBaby";
 import { ToothHeadBaby } from "../classes/babies/ToothHeadBaby";
 import { TrollBaby } from "../classes/babies/TrollBaby";
 import { TurtleDragonBaby } from "../classes/babies/TurtleDragonBaby";
+import { TwistedBaby } from "../classes/babies/TwistedBaby";
 import { VBaby } from "../classes/babies/VBaby";
 import { VoxdogBaby } from "../classes/babies/VoxdogBaby";
 import { WaterBaby } from "../classes/babies/WaterBaby";
@@ -3991,6 +4000,7 @@ export const BABIES = {
     description: "Soundwave tears",
     sprite: "470_baby_headphone.png",
     mustHaveTears: true,
+    class: HeadphoneBaby,
   },
 
   // 471
@@ -4127,6 +4137,7 @@ export const BABIES = {
     sprite: "487_baby_cursedpillow.png",
     num: 4,
     mustHaveTears: true,
+    class: CursedPillowBaby,
   },
 
   // 488
@@ -4181,6 +4192,7 @@ export const BABIES = {
     description: "Shrink tears",
     sprite: "494_baby_pompadour.png",
     mustHaveTears: true,
+    class: PompadourBaby,
   },
 
   // 495
@@ -4215,6 +4227,7 @@ export const BABIES = {
     description: "Bob's Rotten Head tears",
     sprite: "498_baby_ill.png",
     mustHaveTears: true,
+    class: IllBaby,
   },
 
   // 499
@@ -4230,6 +4243,7 @@ export const BABIES = {
     description: "Double tears",
     sprite: "500_baby_mern.png",
     mustHaveTears: true,
+    class: MernBaby,
   },
 
   // 501
@@ -4265,6 +4279,7 @@ export const BABIES = {
     sprite: "504_baby_psychic.png",
     item: CollectibleType.ABEL,
     mustHaveTears: true,
+    class: PsychicBaby,
   },
 
   // 505
@@ -4373,6 +4388,7 @@ export const BABIES = {
     description: "Egg tears",
     sprite: "517_baby_mastercook.png",
     mustHaveTears: true,
+    class: MasterCookBaby,
   },
 
   // 518
@@ -5007,6 +5023,7 @@ export const BABIES = {
     name: "Freezer Baby", // CollectibleType.FREEZER_BABY (608)
     description: "Ice tears",
     sprite: "003.209_freezerbaby.png",
+    class: FreezerBaby,
   },
 
   // 597
@@ -5021,6 +5038,7 @@ export const BABIES = {
     name: "Twisted Baby", // CollectibleType.TWISTED_PAIR (698)
     description: "Spore tears",
     sprite: "familiar_twisted_pair_custom.png",
+    class: TwistedBaby,
   },
 
   // 599

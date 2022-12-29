@@ -11,7 +11,6 @@ import * as postEffectUpdate from "./callbacks/postEffectUpdate";
 import * as postEntityKill from "./callbacks/postEntityKill";
 import * as postFamiliarInit from "./callbacks/postFamiliarInit";
 import * as postFamiliarUpdate from "./callbacks/postFamiliarUpdate";
-import * as postFireTear from "./callbacks/postFireTear";
 import * as postKnifeInit from "./callbacks/postKnifeInit";
 import * as postLaserInit from "./callbacks/postLaserInit";
 import * as postLaserUpdate from "./callbacks/postLaserUpdate";
@@ -106,7 +105,6 @@ function registerCallbacksMain() {
   postEffectUpdate.init(); // 55
   postBombInit.init(); // 57
   postBombUpdate.init(); // 58
-  postFireTear.init(); // 61
   preGetCollectible.init(); // 62
   postEntityKill.init(); // 68
   preSpawnClearAward.init(); // 70
