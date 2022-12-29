@@ -1,4 +1,4 @@
 export interface TearData {
-  Height: int;
-  Velocity: Vector;
+  BabiesModHeight: int;
+  BabiesModVelocity: Vector;
 }

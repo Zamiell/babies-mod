@@ -22,6 +22,7 @@ import { BawlBaby } from "../classes/babies/BawlBaby";
 import { BeanBaby } from "../classes/babies/BeanBaby";
 import { BigEyesBaby } from "../classes/babies/BigEyesBaby";
 import { BlackBaby } from "../classes/babies/BlackBaby";
+import { BlindcursedBaby } from "../classes/babies/BlindcursedBaby";
 import { BloatBaby } from "../classes/babies/BloatBaby";
 import { BlueBaby } from "../classes/babies/BlueBaby";
 import { BoxersBaby } from "../classes/babies/BoxersBaby";
@@ -37,6 +38,7 @@ import { DarkSpaceSoldierBaby } from "../classes/babies/DarkSpaceSoliderBaby";
 import { EdBaby } from "../classes/babies/EdBaby";
 import { EightBallBaby } from "../classes/babies/EightBallBaby";
 import { EyemouthBaby } from "../classes/babies/EyemouthBaby";
+import { FlyBaby } from "../classes/babies/FlyBaby";
 import { GillsBaby } from "../classes/babies/GillsBaby";
 import { GlassBaby } from "../classes/babies/GlassBaby";
 import { GoldBaby } from "../classes/babies/GoldBaby";
@@ -77,9 +79,11 @@ import { StrangeMouthBaby } from "../classes/babies/StrangeMouthBaby";
 import { StrangeShapeBaby } from "../classes/babies/StrangeShapeBaby";
 import { SuperGreedBaby } from "../classes/babies/SuperGreedBaby";
 import { TiltBaby } from "../classes/babies/TiltBaby";
+import { ToothHeadBaby } from "../classes/babies/ToothHeadBaby";
 import { TrollBaby } from "../classes/babies/TrollBaby";
 import { TurtleDragonBaby } from "../classes/babies/TurtleDragonBaby";
 import { VBaby } from "../classes/babies/VBaby";
+import { VoxdogBaby } from "../classes/babies/VoxDogBaby";
 import { WaterBaby } from "../classes/babies/WaterBaby";
 import { WebBaby } from "../classes/babies/WebBaby";
 import { WrappedBaby } from "../classes/babies/WrappedBaby";
@@ -3748,6 +3752,7 @@ export const BABIES = {
     sprite: "442_baby_tooth.png",
     num: 3,
     mustHaveTears: true,
+    class: ToothHeadBaby,
   },
 
   // 443
@@ -3914,6 +3919,7 @@ export const BABIES = {
     description: "Shockwave tears",
     sprite: "462_baby_voxdog.png",
     mustHaveTears: true,
+    class: VoxdogBaby,
   },
 
   // 463
@@ -3947,6 +3953,7 @@ export const BABIES = {
     description: "Invisible tears",
     sprite: "466_baby_blindcursed.png",
     mustHaveTears: true,
+    class: BlindcursedBaby,
   },
 
   // 467
@@ -3971,6 +3978,7 @@ export const BABIES = {
     description: "Mass splitting tears",
     sprite: "469_baby_flybaby.png",
     mustHaveTears: true,
+    class: FlyBaby,
   },
 
   // 470
