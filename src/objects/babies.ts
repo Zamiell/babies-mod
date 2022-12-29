@@ -13,9 +13,9 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { HasAllEnumKeys } from "isaacscript-common";
+import { BloatBaby } from "../classes/babies/BloatBaby";
 import { LoveBaby } from "../classes/babies/LoveBaby";
 import { SpiderBaby } from "../classes/babies/SpiderBaby";
-import { Baby } from "../classes/Baby";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { BabyDescription } from "../types/BabyDescription";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
@@ -45,6 +45,7 @@ export const BABIES = {
     sprite: "002_baby_bloat.png",
     num: 3,
     mustHaveTears: true,
+    class: BloatBaby,
   },
 
   // 3
@@ -4904,20 +4905,3 @@ export const UNKNOWN_BABY = {
   // This file does not actually exist, but we cannot specify a blank string.
   sprite: "unknown.png",
 } as const satisfies BabyDescription;
-
-export const BABY_CLASSES: ReadonlyMap<RandomBabyType, Baby> = (() => {
-  const babyClasses = new Map<RandomBabyType, Baby>();
-
-  for (const [randomBabyTypeString, babyDescription] of Object.entries(
-    BABIES,
-  )) {
-    const randomBabyType = randomBabyTypeString as unknown as RandomBabyType;
-
-    if ("class" in babyDescription) {
-      const babyClass = new babyDescription.class(randomBabyType); // eslint-disable-line new-cap
-      babyClasses.set(randomBabyType, babyClass);
-    }
-  }
-
-  return babyClasses;
-})();
