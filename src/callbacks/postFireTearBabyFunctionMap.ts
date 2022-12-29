@@ -10,7 +10,7 @@ import {
   GAME_FRAMES_PER_SECOND,
   getFamiliars,
 } from "isaacscript-common";
-import { FADED_BLUE, FADED_RED } from "../constants";
+import { FADED_BLUE } from "../constants";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { TearData } from "../types/TearData";
@@ -21,30 +21,6 @@ export const postFireTearBabyFunctionMap = new Map<
   RandomBabyType,
   (tear: EntityTear) => void
 >();
-
-// 398
-postFireTearBabyFunctionMap.set(
-  RandomBabyType.DARK_SPACE_SOLDIER,
-  (tear: EntityTear) => {
-    const baby = getCurrentBabyDescription();
-    if (baby.num === undefined) {
-      error(`The "num" attribute was not defined for: ${baby.name}`);
-    }
-
-    g.run.babyCounters++;
-    if (g.run.babyCounters === baby.num) {
-      g.run.babyCounters = 0;
-      tear.ChangeVariant(TearVariant.CHAOS_CARD);
-    }
-  },
-);
-
-// 404
-postFireTearBabyFunctionMap.set(RandomBabyType.REFEREE, (tear: EntityTear) => {
-  // Tomato tears
-  tear.TearFlags = addFlag(tear.TearFlags, TearFlag.BAIT);
-  setTearColor(tear, FADED_RED);
-});
 
 // 406
 postFireTearBabyFunctionMap.set(

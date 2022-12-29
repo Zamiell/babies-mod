@@ -32,6 +32,7 @@ import { CrookedBaby } from "../classes/babies/CrookedBaby";
 import { CrowBaby } from "../classes/babies/CrowBaby";
 import { CryBaby } from "../classes/babies/CryBaby";
 import { CuteBaby } from "../classes/babies/CuteBaby";
+import { DarkSpaceSoldierBaby } from "../classes/babies/DarkSpaceSoliderBaby";
 import { EdBaby } from "../classes/babies/EdBaby";
 import { EightBallBaby } from "../classes/babies/EightBallBaby";
 import { EyemouthBaby } from "../classes/babies/EyemouthBaby";
@@ -59,6 +60,7 @@ import { OctopusBaby } from "../classes/babies/OctopusBaby";
 import { OrangeDemonBaby } from "../classes/babies/OrangeDemonBaby";
 import { PinkGhostBaby } from "../classes/babies/PinkGhostBaby";
 import { RageBaby } from "../classes/babies/RageBaby";
+import { RefereeBaby } from "../classes/babies/RefereeBaby";
 import { RottenBaby } from "../classes/babies/RottenBaby";
 import { ScreamBaby } from "../classes/babies/ScreamBaby";
 import { ShadowBaby } from "../classes/babies/ShadowBaby";
@@ -3379,6 +3381,7 @@ export const BABIES = {
     sprite: "398_baby_darkspacesoldier.png",
     num: 5,
     mustHaveTears: true,
+    class: DarkSpaceSoldierBaby,
   },
 
   // 399
@@ -3428,6 +3431,7 @@ export const BABIES = {
     name: "Referee Baby",
     description: "Tomato tears",
     sprite: "404_baby_referee.png",
+    class: RefereeBaby,
   },
 
   // 405
