@@ -15,7 +15,7 @@ import { g } from "../globals";
 import { mod } from "../mod";
 import { GlobalsRunBabyTears } from "../types/GlobalsRunBabyTears";
 import { GlobalsRunRoom } from "../types/GlobalsRunRoom";
-import { getCurrentBaby } from "../utils";
+import { getCurrentBaby } from "../utilsBaby";
 
 export function init(): void {
   mod.AddCallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED, main);

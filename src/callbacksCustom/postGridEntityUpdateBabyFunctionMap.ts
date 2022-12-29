@@ -1,8 +1,4 @@
-import {
-  CollectibleType,
-  GridEntityType,
-  PoopGridEntityVariant,
-} from "isaac-typescript-definitions";
+import { CollectibleType } from "isaac-typescript-definitions";
 import {
   DISTANCE_OF_GRID_TILE,
   game,
@@ -19,23 +15,6 @@ export const postGridEntityUpdateBabyFunctionMap = new Map<
   RandomBabyType,
   (gridEntity: GridEntity) => void
 >();
-
-// 15
-postGridEntityUpdateBabyFunctionMap.set(
-  RandomBabyType.GOLD,
-  (gridEntity: GridEntity) => {
-    // Gold gear + gold poops + gold rooms.
-    const gridEntityType = gridEntity.GetType();
-    const gridEntityVariant = gridEntity.GetVariant();
-
-    if (
-      gridEntityType === GridEntityType.POOP &&
-      gridEntityVariant !== (PoopGridEntityVariant.GOLDEN as int)
-    ) {
-      gridEntity.SetVariant(PoopGridEntityVariant.GOLDEN);
-    }
-  },
-);
 
 // 320
 postGridEntityUpdateBabyFunctionMap.set(

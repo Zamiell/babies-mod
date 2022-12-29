@@ -25,7 +25,7 @@ import {
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { TearData } from "../types/TearData";
-import { getCurrentBabyDescription } from "../utils";
+import { getCurrentBabyDescription } from "../utilsBaby";
 
 export const postTearUpdateBabyFunctionMap = new Map<
   RandomBabyType,

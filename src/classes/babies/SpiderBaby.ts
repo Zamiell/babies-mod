@@ -9,6 +9,10 @@ import { Baby } from "../Baby";
 
 /** Shoots a Blue Spider every 2nd tear. */
 export class SpiderBaby extends Baby {
+  public override onRemove(): void {
+    removeAllMatchingEntities(EntityType.FAMILIAR, FamiliarVariant.BLUE_SPIDER);
+  }
+
   @Callback(ModCallback.POST_FIRE_TEAR)
   private postFireTear(tear: EntityTear) {
     g.run.babyCounters++;
@@ -18,9 +22,5 @@ export class SpiderBaby extends Baby {
       g.p.ThrowBlueSpider(g.p.Position, g.p.Position);
       tear.Remove();
     }
-  }
-
-  public override onRemove(): void {
-    removeAllMatchingEntities(EntityType.FAMILIAR, FamiliarVariant.BLUE_SPIDER);
   }
 }

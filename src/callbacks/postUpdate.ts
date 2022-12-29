@@ -11,7 +11,7 @@ import {
 } from "isaacscript-common";
 import { g } from "../globals";
 import { mod } from "../mod";
-import { getCurrentBaby } from "../utils";
+import { getCurrentBaby } from "../utilsBaby";
 import { postUpdateBabyFunctionMap } from "./postUpdateBabyFunctionMap";
 
 export function init(): void {

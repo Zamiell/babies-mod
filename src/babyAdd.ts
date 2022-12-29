@@ -20,7 +20,9 @@ import {
 import { babyAddFunctionMap } from "./babyAddFunctionMap";
 import { setBabyANM2, updatePlayerWithCostumeProtector } from "./costumes";
 import { g } from "./globals";
-import { getCurrentBaby, giveItemAndRemoveFromPools } from "./utils";
+import { BABY_CLASS_MAP } from "./objects/babyClassMap";
+import { giveItemAndRemoveFromPools } from "./utils";
+import { getCurrentBaby } from "./utilsBaby";
 
 export function babyAdd(player: EntityPlayer): void {
   const coins = player.GetNumCoins();
@@ -139,6 +141,12 @@ export function babyAdd(player: EntityPlayer): void {
   }
 
   // Add miscellaneous other effects.
+  const babyClass = BABY_CLASS_MAP.get(babyType);
+  if (babyClass !== undefined) {
+    babyClass.onAdd();
+  }
+
+  // TODO: Refactor old logic into class methods.
   const babyAddFunction = babyAddFunctionMap.get(babyType);
   if (babyAddFunction !== undefined) {
     babyAddFunction();

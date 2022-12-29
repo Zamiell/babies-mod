@@ -13,10 +13,13 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { HasAllEnumKeys } from "isaacscript-common";
+import { BeanBaby } from "../classes/babies/BeanBaby";
 import { BloatBaby } from "../classes/babies/BloatBaby";
 import { CockeyedBaby } from "../classes/babies/CockeyedBaby";
 import { CrowBaby } from "../classes/babies/CrowBaby";
 import { CuteBaby } from "../classes/babies/CuteBaby";
+import { GlassBaby } from "../classes/babies/GlassBaby";
+import { GoldBaby } from "../classes/babies/GoldBaby";
 import { HostBaby } from "../classes/babies/HostBaby";
 import { LostBaby } from "../classes/babies/LostBaby";
 import { LoveBaby } from "../classes/babies/LoveBaby";
@@ -156,6 +159,7 @@ export const BABIES = {
     name: "Glass Baby",
     description: "Orbiting laser ring",
     sprite: "014_baby_glass.png",
+    class: GlassBaby,
   },
 
   // 15
@@ -163,6 +167,7 @@ export const BABIES = {
     name: "Gold Baby",
     description: "Gold gear + gold poops + gold rooms",
     sprite: "015_baby_gold.png",
+    class: GoldBaby,
   },
 
   // 16
@@ -178,6 +183,7 @@ export const BABIES = {
     name: "Bean Baby",
     description: "Constant Butter Bean effect",
     sprite: "017_baby_bean.png",
+    class: BeanBaby,
   },
 
   // 18

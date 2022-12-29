@@ -16,7 +16,8 @@ import {
 } from "isaacscript-common";
 import { RandomBabyType } from "./enums/RandomBabyType";
 import { g } from "./globals";
-import { getCurrentBabyDescription, removeAllFriendlyEntities } from "./utils";
+import { removeAllFriendlyEntities } from "./utils";
+import { getCurrentBabyDescription } from "./utilsBaby";
 
 export const babyRemoveFunctionMap = new Map<
   RandomBabyType,

@@ -1,6 +1,6 @@
 import { DamageFlag, ModCallback } from "isaac-typescript-definitions";
 import { mod } from "../mod";
-import { getCurrentBaby } from "../utils";
+import { getCurrentBaby } from "../utilsBaby";
 import * as entityTakeDmgEntity from "./entityTakeDmgEntity";
 import * as entityTakeDmgPlayer from "./entityTakeDmgPlayer";
 

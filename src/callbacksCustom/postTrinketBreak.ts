@@ -3,7 +3,7 @@ import { ModCallbackCustom, repeat } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { mod } from "../mod";
-import { getCurrentBaby } from "../utils";
+import { getCurrentBaby } from "../utilsBaby";
 
 export function init(): void {
   mod.AddCallbackCustom(

@@ -15,16 +15,9 @@ import {
 import { RandomBabyType } from "./enums/RandomBabyType";
 import { g } from "./globals";
 import { initSprite } from "./sprite";
-import { getCurrentBabyDescription } from "./utils";
+import { getCurrentBabyDescription } from "./utilsBaby";
 
 export const babyAddFunctionMap = new Map<RandomBabyType, () => void>();
-
-// 15
-babyAddFunctionMap.set(RandomBabyType.GOLD, () => {
-  g.p.AddGoldenBomb();
-  g.p.AddGoldenKey();
-  g.p.AddGoldenHearts(12);
-});
 
 // 31
 babyAddFunctionMap.set(RandomBabyType.RAGE, () => {

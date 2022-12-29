@@ -5,24 +5,11 @@ import {
   sfxManager,
 } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
-import { g } from "../globals";
 
 export const postLaserUpdateBabyFunctionMap = new Map<
   RandomBabyType,
   (laser: EntityLaser) => void
 >();
-
-// 14
-postLaserUpdateBabyFunctionMap.set(
-  RandomBabyType.GLASS,
-  (laser: EntityLaser) => {
-    const data = laser.GetData();
-    if (data["ring"] === true) {
-      // Keep the ring centered on the player.
-      laser.Position = g.p.Position;
-    }
-  },
-);
 
 // 42
 postLaserUpdateBabyFunctionMap.set(

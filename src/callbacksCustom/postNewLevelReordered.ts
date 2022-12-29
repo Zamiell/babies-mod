@@ -13,7 +13,7 @@ import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { mod } from "../mod";
 import { GlobalsRunLevel } from "../types/GlobalsRunLevel";
-import { getCurrentBaby } from "../utils";
+import { getCurrentBaby } from "../utilsBaby";
 
 export function init(): void {
   mod.AddCallbackCustom(ModCallbackCustom.POST_NEW_LEVEL_REORDERED, main);

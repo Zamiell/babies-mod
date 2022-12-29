@@ -1,6 +1,6 @@
 import { ModCallbackCustom, PickingUpItem } from "isaacscript-common";
 import { mod } from "../mod";
-import { getCurrentBaby } from "../utils";
+import { getCurrentBaby } from "../utilsBaby";
 import { preItemPickupBabyFunctionMap } from "./preItemPickupBabyFunctionMap";
 
 export function init(): void {

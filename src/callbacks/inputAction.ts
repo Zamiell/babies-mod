@@ -4,7 +4,7 @@ import {
   ModCallback,
 } from "isaac-typescript-definitions";
 import { mod } from "../mod";
-import { getCurrentBaby } from "../utils";
+import { getCurrentBaby } from "../utilsBaby";
 import { inputActionBabyFunctionMap } from "./inputActionBabyFunctionMap";
 
 export function init(): void {

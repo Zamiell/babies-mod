@@ -6,7 +6,7 @@ import {
 import { game } from "isaacscript-common";
 import { g } from "../globals";
 import { mod } from "../mod";
-import { getCurrentBaby } from "../utils";
+import { getCurrentBaby } from "../utilsBaby";
 import { preGetCollectibleBabyFunctionMap } from "./preGetCollectibleBabyFunctionMap";
 
 export function init(): void {

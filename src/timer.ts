@@ -2,7 +2,7 @@ import { game, repeat } from "isaacscript-common";
 import { RandomBabyType } from "./enums/RandomBabyType";
 import { g } from "./globals";
 import { initSprite } from "./sprite";
-import { getCurrentBaby } from "./utils";
+import { getCurrentBaby } from "./utilsBaby";
 
 const sprites = {
   clock: Sprite(),

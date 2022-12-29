@@ -2,7 +2,7 @@ import { ModCallback } from "isaac-typescript-definitions";
 import { isCollectible } from "isaacscript-common";
 import { mod } from "../mod";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
-import { getCurrentBaby } from "../utils";
+import { getCurrentBaby } from "../utilsBaby";
 import { postPickupInitBabyFunctionMap } from "./postPickupInitBabyFunctionMap";
 
 export function init(): void {

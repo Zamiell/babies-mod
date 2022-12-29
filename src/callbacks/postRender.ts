@@ -24,7 +24,8 @@ import { g } from "../globals";
 import { mod } from "../mod";
 import { initSprite } from "../sprite";
 import * as timer from "../timer";
-import { getCurrentBaby, isRacingPlusEnabled } from "../utils";
+import { isRacingPlusEnabled } from "../utils";
+import { getCurrentBaby } from "../utilsBaby";
 import { postRenderBabyFunctionMap } from "./postRenderBabyFunctionMap";
 
 const UI_HEARTS_RIGHT_SPACING = 55;

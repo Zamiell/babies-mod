@@ -5,7 +5,7 @@ import {
 } from "isaac-typescript-definitions";
 import { g } from "../globals";
 import { mod } from "../mod";
-import { getCurrentBaby } from "../utils";
+import { getCurrentBaby } from "../utilsBaby";
 import { preRoomEntitySpawnBabyFunctionMap } from "./preRoomEntitySpawnBabyFunctionMap";
 
 export function init(): void {

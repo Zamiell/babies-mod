@@ -9,7 +9,7 @@ import {
 } from "isaacscript-common";
 import { RandomBabyType } from "./enums/RandomBabyType";
 import { g } from "./globals";
-import { getCurrentBaby } from "./utils";
+import { getCurrentBaby } from "./utilsBaby";
 
 // Pseudo room clear should be disabled in certain room types.
 const ROOM_TYPE_BLACKLIST: ReadonlySet<RoomType> = new Set([

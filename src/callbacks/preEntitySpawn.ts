@@ -5,7 +5,7 @@ import {
 } from "isaac-typescript-definitions";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { mod } from "../mod";
-import { getCurrentBaby } from "../utils";
+import { getCurrentBaby } from "../utilsBaby";
 
 export function init(): void {
   mod.AddCallback(ModCallback.PRE_ENTITY_SPAWN, main);

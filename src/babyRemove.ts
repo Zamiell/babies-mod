@@ -3,7 +3,7 @@ import { removeDeadEyeMultiplier, setBlindfold } from "isaacscript-common";
 import { babyRemoveFunctionMap } from "./babyRemoveFunctionMap";
 import { g } from "./globals";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
-import { getCurrentBaby } from "./utils";
+import { getCurrentBaby } from "./utilsBaby";
 
 export function babyRemove(player: EntityPlayer, oldBabyCounters: int): void {
   const [babyType, baby] = getCurrentBaby();

@@ -51,22 +51,10 @@ import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import * as pseudoRoomClear from "../pseudoRoomClear";
 import { EffectVariantCustom } from "../types/EffectVariantCustom";
-import { bigChestExists, getCurrentBabyDescription } from "../utils";
+import { bigChestExists } from "../utils";
+import { getCurrentBabyDescription } from "../utilsBaby";
 
 export const postUpdateBabyFunctionMap = new Map<RandomBabyType, () => void>();
-
-// 17
-postUpdateBabyFunctionMap.set(RandomBabyType.BEAN, () => {
-  const gameFrameCount = game.GetFrameCount();
-
-  if (bigChestExists()) {
-    return;
-  }
-
-  if (gameFrameCount % GAME_FRAMES_PER_SECOND === 0) {
-    useActiveItemTemp(g.p, CollectibleType.BUTTER_BEAN);
-  }
-});
 
 // 19
 postUpdateBabyFunctionMap.set(RandomBabyType.WRATH, () => {

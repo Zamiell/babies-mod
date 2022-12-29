@@ -13,7 +13,7 @@ import {
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { mod } from "../mod";
-import { getCurrentBabyDescription } from "../utils";
+import { getCurrentBabyDescription } from "../utilsBaby";
 
 export const preSpawnClearAwardBabyFunctionMap = new Map<
   RandomBabyType,

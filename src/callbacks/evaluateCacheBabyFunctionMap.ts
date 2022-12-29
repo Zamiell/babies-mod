@@ -7,7 +7,7 @@ import {
 } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
-import { getCurrentBabyDescription } from "../utils";
+import { getCurrentBabyDescription } from "../utilsBaby";
 
 export const evaluateCacheBabyFunctionMap = new Map<
   RandomBabyType,

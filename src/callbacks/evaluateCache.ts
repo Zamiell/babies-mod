@@ -2,7 +2,7 @@ import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
 import { isCharacter } from "isaacscript-common";
 import { mod } from "../mod";
 import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
-import { getCurrentBaby } from "../utils";
+import { getCurrentBaby } from "../utilsBaby";
 import { evaluateCacheBabyFunctionMap } from "./evaluateCacheBabyFunctionMap";
 
 export function init(): void {

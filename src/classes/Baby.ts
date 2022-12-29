@@ -39,6 +39,9 @@ export class Baby extends ModFeature {
     return true;
   }
 
+  /** Called from "babyAdd.ts". */
+  public onAdd(): void {}
+
   /** Called from "babyRemove.ts". */
   public onRemove(): void {}
 }

@@ -1,7 +1,7 @@
 import { DamageFlag } from "isaac-typescript-definitions";
 import { game, hasFlag } from "isaacscript-common";
 import { g } from "../globals";
-import { getCurrentBaby } from "../utils";
+import { getCurrentBaby } from "../utilsBaby";
 import { entityTakeDmgPlayerBabyFunctionMap } from "./entityTakeDmgPlayerBabyFunctionMap";
 
 export function main(

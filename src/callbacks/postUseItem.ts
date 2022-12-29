@@ -17,7 +17,8 @@ import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { mod } from "../mod";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
-import { getCurrentBaby, spawnSlotHelper } from "../utils";
+import { spawnSlotHelper } from "../utils";
+import { getCurrentBaby } from "../utilsBaby";
 
 export function init(): void {
   mod.AddCallback(

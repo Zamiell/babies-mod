@@ -15,7 +15,7 @@ import {
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { EffectVariantCustom } from "../types/EffectVariantCustom";
-import { getCurrentBabyDescription } from "../utils";
+import { getCurrentBabyDescription } from "../utilsBaby";
 
 export const postEffectUpdateBabyFunctionMap = new Map<
   RandomBabyType,

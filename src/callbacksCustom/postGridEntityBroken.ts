@@ -7,7 +7,8 @@ import {
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { mod } from "../mod";
-import { getCurrentBaby, spawnRandomPickup } from "../utils";
+import { spawnRandomPickup } from "../utils";
+import { getCurrentBaby } from "../utilsBaby";
 
 export function init(): void {
   mod.AddCallbackCustom(

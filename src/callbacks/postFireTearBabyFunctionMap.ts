@@ -23,7 +23,7 @@ import { FADED_BLUE, FADED_RED, FADED_YELLOW } from "../constants";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { TearData } from "../types/TearData";
-import { getCurrentBabyDescription } from "../utils";
+import { getCurrentBabyDescription } from "../utilsBaby";
 
 export const postFireTearBabyFunctionMap = new Map<
   RandomBabyType,

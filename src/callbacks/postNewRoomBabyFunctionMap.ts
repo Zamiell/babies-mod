@@ -9,7 +9,6 @@ import {
   GridEntityType,
   GridRoom,
   ItemPoolType,
-  LaserVariant,
   PillColor,
   PillEffect,
   RoomTransitionAnim,
@@ -19,7 +18,6 @@ import {
   TrapdoorVariant,
 } from "isaac-typescript-definitions";
 import {
-  addFlag,
   bitFlags,
   changeRoom,
   getCollectibleDevilHeartPrice,
@@ -48,7 +46,8 @@ import { g } from "../globals";
 import { TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP } from "../maps/teleportRoomTypeToItemAndPriceMap";
 import { mod } from "../mod";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
-import { getCurrentBabyDescription, shouldTransformRoomType } from "../utils";
+import { shouldTransformRoomType } from "../utils";
+import { getCurrentBabyDescription } from "../utilsBaby";
 
 const FANCY_BABY_COLLECTIBLE_POSITIONS: ReadonlyArray<[x: int, y: int]> = [
   [3, 1],
@@ -62,29 +61,6 @@ const FANCY_BABY_COLLECTIBLE_POSITIONS: ReadonlyArray<[x: int, y: int]> = [
 ];
 
 export const postNewRoomBabyFunctionMap = new Map<RandomBabyType, () => void>();
-
-// 14
-postNewRoomBabyFunctionMap.set(RandomBabyType.GLASS, () => {
-  // Spawn a laser ring around the player.
-  const laser = g.p.FireTechXLaser(g.p.Position, VectorZero, 66).ToLaser();
-  // (We copy the radius from Samael's Tech X ability.)
-  if (laser === undefined) {
-    return;
-  }
-  if (laser.Variant !== LaserVariant.THIN_RED) {
-    laser.Variant = LaserVariant.THIN_RED;
-    laser.SpriteScale = Vector(0.5, 1);
-  }
-  laser.TearFlags = addFlag(laser.TearFlags, TearFlag.CONTINUUM);
-  laser.CollisionDamage *= 0.66;
-  const data = laser.GetData();
-  data["ring"] = true;
-});
-
-// 15
-postNewRoomBabyFunctionMap.set(RandomBabyType.GOLD, () => {
-  g.r.TurnGold();
-});
 
 // 30
 postNewRoomBabyFunctionMap.set(RandomBabyType.BLUE, () => {

@@ -51,11 +51,8 @@ import { g } from "../globals";
 import { mod } from "../mod";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 import { EntityDescription } from "../types/EntityDescription";
-import {
-  getCurrentBabyDescription,
-  spawnRandomPickup,
-  spawnSlotHelper,
-} from "../utils";
+import { spawnRandomPickup, spawnSlotHelper } from "../utils";
+import { getCurrentBabyDescription } from "../utilsBaby";
 
 export const entityTakeDmgPlayerBabyFunctionMap = new Map<
   RandomBabyType,

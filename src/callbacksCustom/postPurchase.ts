@@ -1,6 +1,6 @@
 import { ModCallbackCustom } from "isaacscript-common";
 import { mod } from "../mod";
-import { getCurrentBaby } from "../utils";
+import { getCurrentBaby } from "../utilsBaby";
 import { postPickupCollectBabyFunctionMap } from "./postPickupCollectBabyFunctionMap";
 
 export function init(): void {

@@ -2,7 +2,7 @@ import { ModCallback } from "isaac-typescript-definitions";
 import { game } from "isaacscript-common";
 import { g } from "../globals";
 import { mod } from "../mod";
-import { getCurrentBaby } from "../utils";
+import { getCurrentBaby } from "../utilsBaby";
 import { postEntityKillBabyFunctionMap } from "./postEntityKillBabyFunctionMap";
 
 export function init(): void {
