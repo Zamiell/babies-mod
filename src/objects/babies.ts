@@ -17,6 +17,7 @@ import { Abel } from "../classes/babies/Abel";
 import { AetherBaby } from "../classes/babies/AetherBaby";
 import { AlienHominidBaby } from "../classes/babies/AlienHominidBaby";
 import { ArcadeBaby } from "../classes/babies/ArcadeBaby";
+import { AstronautBaby } from "../classes/babies/AstronautBaby";
 import { BawlBaby } from "../classes/babies/BawlBaby";
 import { BeanBaby } from "../classes/babies/BeanBaby";
 import { BigEyesBaby } from "../classes/babies/BigEyesBaby";
@@ -40,10 +41,12 @@ import { GillsBaby } from "../classes/babies/GillsBaby";
 import { GlassBaby } from "../classes/babies/GlassBaby";
 import { GoldBaby } from "../classes/babies/GoldBaby";
 import { GreenBaby } from "../classes/babies/GreenBaby";
+import { GreenKoopaBaby } from "../classes/babies/GreenKoopaBaby";
 import { HostBaby } from "../classes/babies/HostBaby";
 import { ImpBaby2 } from "../classes/babies/ImpBaby2";
 import { LightsBaby } from "../classes/babies/LightsBaby";
 import { LilLoki } from "../classes/babies/LilLoki";
+import { LittleHornBaby } from "../classes/babies/LittleHornBaby";
 import { LocustBaby } from "../classes/babies/LocustBaby";
 import { LongBaby } from "../classes/babies/LongBaby";
 import { LostBaby } from "../classes/babies/LostBaby";
@@ -3448,6 +3451,7 @@ export const BABIES = {
     description: "Tears have a 5% chance to create a Black Hole effect",
     sprite: "406_baby_astronaut.png",
     mustHaveTears: true,
+    class: AstronautBaby,
   },
 
   // 407
@@ -3639,6 +3643,7 @@ export const BABIES = {
     sprite: "429_baby_littlehorn.png",
     num: 5,
     mustHaveTears: true,
+    class: LittleHornBaby,
   },
 
   // 430
@@ -3848,6 +3853,7 @@ export const BABIES = {
     description: "Shoots bouncy green shells",
     sprite: "455_baby_green_koopa.png",
     mustHaveTears: true,
+    class: GreenKoopaBaby,
   },
 
   // 456

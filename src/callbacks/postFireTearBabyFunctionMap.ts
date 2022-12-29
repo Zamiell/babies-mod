@@ -15,76 +15,11 @@ import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { TearData } from "../types/TearData";
 import { setTearColor } from "../utils";
-import { getCurrentBabyDescription } from "../utilsBaby";
 
 export const postFireTearBabyFunctionMap = new Map<
   RandomBabyType,
   (tear: EntityTear) => void
 >();
-
-// 406
-postFireTearBabyFunctionMap.set(
-  RandomBabyType.ASTRONAUT,
-  (tear: EntityTear) => {
-    tear.SubType = 1; // Mark that we shot this tear.
-  },
-);
-
-// 429
-postFireTearBabyFunctionMap.set(
-  RandomBabyType.LITTLE_HORN,
-  (tear: EntityTear) => {
-    const baby = getCurrentBabyDescription();
-    if (baby.num === undefined) {
-      error(`The "num" attribute was not defined for: ${baby.name}`);
-    }
-
-    // Void tears
-    g.run.babyCounters++;
-    if (g.run.babyCounters === baby.num) {
-      g.run.babyCounters = 0;
-      tear.TearFlags = addFlag(tear.TearFlags, TearFlag.HORN);
-    }
-  },
-);
-
-// 442
-postFireTearBabyFunctionMap.set(
-  RandomBabyType.TOOTH_HEAD,
-  (tear: EntityTear) => {
-    // Changing the variant does not actually increase the damage, only the appearance.
-    tear.ChangeVariant(TearVariant.TOOTH);
-    tear.CollisionDamage = g.p.Damage * 3.2;
-  },
-);
-
-// 455
-postFireTearBabyFunctionMap.set(
-  RandomBabyType.GREEN_KOOPA,
-  (tear: EntityTear) => {
-    // Turn all tears into green shell tears.
-    const sprite = tear.GetSprite();
-    sprite.Load("gfx/shell_green_tears.anm2", true);
-    sprite.Play("RegularTear1", false);
-
-    // Make it bouncy
-    tear.TearFlags = addFlag(
-      TearFlag.BOUNCE, // 1 << 19
-      TearFlag.POP, // 1 << 56
-    );
-
-    // Make it lower to the ground.
-    tear.Height = -5;
-
-    // Mark it as a special tear so that we can keep it updated.
-    tear.SubType = 1;
-
-    // Store the initial height and velocity.
-    const data = tear.GetData();
-    data["Height"] = tear.Height;
-    data["Velocity"] = tear.Velocity;
-  },
-);
 
 // 458
 postFireTearBabyFunctionMap.set(
