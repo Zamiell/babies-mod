@@ -14,6 +14,8 @@ import {
 } from "isaac-typescript-definitions";
 import { HasAllEnumKeys } from "isaacscript-common";
 import { BloatBaby } from "../classes/babies/BloatBaby";
+import { CockeyedBaby } from "../classes/babies/CockeyedBaby";
+import { HostBaby } from "../classes/babies/HostBaby";
 import { LoveBaby } from "../classes/babies/LoveBaby";
 import { SpiderBaby } from "../classes/babies/SpiderBaby";
 import { TrollBaby } from "../classes/babies/TrollBaby";
@@ -99,6 +101,7 @@ export const BABIES = {
     description: "Shoots extra tears with random velocity",
     sprite: "008_baby_cockeyed.png",
     mustHaveTears: true,
+    class: CockeyedBaby,
   },
 
   // 9
@@ -107,6 +110,7 @@ export const BABIES = {
     description: "Spawns 10 Blue Spiders on hit",
     sprite: "009_baby_host.png",
     num: 10,
+    class: HostBaby,
   },
 
   // 10

@@ -14,7 +14,6 @@ import {
   game,
   GAME_FRAMES_PER_SECOND,
   getFamiliars,
-  getRandomInt,
   spawnBomb,
   spawnEffect,
   spawnFamiliar,
@@ -30,21 +29,6 @@ export const postFireTearBabyFunctionMap = new Map<
   RandomBabyType,
   (tear: EntityTear) => void
 >();
-
-// 8
-postFireTearBabyFunctionMap.set(RandomBabyType.COCKEYED, (tear: EntityTear) => {
-  if (g.run.babyBool) {
-    return;
-  }
-
-  // Spawn a new tear with a random velocity.
-  const rng = tear.GetDropRNG();
-  const rotation = getRandomInt(0, 359, rng);
-  const velocity = tear.Velocity.Rotated(rotation);
-  g.run.babyBool = true;
-  g.p.FireTear(g.p.Position, velocity, false, true, false);
-  g.run.babyBool = false;
-});
 
 // 18
 postFireTearBabyFunctionMap.set(RandomBabyType.MAG, (tear: EntityTear) => {
