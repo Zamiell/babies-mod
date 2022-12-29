@@ -363,7 +363,7 @@ postTearUpdateBabyFunctionMap.set(
   },
 );
 
-// 561
+// 576
 postTearUpdateBabyFunctionMap.set(
   RandomBabyType.BROTHER_BOBBY,
   (tear: EntityTear) => {
@@ -383,7 +383,7 @@ postTearUpdateBabyFunctionMap.set(
   },
 );
 
-// 570
+// 585
 postTearUpdateBabyFunctionMap.set(RandomBabyType.ABEL, (tear: EntityTear) => {
   const baby = getCurrentBabyDescription();
   if (baby.num === undefined) {

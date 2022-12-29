@@ -2,6 +2,7 @@ import { log, printConsole, setLogFunctionsGlobal } from "isaacscript-common";
 import { MAX_BABY_TYPE } from "./enums/RandomBabyType";
 import g from "./globals";
 
+/** Associated with the "babydebug" command. */
 function debugCode() {}
 
 export function debugFunction(): void {

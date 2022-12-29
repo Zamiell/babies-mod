@@ -7,6 +7,7 @@ import {
   EntityFlag,
   EntityType,
   HeartSubType,
+  ItemConfigTag,
   ItemPoolType,
   KeySubType,
   PickupVariant,
@@ -23,6 +24,7 @@ import {
   getCollectibleMaxCharges,
   getEntities,
   getRandomInt,
+  getRandomSetElement,
   sfxManager,
   spawnBattery,
   spawnCard,
@@ -133,6 +135,13 @@ export function getRandomCollectibleTypeFromPool(
   g.run.babyBool = false;
 
   return collectibleType;
+}
+
+export function getRandomCollectibleTypeWithTag(
+  itemConfigTag: ItemConfigTag,
+): CollectibleType {
+  const foodCollectibleTypesSet = mod.getCollectiblesWithTag(itemConfigTag);
+  return getRandomSetElement(foodCollectibleTypesSet);
 }
 
 export function giveItemAndRemoveFromPools(

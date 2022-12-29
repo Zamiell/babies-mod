@@ -1,10 +1,13 @@
 import { RoomType } from "isaac-typescript-definitions";
 
+export const MOD_NAME = "The Babies Mod";
+
+/** The version is updated automatically by IsaacScript. */
+export const VERSION = "1.5.2";
+
 export const FADED_BLUE = Color(0, 0, 1, 0.7);
 export const FADED_RED = Color(1, 0, 0, 0.7);
 export const FADED_YELLOW = Color(1, 1, 0, 0.7);
-
-export const MOD_NAME = "The Babies Mod";
 
 export const NUM_SUCCUBI_IN_FLOCK = 10;
 
@@ -27,6 +30,3 @@ export const ROOM_TYPES_TO_NOT_TRANSFORM: ReadonlySet<RoomType> = new Set([
   // The mechanic should not apply to in-between battle rooms.
   RoomType.BLUE, // 28
 ]);
-
-// The version is updated automatically by IsaacScript.
-export const VERSION = "1.5.2";

@@ -910,7 +910,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
   },
 );
 
-// 562
+// 577
 entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.SISTER_MAGGY,
   (player) => {
@@ -932,14 +932,14 @@ entityTakeDmgPlayerBabyFunctionMap.set(
   },
 );
 
-// 585
+// 599
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.ESAU_JR, (player) => {
   player.UseCard(CardType.SOUL_JACOB);
 
   return undefined;
 });
 
-// 586
+// 601
 entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.SIREN_SHOOTER,
   (player) => {

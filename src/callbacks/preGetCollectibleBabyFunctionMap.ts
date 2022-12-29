@@ -1,11 +1,15 @@
 import {
   CollectibleType,
+  ItemConfigTag,
   ItemPoolType,
   RoomType,
 } from "isaac-typescript-definitions";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import g from "../globals";
-import { getRandomCollectibleTypeFromPool } from "../utils";
+import {
+  getRandomCollectibleTypeFromPool,
+  getRandomCollectibleTypeWithTag,
+} from "../utils";
 
 export const preGetCollectibleBabyFunctionMap = new Map<
   RandomBabyType,
@@ -43,7 +47,7 @@ preGetCollectibleBabyFunctionMap.set(RandomBabyType.FOLDER, () => {
   }
 });
 
-// 559
+// 558
 preGetCollectibleBabyFunctionMap.set(RandomBabyType.FINGER, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.SECRET),
 );
@@ -53,27 +57,32 @@ preGetCollectibleBabyFunctionMap.set(RandomBabyType.BALD, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.BOSS),
 );
 
-// 564
+// 574
+preGetCollectibleBabyFunctionMap.set(RandomBabyType.FOOD_REVIEWER, () =>
+  getRandomCollectibleTypeWithTag(ItemConfigTag.FOOD),
+);
+
+// 579
 preGetCollectibleBabyFunctionMap.set(RandomBabyType.LITTLE_GISH, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.CURSE),
 );
 
-// 567
+// 582
 preGetCollectibleBabyFunctionMap.set(RandomBabyType.GHOST, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.SHOP),
 );
 
-// 574
+// 589
 preGetCollectibleBabyFunctionMap.set(RandomBabyType.MONGO, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.ANGEL),
 );
 
-// 575
+// 590
 preGetCollectibleBabyFunctionMap.set(RandomBabyType.INCUBUS, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.DEVIL),
 );
 
-// 580
+// 595
 preGetCollectibleBabyFunctionMap.set(RandomBabyType.BOILED, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.ULTRA_SECRET),
 );

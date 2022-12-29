@@ -588,7 +588,7 @@ postNewRoomBabyFunctionMap.set(RandomBabyType.EYEBAT, () => {
   }
 });
 
-// 561
+// 576
 postNewRoomBabyFunctionMap.set(RandomBabyType.BROTHER_BOBBY, () => {
   const godheadTear = g.p.FireTear(
     g.p.Position,

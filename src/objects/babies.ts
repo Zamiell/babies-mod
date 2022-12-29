@@ -4599,8 +4599,9 @@ export const BABIES = {
   // 567
   [RandomBabyType.KYUUKYUU]: {
     name: "Kyuukyuu Baby",
-    description: "???",
+    description: "Starts with Hungry Soul",
     sprite: "567_baby_kyuukyuu.png",
+    item: CollectibleType.HUNGRY_SOUL,
   },
 
   // 568
@@ -4648,7 +4649,7 @@ export const BABIES = {
   // 574
   [RandomBabyType.FOOD_REVIEWER]: {
     name: "Food Reviewer Baby",
-    description: "???",
+    description: "All items are food items",
     sprite: "574_baby_foodreviewer.png", // cspell:ignore foodreviewer
   },
 
@@ -4879,9 +4880,9 @@ export const BABIES = {
   },
 } as const satisfies HasAllEnumKeys<RandomBabyType, BabyDescription>;
 
-export const UNKNOWN_BABY: BabyDescription = {
+export const UNKNOWN_BABY = {
   name: "Unknown Baby",
   description: "Unknown",
   // This file does not actually exist, but we cannot specify a blank string.
   sprite: "unknown.png",
-} as const;
+} as const satisfies BabyDescription;

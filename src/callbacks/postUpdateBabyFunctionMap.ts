@@ -1115,7 +1115,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.BULLET, () => {
   g.p.AddBombs(1);
 });
 
-// 587
+// 602
 postUpdateBabyFunctionMap.set(RandomBabyType.INVISIBLE, () => {
   const roomFrameCount = g.r.GetFrameCount();
 

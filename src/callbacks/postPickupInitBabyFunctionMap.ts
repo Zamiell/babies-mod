@@ -123,7 +123,7 @@ postPickupInitBabyFunctionMap.set(
   },
 );
 
-// 566
+// 581
 postPickupInitBabyFunctionMap.set(
   RandomBabyType.DEMON,
   (pickup: EntityPickup) => {
@@ -140,7 +140,7 @@ postPickupInitBabyFunctionMap.set(
   },
 );
 
-// 576
+// 591
 postPickupInitBabyFunctionMap.set(
   RandomBabyType.FATES_REWARD,
   (pickup: EntityPickup) => {

@@ -133,7 +133,7 @@ postFamiliarUpdateBabyFunctionMap.set(
   },
 );
 
-// 577
+// 592
 postFamiliarUpdateBabyFunctionMap.set(
   RandomBabyType.SERAPHIM,
   (familiar: EntityFamiliar) => {

@@ -143,7 +143,7 @@ babyRemoveFunctionMap.set(RandomBabyType.CURSED_ROOM, () => {
   g.l.RemoveCurses(LevelCurse.CURSED);
 });
 
-// 572
+// 587
 babyRemoveFunctionMap.set(RandomBabyType.ROTTEN, () => {
   // Remove all of the Blue Flies.
   removeAllMatchingEntities(EntityType.FAMILIAR, FamiliarVariant.BLUE_FLY);
