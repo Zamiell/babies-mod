@@ -65,8 +65,10 @@ import { OctopusBaby } from "../classes/babies/OctopusBaby";
 import { OrangeDemonBaby } from "../classes/babies/OrangeDemonBaby";
 import { PinkGhostBaby } from "../classes/babies/PinkGhostBaby";
 import { RageBaby } from "../classes/babies/RageBaby";
+import { RedKoopaBaby } from "../classes/babies/RedKoopaBaby";
 import { RefereeBaby } from "../classes/babies/RefereeBaby";
 import { RottenBaby } from "../classes/babies/RottenBaby";
+import { SadBunnyBaby } from "../classes/babies/SadBunnyBaby";
 import { ScreamBaby } from "../classes/babies/ScreamBaby";
 import { ShadowBaby } from "../classes/babies/ShadowBaby";
 import { SickBaby } from "../classes/babies/SickBaby";
@@ -3884,6 +3886,7 @@ export const BABIES = {
     description: "Shoots bouncy & homing red shells",
     sprite: "458_baby_red_koopa.png",
     mustHaveTears: true,
+    class: RedKoopaBaby,
   },
 
   // 459
@@ -3892,6 +3895,7 @@ export const BABIES = {
     description: "Accuracy increases tear rate",
     sprite: "459_baby_sad_bunny.png",
     mustHaveTears: true,
+    class: SadBunnyBaby,
   },
 
   // 460
