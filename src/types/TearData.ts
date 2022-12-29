@@ -1,4 +1,4 @@
 export interface TearData {
-  BabiesModHeight: int;
-  BabiesModVelocity: Vector;
+  BabiesModHeight: int | undefined;
+  BabiesModVelocity: Vector | undefined;
 }

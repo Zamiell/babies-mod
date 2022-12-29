@@ -83,7 +83,7 @@ import { ToothHeadBaby } from "../classes/babies/ToothHeadBaby";
 import { TrollBaby } from "../classes/babies/TrollBaby";
 import { TurtleDragonBaby } from "../classes/babies/TurtleDragonBaby";
 import { VBaby } from "../classes/babies/VBaby";
-import { VoxdogBaby } from "../classes/babies/VoxDogBaby";
+import { VoxdogBaby } from "../classes/babies/VoxdogBaby";
 import { WaterBaby } from "../classes/babies/WaterBaby";
 import { WebBaby } from "../classes/babies/WebBaby";
 import { WrappedBaby } from "../classes/babies/WrappedBaby";
