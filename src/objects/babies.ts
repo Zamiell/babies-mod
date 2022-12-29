@@ -16,6 +16,7 @@ import { GAME_FRAMES_PER_SECOND, HasAllEnumKeys } from "isaacscript-common";
 import { AetherBaby } from "../classes/babies/AetherBaby";
 import { AlienHominidBaby } from "../classes/babies/AlienHominidBaby";
 import { BeanBaby } from "../classes/babies/BeanBaby";
+import { BigEyesBaby } from "../classes/babies/BigEyesBaby";
 import { BlackBaby } from "../classes/babies/BlackBaby";
 import { BloatBaby } from "../classes/babies/BloatBaby";
 import { BlueBaby } from "../classes/babies/BlueBaby";
@@ -35,6 +36,7 @@ import { LoveBaby } from "../classes/babies/LoveBaby";
 import { MagBaby } from "../classes/babies/MagBaby";
 import { MagnetBaby } from "../classes/babies/MagnetBaby";
 import { MortBaby } from "../classes/babies/MortBaby";
+import { MustacheBaby } from "../classes/babies/MustacheBaby";
 import { RageBaby } from "../classes/babies/RageBaby";
 import { ScreamBaby } from "../classes/babies/ScreamBaby";
 import { ShadowBaby } from "../classes/babies/ShadowBaby";
@@ -551,6 +553,7 @@ export const BABIES = {
     description: "Tears cause self-knockback",
     sprite: "059_baby_bigeyes.png",
     mustHaveTears: true,
+    class: BigEyesBaby,
   },
 
   // 60
@@ -606,6 +609,7 @@ export const BABIES = {
     sprite: "066_baby_mustache.png",
     mustHaveTears: true,
     softlockPreventionDestroyPoops: true, // Boomerangs cannot kill poops
+    class: MustacheBaby,
   },
 
   // 67
