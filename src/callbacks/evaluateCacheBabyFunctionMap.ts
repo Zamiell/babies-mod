@@ -14,19 +14,6 @@ export const evaluateCacheBabyFunctionMap = new Map<
   (player: EntityPlayer, cacheFlag: CacheFlag) => void
 >();
 
-// 11
-evaluateCacheBabyFunctionMap.set(
-  RandomBabyType.CUTE,
-  (player: EntityPlayer, cacheFlag: CacheFlag) => {
-    if (cacheFlag === CacheFlag.DAMAGE) {
-      // -1 damage per pickup taken.
-      repeat(g.run.babyCounters, () => {
-        player.Damage--;
-      });
-    }
-  },
-);
-
 // 73
 evaluateCacheBabyFunctionMap.set(
   RandomBabyType.LOWFACE,

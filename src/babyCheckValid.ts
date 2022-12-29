@@ -15,6 +15,7 @@ import {
 import { RandomBabyType } from "./enums/RandomBabyType";
 import { g } from "./globals";
 import { BABIES } from "./objects/babies";
+import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 import { BabyDescription } from "./types/BabyDescription";
 
 export function babyCheckValid(
@@ -74,6 +75,11 @@ export function babyCheckValid(
 
   if (!checkCurses(babyType)) {
     return false;
+  }
+
+  const babyClass = BABY_CLASS_MAP.get(babyType);
+  if (babyClass !== undefined) {
+    return babyClass.isValid();
   }
 
   return true;
@@ -537,17 +543,6 @@ function checkStage(babyType: RandomBabyType, baby: BabyDescription): boolean {
 
   if (baby.trinket === TrinketType.DEVILS_CROWN && effectiveStage > 6) {
     // Devil's Crown doesn't do anything on floors that do not have Treasure Rooms.
-    return false;
-  }
-
-  // 13
-  if (
-    babyType === RandomBabyType.SHADOW &&
-    (effectiveStage === 1 || effectiveStage >= 8)
-  ) {
-    // Devil Rooms / Angel Rooms go to the Black Market instead. Only valid for floors with Devil
-    // Rooms. Not valid for floor 8 just in case the Black Market does not have a beam of light to
-    // the Cathedral.
     return false;
   }
 

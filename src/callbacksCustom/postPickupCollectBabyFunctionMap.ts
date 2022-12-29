@@ -14,14 +14,6 @@ export const postPickupCollectBabyFunctionMap = new Map<
   () => void
 >();
 
-// 11
-postPickupCollectBabyFunctionMap.set(RandomBabyType.CUTE, () => {
-  // -1 damage per pickup taken.
-  g.run.babyCounters++;
-  g.p.AddCacheFlags(CacheFlag.DAMAGE);
-  g.p.EvaluateItems();
-});
-
 // 147
 postPickupCollectBabyFunctionMap.set(RandomBabyType.BLUEBIRD, () => {
   // Touching pickups causes paralysis (2/2).

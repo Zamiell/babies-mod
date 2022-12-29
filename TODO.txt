@@ -16,3 +16,17 @@ Bugs with Costume Protector:
 - Wavy Cap
 - Double Glass Eye
 - Double Guppy's Eye
+
+Template for new babies:
+
+import { ModCallback } from "isaac-typescript-definitions";
+import { Callback } from "isaacscript-common";
+import { Baby } from "../Baby";
+
+/**  */
+export class Baby extends Baby {
+  @Callback(ModCallback.POST_UPDATE)
+  private postUpdate(): void {
+
+  }
+}

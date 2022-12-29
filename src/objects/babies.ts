@@ -15,9 +15,12 @@ import {
 import { HasAllEnumKeys } from "isaacscript-common";
 import { BloatBaby } from "../classes/babies/BloatBaby";
 import { CockeyedBaby } from "../classes/babies/CockeyedBaby";
+import { CrowBaby } from "../classes/babies/CrowBaby";
+import { CuteBaby } from "../classes/babies/CuteBaby";
 import { HostBaby } from "../classes/babies/HostBaby";
 import { LostBaby } from "../classes/babies/LostBaby";
 import { LoveBaby } from "../classes/babies/LoveBaby";
+import { ShadowBaby } from "../classes/babies/ShadowBaby";
 import { SpiderBaby } from "../classes/babies/SpiderBaby";
 import { TrollBaby } from "../classes/babies/TrollBaby";
 import { WaterBaby } from "../classes/babies/WaterBaby";
@@ -128,6 +131,7 @@ export const BABIES = {
     name: "Cute Baby",
     description: "-1 damage per pickup taken",
     sprite: "011_baby_cute.png",
+    class: CuteBaby,
   },
 
   // 12
@@ -136,6 +140,7 @@ export const BABIES = {
     description: "Starts with Dead Bird (improved)",
     sprite: "012_baby_crow.png",
     item: CollectibleType.DEAD_BIRD,
+    class: CrowBaby,
   },
 
   // 13
@@ -143,6 +148,7 @@ export const BABIES = {
     name: "Shadow Baby",
     description: "Devil Rooms / Angel Rooms go to the Black Market instead",
     sprite: "013_baby_shadow.png",
+    class: ShadowBaby,
   },
 
   // 14

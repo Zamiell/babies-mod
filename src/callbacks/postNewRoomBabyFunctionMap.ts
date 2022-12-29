@@ -63,21 +63,6 @@ const FANCY_BABY_COLLECTIBLE_POSITIONS: ReadonlyArray<[x: int, y: int]> = [
 
 export const postNewRoomBabyFunctionMap = new Map<RandomBabyType, () => void>();
 
-// 13
-postNewRoomBabyFunctionMap.set(RandomBabyType.SHADOW, () => {
-  const roomType = g.r.GetType();
-  if (
-    roomType === RoomType.DEVIL || // 14
-    roomType === RoomType.ANGEL // 15
-  ) {
-    teleport(
-      GridRoom.BLACK_MARKET,
-      Direction.NO_DIRECTION,
-      RoomTransitionAnim.WALK,
-    );
-  }
-});
-
 // 14
 postNewRoomBabyFunctionMap.set(RandomBabyType.GLASS, () => {
   // Spawn a laser ring around the player.

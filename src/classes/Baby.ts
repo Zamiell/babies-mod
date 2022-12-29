@@ -34,5 +34,11 @@ export class Baby extends ModFeature {
     return attribute as NonNullable<BabyDescription[T]>;
   }
 
+  /** Called from "babyCheckValid.ts". */
+  public isValid(): boolean {
+    return true;
+  }
+
+  /** Called from "babyRemove.ts". */
   public onRemove(): void {}
 }

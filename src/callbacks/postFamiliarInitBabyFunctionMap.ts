@@ -1,5 +1,4 @@
 import { FamiliarVariant } from "isaac-typescript-definitions";
-import { repeat, spawnFamiliar } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 
@@ -7,21 +6,6 @@ export const postFamiliarInitBabyFunctionMap = new Map<
   RandomBabyType,
   (familiar: EntityFamiliar) => void
 >();
-
-// 12
-postFamiliarInitBabyFunctionMap.set(
-  RandomBabyType.CROW,
-  (familiar: EntityFamiliar) => {
-    if (familiar.Variant === FamiliarVariant.DEAD_BIRD && !g.run.babyBool) {
-      // Spawn 5 bird familiars instead of 1. (1 is already spawned.)
-      g.run.babyBool = true;
-      repeat(4, () => {
-        spawnFamiliar(FamiliarVariant.DEAD_BIRD, 0, g.p.Position);
-      });
-      g.run.babyBool = false;
-    }
-  },
-);
 
 // 30
 postFamiliarInitBabyFunctionMap.set(
