@@ -10,8 +10,6 @@ import {
   GridRoom,
   ItemPoolType,
   LaserVariant,
-  LevelCurse,
-  MinibossID,
   PillColor,
   PillEffect,
   RoomTransitionAnim,
@@ -32,7 +30,6 @@ import {
   getRoomGridIndexesForType,
   getRooms,
   gridCoordinatesToWorldPosition,
-  inMinibossRoomOf,
   inStartingRoom,
   isEven,
   log,
@@ -45,6 +42,7 @@ import {
   useActiveItemTemp,
   VectorZero,
 } from "isaacscript-common";
+import { postNewRoomReorderedNoHealthUI } from "../callbacksCustom/postNewRoomReorderedSub";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP } from "../maps/teleportRoomTypeToItemAndPriceMap";
@@ -64,27 +62,6 @@ const FANCY_BABY_COLLECTIBLE_POSITIONS: ReadonlyArray<[x: int, y: int]> = [
 ];
 
 export const postNewRoomBabyFunctionMap = new Map<RandomBabyType, () => void>();
-
-// This is used for several babies.
-function noHealth() {
-  const roomType = g.r.GetType();
-  const inKrampusRoom = inMinibossRoomOf(MinibossID.KRAMPUS);
-
-  // Get rid of the health UI by using Curse of the Unknown (but not in Devil Rooms or Black
-  // Markets).
-  if (
-    (roomType === RoomType.DEVIL || // 14
-      roomType === RoomType.BLACK_MARKET) && // 22
-    !inKrampusRoom
-  ) {
-    g.l.RemoveCurses(LevelCurse.UNKNOWN);
-  } else {
-    g.l.AddCurse(LevelCurse.UNKNOWN, false);
-  }
-}
-
-// 10
-postNewRoomBabyFunctionMap.set(RandomBabyType.LOST, noHealth);
 
 // 13
 postNewRoomBabyFunctionMap.set(RandomBabyType.SHADOW, () => {
@@ -187,10 +164,16 @@ postNewRoomBabyFunctionMap.set(RandomBabyType.STATUE_2, () => {
 });
 
 // 125
-postNewRoomBabyFunctionMap.set(RandomBabyType.HOPELESS, noHealth);
+postNewRoomBabyFunctionMap.set(
+  RandomBabyType.HOPELESS,
+  postNewRoomReorderedNoHealthUI,
+);
 
 // 138
-postNewRoomBabyFunctionMap.set(RandomBabyType.MOHAWK, noHealth);
+postNewRoomBabyFunctionMap.set(
+  RandomBabyType.MOHAWK,
+  postNewRoomReorderedNoHealthUI,
+);
 
 // 141
 postNewRoomBabyFunctionMap.set(RandomBabyType.TWIN, () => {

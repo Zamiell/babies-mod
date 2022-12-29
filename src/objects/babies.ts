@@ -16,6 +16,7 @@ import { HasAllEnumKeys } from "isaacscript-common";
 import { BloatBaby } from "../classes/babies/BloatBaby";
 import { CockeyedBaby } from "../classes/babies/CockeyedBaby";
 import { HostBaby } from "../classes/babies/HostBaby";
+import { LostBaby } from "../classes/babies/LostBaby";
 import { LoveBaby } from "../classes/babies/LoveBaby";
 import { SpiderBaby } from "../classes/babies/SpiderBaby";
 import { TrollBaby } from "../classes/babies/TrollBaby";
@@ -119,6 +120,7 @@ export const BABIES = {
     description: "Starts with Holy Mantle + Lost-style health",
     sprite: "010_baby_lost.png",
     item: CollectibleType.HOLY_MANTLE,
+    class: LostBaby,
   },
 
   // 11

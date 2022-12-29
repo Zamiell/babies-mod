@@ -68,16 +68,6 @@ export const entityTakeDmgPlayerBabyFunctionMap = new Map<
   ) => boolean | undefined
 >();
 
-// 10
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.LOST, (player) => {
-  // Lost-style health
-  g.run.dealingExtraDamage = true;
-  player.Kill();
-  g.run.dealingExtraDamage = false;
-
-  return false;
-});
-
 // 20
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.WRAPPED, (_player) => {
   // Use Kamikaze on the next 5 frames.
