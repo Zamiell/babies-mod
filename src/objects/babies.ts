@@ -24,7 +24,7 @@ import { CrowBaby } from "../classes/babies/CrowBaby";
 import { CryBaby } from "../classes/babies/CryBaby";
 import { CuteBaby } from "../classes/babies/CuteBaby";
 import { EdBaby } from "../classes/babies/EdBaby";
-import { EyemouthBaby } from "../classes/babies/EyeMouthBaby";
+import { EyemouthBaby } from "../classes/babies/EyemouthBaby";
 import { GlassBaby } from "../classes/babies/GlassBaby";
 import { GoldBaby } from "../classes/babies/GoldBaby";
 import { GreenBaby } from "../classes/babies/GreenBaby";
