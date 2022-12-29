@@ -10,7 +10,7 @@ import {
   PoopGridEntityVariant,
   SoundEffect,
 } from "isaac-typescript-definitions";
-import { game, repeat, sfxManager } from "isaacscript-common";
+import { game, sfxManager } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { mod } from "../mod";
@@ -27,12 +27,6 @@ export function init(): void {
     ModCallback.PRE_USE_ITEM,
     lemonMishap,
     CollectibleType.LEMON_MISHAP, // 56
-  );
-
-  mod.AddCallback(
-    ModCallback.PRE_USE_ITEM,
-    isaacsTears,
-    CollectibleType.ISAACS_TEARS, // 323
   );
 
   mod.AddCallback(
@@ -88,43 +82,6 @@ function lemonMishap() {
   g.p.UsePill(PillEffect.LEMON_PARTY, PillColor.NULL);
   g.p.AnimateCollectible(
     CollectibleType.LEMON_MISHAP,
-    PlayerItemAnimation.USE_ITEM,
-    CollectibleAnimation.PLAYER_PICKUP,
-  );
-
-  // Cancel the original effect.
-  return true;
-}
-
-// CollectibleType.ISAACS_TEARS (323)
-function isaacsTears() {
-  const [babyType] = getCurrentBaby();
-  if (babyType === -1) {
-    return undefined;
-  }
-
-  // 3
-  if (babyType !== RandomBabyType.WATER) {
-    return undefined;
-  }
-
-  const numIsaacTearsTears = 8;
-  const baseVelocity = Vector(10, 0);
-
-  repeat(numIsaacTearsTears, (i) => {
-    const velocity = baseVelocity.Rotated(45 * (i + 1));
-    const tear = g.p.FireTear(g.p.Position, velocity, false, false, false);
-
-    // Increase the damage and make it look more impressive.
-    tear.CollisionDamage = g.p.Damage * 2;
-    tear.Scale = 2;
-    tear.KnockbackMultiplier = 20;
-  });
-
-  // When we return from the function below, no animation will play, so we have to explicitly
-  // perform one.
-  g.p.AnimateCollectible(
-    CollectibleType.ISAACS_TEARS,
     PlayerItemAnimation.USE_ITEM,
     CollectibleAnimation.PLAYER_PICKUP,
   );

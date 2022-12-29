@@ -16,6 +16,8 @@ import { HasAllEnumKeys } from "isaacscript-common";
 import { BloatBaby } from "../classes/babies/BloatBaby";
 import { LoveBaby } from "../classes/babies/LoveBaby";
 import { SpiderBaby } from "../classes/babies/SpiderBaby";
+import { TrollBaby } from "../classes/babies/TrollBaby";
+import { WaterBaby } from "../classes/babies/WaterBaby";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { BabyDescription } from "../types/BabyDescription";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
@@ -54,6 +56,7 @@ export const BABIES = {
     description: "Starts with Isaac's Tears (improved)",
     sprite: "003_baby_water.png",
     item: CollectibleType.ISAACS_TEARS,
+    class: WaterBaby,
   },
 
   // 4
@@ -78,6 +81,7 @@ export const BABIES = {
     name: "Troll Baby",
     description: "Spawns a Troll Bomb every 3 seconds",
     sprite: "006_baby_troll.png",
+    class: TrollBaby,
   },
 
   // 7

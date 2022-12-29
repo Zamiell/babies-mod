@@ -56,13 +56,7 @@ import { bigChestExists, getCurrentBabyDescription } from "../utils";
 export const postUpdateBabyFunctionMap = new Map<RandomBabyType, () => void>();
 
 // 6
-postUpdateBabyFunctionMap.set(RandomBabyType.TROLL, () => {
-  const gameFrameCount = game.GetFrameCount();
-
-  if (gameFrameCount % (3 * GAME_FRAMES_PER_SECOND) === 0) {
-    spawnBomb(BombVariant.TROLL, 0, g.p.Position);
-  }
-});
+postUpdateBabyFunctionMap.set(RandomBabyType.TROLL, () => {});
 
 // 17
 postUpdateBabyFunctionMap.set(RandomBabyType.BEAN, () => {
