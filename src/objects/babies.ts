@@ -13,6 +13,7 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { HasAllEnumKeys } from "isaacscript-common";
+import { LoveBaby } from "../classes/babies/LoveBaby";
 import { SpiderBaby } from "../classes/babies/SpiderBaby";
 import { Baby } from "../classes/Baby";
 import { RandomBabyType } from "../enums/RandomBabyType";
@@ -34,6 +35,7 @@ export const BABIES = {
     name: "Love Baby",
     description: "Spawns a random heart on room clear",
     sprite: "001_baby_love.png",
+    class: LoveBaby,
   },
 
   // 2

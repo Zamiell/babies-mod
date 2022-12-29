@@ -31,21 +31,6 @@ export const postFireTearBabyFunctionMap = new Map<
   (tear: EntityTear) => void
 >();
 
-// 2
-postFireTearBabyFunctionMap.set(RandomBabyType.BLOAT, (tear: EntityTear) => {
-  const baby = getCurrentBabyDescription();
-  if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for: ${baby.name}`);
-  }
-
-  g.run.babyCounters++;
-  if (g.run.babyCounters === baby.num) {
-    g.run.babyCounters = 0;
-    tear.ChangeVariant(TearVariant.NEEDLE);
-    tear.TearFlags = addFlag(tear.TearFlags, TearFlag.NEEDLE);
-  }
-});
-
 // 8
 postFireTearBabyFunctionMap.set(RandomBabyType.COCKEYED, (tear: EntityTear) => {
   if (g.run.babyBool) {

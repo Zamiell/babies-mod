@@ -1,15 +1,11 @@
 import {
   CollectibleType,
-  HeartSubType,
   PickupVariant,
   RoomType,
 } from "isaac-typescript-definitions";
 import {
   addRoomClearCharge,
-  getEnumValues,
-  getRandomArrayElement,
   repeat,
-  spawnHeart,
   spawnPickup,
   useActiveItemTemp,
   VectorZero,
@@ -23,16 +19,6 @@ export const preSpawnClearAwardBabyFunctionMap = new Map<
   RandomBabyType,
   () => void
 >();
-
-// 1
-preSpawnClearAwardBabyFunctionMap.set(RandomBabyType.LOVE, () => {
-  const roomSeed = g.r.GetSpawnSeed();
-  const heartSubTypes = getEnumValues(HeartSubType);
-  const heartSubType = getRandomArrayElement(heartSubTypes, roomSeed);
-
-  // Random Heart
-  spawnHeart(heartSubType, g.p.Position, VectorZero, g.p, roomSeed);
-});
 
 // 88
 preSpawnClearAwardBabyFunctionMap.set(RandomBabyType.BANDAID, () => {
