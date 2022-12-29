@@ -31,18 +31,6 @@ export const postFireTearBabyFunctionMap = new Map<
   (tear: EntityTear) => void
 >();
 
-// 0
-postFireTearBabyFunctionMap.set(RandomBabyType.SPIDER, (tear: EntityTear) => {
-  g.run.babyCounters++;
-  if (g.run.babyCounters === 2) {
-    g.run.babyCounters = 0;
-
-    // Every second tear spawns a spider.
-    g.p.ThrowBlueSpider(g.p.Position, g.p.Position);
-    tear.Remove();
-  }
-});
-
 // 2
 postFireTearBabyFunctionMap.set(RandomBabyType.BLOAT, (tear: EntityTear) => {
   const baby = getCurrentBabyDescription();

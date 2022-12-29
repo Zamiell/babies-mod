@@ -1,5 +1,9 @@
-import { ModCallback } from "isaac-typescript-definitions";
-import { Callback } from "isaacscript-common";
+import {
+  EntityType,
+  FamiliarVariant,
+  ModCallback,
+} from "isaac-typescript-definitions";
+import { Callback, removeAllMatchingEntities } from "isaacscript-common";
 import { Baby } from "../classes/Baby";
 import g from "../globals";
 
@@ -14,5 +18,9 @@ export class SpiderBaby extends Baby {
       g.p.ThrowBlueSpider(g.p.Position, g.p.Position);
       tear.Remove();
     }
+  }
+
+  public override onRemove(): void {
+    removeAllMatchingEntities(EntityType.FAMILIAR, FamiliarVariant.BLUE_SPIDER);
   }
 }

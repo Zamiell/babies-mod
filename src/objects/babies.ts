@@ -4,7 +4,7 @@
 // C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\resources-dlc3\gfx\characters\player2\
 // ```
 
-// The babies are located at:
+// The baby descriptions are located at:
 // https://bindingofisaacrebirth.fandom.com/wiki/User:Zamie/Babies_Mod
 
 import {
@@ -14,6 +14,7 @@ import {
 } from "isaac-typescript-definitions";
 import { HasAllEnumKeys } from "isaacscript-common";
 import { SpiderBaby } from "../babies/SpiderBaby";
+import { Baby } from "../classes/Baby";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { BabyDescription } from "../types/BabyDescription";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
@@ -4901,3 +4902,20 @@ export const UNKNOWN_BABY = {
   // This file does not actually exist, but we cannot specify a blank string.
   sprite: "unknown.png",
 } as const satisfies BabyDescription;
+
+export const BABY_CLASSES: ReadonlyMap<RandomBabyType, Baby> = (() => {
+  const babyClasses = new Map<RandomBabyType, Baby>();
+
+  for (const [randomBabyTypeString, babyDescription] of Object.entries(
+    BABIES,
+  )) {
+    const randomBabyType = randomBabyTypeString as unknown as RandomBabyType;
+
+    if ("class" in babyDescription) {
+      const babyClass = new babyDescription.class(randomBabyType); // eslint-disable-line new-cap
+      babyClasses.set(randomBabyType, babyClass);
+    }
+  }
+
+  return babyClasses;
+})();

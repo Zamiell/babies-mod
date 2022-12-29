@@ -2,6 +2,7 @@ import { CollectibleType } from "isaac-typescript-definitions";
 import { removeDeadEyeMultiplier, setBlindfold } from "isaacscript-common";
 import { babyRemoveFunctionMap } from "./babyRemoveFunctionMap";
 import g from "./globals";
+import { BABY_CLASSES } from "./objects/babies";
 import { getCurrentBaby } from "./utils";
 
 export function babyRemove(player: EntityPlayer, oldBabyCounters: int): void {
@@ -51,6 +52,12 @@ export function babyRemove(player: EntityPlayer, oldBabyCounters: int): void {
   }
 
   // Remove miscellaneous effects.
+  const babyClass = BABY_CLASSES.get(babyType);
+  if (babyClass !== undefined) {
+    babyClass.onRemove();
+  }
+
+  // TODO: Refactor old logic into class methods.
   const babyRemoveFunction = babyRemoveFunctionMap.get(babyType);
   if (babyRemoveFunction !== undefined) {
     babyRemoveFunction(oldBabyCounters);

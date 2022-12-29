@@ -23,11 +23,6 @@ export const babyRemoveFunctionMap = new Map<
   (oldBabyCounters: int) => void
 >();
 
-// 0
-babyRemoveFunctionMap.set(RandomBabyType.SPIDER, () => {
-  removeAllMatchingEntities(EntityType.FAMILIAR, FamiliarVariant.BLUE_SPIDER);
-});
-
 // 31
 babyRemoveFunctionMap.set(RandomBabyType.RAGE, (oldBabyCounters: int) => {
   // Restore the bomb count to what it was before we got this baby.
