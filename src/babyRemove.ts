@@ -54,7 +54,7 @@ export function babyRemove(player: EntityPlayer, oldBabyCounters: int): void {
   // Remove miscellaneous effects.
   const babyClass = BABY_CLASS_MAP.get(babyType);
   if (babyClass !== undefined) {
-    babyClass.onRemove();
+    babyClass.onRemove(oldBabyCounters);
   }
 
   // TODO: Refactor old logic into class methods.

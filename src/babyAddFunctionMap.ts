@@ -19,14 +19,6 @@ import { getCurrentBabyDescription } from "./utilsBaby";
 
 export const babyAddFunctionMap = new Map<RandomBabyType, () => void>();
 
-// 31
-babyAddFunctionMap.set(RandomBabyType.RAGE, () => {
-  const numBombs = g.p.GetNumBombs();
-
-  g.run.babyCounters = numBombs;
-  g.p.AddBombs(99);
-});
-
 // 39
 babyAddFunctionMap.set(RandomBabyType.NOOSE, () => {
   const baby = getCurrentBabyDescription();

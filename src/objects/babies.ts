@@ -16,6 +16,7 @@ import { GAME_FRAMES_PER_SECOND, HasAllEnumKeys } from "isaacscript-common";
 import { BeanBaby } from "../classes/babies/BeanBaby";
 import { BlackBaby } from "../classes/babies/BlackBaby";
 import { BloatBaby } from "../classes/babies/BloatBaby";
+import { BlueBaby } from "../classes/babies/BlueBaby";
 import { CockeyedBaby } from "../classes/babies/CockeyedBaby";
 import { CrowBaby } from "../classes/babies/CrowBaby";
 import { CuteBaby } from "../classes/babies/CuteBaby";
@@ -26,6 +27,7 @@ import { LostBaby } from "../classes/babies/LostBaby";
 import { LoveBaby } from "../classes/babies/LoveBaby";
 import { MagBaby } from "../classes/babies/MagBaby";
 import { MagnetBaby } from "../classes/babies/MagnetBaby";
+import { RageBaby } from "../classes/babies/RageBaby";
 import { ShadowBaby } from "../classes/babies/ShadowBaby";
 import { SpiderBaby } from "../classes/babies/SpiderBaby";
 import { TrollBaby } from "../classes/babies/TrollBaby";
@@ -303,6 +305,7 @@ export const BABIES = {
     description: "Sprinkler tears",
     sprite: "030_baby_blue.png",
     mustHaveTears: true,
+    class: BlueBaby,
   },
 
   // 31
@@ -312,6 +315,7 @@ export const BABIES = {
     sprite: "031_baby_rage.png",
     item: CollectibleType.SAD_BOMBS,
     blindfolded: true,
+    class: RageBaby,
   },
 
   // 32

@@ -178,10 +178,7 @@ function checkBombs(
     return false;
   }
 
-  if (
-    (babyType === RandomBabyType.RAGE || babyType === RandomBabyType.BULLET) &&
-    bombs >= 50
-  ) {
+  if (babyType === RandomBabyType.BULLET && bombs >= 50) {
     return false;
   }
 

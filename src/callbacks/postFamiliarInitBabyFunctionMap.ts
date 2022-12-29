@@ -7,19 +7,6 @@ export const postFamiliarInitBabyFunctionMap = new Map<
   (familiar: EntityFamiliar) => void
 >();
 
-// 30
-postFamiliarInitBabyFunctionMap.set(
-  RandomBabyType.BLUE,
-  (familiar: EntityFamiliar) => {
-    // Make the Sprinkler invisible. (Setting "familiar.Visible = false" does not work, so we blank
-    // out the sprite.)
-    if (familiar.Variant === FamiliarVariant.SPRINKLER) {
-      const sprite = familiar.GetSprite();
-      sprite.Load("gfx/003.120_sprinkler2.anm2", true);
-    }
-  },
-);
-
 // 47
 postFamiliarInitBabyFunctionMap.set(
   RandomBabyType.SUCKY,

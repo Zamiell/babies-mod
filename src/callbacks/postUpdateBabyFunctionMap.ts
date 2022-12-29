@@ -56,12 +56,6 @@ import { getCurrentBabyDescription } from "../utilsBaby";
 
 export const postUpdateBabyFunctionMap = new Map<RandomBabyType, () => void>();
 
-// 31
-postUpdateBabyFunctionMap.set(RandomBabyType.RAGE, () => {
-  // Infinite bombs
-  g.p.AddBombs(1);
-});
-
 // 36
 postUpdateBabyFunctionMap.set(RandomBabyType.LIL, () => {
   // Everything is tiny. This does not work if we put it in the `POST_NEW_LEVEL` callback for some

@@ -62,13 +62,6 @@ const FANCY_BABY_COLLECTIBLE_POSITIONS: ReadonlyArray<[x: int, y: int]> = [
 
 export const postNewRoomBabyFunctionMap = new Map<RandomBabyType, () => void>();
 
-// 30
-postNewRoomBabyFunctionMap.set(RandomBabyType.BLUE, () => {
-  // Sprinkler tears
-  g.run.babyBool = true;
-  useActiveItemTemp(g.p, CollectibleType.SPRINKLER);
-});
-
 // 61
 postNewRoomBabyFunctionMap.set(RandomBabyType.ZOMBIE, () => {
   for (const entity of getEntities()) {

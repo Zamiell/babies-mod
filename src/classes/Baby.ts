@@ -40,5 +40,5 @@ export class Baby extends ModFeature {
   onAdd(): void {}
 
   /** Called from "babyRemove.ts". */
-  onRemove(): void {}
+  onRemove(_oldBabyCounters: int): void {}
 }
