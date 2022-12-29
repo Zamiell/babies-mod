@@ -29,13 +29,13 @@ export function babyCheckValid(
   }
 
   // Check for overlapping items.
-  if (baby.item !== undefined && player.HasCollectible(baby.item)) {
+  if ("item" in baby && player.HasCollectible(baby.item)) {
     return false;
   }
-  if (baby.item2 !== undefined && player.HasCollectible(baby.item2)) {
+  if ("item2" in baby && player.HasCollectible(baby.item2)) {
     return false;
   }
-  if (baby.item3 !== undefined && player.HasCollectible(baby.item3)) {
+  if ("item3" in baby && player.HasCollectible(baby.item3)) {
     return false;
   }
 

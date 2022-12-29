@@ -122,7 +122,7 @@ inputActionBabyFunctionMap.set(
   ) => {
     // Blender + flight + explosion immunity + blindfolded.
 
-    // The direction is stored in the "babyCounters" variable It can have these values:
+    // The direction is stored in the "babyCounters" variable. It can have these values:
     // - ButtonAction.SHOOT_LEFT (4)
     // - ButtonAction.SHOOT_RIGHT (5)
     // - ButtonAction.SHOOT_UP (6)
@@ -154,14 +154,10 @@ inputActionBabyFunctionMap.set(
     buttonAction: ButtonAction,
   ) => {
     // Can't shoot right
-    if (
+    const shootingRight =
       inputHook === InputHook.IS_ACTION_PRESSED &&
-      buttonAction === ButtonAction.SHOOT_RIGHT
-    ) {
-      return false;
-    }
-
-    return undefined;
+      buttonAction === ButtonAction.SHOOT_RIGHT;
+    return shootingRight ? false : undefined;
   },
 );
 
@@ -174,13 +170,9 @@ inputActionBabyFunctionMap.set(
     buttonAction: ButtonAction,
   ) => {
     // Can't shoot left
-    if (
+    const shootingLeft =
       inputHook === InputHook.IS_ACTION_PRESSED &&
-      buttonAction === ButtonAction.SHOOT_LEFT
-    ) {
-      return false;
-    }
-
-    return undefined;
+      buttonAction === ButtonAction.SHOOT_LEFT;
+    return shootingLeft ? false : undefined;
   },
 );

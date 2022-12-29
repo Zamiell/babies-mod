@@ -9,7 +9,7 @@ import { giveItemAndRemoveFromPools } from "../utils";
 
 const ALL_BABY_SEED_EFFECTS: SeedEffect[] = [];
 for (const baby of Object.values(BABIES)) {
-  if (baby.seed !== undefined) {
+  if ("seed" in baby) {
     ALL_BABY_SEED_EFFECTS.push(baby.seed);
   }
 }

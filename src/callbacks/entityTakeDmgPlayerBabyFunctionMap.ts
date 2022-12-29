@@ -28,10 +28,8 @@ import {
   getNPCs,
   getRandom,
   getRandomArrayElement,
-  getRandomCard,
   getRandomEnumValue,
   getRandomInt,
-  getRandomRune,
   isSelfDamage,
   openAllDoors,
   removeCollectibleFromItemTracker,
@@ -823,7 +821,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.LAZY, (player) => {
   // Random card effect on hit.
   const exceptions = [CardType.SUICIDE_KING]; // It would be unfair to randomly die.
-  const card = getRandomCard(g.run.rng, exceptions);
+  const card = mod.getRandomCard(g.run.rng, exceptions);
   player.UseCard(card);
 
   return undefined;
@@ -832,7 +830,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.LAZY, (player) => {
 // 506
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.REAPER, (player) => {
   // Spawns a random rune on hit.
-  const rune = getRandomRune(g.run.rng);
+  const rune = mod.getRandomRune(g.run.rng);
   const seed = g.run.rng.Next();
   spawnCard(rune, player.Position, VectorZero, player, seed);
 
