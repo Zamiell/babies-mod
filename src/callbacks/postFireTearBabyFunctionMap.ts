@@ -28,26 +28,6 @@ export const postFireTearBabyFunctionMap = new Map<
   (tear: EntityTear) => void
 >();
 
-// 81
-postFireTearBabyFunctionMap.set(RandomBabyType.SCREAM, (tear: EntityTear) => {
-  useActiveItemTemp(g.p, CollectibleType.SHOOP_DA_WHOOP);
-  tear.Remove();
-});
-
-// 94
-postFireTearBabyFunctionMap.set(
-  RandomBabyType.SQUARE_EYES,
-  (tear: EntityTear) => {
-    tear.TearFlags = addFlag(tear.TearFlags, TearFlag.SQUARE);
-  },
-);
-
-// 100
-postFireTearBabyFunctionMap.set(RandomBabyType.ED, (tear: EntityTear) => {
-  // Mark that we shot this tear.
-  tear.SubType = 1;
-});
-
 // 106
 postFireTearBabyFunctionMap.set(RandomBabyType.AETHER, (tear: EntityTear) => {
   // Shoot 8 tears at a time. (We store the rotation angle inside the "babyCounters" variable.)

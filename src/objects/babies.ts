@@ -13,6 +13,7 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { GAME_FRAMES_PER_SECOND, HasAllEnumKeys } from "isaacscript-common";
+import { AlienHominidBaby } from "../classes/babies/AlienHominidBaby";
 import { BeanBaby } from "../classes/babies/BeanBaby";
 import { BlackBaby } from "../classes/babies/BlackBaby";
 import { BloatBaby } from "../classes/babies/BloatBaby";
@@ -665,6 +666,7 @@ export const BABIES = {
     description: "Beam sword tears",
     sprite: "074_baby_alienhominid.png",
     mustHaveTears: true,
+    class: AlienHominidBaby,
   },
 
   // 75

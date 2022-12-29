@@ -15,8 +15,13 @@ import { Baby } from "../Baby";
 
 /** Sprinkler tears. (We get tears equal to one Sprinkler in addition to the default tears.) */
 export class BlueBaby extends Baby {
+  /** Sprinkler does not work properly with Ludovico. */
+  override isValid(): boolean {
+    return !g.p.HasCollectible(CollectibleType.LUDOVICO_TECHNIQUE);
+  }
+
   /**
-   * Make the Sprinkler invisible. (Setting "familiar.Visible = false" does not work, so we blank
+   * Make the Sprinkler invisible. (Setting `familiar.Visible = false` does not work, so we blank
    * out the sprite.)
    */
   // 7

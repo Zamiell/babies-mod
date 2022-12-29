@@ -11,12 +11,25 @@ import {
   getEffectiveStage,
   hasFlag,
   onRepentanceStage,
+  playerHasCollectible,
 } from "isaacscript-common";
 import { RandomBabyType } from "./enums/RandomBabyType";
 import { g } from "./globals";
 import { BABIES } from "./objects/babies";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 import { BabyDescription } from "./types/BabyDescription";
+
+const COLLECTIBLES_THAT_REMOVE_TEARS = [
+  CollectibleType.DR_FETUS, // 52
+  CollectibleType.TECHNOLOGY, // 68
+  CollectibleType.MOMS_KNIFE, // 114
+  CollectibleType.BRIMSTONE, // 118
+  CollectibleType.EPIC_FETUS, // 168
+  CollectibleType.TECH_X, // 395
+  CollectibleType.SPIRIT_SWORD, // 579
+  CollectibleType.C_SECTION, // 678
+  CollectibleType.BERSERK, // 704
+] as const;
 
 export function babyCheckValid(
   player: EntityPlayer,
@@ -205,12 +218,7 @@ function checkCollectibles(
   if (
     (baby.mustHaveTears === true ||
       babyItemsSet.has(CollectibleType.SOY_MILK)) &&
-    (player.HasCollectible(CollectibleType.DR_FETUS) || // 52
-      player.HasCollectible(CollectibleType.TECHNOLOGY) || // 68
-      player.HasCollectible(CollectibleType.MOMS_KNIFE) || // 114
-      player.HasCollectible(CollectibleType.BRIMSTONE) || // 118
-      player.HasCollectible(CollectibleType.EPIC_FETUS) || // 168
-      player.HasCollectible(CollectibleType.TECH_X)) // 395
+    !playerHasTears(player)
   ) {
     return false;
   }
@@ -455,6 +463,14 @@ function checkCollectibles(
   }
 
   return true;
+}
+
+function playerHasTears(player: EntityPlayer): boolean {
+  const hasCollectibleThatRemovesTears = playerHasCollectible(
+    player,
+    ...COLLECTIBLES_THAT_REMOVE_TEARS,
+  );
+  return !hasCollectibleThatRemovesTears;
 }
 
 function checkTrinkets(
