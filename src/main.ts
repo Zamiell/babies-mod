@@ -36,7 +36,6 @@ import * as preUseItem from "./callbacks/preUseItem";
 import * as postGameStartedReordered from "./callbacksCustom/postGameStartedReordered";
 import * as postGridEntityBroken from "./callbacksCustom/postGridEntityBroken";
 import * as postGridEntityInit from "./callbacksCustom/postGridEntityInit";
-import * as postGridEntityUpdate from "./callbacksCustom/postGridEntityUpdate";
 import * as postItemPickup from "./callbacksCustom/postItemPickup";
 import * as postNewLevelReordered from "./callbacksCustom/postNewLevelReordered";
 import * as postNewRoomReordered from "./callbacksCustom/postNewRoomReordered";
@@ -123,6 +122,5 @@ function registerCallbacksCustom() {
   postSlotDestroyed.init();
   postTrinketBreak.init();
   postGridEntityInit.init();
-  postGridEntityUpdate.init();
   postGridEntityBroken.init();
 }

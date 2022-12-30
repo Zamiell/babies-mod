@@ -1,7 +1,18 @@
-import { ModCallback } from "isaac-typescript-definitions";
-import { Callback, game } from "isaacscript-common";
+import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
+import {
+  Callback,
+  CallbackCustom,
+  DISTANCE_OF_GRID_TILE,
+  game,
+  isGridEntityBreakableByExplosion,
+  isGridEntityBroken,
+  ModCallbackCustom,
+  useActiveItemTemp,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
+
+const KAMIKAZE_DISTANCE_THRESHOLD = DISTANCE_OF_GRID_TILE - 4;
 
 /** Kamikaze effect upon touching a breakable obstacle. */
 export class ExplodingBaby extends Baby {
@@ -14,5 +25,36 @@ export class ExplodingBaby extends Baby {
     if (g.run.babyFrame !== 0 && gameFrameCount >= g.run.babyFrame) {
       g.run.babyFrame = 0;
     }
+  }
+
+  @CallbackCustom(ModCallbackCustom.POST_GRID_ENTITY_UPDATE)
+  postGridEntityUpdate(gridEntity: GridEntity): void {
+    // For this baby, we store the Kamikaze cooldown in the "babyFrame" variable. Do nothing if the
+    // Kamikaze effect is on cooldown.
+    if (g.run.babyFrame !== 0) {
+      return;
+    }
+
+    // Only trigger Kamikaze for grid entities that we are close enough to.
+    if (
+      g.p.Position.Distance(gridEntity.Position) > KAMIKAZE_DISTANCE_THRESHOLD
+    ) {
+      return;
+    }
+
+    if (!isGridEntityBreakableByExplosion(gridEntity)) {
+      return;
+    }
+
+    if (!isGridEntityBroken(gridEntity)) {
+      return;
+    }
+
+    const gameFrameCount = game.GetFrameCount();
+
+    g.run.invulnerable = true;
+    useActiveItemTemp(g.p, CollectibleType.KAMIKAZE);
+    g.run.invulnerable = false;
+    g.run.babyFrame = gameFrameCount + 10;
   }
 }
