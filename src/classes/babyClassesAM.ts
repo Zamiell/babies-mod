@@ -37,6 +37,7 @@ export { CursedPillowBaby } from "./babies/CursedPillowBaby";
 export { CuteBaby } from "./babies/CuteBaby";
 export { DarkBaby } from "./babies/DarkBaby";
 export { DarkSpaceSoldierBaby } from "./babies/DarkSpaceSoliderBaby";
+export { DBaby } from "./babies/DBaby";
 export { DigitalBaby } from "./babies/DigitalBaby";
 export { DroolBaby } from "./babies/DroolBaby";
 export { EarwigBaby } from "./babies/EarwigBaby";

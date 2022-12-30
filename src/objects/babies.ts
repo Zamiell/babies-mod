@@ -877,6 +877,7 @@ export const BABIES = {
     name: "D Baby",
     description: "Spawns creep on hit (improved)",
     sprite: "101_baby_d.png",
+    class: classesAM.DBaby,
   },
 
   // 102
