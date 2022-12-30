@@ -11,10 +11,8 @@ import {
   EntityPartition,
   EntityType,
   FamiliarVariant,
-  GridEntityType,
   PillColor,
   PillEffect,
-  PoopGridEntityVariant,
   ProjectileVariant,
   RoomType,
   SeedEffect,
@@ -32,13 +30,10 @@ import {
   getDoors,
   getFamiliars,
   getRandomArrayElement,
-  getRandomInt,
-  getRoomListIndex,
   inStartingRoom,
   isActionPressedOnAnyInput,
   isAllRoomsClear,
   isEntityMoving,
-  isShootActionPressedOnAnyInput,
   sfxManager,
   spawn,
   spawnBomb,
@@ -55,126 +50,6 @@ import { bigChestExists } from "../utils";
 import { getCurrentBabyDescription } from "../utilsBaby";
 
 export const postUpdateBabyFunctionMap = new Map<RandomBabyType, () => void>();
-
-// 36
-postUpdateBabyFunctionMap.set(RandomBabyType.LIL, () => {
-  // Everything is tiny. This does not work if we put it in the `POST_NEW_LEVEL` callback for some
-  // reason.
-  if (g.p.SpriteScale.X > 0.5 || g.p.SpriteScale.Y > 0.5) {
-    g.p.SpriteScale = Vector(0.5, 0.5);
-  }
-});
-
-// 37
-postUpdateBabyFunctionMap.set(RandomBabyType.BIG, () => {
-  // Everything is giant. This does not work if we put it in the `POST_NEW_LEVEL` callback for some
-  // reason.
-  if (g.p.SpriteScale.X < 2 || g.p.SpriteScale.Y < 2) {
-    g.p.SpriteScale = Vector(2, 2);
-  }
-});
-
-// 39
-postUpdateBabyFunctionMap.set(RandomBabyType.NOOSE, () => {
-  const gameFrameCount = game.GetFrameCount();
-  const baby = getCurrentBabyDescription();
-  if (baby.time === undefined) {
-    error(`The "time" attribute was not defined for: ${baby.name}`);
-  }
-
-  // Shooting when the timer reaches 0 causes damage.
-  const remainingTime = g.run.babyCounters - gameFrameCount;
-  if (remainingTime > 0) {
-    return;
-  }
-
-  g.run.babyCounters = gameFrameCount + baby.time; // Reset the timer
-  if (isShootActionPressedOnAnyInput()) {
-    g.p.TakeDamage(1, DamageFlagZero, EntityRef(g.p), 0);
-  }
-});
-
-// 43
-postUpdateBabyFunctionMap.set(RandomBabyType.WHORE, () => {
-  const roomListIndex = getRoomListIndex();
-
-  // All enemies explode. Perform the explosion that was initiated in the `POST_ENTITY_KILL`
-  // callback. We iterate backwards because we need to remove elements from the array.
-  for (let i = g.run.babyExplosions.length - 1; i >= 0; i--) {
-    const explosion = g.run.babyExplosions[i];
-    if (explosion === undefined) {
-      error(`Failed to get explosion number: ${i}`);
-    }
-
-    if (explosion.roomListIndex === roomListIndex) {
-      Isaac.Explode(explosion.position, undefined, 50); // 49 deals 1 half heart of damage
-      g.run.babyExplosions.splice(i, 1); // Remove this element
-    }
-  }
-});
-
-// 48
-postUpdateBabyFunctionMap.set(RandomBabyType.DARK, () => {
-  const baby = getCurrentBabyDescription();
-  if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for: ${baby.name}`);
-  }
-
-  // Temporary blindness Make the counters tick from 0 --> max --> 0, etc.
-  if (!g.run.babyBool) {
-    g.run.babyCounters++;
-    if (g.run.babyCounters === baby.num) {
-      g.run.babyBool = true;
-    }
-  } else {
-    g.run.babyCounters--;
-    if (g.run.babyCounters === 0) {
-      g.run.babyBool = false;
-    }
-  }
-});
-
-// 58
-postUpdateBabyFunctionMap.set(RandomBabyType.BOUND, () => {
-  const gameFrameCount = game.GetFrameCount();
-
-  if (gameFrameCount % (7 * GAME_FRAMES_PER_SECOND) === 0) {
-    useActiveItemTemp(g.p, CollectibleType.MONSTER_MANUAL);
-    sfxManager.Stop(SoundEffect.SATAN_GROW);
-  }
-});
-
-// 63
-postUpdateBabyFunctionMap.set(RandomBabyType.BUTTHOLE, () => {
-  const gameFrameCount = game.GetFrameCount();
-
-  if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
-    // Spawn a random poop.
-    const poopVariant = getRandomInt(
-      PoopGridEntityVariant.NORMAL,
-      PoopGridEntityVariant.WHITE,
-      g.run.rng,
-    ) as PoopGridEntityVariant;
-
-    if (
-      poopVariant === PoopGridEntityVariant.RED ||
-      poopVariant === PoopGridEntityVariant.CORN
-    ) {
-      // If the poop is this type, it will instantly damage the player, so give them some
-      // invulnerability frames.
-      g.run.invulnerabilityUntilFrame = gameFrameCount + 25;
-    }
-
-    Isaac.GridSpawn(GridEntityType.POOP, poopVariant, g.p.Position);
-
-    sfxManager.Play(SoundEffect.FART);
-  }
-});
-
-// 64
-postUpdateBabyFunctionMap.set(RandomBabyType.EYE_PATCH, () => {
-  Isaac.GridSpawn(GridEntityType.SPIKES, 0, g.p.Position);
-});
 
 // 81
 postUpdateBabyFunctionMap.set(RandomBabyType.SCREAM, () => {

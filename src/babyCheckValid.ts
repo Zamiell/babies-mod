@@ -692,10 +692,14 @@ function checkStage(babyType: RandomBabyType, baby: BabyDescription): boolean {
   // 535
   if (
     babyType === RandomBabyType.EYEBAT &&
-    (effectiveStage === 6 || effectiveStage >= 8 || onRepentanceStage())
+    (effectiveStage === 1 ||
+      effectiveStage === 6 ||
+      effectiveStage >= 8 ||
+      onRepentanceStage())
   ) {
-    // Floors are reversed. We don't want to have this on any end floors so that we can simply the
-    // logic and always spawn a trapdoor.
+    // - We don't want to have this on any end floors so that we can simply the logic and always
+    //   spawn a trapdoor.
+    // - We don't want this on the first floor since it interferes with resetting.
     return false;
   }
 
