@@ -36,6 +36,7 @@ export { DroolBaby } from "./babies/DroolBaby";
 export { EarwigBaby } from "./babies/EarwigBaby";
 export { EdBaby } from "./babies/EdBaby";
 export { EightBallBaby } from "./babies/EightBallBaby";
+export { ExplodingBaby } from "./babies/ExplodingBaby";
 export { EyemouthBaby } from "./babies/EyemouthBaby";
 export { EyePatchBaby } from "./babies/EyePatchBaby";
 export { FlyBaby } from "./babies/FlyBaby";

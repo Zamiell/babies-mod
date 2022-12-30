@@ -31,17 +31,6 @@ import { getCurrentBabyDescription } from "../utilsBaby";
 
 export const postUpdateBabyFunctionMap = new Map<RandomBabyType, () => void>();
 
-// 320
-postUpdateBabyFunctionMap.set(RandomBabyType.EXPLODING, () => {
-  const gameFrameCount = game.GetFrameCount();
-
-  // Check to see if we need to reset the cooldown (after we used the Kamikaze effect upon touching
-  // an obstacle).
-  if (g.run.babyFrame !== 0 && gameFrameCount >= g.run.babyFrame) {
-    g.run.babyFrame = 0;
-  }
-});
-
 // 332
 postUpdateBabyFunctionMap.set(RandomBabyType.BUTTERFLY_2, () => {
   // Flight + can walk through walls.

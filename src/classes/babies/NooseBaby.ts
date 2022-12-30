@@ -12,7 +12,7 @@ export class NooseBaby extends Baby {
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
     const gameFrameCount = game.GetFrameCount();
-    const time = this.getAttribute("time");
+    const num = this.getAttribute("num");
 
     // Shooting when the timer reaches 0 causes damage.
     const remainingTime = g.run.babyCounters - gameFrameCount;
@@ -20,7 +20,7 @@ export class NooseBaby extends Baby {
       return;
     }
 
-    g.run.babyCounters = gameFrameCount + time; // Reset the timer
+    g.run.babyCounters = gameFrameCount + num; // Reset the timer
     if (isShootActionPressedOnAnyInput()) {
       g.p.TakeDamage(1, DamageFlagZero, EntityRef(g.p), 0);
     }

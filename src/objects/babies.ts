@@ -2687,9 +2687,10 @@ export const BABIES = {
   // 320
   [RandomBabyType.EXPLODING]: {
     name: "Exploding Baby",
-    description: "Kamikaze! effect upon touching a breakable obstacle",
+    description: "Kamikaze effect upon touching a breakable obstacle",
     sprite: "320_baby_exploding.png",
     explosionImmunity: true,
+    class: classesAM.ExplodingBaby,
   },
 
   // 321
@@ -4145,7 +4146,7 @@ export const BABIES = {
   // 495
   [RandomBabyType.HEAD_KICK]: {
     name: "Head Kick Baby",
-    description: "Starts with Kamikaze! + explosion immunity",
+    description: "Starts with Kamikaze + explosion immunity",
     sprite: "495_baby_headkick.png",
     item: CollectibleType.KAMIKAZE,
     explosionImmunity: true,
