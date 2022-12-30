@@ -22,13 +22,13 @@ export const babyAddFunctionMap = new Map<RandomBabyType, () => void>();
 // 39
 babyAddFunctionMap.set(RandomBabyType.NOOSE, () => {
   const baby = getCurrentBabyDescription();
-  if (baby.time === undefined) {
-    error(`The "time" attribute was not defined for: ${baby.name}`);
+  if (baby.num === undefined) {
+    error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   // Don't shoot when the timer reaches 0. Set the timer so that we don't take damage immediately
   // upon reaching the floor.
-  g.run.babyCounters = game.GetFrameCount() + baby.time;
+  g.run.babyCounters = game.GetFrameCount() + baby.num;
 });
 
 // 40
@@ -104,11 +104,11 @@ babyAddFunctionMap.set(RandomBabyType.FANG_DEMON, () => {
 // 341
 babyAddFunctionMap.set(RandomBabyType.VOMIT, () => {
   const baby = getCurrentBabyDescription();
-  if (baby.time === undefined) {
-    error(`The "time" attribute was not defined for: ${baby.name}`);
+  if (baby.num === undefined) {
+    error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
-  g.run.babyCounters = game.GetFrameCount() + baby.time;
+  g.run.babyCounters = game.GetFrameCount() + baby.num;
 });
 
 // 343

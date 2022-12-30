@@ -25,7 +25,7 @@ export const BABIES = {
     name: "Spider Baby",
     description: "Shoots a Blue Spider every 2nd tear",
     sprite: "000_baby_spider.png",
-    mustHaveTears: true,
+    requireTears: true,
     num: 2,
     class: classesNZ.SpiderBaby,
   },
@@ -44,7 +44,7 @@ export const BABIES = {
     description: "Syringe tears", // Euthanasia
     sprite: "002_baby_bloat.png",
     num: 3,
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.BloatBaby,
   },
 
@@ -71,7 +71,7 @@ export const BABIES = {
     description: "Starts with Cursed Eye",
     sprite: "005_baby_cursed.png",
     item: CollectibleType.CURSED_EYE,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 6
@@ -88,7 +88,7 @@ export const BABIES = {
     description: "Starts with Analog Stick",
     sprite: "007_baby_ybab.png",
     item: CollectibleType.ANALOG_STICK,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 8
@@ -96,7 +96,7 @@ export const BABIES = {
     name: "Cockeyed Baby",
     description: "Shoots extra tears with random velocity",
     sprite: "008_baby_cockeyed.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.CockeyedBaby,
   },
 
@@ -180,7 +180,7 @@ export const BABIES = {
     name: "Mag Baby",
     description: "Confusion tears",
     sprite: "018_baby_mag.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.MagBaby,
   },
 
@@ -250,7 +250,7 @@ export const BABIES = {
     name: "Magnet Baby",
     description: "Magnetizing tears",
     sprite: "026_baby_magnet.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.MagnetBaby,
   },
 
@@ -284,7 +284,7 @@ export const BABIES = {
     name: "Blue Baby",
     description: "Sprinkler tears",
     sprite: "030_baby_blue.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.BlueBaby,
   },
 
@@ -319,7 +319,7 @@ export const BABIES = {
     name: "Long Baby",
     description: "Flat tears",
     sprite: "034_baby_long.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.LongBaby,
   },
 
@@ -328,7 +328,7 @@ export const BABIES = {
     name: "Green Baby",
     description: "Booger tears",
     sprite: "035_baby_green.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.GreenBaby,
   },
 
@@ -361,7 +361,7 @@ export const BABIES = {
     name: "Noose Baby",
     description: "Don't shoot when the timer reaches 0",
     sprite: "039_baby_noose.png",
-    time: 6 * GAME_FRAMES_PER_SECOND,
+    num: 6 * GAME_FRAMES_PER_SECOND,
     class: classesNZ.NooseBaby,
   },
 
@@ -457,7 +457,7 @@ export const BABIES = {
     sprite: "051_baby_belial.png",
     item: CollectibleType.BRIMSTONE,
     flight: true,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 52
@@ -481,7 +481,7 @@ export const BABIES = {
     name: "Super Greed Baby",
     description: "Midas tears",
     sprite: "054_baby_super greedbaby.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesNZ.SuperGreedBaby,
   },
 
@@ -490,7 +490,7 @@ export const BABIES = {
     name: "Mort Baby",
     description: "Guppy tears",
     sprite: "055_baby_mort.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.MortBaby,
   },
 
@@ -524,7 +524,7 @@ export const BABIES = {
     name: "Big Eyes Baby",
     description: "Tears cause self-knockback",
     sprite: "059_baby_bigeyes.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.BigEyesBaby,
   },
 
@@ -548,7 +548,7 @@ export const BABIES = {
     name: "Goat Baby",
     description: "Guaranteed Devil Room + Angel Room after 6 hits",
     sprite: "062_baby_goat.png",
-    numHits: 6,
+    requireNumHits: 6,
   },
 
   // 63
@@ -581,7 +581,7 @@ export const BABIES = {
     name: "Mustache Baby",
     description: "Boomerang tears",
     sprite: "066_baby_mustache.png",
-    mustHaveTears: true,
+    requireTears: true,
     softlockPreventionDestroyPoops: true, // Boomerangs cannot kill poops
     class: classesAM.MustacheBaby,
   },
@@ -649,7 +649,7 @@ export const BABIES = {
     name: "Alien Hominid Baby",
     description: "Beam sword tears",
     sprite: "074_baby_alienhominid.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.AlienHominidBaby,
   },
 
@@ -700,7 +700,7 @@ export const BABIES = {
     description: "Starts with Kidney Stone",
     sprite: "080_baby_choke.png",
     item: CollectibleType.KIDNEY_STONE,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 81
@@ -708,7 +708,7 @@ export const BABIES = {
     name: "Scream Baby",
     description: "Shoop tears",
     sprite: "081_baby_scream.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesNZ.ScreamBaby,
   },
 
@@ -735,7 +735,7 @@ export const BABIES = {
     sprite: "084_baby_goatee.png",
     item: CollectibleType.DEATHS_TOUCH,
     item2: CollectibleType.LACHRYPHAGY,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 85
@@ -815,7 +815,7 @@ export const BABIES = {
     name: "Square Eyes Baby",
     description: "Square tears",
     sprite: "094_baby_squareeyes.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesNZ.SquareEyesBaby,
   },
 
@@ -858,7 +858,7 @@ export const BABIES = {
     sprite: "099_baby_makeup.png",
     item: CollectibleType.WIZ,
     itemNum: 6,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 100
@@ -866,7 +866,7 @@ export const BABIES = {
     name: "Ed Baby",
     description: "Fire trail tears",
     sprite: "100_baby_ed.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.EdBaby,
   },
 
@@ -913,7 +913,7 @@ export const BABIES = {
     name: "Aether Baby",
     description: "All direction tears",
     sprite: "106_baby_aether.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.AetherBaby,
   },
 
@@ -953,7 +953,7 @@ export const BABIES = {
     name: "Eyemouth Baby",
     description: "Shoots an extra tear every 3rd shot",
     sprite: "111_baby_eyemouth.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.EyemouthBaby,
   },
 
@@ -970,7 +970,7 @@ export const BABIES = {
     name: "V Baby",
     description: "Electric ring tears",
     sprite: "113_baby_v.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesNZ.VBaby,
   },
 
@@ -979,7 +979,7 @@ export const BABIES = {
     name: "Strange Mouth Baby",
     description: "Wiggle tears",
     sprite: "114_baby_strangemouth.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesNZ.StrangeMouthBaby,
   },
 
@@ -988,7 +988,7 @@ export const BABIES = {
     name: "Masked Baby",
     description: "Can't shoot while moving",
     sprite: "115_baby_masked.png",
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 116
@@ -1041,7 +1041,7 @@ export const BABIES = {
     description: "Starts with Rubber Cement",
     sprite: "121_baby_plastic.png",
     item: CollectibleType.RUBBER_CEMENT,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 122
@@ -1058,7 +1058,7 @@ export const BABIES = {
     description: "Starts with Rainbow Worm",
     sprite: "123_baby_onetooth.png",
     trinket: TrinketType.RAINBOW_WORM,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 124
@@ -1108,7 +1108,7 @@ export const BABIES = {
     description: "Starts with Ouroboros Worm",
     sprite: "129_baby_ninkumpoop.png",
     trinket: TrinketType.OUROBOROS_WORM,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 130
@@ -1116,7 +1116,7 @@ export const BABIES = {
     name: "Strange Shape Baby",
     description: "Pulsing tears",
     sprite: "130_baby_strangeshape.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesNZ.StrangeShapeBaby,
   },
 
@@ -1139,7 +1139,7 @@ export const BABIES = {
     name: "Crooked Baby",
     description: "Left angled tears",
     sprite: "133_baby_crooked.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.CrookedBaby,
   },
 
@@ -1174,7 +1174,7 @@ export const BABIES = {
     description: "Starts with Flat Stone",
     sprite: "137_baby_bowling.png",
     item: CollectibleType.FLAT_STONE,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 138
@@ -1291,7 +1291,7 @@ export const BABIES = {
     name: "Cape Baby",
     description: "Spray tears",
     sprite: "152_baby_cape.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.CapeBaby,
   },
 
@@ -1348,7 +1348,7 @@ export const BABIES = {
     sprite: "159_baby_crackedinfamy.png",
     item: CollectibleType.REMOTE_DETONATOR,
     item2: CollectibleType.DR_FETUS,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 160
@@ -1401,7 +1401,7 @@ export const BABIES = {
     description: "Holy tears",
     sprite: "165_baby_lights.png",
     num: 3,
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.LightsBaby,
   },
 
@@ -1474,7 +1474,7 @@ export const BABIES = {
     description: "Starts with Jacob's Ladder",
     sprite: "174_baby_electris.png",
     item: CollectibleType.JACOBS_LADDER,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 175
@@ -1491,7 +1491,7 @@ export const BABIES = {
     description: "Starts with Technology Zero",
     sprite: "176_baby_transforming.png",
     item: CollectibleType.TECHNOLOGY_ZERO,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 177
@@ -1563,7 +1563,7 @@ export const BABIES = {
     name: "Web Baby",
     description: "Slowing tears",
     sprite: "185_baby_web.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesNZ.WebBaby,
   },
 
@@ -1580,7 +1580,7 @@ export const BABIES = {
     description: "Shoots explosive flies + flight",
     sprite: "187_baby_sick.png",
     flight: true,
-    mustHaveTears: true,
+    requireTears: true,
     class: classesNZ.SickBaby,
   },
 
@@ -1598,7 +1598,7 @@ export const BABIES = {
     description: "Starts with Ouija Board",
     sprite: "189_baby_spectral.png",
     item: CollectibleType.OUIJA_BOARD,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 190
@@ -1616,7 +1616,7 @@ export const BABIES = {
     description: "Starts with Compound Fracture",
     sprite: "191_baby_skeleton.png",
     item: CollectibleType.COMPOUND_FRACTURE,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 192
@@ -1640,7 +1640,7 @@ export const BABIES = {
     name: "Cold Baby",
     description: "Freeze tears",
     sprite: "194_baby_cold.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.ColdBaby,
   },
 
@@ -1665,7 +1665,7 @@ export const BABIES = {
     name: "Nice Baby",
     description: "Brimstone tears",
     sprite: "197_baby_nice.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesNZ.NiceBaby,
   },
 
@@ -1675,7 +1675,7 @@ export const BABIES = {
     description: "Starts with Cricket's Body",
     sprite: "198_baby_dots.png",
     item: CollectibleType.CRICKETS_BODY,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 199
@@ -1717,7 +1717,7 @@ export const BABIES = {
     description: "Starts with Tractor Beam",
     sprite: "203_baby_pipe.png",
     item: CollectibleType.TRACTOR_BEAM,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 204
@@ -1741,7 +1741,7 @@ export const BABIES = {
     name: "Monocle Baby",
     description: "3x tear size",
     sprite: "206_baby_monocle.png",
-    mustHaveTears: true,
+    requireTears: true,
     num: 3,
     class: classesAM.MonocleBaby,
   },
@@ -1752,7 +1752,7 @@ export const BABIES = {
     description: "Starts with Eye of Belial",
     sprite: "207_baby_belial.png",
     item: CollectibleType.EYE_OF_BELIAL,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 208
@@ -1800,7 +1800,7 @@ export const BABIES = {
     name: "Skinny Baby",
     description: "Super homing tears",
     sprite: "213_baby_skinny.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesNZ.SkinnyBaby,
   },
 
@@ -1833,7 +1833,7 @@ export const BABIES = {
     sprite: "217_baby_chubby.png",
     item: CollectibleType.TECHNOLOGY_ZERO,
     item2: CollectibleType.TINY_PLANET,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 218
@@ -1938,7 +1938,7 @@ export const BABIES = {
     name: "Tilt Baby",
     description: "Right angled tears",
     sprite: "230_baby_tilt.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesNZ.TiltBaby,
   },
 
@@ -1983,7 +1983,7 @@ export const BABIES = {
     sprite: "235_baby_computer.png",
     item: CollectibleType.TECHNOLOGY,
     item2: CollectibleType.TECHNOLOGY_2,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 236
@@ -2016,7 +2016,7 @@ export const BABIES = {
     description: "All champions",
     sprite: "239_baby_beret.png",
     seed: SeedEffect.ALL_CHAMPIONS,
-    noEndFloors: true,
+    requireNoEndFloors: true,
   },
 
   // 240
@@ -2024,7 +2024,7 @@ export const BABIES = {
     name: "Blisters Baby",
     description: "Low shot speed",
     sprite: "240_baby_blisters.png",
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 241
@@ -2071,7 +2071,7 @@ export const BABIES = {
     name: "8 Ball Baby",
     description: "Orbiting tears",
     sprite: "246_baby_8ball.png",
-    mustHaveTears: true,
+    requireTears: true,
     num: 90,
     softlockPreventionIsland: true,
     class: classesAM.EightBallBaby,
@@ -2136,7 +2136,7 @@ export const BABIES = {
     description: "Starts with Fruit Cake",
     sprite: "254_baby_earth.png",
     item: CollectibleType.FRUIT_CAKE,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 255
@@ -2145,7 +2145,7 @@ export const BABIES = {
     description: "Starts with Continuum",
     sprite: "255_baby_saturn.png",
     item: CollectibleType.CONTINUUM,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 256
@@ -2341,7 +2341,7 @@ export const BABIES = {
     name: "Orange Demon Baby",
     description: "Explosivo tears",
     sprite: "279_baby_orangedemon.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesNZ.OrangeDemonBaby,
   },
 
@@ -2360,8 +2360,8 @@ export const BABIES = {
     item: CollectibleType.MARKED,
     blindfolded: true,
     num: 15, // In game frames
-    noEndFloors: true,
-    mustHaveTears: true,
+    requireNoEndFloors: true,
+    requireTears: true,
     softlockPreventionDestroyPoops: true, // Light beams cannot kill poops
   },
 
@@ -2404,7 +2404,7 @@ export const BABIES = {
     description: "Starts with My Reflection",
     sprite: "286_baby_3d.png",
     item: CollectibleType.MY_REFLECTION,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 287
@@ -2419,7 +2419,7 @@ export const BABIES = {
     name: "Butt Baby",
     description: "Farts after shooting",
     sprite: "288_baby_butt.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.ButtBaby,
   },
 
@@ -2429,7 +2429,7 @@ export const BABIES = {
     description: "Starts with Cupid's Arrow",
     sprite: "289_baby_cupid.png",
     item: CollectibleType.CUPIDS_ARROW,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 290
@@ -2455,7 +2455,7 @@ export const BABIES = {
     item: CollectibleType.GODHEAD,
     item2: CollectibleType.LUDOVICO_TECHNIQUE,
     flight: true,
-    mustHaveTears: true,
+    requireTears: true,
     // This baby does not use the "blindfolded" property because it would remove The Ludovico
     // Technique.
   },
@@ -2562,7 +2562,7 @@ export const BABIES = {
     flight: true,
     explosionImmunity: true,
     blindfolded: true,
-    noEndFloors: true,
+    requireNoEndFloors: true,
     class: classesAM.HotdogBaby,
   },
 
@@ -2602,7 +2602,7 @@ export const BABIES = {
     description: "Starts with Marked",
     sprite: "309_baby_xeyes.png",
     item: CollectibleType.MARKED,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 310
@@ -2657,7 +2657,7 @@ export const BABIES = {
     name: "Speaker Baby",
     description: "X splitting tears",
     sprite: "316_baby_speaker.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesNZ.SpeakerBaby,
   },
 
@@ -2697,7 +2697,7 @@ export const BABIES = {
     name: "Cupcake Baby",
     description: "High shot speed",
     sprite: "321_baby_cupcake.png",
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 322
@@ -2757,7 +2757,7 @@ export const BABIES = {
     description: "Starts with Lachryphagy",
     sprite: "328_baby_muttonchops.png",
     item: CollectibleType.LACHRYPHAGY,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 329
@@ -2782,7 +2782,7 @@ export const BABIES = {
     sprite: "331_baby_slicer.png",
     item: CollectibleType.SOY_MILK,
     item2: CollectibleType.PROPTOSIS,
-    mustHaveTears: true,
+    requireTears: true,
     num: 5, // Frames until it disappears
     class: classesNZ.SlicerBaby,
   },
@@ -2835,7 +2835,7 @@ export const BABIES = {
     name: "Boxers Baby",
     description: "Knockout Drops tears",
     sprite: "337_baby_boxers.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.BoxersBaby,
   },
 
@@ -2846,7 +2846,7 @@ export const BABIES = {
     sprite: "338_baby_winghelmet.png",
     item: CollectibleType.LUDOVICO_TECHNIQUE,
     item2: CollectibleType.PARASITE,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 339
@@ -2854,7 +2854,7 @@ export const BABIES = {
     name: "X Baby",
     description: "Shoots 4 tears diagonally",
     sprite: "339_baby_x.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesNZ.XBaby,
   },
 
@@ -2863,7 +2863,7 @@ export const BABIES = {
     name: "O Baby 2",
     description: "Spiral tears",
     sprite: "340_baby_o.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesNZ.OBaby2,
   },
 
@@ -2872,7 +2872,7 @@ export const BABIES = {
     name: "Vomit Baby",
     description: "Must stand still every 10 seconds",
     sprite: "341_baby_vomit.png",
-    time: 10 * GAME_FRAMES_PER_SECOND,
+    num: 10 * GAME_FRAMES_PER_SECOND,
   },
 
   // 342
@@ -2903,7 +2903,7 @@ export const BABIES = {
     description: "Starts with Soy Milk + booger tears",
     sprite: "345_baby_locust.png",
     item: CollectibleType.SOY_MILK,
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.LocustBaby,
   },
 
@@ -3034,7 +3034,7 @@ export const BABIES = {
     description: "Every 8th tear is a bomb",
     sprite: "361_baby_mushroomgirl.png",
     num: 8,
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.MushroomGirlBaby,
   },
 
@@ -3055,7 +3055,7 @@ export const BABIES = {
     item: CollectibleType.LUDOVICO_TECHNIQUE,
     item2: CollectibleType.BRIMSTONE,
     trinket: TrinketType.WIGGLE_WORM,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 364
@@ -3063,7 +3063,7 @@ export const BABIES = {
     name: "Turtle Dragon Baby",
     description: "Fiery tears",
     sprite: "364_baby_turtledragon.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesNZ.TurtleDragonBaby,
   },
 
@@ -3097,7 +3097,7 @@ export const BABIES = {
     description: "Razor blade tears",
     sprite: "368_baby_arcade.png",
     num: 3,
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.ArcadeBaby,
   },
 
@@ -3127,7 +3127,7 @@ export const BABIES = {
     name: "Pink Ghost Baby",
     description: "Charm tears",
     sprite: "372_baby_pinkghost.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesNZ.PinkGhostBaby,
   },
 
@@ -3154,7 +3154,7 @@ export const BABIES = {
     item: CollectibleType.IPECAC,
     item2: CollectibleType.TRISAGION,
     item3: CollectibleType.FLAT_STONE,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 376
@@ -3197,7 +3197,7 @@ export const BABIES = {
     name: "Octopus Baby",
     description: "Black creep tears",
     sprite: "380_baby_octopus.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesNZ.OctopusBaby,
   },
 
@@ -3249,7 +3249,7 @@ export const BABIES = {
     explosionImmunity: true,
     num: 3, // In game frames
     // This baby does not use the "blindfolded" property because it would remove knives.
-    noEndFloors: true,
+    requireNoEndFloors: true,
   },
 
   // 387
@@ -3345,7 +3345,7 @@ export const BABIES = {
     description: "Chaos card tears (every 5th tear)",
     sprite: "398_baby_darkspacesoldier.png",
     num: 5,
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.DarkSpaceSoldierBaby,
   },
 
@@ -3412,7 +3412,7 @@ export const BABIES = {
     name: "Astronaut Baby",
     description: "Tears have a 5% chance to create a Black Hole effect",
     sprite: "406_baby_astronaut.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.AstronautBaby,
   },
 
@@ -3424,7 +3424,7 @@ export const BABIES = {
     item: CollectibleType.IPECAC,
     item2: CollectibleType.LUDOVICO_TECHNIQUE,
     item3: CollectibleType.FLAT_STONE,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 408
@@ -3448,7 +3448,7 @@ export const BABIES = {
     name: "Gills Baby",
     description: "Splash tears",
     sprite: "410_baby_gills.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.GillsBaby,
   },
 
@@ -3489,7 +3489,7 @@ export const BABIES = {
     description: "Starts with Trisagion",
     sprite: "415_baby_lightmage.png",
     item: CollectibleType.TRISAGION,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 416
@@ -3523,7 +3523,7 @@ export const BABIES = {
     description: "Starts with Fire Mind + 13 luck",
     sprite: "419_baby_firemage.png",
     item: CollectibleType.FIRE_MIND,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 420
@@ -3604,7 +3604,7 @@ export const BABIES = {
     description: "Void tears (every 5th tear)",
     sprite: "429_baby_littlehorn.png",
     num: 5,
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.LittleHornBaby,
   },
 
@@ -3645,7 +3645,7 @@ export const BABIES = {
     name: "Cylinder Baby",
     description: "Tear size increases with distance",
     sprite: "434_baby_cylinder.png",
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 435
@@ -3675,7 +3675,7 @@ export const BABIES = {
     name: "Big Mouth Baby 2",
     description: "Mega Mush effect after 6 hits",
     sprite: "438_baby_bigmouth.png",
-    numHits: 6,
+    requireNumHits: 6,
   },
 
   // 439
@@ -3700,7 +3700,7 @@ export const BABIES = {
     name: "TV Baby",
     description: "Mega Blast effect after 6 hits",
     sprite: "441_baby_tv.png",
-    numHits: 6,
+    requireNumHits: 6,
   },
 
   // 442
@@ -3709,7 +3709,7 @@ export const BABIES = {
     description: "Tooth tears",
     sprite: "442_baby_tooth.png",
     num: 3,
-    mustHaveTears: true,
+    requireTears: true,
     class: classesNZ.ToothHeadBaby,
   },
 
@@ -3775,7 +3775,7 @@ export const BABIES = {
     sprite: "450_baby_moth.png",
     item: CollectibleType.SOY_MILK,
     item2: CollectibleType.IPECAC,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 451
@@ -3815,7 +3815,7 @@ export const BABIES = {
     name: "Green Koopa Baby",
     description: "Shoots bouncy green shells",
     sprite: "455_baby_green_koopa.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.GreenKoopaBaby,
   },
 
@@ -3833,7 +3833,7 @@ export const BABIES = {
     description: "Starts with Pop!",
     sprite: "457_baby_pumpkin_guy.png",
     item: CollectibleType.POP,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 458
@@ -3841,7 +3841,7 @@ export const BABIES = {
     name: "Red Koopa Baby",
     description: "Shoots bouncy & homing red shells",
     sprite: "458_baby_red_koopa.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesNZ.RedKoopaBaby,
   },
 
@@ -3850,7 +3850,7 @@ export const BABIES = {
     name: "Sad Bunny Baby",
     description: "Accuracy increases tear rate",
     sprite: "459_baby_sad_bunny.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesNZ.SadBunnyBaby,
   },
 
@@ -3861,7 +3861,7 @@ export const BABIES = {
     sprite: "460_baby_saturn.png",
     item: CollectibleType.LUDOVICO_TECHNIQUE,
     item2: CollectibleType.STRANGE_ATTRACTOR,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 461
@@ -3878,7 +3878,7 @@ export const BABIES = {
     name: "Voxdog Baby",
     description: "Shockwave tears",
     sprite: "462_baby_voxdog.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesNZ.VoxdogBaby,
   },
 
@@ -3896,7 +3896,7 @@ export const BABIES = {
     sprite: "464_baby_arrowhead.png",
     item: CollectibleType.TECHNOLOGY_ZERO,
     item2: CollectibleType.CUPIDS_ARROW,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 465
@@ -3912,7 +3912,7 @@ export const BABIES = {
     name: "Blindcursed Baby",
     description: "Invisible tears",
     sprite: "466_baby_blindcursed.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.BlindcursedBaby,
   },
 
@@ -3937,7 +3937,7 @@ export const BABIES = {
     name: "Fly Baby",
     description: "Mass splitting tears",
     sprite: "469_baby_flybaby.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.FlyBaby,
   },
 
@@ -3946,7 +3946,7 @@ export const BABIES = {
     name: "Headphone Baby",
     description: "Soundwave tears",
     sprite: "470_baby_headphone.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.HeadphoneBaby,
   },
 
@@ -4026,7 +4026,7 @@ export const BABIES = {
     name: "Imp Baby 2",
     description: "Acid tears",
     sprite: "480_baby_imp.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.ImpBaby2,
   },
 
@@ -4083,7 +4083,7 @@ export const BABIES = {
     description: "Every 4th missed tear causes damage",
     sprite: "487_baby_cursedpillow.png",
     num: 4,
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.CursedPillowBaby,
   },
 
@@ -4130,7 +4130,7 @@ export const BABIES = {
     name: "Glittery Peach Baby",
     description: "Teleports to the boss room after 6 hits",
     sprite: "493_baby_glitterypeach.png",
-    numHits: 6,
+    requireNumHits: 6,
   },
 
   // 494
@@ -4138,7 +4138,7 @@ export const BABIES = {
     name: "Pompadour Baby",
     description: "Shrink tears",
     sprite: "494_baby_pompadour.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesNZ.PompadourBaby,
   },
 
@@ -4173,7 +4173,7 @@ export const BABIES = {
     name: "Ill Baby",
     description: "Bob's Rotten Head tears",
     sprite: "498_baby_ill.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.IllBaby,
   },
 
@@ -4189,7 +4189,7 @@ export const BABIES = {
     name: "Mern Baby",
     description: "Double tears",
     sprite: "500_baby_mern.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.MernBaby,
   },
 
@@ -4225,7 +4225,7 @@ export const BABIES = {
     description: "Starts with Abel; tears come from Abel; 2x damage",
     sprite: "504_baby_psychic.png",
     item: CollectibleType.ABEL,
-    mustHaveTears: true,
+    requireTears: true,
     class: classesNZ.PsychicBaby,
   },
 
@@ -4267,7 +4267,7 @@ export const BABIES = {
     description: "Starts with Lead Pencil",
     sprite: "509_baby_scribble.png",
     item: CollectibleType.LEAD_PENCIL,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 510
@@ -4283,7 +4283,7 @@ export const BABIES = {
     name: "Twitchy Baby",
     description: "Tear rate oscillates",
     sprite: "511_baby_twitchy.png",
-    mustHaveTears: true,
+    requireTears: true,
     num: 60, // Time between fire rate changes, in game frames
     min: -4, // Tear delay change
     max: 4, // Tear delay change
@@ -4335,7 +4335,7 @@ export const BABIES = {
     name: "Master Cook Baby",
     description: "Egg tears",
     sprite: "517_baby_mastercook.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.MasterCookBaby,
   },
 
@@ -4615,7 +4615,7 @@ export const BABIES = {
     name: "Koala Baby",
     description: "Genesis effect after 6 hits",
     sprite: "552_baby_koala.png",
-    numHits: 6,
+    requireNumHits: 6,
   },
 
   // 553
@@ -4656,7 +4656,7 @@ export const BABIES = {
     sprite: "557_baby_proto.png",
     item: CollectibleType.BRIMSTONE,
     item2: CollectibleType.HAEMOLACRIA,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 558
@@ -4812,7 +4812,7 @@ export const BABIES = {
     description: "Slings Godhead aura (improved)",
     sprite: "familiar_shooters_01_brotherbobby.png",
     item: CollectibleType.MOMS_KNIFE,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 577
@@ -4865,7 +4865,7 @@ export const BABIES = {
     description: "Starts with The Wiz",
     sprite: "familiar_shooters_10_harlequinbaby.png",
     item: CollectibleType.WIZ,
-    mustHaveTears: true,
+    requireTears: true,
   },
 
   // 584
@@ -4881,7 +4881,7 @@ export const BABIES = {
     description: "Every 5th missed tear causes paralysis",
     sprite: "familiar_shooters_08_abel.png",
     num: 5,
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.Abel,
   },
 
@@ -4900,7 +4900,7 @@ export const BABIES = {
     description: "Shoots Blue Flies + flight",
     sprite: "familiar_shooters_268_rottenbaby.png",
     flight: true,
-    mustHaveTears: true,
+    requireTears: true,
     class: classesNZ.RottenBaby,
   },
 
@@ -4947,7 +4947,7 @@ export const BABIES = {
     name: "Lil Loki", // CollectibleType.LIL_LOKI (435)
     description: "Cross tears",
     sprite: "familiar_097_shooters_lilloki.png",
-    mustHaveTears: true,
+    requireTears: true,
     class: classesAM.LilLoki,
   },
 

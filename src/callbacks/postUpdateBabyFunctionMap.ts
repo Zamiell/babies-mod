@@ -62,14 +62,14 @@ postUpdateBabyFunctionMap.set(RandomBabyType.HERO, () => {
 postUpdateBabyFunctionMap.set(RandomBabyType.VOMIT, () => {
   const gameFrameCount = game.GetFrameCount();
   const baby = getCurrentBabyDescription();
-  if (baby.time === undefined) {
-    error(`The "time" attribute was not defined for: ${baby.name}`);
+  if (baby.num === undefined) {
+    error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   // Moving when the timer reaches 0 causes damage.
   const remainingTime = g.run.babyCounters - gameFrameCount;
   if (remainingTime <= 0) {
-    g.run.babyCounters = gameFrameCount + baby.time; // Reset the timer
+    g.run.babyCounters = gameFrameCount + baby.num; // Reset the timer
 
     const cutoff = 0.2;
     if (

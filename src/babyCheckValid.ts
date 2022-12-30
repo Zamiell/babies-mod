@@ -134,7 +134,7 @@ function checkHealth(
   const totalHealth = maxHearts + soulHearts + boneHearts;
   const babyItemSet = getBabyItemsSet(baby);
 
-  if (baby.numHits !== undefined && totalHealth < baby.numHits) {
+  if (baby.requireNumHits !== undefined && totalHealth < baby.requireNumHits) {
     return false;
   }
 
@@ -216,7 +216,7 @@ function checkCollectibles(
   const babyItemsSet = getBabyItemsSet(baby);
 
   if (
-    (baby.mustHaveTears === true ||
+    (baby.requireTears === true ||
       babyItemsSet.has(CollectibleType.SOY_MILK)) &&
     !playerHasTears(player)
   ) {
@@ -480,7 +480,7 @@ function checkStage(babyType: RandomBabyType, baby: BabyDescription): boolean {
   const effectiveStage = getEffectiveStage();
   const babyItemsSet = getBabyItemsSet(baby);
 
-  if (baby.noEndFloors === true && effectiveStage >= 9) {
+  if (baby.requireNoEndFloors === true && effectiveStage >= 9) {
     return false;
   }
 

@@ -109,13 +109,13 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.APOLLYON, (player) => {
 // 62
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.GOAT, (player) => {
   const baby = getCurrentBabyDescription();
-  if (baby.numHits === undefined) {
+  if (baby.requireNumHits === undefined) {
     error(`The "numHits" attribute was not defined for: ${baby.name}`);
   }
 
   // Guaranteed Devil Room + Angel Room after N hits.
   g.run.babyCounters++;
-  if (g.run.babyCounters >= baby.numHits && !g.run.babyBool) {
+  if (g.run.babyCounters >= baby.requireNumHits && !g.run.babyBool) {
     g.run.babyBool = true;
     sfxManager.Play(SoundEffect.SATAN_GROW);
     player.AddCollectible(CollectibleType.GOAT_HEAD);
@@ -597,12 +597,12 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.CUP, (player) => {
 // 438
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.BIG_MOUTH_2, (player) => {
   const baby = getCurrentBabyDescription();
-  if (baby.numHits === undefined) {
+  if (baby.requireNumHits === undefined) {
     error(`The "numHits" attribute was not defined for: ${baby.name}`);
   }
 
   g.run.babyCounters++;
-  if (g.run.babyCounters === baby.numHits) {
+  if (g.run.babyCounters === baby.requireNumHits) {
     g.run.babyCounters = 0;
     useActiveItemTemp(player, CollectibleType.MEGA_MUSH);
   }
@@ -613,12 +613,12 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.BIG_MOUTH_2, (player) => {
 // 441
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.TV, (player) => {
   const baby = getCurrentBabyDescription();
-  if (baby.numHits === undefined) {
+  if (baby.requireNumHits === undefined) {
     error(`The "numHits" attribute was not defined for: ${baby.name}`);
   }
 
   g.run.babyCounters++;
-  if (g.run.babyCounters === baby.numHits) {
+  if (g.run.babyCounters === baby.requireNumHits) {
     g.run.babyCounters = 0;
     useActiveItemTemp(player, CollectibleType.MEGA_BLAST);
   }
@@ -731,7 +731,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.GLITTERY_PEACH,
   (player) => {
     const baby = getCurrentBabyDescription();
-    if (baby.numHits === undefined) {
+    if (baby.requireNumHits === undefined) {
       error(`The "numHits" attribute was not defined for: ${baby.name}`);
     }
 
@@ -741,7 +741,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(
 
     // Teleport to the boss room after X hits (but only do it once per floor).
     g.run.babyCounters++;
-    if (g.run.babyCounters === baby.numHits) {
+    if (g.run.babyCounters === baby.requireNumHits) {
       g.run.babyBool = true;
       player.UseCard(CardType.EMPEROR);
     }
@@ -820,12 +820,12 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.ILLUSION, (player) => {
 // 552
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.KOALA, (player) => {
   const baby = getCurrentBabyDescription();
-  if (baby.numHits === undefined) {
+  if (baby.requireNumHits === undefined) {
     error(`The "numHits" attribute was not defined for: ${baby.name}`);
   }
 
   g.run.babyCounters++;
-  if (g.run.babyCounters === baby.numHits) {
+  if (g.run.babyCounters === baby.requireNumHits) {
     g.run.babyCounters = 0;
     useActiveItemTemp(player, CollectibleType.GENESIS);
   }

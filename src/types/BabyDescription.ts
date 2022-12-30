@@ -19,23 +19,25 @@ export interface BabyDescription {
   item2?: CollectibleType;
   item3?: CollectibleType;
   itemNum?: int;
+  uncharged?: boolean;
+  trinket?: TrinketType;
+  num?: int;
   max?: int;
   min?: int;
-  num?: int;
-  numHits?: int;
-  requireBombs?: boolean;
-  requireCoins?: boolean;
-  requireKeys?: boolean;
   seed?: SeedEffect;
   softlockPreventionDestroyPoops?: boolean;
   softlockPreventionIsland?: boolean;
-  time?: int;
-  trinket?: TrinketType;
-  uncharged?: boolean;
 
   // Optional properties that specify selection restrictions.
-  mustHaveTears?: boolean;
-  noEndFloors?: boolean;
+  requireTears?: boolean;
+  requireNoEndFloors?: boolean;
+  requireNumHits?: int;
+  /** Requires that the player has at least 1 bomb. */
+  requireBombs?: boolean;
+  /** Requires that the player has at least 1 coin. */
+  requireCoins?: boolean;
+  /** Requires that the player has at least 1 key. */
+  requireKeys?: boolean;
 
   /**
    * The associated class that provides the logic for the baby, if any.
