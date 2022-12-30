@@ -17,10 +17,6 @@ export function main(
     return;
   }
 
-  if (g.run.dealingExtraDamage) {
-    return undefined;
-  }
-
   // Check to see if the player is supposed to be temporarily invulnerable.
   if (g.run.invulnerable) {
     return false;

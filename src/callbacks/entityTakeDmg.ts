@@ -1,7 +1,6 @@
 import { DamageFlag, ModCallback } from "isaac-typescript-definitions";
 import { mod } from "../mod";
 import { getCurrentBaby } from "../utilsBaby";
-import * as entityTakeDmgEntity from "./entityTakeDmgEntity";
 import * as entityTakeDmgPlayer from "./entityTakeDmgPlayer";
 
 export function init(): void {
@@ -31,11 +30,5 @@ function main(
     );
   }
 
-  return entityTakeDmgEntity.main(
-    entity,
-    amount,
-    damageFlags,
-    source,
-    countdownFrames,
-  );
+  return undefined;
 }

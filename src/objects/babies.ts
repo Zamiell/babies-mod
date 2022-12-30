@@ -2366,7 +2366,8 @@ export const BABIES = {
     num: 15, // In game frames
     requireNoEndFloors: true,
     requireTears: true,
-    softlockPreventionDestroyPoops: true, // Light beams cannot kill poops
+    softlockPreventionDestroyPoops: true, // Light beams cannot kill poops.
+    class: classesAM.FangDemonBaby,
   },
 
   // 282
@@ -4845,6 +4846,7 @@ export const BABIES = {
     sprite: "familiar_shooters_01_brotherbobby.png",
     item: CollectibleType.MOMS_KNIFE,
     requireTears: true,
+    class: classesAM.BrotherBobby,
   },
 
   // 577

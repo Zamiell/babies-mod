@@ -1,31 +1,20 @@
 import {
-  CollectibleType,
   DamageFlag,
   DamageFlagZero,
+  EffectVariant,
   EntityType,
   ModCallback,
-  PlayerVariant,
-  SoundEffect,
 } from "isaac-typescript-definitions";
-import { Callback, sfxManager } from "isaacscript-common";
+import { Callback } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
-/** Starts with A Pony (improved) + blindfolded. */
-export class RiderBaby extends Baby {
-  /** Keep the pony fully charged. */
-  // 1
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
-    const activeItem = g.p.GetActiveItem();
-
-    if (activeItem === CollectibleType.PONY && g.p.NeedsCharge()) {
-      g.p.FullCharge();
-      sfxManager.Stop(SoundEffect.BATTERY_CHARGE);
-    }
-  }
-
-  /** Make the Pony do extra damage. */
+/** Directed light beams */
+export class FangDemonBaby extends Baby {
+  /**
+   * Make the light beam damage be based on the player's damage. (Normally, light beams do 2 damage
+   * on every tick and are not based on the player's damage.)
+   */
   // 11
   @Callback(ModCallback.ENTITY_TAKE_DMG)
   entityTakeDmg(
@@ -40,10 +29,10 @@ export class RiderBaby extends Baby {
     }
 
     if (
-      source.Type === EntityType.PLAYER &&
-      source.Variant === (PlayerVariant.PLAYER as int)
+      source.Type === EntityType.EFFECT &&
+      source.Variant === (EffectVariant.CRACK_THE_SKY as int)
     ) {
-      const damage = g.p.Damage * 4;
+      const damage = g.p.Damage;
       g.run.dealingExtraDamage = true;
       entity.TakeDamage(
         damage,
