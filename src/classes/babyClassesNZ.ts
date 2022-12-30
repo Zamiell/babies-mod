@@ -1,3 +1,4 @@
+export { NerdBaby } from "./babies/NerdBaby";
 export { NiceBaby } from "./babies/NiceBaby";
 export { NooseBaby } from "./babies/NooseBaby";
 export { OBaby2 } from "./babies/OBaby2";
@@ -6,6 +7,7 @@ export { OrangeDemonBaby } from "./babies/OrangeDemonBaby";
 export { PinkGhostBaby } from "./babies/PinkGhostBaby";
 export { PompadourBaby } from "./babies/PompadourBaby";
 export { PsychicBaby } from "./babies/PsychicBaby";
+export { PubicBaby } from "./babies/PubicBaby";
 export { RageBaby } from "./babies/RageBaby";
 export { RedKoopaBaby } from "./babies/RedKoopaBaby";
 export { RefereeBaby } from "./babies/RefereeBaby";
@@ -37,3 +39,5 @@ export { WrathBaby } from "./babies/WrathBaby";
 export { XBaby } from "./babies/XBaby";
 export { YellowBaby } from "./babies/YellowBaby";
 export { ZeroBaby } from "./babies/ZeroBaby";
+
+NerdBaby;

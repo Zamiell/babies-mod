@@ -1,12 +1,13 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { Callback } from "isaacscript-common";
+import { RandomBabyType } from "../../enums/RandomBabyType";
 import { pseudoRoomClearPostUpdate } from "../../pseudoRoomClear";
 import { Baby } from "../Baby";
 
-/** Curse Room doors in uncleared rooms. */
-export class BlackBaby extends Baby {
+/** Locked doors in uncleared rooms. */
+export class NerdBaby extends Baby {
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
-    pseudoRoomClearPostUpdate(this.babyType);
+    pseudoRoomClearPostUpdate(RandomBabyType.NERD);
   }
 }

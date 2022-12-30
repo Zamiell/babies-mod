@@ -784,6 +784,7 @@ export const BABIES = {
     description: "Locked doors in uncleared rooms",
     sprite: "090_baby_nerd.png",
     requireKeys: true,
+    class: classesNZ.NerdBaby,
   },
 
   // 91
@@ -831,6 +832,8 @@ export const BABIES = {
     name: "Frown Baby",
     description: "Summons Best Friend every 5 seconds",
     sprite: "096_baby_frown.png",
+    num: 5,
+    class: classesAM.FrownBaby,
   },
 
   // 97
@@ -942,6 +945,7 @@ export const BABIES = {
     name: "Pubic Baby",
     description: "Must full clear",
     sprite: "110_baby_pubic.png",
+    class: classesNZ.PubicBaby,
   },
 
   // 111
@@ -1069,6 +1073,7 @@ export const BABIES = {
     name: "Hopeless Baby",
     description: "+2 keys + keys are hearts",
     sprite: "125_baby_hopeless.png",
+    class: classesAM.HopelessBaby,
   },
 
   // 126
@@ -1093,7 +1098,8 @@ export const BABIES = {
     name: "Earwig Baby",
     description: "3 rooms are already explored",
     sprite: "128_baby_earwig.png",
-    num: 3, // The amount of rooms explored
+    num: 3, // The amount of rooms explored.
+    class: classesAM.EarwigBaby,
   },
 
   // 129

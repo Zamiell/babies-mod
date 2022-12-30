@@ -22,7 +22,7 @@ const ROOM_TYPE_BLACKLIST: ReadonlySet<RoomType> = new Set([
 ]);
 
 // ModCallback.POST_UPDATE (1)
-export function postUpdate(babyType: RandomBabyType): void {
+export function pseudoRoomClearPostUpdate(babyType: RandomBabyType): void {
   // This function is only called from certain babies.
   const roomType = g.r.GetType();
   const roomFrameCount = g.r.GetFrameCount();

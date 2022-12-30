@@ -257,9 +257,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.ABAN, (player) => {
 
   // Sonic-style health
   if (coins === 0) {
-    g.run.dealingExtraDamage = true;
     player.Kill();
-    g.run.dealingExtraDamage = false;
     return;
   }
 

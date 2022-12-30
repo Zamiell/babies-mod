@@ -288,17 +288,6 @@ function checkCollectibles(
   }
 
   if (
-    babyType === RandomBabyType.EARWIG && // 128
-    (player.HasCollectible(CollectibleType.COMPASS) || // 21
-      player.HasCollectible(CollectibleType.TREASURE_MAP) || // 54
-      player.HasCollectible(CollectibleType.MIND)) // 333
-  ) {
-    // 3 rooms are already explored. If the player has mapping, this effect is largely useless (but
-    // having the Blue Map is okay).
-    return false;
-  }
-
-  if (
     babyType === RandomBabyType.SLOPPY && // 146
     (player.HasCollectible(CollectibleType.INNER_EYE) || // 2
       player.HasCollectible(CollectibleType.MUTANT_SPIDER) || // 153

@@ -5,7 +5,6 @@ import {
   CollectibleType,
   DamageFlag,
   DamageFlagZero,
-  Dimension,
   EffectVariant,
   EntityGridCollisionClass,
   EntityPartition,
@@ -14,25 +13,19 @@ import {
   PillColor,
   PillEffect,
   ProjectileVariant,
-  RoomType,
   SeedEffect,
   SoundEffect,
 } from "isaac-typescript-definitions";
 import {
-  changeRoom,
   ColorDefault,
   copyColor,
   DISTANCE_OF_GRID_TILE,
   game,
   GAME_FRAMES_PER_SECOND,
-  getAllRoomGridIndexes,
-  getDimension,
   getDoors,
   getFamiliars,
-  getRandomArrayElement,
   inStartingRoom,
   isActionPressedOnAnyInput,
-  isAllRoomsClear,
   isEntityMoving,
   sfxManager,
   spawn,
@@ -44,147 +37,12 @@ import {
 } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
-import * as pseudoRoomClear from "../pseudoRoomClear";
+import { pseudoRoomClearPostUpdate } from "../pseudoRoomClear";
 import { EffectVariantCustom } from "../types/EffectVariantCustom";
 import { bigChestExists } from "../utils";
 import { getCurrentBabyDescription } from "../utilsBaby";
 
 export const postUpdateBabyFunctionMap = new Map<RandomBabyType, () => void>();
-
-// 81
-postUpdateBabyFunctionMap.set(RandomBabyType.SCREAM, () => {
-  const gameFrameCount = game.GetFrameCount();
-  const activeCharge = g.p.GetActiveCharge();
-  const batteryCharge = g.p.GetBatteryCharge();
-
-  // - We store the main charge in the "babyCounters" variable.
-  // - We store the Battery charge in the "babyNPC.type" variable.
-  if (
-    g.run.babyFrame !== 0 &&
-    gameFrameCount <= g.run.babyFrame + 1 &&
-    (activeCharge !== g.run.babyCounters ||
-      batteryCharge !== (g.run.babyNPC.entityType as int))
-  ) {
-    g.p.SetActiveCharge(g.run.babyCounters + (g.run.babyNPC.entityType as int));
-    sfxManager.Stop(SoundEffect.BATTERY_CHARGE);
-    sfxManager.Stop(SoundEffect.BEEP);
-  }
-});
-
-// 90
-postUpdateBabyFunctionMap.set(RandomBabyType.NERD, () => {
-  pseudoRoomClear.postUpdate(RandomBabyType.NERD);
-});
-
-// 96
-postUpdateBabyFunctionMap.set(RandomBabyType.FROWN, () => {
-  const gameFrameCount = game.GetFrameCount();
-
-  if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
-    useActiveItemTemp(g.p, CollectibleType.BEST_FRIEND);
-  }
-});
-
-// 110
-postUpdateBabyFunctionMap.set(RandomBabyType.PUBIC, () => {
-  const roomClear = g.r.IsClear();
-  const dimension = getDimension();
-
-  // Don't do anything if we already full cleared the floor.
-  if (g.run.babyBool) {
-    return;
-  }
-
-  // The doors are not open because the room is not yet cleared.
-  if (!roomClear) {
-    return;
-  }
-
-  // Don't do anything if we are in an alternate dimension.
-  if (dimension !== Dimension.MAIN) {
-    return;
-  }
-
-  const onlyCheckRoomTypes = [RoomType.DEFAULT, RoomType.MINI_BOSS];
-  if (isAllRoomsClear(onlyCheckRoomTypes)) {
-    g.run.babyBool = true;
-    return;
-  }
-
-  // Keep the boss room door closed.
-  for (const door of getDoors()) {
-    if (door.IsRoomType(RoomType.BOSS)) {
-      door.Bar();
-    }
-  }
-});
-
-// 111
-postUpdateBabyFunctionMap.set(RandomBabyType.EYEMOUTH, () => {
-  const gameFrameCount = game.GetFrameCount();
-
-  if (g.run.babyTears.frame !== 0 && gameFrameCount >= g.run.babyTears.frame) {
-    g.run.babyTears.frame = 0;
-    g.p.FireTear(g.p.Position, g.run.babyTears.velocity, false, true, false);
-  }
-});
-
-// 125
-postUpdateBabyFunctionMap.set(RandomBabyType.HOPELESS, () => {
-  const keys = g.p.GetNumKeys();
-
-  // Keys are hearts
-  if (keys === 0) {
-    g.run.dealingExtraDamage = true;
-    g.p.Kill();
-    g.run.dealingExtraDamage = false;
-  }
-});
-
-// 128
-postUpdateBabyFunctionMap.set(RandomBabyType.EARWIG, () => {
-  // 3 rooms are already explored.
-  const startingRoomGridIndex = g.l.GetStartingRoomIndex();
-  const centerPos = g.r.GetCenterPos();
-  const allRoomGridIndexes = getAllRoomGridIndexes();
-  const baby = getCurrentBabyDescription();
-  if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for: ${baby.name}`);
-  }
-
-  // Get N unique random indexes.
-  const randomFloorGridIndexes: int[] = [];
-  do {
-    // Get a random room index on the floor.
-    const randomFloorGridIndex = getRandomArrayElement(
-      allRoomGridIndexes,
-      g.run.rng,
-    );
-
-    // Check to see if this is one of the indexes that we are already warping to.
-    if (randomFloorGridIndexes.includes(randomFloorGridIndex)) {
-      continue;
-    }
-
-    // We don't want the starting room to count.
-    if (randomFloorGridIndex === startingRoomGridIndex) {
-      continue;
-    }
-
-    randomFloorGridIndexes.push(randomFloorGridIndex);
-  } while (randomFloorGridIndexes.length < baby.num);
-
-  // Explore these rooms
-  for (const roomGridIndex of randomFloorGridIndexes) {
-    changeRoom(roomGridIndex);
-
-    // We might have traveled to the Boss Room, so stop the Portcullis sound effect just in case.
-    sfxManager.Stop(SoundEffect.CASTLE_PORTCULLIS);
-  }
-
-  changeRoom(startingRoomGridIndex);
-  g.p.Position = centerPos;
-});
 
 // 138
 postUpdateBabyFunctionMap.set(RandomBabyType.MOHAWK, () => {
@@ -192,9 +50,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.MOHAWK, () => {
 
   // Bombs are hearts
   if (bombs === 0) {
-    g.run.dealingExtraDamage = true;
     g.p.Kill();
-    g.run.dealingExtraDamage = false;
   }
 });
 
@@ -673,7 +529,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.RABBIT, () => {
 
 // 351
 postUpdateBabyFunctionMap.set(RandomBabyType.MOUSE, () => {
-  pseudoRoomClear.postUpdate(RandomBabyType.MOUSE);
+  pseudoRoomClearPostUpdate(RandomBabyType.MOUSE);
 });
 
 // 374
@@ -832,10 +688,7 @@ postUpdateBabyFunctionMap.set(RandomBabyType.SCOREBOARD, () => {
     const remainingTime = g.run.babyCounters - gameFrameCount;
     if (remainingTime <= 0) {
       g.run.babyCounters = 0;
-
-      g.run.dealingExtraDamage = true;
       g.p.Kill();
-      g.run.dealingExtraDamage = false;
     }
   }
 });

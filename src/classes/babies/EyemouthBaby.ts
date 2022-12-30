@@ -5,6 +5,21 @@ import { Baby } from "../Baby";
 
 /** Shoots an extra tear every 3rd shot. */
 export class EyemouthBaby extends Baby {
+  // 1
+  @Callback(ModCallback.POST_UPDATE)
+  postUpdate(): void {
+    const gameFrameCount = game.GetFrameCount();
+
+    if (
+      g.run.babyTears.frame !== 0 &&
+      gameFrameCount >= g.run.babyTears.frame
+    ) {
+      g.run.babyTears.frame = 0;
+      g.p.FireTear(g.p.Position, g.run.babyTears.velocity, false, true, false);
+    }
+  }
+
+  // 61
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
     const gameFrameCount = game.GetFrameCount();
