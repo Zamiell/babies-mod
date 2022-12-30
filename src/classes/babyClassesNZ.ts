@@ -39,5 +39,3 @@ export { WrathBaby } from "./babies/WrathBaby";
 export { XBaby } from "./babies/XBaby";
 export { YellowBaby } from "./babies/YellowBaby";
 export { ZeroBaby } from "./babies/ZeroBaby";
-
-NerdBaby;
