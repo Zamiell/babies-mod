@@ -10,6 +10,7 @@ import {
   ItemConfigTag,
   ItemPoolType,
   KeySubType,
+  MinibossID,
   PickupVariant,
   PillColor,
   PoofSubType,
@@ -27,6 +28,8 @@ import {
   getEntities,
   getRandomInt,
   getRandomSetElement,
+  inMinibossRoomOf,
+  inRoomType,
   isHeart,
   sfxManager,
   spawnBattery,
@@ -165,6 +168,16 @@ export function removeAllFriendlyEntities(): void {
 
 export function setTearColor(tear: EntityTear, color: Color): void {
   tear.SetColor(color, 10000, 10000);
+}
+
+export function shouldShowRealHeartsUIForDevilDeal(): boolean {
+  const inRoomWithDevilDeals = inRoomType(
+    RoomType.DEVIL,
+    RoomType.BLACK_MARKET,
+  );
+  const inKrampusRoom = inMinibossRoomOf(MinibossID.KRAMPUS);
+
+  return inRoomWithDevilDeals && !inKrampusRoom;
 }
 
 /** For special babies that transform all special rooms into something else. */

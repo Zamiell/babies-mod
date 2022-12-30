@@ -26,7 +26,6 @@ import { initSprite } from "../sprite";
 import * as timer from "../timer";
 import { isRacingPlusEnabled } from "../utils";
 import { getCurrentBaby } from "../utilsBaby";
-import { postRenderBabyFunctionMap } from "./postRenderBabyFunctionMap";
 
 const UI_HEARTS_RIGHT_SPACING = 55;
 const CLOCK_POSITION = Vector(30, 30);
@@ -49,7 +48,6 @@ function main() {
   drawBabyIntro();
   drawBabyNumber();
   drawTempIconNextToActiveCollectible();
-  drawBabyEffects();
   timer.display();
 }
 
@@ -196,16 +194,4 @@ function drawTempIconNextToActiveCollectible() {
   // The player has the item in their main active slot. Draw the icon in the bottom-right hand
   // corner.
   clockSprite.RenderLayer(0, CLOCK_POSITION);
-}
-
-function drawBabyEffects() {
-  const [babyType] = getCurrentBaby();
-  if (babyType === -1) {
-    return;
-  }
-
-  const postRenderBabyFunction = postRenderBabyFunctionMap.get(babyType);
-  if (postRenderBabyFunction !== undefined) {
-    postRenderBabyFunction();
-  }
 }

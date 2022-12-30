@@ -3190,6 +3190,7 @@ export const BABIES = {
     flight: true,
     explosionImmunity: true,
     blindfolded: true,
+    class: classesAM.ElfBaby,
   },
 
   // 378
