@@ -1322,6 +1322,7 @@ export const BABIES = {
     name: "Puff Baby",
     description: "Mega Bean effect every 5 seconds",
     sprite: "156_baby_puff.png",
+    class: classesNZ.PuffBaby,
   },
 
   // 157
@@ -1372,6 +1373,7 @@ export const BABIES = {
     sprite: "162_baby_digital.png",
     // This baby grants SeedEffect.OLD_TV. However, applying this in the `POST_NEW_LEVEL` callback
     // can cause game crashes. Instead, we manually apply it in the `POST_UPDATE` callback.
+    class: classesAM.DigitalBaby,
   },
 
   // 163
@@ -1379,6 +1381,7 @@ export const BABIES = {
     name: "Helmet Baby",
     description: "Invulnerability when standing still",
     sprite: "163_baby_helmet.png",
+    class: classesAM.HelmetBaby,
   },
 
   // 164
@@ -1388,6 +1391,7 @@ export const BABIES = {
     sprite: "164_baby_blackeye.png",
     item: CollectibleType.LEPROSY,
     num: 5,
+    class: classesAM.BlackEyeBaby,
   },
 
   // 165
@@ -1412,7 +1416,8 @@ export const BABIES = {
     name: "Worry Baby",
     description: "Touching items/pickups causes teleportation",
     sprite: "167_baby_worry.png",
-    num: 1, // The number of frames in the future to teleport after touching a pickup
+    num: 1, // The number of frames in the future to teleport after touching a pickup.
+    class: classesNZ.WorryBaby,
   },
 
   // 168
@@ -1779,6 +1784,7 @@ export const BABIES = {
     description: "Shockwave bombs",
     sprite: "211_baby_skull.png",
     requireBombs: true,
+    class: classesNZ.SkullBaby,
   },
 
   // 212
@@ -2145,6 +2151,7 @@ export const BABIES = {
     description: "Ventricle Razor effect every 15 seconds",
     sprite: "256_baby_cloud.png",
     num: 30 * 15, // In game frames
+    class: classesAM.CloudBaby,
   },
 
   // 257
@@ -2346,7 +2353,7 @@ export const BABIES = {
     sprite: "281_baby_fangdemon.png",
     item: CollectibleType.MARKED,
     blindfolded: true,
-    cooldown: 15, // In game frames
+    num: 15, // In game frames
     noEndFloors: true,
     mustHaveTears: true,
     softlockPreventionDestroyPoops: true, // Light beams cannot kill poops
@@ -2469,6 +2476,7 @@ export const BABIES = {
     sprite: "295_baby_rider.png",
     item: CollectibleType.PONY,
     blindfolded: true,
+    class: classesNZ.RiderBaby,
   },
 
   // 296
@@ -2534,7 +2542,7 @@ export const BABIES = {
     description: "Starts with Brown Nugget (improved)",
     sprite: "303_baby_pizza.png",
     item: CollectibleType.BROWN_NUGGET,
-    delay: 3, // In game frames
+    num: 3, // In game frames
   },
 
   // 304
@@ -2547,6 +2555,7 @@ export const BABIES = {
     explosionImmunity: true,
     blindfolded: true,
     noEndFloors: true,
+    class: classesAM.HotdogBaby,
   },
 
   // 305

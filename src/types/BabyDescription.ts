@@ -13,8 +13,6 @@ export interface BabyDescription {
   // Optional properties
   blindfolded?: boolean;
   blindfolded2?: boolean;
-  cooldown?: int;
-  delay?: int;
   description2?: string;
   distance?: int;
   explosionImmunity?: boolean;

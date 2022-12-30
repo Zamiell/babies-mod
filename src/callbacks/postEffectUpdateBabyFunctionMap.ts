@@ -110,8 +110,8 @@ postEffectUpdateBabyFunctionMap.set(
 
     const gameFrameCount = game.GetFrameCount();
     const baby = getCurrentBabyDescription();
-    if (baby.cooldown === undefined) {
-      error(`The "cooldown" attribute was not defined for: ${baby.name}`);
+    if (baby.num === undefined) {
+      error(`The "num" attribute was not defined for: ${baby.name}`);
     }
 
     if (effect.FrameCount === 1) {
@@ -128,7 +128,7 @@ postEffectUpdateBabyFunctionMap.set(
       );
       if (closeEntities.length > 0) {
         // Fire the beam.
-        g.run.babyFrame = gameFrameCount + baby.cooldown;
+        g.run.babyFrame = gameFrameCount + baby.num;
         spawnEffect(
           EffectVariant.CRACK_THE_SKY,
           0,

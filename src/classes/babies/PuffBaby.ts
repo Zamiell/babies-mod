@@ -1,12 +1,16 @@
 import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
-import { Callback, game, useActiveItemTemp } from "isaacscript-common";
+import {
+  Callback,
+  game,
+  GAME_FRAMES_PER_SECOND,
+  useActiveItemTemp,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { bigChestExists } from "../../utils";
 import { Baby } from "../Baby";
 
-/** Constant Isaac's Tears effect + blindfolded. */
-export class BawlBaby extends Baby {
-  // 1
+/** Mega Bean effect every 5 seconds. */
+export class PuffBaby extends Baby {
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
     const gameFrameCount = game.GetFrameCount();
@@ -23,17 +27,8 @@ export class BawlBaby extends Baby {
       return;
     }
 
-    // Constant Isaac's Tears effect + blindfolded.
-    if (gameFrameCount % 3 === 0) {
-      g.run.babyBool = true;
-      useActiveItemTemp(g.p, CollectibleType.ISAACS_TEARS);
-      g.run.babyBool = false;
+    if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
+      useActiveItemTemp(g.p, CollectibleType.MEGA_BEAN);
     }
-  }
-
-  // 61
-  @Callback(ModCallback.POST_FIRE_TEAR)
-  postFireTear(tear: EntityTear): void {
-    tear.CollisionDamage = g.p.Damage / 2;
   }
 }

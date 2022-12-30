@@ -102,14 +102,14 @@ function brownNugget() {
   if (babyType !== RandomBabyType.PIZZA) {
     return undefined;
   }
-  if (baby.delay === undefined) {
-    error(`The "delay" attribute was not defined for: ${baby.name}`);
+  if (baby.num === undefined) {
+    error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
   // Mark to spawn more of them on subsequent frames.
   if (g.run.babyCounters === 0) {
     g.run.babyCounters = 1;
-    g.run.babyFrame = gameFrameCount + baby.delay;
+    g.run.babyFrame = gameFrameCount + baby.num;
   }
 
   return undefined;
