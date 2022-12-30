@@ -1300,7 +1300,7 @@ export const BABIES = {
     name: "Sorrow Baby",
     description: "Projectiles are reflected as bombs",
     sprite: "153_baby_sorrow.png",
-    distance: 50,
+    num: 50,
   },
 
   // 154
@@ -1315,6 +1315,7 @@ export const BABIES = {
     name: "Awaken Baby",
     description: "Constant Telekinesis effect",
     sprite: "155_baby_awaken.png",
+    class: classesAM.AwakenBaby,
   },
 
   // 156
@@ -1866,6 +1867,7 @@ export const BABIES = {
     sprite: "221_baby_drool.png",
     item: CollectibleType.MONSTROS_TOOTH,
     num: 4, // Amount of Monstro's to summon
+    class: classesAM.DroolBaby,
   },
 
   // 222
@@ -2070,7 +2072,7 @@ export const BABIES = {
     description: "Orbiting tears",
     sprite: "246_baby_8ball.png",
     mustHaveTears: true,
-    distance: 90,
+    num: 90,
     softlockPreventionIsland: true,
     class: classesAM.EightBallBaby,
   },
@@ -2104,6 +2106,7 @@ export const BABIES = {
     description: "Coins refill bombs and keys when depleted",
     sprite: "250_baby_medusa.png",
     requireCoins: true,
+    class: classesAM.MedusaBaby,
   },
 
   // 251
@@ -2204,6 +2207,7 @@ export const BABIES = {
     name: "Raccoon Baby",
     description: "Random rocks",
     sprite: "263_baby_raccoon.png",
+    class: classesNZ.RaccoonBaby,
   },
 
   // 264
@@ -2238,6 +2242,7 @@ export const BABIES = {
     description: "Takes damage when standing still",
     num: 15, // Amount of frames standing still before taking damage
     sprite: "267_baby_hare.png",
+    class: classesAM.HareBaby,
   },
 
   // 268
@@ -2263,6 +2268,7 @@ export const BABIES = {
     name: "Porcupine Baby",
     description: "Wait What? effect every 5 seconds",
     sprite: "270_baby_porcupine.png",
+    class: classesNZ.PorcupineBaby,
   },
 
   // 271
@@ -2431,6 +2437,7 @@ export const BABIES = {
     name: "Heart Baby",
     description: "Dull Razor effect every 5 seconds",
     sprite: "290_baby_heart.png",
+    class: classesAM.HeartBaby,
   },
 
   // 291
@@ -2449,8 +2456,8 @@ export const BABIES = {
     item2: CollectibleType.LUDOVICO_TECHNIQUE,
     flight: true,
     mustHaveTears: true,
-    blindfolded2: true,
-    // This baby is not actually blindfolded because we use The Ludovico Technique.
+    // This baby does not use the "blindfolded" property because it would remove The Ludovico
+    // Technique.
   },
 
   // 293
@@ -2543,6 +2550,7 @@ export const BABIES = {
     sprite: "303_baby_pizza.png",
     item: CollectibleType.BROWN_NUGGET,
     num: 3, // In game frames
+    class: classesNZ.PizzaBaby,
   },
 
   // 304
@@ -3239,9 +3247,9 @@ export const BABIES = {
     item2: CollectibleType.LOKIS_HORNS,
     flight: true,
     explosionImmunity: true,
-    blindfolded2: true,
-    noEndFloors: true,
     num: 3, // In game frames
+    // This baby does not use the "blindfolded" property because it would remove knives.
+    noEndFloors: true,
   },
 
   // 387
@@ -4279,6 +4287,7 @@ export const BABIES = {
     num: 60, // Time between fire rate changes, in game frames
     min: -4, // Tear delay change
     max: 4, // Tear delay change
+    class: classesNZ.TwitchyBaby,
   },
 
   // 512
@@ -4344,6 +4353,7 @@ export const BABIES = {
     description: "Cannot bomb through rooms",
     sprite: "519_baby_baggycap.png",
     requireBombs: true,
+    class: classesAM.BaggyCapBaby,
   },
 
   // 520
@@ -4589,6 +4599,7 @@ export const BABIES = {
     sprite: "550_baby_bullet.png",
     item: CollectibleType.ROCKET_IN_A_JAR,
     blindfolded: true,
+    class: classesAM.BulletBaby,
   },
 
   // 551
@@ -5010,6 +5021,7 @@ export const BABIES = {
     description: "Invisibility",
     // This file does not actually exist, but we cannot specify a blank string.
     sprite: "invisible_baby.png",
+    class: classesAM.InvisibleBaby,
   },
 } as const satisfies HasAllEnumKeys<RandomBabyType, BabyDescription>;
 

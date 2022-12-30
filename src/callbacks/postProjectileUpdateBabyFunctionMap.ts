@@ -64,12 +64,12 @@ postProjectileUpdateBabyFunctionMap.set(
   RandomBabyType.SORROW,
   (projectile: EntityProjectile) => {
     const baby = getCurrentBabyDescription();
-    if (baby.distance === undefined) {
-      error(`The "distance" attribute was not defined for: ${baby.name}`);
+    if (baby.num === undefined) {
+      error(`The "num" attribute was not defined for: ${baby.name}`);
     }
 
     // Projectiles are reflected as bombs.
-    if (projectile.Position.Distance(g.p.Position) <= baby.distance) {
+    if (projectile.Position.Distance(g.p.Position) <= baby.num) {
       spawnBomb(
         BombVariant.NORMAL,
         0,

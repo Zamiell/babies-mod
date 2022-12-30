@@ -4,7 +4,7 @@ import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Invisibility. */
-export class TrollBaby extends Baby {
+export class InvisibleBaby extends Baby {
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
     const roomFrameCount = g.r.GetFrameCount();

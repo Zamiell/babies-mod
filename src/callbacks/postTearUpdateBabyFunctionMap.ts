@@ -125,16 +125,16 @@ postTearUpdateBabyFunctionMap.set(
     }
 
     const baby = getCurrentBabyDescription();
-    if (baby.distance === undefined) {
+    if (baby.num === undefined) {
       error(`The "distance" attribute was not defined for: ${baby.name}`);
     }
-    let positionMod = Vector(0, baby.distance * -1); // The tear starts directly above the player
+    let positionMod = Vector(0, baby.num * -1); // The tear starts directly above the player
     const degrees = tear.FrameCount * 8; // Tears rotate 4 degrees per frame
     positionMod = positionMod.Rotated(degrees);
     tear.Position = g.p.Position.add(positionMod);
 
     // We want the tear to be moving perpendicular to the line between the player and the tear.
-    tear.Velocity = Vector(baby.distance / 4, 0);
+    tear.Velocity = Vector(baby.num / 4, 0);
     tear.Velocity = tear.Velocity.Rotated(degrees);
 
     // Keep it in the air for a while.

@@ -6,7 +6,7 @@ import { Baby } from "../Baby";
 export class EightBallBaby extends Baby {
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
-    const distance = this.getAttribute("distance");
+    const num = this.getAttribute("num");
 
     // Mark that we shot this tear.
     tear.SubType = 1;
@@ -15,8 +15,8 @@ export class EightBallBaby extends Baby {
     tear.TearFlags = addFlag(tear.TearFlags, TearFlag.SPECTRAL);
 
     // Start with the tears directly above the player and moving towards the right.
-    tear.Position = Vector(0, distance * -1);
-    tear.Velocity = Vector(distance / 4, 0);
+    tear.Position = Vector(0, num * -1);
+    tear.Velocity = Vector(num / 4, 0);
     tear.FallingSpeed = 0;
   }
 }

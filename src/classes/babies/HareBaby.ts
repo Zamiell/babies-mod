@@ -6,20 +6,16 @@ import {
   isEntityMoving,
 } from "isaacscript-common";
 import { g } from "../../globals";
-import { getCurrentBabyDescription } from "../../utilsBaby";
 import { Baby } from "../Baby";
 
 /** Takes damage when standing still. */
 export class HareBaby extends Baby {
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
-    const baby = getCurrentBabyDescription();
-    if (baby.num === undefined) {
-      error(`The "num" attribute was not defined for: ${baby.name}`);
-    }
+    const num = this.getAttribute("num");
 
     const sprite = g.p.GetSprite();
-    const framesBeforeTakingDamage = baby.num;
+    const framesBeforeTakingDamage = num;
 
     // This effect should not apply in the starting room to give the player a chance to read the
     // description.

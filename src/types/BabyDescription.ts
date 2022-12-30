@@ -12,9 +12,7 @@ export interface BabyDescription {
 
   // Optional properties
   blindfolded?: boolean;
-  blindfolded2?: boolean;
   description2?: string;
-  distance?: int;
   explosionImmunity?: boolean;
   flight?: boolean;
   item?: CollectibleType;
@@ -23,8 +21,6 @@ export interface BabyDescription {
   itemNum?: int;
   max?: int;
   min?: int;
-  mustHaveTears?: boolean;
-  noEndFloors?: boolean;
   num?: int;
   numHits?: int;
   requireBombs?: boolean;
@@ -36,6 +32,10 @@ export interface BabyDescription {
   time?: int;
   trinket?: TrinketType;
   uncharged?: boolean;
+
+  // Optional properties that specify selection restrictions.
+  mustHaveTears?: boolean;
+  noEndFloors?: boolean;
 
   /**
    * The associated class that provides the logic for the baby, if any.
