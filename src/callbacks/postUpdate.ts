@@ -12,7 +12,6 @@ import {
 import { g } from "../globals";
 import { mod } from "../mod";
 import { getCurrentBaby } from "../utilsBaby";
-import { postUpdateBabyFunctionMap } from "./postUpdateBabyFunctionMap";
 
 export function init(): void {
   mod.AddCallback(ModCallback.POST_UPDATE, main);
@@ -22,12 +21,6 @@ function main() {
   const [babyType] = getCurrentBaby();
   if (babyType === -1) {
     return;
-  }
-
-  // Do custom baby effects.
-  const postUpdateBabyFunction = postUpdateBabyFunctionMap.get(babyType);
-  if (postUpdateBabyFunction !== undefined) {
-    postUpdateBabyFunction();
   }
 
   checkSoftlockDestroyPoops();

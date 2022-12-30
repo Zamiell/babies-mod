@@ -193,8 +193,8 @@ postPickupUpdateBabyFunctionMap.set(
     const data = pickup.GetData();
 
     if (
-      collected || // Don't mess with coins anymore after we have picked them up
-      data["recovery"] === undefined // We only want to target manually spawned coins
+      collected || // Don't mess with coins anymore after we have picked them up.
+      data["recovery"] === undefined // We only want to target manually spawned coins.
     ) {
       return;
     }

@@ -21,6 +21,8 @@ import {
 } from "isaac-typescript-definitions";
 import {
   findFreePosition,
+  game,
+  GAME_FRAMES_PER_SECOND,
   getCollectibleMaxCharges,
   getEntities,
   getRandomInt,
@@ -56,6 +58,15 @@ export function bigChestExists(): boolean {
     PickupVariant.BIG_CHEST,
   );
   return numBigChests > 0;
+}
+
+export function everyNSeconds(func: () => void, seconds: int): void {
+  const gameFrameCount = game.GetFrameCount();
+  const gameFrameMatchesSecondsCount =
+    gameFrameCount % (seconds * GAME_FRAMES_PER_SECOND) === 0;
+  if (gameFrameMatchesSecondsCount) {
+    func();
+  }
 }
 
 export function getRandomOffsetPosition(

@@ -2,6 +2,7 @@ import { DamageFlagZero, ModCallback } from "isaac-typescript-definitions";
 import {
   Callback,
   game,
+  GAME_FRAMES_PER_SECOND,
   isShootActionPressedOnAnyInput,
 } from "isaacscript-common";
 import { g } from "../../globals";
@@ -20,7 +21,7 @@ export class NooseBaby extends Baby {
       return;
     }
 
-    g.run.babyCounters = gameFrameCount + num; // Reset the timer
+    g.run.babyCounters = gameFrameCount + num * GAME_FRAMES_PER_SECOND; // Reset the timer
     if (isShootActionPressedOnAnyInput()) {
       g.p.TakeDamage(1, DamageFlagZero, EntityRef(g.p), 0);
     }

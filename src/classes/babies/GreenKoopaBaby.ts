@@ -1,10 +1,51 @@
 import { ModCallback, TearFlag } from "isaac-typescript-definitions";
-import { addFlag, Callback } from "isaacscript-common";
+import { addFlag, Callback, GAME_FRAMES_PER_SECOND } from "isaacscript-common";
 import { TearData } from "../../types/TearData";
 import { Baby } from "../Baby";
 
 /** Shoots bouncy green shells. */
 export class GreenKoopaBaby extends Baby {
+  // 40
+  @Callback(ModCallback.POST_TEAR_UPDATE)
+  postTearUpdate(tear: EntityTear): void {
+    if (tear.SubType !== 1) {
+      return;
+    }
+
+    const num = this.getAttribute("num");
+
+    if (tear.FrameCount <= num * GAME_FRAMES_PER_SECOND) {
+      // The `POST_TEAR_UPDATE` callback will fire before the `POST_FIRE_TEAR` callback, so do
+      // nothing if we are in on the first frame.
+      const data = tear.GetData() as unknown as TearData;
+      if (
+        data.BabiesModHeight === undefined ||
+        data.BabiesModVelocity === undefined
+      ) {
+        return;
+      }
+
+      // If the tear bounced, then we need to update the stored velocity to the new velocity.
+      // ("tear.Bounce" does not ever seem to go to true, so we can't use that.)
+      if (
+        (tear.Velocity.X > 0 && data.BabiesModVelocity.X < 0) ||
+        (tear.Velocity.X < 0 && data.BabiesModVelocity.X > 0) ||
+        (tear.Velocity.Y > 0 && data.BabiesModVelocity.Y < 0) ||
+        (tear.Velocity.Y < 0 && data.BabiesModVelocity.Y > 0)
+      ) {
+        data.BabiesModVelocity = tear.Velocity;
+      }
+
+      // Continue to apply the initial tear conditions for the duration of the tear.
+      tear.Height = data.BabiesModHeight;
+      tear.Velocity = data.BabiesModVelocity;
+    } else {
+      // The tear has lived long enough, so manually kill it.
+      tear.Remove();
+    }
+  }
+
+  // 61
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
     const sprite = tear.GetSprite();

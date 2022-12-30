@@ -4,23 +4,19 @@ import {
   PoopGridEntityVariant,
   SoundEffect,
 } from "isaac-typescript-definitions";
-import {
-  Callback,
-  game,
-  GAME_FRAMES_PER_SECOND,
-  getRandomInt,
-  sfxManager,
-} from "isaacscript-common";
+import { Callback, game, getRandomInt, sfxManager } from "isaacscript-common";
 import { g } from "../../globals";
+import { everyNSeconds } from "../../utils";
 import { Baby } from "../Baby";
 
-/** Spawns a random poop every 5 seconds. */
+/** Spawns a random poop every N seconds. */
 export class ButtholeBaby extends Baby {
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
     const gameFrameCount = game.GetFrameCount();
+    const num = this.getAttribute("num");
 
-    if (gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0) {
+    everyNSeconds(() => {
       const poopVariant = getRandomInt(
         PoopGridEntityVariant.NORMAL,
         PoopGridEntityVariant.WHITE,
@@ -39,6 +35,6 @@ export class ButtholeBaby extends Baby {
       Isaac.GridSpawn(GridEntityType.POOP, poopVariant, g.p.Position);
 
       sfxManager.Play(SoundEffect.FART);
-    }
+    }, num);
   }
 }

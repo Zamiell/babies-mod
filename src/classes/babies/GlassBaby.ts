@@ -13,7 +13,7 @@ import {
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
-const DATA_KEY = "babiesModRing";
+const DATA_KEY = "BabiesModRing";
 
 /** This is copied from Samael's Tech X ability. */
 const RING_RADIUS = 66;

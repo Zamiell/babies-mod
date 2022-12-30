@@ -12,7 +12,7 @@ import {
   SeedEffect,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { GAME_FRAMES_PER_SECOND, HasAllEnumKeys } from "isaacscript-common";
+import { HasAllEnumKeys } from "isaacscript-common";
 import * as classesAM from "../classes/babyClassesAM";
 import * as classesNZ from "../classes/babyClassesNZ";
 import { RandomBabyType } from "../enums/RandomBabyType";
@@ -79,6 +79,7 @@ export const BABIES = {
     name: "Troll Baby",
     description: "Spawns a Troll Bomb every 3 seconds",
     sprite: "006_baby_troll.png",
+    num: 3,
     class: classesNZ.TrollBaby,
   },
 
@@ -189,7 +190,7 @@ export const BABIES = {
     name: "Wrath Baby",
     description: "Anarchist Cookbook effect every 7 seconds",
     sprite: "019_baby_wrath.png",
-    num: 7 * GAME_FRAMES_PER_SECOND,
+    num: 7,
     class: classesNZ.WrathBaby,
   },
 
@@ -361,7 +362,7 @@ export const BABIES = {
     name: "Noose Baby",
     description: "Don't shoot when the timer reaches 0",
     sprite: "039_baby_noose.png",
-    num: 6 * GAME_FRAMES_PER_SECOND,
+    num: 6, // Duration of the timer in seconds
     class: classesNZ.NooseBaby,
   },
 
@@ -556,6 +557,7 @@ export const BABIES = {
     name: "Butthole Baby",
     description: "Spawns a random poop every 5 seconds",
     sprite: "063_baby_butthole.png",
+    num: 5,
     class: classesAM.ButtholeBaby,
   },
 
@@ -1323,6 +1325,7 @@ export const BABIES = {
     name: "Puff Baby",
     description: "Mega Bean effect every 5 seconds",
     sprite: "156_baby_puff.png",
+    num: 5,
     class: classesNZ.PuffBaby,
   },
 
@@ -2268,6 +2271,7 @@ export const BABIES = {
     name: "Porcupine Baby",
     description: "Wait What? effect every 5 seconds",
     sprite: "270_baby_porcupine.png",
+    num: 5,
     class: classesNZ.PorcupineBaby,
   },
 
@@ -2437,6 +2441,7 @@ export const BABIES = {
     name: "Heart Baby",
     description: "Dull Razor effect every 5 seconds",
     sprite: "290_baby_heart.png",
+    num: 5,
     class: classesAM.HeartBaby,
   },
 
@@ -2795,6 +2800,7 @@ export const BABIES = {
     sprite: "332_baby_butterfly.png",
     // We do not need to explicitly give this character flight, because the grid collision does the
     // same thing.
+    class: classesAM.ButterflyBaby2,
   },
 
   // 333
@@ -2829,6 +2835,7 @@ export const BABIES = {
     name: "Hero Baby",
     description: "3x damage + 3x tear rate when at 1 heart or less",
     sprite: "336_baby_hero.png",
+    class: classesAM.HeroBaby,
   },
 
   // 337
@@ -2873,7 +2880,8 @@ export const BABIES = {
     name: "Vomit Baby",
     description: "Must stand still every 10 seconds",
     sprite: "341_baby_vomit.png",
-    num: 10 * GAME_FRAMES_PER_SECOND,
+    num: 10,
+    class: classesNZ.VomitBaby,
   },
 
   // 342
@@ -2930,6 +2938,7 @@ export const BABIES = {
     item: CollectibleType.CANDLE,
     blindfolded: true,
     softlockPreventionDestroyPoops: true, // The Candle cannot kill poops
+    class: classesAM.FourtoneBaby,
   },
 
   // 349
@@ -2937,6 +2946,8 @@ export const BABIES = {
     name: "Grayscale Baby",
     description: "Delirious effect every 10 seconds",
     sprite: "349_baby_grayscale.png",
+    num: 10,
+    class: classesAM.GrayscaleBaby,
   },
 
   // 350
@@ -2946,6 +2957,7 @@ export const BABIES = {
     sprite: "350_baby_rabbit.png",
     item: CollectibleType.HOW_TO_JUMP,
     num: 45 * 2, // Amount of game frames between forced book uses
+    class: classesNZ.RabbitBaby,
   },
 
   // 351
@@ -2955,6 +2967,7 @@ export const BABIES = {
     sprite: "351_baby_mouse.png",
     item: CollectibleType.PAY_TO_PLAY,
     requireCoins: true,
+    class: classesAM.MouseBaby,
   },
 
   // 352
@@ -3143,8 +3156,10 @@ export const BABIES = {
   // 374
   [RandomBabyType.PINK_PRINCESS]: {
     name: "Pink Princess Baby",
-    description: "Summons random stomps",
+    description: "Summons random stomps every 4 seconds",
     sprite: "374_baby_pinkprincess.png",
+    num: 4,
+    class: classesNZ.PinkPrincessBaby,
   },
 
   // 375
@@ -3214,6 +3229,8 @@ export const BABIES = {
     name: "Blue Pig Baby",
     description: "Spawns a Mega Troll Bomb every 5 seconds",
     sprite: "382_baby_bluepig.png",
+    num: 5,
+    class: classesAM.BluePigBaby,
   },
 
   // 383
@@ -3251,6 +3268,7 @@ export const BABIES = {
     num: 3, // In game frames
     // This baby does not use the "blindfolded" property because it would remove knives.
     requireNoEndFloors: true,
+    class: classesAM.ImpBaby,
   },
 
   // 387
@@ -3268,6 +3286,7 @@ export const BABIES = {
     description: "Enemies spawn projectiles upon death",
     sprite: "388_baby_bluewrestler.png",
     num: 6,
+    class: classesAM.BlueWrestlerBaby,
   },
 
   // 389
@@ -3330,6 +3349,7 @@ export const BABIES = {
     name: "Plague Baby",
     description: "Leaves a trail of creep",
     sprite: "396_baby_plague.png",
+    class: classesNZ.PlagueBaby,
   },
 
   // 397
@@ -3372,6 +3392,8 @@ export const BABIES = {
     name: "Corgi Baby",
     description: "Spawns a fly every 1.5 seconds",
     sprite: "401_baby_corgi.png",
+    num: 1.5,
+    class: classesAM.CorgiBaby,
   },
 
   // 402
@@ -3767,6 +3789,8 @@ export const BABIES = {
     name: "Mutated Fish Baby",
     description: "Summons a Sprinkler every 7 seconds",
     sprite: "449_baby_mutated_fish.png",
+    num: 7,
+    class: classesAM.MutatedFishBaby,
   },
 
   // 450
@@ -3816,6 +3840,7 @@ export const BABIES = {
     name: "Green Koopa Baby",
     description: "Shoots bouncy green shells",
     sprite: "455_baby_green_koopa.png",
+    num: 4, // Seconds that the shell stays active; must match Red Koopa Baby.
     requireTears: true,
     class: classesAM.GreenKoopaBaby,
   },
@@ -3842,6 +3867,7 @@ export const BABIES = {
     name: "Red Koopa Baby",
     description: "Shoots bouncy & homing red shells",
     sprite: "458_baby_red_koopa.png",
+    num: 4, // Seconds that the shell stays active; must match Green Koopa Baby.
     requireTears: true,
     class: classesNZ.RedKoopaBaby,
   },
@@ -3978,6 +4004,7 @@ export const BABIES = {
     name: "Scoreboard Baby",
     description: "Dies 1 minute after getting hit",
     sprite: "474_baby_scoreboard.png",
+    class: classesNZ.ScoreboardBaby,
   },
 
   // 475
@@ -4067,6 +4094,8 @@ export const BABIES = {
     name: "Cool Orange Baby",
     description: "Summons random missiles",
     sprite: "485_baby_coolorange.png",
+    num: 1, // Seconds before a missile comes down on a spawned target.
+    class: classesAM.CoolOrangeBaby,
   },
 
   // 486
@@ -4260,6 +4289,7 @@ export const BABIES = {
     name: "Sausage Lover Baby",
     description: "Summons Monstro every 5 seconds",
     sprite: "508_baby_sausagelover.png",
+    class: classesNZ.SausageLoverBaby,
   },
 
   // 509

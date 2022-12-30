@@ -18,7 +18,7 @@ export class PsychicBaby extends Baby {
     const roomFrameCount = g.r.GetFrameCount();
     const roomShape = g.r.GetRoomShape();
 
-    // Disable the mechanic after N seconds to avoid softlocks.
+    // Disable the mechanic after a while to avoid softlocks.
     const softlockThresholdFrame = 30 * GAME_FRAMES_PER_SECOND;
     if (roomFrameCount >= softlockThresholdFrame) {
       return;

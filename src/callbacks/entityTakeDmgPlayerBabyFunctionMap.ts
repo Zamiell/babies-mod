@@ -557,19 +557,6 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.FAIRYMAN, (player) => {
   return undefined;
 });
 
-// 408
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.CENSORED, (player) => {
-  // All enemies get confused on hit.
-  const confusionFrames = 5 * GAME_FRAMES_PER_SECOND;
-  for (const npc of getNPCs()) {
-    if (npc.IsVulnerableEnemy()) {
-      npc.AddConfusion(EntityRef(player), confusionFrames, false);
-    }
-  }
-
-  return undefined;
-});
-
 // 412
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.CATSUIT, (player) => {
   useActiveItemTemp(player, CollectibleType.GUPPYS_PAW);
@@ -675,7 +662,6 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.N_404, (player) => {
 entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.MUFFLERSCARF,
   (player) => {
-    // All enemies get freezed on hit.
     const freezeFrames = 5 * GAME_FRAMES_PER_SECOND;
     for (const npc of getNPCs()) {
       if (npc.IsVulnerableEnemy()) {

@@ -5,16 +5,9 @@ import {
   EntityPartition,
   PlayerForm,
 } from "isaac-typescript-definitions";
-import {
-  game,
-  GAME_FRAMES_PER_SECOND,
-  getEffects,
-  spawnEffect,
-  VectorZero,
-} from "isaacscript-common";
+import { game, spawnEffect, VectorZero } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
-import { EffectVariantCustom } from "../types/EffectVariantCustom";
 import { getCurrentBabyDescription } from "../utilsBaby";
 
 export const postEffectUpdateBabyFunctionMap = new Map<
@@ -136,37 +129,6 @@ postEffectUpdateBabyFunctionMap.set(
           VectorZero,
           g.p,
         );
-      }
-    }
-  },
-);
-
-// 485
-postEffectUpdateBabyFunctionMap.set(
-  RandomBabyType.COOL_ORANGE,
-  (effect: EntityEffect) => {
-    if (
-      effect.Variant === EffectVariantCustom.FETUS_BOSS_TARGET &&
-      effect.FrameCount === GAME_FRAMES_PER_SECOND
-    ) {
-      const rocket = spawnEffect(
-        EffectVariantCustom.FETUS_BOSS_ROCKET,
-        0,
-        effect.Position,
-      );
-      const rocketHeightOffset = Vector(0, -300);
-      rocket.SpriteOffset = rocket.SpriteOffset.add(rocketHeightOffset);
-    } else if (effect.Variant === EffectVariantCustom.FETUS_BOSS_ROCKET) {
-      const rocketFallSpeed = Vector(0, 30);
-      effect.SpriteOffset = effect.SpriteOffset.add(rocketFallSpeed);
-      if (effect.SpriteOffset.Y >= 0) {
-        Isaac.Explode(effect.Position, undefined, 50); // 49 deals 1 half heart of damage
-        effect.Remove();
-        const targets = getEffects(EffectVariantCustom.FETUS_BOSS_TARGET);
-        const target = targets[0];
-        if (target !== undefined) {
-          target.Remove();
-        }
       }
     }
   },

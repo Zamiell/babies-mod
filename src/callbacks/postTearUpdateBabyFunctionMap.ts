@@ -13,7 +13,6 @@ import {
 import {
   copyColor,
   game,
-  GAME_FRAMES_PER_SECOND,
   getKnives,
   getNPCs,
   repeat,
@@ -24,7 +23,6 @@ import {
 } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
-import { TearData } from "../types/TearData";
 import { getCurrentBabyDescription } from "../utilsBaby";
 
 export const postTearUpdateBabyFunctionMap = new Map<
@@ -238,75 +236,6 @@ postTearUpdateBabyFunctionMap.set(
       tear.SpriteScale.X + 0.1,
       tear.SpriteScale.Y + 0.1,
     );
-  },
-);
-
-// 455
-postTearUpdateBabyFunctionMap.set(
-  RandomBabyType.GREEN_KOOPA,
-  (tear: EntityTear) => {
-    if (tear.SubType !== 1) {
-      return;
-    }
-
-    if (tear.FrameCount <= 4 * GAME_FRAMES_PER_SECOND) {
-      // The `POST_TEAR_UPDATE` callback will fire before the `POST_FIRE_TEAR` callback, so do
-      // nothing if we are in on the first frame.
-      const data = tear.GetData() as unknown as TearData;
-      if (
-        data.BabiesModHeight === undefined ||
-        data.BabiesModVelocity === undefined
-      ) {
-        return;
-      }
-
-      // If the tear bounced, then we need to update the stored velocity to the new velocity.
-      // ("tear.Bounce" does not ever seem to go to true, so we can't use that.)
-      if (
-        (tear.Velocity.X > 0 && data.BabiesModVelocity.X < 0) ||
-        (tear.Velocity.X < 0 && data.BabiesModVelocity.X > 0) ||
-        (tear.Velocity.Y > 0 && data.BabiesModVelocity.Y < 0) ||
-        (tear.Velocity.Y < 0 && data.BabiesModVelocity.Y > 0)
-      ) {
-        data.BabiesModVelocity = tear.Velocity;
-      }
-
-      // Continue to apply the initial tear conditions for the duration of the tear.
-      tear.Height = data.BabiesModHeight;
-      tear.Velocity = data.BabiesModVelocity;
-    } else {
-      // The tear has lived long enough, so manually kill it.
-      tear.Remove();
-    }
-  },
-);
-
-// 458
-postTearUpdateBabyFunctionMap.set(
-  RandomBabyType.RED_KOOPA,
-  (tear: EntityTear) => {
-    if (tear.SubType !== 1) {
-      return;
-    }
-
-    if (tear.FrameCount <= 4 * GAME_FRAMES_PER_SECOND) {
-      // The `POST_TEAR_UPDATE` callback will fire before the `POST_FIRE_TEAR` callback, so do
-      // nothing if we are in on the first frame.
-      const data = tear.GetData() as unknown as TearData;
-      if (data.BabiesModHeight === undefined) {
-        return;
-      }
-
-      // Continue to apply the initial tear conditions for the duration of the tear.
-      tear.Height = data.BabiesModHeight;
-
-      // However, we can't apply a static velocity or else the shells won't home.
-      tear.Velocity = tear.Velocity.Normalized();
-      tear.Velocity = tear.Velocity.mul(10);
-    } else {
-      // The tear has lived long enough, so manually kill it.
-      tear.Remove();
-    }
   },
 );
 
