@@ -1182,6 +1182,7 @@ export const BABIES = {
     name: "Mohawk Baby",
     description: "+2 bombs + bombs are hearts",
     sprite: "138_baby_mohawk.png",
+    class: classesAM.MohawkBaby,
   },
 
   // 139
@@ -1251,6 +1252,7 @@ export const BABIES = {
     name: "Bluebird Baby",
     description: "Touching items/pickups causes paralysis",
     sprite: "147_baby_bluebird.png",
+    class: classesAM.BluebirdBaby,
   },
 
   // 148

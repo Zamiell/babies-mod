@@ -10,8 +10,6 @@ import {
   EntityPartition,
   EntityType,
   FamiliarVariant,
-  PillColor,
-  PillEffect,
   ProjectileVariant,
   SeedEffect,
   SoundEffect,
@@ -43,33 +41,6 @@ import { bigChestExists } from "../utils";
 import { getCurrentBabyDescription } from "../utilsBaby";
 
 export const postUpdateBabyFunctionMap = new Map<RandomBabyType, () => void>();
-
-// 138
-postUpdateBabyFunctionMap.set(RandomBabyType.MOHAWK, () => {
-  const bombs = g.p.GetNumBombs();
-
-  // Bombs are hearts
-  if (bombs === 0) {
-    g.p.Kill();
-  }
-});
-
-// 147
-postUpdateBabyFunctionMap.set(RandomBabyType.BLUEBIRD, () => {
-  const gameFrameCount = game.GetFrameCount();
-
-  if (g.run.babyFrame !== 0 && gameFrameCount >= g.run.babyFrame) {
-    g.run.babyFrame = 0;
-  }
-
-  // Touching pickups causes paralysis (1/2).
-  if (!g.p.IsItemQueueEmpty() && g.run.babyFrame === 0) {
-    // Using a pill does not clear the queue, so without a frame check the following code would
-    // softlock the player.
-    g.run.babyFrame = gameFrameCount + 45;
-    g.p.UsePill(PillEffect.PARALYSIS, PillColor.NULL);
-  }
-});
 
 // 155
 postUpdateBabyFunctionMap.set(RandomBabyType.AWAKEN, () => {
