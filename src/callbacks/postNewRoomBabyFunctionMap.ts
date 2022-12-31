@@ -26,11 +26,8 @@ import {
   getFamiliars,
   getNPCs,
   getRoomGridIndexesForType,
-  getRooms,
   gridCoordinatesToWorldPosition,
   inStartingRoom,
-  isEven,
-  log,
   removeAllMatchingEntities,
   repeat,
   spawn,
@@ -43,25 +40,12 @@ import {
 import { postNewRoomReorderedNoHealthUI } from "../callbacksCustom/postNewRoomReorderedSub";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
-import { TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP } from "../maps/teleportRoomTypeToItemAndPriceMap";
 import { mod } from "../mod";
-import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 import {
   getRandomCollectibleTypeFromPool,
   shouldTransformRoomType,
 } from "../utils";
 import { getCurrentBabyDescription } from "../utilsBaby";
-
-const FANCY_BABY_COLLECTIBLE_POSITIONS: ReadonlyArray<[x: int, y: int]> = [
-  [3, 1],
-  [9, 1],
-  [3, 5],
-  [9, 5],
-  [1, 1],
-  [11, 1],
-  [1, 5],
-  [11, 5],
-];
 
 export const postNewRoomBabyFunctionMap = new Map<RandomBabyType, () => void>();
 
@@ -233,63 +217,6 @@ postNewRoomBabyFunctionMap.set(RandomBabyType.SPELUNKER, () => {
       Direction.NO_DIRECTION,
       RoomTransitionAnim.WALK,
     );
-  }
-});
-
-// 216
-postNewRoomBabyFunctionMap.set(RandomBabyType.FANCY, () => {
-  const stage = g.l.GetStage();
-  const isFirstVisit = g.r.IsFirstVisit();
-
-  if (!inStartingRoom() || !isFirstVisit) {
-    return;
-  }
-
-  // Can purchase teleports to special rooms.
-  let positionIndex = -1;
-
-  // Find the special rooms on the floor.
-  for (const roomDescriptor of getRooms()) {
-    const roomData = roomDescriptor.Data;
-    if (roomData === undefined) {
-      continue;
-    }
-
-    const roomType = roomData.Type;
-    const itemAndPrice = TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP.get(roomType);
-    if (itemAndPrice === undefined) {
-      // This is not a special room.
-      continue;
-    }
-
-    let collectibleType = itemAndPrice[0];
-    const price = itemAndPrice[1];
-
-    if (
-      collectibleType === CollectibleTypeCustom.CHALLENGE_ROOM_TELEPORT &&
-      isEven(stage)
-    ) {
-      collectibleType = CollectibleTypeCustom.BOSS_CHALLENGE_ROOM_TELEPORT;
-    }
-
-    positionIndex++;
-    if (positionIndex > FANCY_BABY_COLLECTIBLE_POSITIONS.length) {
-      log("Error: This floor has too many special rooms for Fancy Baby.");
-      return;
-    }
-    const xy = FANCY_BABY_COLLECTIBLE_POSITIONS[positionIndex];
-    if (xy === undefined) {
-      error(`Failed to get the floor position for index: ${positionIndex}`);
-    }
-    const [x, y] = xy;
-    const position = gridCoordinatesToWorldPosition(x, y);
-    const collectible = mod.spawnCollectible(
-      collectibleType,
-      position,
-      g.run.room.rng,
-    );
-    collectible.AutoUpdatePrice = false;
-    collectible.Price = price;
   }
 });
 

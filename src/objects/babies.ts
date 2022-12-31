@@ -1844,6 +1844,7 @@ export const BABIES = {
     name: "Fancy Baby",
     description: "Can purchase teleports to special rooms",
     sprite: "216_baby_fancy.png",
+    class: classesAM.FancyBaby
   },
 
   // 217

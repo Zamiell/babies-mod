@@ -1,9 +1,4 @@
-import {
-  CacheFlag,
-  DamageFlagZero,
-  PillColor,
-  PillEffect,
-} from "isaac-typescript-definitions";
+import { CacheFlag, PillColor, PillEffect } from "isaac-typescript-definitions";
 import { game } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
@@ -33,12 +28,6 @@ postPickupCollectBabyFunctionMap.set(RandomBabyType.WORRY, () => {
   if (g.run.babyFrame === 0) {
     g.run.babyFrame = gameFrameCount + baby.num;
   }
-});
-
-// 307
-postPickupCollectBabyFunctionMap.set(RandomBabyType.CORRUPTED, () => {
-  // Touching items/pickups causes damage (2/2).
-  g.p.TakeDamage(1, DamageFlagZero, EntityRef(g.p), 0);
 });
 
 // 473

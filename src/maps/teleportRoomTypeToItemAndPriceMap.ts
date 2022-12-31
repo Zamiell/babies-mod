@@ -9,7 +9,7 @@ enum TeleportPrice {
 
 export const TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP: ReadonlyMap<
   RoomType,
-  [CollectibleType, TeleportPrice]
+  readonly [CollectibleType, TeleportPrice]
 > = new Map([
   // 2
   [RoomType.SHOP, [CollectibleTypeCustom.SHOP_TELEPORT, TeleportPrice.TEN]],

@@ -57,6 +57,7 @@ export { EyemouthBaby } from "./babies/EyemouthBaby";
 export { EyePatchBaby } from "./babies/EyePatchBaby";
 export { FadedBaby } from "./babies/FadedBaby";
 export { Abel } from "./babies/familiars/Abel";
+export { FancyBaby } from "./babies/FancyBaby";
 export { FangDemonBaby } from "./babies/FangDemonBaby";
 export { FlyBaby } from "./babies/FlyBaby";
 export { FourtoneBaby } from "./babies/FourtoneBaby";

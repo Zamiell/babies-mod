@@ -181,7 +181,6 @@ postPickupUpdateBabyFunctionMap.set(
 postPickupUpdateBabyFunctionMap.set(
   RandomBabyType.FANCY,
   (pickup: EntityPickup) => {
-    // Can purchase teleports to special rooms.
     if (isRerolledCollectibleBuggedHeart(pickup) && inStartingRoom()) {
       // Delete the rerolled teleports.
       pickup.Remove();
