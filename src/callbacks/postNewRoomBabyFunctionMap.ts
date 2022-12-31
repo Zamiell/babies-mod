@@ -14,11 +14,9 @@ import {
   RoomTransitionAnim,
   RoomType,
   StatueVariant,
-  TearFlag,
   TrapdoorVariant,
 } from "isaac-typescript-definitions";
 import {
-  bitFlags,
   changeRoom,
   getCollectibleDevilHeartPrice,
   getDoors,
@@ -35,7 +33,6 @@ import {
   spawnWithSeed,
   teleport,
   useActiveItemTemp,
-  VectorZero,
 } from "isaacscript-common";
 import { postNewRoomReorderedNoHealthUI } from "../callbacksCustom/postNewRoomReorderedSub";
 import { RandomBabyType } from "../enums/RandomBabyType";
@@ -441,23 +438,4 @@ postNewRoomBabyFunctionMap.set(RandomBabyType.EYEBAT, () => {
     const centerPos = g.r.GetCenterPos();
     Isaac.GridSpawn(GridEntityType.TRAPDOOR, TrapdoorVariant.NORMAL, centerPos);
   }
-});
-
-// 576
-postNewRoomBabyFunctionMap.set(RandomBabyType.BROTHER_BOBBY, () => {
-  const godheadTear = g.p.FireTear(
-    g.p.Position,
-    VectorZero,
-    false,
-    true,
-    false,
-  );
-  godheadTear.TearFlags = bitFlags(TearFlag.GLOW);
-  godheadTear.SubType = 1;
-  const sprite = godheadTear.GetSprite();
-  sprite.Load("gfx/tear_blank.anm2", true);
-  sprite.Play("RegularTear6", false);
-
-  const data = godheadTear.GetData();
-  data["godHeadTear"] = true;
 });

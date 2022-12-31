@@ -2,8 +2,6 @@ import {
   CacheFlag,
   DamageFlagZero,
   EffectVariant,
-  EntityCollisionClass,
-  EntityGridCollisionClass,
   EntityType,
   FamiliarVariant,
   PillColor,
@@ -13,7 +11,6 @@ import {
 import {
   copyColor,
   game,
-  getKnives,
   getNPCs,
   repeat,
   setEntityRandomColor,
@@ -289,26 +286,6 @@ postTearUpdateBabyFunctionMap.set(
         g.run.babyCounters = 0;
         g.p.TakeDamage(1, DamageFlagZero, EntityRef(g.p), 0);
       }
-    }
-  },
-);
-
-// 576
-postTearUpdateBabyFunctionMap.set(
-  RandomBabyType.BROTHER_BOBBY,
-  (tear: EntityTear) => {
-    if (tear.SubType !== 1) {
-      return;
-    }
-
-    // This tear is supposed to be attached to the knife.
-    const knives = getKnives();
-    const knife = knives[0];
-    if (knife !== undefined) {
-      tear.Height = -10; // Keep it in the air forever
-      tear.Position = knife.Position;
-      tear.EntityCollisionClass = EntityCollisionClass.NONE;
-      tear.GridCollisionClass = EntityGridCollisionClass.NONE;
     }
   },
 );
