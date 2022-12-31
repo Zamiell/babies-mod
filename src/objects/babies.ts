@@ -500,6 +500,7 @@ export const BABIES = {
     name: "Apollyon Baby",
     description: "Black rune effect on hit",
     sprite: "056_baby_apollyon.png",
+    class: classesAM.ApollyonBaby,
   },
 
   // 57
@@ -550,6 +551,7 @@ export const BABIES = {
     description: "Guaranteed Devil Room + Angel Room after 6 hits",
     sprite: "062_baby_goat.png",
     requireNumHits: 6,
+    class: classesAM.GoatBaby,
   },
 
   // 63
@@ -728,6 +730,7 @@ export const BABIES = {
     name: "Ghoul Baby",
     description: "Book of Secrets effect on hit",
     sprite: "083_baby_ghoul.png",
+    class: classesAM.GhoulBaby,
   },
 
   // 84
@@ -851,6 +854,7 @@ export const BABIES = {
     name: "Half Head Baby",
     description: "Takes 2x damage",
     sprite: "098_baby_halfhead.png",
+    class: classesAM.HalfHeadBaby,
   },
 
   // 99
@@ -999,6 +1003,7 @@ export const BABIES = {
     name: "Cyber Baby",
     description: "Spawns a random pickup on hit",
     sprite: "116_baby_cyber.png",
+    class: classesAM.CyberBaby,
   },
 
   // 117
@@ -1135,6 +1140,7 @@ export const BABIES = {
     name: "Freaky Baby",
     description: "Converter effect on hit",
     sprite: "132_baby_freaky.png",
+    class: classesAM.FreakyBaby,
   },
 
   // 133
@@ -1193,6 +1199,7 @@ export const BABIES = {
     name: "Rotten Meat Baby",
     description: "Teleport to starting room on hit",
     sprite: "139_baby_rottenmeat.png",
+    class: classesNZ.RottenMeatBaby,
   },
 
   // 140
@@ -1263,6 +1270,7 @@ export const BABIES = {
     name: "Fat Baby",
     description: "Necronomicon effect on hit",
     sprite: "148_baby_fat.png",
+    class: classesNZ.FatBaby,
   },
 
   // 149
@@ -1695,6 +1703,7 @@ export const BABIES = {
     name: "Small Face Baby",
     description: "My Little Unicorn effect on hit",
     sprite: "200_baby_smallface.png",
+    class: classesNZ.SmallFaceBaby,
   },
 
   // 201
@@ -1729,6 +1738,7 @@ export const BABIES = {
     name: "Dented Baby",
     description: "Spawns a random key on hit",
     sprite: "204_baby_dented.png",
+    class: classesAM.DentedBaby,
   },
 
   // 205
@@ -1777,8 +1787,8 @@ export const BABIES = {
   },
 
   // 210
-  [RandomBabyType.MEATBOY]: {
-    name: "MeatBoy Baby",
+  [RandomBabyType.MEAT_BOY]: {
+    name: "Meat Boy Baby",
     description: "Potato Peeler effect on hit",
     sprite: "210_baby_meatboy.png",
   },
@@ -1797,6 +1807,7 @@ export const BABIES = {
     name: "Conjoined Baby",
     description: "Doors open on hit",
     sprite: "212_baby_conjoined.png",
+    class: classesAM.ConjoinedBaby,
   },
 
   // 213
@@ -1902,6 +1913,7 @@ export const BABIES = {
     name: "Zipper Baby",
     description: "Extra enemies spawn on hit",
     sprite: "225_baby_zipper.png",
+    class: classesNZ.ZipperBaby,
   },
 
   // 226
@@ -4464,6 +4476,7 @@ export const BABIES = {
     name: "Illusion Baby",
     description: "Spawns a Crane Game on hit",
     sprite: "067_baby_illusion.png",
+    class: classesAM.IllusionBaby,
   },
 
   // 530
@@ -4650,6 +4663,7 @@ export const BABIES = {
     description: "Genesis effect after 6 hits",
     sprite: "552_baby_koala.png",
     requireNumHits: 6,
+    class: classesAM.KoalaBaby,
   },
 
   // 553
@@ -4673,6 +4687,7 @@ export const BABIES = {
     name: "Kinda Loveable Baby",
     description: "Spawns a Lovers card on hit",
     sprite: "555_baby_kindaloveable.png",
+    class: classesAM.KindaLovableBaby,
   },
 
   // 556
@@ -5031,6 +5046,7 @@ export const BABIES = {
     name: "Esau Jr. Baby",
     description: "Soul of Jacob and Esau effect on hit",
     sprite: "familiar_esau_jr.png",
+    class: classesAM.EsauJrBaby,
   },
 
   // 600

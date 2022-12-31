@@ -120,7 +120,7 @@ export function getRandomOffsetPosition(
 
 export function getRandomCollectibleTypeFromPool(
   itemPoolType: ItemPoolType,
-): CollectibleType | undefined {
+): CollectibleType {
   g.run.babyBool = true;
   const seed = g.run.room.rng.Next();
   const collectibleType = g.itemPool.GetCollectible(itemPoolType, true, seed);
@@ -199,65 +199,84 @@ export function spawnRandomPickup(
     pickupVariantChoice = getRandomInt(1, 11, g.run.rng);
   }
 
-  const seed = g.run.rng.Next();
   switch (pickupVariantChoice) {
     case 1: {
       // Random heart.
-      spawnHeart(HeartSubType.NULL, position, velocity, undefined, seed);
+      spawnHeart(HeartSubType.NULL, position, velocity, undefined, g.run.rng);
       break;
     }
 
     case 2: {
       // Random coin.
-      spawnCoin(CoinSubType.NULL, position, velocity, undefined, seed);
+      spawnCoin(CoinSubType.NULL, position, velocity, undefined, g.run.rng);
       break;
     }
 
     case 3: {
       // Random key.
-      spawnKey(KeySubType.NULL, position, velocity, undefined, seed);
+      spawnKey(KeySubType.NULL, position, velocity, undefined, g.run.rng);
       break;
     }
 
     case 4: {
       // Random bomb.
-      spawnPickup(PickupVariant.BOMB, 0, position, velocity, undefined, seed);
+      spawnPickup(
+        PickupVariant.BOMB,
+        0,
+        position,
+        velocity,
+        undefined,
+        g.run.rng,
+      );
       break;
     }
 
     case 5: {
       // Random chest.
-      spawnPickup(PickupVariant.CHEST, 0, position, velocity, undefined, seed);
+      spawnPickup(
+        PickupVariant.CHEST,
+        0,
+        position,
+        velocity,
+        undefined,
+        g.run.rng,
+      );
       break;
     }
 
     case 6: {
       // Random sack.
-      spawnSack(SackSubType.NULL, position, velocity, undefined, seed);
+      spawnSack(SackSubType.NULL, position, velocity, undefined, g.run.rng);
       break;
     }
 
     case 7: {
       // Random battery.
-      spawnBattery(BatterySubType.NULL, position, velocity, undefined, seed);
+      spawnBattery(
+        BatterySubType.NULL,
+        position,
+        velocity,
+        undefined,
+        g.run.rng,
+      );
       break;
     }
 
     case 8: {
       // Random pill.
-      spawnPill(PillColor.NULL, position, velocity, undefined, seed);
+      spawnPill(PillColor.NULL, position, velocity, undefined, g.run.rng);
       break;
     }
 
     case 9: {
       // Random card / rune.
-      spawnCard(CardType.NULL, position, velocity, undefined, seed);
+      spawnCard(CardType.NULL, position, velocity, undefined, g.run.rng);
       break;
     }
 
     case 10: {
       // Random trinket.
-      spawnTrinket(TrinketType.NULL, position, velocity, undefined, seed);
+      spawnTrinket(TrinketType.NULL, position, velocity, undefined, g.run.rng);
       break;
     }
 
@@ -281,8 +300,7 @@ export function spawnSlotHelper(
   rng: RNG,
 ): Entity {
   const position = findFreePosition(startingPosition);
-  const seed = rng.Next();
-  const slot = spawnSlot(slotVariant, 0, position, VectorZero, undefined, seed);
+  const slot = spawnSlot(slotVariant, 0, position, VectorZero, undefined, rng);
 
   spawnEffect(EffectVariant.POOF_1, PoofSubType.NORMAL, position);
   sfxManager.Play(SoundEffect.SUMMON_SOUND);

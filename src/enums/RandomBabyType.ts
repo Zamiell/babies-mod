@@ -214,7 +214,7 @@ export enum RandomBabyType {
   BELIAL_2 = 207,
   MONSTRO = 208,
   FEZ = 209,
-  MEATBOY = 210,
+  MEAT_BOY = 210,
   SKULL = 211,
   CONJOINED = 212,
   SKINNY = 213,

@@ -5,7 +5,7 @@ import {
   EntityType,
   ModCallback,
 } from "isaac-typescript-definitions";
-import { Callback } from "isaacscript-common";
+import { Callback, spawnEffect, VectorZero } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
@@ -35,6 +35,33 @@ export class DBaby extends Baby {
       );
       return false;
     }
+
+    return undefined;
+  }
+
+  // 11
+  @Callback(ModCallback.ENTITY_TAKE_DMG, EntityType.PLAYER)
+  entityTakeDmgPlayer(
+    entity: Entity,
+    _amount: float,
+    _damageFlags: BitFlags<DamageFlag>,
+    _source: EntityRef,
+    _countdownFrames: int,
+  ): boolean | undefined {
+    const player = entity.ToPlayer();
+    if (player === undefined) {
+      return undefined;
+    }
+
+    const creep = spawnEffect(
+      EffectVariant.PLAYER_CREEP_RED,
+      0,
+      player.Position,
+      VectorZero,
+      player,
+    );
+    creep.Scale = 10;
+    creep.Timeout = 240;
 
     return undefined;
   }

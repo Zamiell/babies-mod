@@ -1,5 +1,14 @@
-import { ModCallback } from "isaac-typescript-definitions";
-import { Callback, getHUDOffsetVector } from "isaacscript-common";
+import {
+  CollectibleType,
+  DamageFlag,
+  EntityType,
+  ModCallback,
+} from "isaac-typescript-definitions";
+import {
+  Callback,
+  getHUDOffsetVector,
+  useActiveItemTemp,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { shouldShowRealHeartsUIForDevilDeal } from "../../utils";
 import { Baby } from "../Baby";
@@ -36,5 +45,30 @@ export class HopelessBaby extends Baby {
       const text = `x${keys}`;
       Isaac.RenderText(text, x + 5, y, 2, 2, 2, 2);
     }
+  }
+
+  // 11
+  @Callback(ModCallback.ENTITY_TAKE_DMG, EntityType.PLAYER)
+  entityTakeDmgPlayer(
+    entity: Entity,
+    _amount: float,
+    _damageFlags: BitFlags<DamageFlag>,
+    _source: EntityRef,
+    _countdownFrames: int,
+  ): boolean | undefined {
+    const player = entity.ToPlayer();
+    if (player === undefined) {
+      return undefined;
+    }
+
+    if (g.run.babyBool) {
+      return undefined;
+    }
+
+    g.run.babyBool = true;
+    useActiveItemTemp(player, CollectibleType.DULL_RAZOR);
+    g.run.babyBool = false;
+    player.AddKeys(-1);
+    return false;
   }
 }

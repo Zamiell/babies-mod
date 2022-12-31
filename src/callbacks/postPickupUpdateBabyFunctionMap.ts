@@ -8,7 +8,6 @@ import {
 } from "isaac-typescript-definitions";
 import {
   game,
-  GAME_FRAMES_PER_SECOND,
   getCollectibleDevilHeartPrice,
   inStartingRoom,
   isChest,
@@ -21,6 +20,7 @@ import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { mod } from "../mod";
 import {
+  getRandomCollectibleTypeFromPool,
   isRerolledCollectibleBuggedHeart,
   shouldTransformRoomType,
 } from "../utils";
@@ -122,11 +122,8 @@ postPickupUpdateBabyFunctionMap.set(
     if (isRerolledCollectibleBuggedHeart(pickup)) {
       // Rerolled items turn into hearts since this is a not an actual Devil Room, so delete the
       // heart and manually create another pedestal item.
-      const seed = g.run.room.rng.Next();
-      const collectibleType = g.itemPool.GetCollectible(
+      const collectibleType = getRandomCollectibleTypeFromPool(
         ItemPoolType.ANGEL,
-        true,
-        seed,
       );
       const collectible = mod.spawnCollectible(
         collectibleType,
@@ -180,54 +177,6 @@ postPickupUpdateBabyFunctionMap.set(
   },
 );
 
-// 177
-postPickupUpdateBabyFunctionMap.set(
-  RandomBabyType.ABAN,
-  (pickup: EntityPickup) => {
-    if (pickup.Variant !== PickupVariant.COIN) {
-      return;
-    }
-
-    const sprite = pickup.GetSprite();
-    const collected = sprite.IsPlaying("Collect");
-    const data = pickup.GetData();
-
-    if (
-      collected || // Don't mess with coins anymore after we have picked them up.
-      data["recovery"] === undefined // We only want to target manually spawned coins.
-    ) {
-      return;
-    }
-
-    if (pickup.FrameCount <= 2 * GAME_FRAMES_PER_SECOND) {
-      // Make it impossible for the player to pick up this pickup.
-      if (pickup.EntityCollisionClass !== EntityCollisionClass.NONE) {
-        pickup.EntityCollisionClass = EntityCollisionClass.NONE;
-      }
-
-      // Make it bounce off the player if they get too close.
-      if (g.p.Position.Distance(pickup.Position) <= 25) {
-        const x = pickup.Position.X - g.p.Position.X;
-        const y = pickup.Position.Y - g.p.Position.Y;
-        pickup.Velocity = Vector(x / 2, y / 2);
-      }
-
-      // Play the custom "Blink" animation.
-      if (!sprite.IsPlaying("Blink")) {
-        sprite.Play("Blink", true);
-      }
-    } else {
-      // The coin has been spawned for a while, so set the collision back to normal.
-      pickup.EntityCollisionClass = EntityCollisionClass.ALL;
-
-      // Stop the custom "Blink" animation.
-      if (!sprite.IsPlaying("Idle")) {
-        sprite.Play("Idle", true);
-      }
-    }
-  },
-);
-
 // 216
 postPickupUpdateBabyFunctionMap.set(
   RandomBabyType.FANCY,
@@ -263,11 +212,8 @@ postPickupUpdateBabyFunctionMap.set(
     } else if (isRerolledCollectibleBuggedHeart(pickup)) {
       // Rerolled items turn into hearts since this is a not an actual Devil Room, so delete the
       // heart and manually create another pedestal item.
-      const seed = g.run.room.rng.Next();
-      const collectibleType = g.itemPool.GetCollectible(
+      const collectibleType = getRandomCollectibleTypeFromPool(
         ItemPoolType.DEVIL,
-        true,
-        seed,
       );
       const collectible = mod.spawnCollectible(
         collectibleType,

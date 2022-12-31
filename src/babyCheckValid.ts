@@ -143,7 +143,7 @@ function checkHealth(
   }
 
   // 210
-  if (babyType === RandomBabyType.MEATBOY && maxHearts === 0) {
+  if (babyType === RandomBabyType.MEAT_BOY && maxHearts === 0) {
     // Potato Peeler effect on hit.
     return false;
   }

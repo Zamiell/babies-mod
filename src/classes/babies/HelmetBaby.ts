@@ -1,4 +1,9 @@
-import { ButtonAction, ModCallback } from "isaac-typescript-definitions";
+import {
+  ButtonAction,
+  DamageFlag,
+  EntityType,
+  ModCallback,
+} from "isaac-typescript-definitions";
 import {
   Callback,
   copyColor,
@@ -9,6 +14,7 @@ import { Baby } from "../Baby";
 
 /** Invulnerability when standing still. */
 export class HelmetBaby extends Baby {
+  // 1
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
     const leftPressed = isActionPressedOnAnyInput(ButtonAction.LEFT);
@@ -39,5 +45,21 @@ export class HelmetBaby extends Baby {
       newColor.A = fadeAmount;
       g.p.SetColor(newColor, 0, 0, true, true);
     }
+  }
+
+  // 11
+  @Callback(ModCallback.ENTITY_TAKE_DMG, EntityType.PLAYER)
+  entityTakeDmgPlayer(
+    _entity: Entity,
+    _amount: float,
+    _damageFlags: BitFlags<DamageFlag>,
+    _source: EntityRef,
+    _countdownFrames: int,
+  ): boolean | undefined {
+    if (g.run.babyBool) {
+      return false;
+    }
+
+    return undefined;
   }
 }

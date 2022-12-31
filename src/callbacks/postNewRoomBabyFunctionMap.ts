@@ -46,7 +46,10 @@ import { g } from "../globals";
 import { TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP } from "../maps/teleportRoomTypeToItemAndPriceMap";
 import { mod } from "../mod";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
-import { shouldTransformRoomType } from "../utils";
+import {
+  getRandomCollectibleTypeFromPool,
+  shouldTransformRoomType,
+} from "../utils";
 import { getCurrentBabyDescription } from "../utilsBaby";
 
 const FANCY_BABY_COLLECTIBLE_POSITIONS: ReadonlyArray<[x: int, y: int]> = [
@@ -181,12 +184,7 @@ postNewRoomBabyFunctionMap.set(RandomBabyType.PRETTY, () => {
   }
 
   // All special rooms are Angel Shops.
-  const angelSeed = g.run.room.rng.Next();
-  const collectibleType = g.itemPool.GetCollectible(
-    ItemPoolType.ANGEL,
-    true,
-    angelSeed,
-  );
+  const collectibleType = getRandomCollectibleTypeFromPool(ItemPoolType.ANGEL);
   const position = gridCoordinatesToWorldPosition(6, 4);
   const collectible = mod.spawnCollectible(
     collectibleType,
@@ -210,13 +208,12 @@ postNewRoomBabyFunctionMap.set(RandomBabyType.PRETTY, () => {
     gridCoordinatesToWorldPosition(9, 1),
   ];
   for (const firePosition of firePositions) {
-    const fireplaceSeed = g.run.room.rng.Next();
     spawnWithSeed(
       EntityType.FIREPLACE,
       FireplaceVariant.BLUE,
       0,
       firePosition,
-      fireplaceSeed,
+      g.run.room.rng,
     );
   }
 });
@@ -376,12 +373,7 @@ postNewRoomBabyFunctionMap.set(RandomBabyType.SUIT, () => {
   }
 
   // All special rooms are Devil Rooms.
-  const devilSeed = g.run.room.rng.Next();
-  const collectibleType = g.itemPool.GetCollectible(
-    ItemPoolType.DEVIL,
-    true,
-    devilSeed,
-  );
+  const collectibleType = getRandomCollectibleTypeFromPool(ItemPoolType.DEVIL);
   const position = gridCoordinatesToWorldPosition(6, 4);
   const collectible = mod.spawnCollectible(
     collectibleType,
@@ -405,13 +397,12 @@ postNewRoomBabyFunctionMap.set(RandomBabyType.SUIT, () => {
     gridCoordinatesToWorldPosition(9, 1),
   ];
   for (const firePosition of firePositions) {
-    const fireplaceSeed = g.run.room.rng.Next();
     spawnWithSeed(
       EntityType.FIREPLACE,
       FireplaceVariant.NORMAL,
       0,
       firePosition,
-      fireplaceSeed,
+      g.run.room.rng,
     );
   }
 });

@@ -2,20 +2,13 @@ import {
   BombVariant,
   CacheFlag,
   CardType,
-  CoinSubType,
   CollectibleType,
   DamageFlag,
   DamageFlagZero,
   DoorState,
-  EffectVariant,
   EntityType,
-  HeartSubType,
-  KeySubType,
-  PickupVariant,
   PillColor,
   PillEffect,
-  SlotVariant,
-  SoundEffect,
   UseFlag,
 } from "isaac-typescript-definitions";
 import {
@@ -24,25 +17,13 @@ import {
   game,
   GAME_FRAMES_PER_SECOND,
   getDoors,
-  getEnumValues,
   getNPCs,
   getRandom,
-  getRandomArrayElement,
   getRandomEnumValue,
-  getRandomInt,
   isSelfDamage,
-  openAllDoors,
   removeCollectibleFromItemTracker,
-  repeat,
-  sfxManager,
-  spawn,
   spawnBomb,
   spawnCard,
-  spawnCoin,
-  spawnEffect,
-  spawnHeart,
-  spawnKey,
-  spawnPickup,
   useActiveItemTemp,
   VectorZero,
 } from "isaacscript-common";
@@ -50,8 +31,6 @@ import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { mod } from "../mod";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
-import { EntityDescription } from "../types/EntityDescription";
-import { spawnRandomPickup, spawnSlotHelper } from "../utils";
 import { getCurrentBabyDescription } from "../utilsBaby";
 
 export const entityTakeDmgPlayerBabyFunctionMap = new Map<
@@ -64,321 +43,6 @@ export const entityTakeDmgPlayerBabyFunctionMap = new Map<
     countdownFrames: int,
   ) => boolean | undefined
 >();
-
-// 41
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.BUDDY, (player) => {
-  const maxHearts = player.GetMaxHearts();
-
-  // Removes a heart container on hit.
-  if (!g.run.babyBool && maxHearts >= 2) {
-    player.AddMaxHearts(-2, true);
-    g.run.babyBool = true;
-    useActiveItemTemp(player, CollectibleType.DULL_RAZOR);
-    g.run.babyBool = false;
-    return false;
-  }
-
-  return undefined;
-});
-
-// 46
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.BLINDING, (player) => {
-  spawnCard(CardType.SUN, player.Position, VectorZero, player);
-
-  return undefined;
-});
-
-// 50
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.REVENGE, (player) => {
-  // Spawns a random heart on hit.
-  const heartSubTypes = getEnumValues(HeartSubType);
-  const heartSubType = getRandomArrayElement(heartSubTypes, g.run.rng);
-  const seed = g.run.rng.Next();
-  spawnHeart(heartSubType, player.Position, VectorZero, player, seed);
-
-  return undefined;
-});
-
-// 56
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.APOLLYON, (player) => {
-  player.UseCard(CardType.RUNE_BLACK);
-
-  return undefined;
-});
-
-// 62
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.GOAT, (player) => {
-  const baby = getCurrentBabyDescription();
-  if (baby.requireNumHits === undefined) {
-    error(`The "numHits" attribute was not defined for: ${baby.name}`);
-  }
-
-  // Guaranteed Devil Room + Angel Room after N hits.
-  g.run.babyCounters++;
-  if (g.run.babyCounters >= baby.requireNumHits && !g.run.babyBool) {
-    g.run.babyBool = true;
-    sfxManager.Play(SoundEffect.SATAN_GROW);
-    player.AddCollectible(CollectibleType.GOAT_HEAD);
-    removeCollectibleFromItemTracker(CollectibleType.GOAT_HEAD);
-    player.AddCollectible(CollectibleType.DUALITY);
-    removeCollectibleFromItemTracker(CollectibleType.DUALITY);
-  }
-
-  return undefined;
-});
-
-// 83
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.GHOUL, (player) => {
-  useActiveItemTemp(player, CollectibleType.BOOK_OF_SECRETS);
-
-  return undefined;
-});
-
-// 98
-entityTakeDmgPlayerBabyFunctionMap.set(
-  RandomBabyType.HALF_HEAD,
-  (
-    player,
-    damageAmount,
-    _damageFlags,
-    _damageSource,
-    damageCountdownFrames,
-  ) => {
-    // Take double damage
-    if (!g.run.babyBool) {
-      g.run.babyBool = true;
-      player.TakeDamage(
-        damageAmount,
-        DamageFlagZero,
-        EntityRef(player),
-        damageCountdownFrames,
-      );
-      g.run.babyBool = false;
-    }
-
-    return undefined;
-  },
-);
-
-// 101
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.D, (player) => {
-  // Spawns creep on hit (improved).
-  const creep = spawnEffect(
-    EffectVariant.PLAYER_CREEP_RED,
-    0,
-    player.Position,
-    VectorZero,
-    player,
-  );
-  creep.Scale = 10;
-  creep.Timeout = 240;
-
-  return undefined;
-});
-
-// 116
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.CYBER, (player) => {
-  spawnRandomPickup(player.Position);
-
-  return undefined;
-});
-
-// 125
-entityTakeDmgPlayerBabyFunctionMap.set(
-  RandomBabyType.HOPELESS,
-  (
-    player,
-    _damageAmount,
-    _damageFlags,
-    _damageSource,
-    _damageCountdownFrames,
-  ) => {
-    // Keys are hearts
-    if (!g.run.babyBool) {
-      g.run.babyBool = true;
-      useActiveItemTemp(player, CollectibleType.DULL_RAZOR);
-      g.run.babyBool = false;
-      player.AddKeys(-1);
-      return false;
-    }
-
-    return undefined;
-  },
-);
-
-// 132
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.FREAKY, (player) => {
-  useActiveItemTemp(player, CollectibleType.CONVERTER);
-
-  return undefined;
-});
-
-// 138
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.MOHAWK, (player) => {
-  // Bombs are hearts
-  if (!g.run.babyBool) {
-    g.run.babyBool = true;
-    useActiveItemTemp(player, CollectibleType.DULL_RAZOR);
-    g.run.babyBool = false;
-    player.AddBombs(-1);
-    return false;
-  }
-
-  return undefined;
-});
-
-// 139
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.ROTTEN_MEAT, (player) => {
-  player.UseCard(CardType.FOOL);
-
-  return undefined;
-});
-
-// 148
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.FAT, (player) => {
-  useActiveItemTemp(player, CollectibleType.NECRONOMICON);
-
-  return undefined;
-});
-
-// 163
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.HELMET, (_player) => {
-  // Invulnerability when standing still.
-  if (g.run.babyBool) {
-    return false;
-  }
-
-  return undefined;
-});
-
-// 177
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.ABAN, (player) => {
-  const coins = player.GetNumCoins();
-
-  // Sonic-style health
-  if (coins === 0) {
-    player.Kill();
-    return;
-  }
-
-  player.AddCoins(-999);
-  repeat(coins, () => {
-    const randomPosition = Isaac.GetRandomPosition();
-    let velocity = player.Position.sub(randomPosition);
-    velocity = velocity.Normalized();
-    const multiplier = getRandomInt(4, 20);
-    velocity = velocity.mul(multiplier);
-    const coin = spawnCoin(
-      CoinSubType.PENNY,
-      player.Position,
-      velocity,
-      player,
-    );
-
-    // Make it fade away.
-    coin.Timeout = 160; // 5.3 seconds
-
-    // We also want it to bounce off the player immediately upon spawning.
-    const data = coin.GetData();
-    data["recovery"] = true;
-  });
-  sfxManager.Play(SoundEffect.GOLD_HEART);
-
-  return undefined;
-});
-
-// 186
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.FADED, (player) => {
-  // Random teleport on hit.
-  useActiveItemTemp(player, CollectibleType.TELEPORT);
-
-  return undefined;
-});
-
-// 200
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.SMALL_FACE, (player) => {
-  useActiveItemTemp(player, CollectibleType.MY_LITTLE_UNICORN);
-
-  return undefined;
-});
-
-// 204
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.DENTED, (player) => {
-  // Spawns a random key on hit.
-  const seed = g.run.rng.Next();
-  spawnKey(KeySubType.NULL, player.Position, VectorZero, player, seed);
-
-  return undefined;
-});
-
-// 210
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.MEATBOY, (player) => {
-  useActiveItemTemp(player, CollectibleType.POTATO_PEELER);
-
-  return undefined;
-});
-
-// 212
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.CONJOINED, (_player) => {
-  openAllDoors();
-
-  return undefined;
-});
-
-// 225
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.ZIPPER, (player) => {
-  // Extra enemies spawn on hit Find an existing enemy in the room.
-  let dupeEnemy: EntityDescription | undefined;
-  for (const npc of getNPCs()) {
-    if (!npc.IsBoss()) {
-      dupeEnemy = {
-        type: npc.Type,
-        variant: npc.Variant,
-        subType: npc.SubType,
-      };
-      break;
-    }
-  }
-
-  // There were no non-boss enemies in the room, so default to spawning a portal.
-  if (dupeEnemy === undefined) {
-    dupeEnemy = {
-      type: EntityType.PORTAL,
-      variant: 0,
-      subType: 0,
-    };
-  }
-
-  // Spawn a new enemy.
-  const position = g.r.FindFreePickupSpawnPosition(player.Position, 1, true);
-  spawn(dupeEnemy.type, dupeEnemy.variant, dupeEnemy.subType, position);
-
-  return undefined;
-});
-
-// 227
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.BEARD, (player) => {
-  useActiveItemTemp(player, CollectibleType.CROOKED_PENNY);
-
-  return undefined;
-});
-
-// 251
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.NUCLEAR, (_player) => {
-  // Mama Mega effect on hit.
-  g.r.MamaMegaExplossion();
-
-  return undefined;
-});
-
-// 258
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.ROCKER, (player) => {
-  // Spawns a random bomb on hit.
-  const seed = g.run.rng.Next();
-  spawnPickup(PickupVariant.BOMB, 0, player.Position, VectorZero, player, seed);
-
-  return undefined;
-});
 
 // 260
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.COAT, (player) => {
@@ -750,8 +414,7 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.LAZY, (player) => {
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.REAPER, (player) => {
   // Spawns a random rune on hit.
   const rune = mod.getRandomRune(g.run.rng);
-  const seed = g.run.rng.Next();
-  spawnCard(rune, player.Position, VectorZero, player, seed);
+  spawnCard(rune, player.Position, VectorZero, player, g.run.rng);
 
   return undefined;
 });
@@ -796,39 +459,6 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.LOST_GREY, (player) => {
   return undefined;
 });
 
-// 529
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.ILLUSION, (player) => {
-  spawnSlotHelper(SlotVariant.CRANE_GAME, player.Position, g.run.craneGameRNG);
-
-  return undefined;
-});
-
-// 552
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.KOALA, (player) => {
-  const baby = getCurrentBabyDescription();
-  if (baby.requireNumHits === undefined) {
-    error(`The "numHits" attribute was not defined for: ${baby.name}`);
-  }
-
-  g.run.babyCounters++;
-  if (g.run.babyCounters === baby.requireNumHits) {
-    g.run.babyCounters = 0;
-    useActiveItemTemp(player, CollectibleType.GENESIS);
-  }
-
-  return undefined;
-});
-
-// 555
-entityTakeDmgPlayerBabyFunctionMap.set(
-  RandomBabyType.KINDA_LOVABLE,
-  (player) => {
-    spawnCard(CardType.LOVERS, player.Position, VectorZero, player);
-
-    return undefined;
-  },
-);
-
 // 577
 entityTakeDmgPlayerBabyFunctionMap.set(
   RandomBabyType.SISTER_MAGGY,
@@ -850,13 +480,6 @@ entityTakeDmgPlayerBabyFunctionMap.set(
     return undefined;
   },
 );
-
-// 599
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.ESAU_JR, (player) => {
-  player.UseCard(CardType.SOUL_JACOB);
-
-  return undefined;
-});
 
 // 601
 entityTakeDmgPlayerBabyFunctionMap.set(
