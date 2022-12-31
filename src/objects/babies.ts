@@ -1844,7 +1844,7 @@ export const BABIES = {
     name: "Fancy Baby",
     description: "Can purchase teleports to special rooms",
     sprite: "216_baby_fancy.png",
-    class: classesAM.FancyBaby
+    class: classesAM.FancyBaby,
   },
 
   // 217
@@ -2615,6 +2615,7 @@ export const BABIES = {
     name: "Corrupted Baby",
     description: "Touching items/pickups causes damage",
     sprite: "307_baby_corrupted.png",
+    class: classesAM.CorruptedBaby,
   },
 
   // 308

@@ -11,7 +11,6 @@ export const postPickupCollectBabyFunctionMap = new Map<
 
 // 147
 postPickupCollectBabyFunctionMap.set(RandomBabyType.BLUEBIRD, () => {
-  // Touching pickups causes paralysis (2/2).
   g.p.UsePill(PillEffect.PARALYSIS, PillColor.NULL);
 });
 
@@ -23,8 +22,7 @@ postPickupCollectBabyFunctionMap.set(RandomBabyType.WORRY, () => {
     error(`The "num" attribute was not defined for: ${baby.name}`);
   }
 
-  // Touching pickups causes teleportation (1/2). Teleport 2 frames in the future so that we can put
-  // an item in the Schoolbag.
+  // Teleport 2 frames in the future so that we can put an item in the Schoolbag.
   if (g.run.babyFrame === 0) {
     g.run.babyFrame = gameFrameCount + baby.num;
   }
