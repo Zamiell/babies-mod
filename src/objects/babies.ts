@@ -417,6 +417,7 @@ export const BABIES = {
     name: "Blinding Baby",
     description: "Spawns a Sun Card on hit",
     sprite: "046_baby_blinding.png",
+    class: classesAM.BlindingBaby,
   },
 
   // 47
@@ -449,6 +450,7 @@ export const BABIES = {
     name: "Revenge Baby",
     description: "Spawns a random heart on hit",
     sprite: "050_baby_revenge.png",
+    class: classesNZ.RevengeBaby,
   },
 
   // 51
@@ -1511,6 +1513,7 @@ export const BABIES = {
     name: "Aban Baby",
     description: "+2 coins + Sonic-style health",
     sprite: "177_baby_aban.png",
+    class: classesAM.AbanBaby,
   },
 
   // 178
@@ -1584,6 +1587,7 @@ export const BABIES = {
     name: "Faded Baby",
     description: "Random teleport on hit",
     sprite: "186_baby_faded.png",
+    class: classesAM.FadedBaby,
   },
 
   // 187
@@ -1791,6 +1795,7 @@ export const BABIES = {
     name: "Meat Boy Baby",
     description: "Potato Peeler effect on hit",
     sprite: "210_baby_meatboy.png",
+    class: classesAM.MeatBoyBaby,
   },
 
   // 211
@@ -2130,6 +2135,7 @@ export const BABIES = {
     name: "Nuclear Baby",
     description: "Mama Mega effect on hit",
     sprite: "251_baby_nuclear.png",
+    class: classesNZ.NuclearBaby,
   },
 
   // 252
@@ -2186,6 +2192,7 @@ export const BABIES = {
     name: "Rocker Baby",
     description: "Spawns a random bomb on hit",
     sprite: "258_baby_rocker.png",
+    class: classesNZ.RockerBaby,
   },
 
   // 259
@@ -2824,6 +2831,7 @@ export const BABIES = {
     sprite: "333_baby_homeless.png",
     item: CollectibleType.BUDDY_IN_A_BOX,
     itemNum: 15,
+    class: classesAM.BuddyBaby,
   },
 
   // 334
