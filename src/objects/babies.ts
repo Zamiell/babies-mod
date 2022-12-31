@@ -2208,6 +2208,7 @@ export const BABIES = {
     name: "Coat Baby",
     description: "Spawns a random card on hit",
     sprite: "260_baby_coat.png",
+    class: classesAM.CoatBaby,
   },
 
   // 261
@@ -4878,6 +4879,8 @@ export const BABIES = {
     name: "Sister Maggy", // CollectibleType.SISTER_MAGGY (67)
     description: "Loses last item on 2nd hit (per room)",
     sprite: "familiar_shooters_07_sistermaggie.png",
+    num: 2,
+    class: classesNZ.SisterMaggy,
   },
 
   // 578
@@ -5072,6 +5075,8 @@ export const BABIES = {
     name: "Siren Shooter",
     description: "Spawns a pedestal item after 6 hits",
     sprite: "familiar_siren_shooter.png",
+    num: 6,
+    class: classesNZ.SirenShooter,
   },
 
   // 602

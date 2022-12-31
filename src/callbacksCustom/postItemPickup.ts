@@ -1,6 +1,4 @@
-import { ItemType } from "isaac-typescript-definitions";
 import { ModCallbackCustom, PickingUpItem } from "isaacscript-common";
-import { g } from "../globals";
 import { mod } from "../mod";
 import { getCurrentBaby } from "../utilsBaby";
 import { postItemPickupBabyFunctionMap } from "./postItemPickupBabyFunctionMap";
@@ -10,8 +8,6 @@ export function init(): void {
 }
 
 function main(player: EntityPlayer, pickingUpItem: PickingUpItem) {
-  checkAddItem(pickingUpItem);
-
   const [babyType] = getCurrentBaby();
   if (babyType === -1) {
     return;
@@ -21,14 +17,5 @@ function main(player: EntityPlayer, pickingUpItem: PickingUpItem) {
     postItemPickupBabyFunctionMap.get(babyType);
   if (postItemPickupBabyFunction !== undefined) {
     postItemPickupBabyFunction(player, pickingUpItem);
-  }
-}
-
-function checkAddItem(pickingUpItem: PickingUpItem) {
-  if (
-    pickingUpItem.itemType === ItemType.PASSIVE || // 1
-    pickingUpItem.itemType === ItemType.FAMILIAR // 4
-  ) {
-    g.run.passiveCollectibleTypes.push(pickingUpItem.subType);
   }
 }

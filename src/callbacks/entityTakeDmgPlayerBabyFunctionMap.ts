@@ -21,7 +21,6 @@ import {
   getRandom,
   getRandomEnumValue,
   isSelfDamage,
-  removeCollectibleFromItemTracker,
   spawnBomb,
   spawnCard,
   useActiveItemTemp,
@@ -43,13 +42,6 @@ export const entityTakeDmgPlayerBabyFunctionMap = new Map<
     countdownFrames: int,
   ) => boolean | undefined
 >();
-
-// 260
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.COAT, (player) => {
-  useActiveItemTemp(player, CollectibleType.DECK_OF_CARDS);
-
-  return undefined;
-});
 
 // 276
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.GARGOYLE, (player) => {
@@ -458,45 +450,3 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.LOST_GREY, (player) => {
 
   return undefined;
 });
-
-// 577
-entityTakeDmgPlayerBabyFunctionMap.set(
-  RandomBabyType.SISTER_MAGGY,
-  (player) => {
-    // Loses last item on 2nd hit (per room).
-    g.run.babyCountersRoom++;
-    if (g.run.babyCountersRoom === 2) {
-      // Take away an item.
-      const itemToTakeAway = g.run.passiveCollectibleTypes.pop();
-      if (
-        itemToTakeAway !== undefined &&
-        player.HasCollectible(itemToTakeAway)
-      ) {
-        player.RemoveCollectible(itemToTakeAway);
-        removeCollectibleFromItemTracker(itemToTakeAway);
-      }
-    }
-
-    return undefined;
-  },
-);
-
-// 601
-entityTakeDmgPlayerBabyFunctionMap.set(
-  RandomBabyType.SIREN_SHOOTER,
-  (player) => {
-    // Spawns a pedestal item after 6 hits.
-    g.run.babyCounters++;
-    if (g.run.babyCounters === 6) {
-      g.run.babyCounters = 0;
-      const position = g.r.FindFreePickupSpawnPosition(
-        player.Position,
-        1,
-        true,
-      );
-      mod.spawnCollectible(CollectibleType.NULL, position, g.run.rng);
-    }
-
-    return undefined;
-  },
-);

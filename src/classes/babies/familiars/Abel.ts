@@ -1,6 +1,6 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { Callback } from "isaacscript-common";
-import { Baby } from "../Baby";
+import { Baby } from "../../Baby";
 
 /** Every 5th missed tear causes paralysis. */
 export class Abel extends Baby {
