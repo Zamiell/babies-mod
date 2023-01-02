@@ -47,11 +47,6 @@ preGetCollectibleBabyFunctionMap.set(RandomBabyType.FOLDER, () => {
   }
 });
 
-// 558
-preGetCollectibleBabyFunctionMap.set(RandomBabyType.FINGER, () =>
-  getRandomCollectibleTypeFromPool(ItemPoolType.SECRET),
-);
-
 // 559
 preGetCollectibleBabyFunctionMap.set(RandomBabyType.BALD, () =>
   getRandomCollectibleTypeFromPool(ItemPoolType.BOSS),
@@ -60,11 +55,6 @@ preGetCollectibleBabyFunctionMap.set(RandomBabyType.BALD, () =>
 // 574
 preGetCollectibleBabyFunctionMap.set(RandomBabyType.FOOD_REVIEWER, () =>
   getRandomCollectibleTypeWithTag(ItemConfigTag.FOOD),
-);
-
-// 579
-preGetCollectibleBabyFunctionMap.set(RandomBabyType.LITTLE_GISH, () =>
-  getRandomCollectibleTypeFromPool(ItemPoolType.CURSE),
 );
 
 // 582

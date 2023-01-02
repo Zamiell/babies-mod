@@ -4724,6 +4724,7 @@ export const BABIES = {
     name: "Finger Baby",
     description: "All items from the Secret Room pool",
     sprite: "558_baby_finger.png",
+    class: classesAM.FingerBaby,
   },
 
   // 559
@@ -4898,6 +4899,7 @@ export const BABIES = {
     name: "Little Gish", // CollectibleType.LITTLE_GISH (99)
     description: "All items from the Curse Room pool",
     sprite: "familiar_shooters_04_littlegish.png",
+    class: classesAM.LittleGish,
   },
 
   // 580
