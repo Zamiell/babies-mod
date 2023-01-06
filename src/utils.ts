@@ -121,10 +121,10 @@ export function getRandomOffsetPosition(
 export function getRandomCollectibleTypeFromPool(
   itemPoolType: ItemPoolType,
 ): CollectibleType {
-  g.run.babyBool = true;
   const seed = g.run.room.rng.Next();
+  g.run.gettingCollectible = true;
   const collectibleType = g.itemPool.GetCollectible(itemPoolType, true, seed);
-  g.run.babyBool = false;
+  g.run.gettingCollectible = false;
 
   return collectibleType;
 }

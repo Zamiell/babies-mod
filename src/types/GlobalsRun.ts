@@ -29,6 +29,7 @@ export class GlobalsRun {
   /** Used to make the player temporarily invulnerable. */
   invulnerabilityUntilFrame: int | null = null;
   dealingExtraDamage = false;
+  gettingCollectible = false;
 
   // Baby-specific variables
   babyBool = false;

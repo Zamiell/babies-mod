@@ -7,6 +7,7 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import {
+  AnyFunction,
   getCollectibleItemType,
   getEffectiveStage,
   hasFlag,
@@ -91,11 +92,24 @@ export function babyCheckValid(
   }
 
   const babyClass = BABY_CLASS_MAP.get(babyType);
-  if (babyClass !== undefined) {
-    return babyClass.isValid();
+  if (babyClass === undefined) {
+    return true;
   }
 
-  return true;
+  // Racing+ gets collectibles on run start to check for a fully-unlocked save file. Thus, we
+  // disable any baby that has to do with collectibles on the first floor. (These kind of babies
+  // could also mess with resetting.)
+  const effectiveStage = getEffectiveStage();
+  const castedBabyClass = babyClass as unknown as Record<
+    string,
+    AnyFunction | undefined
+  >;
+  const babyPreGetCollectibleMethod = castedBabyClass["preGetCollectible"];
+  if (babyPreGetCollectibleMethod !== undefined && effectiveStage === 1) {
+    return false;
+  }
+
+  return babyClass.isValid();
 }
 
 function checkActiveItem(player: EntityPlayer, baby: BabyDescription): boolean {

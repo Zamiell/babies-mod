@@ -13,6 +13,7 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import { HasAllEnumKeys } from "isaacscript-common";
+import { Incubus } from "../classes/babies/familiars/Incubus";
 import * as classesAM from "../classes/babyClassesAM";
 import * as classesNZ from "../classes/babyClassesNZ";
 import { RandomBabyType } from "../enums/RandomBabyType";
@@ -3662,6 +3663,7 @@ export const BABIES = {
     name: "Folder Baby",
     description: "Swaps item/shop pools + devil/angel pools",
     sprite: "430_baby_folder.png",
+    class: classesAM.FolderBaby,
   },
 
   // 431
@@ -4986,6 +4988,7 @@ export const BABIES = {
     name: "Mongo Baby", // CollectibleType.MONGO_BABY (322)
     description: "All items from the Angel Room pool",
     sprite: "familiar_shooters_322_mongobaby.png",
+    class: classesAM.MongoBaby,
   },
 
   // 590
@@ -4993,6 +4996,7 @@ export const BABIES = {
     name: "Incubus", // CollectibleType.INCUBUS (360)
     description: "All items from the Devil Room pool",
     sprite: "familiar_shooters_80_incubus.png",
+    class: Incubus,
   },
 
   // 591

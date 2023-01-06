@@ -13,7 +13,15 @@ export class Baby extends ModFeature {
   babyDescription: BabyDescription;
 
   override callbackConditionalFunc = (): boolean =>
-    g.run.babyType === this.babyType;
+    g.run.babyType === this.babyType && !g.run.gettingCollectible;
+
+  /*
+  // Racing+ gets collectibles on run start to check for a fully-unlocked save file.
+  const gameFrameCount = game.GetFrameCount();
+  if (gameFrameCount < 1) {
+    return undefined;
+  }
+  */
 
   constructor(babyType: RandomBabyType, babyDescription: BabyDescription) {
     super(mod);

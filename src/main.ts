@@ -27,7 +27,6 @@ import * as postUpdate from "./callbacks/postUpdate";
 import * as postUseItem from "./callbacks/postUseItem";
 import * as postUsePill from "./callbacks/postUsePill";
 import * as preEntitySpawn from "./callbacks/preEntitySpawn";
-import * as preGetCollectible from "./callbacks/preGetCollectible";
 import * as preRoomEntitySpawn from "./callbacks/preRoomEntitySpawn";
 import * as preSpawnClearAward from "./callbacks/preSpawnClearAward";
 import * as preTearCollision from "./callbacks/preTearCollision";
@@ -100,7 +99,6 @@ function registerCallbacksMain() {
   postEffectUpdate.init(); // 55
   postBombInit.init(); // 57
   postBombUpdate.init(); // 58
-  preGetCollectible.init(); // 62
   postEntityKill.init(); // 68
   preSpawnClearAward.init(); // 70
   preRoomEntitySpawn.init(); // 71
