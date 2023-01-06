@@ -1,15 +1,11 @@
 import {
   CollectibleType,
-  ItemConfigTag,
   ItemPoolType,
   RoomType,
 } from "isaac-typescript-definitions";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
-import {
-  getRandomCollectibleTypeFromPool,
-  getRandomCollectibleTypeWithTag,
-} from "../utils";
+import { getRandomCollectibleTypeFromPool } from "../utils";
 
 export const preGetCollectibleBabyFunctionMap = new Map<
   RandomBabyType,
@@ -46,16 +42,6 @@ preGetCollectibleBabyFunctionMap.set(RandomBabyType.FOLDER, () => {
     }
   }
 });
-
-// 559
-preGetCollectibleBabyFunctionMap.set(RandomBabyType.BALD, () =>
-  getRandomCollectibleTypeFromPool(ItemPoolType.BOSS),
-);
-
-// 574
-preGetCollectibleBabyFunctionMap.set(RandomBabyType.FOOD_REVIEWER, () =>
-  getRandomCollectibleTypeWithTag(ItemConfigTag.FOOD),
-);
 
 // 582
 preGetCollectibleBabyFunctionMap.set(RandomBabyType.GHOST, () =>

@@ -4732,6 +4732,7 @@ export const BABIES = {
     name: "Bald Baby",
     description: "All items from the Boss Room pool",
     sprite: "559_baby_bald.png",
+    class: classesAM.BaldBaby,
   },
 
   // 560
@@ -4851,6 +4852,7 @@ export const BABIES = {
     name: "Food Reviewer Baby",
     description: "All items are food items",
     sprite: "574_baby_foodreviewer.png", // cspell:ignore foodreviewer
+    class: classesAM.FoodReviewerBaby,
   },
 
   // -----------------------------------------------------------------------------------------------
@@ -4922,6 +4924,7 @@ export const BABIES = {
     name: "Ghost Baby", // CollectibleType.GHOST_BABY (163)
     description: "All items from the shop pool",
     sprite: "familiar_shooters_09_ghostbaby.png",
+    class: classesAM.GhostBaby,
   },
 
   // 583
