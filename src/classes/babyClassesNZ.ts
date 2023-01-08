@@ -1,3 +1,4 @@
+export { RainbowBaby } from "./babies/familiars/RainbowBaby";
 export { SirenShooter } from "./babies/familiars/SirenShooter";
 export { SisterMaggy } from "./babies/familiars/SisterMaggy";
 export { FatBaby } from "./babies/FatBaby";

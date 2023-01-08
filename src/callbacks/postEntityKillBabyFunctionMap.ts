@@ -6,7 +6,6 @@ import {
   EntityType,
   FamiliarVariant,
   GridEntityType,
-  PickupVariant,
   PoopGridEntityVariant,
 } from "isaac-typescript-definitions";
 import {
@@ -18,7 +17,6 @@ import {
   spawnBomb,
   spawnEffect,
   spawnFamiliar,
-  spawnPickupWithSeed,
   spawnWithSeed,
   VectorZero,
 } from "isaacscript-common";
@@ -182,9 +180,4 @@ postEntityKillBabyFunctionMap.set(RandomBabyType.BUTTFACE, (npc: EntityNPC) => {
 // 491
 postEntityKillBabyFunctionMap.set(RandomBabyType.FUNNY, (npc: EntityNPC) => {
   spawnBomb(BombVariant.TROLL, 0, npc.Position);
-});
-
-// 584
-postEntityKillBabyFunctionMap.set(RandomBabyType.RAINBOW, (npc: EntityNPC) => {
-  spawnPickupWithSeed(PickupVariant.CHEST, 0, npc.Position, npc.InitSeed);
 });

@@ -438,33 +438,6 @@ function checkCollectibles(
     return false;
   }
 
-  if (
-    (babyType === RandomBabyType.CURSED_PILLOW || // 487
-      babyType === RandomBabyType.ABEL) && // 585
-    (player.HasCollectible(CollectibleType.INNER_EYE) || // 2
-      player.HasCollectible(CollectibleType.CUPIDS_ARROW) || // 48
-      player.HasCollectible(CollectibleType.MOMS_EYE) || // 55
-      player.HasCollectible(CollectibleType.LOKIS_HORNS) || // 87
-      player.HasCollectible(CollectibleType.MUTANT_SPIDER) || // 153
-      player.HasCollectible(CollectibleType.POLYPHEMUS) || // 169
-      player.HasCollectible(CollectibleType.MONSTROS_LUNG) || // 229
-      player.HasCollectible(CollectibleType.DEATHS_TOUCH) || // 237
-      player.HasCollectible(CollectibleType.TWENTY_TWENTY) || // 245
-      player.HasCollectible(CollectibleType.SAGITTARIUS) || // 306
-      player.HasCollectible(CollectibleType.CURSED_EYE) || // 316
-      player.HasCollectible(CollectibleType.DEAD_ONION) || // 336
-      player.HasCollectible(CollectibleType.EYE_OF_BELIAL) || // 462
-      player.HasCollectible(CollectibleType.LITTLE_HORN) || // 503
-      player.HasCollectible(CollectibleType.TRISAGION) || // 533
-      player.HasCollectible(CollectibleType.FLAT_STONE) || // 540
-      player.HasPlayerForm(PlayerForm.CONJOINED) || // 7
-      player.HasPlayerForm(PlayerForm.BOOKWORM)) // 10
-  ) {
-    // Missed tears cause damage and missed tears cause paralysis. Piercing, multiple shots, and
-    // Flat Stone causes this to mess up.
-    return false;
-  }
-
   return true;
 }
 
@@ -714,21 +687,6 @@ function checkStage(babyType: RandomBabyType, baby: BabyDescription): boolean {
     // - Ban it on the first floor so that it does not conflict with resetting for a Treasure Room
     //   item.
     // - Ban it on the second floor so that it does not conflict with the first devil deal.
-    return false;
-  }
-
-  // 581
-  if (
-    babyType === RandomBabyType.DEMON &&
-    (effectiveStage === 1 || effectiveStage >= 9)
-  ) {
-    // Only valid for floors with Devil Rooms.
-    return false;
-  }
-
-  // 582
-  if (babyType === RandomBabyType.GHOST && effectiveStage === 2) {
-    // All items from the shop pool. On stage 2, they will miss a Devil Deal, which is not fair.
     return false;
   }
 

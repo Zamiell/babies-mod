@@ -4919,6 +4919,7 @@ export const BABIES = {
     name: "Demon Baby", // CollectibleType.DEMON_BABY (113)
     description: "Free devil deals",
     sprite: "familiar_shooters_02_demonbaby.png",
+    class: classesAM.DemonBaby,
   },
 
   // 582
@@ -4943,6 +4944,7 @@ export const BABIES = {
     name: "Rainbow Baby", // CollectibleType.RAINBOW_BABY (174)
     description: "Chest per enemy killed",
     sprite: "familiar_shooters_11_rainbowbaby.png",
+    class: classesNZ.RainbowBaby,
   },
 
   // 585
@@ -5038,6 +5040,7 @@ export const BABIES = {
     description: "All items from the Ultra Secret Room pool",
     // We cannot use the vanilla sprite since it is unidirectional.
     sprite: "003.208_boilbaby_custom.png",
+    class: classesAM.BoiledBaby,
   },
 
   // 596

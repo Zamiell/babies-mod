@@ -4,8 +4,6 @@ import {
   EffectVariant,
   EntityType,
   FamiliarVariant,
-  PillColor,
-  PillEffect,
   ProjectileVariant,
 } from "isaac-typescript-definitions";
 import {
@@ -289,26 +287,3 @@ postTearUpdateBabyFunctionMap.set(
     }
   },
 );
-
-// 585
-postTearUpdateBabyFunctionMap.set(RandomBabyType.ABEL, (tear: EntityTear) => {
-  const baby = getCurrentBabyDescription();
-  if (baby.num === undefined) {
-    error(`The "num" attribute was not defined for: ${baby.name}`);
-  }
-
-  if (
-    tear.SubType === 1 &&
-    // Tears will not die if they hit an enemy, but they will die if they hit a wall or object.
-    tear.IsDead()
-  ) {
-    // Missing tears causes Paralysis It only applies to the Nth missed tear.
-    g.run.babyCounters++;
-    if (g.run.babyCounters === baby.num) {
-      g.run.babyCounters = 0;
-      g.p.UsePill(PillEffect.PARALYSIS, PillColor.NULL);
-      // (We can't cancel the animation or it will cause a bug where the player cannot pick up
-      // pedestal items.)
-    }
-  }
-});

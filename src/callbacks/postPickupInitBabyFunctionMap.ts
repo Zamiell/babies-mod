@@ -145,23 +145,6 @@ postPickupInitBabyFunctionMap.set(
   },
 );
 
-// 581
-postPickupInitBabyFunctionMap.set(
-  RandomBabyType.DEMON,
-  (pickup: EntityPickup) => {
-    // Free devil deals
-    if (isCollectible(pickup)) {
-      const roomType = g.r.GetType();
-      if (
-        roomType === RoomType.DEVIL || // 14
-        roomType === RoomType.BLACK_MARKET // 22
-      ) {
-        pickup.Price = 0;
-      }
-    }
-  },
-);
-
 // 591
 postPickupInitBabyFunctionMap.set(
   RandomBabyType.FATES_REWARD,

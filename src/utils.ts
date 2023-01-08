@@ -13,6 +13,7 @@ import {
   MinibossID,
   PickupVariant,
   PillColor,
+  PlayerForm,
   PoofSubType,
   RoomType,
   SackSubType,
@@ -31,6 +32,8 @@ import {
   inMinibossRoomOf,
   inRoomType,
   isHeart,
+  playerHasCollectible,
+  playerHasForm,
   sfxManager,
   spawnBattery,
   spawnCard,
@@ -49,6 +52,30 @@ import { ROOM_TYPES_TO_NOT_TRANSFORM } from "./constants";
 import { g } from "./globals";
 import { mod } from "./mod";
 import { CollectibleTypeCustom } from "./types/CollectibleTypeCustom";
+
+const BAD_MISSING_TEARS_COLLECTIBLE_TYPES = [
+  CollectibleType.INNER_EYE, // 2
+  CollectibleType.CUPIDS_ARROW, // 48
+  CollectibleType.MOMS_EYE, // 55
+  CollectibleType.LOKIS_HORNS, // 87
+  CollectibleType.MUTANT_SPIDER, // 153
+  CollectibleType.POLYPHEMUS, // 169
+  CollectibleType.MONSTROS_LUNG, // 229
+  CollectibleType.DEATHS_TOUCH, // 237
+  CollectibleType.TWENTY_TWENTY, // 245
+  CollectibleType.SAGITTARIUS, // 306
+  CollectibleType.CURSED_EYE, // 316
+  CollectibleType.DEAD_ONION, // 336
+  CollectibleType.EYE_OF_BELIAL, // 462
+  CollectibleType.LITTLE_HORN, // 503
+  CollectibleType.TRISAGION, // 533
+  CollectibleType.FLAT_STONE, // 540
+] as const;
+
+const BAD_MISSING_TEARS_TRANSFORMATIONS = [
+  PlayerForm.CONJOINED, // 7
+  PlayerForm.BOOKWORM, // 10
+] as const;
 
 /**
  * In certain situations, baby effects will prevent a player from entering a Big Chest. If this is
@@ -155,6 +182,14 @@ export function isRerolledCollectibleBuggedHeart(
     isHeart(pickup) &&
     pickup.SubType === HeartSubType.FULL &&
     pickup.Price === 99
+  );
+}
+
+/** Piercing, multiple shots, and Flat Stone causes "missing" effects to mess up. */
+export function isValidForMissingTearsEffect(): boolean {
+  return (
+    !playerHasCollectible(g.p, ...BAD_MISSING_TEARS_COLLECTIBLE_TYPES) &&
+    !playerHasForm(g.p, ...BAD_MISSING_TEARS_TRANSFORMATIONS)
   );
 }
 
