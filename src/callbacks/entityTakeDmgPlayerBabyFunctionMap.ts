@@ -396,15 +396,3 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.REAPER, (player) => {
 
   return undefined;
 });
-
-// 514
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.HOOLIGAN, (_player) => {
-  const roomFrameCount = g.r.GetFrameCount();
-
-  // Double enemies. Fix the bug where an enemy can sometimes spawn next to where the player spawns.
-  if (roomFrameCount === 0) {
-    return false;
-  }
-
-  return undefined;
-});
