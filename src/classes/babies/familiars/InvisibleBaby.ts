@@ -1,7 +1,7 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { Callback } from "isaacscript-common";
-import { g } from "../../globals";
-import { Baby } from "../Baby";
+import { g } from "../../../globals";
+import { Baby } from "../../Baby";
 
 /** Invisibility. */
 export class InvisibleBaby extends Baby {

@@ -4,7 +4,7 @@ import {
   TearVariant,
 } from "isaac-typescript-definitions";
 import { addFlag, Callback } from "isaacscript-common";
-import { Baby } from "../Baby";
+import { Baby } from "../../Baby";
 
 /** Spore tears. */
 export class TwistedBaby extends Baby {

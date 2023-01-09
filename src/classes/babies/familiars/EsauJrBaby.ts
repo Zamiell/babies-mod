@@ -5,7 +5,7 @@ import {
   ModCallback,
 } from "isaac-typescript-definitions";
 import { Callback } from "isaacscript-common";
-import { Baby } from "../Baby";
+import { Baby } from "../../Baby";
 
 /** Soul of Jacob and Esau effect on hit. */
 export class EsauJrBaby extends Baby {
