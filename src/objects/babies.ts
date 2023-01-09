@@ -3629,6 +3629,7 @@ export const BABIES = {
     name: "Rich Baby",
     description: "Starts with 99 cents",
     sprite: "424_baby_rich.png",
+    class: bc.RichBaby,
   },
 
   // 425
@@ -3958,6 +3959,7 @@ export const BABIES = {
     name: "404 Baby",
     description: "-1 coin/bomb/key on hit",
     sprite: "463_baby_404.png",
+    class: bc.N404Baby,
   },
 
   // 464
@@ -4032,8 +4034,9 @@ export const BABIES = {
   // 472
   [RandomBabyType.MUFFLERSCARF]: {
     name: "Mufflerscarf Baby",
-    description: "All enemies get freezed on hit",
+    description: "All enemies get frozen on hit",
     sprite: "472_baby_mufflerscarf.png",
+    class: bc.MufflerscarfBaby,
   },
 
   // 473
@@ -4403,6 +4406,7 @@ export const BABIES = {
     sprite: "515_baby_halfspider.png",
     item: CollectibleType.HALO_OF_FLIES,
     itemNum: 2,
+    class: bc.HalfSpiderBaby,
   },
 
   // 516
@@ -4737,6 +4741,7 @@ export const BABIES = {
     description: "Starts with Holy Mantle + Curse of the Cursed",
     sprite: "556_baby_cursedroom.png",
     item: CollectibleType.HOLY_MANTLE,
+    class: bc.CursedRoomBaby,
   },
 
   // 557

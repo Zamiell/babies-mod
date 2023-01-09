@@ -12,9 +12,7 @@ import {
 import {
   addFlag,
   closeDoorFast,
-  GAME_FRAMES_PER_SECOND,
   getDoors,
-  getNPCs,
   getRandom,
   spawnBomb,
   spawnCard,
@@ -273,30 +271,6 @@ entityTakeDmgPlayerBabyFunctionMap.set(
     }
 
     player.AddBlueFlies(baby.num, player.Position, undefined);
-
-    return undefined;
-  },
-);
-
-// 463
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.N_404, (player) => {
-  player.AddCoins(-1);
-  player.AddBombs(-1);
-  player.AddKeys(-1);
-
-  return undefined;
-});
-
-// 472
-entityTakeDmgPlayerBabyFunctionMap.set(
-  RandomBabyType.MUFFLERSCARF,
-  (player) => {
-    const freezeFrames = 5 * GAME_FRAMES_PER_SECOND;
-    for (const npc of getNPCs()) {
-      if (npc.IsVulnerableEnemy()) {
-        npc.AddFreeze(EntityRef(player), freezeFrames);
-      }
-    }
 
     return undefined;
   },

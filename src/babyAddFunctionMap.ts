@@ -1,8 +1,4 @@
-import {
-  ButtonAction,
-  CollectibleType,
-  LevelCurse,
-} from "isaac-typescript-definitions";
+import { ButtonAction, CollectibleType } from "isaac-typescript-definitions";
 import {
   game,
   MAX_NUM_FAMILIARS,
@@ -133,34 +129,4 @@ babyAddFunctionMap.set(RandomBabyType.IMP, () => {
   // Start the direction at left.
   g.run.babyCounters = ButtonAction.SHOOT_LEFT;
   g.run.babyFrame = game.GetFrameCount() + baby.num;
-});
-
-// 424
-babyAddFunctionMap.set(RandomBabyType.RICH, () => {
-  g.p.AddCoins(99);
-});
-
-// 511
-babyAddFunctionMap.set(RandomBabyType.TWITCHY, () => {
-  const baby = getCurrentBabyDescription();
-  if (baby.max === undefined) {
-    error(`The "max" attribute was not defined for: ${baby.name}`);
-  }
-
-  // Start with the slowest tears and mark to update them on this frame.
-  g.run.babyCounters = baby.max;
-  g.run.babyFrame = game.GetFrameCount();
-});
-
-// 550
-babyAddFunctionMap.set(RandomBabyType.BULLET, () => {
-  const numBombs = g.p.GetNumBombs();
-
-  g.run.babyCounters = numBombs;
-  g.p.AddBombs(99);
-});
-
-// 556
-babyAddFunctionMap.set(RandomBabyType.CURSED_ROOM, () => {
-  g.l.AddCurse(LevelCurse.CURSED, false);
 });

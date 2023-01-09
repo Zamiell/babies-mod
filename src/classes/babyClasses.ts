@@ -1,6 +1,7 @@
 // We must put the baby classes in a separate file as a workaround for Lua having a limit of 200
 // local variables.
 
+export { N404Baby } from "./babies/404Baby";
 export { AbanBaby } from "./babies/AbanBaby";
 export { AetherBaby } from "./babies/AetherBaby";
 export { AlienHominidBaby } from "./babies/AlienHominidBaby";
@@ -49,6 +50,7 @@ export { CrowBaby } from "./babies/CrowBaby";
 export { CryBaby } from "./babies/CryBaby";
 export { CupcakeBaby } from "./babies/CupcakeBaby";
 export { CursedPillowBaby } from "./babies/CursedPillowBaby";
+export { CursedRoomBaby } from "./babies/CursedRoomBaby";
 export { CuteBaby } from "./babies/CuteBaby";
 export { CyberBaby } from "./babies/CyberBaby";
 export { DarkBaby } from "./babies/DarkBaby";
@@ -110,6 +112,7 @@ export { GrayscaleBaby } from "./babies/GrayscaleBaby";
 export { GreenBaby } from "./babies/GreenBaby";
 export { GreenKoopaBaby } from "./babies/GreenKoopaBaby";
 export { HalfHeadBaby } from "./babies/HalfHeadBaby";
+export { HalfSpiderBaby } from "./babies/HalfSpiderBaby";
 export { HareBaby } from "./babies/HareBaby";
 export { HeadphoneBaby } from "./babies/HeadphoneBaby";
 export { HeartBaby } from "./babies/HeartBaby";
@@ -150,6 +153,7 @@ export { MohawkBaby } from "./babies/MohawkBaby";
 export { MonocleBaby } from "./babies/MonocleBaby";
 export { MortBaby } from "./babies/MortBaby";
 export { MouseBaby } from "./babies/MouseBaby";
+export { MufflerscarfBaby } from "./babies/MufflerscarfBaby";
 export { MushroomGirlBaby } from "./babies/MushroomGirlBaby";
 export { MustacheBaby } from "./babies/MustacheBaby";
 export { MutatedFishBaby } from "./babies/MutatedFishBaby";
@@ -177,6 +181,7 @@ export { RedGhostBaby } from "./babies/RedGhostBaby";
 export { RedKoopaBaby } from "./babies/RedKoopaBaby";
 export { RefereeBaby } from "./babies/RefereeBaby";
 export { RevengeBaby } from "./babies/RevengeBaby";
+export { RichBaby } from "./babies/RichBaby";
 export { RiderBaby } from "./babies/RiderBaby";
 export { RockerBaby } from "./babies/RockerBaby";
 export { RottenMeatBaby } from "./babies/RottenMeatBaby";

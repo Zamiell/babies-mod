@@ -5,6 +5,14 @@ import { Baby } from "../Baby";
 
 /** Tear rate oscillates. */
 export class TwitchyBaby extends Baby {
+  /** Start with the slowest tears and mark to update them on this frame. */
+  override onAdd(): void {
+    const max = this.getAttribute("max");
+
+    g.run.babyCounters = max;
+    g.run.babyFrame = game.GetFrameCount();
+  }
+
   // 1
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {

@@ -13,13 +13,12 @@ export class RageBaby extends Baby {
   override onAdd(): void {
     const numBombs = g.p.GetNumBombs();
 
-    // Store the bomb count so that we can restore it later.
-    g.run.babyCounters = numBombs;
+    g.run.babyCounters = numBombs; // Store the bomb count so that we can restore it later.
     g.p.AddBombs(99);
   }
 
+  /** Restore the bomb count to what it was before we got this baby. */
   override onRemove(oldBabyCounters: int): void {
-    // Restore the bomb count to what it was before we got this baby.
     g.p.AddBombs(-99);
     g.p.AddBombs(oldBabyCounters);
   }

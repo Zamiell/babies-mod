@@ -4,7 +4,6 @@ import {
   EntityGridCollisionClass,
   EntityType,
   FamiliarVariant,
-  LevelCurse,
   SeedEffect,
   SoundEffect,
 } from "isaac-typescript-definitions";
@@ -111,23 +110,4 @@ babyRemoveFunctionMap.set(RandomBabyType.CYBORG, () => {
 babyRemoveFunctionMap.set(RandomBabyType.DINO, () => {
   // Remove any leftover eggs.
   removeAllMatchingEntities(EntityType.FAMILIAR, FamiliarVariant.BOBS_BRAIN);
-});
-
-// 515
-babyRemoveFunctionMap.set(RandomBabyType.HALF_SPIDER, () => {
-  // Only one Pretty Fly is removed after removing a Halo of Flies. Thus, after removing 2x Halo of
-  // Flies, one fly remains.
-  g.p.RemoveCollectible(CollectibleType.HALO_OF_FLIES);
-});
-
-// 550
-babyRemoveFunctionMap.set(RandomBabyType.BULLET, (oldBabyCounters: int) => {
-  // Restore the bomb count to what it was before we got this baby.
-  g.p.AddBombs(-99);
-  g.p.AddBombs(oldBabyCounters);
-});
-
-// 556
-babyRemoveFunctionMap.set(RandomBabyType.CURSED_ROOM, () => {
-  g.l.RemoveCurses(LevelCurse.CURSED);
 });

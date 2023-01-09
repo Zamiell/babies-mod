@@ -114,17 +114,13 @@ function checkPseudoClear(babyType: RandomBabyType) {
 }
 
 function areAnyNPCsAlive() {
-  for (const npc of getNPCs()) {
-    if (
-      npc.CanShutDoors && // This is a battle NPC
+  const npcs = getNPCs();
+  return npcs.some(
+    (npc) =>
+      npc.CanShutDoors && // This is a battle NPC.
       !npc.IsDead() &&
-      !isAliveExceptionNPC(npc)
-    ) {
-      return true;
-    }
-  }
-
-  return false;
+      !isAliveExceptionNPC(npc),
+  );
 }
 
 // This roughly emulates what happens when you normally clear a room.

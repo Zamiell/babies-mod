@@ -620,12 +620,6 @@ function checkStage(babyType: RandomBabyType, baby: BabyDescription): boolean {
     return false;
   }
 
-  // 424
-  if (babyType === RandomBabyType.RICH && effectiveStage >= 7) {
-    // Starts with 99 cents. Money is useless past Depths.
-    return false;
-  }
-
   // 430
   if (
     babyType === RandomBabyType.FOLDER &&

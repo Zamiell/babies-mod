@@ -238,15 +238,14 @@ postNewRoomBabyFunctionMap.set(RandomBabyType.LOVE_EYE, () => {
   }
 
   // Replace all of the existing enemies with the stored one.
-  for (const npc of getNPCs()) {
-    // Make an exception for certain NPCs.
-    if (
-      npc.Type === EntityType.SHOPKEEPER || // 17
-      npc.Type === EntityType.FIREPLACE // 33
-    ) {
-      continue;
-    }
-
+  const npcs = getNPCs();
+  const filteredNPCs = npcs.filter(
+    (npc) =>
+      npc.Type !== EntityType.SHOPKEEPER && // 17
+      npc.Type !== EntityType.FIREPLACE, // 33
+  );
+  for (const npc of filteredNPCs) {
+    npc.Remove();
     spawn(
       g.run.babyNPC.entityType,
       g.run.babyNPC.variant,
@@ -256,7 +255,6 @@ postNewRoomBabyFunctionMap.set(RandomBabyType.LOVE_EYE, () => {
       undefined,
       npc.InitSeed,
     );
-    npc.Remove();
   }
 });
 
