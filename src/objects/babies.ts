@@ -649,6 +649,7 @@ export const BABIES = {
     name: "Lowface Baby",
     description: "0.5x range",
     sprite: "073_baby_lowface.png",
+    class: classesAM.LowfaceBaby,
   },
 
   // 74
@@ -691,6 +692,7 @@ export const BABIES = {
     sprite: "078_baby_derp.png",
     item: CollectibleType.CUBE_OF_MEAT,
     item2: CollectibleType.BFFS,
+    class: classesAM.DerpBaby,
   },
 
   // 79
@@ -916,6 +918,7 @@ export const BABIES = {
     name: "Lipstick Baby",
     description: "2x range",
     sprite: "105_baby_lipstick.png",
+    class: classesAM.LipstickBaby,
   },
 
   // 106
@@ -1077,6 +1080,7 @@ export const BABIES = {
     name: "Tusks Baby",
     description: "2x damage",
     sprite: "124_baby_tusks.png",
+    class: classesNZ.TusksBaby,
   },
 
   // 125
@@ -3146,6 +3150,7 @@ export const BABIES = {
     name: "Scared Ghost Baby",
     description: "2x speed",
     sprite: "369_baby_scaredghost.png",
+    class: classesNZ.ScaredGhostBaby,
   },
 
   // 370
@@ -3153,6 +3158,7 @@ export const BABIES = {
     name: "Blue Ghost Baby",
     description: "Max tear rate",
     sprite: "370_baby_blueghost.png",
+    class: classesAM.BlueGhostBaby,
   },
 
   // 371
@@ -3160,6 +3166,7 @@ export const BABIES = {
     name: "Red Ghost Baby",
     description: "+10 damage",
     sprite: "371_baby_redghost.png",
+    class: classesNZ.RedGhostBaby,
   },
 
   // 372
@@ -3281,6 +3288,7 @@ export const BABIES = {
     name: "Fairyman Baby",
     description: "-30% damage on hit",
     sprite: "385_baby_fairyman.png",
+    class: classesAM.FairymanBaby,
   },
 
   // 386
@@ -3574,6 +3582,7 @@ export const BABIES = {
     sprite: "419_baby_firemage.png",
     item: CollectibleType.FIRE_MIND,
     requireTears: true,
+    class: classesAM.FiremageBaby,
   },
 
   // 420
@@ -4108,6 +4117,7 @@ export const BABIES = {
     name: "Bubbles Baby",
     description: "+1 damage per pill used",
     sprite: "483_baby_bubbles.png",
+    class: classesAM.BubblesBaby,
   },
 
   // 484

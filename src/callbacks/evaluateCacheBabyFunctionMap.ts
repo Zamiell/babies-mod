@@ -1,10 +1,5 @@
 import { CacheFlag } from "isaac-typescript-definitions";
-import {
-  game,
-  MIN_PLAYER_SHOT_SPEED_STAT,
-  MIN_PLAYER_SPEED_STAT,
-  repeat,
-} from "isaacscript-common";
+import { MIN_PLAYER_SHOT_SPEED_STAT, repeat } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { getCurrentBabyDescription } from "../utilsBaby";
@@ -13,51 +8,6 @@ export const evaluateCacheBabyFunctionMap = new Map<
   RandomBabyType,
   (player: EntityPlayer, cacheFlag: CacheFlag) => void
 >();
-
-// 73
-evaluateCacheBabyFunctionMap.set(
-  RandomBabyType.LOWFACE,
-  (player: EntityPlayer, cacheFlag: CacheFlag) => {
-    // 0.5x range
-    if (cacheFlag === CacheFlag.RANGE) {
-      player.TearHeight /= 2;
-      if (player.TearHeight > -5) {
-        // Set an absolute minimum range.
-        player.TearHeight = -5;
-      }
-    }
-  },
-);
-
-// 78
-evaluateCacheBabyFunctionMap.set(
-  RandomBabyType.DERP,
-  (player: EntityPlayer, cacheFlag: CacheFlag) => {
-    if (cacheFlag === CacheFlag.DAMAGE) {
-      player.Damage *= 0.5;
-    }
-  },
-);
-
-// 105
-evaluateCacheBabyFunctionMap.set(
-  RandomBabyType.LIPSTICK,
-  (player: EntityPlayer, cacheFlag: CacheFlag) => {
-    if (cacheFlag === CacheFlag.RANGE) {
-      player.TearHeight *= 2;
-    }
-  },
-);
-
-// 124
-evaluateCacheBabyFunctionMap.set(
-  RandomBabyType.TUSKS,
-  (player: EntityPlayer, cacheFlag: CacheFlag) => {
-    if (cacheFlag === CacheFlag.DAMAGE) {
-      player.Damage *= 2;
-    }
-  },
-);
 
 // 152
 evaluateCacheBabyFunctionMap.set(
@@ -168,73 +118,6 @@ evaluateCacheBabyFunctionMap.set(
       } else if (cacheFlag === CacheFlag.FIRE_DELAY) {
         player.MaxFireDelay = math.ceil(player.MaxFireDelay / 3);
       }
-    }
-  },
-);
-
-// 350
-evaluateCacheBabyFunctionMap.set(
-  RandomBabyType.RABBIT,
-  (player: EntityPlayer, cacheFlag: CacheFlag) => {
-    // Starts with How to Jump; must jump often. Speed has a lower bound of 0.1, so we cannot set it
-    // lower than this.
-    if (
-      cacheFlag === CacheFlag.SPEED &&
-      game.GetFrameCount() >= g.run.babyFrame
-    ) {
-      player.MoveSpeed = MIN_PLAYER_SPEED_STAT;
-    }
-  },
-);
-
-// 369
-evaluateCacheBabyFunctionMap.set(
-  RandomBabyType.SCARED_GHOST,
-  (player: EntityPlayer, cacheFlag: CacheFlag) => {
-    if (cacheFlag === CacheFlag.SPEED) {
-      player.MoveSpeed *= 2;
-    }
-  },
-);
-
-// 370
-evaluateCacheBabyFunctionMap.set(
-  RandomBabyType.BLUE_GHOST,
-  (player: EntityPlayer, cacheFlag: CacheFlag) => {
-    if (cacheFlag === CacheFlag.FIRE_DELAY) {
-      player.MaxFireDelay = 1;
-    }
-  },
-);
-
-// 371
-evaluateCacheBabyFunctionMap.set(
-  RandomBabyType.RED_GHOST,
-  (player: EntityPlayer, cacheFlag: CacheFlag) => {
-    if (cacheFlag === CacheFlag.DAMAGE) {
-      player.Damage += 10;
-    }
-  },
-);
-
-// 385
-evaluateCacheBabyFunctionMap.set(
-  RandomBabyType.FAIRYMAN,
-  (player: EntityPlayer, cacheFlag: CacheFlag) => {
-    if (cacheFlag === CacheFlag.DAMAGE) {
-      repeat(g.run.babyCounters, () => {
-        player.Damage *= 0.7;
-      });
-    }
-  },
-);
-
-// 419
-evaluateCacheBabyFunctionMap.set(
-  RandomBabyType.FIREMAGE,
-  (player: EntityPlayer, cacheFlag: CacheFlag) => {
-    if (cacheFlag === CacheFlag.LUCK) {
-      player.Luck += 13;
     }
   },
 );
