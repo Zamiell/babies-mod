@@ -43,20 +43,6 @@ export const entityTakeDmgPlayerBabyFunctionMap = new Map<
   ) => boolean | undefined
 >();
 
-// 276
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.GARGOYLE, (player) => {
-  useActiveItemTemp(player, CollectibleType.HEAD_OF_KRAMPUS);
-
-  return undefined;
-});
-
-// 285
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.BIG_TONGUE, (player) => {
-  useActiveItemTemp(player, CollectibleType.FLUSH);
-
-  return undefined;
-});
-
 // 293
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.BANSHEE, (player) => {
   useActiveItemTemp(player, CollectibleType.CRACK_THE_SKY);
@@ -419,34 +405,6 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.HOOLIGAN, (_player) => {
   if (roomFrameCount === 0) {
     return false;
   }
-
-  return undefined;
-});
-
-// 522
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.LOST_WHITE, (player) => {
-  useActiveItemTemp(player, CollectibleType.ETERNAL_D6);
-
-  return undefined;
-});
-
-// 523
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.LOST_BLACK, (player) => {
-  useActiveItemTemp(player, CollectibleType.SPINDOWN_DICE);
-
-  return undefined;
-});
-
-// 524
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.LOST_BLUE, (player) => {
-  useActiveItemTemp(player, CollectibleType.D10);
-
-  return undefined;
-});
-
-// 525
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.LOST_GREY, (player) => {
-  useActiveItemTemp(player, CollectibleType.D7);
 
   return undefined;
 });

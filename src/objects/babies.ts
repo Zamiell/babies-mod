@@ -2052,6 +2052,7 @@ export const BABIES = {
     description: "Low shot speed",
     sprite: "240_baby_blisters.png",
     requireTears: true,
+    class: classesAM.BlistersBaby,
   },
 
   // 241
@@ -2082,6 +2083,7 @@ export const BABIES = {
     name: "Snail Baby",
     description: "0.5x speed",
     sprite: "244_baby_snail.png",
+    class: classesNZ.SnailBaby,
   },
 
   // 245
@@ -2348,6 +2350,7 @@ export const BABIES = {
     name: "Gargoyle Baby",
     description: "Head of Krampus effect on hit",
     sprite: "276_baby_gargoyle.png",
+    class: classesAM.GargoyleBaby,
   },
 
   // 277
@@ -2428,6 +2431,7 @@ export const BABIES = {
     name: "Big Tongue Baby",
     description: "Flush effect on hit",
     sprite: "285_baby_bigtongue.png",
+    class: classesAM.BigTongueBaby,
   },
 
   // 286
@@ -2478,6 +2482,7 @@ export const BABIES = {
     name: "Killer Baby",
     description: "+0.2 damage per enemy killed",
     sprite: "291_baby_killer.png",
+    class: classesAM.KillerBaby,
   },
 
   // 292
@@ -2733,6 +2738,7 @@ export const BABIES = {
     description: "High shot speed",
     sprite: "321_baby_cupcake.png",
     requireTears: true,
+    class: classesAM.CupcakeBaby,
   },
 
   // 322
@@ -2740,6 +2746,7 @@ export const BABIES = {
     name: "Skinless Baby",
     description: "2x damage + takes 2x damage",
     sprite: "322_baby_skinless.png",
+    class: classesNZ.SkinlessBaby,
   },
 
   // 323
@@ -4439,8 +4446,9 @@ export const BABIES = {
   // 521
   [RandomBabyType.FOUND_SOUL]: {
     name: "Found Soul Baby",
-    description: "Starts with a friendly Dark Esau",
+    description: "Starts with a Dark Esau",
     sprite: "059_found_soul.png",
+    class: classesAM.FoundSoulBaby,
   },
 
   // 522
@@ -4448,6 +4456,7 @@ export const BABIES = {
     name: "Lost White Baby",
     description: "Eternal D6 effect on hit",
     sprite: "60_baby_lost_white.png",
+    class: classesAM.LostWhiteBaby,
   },
 
   // 523
@@ -4455,6 +4464,7 @@ export const BABIES = {
     name: "Lost Black Baby",
     description: "Spindown Dice effect on hit",
     sprite: "61_baby_lost_black.png",
+    class: classesAM.LostBlackBaby,
   },
 
   // 524
@@ -4462,6 +4472,7 @@ export const BABIES = {
     name: "Lost Blue Baby",
     description: "D10 effect on hit", // Re-roll enemies
     sprite: "62_baby_lost_blue.png",
+    class: classesAM.LostBlueBaby,
   },
 
   // 525
@@ -4469,6 +4480,7 @@ export const BABIES = {
     name: "Lost Grey Baby",
     description: "D7 effect on hit", // Restart the room
     sprite: "63_baby_lost_grey.png",
+    class: classesAM.LostGreyBaby,
   },
 
   // 526

@@ -1,8 +1,6 @@
 import {
   ButtonAction,
   CollectibleType,
-  DarkEsauVariant,
-  EntityType,
   LevelCurse,
 } from "isaac-typescript-definitions";
 import {
@@ -10,7 +8,6 @@ import {
   MAX_NUM_FAMILIARS,
   removeCollectibleFromItemTracker,
   repeat,
-  spawn,
 } from "isaacscript-common";
 import { RandomBabyType } from "./enums/RandomBabyType";
 import { g } from "./globals";
@@ -153,18 +150,6 @@ babyAddFunctionMap.set(RandomBabyType.TWITCHY, () => {
   // Start with the slowest tears and mark to update them on this frame.
   g.run.babyCounters = baby.max;
   g.run.babyFrame = game.GetFrameCount();
-});
-
-// 521
-babyAddFunctionMap.set(RandomBabyType.FOUND_SOUL, () => {
-  const numDarkEsaus = Isaac.CountEntities(undefined, EntityType.DARK_ESAU);
-  if (numDarkEsaus > 0) {
-    return;
-  }
-
-  const bottomLeftGridIndex = 92;
-  const bottomLeftPosition = g.r.GetGridPosition(bottomLeftGridIndex);
-  spawn(EntityType.DARK_ESAU, DarkEsauVariant.DARK_ESAU, 0, bottomLeftPosition);
 });
 
 // 550
