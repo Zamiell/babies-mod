@@ -5006,6 +5006,7 @@ export const BABIES = {
     name: "Fate's Reward", // CollectibleType.FATES_REWARD (361)
     description: "Items cost money",
     sprite: "familiar_shooters_81_fatesreward.png",
+    class: classesAM.FatesReward,
   },
 
   // 592
@@ -5014,6 +5015,7 @@ export const BABIES = {
     description: "Censer aura",
     sprite: "familiars_shooters_92_seraphim.png",
     item: CollectibleType.CENSER,
+    class: classesNZ.Seraphim,
   },
 
   // 593
@@ -5056,6 +5058,7 @@ export const BABIES = {
     name: "Lil Abaddon", // CollectibleType.LIL_ABADDON (679)
     description: "Starts with Devil's Crown",
     sprite: "familiar_lil_abaddon.png",
+    trinket: TrinketType.DEVILS_CROWN,
   },
 
   // 598

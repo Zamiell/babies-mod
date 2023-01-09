@@ -1,8 +1,8 @@
 import { ModCallback, TearFlag } from "isaac-typescript-definitions";
 import { addFlag, Callback } from "isaacscript-common";
-import { FADED_BLUE } from "../../constants";
-import { setTearColor } from "../../utils";
-import { Baby } from "../Baby";
+import { FADED_BLUE } from "../../../constants";
+import { setTearColor } from "../../../utils";
+import { Baby } from "../../Baby";
 
 /** Ice tears. */
 export class FreezerBaby extends Baby {

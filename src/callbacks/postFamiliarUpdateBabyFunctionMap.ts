@@ -132,17 +132,3 @@ postFamiliarUpdateBabyFunctionMap.set(
     }
   },
 );
-
-// 592
-postFamiliarUpdateBabyFunctionMap.set(
-  RandomBabyType.SERAPHIM,
-  (familiar: EntityFamiliar) => {
-    if (familiar.Variant === FamiliarVariant.CENSER) {
-      familiar.Position = g.p.Position;
-
-      const sprite = familiar.GetSprite();
-      sprite.Load("gfx/003.089_censer_invisible.anm2", true);
-      sprite.Play("Idle", true);
-    }
-  },
-);

@@ -182,11 +182,6 @@ function checkCoins(
     return false;
   }
 
-  // 591
-  if (babyType === RandomBabyType.FATES_REWARD && coins < 15) {
-    return false;
-  }
-
   if (babyItemsSet.has(CollectibleType.DOLLAR) && coins >= 50) {
     return false;
   }
@@ -687,17 +682,6 @@ function checkStage(babyType: RandomBabyType, baby: BabyDescription): boolean {
     // - Ban it on the first floor so that it does not conflict with resetting for a Treasure Room
     //   item.
     // - Ban it on the second floor so that it does not conflict with the first devil deal.
-    return false;
-  }
-
-  // 591
-  if (
-    babyType === RandomBabyType.FATES_REWARD &&
-    (effectiveStage <= 2 || effectiveStage === 6 || effectiveStage >= 10)
-  ) {
-    // Items cost money. On stage 1, the player does not have 15 cents. On stage 2, they will miss a
-    // Devil Deal, which is not fair. On stage 6, they might not be able to buy the Polaroid (when
-    // playing on a normal run). On stage 10 and 11, there are no items.
     return false;
   }
 

@@ -21,15 +21,6 @@ export const postPickupInitBabyFunctionMap = new Map<
   (pickup: EntityPickup) => void
 >();
 
-// 514
-postPickupInitBabyFunctionMap.set(
-  RandomBabyType.LIL,
-  (pickup: EntityPickup) => {
-    // Everything is tiny
-    pickup.SpriteScale = Vector(0.5, 0.5);
-  },
-);
-
 // 37
 postPickupInitBabyFunctionMap.set(
   RandomBabyType.BIG,
@@ -141,18 +132,6 @@ postPickupInitBabyFunctionMap.set(
         const position = pickup.Position.add(offset);
         spawnCard(CardType.NULL, position);
       });
-    }
-  },
-);
-
-// 591
-postPickupInitBabyFunctionMap.set(
-  RandomBabyType.FATES_REWARD,
-  (pickup: EntityPickup) => {
-    // Items cost money
-    if (isCollectible(pickup)) {
-      pickup.AutoUpdatePrice = false;
-      pickup.Price = 15;
     }
   },
 );

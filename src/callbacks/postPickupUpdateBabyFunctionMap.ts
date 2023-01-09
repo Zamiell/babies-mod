@@ -332,23 +332,3 @@ postPickupUpdateBabyFunctionMap.set(
     }
   },
 );
-
-// 591
-postPickupUpdateBabyFunctionMap.set(
-  RandomBabyType.FATES_REWARD,
-  (pickup: EntityPickup) => {
-    // Rerolled items turn into hearts so delete the heart and manually create another pedestal
-    // item.
-    if (isRerolledCollectibleBuggedHeart(pickup)) {
-      pickup.Remove();
-
-      const collectible = mod.spawnCollectible(
-        CollectibleType.NULL,
-        pickup.Position,
-        g.run.room.rng,
-      );
-      collectible.AutoUpdatePrice = false;
-      collectible.Price = 15;
-    }
-  },
-);

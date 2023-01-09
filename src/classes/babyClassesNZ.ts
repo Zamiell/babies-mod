@@ -1,4 +1,6 @@
 export { RainbowBaby } from "./babies/familiars/RainbowBaby";
+export { RottenBaby } from "./babies/familiars/RottenBaby";
+export { Seraphim } from "./babies/familiars/Seraphim";
 export { SirenShooter } from "./babies/familiars/SirenShooter";
 export { SisterMaggy } from "./babies/familiars/SisterMaggy";
 export { FatBaby } from "./babies/FatBaby";
@@ -26,7 +28,6 @@ export { RefereeBaby } from "./babies/RefereeBaby";
 export { RevengeBaby } from "./babies/RevengeBaby";
 export { RiderBaby } from "./babies/RiderBaby";
 export { RockerBaby } from "./babies/RockerBaby";
-export { RottenBaby } from "./babies/RottenBaby";
 export { RottenMeatBaby } from "./babies/RottenMeatBaby";
 export { SadBunnyBaby } from "./babies/SadBunnyBaby";
 export { SausageLoverBaby } from "./babies/SausageLoverBaby";
