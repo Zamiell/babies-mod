@@ -1,4 +1,5 @@
 import {
+  CacheFlag,
   FamiliarVariant,
   ModCallback,
   RoomShape,
@@ -13,6 +14,13 @@ import { Baby } from "../Baby";
 
 /** Starts with Abel; tears come from Abel; 2x damage. */
 export class PsychicBaby extends Baby {
+  // 8
+  @Callback(ModCallback.EVALUATE_CACHE, CacheFlag.DAMAGE)
+  evaluateCacheDamage(player: EntityPlayer): void {
+    player.Damage *= 2;
+  }
+
+  // 61
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
     const roomFrameCount = g.r.GetFrameCount();

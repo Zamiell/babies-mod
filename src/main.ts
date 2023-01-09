@@ -29,7 +29,6 @@ import * as postUsePill from "./callbacks/postUsePill";
 import * as preEntitySpawn from "./callbacks/preEntitySpawn";
 import * as preRoomEntitySpawn from "./callbacks/preRoomEntitySpawn";
 import * as preSpawnClearAward from "./callbacks/preSpawnClearAward";
-import * as preTearCollision from "./callbacks/preTearCollision";
 import * as preUseItem from "./callbacks/preUseItem";
 import * as postGameStartedReordered from "./callbacksCustom/postGameStartedReordered";
 import * as postGridEntityBroken from "./callbacksCustom/postGridEntityBroken";
@@ -91,7 +90,6 @@ function registerCallbacksMain() {
   postPickupUpdate.init(); // 38
   postTearInit.init(); // 39
   postTearUpdate.init(); // 40
-  preTearCollision.init(); // 42
   postProjectileUpdate.init(); // 44
   postLaserInit.init(); // 47
   postLaserUpdate.init(); // 48

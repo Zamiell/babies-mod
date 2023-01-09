@@ -1,4 +1,5 @@
 import {
+  CacheFlag,
   DamageFlag,
   EffectVariant,
   EntityPartition,
@@ -68,6 +69,12 @@ export class VoxdogBaby extends Baby {
         g.run.room.tears.splice(i, 1);
       }
     }
+  }
+
+  // 8
+  @Callback(ModCallback.EVALUATE_CACHE, CacheFlag.FIRE_DELAY)
+  evaluateCacheFireDelay(player: EntityPlayer): void {
+    player.MaxFireDelay = math.ceil(player.MaxFireDelay * 2);
   }
 
   // 61

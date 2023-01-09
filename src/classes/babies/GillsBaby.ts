@@ -1,5 +1,6 @@
-import { ModCallback } from "isaac-typescript-definitions";
-import { Callback } from "isaacscript-common";
+import { EffectVariant, ModCallback } from "isaac-typescript-definitions";
+import { Callback, spawnEffect, VectorZero } from "isaacscript-common";
+import { g } from "../../globals";
 import { setTearColor } from "../../utils";
 import { Baby } from "../Baby";
 
@@ -7,6 +8,24 @@ const LIGHT_CYAN = Color(0.7, 1.5, 2, 0.7, 1, 1, 1);
 
 /** Splash tears. */
 export class GillsBaby extends Baby {
+  // 42
+  @Callback(ModCallback.PRE_TEAR_COLLISION)
+  preTearCollision(tear: EntityTear, collider: Entity): boolean | undefined {
+    if (tear.SubType === 1) {
+      const creep = spawnEffect(
+        EffectVariant.PLAYER_CREEP_HOLY_WATER,
+        0,
+        collider.Position,
+        VectorZero,
+        g.p,
+      );
+      creep.Timeout = 120;
+    }
+
+    return undefined;
+  }
+
+  // 61
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
     setTearColor(tear, LIGHT_CYAN);

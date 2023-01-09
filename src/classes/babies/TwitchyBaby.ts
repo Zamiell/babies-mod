@@ -5,6 +5,7 @@ import { Baby } from "../Baby";
 
 /** Tear rate oscillates. */
 export class TwitchyBaby extends Baby {
+  // 1
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
     const gameFrameCount = game.GetFrameCount();
@@ -31,5 +32,11 @@ export class TwitchyBaby extends Baby {
       g.p.AddCacheFlags(CacheFlag.FIRE_DELAY);
       g.p.EvaluateItems();
     }
+  }
+
+  // 8
+  @Callback(ModCallback.EVALUATE_CACHE, CacheFlag.FIRE_DELAY)
+  evaluateCacheFireDelay(player: EntityPlayer): void {
+    player.MaxFireDelay += g.run.babyCounters;
   }
 }

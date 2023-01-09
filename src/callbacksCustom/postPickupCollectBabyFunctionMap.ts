@@ -1,4 +1,4 @@
-import { CacheFlag, PillColor, PillEffect } from "isaac-typescript-definitions";
+import { PillColor, PillEffect } from "isaac-typescript-definitions";
 import { game } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
@@ -26,12 +26,4 @@ postPickupCollectBabyFunctionMap.set(RandomBabyType.WORRY, () => {
   if (g.run.babyFrame === 0) {
     g.run.babyFrame = gameFrameCount + baby.num;
   }
-});
-
-// 473
-postPickupCollectBabyFunctionMap.set(RandomBabyType.ROBBERMASK, () => {
-  // Touching pickups gives extra damage.
-  g.run.babyCounters++;
-  g.p.AddCacheFlags(CacheFlag.DAMAGE);
-  g.p.EvaluateItems();
 });

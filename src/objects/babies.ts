@@ -4025,6 +4025,7 @@ export const BABIES = {
     name: "Robbermask Baby",
     description: "+1 damage per pickup taken",
     sprite: "473_baby_robbermask.png",
+    class: classesNZ.RobbermaskBaby,
   },
 
   // 474
