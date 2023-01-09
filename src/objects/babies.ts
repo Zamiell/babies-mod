@@ -2502,6 +2502,7 @@ export const BABIES = {
     name: "Banshee Baby",
     description: "Crack the Sky effect on hit",
     sprite: "293_baby_banshee.png",
+    class: bc.BansheeBaby,
   },
 
   // 294
@@ -4167,6 +4168,7 @@ export const BABIES = {
     name: "Egg Baby",
     description: "Random pill effect on hit",
     sprite: "488_baby_egg.png",
+    class: bc.EggBaby,
   },
 
   // 489
@@ -4206,6 +4208,7 @@ export const BABIES = {
     description: "Teleports to the boss room after 6 hits",
     sprite: "493_baby_glitterypeach.png",
     requireNumHits: 6,
+    class: bc.GlitteryPeachBaby,
   },
 
   // 494
@@ -4257,6 +4260,7 @@ export const BABIES = {
     name: "Lazy Baby",
     description: "Random card effect on hit",
     sprite: "499_baby_lazy.png",
+    class: bc.LazyBaby,
   },
 
   // 500
@@ -4317,6 +4321,7 @@ export const BABIES = {
     name: "Reaper Baby",
     description: "Spawns a random rune on hit",
     sprite: "506_baby_reaper.png",
+    class: bc.ReaperBaby,
   },
 
   // 507

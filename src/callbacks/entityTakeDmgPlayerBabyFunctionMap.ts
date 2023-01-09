@@ -7,20 +7,15 @@ import {
   DamageFlagZero,
   DoorState,
   EntityType,
-  PillColor,
-  PillEffect,
   UseFlag,
 } from "isaac-typescript-definitions";
 import {
   addFlag,
   closeDoorFast,
-  game,
   GAME_FRAMES_PER_SECOND,
   getDoors,
   getNPCs,
   getRandom,
-  getRandomEnumValue,
-  isSelfDamage,
   spawnBomb,
   spawnCard,
   useActiveItemTemp,
@@ -28,7 +23,6 @@ import {
 } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
-import { mod } from "../mod";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 import { getCurrentBabyDescription } from "../utilsBaby";
 
@@ -42,13 +36,6 @@ export const entityTakeDmgPlayerBabyFunctionMap = new Map<
     countdownFrames: int,
   ) => boolean | undefined
 >();
-
-// 293
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.BANSHEE, (player) => {
-  useActiveItemTemp(player, CollectibleType.CRACK_THE_SKY);
-
-  return undefined;
-});
 
 // 301
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.BLOODIED, (player) => {
@@ -314,85 +301,3 @@ entityTakeDmgPlayerBabyFunctionMap.set(
     return undefined;
   },
 );
-
-// 474
-entityTakeDmgPlayerBabyFunctionMap.set(
-  RandomBabyType.SCOREBOARD,
-  (
-    _player: EntityPlayer,
-    _amount: float,
-    damageFlags: BitFlags<DamageFlag>,
-  ) => {
-    const gameFrameCount = game.GetFrameCount();
-
-    if (g.run.babyCounters !== 0) {
-      return;
-    }
-
-    if (isSelfDamage(damageFlags)) {
-      return;
-    }
-
-    // Death in 1 minute.
-    g.run.babyCounters = gameFrameCount + 60 * 30;
-
-    return undefined;
-  },
-);
-
-// 488
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.EGG, (player) => {
-  // Random pill effect on hit.
-  const pillEffect = getRandomEnumValue(PillEffect, g.run.rng, [
-    PillEffect.AMNESIA, // 25
-    PillEffect.QUESTION_MARKS, // 31
-  ]);
-
-  player.UsePill(pillEffect, PillColor.NULL);
-  // (The animation will automatically be canceled by the damage.)
-
-  return undefined;
-});
-
-// 493
-entityTakeDmgPlayerBabyFunctionMap.set(
-  RandomBabyType.GLITTERY_PEACH,
-  (player) => {
-    const baby = getCurrentBabyDescription();
-    if (baby.requireNumHits === undefined) {
-      error(`The "numHits" attribute was not defined for: ${baby.name}`);
-    }
-
-    if (g.run.babyBool) {
-      return;
-    }
-
-    // Teleport to the boss room after X hits (but only do it once per floor).
-    g.run.babyCounters++;
-    if (g.run.babyCounters === baby.requireNumHits) {
-      g.run.babyBool = true;
-      player.UseCard(CardType.EMPEROR);
-    }
-
-    return undefined;
-  },
-);
-
-// 499
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.LAZY, (player) => {
-  // Random card effect on hit.
-  const exceptions = [CardType.SUICIDE_KING]; // It would be unfair to randomly die.
-  const card = mod.getRandomCard(g.run.rng, exceptions);
-  player.UseCard(card);
-
-  return undefined;
-});
-
-// 506
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.REAPER, (player) => {
-  // Spawns a random rune on hit.
-  const rune = mod.getRandomRune(g.run.rng);
-  spawnCard(rune, player.Position, VectorZero, player, g.run.rng);
-
-  return undefined;
-});
