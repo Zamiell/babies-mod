@@ -285,18 +285,6 @@ function checkCollectibles(
   }
 
   if (
-    babyType === RandomBabyType.MASKED && // 115
-    (player.HasCollectible(CollectibleType.CHOCOLATE_MILK) || // 69
-      player.HasCollectible(CollectibleType.BRIMSTONE) || // 118
-      player.HasCollectible(CollectibleType.MONSTROS_LUNG) || // 229
-      player.HasCollectible(CollectibleType.CURSED_EYE) || // 316
-      player.HasCollectible(CollectibleType.MAW_OF_THE_VOID)) // 399
-  ) {
-    // Can't shoot while moving This messes up with charge items.
-    return false;
-  }
-
-  if (
     babyType === RandomBabyType.SLOPPY && // 146
     (player.HasCollectible(CollectibleType.INNER_EYE) || // 2
       player.HasCollectible(CollectibleType.MUTANT_SPIDER) || // 153

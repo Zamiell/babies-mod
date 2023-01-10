@@ -1001,6 +1001,7 @@ export const BABIES = {
     description: "Can't shoot while moving",
     sprite: "115_baby_masked.png",
     requireTears: true,
+    class: bc.MaskedBaby,
   },
 
   // 116
@@ -1534,6 +1535,7 @@ export const BABIES = {
     name: "Piece A Baby",
     description: "Can only move up + down + left + right",
     sprite: "179_baby_piecea.png",
+    class: bc.PieceABaby,
   },
 
   // 180
@@ -2692,6 +2694,7 @@ export const BABIES = {
     name: "Puzzle Baby",
     description: "D6 effect on hit",
     sprite: "315_baby_puzzle.png",
+    class: bc.PuzzleBaby,
   },
 
   // 316
@@ -3076,6 +3079,7 @@ export const BABIES = {
     name: "Tanooki Baby",
     description: "Mr. ME effect on hit",
     sprite: "359_baby_tanooki.png",
+    class: bc.TanookiBaby,
   },
 
   // 360
@@ -4554,6 +4558,7 @@ export const BABIES = {
     name: "Solomon's Baby A",
     description: "Can't shoot right",
     sprite: "069_baby_solomon_a.png",
+    class: bc.SolomonsBabyA,
   },
 
   // 532
@@ -4561,6 +4566,7 @@ export const BABIES = {
     name: "Solomon's Baby B",
     description: "Can't shoot left",
     sprite: "070_baby_solomon_b.png",
+    class: bc.SolomonsBabyB,
   },
 
   // -----------------------------------------------------------------------------------------------

@@ -91,7 +91,7 @@ function drawBabyIntro() {
   if (baby.description2 !== undefined) {
     text = baby.description2;
     x = centerPos.X - 3 * text.length;
-    y = centerPos.Y - 40;
+    y += 15;
     Isaac.RenderText(text, x, y, 2, 2, 2, 2);
   }
 }

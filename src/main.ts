@@ -2,7 +2,6 @@ import { log } from "isaacscript-common";
 import { babiesCheckValid } from "./babiesCheckValid";
 import * as evaluateCache from "./callbacks/evaluateCache";
 import * as executeCmd from "./callbacks/executeCmd";
-import * as inputAction from "./callbacks/inputAction";
 import * as postBombInit from "./callbacks/postBombInit";
 import * as postBombUpdate from "./callbacks/postBombUpdate";
 import * as postEffectInit from "./callbacks/postEffectInit";
@@ -79,7 +78,6 @@ function registerCallbacksMain() {
   evaluateCache.init(); // 8
   postPlayerInit.init(); // 9
   postUsePill.init(); // 10
-  inputAction.init(); // 13
   executeCmd.init(); // 22
   preUseItem.init(); // 23
   preEntitySpawn.init(); // 24

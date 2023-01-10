@@ -1,10 +1,24 @@
-import { ModCallback } from "isaac-typescript-definitions";
-import { Callback, game } from "isaacscript-common";
+import {
+  ButtonAction,
+  Direction,
+  InputHook,
+  ModCallback,
+} from "isaac-typescript-definitions";
+import {
+  Callback,
+  CallbackCustom,
+  directionToShootAction,
+  game,
+  isFirstPlayer,
+  isShootAction,
+  ModCallbackCustom,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Blender + flight + explosion immunity + blindfolded. */
 export class ImpBaby extends Baby {
+  // 1
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
     const gameFrameCount = game.GetFrameCount();
@@ -19,8 +33,41 @@ export class ImpBaby extends Baby {
 
     // Rotate through the four directions.
     g.run.babyCounters++;
-    if (g.run.babyCounters >= 8) {
-      g.run.babyCounters = 4;
+    if (g.run.babyCounters > (Direction.DOWN as int)) {
+      g.run.babyCounters = Direction.LEFT;
     }
+  }
+
+  @CallbackCustom(ModCallbackCustom.INPUT_ACTION_PLAYER)
+  inputActionPlayerGetActionValue(
+    player: EntityPlayer,
+    inputHook: InputHook,
+    buttonAction: ButtonAction,
+  ): number | boolean | undefined {
+    if (!isFirstPlayer(player)) {
+      return undefined;
+    }
+
+    if (!isShootAction(buttonAction)) {
+      return undefined;
+    }
+
+    // The direction is stored in the "babyCounters" variable. It can have these values:
+    // - ButtonAction.SHOOT_LEFT (4)
+    // - ButtonAction.SHOOT_RIGHT (5)
+    // - ButtonAction.SHOOT_UP (6)
+    // - ButtonAction.SHOOT_DOWN (7)
+    const direction = g.run.babyCounters as Direction;
+    const shootAction = directionToShootAction(direction);
+    if (shootAction === undefined) {
+      return undefined;
+    }
+
+    if (buttonAction === shootAction) {
+      // Make the player face in this direction.
+      return inputHook === InputHook.GET_ACTION_VALUE ? 1 : true;
+    }
+
+    return inputHook === InputHook.GET_ACTION_VALUE ? 0 : false;
   }
 }
