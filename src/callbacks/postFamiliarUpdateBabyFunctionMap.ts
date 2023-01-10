@@ -9,26 +9,6 @@ export const postFamiliarUpdateBabyFunctionMap = new Map<
   (familiar: EntityFamiliar) => void
 >();
 
-// 36
-postFamiliarUpdateBabyFunctionMap.set(
-  RandomBabyType.LIL,
-  (familiar: EntityFamiliar) => {
-    // Everything is tiny. For some reason, familiars reset their SpriteScale on every frame, so we
-    // have to constantly set it back.
-    familiar.SpriteScale = Vector(0.5, 0.5);
-  },
-);
-
-// 37
-postFamiliarUpdateBabyFunctionMap.set(
-  RandomBabyType.BIG,
-  (familiar: EntityFamiliar) => {
-    // Everything is giant. For some reason, familiars reset their SpriteScale on every frame, so we
-    // have to constantly set it back.
-    familiar.SpriteScale = Vector(2, 2);
-  },
-);
-
 // 47
 postFamiliarUpdateBabyFunctionMap.set(
   RandomBabyType.SUCKY,

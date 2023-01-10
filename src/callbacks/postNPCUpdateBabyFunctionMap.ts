@@ -8,18 +8,6 @@ export const postNPCUpdateBabyFunctionMap = new Map<
   (npc: EntityNPC) => void
 >();
 
-// 36
-postNPCUpdateBabyFunctionMap.set(RandomBabyType.LIL, (npc: EntityNPC) => {
-  // Everything is tiny
-  npc.Scale = 0.5;
-});
-
-// 37
-postNPCUpdateBabyFunctionMap.set(RandomBabyType.BIG, (npc: EntityNPC) => {
-  // Everything is giant
-  npc.Scale = 2;
-});
-
 // 61
 postNPCUpdateBabyFunctionMap.set(RandomBabyType.ZOMBIE, (npc: EntityNPC) => {
   // Brings back enemies from the dead Reapply the fade on every frame because enemies can be

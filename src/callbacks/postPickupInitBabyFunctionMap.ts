@@ -1,12 +1,10 @@
 import {
   CardType,
-  LevelStage,
   PickupVariant,
   RoomType,
 } from "isaac-typescript-definitions";
 import {
   getCollectibleDevilHeartPrice,
-  inStartingRoom,
   isCollectible,
   repeat,
   setEntityRandomColor,
@@ -20,23 +18,6 @@ export const postPickupInitBabyFunctionMap = new Map<
   RandomBabyType,
   (pickup: EntityPickup) => void
 >();
-
-// 37
-postPickupInitBabyFunctionMap.set(
-  RandomBabyType.BIG,
-  (pickup: EntityPickup) => {
-    const stage = g.l.GetStage();
-
-    // Make an exception for the 4 Golden Chests, as those will be made giant before the babies
-    // effect is removed.
-    if (stage === LevelStage.DARK_ROOM_CHEST && inStartingRoom()) {
-      return;
-    }
-
-    // Everything is giant
-    pickup.SpriteScale = Vector(2, 2);
-  },
-);
 
 // 42
 postPickupInitBabyFunctionMap.set(

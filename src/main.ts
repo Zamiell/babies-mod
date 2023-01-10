@@ -11,7 +11,6 @@ import * as postFamiliarInit from "./callbacks/postFamiliarInit";
 import * as postFamiliarUpdate from "./callbacks/postFamiliarUpdate";
 import * as postLaserInit from "./callbacks/postLaserInit";
 import * as postLaserUpdate from "./callbacks/postLaserUpdate";
-import * as postNPCInit from "./callbacks/postNPCInit";
 import * as postNPCUpdate from "./callbacks/postNPCUpdate";
 import * as postPickupInit from "./callbacks/postPickupInit";
 import * as postPickupSelection from "./callbacks/postPickupSelection";
@@ -19,7 +18,6 @@ import * as postPickupUpdate from "./callbacks/postPickupUpdate";
 import * as postPlayerInit from "./callbacks/postPlayerInit";
 import * as postProjectileUpdate from "./callbacks/postProjectileUpdate";
 import * as postRender from "./callbacks/postRender";
-import * as postTearInit from "./callbacks/postTearInit";
 import * as postTearUpdate from "./callbacks/postTearUpdate";
 import * as postUpdate from "./callbacks/postUpdate";
 import * as postUseItem from "./callbacks/postUseItem";
@@ -81,11 +79,9 @@ function registerCallbacksMain() {
   executeCmd.init(); // 22
   preUseItem.init(); // 23
   preEntitySpawn.init(); // 24
-  postNPCInit.init(); // 27
   postPickupInit.init(); // 34
   postPickupSelection.init(); // 37
   postPickupUpdate.init(); // 38
-  postTearInit.init(); // 39
   postTearUpdate.init(); // 40
   postProjectileUpdate.init(); // 44
   postLaserInit.init(); // 47
