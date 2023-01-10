@@ -58,6 +58,7 @@ export { ConjoinedBaby } from "./babies/ConjoinedBaby";
 export { CoolOrangeBaby } from "./babies/CoolOrangeBaby";
 export { CorgiBaby } from "./babies/CorgiBaby";
 export { CorruptedBaby } from "./babies/CorruptedBaby";
+export { CowboyBaby } from "./babies/CowboyBaby";
 export { CrookedBaby } from "./babies/CrookedBaby";
 export { CrowBaby } from "./babies/CrowBaby";
 export { CryBaby } from "./babies/CryBaby";

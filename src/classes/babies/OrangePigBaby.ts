@@ -1,16 +1,18 @@
-import { CollectibleType } from "isaac-typescript-definitions";
-import { playerHasCollectible } from "isaacscript-common";
+import { CollectibleType, FamiliarVariant } from "isaac-typescript-definitions";
+import { removeAllFamiliars } from "isaacscript-common";
 import { Baby } from "../Baby";
-
-const NON_WORKING_COLLECTIBLE_TYPES = [
-  CollectibleType.DAMOCLES, // 577
-  CollectibleType.DAMOCLES_PASSIVE, // 656
-] as const;
 
 /** Double items. */
 export class OrangePigBaby extends Baby {
-  /** Damocles does not work properly with this mechanic. */
+  /**
+   * The Damocles passive is granted but we also want to ensure that the player does not have the
+   * Damocles active.
+   */
   override isValid(player: EntityPlayer): boolean {
-    return !playerHasCollectible(player, ...NON_WORKING_COLLECTIBLE_TYPES);
+    return !player.HasCollectible(CollectibleType.DAMOCLES);
+  }
+
+  override onAdd(): void {
+    removeAllFamiliars(FamiliarVariant.DAMOCLES);
   }
 }

@@ -4,17 +4,14 @@ import {
   EntityCollisionClass,
   ItemPoolType,
   PickupVariant,
-  ProjectileVariant,
 } from "isaac-typescript-definitions";
 import {
-  game,
   getCollectibleDevilHeartPrice,
   inStartingRoom,
   isChest,
   isCollectible,
   repeat,
   spawnPickup,
-  spawnProjectile,
 } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
@@ -227,75 +224,6 @@ postPickupUpdateBabyFunctionMap.set(
 
       // Remove the heart
       pickup.Remove();
-    }
-  },
-);
-
-// 381
-postPickupUpdateBabyFunctionMap.set(
-  RandomBabyType.ORANGE_PIG,
-  (pickup: EntityPickup) => {
-    const gameFrameCount = game.GetFrameCount();
-    const isFirstVisit = g.r.IsFirstVisit();
-
-    // Double items. We can't do this in the PostPickupInit callback because the position is not
-    // set.
-    if (
-      isCollectible(pickup) &&
-      isFirstVisit &&
-      // Frame 0 does not work.
-      pickup.FrameCount === 1 &&
-      pickup.State !== 2 && // We mark a state of 2 to indicate a duplicated pedestal
-      (g.run.babyCountersRoom === 0 ||
-        g.run.babyCountersRoom === gameFrameCount)
-    ) {
-      const position = g.r.FindFreePickupSpawnPosition(
-        pickup.Position,
-        1,
-        true,
-      );
-      const collectible = mod.spawnCollectible(
-        CollectibleType.NULL,
-        position,
-        g.run.rng,
-      );
-
-      // We don't want it to automatically be bought.
-      collectible.Price = pickup.Price;
-
-      // We want it to keep the behavior of the room.
-      collectible.OptionsPickupIndex = pickup.OptionsPickupIndex;
-
-      // Mark it so that we don't duplicate it again.
-      collectible.State = 2;
-
-      // We only want to duplicate pedestals once per room to avoid duplicating rerolled pedestals.
-      // (The state will go back to 0 for a rerolled pedestal.)
-      g.run.babyCountersRoom = gameFrameCount;
-    }
-  },
-);
-
-// 394
-postPickupUpdateBabyFunctionMap.set(
-  RandomBabyType.COWBOY,
-  (pickup: EntityPickup) => {
-    const sprite = pickup.GetSprite();
-    const collected = sprite.IsPlaying("Collect");
-
-    // Pickups shoot
-    if (
-      pickup.FrameCount % 35 === 0 && // Every 1.17 seconds
-      !collected // Don't shoot if we already picked it up
-    ) {
-      const velocity = g.p.Position.sub(pickup.Position).Normalized().mul(7);
-      spawnProjectile(
-        ProjectileVariant.NORMAL,
-        0,
-        pickup.Position,
-        velocity,
-        pickup,
-      );
     }
   },
 );

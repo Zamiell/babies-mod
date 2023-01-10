@@ -3299,6 +3299,7 @@ export const BABIES = {
     name: "Orange Pig Baby",
     description: "Double items",
     sprite: "381_baby_orangepig.png",
+    item: CollectibleType.DAMOCLES_PASSIVE,
     class: bc.OrangePigBaby,
   },
 
@@ -3415,6 +3416,8 @@ export const BABIES = {
     name: "Cowboy Baby",
     description: "Pickups shoot",
     sprite: "394_baby_cowboy.png",
+    num: 35, // Game frames in between shots
+    class: bc.CowboyBaby,
   },
 
   // 395
