@@ -1,4 +1,4 @@
-import { RoomType } from "isaac-typescript-definitions";
+import { PickupVariant, RoomType } from "isaac-typescript-definitions";
 
 export const MOD_NAME = "The Babies Mod";
 
@@ -30,3 +30,12 @@ export const ROOM_TYPES_TO_NOT_TRANSFORM: ReadonlySet<RoomType> = new Set([
   // The mechanic should not apply to in-between battle rooms.
   RoomType.BLUE, // 28
 ]);
+
+export const PICKUP_VARIANTS_IMMUNE_TO_BABY_EFFECTS: ReadonlySet<PickupVariant> =
+  new Set([
+    PickupVariant.COLLECTIBLE, // 100
+    PickupVariant.SHOP_ITEM, // 150
+    PickupVariant.BIG_CHEST, // 340
+    PickupVariant.TROPHY, // 370
+    PickupVariant.BED, // 380
+  ]);

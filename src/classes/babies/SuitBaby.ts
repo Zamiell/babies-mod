@@ -3,7 +3,11 @@ import {
   ModCallback,
   PickupVariant,
 } from "isaac-typescript-definitions";
-import { Callback, getCollectibleDevilHeartPrice } from "isaacscript-common";
+import {
+  Callback,
+  getCollectibleDevilHeartPrice,
+  isQuestCollectible,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { mod } from "../../mod";
 import {
@@ -22,6 +26,10 @@ export class SuitBaby extends Baby {
     const roomType = g.r.GetType();
 
     if (!shouldTransformRoomType(roomType)) {
+      return;
+    }
+
+    if (isQuestCollectible(collectible.SubType)) {
       return;
     }
 

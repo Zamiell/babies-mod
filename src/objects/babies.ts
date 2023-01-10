@@ -1147,6 +1147,7 @@ export const BABIES = {
     name: "Bugeyed Baby",
     description: "Pickups turn into Blue Spiders",
     sprite: "131_baby_bugeyed.png",
+    class: bc.BugeyedBaby,
   },
 
   // 132
@@ -1221,6 +1222,7 @@ export const BABIES = {
     name: "No Arms Baby",
     description: "Pickups are bouncy",
     sprite: "140_baby_noarms.png",
+    class: bc.NoArmsBaby,
   },
 
   // 141
@@ -1336,6 +1338,7 @@ export const BABIES = {
     name: "Rictus Baby",
     description: "Scared pickups",
     sprite: "154_baby_rictus.png",
+    class: bc.RictusBaby,
   },
 
   // 155
