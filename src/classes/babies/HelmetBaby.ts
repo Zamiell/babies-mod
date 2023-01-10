@@ -12,6 +12,14 @@ import { Baby } from "../Baby";
 
 /** Invulnerability when standing still. */
 export class HelmetBaby extends Baby {
+  /** Make sure that the fade is removed (or else it will persist to the next character). */
+  override onRemove(): void {
+    const color = g.p.GetColor();
+    const newColor = copyColor(color);
+    newColor.A = 1;
+    g.p.SetColor(newColor, 0, 0, true, true);
+  }
+
   // 1
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {

@@ -18,6 +18,14 @@ import { Baby } from "../Baby";
 
 /** Blender + flight + explosion immunity + blindfolded. */
 export class ImpBaby extends Baby {
+  override onAdd(): void {
+    const gameFrameCount = game.GetFrameCount();
+    const num = this.getAttribute("num");
+
+    g.run.babyCounters = Direction.LEFT;
+    g.run.babyFrame = gameFrameCount + num;
+  }
+
   // 1
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {

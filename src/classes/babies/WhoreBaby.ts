@@ -5,6 +5,10 @@ import { Baby } from "../Baby";
 
 /** All enemies explode. */
 export class WhoreBaby extends Baby {
+  override onAdd(): void {
+    g.run.babyExplosions = [];
+  }
+
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
     const roomListIndex = getRoomListIndex();

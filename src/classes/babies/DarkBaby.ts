@@ -1,10 +1,15 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { Callback, VectorZero } from "isaacscript-common";
 import { g } from "../../globals";
+import { initSprite } from "../../sprite";
 import { Baby } from "../Baby";
 
 /** Temporary blindness. */
 export class DarkBaby extends Baby {
+  override onAdd(): void {
+    g.run.babySprite = initSprite("gfx/misc/black.anm2");
+  }
+
   // 1
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {

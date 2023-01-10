@@ -34,6 +34,7 @@ import {
   isHeart,
   playerHasCollectible,
   playerHasForm,
+  removeEntities,
   sfxManager,
   spawnBattery,
   spawnCard,
@@ -194,11 +195,11 @@ export function isValidForMissingTearsEffect(): boolean {
 }
 
 export function removeAllFriendlyEntities(): void {
-  for (const entity of getEntities()) {
-    if (entity.HasEntityFlags(EntityFlag.FRIENDLY)) {
-      entity.Remove();
-    }
-  }
+  const entities = getEntities();
+  const friendlyEntities = entities.filter((entity) =>
+    entity.HasEntityFlags(EntityFlag.FRIENDLY),
+  );
+  removeEntities(friendlyEntities);
 }
 
 export function setTearColor(tear: EntityTear, color: Color): void {

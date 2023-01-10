@@ -16,8 +16,8 @@ import {
   setBlindfold,
   setPlayerHealth,
   smeltTrinket,
+  VectorOne,
 } from "isaacscript-common";
-import { babyAddFunctionMap } from "./babyAddFunctionMap";
 import { setBabyANM2, updatePlayerWithCostumeProtector } from "./costumes";
 import { g } from "./globals";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
@@ -146,14 +146,8 @@ export function babyAdd(player: EntityPlayer): void {
     babyClass.onAdd();
   }
 
-  // TODO: Refactor old logic into class methods.
-  const babyAddFunction = babyAddFunctionMap.get(babyType);
-  if (babyAddFunction !== undefined) {
-    babyAddFunction();
-  }
-
   // Reset the player's size.
-  player.SpriteScale = Vector(1, 1);
+  player.SpriteScale = VectorOne;
 
   // Some babies grant extra stats or flight.
   player.AddCacheFlags(CacheFlag.ALL);

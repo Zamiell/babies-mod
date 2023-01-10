@@ -8,11 +8,18 @@ import {
   useActiveItemTemp,
 } from "isaacscript-common";
 import { g } from "../../globals";
+import { initSprite } from "../../sprite";
 import { shouldShowRealHeartsUIForDevilDeal } from "../../utils";
 import { Baby } from "../Baby";
 
 /** +2 keys + keys are hearts. */
 export class HopelessBaby extends Baby {
+  override onAdd(): void {
+    g.p.AddKeys(2);
+
+    g.run.babySprite = initSprite("gfx/custom-health/key.anm2");
+  }
+
   // 1
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {

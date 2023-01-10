@@ -1,5 +1,9 @@
 TODO:
 
+- onRemove should pass player
+- onAdd should pass player
+- SaveDataManager
+
 List of hard babies:
 - Troll Baby (#6) - Spawns a Troll Bomb every 3 seconds
 - Noose Baby (#39) - Don't shoot when the timer reaches 0

@@ -5,6 +5,10 @@ import { Baby } from "../Baby";
 
 /** B00B T00B. */
 export class DigitalBaby extends Baby {
+  override onRemove(): void {
+    g.seeds.RemoveSeedEffect(SeedEffect.OLD_TV); // B00B T00B
+  }
+
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
     const roomFrameCount = g.r.GetFrameCount();

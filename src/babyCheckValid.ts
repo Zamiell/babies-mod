@@ -59,7 +59,7 @@ export function babyCheckValid(
     return false;
   }
 
-  if (!checkHealth(player, babyType, baby)) {
+  if (!checkHealth(player, baby)) {
     return false;
   }
 
@@ -137,11 +137,7 @@ function checkActiveItem(player: EntityPlayer, baby: BabyDescription): boolean {
   return true;
 }
 
-function checkHealth(
-  player: EntityPlayer,
-  babyType: RandomBabyType,
-  baby: BabyDescription,
-): boolean {
+function checkHealth(player: EntityPlayer, baby: BabyDescription): boolean {
   const maxHearts = player.GetMaxHearts();
   const soulHearts = player.GetSoulHearts();
   const boneHearts = player.GetBoneHearts();
@@ -153,12 +149,6 @@ function checkHealth(
   }
 
   if (babyItemSet.has(CollectibleType.POTATO_PEELER) && maxHearts === 0) {
-    return false;
-  }
-
-  // 210
-  if (babyType === RandomBabyType.MEAT_BOY && maxHearts === 0) {
-    // Potato Peeler effect on hit.
     return false;
   }
 

@@ -1,14 +1,23 @@
 import {
   BlueFlySubType,
   CacheFlag,
+  EntityType,
   FamiliarVariant,
   ModCallback,
 } from "isaac-typescript-definitions";
-import { Callback, spawnFamiliar } from "isaacscript-common";
+import {
+  Callback,
+  removeAllMatchingEntities,
+  spawnFamiliar,
+} from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Shoots explosive flies + flight. */
 export class SickBaby extends Baby {
+  override onRemove(): void {
+    removeAllMatchingEntities(EntityType.FAMILIAR, FamiliarVariant.BLUE_FLY);
+  }
+
   // 8
   @Callback(ModCallback.EVALUATE_CACHE, CacheFlag.FIRE_DELAY)
   evaluateCacheFireDelay(player: EntityPlayer): void {

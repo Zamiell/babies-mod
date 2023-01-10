@@ -8,6 +8,10 @@ import { Baby } from "../Baby";
 
 /** Flight + can walk through walls. */
 export class ButterflyBaby2 extends Baby {
+  override onRemove(): void {
+    g.p.GridCollisionClass = EntityGridCollisionClass.GROUND;
+  }
+
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
     g.p.GridCollisionClass = EntityGridCollisionClass.NONE;

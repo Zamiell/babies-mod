@@ -5,6 +5,13 @@ import { Baby } from "../Baby";
 
 /** Starts with How to Jump; must jump often. */
 export class RabbitBaby extends Baby {
+  override onAdd(): void {
+    const gameFrameCount = game.GetFrameCount();
+    const num = this.getAttribute("num");
+
+    g.run.babyFrame = gameFrameCount + num;
+  }
+
   // 1
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {

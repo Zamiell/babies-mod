@@ -372,6 +372,7 @@ export const BABIES = {
     description: "Starts with Hive Mind + max Blue Flies + max Blue Spiders",
     sprite: "040_baby_hive.png",
     item: CollectibleType.HIVE_MIND,
+    class: bc.HiveBaby,
   },
 
   // 41
@@ -547,6 +548,7 @@ export const BABIES = {
     name: "Zombie Baby",
     description: "Brings back enemies from the dead",
     sprite: "061_baby_zombie.png",
+    class: bc.ZombieBaby,
   },
 
   // 62
@@ -1353,6 +1355,7 @@ export const BABIES = {
     description: "All enemies are permanently charmed",
     sprite: "157_baby_attractive.png",
     seed: SeedEffect.ALWAYS_CHARMED,
+    class: bc.AttractiveBaby,
   },
 
   // 158
@@ -1879,6 +1882,7 @@ export const BABIES = {
     description: "Starts with The Battery",
     sprite: "219_baby_isaac.png",
     item: CollectibleType.BATTERY,
+    class: bc.IsaacBaby,
   },
 
   // 220
@@ -2945,6 +2949,7 @@ export const BABIES = {
     name: "Cyborg Baby",
     description: "Sees numerical damage values", // debug 7
     sprite: "343_baby_cyborg.png",
+    class: bc.CyborgBaby,
   },
 
   // 344
@@ -3232,6 +3237,7 @@ export const BABIES = {
     name: "Dino Baby",
     description: "Gains a explosive egg per enemy killed",
     sprite: "376_baby_dino.png",
+    class: bc.DinoBaby,
   },
 
   // 377

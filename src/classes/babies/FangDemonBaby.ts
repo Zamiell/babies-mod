@@ -1,4 +1,5 @@
 import {
+  CollectibleType,
   DamageFlag,
   DamageFlagZero,
   EffectVariant,
@@ -9,8 +10,22 @@ import { Callback } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
+const SOFTLOCK_COLLECTIBLE_TYPES = [
+  CollectibleType.MOMS_KNIFE, // 114
+  CollectibleType.EPIC_FETUS, // 168
+  CollectibleType.MONSTROS_LUNG, // 229
+  CollectibleType.TECH_X, // 395
+] as const;
+
 /** Directed light beams */
 export class FangDemonBaby extends Baby {
+  /** Some collectibles will cause a softlock, so we remove them from all pools as a quick fix. */
+  override onAdd(): void {
+    for (const collectibleType of SOFTLOCK_COLLECTIBLE_TYPES) {
+      g.itemPool.RemoveCollectible(collectibleType);
+    }
+  }
+
   /**
    * Make the light beam damage be based on the player's damage. (Normally, light beams do 2 damage
    * on every tick and are not based on the player's damage.)

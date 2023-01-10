@@ -5,6 +5,13 @@ import { Baby } from "../Baby";
 
 /** Must stand still every 10 seconds. */
 export class VomitBaby extends Baby {
+  override onAdd(): void {
+    const gameFrameCount = game.GetFrameCount();
+    const num = this.getAttribute("num");
+
+    g.run.babyCounters = gameFrameCount + num;
+  }
+
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
     const gameFrameCount = game.GetFrameCount();
