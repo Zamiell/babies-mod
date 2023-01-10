@@ -670,6 +670,7 @@ export const BABIES = {
     description: "50% chance for bombs to have the D6 effect",
     sprite: "075_baby_bomb.png",
     requireBombs: true,
+    class: bc.BombBaby,
   },
 
   // 76
@@ -955,6 +956,7 @@ export const BABIES = {
     name: "Nosferatu Baby",
     description: "Enemies have homing projectiles",
     sprite: "109_baby_nosferatu.png",
+    class: bc.NosferatuBaby,
   },
 
   // 110
@@ -1226,6 +1228,7 @@ export const BABIES = {
     name: "Twin Baby",
     description: "Uncontrollable Teleport 2.0",
     sprite: "141_baby_twin2.png",
+    class: bc.TwinBaby,
   },
 
   // 142
@@ -1242,6 +1245,7 @@ export const BABIES = {
     name: "Chompers Baby",
     description: "Everything is Red Poop",
     sprite: "143_baby_chompers.png",
+    class: bc.ChompersBaby,
   },
 
   // 144
@@ -1436,6 +1440,7 @@ export const BABIES = {
     name: "Spike Baby",
     description: "All chests are Mimics + all chests have items",
     sprite: "166_baby_spike.png",
+    class: bc.SpikeBaby,
   },
 
   // 167
@@ -1492,6 +1497,7 @@ export const BABIES = {
     name: "Ate Poop Baby",
     description: "Destroying poops spawns random pickups",
     sprite: "173_baby_atepoop.png",
+    class: bc.AtePoopBaby,
   },
 
   // 174
@@ -1850,6 +1856,7 @@ export const BABIES = {
     name: "Shopkeeper Baby",
     description: "Free shop items",
     sprite: "215_baby_shopkeeper.png",
+    class: bc.ShopkeeperBaby,
   },
 
   // 216
@@ -2035,6 +2042,7 @@ export const BABIES = {
     name: "Gem Baby",
     description: "Pennies spawn as nickels",
     sprite: "237_baby_gem.png",
+    class: bc.GemBaby,
   },
 
   // 238
@@ -2722,6 +2730,7 @@ export const BABIES = {
     name: "Scary Baby",
     description: "Items cost hearts",
     sprite: "317_baby_scary.png",
+    class: bc.ScaryBaby,
   },
 
   // 318
@@ -3363,6 +3372,7 @@ export const BABIES = {
     name: "Red Wrestler Baby",
     description: "Everything is TNT",
     sprite: "389_baby_redwrestler.png",
+    class: bc.RedWrestlerBaby,
   },
 
   // 390
@@ -3767,6 +3777,7 @@ export const BABIES = {
     name: "Breadmeat Hoodiebread Baby",
     description: "Everything is sped up",
     sprite: "437_baby_breadmeat_hoodiebread.png",
+    class: bc.BreadmeatHoodiebreadBaby,
   },
 
   // 438
@@ -4607,6 +4618,7 @@ export const BABIES = {
     name: "Eyebat Baby",
     description: "Floors are reversed",
     sprite: "535_baby_eyebat.png",
+    class: bc.EyebatBaby,
   },
 
   // 536
@@ -4902,6 +4914,7 @@ export const BABIES = {
     description: "Items are replaced with 6 cards",
     sprite: "571_baby_pointless.png",
     num: 6,
+    class: bc.PointlessBaby
   },
 
   // 572

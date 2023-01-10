@@ -1,6 +1,8 @@
 import { CollectibleType, SoundEffect } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
+  getEffectiveStage,
+  inIRange,
   ModCallbackCustom,
   playerHasCollectible,
   removeCollectibleFromItemTracker,
@@ -16,8 +18,17 @@ const GRANTED_COLLECTIBLE_TYPES = [
 
 /** Guaranteed Devil Room + Angel Room after N hits. */
 export class GoatBaby extends Baby {
+  /**
+   * Only valid for floors with Devil Rooms. Also, we are guaranteed a Devil Room on Basement 2, so
+   * we don't want to have it there either.
+   */
   override isValid(player: EntityPlayer): boolean {
-    return !playerHasCollectible(player, ...GRANTED_COLLECTIBLE_TYPES);
+    const effectiveStage = getEffectiveStage();
+
+    return (
+      !playerHasCollectible(player, ...GRANTED_COLLECTIBLE_TYPES) &&
+      inIRange(effectiveStage, 3, 8)
+    );
   }
 
   override onRemove(player: EntityPlayer): void {

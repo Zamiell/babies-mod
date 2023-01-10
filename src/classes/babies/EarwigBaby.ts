@@ -13,20 +13,20 @@ import { Baby } from "../Baby";
 
 /** N rooms are already explored. */
 export class EarwigBaby extends Baby {
+  /**
+   * - If the player has mapping, this effect is largely useless (but having the Blue Map is okay).
+   * - We don't want this baby on the first floor since it interferes with resetting.
+   */
   override isValid(player: EntityPlayer): boolean {
     const effectiveStage = getEffectiveStage();
 
-    // - We don't want this baby on the first floor since it interferes with resetting.
-    // - If the player has mapping, this effect is largely useless (but having the Blue Map is
-    //   okay).
     return (
-      effectiveStage !== 1 &&
       !playerHasCollectible(
         player,
         CollectibleType.COMPASS, // 21
         CollectibleType.TREASURE_MAP, // 54
         CollectibleType.MIND, // 333
-      )
+      ) && effectiveStage !== 1
     );
   }
 

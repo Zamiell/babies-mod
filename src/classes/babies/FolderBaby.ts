@@ -4,7 +4,7 @@ import {
   ModCallback,
   RoomType,
 } from "isaac-typescript-definitions";
-import { Callback } from "isaacscript-common";
+import { Callback, onStageWithNaturalDevilRoom } from "isaacscript-common";
 import { g } from "../../globals";
 import { getRandomCollectibleTypeFromPool } from "../../utils";
 import { Baby } from "../Baby";
@@ -19,6 +19,10 @@ const ROOM_TYPE_TO_ITEM_POOL_TYPE_MAP: ReadonlyMap<RoomType, ItemPoolType> =
 
 /** Swaps item/shop pools + devil/angel pools. */
 export class FolderBaby extends Baby {
+  override isValid(): boolean {
+    return onStageWithNaturalDevilRoom();
+  }
+
   @Callback(ModCallback.PRE_GET_COLLECTIBLE)
   preGetCollectible(): CollectibleType | undefined {
     const roomType = g.r.GetType();

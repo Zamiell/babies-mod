@@ -231,39 +231,6 @@ postPickupUpdateBabyFunctionMap.set(
   },
 );
 
-// 317
-postPickupUpdateBabyFunctionMap.set(
-  RandomBabyType.SCARY,
-  (pickup: EntityPickup) => {
-    // Items cost hearts
-    if (isCollectible(pickup)) {
-      // If the price is not correct, update it. (We have to check on every frame in case the health
-      // situation changes.)
-      const price = getCollectibleDevilHeartPrice(pickup.SubType, g.p);
-      if (pickup.Price !== (price as int)) {
-        pickup.AutoUpdatePrice = false;
-        pickup.Price = price;
-      }
-    } else if (isRerolledCollectibleBuggedHeart(pickup)) {
-      // Rerolled items turn into hearts since we are not in a Devil Room, so delete the heart and
-      // manually create another pedestal item.
-      const collectible = mod.spawnCollectible(
-        CollectibleType.NULL,
-        pickup.Position,
-        pickup.InitSeed,
-      );
-      collectible.AutoUpdatePrice = false;
-      collectible.Price = getCollectibleDevilHeartPrice(
-        collectible.SubType,
-        g.p,
-      );
-
-      // Remove the heart
-      pickup.Remove();
-    }
-  },
-);
-
 // 381
 postPickupUpdateBabyFunctionMap.set(
   RandomBabyType.ORANGE_PIG,

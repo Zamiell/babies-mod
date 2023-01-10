@@ -4,7 +4,6 @@ import {
   RoomType,
 } from "isaac-typescript-definitions";
 import {
-  getCollectibleDevilHeartPrice,
   isCollectible,
   repeat,
   setEntityRandomColor,
@@ -79,18 +78,6 @@ postPickupInitBabyFunctionMap.set(
       const sprite = pickup.GetSprite();
       sprite.ReplaceSpritesheet(0, `gfx/cards/${pickup.SubType}.png`);
       sprite.LoadGraphics();
-    }
-  },
-);
-
-// 317
-postPickupInitBabyFunctionMap.set(
-  RandomBabyType.SCARY,
-  (pickup: EntityPickup) => {
-    // Items cost hearts
-    if (isCollectible(pickup)) {
-      pickup.AutoUpdatePrice = false;
-      pickup.Price = getCollectibleDevilHeartPrice(pickup.SubType, g.p);
     }
   },
 );

@@ -2,6 +2,7 @@ TODO:
 
 - SaveDataManager
 - Gamonymous suggestions
+- look at all getEffectiveStage comparisons
 
 List of hard babies:
 - Troll Baby (#6) - Spawns a Troll Bomb every 3 seconds

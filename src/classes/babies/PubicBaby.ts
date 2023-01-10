@@ -1,8 +1,14 @@
-import { Dimension, ModCallback, RoomType } from "isaac-typescript-definitions";
+import {
+  Dimension,
+  LevelStage,
+  ModCallback,
+  RoomType,
+} from "isaac-typescript-definitions";
 import {
   Callback,
   getDimension,
   getDoors,
+  getEffectiveStage,
   isAllRoomsClear,
 } from "isaacscript-common";
 import { g } from "../../globals";
@@ -10,6 +16,12 @@ import { Baby } from "../Baby";
 
 /** Must full clear. */
 export class PubicBaby extends Baby {
+  /** Full clearing the final floor is too punishing. */
+  override isValid(): boolean {
+    const effectiveStage = getEffectiveStage();
+    return effectiveStage !== (LevelStage.DARK_ROOM_CHEST as int);
+  }
+
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
     const roomClear = g.r.IsClear();

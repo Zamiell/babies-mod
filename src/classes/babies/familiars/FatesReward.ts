@@ -4,7 +4,6 @@ import {
   PickupVariant,
 } from "isaac-typescript-definitions";
 import { Callback, getEffectiveStage } from "isaacscript-common";
-import { g } from "../../../globals";
 import { mod } from "../../../mod";
 import { isRerolledCollectibleBuggedHeart } from "../../../utils";
 import { Baby } from "../../Baby";
@@ -35,18 +34,19 @@ export class FatesReward extends Baby {
     pickup.Price = 15;
   }
 
+  /**
+   * Rerolled items turn into hearts, so delete the heart and manually create another pedestal item.
+   */
   // 35
   @Callback(ModCallback.POST_PICKUP_UPDATE, PickupVariant.HEART)
   postPickupUpdateHeart(pickup: EntityPickup): void {
-    // Rerolled items turn into hearts, so delete the heart and manually create another pedestal
-    // item.
     if (isRerolledCollectibleBuggedHeart(pickup)) {
       pickup.Remove();
 
       const collectible = mod.spawnCollectible(
         CollectibleType.NULL,
         pickup.Position,
-        g.run.room.rng,
+        pickup.InitSeed,
       );
       collectible.AutoUpdatePrice = false;
       collectible.Price = 15;

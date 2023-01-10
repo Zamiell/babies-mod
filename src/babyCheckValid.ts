@@ -2,15 +2,14 @@ import {
   ActiveSlot,
   CollectibleType,
   ItemType,
-  LevelCurse,
+  LevelStage,
   TrinketType,
 } from "isaac-typescript-definitions";
 import {
   AnyFunction,
   getCollectibleItemType,
   getEffectiveStage,
-  hasFlag,
-  onRepentanceStage,
+  onStageWithNaturalDevilRoom,
   playerHasCollectible,
 } from "isaacscript-common";
 import { RandomBabyType } from "./enums/RandomBabyType";
@@ -52,6 +51,9 @@ export function babyCheckValid(
   if ("item3" in baby && player.HasCollectible(baby.item3)) {
     return false;
   }
+  if ("trinket" in baby && player.HasTrinket(baby.trinket)) {
+    return false;
+  }
 
   // If the player does not have a slot for an active item, do not give them an active item baby.
   if (!checkActiveItem(player, baby)) {
@@ -78,15 +80,7 @@ export function babyCheckValid(
     return false;
   }
 
-  if (!checkTrinkets(player, babyType)) {
-    return false;
-  }
-
-  if (!checkStage(babyType, baby)) {
-    return false;
-  }
-
-  if (!checkCurses(babyType)) {
+  if (!checkStage(baby)) {
     return false;
   }
 
@@ -104,7 +98,10 @@ export function babyCheckValid(
     AnyFunction | undefined
   >;
   const babyPreGetCollectibleMethod = castedBabyClass["preGetCollectible"];
-  if (babyPreGetCollectibleMethod !== undefined && effectiveStage === 1) {
+  if (
+    babyPreGetCollectibleMethod !== undefined &&
+    effectiveStage === LevelStage.BASEMENT_1
+  ) {
     return false;
   }
 
@@ -244,50 +241,52 @@ function playerHasTears(player: EntityPlayer): boolean {
   return !hasCollectibleThatRemovesTears;
 }
 
-function checkTrinkets(
-  player: EntityPlayer,
-  babyType: RandomBabyType,
-): boolean {
+function checkStage(baby: BabyDescription): boolean {
+  const effectiveStage = getEffectiveStage();
+  const babyItemsSet = getBabyItemsSet(baby);
+
   if (
-    babyType === RandomBabyType.SPIKE && // 166
-    player.HasTrinket(TrinketType.LEFT_HAND) // 61
+    baby.requireNoEndFloors === true &&
+    effectiveStage >= LevelStage.BLUE_WOMB
   ) {
     return false;
   }
 
-  return true;
-}
-
-function checkStage(babyType: RandomBabyType, baby: BabyDescription): boolean {
-  const effectiveStage = getEffectiveStage();
-  const babyItemsSet = getBabyItemsSet(baby);
-
-  if (baby.requireNoEndFloors === true && effectiveStage >= 9) {
-    return false;
-  }
-
-  if (babyItemsSet.has(CollectibleType.STEAM_SALE) && effectiveStage >= 7) {
+  if (
+    babyItemsSet.has(CollectibleType.STEAM_SALE) &&
+    effectiveStage >= LevelStage.WOMB_1
+  ) {
     // Only valid for floors with shops.
     return false;
   }
 
   if (
     babyItemsSet.has(CollectibleType.WE_NEED_TO_GO_DEEPER) &&
-    (effectiveStage <= 2 || effectiveStage >= 8)
+    (effectiveStage <= LevelStage.BASEMENT_2 ||
+      effectiveStage >= LevelStage.WOMB_2)
   ) {
     // Only valid for floors that the shovel will work on.
     return false;
   }
 
-  if (babyItemsSet.has(CollectibleType.SCAPULAR) && effectiveStage >= 7) {
+  if (
+    babyItemsSet.has(CollectibleType.SCAPULAR) &&
+    effectiveStage >= LevelStage.WOMB_1
+  ) {
     return false;
   }
 
-  if (babyItemsSet.has(CollectibleType.CRYSTAL_BALL) && effectiveStage <= 2) {
+  if (
+    babyItemsSet.has(CollectibleType.CRYSTAL_BALL) &&
+    effectiveStage <= LevelStage.BASEMENT_2
+  ) {
     return false;
   }
 
-  if (babyItemsSet.has(CollectibleType.UNDEFINED) && effectiveStage <= 2) {
+  if (
+    babyItemsSet.has(CollectibleType.UNDEFINED) &&
+    effectiveStage <= LevelStage.BASEMENT_2
+  ) {
     return false;
   }
 
@@ -295,23 +294,24 @@ function checkStage(babyType: RandomBabyType, baby: BabyDescription): boolean {
     (babyItemsSet.has(CollectibleType.GOAT_HEAD) || // 215
       babyItemsSet.has(CollectibleType.DUALITY) || // 498
       babyItemsSet.has(CollectibleType.EUCHARIST)) && // 499
-    (effectiveStage === 1 || effectiveStage >= 9)
+    !onStageWithNaturalDevilRoom()
   ) {
-    // Only valid for floors with Devil Rooms.
     return false;
   }
 
   if (
     babyItemsSet.has(CollectibleType.THERES_OPTIONS) && // 249
-    (effectiveStage === 6 || effectiveStage >= 8)
+    (effectiveStage === LevelStage.DEPTHS_2 ||
+      effectiveStage >= LevelStage.WOMB_2)
   ) {
-    // There won't be a boss item on floor 6 or floor 8 and beyond.
+    // There won't be a boss item on floor 6 or floor 8+.
     return false;
   }
 
   if (
     babyItemsSet.has(CollectibleType.MORE_OPTIONS) && // 414
-    (effectiveStage === 1 || effectiveStage >= 7)
+    (effectiveStage === LevelStage.BASEMENT_1 ||
+      effectiveStage > LevelStage.DEPTHS_2)
   ) {
     // We always have More Options on Basement 1 There are no Treasure Rooms on floors 7 and beyond.
     return false;
@@ -319,177 +319,19 @@ function checkStage(babyType: RandomBabyType, baby: BabyDescription): boolean {
 
   if (
     babyItemsSet.has(CollectibleType.VANISHING_TWIN) && // 697
-    (effectiveStage === 6 || effectiveStage >= 8)
+    (effectiveStage === LevelStage.DEPTHS_2 ||
+      effectiveStage >= LevelStage.WOMB_2)
   ) {
     // Some floors have bosses that cannot be doubled.
     return false;
   }
 
-  if (baby.trinket === TrinketType.DEVILS_CROWN && effectiveStage > 6) {
+  if (
+    baby.trinket === TrinketType.DEVILS_CROWN &&
+    (effectiveStage === LevelStage.BASEMENT_1 ||
+      effectiveStage > LevelStage.DEPTHS_2)
+  ) {
     // Devil's Crown doesn't do anything on floors that do not have Treasure Rooms.
-    return false;
-  }
-
-  // 62
-  if (
-    babyType === RandomBabyType.GOAT &&
-    (effectiveStage <= 2 || effectiveStage >= 9)
-  ) {
-    // Only valid for floors with Devil Rooms. Also, we are guaranteed a Devil Room on Basement 2,
-    // so we don't want to have it there either.
-    return false;
-  }
-
-  // 75
-  if (babyType === RandomBabyType.BOMB && effectiveStage === 10) {
-    // 50% chance for bombs to have the D6 effect.
-    return false;
-  }
-
-  // 109
-  if (babyType === RandomBabyType.NOSFERATU && effectiveStage >= 8) {
-    // Enemies have homing projectiles This makes end-game floors too difficult.
-    return false;
-  }
-
-  // 110
-  if (babyType === RandomBabyType.PUBIC && effectiveStage === 11) {
-    // Must full clear Full clearing The Chest is too punishing.
-    return false;
-  }
-
-  // 128
-  if (babyType === RandomBabyType.EARWIG && effectiveStage === 1) {
-    // 3 rooms are already explored. This can make resetting slower, so don't have this baby on
-    // Basement 1.
-    return false;
-  }
-
-  // 136
-  if (babyType === RandomBabyType.TEARS && effectiveStage === 2) {
-    // Starts with the Soul Jar. Getting this on Basement 2 would cause a missed devil deal.
-    return false;
-  }
-
-  // 141
-  if (babyType === RandomBabyType.TWIN && effectiveStage === 8) {
-    // If they mess up and go past the Boss Room, they can get the wrong path.
-    return false;
-  }
-
-  // 143
-  if (babyType === RandomBabyType.CHOMPERS && effectiveStage === 11) {
-    // Everything is Red Poop. There are almost no grid entities on The Chest.
-    return false;
-  }
-
-  // 173
-  if (babyType === RandomBabyType.ATE_POOP && effectiveStage === 11) {
-    // Destroying poops spawns random pickups. There are hardly any poops on The Chest.
-    return false;
-  }
-
-  // 215
-  if (babyType === RandomBabyType.SHOPKEEPER && effectiveStage >= 7) {
-    // Free shop items
-    return false;
-  }
-
-  // 237
-  if (babyType === RandomBabyType.GEM && effectiveStage >= 7) {
-    // Pennies spawn as nickels. Money is useless past Depths 2.
-    return false;
-  }
-
-  // 315
-  if (babyType === RandomBabyType.PUZZLE && effectiveStage === 10) {
-    // The D6 effect on hit.
-    return false;
-  }
-
-  // 317
-  if (babyType === RandomBabyType.SCARY && effectiveStage === 6) {
-    // Items cost hearts. The player may not be able to take The Polaroid (when playing a normal
-    // run).
-    return false;
-  }
-
-  // 389
-  if (babyType === RandomBabyType.RED_WRESTLER && effectiveStage === 11) {
-    // Everything is TNT. There are almost no grid entities on The Chest / Dark Room.
-    return false;
-  }
-
-  // 430
-  if (
-    babyType === RandomBabyType.FOLDER &&
-    (effectiveStage === 1 || effectiveStage === 10)
-  ) {
-    // Swaps item/shop pools + devil/angel pools.
-    return false;
-  }
-
-  // 437
-  if (
-    babyType === RandomBabyType.BREADMEAT_HOODIEBREAD &&
-    effectiveStage >= 8
-  ) {
-    // Everything is sped up.
-    return false;
-  }
-
-  // 514
-  if (
-    babyType === RandomBabyType.HOOLIGAN &&
-    (effectiveStage === 6 || effectiveStage >= 8)
-  ) {
-    // Double enemies. Mom cannot be doubled, so don't give this baby on stage 6. It Lives cannot be
-    // doubled, so don't give this baby on stage 8. Furthermore, double enemies would be too hard on
-    // the final stages.
-    return false;
-  }
-
-  // 519
-  if (babyType === RandomBabyType.BAGGY_CAP && effectiveStage === 11) {
-    return false;
-  }
-
-  // 535
-  if (
-    babyType === RandomBabyType.EYEBAT &&
-    (effectiveStage === 1 ||
-      effectiveStage === 6 ||
-      effectiveStage >= 8 ||
-      onRepentanceStage())
-  ) {
-    // - We don't want to have this on any end floors so that we can simply the logic and always
-    //   spawn a trapdoor.
-    // - We don't want this on the first floor since it interferes with resetting.
-    return false;
-  }
-
-  // 571
-  if (
-    babyType === RandomBabyType.POINTLESS &&
-    (effectiveStage === 1 || effectiveStage === 2)
-  ) {
-    // - Ban it on the first floor so that it does not conflict with resetting for a Treasure Room
-    //   item.
-    // - Ban it on the second floor so that it does not conflict with the first devil deal.
-    return false;
-  }
-
-  return true;
-}
-
-function checkCurses(babyType: RandomBabyType): boolean {
-  const curses = g.l.GetCurses();
-
-  if (
-    babyType === RandomBabyType.EYEBAT && // 535
-    hasFlag(curses, LevelCurse.LABYRINTH)
-  ) {
-    // Floors are reversed.
     return false;
   }
 
