@@ -3,12 +3,7 @@ import {
   PickupVariant,
   RoomType,
 } from "isaac-typescript-definitions";
-import {
-  isCollectible,
-  repeat,
-  setEntityRandomColor,
-  spawnCard,
-} from "isaacscript-common";
+import { isCollectible, repeat, spawnCard } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { getCurrentBabyDescription } from "../utilsBaby";
@@ -17,14 +12,6 @@ export const postPickupInitBabyFunctionMap = new Map<
   RandomBabyType,
   (pickup: EntityPickup) => void
 >();
-
-// 42
-postPickupInitBabyFunctionMap.set(
-  RandomBabyType.COLORFUL,
-  (pickup: EntityPickup) => {
-    setEntityRandomColor(pickup);
-  },
-);
 
 // 215
 postPickupInitBabyFunctionMap.set(

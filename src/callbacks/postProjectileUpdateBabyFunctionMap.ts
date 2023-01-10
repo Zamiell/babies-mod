@@ -4,7 +4,7 @@ import {
   EntityType,
   ProjectileFlag,
 } from "isaac-typescript-definitions";
-import { setEntityRandomColor, spawnBomb } from "isaacscript-common";
+import { spawnBomb } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { getCurrentBabyDescription } from "../utilsBaby";
@@ -13,16 +13,6 @@ export const postProjectileUpdateBabyFunctionMap = new Map<
   RandomBabyType,
   (projectile: EntityProjectile) => void
 >();
-
-// 42
-postProjectileUpdateBabyFunctionMap.set(
-  RandomBabyType.COLORFUL,
-  (projectile: EntityProjectile) => {
-    if (projectile.FrameCount === 1) {
-      setEntityRandomColor(projectile);
-    }
-  },
-);
 
 // 61
 postProjectileUpdateBabyFunctionMap.set(
@@ -106,21 +96,6 @@ postProjectileUpdateBabyFunctionMap.set(
       data["modified"] = true;
       projectile.AddProjectileFlags(ProjectileFlag.CONTINUUM);
       projectile.Height *= 2;
-    }
-  },
-);
-
-// 318
-postProjectileUpdateBabyFunctionMap.set(
-  RandomBabyType.FIREBALL,
-  (projectile: EntityProjectile) => {
-    // Prevent fires from shooting. (This cannot be done in the PostProjectileInit callback since
-    // "projectile.SpawnerType" is empty.)
-    if (
-      projectile.FrameCount === 1 &&
-      projectile.SpawnerType === EntityType.FIREPLACE
-    ) {
-      projectile.Remove();
     }
   },
 );

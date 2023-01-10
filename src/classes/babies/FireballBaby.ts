@@ -1,9 +1,25 @@
-import { DamageFlag, EntityType } from "isaac-typescript-definitions";
-import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
+import {
+  DamageFlag,
+  EntityType,
+  ModCallback,
+} from "isaac-typescript-definitions";
+import {
+  Callback,
+  CallbackCustom,
+  ModCallbackCustom,
+} from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Explosion immunity + fire immunity. */
 export class FireballBaby extends Baby {
+  // 43
+  @Callback(ModCallback.POST_PROJECTILE_INIT)
+  postProjectileInit(projectile: EntityProjectile): void {
+    if (projectile.SpawnerType === EntityType.FIREPLACE) {
+      projectile.Remove();
+    }
+  }
+
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(
     _player: EntityPlayer,

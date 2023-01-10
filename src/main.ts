@@ -3,7 +3,6 @@ import { babiesCheckValid } from "./babiesCheckValid";
 import * as evaluateCache from "./callbacks/evaluateCache";
 import * as executeCmd from "./callbacks/executeCmd";
 import * as postBombUpdate from "./callbacks/postBombUpdate";
-import * as postEffectInit from "./callbacks/postEffectInit";
 import * as postEffectUpdate from "./callbacks/postEffectUpdate";
 import * as postEntityKill from "./callbacks/postEntityKill";
 import * as postFamiliarInit from "./callbacks/postFamiliarInit";
@@ -81,7 +80,6 @@ function registerCallbacksMain() {
   postPickupUpdate.init(); // 38
   postTearUpdate.init(); // 40
   postProjectileUpdate.init(); // 44
-  postEffectInit.init(); // 54
   postEffectUpdate.init(); // 55
   postBombUpdate.init(); // 58
   postEntityKill.init(); // 68

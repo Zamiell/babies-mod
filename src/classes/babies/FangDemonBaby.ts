@@ -3,10 +3,17 @@ import {
   DamageFlag,
   DamageFlagZero,
   EffectVariant,
+  EntityPartition,
   EntityType,
   ModCallback,
 } from "isaac-typescript-definitions";
-import { Callback, playerHasCollectible } from "isaacscript-common";
+import {
+  Callback,
+  game,
+  playerHasCollectible,
+  spawnEffect,
+  VectorZero,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
@@ -15,7 +22,12 @@ const SOFTLOCK_COLLECTIBLE_TYPES = [
   CollectibleType.EPIC_FETUS, // 168
   CollectibleType.MONSTROS_LUNG, // 229
   CollectibleType.TECH_X, // 395
+  // Eye of the Occult does not cause a softlock, but we remove it since it changes the effect
+  // variant of the target.
+  CollectibleType.EYE_OF_THE_OCCULT, // 572
 ] as const;
+
+const TARGET_DAMAGE_RADIUS = 30;
 
 /** Directed light beams */
 export class FangDemonBaby extends Baby {
@@ -64,5 +76,48 @@ export class FangDemonBaby extends Baby {
     }
 
     return undefined;
+  }
+
+  /**
+   * By default, the Marked target spawns at the center of the room, and we want it to be spawned at
+   * the player instead. If we change the position in this callback, it won't work, so make the
+   * effect invisible in the meantime.
+   */
+  // 54
+  @Callback(ModCallback.POST_EFFECT_INIT, EffectVariant.TARGET)
+  postEffectInitTarget(effect: EntityEffect): void {
+    effect.Visible = false;
+  }
+
+  // 55
+  @Callback(ModCallback.POST_EFFECT_UPDATE, EffectVariant.TARGET)
+  postEffectUpdateTarget(effect: EntityEffect): void {
+    const gameFrameCount = game.GetFrameCount();
+    const num = this.getAttribute("num");
+
+    if (effect.FrameCount === 1) {
+      // By default, the Marked target spawns at the center of the room, and we want it to be
+      // spawned at the player instead.
+      effect.Position = g.p.Position;
+      effect.Visible = true;
+    } else if (gameFrameCount >= g.run.babyFrame) {
+      // Check to see if there is a nearby NPC.
+      const closeEntities = Isaac.FindInRadius(
+        effect.Position,
+        TARGET_DAMAGE_RADIUS,
+        EntityPartition.ENEMY,
+      );
+      if (closeEntities.length > 0) {
+        // Fire the beam.
+        g.run.babyFrame = gameFrameCount + num;
+        spawnEffect(
+          EffectVariant.CRACK_THE_SKY,
+          0,
+          effect.Position,
+          VectorZero,
+          g.p,
+        );
+      }
+    }
   }
 }

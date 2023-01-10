@@ -11,7 +11,6 @@ import {
   game,
   getNPCs,
   repeat,
-  setEntityRandomColor,
   spawnEffect,
   spawnProjectile,
   VectorZero,
@@ -25,19 +24,8 @@ export const postTearUpdateBabyFunctionMap = new Map<
   (tear: EntityTear) => void
 >();
 
-// 42
-postTearUpdateBabyFunctionMap.set(
-  RandomBabyType.COLORFUL,
-  (tear: EntityTear) => {
-    if (tear.FrameCount === 0) {
-      setEntityRandomColor(tear);
-    }
-  },
-);
-
 // 100
 postTearUpdateBabyFunctionMap.set(RandomBabyType.ED, (tear: EntityTear) => {
-  // Fire trail tears
   if (tear.SubType === 1 && tear.FrameCount % 2 === 0) {
     const fire = spawnEffect(EffectVariant.HOT_BOMB_FIRE, 0, tear.Position);
     fire.SpriteScale = Vector(0.5, 0.5);

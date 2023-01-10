@@ -5,10 +5,8 @@ import {
   EntityPartition,
   PlayerForm,
 } from "isaac-typescript-definitions";
-import { game, spawnEffect, VectorZero } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
-import { getCurrentBabyDescription } from "../utilsBaby";
 
 export const postEffectUpdateBabyFunctionMap = new Map<
   RandomBabyType,
@@ -83,53 +81,6 @@ postEffectUpdateBabyFunctionMap.set(
       !g.p.HasPlayerForm(PlayerForm.BOOKWORM) // 10
     ) {
       effect.Timeout = 10; // 9 does not result in a missile coming out
-    }
-  },
-);
-
-// 281
-postEffectUpdateBabyFunctionMap.set(
-  RandomBabyType.FANG_DEMON,
-  (effect: EntityEffect) => {
-    // Directed light beams
-    if (
-      effect.Variant !== EffectVariant.TARGET &&
-      effect.Variant !== EffectVariant.OCCULT_TARGET
-    ) {
-      return;
-    }
-
-    const distance = 30;
-
-    const gameFrameCount = game.GetFrameCount();
-    const baby = getCurrentBabyDescription();
-    if (baby.num === undefined) {
-      error(`The "num" attribute was not defined for: ${baby.name}`);
-    }
-
-    if (effect.FrameCount === 1) {
-      // By default, the Marked target spawns at the center of the room, and we want it to be
-      // spawned at the player instead.
-      effect.Position = g.p.Position;
-      effect.Visible = true;
-    } else if (gameFrameCount >= g.run.babyFrame) {
-      // Check to see if there is a nearby NPC.
-      const closeEntities = Isaac.FindInRadius(
-        effect.Position,
-        distance,
-        EntityPartition.ENEMY,
-      );
-      if (closeEntities.length > 0) {
-        // Fire the beam.
-        g.run.babyFrame = gameFrameCount + baby.num;
-        spawnEffect(
-          EffectVariant.CRACK_THE_SKY,
-          0,
-          effect.Position,
-          VectorZero,
-          g.p,
-        );
-      }
     }
   },
 );

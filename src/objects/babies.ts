@@ -2412,7 +2412,7 @@ export const BABIES = {
     sprite: "281_baby_fangdemon.png",
     item: CollectibleType.MARKED,
     blindfolded: true,
-    num: 15, // In game frames
+    num: 15, // Game frames between ticks
     requireNoEndFloors: true,
     requireTears: true,
     softlockPreventionDestroyPoops: true, // Light beams cannot kill poops.
