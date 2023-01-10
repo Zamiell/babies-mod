@@ -1,10 +1,14 @@
-import { ModCallback } from "isaac-typescript-definitions";
+import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
 import { Callback } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** All direction tears. */
 export class AetherBaby extends Baby {
+  override isValid(player: EntityPlayer): boolean {
+    return !player.HasCollectible(CollectibleType.IPECAC);
+  }
+
   /** Shoot 8 tears at a time. (We store the rotation angle inside the "babyCounters" variable.) */
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {

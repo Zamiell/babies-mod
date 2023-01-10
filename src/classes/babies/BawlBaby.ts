@@ -6,6 +6,10 @@ import { Baby } from "../Baby";
 
 /** Constant Isaac's Tears effect + blindfolded. */
 export class BawlBaby extends Baby {
+  override isValid(player: EntityPlayer): boolean {
+    return !player.HasCollectible(CollectibleType.IPECAC);
+  }
+
   // 1
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {

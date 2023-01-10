@@ -3,7 +3,6 @@ import {
   CollectibleType,
   ItemType,
   LevelCurse,
-  PlayerForm,
   TrinketType,
 } from "isaac-typescript-definitions";
 import {
@@ -75,7 +74,7 @@ export function babyCheckValid(
     return false;
   }
 
-  if (!checkCollectibles(player, babyType, baby)) {
+  if (!checkCollectibles(player, baby)) {
     return false;
   }
 
@@ -192,7 +191,6 @@ function checkKeys(player: EntityPlayer, baby: BabyDescription): boolean {
 
 function checkCollectibles(
   player: EntityPlayer,
-  babyType: RandomBabyType,
   baby: BabyDescription,
 ): boolean {
   const babyItemsSet = getBabyItemsSet(baby);
@@ -231,158 +229,6 @@ function checkCollectibles(
   if (
     babyItemsSet.has(CollectibleType.DEAD_EYE) && // 373
     player.HasCollectible(CollectibleType.TECH_X) // 395
-  ) {
-    return false;
-  }
-
-  if (
-    babyType === RandomBabyType.GOAT && // 62
-    (player.HasCollectible(CollectibleType.GOAT_HEAD) || // 215
-      player.HasCollectible(CollectibleType.DUALITY)) // 498
-  ) {
-    return false;
-  }
-
-  if (
-    babyType === RandomBabyType.AETHER && // 106
-    player.HasCollectible(CollectibleType.IPECAC)
-  ) {
-    return false;
-  }
-
-  if (
-    babyType === RandomBabyType.SLOPPY && // 146
-    (player.HasCollectible(CollectibleType.INNER_EYE) || // 2
-      player.HasCollectible(CollectibleType.MUTANT_SPIDER) || // 153
-      player.HasCollectible(CollectibleType.TWENTY_TWENTY) || // 245
-      player.HasCollectible(CollectibleType.WIZ) || // 358
-      player.HasPlayerForm(PlayerForm.CONJOINED) || // 7
-      player.HasPlayerForm(PlayerForm.BOOKWORM)) // 10
-  ) {
-    return false;
-  }
-
-  if (
-    babyType === RandomBabyType.BAWL && // 231
-    player.HasCollectible(CollectibleType.IPECAC)
-  ) {
-    return false;
-  }
-
-  if (
-    babyType === RandomBabyType.TABBY && // 269
-    player.HasCollectible(CollectibleType.MOMS_KNIFE)
-  ) {
-    return false;
-  }
-
-  if (
-    babyType === RandomBabyType.RED_DEMON && // 278
-    (player.HasCollectible(CollectibleType.EPIC_FETUS) || // 168
-      player.HasCollectible(CollectibleType.TECH_X)) // 395
-  ) {
-    return false;
-  }
-
-  if (
-    babyType === RandomBabyType.FANG_DEMON && // 281
-    (player.HasCollectible(CollectibleType.MOMS_KNIFE) || // 114
-      player.HasCollectible(CollectibleType.EPIC_FETUS) || // 168
-      player.HasCollectible(CollectibleType.MONSTROS_LUNG) || // 229
-      player.HasCollectible(CollectibleType.TECH_X)) // 395
-  ) {
-    return false;
-  }
-
-  if (
-    babyType === RandomBabyType.LANTERN && // 292
-    player.HasCollectible(CollectibleType.TRISAGION)
-  ) {
-    return false;
-  }
-
-  if (
-    babyType === RandomBabyType.CUPCAKE && // 321
-    player.HasCollectible(CollectibleType.EPIC_FETUS)
-  ) {
-    // High shot speed
-    return false;
-  }
-
-  if (
-    babyType === RandomBabyType.SLICER && // 331
-    player.HasCollectible(CollectibleType.IPECAC)
-  ) {
-    // Slice tears Ipecac causes the tears to explode instantly, which causes unavoidable damage.
-    return false;
-  }
-
-  if (
-    babyType === RandomBabyType.MUSHROOM_GIRL && // 361
-    player.HasCollectible(CollectibleType.DR_FETUS)
-  ) {
-    return false;
-  }
-
-  if (
-    babyType === RandomBabyType.BLUE_GHOST && // 370
-    player.HasCollectible(CollectibleType.MOMS_KNIFE)
-  ) {
-    return false;
-  }
-
-  if (
-    babyType === RandomBabyType.YELLOW_PRINCESS && // 375
-    player.HasCollectible(CollectibleType.FLAT_STONE)
-  ) {
-    return false;
-  }
-
-  if (
-    babyType === RandomBabyType.DINO && // 376
-    player.HasCollectible(CollectibleType.BOBS_BRAIN)
-  ) {
-    return false;
-  }
-
-  if (
-    babyType === RandomBabyType.ORANGE_PIG && // 381
-    (player.HasCollectible(CollectibleType.DAMOCLES) ||
-      player.HasCollectible(CollectibleType.DAMOCLES_PASSIVE))
-  ) {
-    // Double items Damocles does not work properly with this mechanic.
-    return false;
-  }
-
-  if (
-    babyType === RandomBabyType.IMP && // 386
-    player.HasCollectible(CollectibleType.EPIC_FETUS)
-  ) {
-    // Blender + flight + explosion immunity + blindfolded. Epic Fetus overwrites Mom's Knife, which
-    // makes the baby not work properly.
-    return false;
-  }
-
-  if (
-    babyType === RandomBabyType.DARK_SPACE_SOLDIER && // 398
-    player.HasCollectible(CollectibleType.IPECAC)
-  ) {
-    return false;
-  }
-
-  if (
-    babyType === RandomBabyType.BLURRED && // 407
-    (player.HasCollectible(CollectibleType.FLAT_STONE) ||
-      player.HasCollectible(CollectibleType.INCUBUS))
-  ) {
-    // Flat Stone is manually given, so we have to explicitly code a restriction. Incubus will not
-    // fire the Ludo tears, ruining the build.
-    return false;
-  }
-
-  if (
-    babyType === RandomBabyType.ROJEN_WHITEFOX && // 446
-    player.HasCollectible(CollectibleType.POLAROID) // 327
   ) {
     return false;
   }

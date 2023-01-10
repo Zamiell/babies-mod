@@ -6,7 +6,7 @@ import {
   EntityType,
   ModCallback,
 } from "isaac-typescript-definitions";
-import { Callback } from "isaacscript-common";
+import { Callback, playerHasCollectible } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
@@ -19,6 +19,10 @@ const SOFTLOCK_COLLECTIBLE_TYPES = [
 
 /** Directed light beams */
 export class FangDemonBaby extends Baby {
+  override isValid(player: EntityPlayer): boolean {
+    return !playerHasCollectible(player, ...SOFTLOCK_COLLECTIBLE_TYPES);
+  }
+
   /** Some collectibles will cause a softlock, so we remove them from all pools as a quick fix. */
   override onAdd(): void {
     for (const collectibleType of SOFTLOCK_COLLECTIBLE_TYPES) {

@@ -1,5 +1,6 @@
 import {
   ButtonAction,
+  CollectibleType,
   Direction,
   InputHook,
   ModCallback,
@@ -17,6 +18,11 @@ import { Baby } from "../Baby";
 
 /** Blender + flight + explosion immunity + blindfolded. */
 export class ImpBaby extends Baby {
+  /** Epic Fetus overwrites Mom's Knife, which makes the baby not work properly. */
+  override isValid(player: EntityPlayer): boolean {
+    return !player.HasCollectible(CollectibleType.EPIC_FETUS);
+  }
+
   override onAdd(): void {
     const gameFrameCount = game.GetFrameCount();
     const num = this.getAttribute("num");

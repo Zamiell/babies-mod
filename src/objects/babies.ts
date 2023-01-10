@@ -1267,6 +1267,7 @@ export const BABIES = {
     description: "Starts with Epic Fetus (improved)",
     sprite: "146_baby_sloppy.png",
     item: CollectibleType.EPIC_FETUS,
+    class: bc.SloppyBaby,
   },
 
   // 147
@@ -2301,6 +2302,7 @@ export const BABIES = {
     description: "Starts with Gello",
     sprite: "269_baby_tabby.png",
     item: CollectibleType.GELLO,
+    class: bc.TabbyBaby,
   },
 
   // 270
@@ -2376,6 +2378,7 @@ export const BABIES = {
     sprite: "278_baby_reddemon.png",
     item: CollectibleType.BRIMSTONE,
     item2: CollectibleType.ANTI_GRAVITY,
+    class: bc.RedDemonBaby,
   },
 
   // 279
@@ -2504,6 +2507,7 @@ export const BABIES = {
     requireTears: true,
     // This baby does not use the "blindfolded" property because it would remove The Ludovico
     // Technique.
+    class: bc.LanternBaby,
   },
 
   // 293
@@ -3285,6 +3289,7 @@ export const BABIES = {
     name: "Orange Pig Baby",
     description: "Double items",
     sprite: "381_baby_orangepig.png",
+    class: bc.OrangePigBaby,
   },
 
   // 382
@@ -3512,6 +3517,7 @@ export const BABIES = {
     item2: CollectibleType.LUDOVICO_TECHNIQUE,
     item3: CollectibleType.FLAT_STONE,
     requireTears: true,
+    class: bc.BlurredBaby,
   },
 
   // 408
