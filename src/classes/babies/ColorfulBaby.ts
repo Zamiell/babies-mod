@@ -15,6 +15,12 @@ export class ColorfulBaby extends Baby {
     setEntityRandomColor(npc);
   }
 
+  // 57
+  @Callback(ModCallback.POST_BOMB_INIT)
+  postBombInit(bomb: EntityBomb): void {
+    setEntityRandomColor(bomb);
+  }
+
   /** This does not work in the `POST_LASER_INIT` callback for some reason. */
   @CallbackCustom(ModCallbackCustom.POST_LASER_INIT_LATE)
   postLaserInitLate(laser: EntityLaser): void {

@@ -2,7 +2,6 @@ import { log } from "isaacscript-common";
 import { babiesCheckValid } from "./babiesCheckValid";
 import * as evaluateCache from "./callbacks/evaluateCache";
 import * as executeCmd from "./callbacks/executeCmd";
-import * as postBombInit from "./callbacks/postBombInit";
 import * as postBombUpdate from "./callbacks/postBombUpdate";
 import * as postEffectInit from "./callbacks/postEffectInit";
 import * as postEffectUpdate from "./callbacks/postEffectUpdate";
@@ -84,7 +83,6 @@ function registerCallbacksMain() {
   postProjectileUpdate.init(); // 44
   postEffectInit.init(); // 54
   postEffectUpdate.init(); // 55
-  postBombInit.init(); // 57
   postBombUpdate.init(); // 58
   postEntityKill.init(); // 68
   preSpawnClearAward.init(); // 70

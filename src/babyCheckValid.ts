@@ -12,6 +12,7 @@ import {
   onStageWithNaturalDevilRoom,
   playerHasCollectible,
 } from "isaacscript-common";
+import { Baby } from "./classes/Baby";
 import { RandomBabyType } from "./enums/RandomBabyType";
 import { g } from "./globals";
 import { BABIES } from "./objects/babies";
@@ -85,27 +86,13 @@ export function babyCheckValid(
   }
 
   const babyClass = BABY_CLASS_MAP.get(babyType);
-  if (babyClass === undefined) {
-    return true;
+  if (babyClass !== undefined) {
+    if (!checkBabyClass(player, babyClass)) {
+      return false;
+    }
   }
 
-  // Racing+ gets collectibles on run start to check for a fully-unlocked save file. Thus, we
-  // disable any baby that has to do with collectibles on the first floor. (These kind of babies
-  // could also mess with resetting.)
-  const effectiveStage = getEffectiveStage();
-  const castedBabyClass = babyClass as unknown as Record<
-    string,
-    AnyFunction | undefined
-  >;
-  const babyPreGetCollectibleMethod = castedBabyClass["preGetCollectible"];
-  if (
-    babyPreGetCollectibleMethod !== undefined &&
-    effectiveStage === LevelStage.BASEMENT_1
-  ) {
-    return false;
-  }
-
-  return babyClass.isValid(player);
+  return true;
 }
 
 function checkActiveItem(player: EntityPlayer, baby: BabyDescription): boolean {
@@ -336,6 +323,27 @@ function checkStage(baby: BabyDescription): boolean {
   }
 
   return true;
+}
+
+function checkBabyClass(player: EntityPlayer, babyClass: Baby): boolean {
+  const effectiveStage = getEffectiveStage();
+
+  // Racing+ gets collectibles on run start to check for a fully-unlocked save file. Thus, we
+  // disable any baby that has to do with collectibles on the first floor. (These kind of babies
+  // could also mess with resetting.)
+  const castedBabyClass = babyClass as unknown as Record<
+    string,
+    AnyFunction | undefined
+  >;
+  const babyPreGetCollectibleMethod = castedBabyClass["preGetCollectible"];
+  if (
+    babyPreGetCollectibleMethod !== undefined &&
+    effectiveStage === LevelStage.BASEMENT_1
+  ) {
+    return false;
+  }
+
+  return babyClass.isValid(player);
 }
 
 function getBabyItemsSet(baby: BabyDescription): Set<CollectibleType> {
