@@ -9,7 +9,6 @@ import * as postEffectUpdate from "./callbacks/postEffectUpdate";
 import * as postEntityKill from "./callbacks/postEntityKill";
 import * as postFamiliarInit from "./callbacks/postFamiliarInit";
 import * as postFamiliarUpdate from "./callbacks/postFamiliarUpdate";
-import * as postLaserUpdate from "./callbacks/postLaserUpdate";
 import * as postNPCUpdate from "./callbacks/postNPCUpdate";
 import * as postPickupInit from "./callbacks/postPickupInit";
 import * as postPickupSelection from "./callbacks/postPickupSelection";
@@ -83,7 +82,6 @@ function registerCallbacksMain() {
   postPickupUpdate.init(); // 38
   postTearUpdate.init(); // 40
   postProjectileUpdate.init(); // 44
-  postLaserUpdate.init(); // 48
   postEffectInit.init(); // 54
   postEffectUpdate.init(); // 55
   postBombInit.init(); // 57
