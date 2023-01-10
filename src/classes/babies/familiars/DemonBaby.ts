@@ -15,11 +15,11 @@ export class DemonBaby extends Baby {
   @Callback(ModCallback.POST_PICKUP_INIT, PickupVariant.COLLECTIBLE)
   postPickupInitCollectible(pickup: EntityPickup): void {
     if (
-      pickup.Price < 0 &&
+      pickup.Price < (PickupPrice.NULL as int) &&
       pickup.Price !== (PickupPrice.YOUR_SOUL as int) &&
       pickup.Price !== (PickupPrice.FREE as int)
     ) {
-      pickup.Price = 0;
+      pickup.Price = PickupPrice.FREE;
     }
   }
 }

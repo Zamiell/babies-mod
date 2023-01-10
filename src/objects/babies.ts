@@ -2175,6 +2175,7 @@ export const BABIES = {
     name: "Wizard Baby",
     description: "Most cards are face up",
     sprite: "253_baby_wizard.png",
+    class: bc.WizardBaby,
   },
 
   // 254

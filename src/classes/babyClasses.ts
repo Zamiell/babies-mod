@@ -264,6 +264,7 @@ export { VoxdogBaby } from "./babies/VoxdogBaby";
 export { WaterBaby } from "./babies/WaterBaby";
 export { WebBaby } from "./babies/WebBaby";
 export { WhoreBaby } from "./babies/WhoreBaby";
+export { WizardBaby } from "./babies/WizardBaby";
 export { WorryBaby } from "./babies/WorryBaby";
 export { WrappedBaby } from "./babies/WrappedBaby";
 export { WrathBaby } from "./babies/WrathBaby";

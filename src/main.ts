@@ -8,7 +8,6 @@ import * as postEntityKill from "./callbacks/postEntityKill";
 import * as postFamiliarInit from "./callbacks/postFamiliarInit";
 import * as postFamiliarUpdate from "./callbacks/postFamiliarUpdate";
 import * as postNPCUpdate from "./callbacks/postNPCUpdate";
-import * as postPickupInit from "./callbacks/postPickupInit";
 import * as postPickupSelection from "./callbacks/postPickupSelection";
 import * as postPickupUpdate from "./callbacks/postPickupUpdate";
 import * as postPlayerInit from "./callbacks/postPlayerInit";
@@ -75,7 +74,6 @@ function registerCallbacksMain() {
   executeCmd.init(); // 22
   preUseItem.init(); // 23
   preEntitySpawn.init(); // 24
-  postPickupInit.init(); // 34
   postPickupSelection.init(); // 37
   postPickupUpdate.init(); // 38
   postTearUpdate.init(); // 40
