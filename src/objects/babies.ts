@@ -386,6 +386,7 @@ export const BABIES = {
     name: "Colorful Baby",
     description: "Acid trip",
     sprite: "042_baby_colorful.png",
+    class: bc.ColorfulBaby,
   },
 
   // 43
@@ -461,6 +462,7 @@ export const BABIES = {
     item: CollectibleType.BRIMSTONE,
     flight: true,
     requireTears: true,
+    class: bc.BelialBaby,
   },
 
   // 52

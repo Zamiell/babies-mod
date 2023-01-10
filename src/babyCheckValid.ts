@@ -263,13 +263,6 @@ function checkCollectibles(
   }
 
   if (
-    babyType === RandomBabyType.BELIAL && // 51
-    player.HasCollectible(CollectibleType.MEGA_BLAST)
-  ) {
-    return false;
-  }
-
-  if (
     babyType === RandomBabyType.GOAT && // 62
     (player.HasCollectible(CollectibleType.GOAT_HEAD) || // 215
       player.HasCollectible(CollectibleType.DUALITY)) // 498
