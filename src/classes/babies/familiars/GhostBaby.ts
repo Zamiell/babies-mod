@@ -1,6 +1,7 @@
 import {
   CollectibleType,
   ItemPoolType,
+  LevelStage,
   ModCallback,
 } from "isaac-typescript-definitions";
 import { Callback, getEffectiveStage } from "isaacscript-common";
@@ -12,7 +13,7 @@ export class GhostBaby extends Baby {
   /** On stage 2, they will miss a Devil Deal, which is not fair. */
   override isValid(): boolean {
     const effectiveStage = getEffectiveStage();
-    return effectiveStage !== 2;
+    return effectiveStage !== LevelStage.BASEMENT_2;
   }
 
   @Callback(ModCallback.PRE_GET_COLLECTIBLE)

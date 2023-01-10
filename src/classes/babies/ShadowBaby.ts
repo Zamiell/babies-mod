@@ -1,6 +1,7 @@
 import {
   Direction,
   GridRoom,
+  LevelStage,
   RoomTransitionAnim,
   RoomType,
 } from "isaac-typescript-definitions";
@@ -9,6 +10,7 @@ import {
   getEffectiveStage,
   inRoomType,
   ModCallbackCustom,
+  onStageWithNaturalDevilRoom,
   teleport,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
@@ -21,7 +23,9 @@ export class ShadowBaby extends Baby {
    */
   override isValid(): boolean {
     const effectiveStage = getEffectiveStage();
-    return effectiveStage >= 2 && effectiveStage <= 7;
+    return (
+      onStageWithNaturalDevilRoom() && effectiveStage !== LevelStage.WOMB_2
+    );
   }
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)

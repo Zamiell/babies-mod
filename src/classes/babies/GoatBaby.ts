@@ -1,9 +1,13 @@
-import { CollectibleType, SoundEffect } from "isaac-typescript-definitions";
+import {
+  CollectibleType,
+  LevelStage,
+  SoundEffect,
+} from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   getEffectiveStage,
-  inIRange,
   ModCallbackCustom,
+  onStageWithNaturalDevilRoom,
   playerHasCollectible,
   removeCollectibleFromItemTracker,
   sfxManager,
@@ -27,7 +31,8 @@ export class GoatBaby extends Baby {
 
     return (
       !playerHasCollectible(player, ...GRANTED_COLLECTIBLE_TYPES) &&
-      inIRange(effectiveStage, 3, 8)
+      onStageWithNaturalDevilRoom() &&
+      effectiveStage !== LevelStage.BASEMENT_2
     );
   }
 

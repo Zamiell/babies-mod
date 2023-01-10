@@ -8,7 +8,7 @@ export class RichBaby extends Baby {
   /** Money is useless past Depths. */
   override isValid(): boolean {
     const effectiveStage = getEffectiveStage();
-    return effectiveStage <= (LevelStage.DEPTHS_2 as int);
+    return effectiveStage <= LevelStage.DEPTHS_2;
   }
 
   override onAdd(player: EntityPlayer): void {

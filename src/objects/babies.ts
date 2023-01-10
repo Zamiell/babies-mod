@@ -4914,7 +4914,7 @@ export const BABIES = {
     description: "Items are replaced with 6 cards",
     sprite: "571_baby_pointless.png",
     num: 6,
-    class: bc.PointlessBaby
+    class: bc.PointlessBaby,
   },
 
   // 572

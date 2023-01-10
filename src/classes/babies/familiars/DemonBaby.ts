@@ -3,15 +3,13 @@ import {
   PickupPrice,
   PickupVariant,
 } from "isaac-typescript-definitions";
-import { Callback, getEffectiveStage } from "isaacscript-common";
+import { Callback, onStageWithNaturalDevilRoom } from "isaacscript-common";
 import { Baby } from "../../Baby";
 
 /** Free devil deals. */
 export class DemonBaby extends Baby {
-  /** Only valid for floors with Devil Rooms. */
   override isValid(): boolean {
-    const effectiveStage = getEffectiveStage();
-    return effectiveStage >= 2 && effectiveStage <= 8;
+    return onStageWithNaturalDevilRoom();
   }
 
   @Callback(ModCallback.POST_PICKUP_INIT, PickupVariant.COLLECTIBLE)

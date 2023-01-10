@@ -7,6 +7,6 @@ export class AtePoopBaby extends Baby {
   /** There are almost no poops on The Chest. */
   override isValid(): boolean {
     const effectiveStage = getEffectiveStage();
-    return effectiveStage !== (LevelStage.DARK_ROOM_CHEST as int);
+    return effectiveStage !== LevelStage.DARK_ROOM_CHEST;
   }
 }

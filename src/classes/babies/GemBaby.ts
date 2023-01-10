@@ -7,6 +7,6 @@ export class GemBaby extends Baby {
   /** Money is useless past Depths 2. */
   override isValid(): boolean {
     const effectiveStage = getEffectiveStage();
-    return effectiveStage <= (LevelStage.DEPTHS_2 as int);
+    return effectiveStage <= LevelStage.DEPTHS_2;
   }
 }

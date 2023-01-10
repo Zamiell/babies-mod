@@ -1,4 +1,8 @@
-import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
+import {
+  CollectibleType,
+  LevelStage,
+  ModCallback,
+} from "isaac-typescript-definitions";
 import {
   Callback,
   changeRoom,
@@ -26,7 +30,7 @@ export class EarwigBaby extends Baby {
         CollectibleType.COMPASS, // 21
         CollectibleType.TREASURE_MAP, // 54
         CollectibleType.MIND, // 333
-      ) && effectiveStage !== 1
+      ) && effectiveStage !== LevelStage.BASEMENT_1
     );
   }
 

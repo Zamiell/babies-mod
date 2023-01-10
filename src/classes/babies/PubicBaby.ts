@@ -19,7 +19,7 @@ export class PubicBaby extends Baby {
   /** Full clearing the final floor is too punishing. */
   override isValid(): boolean {
     const effectiveStage = getEffectiveStage();
-    return effectiveStage !== (LevelStage.DARK_ROOM_CHEST as int);
+    return effectiveStage !== LevelStage.DARK_ROOM_CHEST;
   }
 
   @Callback(ModCallback.POST_UPDATE)

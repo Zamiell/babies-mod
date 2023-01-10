@@ -7,6 +7,6 @@ export class ChompersBaby extends Baby {
   /** There are almost no grid entities on the final floor. */
   override isValid(): boolean {
     const effectiveStage = getEffectiveStage();
-    return effectiveStage !== (LevelStage.DARK_ROOM_CHEST as int);
+    return effectiveStage !== LevelStage.DARK_ROOM_CHEST;
   }
 }

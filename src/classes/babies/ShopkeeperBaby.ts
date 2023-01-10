@@ -6,6 +6,6 @@ import { Baby } from "../Baby";
 export class ShopkeeperBaby extends Baby {
   override isValid(): boolean {
     const effectiveStage = getEffectiveStage();
-    return effectiveStage <= (LevelStage.DEPTHS_2 as int);
+    return effectiveStage <= LevelStage.DEPTHS_2;
   }
 }
