@@ -1,16 +1,29 @@
 import { DamageFlag } from "isaac-typescript-definitions";
-import { game, hasFlag } from "isaacscript-common";
+import {
+  game,
+  hasFlag,
+  isFirstPlayer,
+  ModCallbackCustom,
+} from "isaacscript-common";
 import { g } from "../globals";
+import { mod } from "../mod";
 import { getCurrentBaby } from "../utilsBaby";
-import { entityTakeDmgPlayerBabyFunctionMap } from "./entityTakeDmgPlayerBabyFunctionMap";
 
-export function main(
+export function init(): void {
+  mod.AddCallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER, main);
+}
+
+function main(
   player: EntityPlayer,
-  amount: float,
+  _amount: float,
   damageFlags: BitFlags<DamageFlag>,
-  source: EntityRef,
-  countdownFrames: int,
+  _source: EntityRef,
+  _countdownFrames: int,
 ): boolean | undefined {
+  if (!isFirstPlayer(player)) {
+    return undefined;
+  }
+
   const gameFrameCount = game.GetFrameCount();
   const [babyType, baby] = getCurrentBaby();
   if (babyType === -1) {
@@ -34,18 +47,6 @@ export function main(
     hasFlag(damageFlags, DamageFlag.EXPLOSION)
   ) {
     return false;
-  }
-
-  const entityTakeDmgPlayerBabyFunction =
-    entityTakeDmgPlayerBabyFunctionMap.get(babyType);
-  if (entityTakeDmgPlayerBabyFunction !== undefined) {
-    return entityTakeDmgPlayerBabyFunction(
-      player,
-      amount,
-      damageFlags,
-      source,
-      countdownFrames,
-    );
   }
 
   return undefined;

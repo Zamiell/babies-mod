@@ -1,6 +1,5 @@
 import { log } from "isaacscript-common";
 import { babiesCheckValid } from "./babiesCheckValid";
-import * as entityTakeDmg from "./callbacks/entityTakeDmg";
 import * as evaluateCache from "./callbacks/evaluateCache";
 import * as executeCmd from "./callbacks/executeCmd";
 import * as inputAction from "./callbacks/inputAction";
@@ -30,6 +29,7 @@ import * as preEntitySpawn from "./callbacks/preEntitySpawn";
 import * as preRoomEntitySpawn from "./callbacks/preRoomEntitySpawn";
 import * as preSpawnClearAward from "./callbacks/preSpawnClearAward";
 import * as preUseItem from "./callbacks/preUseItem";
+import * as entityTakeDmgPlayer from "./callbacksCustom/entityTakeDmgPlayer";
 import * as postGameStartedReordered from "./callbacksCustom/postGameStartedReordered";
 import * as postGridEntityBroken from "./callbacksCustom/postGridEntityBroken";
 import * as postGridEntityInit from "./callbacksCustom/postGridEntityInit";
@@ -79,7 +79,6 @@ function registerCallbacksMain() {
   evaluateCache.init(); // 8
   postPlayerInit.init(); // 9
   postUsePill.init(); // 10
-  entityTakeDmg.init(); // 11
   inputAction.init(); // 13
   executeCmd.init(); // 22
   preUseItem.init(); // 23
@@ -103,6 +102,7 @@ function registerCallbacksMain() {
 }
 
 function registerCallbacksCustom() {
+  entityTakeDmgPlayer.init();
   postGameStartedReordered.init();
   postNewLevelReordered.init();
   postNewRoomReordered.init();

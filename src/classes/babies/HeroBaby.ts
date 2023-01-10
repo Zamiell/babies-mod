@@ -1,5 +1,10 @@
 import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
-import { Callback } from "isaacscript-common";
+import {
+  Callback,
+  CallbackCustom,
+  isFirstPlayer,
+  ModCallbackCustom,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
@@ -16,6 +21,7 @@ export class HeroBaby extends Baby {
     }
   }
 
+  // 8
   @Callback(ModCallback.EVALUATE_CACHE)
   evaluateCache(player: EntityPlayer, cacheFlag: CacheFlag): void {
     const hearts = player.GetHearts();
@@ -33,5 +39,18 @@ export class HeroBaby extends Baby {
         player.MaxFireDelay = math.ceil(player.MaxFireDelay / 3);
       }
     }
+  }
+
+  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
+  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
+    if (!isFirstPlayer(player)) {
+      return undefined;
+    }
+
+    // We want to evaluate the cache, but we can't do it here because the damage is not applied yet,
+    // so mark to do it later in the `POST_UPDATE` callback.
+    g.run.babyBool = true;
+
+    return undefined;
   }
 }

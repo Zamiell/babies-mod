@@ -15,14 +15,14 @@ export class GlitteryPeachBaby extends Baby {
       return undefined;
     }
 
-    const requireNumHits = this.getAttribute("requireNumHits");
+    const numHits = this.getAttribute("requireNumHits");
 
     if (g.run.babyBool) {
       return;
     }
 
     g.run.babyCounters++;
-    if (g.run.babyCounters === requireNumHits) {
+    if (g.run.babyCounters === numHits) {
       // We only do the ability once per floor.
       g.run.babyBool = true;
       player.UseCard(CardType.EMPEROR);

@@ -16,10 +16,10 @@ export class TVBaby extends Baby {
       return undefined;
     }
 
-    const requireNumHits = this.getAttribute("requireNumHits");
+    const numHits = this.getAttribute("requireNumHits");
 
     g.run.babyCounters++;
-    if (g.run.babyCounters === requireNumHits) {
+    if (g.run.babyCounters === numHits) {
       g.run.babyCounters = 0;
       useActiveItemTemp(player, CollectibleType.MEGA_BLAST);
     }

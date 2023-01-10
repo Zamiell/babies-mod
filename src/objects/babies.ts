@@ -687,7 +687,7 @@ export const BABIES = {
   // 78
   [RandomBabyType.DERP]: {
     name: "Derp Baby",
-    description: "Starts with Cube of Meat + BFFS! + 0.5x damage",
+    description: "Starts with Cube of Meat + BFFS + 0.5x damage",
     sprite: "078_baby_derp.png",
     item: CollectibleType.CUBE_OF_MEAT,
     item2: CollectibleType.BFFS,
@@ -1564,7 +1564,7 @@ export const BABIES = {
   // 183
   [RandomBabyType.CROOK]: {
     name: "Crook Baby",
-    description: "Starts with Mr. ME!",
+    description: "Starts with Mr. ME",
     sprite: "183_baby_crook.png",
     item: CollectibleType.MR_ME,
   },
@@ -2570,6 +2570,7 @@ export const BABIES = {
     description: "Create red doors on hit + improved Ultra Secret Rooms",
     sprite: "301_baby_bloodied.png",
     num: 5, // Number of collectibles
+    class: bc.BloodiedBaby,
   },
 
   // 302
@@ -2633,6 +2634,7 @@ export const BABIES = {
     name: "X Mouth Baby",
     description: "Moving Box effect on hit",
     sprite: "308_baby_xmouth.png",
+    class: bc.XMouthBaby,
   },
 
   // 309
@@ -2649,6 +2651,7 @@ export const BABIES = {
     name: "Starry Eyed Baby",
     description: "Spawns a Stars Card on hit",
     sprite: "310_baby_stareyes.png",
+    class: bc.StarryEyedBaby,
   },
 
   // 311
@@ -2687,7 +2690,7 @@ export const BABIES = {
   // 315
   [RandomBabyType.PUZZLE]: {
     name: "Puzzle Baby",
-    description: "The D6 effect on hit",
+    description: "D6 effect on hit",
     sprite: "315_baby_puzzle.png",
   },
 
@@ -2713,6 +2716,7 @@ export const BABIES = {
     description: "Explosion immunity + fire immunity",
     sprite: "318_baby_fireball.png",
     explosionImmunity: true,
+    class: bc.FireballBaby,
   },
 
   // 319
@@ -2754,6 +2758,8 @@ export const BABIES = {
     name: "Ballerina Baby",
     description: "Summons a Restock Machine after 6 hits",
     sprite: "323_baby_ballerina.png",
+    requireNumHits: 6,
+    class: bc.BallerinaBaby,
   },
 
   // 324
@@ -2815,6 +2821,7 @@ export const BABIES = {
     name: "Tortoise Baby",
     description: "50% chance to ignore damage",
     sprite: "330_baby_tortoise.png",
+    class: bc.TortoiseBaby,
   },
 
   // 331
@@ -3018,7 +3025,7 @@ export const BABIES = {
   // 353
   [RandomBabyType.BLUE_ROBOT]: {
     name: "Blue Robot Baby",
-    description: "Starts with Berserk!",
+    description: "Starts with Berserk",
     sprite: "353_baby_bluerobot.png",
     item: CollectibleType.BERSERK,
   },
@@ -3067,7 +3074,7 @@ export const BABIES = {
   // 359
   [RandomBabyType.TANOOKI]: {
     name: "Tanooki Baby",
-    description: "Mr. ME! effect on hit",
+    description: "Mr. ME effect on hit",
     sprite: "359_baby_tanooki.png",
   },
 
@@ -3131,6 +3138,7 @@ export const BABIES = {
     name: "Fiery Baby",
     description: "Spawns a fire on hit",
     sprite: "366_baby_fiery.png",
+    class: bc.FieryBaby,
   },
 
   // 367
@@ -3424,7 +3432,7 @@ export const BABIES = {
   // 400
   [RandomBabyType.TOMBOY]: {
     name: "Tomboy Baby",
-    description: "Starts with We Need to Go Deeper! (uncharged)",
+    description: "Starts with We Need to Go Deeper (uncharged)",
     sprite: "400_baby_tomboy.png",
     item: CollectibleType.WE_NEED_TO_GO_DEEPER,
     uncharged: true,
@@ -3451,7 +3459,7 @@ export const BABIES = {
   // 403
   [RandomBabyType.PIXIE]: {
     name: "Pixie Baby",
-    description: "Starts with 3x YO LISTEN! (improved)",
+    description: "Starts with 3x YO LISTEN (improved)",
     sprite: "403_baby_pixie.png",
     item: CollectibleType.YO_LISTEN,
     itemNum: 3,
@@ -3637,7 +3645,7 @@ export const BABIES = {
   // 425
   [RandomBabyType.TOGA]: {
     name: "Toga Baby",
-    description: "Starts with Finger! (improved)",
+    description: "Starts with Finger (improved)",
     sprite: "425_baby_toga.png",
     item: CollectibleType.FINGER,
     itemNum: 10,
@@ -3910,7 +3918,7 @@ export const BABIES = {
   // 457
   [RandomBabyType.PUMPKIN_GUY]: {
     name: "Pumpkin Guy Baby",
-    description: "Starts with Pop!",
+    description: "Starts with Pop",
     sprite: "457_baby_pumpkin_guy.png",
     item: CollectibleType.POP,
     requireTears: true,
