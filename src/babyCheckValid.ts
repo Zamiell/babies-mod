@@ -63,11 +63,11 @@ export function babyCheckValid(
     return false;
   }
 
-  if (!checkCoins(player, babyType, baby)) {
+  if (!checkCoins(player, baby)) {
     return false;
   }
 
-  if (!checkBombs(player, babyType, baby)) {
+  if (!checkBombs(player, baby)) {
     return false;
   }
 
@@ -155,20 +155,11 @@ function checkHealth(player: EntityPlayer, baby: BabyDescription): boolean {
   return true;
 }
 
-function checkCoins(
-  player: EntityPlayer,
-  babyType: RandomBabyType,
-  baby: BabyDescription,
-): boolean {
+function checkCoins(player: EntityPlayer, baby: BabyDescription): boolean {
   const coins = player.GetNumCoins();
   const babyItemsSet = getBabyItemsSet(baby);
 
   if (baby.requireCoins === true && coins === 0) {
-    return false;
-  }
-
-  // 216
-  if (babyType === RandomBabyType.FANCY && coins < 10) {
     return false;
   }
 
@@ -179,18 +170,10 @@ function checkCoins(
   return true;
 }
 
-function checkBombs(
-  player: EntityPlayer,
-  babyType: RandomBabyType,
-  baby: BabyDescription,
-): boolean {
+function checkBombs(player: EntityPlayer, baby: BabyDescription): boolean {
   const bombs = player.GetNumBombs();
 
   if (baby.requireBombs === true && bombs === 0) {
-    return false;
-  }
-
-  if (babyType === RandomBabyType.BULLET && bombs >= 50) {
     return false;
   }
 

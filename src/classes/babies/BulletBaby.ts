@@ -4,6 +4,11 @@ import { Baby } from "../Baby";
 
 /** Starts with Rocket in a Jar + infinite bombs + blindfolded. */
 export class BulletBaby extends Baby {
+  override isValid(player: EntityPlayer): boolean {
+    const bombs = player.GetNumBombs();
+    return bombs < 50;
+  }
+
   override onAdd(player: EntityPlayer): void {
     const numBombs = player.GetNumBombs();
 
