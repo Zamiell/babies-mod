@@ -13,7 +13,7 @@ import { Baby } from "../Baby";
 
 /** N rooms are already explored. */
 export class EarwigBaby extends Baby {
-  override isValid(): boolean {
+  override isValid(player: EntityPlayer): boolean {
     const effectiveStage = getEffectiveStage();
 
     // - We don't want this baby on the first floor since it interferes with resetting.
@@ -22,7 +22,7 @@ export class EarwigBaby extends Baby {
     return (
       effectiveStage !== 1 &&
       !playerHasCollectible(
-        g.p,
+        player,
         CollectibleType.COMPASS, // 21
         CollectibleType.TREASURE_MAP, // 54
         CollectibleType.MIND, // 333

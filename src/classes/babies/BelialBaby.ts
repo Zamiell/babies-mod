@@ -8,14 +8,13 @@ import {
   AZAZEL_DEFAULT_BRIMSTONE_DISTANCE,
   Callback,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Starts with Azazel-style Brimstone + flight. */
 export class BelialBaby extends Baby {
   /** The method to shorten the laser also affects Mega Blast. */
-  override isValid(): boolean {
-    return !g.p.HasCollectible(CollectibleType.MEGA_BLAST);
+  override isValid(player: EntityPlayer): boolean {
+    return !player.HasCollectible(CollectibleType.MEGA_BLAST);
   }
 
   // 47

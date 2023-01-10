@@ -80,7 +80,8 @@ export class Baby extends ModFeature {
   }
 
   /** Called from "babyCheckValid.ts". */
-  isValid(): boolean {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  isValid(player: EntityPlayer): boolean {
     return true;
   }
 

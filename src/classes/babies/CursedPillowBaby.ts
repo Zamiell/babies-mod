@@ -5,8 +5,8 @@ import { Baby } from "../Baby";
 
 /** Every 4th missed tear causes damage. */
 export class CursedPillowBaby extends Baby {
-  override isValid(): boolean {
-    return isValidForMissingTearsEffect();
+  override isValid(player: EntityPlayer): boolean {
+    return isValidForMissingTearsEffect(player);
   }
 
   @Callback(ModCallback.POST_FIRE_TEAR)

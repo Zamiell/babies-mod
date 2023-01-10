@@ -4,14 +4,12 @@ import {
   ModCallbackCustom,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Potato Peeler effect on hit. */
 export class MeatBoyBaby extends Baby {
-  override isValid(): boolean {
-    const maxHearts = g.p.GetMaxHearts();
-
+  override isValid(player: EntityPlayer): boolean {
+    const maxHearts = player.GetMaxHearts();
     return maxHearts > 0;
   }
 

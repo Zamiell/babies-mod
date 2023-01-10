@@ -109,7 +109,7 @@ export function babyCheckValid(
     return false;
   }
 
-  return babyClass.isValid();
+  return babyClass.isValid(player);
 }
 
 function checkActiveItem(player: EntityPlayer, baby: BabyDescription): boolean {

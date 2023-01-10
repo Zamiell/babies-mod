@@ -32,6 +32,11 @@ const COLLECTIBLE_POSITIONS: ReadonlyArray<[x: int, y: int]> = [
 
 /** Can purchase teleports to special rooms. */
 export class FancyBaby extends Baby {
+  override isValid(player: EntityPlayer): boolean {
+    const coins = player.GetNumCoins();
+    return coins >= 10;
+  }
+
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
     const stage = g.l.GetStage();

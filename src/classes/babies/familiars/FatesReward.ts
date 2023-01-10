@@ -16,8 +16,8 @@ export class FatesReward extends Baby {
    * is not fair. On stage 6, they might not be able to buy the Polaroid (when playing on a normal
    * run). On stage 10 and 11, there are no items.
    */
-  override isValid(): boolean {
-    const coins = g.p.GetNumCoins();
+  override isValid(player: EntityPlayer): boolean {
+    const coins = player.GetNumCoins();
     const effectiveStage = getEffectiveStage();
 
     return (

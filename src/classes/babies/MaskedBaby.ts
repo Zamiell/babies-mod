@@ -9,7 +9,6 @@ import {
   ModCallbackCustom,
   playerHasCollectible,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 const COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS = [
@@ -24,9 +23,9 @@ const COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS = [
 
 /** Can't shoot while moving. */
 export class MaskedBaby extends Baby {
-  override isValid(): boolean {
+  override isValid(player: EntityPlayer): boolean {
     return !playerHasCollectible(
-      g.p,
+      player,
       ...COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS,
     );
   }

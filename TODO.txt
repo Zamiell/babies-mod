@@ -1,8 +1,7 @@
 TODO:
 
-- onRemove should pass player
-- onAdd should pass player
 - SaveDataManager
+- Gamonymous suggestions
 
 List of hard babies:
 - Troll Baby (#6) - Spawns a Troll Bomb every 3 seconds

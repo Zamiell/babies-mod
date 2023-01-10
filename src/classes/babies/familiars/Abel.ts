@@ -10,8 +10,8 @@ import { Baby } from "../../Baby";
 
 /** Every Nth missed tear causes paralysis. */
 export class Abel extends Baby {
-  override isValid(): boolean {
-    return isValidForMissingTearsEffect();
+  override isValid(player: EntityPlayer): boolean {
+    return isValidForMissingTearsEffect(player);
   }
 
   // 40

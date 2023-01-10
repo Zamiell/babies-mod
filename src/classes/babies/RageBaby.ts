@@ -4,8 +4,8 @@ import { Baby } from "../Baby";
 
 /** Starts with Sad Bombs + infinite bombs + blindfolded. */
 export class RageBaby extends Baby {
-  override isValid(): boolean {
-    const bombs = g.p.GetNumBombs();
+  override isValid(player: EntityPlayer): boolean {
+    const bombs = player.GetNumBombs();
     return bombs < 50;
   }
 
