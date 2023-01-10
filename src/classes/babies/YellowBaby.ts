@@ -1,19 +1,17 @@
+import { PillColor, PillEffect } from "isaac-typescript-definitions";
 import {
-  EntityType,
-  ModCallback,
-  PillColor,
-  PillEffect,
-} from "isaac-typescript-definitions";
-import { Callback } from "isaacscript-common";
+  CallbackCustom,
+  isFirstPlayer,
+  ModCallbackCustom,
+} from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Lemon Party effect on hit. */
 export class YellowBaby extends Baby {
-  @Callback(ModCallback.ENTITY_TAKE_DMG, EntityType.PLAYER)
-  entityTakeDmgPlayer(entity: Entity): boolean | undefined {
-    const player = entity.ToPlayer();
-    if (player === undefined) {
-      return;
+  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
+  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
+    if (!isFirstPlayer(player)) {
+      return undefined;
     }
 
     player.UsePill(PillEffect.LEMON_PARTY, PillColor.NULL);

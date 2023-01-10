@@ -4,21 +4,18 @@ import {
   isFirstPlayer,
   ModCallbackCustom,
 } from "isaacscript-common";
-import { g } from "../../globals";
-import { mod } from "../../mod";
 import { Baby } from "../Baby";
 
-/** Random card effect on hit. */
-export class LazyBaby extends Baby {
+/** Card Against Humanity on hit. */
+export class CupBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
     if (!isFirstPlayer(player)) {
       return undefined;
     }
 
-    const exceptions = [CardType.SUICIDE_KING]; // It would be unfair to randomly die.
-    const card = mod.getRandomCard(g.run.rng, exceptions);
-    player.UseCard(card);
+    player.UseCard(CardType.AGAINST_HUMANITY);
+    // (The animation will automatically be canceled by the damage.)
 
     return undefined;
   }

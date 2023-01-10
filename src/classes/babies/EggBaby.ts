@@ -1,27 +1,19 @@
+import { PillColor, PillEffect } from "isaac-typescript-definitions";
 import {
-  DamageFlag,
-  EntityType,
-  ModCallback,
-  PillColor,
-  PillEffect,
-} from "isaac-typescript-definitions";
-import { Callback, getRandomEnumValue } from "isaacscript-common";
+  CallbackCustom,
+  getRandomEnumValue,
+  isFirstPlayer,
+  ModCallbackCustom,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { isRacingPlusEnabled } from "../../utils";
 import { Baby } from "../Baby";
 
 /** Random pill effect on hit. */
 export class EggBaby extends Baby {
-  @Callback(ModCallback.ENTITY_TAKE_DMG, EntityType.PLAYER)
-  entityTakeDmgPlayer(
-    entity: Entity,
-    _amount: float,
-    _damageFlags: BitFlags<DamageFlag>,
-    _source: EntityRef,
-    _countdownFrames: int,
-  ): boolean | undefined {
-    const player = entity.ToPlayer();
-    if (player === undefined) {
+  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
+  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
+    if (!isFirstPlayer(player)) {
       return undefined;
     }
 

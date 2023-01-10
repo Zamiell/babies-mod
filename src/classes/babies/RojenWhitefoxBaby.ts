@@ -5,24 +5,17 @@ import {
   ModCallbackCustom,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
-/** Genesis effect after 6 hits. */
-export class KoalaBaby extends Baby {
+/** Book of Shadows effect on hit. */
+export class RojenWhitefoxBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
     if (!isFirstPlayer(player)) {
       return undefined;
     }
 
-    const numHits = this.getAttribute("requireNumHits");
-
-    g.run.babyCounters++;
-    if (g.run.babyCounters === numHits) {
-      g.run.babyCounters = 0;
-      useActiveItemTemp(player, CollectibleType.GENESIS);
-    }
+    useActiveItemTemp(player, CollectibleType.BOOK_OF_SHADOWS);
 
     return undefined;
   }

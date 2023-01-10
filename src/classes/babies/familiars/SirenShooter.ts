@@ -1,26 +1,18 @@
+import { CollectibleType } from "isaac-typescript-definitions";
 import {
-  CollectibleType,
-  DamageFlag,
-  EntityType,
-  ModCallback,
-} from "isaac-typescript-definitions";
-import { Callback } from "isaacscript-common";
+  CallbackCustom,
+  isFirstPlayer,
+  ModCallbackCustom,
+} from "isaacscript-common";
 import { g } from "../../../globals";
 import { mod } from "../../../mod";
 import { Baby } from "../../Baby";
 
 /** Spawns a pedestal item after N hits. */
 export class SirenShooter extends Baby {
-  @Callback(ModCallback.ENTITY_TAKE_DMG, EntityType.PLAYER)
-  entityTakeDmgPlayer(
-    entity: Entity,
-    _amount: float,
-    _damageFlags: BitFlags<DamageFlag>,
-    _source: EntityRef,
-    _countdownFrames: int,
-  ): boolean | undefined {
-    const player = entity.ToPlayer();
-    if (player === undefined) {
+  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
+  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
+    if (!isFirstPlayer(player)) {
       return undefined;
     }
 

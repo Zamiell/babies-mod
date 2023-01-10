@@ -1,9 +1,11 @@
+import { LevelStage } from "isaac-typescript-definitions";
 import {
-  EntityType,
-  LevelStage,
-  ModCallback,
-} from "isaac-typescript-definitions";
-import { Callback, game, onRepentanceStage } from "isaacscript-common";
+  CallbackCustom,
+  game,
+  isFirstPlayer,
+  ModCallbackCustom,
+  onRepentanceStage,
+} from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Invulnerability */
@@ -13,8 +15,12 @@ export class ZeroBaby extends Baby {
     return !onStageWithSpikedSecretExit();
   }
 
-  @Callback(ModCallback.ENTITY_TAKE_DMG, EntityType.PLAYER)
-  entityTakeDmgPlayer(): boolean | undefined {
+  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
+  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
+    if (!isFirstPlayer(player)) {
+      return undefined;
+    }
+
     return false;
   }
 }

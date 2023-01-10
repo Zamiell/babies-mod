@@ -1,24 +1,25 @@
-import { CardType } from "isaac-typescript-definitions";
+import { CollectibleType } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   isFirstPlayer,
   ModCallbackCustom,
+  useActiveItemTemp,
 } from "isaacscript-common";
 import { g } from "../../globals";
-import { mod } from "../../mod";
 import { Baby } from "../Baby";
 
-/** Random card effect on hit. */
-export class LazyBaby extends Baby {
+/** Forget Me Now on 2nd hit (per room). */
+export class SteroidsBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
     if (!isFirstPlayer(player)) {
       return undefined;
     }
 
-    const exceptions = [CardType.SUICIDE_KING]; // It would be unfair to randomly die.
-    const card = mod.getRandomCard(g.run.rng, exceptions);
-    player.UseCard(card);
+    g.run.babyCountersRoom++;
+    if (g.run.babyCountersRoom >= 2) {
+      useActiveItemTemp(player, CollectibleType.FORGET_ME_NOW);
+    }
 
     return undefined;
   }

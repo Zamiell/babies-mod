@@ -1,5 +1,5 @@
-import { ModCallback, PlayerVariant } from "isaac-typescript-definitions";
-import { isCharacter } from "isaacscript-common";
+import { ModCallback } from "isaac-typescript-definitions";
+import { isCharacter, isFirstPlayer } from "isaacscript-common";
 import { updateCachedPlayer } from "../cache";
 import { addPlayerToCostumeProtector } from "../costumes";
 import { mod } from "../mod";
@@ -10,10 +10,7 @@ export function init(): void {
 }
 
 function main(player: EntityPlayer) {
-  // log("MC_POST_PLAYER_INIT (Babies Mod)");
-
-  // We don't care if this is a co-op baby.
-  if (player.Variant !== PlayerVariant.PLAYER) {
+  if (!isFirstPlayer(player)) {
     return;
   }
 

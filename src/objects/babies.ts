@@ -3238,6 +3238,7 @@ export const BABIES = {
     name: "Dark Elf Baby",
     description: "Book of the Dead effect on hit",
     sprite: "378_baby_darkelf.png",
+    class: bc.DarkElfBaby,
   },
 
   // 379
@@ -3530,6 +3531,7 @@ export const BABIES = {
     name: "Catsuit Baby",
     description: "Guppy's Paw effect on hit",
     sprite: "412_baby_catsuit.png",
+    class: bc.CatsuitBaby,
   },
 
   // 413
@@ -3663,6 +3665,7 @@ export const BABIES = {
     name: "Magic Cat Baby",
     description: "Giga Bomb effect on hit",
     sprite: "428_baby_magiccat.png",
+    class: bc.MagicCatBaby,
   },
 
   // 429
@@ -3721,6 +3724,7 @@ export const BABIES = {
     name: "Cup Baby",
     description: "Card Against Humanity on hit",
     sprite: "435_baby_cup.png",
+    class: bc.CupBaby,
   },
 
   // 436
@@ -3744,6 +3748,7 @@ export const BABIES = {
     description: "Mega Mush effect after 6 hits",
     sprite: "438_baby_bigmouth.png",
     requireNumHits: 6,
+    class: bc.BigMouthBaby2,
   },
 
   // 439
@@ -3769,6 +3774,7 @@ export const BABIES = {
     description: "Mega Blast effect after 6 hits",
     sprite: "441_baby_tv.png",
     requireNumHits: 6,
+    class: bc.TVBaby,
   },
 
   // 442
@@ -3795,6 +3801,7 @@ export const BABIES = {
     name: "Steroids Baby",
     description: "Forget Me Now on 2nd hit (per room)",
     sprite: "444_baby_steroids.png",
+    class: bc.SteroidsBaby,
   },
 
   // 445
@@ -3810,6 +3817,7 @@ export const BABIES = {
     name: "Rojen Whitefox Baby",
     description: "Shield on hit",
     sprite: "446_baby_rojen_whitefox.png",
+    class: bc.RojenWhitefoxBaby,
   },
 
   // 447
@@ -3896,6 +3904,7 @@ export const BABIES = {
     description: "Spawns 20 Blue Flies on hit",
     sprite: "456_baby_handsome_mrfrog.png",
     num: 20,
+    class: bc.HandsomeMrFrogBaby,
   },
 
   // 457

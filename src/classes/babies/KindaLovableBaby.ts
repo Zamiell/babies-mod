@@ -1,24 +1,18 @@
+import { CardType } from "isaac-typescript-definitions";
 import {
-  CardType,
-  DamageFlag,
-  EntityType,
-  ModCallback,
-} from "isaac-typescript-definitions";
-import { Callback, spawnCard, VectorZero } from "isaacscript-common";
+  CallbackCustom,
+  isFirstPlayer,
+  ModCallbackCustom,
+  spawnCard,
+  VectorZero,
+} from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Spawns a Lovers card on hit. */
 export class KindaLovableBaby extends Baby {
-  @Callback(ModCallback.ENTITY_TAKE_DMG, EntityType.PLAYER)
-  entityTakeDmgPlayer(
-    entity: Entity,
-    _amount: float,
-    _damageFlags: BitFlags<DamageFlag>,
-    _source: EntityRef,
-    _countdownFrames: int,
-  ): boolean | undefined {
-    const player = entity.ToPlayer();
-    if (player === undefined) {
+  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
+  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
+    if (!isFirstPlayer(player)) {
       return undefined;
     }
 

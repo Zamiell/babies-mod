@@ -1,12 +1,8 @@
+import { CollectibleType, SoundEffect } from "isaac-typescript-definitions";
 import {
-  CollectibleType,
-  DamageFlag,
-  EntityType,
-  ModCallback,
-  SoundEffect,
-} from "isaac-typescript-definitions";
-import {
-  Callback,
+  CallbackCustom,
+  isFirstPlayer,
+  ModCallbackCustom,
   removeCollectibleFromItemTracker,
   sfxManager,
 } from "isaacscript-common";
@@ -15,16 +11,9 @@ import { Baby } from "../Baby";
 
 /** Guaranteed Devil Room + Angel Room after N hits. */
 export class GoatBaby extends Baby {
-  @Callback(ModCallback.ENTITY_TAKE_DMG, EntityType.PLAYER)
-  entityTakeDmg(
-    entity: Entity,
-    _amount: float,
-    _damageFlags: BitFlags<DamageFlag>,
-    _source: EntityRef,
-    _countdownFrames: int,
-  ): boolean | undefined {
-    const player = entity.ToPlayer();
-    if (player === undefined) {
+  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
+  entityTakeDmg(player: EntityPlayer): boolean | undefined {
+    if (!isFirstPlayer(player)) {
       return undefined;
     }
 

@@ -1,13 +1,12 @@
-import {
-  DamageFlag,
-  EntityType,
-  ModCallback,
-} from "isaac-typescript-definitions";
+import { DamageFlag, ModCallback } from "isaac-typescript-definitions";
 import {
   Callback,
+  CallbackCustom,
   game,
   GAME_FRAMES_PER_MINUTE,
+  isFirstPlayer,
   isSelfDamage,
+  ModCallbackCustom,
 } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
@@ -29,17 +28,14 @@ export class ScoreboardBaby extends Baby {
   }
 
   // 11
-  @Callback(ModCallback.ENTITY_TAKE_DMG, EntityType.PLAYER)
+  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(
-    entity: Entity,
+    player: EntityPlayer,
     _amount: float,
     damageFlags: BitFlags<DamageFlag>,
-    _source: EntityRef,
-    _countdownFrames: int,
   ): boolean | undefined {
-    const player = entity.ToPlayer();
-    if (player === undefined) {
-      return undefined;
+    if (!isFirstPlayer(player)) {
+      return;
     }
 
     const gameFrameCount = game.GetFrameCount();

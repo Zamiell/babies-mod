@@ -1,25 +1,18 @@
+import { CollectibleType } from "isaac-typescript-definitions";
 import {
-  CollectibleType,
-  DamageFlag,
-  EntityType,
-  ModCallback,
-} from "isaac-typescript-definitions";
-import { Callback, useActiveItemTemp } from "isaacscript-common";
+  CallbackCustom,
+  isFirstPlayer,
+  ModCallbackCustom,
+  useActiveItemTemp,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Removes a heart container on hit. */
 export class BuddyBaby extends Baby {
-  @Callback(ModCallback.ENTITY_TAKE_DMG, EntityType.PLAYER)
-  entityTakeDmgPlayer(
-    entity: Entity,
-    _amount: float,
-    _damageFlags: BitFlags<DamageFlag>,
-    _source: EntityRef,
-    _countdownFrames: int,
-  ): boolean | undefined {
-    const player = entity.ToPlayer();
-    if (player === undefined) {
+  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
+  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
+    if (!isFirstPlayer(player)) {
       return undefined;
     }
 

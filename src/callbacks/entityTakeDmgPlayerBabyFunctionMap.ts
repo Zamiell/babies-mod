@@ -1,6 +1,4 @@
 import {
-  BombVariant,
-  CacheFlag,
   CardType,
   CollectibleType,
   DamageFlag,
@@ -14,7 +12,6 @@ import {
   closeDoorFast,
   getDoors,
   getRandom,
-  spawnBomb,
   spawnCard,
   useActiveItemTemp,
   VectorZero,
@@ -22,7 +19,6 @@ import {
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
-import { getCurrentBabyDescription } from "../utilsBaby";
 
 export const entityTakeDmgPlayerBabyFunctionMap = new Map<
   RandomBabyType,
@@ -160,118 +156,3 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.TANOOKI, (player) => {
 
   return undefined;
 });
-
-// 366
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.FIERY, (player) => {
-  player.ShootRedCandle(VectorZero);
-
-  return undefined;
-});
-
-// 378
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.DARK_ELF, (player) => {
-  useActiveItemTemp(player, CollectibleType.BOOK_OF_THE_DEAD);
-
-  return undefined;
-});
-
-// 385
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.FAIRYMAN, (player) => {
-  g.run.babyCounters++;
-  player.AddCacheFlags(CacheFlag.DAMAGE);
-  player.EvaluateItems();
-
-  return undefined;
-});
-
-// 412
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.CATSUIT, (player) => {
-  useActiveItemTemp(player, CollectibleType.GUPPYS_PAW);
-
-  return undefined;
-});
-
-// 428
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.MAGIC_CAT, (player) => {
-  const bomb = spawnBomb(BombVariant.GIGA, 0, player.Position);
-  bomb.Visible = false;
-  bomb.SetExplosionCountdown(0);
-
-  return undefined;
-});
-
-// 435
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.CUP, (player) => {
-  player.UseCard(CardType.AGAINST_HUMANITY);
-  // (The animation will automatically be canceled by the damage.)
-
-  return undefined;
-});
-
-// 438
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.BIG_MOUTH_2, (player) => {
-  const baby = getCurrentBabyDescription();
-  if (baby.requireNumHits === undefined) {
-    error(`The "numHits" attribute was not defined for: ${baby.name}`);
-  }
-
-  g.run.babyCounters++;
-  if (g.run.babyCounters === baby.requireNumHits) {
-    g.run.babyCounters = 0;
-    useActiveItemTemp(player, CollectibleType.MEGA_MUSH);
-  }
-
-  return undefined;
-});
-
-// 441
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.TV, (player) => {
-  const baby = getCurrentBabyDescription();
-  if (baby.requireNumHits === undefined) {
-    error(`The "numHits" attribute was not defined for: ${baby.name}`);
-  }
-
-  g.run.babyCounters++;
-  if (g.run.babyCounters === baby.requireNumHits) {
-    g.run.babyCounters = 0;
-    useActiveItemTemp(player, CollectibleType.MEGA_BLAST);
-  }
-
-  return undefined;
-});
-
-// 444
-entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.STEROIDS, (player) => {
-  // Forget Me Now on 2nd hit (per room).
-  g.run.babyCountersRoom++;
-  if (g.run.babyCountersRoom >= 2) {
-    useActiveItemTemp(player, CollectibleType.FORGET_ME_NOW);
-  }
-
-  return undefined;
-});
-
-// 446
-entityTakeDmgPlayerBabyFunctionMap.set(
-  RandomBabyType.ROJEN_WHITEFOX,
-  (player) => {
-    useActiveItemTemp(player, CollectibleType.BOOK_OF_SHADOWS);
-
-    return undefined;
-  },
-);
-
-// 456
-entityTakeDmgPlayerBabyFunctionMap.set(
-  RandomBabyType.HANDSOME_MR_FROG,
-  (player) => {
-    const baby = getCurrentBabyDescription();
-    if (baby.num === undefined) {
-      error(`The "num" attribute was not defined for: ${baby.name}`);
-    }
-
-    player.AddBlueFlies(baby.num, player.Position, undefined);
-
-    return undefined;
-  },
-);

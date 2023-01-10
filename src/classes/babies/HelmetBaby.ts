@@ -1,13 +1,11 @@
-import {
-  ButtonAction,
-  DamageFlag,
-  EntityType,
-  ModCallback,
-} from "isaac-typescript-definitions";
+import { ButtonAction, ModCallback } from "isaac-typescript-definitions";
 import {
   Callback,
+  CallbackCustom,
   copyColor,
   isActionPressedOnAnyInput,
+  isFirstPlayer,
+  ModCallbackCustom,
 } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
@@ -48,14 +46,12 @@ export class HelmetBaby extends Baby {
   }
 
   // 11
-  @Callback(ModCallback.ENTITY_TAKE_DMG, EntityType.PLAYER)
-  entityTakeDmgPlayer(
-    _entity: Entity,
-    _amount: float,
-    _damageFlags: BitFlags<DamageFlag>,
-    _source: EntityRef,
-    _countdownFrames: int,
-  ): boolean | undefined {
+  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
+  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
+    if (!isFirstPlayer(player)) {
+      return undefined;
+    }
+
     if (g.run.babyBool) {
       return false;
     }

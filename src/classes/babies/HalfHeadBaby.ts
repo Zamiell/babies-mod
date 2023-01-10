@@ -1,40 +1,33 @@
+import { DamageFlag } from "isaac-typescript-definitions";
 import {
-  DamageFlag,
-  DamageFlagZero,
-  EntityType,
-  ModCallback,
-} from "isaac-typescript-definitions";
-import { Callback } from "isaacscript-common";
+  CallbackCustom,
+  isFirstPlayer,
+  ModCallbackCustom,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Takes 2x damage. */
 export class HalfHeadBaby extends Baby {
-  @Callback(ModCallback.ENTITY_TAKE_DMG, EntityType.PLAYER)
+  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(
-    entity: Entity,
+    player: EntityPlayer,
     amount: float,
-    _damageFlags: BitFlags<DamageFlag>,
-    _source: EntityRef,
+    damageFlags: BitFlags<DamageFlag>,
+    source: EntityRef,
     countdownFrames: int,
   ): boolean | undefined {
-    const player = entity.ToPlayer();
-    if (player === undefined) {
+    if (!isFirstPlayer(player)) {
       return undefined;
     }
 
-    if (g.run.babyBool) {
+    if (g.run.dealingExtraDamage) {
       return undefined;
     }
 
-    g.run.babyBool = true;
-    player.TakeDamage(
-      amount,
-      DamageFlagZero,
-      EntityRef(player),
-      countdownFrames,
-    );
-    g.run.babyBool = false;
+    g.run.dealingExtraDamage = true;
+    player.TakeDamage(amount, damageFlags, source, countdownFrames);
+    g.run.dealingExtraDamage = false;
 
     return undefined;
   }

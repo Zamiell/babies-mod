@@ -1,12 +1,10 @@
-import {
-  CollectibleType,
-  DamageFlag,
-  EntityType,
-  ModCallback,
-} from "isaac-typescript-definitions";
+import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
 import {
   Callback,
+  CallbackCustom,
   getHUDOffsetVector,
+  isFirstPlayer,
+  ModCallbackCustom,
   useActiveItemTemp,
 } from "isaacscript-common";
 import { g } from "../../globals";
@@ -47,26 +45,19 @@ export class MohawkBaby extends Baby {
   }
 
   // 11
-  @Callback(ModCallback.ENTITY_TAKE_DMG, EntityType.PLAYER)
-  entityTakeDmgPlayer(
-    entity: Entity,
-    _amount: float,
-    _damageFlags: BitFlags<DamageFlag>,
-    _source: EntityRef,
-    _countdownFrames: int,
-  ): boolean | undefined {
-    const player = entity.ToPlayer();
-    if (player === undefined) {
+  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
+  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
+    if (!isFirstPlayer(player)) {
       return undefined;
     }
 
-    if (g.run.babyBool) {
+    if (g.run.dealingExtraDamage) {
       return undefined;
     }
 
-    g.run.babyBool = true;
+    g.run.dealingExtraDamage = true;
     useActiveItemTemp(player, CollectibleType.DULL_RAZOR);
-    g.run.babyBool = false;
+    g.run.dealingExtraDamage = false;
     player.AddBombs(-1);
     return false;
   }

@@ -1,21 +1,20 @@
-import { CollectibleType } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   isFirstPlayer,
   ModCallbackCustom,
-  useActiveItemTemp,
+  VectorZero,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
-/** My Little Unicorn effect on hit. */
-export class SmallFaceBaby extends Baby {
+/** Spawns a fire on hit. */
+export class FieryBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
     if (!isFirstPlayer(player)) {
       return undefined;
     }
 
-    useActiveItemTemp(player, CollectibleType.MY_LITTLE_UNICORN);
+    player.ShootRedCandle(VectorZero);
 
     return undefined;
   }

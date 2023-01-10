@@ -1,9 +1,12 @@
+import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
 import {
-  CollectibleType,
-  EntityType,
-  ModCallback,
-} from "isaac-typescript-definitions";
-import { Callback, game, useActiveItemTemp } from "isaacscript-common";
+  Callback,
+  CallbackCustom,
+  game,
+  isFirstPlayer,
+  ModCallbackCustom,
+  useActiveItemTemp,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
@@ -23,8 +26,12 @@ export class WrappedBaby extends Baby {
   }
 
   // 11
-  @Callback(ModCallback.ENTITY_TAKE_DMG, EntityType.PLAYER)
-  entityTakeDmgPlayer(): boolean | undefined {
+  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
+  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
+    if (!isFirstPlayer(player)) {
+      return undefined;
+    }
+
     const num = this.getAttribute("num");
 
     g.run.babyCounters = num;

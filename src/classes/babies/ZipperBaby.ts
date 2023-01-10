@@ -1,25 +1,20 @@
+import { EntityType } from "isaac-typescript-definitions";
 import {
-  DamageFlag,
-  EntityType,
-  ModCallback,
-} from "isaac-typescript-definitions";
-import { Callback, getNPCs, spawn } from "isaacscript-common";
+  CallbackCustom,
+  getNPCs,
+  isFirstPlayer,
+  ModCallbackCustom,
+  spawn,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { EntityDescription } from "../../types/EntityDescription";
 import { Baby } from "../Baby";
 
 /** Extra enemies spawn on hit. */
 export class ZipperBaby extends Baby {
-  @Callback(ModCallback.ENTITY_TAKE_DMG, EntityType.PLAYER)
-  entityTakeDmgPlayer(
-    entity: Entity,
-    _amount: float,
-    _damageFlags: BitFlags<DamageFlag>,
-    _source: EntityRef,
-    _countdownFrames: int,
-  ): boolean | undefined {
-    const player = entity.ToPlayer();
-    if (player === undefined) {
+  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
+  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
+    if (!isFirstPlayer(player)) {
       return undefined;
     }
 

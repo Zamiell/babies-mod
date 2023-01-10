@@ -1,16 +1,17 @@
 import {
   CoinSubType,
-  DamageFlag,
   EntityCollisionClass,
-  EntityType,
   ModCallback,
   PickupVariant,
   SoundEffect,
 } from "isaac-typescript-definitions";
 import {
   Callback,
+  CallbackCustom,
   GAME_FRAMES_PER_SECOND,
   getRandomInt,
+  isFirstPlayer,
+  ModCallbackCustom,
   repeat,
   sfxManager,
   spawnCoin,
@@ -23,16 +24,9 @@ const DATA_KEY = "BabiesModRecovery";
 /** +2 coins + Sonic-style health. */
 export class AbanBaby extends Baby {
   // 11
-  @Callback(ModCallback.ENTITY_TAKE_DMG, EntityType.PLAYER)
-  entityTakeDmgPlayer(
-    entity: Entity,
-    _amount: float,
-    _damageFlags: BitFlags<DamageFlag>,
-    _source: EntityRef,
-    _countdownFrames: int,
-  ): boolean | undefined {
-    const player = entity.ToPlayer();
-    if (player === undefined) {
+  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
+  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
+    if (!isFirstPlayer(player)) {
       return undefined;
     }
 
@@ -45,24 +39,7 @@ export class AbanBaby extends Baby {
 
     player.AddCoins(-999);
     repeat(coins, () => {
-      const randomPosition = Isaac.GetRandomPosition();
-      let velocity = player.Position.sub(randomPosition);
-      velocity = velocity.Normalized();
-      const multiplier = getRandomInt(4, 20);
-      velocity = velocity.mul(multiplier);
-      const coin = spawnCoin(
-        CoinSubType.PENNY,
-        player.Position,
-        velocity,
-        player,
-      );
-
-      // Make it fade away.
-      coin.Timeout = 160; // 5.3 seconds
-
-      // We also want it to bounce off the player immediately upon spawning.
-      const data = coin.GetData();
-      data[DATA_KEY] = true;
+      spawnFadingCoinExplodingFromPlayer(player);
     });
     sfxManager.Play(SoundEffect.GOLD_HEART);
 
@@ -110,4 +87,20 @@ export class AbanBaby extends Baby {
       }
     }
   }
+}
+
+function spawnFadingCoinExplodingFromPlayer(player: EntityPlayer) {
+  const randomPosition = Isaac.GetRandomPosition();
+  let velocity = player.Position.sub(randomPosition);
+  velocity = velocity.Normalized();
+  const multiplier = getRandomInt(4, 20);
+  velocity = velocity.mul(multiplier);
+  const coin = spawnCoin(CoinSubType.PENNY, player.Position, velocity, player);
+
+  // Make it fade away.
+  coin.Timeout = 160; // 5.3 seconds
+
+  // We also want it to bounce off the player immediately upon spawning.
+  const data = coin.GetData();
+  data[DATA_KEY] = true;
 }

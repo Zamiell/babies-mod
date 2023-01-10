@@ -5,7 +5,14 @@ import {
   EntityType,
   ModCallback,
 } from "isaac-typescript-definitions";
-import { Callback, spawnEffect, VectorZero } from "isaacscript-common";
+import {
+  Callback,
+  CallbackCustom,
+  isFirstPlayer,
+  ModCallbackCustom,
+  spawnEffect,
+  VectorZero,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
@@ -40,16 +47,9 @@ export class DBaby extends Baby {
   }
 
   // 11
-  @Callback(ModCallback.ENTITY_TAKE_DMG, EntityType.PLAYER)
-  entityTakeDmgPlayer(
-    entity: Entity,
-    _amount: float,
-    _damageFlags: BitFlags<DamageFlag>,
-    _source: EntityRef,
-    _countdownFrames: int,
-  ): boolean | undefined {
-    const player = entity.ToPlayer();
-    if (player === undefined) {
+  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
+  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
+    if (!isFirstPlayer(player)) {
       return undefined;
     }
 
