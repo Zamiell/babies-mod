@@ -3,7 +3,6 @@ import {
   Callback,
   CallbackCustom,
   game,
-  isFirstPlayer,
   ModCallbackCustom,
   useActiveItemTemp,
 } from "isaacscript-common";
@@ -27,11 +26,7 @@ export class WrappedBaby extends Baby {
 
   // 11
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
-  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
+  entityTakeDmgPlayer(): boolean | undefined {
     const num = this.getAttribute("num");
 
     g.run.babyCounters = num;

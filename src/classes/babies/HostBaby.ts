@@ -1,9 +1,4 @@
-import {
-  CallbackCustom,
-  isFirstPlayer,
-  ModCallbackCustom,
-  repeat,
-} from "isaacscript-common";
+import { CallbackCustom, ModCallbackCustom, repeat } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
@@ -11,10 +6,6 @@ import { Baby } from "../Baby";
 export class HostBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
     const num = this.getAttribute("num");
 
     repeat(num, () => {

@@ -4,7 +4,6 @@ import {
   CallbackCustom,
   closeDoorFast,
   getDoors,
-  isFirstPlayer,
   ModCallbackCustom,
 } from "isaacscript-common";
 import { g } from "../../globals";
@@ -14,10 +13,6 @@ import { Baby } from "../Baby";
 export class BloodiedBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
     const roomClear = g.r.IsClear();
 
     /** Indexed by target room index. */

@@ -1,5 +1,4 @@
-import { ModCallback } from "isaac-typescript-definitions";
-import { Callback } from "isaacscript-common";
+import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
@@ -10,22 +9,22 @@ export class RageBaby extends Baby {
     return bombs < 50;
   }
 
-  override onAdd(): void {
-    const numBombs = g.p.GetNumBombs();
+  override onAdd(player: EntityPlayer): void {
+    const numBombs = player.GetNumBombs();
 
     g.run.babyCounters = numBombs; // Store the bomb count so that we can restore it later.
-    g.p.AddBombs(99);
+    player.AddBombs(99);
   }
 
   /** Restore the bomb count to what it was before we got this baby. */
-  override onRemove(oldBabyCounters: int): void {
-    g.p.AddBombs(-99);
-    g.p.AddBombs(oldBabyCounters);
+  override onRemove(player: EntityPlayer, oldBabyCounters: int): void {
+    player.AddBombs(-99);
+    player.AddBombs(oldBabyCounters);
   }
 
   /** Infinite bombs. */
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
-    g.p.AddBombs(1);
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
+    player.AddBombs(1);
   }
 }

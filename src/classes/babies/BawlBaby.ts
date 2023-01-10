@@ -1,7 +1,7 @@
 import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
 import { Callback, game, useActiveItemTemp } from "isaacscript-common";
 import { g } from "../../globals";
-import { bigChestExists } from "../../utils";
+import { doesBigChestExist } from "../../utils";
 import { Baby } from "../Baby";
 
 /** Constant Isaac's Tears effect + blindfolded. */
@@ -14,7 +14,7 @@ export class BawlBaby extends Baby {
     const soulHearts = g.p.GetSoulHearts();
     const boneHearts = g.p.GetBoneHearts();
 
-    if (bigChestExists()) {
+    if (doesBigChestExist()) {
       return;
     }
 

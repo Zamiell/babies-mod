@@ -1,9 +1,5 @@
 import { DamageFlag } from "isaac-typescript-definitions";
-import {
-  CallbackCustom,
-  isFirstPlayer,
-  ModCallbackCustom,
-} from "isaacscript-common";
+import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
@@ -17,10 +13,6 @@ export class HalfHeadBaby extends Baby {
     source: EntityRef,
     countdownFrames: int,
   ): boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
     if (g.run.dealingExtraDamage) {
       return undefined;
     }

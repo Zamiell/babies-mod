@@ -10,7 +10,6 @@ import {
   CallbackCustom,
   GAME_FRAMES_PER_SECOND,
   getRandomInt,
-  isFirstPlayer,
   ModCallbackCustom,
   repeat,
   sfxManager,
@@ -23,17 +22,13 @@ const DATA_KEY = "BabiesModRecovery";
 
 /** +2 coins + Sonic-style health. */
 export class AbanBaby extends Baby {
-  override onAdd(): void {
-    g.p.AddCoins(2);
+  override onAdd(player: EntityPlayer): void {
+    player.AddCoins(2);
   }
 
   // 11
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
     const coins = player.GetNumCoins();
 
     if (coins === 0) {

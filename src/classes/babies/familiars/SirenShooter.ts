@@ -1,9 +1,5 @@
 import { CollectibleType } from "isaac-typescript-definitions";
-import {
-  CallbackCustom,
-  isFirstPlayer,
-  ModCallbackCustom,
-} from "isaacscript-common";
+import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
 import { g } from "../../../globals";
 import { mod } from "../../../mod";
 import { Baby } from "../../Baby";
@@ -12,10 +8,6 @@ import { Baby } from "../../Baby";
 export class SirenShooter extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
     const num = this.getAttribute("num");
 
     g.run.babyCounters++;

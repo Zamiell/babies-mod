@@ -10,6 +10,7 @@ import {
 } from "isaac-typescript-definitions";
 import {
   copyColor,
+  countEntities,
   game,
   getNPCs,
   getRoomListIndex,
@@ -126,8 +127,7 @@ postEntityKillBabyFunctionMap.set(RandomBabyType.KILLER, (_npc: EntityNPC) => {
 // 376
 postEntityKillBabyFunctionMap.set(RandomBabyType.DINO, (_npc: EntityNPC) => {
   // Don't bother giving another egg if we already have a bunch.
-  const numBrains = Isaac.CountEntities(
-    undefined,
+  const numBrains = countEntities(
     EntityType.FAMILIAR,
     FamiliarVariant.BOBS_BRAIN,
   );

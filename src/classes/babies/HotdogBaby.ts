@@ -6,7 +6,7 @@ import {
   useActiveItemTemp,
 } from "isaacscript-common";
 import { g } from "../../globals";
-import { bigChestExists } from "../../utils";
+import { doesBigChestExist } from "../../utils";
 import { Baby } from "../Baby";
 
 /** Constant The Bean effect + flight + explosion immunity + blindfolded. */
@@ -16,7 +16,7 @@ export class HotdogBaby extends Baby {
     const gameFrameCount = game.GetFrameCount();
     const numHits = getPlayerNumHitsRemaining(g.p);
 
-    if (bigChestExists()) {
+    if (doesBigChestExist()) {
       return;
     }
 

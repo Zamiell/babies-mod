@@ -1,9 +1,5 @@
 import { CardType } from "isaac-typescript-definitions";
-import {
-  CallbackCustom,
-  isFirstPlayer,
-  ModCallbackCustom,
-} from "isaacscript-common";
+import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
@@ -11,10 +7,6 @@ import { Baby } from "../Baby";
 export class GlitteryPeachBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
     const numHits = this.getAttribute("requireNumHits");
 
     if (g.run.babyBool) {

@@ -22,6 +22,7 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import {
+  doesEntityExist,
   findFreePosition,
   game,
   GAME_FRAMES_PER_SECOND,
@@ -82,13 +83,8 @@ const BAD_MISSING_TEARS_TRANSFORMATIONS = [
  * In certain situations, baby effects will prevent a player from entering a Big Chest. If this is
  * the case, we check for the present of a Big Chest and disable the baby effect accordingly.
  */
-export function bigChestExists(): boolean {
-  const numBigChests = Isaac.CountEntities(
-    undefined,
-    EntityType.PICKUP,
-    PickupVariant.BIG_CHEST,
-  );
-  return numBigChests > 0;
+export function doesBigChestExist(): boolean {
+  return doesEntityExist(EntityType.PICKUP, PickupVariant.BIG_CHEST);
 }
 
 export function everyNSeconds(func: () => void, seconds: int): void {

@@ -3,7 +3,6 @@ import {
   Callback,
   CallbackCustom,
   getHUDOffsetVector,
-  isFirstPlayer,
   ModCallbackCustom,
   useActiveItemTemp,
 } from "isaacscript-common";
@@ -14,8 +13,8 @@ import { Baby } from "../Baby";
 
 /** +2 bombs + bombs are hearts. */
 export class MohawkBaby extends Baby {
-  override onAdd(): void {
-    g.p.AddBombs(2);
+  override onAdd(player: EntityPlayer): void {
+    player.AddBombs(2);
 
     g.run.babySprite = initSprite("gfx/custom-health/bomb.anm2");
   }
@@ -54,10 +53,6 @@ export class MohawkBaby extends Baby {
   // 11
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
     if (g.run.dealingExtraDamage) {
       return undefined;
     }

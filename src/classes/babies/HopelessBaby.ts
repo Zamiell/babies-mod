@@ -3,7 +3,6 @@ import {
   Callback,
   CallbackCustom,
   getHUDOffsetVector,
-  isFirstPlayer,
   ModCallbackCustom,
   useActiveItemTemp,
 } from "isaacscript-common";
@@ -14,8 +13,8 @@ import { Baby } from "../Baby";
 
 /** +2 keys + keys are hearts. */
 export class HopelessBaby extends Baby {
-  override onAdd(): void {
-    g.p.AddKeys(2);
+  override onAdd(player: EntityPlayer): void {
+    player.AddKeys(2);
 
     g.run.babySprite = initSprite("gfx/custom-health/key.anm2");
   }
@@ -55,10 +54,6 @@ export class HopelessBaby extends Baby {
   // 11
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
     if (g.run.dealingExtraDamage) {
       return undefined;
     }

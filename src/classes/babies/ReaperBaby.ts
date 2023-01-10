@@ -1,6 +1,5 @@
 import {
   CallbackCustom,
-  isFirstPlayer,
   ModCallbackCustom,
   spawnCard,
   VectorZero,
@@ -13,10 +12,6 @@ import { Baby } from "../Baby";
 export class ReaperBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
     const rune = mod.getRandomRune(g.run.rng);
     spawnCard(rune, player.Position, VectorZero, player, g.run.rng);
 

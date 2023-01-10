@@ -143,7 +143,7 @@ export function babyAdd(player: EntityPlayer): void {
   // Add miscellaneous other effects.
   const babyClass = BABY_CLASS_MAP.get(babyType);
   if (babyClass !== undefined) {
-    babyClass.onAdd();
+    babyClass.onAdd(player);
   }
 
   // Reset the player's size.

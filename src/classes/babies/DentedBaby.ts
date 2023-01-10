@@ -1,7 +1,6 @@
 import { KeySubType } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
-  isFirstPlayer,
   ModCallbackCustom,
   spawnKey,
   VectorZero,
@@ -13,10 +12,6 @@ import { Baby } from "../Baby";
 export class DentedBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
     spawnKey(KeySubType.NULL, player.Position, VectorZero, player, g.run.rng);
 
     return undefined;

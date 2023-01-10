@@ -1,5 +1,5 @@
 import { DarkEsauVariant, EntityType } from "isaac-typescript-definitions";
-import { spawn } from "isaacscript-common";
+import { doesEntityExist, spawn } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
@@ -8,8 +8,7 @@ const BOTTOM_LEFT_GRID_INDEX = 92;
 /** Starts with a friendly Dark Esau. */
 export class FoundSoulBaby extends Baby {
   override onAdd(): void {
-    const numDarkEsaus = Isaac.CountEntities(undefined, EntityType.DARK_ESAU);
-    if (numDarkEsaus > 0) {
+    if (doesEntityExist(EntityType.DARK_ESAU)) {
       return;
     }
 

@@ -1,7 +1,6 @@
 import { CollectibleType, SoundEffect } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
-  isFirstPlayer,
   ModCallbackCustom,
   removeCollectibleFromItemTracker,
   sfxManager,
@@ -16,18 +15,14 @@ const GRANTED_COLLECTIBLE_TYPES = [
 
 /** Guaranteed Devil Room + Angel Room after N hits. */
 export class GoatBaby extends Baby {
-  override onRemove(): void {
+  override onRemove(player: EntityPlayer): void {
     for (const collectibleType of GRANTED_COLLECTIBLE_TYPES) {
-      g.p.RemoveCollectible(collectibleType);
+      player.RemoveCollectible(collectibleType);
     }
   }
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmg(player: EntityPlayer): boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
     const numHits = this.getAttribute("requireNumHits");
 
     g.run.babyCounters++;

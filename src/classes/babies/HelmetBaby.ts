@@ -4,7 +4,6 @@ import {
   CallbackCustom,
   copyColor,
   isActionPressedOnAnyInput,
-  isFirstPlayer,
   ModCallbackCustom,
 } from "isaacscript-common";
 import { g } from "../../globals";
@@ -13,11 +12,11 @@ import { Baby } from "../Baby";
 /** Invulnerability when standing still. */
 export class HelmetBaby extends Baby {
   /** Make sure that the fade is removed (or else it will persist to the next character). */
-  override onRemove(): void {
-    const color = g.p.GetColor();
+  override onRemove(player: EntityPlayer): void {
+    const color = player.GetColor();
     const newColor = copyColor(color);
     newColor.A = 1;
-    g.p.SetColor(newColor, 0, 0, true, true);
+    player.SetColor(newColor, 0, 0, true, true);
   }
 
   // 1
@@ -55,11 +54,7 @@ export class HelmetBaby extends Baby {
 
   // 11
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
-  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
+  entityTakeDmgPlayer(): boolean | undefined {
     if (g.run.babyBool) {
       return false;
     }

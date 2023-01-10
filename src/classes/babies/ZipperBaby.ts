@@ -2,7 +2,6 @@ import { EntityType } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   getNPCs,
-  isFirstPlayer,
   ModCallbackCustom,
   spawn,
 } from "isaacscript-common";
@@ -14,10 +13,6 @@ import { Baby } from "../Baby";
 export class ZipperBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
     // Find an existing enemy in the room.
     const npcs = getNPCs();
     const firstNonBoss = npcs.find(

@@ -1,7 +1,6 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
-  isFirstPlayer,
   ModCallbackCustom,
   useActiveItemTemp,
 } from "isaacscript-common";
@@ -12,10 +11,6 @@ import { Baby } from "../Baby";
 export class SteroidsBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
     g.run.babyCountersRoom++;
     if (g.run.babyCountersRoom >= 2) {
       useActiveItemTemp(player, CollectibleType.FORGET_ME_NOW);

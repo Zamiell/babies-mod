@@ -9,7 +9,6 @@ import {
   CallbackCustom,
   directionToShootAction,
   game,
-  isFirstPlayer,
   isShootAction,
   ModCallbackCustom,
 } from "isaacscript-common";
@@ -48,14 +47,10 @@ export class ImpBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.INPUT_ACTION_PLAYER)
   inputActionPlayerGetActionValue(
-    player: EntityPlayer,
+    _player: EntityPlayer,
     inputHook: InputHook,
     buttonAction: ButtonAction,
   ): number | boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
     if (!isShootAction(buttonAction)) {
       return undefined;
     }

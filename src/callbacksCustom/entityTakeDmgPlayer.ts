@@ -27,7 +27,7 @@ function main(
   const gameFrameCount = game.GetFrameCount();
   const [babyType, baby] = getCurrentBaby();
   if (babyType === -1) {
-    return;
+    return undefined;
   }
 
   // Check to see if the player is supposed to be temporarily invulnerable.

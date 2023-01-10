@@ -2,7 +2,6 @@ import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
 import {
   Callback,
   CallbackCustom,
-  isFirstPlayer,
   ModCallbackCustom,
 } from "isaacscript-common";
 import { g } from "../../globals";
@@ -42,11 +41,7 @@ export class HeroBaby extends Baby {
   }
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
-  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
+  entityTakeDmgPlayer(): boolean | undefined {
     // We want to evaluate the cache, but we can't do it here because the damage is not applied yet,
     // so mark to do it later in the `POST_UPDATE` callback.
     g.run.babyBool = true;

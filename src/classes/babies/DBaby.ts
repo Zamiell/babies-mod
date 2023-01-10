@@ -8,7 +8,6 @@ import {
 import {
   Callback,
   CallbackCustom,
-  isFirstPlayer,
   ModCallbackCustom,
   spawnEffect,
   VectorZero,
@@ -49,10 +48,6 @@ export class DBaby extends Baby {
   // 11
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
     const creep = spawnEffect(
       EffectVariant.PLAYER_CREEP_RED,
       0,

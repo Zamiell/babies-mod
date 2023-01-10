@@ -6,7 +6,6 @@ import {
 import {
   Callback,
   CallbackCustom,
-  isFirstPlayer,
   ModCallbackCustom,
 } from "isaacscript-common";
 import { g } from "../../globals";
@@ -27,10 +26,6 @@ export class SkinlessBaby extends Baby {
     source: EntityRef,
     countdownFrames: int,
   ): boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
     if (g.run.dealingExtraDamage) {
       return;
     }

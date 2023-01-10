@@ -4,7 +4,6 @@ import {
   CallbackCustom,
   game,
   GAME_FRAMES_PER_MINUTE,
-  isFirstPlayer,
   isSelfDamage,
   ModCallbackCustom,
 } from "isaacscript-common";
@@ -30,14 +29,10 @@ export class ScoreboardBaby extends Baby {
   // 11
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(
-    player: EntityPlayer,
+    _player: EntityPlayer,
     _amount: float,
     damageFlags: BitFlags<DamageFlag>,
   ): boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return;
-    }
-
     const gameFrameCount = game.GetFrameCount();
 
     if (g.run.babyCounters !== 0) {

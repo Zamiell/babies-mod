@@ -11,10 +11,10 @@ const HALF_MAX_FAMILIARS = MAX_NUM_FAMILIARS / 2;
 
 /** Starts with Hive Mind + max Blue Flies + max Blue Spiders. */
 export class HiveBaby extends Baby {
-  override onAdd(): void {
-    g.p.AddBlueFlies(HALF_MAX_FAMILIARS, g.p.Position, undefined);
+  override onAdd(player: EntityPlayer): void {
+    player.AddBlueFlies(HALF_MAX_FAMILIARS, g.p.Position, undefined);
     repeat(HALF_MAX_FAMILIARS, () => {
-      g.p.AddBlueSpider(g.p.Position);
+      player.AddBlueSpider(g.p.Position);
     });
   }
 

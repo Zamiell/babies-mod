@@ -2,7 +2,6 @@ import { LevelStage } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   game,
-  isFirstPlayer,
   ModCallbackCustom,
   onRepentanceStage,
 } from "isaacscript-common";
@@ -16,11 +15,7 @@ export class ZeroBaby extends Baby {
   }
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
-  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
+  entityTakeDmgPlayer(): boolean | undefined {
     return false;
   }
 }

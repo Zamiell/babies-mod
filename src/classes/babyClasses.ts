@@ -35,6 +35,7 @@ export { BluePigBaby } from "./babies/BluePigBaby";
 export { BlueWrestlerBaby } from "./babies/BlueWrestlerBaby";
 export { BoundBaby } from "./babies/BoundBaby";
 export { BoxersBaby } from "./babies/BoxersBaby";
+export { BrownieBaby } from "./babies/BrownieBaby";
 export { BubblesBaby } from "./babies/BubblesBaby";
 export { BuddyBaby } from "./babies/BuddyBaby";
 export { BulletBaby } from "./babies/BulletBaby";

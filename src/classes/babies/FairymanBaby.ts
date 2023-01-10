@@ -2,7 +2,6 @@ import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
 import {
   Callback,
   CallbackCustom,
-  isFirstPlayer,
   ModCallbackCustom,
   repeat,
 } from "isaacscript-common";
@@ -22,10 +21,6 @@ export class FairymanBaby extends Baby {
   // 11
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
     g.run.babyCounters++;
     player.AddCacheFlags(CacheFlag.DAMAGE);
     player.EvaluateItems();

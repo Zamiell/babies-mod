@@ -2,7 +2,6 @@ import { PillColor, PillEffect } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   getRandomEnumValue,
-  isFirstPlayer,
   ModCallbackCustom,
 } from "isaacscript-common";
 import { g } from "../../globals";
@@ -13,10 +12,6 @@ import { Baby } from "../Baby";
 export class EggBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
     const exceptions = isRacingPlusEnabled()
       ? [
           PillEffect.AMNESIA, // 25

@@ -2,7 +2,6 @@ import { ButtonAction, InputHook } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   isActionPressed,
-  isFirstPlayer,
   ModCallbackCustom,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
@@ -31,10 +30,6 @@ export class PieceABaby extends Baby {
     _inputHook: InputHook,
     buttonAction: ButtonAction,
   ): number | boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
     const illegalInputs = ILLEGAL_INPUTS.get(buttonAction);
     if (illegalInputs === undefined) {
       return undefined;

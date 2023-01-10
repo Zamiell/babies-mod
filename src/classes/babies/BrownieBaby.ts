@@ -1,11 +1,10 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 import { removeCollectibleFromItemTracker, repeat } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Starts with Level N Meatboy + Level N Meatgirl. */
 export class BrownieBaby extends Baby {
-  override onAdd(): void {
+  override onAdd(player: EntityPlayer): void {
     const num = this.getAttribute("num");
 
     for (const collectibleType of [
@@ -13,13 +12,13 @@ export class BrownieBaby extends Baby {
       CollectibleType.BALL_OF_BANDAGES,
     ]) {
       repeat(num, () => {
-        g.p.AddCollectible(collectibleType);
+        player.AddCollectible(collectibleType);
         removeCollectibleFromItemTracker(collectibleType);
       });
     }
   }
 
-  override onRemove(): void {
+  override onRemove(player: EntityPlayer): void {
     const num = this.getAttribute("num");
 
     for (const collectibleType of [
@@ -27,7 +26,7 @@ export class BrownieBaby extends Baby {
       CollectibleType.BALL_OF_BANDAGES,
     ]) {
       repeat(num, () => {
-        g.p.RemoveCollectible(collectibleType);
+        player.RemoveCollectible(collectibleType);
       });
     }
   }

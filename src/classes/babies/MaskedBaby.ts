@@ -5,7 +5,6 @@ import {
 } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
-  isFirstPlayer,
   isShootAction,
   ModCallbackCustom,
   playerHasCollectible,
@@ -43,10 +42,6 @@ export class MaskedBaby extends Baby {
     _inputHook: InputHook,
     buttonAction: ButtonAction,
   ): number | boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
     if (!isShootAction(buttonAction)) {
       return undefined;
     }

@@ -939,6 +939,7 @@ export const BABIES = {
     description: "Starts with Level 4 Meatboy + Level 4 Meatgirl",
     sprite: "107_baby_brownie.png",
     num: 4,
+    class: bc.BrownieBaby,
   },
 
   // 108

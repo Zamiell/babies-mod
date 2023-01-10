@@ -12,20 +12,20 @@ export class RichBaby extends Baby {
     return effectiveStage <= (LevelStage.DEPTHS_2 as int);
   }
 
-  override onAdd(): void {
-    const numCoins = g.p.GetNumCoins();
+  override onAdd(player: EntityPlayer): void {
+    const numCoins = player.GetNumCoins();
 
     g.run.babyCounters = numCoins;
-    g.p.AddCoins(99);
+    player.AddCoins(99);
   }
 
-  override onRemove(oldBabyCounters: int): void {
-    const numCoins = g.p.GetNumCoins();
+  override onRemove(player: EntityPlayer, oldBabyCounters: int): void {
+    const numCoins = player.GetNumCoins();
     const oldNumCoins = oldBabyCounters;
     const difference = oldNumCoins - numCoins;
 
     if (difference < 0) {
-      g.p.AddCoins(difference);
+      player.AddCoins(difference);
     }
   }
 }

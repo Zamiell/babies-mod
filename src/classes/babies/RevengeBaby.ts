@@ -3,7 +3,6 @@ import {
   CallbackCustom,
   getEnumValues,
   getRandomArrayElement,
-  isFirstPlayer,
   ModCallbackCustom,
   spawnHeart,
   VectorZero,
@@ -15,10 +14,6 @@ import { Baby } from "../Baby";
 export class RevengeBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
     const heartSubTypes = getEnumValues(HeartSubType);
     const heartSubType = getRandomArrayElement(heartSubTypes, g.run.rng);
     spawnHeart(heartSubType, player.Position, VectorZero, player, g.run.rng);

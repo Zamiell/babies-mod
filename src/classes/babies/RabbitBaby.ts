@@ -1,5 +1,11 @@
 import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
-import { Callback, game, MIN_PLAYER_SPEED_STAT } from "isaacscript-common";
+import {
+  Callback,
+  CallbackCustom,
+  game,
+  MIN_PLAYER_SPEED_STAT,
+  ModCallbackCustom,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
@@ -12,13 +18,6 @@ export class RabbitBaby extends Baby {
     g.run.babyFrame = gameFrameCount + num;
   }
 
-  // 1
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
-    g.p.AddCacheFlags(CacheFlag.SPEED);
-    g.p.EvaluateItems();
-  }
-
   // 8
   @Callback(ModCallback.EVALUATE_CACHE, CacheFlag.SPEED)
   evaluateCacheSpeed(player: EntityPlayer): void {
@@ -28,5 +27,11 @@ export class RabbitBaby extends Baby {
       // Speed has a lower bound, so we cannot set it lower than this.
       player.MoveSpeed = MIN_PLAYER_SPEED_STAT;
     }
+  }
+
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
+    player.AddCacheFlags(CacheFlag.SPEED);
+    player.EvaluateItems();
   }
 }

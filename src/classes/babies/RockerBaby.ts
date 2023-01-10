@@ -1,7 +1,6 @@
 import { PickupVariant } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
-  isFirstPlayer,
   ModCallbackCustom,
   spawnPickup,
   VectorZero,
@@ -13,10 +12,6 @@ import { Baby } from "../Baby";
 export class RockerBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return;
-    }
-
     spawnPickup(
       PickupVariant.BOMB,
       0,

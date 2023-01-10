@@ -8,10 +8,10 @@ import { Baby } from "../Baby";
 
 /** Gold gear + gold poops + gold rooms. */
 export class GoldBaby extends Baby {
-  override onAdd(): void {
-    g.p.AddGoldenBomb();
-    g.p.AddGoldenKey();
-    g.p.AddGoldenHearts(12);
+  override onAdd(player: EntityPlayer): void {
+    player.AddGoldenBomb();
+    player.AddGoldenKey();
+    player.AddGoldenHearts(12);
   }
 
   @CallbackCustom(

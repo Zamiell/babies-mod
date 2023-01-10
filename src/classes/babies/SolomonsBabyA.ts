@@ -1,9 +1,5 @@
 import { ButtonAction, InputHook } from "isaac-typescript-definitions";
-import {
-  CallbackCustom,
-  isFirstPlayer,
-  ModCallbackCustom,
-} from "isaacscript-common";
+import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Can't shoot right. */
@@ -15,13 +11,7 @@ export class SolomonsBabyA extends Baby {
     InputHook.IS_ACTION_PRESSED,
     ButtonAction.SHOOT_RIGHT,
   )
-  inputActionPlayerIsActionPressedShootRight(
-    player: EntityPlayer,
-  ): number | boolean | undefined {
-    if (!isFirstPlayer(player)) {
-      return undefined;
-    }
-
+  inputActionPlayerIsActionPressedShootRight(): number | boolean | undefined {
     return false;
   }
 }

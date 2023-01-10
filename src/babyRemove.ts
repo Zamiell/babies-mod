@@ -53,6 +53,6 @@ export function babyRemove(player: EntityPlayer, oldBabyCounters: int): void {
   // Remove miscellaneous effects.
   const babyClass = BABY_CLASS_MAP.get(babyType);
   if (babyClass !== undefined) {
-    babyClass.onRemove(oldBabyCounters);
+    babyClass.onRemove(player, oldBabyCounters);
   }
 }

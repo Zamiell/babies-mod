@@ -1,7 +1,7 @@
 import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
 import { Callback, useActiveItemTemp } from "isaacscript-common";
 import { g } from "../../globals";
-import { bigChestExists, everyNSeconds } from "../../utils";
+import { doesBigChestExist, everyNSeconds } from "../../utils";
 import { Baby } from "../Baby";
 
 /** Mega Bean effect every 5 seconds. */
@@ -13,7 +13,7 @@ export class PuffBaby extends Baby {
     const boneHearts = g.p.GetBoneHearts();
     const num = this.getAttribute("num");
 
-    if (bigChestExists()) {
+    if (doesBigChestExist()) {
       return;
     }
 
