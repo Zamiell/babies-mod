@@ -1,5 +1,10 @@
-import { ItemType } from "isaac-typescript-definitions";
 import {
+  ItemType,
+  ModCallback,
+  PickupVariant,
+} from "isaac-typescript-definitions";
+import {
+  Callback,
   CallbackCustom,
   dequeueItem,
   getRoomGridIndexesForType,
@@ -17,6 +22,7 @@ import { TELEPORT_COLLECTIBLE_TYPE_TO_ROOM_TYPE_MAP } from "../../maps/teleportC
 import { TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP } from "../../maps/teleportRoomTypeToItemAndPriceMap";
 import { mod } from "../../mod";
 import { CollectibleTypeCustom } from "../../types/CollectibleTypeCustom";
+import { isRerolledCollectibleBuggedHeart } from "../../utils";
 import { Baby } from "../Baby";
 
 const COLLECTIBLE_POSITIONS: ReadonlyArray<[x: int, y: int]> = [
@@ -35,6 +41,15 @@ export class FancyBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
     const coins = player.GetNumCoins();
     return coins >= 10;
+  }
+
+  /** Delete the rerolled teleport collectibles. */
+  // 35
+  @Callback(ModCallback.POST_PICKUP_UPDATE, PickupVariant.HEART)
+  postPickupUpdateHeart(pickup: EntityPickup): void {
+    if (isRerolledCollectibleBuggedHeart(pickup) && inStartingRoom()) {
+      pickup.Remove();
+    }
   }
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)

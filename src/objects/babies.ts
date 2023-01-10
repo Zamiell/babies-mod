@@ -1367,8 +1367,9 @@ export const BABIES = {
   // 158
   [RandomBabyType.PRETTY]: {
     name: "Pretty Baby",
-    description: "All special rooms are Angel Shops",
+    description: "All special rooms are Angel shops",
     sprite: "158_baby_pretty.png",
+    class: bc.PrettyBaby,
   },
 
   // 159
@@ -2468,6 +2469,7 @@ export const BABIES = {
     name: "Suit Baby",
     description: "All special rooms are Devil Rooms",
     sprite: "287_baby_suit.png",
+    class: bc.SuitBaby,
   },
 
   // 288

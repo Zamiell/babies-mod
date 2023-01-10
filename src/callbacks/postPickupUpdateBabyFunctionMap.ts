@@ -1,26 +1,10 @@
 import {
-  ChestSubType,
-  CollectibleType,
   EntityCollisionClass,
-  ItemPoolType,
   PickupVariant,
 } from "isaac-typescript-definitions";
-import {
-  getCollectibleDevilHeartPrice,
-  inStartingRoom,
-  isChest,
-  isCollectible,
-  repeat,
-  spawnPickup,
-} from "isaacscript-common";
+import { repeat } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
-import { mod } from "../mod";
-import {
-  getRandomCollectibleTypeFromPool,
-  isRerolledCollectibleBuggedHeart,
-  shouldTransformRoomType,
-} from "../utils";
 
 export const postPickupUpdateBabyFunctionMap = new Map<
   RandomBabyType,
@@ -100,130 +84,6 @@ postPickupUpdateBabyFunctionMap.set(
       velocity = velocity.Normalized();
       velocity = velocity.mul(8);
       pickup.Velocity = velocity;
-    }
-  },
-);
-
-// 158
-postPickupUpdateBabyFunctionMap.set(
-  RandomBabyType.PRETTY,
-  (pickup: EntityPickup) => {
-    const roomType = g.r.GetType();
-
-    // Ignore some special rooms.
-    if (!shouldTransformRoomType(roomType)) {
-      return;
-    }
-
-    // All special rooms are Angel Shops.
-    if (isRerolledCollectibleBuggedHeart(pickup)) {
-      // Rerolled items turn into hearts since this is a not an actual Devil Room, so delete the
-      // heart and manually create another pedestal item.
-      const collectibleType = getRandomCollectibleTypeFromPool(
-        ItemPoolType.ANGEL,
-      );
-      const collectible = mod.spawnCollectible(
-        collectibleType,
-        pickup.Position,
-        pickup.InitSeed,
-      );
-      collectible.AutoUpdatePrice = false;
-      collectible.Price = 15;
-
-      // Remove the heart.
-      pickup.Remove();
-    }
-  },
-);
-
-// 166
-postPickupUpdateBabyFunctionMap.set(
-  RandomBabyType.SPIKE,
-  (pickup: EntityPickup) => {
-    // All chests are Mimics + all chests have items.
-    if (
-      // Frame 0 does not work.
-      pickup.FrameCount === 1 &&
-      isChest(pickup) &&
-      pickup.Variant !== PickupVariant.MIMIC_CHEST
-    ) {
-      // Replace all chests with Mimics. This does not work in the `POST_PICKUP_SELECTION` callback
-      // because the chest will not initialize properly for some reason. This does not work in the
-      // `POST_PICKUP_INIT` callback because the position is not initialized.
-      pickup.Remove();
-      spawnPickup(
-        PickupVariant.MIMIC_CHEST,
-        0,
-        pickup.Position,
-        pickup.Velocity,
-        pickup.Parent,
-        pickup.InitSeed,
-      );
-    } else if (
-      pickup.Variant === PickupVariant.SPIKED_CHEST &&
-      pickup.SubType === (ChestSubType.OPENED as int)
-    ) {
-      // Replace the contents of the chest with an item.
-      pickup.Remove();
-      mod.spawnCollectible(
-        CollectibleType.NULL,
-        pickup.Position,
-        pickup.InitSeed,
-      );
-    }
-  },
-);
-
-// 216
-postPickupUpdateBabyFunctionMap.set(
-  RandomBabyType.FANCY,
-  (pickup: EntityPickup) => {
-    if (isRerolledCollectibleBuggedHeart(pickup) && inStartingRoom()) {
-      // Delete the rerolled teleports.
-      pickup.Remove();
-    }
-  },
-);
-
-// 287
-postPickupUpdateBabyFunctionMap.set(
-  RandomBabyType.SUIT,
-  (pickup: EntityPickup) => {
-    const roomType = g.r.GetType();
-
-    // Ignore some special rooms.
-    if (!shouldTransformRoomType(roomType)) {
-      return;
-    }
-
-    // All special rooms are Devil Rooms.
-    if (isCollectible(pickup)) {
-      // If the price is not correct, update it. (We have to check on every frame in case the health
-      // situation changes.)
-      const price = getCollectibleDevilHeartPrice(pickup.SubType, g.p);
-      if (pickup.Price !== (price as int)) {
-        pickup.AutoUpdatePrice = false;
-        pickup.Price = price;
-      }
-    } else if (isRerolledCollectibleBuggedHeart(pickup)) {
-      // Rerolled items turn into hearts since this is a not an actual Devil Room, so delete the
-      // heart and manually create another pedestal item.
-      const collectibleType = getRandomCollectibleTypeFromPool(
-        ItemPoolType.DEVIL,
-      );
-      const collectible = mod.spawnCollectible(
-        collectibleType,
-        pickup.Position,
-        pickup.InitSeed,
-      );
-      collectible.AutoUpdatePrice = false;
-      collectible.Price = getCollectibleDevilHeartPrice(
-        collectible.SubType,
-        g.p,
-      );
-
-      // Remove the heart
-      pickup.Remove();
     }
   },
 );

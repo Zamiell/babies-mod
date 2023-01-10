@@ -50,7 +50,8 @@ export class FatesReward extends Baby {
   }
 
   /**
-   * Rerolled items turn into hearts, so delete the heart and manually create another pedestal item.
+   * Rerolled collectibles turn into hearts, so delete the heart and manually create another
+   * pedestal item.
    */
   // 35
   @Callback(ModCallback.POST_PICKUP_UPDATE, PickupVariant.HEART)

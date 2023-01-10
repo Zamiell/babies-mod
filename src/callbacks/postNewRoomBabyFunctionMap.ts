@@ -159,12 +159,10 @@ postNewRoomBabyFunctionMap.set(RandomBabyType.PRETTY, () => {
   const roomType = g.r.GetType();
   const isFirstVisit = g.r.IsFirstVisit();
 
-  // Ignore some special rooms.
   if (!isFirstVisit || !shouldTransformRoomType(roomType)) {
     return;
   }
 
-  // All special rooms are Angel Shops.
   const collectibleType = getRandomCollectibleTypeFromPool(ItemPoolType.ANGEL);
   const position = gridCoordinatesToWorldPosition(6, 4);
   const collectible = mod.spawnCollectible(

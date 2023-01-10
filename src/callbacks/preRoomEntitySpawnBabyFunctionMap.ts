@@ -42,7 +42,6 @@ preRoomEntitySpawnBabyFunctionMap.set(
   (_entityType: EntityType | GridEntityXMLType) => {
     const roomType = g.r.GetType();
 
-    // All special rooms are Angel Shops. Ignore some select special rooms.
     if (shouldTransformRoomType(roomType)) {
       return [999, 0, 0]; // Equal to 1000.0, which is a blank effect, which is essentially nothing.
     }
