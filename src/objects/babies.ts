@@ -856,6 +856,7 @@ export const BABIES = {
     description: "Recharge bombs",
     sprite: "097_baby_tongue.png",
     requireBombs: true,
+    class: bc.TongueBaby,
   },
 
   // 98
@@ -2448,6 +2449,7 @@ export const BABIES = {
     description: "All bombs are doubled",
     sprite: "284_baby_bony.png",
     requireBombs: true,
+    class: bc.BonyBaby,
   },
 
   // 285
@@ -2978,6 +2980,7 @@ export const BABIES = {
     description: "Mama Mega bombs",
     sprite: "344_baby_barbarian.png",
     requireBombs: true,
+    class: bc.BarbarianBaby,
   },
 
   // 345
@@ -3230,6 +3233,7 @@ export const BABIES = {
     description: "Placed bombs are Mega Troll Bombs",
     sprite: "373_baby_orangeghost.png",
     requireBombs: true,
+    class: bc.OrangeGhostBaby,
   },
 
   // 374

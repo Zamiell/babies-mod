@@ -1,14 +1,19 @@
 import {
   DamageFlag,
+  Direction,
   EffectVariant,
   EntityPartition,
+  EntityType,
   ModCallback,
   SoundEffect,
 } from "isaac-typescript-definitions";
 import {
   Callback,
+  CallbackCustom,
+  directionToVector,
   DISTANCE_OF_GRID_TILE,
   game,
+  ModCallbackCustom,
   sfxManager,
   spawnEffect,
   VectorZero,
@@ -16,8 +21,18 @@ import {
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
+const SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER = 30;
+
+const SHOCKWAVE_BOMB_VELOCITIES: readonly Vector[] = [
+  directionToVector(Direction.LEFT).mul(SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER), // 0
+  directionToVector(Direction.UP).mul(SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER), // 1
+  directionToVector(Direction.RIGHT).mul(SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER), // 2
+  directionToVector(Direction.DOWN).mul(SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER), // 3
+];
+
 /** Shockwave bombs. */
 export class SkullBaby extends Baby {
+  // 1
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
     const gameFrameCount = game.GetFrameCount();
@@ -70,6 +85,24 @@ export class SkullBaby extends Baby {
       if (!g.r.IsPositionInRoom(tear.position, 0)) {
         g.run.room.tears.splice(i, 1);
       }
+    }
+  }
+
+  @CallbackCustom(ModCallbackCustom.POST_BOMB_EXPLODED)
+  postBombExploded(bomb: EntityBomb): void {
+    if (bomb.SpawnerType !== EntityType.PLAYER) {
+      return;
+    }
+
+    const gameFrameCount = game.GetFrameCount();
+
+    for (const velocity of SHOCKWAVE_BOMB_VELOCITIES) {
+      g.run.room.tears.push({
+        frame: gameFrameCount,
+        position: bomb.Position,
+        velocity,
+        num: 0,
+      });
     }
   }
 }
