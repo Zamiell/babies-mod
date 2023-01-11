@@ -1,10 +1,11 @@
 import { ModCallback, ProjectileVariant } from "isaac-typescript-definitions";
-import { Callback, spawnProjectile } from "isaacscript-common";
+import { Callback, spawnProjectile, VectorZero } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Enemies spawn projectiles upon death. */
 export class BlueWrestlerBaby extends Baby {
+  // 1
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
     for (let i = g.run.room.tears.length - 1; i >= 0; i--) {
@@ -25,5 +26,19 @@ export class BlueWrestlerBaby extends Baby {
         g.run.room.tears.splice(i, 1);
       }
     }
+  }
+
+  /** Mark to fire some tears one frame at a time. */
+  // 68
+  @Callback(ModCallback.POST_ENTITY_KILL)
+  postEntityKill(entity: Entity): void {
+    const num = this.getAttribute("num");
+
+    g.run.room.tears.push({
+      frame: 0,
+      position: entity.Position,
+      velocity: VectorZero,
+      num,
+    });
   }
 }

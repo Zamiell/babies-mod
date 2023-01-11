@@ -1,56 +1,25 @@
 import {
-  BombVariant,
   CacheFlag,
-  EffectVariant,
   EntityFlag,
   EntityType,
   FamiliarVariant,
-  GridEntityType,
-  PoopGridEntityVariant,
 } from "isaac-typescript-definitions";
 import {
   copyColor,
   countEntities,
   game,
   getNPCs,
-  getRoomListIndex,
   spawn,
-  spawnBomb,
-  spawnEffect,
   spawnFamiliar,
   spawnWithSeed,
-  VectorZero,
 } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
-import { getCurrentBabyDescription } from "../utilsBaby";
 
 export const postEntityKillBabyFunctionMap = new Map<
   RandomBabyType,
   (npc: EntityNPC) => void
 >();
-
-// 38
-postEntityKillBabyFunctionMap.set(RandomBabyType.BROWN, (npc: EntityNPC) => {
-  // Spawns a poop per enemy killed.
-  Isaac.GridSpawn(
-    GridEntityType.POOP,
-    PoopGridEntityVariant.NORMAL,
-    npc.Position,
-  );
-});
-
-// 43
-postEntityKillBabyFunctionMap.set(RandomBabyType.WHORE, (npc: EntityNPC) => {
-  const roomListIndex = getRoomListIndex();
-
-  // All enemies explode. We cannot explode enemies in the `POST_ENTITY_KILL` callback due to a
-  // crash having to do with black hearts. So, mark to explode in the `POST_UPDATE` callback.
-  g.run.babyExplosions.push({
-    roomListIndex,
-    position: npc.Position,
-  });
-});
 
 // 61
 postEntityKillBabyFunctionMap.set(RandomBabyType.ZOMBIE, (npc: EntityNPC) => {
@@ -141,43 +110,4 @@ postEntityKillBabyFunctionMap.set(RandomBabyType.DINO, (_npc: EntityNPC) => {
   const sprite = brain.GetSprite();
   sprite.Load("gfx/003.059_bobs brain_custom.anm2", true);
   sprite.Play("Idle", true);
-});
-
-// 388
-postEntityKillBabyFunctionMap.set(
-  RandomBabyType.BLUE_WRESTLER,
-  (npc: EntityNPC) => {
-    const baby = getCurrentBabyDescription();
-    if (baby.num === undefined) {
-      error(`The "num" attribute was not defined for: ${baby.name}`);
-    }
-
-    // Enemies spawn projectiles upon death. Mark to fire some tears one frame at a time.
-    g.run.room.tears.push({
-      frame: 0,
-      position: npc.Position,
-      velocity: VectorZero,
-      num: baby.num,
-    });
-  },
-);
-
-// 390
-postEntityKillBabyFunctionMap.set(RandomBabyType.TOAST, (npc: EntityNPC) => {
-  // Enemies leave a Red Candle fire upon death.
-  spawnEffect(EffectVariant.HOT_BOMB_FIRE, 0, npc.Position);
-});
-
-// 451
-postEntityKillBabyFunctionMap.set(RandomBabyType.BUTTFACE, (npc: EntityNPC) => {
-  Isaac.GridSpawn(
-    GridEntityType.POOP,
-    PoopGridEntityVariant.BLACK,
-    npc.Position,
-  );
-});
-
-// 491
-postEntityKillBabyFunctionMap.set(RandomBabyType.FUNNY, (npc: EntityNPC) => {
-  spawnBomb(BombVariant.TROLL, 0, npc.Position);
 });

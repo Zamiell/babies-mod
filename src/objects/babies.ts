@@ -355,6 +355,7 @@ export const BABIES = {
     description: "Starts with Dirty Mind + spawns a poop per enemy killed",
     sprite: "038_baby_brown.png",
     item: CollectibleType.DIRTY_MIND,
+    class: bc.BrownBaby,
   },
 
   // 39
@@ -3391,6 +3392,7 @@ export const BABIES = {
     name: "Toast Baby",
     description: "Enemies leave a Red Candle fire upon death",
     sprite: "390_baby_toast.png",
+    class: bc.ToastBaby,
   },
 
   // 391
@@ -3912,6 +3914,7 @@ export const BABIES = {
     name: "Buttface Baby",
     description: "Spawns a Black Poop per enemy killed",
     sprite: "451_baby_buttface.png",
+    class: bc.ButtfaceBaby,
   },
 
   // 452
@@ -4255,6 +4258,7 @@ export const BABIES = {
     name: "Funny Baby",
     description: "Enemies spawn Troll Bombs on death",
     sprite: "491_baby_funny.png",
+    class: bc.FunnyBaby,
   },
 
   // 492

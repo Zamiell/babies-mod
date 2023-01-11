@@ -17,46 +17,19 @@ export class Baby extends ModFeature {
   babyType: RandomBabyType;
   babyDescription: BabyDescription;
 
-  override callbackConditionalFunc = (
-    vanilla: boolean,
-    modCallback: ModCallback | ModCallbackCustom,
+  override shouldCallbackMethodsFire = <T extends boolean>(
+    vanilla: T,
+    modCallback: T extends true ? ModCallback : ModCallbackCustom,
     ...callbackArgs: unknown[]
   ): boolean => {
     if (g.run.babyType !== this.babyType) {
       return false;
     }
 
-    if (vanilla && modCallback === ModCallback.PRE_GET_COLLECTIBLE) {
-      if (g.run.gettingCollectible) {
-        return false;
-      }
-    }
-
-    if (!vanilla && modCallback === ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER) {
-      const player = callbackArgs[0] as EntityPlayer;
-      if (!isFirstPlayer(player)) {
-        return false;
-      }
-    }
-
-    if (!vanilla && modCallback === ModCallbackCustom.INPUT_ACTION_PLAYER) {
-      const player = callbackArgs[0] as EntityPlayer;
-      if (!isFirstPlayer(player)) {
-        return false;
-      }
-    }
-
-    if (
-      !vanilla &&
-      modCallback === ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
-    ) {
-      const player = callbackArgs[0] as EntityPlayer;
-      if (!isFirstPlayer(player)) {
-        return false;
-      }
-    }
-
-    return true;
+    const shouldCallbackFireFunc = vanilla
+      ? shouldCallbackFireVanilla
+      : shouldCallbackFireCustom;
+    return shouldCallbackFireFunc(modCallback, ...callbackArgs);
   };
 
   constructor(babyType: RandomBabyType, babyDescription: BabyDescription) {
@@ -93,3 +66,81 @@ export class Baby extends ModFeature {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onRemove(player: EntityPlayer, oldBabyCounters: int): void {}
 }
+
+function shouldCallbackFireVanilla(
+  modCallbackNum: int,
+  ...callbackArgs: unknown[]
+): boolean {
+  const modCallback = modCallbackNum as ModCallback;
+  const validationFunc = MOD_CALLBACK_TO_VALIDATION_FUNC.get(modCallback);
+  if (validationFunc === undefined) {
+    return true;
+  }
+
+  return validationFunc(...callbackArgs);
+}
+
+const MOD_CALLBACK_TO_VALIDATION_FUNC = new Map<
+  ModCallback,
+  (...callbackArgs: unknown[]) => boolean
+>();
+
+// 62
+MOD_CALLBACK_TO_VALIDATION_FUNC.set(
+  ModCallback.PRE_GET_COLLECTIBLE,
+  () => !g.run.gettingCollectible,
+);
+
+// 68
+MOD_CALLBACK_TO_VALIDATION_FUNC.set(
+  ModCallback.POST_ENTITY_KILL,
+  (...callbackArgs: unknown[]) => {
+    const entity = callbackArgs[0] as Entity;
+    const npc = entity.ToNPC();
+    return npc !== undefined && npc.IsVulnerableEnemy();
+  },
+);
+
+function shouldCallbackFireCustom(
+  modCallbackNum: int,
+  ...callbackArgs: unknown[]
+): boolean {
+  const modCallbackCustom = modCallbackNum as ModCallbackCustom;
+
+  const validationFunc =
+    MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC.get(modCallbackCustom);
+  if (validationFunc === undefined) {
+    return true;
+  }
+
+  return validationFunc(...callbackArgs);
+}
+
+const MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC = new Map<
+  ModCallbackCustom,
+  (...callbackArgs: unknown[]) => boolean
+>();
+
+MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC.set(
+  ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER,
+  (...callbackArgs: unknown[]) => {
+    const player = callbackArgs[0] as EntityPlayer;
+    return isFirstPlayer(player);
+  },
+);
+
+MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC.set(
+  ModCallbackCustom.INPUT_ACTION_PLAYER,
+  (...callbackArgs: unknown[]) => {
+    const player = callbackArgs[0] as EntityPlayer;
+    return isFirstPlayer(player);
+  },
+);
+
+MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC.set(
+  ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
+  (...callbackArgs: unknown[]) => {
+    const player = callbackArgs[0] as EntityPlayer;
+    return isFirstPlayer(player);
+  },
+);

@@ -5,8 +5,8 @@ import {
   ModCallbackCustom,
   repeat,
 } from "isaacscript-common";
-import { g } from "../../../globals";
-import { Baby } from "../../Baby";
+import { g } from "../../globals";
+import { Baby } from "../Baby";
 
 /** +1 damage per pickup taken. */
 export class RobbermaskBaby extends Baby {
