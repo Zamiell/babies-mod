@@ -24,6 +24,11 @@ export class CorruptedBaby extends Baby {
       playerDealSelfDamage(player);
     }
   }
+
+  @CallbackCustom(ModCallbackCustom.POST_PURCHASE)
+  postPurchase(player: EntityPlayer): void {
+    playerDealSelfDamage(player);
+  }
 }
 
 function playerDealSelfDamage(player: EntityPlayer) {

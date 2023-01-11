@@ -4,6 +4,7 @@ import { MOD_NAME } from "./constants";
 const ISC_FEATURES_FOR_THIS_MOD = [
   ISCFeature.MODDED_ELEMENT_SETS,
   ISCFeature.PLAYER_INVENTORY,
+  ISCFeature.RUN_IN_N_FRAMES,
   ISCFeature.SPAWN_COLLECTIBLE,
 ] as const;
 

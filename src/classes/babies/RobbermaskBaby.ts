@@ -18,9 +18,18 @@ export class RobbermaskBaby extends Baby {
   }
 
   @CallbackCustom(ModCallbackCustom.POST_PICKUP_COLLECT)
-  postPickupCollect(): void {
-    g.run.babyCounters++;
-    g.p.AddCacheFlags(CacheFlag.DAMAGE);
-    g.p.EvaluateItems();
+  postPickupCollect(_pickup: EntityPickup, player: EntityPlayer): void {
+    incrementDamage(player);
   }
+
+  @CallbackCustom(ModCallbackCustom.POST_PURCHASE)
+  postPurchase(player: EntityPlayer): void {
+    incrementDamage(player);
+  }
+}
+
+function incrementDamage(player: EntityPlayer) {
+  g.run.babyCounters++;
+  player.AddCacheFlags(CacheFlag.DAMAGE);
+  player.EvaluateItems();
 }

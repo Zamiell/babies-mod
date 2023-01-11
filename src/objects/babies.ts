@@ -1461,7 +1461,6 @@ export const BABIES = {
     name: "Worry Baby",
     description: "Touching items/pickups causes teleportation",
     sprite: "167_baby_worry.png",
-    num: 1, // The number of frames in the future to teleport after touching a pickup.
     class: bc.WorryBaby,
   },
 

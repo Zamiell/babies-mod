@@ -13,6 +13,11 @@ export class BluebirdBaby extends Baby {
   postPickupCollect(_pickup: EntityPickup, player: EntityPlayer): void {
     useParalysisPill(player);
   }
+
+  @CallbackCustom(ModCallbackCustom.POST_PURCHASE)
+  postPurchase(player: EntityPlayer): void {
+    useParalysisPill(player);
+  }
 }
 
 function useParalysisPill(player: EntityPlayer) {
