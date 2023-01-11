@@ -2,6 +2,7 @@ import {
   EntityType,
   FireplaceVariant,
   GridEntityType,
+  GridEntityXMLType,
   ItemPoolType,
   ModCallback,
   PickupVariant,
@@ -78,6 +79,18 @@ export class SuitBaby extends Baby {
       collectible.AutoUpdatePrice = false;
       collectible.Price = 15;
     }
+  }
+
+  // 71
+  @Callback(ModCallback.PRE_ROOM_ENTITY_SPAWN)
+  preRoomEntitySpawn(): [EntityType | GridEntityXMLType, int, int] | undefined {
+    const roomType = g.r.GetType();
+
+    if (shouldTransformRoomType(roomType)) {
+      return [999, 0, 0]; // Equal to 1000.0, which is a blank effect, which is essentially nothing.
+    }
+
+    return undefined;
   }
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)

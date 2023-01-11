@@ -1,4 +1,8 @@
-import { PickupVariant, RoomType } from "isaac-typescript-definitions";
+import {
+  GridEntityXMLType,
+  PickupVariant,
+  RoomType,
+} from "isaac-typescript-definitions";
 
 export const MOD_NAME = "The Babies Mod";
 
@@ -38,4 +42,11 @@ export const PICKUP_VARIANTS_IMMUNE_TO_BABY_EFFECTS: ReadonlySet<PickupVariant> 
     PickupVariant.BIG_CHEST, // 340
     PickupVariant.TROPHY, // 370
     PickupVariant.BED, // 380
+  ]);
+
+export const GRID_ENTITY_REPLACEMENT_EXCEPTIONS: ReadonlySet<GridEntityXMLType> =
+  new Set([
+    GridEntityXMLType.PRESSURE_PLATE,
+    GridEntityXMLType.TRAPDOOR,
+    GridEntityXMLType.CRAWL_SPACE,
   ]);

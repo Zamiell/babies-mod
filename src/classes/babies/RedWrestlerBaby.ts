@@ -1,5 +1,12 @@
-import { LevelStage } from "isaac-typescript-definitions";
-import { getEffectiveStage } from "isaacscript-common";
+import {
+  EntityType,
+  GridEntityXMLType,
+  LevelStage,
+  ModCallback,
+} from "isaac-typescript-definitions";
+import { Callback, getEffectiveStage } from "isaacscript-common";
+import { GRID_ENTITY_REPLACEMENT_EXCEPTIONS } from "../../constants";
+import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Everything is TNT. */
@@ -8,5 +15,26 @@ export class RedWrestlerBaby extends Baby {
   override isValid(): boolean {
     const effectiveStage = getEffectiveStage();
     return effectiveStage !== LevelStage.DARK_ROOM_CHEST;
+  }
+
+  @Callback(ModCallback.PRE_ROOM_ENTITY_SPAWN)
+  preRoomEntitySpawn(
+    entityTypeOrGridEntityXMLType: EntityType | GridEntityXMLType,
+  ): [EntityType | GridEntityXMLType, int, int] | undefined {
+    // We only care about grid entities.
+    if ((entityTypeOrGridEntityXMLType as int) < 1000) {
+      return undefined;
+    }
+    const gridEntityXMLType =
+      entityTypeOrGridEntityXMLType as GridEntityXMLType;
+
+    if (
+      g.r.IsFirstVisit() &&
+      !GRID_ENTITY_REPLACEMENT_EXCEPTIONS.has(gridEntityXMLType)
+    ) {
+      return [GridEntityXMLType.TNT, 0, 0];
+    }
+
+    return undefined;
   }
 }
