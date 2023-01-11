@@ -1,5 +1,6 @@
 import {
   CollectibleType,
+  EntityType,
   ModCallback,
   SoundEffect,
 } from "isaac-typescript-definitions";
@@ -22,7 +23,7 @@ export class ScreamBaby extends Baby {
     const batteryCharge = g.p.GetBatteryCharge();
 
     // - We store the main charge in the "babyCounters" variable.
-    // - We store the Battery charge in the "babyNPC.type" variable.
+    // - We store the Battery charge in the "babyNPC.entityType" variable.
     if (
       g.run.babyFrame !== 0 &&
       gameFrameCount <= g.run.babyFrame + 1 &&
@@ -35,6 +36,24 @@ export class ScreamBaby extends Baby {
       sfxManager.Stop(SoundEffect.BATTERY_CHARGE);
       sfxManager.Stop(SoundEffect.BEEP);
     }
+  }
+
+  // 3
+  @Callback(ModCallback.POST_USE_ITEM, CollectibleType.SHOOP_DA_WHOOP)
+  postUseItemShoopDaWhoop(
+    _collectibleType: CollectibleType,
+    _RNG: RNG,
+    player: EntityPlayer,
+  ): boolean | undefined {
+    const gameFrameCount = game.GetFrameCount();
+    const activeCharge = player.GetActiveCharge();
+    const batteryCharge = player.GetBatteryCharge();
+
+    g.run.babyFrame = gameFrameCount;
+    g.run.babyCounters = activeCharge;
+    g.run.babyNPC.entityType = batteryCharge as EntityType;
+
+    return undefined;
   }
 
   // 61

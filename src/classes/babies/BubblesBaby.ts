@@ -1,4 +1,8 @@
-import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
+import {
+  CacheFlag,
+  ModCallback,
+  PillEffect,
+} from "isaac-typescript-definitions";
 import { Callback, repeat } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
@@ -11,5 +15,13 @@ export class BubblesBaby extends Baby {
     repeat(g.run.babyCounters, () => {
       player.Damage++;
     });
+  }
+
+  // 8
+  @Callback(ModCallback.POST_USE_PILL)
+  postUsePill(_pillEffect: PillEffect, player: EntityPlayer): void {
+    g.run.babyCounters++;
+    player.AddCacheFlags(CacheFlag.DAMAGE);
+    player.EvaluateItems();
   }
 }

@@ -1,44 +1,22 @@
 import {
   ActiveSlot,
   CollectibleType,
-  EntityType,
   ModCallback,
   SlotVariant,
 } from "isaac-typescript-definitions";
 import {
-  game,
   getCollectibleMaxCharges,
   playChargeSoundEffect,
   removeCollectibleFromItemTracker,
   repeat,
 } from "isaacscript-common";
 import { NUM_SUCCUBI_IN_FLOCK } from "../constants";
-import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { mod } from "../mod";
 import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 import { spawnSlotHelper } from "../utils";
-import { getCurrentBaby } from "../utilsBaby";
 
 export function init(): void {
-  mod.AddCallback(
-    ModCallback.POST_USE_ITEM,
-    shoopDaWhoop,
-    CollectibleType.SHOOP_DA_WHOOP,
-  ); // 49
-
-  mod.AddCallback(
-    ModCallback.POST_USE_ITEM,
-    monstrosTooth,
-    CollectibleType.MONSTROS_TOOTH,
-  ); // 86
-
-  mod.AddCallback(
-    ModCallback.POST_USE_ITEM,
-    howToJump,
-    CollectibleType.HOW_TO_JUMP,
-  ); // 282
-
   mod.AddCallback(
     ModCallback.POST_USE_ITEM,
     clockworkAssembly,
@@ -56,80 +34,6 @@ export function init(): void {
     chargingStation,
     CollectibleTypeCustom.CHARGING_STATION,
   );
-}
-
-// CollectibleType.SHOOP_DA_WHOOP (49)
-function shoopDaWhoop(
-  _collectibleType: CollectibleType,
-  _RNG: RNG,
-  player: EntityPlayer,
-): boolean | undefined {
-  const gameFrameCount = game.GetFrameCount();
-  const activeCharge = player.GetActiveCharge();
-  const batteryCharge = player.GetBatteryCharge();
-  const [babyType] = getCurrentBaby();
-  if (babyType === -1) {
-    return undefined;
-  }
-
-  // 81
-  if (babyType === RandomBabyType.SCREAM) {
-    g.run.babyFrame = gameFrameCount;
-    g.run.babyCounters = activeCharge;
-    g.run.babyNPC.entityType = batteryCharge as EntityType;
-  }
-
-  return undefined;
-}
-
-// CollectibleType.MONSTROS_TOOTH (86)
-function monstrosTooth(
-  _collectibleType: CollectibleType,
-  _RNG: RNG,
-  _player: EntityPlayer,
-): boolean | undefined {
-  const gameFrameCount = game.GetFrameCount();
-  const [babyType, baby] = getCurrentBaby();
-  if (babyType === -1) {
-    return undefined;
-  }
-
-  // 221
-  if (babyType === RandomBabyType.DROOL) {
-    // Summon extra Monstro's, spaced apart.
-    g.run.babyCounters++;
-    if (g.run.babyCounters === baby.num) {
-      g.run.babyCounters = 0;
-      g.run.babyFrame = 0;
-    } else {
-      g.run.babyFrame = gameFrameCount + 15;
-    }
-  }
-
-  return undefined;
-}
-
-// CollectibleType.HOW_TO_JUMP (282)
-function howToJump(
-  _collectibleType: CollectibleType,
-  _RNG: RNG,
-  _player: EntityPlayer,
-): boolean | undefined {
-  const gameFrameCount = game.GetFrameCount();
-  const [babyType, baby] = getCurrentBaby();
-  if (babyType === -1) {
-    return undefined;
-  }
-
-  // 350
-  if (babyType === RandomBabyType.RABBIT) {
-    if (baby.num === undefined) {
-      error(`The "num" attribute was not defined for: ${baby.name}`);
-    }
-    g.run.babyFrame = gameFrameCount + baby.num;
-  }
-
-  return undefined;
 }
 
 // CollectibleType.CLOCKWORK_ASSEMBLY

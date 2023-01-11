@@ -85,6 +85,15 @@ const MOD_CALLBACK_TO_VALIDATION_FUNC = new Map<
   (...callbackArgs: unknown[]) => boolean
 >();
 
+// 3
+MOD_CALLBACK_TO_VALIDATION_FUNC.set(
+  ModCallback.POST_USE_ITEM,
+  (...callbackArgs: unknown[]) => {
+    const player = callbackArgs[2] as EntityPlayer;
+    return isFirstPlayer(player);
+  },
+);
+
 // 62
 MOD_CALLBACK_TO_VALIDATION_FUNC.set(
   ModCallback.PRE_GET_COLLECTIBLE,

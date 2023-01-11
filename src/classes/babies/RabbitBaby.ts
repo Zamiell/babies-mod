@@ -1,4 +1,8 @@
-import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
+import {
+  CacheFlag,
+  CollectibleType,
+  ModCallback,
+} from "isaac-typescript-definitions";
 import {
   Callback,
   CallbackCustom,
@@ -16,6 +20,17 @@ export class RabbitBaby extends Baby {
     const num = this.getAttribute("num");
 
     g.run.babyFrame = gameFrameCount + num;
+  }
+
+  // 3
+  @Callback(ModCallback.POST_USE_ITEM, CollectibleType.HOW_TO_JUMP)
+  postUseItemHowToJump(): boolean | undefined {
+    const gameFrameCount = game.GetFrameCount();
+    const num = this.getAttribute("num");
+
+    g.run.babyFrame = gameFrameCount + num;
+
+    return undefined;
   }
 
   // 8
