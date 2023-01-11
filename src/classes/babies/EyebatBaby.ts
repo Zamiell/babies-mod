@@ -1,8 +1,19 @@
-import { LevelCurse, LevelStage } from "isaac-typescript-definitions";
 import {
+  GridEntityType,
+  LevelCurse,
+  LevelStage,
+  RoomType,
+} from "isaac-typescript-definitions";
+import {
+  CallbackCustom,
+  changeRoom,
   getEffectiveStage,
+  getRoomGridIndexesForType,
   hasFlag,
+  inStartingRoom,
+  ModCallbackCustom,
   onRepentanceStage,
+  spawnGridEntity,
 } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
@@ -25,5 +36,28 @@ export class EyebatBaby extends Baby {
       effectiveStage < LevelStage.WOMB_2 &&
       !onRepentanceStage()
     );
+  }
+
+  @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
+  postNewRoomReordered(): void {
+    if (!inStartingRoom()) {
+      return;
+    }
+
+    const isFirstVisit = g.r.IsFirstVisit();
+
+    if (isFirstVisit) {
+      const bossRoomIndexes = getRoomGridIndexesForType(RoomType.BOSS);
+      if (bossRoomIndexes.length === 0) {
+        return;
+      }
+      const bossRoomIndex = bossRoomIndexes[0];
+      if (bossRoomIndex !== undefined) {
+        changeRoom(bossRoomIndex);
+      }
+    } else {
+      const centerPos = g.r.GetCenterPos();
+      spawnGridEntity(GridEntityType.TRAPDOOR, centerPos);
+    }
   }
 }

@@ -1,12 +1,21 @@
 import {
+  EntityType,
+  FireplaceVariant,
+  GridEntityType,
   ItemPoolType,
   ModCallback,
   PickupVariant,
+  StatueVariant,
 } from "isaac-typescript-definitions";
 import {
   Callback,
+  CallbackCustom,
   getCollectibleDevilHeartPrice,
+  gridCoordinatesToWorldPosition,
   isQuestCollectible,
+  ModCallbackCustom,
+  spawnGridEntityWithVariant,
+  spawnWithSeed,
 } from "isaacscript-common";
 import { g } from "../../globals";
 import { mod } from "../../mod";
@@ -68,6 +77,53 @@ export class SuitBaby extends Baby {
       );
       collectible.AutoUpdatePrice = false;
       collectible.Price = 15;
+    }
+  }
+
+  @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
+  postNewRoomReordered(): void {
+    const roomType = g.r.GetType();
+    const isFirstVisit = g.r.IsFirstVisit();
+
+    // Ignore some special rooms.
+    if (!isFirstVisit || !shouldTransformRoomType(roomType)) {
+      return;
+    }
+
+    // All special rooms are Devil Rooms.
+    const collectibleType = getRandomCollectibleTypeFromPool(
+      ItemPoolType.DEVIL,
+    );
+    const position = gridCoordinatesToWorldPosition(6, 4);
+    const collectible = mod.spawnCollectible(
+      collectibleType,
+      position,
+      g.run.room.rng,
+    );
+    collectible.AutoUpdatePrice = false;
+    collectible.Price = getCollectibleDevilHeartPrice(collectibleType, g.p);
+
+    // Spawn the Devil Statue.
+    const oneTileAboveCenterGridIndex = 52;
+    spawnGridEntityWithVariant(
+      GridEntityType.STATUE,
+      StatueVariant.DEVIL,
+      oneTileAboveCenterGridIndex,
+    );
+
+    // Spawn the two fires.
+    const firePositions = [
+      gridCoordinatesToWorldPosition(3, 1),
+      gridCoordinatesToWorldPosition(9, 1),
+    ];
+    for (const firePosition of firePositions) {
+      spawnWithSeed(
+        EntityType.FIREPLACE,
+        FireplaceVariant.NORMAL,
+        0,
+        firePosition,
+        g.run.room.rng,
+      );
     }
   }
 }

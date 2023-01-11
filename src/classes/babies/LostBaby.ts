@@ -1,5 +1,5 @@
 import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
-import { postNewRoomReorderedNoHealthUI } from "../../callbacksCustom/postNewRoomReorderedSub";
+import { postNewRoomReorderedNoHealthUI } from "../../utils";
 import { Baby } from "../Baby";
 
 /** Starts with Holy Mantle + Lost-style health. */

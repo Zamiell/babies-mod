@@ -6,8 +6,10 @@ import {
 } from "isaac-typescript-definitions";
 import {
   Callback,
+  CallbackCustom,
   GAME_FRAMES_PER_SECOND,
   getFamiliars,
+  ModCallbackCustom,
 } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
@@ -42,6 +44,15 @@ export class PsychicBaby extends Baby {
     const abel = abels[0];
     if (abel !== undefined) {
       tear.Position = abel.Position;
+    }
+  }
+
+  @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
+  postNewRoomReordered(): void {
+    // Disable the vanilla shooting behavior.
+    const abels = getFamiliars(FamiliarVariant.ABEL);
+    for (const abel of abels) {
+      abel.FireCooldown = 1000000;
     }
   }
 }

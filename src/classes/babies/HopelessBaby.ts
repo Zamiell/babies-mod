@@ -8,7 +8,10 @@ import {
 } from "isaacscript-common";
 import { g } from "../../globals";
 import { newSprite } from "../../sprite";
-import { shouldShowRealHeartsUIForDevilDeal } from "../../utils";
+import {
+  postNewRoomReorderedNoHealthUI,
+  shouldShowRealHeartsUIForDevilDeal,
+} from "../../utils";
 import { Baby } from "../Baby";
 
 /** +2 keys + keys are hearts. */
@@ -63,5 +66,10 @@ export class HopelessBaby extends Baby {
     g.run.dealingExtraDamage = false;
     player.AddKeys(-1);
     return false;
+  }
+
+  @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
+  postNewRoomReordered(): void {
+    postNewRoomReorderedNoHealthUI();
   }
 }

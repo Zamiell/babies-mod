@@ -1,9 +1,20 @@
 import {
+  EntityType,
+  FireplaceVariant,
+  GridEntityType,
   ItemPoolType,
   ModCallback,
   PickupVariant,
+  StatueVariant,
 } from "isaac-typescript-definitions";
-import { Callback } from "isaacscript-common";
+import {
+  Callback,
+  CallbackCustom,
+  gridCoordinatesToWorldPosition,
+  ModCallbackCustom,
+  spawnGridEntityWithVariant,
+  spawnWithSeed,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { mod } from "../../mod";
 import {
@@ -41,6 +52,51 @@ export class PrettyBaby extends Baby {
       );
       collectible.AutoUpdatePrice = false;
       collectible.Price = 15;
+    }
+  }
+
+  @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
+  postNewRoomReordered(): void {
+    const roomType = g.r.GetType();
+    const isFirstVisit = g.r.IsFirstVisit();
+
+    if (!isFirstVisit || !shouldTransformRoomType(roomType)) {
+      return;
+    }
+
+    const collectibleType = getRandomCollectibleTypeFromPool(
+      ItemPoolType.ANGEL,
+    );
+    const position = gridCoordinatesToWorldPosition(6, 4);
+    const collectible = mod.spawnCollectible(
+      collectibleType,
+      position,
+      g.run.room.rng,
+    );
+    collectible.AutoUpdatePrice = false;
+    collectible.Price = 15;
+
+    // Spawn the Angel Statue.
+    const oneTileAboveCenterGridIndex = 52;
+    spawnGridEntityWithVariant(
+      GridEntityType.STATUE,
+      StatueVariant.ANGEL,
+      oneTileAboveCenterGridIndex,
+    );
+
+    // Spawn the two fires.
+    const firePositions = [
+      gridCoordinatesToWorldPosition(3, 1),
+      gridCoordinatesToWorldPosition(9, 1),
+    ];
+    for (const firePosition of firePositions) {
+      spawnWithSeed(
+        EntityType.FIREPLACE,
+        FireplaceVariant.BLUE,
+        0,
+        firePosition,
+        g.run.room.rng,
+      );
     }
   }
 }

@@ -1042,6 +1042,7 @@ export const BABIES = {
     description: "Improved Secret Rooms",
     sprite: "118_baby_statue.png",
     num: 4, // Number of collectibles
+    class: bc.StatueBaby2,
   },
 
   // 119
@@ -1303,6 +1304,7 @@ export const BABIES = {
     description: "Improved Super Secret Rooms",
     sprite: "149_baby_butterfly.png",
     num: 4, // Number of collectibles
+    class: bc.ButterflyBaby,
   },
 
   // 150
@@ -1575,6 +1577,7 @@ export const BABIES = {
     description: "Starts with Stud Finder; Crawlspace --> Black Market",
     sprite: "181_baby_spelunker.png",
     trinket: TrinketType.STUD_FINDER,
+    class: bc.SpelunkerBaby,
   },
 
   // 182
@@ -2095,6 +2098,7 @@ export const BABIES = {
     name: "Beast Baby",
     description: "Random enemies",
     sprite: "242_baby_beast.png",
+    class: bc.BeastBaby,
   },
 
   // 243
@@ -2253,6 +2257,7 @@ export const BABIES = {
     name: "Viking Baby",
     description: "Secret Room --> Super Secret Room",
     sprite: "261_baby_viking.png",
+    class: bc.VikingBaby,
   },
 
   // 262
@@ -2438,6 +2443,7 @@ export const BABIES = {
     sprite: "282_baby_ghost.png",
     blindfolded: true,
     flight: true,
+    class: bc.GhostBaby2,
   },
 
   // 283
@@ -3005,6 +3011,7 @@ export const BABIES = {
     name: "Twotone Baby",
     description: "Dataminer effect on room enter",
     sprite: "346_baby_twotone.png",
+    class: bc.TwotoneBaby,
   },
 
   // 347
@@ -3751,6 +3758,7 @@ export const BABIES = {
     description: "Slippery movement",
     sprite: "431_baby_driver.png",
     seed: SeedEffect.ICE_PHYSICS,
+    class: bc.DriverBaby,
   },
 
   // 432
@@ -4487,6 +4495,7 @@ export const BABIES = {
     name: "Silly Baby",
     description: "Constant I'm Excited pill effect",
     sprite: "516_baby_silly.png",
+    class: bc.SillyBaby,
   },
 
   // 517

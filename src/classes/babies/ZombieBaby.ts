@@ -3,7 +3,15 @@ import {
   EntityType,
   ModCallback,
 } from "isaac-typescript-definitions";
-import { Callback, copyColor, spawnWithSeed } from "isaacscript-common";
+import {
+  Callback,
+  CallbackCustom,
+  copyColor,
+  getEntities,
+  ModCallbackCustom,
+  spawnWithSeed,
+} from "isaacscript-common";
+import { g } from "../../globals";
 import { removeAllFriendlyEntities } from "../../utils";
 import { Baby } from "../Baby";
 
@@ -54,6 +62,22 @@ export class ZombieBaby extends Baby {
       const newColor = copyColor(color);
       newColor.A = fadeAmount;
       friend.SetColor(newColor, 0, 0, true, true);
+    }
+  }
+
+  @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
+  postNewRoomReordered(): void {
+    for (const entity of getEntities()) {
+      if (entity.HasEntityFlags(EntityFlag.FRIENDLY)) {
+        if (entity.Type === EntityType.BOIL) {
+          // Delete Boils, because they are supposed to be rooted to the spot and will look very
+          // buggy if they are moved.
+          entity.Remove();
+        } else {
+          // Teleport all friendly entities to where the player is.
+          entity.Position = g.p.Position;
+        }
+      }
     }
   }
 }

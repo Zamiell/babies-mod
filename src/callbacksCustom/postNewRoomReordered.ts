@@ -8,9 +8,7 @@ import {
   repeat,
 } from "isaacscript-common";
 import { updateCachedAPIFunctions } from "../cache";
-import { postNewRoomBabyFunctionMap } from "../callbacks/postNewRoomBabyFunctionMap";
 import { NUM_SUCCUBI_IN_FLOCK } from "../constants";
-import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { mod } from "../mod";
 import { GlobalsRunBabyTears } from "../types/GlobalsRunBabyTears";
@@ -52,19 +50,11 @@ function main() {
   }
 
   stopDrawingBabyIntroText();
-  applyBabyTemporaryEffects(babyType);
 }
 
 function stopDrawingBabyIntroText() {
   if (g.run.drawIntro) {
     g.run.drawIntro = false;
-  }
-}
-
-function applyBabyTemporaryEffects(babyType: RandomBabyType) {
-  const postNewRoomBabyFunction = postNewRoomBabyFunctionMap.get(babyType);
-  if (postNewRoomBabyFunction !== undefined) {
-    postNewRoomBabyFunction();
   }
 }
 

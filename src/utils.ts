@@ -10,6 +10,7 @@ import {
   ItemConfigTag,
   ItemPoolType,
   KeySubType,
+  LevelCurse,
   MinibossID,
   PickupVariant,
   PillColor,
@@ -188,6 +189,17 @@ export function isValidForMissingTearsEffect(player: EntityPlayer): boolean {
     !playerHasCollectible(player, ...BAD_MISSING_TEARS_COLLECTIBLE_TYPES) &&
     !playerHasForm(player, ...BAD_MISSING_TEARS_TRANSFORMATIONS)
   );
+}
+
+/** This is used for several babies. */
+export function postNewRoomReorderedNoHealthUI(): void {
+  // Get rid of the health UI by using Curse of the Unknown (but not in Devil Rooms or Black
+  // Markets).
+  if (shouldShowRealHeartsUIForDevilDeal()) {
+    g.l.RemoveCurses(LevelCurse.UNKNOWN);
+  } else {
+    g.l.AddCurse(LevelCurse.UNKNOWN, false);
+  }
 }
 
 export function removeAllFriendlyEntities(): void {

@@ -1,12 +1,20 @@
-import { CardType, DoorState, UseFlag } from "isaac-typescript-definitions";
+import {
+  CardType,
+  CollectibleType,
+  DoorState,
+  RoomType,
+  UseFlag,
+} from "isaac-typescript-definitions";
 import {
   addFlag,
   CallbackCustom,
   closeDoorFast,
   getDoors,
   ModCallbackCustom,
+  repeat,
 } from "isaacscript-common";
 import { g } from "../../globals";
+import { mod } from "../../mod";
 import { Baby } from "../Baby";
 
 /** Create red doors on hit + improved Ultra Secret Rooms. */
@@ -42,5 +50,22 @@ export class BloodiedBaby extends Baby {
     }
 
     return undefined;
+  }
+
+  @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
+  postNewRoomReordered(): void {
+    const roomType = g.r.GetType();
+    const isFirstVisit = g.r.IsFirstVisit();
+    const center = g.r.GetCenterPos();
+    const num = this.getAttribute("num");
+
+    if (roomType !== RoomType.ULTRA_SECRET || !isFirstVisit) {
+      return;
+    }
+
+    repeat(num, () => {
+      const position = g.r.FindFreePickupSpawnPosition(center, 1, true);
+      mod.spawnCollectible(CollectibleType.NULL, position, g.run.rng);
+    });
   }
 }

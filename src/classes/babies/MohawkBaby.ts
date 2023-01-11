@@ -8,7 +8,10 @@ import {
 } from "isaacscript-common";
 import { g } from "../../globals";
 import { newSprite } from "../../sprite";
-import { shouldShowRealHeartsUIForDevilDeal } from "../../utils";
+import {
+  postNewRoomReorderedNoHealthUI,
+  shouldShowRealHeartsUIForDevilDeal,
+} from "../../utils";
 import { Baby } from "../Baby";
 
 /** +2 bombs + bombs are hearts. */
@@ -62,5 +65,10 @@ export class MohawkBaby extends Baby {
     g.run.dealingExtraDamage = false;
     player.AddBombs(-1);
     return false;
+  }
+
+  @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
+  postNewRoomReordered(): void {
+    postNewRoomReorderedNoHealthUI();
   }
 }
