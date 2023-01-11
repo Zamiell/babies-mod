@@ -2977,6 +2977,7 @@ export const BABIES = {
     name: "Merman Baby",
     description: "Keys spawn as bombs",
     sprite: "342_baby_merman.png",
+    class: bc.MermanBaby,
   },
 
   // 343
@@ -3449,6 +3450,7 @@ export const BABIES = {
     name: "Mermaid Baby",
     description: "Bombs spawn as keys",
     sprite: "395_baby_mermaid.png",
+    class: bc.MermaidBaby,
   },
 
   // 396

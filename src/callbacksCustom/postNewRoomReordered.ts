@@ -1,7 +1,10 @@
-import { CollectibleType } from "isaac-typescript-definitions";
+import { CollectibleType, GridRoom } from "isaac-typescript-definitions";
 import {
   game,
+  getRoomGridIndex,
   getRoomStageID,
+  getRoomSubType,
+  getRoomType,
   getRoomVariant,
   log,
   ModCallbackCustom,
@@ -25,12 +28,18 @@ function main() {
   const gameFrameCount = game.GetFrameCount();
   const stage = g.l.GetStage();
   const stageType = g.l.GetStageType();
+  const renderFrameCount = Isaac.GetFrameCount();
   const roomStageID = getRoomStageID();
+  const roomType = getRoomType();
   const roomVariant = getRoomVariant();
+  const roomSubType = getRoomSubType();
   const roomSeed = g.r.GetSpawnSeed();
+  const roomGridIndex = getRoomGridIndex();
+  const roomGridIndexSuffix =
+    roomGridIndex >= 0 ? "" : ` (GridRoom.${GridRoom[roomGridIndex]})`;
 
   log(
-    `MC_POST_NEW_ROOM (Babies Mod) - ${roomStageID}.${roomVariant} (on stage ${stage}.${stageType}) (game frame ${gameFrameCount})`,
+    `MC_POST_NEW_ROOM_REORDERED - Room: ${roomType}.${roomVariant}.${roomSubType} - Stage ID: ${roomStageID} - Stage: ${stage}.${stageType} - Grid index: ${roomGridIndex}${roomGridIndexSuffix} - Game frame: ${gameFrameCount} - Render frame: ${renderFrameCount}`,
   );
 
   // Reset room-related variables
