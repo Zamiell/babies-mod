@@ -5,10 +5,19 @@ import { Baby } from "../Baby";
 
 /** +0.2 damage per enemy killed. */
 export class KillerBaby extends Baby {
+  // 8
   @Callback(ModCallback.EVALUATE_CACHE, CacheFlag.DAMAGE)
   evaluateCacheDamage(player: EntityPlayer): void {
     repeat(g.run.babyCounters, () => {
       player.Damage += 0.2;
     });
+  }
+
+  // 68
+  @Callback(ModCallback.POST_ENTITY_KILL)
+  postEntityKill(): void {
+    g.run.babyCounters++;
+    g.p.AddCacheFlags(CacheFlag.DAMAGE);
+    g.p.EvaluateItems();
   }
 }

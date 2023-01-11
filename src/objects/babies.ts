@@ -815,6 +815,7 @@ export const BABIES = {
     name: "Turd Baby",
     description: "Enemies fart on death",
     sprite: "092_baby_turd.png",
+    class: bc.TurdBaby,
   },
 
   // 93
@@ -2150,6 +2151,7 @@ export const BABIES = {
     name: "Love Eye Baby",
     description: "Falls in loves with the first enemy killed",
     sprite: "249_baby_loveeye.png",
+    class: bc.LoveEyeBaby,
   },
 
   // 250
