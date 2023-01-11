@@ -7,7 +7,6 @@ import * as postPlayerInit from "./callbacks/postPlayerInit";
 import * as postRender from "./callbacks/postRender";
 import * as postUpdate from "./callbacks/postUpdate";
 import * as postUseItem from "./callbacks/postUseItem";
-import * as preSpawnClearAward from "./callbacks/preSpawnClearAward";
 import * as preUseItem from "./callbacks/preUseItem";
 import * as entityTakeDmgPlayer from "./callbacksCustom/entityTakeDmgPlayer";
 import * as postGameStartedReordered from "./callbacksCustom/postGameStartedReordered";
@@ -58,7 +57,6 @@ function registerCallbacksMain() {
   executeCmd.init(); // 22
   preUseItem.init(); // 23
   postEntityKill.init(); // 68
-  preSpawnClearAward.init(); // 70
 }
 
 function registerCallbacksCustom() {
