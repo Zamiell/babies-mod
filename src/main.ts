@@ -12,8 +12,6 @@ import * as postGameStartedReordered from "./callbacksCustom/postGameStartedReor
 import * as postNewLevelReordered from "./callbacksCustom/postNewLevelReordered";
 import * as postNewRoomReordered from "./callbacksCustom/postNewRoomReordered";
 import * as postPlayerChangeType from "./callbacksCustom/postPlayerChangeType";
-import * as postSlotDestroyed from "./callbacksCustom/postSlotDestroyed";
-import * as postTrinketBreak from "./callbacksCustom/postTrinketBreak";
 import { MOD_NAME, VERSION } from "./constants";
 import { initCostumeProtector } from "./costumes";
 import { g } from "./globals";
@@ -59,6 +57,4 @@ function registerCallbacksCustom() {
   postNewLevelReordered.init();
   postNewRoomReordered.init();
   postPlayerChangeType.init();
-  postSlotDestroyed.init();
-  postTrinketBreak.init();
 }
