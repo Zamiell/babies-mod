@@ -24,6 +24,16 @@ export class DinoBaby extends Baby {
     removeAllMatchingEntities(EntityType.FAMILIAR, FamiliarVariant.BOBS_BRAIN);
   }
 
+  // 8
+  @Callback(ModCallback.POST_FAMILIAR_UPDATE, FamiliarVariant.BOBS_BRAIN)
+  postFamiliarUpdateBobsBrain(familiar: EntityFamiliar): void {
+    // Bob's Brain familiars have a sub-type of 1 after they explode.
+    if (familiar.SubType === 1) {
+      familiar.Remove();
+    }
+  }
+
+  // 68
   @Callback(ModCallback.POST_ENTITY_KILL)
   postEntityKill(): void {
     // Don't bother giving another egg if we already have a bunch.

@@ -3,7 +3,6 @@ import { babiesCheckValid } from "./babiesCheckValid";
 import * as evaluateCache from "./callbacks/evaluateCache";
 import * as executeCmd from "./callbacks/executeCmd";
 import * as postEntityKill from "./callbacks/postEntityKill";
-import * as postFamiliarUpdate from "./callbacks/postFamiliarUpdate";
 import * as postNPCUpdate from "./callbacks/postNPCUpdate";
 import * as postPickupSelection from "./callbacks/postPickupSelection";
 import * as postPlayerInit from "./callbacks/postPlayerInit";
@@ -61,7 +60,6 @@ function registerCallbacksMain() {
   postUpdate.init(); // 1
   postRender.init(); // 2
   postUseItem.init(); // 3
-  postFamiliarUpdate.init(); // 6
   evaluateCache.init(); // 8
   postPlayerInit.init(); // 9
   postUsePill.init(); // 10

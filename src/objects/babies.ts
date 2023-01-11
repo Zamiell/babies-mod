@@ -734,6 +734,7 @@ export const BABIES = {
     sprite: "082_baby_gurdy.png",
     item: CollectibleType.LIL_GURDY,
     itemNum: 20,
+    class: bc.GurdyBaby,
   },
 
   // 83
@@ -2823,7 +2824,8 @@ export const BABIES = {
     item: CollectibleType.ROBO_BABY_2,
     itemNum: 20,
     blindfolded: true,
-    softlockPreventionDestroyPoops: true, // Robo-Baby 2.0 will not kill poops
+    softlockPreventionDestroyPoops: true, // Robo-Baby 2.0 will not kill poops.
+    class: bc.GeekBaby,
   },
 
   // 327
@@ -3510,6 +3512,7 @@ export const BABIES = {
     sprite: "403_baby_pixie.png",
     item: CollectibleType.YO_LISTEN,
     itemNum: 3,
+    class: bc.PixieBaby,
   },
 
   // 404

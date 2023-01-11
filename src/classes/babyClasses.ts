@@ -1,6 +1,8 @@
 // We must put the baby classes in a separate file as a workaround for Lua having a limit of 200
 // local variables.
 
+export { PixieBaby } from "./babies/PixieBaby";
+
 export { N404Baby } from "./babies/404Baby";
 export { AbanBaby } from "./babies/AbanBaby";
 export { AetherBaby } from "./babies/AetherBaby";
@@ -129,6 +131,7 @@ export { FreakyBaby } from "./babies/FreakyBaby";
 export { FrownBaby } from "./babies/FrownBaby";
 export { FunnyBaby } from "./babies/FunnyBaby";
 export { GargoyleBaby } from "./babies/GargoyleBaby";
+export { GeekBaby } from "./babies/GeekBaby";
 export { GemBaby } from "./babies/GemBaby";
 export { GhoulBaby } from "./babies/GhoulBaby";
 export { GillsBaby } from "./babies/GillsBaby";
@@ -140,6 +143,7 @@ export { GravenBaby } from "./babies/GravenBaby";
 export { GrayscaleBaby } from "./babies/GrayscaleBaby";
 export { GreenBaby } from "./babies/GreenBaby";
 export { GreenKoopaBaby } from "./babies/GreenKoopaBaby";
+export { GurdyBaby } from "./babies/GurdyBaby";
 export { HalfHeadBaby } from "./babies/HalfHeadBaby";
 export { HalfSpiderBaby } from "./babies/HalfSpiderBaby";
 export { HandsomeMrFrogBaby } from "./babies/HandsomeMrFrogBaby";
