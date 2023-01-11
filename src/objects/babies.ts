@@ -2185,6 +2185,7 @@ export const BABIES = {
     name: "Purple Baby",
     description: "Fires are holy",
     sprite: "252_baby_purple.png",
+    class: bc.PurpleBaby,
   },
 
   // 253
