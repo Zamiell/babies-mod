@@ -17,8 +17,3 @@ export function getCurrentBaby(): [
   const baby = BABIES[babyType];
   return [babyType, baby];
 }
-
-export function getCurrentBabyDescription(): BabyDescription {
-  const [, baby] = getCurrentBaby();
-  return baby;
-}

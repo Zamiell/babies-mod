@@ -1494,6 +1494,7 @@ export const BABIES = {
     name: "Gappy Baby",
     description: "Destroying machines gives items",
     sprite: "171_baby_gappy.png",
+    class: bc.GappyBaby,
   },
 
   // 172
@@ -2326,6 +2327,7 @@ export const BABIES = {
     trinket: TrinketType.WALNUT,
     requireBombs: true,
     num: 5,
+    class: bc.SquirrelBaby,
   },
 
   // 269
