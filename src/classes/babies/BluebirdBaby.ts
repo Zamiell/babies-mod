@@ -1,28 +1,20 @@
-import {
-  ModCallback,
-  PillColor,
-  PillEffect,
-} from "isaac-typescript-definitions";
-import { Callback, game } from "isaacscript-common";
-import { g } from "../../globals";
+import { PillColor, PillEffect } from "isaac-typescript-definitions";
+import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Touching items/pickups causes paralysis. */
 export class BluebirdBaby extends Baby {
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
-    const gameFrameCount = game.GetFrameCount();
-
-    if (g.run.babyFrame !== 0 && gameFrameCount >= g.run.babyFrame) {
-      g.run.babyFrame = 0;
-    }
-
-    // Touching pickups causes paralysis (1/2).
-    if (!g.p.IsItemQueueEmpty() && g.run.babyFrame === 0) {
-      // Using a pill does not clear the queue, so without a frame check the following code would
-      // softlock the player.
-      g.run.babyFrame = gameFrameCount + 45;
-      g.p.UsePill(PillEffect.PARALYSIS, PillColor.NULL);
-    }
+  @CallbackCustom(ModCallbackCustom.PRE_ITEM_PICKUP)
+  preItemPickup(player: EntityPlayer): void {
+    useParalysisPill(player);
   }
+
+  @CallbackCustom(ModCallbackCustom.POST_PICKUP_COLLECT)
+  postPickupCollect(_pickup: EntityPickup, player: EntityPlayer): void {
+    useParalysisPill(player);
+  }
+}
+
+function useParalysisPill(player: EntityPlayer) {
+  player.UsePill(PillEffect.PARALYSIS, PillColor.NULL);
 }

@@ -23,9 +23,10 @@ function main() {
   const gameFrameCount = game.GetFrameCount();
   const stage = g.l.GetStage();
   const stageType = g.l.GetStageType();
+  const renderFrameCount = Isaac.GetFrameCount();
 
   log(
-    `MC_POST_NEW_LEVEL (Babies Mod) - ${stage}.${stageType} (game frame ${gameFrameCount})`,
+    `MC_POST_NEW_LEVEL_REORDERED (Babies Mod) - Stage: ${stage}.${stageType} - Game frame: ${gameFrameCount} - Render frame: ${renderFrameCount}`,
   );
 
   // Reset floor-related variables

@@ -49,14 +49,15 @@ function main(isContinued: boolean) {
     g.seeds.RemoveSeedEffect(SeedEffect.OLD_TV);
   }
 
+  if (isCharacter(g.p, PlayerTypeCustom.RANDOM_BABY)) {
+    postGameStartedRandomBaby();
+  }
+}
+
+function postGameStartedRandomBaby() {
   // We want to keep track that we started the run as the "Random Baby" character, in case the
   // player changes their character later through Judas' Shadow, etc.
-  if (isCharacter(g.p, PlayerTypeCustom.RANDOM_BABY)) {
-    g.run.startedRunAsRandomBaby = true;
-  } else {
-    // Early return if we are on the Random Baby character.
-    return;
-  }
+  g.run.startedRunAsRandomBaby = true;
 
   // Random Baby always starts with the Schoolbag.
   giveItemAndRemoveFromPools(CollectibleType.SCHOOLBAG);

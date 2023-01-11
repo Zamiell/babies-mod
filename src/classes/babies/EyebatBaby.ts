@@ -13,6 +13,7 @@ import {
   inStartingRoom,
   ModCallbackCustom,
   onRepentanceStage,
+  removeGridEntity,
   spawnGridEntity,
 } from "isaacscript-common";
 import { g } from "../../globals";
@@ -36,6 +37,17 @@ export class EyebatBaby extends Baby {
       effectiveStage < LevelStage.WOMB_2 &&
       !onRepentanceStage()
     );
+  }
+
+  @CallbackCustom(
+    ModCallbackCustom.POST_GRID_ENTITY_INIT,
+    GridEntityType.TRAPDOOR,
+  )
+  postGridEntityInitTrapdoor(gridEntity: GridEntity): void {
+    const roomType = g.r.GetType();
+    if (roomType === RoomType.BOSS) {
+      removeGridEntity(gridEntity, false);
+    }
   }
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)

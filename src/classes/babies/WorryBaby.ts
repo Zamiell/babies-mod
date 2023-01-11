@@ -1,5 +1,11 @@
 import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
-import { Callback, game, useActiveItemTemp } from "isaacscript-common";
+import {
+  Callback,
+  CallbackCustom,
+  game,
+  ModCallbackCustom,
+  useActiveItemTemp,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
@@ -21,5 +27,16 @@ export class WorryBaby extends Baby {
 
     g.run.babyFrame = 0;
     useActiveItemTemp(g.p, CollectibleType.TELEPORT);
+  }
+
+  @CallbackCustom(ModCallbackCustom.POST_PICKUP_COLLECT)
+  postPickupCollect(): void {
+    const gameFrameCount = game.GetFrameCount();
+    const num = this.getAttribute("num");
+
+    // Teleport 2 frames in the future so that we can put an item in the Schoolbag.
+    if (g.run.babyFrame === 0) {
+      g.run.babyFrame = gameFrameCount + num;
+    }
   }
 }

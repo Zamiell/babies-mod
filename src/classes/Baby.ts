@@ -94,6 +94,42 @@ MOD_CALLBACK_TO_VALIDATION_FUNC.set(
   },
 );
 
+// 5
+MOD_CALLBACK_TO_VALIDATION_FUNC.set(
+  ModCallback.POST_USE_CARD,
+  (...callbackArgs: unknown[]) => {
+    const player = callbackArgs[1] as EntityPlayer;
+    return isFirstPlayer(player);
+  },
+);
+
+// 8
+MOD_CALLBACK_TO_VALIDATION_FUNC.set(
+  ModCallback.EVALUATE_CACHE,
+  (...callbackArgs: unknown[]) => {
+    const player = callbackArgs[0] as EntityPlayer;
+    return isFirstPlayer(player);
+  },
+);
+
+// 10
+MOD_CALLBACK_TO_VALIDATION_FUNC.set(
+  ModCallback.POST_USE_PILL,
+  (...callbackArgs: unknown[]) => {
+    const player = callbackArgs[1] as EntityPlayer;
+    return isFirstPlayer(player);
+  },
+);
+
+// 23
+MOD_CALLBACK_TO_VALIDATION_FUNC.set(
+  ModCallback.PRE_USE_ITEM,
+  (...callbackArgs: unknown[]) => {
+    const player = callbackArgs[2] as EntityPlayer;
+    return isFirstPlayer(player);
+  },
+);
+
 // 62
 MOD_CALLBACK_TO_VALIDATION_FUNC.set(
   ModCallback.PRE_GET_COLLECTIBLE,
@@ -157,6 +193,14 @@ MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC.set(
   ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
   (...callbackArgs: unknown[]) => {
     const player = callbackArgs[0] as EntityPlayer;
+    return isFirstPlayer(player);
+  },
+);
+
+MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC.set(
+  ModCallbackCustom.POST_PICKUP_COLLECT,
+  (...callbackArgs: unknown[]) => {
+    const player = callbackArgs[1] as EntityPlayer;
     return isFirstPlayer(player);
   },
 );

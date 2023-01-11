@@ -9,11 +9,8 @@ import * as postUpdate from "./callbacks/postUpdate";
 import * as postUseItem from "./callbacks/postUseItem";
 import * as entityTakeDmgPlayer from "./callbacksCustom/entityTakeDmgPlayer";
 import * as postGameStartedReordered from "./callbacksCustom/postGameStartedReordered";
-import * as postGridEntityBroken from "./callbacksCustom/postGridEntityBroken";
-import * as postGridEntityInit from "./callbacksCustom/postGridEntityInit";
 import * as postNewLevelReordered from "./callbacksCustom/postNewLevelReordered";
 import * as postNewRoomReordered from "./callbacksCustom/postNewRoomReordered";
-import * as postPickupCollect from "./callbacksCustom/postPickupCollect";
 import * as postPlayerChangeType from "./callbacksCustom/postPlayerChangeType";
 import * as postPurchase from "./callbacksCustom/postPurchase";
 import * as postSlotDestroyed from "./callbacksCustom/postSlotDestroyed";
@@ -62,11 +59,8 @@ function registerCallbacksCustom() {
   postGameStartedReordered.init();
   postNewLevelReordered.init();
   postNewRoomReordered.init();
-  postPickupCollect.init();
   postPurchase.init();
   postPlayerChangeType.init();
   postSlotDestroyed.init();
   postTrinketBreak.init();
-  postGridEntityInit.init();
-  postGridEntityBroken.init();
 }
