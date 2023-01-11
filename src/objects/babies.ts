@@ -1338,6 +1338,7 @@ export const BABIES = {
     description: "Projectiles are reflected as bombs",
     sprite: "153_baby_sorrow.png",
     num: 50,
+    class: bc.SorrowBaby,
   },
 
   // 154
@@ -1945,6 +1946,7 @@ export const BABIES = {
     name: "Onion Baby",
     description: "Projectiles have 2x speed",
     sprite: "224_baby_onion.png",
+    class: bc.OnionBaby,
   },
 
   // 225
@@ -2420,6 +2422,7 @@ export const BABIES = {
     name: "Eye Demon Baby",
     description: "Enemies have Continuum projectiles",
     sprite: "280_baby_eyedemon.png",
+    class: bc.EyeDemonBaby,
   },
 
   // 281
@@ -2578,6 +2581,7 @@ export const BABIES = {
     name: "Woodsman Baby",
     description: "Meat Cleaver effect on room enter",
     sprite: "297_baby_woodsman.png",
+    class: bc.WoodsmanBaby,
   },
 
   // 298

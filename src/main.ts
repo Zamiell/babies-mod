@@ -4,7 +4,6 @@ import * as evaluateCache from "./callbacks/evaluateCache";
 import * as executeCmd from "./callbacks/executeCmd";
 import * as postEntityKill from "./callbacks/postEntityKill";
 import * as postPlayerInit from "./callbacks/postPlayerInit";
-import * as postProjectileUpdate from "./callbacks/postProjectileUpdate";
 import * as postRender from "./callbacks/postRender";
 import * as postUpdate from "./callbacks/postUpdate";
 import * as postUseItem from "./callbacks/postUseItem";
@@ -63,7 +62,6 @@ function registerCallbacksMain() {
   executeCmd.init(); // 22
   preUseItem.init(); // 23
   preEntitySpawn.init(); // 24
-  postProjectileUpdate.init(); // 44
   postEntityKill.init(); // 68
   preSpawnClearAward.init(); // 70
   preRoomEntitySpawn.init(); // 71

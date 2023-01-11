@@ -1,6 +1,16 @@
-import { LevelStage } from "isaac-typescript-definitions";
-import { getEffectiveStage } from "isaacscript-common";
+import {
+  EntityType,
+  LevelStage,
+  ModCallback,
+  ProjectileFlag,
+} from "isaac-typescript-definitions";
+import { Callback, getEffectiveStage } from "isaacscript-common";
 import { Baby } from "../Baby";
+
+const IMMUNE_ENTITY_TYPES: ReadonlySet<EntityType> = new Set([
+  EntityType.MOMS_HEART, // 78
+  EntityType.ISAAC, // 102
+]);
 
 /** Enemies have homing projectiles. */
 export class NosferatuBaby extends Baby {
@@ -8,5 +18,14 @@ export class NosferatuBaby extends Baby {
   override isValid(): boolean {
     const effectiveStage = getEffectiveStage();
     return effectiveStage < LevelStage.WOMB_2;
+  }
+
+  @Callback(ModCallback.POST_PROJECTILE_UPDATE)
+  postProjectileUpdate(projectile: EntityProjectile): void {
+    if (IMMUNE_ENTITY_TYPES.has(projectile.SpawnerType)) {
+      return;
+    }
+
+    projectile.AddProjectileFlags(ProjectileFlag.SMART);
   }
 }

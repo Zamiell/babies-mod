@@ -36,6 +36,24 @@ export class ZombieBaby extends Baby {
     }
   }
 
+  // 44
+  @Callback(ModCallback.POST_PROJECTILE_UPDATE)
+  postProjectileUpdate(projectile: EntityProjectile): void {
+    if (
+      projectile.Parent !== undefined &&
+      projectile.Parent.HasEntityFlags(EntityFlag.FRIENDLY)
+    ) {
+      // Make projectiles from friendly enemies faded to prevent confusion.
+      const color = projectile.GetColor();
+      const fadeAmount = 0.25;
+      const newColor = Color(color.R, color.G, color.B, fadeAmount);
+      // (For some reason, in this callback, RO, GO, and BO will be float values, but the Color
+      // constructor only wants integers, so we manually use 0 for these 3 values instead of the
+      // existing ones.)
+      projectile.SetColor(newColor, 0, 0, true, true);
+    }
+  }
+
   // 68
   @Callback(ModCallback.POST_ENTITY_KILL)
   postEntityKill(entity: Entity): void {
