@@ -429,6 +429,7 @@ export const BABIES = {
     description: "Succubus aura",
     sprite: "047_baby_sucky.png",
     item: CollectibleType.SUCCUBUS,
+    class: bc.SuckyBaby,
   },
 
   // 48
@@ -3935,6 +3936,7 @@ export const BABIES = {
     description: "Starts with Level 4 Bumbo (improved)",
     sprite: "453_baby_graven.png",
     item: CollectibleType.BUMBO,
+    class: bc.GravenBaby,
   },
 
   // 454

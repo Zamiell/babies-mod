@@ -24,6 +24,15 @@ export class BlackEyeBaby extends Baby {
     }
   }
 
+  // 7
+  @Callback(ModCallback.POST_FAMILIAR_INIT, FamiliarVariant.LEPROSY)
+  postFamiliarInitLeprosy(): void {
+    if (g.run.babyCounters < 3) {
+      // We use the "babyCounters" variable to track how Leprocy familiars are in the room.
+      g.run.babyCounters++;
+    }
+  }
+
   // 8
   @Callback(ModCallback.EVALUATE_CACHE, CacheFlag.DAMAGE)
   evaluateCacheDamage(player: EntityPlayer): void {

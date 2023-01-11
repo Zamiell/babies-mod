@@ -28,7 +28,7 @@ export class BlueBaby extends Baby {
   @Callback(ModCallback.POST_FAMILIAR_INIT, FamiliarVariant.SPRINKLER)
   postFamiliarInit(familiar: EntityFamiliar): void {
     const sprite = familiar.GetSprite();
-    sprite.Load("gfx/003.120_sprinkler2.anm2", true);
+    sprite.Load("gfx/003.120_sprinkler_invisible.anm2", true);
   }
 
   /** Get rid of the poof effect that occurs when a Sprinkler is summoned. */
