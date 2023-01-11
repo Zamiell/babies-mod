@@ -1,15 +1,25 @@
-import { CollectibleType, PlayerForm } from "isaac-typescript-definitions";
-import { playerHasCollectible, playerHasForm } from "isaacscript-common";
+import {
+  CollectibleType,
+  EffectVariant,
+  ModCallback,
+  PlayerForm,
+} from "isaac-typescript-definitions";
+import {
+  Callback,
+  playerHasCollectible,
+  playerHasForm,
+} from "isaacscript-common";
+import { g } from "../../globals";
 import { Baby } from "../Baby";
 
-const SYNERGY_COLLECTIBLE_TYPES = [
+const BUGGED_COLLECTIBLE_TYPES = [
   CollectibleType.INNER_EYE, // 2
   CollectibleType.MUTANT_SPIDER, // 153
   CollectibleType.TWENTY_TWENTY, // 245
   CollectibleType.WIZ, // 358
 ] as const;
 
-const SYNERGY_TRANSFORMATIONS = [
+const BUGGED_TRANSFORMATIONS = [
   PlayerForm.CONJOINED, // 7
   PlayerForm.BOOKWORM, // 10
 ] as const;
@@ -18,8 +28,27 @@ const SYNERGY_TRANSFORMATIONS = [
 export class SloppyBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
     return (
-      !playerHasCollectible(player, ...SYNERGY_COLLECTIBLE_TYPES) &&
-      !playerHasForm(player, ...SYNERGY_TRANSFORMATIONS)
+      !playerHasCollectible(player, ...BUGGED_COLLECTIBLE_TYPES) &&
+      !playerHasForm(player, ...BUGGED_TRANSFORMATIONS)
     );
+  }
+
+  /**
+   * Shorten the lag time of the missiles. (This is not possible in the `POST_EFFECT_INIT` callback
+   * since "effect.Timeout" is -1.)
+   */
+  @Callback(ModCallback.POST_EFFECT_UPDATE, EffectVariant.TARGET)
+  postEffectUpdateTarget(effect: EntityEffect): void {
+    // There is a bug where the target will disappear if you have multiple shots.
+    if (
+      playerHasCollectible(g.p, ...BUGGED_COLLECTIBLE_TYPES) ||
+      playerHasForm(g.p, ...BUGGED_TRANSFORMATIONS)
+    ) {
+      return;
+    }
+
+    if (effect.FrameCount === 1) {
+      effect.Timeout = 10; // 9 does not result in a missile coming out.
+    }
   }
 }

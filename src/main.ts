@@ -2,7 +2,6 @@ import { log } from "isaacscript-common";
 import { babiesCheckValid } from "./babiesCheckValid";
 import * as evaluateCache from "./callbacks/evaluateCache";
 import * as executeCmd from "./callbacks/executeCmd";
-import * as postEffectUpdate from "./callbacks/postEffectUpdate";
 import * as postEntityKill from "./callbacks/postEntityKill";
 import * as postFamiliarInit from "./callbacks/postFamiliarInit";
 import * as postFamiliarUpdate from "./callbacks/postFamiliarUpdate";
@@ -75,7 +74,6 @@ function registerCallbacksMain() {
   postPickupSelection.init(); // 37
   postTearUpdate.init(); // 40
   postProjectileUpdate.init(); // 44
-  postEffectUpdate.init(); // 55
   postEntityKill.init(); // 68
   preSpawnClearAward.init(); // 70
   preRoomEntitySpawn.init(); // 71
