@@ -783,8 +783,9 @@ export const BABIES = {
   // 88
   [RandomBabyType.BANDAID]: {
     name: "Bandaid Baby",
-    description: "Spawns a random pedestal item on room clear",
+    description: "50% chance to spawn a random pedestal item on room clear",
     sprite: "088_baby_bandaid.png",
+    class: bc.BandaidBaby,
   },
 
   // 89
@@ -1672,6 +1673,7 @@ export const BABIES = {
     name: "Jammies Baby",
     description: "Extra charge on room clear",
     sprite: "192_baby_jammies.png",
+    class: bc.JammiesBaby,
   },
 
   // 193
@@ -3025,6 +3027,7 @@ export const BABIES = {
     name: "2600 Baby",
     description: "Friend Finder effect on room clear",
     sprite: "347_baby_2600.png",
+    class: bc.N2600Baby,
   },
 
   // 348
@@ -3355,6 +3358,7 @@ export const BABIES = {
     name: "Fishman Baby",
     description: "Spawns a random bomb on room clear",
     sprite: "384_baby_fishman.png",
+    class: bc.FishmanBaby,
   },
 
   // 385
@@ -4719,6 +4723,7 @@ export const BABIES = {
     description: "3x Keeper's Box effect on room clear",
     sprite: "542_baby_pegasus.png",
     num: 3,
+    class: bc.PegasusBaby,
   },
 
   // 543
@@ -4750,6 +4755,7 @@ export const BABIES = {
     name: "Hive King Baby",
     description: "Giant cell effect on room clear",
     sprite: "546_baby_hiveking.png",
+    class: bc.HiveKingBaby,
   },
 
   // 547

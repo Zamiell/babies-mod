@@ -112,11 +112,9 @@ MOD_CALLBACK_TO_VALIDATION_FUNC.set(
 
 // 71
 MOD_CALLBACK_TO_VALIDATION_FUNC.set(ModCallback.PRE_ROOM_ENTITY_SPAWN, () => {
-  // We only care about replacing things when the room is first loading and on the first visit.
+  // We only care about replacing things when the room is first loading.
   const roomFrameCount = g.r.GetFrameCount();
-  const isFirstVisit = g.r.IsFirstVisit();
-
-  return roomFrameCount === -1 && isFirstVisit;
+  return roomFrameCount === -1;
 });
 
 function shouldCallbackFireCustom(

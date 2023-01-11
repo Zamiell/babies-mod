@@ -3,6 +3,10 @@
 <!-- cspell:ignore cantgirl,Finalkids,Hispa,lenamek,Moucheron,Quipet,Sanio,sisuka -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.5.2_ - January 14th, 2023
+
+- Bandaid Baby now has a 50% chance to spawn a pedestal item (instead of 100%).
+
 ### _v1.5.2_ - August 14th, 2022
 
 - Fixed the bug where the Aban Baby coins would not properly be removed when leaving the room.

@@ -1,6 +1,7 @@
 // We must put the baby classes in a separate file as a workaround for Lua having a limit of 200
 // local variables.
 
+export { N2600Baby } from "./babies/2600Baby";
 export { N404Baby } from "./babies/404Baby";
 export { AbanBaby } from "./babies/AbanBaby";
 export { AetherBaby } from "./babies/AetherBaby";
@@ -14,6 +15,7 @@ export { AwakenBaby } from "./babies/AwakenBaby";
 export { BaggyCapBaby } from "./babies/BaggyCapBaby";
 export { BaldBaby } from "./babies/BaldBaby";
 export { BallerinaBaby } from "./babies/BallerinaBaby";
+export { BandaidBaby } from "./babies/BandaidBaby";
 export { BansheeBaby } from "./babies/BansheeBaby";
 export { BarbarianBaby } from "./babies/BarbarianBaby";
 export { BawlBaby } from "./babies/BawlBaby";
@@ -124,6 +126,7 @@ export { FieryBaby } from "./babies/FieryBaby";
 export { FingerBaby } from "./babies/FingerBaby";
 export { FireballBaby } from "./babies/FireballBaby";
 export { FiremageBaby } from "./babies/FiremageBaby";
+export { FishmanBaby } from "./babies/FishmanBaby";
 export { FlyBaby } from "./babies/FlyBaby";
 export { FolderBaby } from "./babies/FolderBaby";
 export { FoodReviewerBaby } from "./babies/FoodReviewerBaby";
@@ -157,6 +160,7 @@ export { HeartBaby } from "./babies/HeartBaby";
 export { HelmetBaby } from "./babies/HelmetBaby";
 export { HeroBaby } from "./babies/HeroBaby";
 export { HiveBaby } from "./babies/HiveBaby";
+export { HiveKingBaby } from "./babies/HiveKingBaby";
 export { HooliganBaby } from "./babies/HooliganBaby";
 export { HopelessBaby } from "./babies/HopelessBaby";
 export { HostBaby } from "./babies/HostBaby";
@@ -166,6 +170,7 @@ export { IllusionBaby } from "./babies/IllusionBaby";
 export { ImpBaby } from "./babies/ImpBaby";
 export { ImpBaby2 } from "./babies/ImpBaby2";
 export { IsaacBaby } from "./babies/IsaacBaby";
+export { JammiesBaby } from "./babies/JammiesBaby";
 export { KillerBaby } from "./babies/KillerBaby";
 export { KindaLovableBaby } from "./babies/KindaLovableBaby";
 export { KoalaBaby } from "./babies/KoalaBaby";
@@ -215,6 +220,7 @@ export { OnionBaby } from "./babies/OnionBaby";
 export { OrangeDemonBaby } from "./babies/OrangeDemonBaby";
 export { OrangeGhostBaby } from "./babies/OrangeGhostBaby";
 export { OrangePigBaby } from "./babies/OrangePigBaby";
+export { PegasusBaby } from "./babies/PegasusBaby";
 export { PieceABaby } from "./babies/PieceABaby";
 export { PinkGhostBaby } from "./babies/PinkGhostBaby";
 export { PinkPrincessBaby } from "./babies/PinkPrincessBaby";
