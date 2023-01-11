@@ -13,6 +13,22 @@ export class ZombieBaby extends Baby {
     removeAllFriendlyEntities();
   }
 
+  // 0
+  @Callback(ModCallback.POST_NPC_UPDATE)
+  postNPCUpdate(npc: EntityNPC): void {
+    // Reapply the fade on every frame because enemies can be unfaded occasionally.
+    if (npc.HasEntityFlags(EntityFlag.FRIENDLY)) {
+      const color = npc.GetColor();
+      const fadeAmount = 0.25;
+      const newColor = Color(color.R, color.G, color.B, fadeAmount);
+      // (For some reason, in this callback, `RO`, `GO`, and `BO` will be float values, but the
+      // `Color` constructor only wants integers, so manually use 0 for these 3 values instead of
+      // the existing ones.)
+      npc.SetColor(newColor, 0, 0, true, true);
+    }
+  }
+
+  // 68
   @Callback(ModCallback.POST_ENTITY_KILL)
   postEntityKill(entity: Entity): void {
     if (
