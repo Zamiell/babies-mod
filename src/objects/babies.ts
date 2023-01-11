@@ -1760,6 +1760,7 @@ export const BABIES = {
     sprite: "202_baby_blindfold.png",
     item: CollectibleType.INCUBUS,
     blindfolded: true,
+    class: bc.BlindfoldBaby,
   },
 
   // 203
@@ -2018,6 +2019,7 @@ export const BABIES = {
     description: "Starts with Lemon Mishap (improved)",
     sprite: "232_baby_lemon.png",
     item: CollectibleType.LEMON_MISHAP,
+    class: bc.LemonBaby,
   },
 
   // 233
@@ -2271,6 +2273,7 @@ export const BABIES = {
     description: "Starts with The Poop (improved)",
     sprite: "262_baby_panda.png",
     item: CollectibleType.POOP,
+    class: bc.PandaBaby,
   },
 
   // 263

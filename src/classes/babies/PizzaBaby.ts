@@ -5,6 +5,7 @@ import { Baby } from "../Baby";
 
 /** Starts with Brown Nugget (improved). */
 export class PizzaBaby extends Baby {
+  // 1
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
     const gameFrameCount = game.GetFrameCount();
@@ -20,5 +21,20 @@ export class PizzaBaby extends Baby {
         g.run.babyFrame = 0;
       }
     }
+  }
+
+  // 23
+  @Callback(ModCallback.PRE_USE_ITEM, CollectibleType.BROWN_NUGGET)
+  preUseItemBrownNugget(): boolean | undefined {
+    const gameFrameCount = game.GetFrameCount();
+    const num = this.getAttribute("num");
+
+    // Mark to spawn more of them on subsequent frames.
+    if (g.run.babyCounters === 0) {
+      g.run.babyCounters = 1;
+      g.run.babyFrame = gameFrameCount + num;
+    }
+
+    return undefined;
   }
 }
