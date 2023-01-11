@@ -16,7 +16,7 @@ function main(entity: Entity) {
 
   // We only care if an actual enemy dies.
   const npc = entity.ToNPC();
-  if (npc === undefined || !npc.IsVulnerableEnemy()) {
+  if (npc === undefined) {
     return;
   }
 

@@ -1973,6 +1973,7 @@ export const BABIES = {
     description: "Starts with Abel; Abel's tears hurt you",
     sprite: "228_baby_hanger.png",
     item: CollectibleType.ABEL,
+    class: bc.HangerBaby,
   },
 
   // 229
@@ -3771,6 +3772,7 @@ export const BABIES = {
     description: "Tear size increases with distance",
     sprite: "434_baby_cylinder.png",
     requireTears: true,
+    class: bc.CylinderBaby,
   },
 
   // 435

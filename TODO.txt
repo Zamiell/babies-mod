@@ -2,7 +2,7 @@ TODO:
 
 - SaveDataManager
 - Gamonymous suggestions
-- look at all getEffectiveStage comparisons
+- confusion on hit, see code below
 
 List of hard babies:
 - Troll Baby (#6) - Spawns a Troll Bomb every 3 seconds
@@ -21,19 +21,7 @@ Bugs with Costume Protector:
 - Double Glass Eye
 - Double Guppy's Eye
 
-Template for new babies:
-
-import { ModCallback } from "isaac-typescript-definitions";
-import { Callback } from "isaacscript-common";
-import { Baby } from "../Baby";
-
-/**  */
-export class Baby extends Baby {
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
-
-  }
-}
+```
 
 // 408
 entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.CENSORED, (player) => {
@@ -47,3 +35,5 @@ entityTakeDmgPlayerBabyFunctionMap.set(RandomBabyType.CENSORED, (player) => {
 
   return undefined;
 });
+
+```

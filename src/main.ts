@@ -10,7 +10,6 @@ import * as postPickupSelection from "./callbacks/postPickupSelection";
 import * as postPlayerInit from "./callbacks/postPlayerInit";
 import * as postProjectileUpdate from "./callbacks/postProjectileUpdate";
 import * as postRender from "./callbacks/postRender";
-import * as postTearUpdate from "./callbacks/postTearUpdate";
 import * as postUpdate from "./callbacks/postUpdate";
 import * as postUseItem from "./callbacks/postUseItem";
 import * as postUsePill from "./callbacks/postUsePill";
@@ -72,7 +71,6 @@ function registerCallbacksMain() {
   preUseItem.init(); // 23
   preEntitySpawn.init(); // 24
   postPickupSelection.init(); // 37
-  postTearUpdate.init(); // 40
   postProjectileUpdate.init(); // 44
   postEntityKill.init(); // 68
   preSpawnClearAward.init(); // 70

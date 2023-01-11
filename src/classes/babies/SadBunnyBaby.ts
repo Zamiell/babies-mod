@@ -13,6 +13,23 @@ export class SadBunnyBaby extends Baby {
     });
   }
 
+  // 40
+  @Callback(ModCallback.POST_TEAR_UPDATE)
+  postTearUpdate(tear: EntityTear): void {
+    if (
+      tear.SubType !== 1 ||
+      // Tears will not die if they hit an enemy, but they will die if they hit a wall or object.
+      !tear.IsDead()
+    ) {
+      return;
+    }
+
+    // The streak ended.
+    g.run.babyCounters = 0;
+    g.p.AddCacheFlags(CacheFlag.FIRE_DELAY);
+    g.p.EvaluateItems();
+  }
+
   // 42
   @Callback(ModCallback.PRE_TEAR_COLLISION)
   preTearCollision(tear: EntityTear): boolean | undefined {

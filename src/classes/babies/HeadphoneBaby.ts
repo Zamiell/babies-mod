@@ -4,6 +4,17 @@ import { Baby } from "../Baby";
 
 /** Soundwave tears. */
 export class HeadphoneBaby extends Baby {
+  // 40
+  @Callback(ModCallback.POST_TEAR_UPDATE)
+  postTearUpdate(tear: EntityTear): void {
+    if (tear.FrameCount !== 1) {
+      return;
+    }
+
+    tear.Visible = true;
+  }
+
+  // 61
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
     tear.ChangeVariant(TearVariant.PUPULA);

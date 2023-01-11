@@ -97,7 +97,7 @@ MOD_CALLBACK_TO_VALIDATION_FUNC.set(
   (...callbackArgs: unknown[]) => {
     const entity = callbackArgs[0] as Entity;
     const npc = entity.ToNPC();
-    return npc !== undefined && npc.IsVulnerableEnemy();
+    return npc !== undefined;
   },
 );
 

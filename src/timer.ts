@@ -1,7 +1,7 @@
 import { game, repeat } from "isaacscript-common";
 import { RandomBabyType } from "./enums/RandomBabyType";
 import { g } from "./globals";
-import { initSprite } from "./sprite";
+import { newSprite } from "./sprite";
 import { getCurrentBaby } from "./utilsBaby";
 
 const sprites = {
@@ -123,19 +123,19 @@ export function display(): void {
 }
 
 function loadSprites() {
-  sprites.clock = initSprite("gfx/timer/clock.anm2");
+  sprites.clock = newSprite("gfx/timer/clock.anm2");
 
   repeat(2, () => {
-    const colonSprite = initSprite("gfx/timer/colon.anm2");
+    const colonSprite = newSprite("gfx/timer/colon.anm2");
     sprites.colons.push(colonSprite);
   });
 
   repeat(5, () => {
-    const digitSprite = initSprite("gfx/timer/timer.anm2");
+    const digitSprite = newSprite("gfx/timer/timer.anm2");
     sprites.digits.push(digitSprite);
   });
 
-  sprites.digitMini = initSprite("gfx/timer/timerMini.anm2");
+  sprites.digitMini = newSprite("gfx/timer/timerMini.anm2");
 }
 
 function convertSecondsToTimerValues(

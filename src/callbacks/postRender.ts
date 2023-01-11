@@ -22,7 +22,7 @@ import { MOD_NAME, VERSION } from "../constants";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { mod } from "../mod";
-import { initSprite } from "../sprite";
+import { newSprite } from "../sprite";
 import * as timer from "../timer";
 import { isRacingPlusEnabled } from "../utils";
 import { getCurrentBaby } from "../utilsBaby";
@@ -30,7 +30,7 @@ import { getCurrentBaby } from "../utilsBaby";
 const UI_HEARTS_RIGHT_SPACING = 55;
 const CLOCK_POSITION = Vector(30, 30);
 
-const clockSprite = initSprite("gfx/clock.anm2");
+const clockSprite = newSprite("gfx/clock.anm2");
 
 export function init(): void {
   mod.AddCallback(ModCallback.POST_RENDER, main);

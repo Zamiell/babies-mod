@@ -7,7 +7,7 @@ import {
   useActiveItemTemp,
 } from "isaacscript-common";
 import { g } from "../../globals";
-import { initSprite } from "../../sprite";
+import { newSprite } from "../../sprite";
 import { shouldShowRealHeartsUIForDevilDeal } from "../../utils";
 import { Baby } from "../Baby";
 
@@ -16,7 +16,7 @@ export class HopelessBaby extends Baby {
   override onAdd(player: EntityPlayer): void {
     player.AddKeys(2);
 
-    g.run.babySprite = initSprite("gfx/custom-health/key.anm2");
+    g.run.babySprite = newSprite("gfx/custom-health/key.anm2");
   }
 
   // 1

@@ -6,9 +6,7 @@ export class CryBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(): boolean | undefined {
     for (const npc of getNPCs()) {
-      if (npc.IsVulnerableEnemy()) {
-        npc.HitPoints = npc.MaxHitPoints;
-      }
+      npc.HitPoints = npc.MaxHitPoints;
     }
 
     return undefined;

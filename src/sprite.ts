@@ -1,4 +1,4 @@
-export function initSprite(anm2Path: string, pngPath?: string): Sprite {
+export function newSprite(anm2Path: string, pngPath?: string): Sprite {
   const sprite = Sprite();
 
   if (pngPath === undefined) {
