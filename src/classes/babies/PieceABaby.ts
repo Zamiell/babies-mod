@@ -6,15 +6,12 @@ import {
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
-const BUTTON_ACTIONS_LEFT_RIGHT = [ButtonAction.LEFT, ButtonAction.RIGHT];
-const BUTTON_ACTIONS_UP_DOWN = [ButtonAction.UP, ButtonAction.DOWN];
-
 const ILLEGAL_INPUTS: ReadonlyMap<ButtonAction, readonly ButtonAction[]> =
   new Map([
-    [ButtonAction.LEFT, BUTTON_ACTIONS_UP_DOWN], // 0
-    [ButtonAction.RIGHT, BUTTON_ACTIONS_UP_DOWN], // 1
-    [ButtonAction.UP, BUTTON_ACTIONS_LEFT_RIGHT], // 2
-    [ButtonAction.DOWN, BUTTON_ACTIONS_LEFT_RIGHT], // 3
+    [ButtonAction.LEFT, [ButtonAction.UP, ButtonAction.DOWN]], // 0
+    [ButtonAction.RIGHT, [ButtonAction.UP, ButtonAction.DOWN]], // 1
+    [ButtonAction.UP, [ButtonAction.LEFT, ButtonAction.RIGHT]], // 2
+    [ButtonAction.DOWN, [ButtonAction.LEFT, ButtonAction.RIGHT]], // 3
   ]);
 
 /** Can only move up + down + left + right. */

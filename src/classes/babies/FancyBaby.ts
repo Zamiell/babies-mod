@@ -25,7 +25,7 @@ import { CollectibleTypeCustom } from "../../types/CollectibleTypeCustom";
 import { isRerolledCollectibleBuggedHeart } from "../../utils";
 import { Baby } from "../Baby";
 
-const COLLECTIBLE_POSITIONS: ReadonlyArray<[x: int, y: int]> = [
+const COLLECTIBLE_POSITIONS = [
   [3, 1],
   [9, 1],
   [3, 5],
@@ -34,7 +34,7 @@ const COLLECTIBLE_POSITIONS: ReadonlyArray<[x: int, y: int]> = [
   [11, 1],
   [1, 5],
   [11, 5],
-];
+] as const;
 
 /** Can purchase teleports to special rooms. */
 export class FancyBaby extends Baby {

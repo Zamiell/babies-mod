@@ -1,5 +1,5 @@
 // The sprites are located at:
-//
+
 // ```
 // C:\Program Files (x86)\Steam\steamapps\common\The Binding of Isaac Rebirth\resources-dlc3\gfx\characters\player2\
 // ```

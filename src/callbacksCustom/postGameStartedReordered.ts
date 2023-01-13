@@ -7,12 +7,17 @@ import { GlobalsRun } from "../types/GlobalsRun";
 import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
 import { giveItemAndRemoveFromPools } from "../utils";
 
-const ALL_BABY_SEED_EFFECTS: SeedEffect[] = [];
-for (const baby of Object.values(BABIES)) {
-  if ("seed" in baby) {
-    ALL_BABY_SEED_EFFECTS.push(baby.seed);
+const ALL_BABY_SEED_EFFECTS: readonly SeedEffect[] = (() => {
+  const seedEffects: SeedEffect[] = [];
+
+  for (const baby of Object.values(BABIES)) {
+    if ("seed" in baby) {
+      seedEffects.push(baby.seed);
+    }
   }
-}
+
+  return seedEffects;
+})();
 
 export function init(): void {
   mod.AddCallbackCustom(ModCallbackCustom.POST_GAME_STARTED_REORDERED, main);

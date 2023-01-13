@@ -80,78 +80,78 @@ function shouldCallbackFireVanilla(
   return validationFunc(...callbackArgs);
 }
 
-const MOD_CALLBACK_TO_VALIDATION_FUNC = new Map<
+const MOD_CALLBACK_TO_VALIDATION_FUNC: ReadonlyMap<
   ModCallback,
   (...callbackArgs: unknown[]) => boolean
->();
+> = new Map([
+  // 3
+  [
+    ModCallback.POST_USE_ITEM,
+    (...callbackArgs: unknown[]) => {
+      const player = callbackArgs[2] as EntityPlayer;
+      return isFirstPlayer(player);
+    },
+  ],
 
-// 3
-MOD_CALLBACK_TO_VALIDATION_FUNC.set(
-  ModCallback.POST_USE_ITEM,
-  (...callbackArgs: unknown[]) => {
-    const player = callbackArgs[2] as EntityPlayer;
-    return isFirstPlayer(player);
-  },
-);
+  // 5
+  [
+    ModCallback.POST_USE_CARD,
+    (...callbackArgs: unknown[]) => {
+      const player = callbackArgs[1] as EntityPlayer;
+      return isFirstPlayer(player);
+    },
+  ],
 
-// 5
-MOD_CALLBACK_TO_VALIDATION_FUNC.set(
-  ModCallback.POST_USE_CARD,
-  (...callbackArgs: unknown[]) => {
-    const player = callbackArgs[1] as EntityPlayer;
-    return isFirstPlayer(player);
-  },
-);
+  // 8
+  [
+    ModCallback.EVALUATE_CACHE,
+    (...callbackArgs: unknown[]) => {
+      const player = callbackArgs[0] as EntityPlayer;
+      return isFirstPlayer(player);
+    },
+  ],
 
-// 8
-MOD_CALLBACK_TO_VALIDATION_FUNC.set(
-  ModCallback.EVALUATE_CACHE,
-  (...callbackArgs: unknown[]) => {
-    const player = callbackArgs[0] as EntityPlayer;
-    return isFirstPlayer(player);
-  },
-);
+  // 10
+  [
+    ModCallback.POST_USE_PILL,
+    (...callbackArgs: unknown[]) => {
+      const player = callbackArgs[1] as EntityPlayer;
+      return isFirstPlayer(player);
+    },
+  ],
 
-// 10
-MOD_CALLBACK_TO_VALIDATION_FUNC.set(
-  ModCallback.POST_USE_PILL,
-  (...callbackArgs: unknown[]) => {
-    const player = callbackArgs[1] as EntityPlayer;
-    return isFirstPlayer(player);
-  },
-);
+  // 23
+  [
+    ModCallback.PRE_USE_ITEM,
+    (...callbackArgs: unknown[]) => {
+      const player = callbackArgs[2] as EntityPlayer;
+      return isFirstPlayer(player);
+    },
+  ],
 
-// 23
-MOD_CALLBACK_TO_VALIDATION_FUNC.set(
-  ModCallback.PRE_USE_ITEM,
-  (...callbackArgs: unknown[]) => {
-    const player = callbackArgs[2] as EntityPlayer;
-    return isFirstPlayer(player);
-  },
-);
+  // 62
+  [ModCallback.PRE_GET_COLLECTIBLE, () => !g.run.gettingCollectible],
 
-// 62
-MOD_CALLBACK_TO_VALIDATION_FUNC.set(
-  ModCallback.PRE_GET_COLLECTIBLE,
-  () => !g.run.gettingCollectible,
-);
+  // 68
+  [
+    ModCallback.POST_ENTITY_KILL,
+    (...callbackArgs: unknown[]) => {
+      const entity = callbackArgs[0] as Entity;
+      const npc = entity.ToNPC();
+      return npc !== undefined;
+    },
+  ],
 
-// 68
-MOD_CALLBACK_TO_VALIDATION_FUNC.set(
-  ModCallback.POST_ENTITY_KILL,
-  (...callbackArgs: unknown[]) => {
-    const entity = callbackArgs[0] as Entity;
-    const npc = entity.ToNPC();
-    return npc !== undefined;
-  },
-);
-
-// 71
-MOD_CALLBACK_TO_VALIDATION_FUNC.set(ModCallback.PRE_ROOM_ENTITY_SPAWN, () => {
-  // We only care about replacing things when the room is first loading.
-  const roomFrameCount = g.r.GetFrameCount();
-  return roomFrameCount === -1;
-});
+  // 71
+  [
+    ModCallback.PRE_ROOM_ENTITY_SPAWN,
+    () => {
+      // We only care about replacing things when the room is first loading.
+      const roomFrameCount = g.r.GetFrameCount();
+      return roomFrameCount === -1;
+    },
+  ],
+]);
 
 function shouldCallbackFireCustom(
   modCallbackNum: int,
@@ -168,39 +168,39 @@ function shouldCallbackFireCustom(
   return validationFunc(...callbackArgs);
 }
 
-const MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC = new Map<
+const MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC: ReadonlyMap<
   ModCallbackCustom,
   (...callbackArgs: unknown[]) => boolean
->();
+> = new Map([
+  [
+    ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER,
+    (...callbackArgs: unknown[]) => {
+      const player = callbackArgs[0] as EntityPlayer;
+      return isFirstPlayer(player);
+    },
+  ],
 
-MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC.set(
-  ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER,
-  (...callbackArgs: unknown[]) => {
-    const player = callbackArgs[0] as EntityPlayer;
-    return isFirstPlayer(player);
-  },
-);
+  [
+    ModCallbackCustom.INPUT_ACTION_PLAYER,
+    (...callbackArgs: unknown[]) => {
+      const player = callbackArgs[0] as EntityPlayer;
+      return isFirstPlayer(player);
+    },
+  ],
 
-MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC.set(
-  ModCallbackCustom.INPUT_ACTION_PLAYER,
-  (...callbackArgs: unknown[]) => {
-    const player = callbackArgs[0] as EntityPlayer;
-    return isFirstPlayer(player);
-  },
-);
+  [
+    ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
+    (...callbackArgs: unknown[]) => {
+      const player = callbackArgs[0] as EntityPlayer;
+      return isFirstPlayer(player);
+    },
+  ],
 
-MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC.set(
-  ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-  (...callbackArgs: unknown[]) => {
-    const player = callbackArgs[0] as EntityPlayer;
-    return isFirstPlayer(player);
-  },
-);
-
-MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC.set(
-  ModCallbackCustom.POST_PICKUP_COLLECT,
-  (...callbackArgs: unknown[]) => {
-    const player = callbackArgs[1] as EntityPlayer;
-    return isFirstPlayer(player);
-  },
-);
+  [
+    ModCallbackCustom.POST_PICKUP_COLLECT,
+    (...callbackArgs: unknown[]) => {
+      const player = callbackArgs[1] as EntityPlayer;
+      return isFirstPlayer(player);
+    },
+  ],
+]);

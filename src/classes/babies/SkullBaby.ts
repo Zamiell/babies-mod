@@ -23,12 +23,12 @@ import { Baby } from "../Baby";
 
 const SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER = 30;
 
-const SHOCKWAVE_BOMB_VELOCITIES: readonly Vector[] = [
+const SHOCKWAVE_BOMB_VELOCITIES = [
   directionToVector(Direction.LEFT).mul(SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER), // 0
   directionToVector(Direction.UP).mul(SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER), // 1
   directionToVector(Direction.RIGHT).mul(SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER), // 2
   directionToVector(Direction.DOWN).mul(SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER), // 3
-];
+] as const;
 
 /** Shockwave bombs. */
 export class SkullBaby extends Baby {
