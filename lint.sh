@@ -32,7 +32,8 @@ fi
 
 # Step 6 - Check for unused imports.
 # The "--error" flag makes it return an error code of 1 if unused exports are found.
-npx ts-prune --error
+# We ignore library definition files.
+npx ts-prune --error --ignore "characterCostumeProtector.d.ts"
 
 # Step 7 - Check for base file updates.
 bash "$DIR/check-file-updates.sh"
