@@ -1,6 +1,6 @@
 -- cspell:disable
 
---VERSION = "1.4"
+--VERSION = "1.4.1"
 
 --Character Costume Protector by Sanio! (Sanio46 on Steam and Twitter)
 --This local library has the goal of protecting the unique looks of custom characters that regularly
@@ -60,7 +60,12 @@ local function apiError(func, invalidVar, num, expectedType)
 	local err = "(CCP) Something went wrong in ccp:" .. func .. "!"
 
 	if expectedType ~= nil then
-		err = "Bad Argument #" .. num .. " in " .. func .. "(Attempt to index a " .. type(invalidVar) .. " value, field '" .. tostring(invalidVar) .. "', expected " .. expectedType .. ")."
+		err = "Bad Argument #" ..
+			num ..
+			" in " ..
+			func ..
+			"(Attempt to index a " ..
+			type(invalidVar) .. " value, field '" .. tostring(invalidVar) .. "', expected " .. expectedType .. ")."
 	end
 	error(err)
 	Isaac.DebugString(err)
@@ -186,7 +191,7 @@ function ccp:removePlayer(player, playerType)
 		playerNullItemCostumeWhitelist[playerType] = nil
 		playerTrinketCostumeWhitelist[playerType] = nil
 	else
-		local err = "RemovePlayer on PlayerType"..playerType.."..failed. PlayerType isn't inside protection system!"
+		local err = "RemovePlayer on PlayerType" .. playerType .. "..failed. PlayerType isn't inside protection system!"
 		error(err)
 		Isaac.DebugString(err)
 	end
@@ -325,7 +330,8 @@ function ccp.addCallback(callback, newFunction)
 	if CallbacksTable[callback] then
 		table.insert(CallbacksTable[callback], newFunction)
 	else
-		error("Bad Argument #1 in ccp.AddCallback (Attempt to index a " .. type(callback) .. "value, field '" .. tostring(callback) .. "'")
+		error("Bad Argument #1 in ccp.AddCallback (Attempt to index a " ..
+			type(callback) .. "value, field '" .. tostring(callback) .. "'")
 	end
 end
 
@@ -496,7 +502,7 @@ local function addAllWhitelistedCostumes(player)
 	end
 
 	--Null Costumes
-	for nullItemID, _ in pairs(playerNullItemCostumeWhitelist) do
+	for nullItemID, _ in pairs(playerNullItemCostumeWhitelist[playerType]) do
 		if playerEffects:HasNullEffect(nullItemID)
 			and not nullEffectsBlacklist[nullItemID] then
 			if REPENTANCE and nullItemID == NullItemID.ID_SPIRIT_SHACKLES_SOUL then
@@ -653,7 +659,8 @@ end
 function ccp:mainResetPlayerCostumes(player)
 	local playerType = player:GetPlayerType()
 
-	if (REPENTANCE and playerToProtect[playerType] == true and not player:IsCoopGhost()) or (not REPENTANCE and playerToProtect[playerType] == true) then
+	if (REPENTANCE and playerToProtect[playerType] == true and not player:IsCoopGhost()) or
+		(not REPENTANCE and playerToProtect[playerType] == true) then
 
 		player:ClearCostumes()
 		updatePlayerSpritesheet(player, player:GetSprite())
@@ -848,7 +855,9 @@ local function ABPlusUseItemPlayer(itemID)
 		local thisPlayer = Isaac.GetPlayer(i)
 
 		--check the player's input
-		if Input.IsActionTriggered(ButtonAction.ACTION_ITEM, thisPlayer.ControllerIndex) or Input.IsActionTriggered(ButtonAction.ACTION_PILLCARD, thisPlayer.ControllerIndex) and thisPlayer:GetActiveItem() == itemID then
+		if Input.IsActionTriggered(ButtonAction.ACTION_ITEM, thisPlayer.ControllerIndex) or
+			Input.IsActionTriggered(ButtonAction.ACTION_PILLCARD, thisPlayer.ControllerIndex) and
+			thisPlayer:GetActiveItem() == itemID then
 
 			player = thisPlayer
 			break
@@ -978,7 +987,8 @@ function ccp:restoreCostumeInMineshaft(player)
 	local room = game:GetRoom()
 
 	if playerToProtect[playerType] == true and data.CCP then
-		if room:HasCurseMist() and (playerCostume[playerType]["Extra"] or (player.CanFly and playerCostume[playerType]["Flight"])) then
+		if room:HasCurseMist() and
+			(playerCostume[playerType]["Extra"] or (player.CanFly and playerCostume[playerType]["Flight"])) then
 			if not data.CCP.MineshaftHeadCostume
 				and not data.CCP.MineshaftBodyCostume then
 				LoadPlayerAndCostumeSprites(player)
