@@ -1,3 +1,4 @@
+<?xml-model href="https://wofsauge.github.io/isaac-xml-validator/xsd/items.xsd" ?>
 <items gfxroot="gfx/items/" version="1" deathanm2="gfx/death items.anm2">
   <!-- Extra active items -->
   <active description="Restock your life" gfx="collectibles_clockwork_assembly.png" maxcharges="6" name="Clockwork Assembly" id="1" />
