@@ -1,4 +1,4 @@
-import { log, printConsole, setLogFunctionsGlobal } from "isaacscript-common";
+import { log, setLogFunctionsGlobal } from "isaacscript-common";
 import { MAX_BABY_TYPE } from "./enums/RandomBabyType";
 import { g } from "./globals";
 
@@ -12,7 +12,7 @@ export function debugFunction(): void {
   debugCode();
   log("Exiting debug function.");
 
-  printConsole("Executed debug function.");
+  print("Executed debug function.");
 }
 
 export function setDebugBaby(params: string, restart: boolean): void {
