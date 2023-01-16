@@ -2568,7 +2568,7 @@ export const BABIES = {
   // 295
   [RandomBabyType.RIDER]: {
     name: "Rider Baby",
-    description: "Starts with A Pony (improved) + blindfolded",
+    description: "Starts with A Pony + blindfolded",
     sprite: "295_baby_rider.png",
     item: CollectibleType.PONY,
     blindfolded: true,
