@@ -162,10 +162,11 @@ export function getRandomCollectibleTypeWithTag(
 }
 
 export function giveItemAndRemoveFromPools(
+  player: EntityPlayer,
   collectibleType: CollectibleType,
 ): void {
   const maxCharges = getCollectibleMaxCharges(collectibleType);
-  g.p.AddCollectible(collectibleType, maxCharges, false);
+  player.AddCollectible(collectibleType, maxCharges, false);
   g.itemPool.RemoveCollectible(collectibleType);
 }
 

@@ -1,5 +1,10 @@
 import { CollectibleType, SeedEffect } from "isaac-typescript-definitions";
-import { isCharacter, log, ModCallbackCustom } from "isaacscript-common";
+import {
+  anyPlayerIs,
+  getPlayersOfType,
+  log,
+  ModCallbackCustom,
+} from "isaacscript-common";
 import { g } from "../globals";
 import { mod } from "../mod";
 import { BABIES } from "../objects/babies";
@@ -54,7 +59,7 @@ function main(isContinued: boolean) {
     g.seeds.RemoveSeedEffect(SeedEffect.OLD_TV);
   }
 
-  if (isCharacter(g.p, PlayerTypeCustom.RANDOM_BABY)) {
+  if (anyPlayerIs(PlayerTypeCustom.RANDOM_BABY)) {
     postGameStartedRandomBaby();
   }
 }
@@ -65,7 +70,10 @@ function postGameStartedRandomBaby() {
   g.run.startedRunAsRandomBaby = true;
 
   // Random Baby always starts with the Schoolbag.
-  giveItemAndRemoveFromPools(CollectibleType.SCHOOLBAG);
+  const randomBabies = getPlayersOfType(PlayerTypeCustom.RANDOM_BABY);
+  for (const randomBaby of randomBabies) {
+    giveItemAndRemoveFromPools(randomBaby, CollectibleType.SCHOOLBAG);
+  }
 
   // Remove some items from pools Guillotine not display properly because Random Baby does not have
   // a head.

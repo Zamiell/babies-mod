@@ -88,14 +88,14 @@ export function babyAdd(player: EntityPlayer): void {
   // Check if this is a baby that grants a second item. (This should always be a passive item; we
   // explicitly check for this on startup.)
   if (baby.item2 !== undefined) {
-    giveItemAndRemoveFromPools(baby.item2);
+    giveItemAndRemoveFromPools(player, baby.item2);
     removeCollectibleFromItemTracker(baby.item2);
   }
 
   // Check if this is a baby that grants a third item. (This should always be a passive item; we
   // explicitly check for this on startup.)
   if (baby.item3 !== undefined) {
-    giveItemAndRemoveFromPools(baby.item3);
+    giveItemAndRemoveFromPools(player, baby.item3);
     removeCollectibleFromItemTracker(baby.item3);
   }
 
