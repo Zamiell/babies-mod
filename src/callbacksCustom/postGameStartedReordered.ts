@@ -48,7 +48,9 @@ const BANNED_COLLECTIBLES_WITH_RANDOM_BABY = [
 
 const REVIVAL_TRINKETS = [
   TrinketType.MISSING_POSTER, // 23
+  TrinketType.MYSTERIOUS_PAPER, // 21
   TrinketType.BROKEN_ANKH, // 28
+  TrinketType.ERROR, // 75
 ] as const;
 
 const BANNED_TRINKETS_WITH_RANDOM_BABY = [...REVIVAL_TRINKETS] as const;

@@ -1,6 +1,7 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import {
   getPlayerFromEntity,
+  isCharacter,
   isFirstPlayer,
   ModCallbackCustom,
   ModFeature,
@@ -9,6 +10,7 @@ import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { mod } from "../mod";
 import { BabyDescription } from "../types/BabyDescription";
+import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
 
 /**
  * The base class that each baby class extends from. This sets up the callback class methods to only
@@ -90,7 +92,7 @@ const MOD_CALLBACK_TO_VALIDATION_FUNC: ReadonlyMap<
     ModCallback.POST_USE_ITEM,
     (...callbackArgs: unknown[]) => {
       const player = callbackArgs[2] as EntityPlayer;
-      return isFirstPlayer(player);
+      return isValidPlayer(player);
     },
   ],
 
@@ -99,7 +101,7 @@ const MOD_CALLBACK_TO_VALIDATION_FUNC: ReadonlyMap<
     ModCallback.POST_USE_CARD,
     (...callbackArgs: unknown[]) => {
       const player = callbackArgs[1] as EntityPlayer;
-      return isFirstPlayer(player);
+      return isValidPlayer(player);
     },
   ],
 
@@ -108,7 +110,7 @@ const MOD_CALLBACK_TO_VALIDATION_FUNC: ReadonlyMap<
     ModCallback.EVALUATE_CACHE,
     (...callbackArgs: unknown[]) => {
       const player = callbackArgs[0] as EntityPlayer;
-      return isFirstPlayer(player);
+      return isValidPlayer(player);
     },
   ],
 
@@ -117,7 +119,7 @@ const MOD_CALLBACK_TO_VALIDATION_FUNC: ReadonlyMap<
     ModCallback.POST_USE_PILL,
     (...callbackArgs: unknown[]) => {
       const player = callbackArgs[1] as EntityPlayer;
-      return isFirstPlayer(player);
+      return isValidPlayer(player);
     },
   ],
 
@@ -126,7 +128,7 @@ const MOD_CALLBACK_TO_VALIDATION_FUNC: ReadonlyMap<
     ModCallback.PRE_USE_ITEM,
     (...callbackArgs: unknown[]) => {
       const player = callbackArgs[2] as EntityPlayer;
-      return isFirstPlayer(player);
+      return isValidPlayer(player);
     },
   ],
 
@@ -140,7 +142,7 @@ const MOD_CALLBACK_TO_VALIDATION_FUNC: ReadonlyMap<
         return false;
       }
 
-      return isFirstPlayer(player);
+      return isValidPlayer(player);
     },
   ],
 
@@ -191,7 +193,7 @@ const MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC: ReadonlyMap<
     ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER,
     (...callbackArgs: unknown[]) => {
       const player = callbackArgs[0] as EntityPlayer;
-      return isFirstPlayer(player);
+      return isValidPlayer(player);
     },
   ],
 
@@ -199,7 +201,7 @@ const MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC: ReadonlyMap<
     ModCallbackCustom.INPUT_ACTION_PLAYER,
     (...callbackArgs: unknown[]) => {
       const player = callbackArgs[0] as EntityPlayer;
-      return isFirstPlayer(player);
+      return isValidPlayer(player);
     },
   ],
 
@@ -207,7 +209,7 @@ const MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC: ReadonlyMap<
     ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
     (...callbackArgs: unknown[]) => {
       const player = callbackArgs[0] as EntityPlayer;
-      return isFirstPlayer(player);
+      return isValidPlayer(player);
     },
   ],
 
@@ -215,7 +217,16 @@ const MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC: ReadonlyMap<
     ModCallbackCustom.POST_PICKUP_COLLECT,
     (...callbackArgs: unknown[]) => {
       const player = callbackArgs[1] as EntityPlayer;
-      return isFirstPlayer(player);
+      return isValidPlayer(player);
     },
   ],
 ]);
+
+function isValidPlayer(player: EntityPlayer): boolean {
+  return (
+    isCharacter(player, PlayerTypeCustom.RANDOM_BABY) &&
+    // Currently, the mod does not support co-op. Many places in logic assume that the player is the
+    // first character. This can be removed when all `Isaac.GetPlayer` method calls are removed.
+    isFirstPlayer(player)
+  );
+}
