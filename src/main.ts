@@ -5,12 +5,12 @@ import * as executeCmd from "./callbacks/executeCmd";
 import * as postEntityKill from "./callbacks/postEntityKill";
 import * as postPlayerInit from "./callbacks/postPlayerInit";
 import * as postRender from "./callbacks/postRender";
-import * as postUpdate from "./callbacks/postUpdate";
 import * as postUseItem from "./callbacks/postUseItem";
 import * as entityTakeDmgPlayer from "./callbacksCustom/entityTakeDmgPlayer";
 import * as postGameStartedReordered from "./callbacksCustom/postGameStartedReordered";
 import * as postNewLevelReordered from "./callbacksCustom/postNewLevelReordered";
 import * as postNewRoomReordered from "./callbacksCustom/postNewRoomReordered";
+import * as postPEffectUpdateReordered from "./callbacksCustom/postPEffectUpdateReordered";
 import * as postPlayerChangeType from "./callbacksCustom/postPlayerChangeType";
 import { MOD_NAME, VERSION } from "./constants";
 import { initCostumeProtector } from "./costumes";
@@ -42,7 +42,6 @@ function welcomeBanner() {
 }
 
 function registerCallbacksMain() {
-  postUpdate.init(); // 1
   postRender.init(); // 2
   postUseItem.init(); // 3
   evaluateCache.init(); // 8
@@ -56,5 +55,6 @@ function registerCallbacksCustom() {
   postGameStartedReordered.init();
   postNewLevelReordered.init();
   postNewRoomReordered.init();
+  postPEffectUpdateReordered.init();
   postPlayerChangeType.init();
 }

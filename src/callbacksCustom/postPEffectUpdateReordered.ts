@@ -1,41 +1,42 @@
-import {
-  CollectibleType,
-  GridEntityType,
-  ModCallback,
-} from "isaac-typescript-definitions";
+import { CollectibleType, GridEntityType } from "isaac-typescript-definitions";
 import {
   GAME_FRAMES_PER_SECOND,
   getGridEntities,
   log,
+  ModCallbackCustom,
   openAllDoors,
 } from "isaacscript-common";
 import { g } from "../globals";
 import { mod } from "../mod";
+import { BabyDescription } from "../types/BabyDescription";
+import { isValidRandomBabyPlayer } from "../utils";
 import { getCurrentBaby } from "../utilsBaby";
 
 export function init(): void {
-  mod.AddCallback(ModCallback.POST_UPDATE, main);
+  mod.AddCallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED, main);
 }
 
-function main() {
-  const [babyType] = getCurrentBaby();
-  if (babyType === -1) {
+function main(player: EntityPlayer) {
+  if (!isValidRandomBabyPlayer(player)) {
     return;
   }
 
-  checkSoftlockDestroyPoops();
-  checkSoftlockIsland();
-  checkTrapdoor();
-}
-
-// On certain babies, destroy all poops and TNT barrels after a certain amount of time to prevent
-// softlocks.
-function checkSoftlockDestroyPoops() {
-  const roomFrameCount = g.r.GetFrameCount();
   const [babyType, baby] = getCurrentBaby();
   if (babyType === -1) {
     return;
   }
+
+  checkSoftlockDestroyPoops(baby);
+  checkSoftlockIsland(baby);
+  checkTrapdoor(player, baby);
+}
+
+/**
+ * On certain babies, destroy all poops and TNT barrels after a certain amount of time to prevent
+ * softlocks.
+ */
+function checkSoftlockDestroyPoops(baby: BabyDescription) {
+  const roomFrameCount = g.r.GetFrameCount();
 
   // Check to see if this baby needs the softlock prevention.
   if (baby.softlockPreventionDestroyPoops === undefined) {
@@ -68,14 +69,12 @@ function checkSoftlockDestroyPoops() {
   log("Destroyed all poops & TNT barrels to prevent a softlock.");
 }
 
-// On certain babies, open the doors after 30 seconds to prevent softlocks with Hosts and island
-// enemies.
-function checkSoftlockIsland() {
+/**
+ * On certain babies, open the doors after 30 seconds to prevent softlocks with Hosts and island
+ * enemies.
+ */
+function checkSoftlockIsland(baby: BabyDescription) {
   const roomFrameCount = g.r.GetFrameCount();
-  const [babyType, baby] = getCurrentBaby();
-  if (babyType === -1) {
-    return;
-  }
 
   // Check to see if this baby needs the softlock prevention.
   if (baby.softlockPreventionIsland === undefined) {
@@ -96,17 +95,17 @@ function checkSoftlockIsland() {
   g.run.room.softlock = true;
   g.r.SetClear(true);
   openAllDoors();
+
+  log("Opened all doors to prevent a softlock.");
 }
 
-function checkTrapdoor() {
-  const playerSprite = g.p.GetSprite();
-  const [babyType, baby] = getCurrentBaby();
-  if (babyType === -1) {
-    return;
-  }
+/**
+ * If this baby gives a mapping item, we cannot wait until the next floor to remove it because its
+ * effect will have already been applied So, we need to monitor for the trapdoor animation.
+ */
+function checkTrapdoor(player: EntityPlayer, baby: BabyDescription) {
+  const playerSprite = player.GetSprite();
 
-  // If this baby gives a mapping item, we cannot wait until the next floor to remove it because its
-  // effect will have already been applied So, we need to monitor for the trapdoor animation.
   if (
     !playerSprite.IsPlaying("Trapdoor") &&
     !playerSprite.IsPlaying("Trapdoor2") &&
@@ -120,7 +119,7 @@ function checkTrapdoor() {
     baby.item === CollectibleType.COMPASS ||
     baby.item2 === CollectibleType.COMPASS
   ) {
-    g.p.RemoveCollectible(CollectibleType.COMPASS);
+    player.RemoveCollectible(CollectibleType.COMPASS);
   }
 
   // 54
@@ -128,7 +127,7 @@ function checkTrapdoor() {
     baby.item === CollectibleType.TREASURE_MAP ||
     baby.item2 === CollectibleType.TREASURE_MAP
   ) {
-    g.p.RemoveCollectible(CollectibleType.TREASURE_MAP);
+    player.RemoveCollectible(CollectibleType.TREASURE_MAP);
   }
 
   // 246
@@ -136,7 +135,7 @@ function checkTrapdoor() {
     baby.item === CollectibleType.BLUE_MAP ||
     baby.item2 === CollectibleType.BLUE_MAP
   ) {
-    g.p.RemoveCollectible(CollectibleType.BLUE_MAP);
+    player.RemoveCollectible(CollectibleType.BLUE_MAP);
   }
 
   // 333
@@ -144,6 +143,6 @@ function checkTrapdoor() {
     baby.item === CollectibleType.MIND ||
     baby.item2 === CollectibleType.MIND
   ) {
-    g.p.RemoveCollectible(CollectibleType.MIND);
+    player.RemoveCollectible(CollectibleType.MIND);
   }
 }

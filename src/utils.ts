@@ -204,7 +204,8 @@ export function isValidRandomBabyPlayer(player: EntityPlayer): boolean {
     isCharacter(player, PlayerTypeCustom.RANDOM_BABY) &&
     // Currently, the mod does not support co-op. Many places in logic assume that the player is the
     // first character. This can be removed when all `Isaac.GetPlayer` method calls are removed.
-    isFirstPlayer(player)
+    isFirstPlayer(player) &&
+    g.run.babyType !== null
   );
 }
 
