@@ -1,4 +1,8 @@
-import { CollectibleType, SeedEffect } from "isaac-typescript-definitions";
+import {
+  CollectibleType,
+  SeedEffect,
+  TrinketType,
+} from "isaac-typescript-definitions";
 import {
   anyPlayerIs,
   getPlayersOfType,
@@ -23,6 +27,31 @@ const ALL_BABY_SEED_EFFECTS: readonly SeedEffect[] = (() => {
 
   return seedEffects;
 })();
+
+const REVIVAL_COLLECTIBLE_TYPES = [
+  CollectibleType.ANKH, // 161
+  CollectibleType.JUDAS_SHADOW, // 311
+  CollectibleType.LAZARUS_RAGS, // 332
+] as const;
+
+const BANNED_COLLECTIBLES_WITH_RANDOM_BABY = [
+  // Guillotine will not display properly because Random Baby does not have a head.
+  CollectibleType.GUILLOTINE, // 206
+
+  // Scissors will not display properly because Random Baby does not have a head.
+  CollectibleType.SCISSORS, // 325
+
+  // Changing characters is banned on Random Baby.
+  CollectibleType.CLICKER, // 482
+  ...REVIVAL_COLLECTIBLE_TYPES,
+] as const;
+
+const REVIVAL_TRINKETS = [
+  TrinketType.MISSING_POSTER, // 23
+  TrinketType.BROKEN_ANKH, // 28
+] as const;
+
+const BANNED_TRINKETS_WITH_RANDOM_BABY = [...REVIVAL_TRINKETS] as const;
 
 export function init(): void {
   mod.AddCallbackCustom(ModCallbackCustom.POST_GAME_STARTED_REORDERED, main);
@@ -75,11 +104,11 @@ function postGameStartedRandomBaby() {
     giveItemAndRemoveFromPools(randomBaby, CollectibleType.SCHOOLBAG);
   }
 
-  // Remove some items from pools Guillotine not display properly because Random Baby does not have
-  // a head.
-  g.itemPool.RemoveCollectible(CollectibleType.GUILLOTINE); // 206
-  // Scissors will not display properly because Random Baby does not have a head.
-  g.itemPool.RemoveCollectible(CollectibleType.SCISSORS); // 325
-  // Clicker can cause bugs that are too painful to work around.
-  g.itemPool.RemoveCollectible(CollectibleType.CLICKER); // 482
+  for (const collectibleType of BANNED_COLLECTIBLES_WITH_RANDOM_BABY) {
+    g.itemPool.RemoveCollectible(collectibleType);
+  }
+
+  for (const trinketType of BANNED_TRINKETS_WITH_RANDOM_BABY) {
+    g.itemPool.RemoveTrinket(trinketType);
+  }
 }
