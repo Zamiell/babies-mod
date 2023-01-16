@@ -1,22 +1,26 @@
-import { EffectVariant, ModCallback } from "isaac-typescript-definitions";
-import { Callback, game, spawnEffect, VectorZero } from "isaacscript-common";
-import { g } from "../../globals";
+import { EffectVariant } from "isaac-typescript-definitions";
+import {
+  CallbackCustom,
+  game,
+  ModCallbackCustom,
+  spawnEffect,
+  VectorZero,
+} from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Leaves a trail of creep. */
 export class PlagueBaby extends Baby {
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
     const gameFrameCount = game.GetFrameCount();
 
     if (gameFrameCount % 5 === 0) {
-      // Drip creep
       const creep = spawnEffect(
         EffectVariant.PLAYER_CREEP_RED,
         0,
-        g.p.Position,
+        player.Position,
         VectorZero,
-        g.p,
+        player,
       );
       creep.Timeout = 240;
     }

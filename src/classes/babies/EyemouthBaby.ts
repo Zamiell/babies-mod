@@ -1,5 +1,10 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { Callback, CallbackCustom, game, ModCallbackCustom } from "isaacscript-common";
+import {
+  Callback,
+  CallbackCustom,
+  game,
+  ModCallbackCustom,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
@@ -28,7 +33,13 @@ export class EyemouthBaby extends Baby {
       gameFrameCount >= g.run.babyTears.frame
     ) {
       g.run.babyTears.frame = 0;
-      player.FireTear(player.Position, g.run.babyTears.velocity, false, true, false);
+      player.FireTear(
+        player.Position,
+        g.run.babyTears.velocity,
+        false,
+        true,
+        false,
+      );
     }
   }
 }
