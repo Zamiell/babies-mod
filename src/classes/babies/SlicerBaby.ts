@@ -1,5 +1,5 @@
 import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
-import { Callback, copyColor } from "isaacscript-common";
+import { Callback, setSpriteOpacity } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
@@ -16,10 +16,8 @@ export class SlicerBaby extends Baby {
     const num = this.getAttribute("num");
 
     const sprite = tear.GetSprite();
-    const opacity = 1 - tear.FrameCount / num;
-    const faded = copyColor(sprite.Color);
-    faded.A = opacity;
-    sprite.Color = faded;
+    const alpha = 1 - tear.FrameCount / num;
+    setSpriteOpacity(sprite, alpha);
 
     if (tear.FrameCount > num) {
       tear.Remove();

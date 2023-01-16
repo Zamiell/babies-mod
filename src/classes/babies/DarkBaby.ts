@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { Callback, VectorZero } from "isaacscript-common";
+import { Callback, setSpriteOpacity, VectorZero } from "isaacscript-common";
 import { g } from "../../globals";
 import { newSprite } from "../../sprite";
 import { Baby } from "../Baby";
@@ -39,7 +39,7 @@ export class DarkBaby extends Baby {
       if (opacity > 1) {
         opacity = 1;
       }
-      g.run.babySprite.Color = Color(1, 1, 1, opacity);
+      setSpriteOpacity(g.run.babySprite, opacity);
       g.run.babySprite.RenderLayer(0, VectorZero);
     }
   }
