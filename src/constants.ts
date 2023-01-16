@@ -35,11 +35,6 @@ export const ROOM_TYPES_TO_NOT_TRANSFORM: ReadonlySet<RoomType> = new Set([
   RoomType.BLUE, // 28
 ]);
 
-export const NORMAL_LOOKING_DOOR_ROOM_TYPES = [
-  RoomType.DEFAULT, // 1
-  RoomType.MINI_BOSS, // 6
-] as const;
-
 export const PICKUP_VARIANTS_IMMUNE_TO_BABY_EFFECTS: ReadonlySet<PickupVariant> =
   new Set([
     PickupVariant.COLLECTIBLE, // 100

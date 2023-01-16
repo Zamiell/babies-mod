@@ -21,6 +21,35 @@ const ROOM_TYPE_BLACKLIST: ReadonlySet<RoomType> = new Set([
   RoomType.BLACK_MARKET, // 22
 ]);
 
+const NORMAL_LOOKING_DOOR_ROOM_TYPES = [
+  RoomType.DEFAULT, // 1
+  RoomType.MINI_BOSS, // 6
+] as const;
+
+/**
+ * This function is only called from certain babies.
+ *
+ * If the player leaves and re-enters an uncleared room, a normal door will stay locked. So, we need
+ * to unlock all normal doors if the room is already clear.
+ */
+// ModCallbackCustom.POST_POST_NEW_ROOM_REORDERED
+export function pseudoRoomClearPostNewRoomReordered(): void {
+  const roomClear = g.r.IsClear();
+  if (!roomClear) {
+    return;
+  }
+
+  // We don't want to filter for `PlayerTypeCustom.RANDOM_BABY` because the player could be e.g.
+  // Dark Judas.
+  const player = Isaac.GetPlayer();
+
+  const normalLookingDoors = getDoors(...NORMAL_LOOKING_DOOR_ROOM_TYPES);
+  const lockedDoors = normalLookingDoors.filter((door) => door.IsLocked());
+  for (const door of lockedDoors) {
+    door.TryUnlock(player, true); // This has to be forced.
+  }
+}
+
 /** This function is only called from certain babies. */
 // ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
 export function pseudoRoomClearPostPEffectUpdateReordered(
