@@ -186,7 +186,8 @@ function drawTempIconNextToActiveCollectible() {
     return;
   }
 
-  const activeCollectibleType = g.p.GetActiveItem(ActiveSlot.PRIMARY);
+  const player = Isaac.GetPlayer();
+  const activeCollectibleType = player.GetActiveItem(ActiveSlot.PRIMARY);
   if (activeCollectibleType !== baby.item) {
     return;
   }

@@ -28,7 +28,7 @@ export function babyAdd(player: EntityPlayer): void {
   const coins = player.GetNumCoins();
   const bombs = player.GetNumBombs();
   const keys = player.GetNumKeys();
-  const secondaryActiveItem = g.p.GetActiveItem(ActiveSlot.SECONDARY);
+  const secondaryActiveItem = player.GetActiveItem(ActiveSlot.SECONDARY);
   const playerHealth = getPlayerHealth(player);
   const [babyType, baby] = getCurrentBaby();
   if (babyType === -1) {

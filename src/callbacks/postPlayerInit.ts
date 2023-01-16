@@ -1,6 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { isCharacter, isFirstPlayer } from "isaacscript-common";
-import { updateCachedPlayer } from "../cache";
 import { addPlayerToCostumeProtector } from "../costumes";
 import { mod } from "../mod";
 import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
@@ -13,8 +12,6 @@ function main(player: EntityPlayer) {
   if (!isFirstPlayer(player)) {
     return;
   }
-
-  updateCachedPlayer(player);
 
   if (isCharacter(player, PlayerTypeCustom.RANDOM_BABY)) {
     addPlayerToCostumeProtector(player);
