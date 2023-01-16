@@ -1,5 +1,10 @@
-import { DamageFlagZero, ModCallback } from "isaac-typescript-definitions";
-import { Callback, game, GAME_FRAMES_PER_SECOND } from "isaacscript-common";
+import { DamageFlagZero } from "isaac-typescript-definitions";
+import {
+  CallbackCustom,
+  game,
+  GAME_FRAMES_PER_SECOND,
+  ModCallbackCustom,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
@@ -12,8 +17,8 @@ export class VomitBaby extends Baby {
     g.run.babyCounters = gameFrameCount + num;
   }
 
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
     const gameFrameCount = game.GetFrameCount();
     const num = this.getAttribute("num");
 
@@ -24,12 +29,12 @@ export class VomitBaby extends Baby {
 
       const cutoff = 0.2;
       if (
-        g.p.Velocity.X > cutoff ||
-        g.p.Velocity.X < cutoff * -1 ||
-        g.p.Velocity.Y > cutoff ||
-        g.p.Velocity.Y < cutoff * -1
+        player.Velocity.X > cutoff ||
+        player.Velocity.X < cutoff * -1 ||
+        player.Velocity.Y > cutoff ||
+        player.Velocity.Y < cutoff * -1
       ) {
-        g.p.TakeDamage(1, DamageFlagZero, EntityRef(g.p), 0);
+        player.TakeDamage(1, DamageFlagZero, EntityRef(player), 0);
       }
     }
   }

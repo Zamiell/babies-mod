@@ -1,6 +1,9 @@
 import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
-import { Callback, setSpriteOpacity } from "isaacscript-common";
-import { g } from "../../globals";
+import {
+  Callback,
+  getPlayerFromEntity,
+  setSpriteOpacity,
+} from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Slice tears. */
@@ -28,6 +31,11 @@ export class SlicerBaby extends Baby {
   // 61
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
-    tear.CollisionDamage = g.p.Damage * 3;
+    const player = getPlayerFromEntity(tear);
+    if (player === undefined) {
+      return;
+    }
+
+    tear.CollisionDamage = player.Damage * 3;
   }
 }

@@ -7,24 +7,17 @@ import {
   PlayerVariant,
   SoundEffect,
 } from "isaac-typescript-definitions";
-import { Callback, sfxManager } from "isaacscript-common";
+import {
+  Callback,
+  CallbackCustom,
+  ModCallbackCustom,
+  sfxManager,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Starts with A Pony (improved) + blindfolded. */
 export class RiderBaby extends Baby {
-  /** Keep the pony fully charged. */
-  // 1
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
-    const activeItem = g.p.GetActiveItem();
-
-    if (activeItem === CollectibleType.PONY && g.p.NeedsCharge()) {
-      g.p.FullCharge();
-      sfxManager.Stop(SoundEffect.BATTERY_CHARGE);
-    }
-  }
-
   /** Make the Pony do extra damage. */
   // 11
   @Callback(ModCallback.ENTITY_TAKE_DMG)
@@ -56,5 +49,16 @@ export class RiderBaby extends Baby {
     }
 
     return undefined;
+  }
+
+  /** Keep the pony fully charged. */
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
+    const activeItem = player.GetActiveItem();
+
+    if (activeItem === CollectibleType.PONY && player.NeedsCharge()) {
+      player.FullCharge();
+      sfxManager.Stop(SoundEffect.BATTERY_CHARGE);
+    }
   }
 }

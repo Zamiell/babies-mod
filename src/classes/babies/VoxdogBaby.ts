@@ -17,12 +17,16 @@ import {
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
+/** If the sound effect plays at full volume, it starts to get annoying. */
+const VOLUME = 0.5;
+
 /** Shockwave tears. */
 export class VoxdogBaby extends Baby {
   // 1
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
     const gameFrameCount = game.GetFrameCount();
+    const player = Isaac.GetPlayer();
 
     for (let i = g.run.room.tears.length - 1; i >= 0; i--) {
       const tear = g.run.room.tears[i];
@@ -36,17 +40,16 @@ export class VoxdogBaby extends Baby {
           0,
           tear.position,
           VectorZero,
-          g.p,
+          player,
         );
         const index = g.r.GetGridIndex(tear.position);
         g.r.DestroyGrid(index, true);
         tear.position = tear.position.add(tear.velocity);
 
-        // If the sound effect plays at full volume, it starts to get annoying.
-        sfxManager.Play(SoundEffect.ROCK_CRUMBLE, 0.5, 0);
+        sfxManager.Play(SoundEffect.ROCK_CRUMBLE, VOLUME, 0);
 
         // Make the shockwave deal damage to NPCs.
-        const damage = g.p.Damage * 1.5;
+        const damage = player.Damage * 1.5;
         const entities = Isaac.FindInRadius(
           tear.position,
           DISTANCE_OF_GRID_TILE,

@@ -20,6 +20,7 @@ export class TwinBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
     const isFirstVisit = g.r.IsFirstVisit();
+    const player = Isaac.GetPlayer();
 
     // We don't want to teleport away from the first room.
     if (inStartingRoom() && isFirstVisit) {
@@ -32,7 +33,7 @@ export class TwinBaby extends Baby {
     } else {
       // We are entering a new room.
       g.run.babyBool = true;
-      useActiveItemTemp(g.p, CollectibleType.TELEPORT_2);
+      useActiveItemTemp(player, CollectibleType.TELEPORT_2);
     }
   }
 }

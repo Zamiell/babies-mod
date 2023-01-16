@@ -5,7 +5,6 @@ import {
   ModCallback,
 } from "isaac-typescript-definitions";
 import { Callback, spawnEffect } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 const BOOMERANG_DISTANCE = 30;
@@ -15,6 +14,8 @@ export class MustacheBaby extends Baby {
   // 55
   @Callback(ModCallback.POST_EFFECT_UPDATE, EffectVariant.BOOMERANG)
   postEffectUpdateBoomerang(effect: EntityEffect): void {
+    const player = Isaac.GetPlayer();
+
     // Check for NPC collision.
     const closeEntities = Isaac.FindInRadius(
       effect.Position,
@@ -25,7 +26,7 @@ export class MustacheBaby extends Baby {
     if (closestEntity !== undefined) {
       effect.Remove();
       closestEntity.TakeDamage(
-        g.p.Damage,
+        player.Damage,
         DamageFlagZero,
         EntityRef(effect),
         2,
@@ -48,7 +49,7 @@ export class MustacheBaby extends Baby {
     if (effect.FrameCount >= 26) {
       // `effect.FollowParent(player)` does not work.
       const initialSpeed = effect.Velocity.LengthSquared();
-      effect.Velocity = g.p.Position.sub(effect.Position);
+      effect.Velocity = player.Position.sub(effect.Position);
       effect.Velocity = effect.Velocity.Normalized();
       while (effect.Velocity.LengthSquared() < initialSpeed) {
         effect.Velocity = effect.Velocity.mul(1.1);

@@ -34,6 +34,7 @@ export class SuitBaby extends Baby {
   postPickupUpdateCollectible(pickup: EntityPickup): void {
     const collectible = pickup as EntityPickupCollectible;
     const roomType = g.r.GetType();
+    const player = Isaac.GetPlayer();
 
     if (!shouldTransformRoomType(roomType)) {
       return;
@@ -45,7 +46,7 @@ export class SuitBaby extends Baby {
 
     // If the price is not correct, update it. (We have to check on every frame in case the health
     // situation changes.)
-    const price = getCollectibleDevilHeartPrice(collectible.SubType, g.p);
+    const price = getCollectibleDevilHeartPrice(collectible.SubType, player);
     if (collectible.Price !== (price as int)) {
       collectible.AutoUpdatePrice = false;
       collectible.Price = price;
@@ -97,6 +98,7 @@ export class SuitBaby extends Baby {
   postNewRoomReordered(): void {
     const roomType = g.r.GetType();
     const isFirstVisit = g.r.IsFirstVisit();
+    const player = Isaac.GetPlayer();
 
     // Ignore some special rooms.
     if (!isFirstVisit || !shouldTransformRoomType(roomType)) {
@@ -114,7 +116,7 @@ export class SuitBaby extends Baby {
       g.run.room.rng,
     );
     collectible.AutoUpdatePrice = false;
-    collectible.Price = getCollectibleDevilHeartPrice(collectibleType, g.p);
+    collectible.Price = getCollectibleDevilHeartPrice(collectibleType, player);
 
     // Spawn the Devil Statue.
     const oneTileAboveCenterGridIndex = 52;

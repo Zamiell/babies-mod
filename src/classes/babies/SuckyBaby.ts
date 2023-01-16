@@ -1,6 +1,5 @@
 import { FamiliarVariant, ModCallback } from "isaac-typescript-definitions";
 import { Callback } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Succubus aura. */
@@ -19,6 +18,6 @@ export class SuckyBaby extends Baby {
   @Callback(ModCallback.POST_FAMILIAR_UPDATE, FamiliarVariant.SUCCUBUS)
   postFamiliarUpdateSuccubus(familiar: EntityFamiliar): void {
     // Keep it locked on the player to emulate a Succubus aura.
-    familiar.Position = g.p.Position;
+    familiar.Position = familiar.Player.Position;
   }
 }

@@ -1,22 +1,22 @@
-import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
+import { CollectibleType } from "isaac-typescript-definitions";
 import {
-  Callback,
+  CallbackCustom,
   game,
   GAME_FRAMES_PER_SECOND,
+  ModCallbackCustom,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Summons a Sprinkler every N seconds. */
 export class MutatedFishBaby extends Baby {
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
     const gameFrameCount = game.GetFrameCount();
     const num = this.getAttribute("num");
 
     if (gameFrameCount % (num * GAME_FRAMES_PER_SECOND) === 0) {
-      useActiveItemTemp(g.p, CollectibleType.SPRINKLER);
+      useActiveItemTemp(player, CollectibleType.SPRINKLER);
     }
   }
 }

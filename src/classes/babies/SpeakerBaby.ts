@@ -1,5 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { Callback, repeat } from "isaacscript-common";
+import { Callback, getPlayerFromEntity, repeat } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
@@ -8,6 +8,11 @@ export class SpeakerBaby extends Baby {
   // 40
   @Callback(ModCallback.POST_TEAR_UPDATE)
   postTearUpdate(tear: EntityTear): void {
+    const player = getPlayerFromEntity(tear);
+    if (player === undefined) {
+      return;
+    }
+
     if (tear.SubType !== 1 || tear.FrameCount < 20) {
       return;
     }
@@ -19,8 +24,8 @@ export class SpeakerBaby extends Baby {
       rotation += 90;
       const rotatedVelocity = tear.Velocity.Rotated(rotation);
       g.run.babyBool = true;
-      const xTear = g.p.FireTear(
-        g.p.Position,
+      const xTear = player.FireTear(
+        player.Position,
         rotatedVelocity,
         false,
         true,

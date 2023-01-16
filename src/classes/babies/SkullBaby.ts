@@ -36,6 +36,7 @@ export class SkullBaby extends Baby {
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
     const gameFrameCount = game.GetFrameCount();
+    const player = Isaac.GetPlayer();
 
     for (let i = g.run.room.tears.length - 1; i >= 0; i--) {
       const tear = g.run.room.tears[i];
@@ -49,7 +50,7 @@ export class SkullBaby extends Baby {
           0,
           tear.position,
           VectorZero,
-          g.p,
+          player,
         );
         const index = g.r.GetGridIndex(tear.position);
         g.r.DestroyGrid(index, true);
@@ -60,8 +61,8 @@ export class SkullBaby extends Baby {
         sfxManager.Play(SoundEffect.ROCK_CRUMBLE, volume);
 
         // Make the shockwave deal damage to the player.
-        if (tear.position.Distance(g.p.Position) <= 40) {
-          g.p.TakeDamage(1, DamageFlag.EXPLOSION, EntityRef(explosion), 2);
+        if (tear.position.Distance(player.Position) <= 40) {
+          player.TakeDamage(1, DamageFlag.EXPLOSION, EntityRef(explosion), 2);
         }
 
         // Make the shockwave deal damage to NPCs.
@@ -71,7 +72,7 @@ export class SkullBaby extends Baby {
           EntityPartition.ENEMY,
         );
         for (const entity of entities) {
-          const damageAmount = g.p.Damage * 1.5;
+          const damageAmount = player.Damage * 1.5;
           entity.TakeDamage(
             damageAmount,
             DamageFlag.EXPLOSION,

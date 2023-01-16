@@ -8,7 +8,6 @@ import {
   getCollectibleDevilHeartPrice,
   isQuestCollectible,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { mod } from "../../mod";
 import { isRerolledCollectibleBuggedHeart } from "../../utils";
 import { Baby } from "../Baby";
@@ -40,6 +39,8 @@ export class ScaryBaby extends Baby {
   // 35
   @Callback(ModCallback.POST_PICKUP_UPDATE, PickupVariant.HEART)
   postPickupUpdateHeart(pickup: EntityPickup): void {
+    const player = Isaac.GetPlayer();
+
     if (isRerolledCollectibleBuggedHeart(pickup)) {
       pickup.Remove();
 
@@ -51,7 +52,7 @@ export class ScaryBaby extends Baby {
       collectible.AutoUpdatePrice = false;
       collectible.Price = getCollectibleDevilHeartPrice(
         collectible.SubType,
-        g.p,
+        player,
       );
     }
   }
@@ -62,7 +63,8 @@ function updateCollectiblePrice(collectible: EntityPickupCollectible) {
     return;
   }
 
-  const price = getCollectibleDevilHeartPrice(collectible.SubType, g.p);
+  const player = Isaac.GetPlayer();
+  const price = getCollectibleDevilHeartPrice(collectible.SubType, player);
   if (collectible.Price !== (price as int)) {
     collectible.AutoUpdatePrice = false;
     collectible.Price = price;

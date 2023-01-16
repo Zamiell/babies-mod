@@ -4,25 +4,24 @@ import {
   ModCallbackCustom,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { mod } from "../../mod";
 import { Baby } from "../Baby";
 
 /** Touching items/pickups causes teleportation. */
 export class WorryBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_PICKUP_COLLECT)
-  postPickupCollect(): void {
-    this.queueFutureTeleport();
+  postPickupCollect(_pickup: EntityPickup, player: EntityPlayer): void {
+    this.queueFutureTeleport(player);
   }
 
   @CallbackCustom(ModCallbackCustom.POST_PURCHASE)
-  postPurchase(): void {
-    this.queueFutureTeleport();
+  postPurchase(player: EntityPlayer): void {
+    this.queueFutureTeleport(player);
   }
 
-  queueFutureTeleport(): void {
+  queueFutureTeleport(player: EntityPlayer): void {
     mod.runInNGameFrames(() => {
-      useActiveItemTemp(g.p, CollectibleType.TELEPORT);
+      useActiveItemTemp(player, CollectibleType.TELEPORT);
     }, 1);
   }
 }

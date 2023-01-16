@@ -1,5 +1,6 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import {
+  getPlayerFromEntity,
   isFirstPlayer,
   ModCallbackCustom,
   ModFeature,
@@ -125,6 +126,20 @@ const MOD_CALLBACK_TO_VALIDATION_FUNC: ReadonlyMap<
     ModCallback.PRE_USE_ITEM,
     (...callbackArgs: unknown[]) => {
       const player = callbackArgs[2] as EntityPlayer;
+      return isFirstPlayer(player);
+    },
+  ],
+
+  // 61
+  [
+    ModCallback.POST_FIRE_TEAR,
+    (...callbackArgs: unknown[]) => {
+      const tear = callbackArgs[0] as EntityTear;
+      const player = getPlayerFromEntity(tear);
+      if (player === undefined) {
+        return false;
+      }
+
       return isFirstPlayer(player);
     },
   ],

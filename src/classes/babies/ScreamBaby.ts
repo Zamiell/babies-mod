@@ -6,7 +6,10 @@ import {
 } from "isaac-typescript-definitions";
 import {
   Callback,
+  CallbackCustom,
   game,
+  getPlayerFromEntity,
+  ModCallbackCustom,
   sfxManager,
   useActiveItemTemp,
 } from "isaacscript-common";
@@ -15,29 +18,6 @@ import { Baby } from "../Baby";
 
 /** Shoop tears. */
 export class ScreamBaby extends Baby {
-  // 1
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
-    const gameFrameCount = game.GetFrameCount();
-    const activeCharge = g.p.GetActiveCharge();
-    const batteryCharge = g.p.GetBatteryCharge();
-
-    // - We store the main charge in the "babyCounters" variable.
-    // - We store the Battery charge in the "babyNPC.entityType" variable.
-    if (
-      g.run.babyFrame !== 0 &&
-      gameFrameCount <= g.run.babyFrame + 1 &&
-      (activeCharge !== g.run.babyCounters ||
-        batteryCharge !== (g.run.babyNPC.entityType as int))
-    ) {
-      g.p.SetActiveCharge(
-        g.run.babyCounters + (g.run.babyNPC.entityType as int),
-      );
-      sfxManager.Stop(SoundEffect.BATTERY_CHARGE);
-      sfxManager.Stop(SoundEffect.BEEP);
-    }
-  }
-
   // 3
   @Callback(ModCallback.POST_USE_ITEM, CollectibleType.SHOOP_DA_WHOOP)
   postUseItemShoopDaWhoop(
@@ -59,7 +39,34 @@ export class ScreamBaby extends Baby {
   // 61
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
+    const player = getPlayerFromEntity(tear);
+    if (player === undefined) {
+      return;
+    }
+
     tear.Remove();
-    useActiveItemTemp(g.p, CollectibleType.SHOOP_DA_WHOOP);
+    useActiveItemTemp(player, CollectibleType.SHOOP_DA_WHOOP);
+  }
+
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
+    const gameFrameCount = game.GetFrameCount();
+    const activeCharge = player.GetActiveCharge();
+    const batteryCharge = player.GetBatteryCharge();
+
+    // - We store the main charge in the "babyCounters" variable.
+    // - We store the Battery charge in the "babyNPC.entityType" variable.
+    if (
+      g.run.babyFrame !== 0 &&
+      gameFrameCount <= g.run.babyFrame + 1 &&
+      (activeCharge !== g.run.babyCounters ||
+        batteryCharge !== (g.run.babyNPC.entityType as int))
+    ) {
+      player.SetActiveCharge(
+        g.run.babyCounters + (g.run.babyNPC.entityType as int),
+      );
+      sfxManager.Stop(SoundEffect.BATTERY_CHARGE);
+      sfxManager.Stop(SoundEffect.BEEP);
+    }
   }
 }

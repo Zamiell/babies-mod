@@ -9,7 +9,6 @@ import {
   playerHasCollectible,
   playerHasForm,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 const BUGGED_COLLECTIBLE_TYPES = [
@@ -39,10 +38,12 @@ export class SloppyBaby extends Baby {
    */
   @Callback(ModCallback.POST_EFFECT_UPDATE, EffectVariant.TARGET)
   postEffectUpdateTarget(effect: EntityEffect): void {
+    const player = Isaac.GetPlayer();
+
     // There is a bug where the target will disappear if you have multiple shots.
     if (
-      playerHasCollectible(g.p, ...BUGGED_COLLECTIBLE_TYPES) ||
-      playerHasForm(g.p, ...BUGGED_TRANSFORMATIONS)
+      playerHasCollectible(player, ...BUGGED_COLLECTIBLE_TYPES) ||
+      playerHasForm(player, ...BUGGED_TRANSFORMATIONS)
     ) {
       return;
     }

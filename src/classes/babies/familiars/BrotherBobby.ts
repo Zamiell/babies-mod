@@ -38,15 +38,18 @@ export class BrotherBobby extends Baby {
     }
 
     const data = source.Entity.GetData();
-    if (data[DATA_KEY] === true) {
-      const damage = g.p.Damage;
-      g.run.dealingExtraDamage = true;
-      entity.TakeDamage(damage, damageFlags, EntityRef(g.p), countdownFrames);
-      g.run.dealingExtraDamage = false;
-      return false;
+    if (data[DATA_KEY] !== true) {
+      return undefined;
     }
 
-    return undefined;
+    const player = Isaac.GetPlayer();
+    const damage = player.Damage;
+
+    g.run.dealingExtraDamage = true;
+    entity.TakeDamage(damage, damageFlags, EntityRef(player), countdownFrames);
+    g.run.dealingExtraDamage = false;
+
+    return false;
   }
 
   /** Attach the Godhead tear to the knife. */
@@ -77,8 +80,10 @@ export class BrotherBobby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
-    const godheadTear = g.p.FireTear(
-      g.p.Position,
+    const player = Isaac.GetPlayer();
+
+    const godheadTear = player.FireTear(
+      player.Position,
       VectorZero,
       false,
       true,

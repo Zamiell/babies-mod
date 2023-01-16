@@ -1,5 +1,5 @@
 import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
-import { Callback, repeat } from "isaacscript-common";
+import { Callback, getPlayerFromEntity, repeat } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
@@ -16,6 +16,11 @@ export class SadBunnyBaby extends Baby {
   // 40
   @Callback(ModCallback.POST_TEAR_UPDATE)
   postTearUpdate(tear: EntityTear): void {
+    const player = getPlayerFromEntity(tear);
+    if (player === undefined) {
+      return;
+    }
+
     if (
       tear.SubType !== 1 ||
       // Tears will not die if they hit an enemy, but they will die if they hit a wall or object.
@@ -26,17 +31,22 @@ export class SadBunnyBaby extends Baby {
 
     // The streak ended.
     g.run.babyCounters = 0;
-    g.p.AddCacheFlags(CacheFlag.FIRE_DELAY);
-    g.p.EvaluateItems();
+    player.AddCacheFlags(CacheFlag.FIRE_DELAY);
+    player.EvaluateItems();
   }
 
   // 42
   @Callback(ModCallback.PRE_TEAR_COLLISION)
   preTearCollision(tear: EntityTear): boolean | undefined {
+    const player = getPlayerFromEntity(tear);
+    if (player === undefined) {
+      return undefined;
+    }
+
     if (tear.SubType === 1) {
       g.run.babyCounters++;
-      g.p.AddCacheFlags(CacheFlag.FIRE_DELAY);
-      g.p.EvaluateItems();
+      player.AddCacheFlags(CacheFlag.FIRE_DELAY);
+      player.EvaluateItems();
     }
 
     return undefined;

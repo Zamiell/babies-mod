@@ -3,8 +3,11 @@ import {
   FamiliarVariant,
   ModCallback,
 } from "isaac-typescript-definitions";
-import { Callback, removeAllMatchingEntities } from "isaacscript-common";
-import { g } from "../../../globals";
+import {
+  Callback,
+  getPlayerFromEntity,
+  removeAllMatchingEntities,
+} from "isaacscript-common";
 import { Baby } from "../../Baby";
 
 /** Shoots Blue Flies + flight. */
@@ -16,7 +19,12 @@ export class RottenBaby extends Baby {
 
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
+    const player = getPlayerFromEntity(tear);
+    if (player === undefined) {
+      return;
+    }
+
     tear.Remove();
-    g.p.AddBlueFlies(1, g.p.Position, undefined);
+    player.AddBlueFlies(1, player.Position, undefined);
   }
 }

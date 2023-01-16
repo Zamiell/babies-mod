@@ -10,7 +10,6 @@ import {
   removeAllMatchingEntities,
   spawnFamiliar,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Gains a explosive egg per enemy killed. */
@@ -46,7 +45,8 @@ export class DinoBaby extends Baby {
     }
 
     // Spawn a new Bob's Brain familiar that we will re-skin to look like an egg.
-    const brain = spawnFamiliar(FamiliarVariant.BOBS_BRAIN, 0, g.p.Position);
+    const player = Isaac.GetPlayer();
+    const brain = spawnFamiliar(FamiliarVariant.BOBS_BRAIN, 0, player.Position);
 
     const sprite = brain.GetSprite();
     sprite.Load("gfx/003.059_bobs brain_custom.anm2", true);

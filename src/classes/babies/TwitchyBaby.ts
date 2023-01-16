@@ -1,5 +1,10 @@
 import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
-import { Callback, game } from "isaacscript-common";
+import {
+  Callback,
+  CallbackCustom,
+  game,
+  ModCallbackCustom,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
@@ -14,9 +19,10 @@ export class TwitchyBaby extends Baby {
   }
 
   // 1
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
+  @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
+  postNewRoomReordered(): void {
     const gameFrameCount = game.GetFrameCount();
+    const player = Isaac.GetPlayer();
     const num = this.getAttribute("num");
     const max = this.getAttribute("max");
     const min = this.getAttribute("min");
@@ -37,8 +43,8 @@ export class TwitchyBaby extends Baby {
         }
       }
 
-      g.p.AddCacheFlags(CacheFlag.FIRE_DELAY);
-      g.p.EvaluateItems();
+      player.AddCacheFlags(CacheFlag.FIRE_DELAY);
+      player.EvaluateItems();
     }
   }
 

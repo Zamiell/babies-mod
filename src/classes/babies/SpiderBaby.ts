@@ -3,7 +3,11 @@ import {
   FamiliarVariant,
   ModCallback,
 } from "isaac-typescript-definitions";
-import { Callback, removeAllMatchingEntities } from "isaacscript-common";
+import {
+  Callback,
+  getPlayerFromEntity,
+  removeAllMatchingEntities,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
@@ -17,11 +21,16 @@ export class SpiderBaby extends Baby {
   postFireTear(tear: EntityTear): void {
     const num = this.getAttribute("num");
 
+    const player = getPlayerFromEntity(tear);
+    if (player === undefined) {
+      return;
+    }
+
     g.run.babyCounters++;
     if (g.run.babyCounters === num) {
       g.run.babyCounters = 0;
 
-      g.p.ThrowBlueSpider(g.p.Position, g.p.Position);
+      player.ThrowBlueSpider(player.Position, player.Position);
       tear.Remove();
     }
   }

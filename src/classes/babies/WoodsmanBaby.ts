@@ -12,9 +12,10 @@ export class WoodsmanBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
     const roomClear = g.r.IsClear();
+    const player = Isaac.GetPlayer();
 
     if (!roomClear) {
-      useActiveItemTemp(g.p, CollectibleType.MEAT_CLEAVER);
+      useActiveItemTemp(player, CollectibleType.MEAT_CLEAVER);
     }
   }
 }

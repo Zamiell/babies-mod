@@ -1,20 +1,20 @@
-import { EntityType } from "isaac-typescript-definitions";
 import {
   addRoomClearCharge,
   CallbackCustom,
+  getPlayerFromEntity,
   ModCallbackCustom,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Recharge bombs. */
 export class TongueBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_BOMB_EXPLODED)
   postBombExploded(bomb: EntityBomb): void {
-    if (bomb.SpawnerType !== EntityType.PLAYER) {
+    const player = getPlayerFromEntity(bomb);
+    if (player === undefined) {
       return;
     }
 
-    addRoomClearCharge(g.p, false);
+    addRoomClearCharge(player, false);
   }
 }

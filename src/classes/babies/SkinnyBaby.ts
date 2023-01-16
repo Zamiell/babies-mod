@@ -1,6 +1,10 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { Callback, getClosestEntityTo, getNPCs } from "isaacscript-common";
-import { g } from "../../globals";
+import {
+  Callback,
+  getClosestEntityTo,
+  getNPCs,
+  getPlayerFromEntity,
+} from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Super homing tears. */
@@ -8,6 +12,11 @@ export class SkinnyBaby extends Baby {
   // 40
   @Callback(ModCallback.POST_TEAR_UPDATE)
   postTearUpdate(tear: EntityTear): void {
+    const player = getPlayerFromEntity(tear);
+    if (player === undefined) {
+      return;
+    }
+
     if (tear.SubType !== 1 || tear.FrameCount < 10) {
       return;
     }
@@ -15,7 +24,7 @@ export class SkinnyBaby extends Baby {
     const npcs = getNPCs();
     const filterFunc = (npc: EntityNPC) =>
       npc.IsVulnerableEnemy() && !npc.IsDead();
-    const closestEnemy = getClosestEntityTo(g.p, npcs, filterFunc);
+    const closestEnemy = getClosestEntityTo(player, npcs, filterFunc);
     if (closestEnemy === undefined) {
       return;
     }

@@ -17,6 +17,7 @@ export class Abel extends Baby {
   // 40
   @Callback(ModCallback.POST_TEAR_UPDATE)
   postTearUpdate(tear: EntityTear): void {
+    const player = Isaac.GetPlayer();
     const num = this.getAttribute("num");
 
     if (
@@ -28,7 +29,7 @@ export class Abel extends Baby {
       g.run.babyCounters++;
       if (g.run.babyCounters === num) {
         g.run.babyCounters = 0;
-        g.p.UsePill(PillEffect.PARALYSIS, PillColor.NULL);
+        player.UsePill(PillEffect.PARALYSIS, PillColor.NULL);
         // (We can't cancel the animation or it will cause a bug where the player cannot pick up
         // pedestal items.)
       }
