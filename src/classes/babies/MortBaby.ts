@@ -1,6 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { Callback, getPlayerFromEntity } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Guppy tears. */
@@ -14,7 +13,7 @@ export class MortBaby extends Baby {
     }
 
     if (tear.SubType === 1) {
-      player.AddBlueFlies(1, g.p.Position, undefined);
+      player.AddBlueFlies(1, player.Position, undefined);
     }
 
     return undefined;

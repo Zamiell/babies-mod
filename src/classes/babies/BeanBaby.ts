@@ -1,19 +1,22 @@
-import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
-import { Callback, useActiveItemTemp } from "isaacscript-common";
-import { g } from "../../globals";
+import { CollectibleType } from "isaac-typescript-definitions";
+import {
+  CallbackCustom,
+  ModCallbackCustom,
+  useActiveItemTemp,
+} from "isaacscript-common";
 import { doesBigChestExist, everyNSeconds } from "../../utils";
 import { Baby } from "../Baby";
 
 /** Constant Butter Bean effect. */
 export class BeanBaby extends Baby {
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
     if (doesBigChestExist()) {
       return;
     }
 
     everyNSeconds(() => {
-      useActiveItemTemp(g.p, CollectibleType.BUTTER_BEAN);
+      useActiveItemTemp(player, CollectibleType.BUTTER_BEAN);
     }, 1);
   }
 }

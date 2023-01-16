@@ -1,15 +1,18 @@
-import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
-import { Callback, useActiveItemTemp } from "isaacscript-common";
-import { g } from "../../globals";
+import { CollectibleType } from "isaac-typescript-definitions";
+import {
+  CallbackCustom,
+  ModCallbackCustom,
+  useActiveItemTemp,
+} from "isaacscript-common";
 import { everyNSeconds } from "../../utils";
 import { Baby } from "../Baby";
 
 /** Constant Telekinesis effect. */
 export class AwakenBaby extends Baby {
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
     everyNSeconds(() => {
-      useActiveItemTemp(g.p, CollectibleType.TELEKINESIS);
+      useActiveItemTemp(player, CollectibleType.TELEKINESIS);
     }, 1);
   }
 }

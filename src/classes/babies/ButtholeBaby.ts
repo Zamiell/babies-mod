@@ -1,18 +1,23 @@
 import {
   GridEntityType,
-  ModCallback,
   PoopGridEntityVariant,
   SoundEffect,
 } from "isaac-typescript-definitions";
-import { Callback, game, getRandomInt, sfxManager } from "isaacscript-common";
+import {
+  CallbackCustom,
+  game,
+  getRandomInt,
+  ModCallbackCustom,
+  sfxManager,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { everyNSeconds } from "../../utils";
 import { Baby } from "../Baby";
 
 /** Spawns a random poop every N seconds. */
 export class ButtholeBaby extends Baby {
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
     const gameFrameCount = game.GetFrameCount();
     const num = this.getAttribute("num");
 
@@ -32,7 +37,7 @@ export class ButtholeBaby extends Baby {
         g.run.invulnerabilityUntilFrame = gameFrameCount + 25;
       }
 
-      Isaac.GridSpawn(GridEntityType.POOP, poopVariant, g.p.Position);
+      Isaac.GridSpawn(GridEntityType.POOP, poopVariant, player.Position);
 
       sfxManager.Play(SoundEffect.FART);
     }, num);

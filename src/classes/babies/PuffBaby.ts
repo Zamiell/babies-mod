@@ -1,16 +1,19 @@
-import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
-import { Callback, useActiveItemTemp } from "isaacscript-common";
-import { g } from "../../globals";
+import { CollectibleType } from "isaac-typescript-definitions";
+import {
+  CallbackCustom,
+  ModCallbackCustom,
+  useActiveItemTemp,
+} from "isaacscript-common";
 import { doesBigChestExist, everyNSeconds } from "../../utils";
 import { Baby } from "../Baby";
 
 /** Mega Bean effect every 5 seconds. */
 export class PuffBaby extends Baby {
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
-    const hearts = g.p.GetHearts();
-    const soulHearts = g.p.GetSoulHearts();
-    const boneHearts = g.p.GetBoneHearts();
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
+    const hearts = player.GetHearts();
+    const soulHearts = player.GetSoulHearts();
+    const boneHearts = player.GetBoneHearts();
     const num = this.getAttribute("num");
 
     if (doesBigChestExist()) {
@@ -23,7 +26,7 @@ export class PuffBaby extends Baby {
     }
 
     everyNSeconds(() => {
-      useActiveItemTemp(g.p, CollectibleType.MEGA_BEAN);
+      useActiveItemTemp(player, CollectibleType.MEGA_BEAN);
     }, num);
   }
 }
