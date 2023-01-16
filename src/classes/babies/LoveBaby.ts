@@ -14,9 +14,11 @@ export class LoveBaby extends Baby {
   @Callback(ModCallback.PRE_SPAWN_CLEAR_AWARD)
   preSpawnClearAward(): boolean | undefined {
     const roomSeed = g.r.GetSpawnSeed();
+    const player = Isaac.GetPlayer();
     const heartSubTypes = getEnumValues(HeartSubType);
     const heartSubType = getRandomArrayElement(heartSubTypes, roomSeed);
-    spawnHeart(heartSubType, g.p.Position, VectorZero, g.p, roomSeed);
+
+    spawnHeart(heartSubType, player.Position, VectorZero, player, roomSeed);
 
     return undefined;
   }

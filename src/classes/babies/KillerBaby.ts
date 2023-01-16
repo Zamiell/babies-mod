@@ -16,8 +16,10 @@ export class KillerBaby extends Baby {
   // 68
   @Callback(ModCallback.POST_ENTITY_KILL)
   postEntityKill(): void {
+    const player = Isaac.GetPlayer();
+
     g.run.babyCounters++;
-    g.p.AddCacheFlags(CacheFlag.DAMAGE);
-    g.p.EvaluateItems();
+    player.AddCacheFlags(CacheFlag.DAMAGE);
+    player.EvaluateItems();
   }
 }

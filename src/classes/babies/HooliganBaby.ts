@@ -54,6 +54,7 @@ export class HooliganBaby extends Baby {
   // 0
   @Callback(ModCallback.POST_NPC_UPDATE)
   postNPCUpdate(npc: EntityNPC): void {
+    const player = Isaac.GetPlayer();
     const data = npc.GetData();
 
     // We need to do this in the `POST_NPC_UPDATE` callback instead of the `POST_NPC_INIT` callback
@@ -73,7 +74,7 @@ export class HooliganBaby extends Baby {
     if (!g.run.babyBool) {
       g.run.babyBool = true;
       const position = g.r.FindFreePickupSpawnPosition(npc.Position, 1, true);
-      if (position.Distance(g.p.Position) > 40) {
+      if (position.Distance(player.Position) > 40) {
         const newNPC = spawn(
           npc.Type,
           npc.Variant,

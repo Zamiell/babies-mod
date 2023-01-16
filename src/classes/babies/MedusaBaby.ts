@@ -1,33 +1,31 @@
-import { ModCallback } from "isaac-typescript-definitions";
-import { Callback } from "isaacscript-common";
-import { g } from "../../globals";
+import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Coins refill bombs and keys when depleted. */
 export class MedusaBaby extends Baby {
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
-    convertCoinsToBombs();
-    convertCoinsToKeys();
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
+    convertCoinsToBombs(player);
+    convertCoinsToKeys(player);
   }
 }
 
-function convertCoinsToBombs() {
-  const coins = g.p.GetNumCoins();
-  const bombs = g.p.GetNumBombs();
+function convertCoinsToBombs(player: EntityPlayer) {
+  const coins = player.GetNumCoins();
+  const bombs = player.GetNumBombs();
 
   if (coins > 0 && bombs === 0) {
-    g.p.AddCoins(-1);
-    g.p.AddBombs(1);
+    player.AddCoins(-1);
+    player.AddBombs(1);
   }
 }
 
-function convertCoinsToKeys() {
-  const coins = g.p.GetNumCoins();
-  const keys = g.p.GetNumKeys();
+function convertCoinsToKeys(player: EntityPlayer) {
+  const coins = player.GetNumCoins();
+  const keys = player.GetNumKeys();
 
   if (coins > 0 && keys === 0) {
-    g.p.AddCoins(-1);
-    g.p.AddKeys(1);
+    player.AddCoins(-1);
+    player.AddKeys(1);
   }
 }

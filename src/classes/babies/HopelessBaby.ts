@@ -22,17 +22,6 @@ export class HopelessBaby extends Baby {
     g.run.babySprite = newSprite("gfx/custom-health/key.anm2");
   }
 
-  // 1
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
-    const keys = g.p.GetNumKeys();
-
-    // Keys are hearts
-    if (keys === 0) {
-      g.p.Kill();
-    }
-  }
-
   // 2
   @Callback(ModCallback.POST_RENDER)
   postRender(): void {
@@ -71,5 +60,15 @@ export class HopelessBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
     postNewRoomReorderedNoHealthUI();
+  }
+
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
+    const keys = player.GetNumKeys();
+
+    // Keys are hearts
+    if (keys === 0) {
+      player.Kill();
+    }
   }
 }

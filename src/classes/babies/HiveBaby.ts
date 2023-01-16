@@ -4,7 +4,6 @@ import {
   removeAllMatchingEntities,
   repeat,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 const HALF_MAX_FAMILIARS = MAX_NUM_FAMILIARS / 2;
@@ -12,9 +11,9 @@ const HALF_MAX_FAMILIARS = MAX_NUM_FAMILIARS / 2;
 /** Starts with Hive Mind + max Blue Flies + max Blue Spiders. */
 export class HiveBaby extends Baby {
   override onAdd(player: EntityPlayer): void {
-    player.AddBlueFlies(HALF_MAX_FAMILIARS, g.p.Position, undefined);
+    player.AddBlueFlies(HALF_MAX_FAMILIARS, player.Position, undefined);
     repeat(HALF_MAX_FAMILIARS, () => {
-      player.AddBlueSpider(g.p.Position);
+      player.AddBlueSpider(player.Position);
     });
   }
 

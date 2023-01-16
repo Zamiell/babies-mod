@@ -22,16 +22,6 @@ export class MohawkBaby extends Baby {
     g.run.babySprite = newSprite("gfx/custom-health/bomb.anm2");
   }
 
-  // 1
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
-    const bombs = g.p.GetNumBombs();
-
-    if (bombs === 0) {
-      g.p.Kill();
-    }
-  }
-
   // 2
   @Callback(ModCallback.POST_RENDER)
   postRender(): void {
@@ -39,7 +29,8 @@ export class MohawkBaby extends Baby {
       return;
     }
 
-    const bombs = g.p.GetNumBombs();
+    const player = Isaac.GetPlayer();
+    const bombs = player.GetNumBombs();
 
     if (!shouldShowRealHeartsUIForDevilDeal()) {
       // Draw the bomb count next to the hearts.
@@ -70,5 +61,14 @@ export class MohawkBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
     postNewRoomReorderedNoHealthUI();
+  }
+
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
+    const bombs = player.GetNumBombs();
+
+    if (bombs === 0) {
+      player.Kill();
+    }
   }
 }

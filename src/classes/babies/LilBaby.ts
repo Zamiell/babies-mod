@@ -1,5 +1,10 @@
 import { LevelStage, ModCallback } from "isaac-typescript-definitions";
-import { Callback, inStartingRoom } from "isaacscript-common";
+import {
+  Callback,
+  CallbackCustom,
+  inStartingRoom,
+  ModCallbackCustom,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
@@ -11,15 +16,6 @@ export class LilBaby extends Baby {
   @Callback(ModCallback.POST_NPC_UPDATE)
   postNPCUpdate(npc: EntityNPC): void {
     npc.Scale = 0.5;
-  }
-
-  // 1
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
-    // This does not work if we put it in the `POST_NEW_LEVEL` callback for some reason.
-    if (g.p.SpriteScale.X > 0.5 || g.p.SpriteScale.Y > 0.5) {
-      g.p.SpriteScale = HALF_SIZE_VECTOR;
-    }
   }
 
   /**
@@ -55,5 +51,13 @@ export class LilBaby extends Baby {
   @Callback(ModCallback.POST_BOMB_INIT)
   postBombInit(bomb: EntityBomb): void {
     bomb.SpriteScale = HALF_SIZE_VECTOR;
+  }
+
+  /** This does not work if we put it in the `POST_NEW_LEVEL` callback for some reason. */
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
+    if (player.SpriteScale.X > 0.5 || player.SpriteScale.Y > 0.5) {
+      player.SpriteScale = HALF_SIZE_VECTOR;
+    }
   }
 }

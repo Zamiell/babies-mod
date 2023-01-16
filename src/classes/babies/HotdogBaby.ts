@@ -1,20 +1,20 @@
-import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
+import { CollectibleType } from "isaac-typescript-definitions";
 import {
-  Callback,
+  CallbackCustom,
   game,
   getPlayerNumHitsRemaining,
+  ModCallbackCustom,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { doesBigChestExist } from "../../utils";
 import { Baby } from "../Baby";
 
 /** Constant The Bean effect + flight + explosion immunity + blindfolded. */
 export class HotdogBaby extends Baby {
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
     const gameFrameCount = game.GetFrameCount();
-    const numHits = getPlayerNumHitsRemaining(g.p);
+    const numHits = getPlayerNumHitsRemaining(player);
 
     if (doesBigChestExist()) {
       return;
@@ -27,7 +27,7 @@ export class HotdogBaby extends Baby {
 
     // Constant The Bean effect + flight + explosion immunity + blindfolded.
     if (gameFrameCount % 3 === 0) {
-      useActiveItemTemp(g.p, CollectibleType.BEAN);
+      useActiveItemTemp(player, CollectibleType.BEAN);
     }
   }
 }

@@ -1,13 +1,15 @@
-import { ButtonAction, ModCallback } from "isaac-typescript-definitions";
+import { ButtonAction } from "isaac-typescript-definitions";
 import {
-  Callback,
   CallbackCustom,
   copyColor,
-  isActionPressedOnAnyInput,
+  isActionPressed,
   ModCallbackCustom,
+  setEntityOpacity,
 } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
+
+const FADE_AMOUNT = 0.5;
 
 /** Invulnerability when standing still. */
 export class HelmetBaby extends Baby {
@@ -19,13 +21,31 @@ export class HelmetBaby extends Baby {
     player.SetColor(newColor, 0, 0, true, true);
   }
 
-  // 1
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
-    const leftPressed = isActionPressedOnAnyInput(ButtonAction.LEFT);
-    const rightPressed = isActionPressedOnAnyInput(ButtonAction.RIGHT);
-    const upPressed = isActionPressedOnAnyInput(ButtonAction.UP);
-    const downPressed = isActionPressedOnAnyInput(ButtonAction.DOWN);
+  // 11
+  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
+  entityTakeDmgPlayer(): boolean | undefined {
+    if (g.run.babyBool) {
+      return false;
+    }
+
+    return undefined;
+  }
+
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
+    const leftPressed = isActionPressed(
+      player.ControllerIndex,
+      ButtonAction.LEFT,
+    );
+    const rightPressed = isActionPressed(
+      player.ControllerIndex,
+      ButtonAction.RIGHT,
+    );
+    const upPressed = isActionPressed(player.ControllerIndex, ButtonAction.UP);
+    const downPressed = isActionPressed(
+      player.ControllerIndex,
+      ButtonAction.DOWN,
+    );
     const anyMovementInputPressed =
       leftPressed || rightPressed || upPressed || downPressed;
     const noMovementInputsPressed =
@@ -36,29 +56,11 @@ export class HelmetBaby extends Baby {
     if (!g.run.babyBool && noMovementInputsPressed) {
       // They stopped moving.
       g.run.babyBool = true;
-      const color = g.p.GetColor();
-      const fadeAmount = 0.5;
-      const newColor = copyColor(color);
-      newColor.A = fadeAmount;
-      g.p.SetColor(newColor, 0, 0, true, true);
+      setEntityOpacity(player, FADE_AMOUNT);
     } else if (g.run.babyBool && anyMovementInputPressed) {
       // They started moving.
       g.run.babyBool = false;
-      const color = g.p.GetColor();
-      const fadeAmount = 1;
-      const newColor = copyColor(color);
-      newColor.A = fadeAmount;
-      g.p.SetColor(newColor, 0, 0, true, true);
+      setEntityOpacity(player, 1);
     }
-  }
-
-  // 11
-  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
-  entityTakeDmgPlayer(): boolean | undefined {
-    if (g.run.babyBool) {
-      return false;
-    }
-
-    return undefined;
   }
 }

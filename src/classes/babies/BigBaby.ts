@@ -53,9 +53,9 @@ export class BigBaby extends Baby {
     bomb.SpriteScale = DOUBLE_SIZE_VECTOR;
   }
 
+  /** This does not work if we put it in the `POST_NEW_LEVEL` callback for some reason. */
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {
-    // This does not work if we put it in the `POST_NEW_LEVEL` callback for some reason.
     if (player.SpriteScale.X < 2 || player.SpriteScale.Y < 2) {
       player.SpriteScale = Vector(2, 2);
     }
