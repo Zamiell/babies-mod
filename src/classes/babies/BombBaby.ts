@@ -1,11 +1,8 @@
-import {
-  CollectibleType,
-  EntityType,
-  LevelStage,
-} from "isaac-typescript-definitions";
+import { CollectibleType, LevelStage } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   getEffectiveStage,
+  getPlayerFromEntity,
   getRandom,
   ModCallbackCustom,
   useActiveItemTemp,
@@ -23,13 +20,14 @@ export class BombBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.POST_BOMB_EXPLODED)
   postBombExploded(bomb: EntityBomb): void {
-    if (bomb.SpawnerType !== EntityType.PLAYER) {
+    const player = getPlayerFromEntity(bomb);
+    if (player === undefined) {
       return;
     }
 
     const d6chance = getRandom(g.run.room.rng);
     if (d6chance <= 0.5) {
-      useActiveItemTemp(g.p, CollectibleType.D6);
+      useActiveItemTemp(player, CollectibleType.D6);
     }
   }
 }

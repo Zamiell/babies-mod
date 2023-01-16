@@ -73,7 +73,8 @@ function resetFlockOfSuccubi() {
   }
   g.run.flockOfSuccubi = false;
 
+  const player = Isaac.GetPlayer();
   repeat(NUM_SUCCUBI_IN_FLOCK, () => {
-    g.p.RemoveCollectible(CollectibleType.SUCCUBUS);
+    player.RemoveCollectible(CollectibleType.SUCCUBUS);
   });
 }

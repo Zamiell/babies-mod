@@ -14,6 +14,7 @@ export class BandaidBaby extends Baby {
   preSpawnClearAward(): boolean | undefined {
     const roomType = g.r.GetType();
     const roomSeed = g.r.GetSpawnSeed();
+    const player = Isaac.GetPlayer();
 
     if (roomType === RoomType.BOSS) {
       return undefined;
@@ -21,7 +22,11 @@ export class BandaidBaby extends Baby {
 
     const chance = getRandom(g.run.rng);
     if (chance < 0.5) {
-      const position = g.r.FindFreePickupSpawnPosition(g.p.Position, 1, true);
+      const position = g.r.FindFreePickupSpawnPosition(
+        player.Position,
+        1,
+        true,
+      );
       mod.spawnCollectible(CollectibleType.NULL, position, roomSeed);
     }
 

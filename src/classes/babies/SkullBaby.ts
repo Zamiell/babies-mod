@@ -3,7 +3,6 @@ import {
   Direction,
   EffectVariant,
   EntityPartition,
-  EntityType,
   ModCallback,
   SoundEffect,
 } from "isaac-typescript-definitions";
@@ -91,10 +90,6 @@ export class SkullBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.POST_BOMB_EXPLODED)
   postBombExploded(bomb: EntityBomb): void {
-    if (bomb.SpawnerType !== EntityType.PLAYER) {
-      return;
-    }
-
     const gameFrameCount = game.GetFrameCount();
 
     for (const velocity of SHOCKWAVE_BOMB_VELOCITIES) {

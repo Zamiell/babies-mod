@@ -5,15 +5,16 @@ import {
   ModCallbackCustom,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Random enemies. */
 export class BeastBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
+    const player = Isaac.GetPlayer();
+
     if (!inStartingRoom()) {
-      useActiveItemTemp(g.p, CollectibleType.D10);
+      useActiveItemTemp(player, CollectibleType.D10);
     }
   }
 }

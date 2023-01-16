@@ -1,16 +1,18 @@
-import {
-  BombVariant,
-  EntityType,
-  ModCallback,
-} from "isaac-typescript-definitions";
-import { Callback, spawnBomb } from "isaacscript-common";
+import { BombVariant, ModCallback } from "isaac-typescript-definitions";
+import { Callback, getPlayerFromEntity, spawnBomb } from "isaacscript-common";
+import { isValidRandomBabyPlayer } from "../../utils";
 import { Baby } from "../Baby";
 
 /** Placed bombs are Mega Troll Bombs. */
 export class OrangeGhostBaby extends Baby {
   @Callback(ModCallback.POST_BOMB_INIT)
   postBombInit(bomb: EntityBomb): void {
-    if (bomb.SpawnerType !== EntityType.PLAYER) {
+    const player = getPlayerFromEntity(bomb);
+    if (player === undefined) {
+      return;
+    }
+
+    if (!isValidRandomBabyPlayer(player)) {
       return;
     }
 

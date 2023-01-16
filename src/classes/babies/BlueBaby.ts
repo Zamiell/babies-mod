@@ -7,6 +7,7 @@ import {
 import {
   Callback,
   CallbackCustom,
+  getPlayerFromEntity,
   ModCallbackCustom,
   useActiveItemTemp,
 } from "isaacscript-common";
@@ -45,12 +46,19 @@ export class BlueBaby extends Baby {
   // 61
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
-    tear.Position = g.p.Position;
+    const player = getPlayerFromEntity(tear);
+    if (player === undefined) {
+      return;
+    }
+
+    tear.Position = player.Position;
   }
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
+    const player = Isaac.GetPlayer();
+
     g.run.babyBool = true;
-    useActiveItemTemp(g.p, CollectibleType.SPRINKLER);
+    useActiveItemTemp(player, CollectibleType.SPRINKLER);
   }
 }

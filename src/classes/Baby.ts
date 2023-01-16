@@ -204,6 +204,19 @@ const MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC: ReadonlyMap<
   ],
 
   [
+    ModCallbackCustom.POST_BOMB_EXPLODED,
+    (...callbackArgs: unknown[]) => {
+      const bomb = callbackArgs[0] as EntityBomb;
+      const player = getPlayerFromEntity(bomb);
+      if (player === undefined) {
+        return false;
+      }
+
+      return isValidRandomBabyPlayer(player);
+    },
+  ],
+
+  [
     ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
     (...callbackArgs: unknown[]) => {
       const player = callbackArgs[0] as EntityPlayer;

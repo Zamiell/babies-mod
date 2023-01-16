@@ -8,13 +8,15 @@ export class BlueWrestlerBaby extends Baby {
   // 1
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
+    const player = Isaac.GetPlayer();
+
     for (let i = g.run.room.tears.length - 1; i >= 0; i--) {
       const tear = g.run.room.tears[i];
       if (tear === undefined) {
         error(`Failed to get tear number: ${i}`);
       }
 
-      let velocity = g.p.Position.sub(tear.position);
+      let velocity = player.Position.sub(tear.position);
       velocity = velocity.Normalized();
       velocity = velocity.mul(12);
 

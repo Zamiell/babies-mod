@@ -15,7 +15,6 @@ import {
   sfxManager,
   spawnCoin,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 const DATA_KEY = "BabiesModRecovery";
@@ -48,6 +47,7 @@ export class AbanBaby extends Baby {
   // 35
   @Callback(ModCallback.POST_PICKUP_UPDATE, PickupVariant.COIN)
   postPickupUpdateCoin(pickup: EntityPickup): void {
+    const player = Isaac.GetPlayer();
     const sprite = pickup.GetSprite();
     const collected = sprite.IsPlaying("Collect");
     const data = pickup.GetData();
@@ -66,9 +66,9 @@ export class AbanBaby extends Baby {
       }
 
       // Make it bounce off the player if they get too close.
-      if (g.p.Position.Distance(pickup.Position) <= 25) {
-        const x = pickup.Position.X - g.p.Position.X;
-        const y = pickup.Position.Y - g.p.Position.Y;
+      if (player.Position.Distance(pickup.Position) <= 25) {
+        const x = pickup.Position.X - player.Position.X;
+        const y = pickup.Position.Y - player.Position.Y;
         pickup.Velocity = Vector(x / 2, y / 2);
       }
 

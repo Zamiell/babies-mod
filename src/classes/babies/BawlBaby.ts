@@ -1,5 +1,12 @@
 import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
-import { Callback, game, useActiveItemTemp } from "isaacscript-common";
+import {
+  Callback,
+  CallbackCustom,
+  game,
+  getPlayerFromEntity,
+  ModCallbackCustom,
+  useActiveItemTemp,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { doesBigChestExist } from "../../utils";
 import { Baby } from "../Baby";
@@ -10,13 +17,23 @@ export class BawlBaby extends Baby {
     return !player.HasCollectible(CollectibleType.IPECAC);
   }
 
-  // 1
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
+  // 61
+  @Callback(ModCallback.POST_FIRE_TEAR)
+  postFireTear(tear: EntityTear): void {
+    const player = getPlayerFromEntity(tear);
+    if (player === undefined) {
+      return;
+    }
+
+    tear.CollisionDamage = player.Damage / 2;
+  }
+
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
     const gameFrameCount = game.GetFrameCount();
-    const hearts = g.p.GetHearts();
-    const soulHearts = g.p.GetSoulHearts();
-    const boneHearts = g.p.GetBoneHearts();
+    const hearts = player.GetHearts();
+    const soulHearts = player.GetSoulHearts();
+    const boneHearts = player.GetBoneHearts();
 
     if (doesBigChestExist()) {
       return;
@@ -30,14 +47,8 @@ export class BawlBaby extends Baby {
     // Constant Isaac's Tears effect + blindfolded.
     if (gameFrameCount % 3 === 0) {
       g.run.babyBool = true;
-      useActiveItemTemp(g.p, CollectibleType.ISAACS_TEARS);
+      useActiveItemTemp(player, CollectibleType.ISAACS_TEARS);
       g.run.babyBool = false;
     }
-  }
-
-  // 61
-  @Callback(ModCallback.POST_FIRE_TEAR)
-  postFireTear(tear: EntityTear): void {
-    tear.CollisionDamage = g.p.Damage / 2;
   }
 }
