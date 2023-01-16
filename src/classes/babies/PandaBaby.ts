@@ -6,18 +6,21 @@ import {
   SoundEffect,
 } from "isaac-typescript-definitions";
 import { Callback, sfxManager } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Starts with The Poop (improved). */
 export class PandaBaby extends Baby {
   @Callback(ModCallback.PRE_USE_ITEM, CollectibleType.POOP)
-  preUseItemPoop(): boolean | undefined {
+  preUseItemPoop(
+    _collectibleType: CollectibleType,
+    _rng: RNG,
+    player: EntityPlayer,
+  ): boolean | undefined {
     // Spawn White Poop next to the player.
     Isaac.GridSpawn(
       GridEntityType.POOP,
       PoopGridEntityVariant.WHITE,
-      g.p.Position,
+      player.Position,
     );
 
     sfxManager.Play(SoundEffect.FART);

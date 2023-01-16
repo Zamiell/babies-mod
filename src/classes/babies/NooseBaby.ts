@@ -1,9 +1,10 @@
-import { DamageFlagZero, ModCallback } from "isaac-typescript-definitions";
+import { DamageFlagZero } from "isaac-typescript-definitions";
 import {
-  Callback,
+  CallbackCustom,
   game,
   GAME_FRAMES_PER_SECOND,
-  isShootActionPressedOnAnyInput,
+  isShootActionPressed,
+  ModCallbackCustom,
 } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
@@ -18,8 +19,8 @@ export class NooseBaby extends Baby {
     g.run.babyCounters = gameFrameCount + num;
   }
 
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
     const gameFrameCount = game.GetFrameCount();
     const num = this.getAttribute("num");
 
@@ -30,8 +31,8 @@ export class NooseBaby extends Baby {
     }
 
     g.run.babyCounters = gameFrameCount + num * GAME_FRAMES_PER_SECOND; // Reset the timer.
-    if (isShootActionPressedOnAnyInput()) {
-      g.p.TakeDamage(1, DamageFlagZero, EntityRef(g.p), 0);
+    if (isShootActionPressed(player.ControllerIndex)) {
+      player.TakeDamage(1, DamageFlagZero, EntityRef(player), 0);
     }
   }
 }
