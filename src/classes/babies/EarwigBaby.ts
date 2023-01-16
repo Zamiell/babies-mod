@@ -1,14 +1,11 @@
+import { CollectibleType, LevelStage } from "isaac-typescript-definitions";
 import {
-  CollectibleType,
-  LevelStage,
-  ModCallback,
-} from "isaac-typescript-definitions";
-import {
-  Callback,
+  CallbackCustom,
   changeRoom,
   getAllRoomGridIndexes,
   getEffectiveStage,
   getRandomArrayElement,
+  ModCallbackCustom,
   playerHasCollectible,
   stopAllSoundEffects,
 } from "isaacscript-common";
@@ -34,8 +31,8 @@ export class EarwigBaby extends Baby {
     );
   }
 
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
     const startingRoomGridIndex = g.l.GetStartingRoomIndex();
     const centerPos = g.r.GetCenterPos();
     const allRoomGridIndexes = getAllRoomGridIndexes();
@@ -80,6 +77,6 @@ export class EarwigBaby extends Baby {
     }
 
     changeRoom(startingRoomGridIndex);
-    g.p.Position = centerPos;
+    player.Position = centerPos;
   }
 }

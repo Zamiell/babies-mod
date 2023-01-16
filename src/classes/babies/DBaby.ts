@@ -12,7 +12,6 @@ import {
   spawnEffect,
   VectorZero,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Spawns creep on hit (improved). */
@@ -30,13 +29,13 @@ export class DBaby extends Baby {
       source.Type === EntityType.EFFECT &&
       source.Variant === (EffectVariant.PLAYER_CREEP_RED as int)
     ) {
-      // Spawns creep on hit (improved). By default, player creep only deals 2 damage per tick, so
-      // increase the damage.
-      const damage = g.p.Damage * 2;
+      // By default, player creep only deals 2 damage per tick, so increase the damage.
+      const player = Isaac.GetPlayer();
+      const damage = player.Damage * 2;
       entity.TakeDamage(
         damage,
         DamageFlagZero,
-        EntityRef(g.p),
+        EntityRef(player),
         countdownFrames,
       );
       return false;

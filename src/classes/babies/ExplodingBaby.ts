@@ -36,8 +36,10 @@ export class ExplodingBaby extends Baby {
     }
 
     // Only trigger Kamikaze for grid entities that we are close enough to.
+    const player = Isaac.GetPlayer();
     if (
-      g.p.Position.Distance(gridEntity.Position) > KAMIKAZE_DISTANCE_THRESHOLD
+      player.Position.Distance(gridEntity.Position) >
+      KAMIKAZE_DISTANCE_THRESHOLD
     ) {
       return;
     }
@@ -53,7 +55,7 @@ export class ExplodingBaby extends Baby {
     const gameFrameCount = game.GetFrameCount();
 
     g.run.invulnerable = true;
-    useActiveItemTemp(g.p, CollectibleType.KAMIKAZE);
+    useActiveItemTemp(player, CollectibleType.KAMIKAZE);
     g.run.invulnerable = false;
     g.run.babyFrame = gameFrameCount + 10;
   }

@@ -8,8 +8,9 @@ export class FishmanBaby extends Baby {
   @Callback(ModCallback.PRE_SPAWN_CLEAR_AWARD)
   preSpawnClearAward(): boolean | undefined {
     const roomSeed = g.r.GetSpawnSeed();
+    const player = Isaac.GetPlayer();
 
-    spawnBombPickupWithSeed(BombSubType.NULL, g.p.Position, roomSeed);
+    spawnBombPickupWithSeed(BombSubType.NULL, player.Position, roomSeed);
 
     return undefined;
   }

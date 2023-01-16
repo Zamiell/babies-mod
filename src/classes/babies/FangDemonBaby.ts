@@ -63,12 +63,13 @@ export class FangDemonBaby extends Baby {
       source.Type === EntityType.EFFECT &&
       source.Variant === (EffectVariant.CRACK_THE_SKY as int)
     ) {
-      const damage = g.p.Damage;
+      const player = Isaac.GetPlayer();
+      const damage = player.Damage;
       g.run.dealingExtraDamage = true;
       entity.TakeDamage(
         damage,
         DamageFlagZero,
-        EntityRef(g.p),
+        EntityRef(player),
         countdownFrames,
       );
       g.run.dealingExtraDamage = false;

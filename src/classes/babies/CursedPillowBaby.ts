@@ -1,5 +1,5 @@
 import { DamageFlagZero, ModCallback } from "isaac-typescript-definitions";
-import { Callback } from "isaacscript-common";
+import { Callback, getPlayerFromEntity } from "isaacscript-common";
 import { g } from "../../globals";
 import { isValidForMissingTearsEffect } from "../../utils";
 import { Baby } from "../Baby";
@@ -13,6 +13,11 @@ export class CursedPillowBaby extends Baby {
   // 40
   @Callback(ModCallback.POST_TEAR_UPDATE)
   postTearUpdate(tear: EntityTear): void {
+    const player = getPlayerFromEntity(tear);
+    if (player === undefined) {
+      return;
+    }
+
     if (
       tear.SubType !== 1 ||
       // Tears will not die if they hit an enemy, but they will die if they hit a wall or object.
@@ -27,7 +32,7 @@ export class CursedPillowBaby extends Baby {
     g.run.babyCounters++;
     if (g.run.babyCounters === num) {
       g.run.babyCounters = 0;
-      g.p.TakeDamage(1, DamageFlagZero, EntityRef(g.p), 0);
+      player.TakeDamage(1, DamageFlagZero, EntityRef(player), 0);
     }
   }
 

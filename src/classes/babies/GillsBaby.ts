@@ -1,6 +1,10 @@
 import { EffectVariant, ModCallback } from "isaac-typescript-definitions";
-import { Callback, spawnEffect, VectorZero } from "isaacscript-common";
-import { g } from "../../globals";
+import {
+  Callback,
+  getPlayerFromEntity,
+  spawnEffect,
+  VectorZero,
+} from "isaacscript-common";
 import { setTearColor } from "../../utils";
 import { Baby } from "../Baby";
 
@@ -11,13 +15,18 @@ export class GillsBaby extends Baby {
   // 42
   @Callback(ModCallback.PRE_TEAR_COLLISION)
   preTearCollision(tear: EntityTear, collider: Entity): boolean | undefined {
+    const player = getPlayerFromEntity(tear);
+    if (player === undefined) {
+      return;
+    }
+
     if (tear.SubType === 1) {
       const creep = spawnEffect(
         EffectVariant.PLAYER_CREEP_HOLY_WATER,
         0,
         collider.Position,
         VectorZero,
-        g.p,
+        player,
       );
       creep.Timeout = 120;
     }

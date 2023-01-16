@@ -11,10 +11,12 @@ export class CrowBaby extends Baby {
       return;
     }
 
+    const player = Isaac.GetPlayer();
+
     // Spawn 5 bird familiars instead of 1. (1 is already spawned.)
     g.run.babyBool = true;
     repeat(4, () => {
-      spawnFamiliar(FamiliarVariant.DEAD_BIRD, 0, g.p.Position);
+      spawnFamiliar(FamiliarVariant.DEAD_BIRD, 0, player.Position);
     });
     g.run.babyBool = false;
   }

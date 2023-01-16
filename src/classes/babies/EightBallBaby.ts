@@ -1,6 +1,5 @@
 import { ModCallback, TearFlag } from "isaac-typescript-definitions";
-import { addFlag, Callback } from "isaacscript-common";
-import { g } from "../../globals";
+import { addFlag, Callback, getPlayerFromEntity } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Orbiting tears. */
@@ -8,6 +7,11 @@ export class EightBallBaby extends Baby {
   // 40
   @Callback(ModCallback.POST_TEAR_UPDATE)
   postTearUpdate(tear: EntityTear): void {
+    const player = getPlayerFromEntity(tear);
+    if (player === undefined) {
+      return;
+    }
+
     if (tear.SubType !== 1) {
       return;
     }
@@ -17,7 +21,7 @@ export class EightBallBaby extends Baby {
     let positionMod = Vector(0, num * -1); // The tear starts directly above the player.
     const degrees = tear.FrameCount * 8; // Tears rotate 4 degrees per frame.
     positionMod = positionMod.Rotated(degrees);
-    tear.Position = g.p.Position.add(positionMod);
+    tear.Position = player.Position.add(positionMod);
 
     // We want the tear to be moving perpendicular to the line between the player and the tear.
     tear.Velocity = Vector(num / 4, 0);

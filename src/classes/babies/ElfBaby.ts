@@ -51,12 +51,13 @@ export class ElfBaby extends Baby {
       source.Type === EntityType.EFFECT &&
       source.Variant === (EffectVariant.SPEAR_OF_DESTINY as int)
     ) {
-      const damage = g.p.Damage * 4;
+      const player = Isaac.GetPlayer();
+      const damage = player.Damage * 4;
       g.run.dealingExtraDamage = true;
       entity.TakeDamage(
         damage,
         DamageFlagZero,
-        EntityRef(g.p),
+        EntityRef(player),
         countdownFrames,
       );
       g.run.dealingExtraDamage = false;

@@ -130,6 +130,20 @@ const MOD_CALLBACK_TO_VALIDATION_FUNC: ReadonlyMap<
     },
   ],
 
+  // 42
+  [
+    ModCallback.PRE_TEAR_COLLISION,
+    (...callbackArgs: unknown[]) => {
+      const tear = callbackArgs[0] as EntityTear;
+      const player = getPlayerFromEntity(tear);
+      if (player === undefined) {
+        return false;
+      }
+
+      return isValidRandomBabyPlayer(player);
+    },
+  ],
+
   // 61
   [
     ModCallback.POST_FIRE_TEAR,

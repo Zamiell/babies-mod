@@ -1,5 +1,9 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { Callback, getRandomInt } from "isaacscript-common";
+import {
+  Callback,
+  getPlayerFromEntity,
+  getRandomInt,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
@@ -11,12 +15,17 @@ export class CockeyedBaby extends Baby {
       return;
     }
 
+    const player = getPlayerFromEntity(tear);
+    if (player === undefined) {
+      return;
+    }
+
     // Spawn a new tear with a random velocity.
     const rng = tear.GetDropRNG();
     const rotation = getRandomInt(0, 359, rng);
     const velocity = tear.Velocity.Rotated(rotation);
     g.run.babyBool = true;
-    g.p.FireTear(g.p.Position, velocity, false, true, false);
+    player.FireTear(player.Position, velocity, false, true, false);
     g.run.babyBool = false;
   }
 }

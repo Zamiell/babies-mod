@@ -1,21 +1,20 @@
+import { CollectibleType, SoundEffect } from "isaac-typescript-definitions";
 import {
-  CollectibleType,
-  ModCallback,
-  SoundEffect,
-} from "isaac-typescript-definitions";
-import { Callback, sfxManager } from "isaacscript-common";
-import { g } from "../../globals";
+  CallbackCustom,
+  ModCallbackCustom,
+  sfxManager,
+} from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Starts with The Candle + blindfolded + instant recharge. */
 export class FourtoneBaby extends Baby {
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
-    const activeItem = g.p.GetActiveItem();
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
+    const activeItem = player.GetActiveItem();
 
     // Keep the Candle always fully charged.
-    if (activeItem === CollectibleType.CANDLE && g.p.NeedsCharge()) {
-      g.p.FullCharge();
+    if (activeItem === CollectibleType.CANDLE && player.NeedsCharge()) {
+      player.FullCharge();
       sfxManager.Stop(SoundEffect.BATTERY_CHARGE);
     }
   }
