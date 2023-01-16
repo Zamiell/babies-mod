@@ -5,6 +5,7 @@ import {
 } from "isaac-typescript-definitions";
 import { getCollectibleItemType, log } from "isaacscript-common";
 import { BABIES } from "./objects/babies";
+import { BabyDescription } from "./types/BabyDescription";
 
 const VALID_DUPLICATE_ITEMS: ReadonlySet<CollectibleType> = new Set([
   CollectibleType.POOP, // 36
@@ -28,14 +29,16 @@ export function babiesCheckValid(): void {
   babiesCheckValidDuplicateName();
   babiesCheckValidDuplicateItem();
   babiesCheckValidDuplicateTrinket();
+
+  logTrinketBabies();
 }
 
 function babiesCheckValidDuplicateName() {
   const nameSet = new Set<string>();
 
-  for (const [babyType, baby] of Object.entries(BABIES)) {
+  for (const [i, baby] of Object.entries(BABIES)) {
     if (nameSet.has(baby.name)) {
-      log(`ERROR: Baby #${babyType} has a duplicate name: ${baby.name}`);
+      logBabyInvalid(baby, i, `has a duplicate name: ${baby.name}`);
     } else {
       nameSet.add(baby.name);
     }
@@ -57,7 +60,7 @@ function babiesCheckValidDuplicateItem() {
           baby2.item === baby.item &&
           !VALID_DUPLICATE_ITEMS.has(baby.item)
         ) {
-          log(`ERROR: Baby #${i} has a duplicate item: ${baby.item}`);
+          logBabyInvalid(baby, i, `has a duplicate item: ${baby.item}`);
         }
       }
     }
@@ -75,8 +78,10 @@ function babiesCheckValidDuplicateItem() {
           (baby2.item === baby.item || baby2.item2 === baby.item) &&
           (baby2.item === baby.item2 || baby2.item2 === baby.item2)
         ) {
-          log(
-            `ERROR: Baby #${i} has a duplicate pair of items: ${baby.item} & ${baby.item2}`,
+          logBabyInvalid(
+            baby,
+            i,
+            `has a duplicate pair of items: ${baby.item} & ${baby.item2}`,
           );
         }
       }
@@ -86,14 +91,14 @@ function babiesCheckValidDuplicateItem() {
       "item2" in baby &&
       getCollectibleItemType(baby.item2) === ItemType.ACTIVE
     ) {
-      log(`ERROR: Baby #${i} has an active item in the second slot.`);
+      logBabyInvalid(baby, i, "has an active item in the second slot.");
     }
 
     if (
       "item3" in baby &&
       getCollectibleItemType(baby.item3) === ItemType.ACTIVE
     ) {
-      log(`ERROR: Baby #${i} has an active item in the third slot.`);
+      logBabyInvalid(baby, i, "has an active item in the third slot.");
     }
   }
 }
@@ -104,10 +109,22 @@ function babiesCheckValidDuplicateTrinket() {
   for (const [i, baby] of Object.entries(BABIES)) {
     if ("trinket" in baby) {
       if (trinketSet.has(baby.trinket)) {
-        log(`ERROR: Baby #${i} has a duplicate trinket: ${baby.trinket}`);
+        logBabyInvalid(baby, i, `has a duplicate trinket: ${baby.trinket}`);
       } else {
         trinketSet.add(baby.trinket);
       }
+    }
+  }
+}
+
+function logBabyInvalid(baby: BabyDescription, i: string, msg: string) {
+  log(`ERROR: ${baby.name} (#${i}) ${msg}`);
+}
+
+function logTrinketBabies() {
+  for (const [i, baby] of Object.entries(BABIES)) {
+    if ("trinket" in baby && !("class" in baby) && !("item" in baby)) {
+      log(`DEBUG: ${baby.name} (#${i}) - ${TrinketType[baby.trinket]}`);
     }
   }
 }

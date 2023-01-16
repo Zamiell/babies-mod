@@ -6,8 +6,27 @@
 ### _v1.5.2_ - January 14th, 2023
 
 - Revival items are now removed from pools at the start of a run when starting as Random Baby.
-- Bandaid Baby (#88) - Now has a 50% chance to spawn a pedestal item (instead of 100%).
-- Rider Baby (#295) - The Pony is no longer improved.
+- Changed babies:
+  - Bandaid Baby (#88) - 50% chance to spawn a random pedestal item on room clear - Now has a 50% chance to spawn a pedestal item (instead of 100%).
+  - Ninkumpoop Baby (#129) - All chests are Old Chests
+  - Rider Baby (#295) - Starts with A Pony + blindfolded - The Pony damage is no longer modified.
+  - Locust Baby (#345) - Starts with 20 Abyss Locusts + blindfolded
+- New babies:
+  - Pointless Baby (#571) - Items are replaced with 6 cards
+  - Hex Baby (#560) - Starts with Eye of the Occult
+  - Food Reviewer Baby (#574) - All items are food items
+  - Singing Baby (#561) - Starts with Astral Projection
+  - Junk Baby (#562) - Starts with Binge Eater
+  - Lucky Baby (#563) - Starts with The Stairway
+  - Finger Baby 2 (#564) - Starts with Urn of Souls
+  - Sucky Baby 2 (#565) - Starts with Psy Fly
+  - Door Mimic Baby (#566) - Starts with Bot Fly
+  - Kyuukyuu Baby (#567) - Starts with Hungry Soul
+  - Moon Jelly Baby (#568) - Starts with Saturnus
+  - Excelsior Baby (#569) - Starts with Revelation
+  - Painful Baby (#570) - Starts with Soy Milk + booger tears (old Locust Baby effect)
+  - Doleful Baby (#572) - Starts with The Intruder
+  - Cubic Baby (#573) - Starts with Brimstone Bombs
 
 ### _v1.5.2_ - August 14th, 2022
 

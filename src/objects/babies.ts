@@ -1134,10 +1134,10 @@ export const BABIES = {
   // 129
   [RandomBabyType.NINKUMPOOP]: {
     name: "Ninkumpoop Baby",
-    description: "Starts with Ouroboros Worm",
+    description: "All chests are Old Chests",
     sprite: "129_baby_ninkumpoop.png",
-    trinket: TrinketType.OUROBOROS_WORM,
     requireTears: true,
+    class: bc.NinkumpoopBaby,
   },
 
   // 130
@@ -3011,10 +3011,10 @@ export const BABIES = {
   // 345
   [RandomBabyType.LOCUST]: {
     name: "Locust Baby",
-    description: "Starts with Soy Milk + booger tears",
+    description: "Starts with 20 Abyss Locusts + blindfolded",
     sprite: "345_baby_locust.png",
-    item: CollectibleType.SOY_MILK,
-    requireTears: true,
+    blindfolded: true,
+    num: 20,
     class: bc.LocustBaby,
   },
 
@@ -4955,9 +4955,11 @@ export const BABIES = {
   // 570
   [RandomBabyType.PAINFUL]: {
     name: "Painful Baby",
-    description: "Starts with Vasculitis",
+    description: "Starts with Soy Milk + booger tears",
     sprite: "570_baby_painful.png",
-    item: CollectibleType.VASCULITIS,
+    item: CollectibleType.SOY_MILK,
+    requireTears: true,
+    class: bc.PainfulBaby,
   },
 
   // 571
@@ -5193,7 +5195,9 @@ export const BABIES = {
   [RandomBabyType.LIL_ABADDON]: {
     name: "Lil Abaddon", // CollectibleType.LIL_ABADDON (679)
     description: "Starts with Devil's Crown",
-    sprite: "familiar_lil_abaddon.png",
+    // The vanilla spritesheet has a different format than the other familiars, so we have to
+    // manually make a custom one.
+    sprite: "familiar_lil_abaddon_custom.png",
     trinket: TrinketType.DEVILS_CROWN,
   },
 

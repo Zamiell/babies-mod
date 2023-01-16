@@ -1,16 +1,32 @@
+import { FamiliarVariant } from "isaac-typescript-definitions";
 import {
-  ModCallback,
-  TearFlag,
-  TearVariant,
-} from "isaac-typescript-definitions";
-import { addFlag, Callback } from "isaacscript-common";
+  CallbackCustom,
+  ModCallbackCustom,
+  removeAllFamiliars,
+  repeat,
+  spawnFamiliar,
+} from "isaacscript-common";
+import { g } from "../../globals";
 import { Baby } from "../Baby";
 
-/** Starts with Soy Milk + booger tears. */
+/** Starts with 20 Abyss Locusts + blindfolded. */
 export class LocustBaby extends Baby {
-  @Callback(ModCallback.POST_FIRE_TEAR)
-  postFireTear(tear: EntityTear): void {
-    tear.ChangeVariant(TearVariant.BOOGER);
-    tear.TearFlags = addFlag(tear.TearFlags, TearFlag.BOOGER);
+  override onRemove(): void {
+    removeAllFamiliars(FamiliarVariant.ABYSS_LOCUST);
+  }
+
+  /** This does not work in the `babyAdd` method. */
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
+    if (g.run.babyBool) {
+      return;
+    }
+    g.run.babyBool = true;
+
+    const num = this.getAttribute("num");
+
+    repeat(num, () => {
+      spawnFamiliar(FamiliarVariant.ABYSS_LOCUST, 0, player.Position);
+    });
   }
 }

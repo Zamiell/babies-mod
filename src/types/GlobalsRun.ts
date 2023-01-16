@@ -1,4 +1,4 @@
-import { getRandomSeed, newRNG, setSeed } from "isaacscript-common";
+import { newRNG, setSeed } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { GlobalsRunBabyExplosion } from "./GlobalsRunBabyExplosion";
 import { GlobalsRunBabyNPC } from "./GlobalsRunBabyNPC";
@@ -51,9 +51,9 @@ export class GlobalsRun {
   clockworkAssemblyRNG = newRNG();
   craneGameRNG = newRNG();
 
-  constructor(randomSeed = getRandomSeed()) {
-    setSeed(this.rng, randomSeed);
-    setSeed(this.clockworkAssemblyRNG, randomSeed);
-    setSeed(this.craneGameRNG, randomSeed);
+  constructor(startSeed: Seed) {
+    setSeed(this.rng, startSeed);
+    setSeed(this.clockworkAssemblyRNG, startSeed);
+    setSeed(this.craneGameRNG, startSeed);
   }
 }
