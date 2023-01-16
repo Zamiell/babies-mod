@@ -146,6 +146,7 @@ export { GillsBaby } from "./babies/GillsBaby";
 export { GlassBaby } from "./babies/GlassBaby";
 export { GlitteryPeachBaby } from "./babies/GlitteryPeachBaby";
 export { GoatBaby } from "./babies/GoatBaby";
+export { GoblinBaby } from "./babies/GoblinBaby";
 export { GoldBaby } from "./babies/GoldBaby";
 export { GravenBaby } from "./babies/GravenBaby";
 export { GrayscaleBaby } from "./babies/GrayscaleBaby";

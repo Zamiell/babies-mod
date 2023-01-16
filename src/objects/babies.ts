@@ -2819,9 +2819,9 @@ export const BABIES = {
   // 324
   [RandomBabyType.GOBLIN]: {
     name: "Goblin Baby",
-    description: "Starts with Rotten Penny",
+    description: "Extra item after boss if no damage taken on floor",
     sprite: "324_baby_goblin.png",
-    trinket: TrinketType.ROTTEN_PENNY,
+    class: bc.GoblinBaby,
   },
 
   // 325

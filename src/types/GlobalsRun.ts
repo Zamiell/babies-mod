@@ -1,4 +1,4 @@
-import { newRNG, setSeed } from "isaacscript-common";
+import { getRandomSeed, newRNG, setSeed } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { GlobalsRunBabyExplosion } from "./GlobalsRunBabyExplosion";
 import { GlobalsRunBabyNPC } from "./GlobalsRunBabyNPC";
@@ -19,7 +19,7 @@ export class GlobalsRun {
   level = new GlobalsRunLevel();
 
   // Tracking per room
-  room = new GlobalsRunRoom();
+  room: GlobalsRunRoom;
 
   // Temporary variables
   showIntroFrame = 0;
@@ -32,11 +32,17 @@ export class GlobalsRun {
   gettingCollectible = false;
 
   // Baby-specific variables
+  /** Initialized to false at the beginning of every floor. */
   babyBool = false;
+  /** Initialized to 0 at the beginning of every floor. */
   babyCounters = 0;
+  /** Initialized to 0 at the beginning of every room. */
   babyCountersRoom = 0;
+  /** Initialized to 0 at the beginning of every floor. */
   babyFrame = 0;
+  /** Initialized at the beginning of every room. */
   babyTears = new GlobalsRunBabyTears();
+  /** Initialized at the beginning of every floor. */
   babyNPC: GlobalsRunBabyNPC = {
     entityType: 0,
     variant: 0,
@@ -51,7 +57,9 @@ export class GlobalsRun {
   clockworkAssemblyRNG = newRNG();
   craneGameRNG = newRNG();
 
-  constructor(startSeed: Seed) {
+  constructor(startSeed = getRandomSeed()) {
+    this.room = new GlobalsRunRoom(startSeed);
+
     setSeed(this.rng, startSeed);
     setSeed(this.clockworkAssemblyRNG, startSeed);
     setSeed(this.craneGameRNG, startSeed);

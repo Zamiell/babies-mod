@@ -10,11 +10,10 @@
   - Bandaid Baby (#88) - 50% chance to spawn a random pedestal item on room clear - Now has a 50% chance to spawn a pedestal item (instead of 100%).
   - Ninkumpoop Baby (#129) - All chests are Old Chests
   - Rider Baby (#295) - Starts with A Pony + blindfolded - The Pony damage is no longer modified.
+  - Goblin Baby (#324) - Extra item after boss if no damage taken on floor
   - Locust Baby (#345) - Starts with 20 Abyss Locusts + blindfolded
 - New babies:
-  - Pointless Baby (#571) - Items are replaced with 6 cards
   - Hex Baby (#560) - Starts with Eye of the Occult
-  - Food Reviewer Baby (#574) - All items are food items
   - Singing Baby (#561) - Starts with Astral Projection
   - Junk Baby (#562) - Starts with Binge Eater
   - Lucky Baby (#563) - Starts with The Stairway
@@ -25,8 +24,10 @@
   - Moon Jelly Baby (#568) - Starts with Saturnus
   - Excelsior Baby (#569) - Starts with Revelation
   - Painful Baby (#570) - Starts with Soy Milk + booger tears (old Locust Baby effect)
+  - Pointless Baby (#571) - Items are replaced with 6 cards
   - Doleful Baby (#572) - Starts with The Intruder
   - Cubic Baby (#573) - Starts with Brimstone Bombs
+  - Food Reviewer Baby (#574) - All items are food items
 
 ### _v1.5.2_ - August 14th, 2022
 

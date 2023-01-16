@@ -30,7 +30,7 @@ export function babiesCheckValid(): void {
   babiesCheckValidDuplicateItem();
   babiesCheckValidDuplicateTrinket();
 
-  logTrinketBabies();
+  logSpecificBabies();
 }
 
 function babiesCheckValidDuplicateName() {
@@ -121,7 +121,7 @@ function logBabyInvalid(baby: BabyDescription, i: string, msg: string) {
   log(`ERROR: ${baby.name} (#${i}) ${msg}`);
 }
 
-function logTrinketBabies() {
+function logSpecificBabies() {
   for (const [i, baby] of Object.entries(BABIES)) {
     if ("trinket" in baby && !("class" in baby) && !("item" in baby)) {
       log(`DEBUG: ${baby.name} (#${i}) - ${TrinketType[baby.trinket]}`);
