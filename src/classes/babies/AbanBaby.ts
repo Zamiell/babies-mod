@@ -25,7 +25,6 @@ export class AbanBaby extends Baby {
     player.AddCoins(2);
   }
 
-  // 11
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
     const coins = player.GetNumCoins();

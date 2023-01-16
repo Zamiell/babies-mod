@@ -94,12 +94,13 @@ export class FangDemonBaby extends Baby {
   @Callback(ModCallback.POST_EFFECT_UPDATE, EffectVariant.TARGET)
   postEffectUpdateTarget(effect: EntityEffect): void {
     const gameFrameCount = game.GetFrameCount();
+    const player = Isaac.GetPlayer();
     const num = this.getAttribute("num");
 
     if (effect.FrameCount === 1) {
       // By default, the Marked target spawns at the center of the room, and we want it to be
       // spawned at the player instead.
-      effect.Position = g.p.Position;
+      effect.Position = player.Position;
       effect.Visible = true;
     } else if (gameFrameCount >= g.run.babyFrame) {
       // Check to see if there is a nearby NPC.
@@ -116,7 +117,7 @@ export class FangDemonBaby extends Baby {
           0,
           effect.Position,
           VectorZero,
-          g.p,
+          player,
         );
       }
     }

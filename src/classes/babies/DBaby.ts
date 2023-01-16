@@ -44,7 +44,6 @@ export class DBaby extends Baby {
     return undefined;
   }
 
-  // 11
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
     const creep = spawnEffect(

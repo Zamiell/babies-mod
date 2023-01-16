@@ -21,7 +21,6 @@ export class HelmetBaby extends Baby {
     player.SetColor(newColor, 0, 0, true, true);
   }
 
-  // 11
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(): boolean | undefined {
     if (g.run.babyBool) {

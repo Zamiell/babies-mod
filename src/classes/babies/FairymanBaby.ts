@@ -18,7 +18,6 @@ export class FairymanBaby extends Baby {
     });
   }
 
-  // 11
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
     g.run.babyCounters++;

@@ -10,7 +10,6 @@ import {
   ModCallbackCustom,
   VectorZero,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 const DATA_KEY = "BabiesModRing";
@@ -24,17 +23,24 @@ const RING_SPRITE_SCALE: Readonly<Vector> = Vector(0.5, 1);
 export class GlassBaby extends Baby {
   @Callback(ModCallback.POST_LASER_UPDATE)
   postLaserUpdate(laser: EntityLaser): void {
+    const player = Isaac.GetPlayer();
     const data = laser.GetData();
+
     if (data[DATA_KEY] === true) {
       // Keep the ring centered on the player.
-      laser.Position = g.p.Position;
+      laser.Position = player.Position;
     }
   }
 
   /** Spawn a laser ring around the player. */
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
-    const laser = g.p.FireTechXLaser(g.p.Position, VectorZero, RING_RADIUS);
+    const player = Isaac.GetPlayer();
+    const laser = player.FireTechXLaser(
+      player.Position,
+      VectorZero,
+      RING_RADIUS,
+    );
 
     laser.Variant = LaserVariant.THIN_RED;
     laser.SpriteScale = RING_SPRITE_SCALE;

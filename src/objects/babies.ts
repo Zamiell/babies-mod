@@ -2223,7 +2223,7 @@ export const BABIES = {
     name: "Cloud Baby",
     description: "Ventricle Razor effect every 15 seconds",
     sprite: "256_baby_cloud.png",
-    num: 30 * 15, // In game frames
+    num: 15,
     class: bc.CloudBaby,
   },
 

@@ -1,20 +1,20 @@
-import { DamageFlagZero, ModCallback } from "isaac-typescript-definitions";
+import { DamageFlagZero } from "isaac-typescript-definitions";
 import {
-  Callback,
+  CallbackCustom,
   ColorDefault,
   inStartingRoom,
   isEntityMoving,
+  ModCallbackCustom,
 } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Takes damage when standing still. */
 export class HareBaby extends Baby {
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
+    const sprite = player.GetSprite();
     const num = this.getAttribute("num");
-
-    const sprite = g.p.GetSprite();
     const framesBeforeTakingDamage = num;
 
     // This effect should not apply in the starting room to give the player a chance to read the
@@ -23,7 +23,7 @@ export class HareBaby extends Baby {
       return;
     }
 
-    if (isEntityMoving(g.p, 1)) {
+    if (isEntityMoving(player, 1)) {
       g.run.babyCounters = 0;
       sprite.Color = ColorDefault;
       return;
@@ -40,7 +40,7 @@ export class HareBaby extends Baby {
     sprite.Color = Color(colorValue, colorValue, colorValue);
 
     if (g.run.babyCounters === framesBeforeTakingDamage) {
-      g.p.TakeDamage(1, DamageFlagZero, EntityRef(g.p), 0);
+      player.TakeDamage(1, DamageFlagZero, EntityRef(player), 0);
     }
   }
 }

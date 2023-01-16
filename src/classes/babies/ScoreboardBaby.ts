@@ -11,7 +11,6 @@ import { Baby } from "../Baby";
 
 /** Dies 1 minute after getting hit. */
 export class ScoreboardBaby extends Baby {
-  // 11
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(
     _player: EntityPlayer,

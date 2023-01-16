@@ -29,7 +29,8 @@ export class HopelessBaby extends Baby {
       return;
     }
 
-    const keys = g.p.GetNumKeys();
+    const player = Isaac.GetPlayer();
+    const keys = player.GetNumKeys();
 
     if (!shouldShowRealHeartsUIForDevilDeal()) {
       // Draw the key count next to the hearts.
@@ -43,7 +44,6 @@ export class HopelessBaby extends Baby {
     }
   }
 
-  // 11
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
     if (g.run.dealingExtraDamage) {

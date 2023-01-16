@@ -1,17 +1,20 @@
-import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
-import { Callback, game, useActiveItemTemp } from "isaacscript-common";
-import { g } from "../../globals";
+import { CollectibleType } from "isaac-typescript-definitions";
+import {
+  CallbackCustom,
+  ModCallbackCustom,
+  useActiveItemTemp,
+} from "isaacscript-common";
+import { everyNSeconds } from "../../utils";
 import { Baby } from "../Baby";
 
 /** Ventricle Razor effect every 15 seconds. */
 export class CloudBaby extends Baby {
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
-    const gameFrameCount = game.GetFrameCount();
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
     const num = this.getAttribute("num");
 
-    if (gameFrameCount % num === 0) {
-      useActiveItemTemp(g.p, CollectibleType.VENTRICLE_RAZOR);
-    }
+    everyNSeconds(() => {
+      useActiveItemTemp(player, CollectibleType.VENTRICLE_RAZOR);
+    }, num);
   }
 }

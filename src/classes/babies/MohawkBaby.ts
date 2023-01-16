@@ -44,7 +44,6 @@ export class MohawkBaby extends Baby {
     }
   }
 
-  // 11
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
     if (g.run.dealingExtraDamage) {

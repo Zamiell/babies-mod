@@ -1,6 +1,7 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 import {
   game,
+  getPlayersOfType,
   getRandomEnumValue,
   log,
   ModCallbackCustom,
@@ -13,6 +14,7 @@ import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { mod } from "../mod";
 import { GlobalsRunLevel } from "../types/GlobalsRunLevel";
+import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
 import { getCurrentBaby } from "../utilsBaby";
 
 export function init(): void {
@@ -32,8 +34,17 @@ function main() {
   // Reset floor-related variables
   g.run.level = new GlobalsRunLevel();
 
+  const randomBabies = getPlayersOfType(PlayerTypeCustom.RANDOM_BABY);
+  for (const randomBaby of randomBabies) {
+    setNewBaby(randomBaby);
+  }
+}
+
+function setNewBaby(player: EntityPlayer) {
+  const gameFrameCount = game.GetFrameCount();
+
   // Birthright has the effect of keeping the current baby for the remainder of the run.
-  if (g.p.HasCollectible(CollectibleType.BIRTHRIGHT)) {
+  if (player.HasCollectible(CollectibleType.BIRTHRIGHT)) {
     return;
   }
 
@@ -56,12 +67,12 @@ function main() {
   g.run.showIntroFrame = gameFrameCount + 60; // 2 seconds
 
   // Set the new baby.
-  babyRemove(g.p, oldBabyCounters);
-  getNewBaby(g.p);
-  babyAdd(g.p);
+  babyRemove(player, oldBabyCounters);
+  getAndSetNewBabyInGlobals(player);
+  babyAdd(player);
 }
 
-function getNewBaby(player: EntityPlayer) {
+function getAndSetNewBabyInGlobals(player: EntityPlayer) {
   const levelSeed = g.l.GetDungeonPlacementSeed();
   const rng = newRNG(levelSeed);
 
