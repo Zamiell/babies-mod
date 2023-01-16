@@ -11,14 +11,6 @@ export class Globals {
   seeds = game.GetSeeds();
   itemPool = game.GetItemPool();
 
-  /**
-   * "Isaac.GetPlayer()" will return nil if called from the main menu. We "lie" and say that it gets
-   * set to an `EntityPlayer` so that we don't have to do non-null assertions everywhere. In
-   * reality, the value will be set in the `POST_PLAYER_INIT` callback, which will happen before any
-   * other code gets run.
-   */
-  p = Isaac.GetPlayer();
-
   /** Per-run variables. */
   run = new GlobalsRun();
 

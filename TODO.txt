@@ -3,7 +3,7 @@ TODO:
 - SaveDataManager
 - Gamonymous suggestions
 - confusion on hit, see code below
-- remove all g.p (convert to postPEffectUpdate)
+- refactor global variables
 
 List of hard babies:
 - Troll Baby (#6) - Spawns a Troll Bomb every 3 seconds
