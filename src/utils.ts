@@ -33,7 +33,10 @@ import {
   getRandomSetElement,
   inMinibossRoomOf,
   inRoomType,
+  isCharacter,
+  isFirstPlayer,
   isHeart,
+  isPlayer,
   playerHasCollectible,
   playerHasForm,
   removeEntities,
@@ -55,6 +58,7 @@ import { ROOM_TYPES_TO_NOT_TRANSFORM } from "./constants";
 import { g } from "./globals";
 import { mod } from "./mod";
 import { CollectibleTypeCustom } from "./types/CollectibleTypeCustom";
+import { PlayerTypeCustom } from "./types/PlayerTypeCustom";
 
 const BAD_MISSING_TEARS_COLLECTIBLE_TYPES = [
   CollectibleType.INNER_EYE, // 2
@@ -189,6 +193,18 @@ export function isValidForMissingTearsEffect(player: EntityPlayer): boolean {
   return (
     !playerHasCollectible(player, ...BAD_MISSING_TEARS_COLLECTIBLE_TYPES) &&
     !playerHasForm(player, ...BAD_MISSING_TEARS_TRANSFORMATIONS)
+  );
+}
+
+export function isValidRandomBabyPlayer(player: EntityPlayer): boolean {
+  return (
+    // We validate that the `player` is a valid `EntityPlayer` object since we may be getting it in
+    // a type-unsafe way in the `Baby.ts` file.
+    isPlayer(player) &&
+    isCharacter(player, PlayerTypeCustom.RANDOM_BABY) &&
+    // Currently, the mod does not support co-op. Many places in logic assume that the player is the
+    // first character. This can be removed when all `Isaac.GetPlayer` method calls are removed.
+    isFirstPlayer(player)
   );
 }
 

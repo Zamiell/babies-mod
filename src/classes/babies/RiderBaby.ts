@@ -2,9 +2,7 @@ import {
   CollectibleType,
   DamageFlag,
   DamageFlagZero,
-  EntityType,
   ModCallback,
-  PlayerVariant,
   SoundEffect,
 } from "isaac-typescript-definitions";
 import {
@@ -14,6 +12,7 @@ import {
   sfxManager,
 } from "isaacscript-common";
 import { g } from "../../globals";
+import { isValidRandomBabyPlayer } from "../../utils";
 import { Baby } from "../Baby";
 
 /** Starts with A Pony (improved) + blindfolded. */
@@ -32,23 +31,24 @@ export class RiderBaby extends Baby {
       return undefined;
     }
 
-    if (
-      source.Type === EntityType.PLAYER &&
-      source.Variant === (PlayerVariant.PLAYER as int)
-    ) {
-      const damage = g.p.Damage * 4;
-      g.run.dealingExtraDamage = true;
-      entity.TakeDamage(
-        damage,
-        DamageFlagZero,
-        EntityRef(g.p),
-        countdownFrames,
-      );
-      g.run.dealingExtraDamage = false;
-      return false;
+    if (source.Entity === undefined) {
+      return undefined;
     }
 
-    return undefined;
+    const player = source.Entity.ToPlayer();
+    if (player === undefined) {
+      return undefined;
+    }
+
+    if (!isValidRandomBabyPlayer(player)) {
+      return undefined;
+    }
+
+    const damage = g.p.Damage * 4;
+    g.run.dealingExtraDamage = true;
+    entity.TakeDamage(damage, DamageFlagZero, EntityRef(g.p), countdownFrames);
+    g.run.dealingExtraDamage = false;
+    return false;
   }
 
   /** Keep the pony fully charged. */
