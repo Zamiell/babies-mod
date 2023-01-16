@@ -21,9 +21,12 @@ const ROOM_TYPE_BLACKLIST: ReadonlySet<RoomType> = new Set([
   RoomType.BLACK_MARKET, // 22
 ]);
 
-// ModCallback.POST_UPDATE (1)
-export function pseudoRoomClearPostUpdate(babyType: RandomBabyType): void {
-  // This function is only called from certain babies.
+/** This function is only called from certain babies. */
+// ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED
+export function pseudoRoomClearPostPEffectUpdateReordered(
+  player: EntityPlayer,
+  babyType: RandomBabyType,
+): void {
   const roomType = g.r.GetType();
   const roomFrameCount = g.r.GetFrameCount();
   const roomClear = g.r.IsClear();
@@ -44,7 +47,7 @@ export function pseudoRoomClearPostUpdate(babyType: RandomBabyType): void {
     return;
   }
 
-  checkPseudoClear(babyType);
+  checkPseudoClear(player, babyType);
 }
 
 function initializeDoors(babyType: RandomBabyType) {
@@ -88,7 +91,7 @@ function initializeDoors(babyType: RandomBabyType) {
   }
 }
 
-function checkPseudoClear(babyType: RandomBabyType) {
+function checkPseudoClear(player: EntityPlayer, babyType: RandomBabyType) {
   const gameFrameCount = game.GetFrameCount();
 
   // Don't do anything if the room is already cleared.
@@ -109,7 +112,7 @@ function checkPseudoClear(babyType: RandomBabyType) {
     !areAnyNPCsAlive() &&
     isAllPressurePlatesPushed()
   ) {
-    pseudoClearRoom(babyType);
+    pseudoClearRoom(player, babyType);
   }
 }
 
@@ -124,7 +127,7 @@ function areAnyNPCsAlive() {
 }
 
 // This roughly emulates what happens when you normally clear a room.
-function pseudoClearRoom(babyType: RandomBabyType) {
+function pseudoClearRoom(player: EntityPlayer, babyType: RandomBabyType) {
   g.run.room.pseudoClear = true;
   log("Room is now pseudo-cleared.");
 
@@ -147,13 +150,13 @@ function pseudoClearRoom(babyType: RandomBabyType) {
 
       // 90
       case RandomBabyType.NERD: {
-        door.TryUnlock(g.p, true); // This has to be forced
+        door.TryUnlock(player, true); // This has to be forced.
         break;
       }
 
       // 351
       case RandomBabyType.MOUSE: {
-        door.TryUnlock(g.p, true); // This has to be forced
+        door.TryUnlock(player, true); // This has to be forced.
         break;
       }
 
