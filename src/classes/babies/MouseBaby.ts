@@ -1,13 +1,11 @@
 import {
   CallbackCustom,
   getDoors,
-  getPlayersOfType,
   ModCallbackCustom,
 } from "isaacscript-common";
 import { NORMAL_LOOKING_DOOR_ROOM_TYPES } from "../../constants";
 import { g } from "../../globals";
 import { pseudoRoomClearPostPEffectUpdateReordered } from "../../pseudoRoomClear";
-import { PlayerTypeCustom } from "../../types/PlayerTypeCustom";
 import { Baby } from "../Baby";
 
 /** Coin doors in uncleared rooms. */
@@ -23,16 +21,14 @@ export class MouseBaby extends Baby {
       return;
     }
 
-    const randomBabies = getPlayersOfType(PlayerTypeCustom.RANDOM_BABY);
-    const randomBaby = randomBabies[0];
-    if (randomBaby === undefined) {
-      return;
-    }
+    // We don't want to filter for `PlayerTypeCustom.RANDOM_BABY` because the player could be e.g.
+    // Dark Judas.
+    const player = Isaac.GetPlayer();
 
     const normalLookingDoors = getDoors(...NORMAL_LOOKING_DOOR_ROOM_TYPES);
     const lockedDoors = normalLookingDoors.filter((door) => door.IsLocked());
     for (const door of lockedDoors) {
-      door.TryUnlock(randomBaby, true); // This has to be forced.
+      door.TryUnlock(player, true); // This has to be forced.
     }
   }
 
