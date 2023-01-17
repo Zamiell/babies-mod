@@ -20,6 +20,7 @@ import { IS_DEV, MOD_NAME, VERSION } from "./constants";
 import { initCostumeProtector } from "./costumes";
 import { RandomBabyType } from "./enums/RandomBabyType";
 import { pseudoRoomClearInit } from "./features/pseudoRoomClear";
+import { shockwavesInit } from "./features/shockwaves";
 import { softlockPreventionInit } from "./features/softlockPrevention";
 import { mod } from "./mod";
 import { BABIES } from "./objects/babies";
@@ -71,6 +72,7 @@ function registerCallbacksCustom() {
 
 function initFeatures() {
   pseudoRoomClearInit();
+  shockwavesInit();
   softlockPreventionInit();
 }
 

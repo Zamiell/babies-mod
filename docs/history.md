@@ -5,7 +5,7 @@
 
 ### _v1.6.1_ - January 15th, 2023 (Unreleased)
 
-- Skull Baby (#211) - Shockwave bombs - The shockwaves no longer deals damage to the player
+- Skull Baby (#211) - Shockwave bombs - The shockwaves no longer deals damage to the player.
 
 ### _v1.6.0_ - January 14th, 2023
 
