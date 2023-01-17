@@ -49,9 +49,7 @@ function setNewBaby(player: EntityPlayer) {
   // Reset baby-specific variables
   g.run.babyBool = false;
   g.run.babyCounters = 0;
-  // `babyCountersRoom` are reset in the `POST_NEW_ROOM` callback.
   g.run.babyFrame = 0;
-  // `babyTears` are reset in the `POST_NEW_ROOM` callback.
   g.run.babySprite = null;
 
   // Display text describing the new baby.
