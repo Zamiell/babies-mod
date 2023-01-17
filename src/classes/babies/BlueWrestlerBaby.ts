@@ -19,7 +19,7 @@ export class BlueWrestlerBaby extends Baby {
 
   constructor(babyType: RandomBabyType, baby: BabyDescription) {
     super(babyType, baby);
-    this.saveDataManager(this.v);
+    this.saveDataManager(this);
   }
 
   // 1

@@ -14,7 +14,7 @@ export class SisterMaggy extends Baby {
 
   constructor(babyType: RandomBabyType, baby: BabyDescription) {
     super(babyType, baby);
-    this.saveDataManager(this.v);
+    this.saveDataManager(this);
   }
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)

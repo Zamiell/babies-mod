@@ -72,8 +72,12 @@ export class Baby extends ModFeature {
    * Helper method to register class variables with the save data manager. (This cannot be done in
    * the parent class constructor because they do not have access to the child properties.)
    */
-  saveDataManager(v: SaveData): void {
-    mod.saveDataManager(this, v, () => g.run.babyType === this.babyType);
+  saveDataManager(babyClassWithV: { v: SaveData }): void {
+    mod.saveDataManager(
+      this,
+      babyClassWithV.v,
+      () => g.run.babyType === this.babyType,
+    );
   }
 }
 

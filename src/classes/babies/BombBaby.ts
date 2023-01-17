@@ -23,7 +23,7 @@ export class BombBaby extends Baby {
 
   constructor(babyType: RandomBabyType, baby: BabyDescription) {
     super(babyType, baby);
-    this.saveDataManager(this.v);
+    this.saveDataManager(this);
   }
 
   override onAdd(): void {

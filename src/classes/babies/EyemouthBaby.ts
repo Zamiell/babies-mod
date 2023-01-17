@@ -15,7 +15,7 @@ export class EyemouthBaby extends Baby {
 
   constructor(babyType: RandomBabyType, baby: BabyDescription) {
     super(babyType, baby);
-    this.saveDataManager(this.v);
+    this.saveDataManager(this);
   }
 
   @Callback(ModCallback.POST_FIRE_TEAR)

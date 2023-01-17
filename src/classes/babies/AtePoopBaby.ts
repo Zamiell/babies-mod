@@ -30,7 +30,7 @@ export class AtePoopBaby extends Baby {
 
   constructor(babyType: RandomBabyType, baby: BabyDescription) {
     super(babyType, baby);
-    this.saveDataManager(this.v);
+    this.saveDataManager(this);
   }
 
   /** There are almost no poops on The Chest. */
