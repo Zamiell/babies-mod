@@ -9,7 +9,6 @@ import * as executeCmd from "./callbacks/executeCmd";
 import * as postEntityKill from "./callbacks/postEntityKill";
 import * as postPlayerInit from "./callbacks/postPlayerInit";
 import * as postRender from "./callbacks/postRender";
-import * as postUseItem from "./callbacks/postUseItem";
 import * as entityTakeDmgPlayer from "./callbacksCustom/entityTakeDmgPlayer";
 import * as postGameStartedReordered from "./callbacksCustom/postGameStartedReordered";
 import * as postNewLevelReordered from "./callbacksCustom/postNewLevelReordered";
@@ -52,7 +51,6 @@ function welcomeBanner() {
 
 function registerCallbacksMain() {
   postRender.init(); // 2
-  postUseItem.init(); // 3
   evaluateCache.init(); // 8
   postPlayerInit.init(); // 9
   executeCmd.init(); // 22

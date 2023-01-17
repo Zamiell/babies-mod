@@ -11,7 +11,7 @@ import { BabyDescription } from "../../types/BabyDescription";
 import { CollectibleTypeCustom } from "../../types/CollectibleTypeCustom";
 import { Baby } from "../Baby";
 
-/** Starts with Starts with Flock of Succubi. */
+/** Starts with Flock of Succubi. */
 export class CoolGhostBaby extends Baby {
   v = {
     run: {

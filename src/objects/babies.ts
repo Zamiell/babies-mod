@@ -1573,6 +1573,7 @@ export const BABIES = {
     sprite: "180_baby_pieceb.png",
     item: CollectibleTypeCustom.CHARGING_STATION,
     requireCoins: true,
+    class: bc.PieceBBaby,
   },
 
   // 181

@@ -230,6 +230,7 @@ export { PainfulBaby } from "./babies/PainfulBaby";
 export { PandaBaby } from "./babies/PandaBaby";
 export { PegasusBaby } from "./babies/PegasusBaby";
 export { PieceABaby } from "./babies/PieceABaby";
+export { PieceBBaby } from "./babies/PieceBBaby";
 export { PinkGhostBaby } from "./babies/PinkGhostBaby";
 export { PinkPrincessBaby } from "./babies/PinkPrincessBaby";
 export { PixieBaby } from "./babies/PixieBaby";
