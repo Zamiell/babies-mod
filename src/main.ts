@@ -22,6 +22,7 @@ import { RandomBabyType } from "./enums/RandomBabyType";
 import { mod } from "./mod";
 import { BABIES } from "./objects/babies";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
+import { pseudoRoomClearInit } from "./pseudoRoomClear";
 
 main();
 
@@ -37,6 +38,7 @@ function main() {
   babiesCheckValid();
   registerCallbacksMain();
   registerCallbacksCustom();
+  initFeatures();
   initBabyClassMap(); // This must be after all normal callback registration.
 }
 
@@ -64,6 +66,10 @@ function registerCallbacksCustom() {
   postNewRoomReordered.init();
   postPEffectUpdateReordered.init();
   postPlayerChangeType.init();
+}
+
+function initFeatures() {
+  pseudoRoomClearInit();
 }
 
 /**

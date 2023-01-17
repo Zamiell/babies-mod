@@ -1,4 +1,4 @@
-import { RoomType } from "isaac-typescript-definitions";
+import { DoorSlot, RoomType } from "isaac-typescript-definitions";
 import {
   game,
   getDoors,
@@ -9,6 +9,7 @@ import {
 } from "isaacscript-common";
 import { RandomBabyType } from "./enums/RandomBabyType";
 import { g } from "./globals";
+import { mod } from "./mod";
 
 // Pseudo room clear should be disabled in certain room types.
 const ROOM_TYPE_BLACKLIST: ReadonlySet<RoomType> = new Set([
@@ -25,6 +26,32 @@ const NORMAL_LOOKING_DOOR_ROOM_TYPES = [
   RoomType.DEFAULT, // 1
   RoomType.MINI_BOSS, // 6
 ] as const;
+
+const v = {
+  room: {
+    pseudoClear: true,
+    doorSlotsModified: [] as DoorSlot[],
+    clearDelayFrame: null as int | null,
+  },
+};
+
+export function pseudoRoomClearInit(): void {
+  mod.saveDataManager("pseudoRoomClear", v);
+}
+
+// ModCallback.POST_ENTITY_KILL (68)
+export function pseudoRoomClearPostEntityKill(entity: Entity): void {
+  // We only care if an actual enemy dies.
+  const npc = entity.ToNPC();
+  if (npc === undefined) {
+    return;
+  }
+
+  const gameFrameCount = game.GetFrameCount();
+
+  // We don't want to clear the room too fast after an enemy dies.
+  v.room.clearDelayFrame = gameFrameCount + 1;
+}
 
 /**
  * This function is only called from certain babies.
@@ -81,7 +108,7 @@ export function pseudoRoomClearPostPEffectUpdateReordered(
 
 function initializeDoors(babyType: RandomBabyType) {
   g.r.SetClear(true);
-  g.run.room.pseudoClear = false;
+  v.room.pseudoClear = false;
 
   const normalLookingDoors = getDoors(
     RoomType.DEFAULT, // 0
@@ -89,7 +116,7 @@ function initializeDoors(babyType: RandomBabyType) {
   );
   for (const door of normalLookingDoors) {
     // Keep track of which doors we lock for later.
-    g.run.room.doorSlotsModified.push(door.Slot);
+    v.room.doorSlotsModified.push(door.Slot);
 
     // Modify the door.
     switch (babyType) {
@@ -124,20 +151,20 @@ function checkPseudoClear(player: EntityPlayer, babyType: RandomBabyType) {
   const gameFrameCount = game.GetFrameCount();
 
   // Don't do anything if the room is already cleared.
-  if (g.run.room.pseudoClear) {
+  if (v.room.pseudoClear) {
     return;
   }
 
   // If a frame has passed since an enemy died, reset the delay counter.
   if (
-    g.run.room.clearDelayFrame !== null &&
-    gameFrameCount >= g.run.room.clearDelayFrame
+    v.room.clearDelayFrame !== null &&
+    gameFrameCount >= v.room.clearDelayFrame
   ) {
-    g.run.room.clearDelayFrame = null;
+    v.room.clearDelayFrame = null;
   }
 
   if (
-    g.run.room.clearDelayFrame === null &&
+    v.room.clearDelayFrame === null &&
     !areAnyNPCsAlive() &&
     isAllPressurePlatesPushed()
   ) {
@@ -157,14 +184,14 @@ function areAnyNPCsAlive() {
 
 // This roughly emulates what happens when you normally clear a room.
 function pseudoClearRoom(player: EntityPlayer, babyType: RandomBabyType) {
-  g.run.room.pseudoClear = true;
+  v.room.pseudoClear = true;
   log("Room is now pseudo-cleared.");
 
   g.r.TriggerClear();
   // (We already set the clear state of the room to be true.)
 
   // Reset all of the doors that we previously modified.
-  for (const doorSlot of g.run.room.doorSlotsModified) {
+  for (const doorSlot of v.room.doorSlotsModified) {
     const door = g.r.GetDoor(doorSlot);
     if (door === undefined) {
       continue;

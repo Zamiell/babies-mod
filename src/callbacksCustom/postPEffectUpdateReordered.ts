@@ -26,7 +26,7 @@ function main(player: EntityPlayer) {
     return;
   }
 
-  checkSoftlockDestroyPoops(baby);
+  checkSoftlockDestroyPoopsTNT(baby);
   checkSoftlockIsland(baby);
   checkTrapdoor(player, baby);
 }
@@ -35,7 +35,7 @@ function main(player: EntityPlayer) {
  * On certain babies, destroy all poops and TNT barrels after a certain amount of time to prevent
  * softlocks.
  */
-function checkSoftlockDestroyPoops(baby: BabyDescription) {
+function checkSoftlockDestroyPoopsTNT(baby: BabyDescription) {
   const roomFrameCount = g.r.GetFrameCount();
 
   // Check to see if this baby needs the softlock prevention.
