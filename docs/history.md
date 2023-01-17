@@ -3,7 +3,7 @@
 <!-- cspell:ignore cantgirl,Finalkids,Hispa,lenamek,Moucheron,Quipet,Sanio,sisuka -->
 <!-- markdownlint-disable MD001 -->
 
-### _v1.5.2_ - January 14th, 2023
+### _v1.6.0_ - January 14th, 2023
 
 - Revival items are now removed from pools at the start of a run when starting as Random Baby.
 - Changed babies:
