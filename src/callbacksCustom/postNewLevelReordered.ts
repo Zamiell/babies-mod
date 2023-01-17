@@ -52,11 +52,6 @@ function setNewBaby(player: EntityPlayer) {
   // `babyCountersRoom` are reset in the `POST_NEW_ROOM` callback.
   g.run.babyFrame = 0;
   // `babyTears` are reset in the `POST_NEW_ROOM` callback.
-  g.run.babyNPC = {
-    entityType: 0,
-    variant: 0,
-    subType: 0,
-  };
   g.run.babySprite = null;
 
   // Display text describing the new baby.
