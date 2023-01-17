@@ -11,6 +11,7 @@
   - Bandaid Baby (#88) - 50% chance to spawn a random pedestal item on room clear - Now has a 50% chance to spawn a pedestal item (instead of 100%).
   - One Tooth Baby (#123) - Spawn a Bishop on hit
   - Ninkumpoop Baby (#129) - All chests are Old Chests
+  - Libra Baby (#170) - 32 seconds of invulnerability on hit
   - Rider Baby (#295) - Starts with A Pony + blindfolded - The Pony damage is no longer modified.
   - Goblin Baby (#324) - Extra item after boss if no damage taken on floor
   - Locust Baby (#345) - Starts with 20 Abyss Locusts + blindfolded

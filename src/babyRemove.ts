@@ -1,5 +1,9 @@
 import { CollectibleType } from "isaac-typescript-definitions";
-import { removeDeadEyeMultiplier, setBlindfold } from "isaacscript-common";
+import {
+  removeDeadEyeMultiplier,
+  repeat,
+  setBlindfold,
+} from "isaacscript-common";
 import { g } from "./globals";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 import { getCurrentBaby } from "./utilsBaby";
@@ -30,9 +34,13 @@ export function babyRemove(player: EntityPlayer, oldBabyCounters: int): void {
 
   // If we are on a trinket baby, remove the trinket.
   if (baby.trinket !== undefined) {
-    // It should be impossible for the player to have picked up another copy of the trinket, because
-    // we removed it from pools. Thus, this should always remove the smelted trinket.
-    player.TryRemoveTrinket(baby.trinket);
+    const { trinket } = baby;
+    const num = baby.num ?? 1;
+    repeat(num, () => {
+      // It should be impossible for the player to have picked up another copy of the trinket,
+      // because we removed it from pools. Thus, this should always remove the smelted trinket.
+      player.TryRemoveTrinket(trinket);
+    });
   }
 
   // Remove the Dead Eye multiplier.

@@ -1483,9 +1483,12 @@ export const BABIES = {
   // 170
   [RandomBabyType.LIBRA]: {
     name: "Libra Baby",
-    description: "Starts with Libra",
+    description: "32 seconds of invulnerability on hit",
     sprite: "170_baby_libra.png",
-    item: CollectibleType.LIBRA,
+    trinket: TrinketType.BLIND_RAGE,
+    // 60 frames is the normal amount of invulnerability frames. Each trinket doubles it. Thus, 4
+    // trinkets gives 960 invulnerability frames (32 seconds).
+    num: 4,
   },
 
   // 171
@@ -3009,11 +3012,11 @@ export const BABIES = {
   // 345
   [RandomBabyType.LOCUST]: {
     name: "Locust Baby",
-    description: "Starts with 20 Abyss Locusts + blindfolded",
+    description: "Starts with 20 Abyss locusts + blindfolded",
     sprite: "345_baby_locust.png",
     blindfolded: true,
+    trinket: TrinketType.APOLLYONS_BEST_FRIEND,
     num: 20,
-    class: bc.LocustBaby,
   },
 
   // 346
