@@ -356,6 +356,7 @@ export function spawnRandomPickup(
   }
 }
 
+/** Helper function to spawn a slot on a free position, spawn a poof, and play a sound effect. */
 export function spawnSlotHelper(
   slotVariant: SlotVariant,
   startingPosition: Vector,

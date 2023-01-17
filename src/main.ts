@@ -16,24 +16,29 @@ import * as postNewLevelReordered from "./callbacksCustom/postNewLevelReordered"
 import * as postNewRoomReordered from "./callbacksCustom/postNewRoomReordered";
 import * as postPEffectUpdateReordered from "./callbacksCustom/postPEffectUpdateReordered";
 import * as postPlayerChangeType from "./callbacksCustom/postPlayerChangeType";
+import { Baby } from "./classes/Baby";
 import { IS_DEV, MOD_NAME, VERSION } from "./constants";
 import { initCostumeProtector } from "./costumes";
+import { RandomBabyType } from "./enums/RandomBabyType";
 import { mod } from "./mod";
+import { BABIES } from "./objects/babies";
+import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 
 main();
 
 function main() {
-  initCostumeProtector();
-  welcomeBanner();
-  babiesCheckValid();
-  registerCallbacksMain();
-  registerCallbacksCustom();
-
   if (IS_DEV) {
     setLogFunctionsGlobal();
     setTracebackFunctionsGlobal();
     mod.saveDataManagerSetGlobal();
   }
+
+  initCostumeProtector();
+  welcomeBanner();
+  babiesCheckValid();
+  registerCallbacksMain();
+  registerCallbacksCustom();
+  initBabyClassMap(); // This must be after all normal callback registration.
 }
 
 function welcomeBanner() {
@@ -61,4 +66,21 @@ function registerCallbacksCustom() {
   postNewRoomReordered.init();
   postPEffectUpdateReordered.init();
   postPlayerChangeType.init();
+}
+
+/**
+ * We want to only instantiate the baby classes after the normal callbacks have been registered.
+ * This is because we need to cache some API calls in order to prevent crashes.
+ */
+function initBabyClassMap() {
+  for (const [babyTypeString, babyDescription] of Object.entries(BABIES)) {
+    const babyType = babyTypeString as unknown as RandomBabyType;
+
+    if ("class" in babyDescription) {
+      const babyClassMap = BABY_CLASS_MAP as Map<RandomBabyType, Baby>;
+      // eslint-disable-next-line new-cap
+      const babyClass = new babyDescription.class(babyType, babyDescription);
+      babyClassMap.set(babyType, babyClass);
+    }
+  }
 }

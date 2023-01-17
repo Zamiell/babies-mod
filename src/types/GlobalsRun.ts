@@ -52,12 +52,7 @@ export class GlobalsRun {
   babyExplosions: GlobalsRunBabyExplosion[] = [];
   babySprite: Sprite | null = null;
 
-  // Item-specific variables
-  flockOfSuccubi = false;
-  clockworkAssemblyRNG = newRNG();
-
   constructor(startSeed = getRandomSeed()) {
     setSeed(this.rng, startSeed);
-    setSeed(this.clockworkAssemblyRNG, startSeed);
   }
 }

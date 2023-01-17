@@ -15,8 +15,6 @@ export const FADED_BLUE = Color(0, 0, 1, 0.7);
 export const FADED_RED = Color(1, 0, 0, 0.7);
 export const FADED_YELLOW = Color(1, 1, 0, 0.7);
 
-export const NUM_SUCCUBI_IN_FLOCK = 10;
-
 export const ROOM_TYPES_TO_NOT_TRANSFORM: ReadonlySet<RoomType> = new Set([
   RoomType.DEFAULT, // 1
   // I AM ERROR rooms should not be converted so that they have a way to escape.

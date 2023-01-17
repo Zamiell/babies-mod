@@ -1,4 +1,4 @@
-import { CollectibleType, GridRoom } from "isaac-typescript-definitions";
+import { GridRoom } from "isaac-typescript-definitions";
 import {
   game,
   getRoomGridIndex,
@@ -8,10 +8,8 @@ import {
   getRoomVariant,
   log,
   ModCallbackCustom,
-  repeat,
 } from "isaacscript-common";
 import { updateCachedAPIFunctions } from "../cache";
-import { NUM_SUCCUBI_IN_FLOCK } from "../constants";
 import { g } from "../globals";
 import { mod } from "../mod";
 import { GlobalsRunBabyTears } from "../types/GlobalsRunBabyTears";
@@ -49,9 +47,6 @@ function main() {
   g.run.babyCountersRoom = 0;
   g.run.babyTears = new GlobalsRunBabyTears();
 
-  // Handle items that are not tied to specific babies.
-  resetFlockOfSuccubi();
-
   // Do nothing if we are not a baby.
   const [babyType] = getCurrentBaby();
   if (babyType === -1) {
@@ -65,16 +60,4 @@ function stopDrawingBabyIntroText() {
   if (g.run.drawIntro) {
     g.run.drawIntro = false;
   }
-}
-
-function resetFlockOfSuccubi() {
-  if (!g.run.flockOfSuccubi) {
-    return;
-  }
-  g.run.flockOfSuccubi = false;
-
-  const player = Isaac.GetPlayer();
-  repeat(NUM_SUCCUBI_IN_FLOCK, () => {
-    player.RemoveCollectible(CollectibleType.SUCCUBUS);
-  });
 }

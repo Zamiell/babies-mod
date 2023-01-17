@@ -3589,6 +3589,8 @@ export const BABIES = {
     description: "Starts with Flock of Succubi",
     sprite: "409_baby_coolghost.png",
     item: CollectibleTypeCustom.FLOCK_OF_SUCCUBI,
+    num: 10,
+    class: bc.CoolGhostBaby,
   },
 
   // 410
@@ -4277,6 +4279,7 @@ export const BABIES = {
     description: "Starts with Clockwork Assembly",
     sprite: "489_baby_factory.png",
     item: CollectibleTypeCustom.CLOCKWORK_ASSEMBLY,
+    class: bc.FactoryBaby,
   },
 
   // 490
