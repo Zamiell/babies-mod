@@ -19,7 +19,7 @@ export class GlobalsRun {
   level = new GlobalsRunLevel();
 
   // Tracking per room
-  room: GlobalsRunRoom;
+  room = new GlobalsRunRoom();
 
   // Temporary variables
   showIntroFrame = 0;
@@ -58,8 +58,6 @@ export class GlobalsRun {
   craneGameRNG = newRNG();
 
   constructor(startSeed = getRandomSeed()) {
-    this.room = new GlobalsRunRoom(startSeed);
-
     setSeed(this.rng, startSeed);
     setSeed(this.clockworkAssemblyRNG, startSeed);
     setSeed(this.craneGameRNG, startSeed);

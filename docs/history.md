@@ -7,7 +7,9 @@
 
 - Revival items are now removed from pools at the start of a run when starting as Random Baby.
 - Changed babies:
+  - Choke Baby (#80) - Summons random portals
   - Bandaid Baby (#88) - 50% chance to spawn a random pedestal item on room clear - Now has a 50% chance to spawn a pedestal item (instead of 100%).
+  - One Tooth Baby (#123) - Spawn a Bishop on hit
   - Ninkumpoop Baby (#129) - All chests are Old Chests
   - Rider Baby (#295) - Starts with A Pony + blindfolded - The Pony damage is no longer modified.
   - Goblin Baby (#324) - Extra item after boss if no damage taken on floor
@@ -28,6 +30,7 @@
   - Doleful Baby (#572) - Starts with The Intruder
   - Cubic Baby (#573) - Starts with Brimstone Bombs
   - Food Reviewer Baby (#574) - All items are food items
+- Thanks to Gamonymous for helping with the effects.
 
 ### _v1.5.2_ - August 14th, 2022
 

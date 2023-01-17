@@ -7,7 +7,7 @@ import {
 import { everyNSeconds } from "../../utils";
 import { Baby } from "../Baby";
 
-/** Ventricle Razor effect every 15 seconds. */
+/** Ventricle Razor effect every N seconds. */
 export class CloudBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {

@@ -712,10 +712,10 @@ export const BABIES = {
   // 80
   [RandomBabyType.CHOKE]: {
     name: "Choke Baby",
-    description: "Starts with Kidney Stone",
+    description: "Summons random portals",
     sprite: "080_baby_choke.png",
-    item: CollectibleType.KIDNEY_STONE,
-    requireTears: true,
+    num: 2, // Seconds between portals changing.
+    class: bc.ChokeBaby,
   },
 
   // 81
@@ -1083,10 +1083,9 @@ export const BABIES = {
   // 123
   [RandomBabyType.ONE_TOOTH]: {
     name: "One Tooth Baby",
-    description: "Starts with Rainbow Worm",
+    description: "Spawn a Bishop on hit",
     sprite: "123_baby_onetooth.png",
-    trinket: TrinketType.RAINBOW_WORM,
-    requireTears: true,
+    class: bc.OneToothBaby,
   },
 
   // 124
