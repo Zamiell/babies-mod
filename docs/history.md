@@ -3,7 +3,7 @@
 <!-- cspell:ignore cantgirl,Finalkids,Hispa,lenamek,Moucheron,Quipet,Sanio,sisuka -->
 <!-- markdownlint-disable MD001 -->
 
-### _v1.6.1_ - January 15th, 2023 (Unreleased)
+### _v1.6.1_ - January 15th, 2023
 
 - Skull Baby (#211) - Shockwave bombs - The shockwaves no longer deals damage to the player.
 

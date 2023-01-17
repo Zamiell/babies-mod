@@ -1,6 +1,7 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import {
   getPlayerFromEntity,
+  getTSTLClassName,
   ModCallbackCustom,
   ModFeature,
   SaveData,
@@ -73,8 +74,15 @@ export class Baby extends ModFeature {
    * the parent class constructor because they do not have access to the child properties.)
    */
   saveDataManager(babyClassWithV: { v: SaveData }): void {
+    const className = getTSTLClassName(this);
+    if (className === undefined) {
+      error(
+        "Failed to get the class name of the class while registering the save data manager.",
+      );
+    }
+
     mod.saveDataManager(
-      this,
+      className,
       babyClassWithV.v,
       () => g.run.babyType === this.babyType,
     );
