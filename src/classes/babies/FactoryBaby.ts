@@ -4,7 +4,7 @@ import {
   SlotVariant,
 } from "isaac-typescript-definitions";
 import { Callback } from "isaacscript-common";
-import { CollectibleTypeCustom } from "../../types/CollectibleTypeCustom";
+import { CollectibleTypeCustom } from "../../enums/CollectibleTypeCustom";
 import { spawnSlotHelper } from "../../utils";
 import { Baby } from "../Baby";
 

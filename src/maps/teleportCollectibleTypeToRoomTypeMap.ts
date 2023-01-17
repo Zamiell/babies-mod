@@ -1,5 +1,5 @@
 import { CollectibleType, RoomType } from "isaac-typescript-definitions";
-import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
+import { CollectibleTypeCustom } from "../enums/CollectibleTypeCustom";
 
 export const TELEPORT_COLLECTIBLE_TYPE_TO_ROOM_TYPE_MAP: ReadonlyMap<
   CollectibleType,

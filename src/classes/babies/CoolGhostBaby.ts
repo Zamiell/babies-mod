@@ -6,9 +6,9 @@ import {
   removeCollectibleFromItemTracker,
   repeat,
 } from "isaacscript-common";
+import { CollectibleTypeCustom } from "../../enums/CollectibleTypeCustom";
 import { RandomBabyType } from "../../enums/RandomBabyType";
 import { BabyDescription } from "../../types/BabyDescription";
-import { CollectibleTypeCustom } from "../../types/CollectibleTypeCustom";
 import { Baby } from "../Baby";
 
 /** Starts with Flock of Succubi. */

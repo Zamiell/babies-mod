@@ -8,7 +8,7 @@ import {
   getCollectibleMaxCharges,
   playChargeSoundEffect,
 } from "isaacscript-common";
-import { CollectibleTypeCustom } from "../../types/CollectibleTypeCustom";
+import { CollectibleTypeCustom } from "../../enums/CollectibleTypeCustom";
 import { Baby } from "../Baby";
 
 /** Starts with Charging Station. */

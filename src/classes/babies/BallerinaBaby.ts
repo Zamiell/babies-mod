@@ -3,8 +3,8 @@ import {
   ModCallbackCustom,
   useActiveItemTemp,
 } from "isaacscript-common";
+import { CollectibleTypeCustom } from "../../enums/CollectibleTypeCustom";
 import { g } from "../../globals";
-import { CollectibleTypeCustom } from "../../types/CollectibleTypeCustom";
 import { Baby } from "../Baby";
 
 /** Summons a Restock Machine after N hits. */

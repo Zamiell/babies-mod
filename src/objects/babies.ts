@@ -15,9 +15,9 @@ import {
 import { HasAllEnumKeys } from "isaacscript-common";
 import { Incubus } from "../classes/babies/familiars/Incubus";
 import * as bc from "../classes/babyClasses";
+import { CollectibleTypeCustom } from "../enums/CollectibleTypeCustom";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { BabyDescription } from "../types/BabyDescription";
-import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
 
 export const BABIES = {
   // 0

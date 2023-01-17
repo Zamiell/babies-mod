@@ -12,9 +12,13 @@ import {
 } from "isaacscript-common";
 import { RandomBabyType } from "../../enums/RandomBabyType";
 import { BabyDescription } from "../../types/BabyDescription";
-import { PoopDescription } from "../../types/PoopDescription";
 import { spawnRandomPickup } from "../../utils";
 import { Baby } from "../Baby";
+
+interface PoopDescription {
+  roomListIndex: int;
+  gridIndex: int;
+}
 
 /** Destroying poops spawns random pickups. */
 export class AtePoopBaby extends Baby {

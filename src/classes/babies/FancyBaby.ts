@@ -17,11 +17,11 @@ import {
   PickingUpItemCollectible,
   teleport,
 } from "isaacscript-common";
+import { CollectibleTypeCustom } from "../../enums/CollectibleTypeCustom";
 import { g } from "../../globals";
 import { TELEPORT_COLLECTIBLE_TYPE_TO_ROOM_TYPE_MAP } from "../../maps/teleportCollectibleTypeToRoomTypeMap";
 import { TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP } from "../../maps/teleportRoomTypeToItemAndPriceMap";
 import { mod } from "../../mod";
-import { CollectibleTypeCustom } from "../../types/CollectibleTypeCustom";
 import { isRerolledCollectibleBuggedHeart } from "../../utils";
 import { Baby } from "../Baby";
 

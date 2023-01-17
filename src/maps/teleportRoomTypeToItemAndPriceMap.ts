@@ -1,5 +1,5 @@
 import { CollectibleType, RoomType } from "isaac-typescript-definitions";
-import { CollectibleTypeCustom } from "../types/CollectibleTypeCustom";
+import { CollectibleTypeCustom } from "../enums/CollectibleTypeCustom";
 
 enum TeleportPrice {
   TEN = 10,
