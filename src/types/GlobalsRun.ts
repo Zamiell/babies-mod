@@ -1,6 +1,5 @@
 import { getRandomSeed, newRNG, setSeed } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
-import { GlobalsRunBabyTears } from "./GlobalsRunBabyTears";
 
 // Per-run variables
 export class GlobalsRun {
@@ -28,8 +27,6 @@ export class GlobalsRun {
   babyCountersRoom = 0;
   /** Initialized to 0 at the beginning of every floor. */
   babyFrame = 0;
-  /** Initialized at the beginning of every room. */
-  babyTears = new GlobalsRunBabyTears();
 
   babySprite: Sprite | null = null;
 

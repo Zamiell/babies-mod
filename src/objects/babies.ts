@@ -979,6 +979,7 @@ export const BABIES = {
     description: "Shoots an extra tear every 3rd shot",
     sprite: "111_baby_eyemouth.png",
     requireTears: true,
+    num: 3,
     class: bc.EyemouthBaby,
   },
 

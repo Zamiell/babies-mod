@@ -2742,10 +2742,10 @@ isaacscript-common-ts@^1.6.0:
   resolved "https://registry.yarnpkg.com/isaacscript-common-ts/-/isaacscript-common-ts-1.7.0.tgz#78ad61efdb80000c39f60f39fad6cdf0e07b65f2"
   integrity sha512-tjrmPHnRUu7EKIuabIpi8BwGKXm52oNhdhwTC+K/bkPdrCLemptWfRv+8sAYqb2htQWFPuTqdlttpCLcaiwFMA==
 
-isaacscript-common@^20.9.1:
-  version "20.9.1"
-  resolved "https://registry.yarnpkg.com/isaacscript-common/-/isaacscript-common-20.9.1.tgz#42a53293d5dc061d69f11be4c5e3583a44c33ecf"
-  integrity sha512-Q/zTolSeB5b9lbs0/XAusVlA1HCvj4OMMjqzcLjCPbZfvnapqjVcGSnUJmqnmqWojSmfrcxSH5QvzPDx8GZYPA==
+isaacscript-common@^20.11.0:
+  version "20.11.0"
+  resolved "https://registry.yarnpkg.com/isaacscript-common/-/isaacscript-common-20.11.0.tgz#1d09f9c9ff5e1d1fe730c5890db643aaa7b0af22"
+  integrity sha512-RBfElRPPZQ7K4Cs7m0dLD3jWdhM/BgwiNUfiFgEUijbMWaIAHpBgNF8jlVCLUIyS1QYx72USADrZ+PI/hnTaVg==
   dependencies:
     isaac-typescript-definitions "^11.0.0"
 

@@ -1,45 +1,38 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import {
-  Callback,
-  CallbackCustom,
-  game,
-  ModCallbackCustom,
-} from "isaacscript-common";
-import { g } from "../../globals";
+import { Callback, getPlayerFromEntity } from "isaacscript-common";
+import { RandomBabyType } from "../../enums/RandomBabyType";
+import { mod } from "../../mod";
+import { BabyDescription } from "../../types/BabyDescription";
 import { Baby } from "../Baby";
 
 /** Double tears. */
 export class MernBaby extends Baby {
+  v = {
+    run: {
+      numFiredTears: 0,
+    },
+  };
+
+  constructor(babyType: RandomBabyType, baby: BabyDescription) {
+    super(babyType, baby);
+    this.saveDataManager(this.v);
+  }
+
   // 61
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
-    const gameFrameCount = game.GetFrameCount();
-
-    g.run.babyTears.numFired++;
-    if (g.run.babyTears.numFired >= 2) {
-      // Mark to fire a tear 1 frame from now.
-      g.run.babyTears.numFired = 0;
-      g.run.babyTears.frame = gameFrameCount + 1;
-      g.run.babyTears.velocity = Vector(tear.Velocity.X, tear.Velocity.Y);
+    const player = getPlayerFromEntity(tear);
+    if (player === undefined) {
+      return;
     }
-  }
 
-  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
-  postPEffectUpdateReordered(player: EntityPlayer): void {
-    const gameFrameCount = game.GetFrameCount();
+    this.v.run.numFiredTears++;
+    if (this.v.run.numFiredTears >= 2) {
+      this.v.run.numFiredTears = 0;
 
-    if (
-      g.run.babyTears.frame !== 0 &&
-      gameFrameCount >= g.run.babyTears.frame
-    ) {
-      g.run.babyTears.frame = 0;
-      player.FireTear(
-        player.Position,
-        g.run.babyTears.velocity,
-        false,
-        true,
-        false,
-      );
+      mod.runNextGameFrame(() => {
+        player.FireTear(tear.Position, tear.Velocity, false, true, false);
+      }, true);
     }
   }
 }

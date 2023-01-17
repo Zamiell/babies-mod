@@ -20,8 +20,8 @@ export class WorryBaby extends Baby {
   }
 
   queueFutureTeleport(player: EntityPlayer): void {
-    mod.runInNGameFrames(() => {
+    mod.runNextGameFrame(() => {
       useActiveItemTemp(player, CollectibleType.TELEPORT);
-    }, 1);
+    });
   }
 }

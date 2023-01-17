@@ -12,7 +12,6 @@ import {
 import { updateCachedAPIFunctions } from "../cache";
 import { g } from "../globals";
 import { mod } from "../mod";
-import { GlobalsRunBabyTears } from "../types/GlobalsRunBabyTears";
 import { getCurrentBaby } from "../utilsBaby";
 
 export function init(): void {
@@ -40,7 +39,6 @@ function main() {
 
   // Reset baby-specific variables
   g.run.babyCountersRoom = 0;
-  g.run.babyTears = new GlobalsRunBabyTears();
 
   // Do nothing if we are not a baby.
   const [babyType] = getCurrentBaby();
