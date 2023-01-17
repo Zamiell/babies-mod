@@ -1,10 +1,24 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 import { ModCallbackCustom } from "isaacscript-common";
+import { getBabyItemsSet } from "../babyCheckValid";
 import { softlockPreventionPostPEffectUpdateReordered } from "../features/softlockPrevention";
 import { mod } from "../mod";
 import { BabyDescription } from "../types/BabyDescription";
 import { isValidRandomBabyPlayer } from "../utils";
 import { getCurrentBaby } from "../utilsBaby";
+
+const NEXT_FLOOR_PLAYER_ANIMATIONS: ReadonlySet<string> = new Set([
+  "Trapdoor",
+  "Trapdoor2",
+  "LightTravel",
+]);
+
+const MAPPING_COLLECTIBLE_TYPES = [
+  CollectibleType.COMPASS, // 21
+  CollectibleType.TREASURE_MAP, // 54
+  CollectibleType.BLUE_MAP, // 246
+  CollectibleType.MIND, // 333
+] as const;
 
 export function init(): void {
   mod.AddCallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED, main);
@@ -21,53 +35,29 @@ function main(player: EntityPlayer) {
   }
 
   softlockPreventionPostPEffectUpdateReordered(baby);
-  checkTrapdoor(player, baby);
+  checkPlayerGoingToNextFloor(player, baby);
 }
 
 /**
  * If this baby gives a mapping item, we cannot wait until the next floor to remove it because its
  * effect will have already been applied. So, we need to monitor for the trapdoor animation.
  */
-function checkTrapdoor(player: EntityPlayer, baby: BabyDescription) {
-  const playerSprite = player.GetSprite();
+function checkPlayerGoingToNextFloor(
+  player: EntityPlayer,
+  baby: BabyDescription,
+) {
+  const sprite = player.GetSprite();
+  const animation = sprite.GetAnimation();
 
-  if (
-    !playerSprite.IsPlaying("Trapdoor") &&
-    !playerSprite.IsPlaying("Trapdoor2") &&
-    !playerSprite.IsPlaying("LightTravel")
-  ) {
+  if (NEXT_FLOOR_PLAYER_ANIMATIONS.has(animation)) {
     return;
   }
 
-  // 21
-  if (
-    baby.item === CollectibleType.COMPASS ||
-    baby.item2 === CollectibleType.COMPASS
-  ) {
-    player.RemoveCollectible(CollectibleType.COMPASS);
-  }
+  const babyItemsSet = getBabyItemsSet(baby);
 
-  // 54
-  if (
-    baby.item === CollectibleType.TREASURE_MAP ||
-    baby.item2 === CollectibleType.TREASURE_MAP
-  ) {
-    player.RemoveCollectible(CollectibleType.TREASURE_MAP);
-  }
-
-  // 246
-  if (
-    baby.item === CollectibleType.BLUE_MAP ||
-    baby.item2 === CollectibleType.BLUE_MAP
-  ) {
-    player.RemoveCollectible(CollectibleType.BLUE_MAP);
-  }
-
-  // 333
-  if (
-    baby.item === CollectibleType.MIND ||
-    baby.item2 === CollectibleType.MIND
-  ) {
-    player.RemoveCollectible(CollectibleType.MIND);
+  for (const collectibleType of MAPPING_COLLECTIBLE_TYPES) {
+    if (babyItemsSet.has(collectibleType)) {
+      player.RemoveCollectible(collectibleType);
+    }
   }
 }

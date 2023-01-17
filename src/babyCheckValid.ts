@@ -346,7 +346,7 @@ function checkBabyClass(player: EntityPlayer, babyClass: Baby): boolean {
   return babyClass.isValid(player);
 }
 
-function getBabyItemsSet(baby: BabyDescription): Set<CollectibleType> {
+export function getBabyItemsSet(baby: BabyDescription): Set<CollectibleType> {
   const babyItemsSet = new Set<CollectibleType>();
   if (baby.item !== undefined) {
     babyItemsSet.add(baby.item);
