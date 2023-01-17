@@ -125,8 +125,9 @@ function logBabyInvalid(baby: BabyDescription, i: string, msg: string) {
   log(`ERROR: ${baby.name} (#${i}) ${msg}`);
 }
 
+/** Use this function to find babies that are uninteresting. */
 function logSpecificBabies() {
-  for (const [i, baby] of Object.entries(BABIES)) {
+  for (const [_i, baby] of Object.entries(BABIES)) {
     if (
       "item" in baby &&
       !("class" in baby) &&
@@ -138,7 +139,7 @@ function logSpecificBabies() {
       if (collectibleName === "Unknown") {
         collectibleName = `#${baby.item}`;
       }
-      log(`DEBUG: ${baby.name} (#${i}) - ${collectibleName}`);
+      // log(`DEBUG: ${baby.name} (#${i}) - ${collectibleName}`);
     }
   }
 }
