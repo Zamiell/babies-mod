@@ -1,12 +1,6 @@
-import { CollectibleType, GridEntityType } from "isaac-typescript-definitions";
-import {
-  GAME_FRAMES_PER_SECOND,
-  getGridEntities,
-  log,
-  ModCallbackCustom,
-  openAllDoors,
-} from "isaacscript-common";
-import { g } from "../globals";
+import { CollectibleType } from "isaac-typescript-definitions";
+import { ModCallbackCustom } from "isaacscript-common";
+import { softlockPreventionPostPEffectUpdateReordered } from "../features/softlockPrevention";
 import { mod } from "../mod";
 import { BabyDescription } from "../types/BabyDescription";
 import { isValidRandomBabyPlayer } from "../utils";
@@ -26,82 +20,13 @@ function main(player: EntityPlayer) {
     return;
   }
 
-  checkSoftlockDestroyPoopsTNT(baby);
-  checkSoftlockIsland(baby);
+  softlockPreventionPostPEffectUpdateReordered(baby);
   checkTrapdoor(player, baby);
 }
 
 /**
- * On certain babies, destroy all poops and TNT barrels after a certain amount of time to prevent
- * softlocks.
- */
-function checkSoftlockDestroyPoopsTNT(baby: BabyDescription) {
-  const roomFrameCount = g.r.GetFrameCount();
-
-  // Check to see if this baby needs the softlock prevention.
-  if (baby.softlockPreventionDestroyPoops === undefined) {
-    return;
-  }
-
-  // Check to see if we already destroyed the grid entities in the room.
-  if (g.run.room.softlock) {
-    return;
-  }
-
-  // Check to see if they have been in the room long enough.
-  const secondsThreshold = 15;
-  if (roomFrameCount < secondsThreshold * GAME_FRAMES_PER_SECOND) {
-    return;
-  }
-
-  g.run.room.softlock = true;
-
-  // Kill some grid entities in the room to prevent softlocks in some specific rooms. (Fireplaces
-  // will not cause softlocks since they are killable with The Candle.)
-  const gridEntities = getGridEntities(
-    GridEntityType.TNT, // 12
-    GridEntityType.POOP, // 14
-  );
-  for (const gridEntity of gridEntities) {
-    gridEntity.Destroy(true);
-  }
-
-  log("Destroyed all poops & TNT barrels to prevent a softlock.");
-}
-
-/**
- * On certain babies, open the doors after 30 seconds to prevent softlocks with Hosts and island
- * enemies.
- */
-function checkSoftlockIsland(baby: BabyDescription) {
-  const roomFrameCount = g.r.GetFrameCount();
-
-  // Check to see if this baby needs the softlock prevention.
-  if (baby.softlockPreventionIsland === undefined) {
-    return;
-  }
-
-  // Check to see if we already opened the doors in the room.
-  if (g.run.room.softlock) {
-    return;
-  }
-
-  // Check to see if they have been in the room long enough.
-  const secondsThreshold = 30;
-  if (roomFrameCount < secondsThreshold * GAME_FRAMES_PER_SECOND) {
-    return;
-  }
-
-  g.run.room.softlock = true;
-  g.r.SetClear(true);
-  openAllDoors();
-
-  log("Opened all doors to prevent a softlock.");
-}
-
-/**
  * If this baby gives a mapping item, we cannot wait until the next floor to remove it because its
- * effect will have already been applied So, we need to monitor for the trapdoor animation.
+ * effect will have already been applied. So, we need to monitor for the trapdoor animation.
  */
 function checkTrapdoor(player: EntityPlayer, baby: BabyDescription) {
   const playerSprite = player.GetSprite();

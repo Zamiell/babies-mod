@@ -34,11 +34,11 @@ export class Baby extends ModFeature {
     return shouldCallbackFireFunc(modCallback, ...callbackArgs);
   };
 
-  constructor(babyType: RandomBabyType, babyDescription: BabyDescription) {
+  constructor(babyType: RandomBabyType, baby: BabyDescription) {
     super(mod);
 
     this.babyType = babyType;
-    this.babyDescription = babyDescription;
+    this.babyDescription = baby;
   }
 
   getAttribute<T extends keyof BabyDescription>(

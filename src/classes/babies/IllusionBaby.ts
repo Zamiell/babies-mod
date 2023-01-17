@@ -14,8 +14,8 @@ export class IllusionBaby extends Baby {
     },
   };
 
-  constructor(babyType: RandomBabyType, babyDescription: BabyDescription) {
-    super(babyType, babyDescription);
+  constructor(babyType: RandomBabyType, baby: BabyDescription) {
+    super(babyType, baby);
     this.saveDataManager(this.v);
   }
 

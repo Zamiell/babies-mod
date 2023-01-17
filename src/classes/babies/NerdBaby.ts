@@ -2,7 +2,7 @@ import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
 import {
   pseudoRoomClearPostNewRoomReordered,
   pseudoRoomClearPostPEffectUpdateReordered,
-} from "../../pseudoRoomClear";
+} from "../../features/pseudoRoomClear";
 import { Baby } from "../Baby";
 
 /** Locked doors in uncleared rooms. */

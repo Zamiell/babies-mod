@@ -19,10 +19,11 @@ import { Baby } from "./classes/Baby";
 import { IS_DEV, MOD_NAME, VERSION } from "./constants";
 import { initCostumeProtector } from "./costumes";
 import { RandomBabyType } from "./enums/RandomBabyType";
+import { pseudoRoomClearInit } from "./features/pseudoRoomClear";
+import { softlockPreventionInit } from "./features/softlockPrevention";
 import { mod } from "./mod";
 import { BABIES } from "./objects/babies";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
-import { pseudoRoomClearInit } from "./pseudoRoomClear";
 
 main();
 
@@ -70,6 +71,7 @@ function registerCallbacksCustom() {
 
 function initFeatures() {
   pseudoRoomClearInit();
+  softlockPreventionInit();
 }
 
 /**
@@ -77,13 +79,13 @@ function initFeatures() {
  * This is because we need to cache some API calls in order to prevent crashes.
  */
 function initBabyClassMap() {
-  for (const [babyTypeString, babyDescription] of Object.entries(BABIES)) {
+  for (const [babyTypeString, baby] of Object.entries(BABIES)) {
     const babyType = babyTypeString as unknown as RandomBabyType;
 
-    if ("class" in babyDescription) {
+    if ("class" in baby) {
       const babyClassMap = BABY_CLASS_MAP as Map<RandomBabyType, Baby>;
       // eslint-disable-next-line new-cap
-      const babyClass = new babyDescription.class(babyType, babyDescription);
+      const babyClass = new baby.class(babyType, baby);
       babyClassMap.set(babyType, babyClass);
     }
   }

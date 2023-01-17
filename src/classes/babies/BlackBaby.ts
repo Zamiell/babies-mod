@@ -1,5 +1,5 @@
 import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
-import { pseudoRoomClearPostPEffectUpdateReordered } from "../../pseudoRoomClear";
+import { pseudoRoomClearPostPEffectUpdateReordered } from "../../features/pseudoRoomClear";
 import { Baby } from "../Baby";
 
 /** Curse Room doors in uncleared rooms. */

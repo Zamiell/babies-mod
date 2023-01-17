@@ -1,6 +1,6 @@
 import { ModCallback } from "isaac-typescript-definitions";
+import { pseudoRoomClearPostEntityKill } from "../features/pseudoRoomClear";
 import { mod } from "../mod";
-import { pseudoRoomClearPostEntityKill } from "../pseudoRoomClear";
 import { getCurrentBaby } from "../utilsBaby";
 
 export function init(): void {

@@ -7,9 +7,9 @@ import {
   isAllPressurePlatesPushed,
   log,
 } from "isaacscript-common";
-import { RandomBabyType } from "./enums/RandomBabyType";
-import { g } from "./globals";
-import { mod } from "./mod";
+import { RandomBabyType } from "../enums/RandomBabyType";
+import { g } from "../globals";
+import { mod } from "../mod";
 
 // Pseudo room clear should be disabled in certain room types.
 const ROOM_TYPE_BLACKLIST: ReadonlySet<RoomType> = new Set([
