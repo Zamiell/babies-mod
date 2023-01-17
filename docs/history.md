@@ -14,6 +14,7 @@
   - Rider Baby (#295) - Starts with A Pony + blindfolded - The Pony damage is no longer modified.
   - Goblin Baby (#324) - Extra item after boss if no damage taken on floor
   - Locust Baby (#345) - Starts with 20 Abyss Locusts + blindfolded
+  - Little Steven (#580) - Starts with 20 Ring Cap + golden bomb + blindfolded + explosion immunity
 - New babies:
   - Hex Baby (#560) - Starts with Eye of the Occult
   - Singing Baby (#561) - Starts with Astral Projection

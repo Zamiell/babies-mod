@@ -13,6 +13,7 @@ import {
   isChest,
   log,
   removeCollectibleFromItemTracker,
+  repeat,
   setBlindfold,
   setPlayerHealth,
   smeltTrinket,
@@ -101,7 +102,11 @@ export function babyAdd(player: EntityPlayer): void {
 
   // Check if this is a trinket baby.
   if (baby.trinket !== undefined) {
-    smeltTrinket(player, baby.trinket);
+    const num = baby.num ?? 1;
+    repeat(num, () => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      smeltTrinket(player, baby.trinket!);
+    });
     g.itemPool.RemoveTrinket(baby.trinket);
   }
 

@@ -3,11 +3,7 @@ import {
   ItemType,
   TrinketType,
 } from "isaac-typescript-definitions";
-import {
-  getCollectibleItemType,
-  getCollectibleName,
-  log,
-} from "isaacscript-common";
+import { getCollectibleItemType, log } from "isaacscript-common";
 import { BABIES } from "./objects/babies";
 import { BabyDescription } from "./types/BabyDescription";
 
@@ -127,6 +123,7 @@ function logBabyInvalid(baby: BabyDescription, i: string, msg: string) {
 
 function logSpecificBabies() {
   for (const [i, baby] of Object.entries(BABIES)) {
+    /*
     if (
       "item" in baby &&
       !("class" in baby) &&
@@ -139,6 +136,11 @@ function logSpecificBabies() {
         collectibleName = `#${baby.item}`;
       }
       log(`DEBUG: ${baby.name} (#${i}) - ${collectibleName}`);
+    }
+    */
+
+    if ("trinket" in baby && "num" in baby) {
+      log(`DEBUG: ${baby.name} (#${i})`);
     }
   }
 }

@@ -295,8 +295,8 @@ export const BABIES = {
     description: "Starts with Sad Bombs + golden bomb + blindfolded",
     sprite: "031_baby_rage.png",
     item: CollectibleType.SAD_BOMBS,
-    blindfolded: true,
     goldenBomb: true,
+    blindfolded: true,
   },
 
   // 32
@@ -2325,7 +2325,6 @@ export const BABIES = {
     sprite: "268_baby_squirrel.png",
     trinket: TrinketType.WALNUT,
     requireBombs: true,
-    num: 5,
     class: bc.SquirrelBaby,
   },
 
@@ -4791,8 +4790,8 @@ export const BABIES = {
     description: "Starts with Rocket in a Jar + golden bomb + blindfolded",
     sprite: "550_baby_bullet.png",
     item: CollectibleType.ROCKET_IN_A_JAR,
-    blindfolded: true,
     goldenBomb: true,
+    blindfolded: true,
   },
 
   // 551
@@ -5046,9 +5045,14 @@ export const BABIES = {
   // 580
   [RandomBabyType.LITTLE_STEVEN]: {
     name: "Little Steven", // CollectibleType.LITTLE_STEVEN (100)
-    description: "Starts with Chaos",
+    description:
+      "Starts with 20 Ring Cap + golden bomb + blindfolded + explosion immunity",
     sprite: "familiar_shooters_05_littlesteve.png",
-    item: CollectibleType.CHAOS,
+    trinket: TrinketType.RING_CAP,
+    num: 20,
+    goldenBomb: true,
+    blindfolded: true,
+    explosionImmunity: true,
   },
 
   // 581
