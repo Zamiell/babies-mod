@@ -16,6 +16,26 @@ import { Baby } from "../Baby";
 
 /** Spawns a random poop every N seconds. */
 export class ButtholeBaby extends Baby {
+  v = {
+    room: {
+      invulnerabilityUntilFrame: null as int | null,
+    },
+  };
+
+  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
+  entityTakeDmgPlayer(): boolean | undefined {
+    const gameFrameCount = game.GetFrameCount();
+
+    if (
+      this.v.room.invulnerabilityUntilFrame !== null &&
+      gameFrameCount < this.v.room.invulnerabilityUntilFrame
+    ) {
+      return false;
+    }
+
+    return undefined;
+  }
+
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {
     const gameFrameCount = game.GetFrameCount();
@@ -34,7 +54,7 @@ export class ButtholeBaby extends Baby {
       ) {
         // If the poop is this type, it will instantly damage the player, so give them some
         // invulnerability frames.
-        g.run.invulnerabilityUntilFrame = gameFrameCount + 25;
+        this.v.room.invulnerabilityUntilFrame = gameFrameCount + 25;
       }
 
       Isaac.GridSpawn(GridEntityType.POOP, poopVariant, player.Position);

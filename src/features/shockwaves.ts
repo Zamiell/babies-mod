@@ -14,7 +14,7 @@ import {
 import { g } from "../globals";
 import { mod } from "../mod";
 
-export interface ShockwaveDescription {
+interface ShockwaveDescription {
   gameFrameSpawned: int;
   position: Vector;
   velocity: Vector;

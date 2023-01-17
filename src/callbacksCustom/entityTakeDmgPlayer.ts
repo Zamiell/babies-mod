@@ -1,10 +1,5 @@
 import { DamageFlag } from "isaac-typescript-definitions";
-import {
-  game,
-  hasFlag,
-  isFirstPlayer,
-  ModCallbackCustom,
-} from "isaacscript-common";
+import { hasFlag, isFirstPlayer, ModCallbackCustom } from "isaacscript-common";
 import { g } from "../globals";
 import { mod } from "../mod";
 import { getCurrentBaby } from "../utilsBaby";
@@ -24,7 +19,6 @@ function main(
     return undefined;
   }
 
-  const gameFrameCount = game.GetFrameCount();
   const [babyType, baby] = getCurrentBaby();
   if (babyType === -1) {
     return undefined;
@@ -32,12 +26,6 @@ function main(
 
   // Check to see if the player is supposed to be temporarily invulnerable.
   if (g.run.invulnerable) {
-    return false;
-  }
-  if (
-    g.run.invulnerabilityUntilFrame !== null &&
-    gameFrameCount < g.run.invulnerabilityUntilFrame
-  ) {
     return false;
   }
 

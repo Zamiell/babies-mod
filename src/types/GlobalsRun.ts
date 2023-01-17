@@ -18,8 +18,6 @@ export class GlobalsRun {
   showVersionFrame = 0;
   /** Used to make the player temporarily invulnerable. */
   invulnerable = false;
-  /** Used to make the player temporarily invulnerable. */
-  invulnerabilityUntilFrame: int | null = null;
   dealingExtraDamage = false;
   gettingCollectible = false;
 
