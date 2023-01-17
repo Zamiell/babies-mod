@@ -13,7 +13,6 @@ import { babyRemove } from "../babyRemove";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { mod } from "../mod";
-import { GlobalsRunLevel } from "../types/GlobalsRunLevel";
 import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
 import { getCurrentBaby } from "../utilsBaby";
 
@@ -30,9 +29,6 @@ function main() {
   log(
     `MC_POST_NEW_LEVEL_REORDERED (Babies Mod) - Stage: ${stage}.${stageType} - Game frame: ${gameFrameCount} - Render frame: ${renderFrameCount}`,
   );
-
-  // Reset floor-related variables
-  g.run.level = new GlobalsRunLevel();
 
   const randomBabies = getPlayersOfType(PlayerTypeCustom.RANDOM_BABY);
   for (const randomBaby of randomBabies) {
