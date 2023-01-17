@@ -6,44 +6,44 @@ import {
 
 export interface BabyDescription {
   // Mandatory properties
-  name: string;
-  description: string;
-  sprite: string;
+  readonly name: string;
+  readonly description: string;
+  readonly sprite: string;
 
   // Optional properties
-  blindfolded?: boolean;
-  description2?: string;
-  explosionImmunity?: boolean;
-  flight?: boolean;
-  item?: CollectibleType;
-  item2?: CollectibleType;
-  item3?: CollectibleType;
-  itemNum?: int;
-  uncharged?: boolean;
-  trinket?: TrinketType;
-  goldenBomb?: boolean;
-  num?: int;
-  max?: int;
-  min?: int;
-  seed?: SeedEffect;
-  softlockPreventionDestroyPoops?: boolean;
-  softlockPreventionIsland?: boolean;
+  readonly blindfolded?: boolean;
+  readonly description2?: string;
+  readonly explosionImmunity?: boolean;
+  readonly flight?: boolean;
+  readonly item?: CollectibleType;
+  readonly item2?: CollectibleType;
+  readonly item3?: CollectibleType;
+  readonly itemNum?: int;
+  readonly uncharged?: boolean;
+  readonly trinket?: TrinketType;
+  readonly goldenBomb?: boolean;
+  readonly num?: int;
+  readonly max?: int;
+  readonly min?: int;
+  readonly seed?: SeedEffect;
+  readonly softlockPreventionDestroyPoops?: boolean;
+  readonly softlockPreventionIsland?: boolean;
 
   // Optional properties that specify selection restrictions.
-  requireTears?: boolean;
-  requireNoEndFloors?: boolean;
-  requireNumHits?: int;
+  readonly requireTears?: boolean;
+  readonly requireNoEndFloors?: boolean;
+  readonly requireNumHits?: int;
   /** Requires that the player has at least 1 bomb. */
-  requireBombs?: boolean;
+  readonly requireBombs?: boolean;
   /** Requires that the player has at least 1 coin. */
-  requireCoins?: boolean;
+  readonly requireCoins?: boolean;
   /** Requires that the player has at least 1 key. */
-  requireKeys?: boolean;
+  readonly requireKeys?: boolean;
 
   /**
    * The associated class that provides the logic for the baby, if any.
    *
    * (We cannot specify the type as `typeof Baby` since that would cause a dependency cycle.)
    */
-  class?: unknown;
+  readonly class?: unknown;
 }

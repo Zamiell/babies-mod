@@ -4112,8 +4112,9 @@ export const BABIES = {
     name: "Headphone Baby",
     description: "Soundwave tears",
     sprite: "470_baby_headphone.png",
+    trinket: TrinketType.FLAT_WORM,
+    num: 50,
     requireTears: true,
-    class: bc.HeadphoneBaby,
   },
 
   // 471

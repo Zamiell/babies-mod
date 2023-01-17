@@ -158,7 +158,6 @@ export { HalfSpiderBaby } from "./babies/HalfSpiderBaby";
 export { HandsomeMrFrogBaby } from "./babies/HandsomeMrFrogBaby";
 export { HangerBaby } from "./babies/HangerBaby";
 export { HareBaby } from "./babies/HareBaby";
-export { HeadphoneBaby } from "./babies/HeadphoneBaby";
 export { HeartBaby } from "./babies/HeartBaby";
 export { HelmetBaby } from "./babies/HelmetBaby";
 export { HeroBaby } from "./babies/HeroBaby";
