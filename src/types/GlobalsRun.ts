@@ -23,8 +23,6 @@ export class GlobalsRun {
   babyBool = false;
   /** Initialized to 0 at the beginning of every floor. */
   babyCounters = 0;
-  /** Initialized to 0 at the beginning of every room. */
-  babyCountersRoom = 0;
   /** Initialized to 0 at the beginning of every floor. */
   babyFrame = 0;
 

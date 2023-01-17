@@ -4,15 +4,30 @@ import {
   ModCallbackCustom,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { g } from "../../globals";
+import { RandomBabyType } from "../../enums/RandomBabyType";
+import { BabyDescription } from "../../types/BabyDescription";
 import { Baby } from "../Baby";
 
-/** Forget Me Now on 2nd hit (per room). */
+/** Forget Me Now on Nth hit (per room). */
 export class SteroidsBaby extends Baby {
+  v = {
+    room: {
+      numHits: 0,
+    },
+  };
+
+  constructor(babyType: RandomBabyType, baby: BabyDescription) {
+    super(babyType, baby);
+    this.saveDataManager(this.v);
+  }
+
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    g.run.babyCountersRoom++;
-    if (g.run.babyCountersRoom >= 2) {
+    const num = this.getAttribute("num");
+
+    this.v.room.numHits++;
+    if (this.v.room.numHits >= num) {
+      this.v.room.numHits = 0;
       useActiveItemTemp(player, CollectibleType.FORGET_ME_NOW);
     }
 

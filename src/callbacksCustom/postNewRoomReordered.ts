@@ -37,9 +37,6 @@ function main() {
     `MC_POST_NEW_ROOM_REORDERED - Room: ${roomType}.${roomVariant}.${roomSubType} - Stage ID: ${roomStageID} - Stage: ${stage}.${stageType} - Grid index: ${roomGridIndex}${roomGridIndexSuffix} - Game frame: ${gameFrameCount} - Render frame: ${renderFrameCount}`,
   );
 
-  // Reset baby-specific variables
-  g.run.babyCountersRoom = 0;
-
   // Do nothing if we are not a baby.
   const [babyType] = getCurrentBaby();
   if (babyType === -1) {
