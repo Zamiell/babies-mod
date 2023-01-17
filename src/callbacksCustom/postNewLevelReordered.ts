@@ -65,12 +65,6 @@ function getAndSetNewBabyInGlobals(player: EntityPlayer) {
   const levelSeed = g.l.GetDungeonPlacementSeed();
   const rng = newRNG(levelSeed);
 
-  // Don't get a new baby if we did not start the run as the Random Baby character.
-  if (!g.run.startedRunAsRandomBaby) {
-    g.run.babyType = null;
-    return;
-  }
-
   // It will become impossible to find a new baby if the list of past babies grows too large. (When
   // experimenting, it crashed upon reaching a size of 538, so reset it when it gets over 500 just
   // in case.)

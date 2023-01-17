@@ -4,8 +4,6 @@ import { RandomBabyType } from "../enums/RandomBabyType";
 // Per-run variables
 export class GlobalsRun {
   // Tracking per run
-  /** Set to true in the `POST_GAME_STARTED` callback. */
-  startedRunAsRandomBaby = false;
   babyType: RandomBabyType | null = null;
   drawIntro = false;
   rng = newRNG();

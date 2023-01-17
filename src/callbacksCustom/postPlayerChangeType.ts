@@ -1,22 +1,14 @@
-import { ModCallbackCustom } from "isaacscript-common";
+import { isCharacter, ModCallbackCustom } from "isaacscript-common";
 import { addPlayerToCostumeProtector } from "../costumes";
-import { g } from "../globals";
 import { mod } from "../mod";
-import { getCurrentBaby } from "../utilsBaby";
+import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
 
 export function init(): void {
   mod.AddCallbackCustom(ModCallbackCustom.POST_PLAYER_CHANGE_TYPE, main);
 }
 
 function main(player: EntityPlayer) {
-  if (!g.run.startedRunAsRandomBaby) {
-    return;
+  if (isCharacter(player, PlayerTypeCustom.RANDOM_BABY)) {
+    addPlayerToCostumeProtector(player);
   }
-
-  const [babyType] = getCurrentBaby();
-  if (babyType === -1) {
-    return;
-  }
-
-  addPlayerToCostumeProtector(player);
 }

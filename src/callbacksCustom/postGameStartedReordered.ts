@@ -96,10 +96,6 @@ function main(isContinued: boolean) {
 }
 
 function postGameStartedRandomBaby() {
-  // We want to keep track that we started the run as the "Random Baby" character, in case the
-  // player changes their character later through Judas' Shadow, etc.
-  g.run.startedRunAsRandomBaby = true;
-
   // Random Baby always starts with the Schoolbag.
   const randomBabies = getPlayersOfType(PlayerTypeCustom.RANDOM_BABY);
   for (const randomBaby of randomBabies) {
