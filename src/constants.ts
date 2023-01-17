@@ -7,7 +7,7 @@ import {
 export const MOD_NAME = "The Babies Mod";
 
 /** The version is updated automatically by IsaacScript. */
-export const VERSION = "1.5.2";
+export const VERSION = "1.6.0";
 
 export const FADED_BLUE = Color(0, 0, 1, 0.7);
 export const FADED_RED = Color(1, 0, 0, 0.7);
