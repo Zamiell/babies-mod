@@ -31,7 +31,6 @@ function main() {
   const roomType = getRoomType();
   const roomVariant = getRoomVariant();
   const roomSubType = getRoomSubType();
-  const roomSeed = g.r.GetSpawnSeed();
   const roomGridIndex = getRoomGridIndex();
   const roomGridIndexSuffix =
     roomGridIndex >= 0 ? "" : ` (GridRoom.${GridRoom[roomGridIndex]})`;
@@ -41,7 +40,7 @@ function main() {
   );
 
   // Reset room-related variables
-  g.run.room = new GlobalsRunRoom(roomSeed);
+  g.run.room = new GlobalsRunRoom();
 
   // Reset baby-specific variables
   g.run.babyCountersRoom = 0;

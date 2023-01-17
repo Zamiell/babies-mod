@@ -17,7 +17,11 @@ export class GhostBaby extends Baby {
   }
 
   @Callback(ModCallback.PRE_GET_COLLECTIBLE)
-  preGetCollectible(): CollectibleType | undefined {
-    return getRandomCollectibleTypeFromPool(ItemPoolType.SHOP);
+  preGetCollectible(
+    _itemPoolType: ItemPoolType,
+    _decrease: boolean,
+    seed: Seed,
+  ): CollectibleType | undefined {
+    return getRandomCollectibleTypeFromPool(ItemPoolType.SHOP, seed);
   }
 }

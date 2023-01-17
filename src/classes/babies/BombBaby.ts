@@ -5,13 +5,32 @@ import {
   getPlayerFromEntity,
   getRandom,
   ModCallbackCustom,
+  newRNG,
   useActiveItemTemp,
 } from "isaacscript-common";
+import { RandomBabyType } from "../../enums/RandomBabyType";
 import { g } from "../../globals";
+import { BabyDescription } from "../../types/BabyDescription";
 import { Baby } from "../Baby";
 
 /** 50% chance for bombs to have the D6 effect. */
 export class BombBaby extends Baby {
+  v = {
+    run: {
+      rng: newRNG(),
+    },
+  };
+
+  constructor(babyType: RandomBabyType, babyDescription: BabyDescription) {
+    super(babyType, babyDescription);
+    this.saveDataManager(this.v);
+  }
+
+  override onAdd(): void {
+    const startSeed = g.seeds.GetStartSeed();
+    this.v.run.rng = newRNG(startSeed);
+  }
+
   /** There are no items on Cathedral. */
   override isValid(): boolean {
     const effectiveStage = getEffectiveStage();
@@ -25,7 +44,7 @@ export class BombBaby extends Baby {
       return;
     }
 
-    const d6chance = getRandom(g.run.room.rng);
+    const d6chance = getRandom(this.v.run.rng);
     if (d6chance <= 0.5) {
       useActiveItemTemp(player, CollectibleType.D6);
     }

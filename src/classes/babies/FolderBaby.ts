@@ -24,11 +24,15 @@ export class FolderBaby extends Baby {
   }
 
   @Callback(ModCallback.PRE_GET_COLLECTIBLE)
-  preGetCollectible(): CollectibleType | undefined {
+  preGetCollectible(
+    _itemPoolType: ItemPoolType,
+    _decrease: boolean,
+    seed: Seed,
+  ): CollectibleType | undefined {
     const roomType = g.r.GetType();
     const itemPoolType = ROOM_TYPE_TO_ITEM_POOL_TYPE_MAP.get(roomType);
     return itemPoolType === undefined
       ? undefined
-      : getRandomCollectibleTypeFromPool(itemPoolType);
+      : getRandomCollectibleTypeFromPool(itemPoolType, seed);
   }
 }

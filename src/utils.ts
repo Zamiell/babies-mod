@@ -37,6 +37,7 @@ import {
   isFirstPlayer,
   isHeart,
   isPlayer,
+  isRNG,
   playerHasCollectible,
   playerHasForm,
   removeEntities,
@@ -149,8 +150,10 @@ export function getRandomOffsetPosition(
 
 export function getRandomCollectibleTypeFromPool(
   itemPoolType: ItemPoolType,
+  seedOrRNG: Seed | RNG,
 ): CollectibleType {
-  const seed = g.run.room.rng.Next();
+  const seed = isRNG(seedOrRNG) ? seedOrRNG.Next() : seedOrRNG;
+
   g.run.gettingCollectible = true;
   const collectibleType = g.itemPool.GetCollectible(itemPoolType, true, seed);
   g.run.gettingCollectible = false;

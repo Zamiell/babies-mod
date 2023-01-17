@@ -100,11 +100,8 @@ export class FancyBaby extends Baby {
       }
       const [x, y] = xy;
       const position = gridCoordinatesToWorldPosition(x, y);
-      const collectible = mod.spawnCollectible(
-        collectibleType,
-        position,
-        g.run.room.rng,
-      );
+      // The teleport collectibles do not need a unique seed.
+      const collectible = mod.spawnCollectible(collectibleType, position);
       collectible.AutoUpdatePrice = false;
       collectible.Price = price;
     }

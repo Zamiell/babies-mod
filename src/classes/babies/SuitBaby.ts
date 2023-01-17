@@ -15,6 +15,7 @@ import {
   gridCoordinatesToWorldPosition,
   isQuestCollectible,
   ModCallbackCustom,
+  newRNG,
   spawnGridEntityWithVariant,
   spawnWithSeed,
 } from "isaacscript-common";
@@ -71,6 +72,7 @@ export class SuitBaby extends Baby {
 
       const collectibleType = getRandomCollectibleTypeFromPool(
         ItemPoolType.DEVIL,
+        pickup.InitSeed,
       );
       const collectible = mod.spawnCollectible(
         collectibleType,
@@ -98,6 +100,7 @@ export class SuitBaby extends Baby {
   postNewRoomReordered(): void {
     const roomType = g.r.GetType();
     const isFirstVisit = g.r.IsFirstVisit();
+    const roomSeed = g.r.GetSpawnSeed();
     const player = Isaac.GetPlayer();
 
     // Ignore some special rooms.
@@ -105,16 +108,13 @@ export class SuitBaby extends Baby {
       return;
     }
 
-    // All special rooms are Devil Rooms.
+    const rng = newRNG(roomSeed);
     const collectibleType = getRandomCollectibleTypeFromPool(
       ItemPoolType.DEVIL,
+      rng,
     );
     const position = gridCoordinatesToWorldPosition(6, 4);
-    const collectible = mod.spawnCollectible(
-      collectibleType,
-      position,
-      g.run.room.rng,
-    );
+    const collectible = mod.spawnCollectible(collectibleType, position, rng);
     collectible.AutoUpdatePrice = false;
     collectible.Price = getCollectibleDevilHeartPrice(collectibleType, player);
 
@@ -137,7 +137,7 @@ export class SuitBaby extends Baby {
         FireplaceVariant.NORMAL,
         0,
         firePosition,
-        g.run.room.rng,
+        rng,
       );
     }
   }

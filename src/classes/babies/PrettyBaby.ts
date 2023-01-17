@@ -13,6 +13,7 @@ import {
   CallbackCustom,
   gridCoordinatesToWorldPosition,
   ModCallbackCustom,
+  newRNG,
   spawnGridEntityWithVariant,
   spawnWithSeed,
 } from "isaacscript-common";
@@ -45,6 +46,7 @@ export class PrettyBaby extends Baby {
 
       const collectibleType = getRandomCollectibleTypeFromPool(
         ItemPoolType.ANGEL,
+        pickup.InitSeed,
       );
       const collectible = mod.spawnCollectible(
         collectibleType,
@@ -72,20 +74,19 @@ export class PrettyBaby extends Baby {
   postNewRoomReordered(): void {
     const roomType = g.r.GetType();
     const isFirstVisit = g.r.IsFirstVisit();
+    const roomSeed = g.r.GetSpawnSeed();
 
     if (!isFirstVisit || !shouldTransformRoomType(roomType)) {
       return;
     }
 
+    const rng = newRNG(roomSeed);
     const collectibleType = getRandomCollectibleTypeFromPool(
       ItemPoolType.ANGEL,
+      rng,
     );
     const position = gridCoordinatesToWorldPosition(6, 4);
-    const collectible = mod.spawnCollectible(
-      collectibleType,
-      position,
-      g.run.room.rng,
-    );
+    const collectible = mod.spawnCollectible(collectibleType, position, rng);
     collectible.AutoUpdatePrice = false;
     collectible.Price = 15;
 
@@ -108,7 +109,7 @@ export class PrettyBaby extends Baby {
         FireplaceVariant.BLUE,
         0,
         firePosition,
-        g.run.room.rng,
+        rng,
       );
     }
   }
