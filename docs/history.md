@@ -3,6 +3,10 @@
 <!-- cspell:ignore cantgirl,Finalkids,Hispa,lenamek,Moucheron,Quipet,Sanio,sisuka -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.6.1_ - January 15th, 2023 (Unreleased)
+
+- Skull Baby (#211) - Shockwave bombs - The shockwaves no longer deals damage to the player
+
 ### _v1.6.0_ - January 14th, 2023
 
 - Revival items are now removed from pools at the start of a run when starting as Random Baby.

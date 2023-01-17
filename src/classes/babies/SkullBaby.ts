@@ -1,24 +1,22 @@
-import {
-  DamageFlag,
-  Direction,
-  EffectVariant,
-  EntityPartition,
-  ModCallback,
-  SoundEffect,
-} from "isaac-typescript-definitions";
+import { Direction, ModCallback } from "isaac-typescript-definitions";
 import {
   Callback,
   CallbackCustom,
   directionToVector,
-  DISTANCE_OF_GRID_TILE,
   game,
   ModCallbackCustom,
-  sfxManager,
-  spawnEffect,
-  VectorZero,
 } from "isaacscript-common";
+import { RandomBabyType } from "../../enums/RandomBabyType";
 import { g } from "../../globals";
+import { BabyDescription } from "../../types/BabyDescription";
+import { spawnShockwave } from "../../utils";
 import { Baby } from "../Baby";
+
+interface ShockWaveDescription {
+  gameFrameSpawned: int;
+  position: Vector;
+  velocity: Vector;
+}
 
 const SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER = 30;
 
@@ -31,59 +29,35 @@ const SHOCKWAVE_BOMB_VELOCITIES = [
 
 /** Shockwave bombs. */
 export class SkullBaby extends Baby {
+  v = {
+    room: {
+      shockwaves: [] as ShockWaveDescription[],
+    },
+  };
+
+  constructor(babyType: RandomBabyType, baby: BabyDescription) {
+    super(babyType, baby);
+    this.saveDataManager(this.v);
+  }
+
   // 1
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
     const gameFrameCount = game.GetFrameCount();
     const player = Isaac.GetPlayer();
 
-    for (let i = g.run.room.tears.length - 1; i >= 0; i--) {
-      const tear = g.run.room.tears[i];
-      if (tear === undefined) {
-        error(`Failed to get tear number: ${i}`);
-      }
+    for (let i = this.v.room.shockwaves.length - 1; i >= 0; i--) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const shockwave = this.v.room.shockwaves[i]!;
 
-      if ((gameFrameCount - tear.frame) % 2 === 0) {
-        const explosion = spawnEffect(
-          EffectVariant.ROCK_EXPLOSION,
-          0,
-          tear.position,
-          VectorZero,
-          player,
-        );
-        const index = g.r.GetGridIndex(tear.position);
-        g.r.DestroyGrid(index, true);
-        tear.position = tear.position.add(tear.velocity);
-
-        // If the sound effect plays at full volume, it starts to get annoying.
-        const volume = 0.5;
-        sfxManager.Play(SoundEffect.ROCK_CRUMBLE, volume);
-
-        // Make the shockwave deal damage to the player.
-        if (tear.position.Distance(player.Position) <= 40) {
-          player.TakeDamage(1, DamageFlag.EXPLOSION, EntityRef(explosion), 2);
-        }
-
-        // Make the shockwave deal damage to NPCs.
-        const entities = Isaac.FindInRadius(
-          tear.position,
-          DISTANCE_OF_GRID_TILE,
-          EntityPartition.ENEMY,
-        );
-        for (const entity of entities) {
-          const damageAmount = player.Damage * 1.5;
-          entity.TakeDamage(
-            damageAmount,
-            DamageFlag.EXPLOSION,
-            EntityRef(explosion),
-            2,
-          );
-        }
+      if ((gameFrameCount - shockwave.gameFrameSpawned) % 2 === 0) {
+        spawnShockwave(shockwave.position, player);
+        shockwave.position = shockwave.position.add(shockwave.velocity);
       }
 
       // Stop if it gets to a wall.
-      if (!g.r.IsPositionInRoom(tear.position, 0)) {
-        g.run.room.tears.splice(i, 1);
+      if (!g.r.IsPositionInRoom(shockwave.position, 0)) {
+        this.v.room.shockwaves.splice(i, 1);
       }
     }
   }
@@ -93,11 +67,10 @@ export class SkullBaby extends Baby {
     const gameFrameCount = game.GetFrameCount();
 
     for (const velocity of SHOCKWAVE_BOMB_VELOCITIES) {
-      g.run.room.tears.push({
-        frame: gameFrameCount,
+      this.v.room.shockwaves.push({
+        gameFrameSpawned: gameFrameCount,
         position: bomb.Position,
         velocity,
-        num: 0,
       });
     }
   }

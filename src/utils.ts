@@ -3,8 +3,10 @@ import {
   CardType,
   CoinSubType,
   CollectibleType,
+  DamageFlag,
   EffectVariant,
   EntityFlag,
+  EntityPartition,
   EntityType,
   HeartSubType,
   ItemConfigTag,
@@ -23,6 +25,7 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import {
+  DISTANCE_OF_GRID_TILE,
   doesEntityExist,
   findFreePosition,
   game,
@@ -356,6 +359,40 @@ export function spawnRandomPickup(
         `The pickup variant was an unknown value of: ${pickupVariantChoice}`,
       );
     }
+  }
+}
+
+export function spawnShockwave(position: Vector, player: EntityPlayer): void {
+  const explosion = spawnEffect(
+    EffectVariant.ROCK_EXPLOSION,
+    0,
+    position,
+    VectorZero,
+    player,
+  );
+
+  // If the sound effect plays at full volume, it starts to get annoying.
+  const volume = 0.5;
+  sfxManager.Play(SoundEffect.ROCK_CRUMBLE, volume);
+
+  // Destroy grid entities, if present.
+  const index = g.r.GetGridIndex(position);
+  g.r.DestroyGrid(index, true);
+
+  // Make it deal damage to NPCs.
+  const entities = Isaac.FindInRadius(
+    position,
+    DISTANCE_OF_GRID_TILE,
+    EntityPartition.ENEMY,
+  );
+  for (const entity of entities) {
+    const damageAmount = player.Damage * 1.5;
+    entity.TakeDamage(
+      damageAmount,
+      DamageFlag.EXPLOSION,
+      EntityRef(explosion),
+      2,
+    );
   }
 }
 

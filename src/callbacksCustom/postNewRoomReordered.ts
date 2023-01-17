@@ -13,7 +13,6 @@ import { updateCachedAPIFunctions } from "../cache";
 import { g } from "../globals";
 import { mod } from "../mod";
 import { GlobalsRunBabyTears } from "../types/GlobalsRunBabyTears";
-import { GlobalsRunRoom } from "../types/GlobalsRunRoom";
 import { getCurrentBaby } from "../utilsBaby";
 
 export function init(): void {
@@ -38,9 +37,6 @@ function main() {
   log(
     `MC_POST_NEW_ROOM_REORDERED - Room: ${roomType}.${roomVariant}.${roomSubType} - Stage ID: ${roomStageID} - Stage: ${stage}.${stageType} - Grid index: ${roomGridIndex}${roomGridIndexSuffix} - Game frame: ${gameFrameCount} - Render frame: ${renderFrameCount}`,
   );
-
-  // Reset room-related variables
-  g.run.room = new GlobalsRunRoom();
 
   // Reset baby-specific variables
   g.run.babyCountersRoom = 0;
