@@ -55,11 +55,9 @@ export class GlobalsRun {
   // Item-specific variables
   flockOfSuccubi = false;
   clockworkAssemblyRNG = newRNG();
-  craneGameRNG = newRNG();
 
   constructor(startSeed = getRandomSeed()) {
     setSeed(this.rng, startSeed);
     setSeed(this.clockworkAssemblyRNG, startSeed);
-    setSeed(this.craneGameRNG, startSeed);
   }
 }

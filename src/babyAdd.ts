@@ -39,11 +39,6 @@ export function babyAdd(player: EntityPlayer): void {
   // Draw the kind of baby on the starting room.
   g.run.drawIntro = true;
 
-  // Put the baby description into the "save#.dat" file so that it can be shown on OBS.
-  if (g.babiesMod !== null) {
-    g.babiesMod.SaveData(baby.description);
-  }
-
   // Check if this is an item baby.
   if (baby.item !== undefined) {
     // Check to see if it is an active item.
@@ -165,5 +160,7 @@ export function babyAdd(player: EntityPlayer): void {
 
   updatePlayerWithCostumeProtector(player);
 
-  log(`Applied baby: ${babyType} - ${baby.name}`);
+  log(
+    `The Babies Mod - Applied baby: ${baby.name} (#${babyType}) - ${baby.description}`,
+  );
 }

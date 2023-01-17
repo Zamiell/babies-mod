@@ -3,6 +3,7 @@ import {
   getPlayerFromEntity,
   ModCallbackCustom,
   ModFeature,
+  SaveData,
 } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
@@ -66,6 +67,14 @@ export class Baby extends ModFeature {
   /** Called from "babyRemove.ts". */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   onRemove(player: EntityPlayer, oldBabyCounters: int): void {}
+
+  /**
+   * Helper method to register class variables with the save data manager. (This cannot be done in
+   * the parent class constructor because they do not have access to the child properties.)
+   */
+  saveDataManager(v: SaveData): void {
+    mod.saveDataManager(this, v, () => g.run.babyType === this.babyType);
+  }
 }
 
 function shouldCallbackFireVanilla(

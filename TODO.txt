@@ -1,7 +1,5 @@
 TODO:
 
-- suggestions from #b-general
-
 - refactor global variables
 - SaveDataManager
 

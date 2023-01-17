@@ -3,8 +3,6 @@ import { RandomBabyType } from "../enums/RandomBabyType";
 import { GlobalsRun } from "./GlobalsRun";
 
 export class Globals {
-  babiesMod: Mod | null = null;
-
   // Cache some API classes.
   l = game.GetLevel();
   r = game.GetRoom();

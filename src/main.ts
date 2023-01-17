@@ -1,4 +1,8 @@
-import { log } from "isaacscript-common";
+import {
+  log,
+  setLogFunctionsGlobal,
+  setTracebackFunctionsGlobal,
+} from "isaacscript-common";
 import { babiesCheckValid } from "./babiesCheckValid";
 import * as evaluateCache from "./callbacks/evaluateCache";
 import * as executeCmd from "./callbacks/executeCmd";
@@ -12,9 +16,8 @@ import * as postNewLevelReordered from "./callbacksCustom/postNewLevelReordered"
 import * as postNewRoomReordered from "./callbacksCustom/postNewRoomReordered";
 import * as postPEffectUpdateReordered from "./callbacksCustom/postPEffectUpdateReordered";
 import * as postPlayerChangeType from "./callbacksCustom/postPlayerChangeType";
-import { MOD_NAME, VERSION } from "./constants";
+import { IS_DEV, MOD_NAME, VERSION } from "./constants";
 import { initCostumeProtector } from "./costumes";
-import { g } from "./globals";
 import { mod } from "./mod";
 
 main();
@@ -22,14 +25,15 @@ main();
 function main() {
   initCostumeProtector();
   welcomeBanner();
-
-  // Store the mod reference so that we can use it elsewhere. (This is needed for saving and loading
-  // the "save.dat" file.)
-  g.babiesMod = mod;
-
   babiesCheckValid();
   registerCallbacksMain();
   registerCallbacksCustom();
+
+  if (IS_DEV) {
+    setLogFunctionsGlobal();
+    setTracebackFunctionsGlobal();
+    mod.saveDataManagerSetGlobal();
+  }
 }
 
 function welcomeBanner() {
