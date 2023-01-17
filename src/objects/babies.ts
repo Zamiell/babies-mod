@@ -292,11 +292,11 @@ export const BABIES = {
   // 31
   [RandomBabyType.RAGE]: {
     name: "Rage Baby",
-    description: "Starts with Sad Bombs + infinite bombs + blindfolded",
+    description: "Starts with Sad Bombs + golden bomb + blindfolded",
     sprite: "031_baby_rage.png",
     item: CollectibleType.SAD_BOMBS,
     blindfolded: true,
-    class: bc.RageBaby,
+    goldenBomb: true,
   },
 
   // 32
@@ -4788,11 +4788,11 @@ export const BABIES = {
   // 550
   [RandomBabyType.BULLET]: {
     name: "Bullet Baby",
-    description: "Starts with Rocket in a Jar + infinite bombs + blindfolded",
+    description: "Starts with Rocket in a Jar + golden bomb + blindfolded",
     sprite: "550_baby_bullet.png",
     item: CollectibleType.ROCKET_IN_A_JAR,
     blindfolded: true,
-    class: bc.BulletBaby,
+    goldenBomb: true,
   },
 
   // 551

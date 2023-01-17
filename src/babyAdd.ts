@@ -124,6 +124,11 @@ export function babyAdd(player: EntityPlayer): void {
     setBabyANM2(player);
   }
 
+  // Some babies grant golden bombs.
+  if (baby.goldenBomb === true) {
+    player.AddGoldenBomb();
+  }
+
   // Some babies give Easter Eggs.
   if (baby.seed !== undefined) {
     g.seeds.AddSeedEffect(baby.seed);

@@ -21,6 +21,7 @@ export interface BabyDescription {
   itemNum?: int;
   uncharged?: boolean;
   trinket?: TrinketType;
+  goldenBomb?: boolean;
   num?: int;
   max?: int;
   min?: int;
