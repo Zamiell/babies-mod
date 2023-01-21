@@ -36,7 +36,7 @@ export class Baby extends ModFeature {
   };
 
   constructor(babyType: RandomBabyType, baby: BabyDescription) {
-    super(mod);
+    super(mod, false);
 
     this.babyType = babyType;
     this.babyDescription = baby;

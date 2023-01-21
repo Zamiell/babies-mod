@@ -88,6 +88,7 @@ function initBabyClassMap() {
       const babyClassMap = BABY_CLASS_MAP as Map<RandomBabyType, Baby>;
       // eslint-disable-next-line new-cap
       const babyClass = new baby.class(babyType, baby);
+      babyClass.init();
       babyClassMap.set(babyType, babyClass);
     }
   }

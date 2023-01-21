@@ -1,7 +1,5 @@
 import { ModCallback, ProjectileVariant } from "isaac-typescript-definitions";
 import { Callback, spawnProjectile } from "isaacscript-common";
-import { RandomBabyType } from "../../enums/RandomBabyType";
-import { BabyDescription } from "../../types/BabyDescription";
 import { Baby } from "../Baby";
 
 interface MultiTearDescription {
@@ -16,11 +14,6 @@ export class BlueWrestlerBaby extends Baby {
       multiTearDescriptions: new Map<PtrHash, MultiTearDescription>(),
     },
   };
-
-  constructor(babyType: RandomBabyType, baby: BabyDescription) {
-    super(babyType, baby);
-    this.saveDataManager(this);
-  }
 
   // 1
   @Callback(ModCallback.POST_UPDATE)

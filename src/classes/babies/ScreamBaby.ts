@@ -12,8 +12,6 @@ import {
   sfxManager,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { RandomBabyType } from "../../enums/RandomBabyType";
-import { BabyDescription } from "../../types/BabyDescription";
 import { Baby } from "../Baby";
 
 /** Shoop tears. */
@@ -25,11 +23,6 @@ export class ScreamBaby extends Baby {
       activeItemBatteryCharge: null as int | null,
     },
   };
-
-  constructor(babyType: RandomBabyType, baby: BabyDescription) {
-    super(babyType, baby);
-    this.saveDataManager(this);
-  }
 
   // 3
   @Callback(ModCallback.POST_USE_ITEM, CollectibleType.SHOOP_DA_WHOOP)

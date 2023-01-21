@@ -10,8 +10,6 @@ import {
   getRoomListIndex,
   ModCallbackCustom,
 } from "isaacscript-common";
-import { RandomBabyType } from "../../enums/RandomBabyType";
-import { BabyDescription } from "../../types/BabyDescription";
 import { spawnRandomPickup } from "../../utils";
 import { Baby } from "../Baby";
 
@@ -27,11 +25,6 @@ export class AtePoopBaby extends Baby {
       killedPoops: [] as PoopDescription[],
     },
   };
-
-  constructor(babyType: RandomBabyType, baby: BabyDescription) {
-    super(babyType, baby);
-    this.saveDataManager(this);
-  }
 
   /** There are almost no poops on The Chest. */
   override isValid(): boolean {

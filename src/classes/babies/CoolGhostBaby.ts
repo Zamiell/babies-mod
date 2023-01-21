@@ -7,8 +7,6 @@ import {
   repeat,
 } from "isaacscript-common";
 import { CollectibleTypeCustom } from "../../enums/CollectibleTypeCustom";
-import { RandomBabyType } from "../../enums/RandomBabyType";
-import { BabyDescription } from "../../types/BabyDescription";
 import { Baby } from "../Baby";
 
 /** Starts with Flock of Succubi. */
@@ -18,11 +16,6 @@ export class CoolGhostBaby extends Baby {
       removeSuccubusCollectiblesOnNextRoom: false,
     },
   };
-
-  constructor(babyType: RandomBabyType, baby: BabyDescription) {
-    super(babyType, baby);
-    this.saveDataManager(this);
-  }
 
   // 23
   @Callback(ModCallback.PRE_USE_ITEM, CollectibleTypeCustom.FLOCK_OF_SUCCUBI)

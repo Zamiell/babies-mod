@@ -8,9 +8,7 @@ import {
   newRNG,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { RandomBabyType } from "../../enums/RandomBabyType";
 import { g } from "../../globals";
-import { BabyDescription } from "../../types/BabyDescription";
 import { Baby } from "../Baby";
 
 /** 50% chance for bombs to have the D6 effect. */
@@ -20,11 +18,6 @@ export class BombBaby extends Baby {
       rng: newRNG(),
     },
   };
-
-  constructor(babyType: RandomBabyType, baby: BabyDescription) {
-    super(babyType, baby);
-    this.saveDataManager(this);
-  }
 
   override onAdd(): void {
     const startSeed = g.seeds.GetStartSeed();

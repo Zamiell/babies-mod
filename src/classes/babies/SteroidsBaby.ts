@@ -4,8 +4,6 @@ import {
   ModCallbackCustom,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { RandomBabyType } from "../../enums/RandomBabyType";
-import { BabyDescription } from "../../types/BabyDescription";
 import { Baby } from "../Baby";
 
 /** Forget Me Now on Nth hit (per room). */
@@ -15,11 +13,6 @@ export class SteroidsBaby extends Baby {
       numHits: 0,
     },
   };
-
-  constructor(babyType: RandomBabyType, baby: BabyDescription) {
-    super(babyType, baby);
-    this.saveDataManager(this);
-  }
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {

@@ -11,8 +11,6 @@ import {
   ModCallbackCustom,
   spawn,
 } from "isaacscript-common";
-import { RandomBabyType } from "../../enums/RandomBabyType";
-import { BabyDescription } from "../../types/BabyDescription";
 import { Baby } from "../Baby";
 
 interface NPCDescription {
@@ -33,11 +31,6 @@ export class LoveEyeBaby extends Baby {
       loveNPC: null as NPCDescription | null,
     },
   };
-
-  constructor(babyType: RandomBabyType, baby: BabyDescription) {
-    super(babyType, baby);
-    this.saveDataManager(this);
-  }
 
   // 68
   @Callback(ModCallback.POST_ENTITY_KILL)

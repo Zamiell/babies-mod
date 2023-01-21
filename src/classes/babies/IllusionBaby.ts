@@ -1,8 +1,6 @@
 import { SlotVariant } from "isaac-typescript-definitions";
 import { CallbackCustom, ModCallbackCustom, newRNG } from "isaacscript-common";
-import { RandomBabyType } from "../../enums/RandomBabyType";
 import { g } from "../../globals";
-import { BabyDescription } from "../../types/BabyDescription";
 import { spawnSlotHelper } from "../../utils";
 import { Baby } from "../Baby";
 
@@ -13,11 +11,6 @@ export class IllusionBaby extends Baby {
       rng: newRNG(),
     },
   };
-
-  constructor(babyType: RandomBabyType, baby: BabyDescription) {
-    super(babyType, baby);
-    this.saveDataManager(this);
-  }
 
   override onAdd(): void {
     const startSeed = g.seeds.GetStartSeed();
