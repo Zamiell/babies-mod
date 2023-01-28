@@ -25,7 +25,7 @@ npx ts-prune --error --ignore "characterCostumeProtector.d.ts"
 # Step 4 - Use `isaac-xml-validator` to validate XML files.
 # (Skip this step if Python is not currently installed for whatever reason.)
 if command -v python &> /dev/null; then
-  pip install isaac-xml-validator --upgrade
+  pip install isaac-xml-validator --upgrade --quiet
   #isaac-xml-validator
 fi
 

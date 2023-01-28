@@ -12,7 +12,6 @@ import {
   SeedEffect,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { HasAllEnumKeys } from "isaacscript-common";
 import { Incubus } from "../classes/babies/familiars/Incubus";
 import * as bc from "../classes/babyClasses";
 import { CollectibleTypeCustom } from "../enums/CollectibleTypeCustom";
@@ -5257,4 +5256,4 @@ export const BABIES = {
     sprite: "invisible_baby.png",
     class: bc.InvisibleBaby,
   },
-} as const satisfies HasAllEnumKeys<RandomBabyType, BabyDescription>;
+} as const satisfies Record<RandomBabyType, BabyDescription>;
