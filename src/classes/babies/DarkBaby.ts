@@ -6,8 +6,21 @@ import { Baby } from "../Baby";
 
 /** Temporary blindness. */
 export class DarkBaby extends Baby {
+  v = {
+    run: {
+      counters: 0,
+      fadingToBlack: true,
+    },
+  };
+
+  blackSprite: Sprite | null = null;
+
   override onAdd(): void {
-    g.run.babySprite = newSprite("gfx/misc/black.anm2");
+    this.blackSprite = newSprite("gfx/misc/black.anm2");
+  }
+
+  override onRemove(): void {
+    this.blackSprite = null;
   }
 
   // 1
@@ -16,15 +29,15 @@ export class DarkBaby extends Baby {
     const num = this.getAttribute("num");
 
     // Make the counters tick from 0 --> max --> 0, etc.
-    if (!g.run.babyBool) {
-      g.run.babyCounters++;
-      if (g.run.babyCounters === num) {
-        g.run.babyBool = true;
+    if (this.v.run.fadingToBlack) {
+      this.v.run.counters++;
+      if (this.v.run.counters === num) {
+        this.v.run.fadingToBlack = false;
       }
     } else {
-      g.run.babyCounters--;
-      if (g.run.babyCounters === 0) {
-        g.run.babyBool = false;
+      this.v.run.counters--;
+      if (this.v.run.counters === 0) {
+        this.v.run.fadingToBlack = true;
       }
     }
   }
@@ -32,15 +45,16 @@ export class DarkBaby extends Baby {
   // 2
   @Callback(ModCallback.POST_RENDER)
   postRender(): void {
-    // Set the current fade (which is based on the game's frame count and set in the `POST_UPDATE`
-    // callback).
-    if (g.run.babySprite !== null) {
-      let opacity = g.run.babyCounters / 90;
-      if (opacity > 1) {
-        opacity = 1;
-      }
-      setSpriteOpacity(g.run.babySprite, opacity);
-      g.run.babySprite.RenderLayer(0, VectorZero);
+    if (this.blackSprite === null) {
+      return;
     }
+
+    let opacity = g.run.babyCounters / 90;
+    if (opacity > 1) {
+      opacity = 1;
+    }
+
+    setSpriteOpacity(this.blackSprite, opacity);
+    this.blackSprite.Render(VectorZero);
   }
 }
