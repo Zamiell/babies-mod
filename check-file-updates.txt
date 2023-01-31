@@ -1,4 +1,4 @@
-.prettierrc.js
+.prettierrc.cjs
 .vscode/extensions.json
 .vscode/settings.json
 check-file-updates.sh:check-file-updates.sh
