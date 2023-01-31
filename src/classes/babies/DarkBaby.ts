@@ -1,6 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { Callback, setSpriteOpacity, VectorZero } from "isaacscript-common";
-import { g } from "../../globals";
 import { newSprite } from "../../sprite";
 import { Baby } from "../Baby";
 
@@ -49,7 +48,7 @@ export class DarkBaby extends Baby {
       return;
     }
 
-    let opacity = g.run.babyCounters / 90;
+    let opacity = this.v.run.counters / 90;
     if (opacity > 1) {
       opacity = 1;
     }
