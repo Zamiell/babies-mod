@@ -3,7 +3,9 @@ import { MAX_BABY_TYPE } from "./enums/RandomBabyType";
 import { g } from "./globals";
 
 /** Associated with the "babydebug" command. */
-function debugCode() {}
+function debugCode() {
+  // Add code here.
+}
 
 export function debugFunction(): void {
   setLogFunctionsGlobal();

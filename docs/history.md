@@ -1,7 +1,11 @@
 # The Babies Mod Version History
 
-<!-- cspell:ignore cantgirl,Finalkids,Hispa,lenamek,Moucheron,Quipet,Sanio,sisuka -->
+<!-- cspell:ignore cantgirl,Finalkids,Hispa,Kaethela,lenamek,Moucheron,Quipet,Sanio,sisuka -->
 <!-- markdownlint-disable MD001 -->
+
+### _v1.6.2_ - February 4th, 2023
+
+- Fixed the bug where the mod would interfere with using active items under certain conditions. (Thanks Kaethela)
 
 ### _v1.6.1_ - January 15th, 2023
 

@@ -1,5 +1,8 @@
 -- cspell:disable
 
+-- Modifications:
+-- - Active item bug fix.
+
 --VERSION = "1.4.1"
 
 --Character Costume Protector by Sanio! (Sanio46 on Steam and Twitter)
@@ -886,7 +889,7 @@ function ccp:resetCostumeOnItem(
 			end
 		end
 	end
-	return false
+	return nil
 end
 
 function ccp:resetOnCoopRevive(player)
