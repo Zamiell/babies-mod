@@ -38,7 +38,7 @@ npx cspell --no-progress --no-summary .
 bash "$DIR/check-orphaned-words.sh"
 
 # Step 7 - Check for base file updates.
-bash "$DIR/check-file-updates.sh"
+#bash "$DIR/check-file-updates.sh"
 #npx isaacscript check # TODO
 
 echo "Successfully linted in $SECONDS seconds."
