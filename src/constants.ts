@@ -7,7 +7,7 @@ import {
 export const MOD_NAME = "The Babies Mod";
 
 /** The version is updated automatically by IsaacScript. */
-export const VERSION = "1.6.1";
+export const VERSION = "1.6.2";
 
 export const IS_DEV = false as boolean;
 
