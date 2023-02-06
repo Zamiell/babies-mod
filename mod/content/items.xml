@@ -1,37 +1,38 @@
+<!-- The "id" field is used to put the items on the death screen. -->
 <?xml-model href="https://wofsauge.github.io/isaac-xml-validator/xsd/items.xsd" ?>
 <items gfxroot="gfx/items/" version="1" deathanm2="gfx/death items.anm2">
   <!-- Extra active items -->
-  <active description="Restock your life" gfx="collectibles_clockwork_assembly.png" maxcharges="6" name="Clockwork Assembly" id="1" />
-  <active description="Darkness reigns" gfx="collectibles_flock_of_succubi.png" maxcharges="6" name="Flock of Succubi" id="2" />
-  <active description="Recharge your life" gfx="collectibles_charging_station.png" maxcharges="0" name="Charging Station" id="3" />
+  <active name="Clockwork Assembly" description="Restock your life" gfx="collectibles_clockwork_assembly.png" maxcharges="6" id="1" />
+  <active name="Flock of Succubi" description="Darkness reigns" gfx="collectibles_flock_of_succubi.png" maxcharges="6" id="2" />
+  <active name="Charging Station" description="Recharge your life" gfx="collectibles_charging_station.png" maxcharges="0" id="3" />
 
   <!-- Teleport items -->
   <!-- 2 -->
-  <passive description="You seek deals" gfx="teleports/shop.png" name="Shop Teleport" hidden="true" id="4" />
+  <passive name="Shop Teleport" description="You seek deals" gfx="teleports/shop.png" hidden="true" id="4" />
   <!-- 4 -->
-  <passive description="You seek treasure" gfx="teleports/treasure_room.png" name="Treasure Room Teleport" hidden="true" id="5" />
+  <passive name="Treasure Room Teleport" description="You seek treasure" gfx="teleports/treasure_room.png" hidden="true" />
   <!-- 6 -->
-  <passive description="You seek a boss" gfx="teleports/mini-boss_room.png" name="Mini-Boss Room Teleport" hidden="true" id="6" />
+  <passive name="Mini-Boss Room Teleport" description="You seek a boss" gfx="teleports/mini-boss_room.png" hidden="true" />
   <!-- 9 -->
-  <passive description="You seek fun and games" gfx="teleports/arcade.png" name="Arcade Teleport" hidden="true" id="7" />
+  <passive name="Arcade Teleport" description="You seek fun and games" gfx="teleports/arcade.png" hidden="true" />
   <!-- 10 -->
-  <passive description="You seek pain" gfx="teleports/curse_room.png" name="Curse Room Teleport" hidden="true" id="8" />
+  <passive name="Curse Room Teleport" description="You seek pain" gfx="teleports/curse_room.png" hidden="true" />
   <!-- 11 -->
-  <passive description="You seek challenge" gfx="teleports/challenge_room.png" name="Challenge Room Teleport" hidden="true" id="9" />
+  <passive name="Challenge Room Teleport" description="You seek challenge" gfx="teleports/challenge_room.png" hidden="true" />
   <!-- 11 -->
-  <passive description="You seek challenge" gfx="teleports/boss_challenge_room.png" name="Boss Challenge Room Teleport" hidden="true" id="10" />
+  <passive name="Boss Challenge Room Teleport" description="You seek challenge" gfx="teleports/boss_challenge_room.png" hidden="true" />
   <!-- 12 -->
-  <passive description="You seek knowledge" gfx="teleports/library.png" name="Library Teleport" hidden="true" id="11" />
+  <passive name="Library Teleport" description="You seek knowledge" gfx="teleports/library.png" hidden="true" />
   <!-- 13 -->
-  <passive description="You seek the divine" gfx="teleports/sacrifice_room.png" name="Sacrifice Room Teleport" hidden="true" id="12" />
+  <passive name="Sacrifice Room Teleport" description="You seek the divine" gfx="teleports/sacrifice_room.png" hidden="true" />
   <!-- 18 -->
-  <passive description="You seek sleep" gfx="teleports/bedroom_clean.png" name="Bedroom (Clean) Teleport" hidden="true" id="13" />
+  <passive name="Bedroom (Clean) Teleport" description="You seek sleep" gfx="teleports/bedroom_clean.png" hidden="true" />
   <!-- 19 -->
-  <passive description="You seek a trapdoor" gfx="teleports/bedroom_dirty.png" name="Bedroom (Dirty) Teleport" hidden="true" id="14" />
+  <passive name="Bedroom (Dirty) Teleport" description="You seek a trapdoor" gfx="teleports/bedroom_dirty.png" hidden="true" />
   <!-- 20 -->
-  <passive description="You seek chests" gfx="teleports/treasure_chest_room.png" name="Treasure Chest Room Teleport" hidden="true" id="15" />
+  <passive name="Treasure Chest Room Teleport" description="You seek chests" gfx="teleports/treasure_chest_room.png" hidden="true" />
   <!-- 21 -->
-  <passive description="You seek randomness" gfx="teleports/dice_room.png" name="Dice Room Teleport" hidden="true" id="16" />
+  <passive name="Dice Room Teleport" description="You seek randomness" gfx="teleports/dice_room.png" hidden="true" />
   <!-- 24 -->
-  <passive description="You seek the planets" gfx="teleports/planetarium.png" name="Planetarium Teleport" hidden="true" id="17" />
+  <passive name="Planetarium Teleport" description="You seek the planets" gfx="teleports/planetarium.png" hidden="true" />
 </items>

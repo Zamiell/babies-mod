@@ -3,15 +3,23 @@
   "version": "0.2",
   "import": ["isaacscript-spell/cspell-isaacscript.json"],
   "files": ["**"],
+  "enableFiletypes": ["*"],
+  "enableGlobDot": true,
+  "useGitignore": true,
   "ignorePaths": [
+    "*.anm2",
     "*.pyc",
+    "*.stb",
     "*.wav",
     ".git/**",
     "dist/**",
-    "node_modules/**",
-    "mod/**/*.anm2",
     "mod/main.lua",
-    "mod/resources/rooms/**"
+    "mod/content/rooms/**",
+    "mod/resources/rooms/**",
+    "node_modules/**",
+    "package-lock.json",
+    "pnpm-lock.yaml",
+    "yarn.lock"
   ],
   "words": [
     "aban",

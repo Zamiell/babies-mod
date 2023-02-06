@@ -18,7 +18,7 @@ npx prettier --loglevel warn --check .
 # "--max-warnings 0" makes warnings fail in CI, since we set all ESLint errors to warnings.
 npx eslint --max-warnings 0 .
 
-# Check for unused imports.
+# Check for unused exports.
 # "--error" makes it return an error code of 1 if unused exports are found.
 # @template-ignore-next-line
 npx ts-prune --error --ignore "characterCostumeProtector.d.ts" # We ignore library definition files.
@@ -30,15 +30,16 @@ if command -v python &> /dev/null; then
   isaac-xml-validator --quiet
 fi
 
-# Step 5 - Spell check every file using CSpell.
+# Spell check every file using CSpell.
 # "--no-progress" and "--no-summary" make it only output errors.
 npx cspell --no-progress --no-summary .
 
-# Step 6 - Check for orphaned words.
+# Check for orphaned words.
 bash "$DIR/check-orphaned-words.sh"
 
-# Step 7 - Check for base file updates.
-#bash "$DIR/check-file-updates.sh"
-#npx isaacscript check # TODO
+# @template-customization-start
+# Check for base file updates.
+npx isaacscript check
+# @template-customization-end
 
 echo "Successfully linted in $SECONDS seconds."
