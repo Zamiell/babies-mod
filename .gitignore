@@ -8,8 +8,9 @@ isaacscript.json
 # The transpiled Lua output
 mod/main.lua
 
-# MacOS artifacts
+# OS-specific artifacts
 .DS_Store
+thumbs.db
 
 # --------------------------------------------------------------
 # GitHub Node.gitignore template
