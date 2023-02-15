@@ -5,6 +5,7 @@ import {
 } from "isaac-typescript-definitions";
 import {
   anyPlayerIs,
+  getCharacterName,
   getPlayersOfType,
   log,
   ModCallbackCustom,
@@ -62,10 +63,13 @@ export function init(): void {
 function main(isContinued: boolean) {
   const startSeed = g.seeds.GetStartSeed();
   const startSeedString = g.seeds.GetStartSeedString();
-  const isaacFrameCount = Isaac.GetFrameCount();
+  const renderFrameCount = Isaac.GetFrameCount();
+  const player = Isaac.GetPlayer();
+  const character = player.GetPlayerType();
+  const characterName = getCharacterName(character);
 
   log(
-    `MC_POST_GAME_STARTED (Babies Mod) - Seed: ${startSeedString} - IsaacFrame: ${isaacFrameCount}`,
+    `MC_POST_GAME_STARTED_REORDERED (Babies Mod) - Seed: ${startSeedString} - Render frame: ${renderFrameCount} - Continued: ${isContinued} - Character: ${characterName} (${character})`,
   );
 
   // Don't do anything if this is not a new run.
