@@ -19,10 +19,11 @@ function main(
     return undefined;
   }
 
-  const [babyType, baby] = getCurrentBaby();
-  if (babyType === -1) {
+  const currentBaby = getCurrentBaby();
+  if (currentBaby === undefined) {
     return undefined;
   }
+  const { baby } = currentBaby;
 
   // Check to see if the player is supposed to be temporarily invulnerable.
   if (g.run.invulnerable) {

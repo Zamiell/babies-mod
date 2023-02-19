@@ -13,10 +13,11 @@ const sprites = {
 
 export function display(): void {
   const gameFrameCount = game.GetFrameCount();
-  const [babyType] = getCurrentBaby();
-  if (babyType === -1) {
+  const currentBaby = getCurrentBaby();
+  if (currentBaby === undefined) {
     return;
   }
+  const { babyType } = currentBaby;
 
   let finishTime: int | undefined;
   if (
@@ -38,7 +39,7 @@ export function display(): void {
   // Find out how much time has passed since we got hit.
   const remainingFrames = finishTime - gameFrameCount;
   const remainingSeconds = remainingFrames / 30;
-  const [hours, minute1, minute2, second1, second2, tenths] =
+  const { hours, minute1, minute2, second1, second2, tenths } =
     convertSecondsToTimerValues(remainingSeconds);
 
   const digitLength = 7.25;
@@ -138,9 +139,14 @@ function loadSprites() {
   sprites.digitMini = newSprite("gfx/timer/timerMini.anm2");
 }
 
-function convertSecondsToTimerValues(
-  totalSeconds: int,
-): [int, int, int, int, int, int] {
+function convertSecondsToTimerValues(totalSeconds: int): {
+  hours: int;
+  minute1: int;
+  minute2: int;
+  second1: int;
+  second2: int;
+  tenths: int;
+} {
   // Calculate the hours digit.
   const hours = math.floor(totalSeconds / 3600);
 
@@ -190,5 +196,5 @@ function convertSecondsToTimerValues(
   const decimals = rawSeconds - math.floor(rawSeconds);
   const tenths = math.floor(decimals * 10);
 
-  return [hours, minute1, minute2, second1, second2, tenths];
+  return { hours, minute1, minute2, second1, second2, tenths };
 }

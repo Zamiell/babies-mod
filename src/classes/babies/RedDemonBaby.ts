@@ -1,5 +1,5 @@
 import { CollectibleType } from "isaac-typescript-definitions";
-import { playerHasCollectible } from "isaacscript-common";
+import { hasCollectible } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 const COLLECTIBLE_TYPES_THAT_RUIN_THE_EFFECT = [
@@ -10,9 +10,6 @@ const COLLECTIBLE_TYPES_THAT_RUIN_THE_EFFECT = [
 /** Starts with Brimstone + Anti-Gravity. */
 export class RedDemonBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
-    return !playerHasCollectible(
-      player,
-      ...COLLECTIBLE_TYPES_THAT_RUIN_THE_EFFECT,
-    );
+    return !hasCollectible(player, ...COLLECTIBLE_TYPES_THAT_RUIN_THE_EFFECT);
   }
 }

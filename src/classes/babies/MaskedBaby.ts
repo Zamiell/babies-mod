@@ -5,9 +5,9 @@ import {
 } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
+  hasCollectible,
   isShootAction,
   ModCallbackCustom,
-  playerHasCollectible,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
@@ -24,7 +24,7 @@ const COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS = [
 /** Can't shoot while moving. */
 export class MaskedBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
-    return !playerHasCollectible(
+    return !hasCollectible(
       player,
       ...COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS,
     );
@@ -47,9 +47,7 @@ export class MaskedBaby extends Baby {
 
     // This ability does not interact well with charged items, so don't do anything if the player
     // has a charged item.
-    if (
-      playerHasCollectible(player, ...COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS)
-    ) {
+    if (hasCollectible(player, ...COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS)) {
       return undefined;
     }
 

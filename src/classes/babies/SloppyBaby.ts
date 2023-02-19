@@ -4,11 +4,7 @@ import {
   ModCallback,
   PlayerForm,
 } from "isaac-typescript-definitions";
-import {
-  Callback,
-  playerHasCollectible,
-  playerHasForm,
-} from "isaacscript-common";
+import { Callback, hasCollectible, hasForm } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 const BUGGED_COLLECTIBLE_TYPES = [
@@ -27,8 +23,8 @@ const BUGGED_TRANSFORMATIONS = [
 export class SloppyBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
     return (
-      !playerHasCollectible(player, ...BUGGED_COLLECTIBLE_TYPES) &&
-      !playerHasForm(player, ...BUGGED_TRANSFORMATIONS)
+      !hasCollectible(player, ...BUGGED_COLLECTIBLE_TYPES) &&
+      !hasForm(player, ...BUGGED_TRANSFORMATIONS)
     );
   }
 
@@ -42,8 +38,8 @@ export class SloppyBaby extends Baby {
 
     // There is a bug where the target will disappear if you have multiple shots.
     if (
-      playerHasCollectible(player, ...BUGGED_COLLECTIBLE_TYPES) ||
-      playerHasForm(player, ...BUGGED_TRANSFORMATIONS)
+      hasCollectible(player, ...BUGGED_COLLECTIBLE_TYPES) ||
+      hasForm(player, ...BUGGED_TRANSFORMATIONS)
     ) {
       return;
     }

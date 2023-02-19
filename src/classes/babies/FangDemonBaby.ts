@@ -10,7 +10,7 @@ import {
 import {
   Callback,
   game,
-  playerHasCollectible,
+  hasCollectible,
   spawnEffect,
   VectorZero,
 } from "isaacscript-common";
@@ -32,7 +32,7 @@ const TARGET_DAMAGE_RADIUS = 30;
 /** Directed light beams */
 export class FangDemonBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
-    return !playerHasCollectible(player, ...SOFTLOCK_COLLECTIBLE_TYPES);
+    return !hasCollectible(player, ...SOFTLOCK_COLLECTIBLE_TYPES);
   }
 
   /** Some collectibles will cause a softlock, so we remove them from all pools as a quick fix. */

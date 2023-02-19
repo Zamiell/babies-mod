@@ -9,10 +9,11 @@ import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 import { getCurrentBaby } from "./utilsBaby";
 
 export function babyRemove(player: EntityPlayer, oldBabyCounters: int): void {
-  const [babyType, baby] = getCurrentBaby();
-  if (babyType === -1) {
+  const currentBaby = getCurrentBaby();
+  if (currentBaby === undefined) {
     return;
   }
+  const { babyType, baby } = currentBaby;
 
   // If we are on an item baby, remove the item.
   if (baby.item !== undefined) {

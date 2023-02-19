@@ -9,8 +9,8 @@ import {
   AnyFunction,
   getCollectibleItemType,
   getEffectiveStage,
+  hasCollectible,
   onStageWithNaturalDevilRoom,
-  playerHasCollectible,
 } from "isaacscript-common";
 import { Baby } from "./classes/Baby";
 import { RandomBabyType } from "./enums/RandomBabyType";
@@ -221,7 +221,7 @@ function checkCollectibles(
 }
 
 function playerHasTears(player: EntityPlayer): boolean {
-  const hasCollectibleThatRemovesTears = playerHasCollectible(
+  const hasCollectibleThatRemovesTears = hasCollectible(
     player,
     ...COLLECTIBLES_THAT_REMOVE_TEARS,
   );

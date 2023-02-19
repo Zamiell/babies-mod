@@ -31,10 +31,11 @@ export function babyAdd(player: EntityPlayer): void {
   const keys = player.GetNumKeys();
   const secondaryActiveItem = player.GetActiveItem(ActiveSlot.SECONDARY);
   const playerHealth = getPlayerHealth(player);
-  const [babyType, baby] = getCurrentBaby();
-  if (babyType === -1) {
+  const currentBaby = getCurrentBaby();
+  if (currentBaby === undefined) {
     return;
   }
+  const { babyType, baby } = currentBaby;
 
   // Draw the kind of baby on the starting room.
   g.run.drawIntro = true;

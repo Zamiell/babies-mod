@@ -31,6 +31,8 @@ import {
   getEntities,
   getRandomInt,
   getRandomSetElement,
+  hasCollectible,
+  hasForm,
   inMinibossRoomOf,
   inRoomType,
   isCharacter,
@@ -38,8 +40,6 @@ import {
   isHeart,
   isPlayer,
   isRNG,
-  playerHasCollectible,
-  playerHasForm,
   removeEntities,
   sfxManager,
   spawnBattery,
@@ -194,8 +194,8 @@ export function isRerolledCollectibleBuggedHeart(
 /** Piercing, multiple shots, and Flat Stone causes "missing" effects to mess up. */
 export function isValidForMissingTearsEffect(player: EntityPlayer): boolean {
   return (
-    !playerHasCollectible(player, ...BAD_MISSING_TEARS_COLLECTIBLE_TYPES) &&
-    !playerHasForm(player, ...BAD_MISSING_TEARS_TRANSFORMATIONS)
+    !hasCollectible(player, ...BAD_MISSING_TEARS_COLLECTIBLE_TYPES) &&
+    !hasForm(player, ...BAD_MISSING_TEARS_TRANSFORMATIONS)
   );
 }
 

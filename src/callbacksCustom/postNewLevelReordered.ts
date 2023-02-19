@@ -94,7 +94,14 @@ function getAndSetNewBabyInGlobals(player: EntityPlayer) {
   // / multi-character custom challenge.
   g.pastBabies.push(babyType);
 
-  const [, baby] = getCurrentBaby();
+  const currentBaby = getCurrentBaby();
+  if (currentBaby === undefined) {
+    error(
+      'Failed to get the current baby in the "getAndSetNewBabyInGlobals" function.',
+    );
+  }
+  const { baby } = currentBaby;
+
   log(`Randomly chose baby: ${babyType} - ${baby.name} - ${baby.description}`);
   log(`Tries: ${numTries}, total past babies: ${g.pastBabies.length}`);
 }

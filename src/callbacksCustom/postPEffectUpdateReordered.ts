@@ -29,10 +29,11 @@ function main(player: EntityPlayer) {
     return;
   }
 
-  const [babyType, baby] = getCurrentBaby();
-  if (babyType === -1) {
+  const currentBaby = getCurrentBaby();
+  if (currentBaby === undefined) {
     return;
   }
+  const { baby } = currentBaby;
 
   softlockPreventionPostPEffectUpdateReordered(baby);
   checkPlayerGoingToNextFloor(player, baby);

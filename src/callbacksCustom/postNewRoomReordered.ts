@@ -38,8 +38,8 @@ function main() {
   );
 
   // Do nothing if we are not a baby.
-  const [babyType] = getCurrentBaby();
-  if (babyType === -1) {
+  const currentBaby = getCurrentBaby();
+  if (currentBaby === undefined) {
     return;
   }
 

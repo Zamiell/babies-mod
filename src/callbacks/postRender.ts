@@ -24,6 +24,7 @@ import { g } from "../globals";
 import { mod } from "../mod";
 import { newSprite } from "../sprite";
 import * as timer from "../timer";
+import { BabyDescription } from "../types/BabyDescription";
 import { isRacingPlusEnabled } from "../utils";
 import { getCurrentBaby } from "../utilsBaby";
 
@@ -40,24 +41,21 @@ function main() {
   updateCachedAPIFunctions();
   drawVersion();
 
-  const [babyType] = getCurrentBaby();
-  if (babyType === -1) {
+  const currentBaby = getCurrentBaby();
+  if (currentBaby === undefined) {
     return;
   }
+  const { babyType, baby } = currentBaby;
 
-  drawBabyIntro();
-  drawBabyNumber();
-  drawTempIconNextToActiveCollectible();
+  drawBabyIntro(baby);
+  drawBabyNumber(babyType);
+  drawTempIconNextToActiveCollectible(baby);
   timer.display();
 }
 
 /** Show what the current baby does in the intro room (or if the player presses the map button). */
-function drawBabyIntro() {
+function drawBabyIntro(baby: BabyDescription) {
   const gameFrameCount = game.GetFrameCount();
-  const [babyType, baby] = getCurrentBaby();
-  if (babyType === -1) {
-    return;
-  }
 
   // Make the baby description persist on the screen after the player presses the map button.
   if (isActionPressedOnAnyInput(ButtonAction.MAP)) {
@@ -97,12 +95,7 @@ function drawBabyIntro() {
 }
 
 /** Draw the baby's number next to the heart count. */
-function drawBabyNumber() {
-  const [babyType] = getCurrentBaby();
-  if (babyType === -1) {
-    return;
-  }
-
+function drawBabyNumber(babyType: RandomBabyType) {
   const roomType = g.r.GetType();
   const HUDOffsetVector = getHUDOffsetVector();
   const heartsUIWidth = getHeartsUIWidth();
@@ -171,12 +164,7 @@ function drawVersion() {
  * Draw a temporary icon next to the baby's active item to signify that it will go away at the of
  * the floor.
  */
-function drawTempIconNextToActiveCollectible() {
-  const [babyType, baby] = getCurrentBaby();
-  if (babyType === -1) {
-    return;
-  }
-
+function drawTempIconNextToActiveCollectible(baby: BabyDescription) {
   if (baby.item === undefined) {
     return;
   }

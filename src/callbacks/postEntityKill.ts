@@ -8,8 +8,8 @@ export function init(): void {
 }
 
 function main(entity: Entity) {
-  const [babyType] = getCurrentBaby();
-  if (babyType === -1) {
+  const currentBaby = getCurrentBaby();
+  if (currentBaby === undefined) {
     return;
   }
 

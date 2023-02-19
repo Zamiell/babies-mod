@@ -65,10 +65,11 @@ function getCostumeProtectorArguments(): [
   spritesheetPath: string,
   flightCostumeNullItemID: NullItemID | undefined,
 ] {
-  const [babyType, baby] = getCurrentBaby();
-  if (babyType === -1) {
+  const currentBaby = getCurrentBaby();
+  if (currentBaby === undefined) {
     return [`gfx/characters/player2/${DEFAULT_BABY_SPRITE}`, undefined];
   }
+  const { babyType, baby } = currentBaby;
 
   const gfxDirectory =
     babyType >= FIRST_BABY_WITH_SPRITE_IN_FAMILIAR_DIRECTORY

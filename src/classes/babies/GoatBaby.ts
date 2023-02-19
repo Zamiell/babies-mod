@@ -6,9 +6,9 @@ import {
 import {
   CallbackCustom,
   getEffectiveStage,
+  hasCollectible,
   ModCallbackCustom,
   onStageWithNaturalDevilRoom,
-  playerHasCollectible,
   removeCollectibleFromItemTracker,
   sfxManager,
 } from "isaacscript-common";
@@ -30,7 +30,7 @@ export class GoatBaby extends Baby {
     const effectiveStage = getEffectiveStage();
 
     return (
-      !playerHasCollectible(player, ...GRANTED_COLLECTIBLE_TYPES) &&
+      !hasCollectible(player, ...GRANTED_COLLECTIBLE_TYPES) &&
       onStageWithNaturalDevilRoom() &&
       effectiveStage !== LevelStage.BASEMENT_2
     );

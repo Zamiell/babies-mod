@@ -5,8 +5,8 @@ import {
   getAllRoomGridIndexes,
   getEffectiveStage,
   getRandomArrayElement,
+  hasCollectible,
   ModCallbackCustom,
-  playerHasCollectible,
   stopAllSoundEffects,
 } from "isaacscript-common";
 import { g } from "../../globals";
@@ -22,7 +22,7 @@ export class EarwigBaby extends Baby {
     const effectiveStage = getEffectiveStage();
 
     return (
-      !playerHasCollectible(
+      !hasCollectible(
         player,
         CollectibleType.COMPASS, // 21
         CollectibleType.TREASURE_MAP, // 54
