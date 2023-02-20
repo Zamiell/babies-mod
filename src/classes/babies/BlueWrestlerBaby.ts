@@ -7,20 +7,22 @@ interface MultiTearDescription {
   num: int;
 }
 
+const v = {
+  room: {
+    multiTearDescriptions: new Map<PtrHash, MultiTearDescription>(),
+  },
+};
+
 /** Enemies spawn projectiles upon death. */
 export class BlueWrestlerBaby extends Baby {
-  v = {
-    room: {
-      multiTearDescriptions: new Map<PtrHash, MultiTearDescription>(),
-    },
-  };
+  v = v;
 
   // 1
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
     const player = Isaac.GetPlayer();
 
-    for (const [ptrHash, multiTearDescription] of this.v.room
+    for (const [ptrHash, multiTearDescription] of v.room
       .multiTearDescriptions) {
       let velocity = player.Position.sub(multiTearDescription.position);
       velocity = velocity.Normalized();
@@ -36,7 +38,7 @@ export class BlueWrestlerBaby extends Baby {
       multiTearDescription.num--;
       if (multiTearDescription.num === 0) {
         // The dead enemy has shot all of its tears, so we remove the tracking element for it.
-        this.v.room.multiTearDescriptions.delete(ptrHash);
+        v.room.multiTearDescriptions.delete(ptrHash);
       }
     }
   }
@@ -48,7 +50,7 @@ export class BlueWrestlerBaby extends Baby {
     const ptrHash = GetPtrHash(entity);
     const num = this.getAttribute("num");
 
-    this.v.room.multiTearDescriptions.set(ptrHash, {
+    v.room.multiTearDescriptions.set(ptrHash, {
       position: entity.Position,
       num,
     });

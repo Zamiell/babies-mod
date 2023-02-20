@@ -14,15 +14,17 @@ import {
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
+const v = {
+  run: {
+    frameShoopUsed: null as int | null,
+    activeItemCharge: null as int | null,
+    activeItemBatteryCharge: null as int | null,
+  },
+};
+
 /** Shoop tears. */
 export class ScreamBaby extends Baby {
-  v = {
-    run: {
-      frameShoopUsed: null as int | null,
-      activeItemCharge: null as int | null,
-      activeItemBatteryCharge: null as int | null,
-    },
-  };
+  v = v;
 
   // 3
   @Callback(ModCallback.POST_USE_ITEM, CollectibleType.SHOOP_DA_WHOOP)
@@ -35,9 +37,9 @@ export class ScreamBaby extends Baby {
     const activeCharge = player.GetActiveCharge();
     const batteryCharge = player.GetBatteryCharge();
 
-    this.v.run.frameShoopUsed = gameFrameCount;
-    this.v.run.activeItemCharge = activeCharge;
-    this.v.run.activeItemBatteryCharge = batteryCharge;
+    v.run.frameShoopUsed = gameFrameCount;
+    v.run.activeItemCharge = activeCharge;
+    v.run.activeItemBatteryCharge = batteryCharge;
 
     return undefined;
   }
@@ -57,9 +59,9 @@ export class ScreamBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {
     if (
-      this.v.run.frameShoopUsed === null ||
-      this.v.run.activeItemCharge === null ||
-      this.v.run.activeItemBatteryCharge === null
+      v.run.frameShoopUsed === null ||
+      v.run.activeItemCharge === null ||
+      v.run.activeItemBatteryCharge === null
     ) {
       return;
     }
@@ -69,12 +71,12 @@ export class ScreamBaby extends Baby {
     const batteryCharge = player.GetBatteryCharge();
 
     if (
-      gameFrameCount <= this.v.run.frameShoopUsed + 1 &&
-      (activeCharge !== this.v.run.activeItemCharge ||
-        batteryCharge !== this.v.run.activeItemBatteryCharge)
+      gameFrameCount <= v.run.frameShoopUsed + 1 &&
+      (activeCharge !== v.run.activeItemCharge ||
+        batteryCharge !== v.run.activeItemBatteryCharge)
     ) {
       const totalCharge =
-        this.v.run.activeItemCharge + this.v.run.activeItemBatteryCharge;
+        v.run.activeItemCharge + v.run.activeItemBatteryCharge;
       player.SetActiveCharge(totalCharge);
       sfxManager.Stop(SoundEffect.BATTERY_CHARGE);
       sfxManager.Stop(SoundEffect.BEEP);

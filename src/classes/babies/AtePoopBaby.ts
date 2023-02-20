@@ -18,13 +18,15 @@ interface PoopDescription {
   gridIndex: int;
 }
 
+const v = {
+  level: {
+    killedPoops: [] as PoopDescription[],
+  },
+};
+
 /** Destroying poops spawns random pickups. */
 export class AtePoopBaby extends Baby {
-  v = {
-    level: {
-      killedPoops: [] as PoopDescription[],
-    },
-  };
+  v = v;
 
   /** There are almost no poops on The Chest. */
   override isValid(): boolean {
@@ -41,7 +43,7 @@ export class AtePoopBaby extends Baby {
     const roomListIndex = getRoomListIndex();
 
     // First, check to make sure that we have not already destroyed this poop.
-    const matchingPoop = this.v.level.killedPoops.find(
+    const matchingPoop = v.level.killedPoops.find(
       (poopDescription) =>
         poopDescription.roomListIndex === roomListIndex &&
         poopDescription.gridIndex === gridIndex,
@@ -63,7 +65,7 @@ export class AtePoopBaby extends Baby {
     spawnRandomPickup(gridEntity.Position);
 
     // Keep track of it so that we don't spawn another pickup on the next frame.
-    this.v.level.killedPoops.push({
+    v.level.killedPoops.push({
       roomListIndex,
       gridIndex,
     });

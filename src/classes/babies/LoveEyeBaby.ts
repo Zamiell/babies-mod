@@ -24,13 +24,15 @@ const EXCEPTION_NPCS: ReadonlySet<EntityType> = new Set([
   EntityType.FIREPLACE, // 33
 ]);
 
+const v = {
+  run: {
+    loveNPC: null as NPCDescription | null,
+  },
+};
+
 /** Falls in loves with the first enemy killed. */
 export class LoveEyeBaby extends Baby {
-  v = {
-    run: {
-      loveNPC: null as NPCDescription | null,
-    },
-  };
+  v = v;
 
   // 68
   @Callback(ModCallback.POST_ENTITY_KILL)
@@ -41,12 +43,12 @@ export class LoveEyeBaby extends Baby {
       return;
     }
 
-    if (this.v.run.loveNPC !== null) {
+    if (v.run.loveNPC !== null) {
       return;
     }
 
     // Store the killed enemy.
-    this.v.run.loveNPC = {
+    v.run.loveNPC = {
       entityType: npc.Type,
       variant: npc.Variant,
       subType: npc.SubType,
@@ -57,7 +59,7 @@ export class LoveEyeBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
-    if (this.v.run.loveNPC === null) {
+    if (v.run.loveNPC === null) {
       return;
     }
 
@@ -67,9 +69,9 @@ export class LoveEyeBaby extends Baby {
     }
 
     replaceAllNPCsWith(
-      this.v.run.loveNPC.entityType,
-      this.v.run.loveNPC.variant,
-      this.v.run.loveNPC.subType,
+      v.run.loveNPC.entityType,
+      v.run.loveNPC.variant,
+      v.run.loveNPC.subType,
       undefined,
     );
   }

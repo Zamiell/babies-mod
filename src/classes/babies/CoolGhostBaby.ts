@@ -9,13 +9,15 @@ import {
 import { CollectibleTypeCustom } from "../../enums/CollectibleTypeCustom";
 import { Baby } from "../Baby";
 
+const v = {
+  run: {
+    removeSuccubusCollectiblesOnNextRoom: false,
+  },
+};
+
 /** Starts with Flock of Succubi. */
 export class CoolGhostBaby extends Baby {
-  v = {
-    run: {
-      removeSuccubusCollectiblesOnNextRoom: false,
-    },
-  };
+  v = v;
 
   // 23
   @Callback(ModCallback.PRE_USE_ITEM, CollectibleTypeCustom.FLOCK_OF_SUCCUBI)
@@ -31,17 +33,17 @@ export class CoolGhostBaby extends Baby {
       removeCollectibleFromItemTracker(CollectibleType.SUCCUBUS);
     });
 
-    this.v.run.removeSuccubusCollectiblesOnNextRoom = true;
+    v.run.removeSuccubusCollectiblesOnNextRoom = true;
 
     return true;
   }
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
-    if (!this.v.run.removeSuccubusCollectiblesOnNextRoom) {
+    if (!v.run.removeSuccubusCollectiblesOnNextRoom) {
       return;
     }
-    this.v.run.removeSuccubusCollectiblesOnNextRoom = false;
+    v.run.removeSuccubusCollectiblesOnNextRoom = false;
 
     const player = Isaac.GetPlayer();
     const num = this.getAttribute("num");

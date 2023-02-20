@@ -1,12 +1,12 @@
 import { KeySubType, PickupVariant } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
-  getLastEnumValue,
+  getHighestEnumValue,
   ModCallbackCustom,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
-const FINAL_KEY_SUB_TYPE = getLastEnumValue(KeySubType);
+const FINAL_KEY_SUB_TYPE = getHighestEnumValue(KeySubType);
 
 /** Bombs spawn as keys. */
 export class MermaidBaby extends Baby {

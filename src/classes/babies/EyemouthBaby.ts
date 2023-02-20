@@ -3,13 +3,15 @@ import { Callback, getPlayerFromEntity } from "isaacscript-common";
 import { mod } from "../../mod";
 import { Baby } from "../Baby";
 
+const v = {
+  run: {
+    numFiredTears: 0,
+  },
+};
+
 /** Shoots an extra tear every Nth shot. */
 export class EyemouthBaby extends Baby {
-  v = {
-    run: {
-      numFiredTears: 0,
-    },
-  };
+  v = v;
 
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
@@ -20,10 +22,10 @@ export class EyemouthBaby extends Baby {
 
     const num = this.getAttribute("num");
 
-    this.v.run.numFiredTears++;
+    v.run.numFiredTears++;
     // We need to add one to account for the extra shot tear.
-    if (this.v.run.numFiredTears >= num + 1) {
-      this.v.run.numFiredTears = 0;
+    if (v.run.numFiredTears >= num + 1) {
+      v.run.numFiredTears = 0;
 
       mod.runNextGameFrame(() => {
         player.FireTear(tear.Position, tear.Velocity, false, true, false);

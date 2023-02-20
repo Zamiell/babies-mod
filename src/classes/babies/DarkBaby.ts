@@ -3,23 +3,25 @@ import { Callback, setSpriteOpacity, VectorZero } from "isaacscript-common";
 import { newSprite } from "../../sprite";
 import { Baby } from "../Baby";
 
+const v = {
+  run: {
+    counters: 0,
+    fadingToBlack: true,
+  },
+};
+
+let blackSprite: Sprite | undefined;
+
 /** Temporary blindness. */
 export class DarkBaby extends Baby {
-  v = {
-    run: {
-      counters: 0,
-      fadingToBlack: true,
-    },
-  };
-
-  blackSprite: Sprite | null = null;
+  v = v;
 
   override onAdd(): void {
-    this.blackSprite = newSprite("gfx/misc/black.anm2");
+    blackSprite = newSprite("gfx/misc/black.anm2");
   }
 
   override onRemove(): void {
-    this.blackSprite = null;
+    blackSprite = undefined;
   }
 
   // 1
@@ -28,15 +30,15 @@ export class DarkBaby extends Baby {
     const num = this.getAttribute("num");
 
     // Make the counters tick from 0 --> max --> 0, etc.
-    if (this.v.run.fadingToBlack) {
-      this.v.run.counters++;
-      if (this.v.run.counters === num) {
-        this.v.run.fadingToBlack = false;
+    if (v.run.fadingToBlack) {
+      v.run.counters++;
+      if (v.run.counters === num) {
+        v.run.fadingToBlack = false;
       }
     } else {
-      this.v.run.counters--;
-      if (this.v.run.counters === 0) {
-        this.v.run.fadingToBlack = true;
+      v.run.counters--;
+      if (v.run.counters === 0) {
+        v.run.fadingToBlack = true;
       }
     }
   }
@@ -44,16 +46,16 @@ export class DarkBaby extends Baby {
   // 2
   @Callback(ModCallback.POST_RENDER)
   postRender(): void {
-    if (this.blackSprite === null) {
+    if (blackSprite === undefined) {
       return;
     }
 
-    let opacity = this.v.run.counters / 90;
+    let opacity = v.run.counters / 90;
     if (opacity > 1) {
       opacity = 1;
     }
 
-    setSpriteOpacity(this.blackSprite, opacity);
-    this.blackSprite.Render(VectorZero);
+    setSpriteOpacity(blackSprite, opacity);
+    blackSprite.Render(VectorZero);
   }
 }
