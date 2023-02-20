@@ -49,7 +49,7 @@ export function display(): void {
   const startingY = 79;
 
   const posClock = Vector(startingX + 34, startingY + 45);
-  sprites.clock.RenderLayer(0, posClock);
+  sprites.clock.Render(posClock);
 
   if (hours > 0) {
     // The format of the time will be "#.##.##" (instead of "##.##", which is the default).
@@ -62,13 +62,13 @@ export function display(): void {
     const hoursDigitSprite = sprites.digits[4];
     if (hoursDigitSprite !== undefined) {
       hoursDigitSprite.SetFrame("Default", hours);
-      hoursDigitSprite.RenderLayer(0, posHours);
+      hoursDigitSprite.Render(posHours);
     }
 
     const posColon = Vector(startingX - digitLength + 7, startingY + 19);
     const colonHoursSprite = sprites.colons[1];
     if (colonHoursSprite !== undefined) {
-      colonHoursSprite.RenderLayer(0, posColon);
+      colonHoursSprite.Render(posColon);
     }
   }
 
@@ -76,27 +76,27 @@ export function display(): void {
   const minute1Sprite = sprites.digits[0];
   if (minute1Sprite !== undefined) {
     minute1Sprite.SetFrame("Default", minute1);
-    minute1Sprite.RenderLayer(0, posMinute1);
+    minute1Sprite.Render(posMinute1);
   }
 
   const posMinute2 = Vector(startingX + digitLength, startingY);
   const minute2Sprite = sprites.digits[1];
   if (minute2Sprite !== undefined) {
     minute2Sprite.SetFrame("Default", minute2);
-    minute2Sprite.RenderLayer(0, posMinute2);
+    minute2Sprite.Render(posMinute2);
   }
 
   const posColon1 = Vector(startingX + digitLength + 10, startingY + 19);
   const colonMinutesSprite = sprites.colons[0];
   if (colonMinutesSprite !== undefined) {
-    colonMinutesSprite.RenderLayer(0, posColon1);
+    colonMinutesSprite.Render(posColon1);
   }
 
   const posSecond1 = Vector(startingX + digitLength + 11, startingY);
   const second1Sprite = sprites.digits[2];
   if (second1Sprite !== undefined) {
     second1Sprite.SetFrame("Default", second1);
-    second1Sprite.RenderLayer(0, posSecond1);
+    second1Sprite.Render(posSecond1);
   }
 
   const posSecond2 = Vector(
@@ -106,7 +106,7 @@ export function display(): void {
   const second2Sprite = sprites.digits[3];
   if (second2Sprite !== undefined) {
     second2Sprite.SetFrame("Default", second2);
-    second2Sprite.RenderLayer(0, posSecond2);
+    second2Sprite.Render(posSecond2);
   }
 
   const posTenths = Vector(
@@ -120,7 +120,7 @@ export function display(): void {
     startingY + 1,
   );
   sprites.digitMini.SetFrame("Default", tenths);
-  sprites.digitMini.RenderLayer(0, posTenths);
+  sprites.digitMini.Render(posTenths);
 }
 
 function loadSprites() {

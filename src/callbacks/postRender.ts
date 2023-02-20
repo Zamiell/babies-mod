@@ -182,5 +182,5 @@ function drawTempIconNextToActiveCollectible(baby: BabyDescription) {
 
   // The player has the item in their main active slot. Draw the icon in the bottom-right hand
   // corner.
-  clockSprite.RenderLayer(0, CLOCK_POSITION);
+  clockSprite.Render(CLOCK_POSITION);
 }

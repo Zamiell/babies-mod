@@ -38,7 +38,7 @@ export class MohawkBaby extends Baby {
       const x = 65 + HUDOffsetVector.X;
       const y = 12;
       const position = Vector(x, y);
-      g.run.babySprite.RenderLayer(0, position);
+      g.run.babySprite.Render(position);
       const text = `x${bombs}`;
       Isaac.RenderText(text, x + 5, y, 2, 2, 2, 2);
     }
