@@ -21,7 +21,6 @@ module.exports = {
     // Insert changed or disabled rules here, if necessary.
 
     // @template-customization-start
-    "class-methods-use-this": "off",
     "no-restricted-syntax": [
       "error",
       {
