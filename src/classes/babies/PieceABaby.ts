@@ -3,16 +3,16 @@ import {
   CallbackCustom,
   isActionPressed,
   ModCallbackCustom,
+  ReadonlyMap,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
-const ILLEGAL_INPUTS: ReadonlyMap<ButtonAction, readonly ButtonAction[]> =
-  new Map([
-    [ButtonAction.LEFT, [ButtonAction.UP, ButtonAction.DOWN]], // 0
-    [ButtonAction.RIGHT, [ButtonAction.UP, ButtonAction.DOWN]], // 1
-    [ButtonAction.UP, [ButtonAction.LEFT, ButtonAction.RIGHT]], // 2
-    [ButtonAction.DOWN, [ButtonAction.LEFT, ButtonAction.RIGHT]], // 3
-  ]);
+const ILLEGAL_INPUTS = new ReadonlyMap<ButtonAction, readonly ButtonAction[]>([
+  [ButtonAction.LEFT, [ButtonAction.UP, ButtonAction.DOWN]], // 0
+  [ButtonAction.RIGHT, [ButtonAction.UP, ButtonAction.DOWN]], // 1
+  [ButtonAction.UP, [ButtonAction.LEFT, ButtonAction.RIGHT]], // 2
+  [ButtonAction.DOWN, [ButtonAction.LEFT, ButtonAction.RIGHT]], // 3
+]);
 
 /** Can only move up + down + left + right. */
 export class PieceABaby extends Baby {

@@ -4,6 +4,7 @@ import {
   getTSTLClassName,
   ModCallbackCustom,
   ModFeature,
+  ReadonlyMap,
   SaveData,
 } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
@@ -102,10 +103,10 @@ function shouldCallbackFireVanilla(
   return validationFunc(...callbackArgs);
 }
 
-const MOD_CALLBACK_TO_VALIDATION_FUNC: ReadonlyMap<
+const MOD_CALLBACK_TO_VALIDATION_FUNC = new ReadonlyMap<
   ModCallback,
   (...callbackArgs: unknown[]) => boolean
-> = new Map([
+>([
   // 3
   [
     ModCallback.POST_USE_ITEM,
@@ -218,10 +219,10 @@ function shouldCallbackFireCustom(
   return validationFunc(...callbackArgs);
 }
 
-const MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC: ReadonlyMap<
+const MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC = new ReadonlyMap<
   ModCallbackCustom,
   (...callbackArgs: unknown[]) => boolean
-> = new Map([
+>([
   [
     ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER,
     (...callbackArgs: unknown[]) => {
