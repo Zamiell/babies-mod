@@ -4,10 +4,10 @@ import {
   ModCallback,
   ProjectileFlag,
 } from "isaac-typescript-definitions";
-import { Callback, getEffectiveStage } from "isaacscript-common";
+import { Callback, getEffectiveStage, ReadonlySet } from "isaacscript-common";
 import { Baby } from "../Baby";
 
-const IMMUNE_ENTITY_TYPES: ReadonlySet<EntityType> = new Set([
+const IMMUNE_ENTITY_TYPES = new ReadonlySet<EntityType>([
   EntityType.MOMS_HEART, // 78
   EntityType.ISAAC, // 102
 ]);

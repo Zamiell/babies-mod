@@ -10,6 +10,7 @@ import {
   CallbackCustom,
   getEffectiveStage,
   ModCallbackCustom,
+  ReadonlySet,
   spawn,
 } from "isaacscript-common";
 import { g } from "../../globals";
@@ -18,7 +19,7 @@ import { Baby } from "../Baby";
 const DATA_KEY = "BabiesModDuplicated";
 
 /** Doubling certain enemies leads to bugs. */
-const BUGGY_ENTITY_TYPES_SET: ReadonlySet<EntityType> = new Set([
+const BUGGY_ENTITY_TYPES_SET = new ReadonlySet<EntityType>([
   EntityType.SHOPKEEPER, // 17
   EntityType.CHUB, // 28
   EntityType.FIREPLACE, // 33

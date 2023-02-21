@@ -9,6 +9,7 @@ import {
   CallbackCustom,
   getEntities,
   ModCallbackCustom,
+  ReadonlySet,
   setEntityOpacity,
   spawnWithSeed,
 } from "isaacscript-common";
@@ -23,7 +24,7 @@ const FRIEND_ENTITY_FLAGS = addFlag(
 
 const FADE_AMOUNT = 0.25;
 
-const EXCEPTION_ENTITY_TYPES: ReadonlySet<EntityType> = new Set([
+const EXCEPTION_ENTITY_TYPES = new ReadonlySet<EntityType>([
   EntityType.MOVABLE_TNT,
 ]);
 

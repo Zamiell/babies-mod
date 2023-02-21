@@ -3,6 +3,7 @@ import {
   CollectibleType,
   ItemType,
   LevelStage,
+  RoomType,
   TrinketType,
 } from "isaac-typescript-definitions";
 import {
@@ -10,6 +11,8 @@ import {
   getCollectibleItemType,
   getEffectiveStage,
   hasCollectible,
+  levelHasRoomType,
+  onFirstFloor,
   onStageWithNaturalDevilRoom,
 } from "isaacscript-common";
 import { Baby } from "./classes/Baby";
@@ -297,10 +300,9 @@ function checkStage(baby: BabyDescription): boolean {
 
   if (
     babyItemsSet.has(CollectibleType.MORE_OPTIONS) && // 414
-    (effectiveStage === LevelStage.BASEMENT_1 ||
-      effectiveStage > LevelStage.DEPTHS_2)
+    (onFirstFloor() || !levelHasRoomType(RoomType.TREASURE))
   ) {
-    // We always have More Options on Basement 1 There are no Treasure Rooms on floors 7 and beyond.
+    // We always have More Options on Basement 1.
     return false;
   }
 
@@ -315,8 +317,7 @@ function checkStage(baby: BabyDescription): boolean {
 
   if (
     baby.trinket === TrinketType.DEVILS_CROWN &&
-    (effectiveStage === LevelStage.BASEMENT_1 ||
-      effectiveStage > LevelStage.DEPTHS_2)
+    (onFirstFloor() || !levelHasRoomType(RoomType.TREASURE))
   ) {
     // Devil's Crown doesn't do anything on floors that do not have Treasure Rooms.
     return false;
@@ -326,8 +327,6 @@ function checkStage(baby: BabyDescription): boolean {
 }
 
 function checkBabyClass(player: EntityPlayer, babyClass: Baby): boolean {
-  const effectiveStage = getEffectiveStage();
-
   // Racing+ gets collectibles on run start to check for a fully-unlocked save file. Thus, we
   // disable any baby that has to do with collectibles on the first floor. (These kind of babies
   // could also mess with resetting.)
@@ -336,10 +335,7 @@ function checkBabyClass(player: EntityPlayer, babyClass: Baby): boolean {
     AnyFunction | undefined
   >;
   const babyPreGetCollectibleMethod = castedBabyClass["preGetCollectible"];
-  if (
-    babyPreGetCollectibleMethod !== undefined &&
-    effectiveStage === LevelStage.BASEMENT_1
-  ) {
+  if (babyPreGetCollectibleMethod !== undefined && onFirstFloor()) {
     return false;
   }
 

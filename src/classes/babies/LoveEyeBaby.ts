@@ -9,6 +9,7 @@ import {
   getNPCs,
   inRoomType,
   ModCallbackCustom,
+  ReadonlySet,
   spawn,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
@@ -19,7 +20,7 @@ interface NPCDescription {
   subType: int;
 }
 
-const EXCEPTION_NPCS: ReadonlySet<EntityType> = new Set([
+const EXCEPTION_NPCS = new ReadonlySet<EntityType>([
   EntityType.SHOPKEEPER, // 17
   EntityType.FIREPLACE, // 33
 ]);

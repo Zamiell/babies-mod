@@ -7,11 +7,12 @@ import {
   getCollectibleItemType,
   getCollectibleName,
   log,
+  ReadonlySet,
 } from "isaacscript-common";
 import { BABIES } from "./objects/babies";
 import { BabyDescription } from "./types/BabyDescription";
 
-const VALID_DUPLICATE_ITEMS: ReadonlySet<CollectibleType> = new Set([
+const VALID_DUPLICATE_ITEMS = new ReadonlySet<CollectibleType>([
   CollectibleType.POOP, // 36
   CollectibleType.MOMS_KNIFE, // 114
   CollectibleType.BRIMSTONE, // 118

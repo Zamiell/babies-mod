@@ -1,10 +1,10 @@
 import { EntityType, ModCallback } from "isaac-typescript-definitions";
-import { Callback } from "isaacscript-common";
+import { Callback, ReadonlySet } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 const DATA_KEY = "BabiesModSpedUp";
 
-const IMMUNE_ENTITY_TYPES: ReadonlySet<EntityType> = new Set([
+const IMMUNE_ENTITY_TYPES = new ReadonlySet<EntityType>([
   EntityType.MOMS_HEART, // 78
   EntityType.ISAAC, // 102
 ]);

@@ -1,12 +1,12 @@
-import { CollectibleType, LevelStage } from "isaac-typescript-definitions";
+import { CollectibleType } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   changeRoom,
   getAllRoomGridIndexes,
-  getEffectiveStage,
   getRandomArrayElement,
   hasCollectible,
   ModCallbackCustom,
+  onFirstFloor,
   stopAllSoundEffects,
 } from "isaacscript-common";
 import { g } from "../../globals";
@@ -19,15 +19,13 @@ export class EarwigBaby extends Baby {
    * - We don't want this baby on the first floor since it interferes with resetting.
    */
   override isValid(player: EntityPlayer): boolean {
-    const effectiveStage = getEffectiveStage();
-
     return (
       !hasCollectible(
         player,
         CollectibleType.COMPASS, // 21
         CollectibleType.TREASURE_MAP, // 54
         CollectibleType.MIND, // 333
-      ) && effectiveStage !== LevelStage.BASEMENT_1
+      ) && !onFirstFloor()
     );
   }
 

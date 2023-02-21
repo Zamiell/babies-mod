@@ -6,13 +6,14 @@ import {
   isAliveExceptionNPC,
   isAllPressurePlatesPushed,
   log,
+  ReadonlySet,
 } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { mod } from "../mod";
 
 // Pseudo room clear should be disabled in certain room types.
-const ROOM_TYPE_BLACKLIST: ReadonlySet<RoomType> = new Set([
+const ROOM_TYPE_BLACKLIST = new ReadonlySet<RoomType>([
   RoomType.BOSS, // 5
   RoomType.CHALLENGE, // 11
   RoomType.DEVIL, // 14

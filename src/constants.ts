@@ -3,6 +3,7 @@ import {
   PickupVariant,
   RoomType,
 } from "isaac-typescript-definitions";
+import { ReadonlySet } from "isaacscript-common";
 
 export const MOD_NAME = "The Babies Mod";
 
@@ -15,7 +16,7 @@ export const FADED_BLUE = Color(0, 0, 1, 0.7);
 export const FADED_RED = Color(1, 0, 0, 0.7);
 export const FADED_YELLOW = Color(1, 1, 0, 0.7);
 
-export const ROOM_TYPES_TO_NOT_TRANSFORM: ReadonlySet<RoomType> = new Set([
+export const ROOM_TYPES_TO_NOT_TRANSFORM = new ReadonlySet<RoomType>([
   RoomType.DEFAULT, // 1
   // I AM ERROR rooms should not be converted so that they have a way to escape.
   RoomType.ERROR, // 3
@@ -35,8 +36,8 @@ export const ROOM_TYPES_TO_NOT_TRANSFORM: ReadonlySet<RoomType> = new Set([
   RoomType.BLUE, // 28
 ]);
 
-export const PICKUP_VARIANTS_IMMUNE_TO_BABY_EFFECTS: ReadonlySet<PickupVariant> =
-  new Set([
+export const PICKUP_VARIANTS_IMMUNE_TO_BABY_EFFECTS =
+  new ReadonlySet<PickupVariant>([
     PickupVariant.COLLECTIBLE, // 100
     PickupVariant.SHOP_ITEM, // 150
     PickupVariant.BIG_CHEST, // 340
@@ -44,8 +45,8 @@ export const PICKUP_VARIANTS_IMMUNE_TO_BABY_EFFECTS: ReadonlySet<PickupVariant> 
     PickupVariant.BED, // 380
   ]);
 
-export const GRID_ENTITY_REPLACEMENT_EXCEPTIONS: ReadonlySet<GridEntityXMLType> =
-  new Set([
+export const GRID_ENTITY_REPLACEMENT_EXCEPTIONS =
+  new ReadonlySet<GridEntityXMLType>([
     GridEntityXMLType.PRESSURE_PLATE,
     GridEntityXMLType.TRAPDOOR,
     GridEntityXMLType.CRAWL_SPACE,

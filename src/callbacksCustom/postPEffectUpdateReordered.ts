@@ -1,5 +1,5 @@
 import { CollectibleType } from "isaac-typescript-definitions";
-import { ModCallbackCustom } from "isaacscript-common";
+import { ModCallbackCustom, ReadonlySet } from "isaacscript-common";
 import { getBabyItemsSet } from "../babyCheckValid";
 import { softlockPreventionPostPEffectUpdateReordered } from "../features/softlockPrevention";
 import { mod } from "../mod";
@@ -7,7 +7,7 @@ import { BabyDescription } from "../types/BabyDescription";
 import { isValidRandomBabyPlayer } from "../utils";
 import { getCurrentBaby } from "../utilsBaby";
 
-const NEXT_FLOOR_PLAYER_ANIMATIONS: ReadonlySet<string> = new Set([
+const NEXT_FLOOR_PLAYER_ANIMATIONS = new ReadonlySet<string>([
   "Trapdoor",
   "Trapdoor2",
   "LightTravel",
