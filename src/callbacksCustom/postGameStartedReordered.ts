@@ -57,7 +57,11 @@ const REVIVAL_TRINKETS = [
 const BANNED_TRINKETS_WITH_RANDOM_BABY = [...REVIVAL_TRINKETS] as const;
 
 export function init(): void {
-  mod.AddCallbackCustom(ModCallbackCustom.POST_GAME_STARTED_REORDERED, main);
+  mod.AddCallbackCustom(
+    ModCallbackCustom.POST_GAME_STARTED_REORDERED,
+    main,
+    undefined,
+  );
 }
 
 function main(isContinued: boolean) {
