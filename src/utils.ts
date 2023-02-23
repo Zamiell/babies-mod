@@ -152,10 +152,11 @@ export function getRandomCollectibleTypeFromPool(
   itemPoolType: ItemPoolType,
   seedOrRNG: Seed | RNG,
 ): CollectibleType {
+  const itemPool = game.GetItemPool();
   const seed = isRNG(seedOrRNG) ? seedOrRNG.Next() : seedOrRNG;
 
   g.run.gettingCollectible = true;
-  const collectibleType = g.itemPool.GetCollectible(itemPoolType, true, seed);
+  const collectibleType = itemPool.GetCollectible(itemPoolType, true, seed);
   g.run.gettingCollectible = false;
 
   return collectibleType;
@@ -172,9 +173,11 @@ export function giveItemAndRemoveFromPools(
   player: EntityPlayer,
   collectibleType: CollectibleType,
 ): void {
+  const itemPool = game.GetItemPool();
+
   const maxCharges = getCollectibleMaxCharges(collectibleType);
   player.AddCollectible(collectibleType, maxCharges, false);
-  g.itemPool.RemoveCollectible(collectibleType);
+  itemPool.RemoveCollectible(collectibleType);
 }
 
 export function isRacingPlusEnabled(): boolean {
@@ -214,12 +217,14 @@ export function isValidRandomBabyPlayer(player: EntityPlayer): boolean {
 
 /** This is used for several babies. */
 export function postNewRoomReorderedNoHealthUI(): void {
+  const level = game.GetLevel();
+
   // Get rid of the health UI by using Curse of the Unknown (but not in Devil Rooms or Black
   // Markets).
   if (shouldShowRealHeartsUIForDevilDeal()) {
-    g.l.RemoveCurses(LevelCurse.UNKNOWN);
+    level.RemoveCurses(LevelCurse.UNKNOWN);
   } else {
-    g.l.AddCurse(LevelCurse.UNKNOWN, false);
+    level.AddCurse(LevelCurse.UNKNOWN, false);
   }
 }
 

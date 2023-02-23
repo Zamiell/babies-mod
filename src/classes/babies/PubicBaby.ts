@@ -6,6 +6,7 @@ import {
 } from "isaac-typescript-definitions";
 import {
   Callback,
+  game,
   getDimension,
   getDoors,
   getEffectiveStage,
@@ -24,7 +25,8 @@ export class PubicBaby extends Baby {
 
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
-    const roomClear = g.r.IsClear();
+    const room = game.GetRoom();
+    const roomClear = room.IsClear();
     const dimension = getDimension();
 
     // Don't do anything if we already full cleared the floor.

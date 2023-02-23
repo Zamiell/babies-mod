@@ -5,6 +5,7 @@ import {
 } from "isaac-typescript-definitions";
 import {
   anyPlayerIs,
+  game,
   getCharacterName,
   getPlayersOfType,
   log,
@@ -65,8 +66,9 @@ export function init(): void {
 }
 
 function main(isContinued: boolean) {
-  const startSeed = g.seeds.GetStartSeed();
-  const startSeedString = g.seeds.GetStartSeedString();
+  const seeds = game.GetSeeds();
+  const startSeed = seeds.GetStartSeed();
+  const startSeedString = seeds.GetStartSeedString();
   const renderFrameCount = Isaac.GetFrameCount();
   const player = Isaac.GetPlayer();
   const character = player.GetPlayerType();
@@ -90,12 +92,12 @@ function main(isContinued: boolean) {
   // Easter Eggs from babies are normally removed upon going to the next floor. We also have to
   // check to see if they reset the game while on a baby with a custom Easter Egg effect.
   for (const seed of ALL_BABY_SEED_EFFECTS) {
-    g.seeds.RemoveSeedEffect(seed);
+    seeds.RemoveSeedEffect(seed);
   }
 
   // Also remove seeds that are turned on manually in the `POST_UPDATE` callback.
-  if (g.seeds.HasSeedEffect(SeedEffect.OLD_TV)) {
-    g.seeds.RemoveSeedEffect(SeedEffect.OLD_TV);
+  if (seeds.HasSeedEffect(SeedEffect.OLD_TV)) {
+    seeds.RemoveSeedEffect(SeedEffect.OLD_TV);
   }
 
   if (anyPlayerIs(PlayerTypeCustom.RANDOM_BABY)) {
@@ -104,6 +106,8 @@ function main(isContinued: boolean) {
 }
 
 function postGameStartedRandomBaby() {
+  const itemPool = game.GetItemPool();
+
   // Random Baby always starts with the Schoolbag.
   const randomBabies = getPlayersOfType(PlayerTypeCustom.RANDOM_BABY);
   for (const randomBaby of randomBabies) {
@@ -111,10 +115,10 @@ function postGameStartedRandomBaby() {
   }
 
   for (const collectibleType of BANNED_COLLECTIBLES_WITH_RANDOM_BABY) {
-    g.itemPool.RemoveCollectible(collectibleType);
+    itemPool.RemoveCollectible(collectibleType);
   }
 
   for (const trinketType of BANNED_TRINKETS_WITH_RANDOM_BABY) {
-    g.itemPool.RemoveTrinket(trinketType);
+    itemPool.RemoveTrinket(trinketType);
   }
 }

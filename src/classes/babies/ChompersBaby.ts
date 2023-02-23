@@ -4,9 +4,8 @@ import {
   LevelStage,
   ModCallback,
 } from "isaac-typescript-definitions";
-import { Callback, getEffectiveStage } from "isaacscript-common";
+import { Callback, game, getEffectiveStage } from "isaacscript-common";
 import { GRID_ENTITY_REPLACEMENT_EXCEPTIONS } from "../../constants";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Everything is Red Poop. */
@@ -21,6 +20,8 @@ export class ChompersBaby extends Baby {
   preRoomEntitySpawn(
     entityTypeOrGridEntityXMLType: EntityType | GridEntityXMLType,
   ): [EntityType | GridEntityXMLType, int, int] | undefined {
+    const room = game.GetRoom();
+
     // We only care about grid entities.
     if ((entityTypeOrGridEntityXMLType as int) < 1000) {
       return undefined;
@@ -29,7 +30,7 @@ export class ChompersBaby extends Baby {
       entityTypeOrGridEntityXMLType as GridEntityXMLType;
 
     if (
-      g.r.IsFirstVisit() &&
+      room.IsFirstVisit() &&
       !GRID_ENTITY_REPLACEMENT_EXCEPTIONS.has(gridEntityXMLType)
     ) {
       return [GridEntityXMLType.POOP_RED, 0, 0];

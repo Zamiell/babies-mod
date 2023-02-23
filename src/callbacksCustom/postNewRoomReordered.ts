@@ -9,7 +9,6 @@ import {
   log,
   ModCallbackCustom,
 } from "isaacscript-common";
-import { updateCachedAPIFunctions } from "../cache";
 import { g } from "../globals";
 import { mod } from "../mod";
 import { getCurrentBaby } from "../utilsBaby";
@@ -19,11 +18,10 @@ export function init(): void {
 }
 
 function main() {
-  updateCachedAPIFunctions();
-
   const gameFrameCount = game.GetFrameCount();
-  const stage = g.l.GetStage();
-  const stageType = g.l.GetStageType();
+  const level = game.GetLevel();
+  const stage = level.GetStage();
+  const stageType = level.GetStageType();
   const renderFrameCount = Isaac.GetFrameCount();
   const roomStageID = getRoomStageID();
   const roomType = getRoomType();

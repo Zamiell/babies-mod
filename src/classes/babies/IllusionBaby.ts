@@ -1,6 +1,10 @@
 import { SlotVariant } from "isaac-typescript-definitions";
-import { CallbackCustom, ModCallbackCustom, newRNG } from "isaacscript-common";
-import { g } from "../../globals";
+import {
+  CallbackCustom,
+  game,
+  ModCallbackCustom,
+  newRNG,
+} from "isaacscript-common";
 import { spawnSlotHelper } from "../../utils";
 import { Baby } from "../Baby";
 
@@ -15,7 +19,8 @@ export class IllusionBaby extends Baby {
   v = v;
 
   override onAdd(): void {
-    const startSeed = g.seeds.GetStartSeed();
+    const seeds = game.GetSeeds();
+    const startSeed = seeds.GetStartSeed();
     v.run.rng = newRNG(startSeed);
   }
 

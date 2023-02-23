@@ -1,6 +1,5 @@
 import { DarkEsauVariant, EntityType } from "isaac-typescript-definitions";
-import { doesEntityExist, spawn } from "isaacscript-common";
-import { g } from "../../globals";
+import { doesEntityExist, game, spawn } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 const BOTTOM_LEFT_GRID_INDEX = 92;
@@ -12,7 +11,9 @@ export class FoundSoulBaby extends Baby {
       return;
     }
 
-    const bottomLeftPosition = g.r.GetGridPosition(BOTTOM_LEFT_GRID_INDEX);
+    const room = game.GetRoom();
+    const bottomLeftPosition = room.GetGridPosition(BOTTOM_LEFT_GRID_INDEX);
+
     spawn(
       EntityType.DARK_ESAU,
       DarkEsauVariant.DARK_ESAU,

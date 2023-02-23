@@ -17,7 +17,6 @@ import {
   isKeyboardPressed,
   KColorDefault,
 } from "isaacscript-common";
-import { updateCachedAPIFunctions } from "../cache";
 import { MOD_NAME, VERSION } from "../constants";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
@@ -38,7 +37,6 @@ export function init(): void {
 }
 
 function main() {
-  updateCachedAPIFunctions();
   drawVersion();
 
   const currentBaby = getCurrentBaby();
@@ -96,7 +94,8 @@ function drawBabyIntro(baby: BabyDescription) {
 
 /** Draw the baby's number next to the heart count. */
 function drawBabyNumber(babyType: RandomBabyType) {
-  const roomType = g.r.GetType();
+  const room = game.GetRoom();
+  const roomType = room.GetType();
   const HUDOffsetVector = getHUDOffsetVector();
   const heartsUIWidth = getHeartsUIWidth();
 

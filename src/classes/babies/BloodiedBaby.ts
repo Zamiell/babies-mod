@@ -9,6 +9,7 @@ import {
   addFlag,
   CallbackCustom,
   closeDoorFast,
+  game,
   getDoors,
   ModCallbackCustom,
   repeat,
@@ -21,7 +22,8 @@ import { Baby } from "../Baby";
 export class BloodiedBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    const roomClear = g.r.IsClear();
+    const room = game.GetRoom();
+    const roomClear = room.IsClear();
 
     /** Indexed by target room index. */
     const doorStateMap = new Map<int, DoorState>();
@@ -54,9 +56,10 @@ export class BloodiedBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
-    const roomType = g.r.GetType();
-    const isFirstVisit = g.r.IsFirstVisit();
-    const center = g.r.GetCenterPos();
+    const room = game.GetRoom();
+    const roomType = room.GetType();
+    const isFirstVisit = room.IsFirstVisit();
+    const center = room.GetCenterPos();
     const num = this.getAttribute("num");
 
     if (roomType !== RoomType.ULTRA_SECRET || !isFirstVisit) {
@@ -64,7 +67,7 @@ export class BloodiedBaby extends Baby {
     }
 
     repeat(num, () => {
-      const position = g.r.FindFreePickupSpawnPosition(center, 1, true);
+      const position = room.FindFreePickupSpawnPosition(center, 1, true);
       mod.spawnCollectible(CollectibleType.NULL, position, g.run.rng);
     });
   }

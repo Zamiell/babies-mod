@@ -2,6 +2,7 @@ import { CollectibleType } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   changeRoom,
+  game,
   getAllRoomGridIndexes,
   getRandomArrayElement,
   hasCollectible,
@@ -31,8 +32,10 @@ export class EarwigBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {
-    const startingRoomGridIndex = g.l.GetStartingRoomIndex();
-    const centerPos = g.r.GetCenterPos();
+    const level = game.GetLevel();
+    const startingRoomGridIndex = level.GetStartingRoomIndex();
+    const room = game.GetRoom();
+    const centerPos = room.GetCenterPos();
     const allRoomGridIndexes = getAllRoomGridIndexes();
     const num = this.getAttribute("num");
 

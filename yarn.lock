@@ -1613,10 +1613,10 @@ eslint-config-airbnb-typescript@^17.0.0:
   dependencies:
     eslint-config-airbnb-base "^15.0.0"
 
-eslint-config-isaacscript@^3.6.1:
-  version "3.6.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-isaacscript/-/eslint-config-isaacscript-3.6.1.tgz#670e2eddc767062cebab775f278c86b70abe2c13"
-  integrity sha512-vqnjcqJEklePFVWRv0onEfMzYeHX+EdNmGWpaJvg4OMrsVtTzT7wBUw7yg6nUKNPmTBrUvANuaF20fIrkJgVZg==
+eslint-config-isaacscript@^3.7.0:
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-isaacscript/-/eslint-config-isaacscript-3.7.0.tgz#d5ab00bb5b12e9d22e41cb07a4f37a964fb50328"
+  integrity sha512-EdUZTB9fcIFATOWC0GZLIMw51gCszUQF9ZVPA9/fOz0xGPMIpdymZgJrdPVLlEnsGALdT2adQb8gd3flPNfumg==
 
 eslint-config-prettier@^8.6.0:
   version "8.6.0"
@@ -1685,10 +1685,10 @@ eslint-plugin-import@^2.27.5:
     semver "^6.3.0"
     tsconfig-paths "^3.14.1"
 
-eslint-plugin-isaacscript@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-isaacscript/-/eslint-plugin-isaacscript-2.4.0.tgz#3938248f0ac32b70cef00aea6535f4cac2d51b77"
-  integrity sha512-Kx9tfghBiojnDbaSEflF6QmSkD/7ey/Hzdrckq9rgAUGatizFAvMnZfu8oh1ePQtMgx1AI+e1CKnL4s3m/Wzaw==
+eslint-plugin-isaacscript@^2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-isaacscript/-/eslint-plugin-isaacscript-2.5.1.tgz#6537dba4e0374118fcd37de396c9f0991011a835"
+  integrity sha512-OkERPOWnWQwOdLe/wjmaqOjNsKW+ouUlWlA0xMmxsIz5DSo8pcIAgL+MRnMA+bVuwF/UjBv2WIcuTpdDMtR0IQ==
 
 eslint-plugin-jsdoc@^40.0.0:
   version "40.0.0"
@@ -2659,10 +2659,10 @@ is-yarn-global@^0.4.0:
   resolved "https://registry.yarnpkg.com/is-yarn-global/-/is-yarn-global-0.4.1.tgz#b312d902b313f81e4eaf98b6361ba2b45cd694bb"
   integrity sha512-/kppl+R+LO5VmhYSEWARUFjodS25D68gvj8W7z0I7OWhUla5xWu8KL6CtB2V0R6yqhnRgbcaREMr4EEM6htLPQ==
 
-isaac-typescript-definitions@^12.0.1:
-  version "12.0.1"
-  resolved "https://registry.yarnpkg.com/isaac-typescript-definitions/-/isaac-typescript-definitions-12.0.1.tgz#2e79bd17a3401b58ff29455658c1bcc0429ddf26"
-  integrity sha512-rPfRFcMmPyjOoYKezDaaL8s1QF6jXmXMBhSAygy+MPXmSxwGo6/0fYMDJIxxCbubqcZnrXXJuo7mjQ8wKsR1Aw==
+isaac-typescript-definitions@^13.0.5:
+  version "13.0.5"
+  resolved "https://registry.yarnpkg.com/isaac-typescript-definitions/-/isaac-typescript-definitions-13.0.5.tgz#ab7d28cddb0be0b31ea15e48b3f895984fcdbb7e"
+  integrity sha512-goduxki7sVvrmjQyjBpyj/5wlg6ehrTg3PUEhYz79akX9oF5QJ217IU/cE6nbDO6k95Dlx06OuFF71JIYRhv5A==
   dependencies:
     lua-types "^2.13.1"
 
@@ -2671,17 +2671,17 @@ isaacscript-common-ts@^10.0.0:
   resolved "https://registry.yarnpkg.com/isaacscript-common-ts/-/isaacscript-common-ts-10.0.0.tgz#f1037ad8856ef37860964b2987b913aa2e289280"
   integrity sha512-lacHMi0+2ovSuMrtz253XjvDX1i4bER5eNbWsRBTOQp56ZTX5aGC9zKg6GyaDULTfwL/K/bD1mVG69qvsAqChQ==
 
-isaacscript-common@^26.2.0:
-  version "26.2.0"
-  resolved "https://registry.yarnpkg.com/isaacscript-common/-/isaacscript-common-26.2.0.tgz#86bec5b6b3456340fbb2f943add4634106907055"
-  integrity sha512-1HbRSKYk5pesv5aBxzraq0JS+ab4ktWghC2IZstSROgYHkIJm3FxXhoxGLdDd5CveP+7mai+/Z6n5wzMKsu6UQ==
+isaacscript-common@^28.1.2:
+  version "28.1.2"
+  resolved "https://registry.yarnpkg.com/isaacscript-common/-/isaacscript-common-28.1.2.tgz#06a1bbf9cbc6e0dcf1e2ae796ef3b9baa8437d3e"
+  integrity sha512-PuSgI+MSM48n7g5DBkCsNN5LybaE1AMFztZx83wKqgfdsDPMTmPb6P7ENYZjeFh9ReA3iunzj9eCxyN8fox2qg==
   dependencies:
-    isaac-typescript-definitions "^12.0.1"
+    isaac-typescript-definitions "^13.0.5"
 
-isaacscript-lint@^4.13.1:
-  version "4.13.1"
-  resolved "https://registry.yarnpkg.com/isaacscript-lint/-/isaacscript-lint-4.13.1.tgz#1ab89f8769a20893349d51ff1c03fb910d34deac"
-  integrity sha512-JSJHSAjsD/KhQYnJYVq2l1IptrMoJq4MTWZ9h+NZx4ByEmpFuSDF8sgqalTFxKggrNbhdTOOgbCMRiUPq02LZw==
+isaacscript-lint@^4.15.1:
+  version "4.15.1"
+  resolved "https://registry.yarnpkg.com/isaacscript-lint/-/isaacscript-lint-4.15.1.tgz#a2f08800f846b1a85793d019e6243d251bec13d5"
+  integrity sha512-l9VXQMN1hTgMC46hLeCed6Kn1ijqxS19+pccYix+2oAMCeKqbnoCTb01oObDShhzSjPcbrveiT3qOcks/R6Xbg==
   dependencies:
     "@prettier/plugin-xml" "^2.2.0"
     "@tsconfig/recommended" "^1.0.2"
@@ -2692,12 +2692,12 @@ isaacscript-lint@^4.13.1:
     eslint "^8.34.0"
     eslint-config-airbnb-base "^15.0.0"
     eslint-config-airbnb-typescript "^17.0.0"
-    eslint-config-isaacscript "^3.6.1"
+    eslint-config-isaacscript "^3.7.0"
     eslint-config-prettier "^8.6.0"
     eslint-plugin-deprecation "^1.3.3"
     eslint-plugin-eslint-comments "^3.2.0"
     eslint-plugin-import "^2.27.5"
-    eslint-plugin-isaacscript "^2.4.0"
+    eslint-plugin-isaacscript "^2.5.1"
     eslint-plugin-jsdoc "^40.0.0"
     eslint-plugin-n "^15.6.1"
     eslint-plugin-no-autofix "^1.2.3"

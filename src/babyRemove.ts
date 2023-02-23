@@ -1,10 +1,10 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 import {
+  game,
   removeDeadEyeMultiplier,
   repeat,
   setBlindfold,
 } from "isaacscript-common";
-import { g } from "./globals";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 import { getCurrentBaby } from "./utilsBaby";
 
@@ -56,7 +56,8 @@ export function babyRemove(player: EntityPlayer, oldBabyCounters: int): void {
 
   // Remove easter eggs.
   if (baby.seed !== undefined) {
-    g.seeds.RemoveSeedEffect(baby.seed);
+    const seeds = game.GetSeeds();
+    seeds.RemoveSeedEffect(baby.seed);
   }
 
   // Remove miscellaneous effects.

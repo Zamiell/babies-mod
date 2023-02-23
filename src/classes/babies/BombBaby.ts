@@ -1,6 +1,7 @@
 import { CollectibleType, LevelStage } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
+  game,
   getEffectiveStage,
   getPlayerFromEntity,
   getRandom,
@@ -8,7 +9,6 @@ import {
   newRNG,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 const v = {
@@ -22,7 +22,8 @@ export class BombBaby extends Baby {
   v = v;
 
   override onAdd(): void {
-    const startSeed = g.seeds.GetStartSeed();
+    const seeds = game.GetSeeds();
+    const startSeed = seeds.GetStartSeed();
     v.run.rng = newRNG(startSeed);
   }
 

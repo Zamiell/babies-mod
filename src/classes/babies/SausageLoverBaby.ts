@@ -6,7 +6,6 @@ import {
   ModCallbackCustom,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Summons Monstro every 5 seconds. */
@@ -14,7 +13,8 @@ export class SausageLoverBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {
     const gameFrameCount = game.GetFrameCount();
-    const roomClear = g.r.IsClear();
+    const room = game.GetRoom();
+    const roomClear = room.IsClear();
 
     if (
       gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0 &&

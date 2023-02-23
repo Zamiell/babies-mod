@@ -1,5 +1,5 @@
 import { CollectibleType } from "isaac-typescript-definitions";
-import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
+import { CallbackCustom, game, ModCallbackCustom } from "isaacscript-common";
 import { g } from "../../../globals";
 import { mod } from "../../../mod";
 import { Baby } from "../../Baby";
@@ -8,12 +8,13 @@ import { Baby } from "../../Baby";
 export class SirenShooter extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
+    const room = game.GetRoom();
     const num = this.getAttribute("num");
 
     g.run.babyCounters++;
     if (g.run.babyCounters === num) {
       g.run.babyCounters = 0;
-      const position = g.r.FindFreePickupSpawnPosition(
+      const position = room.FindFreePickupSpawnPosition(
         player.Position,
         1,
         true,

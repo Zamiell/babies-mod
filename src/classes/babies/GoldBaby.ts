@@ -2,8 +2,7 @@ import {
   GridEntityType,
   PoopGridEntityVariant,
 } from "isaac-typescript-definitions";
-import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
-import { g } from "../../globals";
+import { CallbackCustom, game, ModCallbackCustom } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Gold gear + gold poops + gold rooms. */
@@ -29,6 +28,7 @@ export class GoldBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
-    g.r.TurnGold();
+    const room = game.GetRoom();
+    room.TurnGold();
   }
 }

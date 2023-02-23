@@ -6,18 +6,20 @@ import {
 } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
+  game,
   ModCallbackCustom,
   teleport,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Starts with Stud Finder; Crawlspace --> Black Market. */
 export class SpelunkerBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
-    const previousRoomGridIndex = g.l.GetPreviousRoomIndex();
-    const roomType = g.r.GetType();
+    const level = game.GetLevel();
+    const previousRoomGridIndex = level.GetPreviousRoomIndex();
+    const room = game.GetRoom();
+    const roomType = room.GetType();
 
     if (
       roomType === RoomType.DUNGEON &&

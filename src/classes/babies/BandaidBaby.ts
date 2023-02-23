@@ -3,7 +3,7 @@ import {
   ModCallback,
   RoomType,
 } from "isaac-typescript-definitions";
-import { Callback, getRandom } from "isaacscript-common";
+import { Callback, game, getRandom } from "isaacscript-common";
 import { g } from "../../globals";
 import { mod } from "../../mod";
 import { Baby } from "../Baby";
@@ -12,8 +12,9 @@ import { Baby } from "../Baby";
 export class BandaidBaby extends Baby {
   @Callback(ModCallback.PRE_SPAWN_CLEAR_AWARD)
   preSpawnClearAward(): boolean | undefined {
-    const roomType = g.r.GetType();
-    const roomSeed = g.r.GetSpawnSeed();
+    const room = game.GetRoom();
+    const roomType = room.GetType();
+    const roomSeed = room.GetSpawnSeed();
     const player = Isaac.GetPlayer();
 
     if (roomType === RoomType.BOSS) {
@@ -22,7 +23,7 @@ export class BandaidBaby extends Baby {
 
     const chance = getRandom(g.run.rng);
     if (chance < 0.5) {
-      const position = g.r.FindFreePickupSpawnPosition(
+      const position = room.FindFreePickupSpawnPosition(
         player.Position,
         1,
         true,

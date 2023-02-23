@@ -7,6 +7,7 @@ import {
 import {
   CallbackCustom,
   changeRoom,
+  game,
   getEffectiveStage,
   getRoomGridIndexesForType,
   hasFlag,
@@ -16,7 +17,6 @@ import {
   removeGridEntity,
   spawnGridEntity,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Floors are reversed. */
@@ -27,7 +27,8 @@ export class EyebatBaby extends Baby {
    *   a trapdoor.
    */
   override isValid(): boolean {
-    const curses = g.l.GetCurses();
+    const level = game.GetLevel();
+    const curses = level.GetCurses();
     const effectiveStage = getEffectiveStage();
 
     return (
@@ -44,7 +45,8 @@ export class EyebatBaby extends Baby {
     GridEntityType.TRAPDOOR,
   )
   postGridEntityInitTrapdoor(gridEntity: GridEntity): void {
-    const roomType = g.r.GetType();
+    const room = game.GetRoom();
+    const roomType = room.GetType();
     if (roomType === RoomType.BOSS) {
       removeGridEntity(gridEntity, false);
     }
@@ -56,7 +58,8 @@ export class EyebatBaby extends Baby {
       return;
     }
 
-    const isFirstVisit = g.r.IsFirstVisit();
+    const room = game.GetRoom();
+    const isFirstVisit = room.IsFirstVisit();
 
     if (isFirstVisit) {
       const bossRoomIndexes = getRoomGridIndexesForType(RoomType.BOSS);
@@ -68,7 +71,7 @@ export class EyebatBaby extends Baby {
         changeRoom(bossRoomIndex);
       }
     } else {
-      const centerPos = g.r.GetCenterPos();
+      const centerPos = room.GetCenterPos();
       spawnGridEntity(GridEntityType.TRAPDOOR, centerPos);
     }
   }

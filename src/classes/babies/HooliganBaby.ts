@@ -8,6 +8,7 @@ import {
 import {
   Callback,
   CallbackCustom,
+  game,
   getEffectiveStage,
   ModCallbackCustom,
   ReadonlySet,
@@ -55,6 +56,7 @@ export class HooliganBaby extends Baby {
   // 0
   @Callback(ModCallback.POST_NPC_UPDATE)
   postNPCUpdate(npc: EntityNPC): void {
+    const room = game.GetRoom();
     const player = Isaac.GetPlayer();
     const data = npc.GetData();
 
@@ -74,7 +76,7 @@ export class HooliganBaby extends Baby {
 
     if (!g.run.babyBool) {
       g.run.babyBool = true;
-      const position = g.r.FindFreePickupSpawnPosition(npc.Position, 1, true);
+      const position = room.FindFreePickupSpawnPosition(npc.Position, 1, true);
       if (position.Distance(player.Position) > 40) {
         const newNPC = spawn(
           npc.Type,
@@ -95,7 +97,8 @@ export class HooliganBaby extends Baby {
   /** Fix the bug where an enemy can sometimes spawn next to where the player spawns. */
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(): boolean | undefined {
-    const roomFrameCount = g.r.GetFrameCount();
+    const room = game.GetRoom();
+    const roomFrameCount = room.GetFrameCount();
 
     if (roomFrameCount === 0) {
       return false;

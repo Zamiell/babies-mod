@@ -1,11 +1,11 @@
 import { GridEntityType } from "isaac-typescript-definitions";
 import {
+  game,
   GAME_FRAMES_PER_SECOND,
   getGridEntities,
   log,
   openAllDoors,
 } from "isaacscript-common";
-import { g } from "../globals";
 import { mod } from "../mod";
 import { BabyDescription } from "../types/BabyDescription";
 
@@ -32,7 +32,8 @@ export function softlockPreventionPostPEffectUpdateReordered(
  * softlocks.
  */
 function checkSoftlockDestroyPoopsTNT(baby: BabyDescription) {
-  const roomFrameCount = g.r.GetFrameCount();
+  const room = game.GetRoom();
+  const roomFrameCount = room.GetFrameCount();
 
   if (baby.softlockPreventionDestroyPoops !== true) {
     return;
@@ -69,7 +70,8 @@ function checkSoftlockDestroyPoopsTNT(baby: BabyDescription) {
  * enemies.
  */
 function checkSoftlockIsland(baby: BabyDescription) {
-  const roomFrameCount = g.r.GetFrameCount();
+  const room = game.GetRoom();
+  const roomFrameCount = room.GetFrameCount();
 
   // Check to see if this baby needs the softlock prevention.
   if (baby.softlockPreventionIsland === undefined) {
@@ -88,7 +90,7 @@ function checkSoftlockIsland(baby: BabyDescription) {
   }
 
   v.room.openedDoors = true;
-  g.r.SetClear(true);
+  room.SetClear(true);
   openAllDoors();
 
   log("Opened all doors to prevent a softlock.");

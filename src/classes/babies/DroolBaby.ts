@@ -32,7 +32,8 @@ export class DroolBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {
     const gameFrameCount = game.GetFrameCount();
-    const roomClear = g.r.IsClear();
+    const room = game.GetRoom();
+    const roomClear = room.IsClear();
 
     if (g.run.babyFrame !== 0 && gameFrameCount >= g.run.babyFrame) {
       if (roomClear) {

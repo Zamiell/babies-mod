@@ -11,7 +11,6 @@ import {
   spawnEffect,
   VectorZero,
 } from "isaacscript-common";
-import { g } from "../globals";
 import { mod } from "../mod";
 
 interface ShockwaveDescription {
@@ -43,6 +42,7 @@ export function startShockwaveLine(position: Vector, velocity: Vector): void {
 // ModCallback.POST_UPDATE (1)
 export function shockwavesPostUpdate(): void {
   const gameFrameCount = game.GetFrameCount();
+  const room = game.GetRoom();
   const player = Isaac.GetPlayer();
 
   for (let i = v.room.shockwaves.length - 1; i >= 0; i--) {
@@ -55,13 +55,15 @@ export function shockwavesPostUpdate(): void {
     }
 
     // Stop if it gets to a wall.
-    if (!g.r.IsPositionInRoom(shockwave.position, 0)) {
+    if (!room.IsPositionInRoom(shockwave.position, 0)) {
       v.room.shockwaves.splice(i, 1);
     }
   }
 }
 
 function spawnShockwave(position: Vector, player: EntityPlayer) {
+  const room = game.GetRoom();
+
   const explosion = spawnEffect(
     EffectVariant.ROCK_EXPLOSION,
     0,
@@ -75,8 +77,8 @@ function spawnShockwave(position: Vector, player: EntityPlayer) {
   sfxManager.Play(SoundEffect.ROCK_CRUMBLE, volume);
 
   // Destroy grid entities, if present.
-  const index = g.r.GetGridIndex(position);
-  g.r.DestroyGrid(index, true);
+  const index = room.GetGridIndex(position);
+  room.DestroyGrid(index, true);
 
   // Make it deal damage to NPCs.
   const entities = Isaac.FindInRadius(

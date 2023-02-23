@@ -11,6 +11,7 @@ import {
 import {
   Callback,
   CallbackCustom,
+  game,
   getCollectibleDevilHeartPrice,
   gridCoordinatesToWorldPosition,
   isQuestCollectible,
@@ -19,7 +20,6 @@ import {
   spawnGridEntityWithVariant,
   spawnWithSeed,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { mod } from "../../mod";
 import {
   getRandomCollectibleTypeFromPool,
@@ -34,7 +34,8 @@ export class SuitBaby extends Baby {
   @Callback(ModCallback.POST_PICKUP_UPDATE, PickupVariant.COLLECTIBLE)
   postPickupUpdateCollectible(pickup: EntityPickup): void {
     const collectible = pickup as EntityPickupCollectible;
-    const roomType = g.r.GetType();
+    const room = game.GetRoom();
+    const roomType = room.GetType();
     const player = Isaac.GetPlayer();
 
     if (!shouldTransformRoomType(roomType)) {
@@ -61,7 +62,8 @@ export class SuitBaby extends Baby {
   // 35
   @Callback(ModCallback.POST_PICKUP_UPDATE, PickupVariant.HEART)
   postPickupUpdateHeart(pickup: EntityPickup): void {
-    const roomType = g.r.GetType();
+    const room = game.GetRoom();
+    const roomType = room.GetType();
 
     if (!shouldTransformRoomType(roomType)) {
       return;
@@ -87,7 +89,8 @@ export class SuitBaby extends Baby {
   // 71
   @Callback(ModCallback.PRE_ROOM_ENTITY_SPAWN)
   preRoomEntitySpawn(): [EntityType | GridEntityXMLType, int, int] | undefined {
-    const roomType = g.r.GetType();
+    const room = game.GetRoom();
+    const roomType = room.GetType();
 
     if (shouldTransformRoomType(roomType)) {
       return [999, 0, 0]; // Equal to 1000.0, which is a blank effect, which is essentially nothing.
@@ -98,9 +101,10 @@ export class SuitBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
-    const roomType = g.r.GetType();
-    const isFirstVisit = g.r.IsFirstVisit();
-    const roomSeed = g.r.GetSpawnSeed();
+    const room = game.GetRoom();
+    const roomType = room.GetType();
+    const isFirstVisit = room.IsFirstVisit();
+    const roomSeed = room.GetSpawnSeed();
     const player = Isaac.GetPlayer();
 
     // Ignore some special rooms.

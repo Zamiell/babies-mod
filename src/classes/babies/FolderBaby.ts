@@ -6,10 +6,10 @@ import {
 } from "isaac-typescript-definitions";
 import {
   Callback,
+  game,
   onStageWithNaturalDevilRoom,
   ReadonlyMap,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { getRandomCollectibleTypeFromPool } from "../../utils";
 import { Baby } from "../Baby";
 
@@ -34,7 +34,8 @@ export class FolderBaby extends Baby {
     _decrease: boolean,
     seed: Seed,
   ): CollectibleType | undefined {
-    const roomType = g.r.GetType();
+    const room = game.GetRoom();
+    const roomType = room.GetType();
     const itemPoolType = ROOM_TYPE_TO_ITEM_POOL_TYPE_MAP.get(roomType);
     return itemPoolType === undefined
       ? undefined

@@ -1,5 +1,10 @@
 import { CollectibleType, TrinketType } from "isaac-typescript-definitions";
-import { CallbackCustom, ModCallbackCustom, repeat } from "isaacscript-common";
+import {
+  CallbackCustom,
+  game,
+  ModCallbackCustom,
+  repeat,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { mod } from "../../mod";
 import { Baby } from "../Baby";
@@ -11,8 +16,10 @@ const NUM_COLLECTIBLES = 5;
 export class SquirrelBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_TRINKET_BREAK, TrinketType.WALNUT)
   postTrinketBreakWalnut(player: EntityPlayer): void {
+    const room = game.GetRoom();
+
     repeat(NUM_COLLECTIBLES, () => {
-      const position = g.r.FindFreePickupSpawnPosition(
+      const position = room.FindFreePickupSpawnPosition(
         player.Position,
         1,
         true,

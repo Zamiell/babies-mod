@@ -22,8 +22,9 @@ export function init(): void {
 
 function main() {
   const gameFrameCount = game.GetFrameCount();
-  const stage = g.l.GetStage();
-  const stageType = g.l.GetStageType();
+  const level = game.GetLevel();
+  const stage = level.GetStage();
+  const stageType = level.GetStageType();
   const renderFrameCount = Isaac.GetFrameCount();
 
   log(
@@ -62,7 +63,8 @@ function setNewBaby(player: EntityPlayer) {
 }
 
 function getAndSetNewBabyInGlobals(player: EntityPlayer) {
-  const levelSeed = g.l.GetDungeonPlacementSeed();
+  const level = game.GetLevel();
+  const levelSeed = level.GetDungeonPlacementSeed();
   const rng = newRNG(levelSeed);
 
   // It will become impossible to find a new baby if the list of past babies grows too large. (When

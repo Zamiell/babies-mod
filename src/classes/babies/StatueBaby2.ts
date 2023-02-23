@@ -1,5 +1,10 @@
 import { CollectibleType, RoomType } from "isaac-typescript-definitions";
-import { CallbackCustom, ModCallbackCustom, repeat } from "isaacscript-common";
+import {
+  CallbackCustom,
+  game,
+  ModCallbackCustom,
+  repeat,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { mod } from "../../mod";
 import { Baby } from "../Baby";
@@ -8,9 +13,10 @@ import { Baby } from "../Baby";
 export class StatueBaby2 extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
-    const roomType = g.r.GetType();
-    const isFirstVisit = g.r.IsFirstVisit();
-    const center = g.r.GetCenterPos();
+    const room = game.GetRoom();
+    const roomType = room.GetType();
+    const isFirstVisit = room.IsFirstVisit();
+    const center = room.GetCenterPos();
     const num = this.getAttribute("num");
 
     if (roomType !== RoomType.SECRET || !isFirstVisit) {
@@ -18,7 +24,7 @@ export class StatueBaby2 extends Baby {
     }
 
     repeat(num, () => {
-      const position = g.r.FindFreePickupSpawnPosition(center, 1, true);
+      const position = room.FindFreePickupSpawnPosition(center, 1, true);
       mod.spawnCollectible(CollectibleType.NULL, position, g.run.rng);
     });
   }

@@ -1,10 +1,10 @@
 import { BrokenWatchState, LevelStage } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
+  game,
   getEffectiveStage,
   ModCallbackCustom,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Everything is sped up. */
@@ -16,6 +16,7 @@ export class BreadmeatHoodiebreadBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
-    g.r.SetBrokenWatchState(BrokenWatchState.FAST);
+    const room = game.GetRoom();
+    room.SetBrokenWatchState(BrokenWatchState.FAST);
   }
 }

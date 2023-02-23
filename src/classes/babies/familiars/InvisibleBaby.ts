@@ -1,12 +1,12 @@
-import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
-import { g } from "../../../globals";
+import { CallbackCustom, game, ModCallbackCustom } from "isaacscript-common";
 import { Baby } from "../../Baby";
 
 /** Invisibility. */
 export class InvisibleBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {
-    const roomFrameCount = g.r.GetFrameCount();
+    const room = game.GetRoom();
+    const roomFrameCount = room.GetFrameCount();
 
     if (roomFrameCount === 1) {
       // The sprite is a blank PNG, but we also want to remove the shadow. Doing this in the

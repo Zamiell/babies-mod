@@ -1,11 +1,11 @@
 import { EntityType } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
+  game,
   getNPCs,
   ModCallbackCustom,
   spawn,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { EntityDescription } from "../../types/EntityDescription";
 import { Baby } from "../Baby";
 
@@ -13,6 +13,8 @@ import { Baby } from "../Baby";
 export class ZipperBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
+    const room = game.GetRoom();
+
     // Find an existing enemy in the room.
     const npcs = getNPCs();
     const firstNonBoss = npcs.find(
@@ -34,7 +36,7 @@ export class ZipperBaby extends Baby {
           };
 
     // Spawn a new enemy.
-    const position = g.r.FindFreePickupSpawnPosition(player.Position, 1, true);
+    const position = room.FindFreePickupSpawnPosition(player.Position, 1, true);
     spawn(
       dupeEnemyDescription.type,
       dupeEnemyDescription.variant,

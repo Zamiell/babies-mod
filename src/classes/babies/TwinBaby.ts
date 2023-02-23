@@ -1,6 +1,7 @@
 import { CollectibleType, LevelStage } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
+  game,
   getEffectiveStage,
   inStartingRoom,
   ModCallbackCustom,
@@ -19,7 +20,8 @@ export class TwinBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
-    const isFirstVisit = g.r.IsFirstVisit();
+    const room = game.GetRoom();
+    const isFirstVisit = room.IsFirstVisit();
     const player = Isaac.GetPlayer();
 
     // We don't want to teleport away from the first room.

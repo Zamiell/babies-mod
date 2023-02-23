@@ -6,6 +6,7 @@ import {
   PickupVariant,
 } from "isaac-typescript-definitions";
 import {
+  game,
   getCollectibleItemType,
   getCollectibleMaxCharges,
   getPickups,
@@ -26,6 +27,8 @@ import { giveItemAndRemoveFromPools } from "./utils";
 import { getCurrentBaby } from "./utilsBaby";
 
 export function babyAdd(player: EntityPlayer): void {
+  const itemPool = game.GetItemPool();
+  const seeds = game.GetSeeds();
   const coins = player.GetNumCoins();
   const bombs = player.GetNumBombs();
   const keys = player.GetNumKeys();
@@ -70,7 +73,7 @@ export function babyAdd(player: EntityPlayer): void {
     }
 
     removeCollectibleFromItemTracker(baby.item);
-    g.itemPool.RemoveCollectible(baby.item);
+    itemPool.RemoveCollectible(baby.item);
   }
 
   // Check if this is a multiple item baby.
@@ -103,7 +106,7 @@ export function babyAdd(player: EntityPlayer): void {
     repeat(num, () => {
       smeltTrinket(player, trinket);
     });
-    g.itemPool.RemoveTrinket(baby.trinket);
+    itemPool.RemoveTrinket(baby.trinket);
   }
 
   // Reset the player's health to the way it was before we added the items.
@@ -132,7 +135,7 @@ export function babyAdd(player: EntityPlayer): void {
 
   // Some babies give Easter Eggs.
   if (baby.seed !== undefined) {
-    g.seeds.AddSeedEffect(baby.seed);
+    seeds.AddSeedEffect(baby.seed);
   }
 
   // Don't grant extra pickups (from e.g. PHD)

@@ -37,8 +37,10 @@ export class FangDemonBaby extends Baby {
 
   /** Some collectibles will cause a softlock, so we remove them from all pools as a quick fix. */
   override onAdd(): void {
+    const itemPool = game.GetItemPool();
+
     for (const collectibleType of SOFTLOCK_COLLECTIBLE_TYPES) {
-      g.itemPool.RemoveCollectible(collectibleType);
+      itemPool.RemoveCollectible(collectibleType);
     }
   }
 

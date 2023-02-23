@@ -7,11 +7,11 @@ import {
 import {
   Callback,
   CallbackCustom,
+  game,
   GAME_FRAMES_PER_SECOND,
   getFamiliars,
   ModCallbackCustom,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Starts with Abel; tears come from Abel; 2x damage. */
@@ -25,8 +25,9 @@ export class PsychicBaby extends Baby {
   // 61
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
-    const roomFrameCount = g.r.GetFrameCount();
-    const roomShape = g.r.GetRoomShape();
+    const room = game.GetRoom();
+    const roomFrameCount = room.GetFrameCount();
+    const roomShape = room.GetRoomShape();
 
     // Disable the mechanic after a while to avoid softlocks.
     const softlockThresholdFrame = 30 * GAME_FRAMES_PER_SECOND;

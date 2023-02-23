@@ -1,6 +1,10 @@
 import { LevelStage, ModCallback } from "isaac-typescript-definitions";
-import { Callback, getDoors, getEffectiveStage } from "isaacscript-common";
-import { g } from "../../globals";
+import {
+  Callback,
+  game,
+  getDoors,
+  getEffectiveStage,
+} from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Cannot bomb through rooms. */
@@ -12,7 +16,8 @@ export class BaggyCapBaby extends Baby {
 
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
-    const roomClear = g.r.IsClear();
+    const room = game.GetRoom();
+    const roomClear = room.IsClear();
 
     if (roomClear) {
       return;

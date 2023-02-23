@@ -7,6 +7,7 @@ import {
   Callback,
   CallbackCustom,
   dequeueItem,
+  game,
   getRoomGridIndexesForType,
   getRooms,
   gridCoordinatesToWorldPosition,
@@ -18,7 +19,6 @@ import {
   teleport,
 } from "isaacscript-common";
 import { CollectibleTypeCustom } from "../../enums/CollectibleTypeCustom";
-import { g } from "../../globals";
 import { TELEPORT_COLLECTIBLE_TYPE_TO_ROOM_TYPE_MAP } from "../../maps/teleportCollectibleTypeToRoomTypeMap";
 import { TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP } from "../../maps/teleportRoomTypeToItemAndPriceMap";
 import { mod } from "../../mod";
@@ -54,8 +54,10 @@ export class FancyBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
-    const stage = g.l.GetStage();
-    const isFirstVisit = g.r.IsFirstVisit();
+    const level = game.GetLevel();
+    const stage = level.GetStage();
+    const room = game.GetRoom();
+    const isFirstVisit = room.IsFirstVisit();
 
     if (!inStartingRoom() || !isFirstVisit) {
       return;

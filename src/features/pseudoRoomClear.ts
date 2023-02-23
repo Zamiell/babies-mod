@@ -9,7 +9,6 @@ import {
   ReadonlySet,
 } from "isaacscript-common";
 import { RandomBabyType } from "../enums/RandomBabyType";
-import { g } from "../globals";
 import { mod } from "../mod";
 
 // Pseudo room clear should be disabled in certain room types.
@@ -62,7 +61,8 @@ export function pseudoRoomClearPostEntityKill(entity: Entity): void {
  */
 // ModCallbackCustom.POST_POST_NEW_ROOM_REORDERED
 export function pseudoRoomClearPostNewRoomReordered(): void {
-  const roomClear = g.r.IsClear();
+  const room = game.GetRoom();
+  const roomClear = room.IsClear();
   if (!roomClear) {
     return;
   }
@@ -84,9 +84,10 @@ export function pseudoRoomClearPostPEffectUpdateReordered(
   player: EntityPlayer,
   babyType: RandomBabyType,
 ): void {
-  const roomType = g.r.GetType();
-  const roomFrameCount = g.r.GetFrameCount();
-  const roomClear = g.r.IsClear();
+  const room = game.GetRoom();
+  const roomType = room.GetType();
+  const roomFrameCount = room.GetFrameCount();
+  const roomClear = room.IsClear();
 
   if (ROOM_TYPE_BLACKLIST.has(roomType)) {
     return;
@@ -108,7 +109,9 @@ export function pseudoRoomClearPostPEffectUpdateReordered(
 }
 
 function initializeDoors(babyType: RandomBabyType) {
-  g.r.SetClear(true);
+  const room = game.GetRoom();
+
+  room.SetClear(true);
   v.room.pseudoClear = false;
 
   const normalLookingDoors = getDoors(
@@ -185,15 +188,17 @@ function areAnyNPCsAlive() {
 
 // This roughly emulates what happens when you normally clear a room.
 function pseudoClearRoom(player: EntityPlayer, babyType: RandomBabyType) {
+  const room = game.GetRoom();
+
   v.room.pseudoClear = true;
   log("Room is now pseudo-cleared.");
 
-  g.r.TriggerClear();
+  room.TriggerClear();
   // (We already set the clear state of the room to be true.)
 
   // Reset all of the doors that we previously modified.
   for (const doorSlot of v.room.doorSlotsModified) {
-    const door = g.r.GetDoor(doorSlot);
+    const door = room.GetDoor(doorSlot);
     if (door === undefined) {
       continue;
     }
