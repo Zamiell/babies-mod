@@ -1,17 +1,11 @@
 import { LevelStage, ModCallback } from "isaac-typescript-definitions";
-import {
-  Callback,
-  game,
-  getDoors,
-  getEffectiveStage,
-} from "isaacscript-common";
+import { Callback, game, getDoors, onStage } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Cannot bomb through rooms. */
 export class BaggyCapBaby extends Baby {
   override isValid(): boolean {
-    const effectiveStage = getEffectiveStage();
-    return effectiveStage !== LevelStage.DARK_ROOM_CHEST;
+    return !onStage(LevelStage.DARK_ROOM_CHEST);
   }
 
   @Callback(ModCallback.POST_UPDATE)

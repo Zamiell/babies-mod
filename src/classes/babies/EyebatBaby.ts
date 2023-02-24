@@ -14,6 +14,7 @@ import {
   inRoomType,
   inStartingRoom,
   ModCallbackCustom,
+  onEffectiveStage,
   onRepentanceStage,
   removeGridEntity,
   spawnGridEntity,
@@ -24,6 +25,7 @@ import { Baby } from "../Baby";
 export class EyebatBaby extends Baby {
   /**
    * - We don't want this on the first floor since it interferes with resetting.
+   * - We don't want this on Depths 2 because of the special Boss Room mechanic.
    * - We don't want to have this on any end floors so that we can simply the logic and always spawn
    *   a trapdoor.
    */
@@ -34,8 +36,7 @@ export class EyebatBaby extends Baby {
 
     return (
       !hasFlag(curses, LevelCurse.LABYRINTH) &&
-      effectiveStage !== LevelStage.BASEMENT_1 &&
-      effectiveStage !== LevelStage.DEPTHS_2 &&
+      !onEffectiveStage(LevelStage.BASEMENT_1, LevelStage.DEPTHS_2) &&
       effectiveStage < LevelStage.WOMB_2 &&
       !onRepentanceStage()
     );

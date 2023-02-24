@@ -7,9 +7,9 @@ import {
 } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
-  getEffectiveStage,
   inRoomType,
   ModCallbackCustom,
+  onEffectiveStage,
   onStageWithNaturalDevilRoom,
   teleport,
 } from "isaacscript-common";
@@ -22,9 +22,8 @@ export class ShadowBaby extends Baby {
    * does not have a beam of light to the Cathedral.
    */
   override isValid(): boolean {
-    const effectiveStage = getEffectiveStage();
     return (
-      onStageWithNaturalDevilRoom() && effectiveStage !== LevelStage.WOMB_2
+      onStageWithNaturalDevilRoom() && !onEffectiveStage(LevelStage.WOMB_2)
     );
   }
 

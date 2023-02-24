@@ -2,9 +2,9 @@ import { CollectibleType, LevelStage } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   game,
-  getEffectiveStage,
   inStartingRoom,
   ModCallbackCustom,
+  onEffectiveStage,
   useActiveItemTemp,
 } from "isaacscript-common";
 import { g } from "../../globals";
@@ -14,8 +14,7 @@ import { Baby } from "../Baby";
 export class TwinBaby extends Baby {
   /** If they mess up and go past the Boss Room on Womb 2, they can get the wrong path. */
   override isValid(): boolean {
-    const effectiveStage = getEffectiveStage();
-    return effectiveStage !== LevelStage.WOMB_2;
+    return !onEffectiveStage(LevelStage.WOMB_2);
   }
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)

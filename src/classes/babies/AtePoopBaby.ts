@@ -6,9 +6,9 @@ import {
 import {
   CallbackCustom,
   DISTANCE_OF_GRID_TILE,
-  getEffectiveStage,
   getRoomListIndex,
   ModCallbackCustom,
+  onStage,
 } from "isaacscript-common";
 import { spawnRandomPickup } from "../../utils";
 import { Baby } from "../Baby";
@@ -30,8 +30,7 @@ export class AtePoopBaby extends Baby {
 
   /** There are almost no poops on The Chest. */
   override isValid(): boolean {
-    const effectiveStage = getEffectiveStage();
-    return effectiveStage !== LevelStage.DARK_ROOM_CHEST;
+    return !onStage(LevelStage.DARK_ROOM_CHEST);
   }
 
   @CallbackCustom(

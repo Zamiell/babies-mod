@@ -4,7 +4,7 @@ import {
   LevelStage,
   ModCallback,
 } from "isaac-typescript-definitions";
-import { Callback, game, getEffectiveStage } from "isaacscript-common";
+import { Callback, game, onStage } from "isaacscript-common";
 import { GRID_ENTITY_REPLACEMENT_EXCEPTIONS } from "../../constants";
 import { Baby } from "../Baby";
 
@@ -12,8 +12,7 @@ import { Baby } from "../Baby";
 export class RedWrestlerBaby extends Baby {
   /** There are almost no grid entities on the final floor. */
   override isValid(): boolean {
-    const effectiveStage = getEffectiveStage();
-    return effectiveStage !== LevelStage.DARK_ROOM_CHEST;
+    return !onStage(LevelStage.DARK_ROOM_CHEST);
   }
 
   @Callback(ModCallback.PRE_ROOM_ENTITY_SPAWN)

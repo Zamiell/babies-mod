@@ -4,7 +4,7 @@ import {
   LevelStage,
   ModCallback,
 } from "isaac-typescript-definitions";
-import { Callback, getEffectiveStage } from "isaacscript-common";
+import { Callback, onEffectiveStage } from "isaacscript-common";
 import { getRandomCollectibleTypeFromPool } from "../../../utils";
 import { Baby } from "../../Baby";
 
@@ -12,8 +12,7 @@ import { Baby } from "../../Baby";
 export class GhostBaby extends Baby {
   /** On stage 2, they will miss a Devil Deal, which is not fair. */
   override isValid(): boolean {
-    const effectiveStage = getEffectiveStage();
-    return effectiveStage !== LevelStage.BASEMENT_2;
+    return !onEffectiveStage(LevelStage.BASEMENT_2);
   }
 
   @Callback(ModCallback.PRE_GET_COLLECTIBLE)

@@ -9,8 +9,8 @@ import {
   game,
   getDimension,
   getDoors,
-  getEffectiveStage,
   isAllRoomsClear,
+  onStage,
 } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
@@ -19,8 +19,7 @@ import { Baby } from "../Baby";
 export class PubicBaby extends Baby {
   /** Full clearing the final floor is too punishing. */
   override isValid(): boolean {
-    const effectiveStage = getEffectiveStage();
-    return effectiveStage !== LevelStage.DARK_ROOM_CHEST;
+    return !onStage(LevelStage.DARK_ROOM_CHEST);
   }
 
   @Callback(ModCallback.POST_UPDATE)

@@ -6,8 +6,8 @@ import {
 } from "isaac-typescript-definitions";
 import {
   Callback,
-  getEffectiveStage,
   isQuestCollectible,
+  onEffectiveStage,
 } from "isaacscript-common";
 import { mod } from "../../../mod";
 import { isRerolledCollectibleBuggedHeart } from "../../../utils";
@@ -24,15 +24,16 @@ export class FatesReward extends Baby {
    */
   override isValid(player: EntityPlayer): boolean {
     const coins = player.GetNumCoins();
-    const effectiveStage = getEffectiveStage();
 
     return (
       coins >= 15 &&
-      effectiveStage !== LevelStage.BASEMENT_1 &&
-      effectiveStage !== LevelStage.BASEMENT_2 &&
-      effectiveStage !== LevelStage.DEPTHS_2 &&
-      effectiveStage !== LevelStage.SHEOL_CATHEDRAL &&
-      effectiveStage !== LevelStage.DARK_ROOM_CHEST
+      !onEffectiveStage(
+        LevelStage.BASEMENT_1,
+        LevelStage.BASEMENT_2,
+        LevelStage.DEPTHS_2,
+        LevelStage.SHEOL_CATHEDRAL,
+        LevelStage.DARK_ROOM_CHEST,
+      )
     );
   }
 

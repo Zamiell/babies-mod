@@ -2,11 +2,11 @@ import { CollectibleType, LevelStage } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   game,
-  getEffectiveStage,
   getPlayerFromEntity,
   getRandom,
   ModCallbackCustom,
   newRNG,
+  onStage,
   useActiveItemTemp,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
@@ -27,10 +27,9 @@ export class BombBaby extends Baby {
     v.run.rng = newRNG(startSeed);
   }
 
-  /** There are no items on Cathedral. */
+  /** There are no items on Sheol/Cathedral. */
   override isValid(): boolean {
-    const effectiveStage = getEffectiveStage();
-    return effectiveStage !== LevelStage.SHEOL_CATHEDRAL;
+    return !onStage(LevelStage.SHEOL_CATHEDRAL);
   }
 
   @CallbackCustom(ModCallbackCustom.POST_BOMB_EXPLODED)

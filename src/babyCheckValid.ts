@@ -12,6 +12,7 @@ import {
   getEffectiveStage,
   hasCollectible,
   levelHasRoomType,
+  onEffectiveStage,
   onFirstFloor,
   onStageWithNaturalDevilRoom,
 } from "isaacscript-common";
@@ -291,7 +292,7 @@ function checkStage(baby: BabyDescription): boolean {
 
   if (
     babyItemsSet.has(CollectibleType.THERES_OPTIONS) && // 249
-    (effectiveStage === LevelStage.DEPTHS_2 ||
+    (onEffectiveStage(LevelStage.DEPTHS_2) ||
       effectiveStage >= LevelStage.WOMB_2)
   ) {
     // There won't be a boss item on floor 6 or floor 8+.
@@ -308,7 +309,7 @@ function checkStage(baby: BabyDescription): boolean {
 
   if (
     babyItemsSet.has(CollectibleType.VANISHING_TWIN) && // 697
-    (effectiveStage === LevelStage.DEPTHS_2 ||
+    (onEffectiveStage(LevelStage.DEPTHS_2) ||
       effectiveStage >= LevelStage.WOMB_2)
   ) {
     // Some floors have bosses that cannot be doubled.

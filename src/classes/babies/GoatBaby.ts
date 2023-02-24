@@ -5,9 +5,9 @@ import {
 } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
-  getEffectiveStage,
   hasCollectible,
   ModCallbackCustom,
+  onEffectiveStage,
   onStageWithNaturalDevilRoom,
   removeCollectibleFromItemTracker,
   sfxManager,
@@ -27,12 +27,10 @@ export class GoatBaby extends Baby {
    * we don't want to have it there either.
    */
   override isValid(player: EntityPlayer): boolean {
-    const effectiveStage = getEffectiveStage();
-
     return (
       !hasCollectible(player, ...GRANTED_COLLECTIBLE_TYPES) &&
       onStageWithNaturalDevilRoom() &&
-      effectiveStage !== LevelStage.BASEMENT_2
+      !onEffectiveStage(LevelStage.BASEMENT_2)
     );
   }
 

@@ -1,18 +1,17 @@
 import { CollectibleType, LevelStage } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
-  getEffectiveStage,
   ModCallbackCustom,
+  onStage,
   useActiveItemTemp,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** D6 effect on hit. */
 export class PuzzleBaby extends Baby {
-  /** There are no items on the Cathedral. */
+  /** There are no items on the Sheol/Cathedral. */
   override isValid(): boolean {
-    const effectiveStage = getEffectiveStage();
-    return effectiveStage !== LevelStage.SHEOL_CATHEDRAL;
+    return !onStage(LevelStage.SHEOL_CATHEDRAL);
   }
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)

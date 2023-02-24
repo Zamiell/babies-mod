@@ -11,6 +11,7 @@ import {
   game,
   getEffectiveStage,
   ModCallbackCustom,
+  onEffectiveStage,
   ReadonlySet,
   spawn,
 } from "isaacscript-common";
@@ -42,13 +43,14 @@ const BUGGY_ENTITY_TYPES_SET = new ReadonlySet<EntityType>([
 /** Double enemies. */
 export class HooliganBaby extends Baby {
   /**
-   * Mom cannot be doubled, so don't give this baby on stage 6. It Lives cannot be doubled, so don't
-   * give this baby on stage 8. Furthermore, double enemies would be too hard on the final stages.
+   * - Mom cannot be doubled, so don't give this baby on stage 6.
+   * - It Lives cannot be doubled, so don't give this baby on stage 8.
+   * - Furthermore, double enemies would be too hard on the final stages.
    */
   override isValid(): boolean {
     const effectiveStage = getEffectiveStage();
     return (
-      effectiveStage !== LevelStage.DEPTHS_2 &&
+      !onEffectiveStage(LevelStage.DEPTHS_2) &&
       effectiveStage < LevelStage.WOMB_2
     );
   }

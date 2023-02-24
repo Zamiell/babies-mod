@@ -2,9 +2,9 @@ import { LevelStage, ModCallback } from "isaac-typescript-definitions";
 import {
   Callback,
   CallbackCustom,
-  game,
   inStartingRoom,
   ModCallbackCustom,
+  onStage,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
@@ -33,9 +33,7 @@ export class LilBaby extends Baby {
   postPickupInit(pickup: EntityPickup): void {
     // Make an exception for the 4 Golden Chests, as those will be made giant before the babies
     // effect is removed.
-    const level = game.GetLevel();
-    const stage = level.GetStage();
-    if (stage === LevelStage.DARK_ROOM_CHEST && inStartingRoom()) {
+    if (onStage(LevelStage.DARK_ROOM_CHEST) && inStartingRoom()) {
       return;
     }
 

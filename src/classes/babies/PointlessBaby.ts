@@ -6,8 +6,8 @@ import {
 } from "isaac-typescript-definitions";
 import {
   Callback,
-  getEffectiveStage,
   isQuestCollectible,
+  onEffectiveStage,
   repeat,
   spawnCard,
 } from "isaacscript-common";
@@ -21,11 +21,7 @@ export class PointlessBaby extends Baby {
    * - Ban it on the second floor so that it does not conflict with the first devil deal.
    */
   override isValid(): boolean {
-    const effectiveStage = getEffectiveStage();
-    return (
-      effectiveStage !== LevelStage.BASEMENT_1 &&
-      effectiveStage !== LevelStage.BASEMENT_2
-    );
+    return !onEffectiveStage(LevelStage.BASEMENT_1, LevelStage.BASEMENT_2);
   }
 
   @Callback(ModCallback.POST_PICKUP_INIT, PickupVariant.COLLECTIBLE)
