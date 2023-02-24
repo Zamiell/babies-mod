@@ -8,6 +8,7 @@ import {
   Callback,
   isQuestCollectible,
   onEffectiveStage,
+  onFirstFloor,
   repeat,
   spawnCard,
 } from "isaacscript-common";
@@ -21,7 +22,7 @@ export class PointlessBaby extends Baby {
    * - Ban it on the second floor so that it does not conflict with the first devil deal.
    */
   override isValid(): boolean {
-    return !onEffectiveStage(LevelStage.BASEMENT_1, LevelStage.BASEMENT_2);
+    return !onFirstFloor() && !onEffectiveStage(LevelStage.BASEMENT_2);
   }
 
   @Callback(ModCallback.POST_PICKUP_INIT, PickupVariant.COLLECTIBLE)

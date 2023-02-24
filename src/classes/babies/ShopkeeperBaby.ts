@@ -1,18 +1,16 @@
 import {
-  LevelStage,
   ModCallback,
   PickupPrice,
   PickupVariant,
   RoomType,
 } from "isaac-typescript-definitions";
-import { Callback, getEffectiveStage, inRoomType } from "isaacscript-common";
+import { Callback, inRoomType, levelHasRoomType } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Free shop items. */
 export class ShopkeeperBaby extends Baby {
   override isValid(): boolean {
-    const effectiveStage = getEffectiveStage();
-    return effectiveStage <= LevelStage.DEPTHS_2;
+    return levelHasRoomType(RoomType.SHOP);
   }
 
   @Callback(ModCallback.POST_PICKUP_INIT, PickupVariant.COLLECTIBLE)

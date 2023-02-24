@@ -1,14 +1,12 @@
-import { LevelStage } from "isaac-typescript-definitions";
-import { getEffectiveStage } from "isaacscript-common";
+import { RoomType } from "isaac-typescript-definitions";
+import { levelHasRoomType } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Starts with 99 cents. */
 export class RichBaby extends Baby {
-  /** Money is useless past Depths. */
   override isValid(): boolean {
-    const effectiveStage = getEffectiveStage();
-    return effectiveStage <= LevelStage.DEPTHS_2;
+    return levelHasRoomType(RoomType.SHOP);
   }
 
   override onAdd(player: EntityPlayer): void {

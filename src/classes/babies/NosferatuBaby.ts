@@ -4,7 +4,7 @@ import {
   ModCallback,
   ProjectileFlag,
 } from "isaac-typescript-definitions";
-import { Callback, getEffectiveStage, ReadonlySet } from "isaacscript-common";
+import { Callback, getStage, ReadonlySet } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 const IMMUNE_ENTITY_TYPES = new ReadonlySet<EntityType>([
@@ -16,8 +16,7 @@ const IMMUNE_ENTITY_TYPES = new ReadonlySet<EntityType>([
 export class NosferatuBaby extends Baby {
   /** This baby is too difficult for the later floors. */
   override isValid(): boolean {
-    const effectiveStage = getEffectiveStage();
-    return effectiveStage < LevelStage.WOMB_2;
+    return getStage() < LevelStage.WOMB_2;
   }
 
   @Callback(ModCallback.POST_PROJECTILE_UPDATE)

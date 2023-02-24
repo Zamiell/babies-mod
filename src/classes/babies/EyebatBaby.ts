@@ -8,14 +8,14 @@ import {
   CallbackCustom,
   changeRoom,
   game,
-  getEffectiveStage,
   getRoomGridIndexesForType,
   hasFlag,
   inRoomType,
   inStartingRoom,
   ModCallbackCustom,
-  onEffectiveStage,
+  onFirstFloor,
   onRepentanceStage,
+  onStage,
   removeGridEntity,
   spawnGridEntity,
 } from "isaacscript-common";
@@ -31,13 +31,14 @@ export class EyebatBaby extends Baby {
    */
   override isValid(): boolean {
     const level = game.GetLevel();
+    const stage = level.GetStage();
     const curses = level.GetCurses();
-    const effectiveStage = getEffectiveStage();
 
     return (
       !hasFlag(curses, LevelCurse.LABYRINTH) &&
-      !onEffectiveStage(LevelStage.BASEMENT_1, LevelStage.DEPTHS_2) &&
-      effectiveStage < LevelStage.WOMB_2 &&
+      !onFirstFloor() &&
+      !onStage(LevelStage.DEPTHS_2) &&
+      stage < LevelStage.WOMB_2 &&
       !onRepentanceStage()
     );
   }

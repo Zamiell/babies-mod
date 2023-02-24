@@ -4,7 +4,7 @@ import {
   game,
   inStartingRoom,
   ModCallbackCustom,
-  onEffectiveStage,
+  onStage,
   useActiveItemTemp,
 } from "isaacscript-common";
 import { g } from "../../globals";
@@ -14,7 +14,7 @@ import { Baby } from "../Baby";
 export class TwinBaby extends Baby {
   /** If they mess up and go past the Boss Room on Womb 2, they can get the wrong path. */
   override isValid(): boolean {
-    return !onEffectiveStage(LevelStage.WOMB_2);
+    return !onStage(LevelStage.WOMB_2);
   }
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)

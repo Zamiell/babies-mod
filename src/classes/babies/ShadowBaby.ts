@@ -9,7 +9,7 @@ import {
   CallbackCustom,
   inRoomType,
   ModCallbackCustom,
-  onEffectiveStage,
+  onStage,
   onStageWithNaturalDevilRoom,
   teleport,
 } from "isaacscript-common";
@@ -22,9 +22,7 @@ export class ShadowBaby extends Baby {
    * does not have a beam of light to the Cathedral.
    */
   override isValid(): boolean {
-    return (
-      onStageWithNaturalDevilRoom() && !onEffectiveStage(LevelStage.WOMB_2)
-    );
+    return onStageWithNaturalDevilRoom() && !onStage(LevelStage.WOMB_2);
   }
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
