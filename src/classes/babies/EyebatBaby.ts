@@ -11,6 +11,7 @@ import {
   getEffectiveStage,
   getRoomGridIndexesForType,
   hasFlag,
+  inRoomType,
   inStartingRoom,
   ModCallbackCustom,
   onRepentanceStage,
@@ -45,9 +46,7 @@ export class EyebatBaby extends Baby {
     GridEntityType.TRAPDOOR,
   )
   postGridEntityInitTrapdoor(gridEntity: GridEntity): void {
-    const room = game.GetRoom();
-    const roomType = room.GetType();
-    if (roomType === RoomType.BOSS) {
+    if (inRoomType(RoomType.BOSS)) {
       removeGridEntity(gridEntity, false);
     }
   }

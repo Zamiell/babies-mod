@@ -54,15 +54,17 @@ export class BloodiedBaby extends Baby {
     return undefined;
   }
 
-  @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
+  @CallbackCustom(
+    ModCallbackCustom.POST_NEW_ROOM_REORDERED,
+    RoomType.ULTRA_SECRET,
+  )
   postNewRoomReordered(): void {
     const room = game.GetRoom();
-    const roomType = room.GetType();
     const isFirstVisit = room.IsFirstVisit();
     const center = room.GetCenterPos();
     const num = this.getAttribute("num");
 
-    if (roomType !== RoomType.ULTRA_SECRET || !isFirstVisit) {
+    if (!isFirstVisit) {
       return;
     }
 

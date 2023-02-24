@@ -11,15 +11,14 @@ import { Baby } from "../Baby";
 
 /** Improved Secret Rooms. */
 export class StatueBaby2 extends Baby {
-  @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
+  @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED, RoomType.SECRET)
   postNewRoomReordered(): void {
     const room = game.GetRoom();
-    const roomType = room.GetType();
     const isFirstVisit = room.IsFirstVisit();
     const center = room.GetCenterPos();
     const num = this.getAttribute("num");
 
-    if (roomType !== RoomType.SECRET || !isFirstVisit) {
+    if (!isFirstVisit) {
       return;
     }
 

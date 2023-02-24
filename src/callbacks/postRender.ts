@@ -13,6 +13,7 @@ import {
   getHeartsUIWidth,
   getHUDOffsetVector,
   getScreenCenterPos,
+  inRoomType,
   isActionPressedOnAnyInput,
   isKeyboardPressed,
   KColorDefault,
@@ -94,14 +95,12 @@ function drawBabyIntro(baby: BabyDescription) {
 
 /** Draw the baby's number next to the heart count. */
 function drawBabyNumber(babyType: RandomBabyType) {
-  const room = game.GetRoom();
-  const roomType = room.GetType();
   const HUDOffsetVector = getHUDOffsetVector();
   const heartsUIWidth = getHeartsUIWidth();
 
   // Racing+ draws the number of sacrifices in the top left corner, which interferes with the baby
   // number text.
-  if (isRacingPlusEnabled() && roomType === RoomType.SACRIFICE) {
+  if (isRacingPlusEnabled() && inRoomType(RoomType.SACRIFICE)) {
     return;
   }
 

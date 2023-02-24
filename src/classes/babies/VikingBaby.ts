@@ -1,7 +1,6 @@
 import { RoomType } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
-  game,
   getRoomGridIndexesForType,
   ModCallbackCustom,
   teleport,
@@ -10,15 +9,8 @@ import { Baby } from "../Baby";
 
 /** Secret Room --> Super Secret Room. */
 export class VikingBaby extends Baby {
-  @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
+  @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED, RoomType.SECRET)
   postNewRoomReordered(): void {
-    const room = game.GetRoom();
-    const roomType = room.GetType();
-
-    if (roomType !== RoomType.SECRET) {
-      return;
-    }
-
     const superSecretRoomIndexes = getRoomGridIndexesForType(
       RoomType.SUPER_SECRET,
     );
