@@ -8,7 +8,6 @@ import {
 } from "isaac-typescript-definitions";
 import {
   AnyFunction,
-  game,
   getCollectibleItemType,
   getEffectiveStage,
   hasCollectible,
@@ -16,6 +15,7 @@ import {
   MAPPING_COLLECTIBLES,
   onFirstFloor,
   onStage,
+  onStageOrHigher,
   onStageWithNaturalDevilRoom,
   onStageWithRandomBossCollectible,
   setHas,
@@ -237,12 +237,13 @@ function playerHasTears(player: EntityPlayer): boolean {
 }
 
 function checkStage(baby: BabyDescription): boolean {
-  const level = game.GetLevel();
-  const stage = level.GetStage();
   const effectiveStage = getEffectiveStage();
   const babyItemsSet = getBabyItemsSet(baby);
 
-  if (baby.requireNoEndFloors === true && stage >= LevelStage.BLUE_WOMB) {
+  if (
+    baby.requireNoEndFloors === true &&
+    onStageOrHigher(LevelStage.BLUE_WOMB)
+  ) {
     return false;
   }
 
@@ -255,7 +256,8 @@ function checkStage(baby: BabyDescription): boolean {
 
   if (
     babyItemsSet.has(CollectibleType.WE_NEED_TO_GO_DEEPER) &&
-    (effectiveStage <= LevelStage.BASEMENT_2 || stage >= LevelStage.WOMB_2)
+    (effectiveStage <= LevelStage.BASEMENT_2 ||
+      onStageOrHigher(LevelStage.WOMB_2))
   ) {
     // - Only valid for floors that the shovel will work on.
     // - Don't grant it on Basement 1 since the floor is so short.
@@ -266,7 +268,7 @@ function checkStage(baby: BabyDescription): boolean {
 
   if (
     babyItemsSet.has(CollectibleType.SCAPULAR) &&
-    stage >= LevelStage.WOMB_1
+    onStageOrHigher(LevelStage.WOMB_1)
   ) {
     // This is too powerful when combined with The Polaroid.
     return false;
@@ -315,7 +317,7 @@ function checkStage(baby: BabyDescription): boolean {
 
   if (
     babyItemsSet.has(CollectibleType.VANISHING_TWIN) && // 697
-    (onStage(LevelStage.DEPTHS_2) || stage >= LevelStage.WOMB_2)
+    (onStage(LevelStage.DEPTHS_2) || onStageOrHigher(LevelStage.WOMB_2))
   ) {
     // Some floors have bosses that cannot be doubled.
     return false;

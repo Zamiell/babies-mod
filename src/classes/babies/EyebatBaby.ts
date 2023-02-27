@@ -16,6 +16,7 @@ import {
   onFirstFloor,
   onRepentanceStage,
   onStage,
+  onStageOrLower,
   removeGridEntity,
   spawnGridEntity,
 } from "isaacscript-common";
@@ -31,14 +32,13 @@ export class EyebatBaby extends Baby {
    */
   override isValid(): boolean {
     const level = game.GetLevel();
-    const stage = level.GetStage();
     const curses = level.GetCurses();
 
     return (
       !hasFlag(curses, LevelCurse.LABYRINTH) &&
       !onFirstFloor() &&
       !onStage(LevelStage.DEPTHS_2) &&
-      stage < LevelStage.WOMB_2 &&
+      onStageOrLower(LevelStage.WOMB_1) &&
       !onRepentanceStage()
     );
   }
