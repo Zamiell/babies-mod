@@ -2,8 +2,8 @@ import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
 import {
   Callback,
   CallbackCustom,
-  getHUDOffsetVector,
   ModCallbackCustom,
+  getHUDOffsetVector,
   useActiveItemTemp,
 } from "isaacscript-common";
 import { g } from "../../globals";

@@ -6,6 +6,7 @@ import {
   PickupVariant,
 } from "isaac-typescript-definitions";
 import {
+  VectorOne,
   game,
   getCollectibleItemType,
   getCollectibleMaxCharges,
@@ -18,7 +19,6 @@ import {
   setBlindfold,
   setPlayerHealth,
   smeltTrinket,
-  VectorOne,
 } from "isaacscript-common";
 import { setBabyANM2, updatePlayerWithCostumeProtector } from "./costumes";
 import { g } from "./globals";

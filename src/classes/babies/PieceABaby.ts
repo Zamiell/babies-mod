@@ -1,9 +1,9 @@
 import { ButtonAction, InputHook } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
-  isActionPressed,
   ModCallbackCustom,
   ReadonlyMap,
+  isActionPressed,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 

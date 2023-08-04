@@ -6,9 +6,9 @@ import {
 import {
   Callback,
   CallbackCustom,
-  game,
   MIN_PLAYER_SPEED_STAT,
   ModCallbackCustom,
+  game,
 } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";

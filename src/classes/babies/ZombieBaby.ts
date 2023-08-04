@@ -4,12 +4,12 @@ import {
   ModCallback,
 } from "isaac-typescript-definitions";
 import {
-  addFlag,
   Callback,
   CallbackCustom,
-  getEntities,
   ModCallbackCustom,
   ReadonlySet,
+  addFlag,
+  getEntities,
   setEntityOpacity,
   spawnWithSeed,
 } from "isaacscript-common";

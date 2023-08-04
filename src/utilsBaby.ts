@@ -1,7 +1,7 @@
-import { RandomBabyType } from "./enums/RandomBabyType";
+import type { RandomBabyType } from "./enums/RandomBabyType";
 import { g } from "./globals";
 import { BABIES } from "./objects/babies";
-import { BabyDescription } from "./types/BabyDescription";
+import type { BabyDescription } from "./types/BabyDescription";
 
 export function getCurrentBaby():
   | {

@@ -3,9 +3,11 @@ import {
   ModCallback,
   PickupVariant,
 } from "isaac-typescript-definitions";
+import type { PickingUpItemCollectible } from "isaacscript-common";
 import {
   Callback,
   CallbackCustom,
+  ModCallbackCustom,
   dequeueItem,
   game,
   getRoomGridIndexesForType,
@@ -14,8 +16,6 @@ import {
   inStartingRoom,
   isEven,
   log,
-  ModCallbackCustom,
-  PickingUpItemCollectible,
   teleport,
 } from "isaacscript-common";
 import { CollectibleTypeCustom } from "../../enums/CollectibleTypeCustom";

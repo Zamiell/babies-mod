@@ -1,10 +1,10 @@
 import { DamageFlagZero } from "isaac-typescript-definitions";
+import type { PickingUpItem } from "isaacscript-common";
 import {
   CallbackCustom,
   isPickingUpItemCollectible,
   isQuestCollectible,
   ModCallbackCustom,
-  PickingUpItem,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 

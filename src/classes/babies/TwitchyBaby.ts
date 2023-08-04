@@ -2,8 +2,8 @@ import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
 import {
   Callback,
   CallbackCustom,
-  game,
   ModCallbackCustom,
+  game,
 } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";

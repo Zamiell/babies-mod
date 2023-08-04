@@ -3,10 +3,10 @@ import {
   Callback,
   CallbackCustom,
   DISTANCE_OF_GRID_TILE,
+  ModCallbackCustom,
   game,
   isGridEntityBreakableByExplosion,
   isGridEntityBroken,
-  ModCallbackCustom,
   useActiveItemTemp,
 } from "isaacscript-common";
 import { g } from "../../globals";

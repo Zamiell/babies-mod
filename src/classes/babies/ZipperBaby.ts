@@ -6,7 +6,7 @@ import {
   ModCallbackCustom,
   spawn,
 } from "isaacscript-common";
-import { EntityDescription } from "../../types/EntityDescription";
+import type { EntityDescription } from "../../types/EntityDescription";
 import { Baby } from "../Baby";
 
 /** Extra enemies spawn on hit. */

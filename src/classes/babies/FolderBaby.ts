@@ -1,14 +1,14 @@
+import type { CollectibleType } from "isaac-typescript-definitions";
 import {
-  CollectibleType,
   ItemPoolType,
   ModCallback,
   RoomType,
 } from "isaac-typescript-definitions";
 import {
   Callback,
+  ReadonlyMap,
   game,
   onStageWithNaturalDevilRoom,
-  ReadonlyMap,
 } from "isaacscript-common";
 import { getRandomCollectibleTypeFromPool } from "../../utils";
 import { Baby } from "../Baby";

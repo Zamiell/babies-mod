@@ -1,5 +1,5 @@
+import type { CollectibleType } from "isaac-typescript-definitions";
 import {
-  CollectibleType,
   ItemPoolType,
   LevelStage,
   ModCallback,

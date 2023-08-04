@@ -6,10 +6,10 @@ import {
 import {
   Callback,
   CallbackCustom,
-  getNPCs,
-  inRoomType,
   ModCallbackCustom,
   ReadonlySet,
+  getNPCs,
+  inRoomType,
   spawn,
 } from "isaacscript-common";
 import { Baby } from "../Baby";

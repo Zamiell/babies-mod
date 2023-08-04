@@ -4,12 +4,12 @@ import {
   TrinketType,
 } from "isaac-typescript-definitions";
 import {
+  ModCallbackCustom,
   anyPlayerIs,
   game,
   getCharacterName,
   getPlayersOfType,
   log,
-  ModCallbackCustom,
 } from "isaacscript-common";
 import { g } from "../globals";
 import { mod } from "../mod";

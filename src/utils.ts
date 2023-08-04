@@ -1,3 +1,8 @@
+import type {
+  ItemConfigTag,
+  ItemPoolType,
+  SlotVariant,
+} from "isaac-typescript-definitions";
 import {
   BatterySubType,
   CardType,
@@ -7,8 +12,6 @@ import {
   EntityFlag,
   EntityType,
   HeartSubType,
-  ItemConfigTag,
-  ItemPoolType,
   KeySubType,
   LevelCurse,
   MinibossID,
@@ -18,15 +21,15 @@ import {
   PoofSubType,
   RoomType,
   SackSubType,
-  SlotVariant,
   SoundEffect,
   TrinketType,
 } from "isaac-typescript-definitions";
 import {
+  GAME_FRAMES_PER_SECOND,
+  VectorZero,
   doesEntityExist,
   findFreePosition,
   game,
-  GAME_FRAMES_PER_SECOND,
   getCollectibleMaxCharges,
   getEntities,
   getRandomInt,
@@ -53,7 +56,6 @@ import {
   spawnSack,
   spawnSlot,
   spawnTrinket,
-  VectorZero,
 } from "isaacscript-common";
 import { ROOM_TYPES_TO_NOT_TRANSFORM } from "./constants";
 import { CollectibleTypeCustom } from "./enums/CollectibleTypeCustom";
@@ -237,7 +239,7 @@ export function removeAllFriendlyEntities(): void {
 }
 
 export function setTearColor(tear: EntityTear, color: Color): void {
-  tear.SetColor(color, 10000, 10000);
+  tear.SetColor(color, 10_000, 10_000);
 }
 
 export function shouldShowRealHeartsUIForDevilDeal(): boolean {

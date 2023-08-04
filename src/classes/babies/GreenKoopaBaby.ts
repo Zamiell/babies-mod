@@ -1,6 +1,6 @@
 import { ModCallback, TearFlag } from "isaac-typescript-definitions";
-import { addFlag, Callback, GAME_FRAMES_PER_SECOND } from "isaacscript-common";
-import { TearData } from "../../types/TearData";
+import { Callback, GAME_FRAMES_PER_SECOND, addFlag } from "isaacscript-common";
+import type { TearData } from "../../types/TearData";
 import { Baby } from "../Baby";
 
 /** Shoots bouncy green shells. */

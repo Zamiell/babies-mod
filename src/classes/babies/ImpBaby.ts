@@ -1,5 +1,5 @@
+import type { ButtonAction } from "isaac-typescript-definitions";
 import {
-  ButtonAction,
   CollectibleType,
   Direction,
   InputHook,
@@ -8,10 +8,10 @@ import {
 import {
   Callback,
   CallbackCustom,
+  ModCallbackCustom,
   directionToShootAction,
   game,
   isShootAction,
-  ModCallbackCustom,
 } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";

@@ -1,5 +1,5 @@
 import { ModCallback, TearFlag } from "isaac-typescript-definitions";
-import { addFlag, Callback, getPlayerFromEntity } from "isaacscript-common";
+import { Callback, addFlag, getPlayerFromEntity } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Orbiting tears. */

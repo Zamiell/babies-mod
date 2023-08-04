@@ -7,16 +7,16 @@ import {
   RoomType,
 } from "isaac-typescript-definitions";
 import {
+  KColorDefault,
   fonts,
   game,
   getCollectibleItemType,
-  getHeartsUIWidth,
   getHUDOffsetVector,
+  getHeartsUIWidth,
   getScreenCenterPos,
   inRoomType,
   isActionPressedOnAnyInput,
   isKeyboardPressed,
-  KColorDefault,
 } from "isaacscript-common";
 import { MOD_NAME, VERSION } from "../constants";
 import { RandomBabyType } from "../enums/RandomBabyType";
@@ -24,7 +24,7 @@ import { g } from "../globals";
 import { mod } from "../mod";
 import { newSprite } from "../sprite";
 import * as timer from "../timer";
-import { BabyDescription } from "../types/BabyDescription";
+import type { BabyDescription } from "../types/BabyDescription";
 import { isRacingPlusEnabled } from "../utils";
 import { getCurrentBaby } from "../utilsBaby";
 

@@ -1,16 +1,13 @@
+import type { TrinketType } from "isaac-typescript-definitions";
+import { CollectibleType, ItemType } from "isaac-typescript-definitions";
 import {
-  CollectibleType,
-  ItemType,
-  TrinketType,
-} from "isaac-typescript-definitions";
-import {
+  ReadonlySet,
   getCollectibleItemType,
   getCollectibleName,
   log,
-  ReadonlySet,
 } from "isaacscript-common";
 import { BABIES } from "./objects/babies";
-import { BabyDescription } from "./types/BabyDescription";
+import type { BabyDescription } from "./types/BabyDescription";
 
 const VALID_DUPLICATE_ITEMS = new ReadonlySet<CollectibleType>([
   CollectibleType.POOP, // 36

@@ -5,8 +5,8 @@ import {
 } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
-  levelHasRoomType,
   ModCallbackCustom,
+  levelHasRoomType,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 

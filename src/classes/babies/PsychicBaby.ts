@@ -7,10 +7,10 @@ import {
 import {
   Callback,
   CallbackCustom,
-  game,
   GAME_FRAMES_PER_SECOND,
-  getFamiliars,
   ModCallbackCustom,
+  game,
+  getFamiliars,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
@@ -53,7 +53,7 @@ export class PsychicBaby extends Baby {
     // Disable the vanilla shooting behavior.
     const abels = getFamiliars(FamiliarVariant.ABEL);
     for (const abel of abels) {
-      abel.FireCooldown = 1000000;
+      abel.FireCooldown = 1_000_000;
     }
   }
 }

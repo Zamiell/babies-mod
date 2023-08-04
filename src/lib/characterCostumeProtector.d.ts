@@ -1,4 +1,4 @@
-import { NullItemID, PlayerType } from "isaac-typescript-definitions";
+import type { NullItemID, PlayerType } from "isaac-typescript-definitions";
 
 export function Init(mod: Mod): void;
 

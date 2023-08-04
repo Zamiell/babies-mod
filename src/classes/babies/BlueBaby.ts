@@ -7,8 +7,8 @@ import {
 import {
   Callback,
   CallbackCustom,
-  getPlayerFromEntity,
   ModCallbackCustom,
+  getPlayerFromEntity,
   useActiveItemTemp,
 } from "isaacscript-common";
 import { g } from "../../globals";

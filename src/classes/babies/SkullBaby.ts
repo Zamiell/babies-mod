@@ -2,8 +2,8 @@ import { Direction, ModCallback } from "isaac-typescript-definitions";
 import {
   Callback,
   CallbackCustom,
-  directionToVector,
   ModCallbackCustom,
+  directionToVector,
 } from "isaacscript-common";
 import {
   shockwavesPostUpdate,

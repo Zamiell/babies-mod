@@ -1,4 +1,5 @@
-import { DoorSlot, RoomType } from "isaac-typescript-definitions";
+import type { DoorSlot } from "isaac-typescript-definitions";
+import { RoomType } from "isaac-typescript-definitions";
 import {
   game,
   getDoors,

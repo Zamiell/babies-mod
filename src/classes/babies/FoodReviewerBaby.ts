@@ -1,8 +1,5 @@
-import {
-  CollectibleType,
-  ItemConfigTag,
-  ModCallback,
-} from "isaac-typescript-definitions";
+import type { CollectibleType } from "isaac-typescript-definitions";
+import { ItemConfigTag, ModCallback } from "isaac-typescript-definitions";
 import { Callback } from "isaacscript-common";
 import { getRandomCollectibleTypeWithTag } from "../../utils";
 import { Baby } from "../Baby";

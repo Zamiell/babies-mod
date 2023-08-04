@@ -1,9 +1,9 @@
 import { CollectibleType, LevelStage } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
+  ModCallbackCustom,
   game,
   inStartingRoom,
-  ModCallbackCustom,
   onStage,
   useActiveItemTemp,
 } from "isaacscript-common";

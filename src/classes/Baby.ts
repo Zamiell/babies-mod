@@ -1,4 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
+import type { SaveData } from "isaacscript-common";
 import {
   game,
   getPlayerFromEntity,
@@ -6,12 +7,11 @@ import {
   ModCallbackCustom,
   ModFeature,
   ReadonlyMap,
-  SaveData,
 } from "isaacscript-common";
-import { RandomBabyType } from "../enums/RandomBabyType";
+import type { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { mod } from "../mod";
-import { BabyDescription } from "../types/BabyDescription";
+import type { BabyDescription } from "../types/BabyDescription";
 import { isValidRandomBabyPlayer } from "../utils";
 
 /**

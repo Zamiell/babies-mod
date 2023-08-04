@@ -1,4 +1,4 @@
-import { EffectVariant } from "isaac-typescript-definitions";
+import type { EffectVariant } from "isaac-typescript-definitions";
 
 export const EffectVariantCustom = {
   FETUS_BOSS_TARGET: Isaac.GetEntityVariantByName(

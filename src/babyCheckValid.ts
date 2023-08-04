@@ -6,13 +6,13 @@ import {
   RoomType,
   TrinketType,
 } from "isaac-typescript-definitions";
+import type { AnyFunction } from "isaacscript-common";
 import {
-  AnyFunction,
+  MAPPING_COLLECTIBLES,
   getCollectibleItemType,
   getEffectiveStage,
   hasCollectible,
   levelHasRoomType,
-  MAPPING_COLLECTIBLES,
   onFirstFloor,
   onStage,
   onStageOrHigher,
@@ -20,12 +20,12 @@ import {
   onStageWithRandomBossCollectible,
   setHas,
 } from "isaacscript-common";
-import { Baby } from "./classes/Baby";
-import { RandomBabyType } from "./enums/RandomBabyType";
+import type { Baby } from "./classes/Baby";
+import type { RandomBabyType } from "./enums/RandomBabyType";
 import { g } from "./globals";
 import { BABIES } from "./objects/babies";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
-import { BabyDescription } from "./types/BabyDescription";
+import type { BabyDescription } from "./types/BabyDescription";
 
 const COLLECTIBLES_THAT_REMOVE_TEARS = [
   CollectibleType.DR_FETUS, // 52
@@ -94,10 +94,8 @@ export function babyCheckValid(
   }
 
   const babyClass = BABY_CLASS_MAP.get(babyType);
-  if (babyClass !== undefined) {
-    if (!checkBabyClass(player, babyClass)) {
-      return false;
-    }
+  if (babyClass !== undefined && !checkBabyClass(player, babyClass)) {
+    return false;
   }
 
   return true;

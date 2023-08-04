@@ -1,13 +1,10 @@
-import {
-  ButtonAction,
-  CollectibleType,
-  InputHook,
-} from "isaac-typescript-definitions";
+import type { ButtonAction } from "isaac-typescript-definitions";
+import { CollectibleType, InputHook } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
+  ModCallbackCustom,
   hasCollectible,
   isShootAction,
-  ModCallbackCustom,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 

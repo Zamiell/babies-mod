@@ -1,8 +1,8 @@
+import type { GridEntityXMLType } from "isaac-typescript-definitions";
 import {
   EntityType,
   FireplaceVariant,
   GridEntityType,
-  GridEntityXMLType,
   ItemPoolType,
   ModCallback,
   PickupVariant,
@@ -11,11 +11,11 @@ import {
 import {
   Callback,
   CallbackCustom,
+  ModCallbackCustom,
   game,
   getCollectibleDevilHeartPrice,
   gridCoordinatesToWorldPosition,
   isQuestCollectible,
-  ModCallbackCustom,
   newRNG,
   spawnGridEntityWithVariant,
   spawnWithSeed,

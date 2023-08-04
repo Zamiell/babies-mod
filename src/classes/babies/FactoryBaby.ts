@@ -1,8 +1,5 @@
-import {
-  CollectibleType,
-  ModCallback,
-  SlotVariant,
-} from "isaac-typescript-definitions";
+import type { CollectibleType } from "isaac-typescript-definitions";
+import { ModCallback, SlotVariant } from "isaac-typescript-definitions";
 import { Callback } from "isaacscript-common";
 import { CollectibleTypeCustom } from "../../enums/CollectibleTypeCustom";
 import { spawnSlotHelper } from "../../utils";

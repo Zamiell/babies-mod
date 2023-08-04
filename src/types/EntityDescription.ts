@@ -1,4 +1,4 @@
-import { EntityType } from "isaac-typescript-definitions";
+import type { EntityType } from "isaac-typescript-definitions";
 
 export interface EntityDescription {
   type: EntityType;

@@ -6,9 +6,9 @@ import {
 import {
   Callback,
   CallbackCustom,
+  ModCallbackCustom,
   game,
   getPlayerFromEntity,
-  ModCallbackCustom,
   sfxManager,
   useActiveItemTemp,
 } from "isaacscript-common";

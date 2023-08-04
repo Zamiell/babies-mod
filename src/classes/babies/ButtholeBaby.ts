@@ -5,9 +5,9 @@ import {
 } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
+  ModCallbackCustom,
   game,
   getRandomInt,
-  ModCallbackCustom,
   sfxManager,
 } from "isaacscript-common";
 import { g } from "../../globals";

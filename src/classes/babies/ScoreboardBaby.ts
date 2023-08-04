@@ -1,4 +1,4 @@
-import { DamageFlag } from "isaac-typescript-definitions";
+import type { DamageFlag } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   game,

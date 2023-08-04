@@ -1,5 +1,5 @@
+import type { DamageFlag } from "isaac-typescript-definitions";
 import {
-  DamageFlag,
   DamageFlagZero,
   EffectVariant,
   EntityType,

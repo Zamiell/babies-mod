@@ -15,10 +15,10 @@ import * as postNewLevelReordered from "./callbacksCustom/postNewLevelReordered"
 import * as postNewRoomReordered from "./callbacksCustom/postNewRoomReordered";
 import * as postPEffectUpdateReordered from "./callbacksCustom/postPEffectUpdateReordered";
 import * as postPlayerChangeType from "./callbacksCustom/postPlayerChangeType";
-import { Baby } from "./classes/Baby";
+import type { Baby } from "./classes/Baby";
 import { IS_DEV, MOD_NAME, VERSION } from "./constants";
 import { initCostumeProtector } from "./costumes";
-import { RandomBabyType } from "./enums/RandomBabyType";
+import type { RandomBabyType } from "./enums/RandomBabyType";
 import { pseudoRoomClearInit } from "./features/pseudoRoomClear";
 import { shockwavesInit } from "./features/shockwaves";
 import { softlockPreventionInit } from "./features/softlockPrevention";

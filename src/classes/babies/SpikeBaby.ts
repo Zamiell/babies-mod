@@ -8,8 +8,8 @@ import {
 import {
   Callback,
   CallbackCustom,
-  isChest,
   ModCallbackCustom,
+  isChest,
   spawnPickup,
 } from "isaacscript-common";
 import { mod } from "../../mod";

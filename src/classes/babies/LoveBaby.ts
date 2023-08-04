@@ -1,11 +1,11 @@
 import { HeartSubType, ModCallback } from "isaac-typescript-definitions";
 import {
   Callback,
+  VectorZero,
   game,
   getEnumValues,
   getRandomArrayElement,
   spawnHeart,
-  VectorZero,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 

@@ -1,17 +1,17 @@
+import type { DamageFlag } from "isaac-typescript-definitions";
 import {
   CollectibleType,
-  DamageFlag,
   ModCallback,
   RoomType,
 } from "isaac-typescript-definitions";
 import {
   Callback,
   CallbackCustom,
+  ModCallbackCustom,
   findFreePosition,
   inRoomType,
   isRoomInsideGrid,
   isSelfDamage,
-  ModCallbackCustom,
 } from "isaacscript-common";
 import { g } from "../../globals";
 import { mod } from "../../mod";

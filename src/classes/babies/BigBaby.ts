@@ -2,8 +2,8 @@ import { LevelStage, ModCallback } from "isaac-typescript-definitions";
 import {
   Callback,
   CallbackCustom,
-  inStartingRoom,
   ModCallbackCustom,
+  inStartingRoom,
   onStage,
 } from "isaacscript-common";
 import { Baby } from "../Baby";

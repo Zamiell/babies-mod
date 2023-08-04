@@ -1,4 +1,4 @@
-import { DamageFlag } from "isaac-typescript-definitions";
+import type { DamageFlag } from "isaac-typescript-definitions";
 import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";

@@ -4,7 +4,7 @@ import {
   ModCallback,
   ProjectileFlag,
 } from "isaac-typescript-definitions";
-import { Callback, getStage, ReadonlySet } from "isaacscript-common";
+import { Callback, ReadonlySet, getStage } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 const IMMUNE_ENTITY_TYPES = new ReadonlySet<EntityType>([

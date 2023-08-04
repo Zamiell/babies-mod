@@ -1,8 +1,5 @@
-import {
-  CacheFlag,
-  DamageFlag,
-  ModCallback,
-} from "isaac-typescript-definitions";
+import type { DamageFlag } from "isaac-typescript-definitions";
+import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
 import {
   Callback,
   CallbackCustom,

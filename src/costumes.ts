@@ -1,7 +1,7 @@
 // This is code relating to making the player always have the baby sprite. We use the Costume
 // Protector library to accomplish this.
 
-import { NullItemID } from "isaac-typescript-definitions";
+import type { NullItemID } from "isaac-typescript-definitions";
 import { RandomBabyType } from "./enums/RandomBabyType";
 import * as costumeProtector from "./lib/characterCostumeProtector";
 import { mod } from "./mod";

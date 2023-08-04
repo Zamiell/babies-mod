@@ -1,8 +1,8 @@
 import { PillColor, PillEffect } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
-  getRandomEnumValue,
   ModCallbackCustom,
+  getRandomEnumValue,
 } from "isaacscript-common";
 import { g } from "../../globals";
 import { isRacingPlusEnabled } from "../../utils";

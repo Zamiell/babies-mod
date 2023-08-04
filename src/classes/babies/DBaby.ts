@@ -1,5 +1,5 @@
+import type { DamageFlag } from "isaac-typescript-definitions";
 import {
-  DamageFlag,
   DamageFlagZero,
   EffectVariant,
   EntityType,
@@ -9,8 +9,8 @@ import {
   Callback,
   CallbackCustom,
   ModCallbackCustom,
-  spawnEffect,
   VectorZero,
+  spawnEffect,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 

@@ -1,10 +1,10 @@
 import { CollectibleType, LevelStage } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
+  ModCallbackCustom,
   game,
   getPlayerFromEntity,
   getRandom,
-  ModCallbackCustom,
   newRNG,
   onStage,
   useActiveItemTemp,

@@ -1,17 +1,17 @@
+import type { DoorState } from "isaac-typescript-definitions";
 import {
   CardType,
   CollectibleType,
-  DoorState,
   RoomType,
   UseFlag,
 } from "isaac-typescript-definitions";
 import {
-  addFlag,
   CallbackCustom,
+  ModCallbackCustom,
+  addFlag,
   closeDoorFast,
   game,
   getDoors,
-  ModCallbackCustom,
   repeat,
 } from "isaacscript-common";
 import { g } from "../../globals";

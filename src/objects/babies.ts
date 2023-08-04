@@ -16,7 +16,7 @@ import { Incubus } from "../classes/babies/familiars/Incubus";
 import * as bc from "../classes/babyClasses";
 import { CollectibleTypeCustom } from "../enums/CollectibleTypeCustom";
 import { RandomBabyType } from "../enums/RandomBabyType";
-import { BabyDescription } from "../types/BabyDescription";
+import type { BabyDescription } from "../types/BabyDescription";
 
 export const BABIES = {
   // 0

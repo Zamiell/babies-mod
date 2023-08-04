@@ -1,9 +1,9 @@
 import { BrokenWatchState, LevelStage } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
+  ModCallbackCustom,
   game,
   getStage,
-  ModCallbackCustom,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 

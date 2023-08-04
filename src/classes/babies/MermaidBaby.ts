@@ -1,8 +1,8 @@
 import { KeySubType, PickupVariant } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
-  getHighestEnumValue,
   ModCallbackCustom,
+  getHighestEnumValue,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 

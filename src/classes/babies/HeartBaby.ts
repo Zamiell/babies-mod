@@ -1,8 +1,8 @@
 import { CollectibleType, SoundEffect } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
-  inStartingRoom,
   ModCallbackCustom,
+  inStartingRoom,
   sfxManager,
   useActiveItemTemp,
 } from "isaacscript-common";

@@ -1,8 +1,5 @@
-import {
-  CacheFlag,
-  ModCallback,
-  PillEffect,
-} from "isaac-typescript-definitions";
+import type { PillEffect } from "isaac-typescript-definitions";
+import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
 import { Callback, repeat } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";

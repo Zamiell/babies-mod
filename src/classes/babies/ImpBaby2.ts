@@ -1,5 +1,5 @@
 import { ModCallback, TearFlag } from "isaac-typescript-definitions";
-import { addFlag, Callback, COLORS } from "isaacscript-common";
+import { COLORS, Callback, addFlag } from "isaacscript-common";
 import { setTearColor } from "../../utils";
 import { Baby } from "../Baby";
 

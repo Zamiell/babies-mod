@@ -3,7 +3,7 @@ import { ModCallbackCustom, ReadonlySet } from "isaacscript-common";
 import { getBabyItemsSet } from "../babyCheckValid";
 import { softlockPreventionPostPEffectUpdateReordered } from "../features/softlockPrevention";
 import { mod } from "../mod";
-import { BabyDescription } from "../types/BabyDescription";
+import type { BabyDescription } from "../types/BabyDescription";
 import { isValidRandomBabyPlayer } from "../utils";
 import { getCurrentBaby } from "../utilsBaby";
 

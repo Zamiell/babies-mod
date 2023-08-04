@@ -1,5 +1,5 @@
+import type { EntityType } from "isaac-typescript-definitions";
 import {
-  EntityType,
   GridEntityXMLType,
   LevelStage,
   ModCallback,

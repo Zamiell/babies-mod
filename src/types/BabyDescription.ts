@@ -1,4 +1,4 @@
-import {
+import type {
   CollectibleType,
   SeedEffect,
   TrinketType,
@@ -33,10 +33,13 @@ export interface BabyDescription {
   readonly requireTears?: boolean;
   readonly requireNoEndFloors?: boolean;
   readonly requireNumHits?: int;
+
   /** Requires that the player has at least 1 bomb. */
   readonly requireBombs?: boolean;
+
   /** Requires that the player has at least 1 coin. */
   readonly requireCoins?: boolean;
+
   /** Requires that the player has at least 1 key. */
   readonly requireKeys?: boolean;
 

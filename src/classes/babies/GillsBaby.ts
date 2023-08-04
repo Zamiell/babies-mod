@@ -1,9 +1,9 @@
 import { EffectVariant, ModCallback } from "isaac-typescript-definitions";
 import {
   Callback,
+  VectorZero,
   getPlayerFromEntity,
   spawnEffect,
-  VectorZero,
 } from "isaacscript-common";
 import { setTearColor } from "../../utils";
 import { Baby } from "../Baby";

@@ -6,8 +6,8 @@ import {
 } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
-  game,
   ModCallbackCustom,
+  game,
   teleport,
 } from "isaacscript-common";
 import { Baby } from "../Baby";

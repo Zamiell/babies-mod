@@ -4,11 +4,11 @@ import {
   TearFlag,
 } from "isaac-typescript-definitions";
 import {
-  addFlag,
   Callback,
   CallbackCustom,
   ModCallbackCustom,
   VectorZero,
+  addFlag,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 

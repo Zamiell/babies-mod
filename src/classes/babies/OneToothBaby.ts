@@ -1,4 +1,5 @@
-import { DamageFlag, EntityType } from "isaac-typescript-definitions";
+import type { DamageFlag } from "isaac-typescript-definitions";
+import { EntityType } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   isSelfDamage,

@@ -1,8 +1,5 @@
-import {
-  DamageFlag,
-  EntityType,
-  ModCallback,
-} from "isaac-typescript-definitions";
+import type { DamageFlag } from "isaac-typescript-definitions";
+import { EntityType, ModCallback } from "isaac-typescript-definitions";
 import {
   Callback,
   CallbackCustom,

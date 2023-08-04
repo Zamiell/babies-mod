@@ -1,17 +1,17 @@
+import type { DamageFlag } from "isaac-typescript-definitions";
 import {
-  DamageFlag,
   EntityCollisionClass,
   EntityGridCollisionClass,
   ModCallback,
   TearFlag,
 } from "isaac-typescript-definitions";
 import {
-  bitFlags,
   Callback,
   CallbackCustom,
-  getKnives,
   ModCallbackCustom,
   VectorZero,
+  bitFlags,
+  getKnives,
 } from "isaacscript-common";
 import { g } from "../../../globals";
 import { Baby } from "../../Baby";

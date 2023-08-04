@@ -1,5 +1,5 @@
 import { EffectVariant, ModCallback } from "isaac-typescript-definitions";
-import { Callback, game, spawnEffect, VectorZero } from "isaacscript-common";
+import { Callback, VectorZero, game, spawnEffect } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Black creep tears. */

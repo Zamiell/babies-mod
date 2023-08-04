@@ -1,8 +1,5 @@
-import {
-  CollectibleType,
-  ItemPoolType,
-  ModCallback,
-} from "isaac-typescript-definitions";
+import type { CollectibleType } from "isaac-typescript-definitions";
+import { ItemPoolType, ModCallback } from "isaac-typescript-definitions";
 import { Callback } from "isaacscript-common";
 import { getRandomCollectibleTypeFromPool } from "../../utils";
 import { Baby } from "../Baby";

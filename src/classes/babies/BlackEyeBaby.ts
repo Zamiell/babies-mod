@@ -6,8 +6,8 @@ import {
 import {
   Callback,
   CallbackCustom,
-  getFamiliars,
   ModCallbackCustom,
+  getFamiliars,
 } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";

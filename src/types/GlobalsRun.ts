@@ -1,5 +1,5 @@
 import { getRandomSeed, newRNG, setSeed } from "isaacscript-common";
-import { RandomBabyType } from "../enums/RandomBabyType";
+import type { RandomBabyType } from "../enums/RandomBabyType";
 
 // Per-run variables
 export class GlobalsRun {
@@ -11,6 +11,7 @@ export class GlobalsRun {
   // Temporary variables
   showIntroFrame = 0;
   showVersionFrame = 0;
+
   /** Used to make the player temporarily invulnerable. */
   invulnerable = false;
   dealingExtraDamage = false;
@@ -19,10 +20,13 @@ export class GlobalsRun {
   // Baby-specific variables
   /** Initialized to false at the beginning of every floor. */
   babyBool = false;
+
   /** Initialized to 0 at the beginning of every floor. */
   babyCounters = 0;
+
   /** Initialized to 0 at the beginning of every floor. */
   babyFrame = 0;
+
   /** Initialized to null at the beginning of every floor. */
   babySprite: Sprite | null = null;
 

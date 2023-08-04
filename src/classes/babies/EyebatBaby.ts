@@ -6,13 +6,13 @@ import {
 } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
+  ModCallbackCustom,
   changeRoom,
   game,
   getRoomGridIndexesForType,
   hasFlag,
   inRoomType,
   inStartingRoom,
-  ModCallbackCustom,
   onFirstFloor,
   onRepentanceStage,
   onStage,

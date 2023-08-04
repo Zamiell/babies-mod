@@ -1,8 +1,8 @@
 import { PillColor, PillEffect } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
-  inStartingRoom,
   ModCallbackCustom,
+  inStartingRoom,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 

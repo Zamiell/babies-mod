@@ -6,10 +6,10 @@ import {
 } from "isaac-typescript-definitions";
 import {
   DISTANCE_OF_GRID_TILE,
+  VectorZero,
   game,
   sfxManager,
   spawnEffect,
-  VectorZero,
 } from "isaacscript-common";
 import { mod } from "../mod";
 

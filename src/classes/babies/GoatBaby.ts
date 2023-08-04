@@ -5,8 +5,8 @@ import {
 } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
-  hasCollectible,
   ModCallbackCustom,
+  hasCollectible,
   onEffectiveStage,
   onStageWithNaturalDevilRoom,
   removeCollectibleFromItemTracker,

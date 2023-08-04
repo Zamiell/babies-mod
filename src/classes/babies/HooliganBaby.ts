@@ -8,11 +8,11 @@ import {
 import {
   Callback,
   CallbackCustom,
+  ModCallbackCustom,
+  ReadonlySet,
   game,
   getStage,
-  ModCallbackCustom,
   onStage,
-  ReadonlySet,
   spawn,
 } from "isaacscript-common";
 import { g } from "../../globals";

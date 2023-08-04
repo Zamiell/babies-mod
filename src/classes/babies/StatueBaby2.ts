@@ -1,8 +1,8 @@
 import { CollectibleType, RoomType } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
-  game,
   ModCallbackCustom,
+  game,
   repeat,
 } from "isaacscript-common";
 import { g } from "../../globals";

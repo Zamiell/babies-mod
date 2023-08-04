@@ -2,7 +2,7 @@ import {
   GridEntityType,
   PoopGridEntityVariant,
 } from "isaac-typescript-definitions";
-import { CallbackCustom, game, ModCallbackCustom } from "isaacscript-common";
+import { CallbackCustom, ModCallbackCustom, game } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Gold gear + gold poops + gold rooms. */

@@ -1,6 +1,6 @@
+import type { DamageFlag } from "isaac-typescript-definitions";
 import {
   CollectibleType,
-  DamageFlag,
   DamageFlagZero,
   EffectVariant,
   EntityPartition,
@@ -9,10 +9,10 @@ import {
 } from "isaac-typescript-definitions";
 import {
   Callback,
+  VectorZero,
   game,
   hasCollectible,
   spawnEffect,
-  VectorZero,
 } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";

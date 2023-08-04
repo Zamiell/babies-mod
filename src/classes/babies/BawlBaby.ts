@@ -2,9 +2,9 @@ import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
 import {
   Callback,
   CallbackCustom,
+  ModCallbackCustom,
   game,
   getPlayerFromEntity,
-  ModCallbackCustom,
   useActiveItemTemp,
 } from "isaacscript-common";
 import { g } from "../../globals";

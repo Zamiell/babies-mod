@@ -6,8 +6,8 @@ import {
 import {
   CallbackCustom,
   DISTANCE_OF_GRID_TILE,
-  getRoomListIndex,
   ModCallbackCustom,
+  getRoomListIndex,
   onStage,
 } from "isaacscript-common";
 import { spawnRandomPickup } from "../../utils";

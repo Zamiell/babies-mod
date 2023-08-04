@@ -1,4 +1,5 @@
-import { CollectibleType, RoomType } from "isaac-typescript-definitions";
+import type { CollectibleType } from "isaac-typescript-definitions";
+import { RoomType } from "isaac-typescript-definitions";
 import { ReadonlyMap } from "isaacscript-common";
 import { CollectibleTypeCustom } from "../enums/CollectibleTypeCustom";
 
