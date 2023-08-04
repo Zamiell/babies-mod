@@ -263,13 +263,9 @@ export function spawnRandomPickup(
   noItems = false,
 ): void {
   // Spawn a random pickup.
-  let pickupVariantChoice: int;
-  if (noItems) {
-    // Exclude trinkets and collectibles.
-    pickupVariantChoice = getRandomInt(1, 9, g.run.rng);
-  } else {
-    pickupVariantChoice = getRandomInt(1, 11, g.run.rng);
-  }
+  const pickupVariantChoice = noItems
+    ? getRandomInt(1, 9, g.run.rng) // Exclude trinkets and collectibles.
+    : getRandomInt(1, 11, g.run.rng);
 
   switch (pickupVariantChoice) {
     case 1: {

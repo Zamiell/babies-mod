@@ -64,11 +64,11 @@ export class Baby extends ModFeature {
   }
 
   /** Called from "babyAdd.ts". */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
   onAdd(player: EntityPlayer): void {}
 
   /** Called from "babyRemove.ts". */
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
   onRemove(player: EntityPlayer, oldBabyCounters: int): void {}
 
   /**

@@ -41,11 +41,5 @@ function main() {
     return;
   }
 
-  stopDrawingBabyIntroText();
-}
-
-function stopDrawingBabyIntroText() {
-  if (g.run.drawIntro) {
-    g.run.drawIntro = false;
-  }
+  g.run.drawIntro = false; // Stop drawing the baby intro text, if present.
 }

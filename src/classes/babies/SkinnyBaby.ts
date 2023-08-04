@@ -22,9 +22,11 @@ export class SkinnyBaby extends Baby {
     }
 
     const npcs = getNPCs();
-    const filterFunc = (npc: EntityNPC) =>
-      npc.IsVulnerableEnemy() && !npc.IsDead();
-    const closestEnemy = getClosestEntityTo(player, npcs, filterFunc);
+    const closestEnemy = getClosestEntityTo(
+      player,
+      npcs,
+      (npc: EntityNPC) => npc.IsVulnerableEnemy() && !npc.IsDead(),
+    );
     if (closestEnemy === undefined) {
       return;
     }
