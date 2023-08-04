@@ -2,7 +2,7 @@
 // https://eslint.org/docs/latest/use/configure/
 
 /** @type {import("eslint").Linter.Config} */
-module.exports = {
+const config = {
   extends: [
     // The linter base is the IsaacScript mod config:
     // https://github.com/IsaacScript/isaacscript/blob/main/packages/eslint-config-isaacscript/mod.js
@@ -38,3 +38,5 @@ module.exports = {
     // @template-customization-end
   },
 };
+
+module.exports = config;
