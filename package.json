@@ -10,7 +10,7 @@
     "repentance"
   ],
   "license": "GPL-3.0",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
     "isaac-typescript-definitions": "^13.0.17",
     "isaacscript": "^3.6.54",
