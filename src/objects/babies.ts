@@ -608,7 +608,7 @@ export const BABIES = {
   // 68
   [RandomBabyType.BRIAN]: {
     name: "Brain Baby",
-    description: "Starts with The Mind",
+    description: "Starts with The Mind", // Mapping baby
     sprite: "068_baby_brain.png",
     item: CollectibleType.MIND,
   },
@@ -739,7 +739,7 @@ export const BABIES = {
   // 83
   [RandomBabyType.GHOUL]: {
     name: "Ghoul Baby",
-    description: "Book of Secrets effect on hit",
+    description: "Book of Secrets effect on hit", // Mapping baby
     sprite: "083_baby_ghoul.png",
     class: bc.GhoulBaby,
   },
@@ -3606,7 +3606,7 @@ export const BABIES = {
   // 411
   [RandomBabyType.BLUE_HAT]: {
     name: "Blue Hat Baby",
-    description: "Starts with Blue Map",
+    description: "Starts with Blue Map", // Mapping baby
     sprite: "411_baby_bluehat.png",
     item: CollectibleType.BLUE_MAP,
   },
@@ -3622,7 +3622,7 @@ export const BABIES = {
   // 413
   [RandomBabyType.PIRATE]: {
     name: "Pirate Baby",
-    description: "Starts with Treasure Map",
+    description: "Starts with Treasure Map", // Mapping baby
     sprite: "413_baby_pirate.png",
     item: CollectibleType.TREASURE_MAP,
   },
@@ -3706,7 +3706,7 @@ export const BABIES = {
   // 423
   [RandomBabyType.SAILOR]: {
     name: "Sailor Baby",
-    description: "Starts with The Compass",
+    description: "Starts with The Compass", // Mapping baby
     sprite: "423_baby_sailor.png",
     item: CollectibleType.COMPASS,
   },
@@ -5223,7 +5223,7 @@ export const BABIES = {
 
   // 599
   [RandomBabyType.ESAU_JR]: {
-    name: "Esau Jr. Baby",
+    name: "Esau Jr. Baby", // CollectibleType.ESAU_JR (703)
     description: "Soul of Jacob and Esau effect on hit",
     sprite: "familiar_esau_jr.png",
     class: bc.EsauJrBaby,
