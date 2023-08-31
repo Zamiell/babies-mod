@@ -1,4 +1,4 @@
-import { game, repeat } from "isaacscript-common";
+import { assertDefined, game, repeat } from "isaacscript-common";
 import { RandomBabyType } from "./enums/RandomBabyType";
 import { g } from "./globals";
 import { newSprite } from "./sprite";
@@ -161,16 +161,12 @@ function convertSecondsToTimerValues(totalSeconds: int): {
   // The first character.
   const minute1String = minutesString[0] ?? "0";
   const minute1 = tonumber(minute1String);
-  if (minute1 === undefined) {
-    error("Failed to parse the first minute of the timer.");
-  }
+  assertDefined(minute1, "Failed to parse the first minute of the timer.");
 
   // The second character.
   const minute2String = minutesString[1] ?? "0";
   const minute2 = tonumber(minute2String);
-  if (minute2 === undefined) {
-    error("Failed to parse the second minute of the timer.");
-  }
+  assertDefined(minute2, "Failed to parse the second minute of the timer.");
 
   // Calculate the seconds digits.
   const seconds = math.floor(totalSeconds % 60);
@@ -180,16 +176,12 @@ function convertSecondsToTimerValues(totalSeconds: int): {
   // The first character.
   const second1String = secondsString[0] ?? "0";
   const second1 = tonumber(second1String);
-  if (second1 === undefined) {
-    error("Failed to parse the first second of the timer.");
-  }
+  assertDefined(second1, "Failed to parse the first second of the timer.");
 
   // The second character.
   const second2String = secondsString[1] ?? "0";
   const second2 = tonumber(second2String);
-  if (second2 === undefined) {
-    error("Failed to parse the second second of the timer.");
-  }
+  assertDefined(second2, "Failed to parse the second second of the timer.");
 
   // Calculate the tenths digit.
   const rawSeconds = totalSeconds % 60; // 0.000 to 59.999

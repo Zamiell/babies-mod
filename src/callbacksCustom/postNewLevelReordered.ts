@@ -1,5 +1,6 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 import {
+  assertDefined,
   game,
   getPlayersOfType,
   getRandomEnumValue,
@@ -97,11 +98,10 @@ function getAndSetNewBabyInGlobals(player: EntityPlayer) {
   g.pastBabies.push(babyType);
 
   const currentBaby = getCurrentBaby();
-  if (currentBaby === undefined) {
-    error(
-      'Failed to get the current baby in the "getAndSetNewBabyInGlobals" function.',
-    );
-  }
+  assertDefined(
+    currentBaby,
+    'Failed to get the current baby in the "getAndSetNewBabyInGlobals" function.',
+  );
   const { baby } = currentBaby;
 
   log(`Randomly chose baby: ${babyType} - ${baby.name} - ${baby.description}`);

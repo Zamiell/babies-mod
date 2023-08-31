@@ -26,9 +26,7 @@ import { mod } from "./mod";
 import { BABIES } from "./objects/babies";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 
-main();
-
-function main() {
+export function main(): void {
   if (IS_DEV) {
     setLogFunctionsGlobal();
     setTracebackFunctionsGlobal();

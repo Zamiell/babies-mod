@@ -8,6 +8,7 @@ import {
   Callback,
   CallbackCustom,
   ModCallbackCustom,
+  assertDefined,
   dequeueItem,
   game,
   getRoomGridIndexesForType,
@@ -96,10 +97,13 @@ export class FancyBaby extends Baby {
         log("Error: This floor has too many special rooms for Fancy Baby.");
         return;
       }
+
       const xy = COLLECTIBLE_POSITIONS[positionIndex];
-      if (xy === undefined) {
-        error(`Failed to get the floor position for index: ${positionIndex}`);
-      }
+      assertDefined(
+        xy,
+        `Failed to get the floor position for index: ${positionIndex}`,
+      );
+
       const [x, y] = xy;
       const position = gridCoordinatesToWorldPosition(x, y);
       // The teleport collectibles do not need a unique seed.

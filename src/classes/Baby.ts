@@ -1,6 +1,7 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import type { SaveData } from "isaacscript-common";
 import {
+  assertDefined,
   game,
   getPlayerFromEntity,
   getTSTLClassName,
@@ -77,11 +78,10 @@ export class Baby extends ModFeature {
    */
   saveDataManager(babyClassWithV: { v: SaveData }): void {
     const className = getTSTLClassName(this);
-    if (className === undefined) {
-      error(
-        "Failed to get the class name of the class while registering the save data manager.",
-      );
-    }
+    assertDefined(
+      className,
+      "Failed to get the class name of the class while registering the save data manager.",
+    );
 
     mod.saveDataManager(
       className,

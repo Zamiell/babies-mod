@@ -142,6 +142,7 @@ export function getRandomOffsetPosition(
       break;
     }
 
+    // eslint-disable-next-line isaacscript/require-break
     default: {
       error(`The offset direction was an unknown value of: ${offsetDirection}`);
     }
@@ -354,6 +355,7 @@ export function spawnRandomPickup(
       break;
     }
 
+    // eslint-disable-next-line isaacscript/require-break
     default: {
       error(
         `The pickup variant was an unknown value of: ${pickupVariantChoice}`,
