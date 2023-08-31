@@ -36,9 +36,9 @@ List of boring babies :
 - Lovebear Baby (#266) - Starts with The Relic (The relic has been nerfed in Repentance and will spawn most of the time no soul hearts or 1 if the floor is long, having the effect on only one floor is boring)
 - Cupid Baby (#289) - Starts with Cupid's Arrow (We have a Eye of Belial baby and another with Cupid's Arrow + Tech 0)
 - Nature Baby (#305) - Starts with Sprinkler (We already have a Summons Sprinkler every 7 seconds baby, we should try to reduce the number of babies with an active item)
-- Sword Baby (#312) - Starts with Sacrifical Dagger (There is already a baby with cube of meat + BBFS and another one with x2 sac dagger)
+- Sword Baby (#312) - Starts with Sacrificial Dagger (There is already a baby with cube of meat + BBFs and another one with x2 sac dagger)
 - Black Knight Baby (#427) - Starts with Black Hole (We already have a Black Hole every X tears baby, we should try to reduce the number of babies with an active item)
-- Tired Baby (#443) - 1 Bum Friend is actually better than 5 since each bum friend require several coins to payout. 1 Bum Friend require 6 coins to drop the first pickup. Rewards are the same than Lil Chest rewards + items from Beggar item pool which is mostly HP ups and they can eat lucky coins without granting the luck up lmao, let's just change this one
+- Tired Baby (#443) - 1 Bum Friend is actually better than 5 since each bum friend require several coins to payout. 1 Bum Friend require 6 coins to drop the first pickup. Rewards are the same than Lil Chest rewards + items from Beggar item pool which is mostly HP ups and they can eat lucky coins without granting the luck up, let's just change this one
 - Beanie Baby (#465) - Change Smelter to Marbles ?
 - Burning Baby (#467) - Starts with Fire Mind (We already have Fire Mind + 13 luck, I suggest A Lighter + 40 Luck + Vasculitis (Vasculitis projectiles are in fire when the enemy is dead while burning))
 - Cursor Baby (#468) - Starts with Pause!
@@ -58,10 +58,10 @@ Babies to change :
 - Lipstick Baby : Redundant if we change Lowface Baby. How about "Starts with Mom's Lipstick + Mother's Kiss" ?
 - Piece B Baby : Charging Station is a Battery Beggar basically. Change it to "Spawn every type of beggars in the starting room"
 - Beast Baby : Effect is Random enemies but the code use the D10 which changed in a previous patch
-- Cloud Baby : Ventrical Razor every 15 seconds is kinda pointless. Every 2 seconds helps with curse rooms but can be annoying in combat
+- Cloud Baby : Ventricle Razor every 15 seconds is kinda pointless. Every 2 seconds helps with curse rooms but can be annoying in combat
 - Ballerina Baby : The code uses the custom item Clockwork Assembly but you can use Judgment? card
 - Fishman Baby : The enum says that it's impossible to spawn Giga Bombs with BombSubType.NULL, would be cool if the baby could spawn giga bombs
-- Puncher Baby : It appear that the difference isn't very noticable between 1 and 10 Punching Bags. 1 Punching Bag + 1 Lost Fly would make enemies more unpredictable
+- Puncher Baby : It appear that the difference isn't very noticeable between 1 and 10 Punching Bags. 1 Punching Bag + 1 Lost Fly would make enemies more unpredictable
 - Goat Head Baby : Add Number Magnet
 - Brown Baby : Add Dingle Berry
 - Dark Elf Baby : Change to "Starts with Polished bone"
