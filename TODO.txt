@@ -8,6 +8,8 @@ TODO:
 
 - refactor global variables
 - SaveDataManager
+- auto generate documentation from parsing babies.ts
+- use tainted blue baby poop from gamonymous suggestion
 
 List of hard babies:
 - Troll Baby (#6) - Spawns a Troll Bomb every 3 seconds
