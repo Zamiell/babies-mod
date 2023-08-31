@@ -213,7 +213,7 @@ export const BABIES = {
   // 22
   [RandomBabyType.DEAD]: {
     name: "Dead Baby",
-    description: "Starts with ???'s Only Friend + blindfolded",
+    description: "Starts with 2x ???'s Only Friend + blindfolded",
     sprite: "022_baby_dead.png",
     item: CollectibleType.BLUE_BABYS_ONLY_FRIEND,
     itemNum: 2,
@@ -240,9 +240,10 @@ export const BABIES = {
   // 25
   [RandomBabyType.GLITCH]: {
     name: "Glitch Baby",
-    description: "Starts with GB Bug",
+    description: "Starts with 20x GB Bug",
     sprite: "025_baby_glitch.png",
     item: CollectibleType.GB_BUG,
+    itemNum: 20,
   },
 
   // 26
@@ -1194,7 +1195,7 @@ export const BABIES = {
   // 136
   [RandomBabyType.TEARS]: {
     name: "Tears Baby",
-    description: "Starts with the Paschal Candle",
+    description: "Starts with Paschal Candle",
     sprite: "136_baby_tears.png",
     item: CollectibleType.PASCHAL_CANDLE,
   },
@@ -1917,7 +1918,7 @@ export const BABIES = {
   // 220
   [RandomBabyType.PLUG]: {
     name: "Plug Baby",
-    description: "Starts with the Sharp Plug",
+    description: "Starts with Sharp Plug",
     sprite: "220_baby_plug.png",
     item: CollectibleType.SHARP_PLUG,
   },
@@ -2166,7 +2167,7 @@ export const BABIES = {
   // 249
   [RandomBabyType.LOVE_EYE]: {
     name: "Love Eye Baby",
-    description: "Falls in loves with the first enemy killed",
+    description: "Falls in love with the first enemy killed",
     sprite: "249_baby_loveeye.png",
     class: bc.LoveEyeBaby,
   },
@@ -3289,7 +3290,7 @@ export const BABIES = {
   // 376
   [RandomBabyType.DINO]: {
     name: "Dino Baby",
-    description: "Gains a explosive egg per enemy killed",
+    description: "Gains an explosive egg per enemy killed",
     sprite: "376_baby_dino.png",
     class: bc.DinoBaby,
   },
@@ -3723,7 +3724,7 @@ export const BABIES = {
   // 425
   [RandomBabyType.TOGA]: {
     name: "Toga Baby",
-    description: "Starts with Finger (improved)",
+    description: "Starts with 10x Finger",
     sprite: "425_baby_toga.png",
     item: CollectibleType.FINGER,
     itemNum: 10,
@@ -4584,7 +4585,7 @@ export const BABIES = {
   // 524
   [RandomBabyType.LOST_BLUE]: {
     name: "Lost Blue Baby",
-    description: "D10 effect on hit", // Re-roll enemies
+    description: "D10 effect on hit", // Devolves enemies
     sprite: "62_baby_lost_blue.png",
     class: bc.LostBlueBaby,
   },
@@ -4963,11 +4964,9 @@ export const BABIES = {
   // 570
   [RandomBabyType.PAINFUL]: {
     name: "Painful Baby",
-    description: "Starts with Soy Milk + booger tears",
+    description: "Enemies respawn when re-entering a room",
     sprite: "570_baby_painful.png",
-    item: CollectibleType.SOY_MILK,
-    requireTears: true,
-    class: bc.PainfulBaby,
+    seed: SeedEffect.ENEMIES_RESPAWN,
   },
 
   // 571
@@ -4982,9 +4981,10 @@ export const BABIES = {
   // 572
   [RandomBabyType.DOLEFUL]: {
     name: "Doleful Baby",
-    description: "Starts with The Intruder",
+    description: "Starts with Soy Milk + booger tears",
     sprite: "572_baby_doleful.png",
-    item: CollectibleType.INTRUDER,
+    item: CollectibleType.SOY_MILK,
+    class: bc.DolefulBaby,
   },
 
   // 573

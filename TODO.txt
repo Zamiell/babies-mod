@@ -19,6 +19,75 @@ List of hard babies:
 - Blue Pig Baby (#382) - Spawns a Mega Troll Bomb every 5 seconds
 - Driver Baby (#431) - Slippery movement
 - Funny Baby (#491) - Enemies spawn Troll Bombs on death
+- Painful Baby (#570) - Enemies respawn when re-entering a room
+
+List of boring babies :
+- 3 Eyes Baby (#69) - Starts with Inner Eye (there's another baby that starts with Inner Eye + Mutant Spider and another one with 7-shot)
+- Lobotomy Baby (#79) - Starts with Delirious (there's a better baby that uses Delirious every 10 seconds)
+- O Baby (#93) - Starts with Tiny Planet (Put another effect if we add Tiny Planet to VVVVVV baby)
+- Bandage Girl Baby (#178) - Starts with Cube of Meat + Ball of Bandage (we already have a lvl 4 cube of meat + lvl 4 ball of bandage baby)
+- Dr. Fetus Baby (#188) - Starts with Dr. Fetus (there are 5 babies with Dr. Fetus, put Cracked Infamy Baby effect (dr fetus + remote detonator) into this one and then change Cracked Infamy Baby)
+- Peeling Baby (#199) - Starts with Potato Peeler (There's already a potato peeler effect on hit baby)
+- Basic Spider Baby (#214) - Same as 3 Eyes Baby
+- Punkboy Baby & Punkgirl Baby (#233 & #234) - Starts with Polaroid/Negative
+- Blisters Baby & Cupcake Baby (#240 & #321) - Low/High shot speed (Change one with Shot speed fluctuates and put a new effect on the other one)
+- Lovebear Baby (#266) - Starts with The Relic (The relic has been nerfed in Repentance and will spawn most of the time no soul hearts or 1 if the floor is long, having the effect on only one floor is boring)
+- Cupid Baby (#289) - Starts with Cupid's Arrow (We have a Eye of Belial baby and another with Cupid's Arrow + Tech 0)
+- Nature Baby (#305) - Starts with Sprinkler (We already have a Summons Sprinkler every 7 seconds baby, we should try to reduce the number of babies with an active item)
+- Sword Baby (#312) - Starts with Sacrifical Dagger (There is already a baby with cube of meat + BBFS and another one with x2 sac dagger)
+- Black Knight Baby (#427) - Starts with Black Hole (We already have a Black Hole every X tears baby, we should try to reduce the number of babies with an active item)
+- Tired Baby (#443) - 1 Bum Friend is actually better than 5 since each bum friend require several coins to payout. 1 Bum Friend require 6 coins to drop the first pickup. Rewards are the same than Lil Chest rewards + items from Beggar item pool which is mostly HP ups and they can eat lucky coins without granting the luck up lmao, let's just change this one
+- Beanie Baby (#465) - Change Smelter to Marbles ?
+- Burning Baby (#467) - Starts with Fire Mind (We already have Fire Mind + 13 luck, I suggest A Lighter + 40 Luck + Vasculitis (Vasculitis projectiles are in fire when the enemy is dead while burning))
+- Cursor Baby (#468) - Starts with Pause!
+- Tooth Baby (#478) - Starts with Dead Tooth (Change it to Black Tooth ?)
+- Thirteenth Baby (#533) - Same as Sword Baby
+- Robo-Baby (#578) - Since we already have a Tech + Tech 2 baby, maybe add 3 Robo-babies ? It would be different since it would grant Conjoined
+
+
+Babies to change :
+- Gold Baby : Add the fact that every pickup that spawns will always spawn in their golden variant (Gold key, gold bomb, golden troll bomb, golden heart, golden coin, golden chest, golden battery, golden trinkets and replace every cards, rune, pill by a golden pill)
+- Butthole Baby : Add T. ??? special poops to the List
+- CrowBaby : Soul of Eve effect on hit sounds better
+- Mustache baby : Remove all the code since Repentance added Boomerang tears with My Reflection + Pupula Duplex synergy (but remove the dmg up from My Reflection)
+- Lowface Baby : 0.5 range is boring and can lead to softlocks in some rooms. How about making the range fluctuating ?
+- Eyebrows Baby : One Guppy's Hairball is boring. How about 5 Guppy's Hairball + blindfolded ?
+- VVVVVV Baby : Add Tiny Planet + requireTears
+- Lipstick Baby : Redundant if we change Lowface Baby. How about "Starts with Mom's Lipstick + Mother's Kiss" ?
+- Piece B Baby : Charging Station is a Battery Beggar basically. Change it to "Spawn every type of beggars in the starting room"
+- Beast Baby : Effect is Random enemies but the code use the D10 which changed in a previous patch
+- Cloud Baby : Ventrical Razor every 15 seconds is kinda pointless. Every 2 seconds helps with curse rooms but can be annoying in combat
+- Ballerina Baby : The code uses the custom item Clockwork Assembly but you can use Judgment? card
+- Fishman Baby : The enum says that it's impossible to spawn Giga Bombs with BombSubType.NULL, would be cool if the baby could spawn giga bombs
+- Puncher Baby : It appear that the difference isn't very noticable between 1 and 10 Punching Bags. 1 Punching Bag + 1 Lost Fly would make enemies more unpredictable
+- Goat Head Baby : Add Number Magnet
+- Brown Baby : Add Dingle Berry
+- Dark Elf Baby : Change to "Starts with Polished bone"
+- Cubic Baby : Add Scatter Bombs
+- Lantern Baby : Since GodHead now deals fixed damage, it might be not very powerful, maybe add extra damage?
+- Lil Abaddon shouldn't be available after Womb
+
+Potential new effects :
+- range fluctuates
+- shot speed fluctuates
+- spawn Lil Portal portal after picking up 8 pickups
+- Touching items/pickups causes experimental pill effect
+- Glitched pickups (all pickups rotate between 5 pickups like Glitched Crown on items)
+- Shaking screen every 5 seconds
+- Exploding a tinted rock teleports you to a random special room (item room, shop, planetarium, devil deal, angel room, error room, black market, secret room, super secret room, ultra secret room, mini-boss room, boss room, arcade, challenge, curse, sacrifice, library, Vault, Dice room, bedrooms) (Prevent this effect from appearing in Chest and Dark Room)
+- Permanent I'm Drowsy effect after 30 seconds
+- Enemies turn into giant poops when touched (improved E. Coli)
+- Starts with Book of Virtues + Unicorn stump
+- Every sound effect is randomized
+- Starts with 3 Knife piece 1 + 3 Knife Piece 2
+- Spawn every type of machine in the starting room
+- Spawns a golden troll bomb in every room
+- Starts with Modeling Clay
+- Starts with Cursed Penny
+- Starts with Voodoo Head + Flat File
+- Starts with 10 Cube Baby + Ice Cube
+- Starts with 5 Fruity plum + Baby-Bender + Forgotten Lullaby + Blindfolded
+- Glowing Hourglass effect on 2nd hit (per room)
 
 Bugs with Costume Protector:
 - Mineshaft
