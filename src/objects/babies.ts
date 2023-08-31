@@ -4963,11 +4963,9 @@ export const BABIES = {
   // 570
   [RandomBabyType.PAINFUL]: {
     name: "Painful Baby",
-    description: "Starts with Soy Milk + booger tears",
+    description: "Enemies respawn when re-entering a room",
     sprite: "570_baby_painful.png",
-    item: CollectibleType.SOY_MILK,
-    requireTears: true,
-    class: bc.PainfulBaby,
+    seed: SeedEffect.ENEMIES_RESPAWN,
   },
 
   // 571
@@ -4982,9 +4980,10 @@ export const BABIES = {
   // 572
   [RandomBabyType.DOLEFUL]: {
     name: "Doleful Baby",
-    description: "Starts with The Intruder",
+    description: "Starts with Soy Milk + booger tears",
     sprite: "572_baby_doleful.png",
-    item: CollectibleType.INTRUDER,
+    item: CollectibleType.SOY_MILK,
+    class: bc.DolefulBaby,
   },
 
   // 573
