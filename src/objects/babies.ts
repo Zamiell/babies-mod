@@ -1028,10 +1028,11 @@ export const BABIES = {
   // 117
   [RandomBabyType.AXE_WOUND]: {
     name: "Axe Wound Baby",
-    description: "Starts with Sacrificial Dagger + flight",
+    description: "Starts with 2x Sacrificial Dagger + flight",
     description2: "+ explosion immunity + blindfolded",
     sprite: "117_baby_axewound.png",
     item: CollectibleType.SACRIFICIAL_DAGGER,
+    itemNum: 2,
     flight: true,
     explosionImmunity: true,
     blindfolded: true,
