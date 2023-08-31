@@ -19,6 +19,7 @@ List of hard babies:
 - Blue Pig Baby (#382) - Spawns a Mega Troll Bomb every 5 seconds
 - Driver Baby (#431) - Slippery movement
 - Funny Baby (#491) - Enemies spawn Troll Bombs on death
+- Painful Baby (#570) - Enemies respawn when re-entering a room
 
 Bugs with Costume Protector:
 - Mineshaft
