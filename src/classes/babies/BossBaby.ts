@@ -1,5 +1,5 @@
-import { LevelStage } from "isaac-typescript-definitions";
-import { isGreedMode, onAscent, onStage } from "isaacscript-common";
+import { LevelStage, RoomType } from "isaac-typescript-definitions";
+import { levelHasRoomType, onAscent, onStage } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Starts with There's Options. */
@@ -15,7 +15,7 @@ export class BossBaby extends Baby {
         LevelStage.SHEOL_CATHEDRAL, // 10
         LevelStage.DARK_ROOM_CHEST, // 11
         LevelStage.HOME, // 12
-      ) && 
+      ) &&
       !onAscent()
     );
   }

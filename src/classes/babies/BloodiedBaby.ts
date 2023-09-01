@@ -2,7 +2,6 @@ import type { DoorState } from "isaac-typescript-definitions";
 import {
   CardType,
   CollectibleType,
-  LevelStage,
   RoomType,
   UseFlag,
 } from "isaac-typescript-definitions";
@@ -13,9 +12,7 @@ import {
   closeDoorFast,
   game,
   getDoors,
-  isGreedMode,
-  onAscent,
-  onStage,
+  levelHasRoomType,
   repeat,
 } from "isaacscript-common";
 import { g } from "../../globals";
