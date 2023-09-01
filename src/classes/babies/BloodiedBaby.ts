@@ -24,7 +24,7 @@ import { Baby } from "../Baby";
 
 /** Create red doors on hit + improved Ultra Secret Rooms. */
 export class BloodiedBaby extends Baby {
-  /** Removing floors with no red rooms or Ultra Secret Rooms. */
+  /** Should only be valid on floors that have Ultra Secret Rooms. */
   override isValid(): boolean {
     return (
       !onStage(LevelStage.HOME) &&
