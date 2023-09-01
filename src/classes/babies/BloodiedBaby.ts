@@ -12,6 +12,7 @@ import {
   closeDoorFast,
   game,
   getDoors,
+  levelHasRoomType,
   repeat,
 } from "isaacscript-common";
 import { g } from "../../globals";
@@ -20,6 +21,10 @@ import { Baby } from "../Baby";
 
 /** Create red doors on hit + improved Ultra Secret Rooms. */
 export class BloodiedBaby extends Baby {
+  override isValid(): boolean {
+    return levelHasRoomType(RoomType.ULTRA_SECRET);
+  }
+
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
     const room = game.GetRoom();

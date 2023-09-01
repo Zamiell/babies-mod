@@ -1,5 +1,6 @@
 import {
   ItemType,
+  LevelStage,
   ModCallback,
   PickupVariant,
 } from "isaac-typescript-definitions";
@@ -17,6 +18,7 @@ import {
   inStartingRoom,
   isEven,
   log,
+  onStage,
   teleport,
 } from "isaacscript-common";
 import { CollectibleTypeCustom } from "../../enums/CollectibleTypeCustom";
@@ -41,7 +43,14 @@ const COLLECTIBLE_POSITIONS = [
 export class FancyBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
     const coins = player.GetNumCoins();
-    return coins >= 10;
+    return (
+      coins >= 10 &&
+      !onStage(
+        LevelStage.BLUE_WOMB, // 9
+        LevelStage.THE_VOID, // 12
+        LevelStage.HOME, // 13
+      )
+    );
   }
 
   /** Delete the rerolled teleport collectibles. */

@@ -3,6 +3,7 @@ import {
   CallbackCustom,
   ModCallbackCustom,
   game,
+  levelHasRoomType,
   repeat,
 } from "isaacscript-common";
 import { g } from "../../globals";
@@ -11,6 +12,11 @@ import { Baby } from "../Baby";
 
 /** Improved Super Secret Rooms. */
 export class ButterflyBaby extends Baby {
+  /** Removing floors with no Secret Rooms. */
+  override isValid(): boolean {
+    return levelHasRoomType(RoomType.SECRET);
+  }
+
   @CallbackCustom(
     ModCallbackCustom.POST_NEW_ROOM_REORDERED,
     RoomType.SUPER_SECRET,

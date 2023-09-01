@@ -1,14 +1,20 @@
 import { RoomType } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
-  getRoomGridIndexesForType,
   ModCallbackCustom,
+  getRoomGridIndexesForType,
+  isGreedMode,
+  levelHasRoomType,
   teleport,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Secret Room --> Super Secret Room. */
 export class VikingBaby extends Baby {
+  override isValid(): boolean {
+    return levelHasRoomType(RoomType.SECRET) && !isGreedMode();
+  }
+
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED, RoomType.SECRET)
   postNewRoomReordered(): void {
     const superSecretRoomIndexes = getRoomGridIndexesForType(

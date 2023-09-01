@@ -1,5 +1,8 @@
 TODO:
 
+- search for "onStage("
+- search for "isGreedMode"
+
   // Account for the bug in `ModCallback.PRE_USE_ITEM`:
   // https://wofsauge.github.io/IsaacDocs/rep/enums/ModCallbacks.html?h=modcal#mc_pre_use_item
   if (modCallback === ModCallback.PRE_USE_ITEM && !isValid) {
@@ -67,7 +70,6 @@ Babies to change :
 - Dark Elf Baby : Change to "Starts with Polished bone"
 - Cubic Baby : Add Scatter Bombs
 - Lantern Baby : Since GodHead now deals fixed damage, it might be not very powerful, maybe add extra damage?
-- Lil Abaddon shouldn't be available after Womb
 
 Potential new effects :
 - range fluctuates

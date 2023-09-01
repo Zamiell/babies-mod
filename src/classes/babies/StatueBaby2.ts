@@ -3,6 +3,8 @@ import {
   CallbackCustom,
   ModCallbackCustom,
   game,
+  isGreedMode,
+  levelHasRoomType,
   repeat,
 } from "isaacscript-common";
 import { g } from "../../globals";
@@ -11,6 +13,10 @@ import { Baby } from "../Baby";
 
 /** Improved Secret Rooms. */
 export class StatueBaby2 extends Baby {
+  override isValid(): boolean {
+    return levelHasRoomType(RoomType.SECRET) && !isGreedMode();
+  }
+
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED, RoomType.SECRET)
   postNewRoomReordered(): void {
     const room = game.GetRoom();

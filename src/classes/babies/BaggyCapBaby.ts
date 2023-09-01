@@ -1,11 +1,22 @@
 import { LevelStage, ModCallback } from "isaac-typescript-definitions";
-import { Callback, game, getDoors, onStage } from "isaacscript-common";
+import {
+  Callback,
+  game,
+  getDoors,
+  isGreedMode,
+  onStage,
+  onStageOrHigher,
+} from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Cannot bomb through rooms. */
 export class BaggyCapBaby extends Baby {
   override isValid(): boolean {
-    return !onStage(LevelStage.DARK_ROOM_CHEST);
+    return (
+      !onStage(LevelStage.BLUE_WOMB) &&
+      !onStageOrHigher(LevelStage.DARK_ROOM_CHEST) &&
+      !isGreedMode()
+    );
   }
 
   @Callback(ModCallback.POST_UPDATE)
