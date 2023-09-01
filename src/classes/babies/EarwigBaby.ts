@@ -1,13 +1,14 @@
-import { CollectibleType } from "isaac-typescript-definitions";
+import { CollectibleType, LevelStage } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
+  ModCallbackCustom,
   changeRoom,
   game,
   getAllRoomGridIndexes,
   getRandomArrayElement,
   hasCollectible,
-  ModCallbackCustom,
   onFirstFloor,
+  onStage,
   stopAllSoundEffects,
 } from "isaacscript-common";
 import { g } from "../../globals";
@@ -26,7 +27,10 @@ export class EarwigBaby extends Baby {
         CollectibleType.COMPASS, // 21
         CollectibleType.TREASURE_MAP, // 54
         CollectibleType.MIND, // 333
-      ) && !onFirstFloor()
+      ) &&
+      !onFirstFloor() &&
+      !onStage(LevelStage.HOME) &&
+      !onStage(LevelStage.BLUE_WOMB)
     );
   }
 

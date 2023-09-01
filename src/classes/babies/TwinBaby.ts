@@ -4,6 +4,7 @@ import {
   ModCallbackCustom,
   game,
   inStartingRoom,
+  onRepentanceStage,
   onStage,
   useActiveItemTemp,
 } from "isaacscript-common";
@@ -12,9 +13,17 @@ import { Baby } from "../Baby";
 
 /** Uncontrollable Teleport 2.0. */
 export class TwinBaby extends Baby {
-  /** If they mess up and go past the Boss Room on Womb 2, they can get the wrong path. */
+  /**
+   * If they mess up and go past the Boss Room on Womb 2, they can get the wrong path. It also makes
+   * the player unable to go to Corpse after Alt Mom's Heart.
+   */
   override isValid(): boolean {
-    return !onStage(LevelStage.WOMB_2);
+    return (
+      !onStage(LevelStage.WOMB_2) &&
+      !onStage(LevelStage.HOME) &&
+      !onStage(LevelStage.BLUE_WOMB) &&
+      !(onStage(LevelStage.DEPTHS_2) && onRepentanceStage())
+    );
   }
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)

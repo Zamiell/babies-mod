@@ -4,6 +4,7 @@ import {
   FireplaceVariant,
   GridEntityType,
   ItemPoolType,
+  LevelStage,
   ModCallback,
   PickupVariant,
   StatueVariant,
@@ -17,6 +18,7 @@ import {
   gridCoordinatesToWorldPosition,
   isQuestCollectible,
   newRNG,
+  onStage,
   spawnGridEntityWithVariant,
   spawnWithSeed,
 } from "isaacscript-common";
@@ -30,6 +32,11 @@ import { Baby } from "../Baby";
 
 /** All special rooms are Devil Rooms. */
 export class SuitBaby extends Baby {
+  /** Removing floors with no Special rooms. */
+  override isValid(): boolean {
+    return !onStage(LevelStage.HOME);
+  }
+
   // 35
   @Callback(ModCallback.POST_PICKUP_UPDATE, PickupVariant.COLLECTIBLE)
   postPickupUpdateCollectible(pickup: EntityPickup): void {

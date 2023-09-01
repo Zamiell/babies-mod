@@ -19,7 +19,12 @@ import { Baby } from "../Baby";
 export class PubicBaby extends Baby {
   /** Full clearing the final floor is too punishing. */
   override isValid(): boolean {
-    return !onStage(LevelStage.DARK_ROOM_CHEST);
+    return (
+      !onStage(LevelStage.DARK_ROOM_CHEST) &&
+      !onStage(LevelStage.HOME) &&
+      !onStage(LevelStage.BLUE_WOMB) &&
+      !onStage(LevelStage.THE_VOID)
+    );
   }
 
   @Callback(ModCallback.POST_UPDATE)

@@ -4,6 +4,7 @@ import {
   FireplaceVariant,
   GridEntityType,
   ItemPoolType,
+  LevelStage,
   ModCallback,
   PickupVariant,
   StatueVariant,
@@ -15,6 +16,7 @@ import {
   game,
   gridCoordinatesToWorldPosition,
   newRNG,
+  onStage,
   spawnGridEntityWithVariant,
   spawnWithSeed,
 } from "isaacscript-common";
@@ -28,6 +30,11 @@ import { Baby } from "../Baby";
 
 /** All special rooms are Angel shops. */
 export class PrettyBaby extends Baby {
+  /** Removing floors with no Special rooms. */
+  override isValid(): boolean {
+    return !onStage(LevelStage.HOME);
+  }
+
   /**
    * Rerolled collectibles turn into hearts, so delete the heart and manually create another
    * pedestal item.

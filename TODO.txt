@@ -67,7 +67,6 @@ Babies to change :
 - Dark Elf Baby : Change to "Starts with Polished bone"
 - Cubic Baby : Add Scatter Bombs
 - Lantern Baby : Since GodHead now deals fixed damage, it might be not very powerful, maybe add extra damage?
-- Lil Abaddon shouldn't be available after Womb
 
 Potential new effects :
 - range fluctuates

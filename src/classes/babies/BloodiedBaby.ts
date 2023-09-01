@@ -2,6 +2,7 @@ import type { DoorState } from "isaac-typescript-definitions";
 import {
   CardType,
   CollectibleType,
+  LevelStage,
   RoomType,
   UseFlag,
 } from "isaac-typescript-definitions";
@@ -12,6 +13,9 @@ import {
   closeDoorFast,
   game,
   getDoors,
+  isGreedMode,
+  onAscent,
+  onStage,
   repeat,
 } from "isaacscript-common";
 import { g } from "../../globals";
@@ -20,6 +24,16 @@ import { Baby } from "../Baby";
 
 /** Create red doors on hit + improved Ultra Secret Rooms. */
 export class BloodiedBaby extends Baby {
+  /** Removing floors with no red rooms or Ultra Secret Rooms. */
+  override isValid(): boolean {
+    return (
+      !onStage(LevelStage.HOME) &&
+      !onStage(LevelStage.BLUE_WOMB) &&
+      !onAscent() &&
+      !isGreedMode()
+    );
+  }
+
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
     const room = game.GetRoom();
