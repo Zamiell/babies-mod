@@ -299,21 +299,20 @@ function checkStage(baby: BabyDescription): boolean {
 
   if (
     babyItemsSet.has(CollectibleType.THERES_OPTIONS) && // 249
-    !onStageWithRandomBossCollectible() &&
     !levelHasRoomType(RoomType.BOSS) &&
+    !onStageWithRandomBossCollectible() &&
     !onAscent()
   ) {
-    // There won't be a boss item on floors 6, 8, 9, 10, 11 and 13.
     return false;
   }
 
   if (
     babyItemsSet.has(CollectibleType.MORE_OPTIONS) && // 414
-    (onFirstFloor() ||
-      !levelHasRoomType(RoomType.TREASURE) ||
+    (!levelHasRoomType(RoomType.TREASURE) ||
+      onFirstFloor() ||
       onStage(LevelStage.BLUE_WOMB))
   ) {
-    // We always have More Options on Basement 1. More Options does not work on Blue Womb.
+    // In a speedrun, we might have More Options on Basement 1. Additionally, More Options does not work on Blue Womb.
     return false;
   }
 
