@@ -332,8 +332,8 @@ function checkStage(baby: BabyDescription): boolean {
 
   if (
     babyItemsSet.has(CollectibleType.VANISHING_TWIN) && // 697
-    !onStageWithRandomBossCollectible() &&
     !levelHasRoomType(RoomType.BOSS) &&
+    !onStageWithRandomBossCollectible() &&
     !onAscent()
   ) {
     // Some floors have bosses that cannot be doubled.
