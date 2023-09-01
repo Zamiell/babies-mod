@@ -1,9 +1,9 @@
-import { LevelStage, RoomType } from "isaac-typescript-definitions";
+import { RoomType } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   ModCallbackCustom,
   getRoomGridIndexesForType,
-  onStage,
+  levelHasRoomType,
   teleport,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
@@ -12,7 +12,7 @@ import { Baby } from "../Baby";
 export class VikingBaby extends Baby {
   /** Removing floors with no Secret Rooms. */
   override isValid(): boolean {
-    return !onStage(LevelStage.HOME) && !onStage(LevelStage.BLUE_WOMB);
+    return levelHasRoomType(RoomType.SECRET);
   }
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED, RoomType.SECRET)

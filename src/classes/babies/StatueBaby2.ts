@@ -1,13 +1,9 @@
-import {
-  CollectibleType,
-  LevelStage,
-  RoomType,
-} from "isaac-typescript-definitions";
+import { CollectibleType, RoomType } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   ModCallbackCustom,
   game,
-  onStage,
+  levelHasRoomType,
   repeat,
 } from "isaacscript-common";
 import { g } from "../../globals";
@@ -18,7 +14,7 @@ import { Baby } from "../Baby";
 export class StatueBaby2 extends Baby {
   /** Removing floors with no Secret Rooms. */
   override isValid(): boolean {
-    return !onStage(LevelStage.HOME) && !onStage(LevelStage.BLUE_WOMB);
+    return levelHasRoomType(RoomType.SECRET);
   }
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED, RoomType.SECRET)
