@@ -1558,9 +1558,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "babies-mod@workspace:."
   dependencies:
-    isaac-typescript-definitions: ^13.0.33
-    isaacscript: ^3.10.0
-    isaacscript-common: ^31.7.3
+    isaac-typescript-definitions: ^13.0.35
+    isaacscript: ^3.10.1
+    isaacscript-common: ^31.8.1
     isaacscript-lint: ^5.8.5
     isaacscript-spell: ^1.2.41
     isaacscript-tsconfig: ^4.0.0
@@ -3285,7 +3285,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^10.2.2, glob@npm:^10.3.3":
+"glob@npm:^10.2.2":
   version: 10.3.3
   resolution: "glob@npm:10.3.3"
   dependencies:
@@ -3312,6 +3312,21 @@ __metadata:
   bin:
     glob: dist/cjs/src/bin.js
   checksum: 555205a74607d6f8d9874ba888924b305b5ea1abfaa2e9ccb11ac713d040aac7edbf7d8702a2f4a1cd81b2d7666412170ce7ef061d33cddde189dae8c1a1a054
+  languageName: node
+  linkType: hard
+
+"glob@npm:^10.3.4":
+  version: 10.3.4
+  resolution: "glob@npm:10.3.4"
+  dependencies:
+    foreground-child: ^3.1.0
+    jackspeak: ^2.0.3
+    minimatch: ^9.0.1
+    minipass: ^5.0.0 || ^6.0.2 || ^7.0.0
+    path-scurry: ^1.10.1
+  bin:
+    glob: dist/cjs/src/bin.js
+  checksum: 176b97c124414401cb51329a93d2ba112cef8814adbed10348481916b9521b677773eee2691cb6b24d66632d8c8bb8913533f5ac4bfb2d0ef5454a1856082361
   languageName: node
   linkType: hard
 
@@ -3850,12 +3865,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isaac-typescript-definitions@npm:^13.0.33":
-  version: 13.0.33
-  resolution: "isaac-typescript-definitions@npm:13.0.33"
+"isaac-typescript-definitions@npm:^13.0.35":
+  version: 13.0.35
+  resolution: "isaac-typescript-definitions@npm:13.0.35"
   dependencies:
     lua-types: ^2.13.1
-  checksum: 19ea9518b6924abe2b7adcd1030153a8699443f9ec7ed4a76ad1c554cdf192cc0925b099e1c13d3a76f5d47988900a1cb53a4069a92d2791a50f4595ebf417bf
+  checksum: 8456503dd62732bcec21e197da81f4ae1bee9243e55718e34dd61b01915c8aba555944b6e820a1a19b5ef1ef8c4298edcc01a191bf5a7c0deea8ae1f20935df4
   languageName: node
   linkType: hard
 
@@ -3866,12 +3881,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isaacscript-common@npm:^31.7.3":
-  version: 31.7.3
-  resolution: "isaacscript-common@npm:31.7.3"
+"isaacscript-common@npm:^31.8.1":
+  version: 31.8.1
+  resolution: "isaacscript-common@npm:31.8.1"
   dependencies:
-    isaac-typescript-definitions: ^13.0.33
-  checksum: 2e63f67d9f596b4f5881df7ca69ba9f0e7baecbfcbb25a3577aa09f6b11b8467fbd313c3cd0a64e1f9cbdbaa6c85ccadf85c3950449a0556cddcd12453d87b55
+    isaac-typescript-definitions: ^13.0.35
+  checksum: 6e038628dd3298cf39bd4dfcf8f2b215d614904dc40ec22e4ffa521e2d75539dc2728906eeb6116830bf5fc8c7235ef24ed2ee060f4f110440489e9203161fee
   languageName: node
   linkType: hard
 
@@ -3922,32 +3937,32 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isaacscript@npm:^3.10.0":
-  version: 3.10.0
-  resolution: "isaacscript@npm:3.10.0"
+"isaacscript@npm:^3.10.1":
+  version: 3.10.1
+  resolution: "isaacscript@npm:3.10.1"
   dependencies:
     ajv: ^8.12.0
     chalk: 4.1.2
     command-exists: ^1.2.9
     figlet: ^1.6.0
-    glob: ^10.3.3
+    glob: ^10.3.4
     jsonc-parser: ^3.2.0
     klaw-sync: ^6.0.0
     moment: ^2.29.4
-    npm-check-updates: ^16.13.1
+    npm-check-updates: ^16.13.2
     prompt: ^1.3.0
     source-map-support: ^0.5.21
     sync-directory: ^6.0.4
     tslib: ^2.6.2
-    typescript-to-lua: ^1.18.0
+    typescript-to-lua: ^1.19.0
     xml2js: ^0.6.2
-    yaml: ^2.3.1
+    yaml: ^2.3.2
     yargs: ^17.7.2
   peerDependencies:
-    typescript: ">= 4.0.0"
+    typescript: ">= 5.0.0"
   bin:
     isaacscript: src/main.js
-  checksum: 156805350254ee3c7336ab361bc6a2fb310874814a8483fc6c160fb2ef4f99e678c59bf71777479b0be23d317c64a500857b77871075234143b290f43fa9991b
+  checksum: 5a888ea7c5a41714623469fa9b51c29651fcb994e166f3ac06bd8642e25f6ef80695c7ccc7913c9b1f1518535dc4d9aff8ecde1bb1e6f5fc9a3330b91f091487
   languageName: node
   linkType: hard
 
@@ -4770,7 +4785,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"npm-check-updates@npm:^16.13.1":
+"npm-check-updates@npm:^16.13.2":
   version: 16.13.2
   resolution: "npm-check-updates@npm:16.13.2"
   dependencies:
@@ -6303,7 +6318,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript-to-lua@npm:^1.18.0, typescript-to-lua@npm:^1.19.0":
+"typescript-to-lua@npm:^1.19.0":
   version: 1.19.0
   resolution: "typescript-to-lua@npm:1.19.0"
   dependencies:
@@ -6352,11 +6367,11 @@ __metadata:
 
 "typescript@patch:typescript@^5.2.2#~builtin<compat/typescript>":
   version: 5.2.2
-  resolution: "typescript@patch:typescript@npm%3A5.2.2#~builtin<compat/typescript>::version=5.2.2&hash=14eedb"
+  resolution: "typescript@patch:typescript@npm%3A5.2.2#~builtin<compat/typescript>::version=5.2.2&hash=f3b441"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 07106822b4305de3f22835cbba949a2b35451cad50888759b6818421290ff95d522b38ef7919e70fb381c5fe9c1c643d7dea22c8b31652a717ddbd57b7f4d554
+  checksum: 0f4da2f15e6f1245e49db15801dbee52f2bbfb267e1c39225afdab5afee1a72839cd86000e65ee9d7e4dfaff12239d28beaf5ee431357fcced15fb08583d72ca
   languageName: node
   linkType: hard
 
@@ -6679,10 +6694,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yaml@npm:^2.3.1":
-  version: 2.3.1
-  resolution: "yaml@npm:2.3.1"
-  checksum: 2c7bc9a7cd4c9f40d3b0b0a98e370781b68b8b7c4515720869aced2b00d92f5da1762b4ffa947f9e795d6cd6b19f410bd4d15fdd38aca7bd96df59bd9486fb54
+"yaml@npm:^2.3.2":
+  version: 2.3.2
+  resolution: "yaml@npm:2.3.2"
+  checksum: acd80cc24df12c808c6dec8a0176d404ef9e6f08ad8786f746ecc9d8974968c53c6e8a67fdfabcc5f99f3dc59b6bb0994b95646ff03d18e9b1dcd59eccc02146
   languageName: node
   linkType: hard
 
