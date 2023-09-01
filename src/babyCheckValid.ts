@@ -356,10 +356,10 @@ function checkStage(baby: BabyDescription): boolean {
 
   if (
     baby.trinket === TrinketType.DEVILS_CROWN &&
-    (onFirstFloor() || !levelHasRoomType(RoomType.TREASURE))
+    (!levelHasRoomType(RoomType.TREASURE) || onFirstFloor())
   ) {
-    // We don't want players to start with a Devil item. Devil's Crown doesn't do anything on floors
-    // that do not have Treasure Rooms.
+    // Players could be resetting for an item to start a speedrun and we do not want them to start
+    // with a Devil Room item.
     return false;
   }
 
