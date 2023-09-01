@@ -4965,7 +4965,7 @@ export const BABIES = {
   // 570
   [RandomBabyType.PAINFUL]: {
     name: "Painful Baby",
-    description: "Enemies respawn when re-entering a room",
+    description: "Enemies respawn when reentering a room",
     sprite: "570_baby_painful.png",
     seed: SeedEffect.ENEMIES_RESPAWN,
   },
