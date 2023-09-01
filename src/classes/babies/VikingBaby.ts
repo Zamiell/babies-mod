@@ -3,6 +3,7 @@ import {
   CallbackCustom,
   ModCallbackCustom,
   getRoomGridIndexesForType,
+  isGreedMode,
   levelHasRoomType,
   teleport,
 } from "isaacscript-common";
@@ -12,7 +13,7 @@ import { Baby } from "../Baby";
 export class VikingBaby extends Baby {
   /** Removing floors with no Secret Rooms. */
   override isValid(): boolean {
-    return levelHasRoomType(RoomType.SECRET);
+    return levelHasRoomType(RoomType.SECRET) && !isGreedMode();
   }
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED, RoomType.SECRET)
