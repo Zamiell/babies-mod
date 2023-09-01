@@ -4,7 +4,7 @@ import { Baby } from "../Baby";
 
 /** Starts with Luna. */
 export class BabyIsYou extends Baby {
-  /** Removing floors with no Secret Rooms. */
+  /** Should only be valid on a floor with a Secret Room. */
   override isValid(): boolean {
     return levelHasRoomType(RoomType.SECRET);
   }
