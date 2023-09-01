@@ -11,19 +11,18 @@ import {
   getDoors,
   isAllRoomsClear,
   onStage,
+  onStageOrHigher,
 } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Must full clear. */
 export class PubicBaby extends Baby {
-  /** Full clearing the final floor is too punishing. */
+  /** Full clearing a final floor is too punishing. */
   override isValid(): boolean {
     return (
-      !onStage(LevelStage.DARK_ROOM_CHEST) &&
-      !onStage(LevelStage.HOME) &&
       !onStage(LevelStage.BLUE_WOMB) &&
-      !onStage(LevelStage.THE_VOID)
+      !onStageOrHigher(LevelStage.DARK_ROOM_CHEST)
     );
   }
 

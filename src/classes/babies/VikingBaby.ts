@@ -11,7 +11,6 @@ import { Baby } from "../Baby";
 
 /** Secret Room --> Super Secret Room. */
 export class VikingBaby extends Baby {
-  /** Removing floors with no Secret Rooms. */
   override isValid(): boolean {
     return levelHasRoomType(RoomType.SECRET) && !isGreedMode();
   }

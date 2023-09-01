@@ -6,10 +6,10 @@ import { Baby } from "../Baby";
 export class RottenMeatBaby extends Baby {
   /** Too punishing on Hush and Delirium. Teleports don't work in The Beast fight. */
   override isValid(): boolean {
-    return (
-      !onStage(LevelStage.HOME) &&
-      !onStage(LevelStage.BLUE_WOMB) &&
-      !onStage(LevelStage.THE_VOID)
+    return !onStage(
+      LevelStage.BLUE_WOMB, // 9
+      LevelStage.THE_VOID, // 12
+      LevelStage.HOME, // 13
     );
   }
 

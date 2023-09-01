@@ -19,10 +19,11 @@ export class TwinBaby extends Baby {
    */
   override isValid(): boolean {
     return (
-      !onStage(LevelStage.WOMB_2) &&
-      !onStage(LevelStage.HOME) &&
-      !onStage(LevelStage.BLUE_WOMB) &&
-      !(onStage(LevelStage.DEPTHS_2) && onRepentanceStage())
+      !onStage(
+        LevelStage.WOMB_2, // 8
+        LevelStage.BLUE_WOMB, // 9
+        LevelStage.HOME, // 13
+      ) && !(onStage(LevelStage.DEPTHS_2) && onRepentanceStage())
     );
   }
 

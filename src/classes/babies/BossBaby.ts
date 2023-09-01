@@ -14,7 +14,6 @@ export class BossBaby extends Baby {
         LevelStage.BLUE_WOMB, // 9
         LevelStage.SHEOL_CATHEDRAL, // 10
         LevelStage.DARK_ROOM_CHEST, // 11
-        LevelStage.HOME, // 12
       ) &&
       !onAscent()
     );

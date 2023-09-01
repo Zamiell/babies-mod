@@ -32,7 +32,7 @@ import { Baby } from "../Baby";
 
 /** All special rooms are Devil Rooms. */
 export class SuitBaby extends Baby {
-  /** Removing floors with no Special rooms. */
+  /** Should only be valid if the floor has special rooms. */
   override isValid(): boolean {
     return !onStage(LevelStage.HOME);
   }

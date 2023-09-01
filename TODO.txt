@@ -1,5 +1,8 @@
 TODO:
 
+- search for "onStage("
+- search for "isGreedMode"
+
   // Account for the bug in `ModCallback.PRE_USE_ITEM`:
   // https://wofsauge.github.io/IsaacDocs/rep/enums/ModCallbacks.html?h=modcal#mc_pre_use_item
   if (modCallback === ModCallback.PRE_USE_ITEM && !isValid) {

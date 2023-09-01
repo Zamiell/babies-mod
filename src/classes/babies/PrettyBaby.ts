@@ -30,7 +30,7 @@ import { Baby } from "../Baby";
 
 /** All special rooms are Angel shops. */
 export class PrettyBaby extends Baby {
-  /** Removing floors with no Special rooms. */
+  /** Should only be valid if the floor has special rooms. */
   override isValid(): boolean {
     return !onStage(LevelStage.HOME);
   }
