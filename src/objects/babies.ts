@@ -448,7 +448,6 @@ export const BABIES = {
     description: "Starts with More Options",
     sprite: "049_baby_picky.png",
     item: CollectibleType.MORE_OPTIONS,
-    class: bc.PickyBaby,
   },
 
   // 50
@@ -484,7 +483,6 @@ export const BABIES = {
     description: "Starts with Goat Head",
     sprite: "053_baby_goatbaby.png",
     item: CollectibleType.GOAT_HEAD,
-    class: bc.GoatHeadBaby,
   },
 
   // 54
@@ -772,7 +770,6 @@ export const BABIES = {
     description: "Starts with Duality",
     sprite: "086_baby_statue.png",
     item: CollectibleType.DUALITY,
-    class: bc.StatueBaby,
   },
 
   // 87
@@ -815,7 +812,6 @@ export const BABIES = {
     description: "Starts with There's Options",
     sprite: "091_baby_boss.png",
     item: CollectibleType.THERES_OPTIONS,
-    class: bc.BossBaby,
   },
 
   // 92
@@ -1944,7 +1940,6 @@ export const BABIES = {
     description: "Starts with Vanishing Twin",
     sprite: "222_baby_wink.png",
     item: CollectibleType.VANISHING_TWIN,
-    class: bc.WinkBaby,
   },
 
   // 223
@@ -3667,7 +3662,6 @@ export const BABIES = {
     description: "Starts with Eucharist",
     sprite: "417_baby_holyknight.png",
     item: CollectibleType.EUCHARIST,
-    class: bc.HolyKnightBaby,
   },
 
   // 418
@@ -4561,7 +4555,6 @@ export const BABIES = {
     description: "Starts with Store Credit",
     sprite: "520_baby_stylish.png",
     trinket: TrinketType.STORE_CREDIT,
-    class: bc.StylishBaby,
   },
 
   // -----------------------------------------------------------------------------------------------
@@ -4694,7 +4687,6 @@ export const BABIES = {
     description: "Starts with Luna",
     sprite: "536_baby_isyou.png",
     item: CollectibleType.LUNA,
-    class: bc.BabyIsYou,
   },
 
   // 537
@@ -5221,7 +5213,6 @@ export const BABIES = {
     // manually make a custom one.
     sprite: "familiar_lil_abaddon_custom.png",
     trinket: TrinketType.DEVILS_CROWN,
-    class: bc.LilAbaddon,
   },
 
   // 598
@@ -5248,7 +5239,6 @@ export const BABIES = {
     // spritesheet that was manually compiled by Gamonymous.
     sprite: "familiar_gello_custom.png",
     item: CollectibleType.SOL,
-    class: bc.Gello,
   },
 
   // 601

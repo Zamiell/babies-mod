@@ -13,6 +13,7 @@ import {
   getEffectiveStage,
   hasCollectible,
   levelHasRoomType,
+  onAscent,
   onFirstFloor,
   onStage,
   onStageOrHigher,
@@ -35,7 +36,6 @@ const COLLECTIBLES_THAT_REMOVE_TEARS = [
   CollectibleType.EPIC_FETUS, // 168
   CollectibleType.TECH_X, // 395
   CollectibleType.SPIRIT_SWORD, // 579
-  CollectibleType.C_SECTION, // 678
   CollectibleType.BERSERK, // 704
 ] as const;
 
@@ -210,7 +210,7 @@ function checkCollectibles(
   }
 
   if (
-    babyItemsSet.has(CollectibleType.TECH_X) && // 395
+    setHas(babyItemsSet, ...COLLECTIBLES_THAT_REMOVE_TEARS) &&
     player.HasCollectible(CollectibleType.DEAD_EYE) // 373
   ) {
     return false;
@@ -218,7 +218,7 @@ function checkCollectibles(
 
   if (
     babyItemsSet.has(CollectibleType.DEAD_EYE) && // 373
-    player.HasCollectible(CollectibleType.TECH_X) // 395
+    !playerHasTears(player)
   ) {
     return false;
   }
@@ -299,25 +299,52 @@ function checkStage(baby: BabyDescription): boolean {
 
   if (
     babyItemsSet.has(CollectibleType.THERES_OPTIONS) && // 249
-    !onStageWithRandomBossCollectible()
+    !onStageWithRandomBossCollectible() &&
+    !levelHasRoomType(RoomType.BOSS) &&
+    !onAscent()
   ) {
-    // There won't be a boss item on floor 6 or floor 8+.
+    // There won't be a boss item on floors 6, 8, 9, 10, 11 and 13.
     return false;
   }
 
   if (
     babyItemsSet.has(CollectibleType.MORE_OPTIONS) && // 414
-    (onFirstFloor() || !levelHasRoomType(RoomType.TREASURE))
+    (onFirstFloor() ||
+      !levelHasRoomType(RoomType.TREASURE) ||
+      onStage(LevelStage.BLUE_WOMB))
   ) {
-    // We always have More Options on Basement 1.
+    // We always have More Options on Basement 1. More Options does not work on Blue Womb.
+    return false;
+  }
+
+  if (
+    babyItemsSet.has(CollectibleType.SOL) && // 588
+    (!levelHasRoomType(RoomType.BOSS) || onStage(LevelStage.BLUE_WOMB))
+  ) {
+    return false;
+  }
+
+  if (
+    babyItemsSet.has(CollectibleType.LUNA) && // 589
+    !levelHasRoomType(RoomType.SECRET)
+  ) {
     return false;
   }
 
   if (
     babyItemsSet.has(CollectibleType.VANISHING_TWIN) && // 697
-    (onStage(LevelStage.DEPTHS_2) || onStageOrHigher(LevelStage.WOMB_2))
+    !onStageWithRandomBossCollectible() &&
+    !levelHasRoomType(RoomType.BOSS) &&
+    !onAscent()
   ) {
     // Some floors have bosses that cannot be doubled.
+    return false;
+  }
+
+  if (
+    baby.trinket === TrinketType.STORE_CREDIT &&
+    !levelHasRoomType(RoomType.SHOP)
+  ) {
     return false;
   }
 
@@ -325,7 +352,8 @@ function checkStage(baby: BabyDescription): boolean {
     baby.trinket === TrinketType.DEVILS_CROWN &&
     (onFirstFloor() || !levelHasRoomType(RoomType.TREASURE))
   ) {
-    // Devil's Crown doesn't do anything on floors that do not have Treasure Rooms.
+    // We don't want players to start with a Devil item. Devil's Crown doesn't do anything on floors
+    // that do not have Treasure Rooms.
     return false;
   }
 
