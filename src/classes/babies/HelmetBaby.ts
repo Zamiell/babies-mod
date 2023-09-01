@@ -50,8 +50,8 @@ export class HelmetBaby extends Baby {
     const noMovementInputsPressed =
       !leftPressed && !rightPressed && !upPressed && !downPressed;
 
-    // Keep track of whether they are moving or not. Also, fade the character to indicate that they
-    // are invulnerable.
+    // Keep track of whether they are moving. Also, fade the character to indicate that they are
+    // invulnerable.
     if (!g.run.babyBool && noMovementInputsPressed) {
       // They stopped moving.
       g.run.babyBool = true;
