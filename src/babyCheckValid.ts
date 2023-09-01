@@ -194,6 +194,13 @@ function checkCollectibles(
   }
 
   if (
+    babyItemsSet.has(CollectibleType.LUDOVICO_TECHNIQUE) && // 329
+    player.HasCollectible(CollectibleType.C_SECTION)
+  ) {
+    return false;
+  }
+
+  if (
     babyItemsSet.has(CollectibleType.ISAACS_TEARS) && // 323
     player.HasCollectible(CollectibleType.IPECAC) // 149
   ) {
