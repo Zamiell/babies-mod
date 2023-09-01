@@ -4,15 +4,16 @@ import { Baby } from "../Baby";
 
 /** Starts with There's Options. */
 export class BossBaby extends Baby {
-  /** Only valid for floors with Boss rooms excluding story bosses. */
+  /** Only valid for floors with Boss Rooms that do not contain story bosses. */
   override isValid(): boolean {
     return (
-      !onStage(LevelStage.SHEOL_CATHEDRAL) &&
-      !onStage(LevelStage.DARK_ROOM_CHEST) &&
-      !onStage(LevelStage.HOME) &&
-      !onStage(LevelStage.BLUE_WOMB) &&
-      !onStage(LevelStage.DEPTHS_2) &&
-      !onStage(LevelStage.WOMB_2) &&
+      levelHasRoomType(RoomType.BOSS) &&
+      !onStage(LevelStage.DEPTHS_2) && // 6
+      !onStage(LevelStage.WOMB_2) && // 8
+      !onStage(LevelStage.BLUE_WOMB) && // 9
+      !onStage(LevelStage.SHEOL_CATHEDRAL) && // 10
+      !onStage(LevelStage.DARK_ROOM_CHEST) && // 11
+      !onStage(LevelStage.HOME) && // 13
       !isGreedMode() &&
       !onAscent()
     );
