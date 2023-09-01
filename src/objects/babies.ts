@@ -381,6 +381,7 @@ export const BABIES = {
     name: "Buddy Baby",
     description: "Removes a heart container on hit",
     sprite: "041_baby_buddy.png",
+    class: bc.BuddyBaby,
   },
 
   // 42
