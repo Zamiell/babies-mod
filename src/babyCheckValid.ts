@@ -319,7 +319,8 @@ function checkStage(baby: BabyDescription): boolean {
       onFirstFloor() ||
       onStage(LevelStage.BLUE_WOMB))
   ) {
-    // In a speedrun, we might have More Options on Basement 1. Additionally, More Options does not work on Blue Womb.
+    // In a speedrun, we might have More Options on Basement 1. Additionally, More Options does not
+    // work on Blue Womb.
     return false;
   }
 
