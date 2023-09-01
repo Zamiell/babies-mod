@@ -54,7 +54,6 @@ Babies to change :
 - Gold Baby : Add the fact that every pickup that spawns will always spawn in their golden variant (Gold key, gold bomb, golden troll bomb, golden heart, golden coin, golden chest, golden battery, golden trinkets and replace every cards, rune, pill by a golden pill)
 - Butthole Baby : Add T. ??? special poops to the List
 - CrowBaby : Soul of Eve effect on hit sounds better
-- Mustache baby : Remove all the code since Repentance added Boomerang tears with My Reflection + Pupula Duplex synergy (but remove the dmg up from My Reflection)
 - Lowface Baby : 0.5 range is boring and can lead to softlocks in some rooms. How about making the range fluctuating ?
 - Eyebrows Baby : One Guppy's Hairball is boring. How about 5 Guppy's Hairball + blindfolded ?
 - VVVVVV Baby : Add Tiny Planet + requireTears
