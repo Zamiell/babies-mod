@@ -8,13 +8,14 @@ export class BossBaby extends Baby {
   override isValid(): boolean {
     return (
       levelHasRoomType(RoomType.BOSS) &&
-      !onStage(LevelStage.DEPTHS_2) && // 6
-      !onStage(LevelStage.WOMB_2) && // 8
-      !onStage(LevelStage.BLUE_WOMB) && // 9
-      !onStage(LevelStage.SHEOL_CATHEDRAL) && // 10
-      !onStage(LevelStage.DARK_ROOM_CHEST) && // 11
-      !onStage(LevelStage.HOME) && // 13
-      !isGreedMode() &&
+      !onStage(
+        LevelStage.DEPTHS_2, // 6
+        LevelStage.WOMB_2, // 8
+        LevelStage.BLUE_WOMB, // 9
+        LevelStage.SHEOL_CATHEDRAL, // 10
+        LevelStage.DARK_ROOM_CHEST, // 11
+        LevelStage.HOME, // 12
+      ) && 
       !onAscent()
     );
   }
