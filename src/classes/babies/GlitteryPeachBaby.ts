@@ -1,13 +1,17 @@
-import { CardType, LevelStage } from "isaac-typescript-definitions";
-import { CallbackCustom, ModCallbackCustom, onStage } from "isaacscript-common";
+import { CardType, LevelStage, RoomType } from "isaac-typescript-definitions";
+import {
+  CallbackCustom,
+  ModCallbackCustom,
+  levelHasRoomType,
+  onStage,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 /** Teleports to the boss room after N hits. */
 export class GlitteryPeachBaby extends Baby {
-  /** Remove floors with no Boss Rooms. */
   override isValid(): boolean {
-    return !onStage(LevelStage.HOME);
+    return levelHasRoomType(RoomType.BOSS) && !onStage(LevelStage.BLUE_WOMB);
   }
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)

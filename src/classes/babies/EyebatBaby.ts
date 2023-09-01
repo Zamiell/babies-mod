@@ -32,7 +32,7 @@ export class EyebatBaby extends Baby {
    * - We don't want to have this on any end floors so that we can simply the logic and always spawn
    *   a trapdoor.
    * - Floors are already reversed in Ascent.
-   * - Doesn't work in greed mode, Blue Womb and Home.
+   * - Does not work in Greed Mode, Blue Womb, and Home.
    */
   override isValid(): boolean {
     const level = game.GetLevel();
@@ -46,8 +46,10 @@ export class EyebatBaby extends Baby {
       !onRepentanceStage() &&
       !onAscent() &&
       !isGreedMode() &&
-      !onStage(LevelStage.BLUE_WOMB) &&
-      !onStage(LevelStage.HOME)
+      !onStage(
+        LevelStage.BLUE_WOMB, // 9
+        LevelStage.HOME, // 13
+      )
     );
   }
 

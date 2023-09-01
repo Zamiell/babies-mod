@@ -29,8 +29,10 @@ export class EarwigBaby extends Baby {
         CollectibleType.MIND, // 333
       ) &&
       !onFirstFloor() &&
-      !onStage(LevelStage.HOME) &&
-      !onStage(LevelStage.BLUE_WOMB)
+      !onStage(
+        LevelStage.BLUE_WOMB, // 9
+        LevelStage.HOME, // 13
+      )
     );
   }
 
