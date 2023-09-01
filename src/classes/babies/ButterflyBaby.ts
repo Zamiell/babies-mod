@@ -12,9 +12,8 @@ import { Baby } from "../Baby";
 
 /** Improved Super Secret Rooms. */
 export class ButterflyBaby extends Baby {
-  /** Removing floors with no Secret Rooms. */
   override isValid(): boolean {
-    return levelHasRoomType(RoomType.SECRET);
+    return levelHasRoomType(RoomType.SUPER_SECRET);
   }
 
   @CallbackCustom(

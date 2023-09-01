@@ -13,6 +13,7 @@ import {
   getEffectiveStage,
   hasCollectible,
   levelHasRoomType,
+  onAscent,
   onFirstFloor,
   onStage,
   onStageOrHigher,
@@ -35,7 +36,6 @@ const COLLECTIBLES_THAT_REMOVE_TEARS = [
   CollectibleType.EPIC_FETUS, // 168
   CollectibleType.TECH_X, // 395
   CollectibleType.SPIRIT_SWORD, // 579
-  CollectibleType.C_SECTION, // 678
   CollectibleType.BERSERK, // 704
 ] as const;
 
@@ -194,6 +194,13 @@ function checkCollectibles(
   }
 
   if (
+    babyItemsSet.has(CollectibleType.LUDOVICO_TECHNIQUE) && // 329
+    player.HasCollectible(CollectibleType.C_SECTION)
+  ) {
+    return false;
+  }
+
+  if (
     babyItemsSet.has(CollectibleType.ISAACS_TEARS) && // 323
     player.HasCollectible(CollectibleType.IPECAC) // 149
   ) {
@@ -210,7 +217,7 @@ function checkCollectibles(
   }
 
   if (
-    babyItemsSet.has(CollectibleType.TECH_X) && // 395
+    setHas(babyItemsSet, ...COLLECTIBLES_THAT_REMOVE_TEARS) &&
     player.HasCollectible(CollectibleType.DEAD_EYE) // 373
   ) {
     return false;
@@ -218,7 +225,7 @@ function checkCollectibles(
 
   if (
     babyItemsSet.has(CollectibleType.DEAD_EYE) && // 373
-    player.HasCollectible(CollectibleType.TECH_X) // 395
+    !playerHasTears(player)
   ) {
     return false;
   }
@@ -299,33 +306,61 @@ function checkStage(baby: BabyDescription): boolean {
 
   if (
     babyItemsSet.has(CollectibleType.THERES_OPTIONS) && // 249
-    !onStageWithRandomBossCollectible()
+    !levelHasRoomType(RoomType.BOSS) &&
+    !onStageWithRandomBossCollectible() &&
+    !onAscent()
   ) {
-    // There won't be a boss item on floor 6 or floor 8+.
     return false;
   }
 
   if (
     babyItemsSet.has(CollectibleType.MORE_OPTIONS) && // 414
-    (onFirstFloor() || !levelHasRoomType(RoomType.TREASURE))
+    (!levelHasRoomType(RoomType.TREASURE) ||
+      onFirstFloor() ||
+      onStage(LevelStage.BLUE_WOMB))
   ) {
-    // We always have More Options on Basement 1.
+    // In a speedrun, we might have More Options on Basement 1. Additionally, More Options does not
+    // work on Blue Womb.
+    return false;
+  }
+
+  if (
+    babyItemsSet.has(CollectibleType.SOL) && // 588
+    (!levelHasRoomType(RoomType.BOSS) || onStage(LevelStage.BLUE_WOMB))
+  ) {
+    return false;
+  }
+
+  if (
+    babyItemsSet.has(CollectibleType.LUNA) && // 589
+    !levelHasRoomType(RoomType.SECRET)
+  ) {
     return false;
   }
 
   if (
     babyItemsSet.has(CollectibleType.VANISHING_TWIN) && // 697
-    (onStage(LevelStage.DEPTHS_2) || onStageOrHigher(LevelStage.WOMB_2))
+    !levelHasRoomType(RoomType.BOSS) &&
+    !onStageWithRandomBossCollectible() &&
+    !onAscent()
   ) {
     // Some floors have bosses that cannot be doubled.
     return false;
   }
 
   if (
-    baby.trinket === TrinketType.DEVILS_CROWN &&
-    (onFirstFloor() || !levelHasRoomType(RoomType.TREASURE))
+    baby.trinket === TrinketType.STORE_CREDIT &&
+    !levelHasRoomType(RoomType.SHOP)
   ) {
-    // Devil's Crown doesn't do anything on floors that do not have Treasure Rooms.
+    return false;
+  }
+
+  if (
+    baby.trinket === TrinketType.DEVILS_CROWN &&
+    (!levelHasRoomType(RoomType.TREASURE) || onFirstFloor())
+  ) {
+    // Players could be resetting for an item to start a speedrun and we do not want them to start
+    // with a Devil Room item.
     return false;
   }
 
