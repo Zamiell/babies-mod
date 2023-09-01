@@ -448,6 +448,7 @@ export const BABIES = {
     description: "Starts with More Options",
     sprite: "049_baby_picky.png",
     item: CollectibleType.MORE_OPTIONS,
+    class: bc.PickyBaby,
   },
 
   // 50
