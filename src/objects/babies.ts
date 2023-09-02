@@ -649,7 +649,7 @@ export const BABIES = {
   // 73
   [RandomBabyType.LOWFACE]: {
     name: "Lowface Baby",
-    description: "Starts with Book of virtues + Unicorn Stump",
+    description: "Starts with Book of Virtues + Unicorn Stump",
     sprite: "073_baby_lowface.png",
     item: CollectibleType.BOOK_OF_VIRTUES,
     item2: CollectibleType.UNICORN_STUMP,
