@@ -52,9 +52,7 @@ List of boring babies:
 Babies to change:
 - Gold Baby : Add the fact that every pickup that spawns will always spawn in their golden variant (Gold key, gold bomb, golden troll bomb, golden heart, golden coin, golden chest, golden battery, golden trinkets and replace every cards, rune, pill by a golden pill)
 - Butthole Baby : Add T. ??? special poops to the List
-- CrowBaby : Soul of Eve effect on hit sounds better
 - Lowface Baby : 0.5 range is boring and can lead to softlocks in some rooms. How about making the range fluctuating ?
-- Eyebrows Baby : One Guppy's Hairball is boring. How about 5 Guppy's Hairball + blindfolded ?
 - get rid of O Baby - Starts with Tiny Planet
 - Lipstick Baby : Redundant if we change Lowface Baby. assign a new effect
 - Cloud Baby : Ventricle Razor every 15 seconds is kinda pointless. Every 2 seconds helps with curse rooms but can be annoying in combat
