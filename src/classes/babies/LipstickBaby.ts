@@ -50,7 +50,7 @@ export class LipstickBaby extends Baby {
 
   // 8
   @Callback(ModCallback.EVALUATE_CACHE, CacheFlag.RANGE)
-  evaluateCacheFireDelay(player: EntityPlayer): void {
+  evaluateCacheRange(player: EntityPlayer): void {
     player.TearRange += g.run.babyCounters;
   }
 }
