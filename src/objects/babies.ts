@@ -649,9 +649,10 @@ export const BABIES = {
   // 73
   [RandomBabyType.LOWFACE]: {
     name: "Lowface Baby",
-    description: "0.5x range",
+    description: "Starts with Book of virtues + Unicorn Stump",
     sprite: "073_baby_lowface.png",
-    class: bc.LowfaceBaby,
+    item: CollectibleType.BOOK_OF_VIRTUES,
+    item2: CollectibleType.UNICORN_STUMP,
   },
 
   // 74
@@ -923,7 +924,7 @@ export const BABIES = {
   // 105
   [RandomBabyType.LIPSTICK]: {
     name: "Lipstick Baby",
-    description: "2x range",
+    description: "Range fluctuates",
     sprite: "105_baby_lipstick.png",
     class: bc.LipstickBaby,
   },

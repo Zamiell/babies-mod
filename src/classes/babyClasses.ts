@@ -176,7 +176,6 @@ export { LostGreyBaby } from "./babies/LostGreyBaby";
 export { LostWhiteBaby } from "./babies/LostWhiteBaby";
 export { LoveBaby } from "./babies/LoveBaby";
 export { LoveEyeBaby } from "./babies/LoveEyeBaby";
-export { LowfaceBaby } from "./babies/LowfaceBaby";
 export { MagBaby } from "./babies/MagBaby";
 export { MagicCatBaby } from "./babies/MagicCatBaby";
 export { MagnetBaby } from "./babies/MagnetBaby";
