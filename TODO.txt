@@ -26,7 +26,7 @@ List of hard babies:
 - Funny Baby (#491) - Enemies spawn Troll Bombs on death
 - Painful Baby (#570) - Enemies respawn when reentering a room
 
-List of boring babies :
+List of boring babies:
 - 3 Eyes Baby (#69) - Starts with Inner Eye (there's another baby that starts with Inner Eye + Mutant Spider and another one with 7-shot)
 - Lobotomy Baby (#79) - Starts with Delirious (there's a better baby that uses Delirious every 10 seconds)
 - O Baby (#93) - Starts with Tiny Planet (Put another effect if we add Tiny Planet to VVVVVV baby)
@@ -49,8 +49,7 @@ List of boring babies :
 - Thirteenth Baby (#533) - Same as Sword Baby
 - Robo-Baby (#578) - Since we already have a Tech + Tech 2 baby, maybe add 3 Robo-babies ? It would be different since it would grant Conjoined
 
-
-Babies to change :
+Babies to change:
 - Gold Baby : Add the fact that every pickup that spawns will always spawn in their golden variant (Gold key, gold bomb, golden troll bomb, golden heart, golden coin, golden chest, golden battery, golden trinkets and replace every cards, rune, pill by a golden pill)
 - Butthole Baby : Add T. ??? special poops to the List
 - CrowBaby : Soul of Eve effect on hit sounds better
@@ -68,7 +67,7 @@ Babies to change :
 - Cubic Baby : Add Scatter Bombs
 - Lantern Baby : Since GodHead now deals fixed damage, it might be not very powerful, maybe add extra damage?
 
-Potential new effects :
+Potential new effects:
 - range fluctuates
 - shot speed fluctuates
 - spawn Lil Portal portal after picking up 8 pickups
