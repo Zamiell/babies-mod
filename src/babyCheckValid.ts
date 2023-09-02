@@ -115,6 +115,7 @@ const LUDOVICO_TECHNIQUE_ANTISYNERGIES = [
   CollectibleType.CURSED_EYE, // 316
   CollectibleType.TECH_X, // 395
   CollectibleType.KIDNEY_STONE, // 440
+  CollectibleType.TECHNOLOGY_ZERO, // 524
   CollectibleType.HAEMOLACRIA, // 531
   CollectibleType.SPIRIT_SWORD, // 579
   CollectibleType.NEPTUNUS, // 597
