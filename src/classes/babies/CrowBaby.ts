@@ -2,7 +2,6 @@ import { CardType } from "isaac-typescript-definitions";
 import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
 import { Baby } from "../Baby";
 
-/** Starts with Dead Bird (improved). */
 export class CrowBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
