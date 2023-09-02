@@ -59,8 +59,6 @@ Babies to change :
 - VVVVVV Baby (#108): Add requireTears
 - get rid of O Baby - Starts with Tiny Planet
 - Lipstick Baby : Redundant if we change Lowface Baby. assign a new effect
-- Piece B Baby : Charging Station is a Battery Beggar basically. Change it to "Spawn every type of beggars in the starting room"
-- Beast Baby : Effect is Random enemies but the code use the D10 which changed in a previous patch
 - Cloud Baby : Ventricle Razor every 15 seconds is kinda pointless. Every 2 seconds helps with curse rooms but can be annoying in combat
 - Ballerina Baby : The code uses the custom item Clockwork Assembly but you can use Judgment? card
 - Fishman Baby : The enum says that it's impossible to spawn Giga Bombs with BombSubType.NULL, would be cool if the baby could spawn giga bombs

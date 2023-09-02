@@ -956,6 +956,7 @@ export const BABIES = {
     description: "Starts with Anti-Gravity",
     sprite: "108_baby_vvvvvv.png",
     item: CollectibleType.ANTI_GRAVITY,
+    requireTears: true,
   },
 
   // 109
@@ -2108,7 +2109,7 @@ export const BABIES = {
   // 242
   [RandomBabyType.BEAST]: {
     name: "Beast Baby",
-    description: "Random enemies",
+    description: "Devolves enemies",
     sprite: "242_baby_beast.png",
     class: bc.BeastBaby,
   },
