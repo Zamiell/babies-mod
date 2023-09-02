@@ -29,43 +29,6 @@ import { BABIES } from "./objects/babies";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 import type { BabyDescription } from "./types/BabyDescription";
 
-const COLLECTIBLES_THAT_SYNERGIZE_WITH_TEARS = [
-  CollectibleType.MY_REFLECTION, // 5
-  CollectibleType.CUPIDS_ARROW, // 48
-  CollectibleType.PARASITE, // 104
-  CollectibleType.OUIJA_BOARD, // 115
-  CollectibleType.IPECAC, // 149
-  CollectibleType.TECHNOLOGY_2, // 152
-  CollectibleType.RUBBER_CEMENT, // 221
-  CollectibleType.ANTI_GRAVITY, // 222
-  CollectibleType.CRICKETS_BODY, // 224
-  CollectibleType.TINY_PLANET, // 233
-  CollectibleType.DEATHS_TOUCH, // 237
-  CollectibleType.FIRE_MIND, // 257
-  CollectibleType.PROPTOSIS, // 261
-  CollectibleType.STRANGE_ATTRACTOR, // 315
-  CollectibleType.CURSED_EYE, // 316
-  CollectibleType.SOY_MILK, // 330
-  CollectibleType.GODHEAD, // 331
-  CollectibleType.WIZ, // 358
-  CollectibleType.CONTINUUM, // 369
-  CollectibleType.DEAD_EYE, // 373
-  CollectibleType.MARKED, // 394
-  CollectibleType.TRACTOR_BEAM, // 397
-  CollectibleType.FRUIT_CAKE, // 418
-  CollectibleType.LEAD_PENCIL, // 444
-  CollectibleType.COMPOUND_FRACTURE, // 453
-  CollectibleType.EYE_OF_BELIAL, // 462
-  CollectibleType.ANALOG_STICK, // 465
-  CollectibleType.JACOBS_LADDER, // 494
-  CollectibleType.TECHNOLOGY_ZERO, // 524
-  CollectibleType.POP, // 529
-  CollectibleType.HAEMOLACRIA, // 531
-  CollectibleType.LACHRYPHAGY, // 532
-  CollectibleType.TRISAGION, // 533
-  CollectibleType.FLAT_STONE, // 540
-] as const;
-
 const DR_FETUS_ANTISYNERGIES = [
   CollectibleType.NUMBER_ONE, // 6
   CollectibleType.CHOCOLATE_MILK, // 69
