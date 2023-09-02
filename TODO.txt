@@ -12,41 +12,6 @@ TODO:
 - use tainted blue baby poop from gamonymous suggestion
 - Fix Tear rate and range oscillates babies (#105 & #511)
 
-List of hard babies:
-- Troll Baby (#6) - Spawns a Troll Bomb every 3 seconds
-- Noose Baby (#39) - Don't shoot when the timer reaches 0
-- Hare Baby (#267) - Takes damage when standing still
-- Vomit Baby (#341) - Must stand still every 10 seconds
-- Orange Ghost Baby (#373) - Placed bombs are Mega Troll Bombs
-- Pink Princess Baby (#374) - Summons random stomps
-- Blue Pig Baby (#382) - Spawns a Mega Troll Bomb every 5 seconds
-- Driver Baby (#431) - Slippery movement
-- Funny Baby (#491) - Enemies spawn Troll Bombs on death
-- Painful Baby (#570) - Enemies respawn when reentering a room
-
-List of boring babies:
-- 3 Eyes Baby (#69) - Starts with Inner Eye (there's another baby that starts with Inner Eye + Mutant Spider and another one with 7-shot)
-- Lobotomy Baby (#79) - Starts with Delirious (there's a better baby that uses Delirious every 10 seconds)
-- O Baby (#93) - Starts with Tiny Planet (Put another effect if we add Tiny Planet to VVVVVV baby)
-- Bandage Girl Baby (#178) - Starts with Cube of Meat + Ball of Bandage (we already have a lvl 4 cube of meat + lvl 4 ball of bandage baby)
-- Dr. Fetus Baby (#188) - Starts with Dr. Fetus (there are 5 babies with Dr. Fetus, put Cracked Infamy Baby effect (dr fetus + remote detonator) into this one and then change Cracked Infamy Baby)
-- Peeling Baby (#199) - Starts with Potato Peeler (There's already a potato peeler effect on hit baby)
-- Basic Spider Baby (#214) - Same as 3 Eyes Baby
-- Punkboy Baby & Punkgirl Baby (#233 & #234) - Starts with Polaroid/Negative
-- Blisters Baby & Cupcake Baby (#240 & #321) - Low/High shot speed (Change one with Shot speed fluctuates and put a new effect on the other one)
-- Lovebear Baby (#266) - Starts with The Relic (The relic has been nerfed in Repentance and will spawn most of the time no soul hearts or 1 if the floor is long, having the effect on only one floor is boring)
-- Cupid Baby (#289) - Starts with Cupid's Arrow (We have a Eye of Belial baby and another with Cupid's Arrow + Tech 0)
-- Nature Baby (#305) - Starts with Sprinkler (We already have a Summons Sprinkler every 7 seconds baby, we should try to reduce the number of babies with an active item)
-- Sword Baby (#312) - Starts with Sacrificial Dagger.
-- Black Knight Baby (#427) - Starts with Black Hole (We already have a Black Hole every X tears baby, we should try to reduce the number of babies with an active item)
-- Tired Baby (#443) - 1 Bum Friend is actually better than 5 since each bum friend require several coins to payout. 1 Bum Friend require 6 coins to drop the first pickup. Rewards are the same than Lil Chest rewards + items from Beggar item pool which is mostly HP ups and they can eat lucky coins without granting the luck up, let's just change this one
-- Beanie Baby (#465) - Change Smelter to Marbles ?
-- Burning Baby (#467) - Starts with Fire Mind (We already have Fire Mind + 13 luck, I suggest A Lighter + 40 Luck + Vasculitis (Vasculitis projectiles are in fire when the enemy is dead while burning))
-- Cursor Baby (#468) - Starts with Pause!
-- Tooth Baby (#478) - Starts with Dead Tooth (Change it to Black Tooth ?)
-- Thirteenth Baby (#533) - Starts with Modeling Clay
-- Robo-Baby (#578) - Since we already have a Tech + Tech 2 baby, maybe add 3 Robo-babies ? It would be different since it would grant Conjoined
-
 Babies to change:
 - Gold Baby : Add the fact that every pickup that spawns will always spawn in their golden variant (Gold key, gold bomb, golden troll bomb, golden heart, golden coin, golden chest, golden battery, golden trinkets and replace every cards, rune, pill by a golden pill)
 - Butthole Baby : Add T. ??? special poops to the List
@@ -79,6 +44,41 @@ Potential new effects:
 - Starts with 10 Cube Baby + Ice Cube
 - Starts with 5 Fruity plum + Baby-Bender + Forgotten Lullaby + Blindfolded
 - Glowing Hourglass effect on 2nd hit (per room)
+
+List of boring babies:
+- 3 Eyes Baby (#69) - Starts with Inner Eye (there's another baby that starts with Inner Eye + Mutant Spider and another one with 7-shot)
+- Lobotomy Baby (#79) - Starts with Delirious (there's a better baby that uses Delirious every 10 seconds)
+- O Baby (#93) - Starts with Tiny Planet (Put another effect if we add Tiny Planet to VVVVVV baby)
+- Bandage Girl Baby (#178) - Starts with Cube of Meat + Ball of Bandage (we already have a lvl 4 cube of meat + lvl 4 ball of bandage baby)
+- Dr. Fetus Baby (#188) - Starts with Dr. Fetus (there are 5 babies with Dr. Fetus, put Cracked Infamy Baby effect (dr fetus + remote detonator) into this one and then change Cracked Infamy Baby)
+- Peeling Baby (#199) - Starts with Potato Peeler (There's already a potato peeler effect on hit baby)
+- Basic Spider Baby (#214) - Same as 3 Eyes Baby
+- Punkboy Baby & Punkgirl Baby (#233 & #234) - Starts with Polaroid/Negative
+- Blisters Baby & Cupcake Baby (#240 & #321) - Low/High shot speed (Change one with Shot speed fluctuates and put a new effect on the other one)
+- Lovebear Baby (#266) - Starts with The Relic (The relic has been nerfed in Repentance and will spawn most of the time no soul hearts or 1 if the floor is long, having the effect on only one floor is boring)
+- Cupid Baby (#289) - Starts with Cupid's Arrow (We have a Eye of Belial baby and another with Cupid's Arrow + Tech 0)
+- Nature Baby (#305) - Starts with Sprinkler (We already have a Summons Sprinkler every 7 seconds baby, we should try to reduce the number of babies with an active item)
+- Sword Baby (#312) - Starts with Sacrificial Dagger.
+- Black Knight Baby (#427) - Starts with Black Hole (We already have a Black Hole every X tears baby, we should try to reduce the number of babies with an active item)
+- Tired Baby (#443) - 1 Bum Friend is actually better than 5 since each bum friend require several coins to payout. 1 Bum Friend require 6 coins to drop the first pickup. Rewards are the same than Lil Chest rewards + items from Beggar item pool which is mostly HP ups and they can eat lucky coins without granting the luck up, let's just change this one
+- Beanie Baby (#465) - Change Smelter to Marbles ?
+- Burning Baby (#467) - Starts with Fire Mind (We already have Fire Mind + 13 luck, I suggest A Lighter + 40 Luck + Vasculitis (Vasculitis projectiles are in fire when the enemy is dead while burning))
+- Cursor Baby (#468) - Starts with Pause!
+- Tooth Baby (#478) - Starts with Dead Tooth (Change it to Black Tooth ?)
+- Thirteenth Baby (#533) - Starts with Modeling Clay
+- Robo-Baby (#578) - Since we already have a Tech + Tech 2 baby, maybe add 3 Robo-babies ? It would be different since it would grant Conjoined
+
+List of hard babies:
+- Troll Baby (#6) - Spawns a Troll Bomb every 3 seconds
+- Noose Baby (#39) - Don't shoot when the timer reaches 0
+- Hare Baby (#267) - Takes damage when standing still
+- Vomit Baby (#341) - Must stand still every 10 seconds
+- Orange Ghost Baby (#373) - Placed bombs are Mega Troll Bombs
+- Pink Princess Baby (#374) - Summons random stomps
+- Blue Pig Baby (#382) - Spawns a Mega Troll Bomb every 5 seconds
+- Driver Baby (#431) - Slippery movement
+- Funny Baby (#491) - Enemies spawn Troll Bombs on death
+- Painful Baby (#570) - Enemies respawn when reentering a room
 
 Bugs with Costume Protector:
 - Mineshaft
