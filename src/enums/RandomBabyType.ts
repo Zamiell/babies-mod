@@ -1,3 +1,5 @@
+import { validateEnumContiguous } from "isaacscript-common";
+
 export enum RandomBabyType {
   SPIDER = 0,
   LOVE = 1,
@@ -646,3 +648,5 @@ export enum RandomBabyType {
   // Other
   INVISIBLE = 602,
 }
+
+validateEnumContiguous("RandomBabyType", RandomBabyType);

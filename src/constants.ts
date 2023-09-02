@@ -24,8 +24,9 @@ export const ROOM_TYPES_TO_NOT_TRANSFORM = new ReadonlySet<RoomType>([
   // I AM ERROR rooms should not be converted so that they have a way to escape.
   RoomType.ERROR, // 3
   RoomType.BOSS, // 5
-  // Devil Rooms don't need to be converted because they are already Devil Rooms.
+  // Devil Rooms and Angel Rooms should not be converted since they are outside of the gird.
   RoomType.DEVIL, // 14
+  RoomType.ANGEL, // 15
   // Dungeons cannot be converted because they need to have the ladder.
   RoomType.DUNGEON, // 16
   // Big rooms should not be converted.

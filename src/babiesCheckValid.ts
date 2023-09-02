@@ -5,9 +5,7 @@ import {
   getCollectibleItemType,
   getCollectibleName,
   log,
-  validateEnumContiguous,
 } from "isaacscript-common";
-import { RandomBabyType } from "./enums/RandomBabyType";
 import { BABIES } from "./objects/babies";
 import type { BabyDescription } from "./types/BabyDescription";
 
@@ -30,8 +28,6 @@ const VALID_DUPLICATE_ITEMS = new ReadonlySet<CollectibleType>([
 ]);
 
 export function babiesCheckValid(): void {
-  validateEnumContiguous("RandomBabyType", RandomBabyType);
-
   babiesCheckValidDuplicateName();
   babiesCheckValidDuplicateItem();
   babiesCheckValidDuplicateTrinket();
