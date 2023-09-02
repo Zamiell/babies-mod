@@ -9,6 +9,7 @@ import {
 import type { AnyFunction } from "isaacscript-common";
 import {
   MAPPING_COLLECTIBLES,
+  ReadonlySet,
   getCollectibleItemType,
   getEffectiveStage,
   hasCollectible,
@@ -28,12 +29,58 @@ import { BABIES } from "./objects/babies";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 import type { BabyDescription } from "./types/BabyDescription";
 
+const COLLECTIBLES_THAT_SYNERGIZE_WITH_TEARS = [
+  CollectibleType.MY_REFLECTION, // 5
+  CollectibleType.CUPIDS_ARROW, // 48
+  CollectibleType.PARASITE, // 104
+  CollectibleType.OUIJA_BOARD, // 115
+  CollectibleType.IPECAC, // 149
+  CollectibleType.TECHNOLOGY_2, // 152
+  CollectibleType.RUBBER_CEMENT, // 221
+  CollectibleType.ANTI_GRAVITY, // 222
+  CollectibleType.CRICKETS_BODY, // 224
+  CollectibleType.TINY_PLANET, // 233
+  CollectibleType.DEATHS_TOUCH, // 237
+  CollectibleType.FIRE_MIND, // 257
+  CollectibleType.PROPTOSIS, // 261
+  CollectibleType.STRANGE_ATTRACTOR, // 315
+  CollectibleType.CURSED_EYE, // 316
+  CollectibleType.SOY_MILK, // 330
+  CollectibleType.GODHEAD, // 331
+  CollectibleType.WIZ, // 358
+  CollectibleType.CONTINUUM, // 369
+  CollectibleType.DEAD_EYE, // 373
+  CollectibleType.MARKED, // 394
+  CollectibleType.TRACTOR_BEAM, // 397
+  CollectibleType.FRUIT_CAKE, // 418
+  CollectibleType.LEAD_PENCIL, // 444
+  CollectibleType.COMPOUND_FRACTURE, // 453
+  CollectibleType.EYE_OF_BELIAL, // 462
+  CollectibleType.ANALOG_STICK, // 465
+  CollectibleType.JACOBS_LADDER, // 494
+  CollectibleType.TECHNOLOGY_ZERO, // 524
+  CollectibleType.POP, // 529
+  CollectibleType.HAEMOLACRIA, // 531
+  CollectibleType.LACHRYPHAGY, // 532
+  CollectibleType.TRISAGION, // 533
+  CollectibleType.FLAT_STONE, // 540
+] as const;
+
+const TRINKETS_THAT_SYNERGIZE_WITH_TEARS = new ReadonlySet([
+  TrinketType.WIGGLE_WORM, // 10
+  TrinketType.FLAT_WORM, // 12
+  TrinketType.SUPER_MAGNET, // 68
+]);
+
 const COLLECTIBLES_THAT_REMOVE_TEARS = [
   CollectibleType.DR_FETUS, // 52
   CollectibleType.TECHNOLOGY, // 68
   CollectibleType.MOMS_KNIFE, // 114
   CollectibleType.BRIMSTONE, // 118
   CollectibleType.EPIC_FETUS, // 168
+  // Ludo technically does not remove all tears, but it is similar enough to having a different
+  // weapon such that e.g. My Reflection would not synergize with it.
+  CollectibleType.LUDOVICO_TECHNIQUE, // 329
   CollectibleType.TECH_X, // 395
   CollectibleType.SPIRIT_SWORD, // 579
   CollectibleType.BERSERK, // 704
@@ -43,7 +90,7 @@ export function babyCheckValid(
   player: EntityPlayer,
   babyType: RandomBabyType,
 ): boolean {
-  const baby = BABIES[babyType];
+  const baby = BABIES[babyType] as BabyDescription;
 
   // Check to see if we already got this baby in this run / multi-character custom challenge.
   if (g.pastBabies.includes(babyType)) {
@@ -51,16 +98,20 @@ export function babyCheckValid(
   }
 
   // Check for overlapping items.
-  if ("item" in baby && player.HasCollectible(baby.item)) {
+  if (baby.item !== undefined && player.HasCollectible(baby.item)) {
     return false;
   }
-  if ("item2" in baby && player.HasCollectible(baby.item2)) {
+  if (baby.item2 !== undefined && player.HasCollectible(baby.item2)) {
     return false;
   }
-  if ("item3" in baby && player.HasCollectible(baby.item3)) {
+  if (baby.item3 !== undefined && player.HasCollectible(baby.item3)) {
     return false;
   }
-  if ("trinket" in baby && player.HasTrinket(baby.trinket)) {
+  if (baby.trinket !== undefined && player.HasTrinket(baby.trinket)) {
+    return false;
+  }
+
+  if (baby.requireTears === true && !playerHasTears(player)) {
     return false;
   }
 
@@ -86,6 +137,10 @@ export function babyCheckValid(
   }
 
   if (!checkCollectibles(player, baby)) {
+    return false;
+  }
+
+  if (!checkTrinkets(player, baby)) {
     return false;
   }
 
@@ -186,23 +241,25 @@ function checkCollectibles(
   const babyItemsSet = getBabyItemsSet(baby);
 
   if (
-    (baby.requireTears === true ||
-      babyItemsSet.has(CollectibleType.SOY_MILK)) &&
+    setHas(
+      babyItemsSet,
+      // e.g. If a baby grants Anti-Gravity, require that the player has a tear-based build, or else
+      // Anti-Gravity would be useless.
+      ...COLLECTIBLES_THAT_SYNERGIZE_WITH_TEARS,
+      // e.g. If a Baby grants Brimstone, require that that the player has a tear-based build, or
+      // else the Brimstone would not be a big enough upgrade.
+      ...COLLECTIBLES_THAT_REMOVE_TEARS,
+    ) &&
     !playerHasTears(player)
   ) {
     return false;
   }
 
+  // If the player started Dead Eye, then it would be too punishing to get a baby that removes
+  // tears.
   if (
-    babyItemsSet.has(CollectibleType.LUDOVICO_TECHNIQUE) && // 329
-    player.HasCollectible(CollectibleType.C_SECTION)
-  ) {
-    return false;
-  }
-
-  if (
-    babyItemsSet.has(CollectibleType.ISAACS_TEARS) && // 323
-    player.HasCollectible(CollectibleType.IPECAC) // 149
+    setHas(babyItemsSet, ...COLLECTIBLES_THAT_REMOVE_TEARS) &&
+    player.HasCollectible(CollectibleType.DEAD_EYE) // 373
   ) {
     return false;
   }
@@ -217,14 +274,26 @@ function checkCollectibles(
   }
 
   if (
-    setHas(babyItemsSet, ...COLLECTIBLES_THAT_REMOVE_TEARS) &&
-    player.HasCollectible(CollectibleType.DEAD_EYE) // 373
+    babyItemsSet.has(CollectibleType.ISAACS_TEARS) && // 323
+    player.HasCollectible(CollectibleType.IPECAC) // 149
   ) {
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.DEAD_EYE) && // 373
+    babyItemsSet.has(CollectibleType.LUDOVICO_TECHNIQUE) && // 329
+    player.HasCollectible(CollectibleType.C_SECTION)
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
+function checkTrinkets(player: EntityPlayer, baby: BabyDescription): boolean {
+  if (
+    baby.trinket !== undefined &&
+    TRINKETS_THAT_SYNERGIZE_WITH_TEARS.has(baby.trinket) &&
     !playerHasTears(player)
   ) {
     return false;

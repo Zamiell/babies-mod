@@ -70,7 +70,6 @@ export const BABIES = {
     description: "Starts with Cursed Eye",
     sprite: "005_baby_cursed.png",
     item: CollectibleType.CURSED_EYE,
-    requireTears: true,
   },
 
   // 6
@@ -88,7 +87,6 @@ export const BABIES = {
     description: "Starts with Analog Stick",
     sprite: "007_baby_ybab.png",
     item: CollectibleType.ANALOG_STICK,
-    requireTears: true,
   },
 
   // 8
@@ -465,7 +463,6 @@ export const BABIES = {
     sprite: "051_baby_belial.png",
     item: CollectibleType.BRIMSTONE,
     flight: true,
-    requireTears: true,
     class: bc.BelialBaby,
   },
 
@@ -595,7 +592,7 @@ export const BABIES = {
     description: "Boomerang tears",
     sprite: "066_baby_mustache.png",
     requireTears: true,
-    softlockPreventionDestroyPoops: true, // Boomerangs cannot kill poops
+    softlockPreventionDestroyPoops: true, // Boomerangs cannot kill poops.
     class: bc.MustacheBaby,
   },
 
@@ -753,7 +750,6 @@ export const BABIES = {
     sprite: "084_baby_goatee.png",
     item: CollectibleType.DEATHS_TOUCH,
     item2: CollectibleType.LACHRYPHAGY,
-    requireTears: true,
   },
 
   // 85
@@ -880,7 +876,6 @@ export const BABIES = {
     sprite: "099_baby_makeup.png",
     item: CollectibleType.WIZ,
     itemNum: 6,
-    requireTears: true,
   },
 
   // 100
@@ -956,7 +951,6 @@ export const BABIES = {
     description: "Starts with Anti-Gravity",
     sprite: "108_baby_vvvvvv.png",
     item: CollectibleType.ANTI_GRAVITY,
-    requireTears: true,
   },
 
   // 109
@@ -1073,7 +1067,6 @@ export const BABIES = {
     description: "Starts with Rubber Cement",
     sprite: "121_baby_plastic.png",
     item: CollectibleType.RUBBER_CEMENT,
-    requireTears: true,
   },
 
   // 122
@@ -1139,7 +1132,6 @@ export const BABIES = {
     name: "Ninkumpoop Baby",
     description: "All chests are Old Chests",
     sprite: "129_baby_ninkumpoop.png",
-    requireTears: true,
     class: bc.NinkumpoopBaby,
   },
 
@@ -1208,7 +1200,6 @@ export const BABIES = {
     description: "Starts with Flat Stone",
     sprite: "137_baby_bowling.png",
     item: CollectibleType.FLAT_STONE,
-    requireTears: true,
   },
 
   // 138
@@ -1392,9 +1383,8 @@ export const BABIES = {
     name: "Cracked Infamy Baby",
     description: "Starts with Dr. Fetus + Remote Detonator",
     sprite: "159_baby_crackedinfamy.png",
-    item: CollectibleType.REMOTE_DETONATOR,
-    item2: CollectibleType.DR_FETUS,
-    requireTears: true,
+    item: CollectibleType.DR_FETUS,
+    item2: CollectibleType.REMOTE_DETONATOR,
   },
 
   // 160
@@ -1525,7 +1515,6 @@ export const BABIES = {
     description: "Starts with Jacob's Ladder",
     sprite: "174_baby_electris.png",
     item: CollectibleType.JACOBS_LADDER,
-    requireTears: true,
   },
 
   // 175
@@ -1542,7 +1531,6 @@ export const BABIES = {
     description: "Starts with Technology Zero",
     sprite: "176_baby_transforming.png",
     item: CollectibleType.TECHNOLOGY_ZERO,
-    requireTears: true,
   },
 
   // 177
@@ -1654,7 +1642,6 @@ export const BABIES = {
     description: "Starts with Ouija Board",
     sprite: "189_baby_spectral.png",
     item: CollectibleType.OUIJA_BOARD,
-    requireTears: true,
   },
 
   // 190
@@ -1672,7 +1659,6 @@ export const BABIES = {
     description: "Starts with Compound Fracture",
     sprite: "191_baby_skeleton.png",
     item: CollectibleType.COMPOUND_FRACTURE,
-    requireTears: true,
   },
 
   // 192
@@ -1732,7 +1718,6 @@ export const BABIES = {
     description: "Starts with Cricket's Body",
     sprite: "198_baby_dots.png",
     item: CollectibleType.CRICKETS_BODY,
-    requireTears: true,
   },
 
   // 199
@@ -1776,7 +1761,6 @@ export const BABIES = {
     description: "Starts with Tractor Beam",
     sprite: "203_baby_pipe.png",
     item: CollectibleType.TRACTOR_BEAM,
-    requireTears: true,
   },
 
   // 204
@@ -1812,7 +1796,6 @@ export const BABIES = {
     description: "Starts with Eye of Belial",
     sprite: "207_baby_belial.png",
     item: CollectibleType.EYE_OF_BELIAL,
-    requireTears: true,
   },
 
   // 208
@@ -1897,7 +1880,6 @@ export const BABIES = {
     sprite: "217_baby_chubby.png",
     item: CollectibleType.TECHNOLOGY_ZERO,
     item2: CollectibleType.TINY_PLANET,
-    requireTears: true,
   },
 
   // 218
@@ -2052,7 +2034,6 @@ export const BABIES = {
     sprite: "235_baby_computer.png",
     item: CollectibleType.TECHNOLOGY,
     item2: CollectibleType.TECHNOLOGY_2,
-    requireTears: true,
   },
 
   // 236
@@ -2213,7 +2194,6 @@ export const BABIES = {
     description: "Starts with Fruit Cake",
     sprite: "254_baby_earth.png",
     item: CollectibleType.FRUIT_CAKE,
-    requireTears: true,
   },
 
   // 255
@@ -2222,7 +2202,6 @@ export const BABIES = {
     description: "Starts with Continuum",
     sprite: "255_baby_saturn.png",
     item: CollectibleType.CONTINUUM,
-    requireTears: true,
   },
 
   // 256
@@ -2447,7 +2426,6 @@ export const BABIES = {
     blindfolded: true,
     num: 15, // Game frames between ticks
     requireNoEndFloors: true,
-    requireTears: true,
     softlockPreventionDestroyPoops: true, // Light beams cannot kill poops.
     class: bc.FangDemonBaby,
   },
@@ -2494,7 +2472,6 @@ export const BABIES = {
     description: "Starts with My Reflection",
     sprite: "286_baby_3d.png",
     item: CollectibleType.MY_REFLECTION,
-    requireTears: true,
   },
 
   // 287
@@ -2520,7 +2497,6 @@ export const BABIES = {
     description: "Starts with Cupid's Arrow",
     sprite: "289_baby_cupid.png",
     item: CollectibleType.CUPIDS_ARROW,
-    requireTears: true,
   },
 
   // 290
@@ -2548,7 +2524,6 @@ export const BABIES = {
     item: CollectibleType.GODHEAD,
     item2: CollectibleType.LUDOVICO_TECHNIQUE,
     flight: true,
-    requireTears: true,
     // This baby does not use the "blindfolded" property because it would remove The Ludovico
     // Technique.
     class: bc.LanternBaby,
@@ -2701,7 +2676,6 @@ export const BABIES = {
     description: "Starts with Marked",
     sprite: "309_baby_xeyes.png",
     item: CollectibleType.MARKED,
-    requireTears: true,
   },
 
   // 310
@@ -2866,7 +2840,6 @@ export const BABIES = {
     description: "Starts with Lachryphagy",
     sprite: "328_baby_muttonchops.png",
     item: CollectibleType.LACHRYPHAGY,
-    requireTears: true,
   },
 
   // 329
@@ -2892,7 +2865,6 @@ export const BABIES = {
     sprite: "331_baby_slicer.png",
     item: CollectibleType.SOY_MILK,
     item2: CollectibleType.PROPTOSIS,
-    requireTears: true,
     num: 5, // Frames until it disappears
     class: bc.SlicerBaby,
   },
@@ -2959,7 +2931,6 @@ export const BABIES = {
     sprite: "338_baby_winghelmet.png",
     item: CollectibleType.LUDOVICO_TECHNIQUE,
     item2: CollectibleType.PARASITE,
-    requireTears: true,
   },
 
   // 339
@@ -3180,7 +3151,6 @@ export const BABIES = {
     item: CollectibleType.LUDOVICO_TECHNIQUE,
     item2: CollectibleType.BRIMSTONE,
     trinket: TrinketType.WIGGLE_WORM,
-    requireTears: true,
   },
 
   // 364
@@ -3286,7 +3256,6 @@ export const BABIES = {
     item: CollectibleType.IPECAC,
     item2: CollectibleType.TRISAGION,
     item3: CollectibleType.FLAT_STONE,
-    requireTears: true,
   },
 
   // 376
@@ -3576,7 +3545,6 @@ export const BABIES = {
     item: CollectibleType.IPECAC,
     item2: CollectibleType.LUDOVICO_TECHNIQUE,
     item3: CollectibleType.FLAT_STONE,
-    requireTears: true,
     class: bc.BlurredBaby,
   },
 
@@ -3645,7 +3613,6 @@ export const BABIES = {
     description: "Starts with Trisagion",
     sprite: "415_baby_lightmage.png",
     item: CollectibleType.TRISAGION,
-    requireTears: true,
   },
 
   // 416
@@ -3679,7 +3646,6 @@ export const BABIES = {
     description: "Starts with Fire Mind + 13 luck",
     sprite: "419_baby_firemage.png",
     item: CollectibleType.FIRE_MIND,
-    requireTears: true,
     class: bc.FiremageBaby,
   },
 
@@ -3946,7 +3912,6 @@ export const BABIES = {
     sprite: "450_baby_moth.png",
     item: CollectibleType.SOY_MILK,
     item2: CollectibleType.IPECAC,
-    requireTears: true,
   },
 
   // 451
@@ -4008,7 +3973,6 @@ export const BABIES = {
     description: "Starts with Pop",
     sprite: "457_baby_pumpkin_guy.png",
     item: CollectibleType.POP,
-    requireTears: true,
   },
 
   // 458
@@ -4037,7 +4001,6 @@ export const BABIES = {
     sprite: "460_baby_saturn.png",
     item: CollectibleType.LUDOVICO_TECHNIQUE,
     item2: CollectibleType.STRANGE_ATTRACTOR,
-    requireTears: true,
   },
 
   // 461
@@ -4073,7 +4036,6 @@ export const BABIES = {
     sprite: "464_baby_arrowhead.png",
     item: CollectibleType.TECHNOLOGY_ZERO,
     item2: CollectibleType.CUPIDS_ARROW,
-    requireTears: true,
   },
 
   // 465
@@ -4125,7 +4087,6 @@ export const BABIES = {
     sprite: "470_baby_headphone.png",
     trinket: TrinketType.FLAT_WORM,
     num: 50,
-    requireTears: true,
   },
 
   // 471
@@ -4458,7 +4419,6 @@ export const BABIES = {
     description: "Starts with Lead Pencil",
     sprite: "509_baby_scribble.png",
     item: CollectibleType.LEAD_PENCIL,
-    requireTears: true,
   },
 
   // 510
@@ -4864,7 +4824,6 @@ export const BABIES = {
     sprite: "557_baby_proto.png",
     item: CollectibleType.BRIMSTONE,
     item2: CollectibleType.HAEMOLACRIA,
-    requireTears: true,
   },
 
   // 558
@@ -5025,7 +4984,6 @@ export const BABIES = {
     description: "Slings Godhead aura (improved)",
     sprite: "familiar_shooters_01_brotherbobby.png",
     item: CollectibleType.MOMS_KNIFE,
-    requireTears: true,
     class: bc.BrotherBobby,
   },
 
@@ -5089,7 +5047,6 @@ export const BABIES = {
     description: "Starts with The Wiz",
     sprite: "familiar_shooters_10_harlequinbaby.png",
     item: CollectibleType.WIZ,
-    requireTears: true,
   },
 
   // 584
