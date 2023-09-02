@@ -924,8 +924,11 @@ export const BABIES = {
   // 105
   [RandomBabyType.LIPSTICK]: {
     name: "Lipstick Baby",
-    description: "Range fluctuates",
+    description: "Range oscillates",
     sprite: "105_baby_lipstick.png",
+    num: 60, // Time between fire rate changes, in game frames
+    min: -4, // Range change
+    max: 6, // Range change
     class: bc.LipstickBaby,
   },
 
