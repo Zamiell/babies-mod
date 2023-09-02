@@ -1,23 +1,13 @@
-import { FamiliarVariant, ModCallback } from "isaac-typescript-definitions";
-import { Callback, repeat, spawnFamiliar } from "isaacscript-common";
-import { g } from "../../globals";
+import { CardType } from "isaac-typescript-definitions";
+import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Starts with Dead Bird (improved). */
 export class CrowBaby extends Baby {
-  @Callback(ModCallback.POST_FAMILIAR_INIT, FamiliarVariant.DEAD_BIRD)
-  postFamiliarInitDeadBird(): void {
-    if (g.run.babyBool) {
-      return;
-    }
+  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
+  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
+    player.UseCard(CardType.SOUL_EVE);
 
-    const player = Isaac.GetPlayer();
-
-    // Spawn 5 bird familiars instead of 1. (1 is already spawned.)
-    g.run.babyBool = true;
-    repeat(4, () => {
-      spawnFamiliar(FamiliarVariant.DEAD_BIRD, 0, player.Position);
-    });
-    g.run.babyBool = false;
+    return undefined;
   }
 }

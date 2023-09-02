@@ -127,9 +127,8 @@ export const BABIES = {
   // 12
   [RandomBabyType.CROW]: {
     name: "Crow Baby",
-    description: "Starts with Dead Bird (improved)",
+    description: "Soul of Eve effect on hit",
     sprite: "012_baby_crow.png",
-    item: CollectibleType.DEAD_BIRD,
     class: bc.CrowBaby,
   },
 
