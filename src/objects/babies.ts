@@ -4626,9 +4626,9 @@ export const BABIES = {
   // 533
   [RandomBabyType.THIRTEENTH]: {
     name: "Thirteenth Baby",
-    description: "Starts with Sacrificial Dagger",
+    description: "Starts with Modeling Clay",
     sprite: "533_baby_thirteenth.png",
-    item: CollectibleType.SACRIFICIAL_DAGGER,
+    trinket: TrinketType.MODELING_CLAY,
   },
 
   // 534
