@@ -13,6 +13,7 @@ TODO:
 - SaveDataManager
 - auto generate documentation from parsing babies.ts
 - use tainted blue baby poop from gamonymous suggestion
+- Fix Tear rate and range oscillates babies (#105 & #511)
 
 List of hard babies:
 - Troll Baby (#6) - Spawns a Troll Bomb every 3 seconds
@@ -46,17 +47,12 @@ List of boring babies:
 - Burning Baby (#467) - Starts with Fire Mind (We already have Fire Mind + 13 luck, I suggest A Lighter + 40 Luck + Vasculitis (Vasculitis projectiles are in fire when the enemy is dead while burning))
 - Cursor Baby (#468) - Starts with Pause!
 - Tooth Baby (#478) - Starts with Dead Tooth (Change it to Black Tooth ?)
-- Thirteenth Baby (#533) - Same as Sword Baby
 - Robo-Baby (#578) - Since we already have a Tech + Tech 2 baby, maybe add 3 Robo-babies ? It would be different since it would grant Conjoined
 
 Babies to change:
 - Gold Baby : Add the fact that every pickup that spawns will always spawn in their golden variant (Gold key, gold bomb, golden troll bomb, golden heart, golden coin, golden chest, golden battery, golden trinkets and replace every cards, rune, pill by a golden pill)
 - Butthole Baby : Add T. ??? special poops to the List
-- CrowBaby : Soul of Eve effect on hit sounds better
-- Lowface Baby : 0.5 range is boring and can lead to softlocks in some rooms. How about making the range fluctuating ?
-- Eyebrows Baby : One Guppy's Hairball is boring. How about 5 Guppy's Hairball + blindfolded ?
 - get rid of O Baby - Starts with Tiny Planet
-- Lipstick Baby : Redundant if we change Lowface Baby. assign a new effect
 - Cloud Baby : Ventricle Razor every 15 seconds is kinda pointless. Every 2 seconds helps with curse rooms but can be annoying in combat
 - Ballerina Baby : The code uses the custom item Clockwork Assembly but you can use Judgment? card
 - Fishman Baby : The enum says that it's impossible to spawn Giga Bombs with BombSubType.NULL, would be cool if the baby could spawn giga bombs
@@ -68,7 +64,6 @@ Babies to change:
 - Lantern Baby : Since GodHead now deals fixed damage, it might be not very powerful, maybe add extra damage?
 
 Potential new effects:
-- range fluctuates
 - shot speed fluctuates
 - spawn Lil Portal portal after picking up 8 pickups
 - Touching items/pickups causes experimental pill effect
@@ -77,12 +72,10 @@ Potential new effects:
 - Exploding a tinted rock teleports you to a random special room (item room, shop, planetarium, devil deal, angel room, error room, black market, secret room, super secret room, ultra secret room, mini-boss room, boss room, arcade, challenge, curse, sacrifice, library, Vault, Dice room, bedrooms) (Prevent this effect from appearing in Chest and Dark Room)
 - Permanent I'm Drowsy effect after 30 seconds
 - Enemies turn into giant poops when touched (improved E. Coli)
-- Starts with Book of Virtues + Unicorn stump
 - Every sound effect is randomized
 - Starts with 3 Knife piece 1 + 3 Knife Piece 2
 - Spawn every type of machine in the starting room
 - Spawns a golden troll bomb in every room
-- Starts with Modeling Clay
 - Starts with Cursed Penny
 - Starts with Voodoo Head + Flat File
 - Starts with 10 Cube Baby + Ice Cube

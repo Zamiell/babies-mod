@@ -127,9 +127,8 @@ export const BABIES = {
   // 12
   [RandomBabyType.CROW]: {
     name: "Crow Baby",
-    description: "Starts with Dead Bird (improved)",
+    description: "Soul of Eve effect on hit",
     sprite: "012_baby_crow.png",
-    item: CollectibleType.DEAD_BIRD,
     class: bc.CrowBaby,
   },
 
@@ -650,9 +649,10 @@ export const BABIES = {
   // 73
   [RandomBabyType.LOWFACE]: {
     name: "Lowface Baby",
-    description: "0.5x range",
+    description: "Starts with Book of Virtues + Unicorn Stump",
     sprite: "073_baby_lowface.png",
-    class: bc.LowfaceBaby,
+    item: CollectibleType.BOOK_OF_VIRTUES,
+    item2: CollectibleType.UNICORN_STUMP,
   },
 
   // 74
@@ -788,9 +788,11 @@ export const BABIES = {
   // 89
   [RandomBabyType.EYEBROWS]: {
     name: "Eyebrows Baby",
-    description: "Starts with Guppy's Hair Ball",
+    description: "Starts with 5x Guppy's Hair Ball + Blindfolded",
     sprite: "089_baby_eyebrows.png",
     item: CollectibleType.GUPPYS_HAIRBALL,
+    num: 5,
+    blindfolded: true,
   },
 
   // 90
@@ -922,8 +924,11 @@ export const BABIES = {
   // 105
   [RandomBabyType.LIPSTICK]: {
     name: "Lipstick Baby",
-    description: "2x range",
+    description: "Range oscillates",
     sprite: "105_baby_lipstick.png",
+    num: 60, // Time between fire rate changes, in game frames
+    min: -4, // Range change
+    max: 6, // Range change
     class: bc.LipstickBaby,
   },
 
@@ -4621,9 +4626,9 @@ export const BABIES = {
   // 533
   [RandomBabyType.THIRTEENTH]: {
     name: "Thirteenth Baby",
-    description: "Starts with Sacrificial Dagger",
+    description: "Starts with Modeling Clay",
     sprite: "533_baby_thirteenth.png",
-    item: CollectibleType.SACRIFICIAL_DAGGER,
+    trinket: TrinketType.MODELING_CLAY,
   },
 
   // 534
