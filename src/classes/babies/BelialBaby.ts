@@ -16,6 +16,7 @@ const AZAZEL_ANTISYNERGIES = [
   CollectibleType.MOMS_KNIFE, // 114
   CollectibleType.EPIC_FETUS, // 168
   CollectibleType.CURSED_EYE, // 316
+  CollectibleType.GODHEAD, // 331
   CollectibleType.DEAD_EYE, // 373
   CollectibleType.KIDNEY_STONE, // 440
   CollectibleType.HAEMOLACRIA, // 531
