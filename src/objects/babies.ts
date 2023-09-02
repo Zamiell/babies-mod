@@ -12,7 +12,6 @@ import {
   SeedEffect,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { Incubus } from "../classes/babies/familiars/Incubus";
 import * as bc from "../classes/babyClasses";
 import { CollectibleTypeCustom } from "../enums/CollectibleTypeCustom";
 import { RandomBabyType } from "../enums/RandomBabyType";
@@ -5113,7 +5112,7 @@ export const BABIES = {
     name: "Incubus", // CollectibleType.INCUBUS (360)
     description: "All items from the Devil Room pool",
     sprite: "familiar_shooters_80_incubus.png",
-    class: Incubus,
+    class: bc.Incubus,
   },
 
   // 591

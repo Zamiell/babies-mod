@@ -549,7 +549,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild-kit/core-utils@npm:^3.0.0":
+"@esbuild-kit/core-utils@npm:^3.0.0, @esbuild-kit/core-utils@npm:^3.2.2":
   version: 3.2.2
   resolution: "@esbuild-kit/core-utils@npm:3.2.2"
   dependencies:
@@ -1111,6 +1111,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node@npm:^20.5.8":
+  version: 20.5.8
+  resolution: "@types/node@npm:20.5.8"
+  checksum: ccd73e0e99ddfcf42e10b7a30a58a432bc39eeb9d1d59084ed818be468e05375b212a29d03529149aff58366c0eddb9bf367cb335db6620a4855ce315c5ecf28
+  languageName: node
+  linkType: hard
+
 "@types/normalize-package-data@npm:^2.4.0":
   version: 2.4.1
   resolution: "@types/normalize-package-data@npm:2.4.1"
@@ -1558,12 +1565,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "babies-mod@workspace:."
   dependencies:
+    "@types/node": ^20.5.8
     isaac-typescript-definitions: ^13.0.35
     isaacscript: ^3.10.1
     isaacscript-common: ^31.8.1
     isaacscript-lint: ^5.8.5
     isaacscript-spell: ^1.2.41
     isaacscript-tsconfig: ^4.0.0
+    tsx: ^3.12.8
     typescript: ^5.2.2
     typescript-to-lua: ^1.19.0
   languageName: unknown
@@ -6251,6 +6260,23 @@ __metadata:
   bin:
     tsx: dist/cli.js
   checksum: ddec149ad263e5c75fc8fde5c6ba7ec2ee390934c0a2e2c23897bacab83bc8c665955a23b608a19c42f49c14a7362cf74ad793b52cc94eda684be5c2c13fdb4d
+  languageName: node
+  linkType: hard
+
+"tsx@npm:^3.12.8":
+  version: 3.12.8
+  resolution: "tsx@npm:3.12.8"
+  dependencies:
+    "@esbuild-kit/cjs-loader": ^2.4.2
+    "@esbuild-kit/core-utils": ^3.2.2
+    "@esbuild-kit/esm-loader": ^2.5.5
+    fsevents: ~2.3.2
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  bin:
+    tsx: dist/cli.js
+  checksum: b27575672693e648106c0230587b5d4d901f0c714517b173e6b220d9907971f465c46cccfbf59ef68dcc0cdf7b30867b0d08aa1995d28b9ed0a580afe0e22cec
   languageName: node
   linkType: hard
 

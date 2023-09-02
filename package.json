@@ -12,12 +12,14 @@
   "license": "GPL-3.0",
   "type": "module",
   "dependencies": {
+    "@types/node": "^20.5.8",
     "isaac-typescript-definitions": "^13.0.35",
     "isaacscript": "^3.10.1",
     "isaacscript-common": "^31.8.1",
     "isaacscript-lint": "^5.8.5",
     "isaacscript-spell": "^1.2.41",
     "isaacscript-tsconfig": "^4.0.0",
+    "tsx": "^3.12.8",
     "typescript": "^5.2.2",
     "typescript-to-lua": "^1.19.0"
   },

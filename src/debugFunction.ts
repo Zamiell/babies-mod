@@ -1,5 +1,5 @@
 import { log, setLogFunctionsGlobal } from "isaacscript-common";
-import { MAX_BABY_TYPE } from "./enums/RandomBabyType";
+import { MAX_BABY_TYPE } from "./constants";
 import { g } from "./globals";
 
 /** Associated with the "babydebug" command. */

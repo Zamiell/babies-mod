@@ -317,6 +317,7 @@ export { EsauJrBaby } from "./babies/familiars/EsauJrBaby";
 export { FatesReward } from "./babies/familiars/FatesReward";
 export { FreezerBaby } from "./babies/familiars/FreezerBaby";
 export { GhostBaby } from "./babies/familiars/GhostBaby";
+export { Incubus } from "./babies/familiars/Incubus";
 export { InvisibleBaby } from "./babies/familiars/InvisibleBaby";
 export { LilLoki } from "./babies/familiars/LilLoki";
 export { LittleGish } from "./babies/familiars/LittleGish";

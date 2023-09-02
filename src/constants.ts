@@ -3,7 +3,8 @@ import {
   PickupVariant,
   RoomType,
 } from "isaac-typescript-definitions";
-import { ReadonlySet } from "isaacscript-common";
+import { ReadonlySet, getHighestEnumValue } from "isaacscript-common";
+import { RandomBabyType } from "./enums/RandomBabyType";
 
 export const MOD_NAME = "The Babies Mod";
 
@@ -11,6 +12,8 @@ export const MOD_NAME = "The Babies Mod";
 export const VERSION = "1.6.4";
 
 export const IS_DEV = false as boolean;
+
+export const MAX_BABY_TYPE = getHighestEnumValue(RandomBabyType);
 
 export const FADED_BLUE = Color(0, 0, 1, 0.7);
 export const FADED_RED = Color(1, 0, 0, 0.7);

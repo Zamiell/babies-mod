@@ -1,11 +1,5 @@
 TODO:
 
-  // Account for the bug in `ModCallback.PRE_USE_ITEM`:
-  // https://wofsauge.github.io/IsaacDocs/rep/enums/ModCallbacks.html?h=modcal#mc_pre_use_item
-  if (modCallback === ModCallback.PRE_USE_ITEM && !isValid) {
-    return undefined;
-  }
-
 - refactor global variables
 - SaveDataManager
 - auto generate documentation from parsing babies.ts
