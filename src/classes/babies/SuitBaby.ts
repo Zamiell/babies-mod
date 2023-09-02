@@ -18,7 +18,7 @@ import {
   gridCoordinatesToWorldPosition,
   isQuestCollectible,
   newRNG,
-  onStage,
+  onStageOrLower,
   spawnGridEntityWithVariant,
   spawnWithSeed,
 } from "isaacscript-common";
@@ -34,7 +34,7 @@ import { Baby } from "../Baby";
 export class SuitBaby extends Baby {
   /** Should only be valid if the floor has special rooms. */
   override isValid(): boolean {
-    return !onStage(LevelStage.HOME);
+    return onStageOrLower(LevelStage.SHEOL_CATHEDRAL);
   }
 
   // 35

@@ -2,6 +2,7 @@ import { GridRoom } from "isaac-typescript-definitions";
 import {
   game,
   getRoomGridIndex,
+  getRoomName,
   getRoomStageID,
   getRoomSubType,
   getRoomType,
@@ -27,12 +28,13 @@ function main() {
   const roomType = getRoomType();
   const roomVariant = getRoomVariant();
   const roomSubType = getRoomSubType();
+  const roomName = getRoomName();
   const roomGridIndex = getRoomGridIndex();
   const roomGridIndexSuffix =
     roomGridIndex >= 0 ? "" : ` (GridRoom.${GridRoom[roomGridIndex]})`;
 
   log(
-    `MC_POST_NEW_ROOM_REORDERED - Room: ${roomType}.${roomVariant}.${roomSubType} - Stage ID: ${roomStageID} - Stage: ${stage}.${stageType} - Grid index: ${roomGridIndex}${roomGridIndexSuffix} - Game frame: ${gameFrameCount} - Render frame: ${renderFrameCount}`,
+    `POST_NEW_ROOM_REORDERED - Room: ${roomType}.${roomVariant}.${roomSubType} - Name: ${roomName} - Stage ID: ${roomStageID} - Stage: ${stage}.${stageType} - Grid index: ${roomGridIndex}${roomGridIndexSuffix} - Game frame: ${gameFrameCount} - Render frame: ${renderFrameCount}`,
   );
 
   // Do nothing if we are not a baby.

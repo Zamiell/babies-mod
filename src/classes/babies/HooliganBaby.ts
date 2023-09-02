@@ -11,8 +11,8 @@ import {
   ModCallbackCustom,
   ReadonlySet,
   game,
-  getStage,
   onStage,
+  onStageOrLower,
   spawn,
 } from "isaacscript-common";
 import { g } from "../../globals";
@@ -48,7 +48,7 @@ export class HooliganBaby extends Baby {
    * - Furthermore, double enemies would be too hard on the final stages.
    */
   override isValid(): boolean {
-    return !onStage(LevelStage.DEPTHS_2) && getStage() < LevelStage.WOMB_2;
+    return !onStage(LevelStage.DEPTHS_2) && onStageOrLower(LevelStage.WOMB_1);
   }
 
   // 0

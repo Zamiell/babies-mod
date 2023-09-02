@@ -30,9 +30,10 @@ export class EyebatBaby extends Baby {
    * - We don't want this on the first floor since it interferes with resetting.
    * - We don't want this on Depths 2 because of the special Boss Room mechanic.
    * - We don't want to have this on any end floors so that we can simply the logic and always spawn
-   *   a trapdoor.
-   * - Floors are already reversed in Ascent.
-   * - Does not work in Greed Mode, Blue Womb, and Home.
+   *   a trapdoor. (Additionally, having a reversed floor on Blue Womb or Home would not make
+   *   sense.)
+   * - Floors are already reversed on the Ascent.
+   * - Reversing the floors in Greed Mode would not make sense.
    */
   override isValid(): boolean {
     const level = game.GetLevel();
@@ -45,11 +46,7 @@ export class EyebatBaby extends Baby {
       onStageOrLower(LevelStage.WOMB_1) &&
       !onRepentanceStage() &&
       !onAscent() &&
-      !isGreedMode() &&
-      !onStage(
-        LevelStage.BLUE_WOMB, // 9
-        LevelStage.HOME, // 13
-      )
+      !isGreedMode()
     );
   }
 

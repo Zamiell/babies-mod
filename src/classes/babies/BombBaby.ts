@@ -27,7 +27,7 @@ export class BombBaby extends Baby {
     v.run.rng = newRNG(startSeed);
   }
 
-  /** There are no items on Sheol/Cathedral. */
+  /** There are no collectibles on Sheol/Cathedral. */
   override isValid(): boolean {
     return !onStage(LevelStage.SHEOL_CATHEDRAL);
   }

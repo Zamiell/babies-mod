@@ -9,7 +9,7 @@ import { Baby } from "../Baby";
 
 /** D6 effect on hit. */
 export class PuzzleBaby extends Baby {
-  /** There are no items on the Sheol/Cathedral. */
+  /** There are no collectibles on the Sheol/Cathedral. */
   override isValid(): boolean {
     return !onStage(LevelStage.SHEOL_CATHEDRAL);
   }

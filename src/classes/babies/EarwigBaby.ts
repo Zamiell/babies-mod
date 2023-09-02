@@ -19,6 +19,7 @@ export class EarwigBaby extends Baby {
   /**
    * - If the player has mapping, this effect is largely useless (but having the Blue Map is okay).
    * - We don't want this baby on the first floor since it interferes with resetting.
+   * - We don't want this baby on floors where mapping is useless.
    */
   override isValid(player: EntityPlayer): boolean {
     return (

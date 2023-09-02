@@ -28,7 +28,10 @@ export class FatesReward extends Baby {
     return (
       coins >= 15 &&
       !onEffectiveStage(LevelStage.BASEMENT_1, LevelStage.BASEMENT_2) &&
-      !onStage(LevelStage.SHEOL_CATHEDRAL, LevelStage.DARK_ROOM_CHEST)
+      !onStage(
+        LevelStage.SHEOL_CATHEDRAL, // 10
+        LevelStage.DARK_ROOM_CHEST, // 11
+      )
     );
   }
 
