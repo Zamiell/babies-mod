@@ -18,7 +18,7 @@ import { mod } from "../../mod";
 import { Baby } from "../Baby";
 
 /** Hard-coding this makes it easier to clean up the pickups afterwards. */
-const SPIKED_CHEST_SEED_THAT_SPAWNS_TWO_BOMBS = 12 as Seed; // 12 drops only bombs, 9 drops only pill (but there is an earlier pill)
+const SPIKED_CHEST_SEED_THAT_SPAWNS_TWO_BOMBS = 12 as Seed;
 
 /** All chests are Mimics + all chests have items. */
 export class SpikeBaby extends Baby {
@@ -39,6 +39,8 @@ export class SpikeBaby extends Baby {
   ): [EntityType, int, int, int] | undefined {
     const pickupVariant = variant as PickupVariant;
 
+    // This check includes Spiked Chests because we need to respawn Spiked Chests to have a specific
+    // seed.
     if (isChestVariant(pickupVariant)) {
       return [
         entityType,
