@@ -8,10 +8,10 @@ import {
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
-const GAME_FRAMES_BETWEEN_STAT_CHANGE = 2 * GAME_FRAMES_PER_SECOND;
-const STAT_CHANGE_AMOUNT = 1;
-const MIN_RANGE_MODIFIER = -4;
-const MAX_RANGE_MODIFIER = 6;
+const GAME_FRAMES_BETWEEN_STAT_CHANGE = GAME_FRAMES_PER_SECOND / 10;
+const STAT_CHANGE_AMOUNT = 4;
+const MIN_RANGE_MODIFIER = -200;
+const MAX_RANGE_MODIFIER = 200;
 
 const v = {
   run: {
