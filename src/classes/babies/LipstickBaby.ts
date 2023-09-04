@@ -5,7 +5,6 @@ import {
   GAME_FRAMES_PER_SECOND,
   ModCallbackCustom,
   game,
-  getDefaultPlayerStat,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
@@ -53,5 +52,3 @@ export class LipstickBaby extends Baby {
     player.TearRange += v.run.rangeModifier;
   }
 }
-
-Isaac.DebugString(`GETTING HERE - ${getDefaultPlayerStat(CacheFlag.RANGE)}`);
