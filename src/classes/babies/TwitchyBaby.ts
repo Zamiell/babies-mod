@@ -3,54 +3,55 @@ import {
   Callback,
   CallbackCustom,
   ModCallbackCustom,
-  game,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
-/** Tear rate oscillates. */
-export class TwitchyBaby extends Baby {
-  /** Start with the slowest tears and mark to update them on this frame. */
-  override onAdd(): void {
-    const max = this.getAttribute("max");
+const MIN_FIRE_DELAY_MODIFIER = -4;
+const MAX_FIRE_DELAY_MODIFIER = 4;
 
-    g.run.babyCounters = max;
-    g.run.babyFrame = game.GetFrameCount();
+const v = {
+  run: {
+    fireDelayIncreasing: false,
+    fireDelayModifier: 0,
+  },
+};
+
+/** Tear rate oscillates per room. */
+export class TwitchyBaby extends Baby {
+  v = v;
+
+  /** Start with the default tears. */
+  override onAdd(): void {
+    v.run.fireDelayIncreasing = false;
+
+    // This will tick to 0 in the starting room and then to -1 in the first battle room (which
+    // corresponds to the tear stat increasing for the first time in the first battle room).
+    v.run.fireDelayModifier = 1;
   }
 
-  // 1
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
-    const gameFrameCount = game.GetFrameCount();
     const player = Isaac.GetPlayer();
-    const num = this.getAttribute("num");
-    const max = this.getAttribute("max");
-    const min = this.getAttribute("min");
 
-    if (gameFrameCount >= g.run.babyFrame) {
-      g.run.babyFrame += num;
-      if (g.run.babyBool) {
-        // Tear rate is increasing.
-        g.run.babyCounters++;
-        if (g.run.babyCounters === max) {
-          g.run.babyBool = false;
-        }
-      } else {
-        // Tear rate is decreasing.
-        g.run.babyCounters--;
-        if (g.run.babyCounters === min) {
-          g.run.babyBool = true;
-        }
+    if (v.run.fireDelayIncreasing) {
+      v.run.fireDelayModifier++;
+      if (v.run.fireDelayModifier >= MAX_FIRE_DELAY_MODIFIER) {
+        v.run.fireDelayIncreasing = false;
       }
-
-      player.AddCacheFlags(CacheFlag.FIRE_DELAY);
-      player.EvaluateItems();
+    } else {
+      v.run.fireDelayModifier--;
+      if (v.run.fireDelayModifier <= MIN_FIRE_DELAY_MODIFIER) {
+        v.run.fireDelayIncreasing = true;
+      }
     }
+
+    player.AddCacheFlags(CacheFlag.FIRE_DELAY);
+    player.EvaluateItems();
   }
 
   // 8
   @Callback(ModCallback.EVALUATE_CACHE, CacheFlag.FIRE_DELAY)
   evaluateCacheFireDelay(player: EntityPlayer): void {
-    player.MaxFireDelay += g.run.babyCounters;
+    player.MaxFireDelay += v.run.fireDelayModifier;
   }
 }

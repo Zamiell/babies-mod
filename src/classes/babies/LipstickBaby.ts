@@ -8,7 +8,7 @@ import {
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
-/** Range oscillates. */
+/** Range oscillates per room. */
 export class LipstickBaby extends Baby {
   /** Start with the shortest range and mark to update them on this frame. */
   override onAdd(): void {
