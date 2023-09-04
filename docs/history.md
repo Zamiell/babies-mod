@@ -14,7 +14,7 @@
   - Lipstick Baby (#105) - Range oscillates
   - Blisters Baby (#240) - Shot speed oscillates
   - Cupcake Baby (#321) - Starts with Voodoo Head + Flat File
-  - Dark Elf Baby (#378) - Starts with Bone spurs + Polished Bone
+  - Dark Elf Baby (#378) - Starts with Bone Spurs + Polished Bone
   - Tired Baby (#443) - Starts with 10x Cube Baby + Ice Cube
   - Burning Baby (#467) - Starts with Vasculitis + A Lighter + 40 Luck
   - Tooth Baby (#478) - Starts with Black Tooth
