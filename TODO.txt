@@ -14,7 +14,6 @@ Babies to change:
 - Fishman Baby : The enum says that it's impossible to spawn Giga Bombs with BombSubType.NULL, would be cool if the baby could spawn giga bombs
 - Puncher Baby : It appear that the difference isn't very noticeable between 1 and 10 Punching Bags. 1 Punching Bag + 1 Lost Fly would make enemies more unpredictable
 - Brown Baby : Add Dingle Berry
-- Dark Elf Baby : Change to "Starts with Polished bone"
 - Cubic Baby : Add Scatter Bombs
 - Tired Baby (#443) - 1 Bum Friend is actually better than 5 since each bum friend require several coins to payout. 1 Bum Friend require 6 coins to drop the first pickup. Rewards are the same than Lil Chest rewards + items from Beggar item pool which is mostly HP ups and they can eat lucky coins without granting the luck up, let's just change this one
 - Twotone Baby (#346) - Dataminer effect on room enter - stat changes would persist to the next floor

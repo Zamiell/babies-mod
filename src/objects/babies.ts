@@ -3285,9 +3285,10 @@ export const BABIES = {
   // 378
   [RandomBabyType.DARK_ELF]: {
     name: "Dark Elf Baby",
-    description: "Book of the Dead effect on hit",
+    description: "Starts with Bone spurs + Polished Bone",
     sprite: "378_baby_darkelf.png",
-    class: bc.DarkElfBaby,
+    item: CollectibleType.BONE_SPURS,
+    trinket: TrinketType.POLISHED_BONE,
   },
 
   // 379
