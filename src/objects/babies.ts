@@ -788,10 +788,11 @@ export const BABIES = {
   // 89
   [RandomBabyType.EYEBROWS]: {
     name: "Eyebrows Baby",
-    description: "Starts with 5x Guppy's Hair Ball + blindfolded",
+    description: "Starts with 5x Guppy's Hair Ball + flight + blindfolded",
     sprite: "089_baby_eyebrows.png",
     item: CollectibleType.GUPPYS_HAIRBALL,
     num: 5,
+    flight: true,
     blindfolded: true,
   },
 
