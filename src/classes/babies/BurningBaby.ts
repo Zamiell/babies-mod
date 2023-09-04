@@ -4,11 +4,6 @@ import { Baby } from "../Baby";
 
 /** Spawns a Mega Troll Bomb every N seconds. */
 export class BurningBaby extends Baby {
-  override onAdd(player: EntityPlayer): void {
-    player.AddCacheFlags(CacheFlag.LUCK);
-    player.EvaluateItems();
-  }
-
   @Callback(ModCallback.EVALUATE_CACHE, CacheFlag.LUCK)
   evaluateCacheLuck(player: EntityPlayer): void {
     player.Luck += 40;

@@ -475,9 +475,10 @@ export const BABIES = {
   // 53
   [RandomBabyType.GOAT_HEAD]: {
     name: "Goat Head Baby",
-    description: "Starts with Goat Head",
+    description: "Starts with Goat Head + Number Magnet",
     sprite: "053_baby_goatbaby.png",
     item: CollectibleType.GOAT_HEAD,
+    trinket: TrinketType.NUMBER_MAGNET,
   },
 
   // 54

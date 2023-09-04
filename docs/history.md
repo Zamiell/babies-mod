@@ -7,6 +7,7 @@
 
 - Changed the following babies:
   - Crow Baby (#12) - Soul of Eve effect on hit
+  - Goat Head Baby (#53) - Starts with Goat Head + Number Magnet
   - Lowface Baby (#73) - Starts with Book of Virtues + Unicorn Stump
   - Eyebrows Baby (#89) - Starts with 5x Guppy's Hair Ball + flight + blindfolded
   - Lipstick Baby (#105) - Range oscillates
