@@ -9,6 +9,7 @@ import {
 import { Baby } from "../Baby";
 
 const GAME_FRAMES_BETWEEN_STAT_CHANGE = 2 * GAME_FRAMES_PER_SECOND;
+const STAT_CHANGE_AMOUNT = 1;
 const MIN_FIRE_DELAY_MODIFIER = -4;
 const MAX_FIRE_DELAY_MODIFIER = 4;
 
@@ -31,12 +32,12 @@ export class TwitchyBaby extends Baby {
     }
 
     if (v.run.fireDelayIncreasing) {
-      v.run.fireDelayModifier++;
+      v.run.fireDelayModifier += STAT_CHANGE_AMOUNT;
       if (v.run.fireDelayModifier >= MAX_FIRE_DELAY_MODIFIER) {
         v.run.fireDelayIncreasing = false;
       }
     } else {
-      v.run.fireDelayModifier--;
+      v.run.fireDelayModifier -= STAT_CHANGE_AMOUNT;
       if (v.run.fireDelayModifier <= MIN_FIRE_DELAY_MODIFIER) {
         v.run.fireDelayIncreasing = true;
       }

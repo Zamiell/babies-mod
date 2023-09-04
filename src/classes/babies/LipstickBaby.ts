@@ -9,6 +9,7 @@ import {
 import { Baby } from "../Baby";
 
 const GAME_FRAMES_BETWEEN_STAT_CHANGE = 2 * GAME_FRAMES_PER_SECOND;
+const STAT_CHANGE_AMOUNT = 1;
 const MIN_RANGE_MODIFIER = -4;
 const MAX_RANGE_MODIFIER = 6;
 
@@ -31,12 +32,12 @@ export class LipstickBaby extends Baby {
     }
 
     if (v.run.rangeIncreasing) {
-      v.run.rangeModifier++;
+      v.run.rangeModifier += STAT_CHANGE_AMOUNT;
       if (v.run.rangeModifier >= MAX_RANGE_MODIFIER) {
         v.run.rangeIncreasing = false;
       }
     } else {
-      v.run.rangeModifier--;
+      v.run.rangeModifier -= STAT_CHANGE_AMOUNT;
       if (v.run.rangeModifier <= MIN_RANGE_MODIFIER) {
         v.run.rangeIncreasing = true;
       }
