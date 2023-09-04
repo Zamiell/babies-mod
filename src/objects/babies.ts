@@ -652,6 +652,7 @@ export const BABIES = {
     sprite: "073_baby_lowface.png",
     item: CollectibleType.BOOK_OF_VIRTUES,
     item2: CollectibleType.UNICORN_STUMP,
+    class: bc.LowfaceBaby,
   },
 
   // 74
@@ -4570,6 +4571,7 @@ export const BABIES = {
     description: "Starts with Book of Virtues",
     sprite: "064_baby_wisp.png",
     item: CollectibleType.BOOK_OF_VIRTUES,
+    class: bc.WispBaby2,
   },
 
   // 527
