@@ -37,6 +37,7 @@ export class BlistersBaby extends Baby {
       CollectibleType.MOMS_KNIFE, // 114
       CollectibleType.BRIMSTONE, // 118
       CollectibleType.EPIC_FETUS, // 168
+      CollectibleType.SPIRIT_SWORD, // 579
     );
   }
 
