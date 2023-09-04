@@ -2078,7 +2078,7 @@ export const BABIES = {
   // 240
   [RandomBabyType.BLISTERS]: {
     name: "Blisters Baby",
-    description: "Low shot speed",
+    description: "Shot Speed oscillates",
     sprite: "240_baby_blisters.png",
     requireTears: true,
     class: bc.BlistersBaby,
