@@ -2,10 +2,13 @@ import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
 import {
   Callback,
   CallbackCustom,
+  GAME_FRAMES_PER_SECOND,
   ModCallbackCustom,
+  game,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
+const GAME_FRAMES_BETWEEN_STAT_CHANGE = 2 * GAME_FRAMES_PER_SECOND;
 const MIN_FIRE_DELAY_MODIFIER = -4;
 const MAX_FIRE_DELAY_MODIFIER = 4;
 
@@ -16,22 +19,16 @@ const v = {
   },
 };
 
-/** Tear rate oscillates per room. */
+/** Tear rate oscillates. */
 export class TwitchyBaby extends Baby {
   v = v;
 
-  /** Start with the default tears. */
-  override onAdd(): void {
-    v.run.fireDelayIncreasing = false;
-
-    // This will tick to 0 in the starting room and then to -1 in the first battle room (which
-    // corresponds to the tear stat increasing for the first time in the first battle room).
-    v.run.fireDelayModifier = 1;
-  }
-
-  @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
-  postNewRoomReordered(): void {
-    const player = Isaac.GetPlayer();
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
+    const gameFrameCount = game.GetFrameCount();
+    if (gameFrameCount % GAME_FRAMES_BETWEEN_STAT_CHANGE !== 0) {
+      return;
+    }
 
     if (v.run.fireDelayIncreasing) {
       v.run.fireDelayModifier++;

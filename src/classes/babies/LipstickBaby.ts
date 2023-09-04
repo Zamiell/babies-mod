@@ -2,55 +2,56 @@ import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
 import {
   Callback,
   CallbackCustom,
+  GAME_FRAMES_PER_SECOND,
   ModCallbackCustom,
   game,
+  getDefaultPlayerStat,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
-/** Range oscillates per room. */
+const GAME_FRAMES_BETWEEN_STAT_CHANGE = 2 * GAME_FRAMES_PER_SECOND;
+const MIN_RANGE_MODIFIER = -4;
+const MAX_RANGE_MODIFIER = 6;
+
+const v = {
+  run: {
+    rangeIncreasing: true,
+    rangeModifier: 0,
+  },
+};
+
+/** Range oscillates. */
 export class LipstickBaby extends Baby {
-  /** Start with the shortest range and mark to update them on this frame. */
-  override onAdd(): void {
-    const max = this.getAttribute("max");
+  v = v;
 
-    g.run.babyCounters = max;
-    g.run.babyFrame = game.GetFrameCount();
-  }
-
-  // 1
-  @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
-  postNewRoomReordered(): void {
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
     const gameFrameCount = game.GetFrameCount();
-    const player = Isaac.GetPlayer();
-    const num = this.getAttribute("num");
-    const max = this.getAttribute("max");
-    const min = this.getAttribute("min");
-
-    if (gameFrameCount >= g.run.babyFrame) {
-      g.run.babyFrame += num;
-      if (g.run.babyBool) {
-        // Range is increasing.
-        g.run.babyCounters++;
-        if (g.run.babyCounters === max) {
-          g.run.babyBool = false;
-        }
-      } else {
-        // Range is decreasing.
-        g.run.babyCounters--;
-        if (g.run.babyCounters === min) {
-          g.run.babyBool = true;
-        }
-      }
-
-      player.AddCacheFlags(CacheFlag.FIRE_DELAY);
-      player.EvaluateItems();
+    if (gameFrameCount % GAME_FRAMES_BETWEEN_STAT_CHANGE !== 0) {
+      return;
     }
+
+    if (v.run.rangeIncreasing) {
+      v.run.rangeModifier++;
+      if (v.run.rangeModifier >= MAX_RANGE_MODIFIER) {
+        v.run.rangeIncreasing = false;
+      }
+    } else {
+      v.run.rangeModifier--;
+      if (v.run.rangeModifier <= MIN_RANGE_MODIFIER) {
+        v.run.rangeIncreasing = true;
+      }
+    }
+
+    player.AddCacheFlags(CacheFlag.RANGE);
+    player.EvaluateItems();
   }
 
   // 8
   @Callback(ModCallback.EVALUATE_CACHE, CacheFlag.RANGE)
   evaluateCacheRange(player: EntityPlayer): void {
-    player.TearRange += g.run.babyCounters;
+    player.TearRange += v.run.rangeModifier;
   }
 }
+
+Isaac.DebugString(`GETTING HERE - ${getDefaultPlayerStat(CacheFlag.RANGE)}`);

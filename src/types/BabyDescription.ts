@@ -23,8 +23,6 @@ export interface BabyDescription {
   readonly trinket?: TrinketType;
   readonly goldenBomb?: boolean;
   readonly num?: int;
-  readonly max?: int;
-  readonly min?: int;
   readonly seed?: SeedEffect;
   readonly softlockPreventionDestroyPoops?: boolean;
   readonly softlockPreventionIsland?: boolean;
