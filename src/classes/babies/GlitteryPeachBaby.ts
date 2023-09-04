@@ -4,6 +4,7 @@ import {
   ModCallbackCustom,
   levelHasRoomType,
   onStage,
+  useCardTemp,
 } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
@@ -26,7 +27,7 @@ export class GlitteryPeachBaby extends Baby {
     if (g.run.babyCounters === numHits) {
       // We only do the ability once per floor.
       g.run.babyBool = true;
-      player.UseCard(CardType.EMPEROR);
+      useCardTemp(player, CardType.EMPEROR);
     }
 
     return undefined;

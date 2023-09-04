@@ -1,5 +1,10 @@
 import { CardType, LevelStage } from "isaac-typescript-definitions";
-import { CallbackCustom, ModCallbackCustom, onStage } from "isaacscript-common";
+import {
+  CallbackCustom,
+  ModCallbackCustom,
+  onStage,
+  useCardTemp,
+} from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Teleport to starting room on hit. */
@@ -15,7 +20,7 @@ export class RottenMeatBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    player.UseCard(CardType.FOOL);
+    useCardTemp(player, CardType.FOOL);
 
     return undefined;
   }

@@ -9,6 +9,7 @@ import {
   KeySubType,
   ModCallback,
   PickupVariant,
+  PillColor,
   PoopGridEntityVariant,
 } from "isaac-typescript-definitions";
 import {
@@ -19,10 +20,17 @@ import {
   getGoldenTrinketType,
   isChestVariant,
   isGoldenTrinketType,
+  isHorsePill,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
-/** Gold gear + gold pickups + gold poops + gold rooms. */
+/**
+ * Gold gear + gold pickups + gold poops + gold rooms.
+ *
+ * For pickup replacement, we do not use the `PRE_ENTITY_SPAWN` callback because that does not work
+ * properly for random pickups that are part of the room layout (as demonstrated on seed 61RT H2V3
+ * by walking down from the starting room).
+ */
 export class GoldBaby extends Baby {
   override onAdd(player: EntityPlayer): void {
     player.AddGoldenHearts(12);
@@ -123,6 +131,28 @@ export class GoldBaby extends Baby {
     }
 
     return undefined;
+  }
+
+  @CallbackCustom(
+    ModCallbackCustom.PRE_ENTITY_SPAWN_FILTER,
+    EntityType.PICKUP,
+    PickupVariant.PILL,
+  )
+  preEntitySpawnPill(
+    entityType: EntityType,
+    variant: int,
+    subType: int,
+    _position: Vector,
+    _velocity: Vector,
+    _spawner: Entity | undefined,
+    initSeed: Seed,
+  ): [EntityType, int, int, int] | undefined {
+    const pillColor = subType as PillColor;
+    const goldPillColor = isHorsePill(pillColor)
+      ? PillColor.HORSE_GOLD
+      : PillColor.GOLD;
+
+    return [entityType, variant, goldPillColor, initSeed];
   }
 
   @CallbackCustom(

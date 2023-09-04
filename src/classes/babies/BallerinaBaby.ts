@@ -1,5 +1,9 @@
 import { CardType } from "isaac-typescript-definitions";
-import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
+import {
+  CallbackCustom,
+  ModCallbackCustom,
+  useCardTemp,
+} from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
@@ -12,7 +16,7 @@ export class BallerinaBaby extends Baby {
     g.run.babyCounters++;
     if (g.run.babyCounters === numHits) {
       g.run.babyCounters = 0;
-      player.UseCard(CardType.REVERSE_JUDGEMENT);
+      useCardTemp(player, CardType.REVERSE_JUDGEMENT);
     }
 
     return undefined;

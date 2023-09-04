@@ -3,17 +3,16 @@ import {
   CardType,
   CollectibleType,
   RoomType,
-  UseFlag,
 } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   ModCallbackCustom,
-  addFlag,
   closeDoorFast,
   game,
   getDoors,
   levelHasRoomType,
   repeat,
+  useCardTemp,
 } from "isaacscript-common";
 import { g } from "../../globals";
 import { mod } from "../../mod";
@@ -37,8 +36,7 @@ export class BloodiedBaby extends Baby {
       doorStateMap.set(door.TargetRoomIndex, door.State);
     }
 
-    const useFlags = addFlag(UseFlag.NO_ANIMATION, UseFlag.NO_ANNOUNCER_VOICE);
-    player.UseCard(CardType.SOUL_CAIN, useFlags);
+    useCardTemp(player, CardType.SOUL_CAIN);
 
     if (roomClear) {
       return;

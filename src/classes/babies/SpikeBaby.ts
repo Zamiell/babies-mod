@@ -1,26 +1,23 @@
 import {
-  BombSubType,
   ChestSubType,
   CollectibleType,
   EntityType,
   LevelStage,
+  ModCallback,
   PickupVariant,
   TrinketType,
 } from "isaac-typescript-definitions";
 import {
+  Callback,
   CallbackCustom,
   ModCallbackCustom,
-  game,
-  getBombPickups,
-  isChestVariant,
+  getPickups,
+  isChest,
   onStage,
   removeEntities,
+  spawnCollectibleUnsafe,
 } from "isaacscript-common";
-import { mod } from "../../mod";
 import { Baby } from "../Baby";
-
-/** Hard-coding this makes it easier to clean up the pickups afterwards. */
-const SPIKED_CHEST_SEED_THAT_SPAWNS_TWO_BOMBS = 12 as Seed;
 
 /** All chests are Mimics + all chests have items. */
 export class SpikeBaby extends Baby {
@@ -33,42 +30,35 @@ export class SpikeBaby extends Baby {
     );
   }
 
-  /** Replace all chests with Mimics. */
-  @CallbackCustom(ModCallbackCustom.PRE_ENTITY_SPAWN_FILTER, EntityType.PICKUP)
-  preEntitySpawnPickup(
-    entityType: EntityType,
-    variant: int,
-    _subType: int,
-    _position: Vector,
-    _velocity: Vector,
-    _spawner: Entity | undefined,
-    _initSeed: Seed,
-  ): [EntityType, int, int, int] | undefined {
-    const pickupVariant = variant as PickupVariant;
-
+  /**
+   * Replace all chests with Mimics. (We do not use the `PRE_ENTITY_SPAWN` callback because that
+   * does not work properly for random pickups that are part of the room layout (as demonstrated on
+   * seed 61RT H2V3 by walking down from the starting room).
+   */
+  // 34
+  @Callback(ModCallback.POST_PICKUP_INIT)
+  postPickupInitChest(pickup: EntityPickup): void {
     // Even though it is impossible to get this baby on The Chest (see the `isValid` method above),
     // we need to check for the stage because otherwise, when the player goes from Cathedral to The
     // Chest, the four chests in the starting room will be replaced with Spike Chests before the
     // ability can be taken away.
     if (onStage(LevelStage.DARK_ROOM_CHEST)) {
-      return undefined;
+      return;
     }
 
-    // This check includes Spiked Chests because we need to respawn Spiked Chests to have a specific
-    // seed.
-    if (isChestVariant(pickupVariant)) {
-      return [
-        entityType,
+    if (pickup.Variant !== PickupVariant.MIMIC_CHEST && !isChest(pickup)) {
+      pickup.Morph(
+        EntityType.PICKUP,
         PickupVariant.MIMIC_CHEST,
         ChestSubType.CLOSED,
-        SPIKED_CHEST_SEED_THAT_SPAWNS_TWO_BOMBS,
-      ];
+        undefined,
+        true,
+        true,
+      );
     }
-
-    return undefined;
   }
 
-  /** Replace the contents of the Spiked Chests with collectibles. */
+  /** Replace the contents of Spiked Chests with collectibles. */
   @CallbackCustom(
     ModCallbackCustom.POST_PICKUP_UPDATE_FILTER,
     PickupVariant.SPIKED_CHEST,
@@ -78,24 +68,19 @@ export class SpikeBaby extends Baby {
     // Remove the spiked chest.
     pickup.Remove();
 
-    // All spiked chests have a specific seed that results in 2 normal bomb pickups. We have to
-    // manually remove them before spawning the random collectible.
-    const bombPickups = getBombPickups();
-
     // Unfortunately, unlike sacks, Spiked Chest contents do not have the `SpawnerEntity` properly
-    // set. Thus, we instead detect the contents by finding bombs on frame 1. (At this point, the
-    // spawned bombs have already ticked from frame 0 to frame 1.)
-    const bombsFromSpikedChest = bombPickups.filter(
-      (bombPickup) =>
-        bombPickup.SubType === BombSubType.NORMAL &&
-        bombPickup.FrameCount === 1,
+    // set. Thus, we instead detect the contents by finding pickups on frame 1. (At this point, the
+    // spawned pickups have already ticked from frame 0 to frame 1.)
+    const pickups = getPickups();
+    const pickupsFromSpikedChest = pickups.filter(
+      (possiblePickup) => possiblePickup.FrameCount === 1,
     );
-    removeEntities(bombsFromSpikedChest);
+    removeEntities(pickupsFromSpikedChest);
 
-    // We can't use the Spiked Chest's init seed because it is always hard-coded to a specific
-    // value.
-    const room = game.GetRoom();
-    const roomSeed = room.GetAwardSeed();
-    mod.spawnCollectible(CollectibleType.NULL, pickup.Position, roomSeed);
+    spawnCollectibleUnsafe(
+      CollectibleType.NULL,
+      pickup.Position,
+      pickup.InitSeed,
+    );
   }
 }

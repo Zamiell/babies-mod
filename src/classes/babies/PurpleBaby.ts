@@ -17,9 +17,11 @@ export class PurpleBaby extends Baby {
     _spawner: Entity | undefined,
     initSeed: Seed,
   ): [EntityType, int, int, int] | undefined {
+    const fireplaceVariant = variant as FireplaceVariant;
+
     if (
-      variant !== (FireplaceVariant.BLUE as int) &&
-      variant !== (FireplaceVariant.WHITE as int)
+      fireplaceVariant !== FireplaceVariant.BLUE &&
+      fireplaceVariant !== FireplaceVariant.WHITE
     ) {
       return [entityType, FireplaceVariant.BLUE, subType, initSeed];
     }

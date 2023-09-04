@@ -1566,9 +1566,9 @@ __metadata:
   resolution: "babies-mod@workspace:."
   dependencies:
     "@types/node": ^20.5.9
-    isaac-typescript-definitions: ^13.0.35
+    isaac-typescript-definitions: ^13.0.36
     isaacscript: ^3.10.1
-    isaacscript-common: ^31.10.1
+    isaacscript-common: ^31.11.1
     isaacscript-lint: ^5.8.5
     isaacscript-spell: ^1.2.41
     isaacscript-tsconfig: ^4.0.0
@@ -3874,12 +3874,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isaac-typescript-definitions@npm:^13.0.35":
-  version: 13.0.35
-  resolution: "isaac-typescript-definitions@npm:13.0.35"
+"isaac-typescript-definitions@npm:^13.0.36":
+  version: 13.0.36
+  resolution: "isaac-typescript-definitions@npm:13.0.36"
   dependencies:
     lua-types: ^2.13.1
-  checksum: 8456503dd62732bcec21e197da81f4ae1bee9243e55718e34dd61b01915c8aba555944b6e820a1a19b5ef1ef8c4298edcc01a191bf5a7c0deea8ae1f20935df4
+  checksum: de846584a1751bfa94aa940cf9e452db38759b02a4a39e1b32e20c3ccbac1ee6ecb2f6497e969b3eded939eab80c231a7d9075429df6e6647cc9a7c7934cc194
   languageName: node
   linkType: hard
 
@@ -3890,12 +3890,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isaacscript-common@npm:^31.10.1":
-  version: 31.10.1
-  resolution: "isaacscript-common@npm:31.10.1"
+"isaacscript-common@npm:^31.11.1":
+  version: 31.11.1
+  resolution: "isaacscript-common@npm:31.11.1"
   dependencies:
-    isaac-typescript-definitions: ^13.0.35
-  checksum: 00613a99a769eebce30b5fd1eb6c985f5a52c1504f65eb724c4f6cba74633a7cf432782cd42de038e9718e53d4a624cf67c2cbe6d9273a8776588559b7200921
+    isaac-typescript-definitions: ^13.0.36
+  checksum: bfe0e3108c4a098e44c15d6abac7686982d2a731beb0083702b2807b6f706920a13346113da807da95a61c1c73ff648f3eca0e8d28f6325fd7ba9bf6176ab7c6
   languageName: node
   linkType: hard
 
