@@ -11,7 +11,7 @@ import {
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
-const AZAZEL_ANTISYNERGIES = [
+const AZAZEL_ANTI_SYNERGIES = [
   CollectibleType.DR_FETUS, // 52
   CollectibleType.MOMS_KNIFE, // 114
   CollectibleType.EPIC_FETUS, // 168
@@ -31,7 +31,7 @@ export class BelialBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
     return (
       !player.HasCollectible(CollectibleType.MEGA_BLAST) &&
-      !hasCollectible(player, ...AZAZEL_ANTISYNERGIES)
+      !hasCollectible(player, ...AZAZEL_ANTI_SYNERGIES)
     );
   }
 
