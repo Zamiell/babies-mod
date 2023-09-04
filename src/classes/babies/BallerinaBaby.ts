@@ -1,9 +1,5 @@
-import {
-  CallbackCustom,
-  ModCallbackCustom,
-  useActiveItemTemp,
-} from "isaacscript-common";
-import { CollectibleTypeCustom } from "../../enums/CollectibleTypeCustom";
+import { CardType } from "isaac-typescript-definitions";
+import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
@@ -16,7 +12,7 @@ export class BallerinaBaby extends Baby {
     g.run.babyCounters++;
     if (g.run.babyCounters === numHits) {
       g.run.babyCounters = 0;
-      useActiveItemTemp(player, CollectibleTypeCustom.CLOCKWORK_ASSEMBLY);
+      player.UseCard(CardType.REVERSE_JUDGEMENT);
     }
 
     return undefined;
