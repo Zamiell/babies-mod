@@ -150,7 +150,7 @@ export const BABIES = {
   // 15
   [RandomBabyType.GOLD]: {
     name: "Gold Baby",
-    description: "Gold gear + gold poops + gold rooms",
+    description: "Gold gear + gold pickups + gold poops + gold rooms",
     sprite: "015_baby_gold.png",
     class: bc.GoldBaby,
   },
