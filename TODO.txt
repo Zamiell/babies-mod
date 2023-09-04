@@ -31,7 +31,6 @@ Potential new effects:
 - Spawn every type of machine in the starting room
 - Spawns a golden troll bomb in every room
 - Starts with Cursed Penny
-- Starts with 10 Cube Baby + Ice Cube
 - Starts with 5 Fruity plum + Baby-Bender + Forgotten Lullaby + Blindfolded
 - Glowing Hourglass effect on 2nd hit (per room)
 
