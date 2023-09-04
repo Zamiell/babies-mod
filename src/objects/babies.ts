@@ -348,9 +348,11 @@ export const BABIES = {
   // 38
   [RandomBabyType.BROWN]: {
     name: "Brown Baby",
-    description: "Starts with Dirty Mind + spawns a poop per enemy killed",
+    description:
+      "Starts with Dirty Mind + Dingle Berry + spawns a poop per enemy killed",
     sprite: "038_baby_brown.png",
     item: CollectibleType.DIRTY_MIND,
+    trinket: TrinketType.DINGLE_BERRY,
     class: bc.BrownBaby,
   },
 
