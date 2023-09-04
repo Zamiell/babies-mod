@@ -56,7 +56,6 @@ List of boring babies:
 - Black Knight Baby (#427) - Starts with Black Hole (We already have a Black Hole every X tears baby, we should try to reduce the number of babies with an active item)
 - Tired Baby (#443) - 1 Bum Friend is actually better than 5 since each bum friend require several coins to payout. 1 Bum Friend require 6 coins to drop the first pickup. Rewards are the same than Lil Chest rewards + items from Beggar item pool which is mostly HP ups and they can eat lucky coins without granting the luck up, let's just change this one
 - Beanie Baby (#465) - Change Smelter to Marbles ?
-- Burning Baby (#467) - Starts with Fire Mind (We already have Fire Mind + 13 luck, I suggest A Lighter + 40 Luck + Vasculitis (Vasculitis projectiles are in fire when the enemy is dead while burning))
 - Cursor Baby (#468) - Starts with Pause!
 - Tooth Baby (#478) - Starts with Black Tooth
 - Thirteenth Baby (#533) - Starts with Modeling Clay

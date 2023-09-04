@@ -50,6 +50,7 @@ export { BrownieBaby } from "./babies/BrownieBaby";
 export { BubblesBaby } from "./babies/BubblesBaby";
 export { BuddyBaby } from "./babies/BuddyBaby";
 export { BugeyedBaby } from "./babies/BugeyedBaby";
+export { BurningBaby } from "./babies/BurningBaby";
 export { ButtBaby } from "./babies/ButtBaby";
 export { ButterflyBaby } from "./babies/ButterflyBaby";
 export { ButterflyBaby2 } from "./babies/ButterflyBaby2";

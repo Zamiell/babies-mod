@@ -4061,9 +4061,11 @@ export const BABIES = {
   // 467
   [RandomBabyType.BURNING]: {
     name: "Burning Baby",
-    description: "Starts with Fire Mind",
+    description: "Starts with Vasculitis + A Lighter + 40 Luck",
     sprite: "467_baby_burning.png",
-    item: CollectibleType.FIRE_MIND,
+    item: CollectibleType.VASCULITIS,
+    trinket: TrinketType.LIGHTER,
+    class: bc.BurningBaby,
   },
 
   // 468
