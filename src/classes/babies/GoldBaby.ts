@@ -1,5 +1,6 @@
 import type { EntityType } from "isaac-typescript-definitions";
 import {
+  BatterySubType,
   BombSubType,
   BombVariant,
   ChestSubType,
@@ -51,6 +52,7 @@ export class GoldBaby extends Baby {
         ChestSubType.CLOSED,
         true,
         true,
+        true,
       );
     }
   }
@@ -91,7 +93,14 @@ export class GoldBaby extends Baby {
     const heart = pickup as EntityPickupHeart;
 
     if (heart.SubType !== HeartSubType.GOLDEN) {
-      heart.Morph(heart.Type, heart.Variant, HeartSubType.GOLDEN, true, true);
+      heart.Morph(
+        heart.Type,
+        heart.Variant,
+        HeartSubType.GOLDEN,
+        true,
+        true,
+        true,
+      );
     }
   }
 
@@ -101,7 +110,7 @@ export class GoldBaby extends Baby {
     const coin = pickup as EntityPickupCoin;
 
     if (coin.SubType !== CoinSubType.GOLDEN) {
-      coin.Morph(coin.Type, coin.Variant, CoinSubType.GOLDEN, true, true);
+      coin.Morph(coin.Type, coin.Variant, CoinSubType.GOLDEN, true, true, true);
     }
   }
 
@@ -111,7 +120,7 @@ export class GoldBaby extends Baby {
     const key = pickup as EntityPickupKey;
 
     if (key.SubType !== KeySubType.GOLDEN) {
-      key.Morph(key.Type, key.Variant, KeySubType.GOLDEN, true, true);
+      key.Morph(key.Type, key.Variant, KeySubType.GOLDEN, true, true, true);
     }
   }
 
@@ -121,7 +130,7 @@ export class GoldBaby extends Baby {
     const bomb = pickup as EntityPickupBomb;
 
     if (bomb.SubType !== BombSubType.GOLDEN) {
-      bomb.Morph(bomb.Type, bomb.Variant, BombSubType.GOLDEN, true, true);
+      bomb.Morph(bomb.Type, bomb.Variant, BombSubType.GOLDEN, true, true, true);
     }
   }
 
@@ -134,7 +143,27 @@ export class GoldBaby extends Baby {
       : PillColor.GOLD;
 
     if (pill.SubType !== goldPillColor) {
-      pill.Morph(pill.Type, pill.Variant, goldPillColor, true, true);
+      pill.Morph(pill.Type, pill.Variant, goldPillColor, true, true, true);
+    }
+  }
+
+  // 70
+  @CallbackCustom(
+    ModCallbackCustom.POST_PICKUP_INIT_FILTER,
+    PickupVariant.LIL_BATTERY,
+  )
+  postPickupInitBattery(pickup: EntityPickup): void {
+    const battery = pickup as EntityPickupBattery;
+
+    if (battery.SubType !== BatterySubType.GOLDEN) {
+      battery.Morph(
+        battery.Type,
+        battery.Variant,
+        BatterySubType.GOLDEN,
+        true,
+        true,
+        true,
+      );
     }
   }
 
@@ -152,6 +181,7 @@ export class GoldBaby extends Baby {
         trinket.Type,
         trinket.Variant,
         goldenTrinketType,
+        true,
         true,
         true,
       );
