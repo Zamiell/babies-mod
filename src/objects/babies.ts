@@ -3285,7 +3285,7 @@ export const BABIES = {
   // 378
   [RandomBabyType.DARK_ELF]: {
     name: "Dark Elf Baby",
-    description: "Starts with Bone spurs + Polished Bone",
+    description: "Starts with Bone Spurs + Polished Bone",
     sprite: "378_baby_darkelf.png",
     item: CollectibleType.BONE_SPURS,
     trinket: TrinketType.POLISHED_BONE,
