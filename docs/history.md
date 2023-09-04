@@ -5,7 +5,9 @@
 
 ### _v1.7.0_ - February ?th, 2023 (Unreleased)
 
-- Fixed the bug where Spike Baby would not work properly. (Thanks SuperpaperChildy)
+- Fixed the bug where Spike Baby chests would not work properly. (Thanks SuperpaperChildy)
+- Fixed the bug where Spike Baby's ability would occur on The Chest / Dark Room. (Thanks SuperpaperChildy)
+- Fixed the bug where Shopkeeper baby would not work properly. (Thanks SuperpaperChildy)
 
 ### _v1.6.2_ - February 4th, 2023
 
