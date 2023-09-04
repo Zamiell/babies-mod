@@ -15,7 +15,7 @@
     "@types/node": "^20.5.9",
     "isaac-typescript-definitions": "^13.0.35",
     "isaacscript": "^3.10.1",
-    "isaacscript-common": "^31.10.0",
+    "isaacscript-common": "^31.10.1",
     "isaacscript-lint": "^5.8.5",
     "isaacscript-spell": "^1.2.41",
     "isaacscript-tsconfig": "^4.0.0",

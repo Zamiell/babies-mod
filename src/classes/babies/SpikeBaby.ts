@@ -3,6 +3,7 @@ import {
   ChestSubType,
   CollectibleType,
   EntityType,
+  LevelStage,
   PickupVariant,
   TrinketType,
 } from "isaac-typescript-definitions";
@@ -12,6 +13,7 @@ import {
   game,
   getBombPickups,
   isChestVariant,
+  onStage,
   removeEntities,
 } from "isaacscript-common";
 import { mod } from "../../mod";
@@ -23,7 +25,12 @@ const SPIKED_CHEST_SEED_THAT_SPAWNS_TWO_BOMBS = 12 as Seed;
 /** All chests are Mimics + all chests have items. */
 export class SpikeBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
-    return !player.HasTrinket(TrinketType.LEFT_HAND);
+    return (
+      !player.HasTrinket(TrinketType.LEFT_HAND) &&
+      // We don't want this to interfere with the free items from the starting room in The Chest /
+      // Dark Room.
+      !onStage(LevelStage.DARK_ROOM_CHEST)
+    );
   }
 
   /** Replace all chests with Mimics. */
@@ -38,6 +45,14 @@ export class SpikeBaby extends Baby {
     _initSeed: Seed,
   ): [EntityType, int, int, int] | undefined {
     const pickupVariant = variant as PickupVariant;
+
+    // Even though it is impossible to get this baby on The Chest (see the `isValid` method above),
+    // we need to check for the stage because otherwise, when the player goes from Cathedral to The
+    // Chest, the four chests in the starting room will be replaced with Spike Chests before the
+    // ability can be taken away.
+    if (onStage(LevelStage.DARK_ROOM_CHEST)) {
+      return undefined;
+    }
 
     // This check includes Spiked Chests because we need to respawn Spiked Chests to have a specific
     // seed.

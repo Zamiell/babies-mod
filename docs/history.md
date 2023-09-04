@@ -1,7 +1,11 @@
 # The Babies Mod Version History
 
-<!-- cspell:ignore cantgirl,Finalkids,Hispa,Kaethela,lenamek,Moucheron,Quipet,Sanio,sisuka -->
+<!-- cspell:ignore cantgirl,Finalkids,Hispa,Kaethela,lenamek,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy -->
 <!-- markdownlint-disable MD001 -->
+
+### _v1.7.0_ - February ?th, 2023 (Unreleased)
+
+- Fixed the bug where Spike Baby would not work properly. (Thanks SuperpaperChildy)
 
 ### _v1.6.2_ - February 4th, 2023
 
