@@ -1,9 +1,8 @@
-import type { TrinketType } from "isaac-typescript-definitions";
 import {
   BombSubType,
   BombVariant,
+  ChestSubType,
   CoinSubType,
-  EntityType,
   GridEntityType,
   HeartSubType,
   KeySubType,
@@ -18,9 +17,10 @@ import {
   ModCallbackCustom,
   game,
   getGoldenTrinketType,
-  isChestVariant,
+  isChest,
   isGoldenTrinketType,
   isHorsePill,
+  spawnBombWithSeed,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
@@ -38,138 +38,107 @@ export class GoldBaby extends Baby {
     player.AddGoldenKey();
   }
 
-  // 66
-  @Callback(ModCallback.GET_TRINKET)
-  getTrinket(trinketType: TrinketType, _rng: RNG): TrinketType | undefined {
-    return isGoldenTrinketType(trinketType)
-      ? undefined
-      : getGoldenTrinketType(trinketType);
+  // 34
+  @Callback(ModCallback.POST_PICKUP_INIT)
+  postPickupInit(pickup: EntityPickup): void {
+    if (isChest(pickup) && pickup.Variant !== PickupVariant.LOCKED_CHEST) {
+      pickup.Morph(
+        pickup.Type,
+        PickupVariant.LOCKED_CHEST,
+        ChestSubType.CLOSED,
+        true,
+        true,
+      );
+    }
   }
 
+  // 10
   @CallbackCustom(
-    ModCallbackCustom.PRE_ENTITY_SPAWN_FILTER,
-    EntityType.PICKUP,
+    ModCallbackCustom.POST_PICKUP_INIT_FILTER,
     PickupVariant.HEART,
   )
-  preEntitySpawnHeart(
-    entityType: EntityType,
-    variant: int,
-    _subType: int,
-    _position: Vector,
-    _velocity: Vector,
-    _spawner: Entity | undefined,
-    initSeed: Seed,
-  ): [EntityType, int, int, int] | undefined {
-    return [entityType, variant, HeartSubType.GOLDEN, initSeed];
-  }
+  postPickupInitHeart(pickup: EntityPickup): void {
+    const heart = pickup as EntityPickupHeart;
 
-  @CallbackCustom(
-    ModCallbackCustom.PRE_ENTITY_SPAWN_FILTER,
-    EntityType.PICKUP,
-    PickupVariant.COIN,
-  )
-  preEntitySpawnCoin(
-    entityType: EntityType,
-    variant: int,
-    _subType: int,
-    _position: Vector,
-    _velocity: Vector,
-    _spawner: Entity | undefined,
-    initSeed: Seed,
-  ): [EntityType, int, int, int] | undefined {
-    return [entityType, variant, CoinSubType.GOLDEN, initSeed];
-  }
-
-  @CallbackCustom(
-    ModCallbackCustom.PRE_ENTITY_SPAWN_FILTER,
-    EntityType.PICKUP,
-    PickupVariant.BOMB,
-  )
-  preEntitySpawnBomb(
-    entityType: EntityType,
-    variant: int,
-    _subType: int,
-    _position: Vector,
-    _velocity: Vector,
-    _spawner: Entity | undefined,
-    initSeed: Seed,
-  ): [EntityType, int, int, int] | undefined {
-    return [entityType, variant, BombSubType.GOLDEN, initSeed];
-  }
-
-  @CallbackCustom(
-    ModCallbackCustom.PRE_ENTITY_SPAWN_FILTER,
-    EntityType.PICKUP,
-    PickupVariant.KEY,
-  )
-  preEntitySpawnKey(
-    entityType: EntityType,
-    variant: int,
-    _subType: int,
-    _position: Vector,
-    _velocity: Vector,
-    _spawner: Entity | undefined,
-    initSeed: Seed,
-  ): [EntityType, int, int, int] | undefined {
-    return [entityType, variant, KeySubType.GOLDEN, initSeed];
-  }
-
-  @CallbackCustom(ModCallbackCustom.PRE_ENTITY_SPAWN_FILTER, EntityType.PICKUP)
-  preEntitySpawnChest(
-    entityType: EntityType,
-    variant: int,
-    _subType: int,
-    _position: Vector,
-    _velocity: Vector,
-    _spawner: Entity | undefined,
-    initSeed: Seed,
-  ): [EntityType, int, int, int] | undefined {
-    const pickupVariant = variant as PickupVariant;
-
-    if (isChestVariant(pickupVariant)) {
-      return [entityType, PickupVariant.LOCKED_CHEST, 0, initSeed];
+    if (heart.SubType !== HeartSubType.GOLDEN) {
+      heart.Morph(heart.Type, heart.Variant, HeartSubType.GOLDEN, true, true);
     }
-
-    return undefined;
   }
 
-  @CallbackCustom(
-    ModCallbackCustom.PRE_ENTITY_SPAWN_FILTER,
-    EntityType.PICKUP,
-    PickupVariant.PILL,
-  )
-  preEntitySpawnPill(
-    entityType: EntityType,
-    variant: int,
-    subType: int,
-    _position: Vector,
-    _velocity: Vector,
-    _spawner: Entity | undefined,
-    initSeed: Seed,
-  ): [EntityType, int, int, int] | undefined {
-    const pillColor = subType as PillColor;
-    const goldPillColor = isHorsePill(pillColor)
+  // 20
+  @CallbackCustom(ModCallbackCustom.POST_PICKUP_INIT_FILTER, PickupVariant.COIN)
+  postPickupInitCoin(pickup: EntityPickup): void {
+    const coin = pickup as EntityPickupCoin;
+
+    if (coin.SubType !== CoinSubType.GOLDEN) {
+      coin.Morph(coin.Type, coin.Variant, CoinSubType.GOLDEN, true, true);
+    }
+  }
+
+  // 30
+  @CallbackCustom(ModCallbackCustom.POST_PICKUP_INIT_FILTER, PickupVariant.KEY)
+  postPickupInitKey(pickup: EntityPickup): void {
+    const key = pickup as EntityPickupKey;
+
+    if (key.SubType !== KeySubType.GOLDEN) {
+      key.Morph(key.Type, key.Variant, KeySubType.GOLDEN, true, true);
+    }
+  }
+
+  // 40
+  @CallbackCustom(ModCallbackCustom.POST_PICKUP_INIT_FILTER, PickupVariant.BOMB)
+  postPickupInitBomb(pickup: EntityPickup): void {
+    const bomb = pickup as EntityPickupBomb;
+
+    if (bomb.SubType !== BombSubType.GOLDEN) {
+      bomb.Morph(bomb.Type, bomb.Variant, BombSubType.GOLDEN, true, true);
+    }
+  }
+
+  // 70
+  @CallbackCustom(ModCallbackCustom.POST_PICKUP_INIT_FILTER, PickupVariant.PILL)
+  postPickupInitPill(pickup: EntityPickup): void {
+    const pill = pickup as EntityPickupPill;
+    const goldPillColor = isHorsePill(pill.SubType)
       ? PillColor.HORSE_GOLD
       : PillColor.GOLD;
 
-    return [entityType, variant, goldPillColor, initSeed];
+    if (pill.SubType !== goldPillColor) {
+      pill.Morph(pill.Type, pill.Variant, goldPillColor, true, true);
+    }
   }
 
+  // 350
   @CallbackCustom(
-    ModCallbackCustom.PRE_ENTITY_SPAWN_FILTER,
-    EntityType.BOMB,
-    BombVariant.TROLL,
+    ModCallbackCustom.POST_PICKUP_INIT_FILTER,
+    PickupVariant.TRINKET,
   )
-  preEntitySpawnTrollBomb(
-    entityType: EntityType,
-    _variant: int,
-    _subType: int,
-    _position: Vector,
-    _velocity: Vector,
-    _spawner: Entity | undefined,
-    initSeed: Seed,
-  ): [EntityType, int, int, int] | undefined {
-    return [entityType, BombVariant.GOLDEN_TROLL, 0, initSeed];
+  postPickupInitTrinket(pickup: EntityPickup): void {
+    const trinket = pickup as EntityPickupTrinket;
+
+    if (!isGoldenTrinketType(trinket.SubType)) {
+      const goldenTrinketType = getGoldenTrinketType(trinket.SubType);
+      trinket.Morph(
+        trinket.Type,
+        trinket.Variant,
+        goldenTrinketType,
+        true,
+        true,
+      );
+    }
+  }
+
+  @CallbackCustom(ModCallbackCustom.POST_BOMB_INIT_FILTER, BombVariant.TROLL)
+  postBombInitTroll(bomb: EntityBomb): void {
+    if (bomb.Variant === BombVariant.TROLL) {
+      bomb.Remove();
+      spawnBombWithSeed(
+        BombVariant.GOLDEN_TROLL,
+        0,
+        bomb.Position,
+        bomb.InitSeed,
+      );
+    }
   }
 
   @CallbackCustom(
