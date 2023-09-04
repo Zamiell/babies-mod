@@ -4,7 +4,6 @@ TODO:
 - SaveDataManager
 - auto generate documentation from parsing babies.ts
 - use tainted blue baby poop from gamonymous suggestion
-- Fix Tear rate and range oscillates babies (#105 & #511)
 
 Babies to change:
 - Gold Baby : Add the fact that every pickup that spawns will always spawn in their golden variant (Gold key, gold bomb, golden troll bomb, golden heart, golden coin, golden chest, golden battery, golden trinkets and replace every cards, rune, pill by a golden pill)

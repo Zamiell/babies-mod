@@ -8,6 +8,7 @@
 - Fixed the bug where Spike Baby chests would not work properly. (Thanks SuperpaperChildy)
 - Fixed the bug where Spike Baby's ability would occur on The Chest / Dark Room. (Thanks SuperpaperChildy)
 - Fixed the bug where Shopkeeper baby would not work properly. (Thanks SuperpaperChildy)
+- Fixed the bug where Twitchy Baby would not work properly. (Thanks Gamonymous)
 
 ### _v1.6.2_ - February 4th, 2023
 

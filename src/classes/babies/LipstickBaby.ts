@@ -1,10 +1,15 @@
-import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
+import {
+  CacheFlag,
+  CollectibleType,
+  ModCallback,
+} from "isaac-typescript-definitions";
 import {
   Callback,
   CallbackCustom,
   GAME_FRAMES_PER_SECOND,
   ModCallbackCustom,
   game,
+  hasCollectible,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
@@ -23,6 +28,14 @@ const v = {
 /** Range oscillates. */
 export class LipstickBaby extends Baby {
   v = v;
+
+  override isValid(player: EntityPlayer): boolean {
+    return !hasCollectible(
+      player,
+      CollectibleType.BRIMSTONE, // 118
+      CollectibleType.TECH_X, // 395
+    );
+  }
 
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {
