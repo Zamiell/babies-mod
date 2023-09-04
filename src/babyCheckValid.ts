@@ -483,6 +483,13 @@ function checkStage(baby: BabyDescription): boolean {
   }
 
   if (
+    babyItemsSet.has(CollectibleType.VOODOO_HEAD) && // 599
+    !levelHasRoomType(RoomType.CURSE)
+  ) {
+    return false;
+  }
+
+  if (
     babyItemsSet.has(CollectibleType.VANISHING_TWIN) && // 697
     !levelHasRoomType(RoomType.BOSS) &&
     !onStageWithRandomBossCollectible() &&

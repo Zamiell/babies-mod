@@ -32,8 +32,10 @@ export class BlistersBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
     return !hasCollectible(
       player,
+      CollectibleType.TECHNOLOGY, // 68
+      CollectibleType.MOMS_KNIFE, // 114
       CollectibleType.BRIMSTONE, // 118
-      CollectibleType.TECH_X, // 395
+      CollectibleType.EPIC_FETUS, // 168
     );
   }
 
