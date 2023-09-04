@@ -190,6 +190,20 @@ export const C_SECTION_ANTI_SYNERGIES = [
   CollectibleType.NEPTUNUS, // 597
 ] as const;
 
+export const AZAZEL_ANTI_SYNERGIES = [
+  CollectibleType.DR_FETUS, // 52
+  CollectibleType.MOMS_KNIFE, // 114
+  CollectibleType.EPIC_FETUS, // 168
+  CollectibleType.CURSED_EYE, // 316
+  CollectibleType.GODHEAD, // 331
+  CollectibleType.DEAD_EYE, // 373
+  CollectibleType.KIDNEY_STONE, // 440
+  CollectibleType.HAEMOLACRIA, // 531
+  CollectibleType.TRISAGION, // 533
+  CollectibleType.SPIRIT_SWORD, // 579
+  CollectibleType.NEPTUNUS, // 597
+] as const;
+
 export const TRINKETS_THAT_SYNERGIZE_WITH_TEARS = new ReadonlySet([
   TrinketType.WIGGLE_WORM, // 10
   TrinketType.FLAT_WORM, // 12
