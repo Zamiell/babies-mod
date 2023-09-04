@@ -32,7 +32,9 @@ export class LipstickBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
     return !hasCollectible(
       player,
+      CollectibleType.TECHNOLOGY, // 68
       CollectibleType.BRIMSTONE, // 118
+      CollectibleType.LUDOVICO_TECHNIQUE, // 329
       CollectibleType.TECH_X, // 395
     );
   }

@@ -2078,9 +2078,8 @@ export const BABIES = {
   // 240
   [RandomBabyType.BLISTERS]: {
     name: "Blisters Baby",
-    description: "Low shot speed",
+    description: "Shot speed oscillates",
     sprite: "240_baby_blisters.png",
-    requireTears: true,
     class: bc.BlistersBaby,
   },
 
@@ -2777,10 +2776,10 @@ export const BABIES = {
   // 321
   [RandomBabyType.CUPCAKE]: {
     name: "Cupcake Baby",
-    description: "High shot speed",
+    description: "Starts with Voodoo Head + Flat File",
     sprite: "321_baby_cupcake.png",
-    requireTears: true,
-    class: bc.CupcakeBaby,
+    item: CollectibleType.VOODOO_HEAD,
+    trinket: TrinketType.FLAT_FILE,
   },
 
   // 322
