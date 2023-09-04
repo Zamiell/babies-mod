@@ -6,7 +6,13 @@
 ### _v1.7.0_ - February ?th, 2023 (Unreleased)
 
 - Changed the following babies:
+  - Crow Baby (#12) - Soul of Eve effect on hit
+  - Lowface Baby (#73) - Starts with Book of Virtues + Unicorn Stump
+  - Eyebrows Baby (#89) - Starts with 5x Guppy's Hair Ball + Blindfolded
+  - Lipstick Baby (#105) - Range oscillates
   - Tooth Baby (#478) - Starts with Black Tooth
+  - Thirteenth Baby (#533) - Starts with Modeling Clay
+  - Robo-Baby (#578) - Starts with Technology + 3x Robo-Baby
 - Thanks to Gamonymous for these new baby effects.
 - Fixed the bug where Spike Baby chests would not work properly. (Thanks SuperpaperChildy)
 - Fixed the bug where Spike Baby's ability would occur on The Chest / Dark Room. (Thanks SuperpaperChildy)

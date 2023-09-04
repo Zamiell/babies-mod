@@ -60,11 +60,11 @@ List of boring babies:
 - Cursor Baby (#468) - Starts with Pause!
 - Tooth Baby (#478) - Starts with Black Tooth
 - Thirteenth Baby (#533) - Starts with Modeling Clay
-- Robo-Baby (#578) - Starts with Technology
 
 List of hard babies:
 - Troll Baby (#6) - Spawns a Troll Bomb every 3 seconds
 - Noose Baby (#39) - Don't shoot when the timer reaches 0
+- Eyebrows Baby (#89) - Starts with 5x Guppy's Hair Ball + blindfolded
 - Hare Baby (#267) - Takes damage when standing still
 - Vomit Baby (#341) - Must stand still every 10 seconds
 - Orange Ghost Baby (#373) - Placed bombs are Mega Troll Bombs

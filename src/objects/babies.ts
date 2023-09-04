@@ -788,7 +788,7 @@ export const BABIES = {
   // 89
   [RandomBabyType.EYEBROWS]: {
     name: "Eyebrows Baby",
-    description: "Starts with 5x Guppy's Hair Ball + Blindfolded",
+    description: "Starts with 5x Guppy's Hair Ball + blindfolded",
     sprite: "089_baby_eyebrows.png",
     item: CollectibleType.GUPPYS_HAIRBALL,
     num: 5,
@@ -4999,9 +4999,11 @@ export const BABIES = {
   // 578
   [RandomBabyType.ROBO]: {
     name: "Robo-Baby", // CollectibleType.ROBO_BABY (95)
-    description: "Starts with Technology",
+    description: "Starts with Technology + 3x Robo-Baby",
     sprite: "familiar_shooters_06_robobaby.png",
-    item: CollectibleType.TECHNOLOGY,
+    item: CollectibleType.ROBO_BABY,
+    itemNum: 3,
+    item2: CollectibleType.TECHNOLOGY,
   },
 
   // 579
