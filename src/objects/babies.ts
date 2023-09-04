@@ -1387,8 +1387,9 @@ export const BABIES = {
     name: "Cracked Infamy Baby",
     description: "Starts with Dr. Fetus + Remote Detonator",
     sprite: "159_baby_crackedinfamy.png",
-    item: CollectibleType.DR_FETUS,
-    item2: CollectibleType.REMOTE_DETONATOR,
+    // The active item has to be on the first item slot for validation purposes.
+    item: CollectibleType.REMOTE_DETONATOR,
+    item2: CollectibleType.DR_FETUS,
   },
 
   // 160

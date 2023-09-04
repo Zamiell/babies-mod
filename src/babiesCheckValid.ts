@@ -91,7 +91,9 @@ function babiesCheckValidDuplicateItem() {
 
     if (
       "item2" in baby &&
-      getCollectibleItemType(baby.item2) === ItemType.ACTIVE
+      getCollectibleItemType(baby.item2) === ItemType.ACTIVE &&
+      // Make an exception for a Book of Virtues combo.
+      baby.item !== CollectibleType.BOOK_OF_VIRTUES
     ) {
       logBabyInvalid(baby, i, "has an active item in the second slot.");
     }
