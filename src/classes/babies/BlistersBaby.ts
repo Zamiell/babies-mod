@@ -30,7 +30,8 @@ export class BlistersBaby extends Baby {
   v = v;
 
   override isValid(player: EntityPlayer): boolean {
-    // This is not the same as having a tear build because we want to allow this baby on a Tech X build.
+    // This is not the same as having a tear build because we want to allow this baby on a Tech X
+    // build.
     return !hasCollectible(
       player,
       CollectibleType.TECHNOLOGY, // 68
