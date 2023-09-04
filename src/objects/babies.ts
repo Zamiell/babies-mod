@@ -3851,10 +3851,11 @@ export const BABIES = {
   // 443
   [RandomBabyType.TIRED]: {
     name: "Tired Baby",
-    description: "Starts with 5x Bum Friend",
+    description: "Starts with 10x Cube Baby + Ice Cube",
     sprite: "443_baby_tired.png",
-    item: CollectibleType.BUM_FRIEND,
-    itemNum: 5,
+    item: CollectibleType.CUBE_BABY,
+    itemNum: 10,
+    trinket: TrinketType.ICE_CUBE,
   },
 
   // 444

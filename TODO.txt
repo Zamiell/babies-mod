@@ -16,7 +16,6 @@ Babies to change:
 - Brown Baby : Add Dingle Berry
 - Dark Elf Baby : Change to "Starts with Polished bone"
 - Cubic Baby : Add Scatter Bombs
-- Lantern Baby : Since GodHead now deals fixed damage, it might be not very powerful, maybe add extra damage?
 - Tired Baby (#443) - 1 Bum Friend is actually better than 5 since each bum friend require several coins to payout. 1 Bum Friend require 6 coins to drop the first pickup. Rewards are the same than Lil Chest rewards + items from Beggar item pool which is mostly HP ups and they can eat lucky coins without granting the luck up, let's just change this one
 - Twotone Baby (#346) - Dataminer effect on room enter - stat changes would persist to the next floor
 
@@ -32,7 +31,6 @@ Potential new effects:
 - Spawn every type of machine in the starting room
 - Spawns a golden troll bomb in every room
 - Starts with Cursed Penny
-- Starts with 10 Cube Baby + Ice Cube
 - Starts with 5 Fruity plum + Baby-Bender + Forgotten Lullaby + Blindfolded
 - Glowing Hourglass effect on 2nd hit (per room)
 
