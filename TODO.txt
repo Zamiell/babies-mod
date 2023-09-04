@@ -4,6 +4,7 @@ TODO:
 - SaveDataManager
 - auto generate documentation from parsing babies.ts
 - use tainted blue baby poop from gamonymous suggestion
+- 10x intruder baby
 
 Babies to change:
 - Gold Baby : Add the fact that every pickup that spawns will always spawn in their golden variant (Gold key, gold bomb, golden troll bomb, golden heart, golden coin, golden chest, golden battery, golden trinkets and replace every cards, rune, pill by a golden pill)
@@ -57,9 +58,9 @@ List of boring babies:
 - Beanie Baby (#465) - Change Smelter to Marbles ?
 - Burning Baby (#467) - Starts with Fire Mind (We already have Fire Mind + 13 luck, I suggest A Lighter + 40 Luck + Vasculitis (Vasculitis projectiles are in fire when the enemy is dead while burning))
 - Cursor Baby (#468) - Starts with Pause!
-- Tooth Baby (#478) - Starts with Dead Tooth (Change it to Black Tooth ?)
+- Tooth Baby (#478) - Starts with Black Tooth
 - Thirteenth Baby (#533) - Starts with Modeling Clay
-- Robo-Baby (#578) - Since we already have a Tech + Tech 2 baby, maybe add 3 Robo-babies ? It would be different since it would grant Conjoined
+- Robo-Baby (#578) - Starts with Technology
 
 List of hard babies:
 - Troll Baby (#6) - Spawns a Troll Bomb every 3 seconds

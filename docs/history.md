@@ -5,6 +5,9 @@
 
 ### _v1.7.0_ - February ?th, 2023 (Unreleased)
 
+- Changed the following babies:
+  - Tooth Baby (#478) - Starts with Black Tooth
+- Thanks to Gamonymous for these new baby effects.
 - Fixed the bug where Spike Baby chests would not work properly. (Thanks SuperpaperChildy)
 - Fixed the bug where Spike Baby's ability would occur on The Chest / Dark Room. (Thanks SuperpaperChildy)
 - Fixed the bug where Shopkeeper baby would not work properly. (Thanks SuperpaperChildy)

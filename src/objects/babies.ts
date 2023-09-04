@@ -4151,9 +4151,9 @@ export const BABIES = {
   // 478
   [RandomBabyType.TOOTH]: {
     name: "Tooth Baby",
-    description: "Starts with Dead Tooth",
+    description: "Starts with Black Tooth",
     sprite: "478_baby_tooth.png",
-    item: CollectibleType.DEAD_TOOTH,
+    trinket: TrinketType.BLACK_TOOTH,
   },
 
   // 479
