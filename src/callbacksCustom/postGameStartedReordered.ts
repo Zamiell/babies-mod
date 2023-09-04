@@ -87,7 +87,7 @@ function main(isContinued: boolean) {
   g.run = new GlobalsRun(startSeed);
 
   // Also reset the list of past babies that have been chosen.
-  g.pastBabies = [];
+  g.pastBabies.clear();
 
   // Easter Eggs from babies are normally removed upon going to the next floor. We also have to
   // check to see if they reset the game while on a baby with a custom Easter Egg effect.

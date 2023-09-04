@@ -9,7 +9,7 @@ export class Globals {
    * A list of the babies that we have chosen so far on this run or multi-character custom
    * challenge.
    */
-  pastBabies: RandomBabyType[] = [];
+  pastBabies = new Set<RandomBabyType>();
 
   /** Used for testing specific babies. */
   debugBabyNum: RandomBabyType | undefined;

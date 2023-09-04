@@ -9,7 +9,6 @@ import {
 import type { AnyFunction } from "isaacscript-common";
 import {
   MAPPING_COLLECTIBLES,
-  ReadonlySet,
   getCollectibleItemType,
   getEffectiveStage,
   hasCollectible,
@@ -23,151 +22,24 @@ import {
   setHas,
 } from "isaacscript-common";
 import type { Baby } from "./classes/Baby";
+import {
+  BRIMSTONE_ANTI_SYNERGIES,
+  COLLECTIBLES_THAT_REMOVE_TEARS,
+  C_SECTION_ANTI_SYNERGIES,
+  DR_FETUS_ANTI_SYNERGIES,
+  EPIC_FETUS_ANTI_SYNERGIES,
+  LUDOVICO_TECHNIQUE_ANTI_SYNERGIES,
+  MOMS_KNIFE_ANTI_SYNERGIES,
+  SPIRIT_SWORD_ANTI_SYNERGIES,
+  TECHNOLOGY_ANTI_SYNERGIES,
+  TECH_X_ANTI_SYNERGIES,
+  TRINKETS_THAT_SYNERGIZE_WITH_TEARS,
+} from "./constants";
 import type { RandomBabyType } from "./enums/RandomBabyType";
 import { g } from "./globals";
 import { BABIES } from "./objects/babies";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 import type { BabyDescription } from "./types/BabyDescription";
-
-const DR_FETUS_ANTISYNERGIES = [
-  CollectibleType.NUMBER_ONE, // 6
-  CollectibleType.CHOCOLATE_MILK, // 69
-  CollectibleType.MOMS_KNIFE, // 114
-  CollectibleType.BRIMSTONE, // 118
-  CollectibleType.EPIC_FETUS, // 168
-  CollectibleType.ANTI_GRAVITY, // 222
-  CollectibleType.CURSED_EYE, // 316
-  CollectibleType.DEAD_EYE, // 373
-  CollectibleType.KIDNEY_STONE, // 440
-  CollectibleType.LEAD_PENCIL, // 444
-  CollectibleType.SINUS_INFECTION, // 459
-  CollectibleType.JACOBS_LADDER, // 494
-  CollectibleType.POP, // 529
-  CollectibleType.HAEMOLACRIA, // 531
-  CollectibleType.LACHRYPHAGY, // 532
-  CollectibleType.TRISAGION, // 533
-  CollectibleType.SPIRIT_SWORD, // 579
-  CollectibleType.NEPTUNUS, // 597
-  CollectibleType.PLUTO, // 598
-  CollectibleType.C_SECTION, // 678
-] as const;
-
-const TECHNOLOGY_ANTISYNERGIES = [
-  CollectibleType.DR_FETUS, // 52
-  CollectibleType.DEAD_EYE, // 373
-  CollectibleType.EYE_OF_BELIAL, // 462
-  CollectibleType.TECHNOLOGY_ZERO, // 524
-  CollectibleType.TRISAGION, // 533
-  CollectibleType.FLAT_STONE, // 540
-  CollectibleType.NEPTUNUS, // 597
-] as const;
-
-const MOMS_KNIFE_ANTISYNERGIES = [
-  CollectibleType.CHOCOLATE_MILK, // 69
-  CollectibleType.ANTI_GRAVITY, // 222
-  CollectibleType.CURSED_EYE, // 316
-  CollectibleType.DEAD_EYE, // 373
-  CollectibleType.KIDNEY_STONE, // 440
-  CollectibleType.SINUS_INFECTION, // 459
-  CollectibleType.EYE_OF_BELIAL, // 462
-  CollectibleType.TECHNOLOGY_ZERO, // 524
-  CollectibleType.LACHRYPHAGY, // 532
-  CollectibleType.TRISAGION, // 533
-  CollectibleType.NEPTUNUS, // 597
-] as const;
-
-const BRIMSTONE_ANTISYNERGIES = [
-  CollectibleType.CURSED_EYE, // 316
-  CollectibleType.DEAD_EYE, // 373
-  CollectibleType.KIDNEY_STONE, // 440
-  CollectibleType.EYE_OF_BELIAL, // 462
-  CollectibleType.TECHNOLOGY_ZERO, // 524
-  CollectibleType.TRISAGION, // 533
-  CollectibleType.FLAT_STONE, // 540
-  CollectibleType.SPIRIT_SWORD, // 579
-  CollectibleType.NEPTUNUS, // 597
-] as const;
-
-const EPIC_FETUS_ANTISYNERGIES = [
-  CollectibleType.CHOCOLATE_MILK, // 69
-  CollectibleType.PARASITE, // 104
-  CollectibleType.TECHNOLOGY_2, // 152
-  CollectibleType.ANTI_GRAVITY, // 222
-  CollectibleType.CURSED_EYE, // 316
-  CollectibleType.SOY_MILK, // 330
-  CollectibleType.DEAD_EYE, // 373
-  CollectibleType.KIDNEY_STONE, // 440
-  CollectibleType.SINUS_INFECTION, // 459
-  CollectibleType.EYE_OF_BELIAL, // 462
-  CollectibleType.JACOBS_LADDER, // 494
-  CollectibleType.TECHNOLOGY_ZERO, // 524
-  CollectibleType.TRISAGION, // 533
-  CollectibleType.FLAT_STONE, // 540
-  CollectibleType.SPIRIT_SWORD, // 579
-  CollectibleType.NEPTUNUS, // 597
-  CollectibleType.C_SECTION, // 678
-] as const;
-
-const LUDOVICO_TECHNIQUE_ANTISYNERGIES = [
-  CollectibleType.CHOCOLATE_MILK, // 69
-  CollectibleType.MOMS_KNIFE, // 114
-  CollectibleType.EPIC_FETUS, // 168
-  CollectibleType.CURSED_EYE, // 316
-  CollectibleType.TECH_X, // 395
-  CollectibleType.KIDNEY_STONE, // 440
-  CollectibleType.TECHNOLOGY_ZERO, // 524
-  CollectibleType.HAEMOLACRIA, // 531
-  CollectibleType.SPIRIT_SWORD, // 579
-  CollectibleType.NEPTUNUS, // 597
-  CollectibleType.C_SECTION, // 678
-] as const;
-
-const TECH_X_ANTISYNERGIES = [
-  CollectibleType.CHOCOLATE_MILK, // 69
-  CollectibleType.PARASITE, // 104
-  CollectibleType.ANTI_GRAVITY, // 222
-  CollectibleType.CURSED_EYE, // 316
-  CollectibleType.DEAD_EYE, // 373
-  CollectibleType.EYE_OF_BELIAL, // 462
-  CollectibleType.TECHNOLOGY_ZERO, // 524
-  CollectibleType.TRISAGION, // 533
-  CollectibleType.FLAT_STONE, // 540
-  CollectibleType.SPIRIT_SWORD, // 579
-  CollectibleType.NEPTUNUS, // 597
-] as const;
-
-const SPIRIT_SWORD_ANTISYNERGIES = [
-  CollectibleType.MONSTROS_LUNG, // 229
-  CollectibleType.CURSED_EYE, // 316
-  CollectibleType.KIDNEY_STONE, // 440
-  CollectibleType.TECHNOLOGY_ZERO, // 524
-  CollectibleType.NEPTUNUS, // 597
-] as const;
-
-const C_SECTION_ANTISYNERGIES = [
-  CollectibleType.CHOCOLATE_MILK, // 69
-  CollectibleType.MONSTROS_LUNG, // 229
-  CollectibleType.CURSED_EYE, // 316
-  CollectibleType.TRISAGION, // 533
-  CollectibleType.NEPTUNUS, // 597
-] as const;
-
-const TRINKETS_THAT_SYNERGIZE_WITH_TEARS = new ReadonlySet([
-  TrinketType.WIGGLE_WORM, // 10
-  TrinketType.FLAT_WORM, // 12
-  TrinketType.SUPER_MAGNET, // 68
-]);
-
-const COLLECTIBLES_THAT_REMOVE_TEARS = [
-  CollectibleType.DR_FETUS, // 52
-  CollectibleType.TECHNOLOGY, // 68
-  CollectibleType.MOMS_KNIFE, // 114
-  CollectibleType.BRIMSTONE, // 118
-  CollectibleType.EPIC_FETUS, // 168
-  CollectibleType.TECH_X, // 395
-  CollectibleType.SPIRIT_SWORD, // 579
-  CollectibleType.BERSERK, // 704
-] as const;
 
 export function babyCheckValid(
   player: EntityPlayer,
@@ -176,7 +48,7 @@ export function babyCheckValid(
   const baby = BABIES[babyType] as BabyDescription;
 
   // Check to see if we already got this baby in this run / multi-character custom challenge.
-  if (g.pastBabies.includes(babyType)) {
+  if (g.pastBabies.has(babyType)) {
     return false;
   }
 
@@ -191,10 +63,6 @@ export function babyCheckValid(
     return false;
   }
   if (baby.trinket !== undefined && player.HasTrinket(baby.trinket)) {
-    return false;
-  }
-
-  if (baby.requireTears === true && !playerHasTears(player)) {
     return false;
   }
 
@@ -321,26 +189,25 @@ function checkCollectibles(
   player: EntityPlayer,
   baby: BabyDescription,
 ): boolean {
-  const babyItemsSet = getBabyItemsSet(baby);
-
-  if (
-    (babyItemsSet.has(CollectibleType.COMPASS) || // 21
-      babyItemsSet.has(CollectibleType.TREASURE_MAP) || // 54
-      babyItemsSet.has(CollectibleType.BLUE_MAP)) && // 246
-    player.HasCollectible(CollectibleType.MIND) // 333
-  ) {
+  if (baby.requireTears === true && !playerHasTears(player)) {
     return false;
   }
+
+  const babyItemsSet = getBabyItemsSet(baby);
+
+  // --------------------------
+  // Array-based anti-synergies
+  // --------------------------
 
   if (
     babyItemsSet.has(CollectibleType.DR_FETUS) && // 52
-    hasCollectible(player, ...DR_FETUS_ANTISYNERGIES)
+    hasCollectible(player, ...DR_FETUS_ANTI_SYNERGIES)
   ) {
     return false;
   }
 
   if (
-    setHas(babyItemsSet, ...DR_FETUS_ANTISYNERGIES) &&
+    setHas(babyItemsSet, ...DR_FETUS_ANTI_SYNERGIES) &&
     player.HasCollectible(CollectibleType.DR_FETUS) // 52
   ) {
     return false;
@@ -348,13 +215,13 @@ function checkCollectibles(
 
   if (
     babyItemsSet.has(CollectibleType.TECHNOLOGY) && // 68
-    hasCollectible(player, ...TECHNOLOGY_ANTISYNERGIES)
+    hasCollectible(player, ...TECHNOLOGY_ANTI_SYNERGIES)
   ) {
     return false;
   }
 
   if (
-    setHas(babyItemsSet, ...TECHNOLOGY_ANTISYNERGIES) &&
+    setHas(babyItemsSet, ...TECHNOLOGY_ANTI_SYNERGIES) &&
     player.HasCollectible(CollectibleType.TECHNOLOGY) // 68
   ) {
     return false;
@@ -362,13 +229,13 @@ function checkCollectibles(
 
   if (
     babyItemsSet.has(CollectibleType.MOMS_KNIFE) && // 114
-    hasCollectible(player, ...MOMS_KNIFE_ANTISYNERGIES)
+    hasCollectible(player, ...MOMS_KNIFE_ANTI_SYNERGIES)
   ) {
     return false;
   }
 
   if (
-    setHas(babyItemsSet, ...MOMS_KNIFE_ANTISYNERGIES) &&
+    setHas(babyItemsSet, ...MOMS_KNIFE_ANTI_SYNERGIES) &&
     player.HasCollectible(CollectibleType.MOMS_KNIFE) // 114
   ) {
     return false;
@@ -376,13 +243,13 @@ function checkCollectibles(
 
   if (
     babyItemsSet.has(CollectibleType.BRIMSTONE) && // 118
-    hasCollectible(player, ...BRIMSTONE_ANTISYNERGIES)
+    hasCollectible(player, ...BRIMSTONE_ANTI_SYNERGIES)
   ) {
     return false;
   }
 
   if (
-    setHas(babyItemsSet, ...BRIMSTONE_ANTISYNERGIES) &&
+    setHas(babyItemsSet, ...BRIMSTONE_ANTI_SYNERGIES) &&
     player.HasCollectible(CollectibleType.BRIMSTONE) // 118
   ) {
     return false;
@@ -390,14 +257,83 @@ function checkCollectibles(
 
   if (
     babyItemsSet.has(CollectibleType.EPIC_FETUS) && // 168
-    hasCollectible(player, ...EPIC_FETUS_ANTISYNERGIES)
+    hasCollectible(player, ...EPIC_FETUS_ANTI_SYNERGIES)
   ) {
     return false;
   }
 
   if (
-    setHas(babyItemsSet, ...EPIC_FETUS_ANTISYNERGIES) &&
+    setHas(babyItemsSet, ...EPIC_FETUS_ANTI_SYNERGIES) &&
     player.HasCollectible(CollectibleType.EPIC_FETUS) // 168
+  ) {
+    return false;
+  }
+
+  if (
+    babyItemsSet.has(CollectibleType.LUDOVICO_TECHNIQUE) && // 329
+    hasCollectible(player, ...LUDOVICO_TECHNIQUE_ANTI_SYNERGIES)
+  ) {
+    return false;
+  }
+
+  if (
+    setHas(babyItemsSet, ...LUDOVICO_TECHNIQUE_ANTI_SYNERGIES) &&
+    player.HasCollectible(CollectibleType.LUDOVICO_TECHNIQUE) // 329
+  ) {
+    return false;
+  }
+
+  if (
+    babyItemsSet.has(CollectibleType.TECH_X) && // 395
+    hasCollectible(player, ...TECH_X_ANTI_SYNERGIES)
+  ) {
+    return false;
+  }
+
+  if (
+    setHas(babyItemsSet, ...TECH_X_ANTI_SYNERGIES) &&
+    player.HasCollectible(CollectibleType.TECH_X) // 395
+  ) {
+    return false;
+  }
+
+  if (
+    babyItemsSet.has(CollectibleType.SPIRIT_SWORD) && // 579
+    hasCollectible(player, ...SPIRIT_SWORD_ANTI_SYNERGIES)
+  ) {
+    return false;
+  }
+
+  if (
+    setHas(babyItemsSet, ...SPIRIT_SWORD_ANTI_SYNERGIES) &&
+    player.HasCollectible(CollectibleType.SPIRIT_SWORD) // 579
+  ) {
+    return false;
+  }
+
+  if (
+    babyItemsSet.has(CollectibleType.C_SECTION) && // 678
+    hasCollectible(player, ...C_SECTION_ANTI_SYNERGIES)
+  ) {
+    return false;
+  }
+
+  if (
+    setHas(babyItemsSet, ...C_SECTION_ANTI_SYNERGIES) &&
+    player.HasCollectible(CollectibleType.C_SECTION) // 678
+  ) {
+    return false;
+  }
+
+  // --------------------
+  // Other anti-synergies
+  // --------------------
+
+  if (
+    (babyItemsSet.has(CollectibleType.COMPASS) || // 21
+      babyItemsSet.has(CollectibleType.TREASURE_MAP) || // 54
+      babyItemsSet.has(CollectibleType.BLUE_MAP)) && // 246
+    player.HasCollectible(CollectibleType.MIND) // 333
   ) {
     return false;
   }
@@ -422,62 +358,6 @@ function checkCollectibles(
     babyItemsSet.has(CollectibleType.MONSTROS_LUNG) && // 229
     player.HasCollectible(CollectibleType.DR_FETUS) && // 52
     player.HasCollectible(CollectibleType.IPECAC) // 149
-  ) {
-    return false;
-  }
-
-  if (
-    babyItemsSet.has(CollectibleType.LUDOVICO_TECHNIQUE) && // 329
-    hasCollectible(player, ...LUDOVICO_TECHNIQUE_ANTISYNERGIES)
-  ) {
-    return false;
-  }
-
-  if (
-    setHas(babyItemsSet, ...LUDOVICO_TECHNIQUE_ANTISYNERGIES) &&
-    player.HasCollectible(CollectibleType.LUDOVICO_TECHNIQUE) // 329
-  ) {
-    return false;
-  }
-
-  if (
-    babyItemsSet.has(CollectibleType.TECH_X) && // 395
-    hasCollectible(player, ...TECH_X_ANTISYNERGIES)
-  ) {
-    return false;
-  }
-
-  if (
-    setHas(babyItemsSet, ...TECH_X_ANTISYNERGIES) &&
-    player.HasCollectible(CollectibleType.TECH_X) // 395
-  ) {
-    return false;
-  }
-
-  if (
-    babyItemsSet.has(CollectibleType.SPIRIT_SWORD) && // 579
-    hasCollectible(player, ...SPIRIT_SWORD_ANTISYNERGIES)
-  ) {
-    return false;
-  }
-
-  if (
-    setHas(babyItemsSet, ...SPIRIT_SWORD_ANTISYNERGIES) &&
-    player.HasCollectible(CollectibleType.SPIRIT_SWORD) // 579
-  ) {
-    return false;
-  }
-
-  if (
-    babyItemsSet.has(CollectibleType.C_SECTION) && // 678
-    hasCollectible(player, ...C_SECTION_ANTISYNERGIES)
-  ) {
-    return false;
-  }
-
-  if (
-    setHas(babyItemsSet, ...C_SECTION_ANTISYNERGIES) &&
-    player.HasCollectible(CollectibleType.C_SECTION) // 678
   ) {
     return false;
   }

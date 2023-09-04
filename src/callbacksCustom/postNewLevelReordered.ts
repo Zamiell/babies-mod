@@ -71,8 +71,8 @@ function getAndSetNewBabyInGlobals(player: EntityPlayer) {
   // It will become impossible to find a new baby if the list of past babies grows too large. (When
   // experimenting, it crashed upon reaching a size of 538, so reset it when it gets over 500 just
   // in case.)
-  if (g.pastBabies.length > 500) {
-    g.pastBabies = [];
+  if (g.pastBabies.size > 500) {
+    g.pastBabies.clear();
   }
 
   // Get a random co-op baby based on the seed of the floor (but reroll the baby if they have any
@@ -93,9 +93,8 @@ function getAndSetNewBabyInGlobals(player: EntityPlayer) {
   // Set the newly chosen baby type.
   g.run.babyType = babyType;
 
-  // Keep track of the babies that we choose so that we can avoid giving duplicates on the same run
-  // / multi-character custom challenge.
-  g.pastBabies.push(babyType);
+  // Keep track of the babies that we choose so that we can avoid giving duplicates on the same run.
+  g.pastBabies.add(babyType);
 
   const currentBaby = getCurrentBaby();
   assertDefined(
@@ -105,5 +104,5 @@ function getAndSetNewBabyInGlobals(player: EntityPlayer) {
   const { baby } = currentBaby;
 
   log(`Randomly chose baby: ${babyType} - ${baby.name} - ${baby.description}`);
-  log(`Tries: ${numTries}, total past babies: ${g.pastBabies.length}`);
+  log(`Tries: ${numTries}, total past babies: ${g.pastBabies.size}`);
 }
