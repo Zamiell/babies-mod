@@ -19,7 +19,7 @@ import {
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
-/** All chests are Mimics + all chests have items. */
+/** All chests are Spiked Chests + all chests have items. */
 export class SpikeBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
     return (
@@ -31,9 +31,9 @@ export class SpikeBaby extends Baby {
   }
 
   /**
-   * Replace all chests with Mimics. (We do not use the `PRE_ENTITY_SPAWN` callback because that
-   * does not work properly for random pickups that are part of the room layout (as demonstrated on
-   * seed 61RT H2V3 by walking down from the starting room).
+   * Replace all chests with Spiked Chests. (We do not use the `PRE_ENTITY_SPAWN` callback because
+   * that does not work properly for random pickups that are part of the room layout (as
+   * demonstrated on seed 61RT H2V3 by walking down from the starting room).
    */
   // 34
   @Callback(ModCallback.POST_PICKUP_INIT)
@@ -46,10 +46,10 @@ export class SpikeBaby extends Baby {
       return;
     }
 
-    if (pickup.Variant !== PickupVariant.MIMIC_CHEST && !isChest(pickup)) {
+    if (pickup.Variant !== PickupVariant.SPIKED_CHEST && isChest(pickup)) {
       pickup.Morph(
         EntityType.PICKUP,
-        PickupVariant.MIMIC_CHEST,
+        PickupVariant.SPIKED_CHEST,
         ChestSubType.CLOSED,
         undefined,
         true,

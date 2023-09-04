@@ -1449,7 +1449,7 @@ export const BABIES = {
   // 166
   [RandomBabyType.SPIKE]: {
     name: "Spike Baby",
-    description: "All chests are Mimics + all chests have items",
+    description: "All chests are Spiked Chests + all chests have items",
     sprite: "166_baby_spike.png",
     class: bc.SpikeBaby,
   },
