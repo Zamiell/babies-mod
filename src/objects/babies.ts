@@ -2322,10 +2322,9 @@ export const BABIES = {
   // 269
   [RandomBabyType.TABBY]: {
     name: "Tabby Baby",
-    description: "Starts with Gello",
+    description: "Starts with Sol",
     sprite: "269_baby_tabby.png",
-    item: CollectibleType.GELLO,
-    class: bc.TabbyBaby,
+    item: CollectibleType.SOL,
   },
 
   // 270
@@ -5196,11 +5195,11 @@ export const BABIES = {
   // 600
   [RandomBabyType.GELLO]: {
     name: "Gello", // CollectibleType.GELLO (728)
-    description: "Starts with Sol",
+    description: "Starts with Gello",
     // In vanilla, there are spritesheets for each component of Gello, so this is a custom
     // spritesheet that was manually compiled by Gamonymous.
     sprite: "familiar_gello_custom.png",
-    item: CollectibleType.SOL,
+    item: CollectibleType.GELLO,
   },
 
   // 601
