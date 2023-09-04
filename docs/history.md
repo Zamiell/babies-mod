@@ -14,6 +14,8 @@
   - Burning Baby (#467) - Starts with Vasculitis + A Lighter + 40 Luck
   - Tooth Baby (#478) - Starts with Black Tooth
   - Thirteenth Baby (#533) - Starts with Modeling Clay
+  - Painful Baby (#570) - Enemies respawn when reentering a room
+  - Doleful Baby (#572) - Starts with Soy Milk + booger tears
   - Robo-Baby (#578) - Starts with Technology + 3x Robo-Baby
 - Thanks to Gamonymous for these new baby effects.
 - Fixed the bug where Spike Baby chests would not work properly. (Thanks SuperpaperChildy)
