@@ -1,9 +1,11 @@
+import type { EntityType } from "isaac-typescript-definitions";
 import {
   BombSubType,
   BombVariant,
   ChestSubType,
   CoinSubType,
   GridEntityType,
+  GridEntityXMLType,
   HeartSubType,
   KeySubType,
   ModCallback,
@@ -20,6 +22,7 @@ import {
   isChest,
   isGoldenTrinketType,
   isHorsePill,
+  isPoopGridEntityType,
   spawnBombWithSeed,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
@@ -50,6 +53,33 @@ export class GoldBaby extends Baby {
         true,
       );
     }
+  }
+
+  // 71
+  @Callback(ModCallback.PRE_ROOM_ENTITY_SPAWN)
+  preRoomEntitySpawn(
+    entityTypeOrGridEntityXMLType: EntityType | GridEntityXMLType,
+    _variant: int,
+    _subType: int,
+    _gridIndex: int,
+    _seed: Seed,
+  ): [EntityType | GridEntityXMLType, int, int] | undefined {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
+    if (entityTypeOrGridEntityXMLType < 1000) {
+      return undefined;
+    }
+
+    const gridEntityXMLType =
+      entityTypeOrGridEntityXMLType as GridEntityXMLType;
+
+    if (
+      isPoopGridEntityType(gridEntityXMLType) &&
+      gridEntityXMLType !== GridEntityXMLType.POOP_GOLDEN
+    ) {
+      return [GridEntityXMLType.POOP_GOLDEN, 0, 0];
+    }
+
+    return undefined;
   }
 
   // 10
@@ -141,6 +171,10 @@ export class GoldBaby extends Baby {
     }
   }
 
+  /**
+   * We handle poops that are part of the room layout in the `PRE_ROOM_ENTITY_SPAWN` callback above.
+   * However, we also want to handle poops from e.g. The Poop collectible and Larry Jr.
+   */
   @CallbackCustom(
     ModCallbackCustom.POST_GRID_ENTITY_UPDATE,
     GridEntityType.POOP,
