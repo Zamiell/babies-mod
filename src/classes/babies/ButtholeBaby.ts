@@ -69,51 +69,55 @@ export class ButtholeBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {
-    const gameFrameCount = game.GetFrameCount();
     const num = this.getAttribute("num");
 
     everyNSeconds(() => {
-      // We want each poop type to have an equal chance of spawning.
-      const poopRoll = getRandomInt(
-        1,
-        NUM_POOP_ENTITY_VARIANTS +
-          POOP_GRID_ENTITY_VARIANTS_NOT_IN_POOP_ENTITY_VARIANTS.length,
-        v.run.poopRNG,
-      );
-
-      // Depending on the type of poop selected, we might need to spawn an entity or a grid entity.
-      if (poopRoll <= NUM_POOP_ENTITY_VARIANTS) {
-        const poopEntityVariant = getRandomEnumValue(
-          PoopEntityVariant,
-          v.run.poopRNG,
-        );
-        spawnWithSeed(
-          EntityType.POOP,
-          poopEntityVariant,
-          0,
-          player.Position,
-          v.run.poopRNG,
-        );
-      } else {
-        const poopGridEntityVariant = getRandomArrayElement(
-          POOP_GRID_ENTITY_VARIANTS_NOT_IN_POOP_ENTITY_VARIANTS,
-          v.run.poopRNG,
-        );
-
-        // Red Poops will instantly damage the player, so we have to give them some invulnerability
-        // frames.
-        if (poopGridEntityVariant === PoopGridEntityVariant.RED) {
-          v.room.invulnerabilityUntilFrame = gameFrameCount + 25;
-        }
-
-        Isaac.GridSpawn(
-          GridEntityType.POOP,
-          poopGridEntityVariant,
-          player.Position,
-        );
-      }
-
-      sfxManager.Play(SoundEffect.FART);
+      spawnRandomPoop(player);
     }, num);
   }
+}
+
+function spawnRandomPoop(player: EntityPlayer) {
+  // We want each poop type to have an equal chance of spawning.
+  const poopRoll = getRandomInt(
+    1,
+    NUM_POOP_ENTITY_VARIANTS +
+      POOP_GRID_ENTITY_VARIANTS_NOT_IN_POOP_ENTITY_VARIANTS.length,
+    v.run.poopRNG,
+  );
+
+  // Depending on the type of poop selected, we might need to spawn an entity or a grid entity.
+  if (poopRoll <= NUM_POOP_ENTITY_VARIANTS) {
+    const poopEntityVariant = getRandomEnumValue(
+      PoopEntityVariant,
+      v.run.poopRNG,
+    );
+    spawnWithSeed(
+      EntityType.POOP,
+      poopEntityVariant,
+      0,
+      player.Position,
+      v.run.poopRNG,
+    );
+  } else {
+    const poopGridEntityVariant = getRandomArrayElement(
+      POOP_GRID_ENTITY_VARIANTS_NOT_IN_POOP_ENTITY_VARIANTS,
+      v.run.poopRNG,
+    );
+
+    // Red Poops will instantly damage the player, so we have to give them some invulnerability
+    // frames.
+    if (poopGridEntityVariant === PoopGridEntityVariant.RED) {
+      const gameFrameCount = game.GetFrameCount();
+      v.room.invulnerabilityUntilFrame = gameFrameCount + 25;
+    }
+
+    Isaac.GridSpawn(
+      GridEntityType.POOP,
+      poopGridEntityVariant,
+      player.Position,
+    );
+  }
+
+  sfxManager.Play(SoundEffect.FART);
 }
