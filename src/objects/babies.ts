@@ -4958,9 +4958,10 @@ export const BABIES = {
   // 573
   [RandomBabyType.CUBIC]: {
     name: "Cubic Baby",
-    description: "Starts with Brimstone Bombs",
+    description: "Starts with Brimstone Bombs + Scatter Bombs",
     sprite: "573_baby_cubic.png",
     item: CollectibleType.BRIMSTONE_BOMBS,
+    item2: CollectibleType.SCATTER_BOMBS,
   },
 
   // 574

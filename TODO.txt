@@ -5,13 +5,13 @@ TODO:
 - auto generate documentation from parsing babies.ts
 - use tainted blue baby poop from gamonymous suggestion
 - 10x intruder baby
+- replace all "num" fields
 
 Babies to change:
 - Butthole Baby : Add T. ??? special poops to the List
 - get rid of O Baby - Starts with Tiny Planet
 - Fishman Baby : The enum says that it's impossible to spawn Giga Bombs with BombSubType.NULL, would be cool if the baby could spawn giga bombs
 - Puncher Baby : It appear that the difference isn't very noticeable between 1 and 10 Punching Bags. 1 Punching Bag + 1 Lost Fly would make enemies more unpredictable
-- Cubic Baby : Add Scatter Bombs
 
 Potential new effects:
 - spawn Lil Portal portal after picking up 8 pickups
