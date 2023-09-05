@@ -21,7 +21,7 @@ List of boring babies:
 - Thirteenth Baby (#533) - Starts with Modeling Clay
 
 Potential new effects :
-- Starts with Swallowed Penny + Piggy Bank + Strawman. If Strawman dies, you die
+- Starts with Swallowed Penny + Piggy Bank + Strawman. If Strawman dies, you die (not obtainable after womb 1)
 - Reroll your active item on 2nd hit (per room)
 - Reverse Temperance effect after 6 hits
 - 8 trinkets are buyable (10c) in the starting room, you can only choose one
