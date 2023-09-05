@@ -4,10 +4,9 @@ TODO:
 - SaveDataManager
 
 Babies to change:
+- Punkgirl Baby (#234) - Starts with Negative
 - Lobotomy Baby (#79) - Starts with Delirious - Slightly overlaps with Grayscale Baby (#349)
 - VVVVVV Baby (#108) - Starts with Anti-Gravity
-- Punkboy Baby (#233) - Starts with Polaroid
-- Punkgirl Baby (#234) - Starts with Negative
 - Tooth Baby (#478) - Starts with Black Tooth
 
 Potential new effects:

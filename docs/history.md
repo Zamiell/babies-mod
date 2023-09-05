@@ -17,6 +17,7 @@
   - Eyebrows Baby (#89) - Starts with 5x Guppy's Hair Ball + flight + blindfolded
   - O Baby (#93) - Spawns portal on 6 pickups collected
   - Lipstick Baby (#105) - Range oscillates
+  - Punkboy Baby (#233) - Starts with 3x Knife Piece 1 + 3x Knife Piece 2
   - Blisters Baby (#240) - Shot speed oscillates
   - Dark Baby 2 (#243) - Starts with E. Coli (improved)
   - Snail Baby (#244) - Glowing Hourglass effect on 2nd hit (per room)

@@ -2021,9 +2021,10 @@ export const BABIES = {
   // 233
   [RandomBabyType.PUNKBOY]: {
     name: "Punkboy Baby",
-    description: "Starts with The Polaroid",
+    description: "Starts with 3x Knife Piece 1 + 3x Knife Piece 2",
     sprite: "233_baby_punkboy.png",
-    item: CollectibleType.POLAROID,
+    num: 3,
+    class: bc.PunkboyBaby,
   },
 
   // 234
