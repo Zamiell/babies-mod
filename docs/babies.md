@@ -85,7 +85,7 @@ There are 603 babies in total.
 | 76 | <img src="./images/076_baby_video.png" alt="076_baby_video.png"> | Video Baby | Starts with Tech X |
 | 77 | <img src="./images/077_baby_parasite.png" alt="077_baby_parasite.png"> | Parasite Baby | Starts with The Parasite |
 | 78 | <img src="./images/078_baby_derp.png" alt="078_baby_derp.png"> | Derp Baby | Starts with Cursed Penny |
-| 79 | <img src="./images/079_baby_lobotomy.png" alt="079_baby_lobotomy.png"> | Lobotomy Baby | Starts with Delirious |
+| 79 | <img src="./images/079_baby_lobotomy.png" alt="079_baby_lobotomy.png"> | Lobotomy Baby | Boss dies after 6 hits on floor |
 | 80 | <img src="./images/080_baby_choke.png" alt="080_baby_choke.png"> | Choke Baby | Summons random portals |
 | 81 | <img src="./images/081_baby_scream.png" alt="081_baby_scream.png"> | Scream Baby | Shoop tears |
 | 82 | <img src="./images/082_baby_gurdy.png" alt="082_baby_gurdy.png"> | Gurdy Baby | Starts with 20x Lil Gurdy |
@@ -114,7 +114,7 @@ There are 603 babies in total.
 | 105 | <img src="./images/105_baby_lipstick.png" alt="105_baby_lipstick.png"> | Lipstick Baby | Range oscillates |
 | 106 | <img src="./images/106_baby_aether.png" alt="106_baby_aether.png"> | Aether Baby | All direction tears |
 | 107 | <img src="./images/107_baby_brownie.png" alt="107_baby_brownie.png"> | Brownie Baby | Starts with Level 4 Meatboy + Level 4 Meatgirl |
-| 108 | <img src="./images/108_baby_vvvvvv.png" alt="108_baby_vvvvvv.png"> | VVVVVV Baby | Starts with Anti-Gravity |
+| 108 | <img src="./images/108_baby_vvvvvv.png" alt="108_baby_vvvvvv.png"> | VVVVVV Baby | Reverse Emperor card effect after 6 hits |
 | 109 | <img src="./images/109_baby_nosferatu.png" alt="109_baby_nosferatu.png"> | Nosferatu Baby | Enemies have homing projectiles |
 | 110 | <img src="./images/110_baby_pubic.png" alt="110_baby_pubic.png"> | Pubic Baby | Must full clear |
 | 111 | <img src="./images/111_baby_eyemouth.png" alt="111_baby_eyemouth.png"> | Eyemouth Baby | Shoots an extra tear every 3rd shot |
