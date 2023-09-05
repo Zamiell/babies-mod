@@ -2103,9 +2103,9 @@ export const BABIES = {
   // 243
   [RandomBabyType.DARK_2]: {
     name: "Dark Baby 2",
-    description: "Starts with Strange Attractor",
+    description: "Starts with E. Coli (improved)",
     sprite: "243_baby_dark.png",
-    item: CollectibleType.STRANGE_ATTRACTOR,
+    class: bc.DarkBaby2,
   },
 
   // 244

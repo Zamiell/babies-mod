@@ -83,6 +83,7 @@ export { CyborgBaby } from "./babies/CyborgBaby";
 export { CylinderBaby } from "./babies/CylinderBaby";
 export { DBaby } from "./babies/DBaby";
 export { DarkBaby } from "./babies/DarkBaby";
+export { DarkBaby2 } from "./babies/DarkBaby2";
 export { DarkSpaceSoldierBaby } from "./babies/DarkSpaceSoliderBaby";
 export { DentedBaby } from "./babies/DentedBaby";
 export { DigitalBaby } from "./babies/DigitalBaby";

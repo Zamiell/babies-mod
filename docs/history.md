@@ -17,6 +17,7 @@
   - O Baby (#93) - Spawns portal on 6 pickups collected
   - Lipstick Baby (#105) - Range oscillates
   - Blisters Baby (#240) - Shot speed oscillates
+  - Dark Baby 2 (#243) - Starts with E. Coli (improved)
   - Snail Baby (#244) - Glowing Hourglass effect on 2nd hit (per room)
   - Lovebear Baby (#266) - Starting rooms are Super-Arcades
   - Cupcake Baby (#321) - Starts with Voodoo Head + Flat File

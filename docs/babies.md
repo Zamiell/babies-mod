@@ -249,7 +249,7 @@ There are 603 babies in total.
 | 240 | <img src="./images/240_baby_blisters.png" alt="240_baby_blisters.png"> | Blisters Baby | Shot speed oscillates |
 | 241 | <img src="./images/241_baby_radioactive.png" alt="241_baby_radioactive.png"> | Radioactive Baby | Starts with Mysterious Liquid |
 | 242 | <img src="./images/242_baby_beast.png" alt="242_baby_beast.png"> | Beast Baby | Devolves enemies |
-| 243 | <img src="./images/243_baby_dark.png" alt="243_baby_dark.png"> | Dark Baby 2 | Starts with Strange Attractor |
+| 243 | <img src="./images/243_baby_dark.png" alt="243_baby_dark.png"> | Dark Baby 2 | Starts with E. Coli (improved) |
 | 244 | <img src="./images/244_baby_snail.png" alt="244_baby_snail.png"> | Snail Baby | Glowing Hourglass on 2nd hit (per room) |
 | 245 | <img src="./images/245_baby_blood.png" alt="245_baby_blood.png"> | Blood Baby | Starts with 5x Forever Alone |
 | 246 | <img src="./images/246_baby_8ball.png" alt="246_baby_8ball.png"> | 8 Ball Baby | Orbiting tears |

@@ -29,9 +29,6 @@ if (NUM_POOP_ENTITY_VARIANTS !== 8) {
 }
 const POOP_GRID_ENTITY_VARIANTS_NOT_IN_POOP_ENTITY_VARIANTS = [
   PoopGridEntityVariant.RED, // 1
-  // The version of Corny Poop inside `PoopEntityVariant` does not have the eternal fly, which is
-  // boring.
-  PoopGridEntityVariant.CORNY, // 2
   PoopGridEntityVariant.RAINBOW, // 4
   PoopGridEntityVariant.CHARMING, // 11
 ] as const;
@@ -81,10 +78,8 @@ export class ButtholeBaby extends Baby {
 }
 
 /** We want each type of poop type to have an equal chance of spawning. */
-function spawnRandomPoop(player: EntityPlayer) {
-  // We subtract one from `NUM_POOP_ENTITY_VARIANTS` because we do not use the version of Corny Poop
-  // in that enum.
-  const numNormalEntityPoops = NUM_POOP_ENTITY_VARIANTS - 1;
+export function spawnRandomPoop(player: EntityPlayer): void {
+  const numNormalEntityPoops = NUM_POOP_ENTITY_VARIANTS;
   const numGridEntityPoops =
     POOP_GRID_ENTITY_VARIANTS_NOT_IN_POOP_ENTITY_VARIANTS.length;
   const poopRoll = getRandomInt(
@@ -98,7 +93,6 @@ function spawnRandomPoop(player: EntityPlayer) {
     const poopEntityVariant = getRandomEnumValue(
       PoopEntityVariant,
       v.run.poopRNG,
-      [PoopEntityVariant.CORNY],
     );
     spawnWithSeed(
       EntityType.POOP,
