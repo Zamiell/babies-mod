@@ -22,6 +22,7 @@ Potential new effects:
 - Starts with Cursed Penny
 - Glowing Hourglass effect on 2nd hit (per room)
 - 10x intruder baby
+- spawn random coin after room clear (copy code from Fishman Baby)
 
 List of boring babies:
 - Dripping Baby (#45) - Starts with Isaac's Heart

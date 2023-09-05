@@ -3,8 +3,7 @@ import {
   Callback,
   VectorZero,
   game,
-  getEnumValues,
-  getRandomArrayElement,
+  getRandomEnumValue,
   spawnHeart,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
@@ -16,10 +15,17 @@ export class LoveBaby extends Baby {
     const room = game.GetRoom();
     const roomSeed = room.GetSpawnSeed();
     const player = Isaac.GetPlayer();
-    const heartSubTypes = getEnumValues(HeartSubType);
-    const heartSubType = getRandomArrayElement(heartSubTypes, roomSeed);
+    const randomHeartSubType = getRandomEnumValue(HeartSubType, roomSeed, [
+      HeartSubType.NULL,
+    ]);
 
-    spawnHeart(heartSubType, player.Position, VectorZero, player, roomSeed);
+    spawnHeart(
+      randomHeartSubType,
+      player.Position,
+      VectorZero,
+      player,
+      roomSeed,
+    );
 
     return undefined;
   }
