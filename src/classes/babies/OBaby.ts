@@ -8,7 +8,7 @@ import {
   newRNG,
   setSeed,
   sfxManager,
-  spawnEffectWithSeed,
+  spawnEffect,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
@@ -30,27 +30,21 @@ export class OBaby extends Baby {
   }
 
   @CallbackCustom(ModCallbackCustom.POST_PICKUP_COLLECT)
-  postPickupCollect(pickup: EntityPickup, player: EntityPlayer): void {
+  postPickupCollect(_pickup: EntityPickup, player: EntityPlayer): void {
     const num = this.getAttribute("num");
 
     v.run.numPickupsCollected++;
     if (v.run.numPickupsCollected >= num) {
       v.run.numPickupsCollected = 0;
-      spawnPortal(pickup, player);
+      spawnPortal(player);
     }
   }
 }
 
 /** We want to emulate a Lil Portal portal, which is a persistent portal to a specific room. */
-function spawnPortal(pickup: EntityPickup, player: EntityPlayer) {
+function spawnPortal(player: EntityPlayer) {
   const portalSubType = getPortalSubType();
-  spawnEffectWithSeed(
-    EffectVariant.PORTAL_TELEPORT,
-    portalSubType,
-    player.Position,
-    pickup.InitSeed,
-  );
-
+  spawnEffect(EffectVariant.PORTAL_TELEPORT, portalSubType, player.Position);
   sfxManager.Play(SoundEffect.THUMBS_UP);
 }
 

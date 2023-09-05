@@ -422,7 +422,7 @@ There are 603 babies in total.
 | 413 | <img src="./images/413_baby_pirate.png" alt="413_baby_pirate.png"> | Pirate Baby | Starts with Treasure Map |
 | 414 | <img src="./images/414_baby_superrobo.png" alt="414_baby_superrobo.png"> | Super Robo Baby | Starts with Broken Remote |
 | 415 | <img src="./images/415_baby_lightmage.png" alt="415_baby_lightmage.png"> | Lightmage Baby | Starts with Trisagion |
-| 416 | <img src="./images/416_baby_puncher.png" alt="416_baby_puncher.png"> | Puncher Baby | Starts with 10x Punching Bag |
+| 416 | <img src="./images/416_baby_puncher.png" alt="416_baby_puncher.png"> | Puncher Baby | Spawns a Golden Troll Bomb in every room |
 | 417 | <img src="./images/417_baby_holyknight.png" alt="417_baby_holyknight.png"> | Holy Knight Baby | Starts with Eucharist |
 | 418 | <img src="./images/418_baby_shadowmage.png" alt="418_baby_shadowmage.png"> | Shadowmage Baby | Starts with Spindown Dice |
 | 419 | <img src="./images/419_baby_firemage.png" alt="419_baby_firemage.png"> | Firemage Baby | Starts with Fire Mind + 13 luck |

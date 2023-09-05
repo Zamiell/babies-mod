@@ -3623,10 +3623,9 @@ export const BABIES = {
   // 416
   [RandomBabyType.PUNCHER]: {
     name: "Puncher Baby",
-    description: "Starts with 10x Punching Bag",
+    description: "Spawns a Golden Troll Bomb in every room",
     sprite: "416_baby_puncher.png",
-    item: CollectibleType.PUNCHING_BAG,
-    itemNum: 10,
+    class: bc.PuncherBaby,
   },
 
   // 417

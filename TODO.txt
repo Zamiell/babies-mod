@@ -4,8 +4,17 @@ TODO:
 - SaveDataManager
 
 Babies to change:
-- Puncher Baby - Starts with 10x Punching Bag
 - Snail Baby - 0.5x speed
+- Lovebear Baby (#266) - Starts with The Relic - On average will only drop 1 soul heart per floor since it was nerfed in Repentance
+- Dark Baby 2 (#243) - Starts with Strange Attractor
+- Dripping Baby (#45) - Starts with Isaac's Heart
+- Lobotomy Baby (#79) - Starts with Delirious - Slightly overlaps with Grayscale Baby (#349)
+- VVVVVV Baby (#108) - Starts with Anti-Gravity
+- Bandage Girl Baby (#178) - Starts with Cube of Meat + Ball of Bandage - Slightly overlaps with Brownie Baby (#107)
+- Punkboy Baby (#233) - Starts with Polaroid
+- Punkgirl Baby (#234) - Starts with Negative
+- Sword Baby (#312) - Starts with Sacrificial Dagger
+- Tooth Baby (#478) - Starts with Black Tooth
 
 Potential new effects:
 - Glitched pickups (all pickups rotate between 5 pickups like Glitched Crown on items)
@@ -14,37 +23,25 @@ Potential new effects:
 - Every sound effect is randomized
 - Starts with 3 Knife piece 1 + 3 Knife Piece 2
 - Spawn every type of machine in the starting room
-- Spawns a golden troll bomb in every room
 - Glowing Hourglass effect on 2nd hit (per room)
 - 10x intruder baby
 - spawn random coin after room clear (copy code from Fishman Baby)
 
 List of boring babies:
-- Dripping Baby (#45) - Starts with Isaac's Heart
 - 3 Eyes Baby (#69) - Starts with Inner Eye - Slightly overlaps with Makeup Baby (#99) & Basic Spider Baby (#214) & So Many Eyes Baby (#375)
-- Lobotomy Baby (#79) - Starts with Delirious - Slightly overlaps with Grayscale Baby (#349)
-- VVVVVV Baby (#108) - Starts with Anti-Gravity
-- Bandage Girl Baby (#178) - Starts with Cube of Meat + Ball of Bandage - Slightly overlaps with Brownie Baby (#107)
 - Dr. Fetus Baby (#188) - Starts with Dr. Fetus - Slightly overlaps with the other Dr. Fetus babies
 - Peeling Baby (#199) - Starts with Potato Peeler - Slightly overlaps with Meat Boy Baby (#210)
 - Basic Spider Baby (#214) - Starts with Mutant Spider - Slightly overlaps with 3 Eyes Baby (#69) & Makeup Baby (#99) & So Many Eyes Baby (#375)
-- Punkboy Baby (#233) - Starts with Polaroid
-- Punkgirl Baby (#234) - Starts with Negative
-- Dark Baby 2 (#243) - Starts with Strange Attractor
-- Lovebear Baby (#266) - Starts with The Relic - On average will only drop 1 soul heart per floor since it was nerfed in Repentance
 - Cupid Baby (#289) - Starts with Cupid's Arrow - Slightly overlaps with Belial Baby 2 (#207) & Arrowhead Baby (#464)
 - Nature Baby (#305) - Starts with Sprinkler - Slightly overlaps with Blue Baby (#30) & Mutated Fish Baby (#449)
-- Sword Baby (#312) - Starts with Sacrificial Dagger
 - Black Knight Baby (#427) - Starts with Black Hole - Slightly overlaps with Astronaut Baby (#406)
 - Beanie Baby (#465) - Starts with Smelter
 - Cursor Baby (#468) - Starts with Pause!
-- Tooth Baby (#478) - Starts with Black Tooth
 - Thirteenth Baby (#533) - Starts with Modeling Clay
 
 List of hard babies:
 - Troll Baby (#6) - Spawns a Troll Bomb every 3 seconds
 - Noose Baby (#39) - Don't shoot when the timer reaches 0
-- Dripping Baby (#45) - Starts with Isaac's Heart
 - Eyebrows Baby (#89) - Starts with 5x Guppy's Hair Ball + blindfolded
 - O Baby (#93) - Starts with Tiny Planet
 - Dark Baby 2 (#243) - Starts with Strange Attractor
