@@ -84,7 +84,7 @@ There are 603 babies in total.
 | 75 | <img src="./images/075_baby_bomb.png" alt="075_baby_bomb.png"> | Bomb Baby | 50% chance for bombs to have the D6 effect |
 | 76 | <img src="./images/076_baby_video.png" alt="076_baby_video.png"> | Video Baby | Starts with Tech X |
 | 77 | <img src="./images/077_baby_parasite.png" alt="077_baby_parasite.png"> | Parasite Baby | Starts with The Parasite |
-| 78 | <img src="./images/078_baby_derp.png" alt="078_baby_derp.png"> | Derp Baby | Starts with Cube of Meat + BFFS + 0.5x damage |
+| 78 | <img src="./images/078_baby_derp.png" alt="078_baby_derp.png"> | Derp Baby | Starts with Cursed Penny |
 | 79 | <img src="./images/079_baby_lobotomy.png" alt="079_baby_lobotomy.png"> | Lobotomy Baby | Starts with Delirious |
 | 80 | <img src="./images/080_baby_choke.png" alt="080_baby_choke.png"> | Choke Baby | Summons random portals |
 | 81 | <img src="./images/081_baby_scream.png" alt="081_baby_scream.png"> | Scream Baby | Shoop tears |

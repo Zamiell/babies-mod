@@ -85,7 +85,6 @@ export { DBaby } from "./babies/DBaby";
 export { DarkBaby } from "./babies/DarkBaby";
 export { DarkSpaceSoldierBaby } from "./babies/DarkSpaceSoliderBaby";
 export { DentedBaby } from "./babies/DentedBaby";
-export { DerpBaby } from "./babies/DerpBaby";
 export { DigitalBaby } from "./babies/DigitalBaby";
 export { DinoBaby } from "./babies/DinoBaby";
 export { DolefulBaby } from "./babies/DolefulBaby";

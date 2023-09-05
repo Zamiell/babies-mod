@@ -695,11 +695,9 @@ export const BABIES = {
   // 78
   [RandomBabyType.DERP]: {
     name: "Derp Baby",
-    description: "Starts with Cube of Meat + BFFS + 0.5x damage",
+    description: "Starts with Cursed Penny",
     sprite: "078_baby_derp.png",
-    item: CollectibleType.CUBE_OF_MEAT,
-    item2: CollectibleType.BFFS,
-    class: bc.DerpBaby,
+    trinket: TrinketType.CURSED_PENNY,
   },
 
   // 79

@@ -12,6 +12,7 @@
   - Goat Head Baby (#53) - Starts with Goat Head + Number Magnet
   - Butthole Baby (#63) - Spawns a random poop every 5 seconds (including Repentance poop types)
   - Lowface Baby (#73) - Starts with Book of Virtues + Unicorn Stump
+  - Derp Baby (#78) - Starts with Cursed Penny
   - Eyebrows Baby (#89) - Starts with 5x Guppy's Hair Ball + flight + blindfolded
   - Lipstick Baby (#105) - Range oscillates
   - Blisters Baby (#240) - Shot speed oscillates

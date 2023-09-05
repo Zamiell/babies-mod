@@ -18,7 +18,6 @@ Potential new effects:
 - Starts with 3 Knife piece 1 + 3 Knife Piece 2
 - Spawn every type of machine in the starting room
 - Spawns a golden troll bomb in every room
-- Starts with Cursed Penny
 - Glowing Hourglass effect on 2nd hit (per room)
 - 10x intruder baby
 - spawn random coin after room clear (copy code from Fishman Baby)
