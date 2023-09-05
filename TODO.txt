@@ -14,6 +14,7 @@ List of boring babies:
 - Cupid Baby (#289) - Starts with Cupid's Arrow - Slightly overlaps with Belial Baby 2 (#207) & Arrowhead Baby (#464)
 - Nature Baby (#305) - Starts with Sprinkler - Slightly overlaps with Blue Baby (#30) & Mutated Fish Baby (#449)
 - Sword Baby (#312) - Starts with Sacrificial Dagger
+- Mean Mushroom Baby (#367) - Starts with 5x Sack of Pennies
 - Black Knight Baby (#427) - Starts with Black Hole - Slightly overlaps with Astronaut Baby (#406)
 - Beanie Baby (#465) - Starts with Smelter
 - Cursor Baby (#468) - Starts with Pause!
