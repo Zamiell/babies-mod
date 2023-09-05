@@ -10,6 +10,7 @@
   - Gold Baby (#15) - Gold gear + gold pickups + gold poops + gold rooms
   - Brown Baby (#38) - Starts with Dirty Mind + Dingle Berry + spawns a poop per enemy killed
   - Goat Head Baby (#53) - Starts with Goat Head + Number Magnet
+  - Butthole Baby (#63) - Spawns a random poop every 5 seconds (including Repentance poop types)
   - Lowface Baby (#73) - Starts with Book of Virtues + Unicorn Stump
   - Eyebrows Baby (#89) - Starts with 5x Guppy's Hair Ball + flight + blindfolded
   - Lipstick Baby (#105) - Range oscillates

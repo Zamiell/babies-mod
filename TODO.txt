@@ -3,15 +3,13 @@ TODO:
 - refactor global variables
 - SaveDataManager
 - auto generate documentation from parsing babies.ts
-- use tainted blue baby poop from gamonymous suggestion
-- 10x intruder baby
 
 Babies to change:
-- get rid of O Baby - Starts with Tiny Planet
 - Fishman Baby : The enum says that it's impossible to spawn Giga Bombs with BombSubType.NULL, would be cool if the baby could spawn giga bombs
 - Puncher Baby : It appear that the difference isn't very noticeable between 1 and 10 Punching Bags. 1 Punching Bag + 1 Lost Fly would make enemies more unpredictable
 - Derp Baby - Starts with Cube of Meat + BFFS + 0.5x damage
 - Snail Baby - 0.5x speed
+- O Baby - Starts with Tiny Planet
 
 Potential new effects:
 - spawn Lil Portal portal after picking up 8 pickups
@@ -23,8 +21,8 @@ Potential new effects:
 - Spawn every type of machine in the starting room
 - Spawns a golden troll bomb in every room
 - Starts with Cursed Penny
-- Starts with 5 Fruity plum + Baby-Bender + Forgotten Lullaby + Blindfolded
 - Glowing Hourglass effect on 2nd hit (per room)
+- 10x intruder baby
 
 List of boring babies:
 - Dripping Baby (#45) - Starts with Isaac's Heart
