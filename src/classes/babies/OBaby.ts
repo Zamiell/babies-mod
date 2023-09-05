@@ -1,8 +1,4 @@
-import {
-  EffectVariant,
-  PortalTeleportSubType,
-  SoundEffect,
-} from "isaac-typescript-definitions";
+import { EffectVariant, SoundEffect } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   ModCallbackCustom,
@@ -63,14 +59,9 @@ function getPortalSubType(): int {
   const unexploredRooms = roomsInsideGrid.filter(
     (roomDescriptor) => roomDescriptor.VisitedCount === 0,
   );
+  const roomsToUse =
+    unexploredRooms.length === 0 ? roomsInsideGrid : unexploredRooms;
+  const randomRoom = getRandomArrayElement(roomsToUse, v.run.rng);
 
-  if (unexploredRooms.length === 0) {
-    return PortalTeleportSubType.RANDOM_ROOM;
-  }
-
-  const randomUnexploredRoom = getRandomArrayElement(
-    unexploredRooms,
-    v.run.rng,
-  );
-  return randomUnexploredRoom.SafeGridIndex + 1000;
+  return randomRoom.SafeGridIndex + 1000;
 }
