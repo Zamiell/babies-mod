@@ -955,9 +955,9 @@ export const BABIES = {
   // 108
   [RandomBabyType.VVVVVV]: {
     name: "VVVVVV Baby",
-    description: "Starts with Anti-Gravity",
+    description: "Reverse Emperor card effect after 6 hits",
     sprite: "108_baby_vvvvvv.png",
-    item: CollectibleType.ANTI_GRAVITY,
+    class: bc.VVVVVVBaby,
   },
 
   // 109
@@ -4289,7 +4289,7 @@ export const BABIES = {
     name: "Glittery Peach Baby",
     description: "Teleports to the boss room after 6 hits",
     sprite: "493_baby_glitterypeach.png",
-    requireNumHits: 6,
+    num: 6,
     class: bc.GlitteryPeachBaby,
   },
 

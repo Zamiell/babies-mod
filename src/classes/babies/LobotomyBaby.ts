@@ -1,8 +1,15 @@
-import { RoomType, SoundEffect } from "isaac-typescript-definitions";
+import {
+  LevelStage,
+  RoomType,
+  SoundEffect,
+} from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   ModCallbackCustom,
   getBosses,
+  inMegaSatanRoom,
+  levelHasRoomType,
+  onStage,
   sfxManager,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
@@ -17,6 +24,16 @@ const v = {
 /** Boss dies after 6 hits on floor. */
 export class LobotomyBaby extends Baby {
   v = v;
+
+  override isValid(): boolean {
+    return (
+      levelHasRoomType(RoomType.BOSS) &&
+      !onStage(
+        LevelStage.BLUE_WOMB, // 9
+        LevelStage.HOME, // 13
+      )
+    );
+  }
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(): boolean | undefined {
@@ -34,6 +51,10 @@ export class LobotomyBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED, RoomType.BOSS)
   postNewRoomReorderedBoss(): void {
     if (!v.run.shouldAutoKillBoss) {
+      return;
+    }
+
+    if (inMegaSatanRoom()) {
       return;
     }
 

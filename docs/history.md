@@ -18,6 +18,7 @@
   - Eyebrows Baby (#89) - Starts with 5x Guppy's Hair Ball + flight + blindfolded
   - O Baby (#93) - Spawns portal on 6 pickups collected
   - Lipstick Baby (#105) - Range oscillates
+  - VVVVVV Baby (#108) - Reverse Emperor card effect after 6 hits
   - Punkboy Baby (#233) - Starts with 3x Knife Piece 1 + 3x Knife Piece 2
   - Punkgirl Baby (#234) - Spawns a random coin on room clear
   - Blisters Baby (#240) - Shot speed oscillates

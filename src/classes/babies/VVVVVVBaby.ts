@@ -3,7 +3,7 @@ import {
   CallbackCustom,
   ModCallbackCustom,
   levelHasRoomType,
-  onStage,
+  onStageOrHigher,
   useCardTemp,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
@@ -14,17 +14,13 @@ const v = {
   },
 };
 
-/** Teleports to the boss room after N hits. */
-export class GlitteryPeachBaby extends Baby {
+/** Reverse Emperor card effect after 6 hits. */
+export class VVVVVVBaby extends Baby {
   v = v;
 
   override isValid(): boolean {
     return (
-      levelHasRoomType(RoomType.BOSS) &&
-      !onStage(
-        LevelStage.BLUE_WOMB, // 9
-        LevelStage.HOME, // 13
-      )
+      levelHasRoomType(RoomType.BOSS) && !onStageOrHigher(LevelStage.BLUE_WOMB)
     );
   }
 
@@ -34,7 +30,7 @@ export class GlitteryPeachBaby extends Baby {
 
     v.run.numHits++;
     if (v.run.numHits === num) {
-      useCardTemp(player, CardType.EMPEROR);
+      useCardTemp(player, CardType.REVERSE_EMPEROR);
     }
 
     return undefined;

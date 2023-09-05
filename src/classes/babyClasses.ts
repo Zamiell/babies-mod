@@ -299,6 +299,7 @@ export { TwinBaby } from "./babies/TwinBaby";
 export { TwitchyBaby } from "./babies/TwitchyBaby";
 export { TwotoneBaby } from "./babies/TwotoneBaby";
 export { VBaby } from "./babies/VBaby";
+export { VVVVVVBaby } from "./babies/VVVVVVBaby";
 export { VikingBaby } from "./babies/VikingBaby";
 export { VomitBaby } from "./babies/VomitBaby";
 export { VoxdogBaby } from "./babies/VoxdogBaby";
