@@ -14,6 +14,7 @@
   - Butthole Baby (#63) - Spawns a random poop every 5 seconds (including Repentance poop types)
   - Lowface Baby (#73) - Starts with Book of Virtues + Unicorn Stump
   - Derp Baby (#78) - Starts with Cursed Penny
+  - Lobotomy Baby (#79) - Boss dies after 6 hits on floor
   - Eyebrows Baby (#89) - Starts with 5x Guppy's Hair Ball + flight + blindfolded
   - O Baby (#93) - Spawns portal on 6 pickups collected
   - Lipstick Baby (#105) - Range oscillates

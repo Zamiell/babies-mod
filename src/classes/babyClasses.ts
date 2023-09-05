@@ -168,6 +168,7 @@ export { LightsBaby } from "./babies/LightsBaby";
 export { LilBaby } from "./babies/LilBaby";
 export { LipstickBaby } from "./babies/LipstickBaby";
 export { LittleHornBaby } from "./babies/LittleHornBaby";
+export { LobotomyBaby } from "./babies/LobotomyBaby";
 export { LongBaby } from "./babies/LongBaby";
 export { LostBaby } from "./babies/LostBaby";
 export { LostBlackBaby } from "./babies/LostBlackBaby";

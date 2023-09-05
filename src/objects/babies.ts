@@ -704,9 +704,10 @@ export const BABIES = {
   // 79
   [RandomBabyType.LOBOTOMY]: {
     name: "Lobotomy Baby",
-    description: "Starts with Delirious",
+    description: "Boss dies after 6 hits on floor",
     sprite: "079_baby_lobotomy.png",
-    item: CollectibleType.DELIRIOUS,
+    num: 6,
+    class: bc.LobotomyBaby,
   },
 
   // 80
