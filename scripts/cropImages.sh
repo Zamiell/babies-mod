@@ -10,6 +10,5 @@ IMAGE_DIR="$DIR/../docs/images"
 
 for FILE in "$IMAGE_DIR"/*; do
   echo "$FILE"
-  # e.g. convert 000_baby_spider.png -crop 32x32+0+0 000_baby_spider.png
-  convert "$FILE" -crop "32x32+0+0" "$FILE"
+  convert "$FILE" -crop "32x32+0+0" -scale "200%" "$FILE"
 done
