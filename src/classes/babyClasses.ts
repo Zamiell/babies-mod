@@ -200,6 +200,7 @@ export { NoArmsBaby } from "./babies/NoArmsBaby";
 export { NooseBaby } from "./babies/NooseBaby";
 export { NosferatuBaby } from "./babies/NosferatuBaby";
 export { NuclearBaby } from "./babies/NuclearBaby";
+export { OBaby } from "./babies/OBaby";
 export { OBaby2 } from "./babies/OBaby2";
 export { OctopusBaby } from "./babies/OctopusBaby";
 export { OneToothBaby } from "./babies/OneToothBaby";

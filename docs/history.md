@@ -3,7 +3,7 @@
 <!-- cspell:ignore cantgirl,Finalkids,Hispa,Kaethela,lenamek,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy -->
 <!-- markdownlint-disable MD001 -->
 
-### _v1.7.0_ - February ?th, 2023 (Unreleased)
+### _v1.7.0_ - September ?th, 2023 (Unreleased)
 
 - Changed the following babies:
   - Crow Baby (#12) - Soul of Eve effect on hit
@@ -14,6 +14,7 @@
   - Lowface Baby (#73) - Starts with Book of Virtues + Unicorn Stump
   - Derp Baby (#78) - Starts with Cursed Penny
   - Eyebrows Baby (#89) - Starts with 5x Guppy's Hair Ball + flight + blindfolded
+  - O Baby (#93) - Spawns portal on 6 pickups collected
   - Lipstick Baby (#105) - Range oscillates
   - Blisters Baby (#240) - Shot speed oscillates
   - Cupcake Baby (#321) - Starts with Voodoo Head + Flat File

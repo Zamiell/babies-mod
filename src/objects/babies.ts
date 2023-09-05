@@ -825,9 +825,10 @@ export const BABIES = {
   // 93
   [RandomBabyType.O]: {
     name: "O Baby",
-    description: "Starts with Tiny Planet",
+    description: "Spawns portal on 6 pickups collected",
     sprite: "093_baby_o.png",
-    item: CollectibleType.TINY_PLANET,
+    num: 6,
+    class: bc.OBaby,
   },
 
   // 94
