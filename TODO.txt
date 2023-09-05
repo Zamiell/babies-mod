@@ -5,7 +5,6 @@ TODO:
 - auto generate documentation from parsing babies.ts
 
 Babies to change:
-- Fishman Baby : The enum says that it's impossible to spawn Giga Bombs with BombSubType.NULL, would be cool if the baby could spawn giga bombs
 - Puncher Baby : It appear that the difference isn't very noticeable between 1 and 10 Punching Bags. 1 Punching Bag + 1 Lost Fly would make enemies more unpredictable
 - Derp Baby - Starts with Cube of Meat + BFFS + 0.5x damage
 - Snail Baby - 0.5x speed
