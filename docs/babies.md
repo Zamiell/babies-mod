@@ -51,7 +51,7 @@ There are 603 babies in total.
 | 42 | <img src="./images/042_baby_colorful.png" alt="042_baby_colorful.png"> | Colorful Baby | Acid trip |
 | 43 | <img src="./images/043_baby_whore.png" alt="043_baby_whore.png"> | Whore Baby | All enemies explode |
 | 44 | <img src="./images/044_baby_cracked.png" alt="044_baby_cracked.png"> | Cracked Baby | Starts with Cracked Dice |
-| 45 | <img src="./images/045_baby_dripping.png" alt="045_baby_dripping.png"> | Dripping Baby | Starts with Isaac's Heart |
+| 45 | <img src="./images/045_baby_dripping.png" alt="045_baby_dripping.png"> | Dripping Baby | 10% chance to teleport from breaking rocks |
 | 46 | <img src="./images/046_baby_blinding.png" alt="046_baby_blinding.png"> | Blinding Baby | Spawns a Sun Card on hit |
 | 47 | <img src="./images/047_baby_sucky.png" alt="047_baby_sucky.png"> | Sucky Baby | Succubus aura |
 | 48 | <img src="./images/048_baby_dark.png" alt="048_baby_dark.png"> | Dark Baby | Temporary blindness |

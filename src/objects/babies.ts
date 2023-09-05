@@ -409,9 +409,10 @@ export const BABIES = {
   // 45
   [RandomBabyType.DRIPPING]: {
     name: "Dripping Baby",
-    description: "Starts with Isaac's Heart",
+    description: "10% chance to teleport from breaking rocks",
     sprite: "045_baby_dripping.png",
-    item: CollectibleType.ISAACS_HEART,
+    num: 0.1,
+    class: bc.DrippingBaby,
   },
 
   // 46
