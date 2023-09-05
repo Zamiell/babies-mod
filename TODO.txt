@@ -4,7 +4,6 @@ TODO:
 - SaveDataManager
 
 Babies to change:
-- Snail Baby - 0.5x speed
 - Lovebear Baby (#266) - Starts with The Relic - On average will only drop 1 soul heart per floor since it was nerfed in Repentance
 - Dark Baby 2 (#243) - Starts with Strange Attractor
 - Dripping Baby (#45) - Starts with Isaac's Heart
@@ -23,7 +22,6 @@ Potential new effects:
 - Every sound effect is randomized
 - Starts with 3 Knife piece 1 + 3 Knife Piece 2
 - Spawn every type of machine in the starting room
-- Glowing Hourglass effect on 2nd hit (per room)
 - 10x intruder baby
 - spawn random coin after room clear (copy code from Fishman Baby)
 
@@ -50,6 +48,7 @@ List of hard babies:
 - Orange Ghost Baby (#373) - Placed bombs are Mega Troll Bombs
 - Pink Princess Baby (#374) - Summons random stomps
 - Blue Pig Baby (#382) - Spawns a Mega Troll Bomb every 5 seconds
+- Puncher Baby (#416) - Spawns a Golden Troll Bomb in every room
 - Driver Baby (#431) - Slippery movement
 - Funny Baby (#491) - Enemies spawn Troll Bombs on death
 - Painful Baby (#570) - Enemies respawn when reentering a room

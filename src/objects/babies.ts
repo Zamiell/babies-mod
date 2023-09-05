@@ -2111,8 +2111,9 @@ export const BABIES = {
   // 244
   [RandomBabyType.SNAIL]: {
     name: "Snail Baby",
-    description: "0.5x speed",
+    description: "Glowing Hourglass on 2nd hit (per room)",
     sprite: "244_baby_snail.png",
+    num: 2,
     class: bc.SnailBaby,
   },
 

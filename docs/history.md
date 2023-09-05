@@ -17,6 +17,7 @@
   - O Baby (#93) - Spawns portal on 6 pickups collected
   - Lipstick Baby (#105) - Range oscillates
   - Blisters Baby (#240) - Shot speed oscillates
+  - Snail Baby (#244) - Glowing Hourglass effect on 2nd hit (per room)
   - Cupcake Baby (#321) - Starts with Voodoo Head + Flat File
   - Dark Elf Baby (#378) - Starts with Bone Spurs + Polished Bone
   - Puncher Baby (#416) - Spawns a Golden Troll Bomb in every room
