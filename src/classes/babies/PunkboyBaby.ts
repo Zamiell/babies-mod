@@ -17,10 +17,14 @@ export class PunkboyBaby extends Baby {
   }
 
   override onRemove(player: EntityPlayer): void {
-    removeCollectible(
-      player,
-      CollectibleType.KNIFE_PIECE_1,
-      CollectibleType.KNIFE_PIECE_2,
-    );
+    const num = this.getAttribute("num");
+
+    repeat(num, () => {
+      removeCollectible(
+        player,
+        CollectibleType.KNIFE_PIECE_1,
+        CollectibleType.KNIFE_PIECE_2,
+      );
+    });
   }
 }
