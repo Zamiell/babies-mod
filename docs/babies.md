@@ -4,7 +4,7 @@
 
 | ID | Appearance | Name | Description |
 | -- | ---------- | ---- | ----------- |
-| 0 | <center><img src="./images/000_baby_spider.png" style="width: 32px; height: 32px; object-fit: none; object-position: 0% 0%;"></center> | Spider Baby | Shoots a Blue Spider every 2nd tear! |
+| 0 | <center><img src="./images/000_baby_spider.png" style="width: 32px; height: 32px; object-fit: none; object-position: 0% 0%;"></center> | Spider Baby | Shoots a Blue Spider every 2nd tear |
 | 1 | <center><img src="./images/001_baby_love.png" style="width: 32px; height: 32px; object-fit: none; object-position: 0% 0%;"></center> | Love Baby | Spawns a random heart on room clear |
 | 2 | <center><img src="./images/002_baby_bloat.png" style="width: 32px; height: 32px; object-fit: none; object-position: 0% 0%;"></center> | Bloat Baby | Syringe tears |
 | 3 | <center><img src="./images/003_baby_water.png" style="width: 32px; height: 32px; object-fit: none; object-position: 0% 0%;"></center> | Water Baby | Starts with Isaac's Tears (improved) |
