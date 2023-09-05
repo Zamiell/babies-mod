@@ -4,26 +4,23 @@ TODO:
 - SaveDataManager
 
 Babies to change:
-- Lovebear Baby (#266) - Starts with The Relic - On average will only drop 1 soul heart per floor since it was nerfed in Repentance
 - Dark Baby 2 (#243) - Starts with Strange Attractor
 - Dripping Baby (#45) - Starts with Isaac's Heart
 - Lobotomy Baby (#79) - Starts with Delirious - Slightly overlaps with Grayscale Baby (#349)
 - VVVVVV Baby (#108) - Starts with Anti-Gravity
-- Bandage Girl Baby (#178) - Starts with Cube of Meat + Ball of Bandage - Slightly overlaps with Brownie Baby (#107)
 - Punkboy Baby (#233) - Starts with Polaroid
 - Punkgirl Baby (#234) - Starts with Negative
 - Sword Baby (#312) - Starts with Sacrificial Dagger
+- Bandage Girl Baby (#178) - Starts with Cube of Meat + Ball of Bandage - Slightly overlaps with Brownie Baby (#107)
 - Tooth Baby (#478) - Starts with Black Tooth
 
 Potential new effects:
 - Glitched pickups (all pickups rotate between 5 pickups like Glitched Crown on items)
-- Exploding a tinted rock teleports you to a random special room (item room, shop, planetarium, devil deal, angel room, error room, black market, secret room, super secret room, ultra secret room, mini-boss room, boss room, arcade, challenge, curse, sacrifice, library, Vault, Dice room, bedrooms) (Prevent this effect from appearing in Chest and Dark Room)
 - Enemies turn into giant poops when touched (improved E. Coli)
-- Every sound effect is randomized
 - Starts with 3 Knife piece 1 + 3 Knife Piece 2
-- Spawn every type of machine in the starting room
 - 10x intruder baby
 - spawn random coin after room clear (copy code from Fishman Baby)
+- exploding rock has 10% chance to teleport
 
 List of boring babies:
 - 3 Eyes Baby (#69) - Starts with Inner Eye - Slightly overlaps with Makeup Baby (#99) & Basic Spider Baby (#214) & So Many Eyes Baby (#375)

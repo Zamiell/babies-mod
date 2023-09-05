@@ -2297,9 +2297,9 @@ export const BABIES = {
   // 266
   [RandomBabyType.LOVEBEAR]: {
     name: "Lovebear Baby",
-    description: "Starts with The Relic",
+    description: "Starting rooms are Super-Arcades",
     sprite: "266_baby_lovebear.png",
-    item: CollectibleType.RELIC,
+    class: bc.LovebearBaby,
   },
 
   // 267
@@ -2976,7 +2976,7 @@ export const BABIES = {
   // 343
   [RandomBabyType.CYBORG]: {
     name: "Cyborg Baby",
-    description: "Sees numerical damage values", // debug 7
+    description: "Sees numerical damage values and hitboxes",
     sprite: "343_baby_cyborg.png",
     class: bc.CyborgBaby,
   },

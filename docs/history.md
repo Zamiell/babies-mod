@@ -18,7 +18,9 @@
   - Lipstick Baby (#105) - Range oscillates
   - Blisters Baby (#240) - Shot speed oscillates
   - Snail Baby (#244) - Glowing Hourglass effect on 2nd hit (per room)
+  - Lovebear Baby (#266) - Starting rooms are Super-Arcades
   - Cupcake Baby (#321) - Starts with Voodoo Head + Flat File
+  - Cyborg Baby (#343) - Sees numerical damage values and hitboxes
   - Dark Elf Baby (#378) - Starts with Bone Spurs + Polished Bone
   - Puncher Baby (#416) - Spawns a Golden Troll Bomb in every room
   - Tired Baby (#443) - Starts with 10x Cube Baby + Ice Cube

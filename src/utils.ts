@@ -368,10 +368,11 @@ export function spawnRandomPickup(
 export function spawnSlotHelper(
   slotVariant: SlotVariant,
   startingPosition: Vector,
+  player: EntityPlayer,
   rng: RNG,
 ): Entity {
   const position = findFreePosition(startingPosition);
-  const slot = spawnSlot(slotVariant, 0, position, VectorZero, undefined, rng);
+  const slot = spawnSlot(slotVariant, 0, position, VectorZero, player, rng);
 
   spawnEffect(EffectVariant.POOF_1, PoofSubType.NORMAL, position);
   sfxManager.Play(SoundEffect.SUMMON_SOUND);

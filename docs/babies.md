@@ -272,7 +272,7 @@ There are 603 babies in total.
 | 263 | <img src="./images/263_baby_raccoon.png" alt="263_baby_raccoon.png"> | Raccoon Baby | Random rocks |
 | 264 | <img src="./images/264_baby_bear.png" alt="264_baby_bear.png"> | Bear Baby | Starts with Mystery Gift |
 | 265 | <img src="./images/265_baby_polarbear.png" alt="265_baby_polarbear.png"> | Polar Bear Baby | Starts with Lil Brimstone + Robo Baby + Baby Bender |
-| 266 | <img src="./images/266_baby_lovebear.png" alt="266_baby_lovebear.png"> | Lovebear Baby | Starts with The Relic |
+| 266 | <img src="./images/266_baby_lovebear.png" alt="266_baby_lovebear.png"> | Lovebear Baby | Starting rooms are Super-Arcades |
 | 267 | <img src="./images/267_baby_hare.png" alt="267_baby_hare.png"> | Hare Baby | Takes damage when standing still |
 | 268 | <img src="./images/268_baby_squirrel.png" alt="268_baby_squirrel.png"> | Squirrel Baby | Starts with Walnut (improved) |
 | 269 | <img src="./images/269_baby_tabby.png" alt="269_baby_tabby.png"> | Tabby Baby | Starts with Sol |
@@ -349,7 +349,7 @@ There are 603 babies in total.
 | 340 | <img src="./images/340_baby_o.png" alt="340_baby_o.png"> | O Baby 2 | Spiral tears |
 | 341 | <img src="./images/341_baby_vomit.png" alt="341_baby_vomit.png"> | Vomit Baby | Must stand still every 10 seconds |
 | 342 | <img src="./images/342_baby_merman.png" alt="342_baby_merman.png"> | Merman Baby | Keys spawn as bombs |
-| 343 | <img src="./images/343_baby_cyborg.png" alt="343_baby_cyborg.png"> | Cyborg Baby | Sees numerical damage values |
+| 343 | <img src="./images/343_baby_cyborg.png" alt="343_baby_cyborg.png"> | Cyborg Baby | Sees numerical damage values and hitboxes |
 | 344 | <img src="./images/344_baby_barbarian.png" alt="344_baby_barbarian.png"> | Barbarian Baby | Mama Mega bombs |
 | 345 | <img src="./images/345_baby_locust.png" alt="345_baby_locust.png"> | Locust Baby | Starts with 20 Abyss locusts + blindfolded |
 | 346 | <img src="./images/346_baby_twotone.png" alt="346_baby_twotone.png"> | Twotone Baby | Dataminer effect on room enter |

@@ -1,12 +1,17 @@
 import { Baby } from "../Baby";
 
-/** Sees numerical damage values. */
+/** Sees numerical damage values and hitboxes. */
 export class CyborgBaby extends Baby {
   override onAdd(): void {
-    Isaac.ExecuteCommand("debug 7");
+    toggleDebugOptions();
   }
 
   override onRemove(): void {
-    Isaac.ExecuteCommand("debug 7");
+    toggleDebugOptions();
   }
+}
+
+function toggleDebugOptions() {
+  Isaac.ExecuteCommand("debug 6"); // Show hitspheres
+  Isaac.ExecuteCommand("debug 7"); // Show damage values
 }
