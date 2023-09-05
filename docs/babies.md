@@ -2,6 +2,8 @@
 
 <!-- markdownlint-disable MD033 -->
 
+There are 603 babies in total.
+
 | ID | Appearance | Name | Description |
 | -- | ---------- | ---- | ----------- |
 | 0 | <img src="./images/000_baby_spider.png" width="64" height="64"> | Spider Baby | Shoots a Blue Spider every 2nd tear |

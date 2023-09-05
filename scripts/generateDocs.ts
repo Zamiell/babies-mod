@@ -154,6 +154,7 @@ function getBabyDescriptionsFromBabiesTS(): BabyDescriptionSimple[] {
 function getMarkdownText(babyDescriptions: BabyDescriptionSimple[]): string {
   let text = "# Baby List\n\n";
   text += "<!-- markdownlint-disable MD033 -->\n\n";
+  text += `There are ${babyDescriptions.length} babies in total.\n\n`;
   text += "| ID | Appearance | Name | Description |\n";
   text += "| -- | ---------- | ---- | ----------- |\n";
 
