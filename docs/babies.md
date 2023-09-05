@@ -240,7 +240,7 @@ There are 603 babies in total.
 | 231 | <img src="./images/231_baby_bawl.png" alt="231_baby_bawl.png"> | Bawl Baby | Constant Isaac's Tears effect + blindfolded |
 | 232 | <img src="./images/232_baby_lemon.png" alt="232_baby_lemon.png"> | Lemon Baby | Starts with Lemon Mishap (improved) |
 | 233 | <img src="./images/233_baby_punkboy.png" alt="233_baby_punkboy.png"> | Punkboy Baby | Starts with 3x Knife Piece 1 + 3x Knife Piece 2 |
-| 234 | <img src="./images/234_baby_punkgirl.png" alt="234_baby_punkgirl.png"> | Punkgirl Baby | Starts with The Negative |
+| 234 | <img src="./images/234_baby_punkgirl.png" alt="234_baby_punkgirl.png"> | Punkgirl Baby | Spawns a random coin on room clear |
 | 235 | <img src="./images/235_baby_computer.png" alt="235_baby_computer.png"> | Computer Baby | Starts with Technology + Technology 2 |
 | 236 | <img src="./images/236_baby_mask.png" alt="236_baby_mask.png"> | Mask Baby | All enemies are permanently confused |
 | 237 | <img src="./images/237_baby_gem.png" alt="237_baby_gem.png"> | Gem Baby | Pennies spawn as nickels |

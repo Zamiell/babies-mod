@@ -4,14 +4,12 @@ TODO:
 - SaveDataManager
 
 Babies to change:
-- Punkgirl Baby (#234) - Starts with Negative
 - Lobotomy Baby (#79) - Starts with Delirious - Slightly overlaps with Grayscale Baby (#349)
 - VVVVVV Baby (#108) - Starts with Anti-Gravity
 - Tooth Baby (#478) - Starts with Black Tooth
 
 Potential new effects:
 - Glitched pickups (all pickups rotate between 5 pickups like Glitched Crown on items)
-- Starts with 3 Knife piece 1 + 3 Knife Piece 2
 - 10x intruder baby
 - spawn random coin after room clear (copy code from Fishman Baby)
 

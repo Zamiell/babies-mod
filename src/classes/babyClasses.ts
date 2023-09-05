@@ -229,6 +229,7 @@ export { PubicBaby } from "./babies/PubicBaby";
 export { PuffBaby } from "./babies/PuffBaby";
 export { PuncherBaby } from "./babies/PuncherBaby";
 export { PunkboyBaby } from "./babies/PunkboyBaby";
+export { PunkgirlBaby } from "./babies/PunkgirlBaby";
 export { PurpleBaby } from "./babies/PurpleBaby";
 export { PuzzleBaby } from "./babies/PuzzleBaby";
 export { RabbitBaby } from "./babies/RabbitBaby";

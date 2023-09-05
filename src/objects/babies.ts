@@ -2030,9 +2030,9 @@ export const BABIES = {
   // 234
   [RandomBabyType.PUNKGIRL]: {
     name: "Punkgirl Baby",
-    description: "Starts with The Negative",
+    description: "Spawns a random coin on room clear",
     sprite: "234_baby_punkgirl.png",
-    item: CollectibleType.NEGATIVE,
+    class: bc.PunkgirlBaby,
   },
 
   // 235
