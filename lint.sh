@@ -73,7 +73,11 @@ if [[ $WINDOWS_FILES ]]; then
 fi
 
 # Check that the documentation is up to date.
-# TODO
+DOCS="$DIR/docs/babies.md"
+TMP_DOCS="/tmp/babies.md"
+cp "$DOCS" "$TMP_DOCS"
+npx tsx "$DIR/scripts/generateDocs.ts"
+diff "$DOCS" "$TMP_DOCS"
 
 # @template-customization-end
 

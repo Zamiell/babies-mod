@@ -2,7 +2,6 @@ TODO:
 
 - refactor global variables
 - SaveDataManager
-- auto generate documentation from parsing babies.ts
 
 Babies to change:
 - Puncher Baby : It appear that the difference isn't very noticeable between 1 and 10 Punching Bags. 1 Punching Bag + 1 Lost Fly would make enemies more unpredictable

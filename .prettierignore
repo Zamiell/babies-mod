@@ -19,3 +19,10 @@ customStages/**/*.xml
 
 # XML files created by the animation editor
 mod/resources/**/*.anm2
+
+# @template-customization-start
+
+# Generated documentation
+docs/babies.md
+
+# @template-customization-end
