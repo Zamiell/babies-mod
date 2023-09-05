@@ -3,13 +3,6 @@
   // https://github.com/IsaacScript/isaacscript/blob/main/packages/isaacscript-tsconfig/configs/tsconfig.node.json
   "extends": "isaacscript-tsconfig/tsconfig.node.json",
 
-  // Since the scripts imports code from the main project, we need to specify some compiler options
-  // in order to prevent spurious errors.
-  "compilerOptions": {
-    "moduleResolution": "Node",
-    "experimentalDecorators": true,
-  },
-
   // We want to lint every file in the repository, regardless of whether it is actually bundled into
   // the TypeScript output. Two entries for each file extension are needed because TypeScript will
   // exclude files that begin with a period from an asterisk glob by default.

@@ -72,6 +72,9 @@ if [[ $WINDOWS_FILES ]]; then
   exit 1
 fi
 
+# Check that the documentation is up to date.
+# TODO
+
 # @template-customization-end
 
 echo "Successfully linted $REPO_NAME in $SECONDS seconds."

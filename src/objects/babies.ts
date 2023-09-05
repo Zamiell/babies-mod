@@ -4901,7 +4901,7 @@ export const BABIES = {
   [RandomBabyType.DOOR_MIMIC]: {
     name: "Door Mimic Baby",
     description: "Starts with Bot Fly",
-    sprite: "566_baby_doormimic.png", // cspell:ignore doormimic
+    sprite: "566_baby_doormimic.png",
     item: CollectibleType.BOT_FLY,
   },
 
@@ -4917,7 +4917,7 @@ export const BABIES = {
   [RandomBabyType.MOON_JELLY]: {
     name: "Moon Jelly Baby",
     description: "Starts with Saturnus",
-    sprite: "568_baby_moonjelly.png", // cspell:ignore moonjelly
+    sprite: "568_baby_moonjelly.png",
     item: CollectibleType.SATURNUS,
   },
 
@@ -4968,7 +4968,7 @@ export const BABIES = {
   [RandomBabyType.FOOD_REVIEWER]: {
     name: "Food Reviewer Baby",
     description: "All items are food items",
-    sprite: "574_baby_foodreviewer.png", // cspell:ignore foodreviewer
+    sprite: "574_baby_foodreviewer.png",
     class: bc.FoodReviewerBaby,
   },
 

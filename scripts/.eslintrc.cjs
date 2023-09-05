@@ -16,7 +16,7 @@ const config = {
   },
 
   rules: {
-    // Insert changed or disabled rules here, if necessary.
+    "isaacscript/no-throw": "off",
   },
 };
 
