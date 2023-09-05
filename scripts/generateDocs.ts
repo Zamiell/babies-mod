@@ -167,7 +167,7 @@ function getMarkdownText(babyDescriptions: BabyDescriptionSimple[]): string {
     const image =
       sprite === "invisible_baby.png"
         ? ""
-        : `<center><img src="${spriteURL}" style="width: 32px; height: 32px; object-fit: none; object-position: 0% 0%;"></center>`;
+        : `<img src="${spriteURL}" width="64" height="64">`;
 
     text += `| ${id} | ${image} | ${name} | ${description} |\n`;
   }
