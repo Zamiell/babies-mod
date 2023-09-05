@@ -19,12 +19,17 @@ List of boring babies:
 - Cursor Baby (#468) - Starts with Pause!
 - Thirteenth Baby (#533) - Starts with Modeling Clay
 
+Potential new effects :
+- Starts with Swallowed Penny + Piggy Bank + Strawman. If Strawman dies, you die
+- Reroll your active item on 2nd hit (per room)
+- Reverse Temperance effect after 6 hits
+- 8 trinkets are buyable (10c) in the starting room, you can only choose one
+- Starts with 3x Cain's other eye + Friendship Necklace (make exceptions with ipecac and Dr Fetus)
+
 List of hard babies:
 - Troll Baby (#6) - Spawns a Troll Bomb every 3 seconds
 - Noose Baby (#39) - Don't shoot when the timer reaches 0
 - Eyebrows Baby (#89) - Starts with 5x Guppy's Hair Ball + blindfolded
-- O Baby (#93) - Starts with Tiny Planet
-- Dark Baby 2 (#243) - Starts with Strange Attractor
 - Hare Baby (#267) - Takes damage when standing still
 - Vomit Baby (#341) - Must stand still every 10 seconds
 - Orange Ghost Baby (#373) - Placed bombs are Mega Troll Bombs
