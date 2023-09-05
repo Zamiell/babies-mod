@@ -165,8 +165,12 @@ function getMarkdownText(babyDescriptions: BabyDescriptionSimple[]): string {
     // them using ImageMagick. (See the comment in "cropImages.sh".)
     const spriteURL = `./images/${sprite}`;
 
+    // We use an `img` tag instead of the Markdown image format because the former does not work
+    // properly if the file name has a space in it.
     const image =
-      sprite === "invisible_baby.png" ? "" : `![${sprite}](${spriteURL})`;
+      sprite === "invisible_baby.png"
+        ? ""
+        : `<img src="${spriteURL}" alt="${sprite}">`;
 
     text += `| ${id} | ${image} | ${name} | ${description} |\n`;
   }
