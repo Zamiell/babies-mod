@@ -161,14 +161,12 @@ function getMarkdownText(babyDescriptions: BabyDescriptionSimple[]): string {
   for (const babyDescription of babyDescriptions) {
     const { id, name, description, sprite } = babyDescription;
 
-    // We copy paste all of the vanilla PNG files into the "images" directory.
+    // We copy paste all of the vanilla PNG files into the "images" directory and then crop/resize
+    // them using ImageMagick. (See the comment in "cropImages.sh".)
     const spriteURL = `./images/${sprite}`;
 
-    // We need to crop the image to the top 32x32 pixels.
     const image =
-      sprite === "invisible_baby.png"
-        ? ""
-        : `<img src="${spriteURL}" width="64" height="64">`;
+      sprite === "invisible_baby.png" ? "" : `![${sprite}](${spriteURL})`;
 
     text += `| ${id} | ${image} | ${name} | ${description} |\n`;
   }
