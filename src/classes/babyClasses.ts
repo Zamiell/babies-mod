@@ -287,6 +287,7 @@ export { TanookiBaby } from "./babies/TanookiBaby";
 export { TiltBaby } from "./babies/TiltBaby";
 export { ToastBaby } from "./babies/ToastBaby";
 export { TongueBaby } from "./babies/TongueBaby";
+export { ToothBaby } from "./babies/ToothBaby";
 export { ToothHeadBaby } from "./babies/ToothHeadBaby";
 export { TortoiseBaby } from "./babies/TortoiseBaby";
 export { TrollBaby } from "./babies/TrollBaby";

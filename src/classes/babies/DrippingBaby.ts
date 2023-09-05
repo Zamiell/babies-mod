@@ -1,10 +1,11 @@
-import { CollectibleType } from "isaac-typescript-definitions";
+import { CollectibleType, LevelStage } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   ModCallbackCustom,
   game,
   getRandom,
   newRNG,
+  onStage,
   setSeed,
   useActiveItemTemp,
 } from "isaacscript-common";
@@ -19,6 +20,15 @@ const v = {
 /** N% chance to teleport from breaking rocks. */
 export class DrippingBaby extends Baby {
   v = v;
+
+  /** Only valid on floors with rocks. */
+  override isValid(): boolean {
+    return !onStage(
+      LevelStage.BLUE_WOMB,
+      LevelStage.DARK_ROOM_CHEST,
+      LevelStage.HOME,
+    );
+  }
 
   override onAdd(): void {
     const level = game.GetLevel();

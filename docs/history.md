@@ -29,7 +29,7 @@
   - Puncher Baby (#416) - Spawns a Golden Troll Bomb in every room
   - Tired Baby (#443) - Starts with 10x Cube Baby + Ice Cube
   - Burning Baby (#467) - Starts with Vasculitis + A Lighter + 40 Luck
-  - Tooth Baby (#478) - Starts with Black Tooth
+  - Tooth Baby (#478) - Spawns a random key on room clear
   - Thirteenth Baby (#533) - Starts with Modeling Clay
   - Painful Baby (#570) - Enemies respawn when reentering a room
   - Doleful Baby (#572) - Starts with Soy Milk + booger tears

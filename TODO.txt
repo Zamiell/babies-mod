@@ -3,18 +3,10 @@ TODO:
 - refactor global variables
 - SaveDataManager
 
-Babies to change:
-- Lobotomy Baby (#79) - Starts with Delirious - Slightly overlaps with Grayscale Baby (#349)
-- VVVVVV Baby (#108) - Starts with Anti-Gravity
-- Tooth Baby (#478) - Starts with Black Tooth
-
-Potential new effects:
-- Glitched pickups (all pickups rotate between 5 pickups like Glitched Crown on items)
-- 10x intruder baby
-- spawn random coin after room clear (copy code from Fishman Baby)
-
 List of boring babies:
 - 3 Eyes Baby (#69) - Starts with Inner Eye - Slightly overlaps with Makeup Baby (#99) & Basic Spider Baby (#214) & So Many Eyes Baby (#375)
+- Lobotomy Baby (#79) - Starts with Delirious
+- VVVVVV Baby (#108) - Starts with Anti-Gravity
 - Bandage Girl Baby (#178) - Starts with Cube of Meat + Ball of Bandage - Slightly overlaps with Brownie Baby (#107)
 - Dr. Fetus Baby (#188) - Starts with Dr. Fetus - Slightly overlaps with the other Dr. Fetus babies
 - Peeling Baby (#199) - Starts with Potato Peeler - Slightly overlaps with Meat Boy Baby (#210)

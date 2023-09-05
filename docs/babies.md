@@ -484,7 +484,7 @@ There are 603 babies in total.
 | 475 | <img src="./images/475_baby_somanyeyes.png" alt="475_baby_somanyeyes.png"> | So Many Eyes Baby | Starts with Mutant Spider + The Inner Eye |
 | 476 | <img src="./images/476_baby_text.png" alt="476_baby_text.png"> | Text Baby | Starts with Glitched Crown |
 | 477 | <img src="./images/477_baby_wing.png" alt="477_baby_wing.png"> | Wing Baby | Starts with White Pony |
-| 478 | <img src="./images/478_baby_tooth.png" alt="478_baby_tooth.png"> | Tooth Baby | Starts with Black Tooth |
+| 478 | <img src="./images/478_baby_tooth.png" alt="478_baby_tooth.png"> | Tooth Baby | Spawns a random key on room clear |
 | 479 | <img src="./images/479_baby_haunt.png" alt="479_baby_haunt.png"> | Haunt Baby | Starts with 10x Lil Haunt |
 | 480 | <img src="./images/480_baby_imp.png" alt="480_baby_imp.png"> | Imp Baby 2 | Acid tears |
 | 481 | <img src="./images/481_baby_32bit.png" alt="481_baby_32bit.png"> | 32bit Baby | No HUD |
