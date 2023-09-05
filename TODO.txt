@@ -2,7 +2,6 @@ TODO:
 
 - refactor global variables
 - SaveDataManager
-- spawn Lil Portal portal after picking up 6 pickups
 
 Babies to change:
 - Puncher Baby - Starts with 10x Punching Bag

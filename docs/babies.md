@@ -99,7 +99,7 @@ There are 603 babies in total.
 | 90 | <img src="./images/090_baby_nerd.png" alt="090_baby_nerd.png"> | Nerd Baby | Locked doors in uncleared rooms |
 | 91 | <img src="./images/091_baby_boss.png" alt="091_baby_boss.png"> | Boss Baby | Starts with There's Options |
 | 92 | <img src="./images/092_baby_turd.png" alt="092_baby_turd.png"> | Turd Baby | Enemies fart on death |
-| 93 | <img src="./images/093_baby_o.png" alt="093_baby_o.png"> | O Baby | Starts with Tiny Planet |
+| 93 | <img src="./images/093_baby_o.png" alt="093_baby_o.png"> | O Baby | Spawns portal on 6 pickups collected |
 | 94 | <img src="./images/094_baby_squareeyes.png" alt="094_baby_squareeyes.png"> | Square Eyes Baby | Square tears |
 | 95 | <img src="./images/095_baby_teeth.png" alt="095_baby_teeth.png"> | Teeth Baby | Starts with Lemegeton |
 | 96 | <img src="./images/096_baby_frown.png" alt="096_baby_frown.png"> | Frown Baby | Summons Best Friend every 5 seconds |
