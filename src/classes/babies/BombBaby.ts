@@ -4,13 +4,27 @@ import {
   ModCallbackCustom,
   getPlayerFromEntity,
   getRandom,
+  newRNG,
   onStage,
   useActiveItemTemp,
 } from "isaacscript-common";
+import { setInitialBabyRNG } from "../../utils";
 import { Baby } from "../Baby";
+
+const v = {
+  run: {
+    rng: newRNG(),
+  },
+};
 
 /** N% chance for bombs to have the D6 effect. */
 export class BombBaby extends Baby {
+  v = v;
+
+  override onAdd(): void {
+    setInitialBabyRNG(v.run.rng);
+  }
+
   /** There are no collectibles on Sheol/Cathedral. */
   override isValid(): boolean {
     return !onStage(LevelStage.SHEOL_CATHEDRAL);
@@ -23,7 +37,9 @@ export class BombBaby extends Baby {
       return;
     }
 
-    const d6chance = getRandom(bomb.InitSeed);
+    // We don't want the chance to be based on the bomb's `InitSeed` because then the effect would
+    // be essentially unseeded in a seeded race.
+    const d6chance = getRandom(v.run.rng);
     const num = this.getAttribute("num");
 
     if (d6chance < num) {

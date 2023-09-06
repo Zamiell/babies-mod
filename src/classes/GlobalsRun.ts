@@ -11,8 +11,6 @@ export class GlobalsRun {
   // Temporary variables
   showIntroFrame = 0;
   showVersionFrame = 0;
-
-  /** Used to make the player temporarily invulnerable. */
   dealingExtraDamage = false;
   gettingCollectible = false;
 

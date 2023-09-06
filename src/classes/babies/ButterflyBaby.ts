@@ -8,25 +8,12 @@ import {
   repeat,
 } from "isaacscript-common";
 import { mod } from "../../mod";
-import { setInitialBabyRNG } from "../../utils";
 import { Baby } from "../Baby";
-
-const v = {
-  run: {
-    rng: newRNG(),
-  },
-};
 
 /** Improved Super Secret Rooms. */
 export class ButterflyBaby extends Baby {
-  v = v;
-
   override isValid(): boolean {
     return levelHasRoomType(RoomType.SUPER_SECRET);
-  }
-
-  override onAdd(): void {
-    setInitialBabyRNG(v.run.rng);
   }
 
   @CallbackCustom(
@@ -36,16 +23,19 @@ export class ButterflyBaby extends Baby {
   postNewRoomReordered(): void {
     const room = game.GetRoom();
     const isFirstVisit = room.IsFirstVisit();
-    const center = room.GetCenterPos();
-    const num = this.getAttribute("num");
 
     if (!isFirstVisit) {
       return;
     }
 
+    const center = room.GetCenterPos();
+    const seed = room.GetAwardSeed();
+    const rng = newRNG(seed);
+    const num = this.getAttribute("num");
+
     repeat(num, () => {
       const position = room.FindFreePickupSpawnPosition(center, 1, true);
-      mod.spawnCollectible(CollectibleType.NULL, position, v.run.rng);
+      mod.spawnCollectible(CollectibleType.NULL, position, rng);
     });
   }
 }

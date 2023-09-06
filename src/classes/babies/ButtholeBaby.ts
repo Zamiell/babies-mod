@@ -23,9 +23,10 @@ import { Baby } from "../Baby";
 const NUM_POOP_ENTITY_VARIANTS = getEnumLength(PoopEntityVariant);
 if (NUM_POOP_ENTITY_VARIANTS !== 8) {
   error(
-    "Butthole Baby needs to be updated to handle the new poop entity variants.",
+    "Babies Mod needs to be updated to handle the new poop entity variants.",
   );
 }
+
 const POOP_GRID_ENTITY_VARIANTS_NOT_IN_POOP_ENTITY_VARIANTS = [
   PoopGridEntityVariant.RED, // 1
   PoopGridEntityVariant.RAINBOW, // 4
@@ -69,36 +70,30 @@ export class ButtholeBaby extends Baby {
     const num = this.getAttribute("num");
 
     everyNSeconds(() => {
-      spawnRandomPoop(player);
+      spawnRandomPoop(player.Position, v.run.rng);
     }, num);
   }
 }
 
 /** We want each type of poop type to have an equal chance of spawning. */
-export function spawnRandomPoop(player: EntityPlayer): void {
+function spawnRandomPoop(position: Vector, rng: RNG) {
   const numNormalEntityPoops = NUM_POOP_ENTITY_VARIANTS;
   const numGridEntityPoops =
     POOP_GRID_ENTITY_VARIANTS_NOT_IN_POOP_ENTITY_VARIANTS.length;
   const poopRoll = getRandomInt(
     1,
     numNormalEntityPoops + numGridEntityPoops,
-    v.run.rng,
+    rng,
   );
 
   // Depending on the type of poop selected, we might need to spawn an entity or a grid entity.
   if (poopRoll <= numNormalEntityPoops) {
-    const poopEntityVariant = getRandomEnumValue(PoopEntityVariant, v.run.rng);
-    spawnWithSeed(
-      EntityType.POOP,
-      poopEntityVariant,
-      0,
-      player.Position,
-      v.run.rng,
-    );
+    const poopEntityVariant = getRandomEnumValue(PoopEntityVariant, rng);
+    spawnWithSeed(EntityType.POOP, poopEntityVariant, 0, position, rng);
   } else {
     const poopGridEntityVariant = getRandomArrayElement(
       POOP_GRID_ENTITY_VARIANTS_NOT_IN_POOP_ENTITY_VARIANTS,
-      v.run.rng,
+      rng,
     );
 
     // Red Poops will instantly damage the player, so we have to give them some invulnerability
@@ -108,11 +103,7 @@ export function spawnRandomPoop(player: EntityPlayer): void {
       v.room.invulnerabilityUntilFrame = gameFrameCount + 25;
     }
 
-    Isaac.GridSpawn(
-      GridEntityType.POOP,
-      poopGridEntityVariant,
-      player.Position,
-    );
+    Isaac.GridSpawn(GridEntityType.POOP, poopGridEntityVariant, position);
   }
 
   sfxManager.Play(SoundEffect.FART);

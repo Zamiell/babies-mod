@@ -18,7 +18,7 @@ const v = {
   },
 };
 
-/** Spawns portal on N pickups touched. */
+/** Spawns a portal on N pickups touched. */
 export class OBaby extends Baby {
   v = v;
 

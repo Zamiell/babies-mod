@@ -37,6 +37,8 @@ export class DrippingBaby extends Baby {
   postGridEntityBroken(): void {
     const player = Isaac.GetPlayer();
 
+    // We do not use the seed of the rock because we want the chances to happen in order for seeded
+    // races.
     const teleportChance = getRandom(v.run.rng);
     const num = this.getAttribute("num");
 

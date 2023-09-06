@@ -1,7 +1,17 @@
-import { ModCallback, SoundEffect } from "isaac-typescript-definitions";
-import { Callback, game, sfxManager, spawnGiantPoop } from "isaacscript-common";
+import {
+  EntityType,
+  ModCallback,
+  PoopEntityVariant,
+  SoundEffect,
+} from "isaac-typescript-definitions";
+import {
+  Callback,
+  game,
+  sfxManager,
+  spawnGiantPoop,
+  spawnWithSeed,
+} from "isaacscript-common";
 import { Baby } from "../Baby";
-import { spawnRandomPoop } from "./ButtholeBaby";
 
 /** Starts with E. Coli (improved). */
 export class DarkBaby2 extends Baby {
@@ -33,7 +43,13 @@ export class DarkBaby2 extends Baby {
     }
 
     // There was not room for the giant poop. Spawn a normal poop as a backup.
-    spawnRandomPoop(player);
+    spawnWithSeed(
+      EntityType.POOP,
+      PoopEntityVariant.NORMAL,
+      0,
+      player.Position,
+      npc.InitSeed,
+    );
 
     return undefined;
   }

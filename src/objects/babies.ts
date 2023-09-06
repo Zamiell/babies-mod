@@ -830,7 +830,7 @@ export const BABIES = {
   // 93
   [RandomBabyType.O]: {
     name: "O Baby",
-    description: "Spawns portal on 6 pickups collected",
+    description: "Spawns a portal on 6 pickups collected",
     sprite: "093_baby_o.png",
     num: 6,
     class: bc.OBaby,
@@ -1309,7 +1309,7 @@ export const BABIES = {
     name: "Butterfly Baby",
     description: "Improved Super Secret Rooms",
     sprite: "149_baby_butterfly.png",
-    num: 4, // Number of collectibles
+    num: 4, // The number of collectibles to spawn.
     class: bc.ButterflyBaby,
   },
 

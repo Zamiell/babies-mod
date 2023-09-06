@@ -94,12 +94,12 @@ There are 603 babies in total.
 | 85 | <img src="./images/085_baby_shades.png" alt="085_baby_shades.png"> | Shades Baby | Starts with X-Ray Vision |
 | 86 | <img src="./images/086_baby_statue.png" alt="086_baby_statue.png"> | Statue Baby | Starts with Duality |
 | 87 | <img src="./images/087_baby_bloodsucker.png" alt="087_baby_bloodsucker.png"> | Bloodsucker Baby | Starts with 3x Lil Delirium |
-| 88 | <img src="./images/088_baby_bandaid.png" alt="088_baby_bandaid.png"> | Bandaid Baby | 50% chance to spawn a random pedestal item on room clear |
+| 88 | <img src="./images/088_baby_bandaid.png" alt="088_baby_bandaid.png"> | Bandaid Baby | 33% chance to spawn a random pedestal item on room clear |
 | 89 | <img src="./images/089_baby_eyebrows.png" alt="089_baby_eyebrows.png"> | Eyebrows Baby | Starts with 5x Guppy's Hair Ball + flight + blindfolded |
 | 90 | <img src="./images/090_baby_nerd.png" alt="090_baby_nerd.png"> | Nerd Baby | Locked doors in uncleared rooms |
 | 91 | <img src="./images/091_baby_boss.png" alt="091_baby_boss.png"> | Boss Baby | Starts with There's Options |
 | 92 | <img src="./images/092_baby_turd.png" alt="092_baby_turd.png"> | Turd Baby | Enemies fart on death |
-| 93 | <img src="./images/093_baby_o.png" alt="093_baby_o.png"> | O Baby | Spawns portal on 6 pickups collected |
+| 93 | <img src="./images/093_baby_o.png" alt="093_baby_o.png"> | O Baby | Spawns a portal on 6 pickups collected |
 | 94 | <img src="./images/094_baby_squareeyes.png" alt="094_baby_squareeyes.png"> | Square Eyes Baby | Square tears |
 | 95 | <img src="./images/095_baby_teeth.png" alt="095_baby_teeth.png"> | Teeth Baby | Starts with Lemegeton |
 | 96 | <img src="./images/096_baby_frown.png" alt="096_baby_frown.png"> | Frown Baby | Summons Best Friend every 5 seconds |
