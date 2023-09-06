@@ -4,11 +4,18 @@ import {
   TearVariant,
 } from "isaac-typescript-definitions";
 import { Callback } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
-/** Chaos card tears (every 5th tear). */
+const v = {
+  run: {
+    numTearsFired: 0,
+  },
+};
+
+/** Chaos card tears (every Nth tear). */
 export class DarkSpaceSoldierBaby extends Baby {
+  v = v;
+
   override isValid(player: EntityPlayer): boolean {
     return !player.HasCollectible(CollectibleType.IPECAC);
   }
@@ -17,9 +24,9 @@ export class DarkSpaceSoldierBaby extends Baby {
   postFireTear(tear: EntityTear): void {
     const num = this.getAttribute("num");
 
-    g.run.babyCounters++;
-    if (g.run.babyCounters === num) {
-      g.run.babyCounters = 0;
+    v.run.numTearsFired++;
+    if (v.run.numTearsFired === num) {
+      v.run.numTearsFired = 0;
       tear.ChangeVariant(TearVariant.CHAOS_CARD);
     }
   }

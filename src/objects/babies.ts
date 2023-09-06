@@ -1448,7 +1448,7 @@ export const BABIES = {
     name: "Lights Baby",
     description: "Holy tears",
     sprite: "165_baby_lights.png",
-    num: 3,
+    num: 3, // The number of tears that are needed to produce a holy tear.
     requireTears: true,
     class: bc.LightsBaby,
   },
