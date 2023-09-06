@@ -67,7 +67,6 @@ export function init(): void {
 
 function main(isContinued: boolean) {
   const seeds = game.GetSeeds();
-  const startSeed = seeds.GetStartSeed();
   const startSeedString = seeds.GetStartSeedString();
   const renderFrameCount = Isaac.GetFrameCount();
   const player = Isaac.GetPlayer();
@@ -84,7 +83,7 @@ function main(isContinued: boolean) {
   }
 
   // Reset variables
-  g.run = new GlobalsRun(startSeed);
+  g.run = new GlobalsRun();
 
   // Also reset the list of past babies that have been chosen.
   g.pastBabies.clear();

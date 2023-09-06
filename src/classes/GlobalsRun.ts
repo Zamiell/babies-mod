@@ -1,4 +1,3 @@
-import { getRandomSeed, newRNG, setSeed } from "isaacscript-common";
 import type { RandomBabyType } from "../enums/RandomBabyType";
 
 // Per-run variables
@@ -6,7 +5,6 @@ export class GlobalsRun {
   // Tracking per run
   babyType: RandomBabyType | null = null;
   drawIntro = false;
-  rng = newRNG();
 
   // Temporary variables
   showIntroFrame = 0;
@@ -19,8 +17,4 @@ export class GlobalsRun {
 
   /** Initialized to null at the beginning of every floor. */
   babySprite: Sprite | null = null;
-
-  constructor(startSeed = getRandomSeed()) {
-    setSeed(this.rng, startSeed);
-  }
 }
