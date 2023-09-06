@@ -2800,7 +2800,7 @@ export const BABIES = {
     name: "Ballerina Baby",
     description: "Summons a Restock Machine after 6 hits",
     sprite: "323_baby_ballerina.png",
-    requireNumHits: 6,
+    num: 6,
     class: bc.BallerinaBaby,
   },
 
