@@ -23,7 +23,7 @@ import {
 import { setBabyANM2, updatePlayerWithCostumeProtector } from "./costumes";
 import { g } from "./globals";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
-import { giveItemAndRemoveFromPools } from "./utils";
+import { giveCollectibleAndRemoveFromPools } from "./utils";
 import { getCurrentBaby } from "./utilsBaby";
 
 export function babyAdd(player: EntityPlayer): void {
@@ -43,14 +43,15 @@ export function babyAdd(player: EntityPlayer): void {
   // Draw the kind of baby on the starting room.
   g.run.drawIntro = true;
 
-  // Check if this is an item baby.
+  // Check if this is an collectible baby.
   if (baby.collectible !== undefined) {
     // Check to see if it is an active item.
     if (getCollectibleItemType(baby.collectible) === ItemType.ACTIVE) {
-      // Find out how many charges it should have By default, items are given with a maximum charge.
-      let itemCharges = getCollectibleMaxCharges(baby.collectible);
+      // Find out how many charges it should have By default, collectibles are given with a maximum
+      // charge.
+      let collectibleCharges = getCollectibleMaxCharges(baby.collectible);
       if (baby.uncharged !== undefined) {
-        itemCharges = 0;
+        collectibleCharges = 0;
       }
 
       // Find out where to put it.
@@ -60,43 +61,43 @@ export function babyAdd(player: EntityPlayer): void {
       ) {
         // There is room in the Schoolbag for it, so put it there. (Getting new active items will
         // automatically put the existing active item inside the Schoolbag.)
-        player.AddCollectible(baby.collectible, itemCharges, false);
+        player.AddCollectible(baby.collectible, collectibleCharges, false);
         player.SwapActiveItems();
       } else {
         // We don't have a Schoolbag, so just give the new active item.
-        player.AddCollectible(baby.collectible, itemCharges, false);
+        player.AddCollectible(baby.collectible, collectibleCharges, false);
       }
     } else {
-      // Give the passive item.
+      // Give the passive collectible.
       player.AddCollectible(baby.collectible, 0, false);
-      log(`Added the new baby passive item: ${baby.collectible}`);
+      log(`Added the new baby passive collectible: ${baby.collectible}`);
     }
 
     removeCollectibleFromItemTracker(baby.collectible);
     itemPool.RemoveCollectible(baby.collectible);
   }
 
-  // Check if this is a multiple item baby.
+  // Check if this is a multiple collectible baby.
   if (baby.collectible !== undefined && baby.collectibleNum !== undefined) {
-    const { collectible: item } = baby;
-    const num = baby.collectibleNum - 1; // We already added the first item above.
+    const { collectible } = baby;
+    const num = baby.collectibleNum - 1; // We already added the first collectible above.
     repeat(num, () => {
-      player.AddCollectible(item, 0, false);
-      removeCollectibleFromItemTracker(item);
+      player.AddCollectible(collectible, 0, false);
+      removeCollectibleFromItemTracker(collectible);
     });
   }
 
-  // Check if this is a baby that grants a second item. (This should always be a passive item; we
-  // explicitly check for this on startup.)
+  // Check if this is a baby that grants a second collectible. (This should always be a passive
+  // collectible; we explicitly check for this on startup.)
   if (baby.collectible2 !== undefined) {
-    giveItemAndRemoveFromPools(player, baby.collectible2);
+    giveCollectibleAndRemoveFromPools(player, baby.collectible2);
     removeCollectibleFromItemTracker(baby.collectible2);
   }
 
-  // Check if this is a baby that grants a third item. (This should always be a passive item; we
-  // explicitly check for this on startup.)
+  // Check if this is a baby that grants a third collectible. (This should always be a passive
+  // collectible; we explicitly check for this on startup.)
   if (baby.collectible3 !== undefined) {
-    giveItemAndRemoveFromPools(player, baby.collectible3);
+    giveCollectibleAndRemoveFromPools(player, baby.collectible3);
     removeCollectibleFromItemTracker(baby.collectible3);
   }
 

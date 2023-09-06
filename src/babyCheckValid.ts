@@ -55,7 +55,7 @@ export function babyCheckValid(
     return false;
   }
 
-  // Check for overlapping items.
+  // Check for overlapping collectibles.
   if (
     baby.collectible !== undefined &&
     player.HasCollectible(baby.collectible)
@@ -78,13 +78,13 @@ export function babyCheckValid(
     return false;
   }
 
-  const babyItemSet = getBabyItemsSet(baby);
+  const babyCollectiblesSet = getBabyCollectiblesSet(baby);
 
   if (!checkActiveItem(player, baby)) {
     return false;
   }
 
-  if (!checkHealth(player, baby, babyItemSet)) {
+  if (!checkHealth(player, baby, babyCollectiblesSet)) {
     return false;
   }
 
@@ -100,7 +100,7 @@ export function babyCheckValid(
     return false;
   }
 
-  if (!checkCollectibles(player, baby, babyItemSet)) {
+  if (!checkCollectibles(player, baby, babyCollectiblesSet)) {
     return false;
   }
 
@@ -108,7 +108,7 @@ export function babyCheckValid(
     return false;
   }
 
-  if (!checkStage(baby, babyItemSet)) {
+  if (!checkStage(baby, babyCollectiblesSet)) {
     return false;
   }
 
@@ -149,7 +149,7 @@ function checkActiveItem(player: EntityPlayer, baby: BabyDescription): boolean {
 function checkHealth(
   player: EntityPlayer,
   baby: BabyDescription,
-  babyItemSet: Set<CollectibleType>,
+  babyCollectiblesSet: Set<CollectibleType>,
 ): boolean {
   const maxHearts = player.GetMaxHearts();
   const soulHearts = player.GetSoulHearts();
@@ -160,7 +160,10 @@ function checkHealth(
     return false;
   }
 
-  if (babyItemSet.has(CollectibleType.POTATO_PEELER) && maxHearts === 0) {
+  if (
+    babyCollectiblesSet.has(CollectibleType.POTATO_PEELER) &&
+    maxHearts === 0
+  ) {
     return false;
   }
 
@@ -169,13 +172,13 @@ function checkHealth(
 
 function checkCoins(player: EntityPlayer, baby: BabyDescription): boolean {
   const coins = player.GetNumCoins();
-  const babyItemsSet = getBabyItemsSet(baby);
+  const babyCollectiblesSet = getBabyCollectiblesSet(baby);
 
   if (baby.requireCoins === true && coins === 0) {
     return false;
   }
 
-  if (babyItemsSet.has(CollectibleType.DOLLAR) && coins >= 50) {
+  if (babyCollectiblesSet.has(CollectibleType.DOLLAR) && coins >= 50) {
     return false;
   }
 
@@ -205,27 +208,27 @@ function checkKeys(player: EntityPlayer, baby: BabyDescription): boolean {
 function checkCollectibles(
   player: EntityPlayer,
   baby: BabyDescription,
-  babyItemsSet: Set<CollectibleType>,
+  babyCollectiblesSet: Set<CollectibleType>,
 ): boolean {
   if (baby.requireTears === true && !playerHasTearBuild(player)) {
     return false;
   }
 
-  if (!checkCollectibleAntiSynergyFromArray(player, babyItemsSet)) {
+  if (!checkCollectibleAntiSynergyFromArray(player, babyCollectiblesSet)) {
     return false;
   }
 
   if (
-    (babyItemsSet.has(CollectibleType.COMPASS) || // 21
-      babyItemsSet.has(CollectibleType.TREASURE_MAP) || // 54
-      babyItemsSet.has(CollectibleType.BLUE_MAP)) && // 246
+    (babyCollectiblesSet.has(CollectibleType.COMPASS) || // 21
+      babyCollectiblesSet.has(CollectibleType.TREASURE_MAP) || // 54
+      babyCollectiblesSet.has(CollectibleType.BLUE_MAP)) && // 246
     player.HasCollectible(CollectibleType.MIND) // 333
   ) {
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.CUPIDS_ARROW) && // 48
+    babyCollectiblesSet.has(CollectibleType.CUPIDS_ARROW) && // 48
     hasPiercing(player)
   ) {
     return false;
@@ -233,22 +236,22 @@ function checkCollectibles(
 
   // Monstro's Lung removes explosion immunity from Dr.Fetus + Ipecac bombs.
   if (
-    babyItemsSet.has(CollectibleType.DR_FETUS) && // 52
-    babyItemsSet.has(CollectibleType.IPECAC) && // 149
+    babyCollectiblesSet.has(CollectibleType.DR_FETUS) && // 52
+    babyCollectiblesSet.has(CollectibleType.IPECAC) && // 149
     player.HasCollectible(CollectibleType.MONSTROS_LUNG) // 229
   ) {
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.OUIJA_BOARD) && // 115
+    babyCollectiblesSet.has(CollectibleType.OUIJA_BOARD) && // 115
     hasSpectral(player)
   ) {
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.MONSTROS_LUNG) && // 229
+    babyCollectiblesSet.has(CollectibleType.MONSTROS_LUNG) && // 229
     player.HasCollectible(CollectibleType.DR_FETUS) && // 52
     player.HasCollectible(CollectibleType.IPECAC) // 149
   ) {
@@ -256,14 +259,14 @@ function checkCollectibles(
   }
 
   if (
-    babyItemsSet.has(CollectibleType.ISAACS_TEARS) && // 323
+    babyCollectiblesSet.has(CollectibleType.ISAACS_TEARS) && // 323
     player.HasCollectible(CollectibleType.IPECAC) // 149
   ) {
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.DEAD_ONION) && // 336
+    babyCollectiblesSet.has(CollectibleType.DEAD_ONION) && // 336
     hasPiercing(player) &&
     hasSpectral(player)
   ) {
@@ -271,14 +274,14 @@ function checkCollectibles(
   }
 
   if (
-    babyItemsSet.has(CollectibleType.EYE_OF_BELIAL) && // 462
+    babyCollectiblesSet.has(CollectibleType.EYE_OF_BELIAL) && // 462
     hasPiercing(player)
   ) {
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.SMELTER) && // 479
+    babyCollectiblesSet.has(CollectibleType.SMELTER) && // 479
     !hasAnyTrinket(player)
   ) {
     return false;
@@ -290,129 +293,129 @@ function checkCollectibles(
 /** Some collectible anti-synergies are hard-coded in arrays. */
 function checkCollectibleAntiSynergyFromArray(
   player: EntityPlayer,
-  babyItemsSet: Set<CollectibleType>,
+  babyCollectiblesSet: Set<CollectibleType>,
 ): boolean {
   if (
-    babyItemsSet.has(CollectibleType.DR_FETUS) && // 52
+    babyCollectiblesSet.has(CollectibleType.DR_FETUS) && // 52
     hasCollectible(player, ...DR_FETUS_ANTI_SYNERGIES)
   ) {
     return false;
   }
 
   if (
-    setHas(babyItemsSet, ...DR_FETUS_ANTI_SYNERGIES) &&
+    setHas(babyCollectiblesSet, ...DR_FETUS_ANTI_SYNERGIES) &&
     player.HasCollectible(CollectibleType.DR_FETUS) // 52
   ) {
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.TECHNOLOGY) && // 68
+    babyCollectiblesSet.has(CollectibleType.TECHNOLOGY) && // 68
     hasCollectible(player, ...TECHNOLOGY_ANTI_SYNERGIES)
   ) {
     return false;
   }
 
   if (
-    setHas(babyItemsSet, ...TECHNOLOGY_ANTI_SYNERGIES) &&
+    setHas(babyCollectiblesSet, ...TECHNOLOGY_ANTI_SYNERGIES) &&
     player.HasCollectible(CollectibleType.TECHNOLOGY) // 68
   ) {
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.MOMS_KNIFE) && // 114
+    babyCollectiblesSet.has(CollectibleType.MOMS_KNIFE) && // 114
     hasCollectible(player, ...MOMS_KNIFE_ANTI_SYNERGIES)
   ) {
     return false;
   }
 
   if (
-    setHas(babyItemsSet, ...MOMS_KNIFE_ANTI_SYNERGIES) &&
+    setHas(babyCollectiblesSet, ...MOMS_KNIFE_ANTI_SYNERGIES) &&
     player.HasCollectible(CollectibleType.MOMS_KNIFE) // 114
   ) {
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.BRIMSTONE) && // 118
+    babyCollectiblesSet.has(CollectibleType.BRIMSTONE) && // 118
     hasCollectible(player, ...BRIMSTONE_ANTI_SYNERGIES)
   ) {
     return false;
   }
 
   if (
-    setHas(babyItemsSet, ...BRIMSTONE_ANTI_SYNERGIES) &&
+    setHas(babyCollectiblesSet, ...BRIMSTONE_ANTI_SYNERGIES) &&
     player.HasCollectible(CollectibleType.BRIMSTONE) // 118
   ) {
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.EPIC_FETUS) && // 168
+    babyCollectiblesSet.has(CollectibleType.EPIC_FETUS) && // 168
     hasCollectible(player, ...EPIC_FETUS_ANTI_SYNERGIES)
   ) {
     return false;
   }
 
   if (
-    setHas(babyItemsSet, ...EPIC_FETUS_ANTI_SYNERGIES) &&
+    setHas(babyCollectiblesSet, ...EPIC_FETUS_ANTI_SYNERGIES) &&
     player.HasCollectible(CollectibleType.EPIC_FETUS) // 168
   ) {
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.LUDOVICO_TECHNIQUE) && // 329
+    babyCollectiblesSet.has(CollectibleType.LUDOVICO_TECHNIQUE) && // 329
     hasCollectible(player, ...LUDOVICO_TECHNIQUE_ANTI_SYNERGIES)
   ) {
     return false;
   }
 
   if (
-    setHas(babyItemsSet, ...LUDOVICO_TECHNIQUE_ANTI_SYNERGIES) &&
+    setHas(babyCollectiblesSet, ...LUDOVICO_TECHNIQUE_ANTI_SYNERGIES) &&
     player.HasCollectible(CollectibleType.LUDOVICO_TECHNIQUE) // 329
   ) {
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.TECH_X) && // 395
+    babyCollectiblesSet.has(CollectibleType.TECH_X) && // 395
     hasCollectible(player, ...TECH_X_ANTI_SYNERGIES)
   ) {
     return false;
   }
 
   if (
-    setHas(babyItemsSet, ...TECH_X_ANTI_SYNERGIES) &&
+    setHas(babyCollectiblesSet, ...TECH_X_ANTI_SYNERGIES) &&
     player.HasCollectible(CollectibleType.TECH_X) // 395
   ) {
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.SPIRIT_SWORD) && // 579
+    babyCollectiblesSet.has(CollectibleType.SPIRIT_SWORD) && // 579
     hasCollectible(player, ...SPIRIT_SWORD_ANTI_SYNERGIES)
   ) {
     return false;
   }
 
   if (
-    setHas(babyItemsSet, ...SPIRIT_SWORD_ANTI_SYNERGIES) &&
+    setHas(babyCollectiblesSet, ...SPIRIT_SWORD_ANTI_SYNERGIES) &&
     player.HasCollectible(CollectibleType.SPIRIT_SWORD) // 579
   ) {
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.C_SECTION) && // 678
+    babyCollectiblesSet.has(CollectibleType.C_SECTION) && // 678
     hasCollectible(player, ...C_SECTION_ANTI_SYNERGIES)
   ) {
     return false;
   }
 
   if (
-    setHas(babyItemsSet, ...C_SECTION_ANTI_SYNERGIES) &&
+    setHas(babyCollectiblesSet, ...C_SECTION_ANTI_SYNERGIES) &&
     player.HasCollectible(CollectibleType.C_SECTION) // 678
   ) {
     return false;
@@ -439,7 +442,7 @@ function playerHasTearBuild(player: EntityPlayer): boolean {
 
 function checkStage(
   baby: BabyDescription,
-  babyItemsSet: Set<CollectibleType>,
+  babyCollectiblesSet: Set<CollectibleType>,
 ): boolean {
   const effectiveStage = getEffectiveStage();
 
@@ -451,14 +454,14 @@ function checkStage(
   }
 
   if (
-    babyItemsSet.has(CollectibleType.STEAM_SALE) &&
+    babyCollectiblesSet.has(CollectibleType.STEAM_SALE) &&
     !levelHasRoomType(RoomType.SHOP)
   ) {
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.WE_NEED_TO_GO_DEEPER) &&
+    babyCollectiblesSet.has(CollectibleType.WE_NEED_TO_GO_DEEPER) &&
     (effectiveStage <= LevelStage.BASEMENT_2 ||
       onStageOrHigher(LevelStage.WOMB_2))
   ) {
@@ -470,7 +473,7 @@ function checkStage(
   }
 
   if (
-    babyItemsSet.has(CollectibleType.SCAPULAR) &&
+    babyCollectiblesSet.has(CollectibleType.SCAPULAR) &&
     onStageOrHigher(LevelStage.WOMB_1)
   ) {
     // This is too powerful when combined with The Polaroid.
@@ -478,7 +481,7 @@ function checkStage(
   }
 
   if (
-    setHas(babyItemsSet, ...MAPPING_COLLECTIBLES) &&
+    setHas(babyCollectiblesSet, ...MAPPING_COLLECTIBLES) &&
     effectiveStage <= LevelStage.BASEMENT_2
   ) {
     // Mapping is not very useful on the first two floors.
@@ -486,7 +489,7 @@ function checkStage(
   }
 
   if (
-    babyItemsSet.has(CollectibleType.UNDEFINED) &&
+    babyCollectiblesSet.has(CollectibleType.UNDEFINED) &&
     effectiveStage <= LevelStage.BASEMENT_2
   ) {
     // Undefined is not very useful on the first two floors.
@@ -494,16 +497,16 @@ function checkStage(
   }
 
   if (
-    (babyItemsSet.has(CollectibleType.GOAT_HEAD) || // 215
-      babyItemsSet.has(CollectibleType.DUALITY) || // 498
-      babyItemsSet.has(CollectibleType.EUCHARIST)) && // 499
+    (babyCollectiblesSet.has(CollectibleType.GOAT_HEAD) || // 215
+      babyCollectiblesSet.has(CollectibleType.DUALITY) || // 498
+      babyCollectiblesSet.has(CollectibleType.EUCHARIST)) && // 499
     !onStageWithNaturalDevilRoom()
   ) {
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.THERES_OPTIONS) && // 249
+    babyCollectiblesSet.has(CollectibleType.THERES_OPTIONS) && // 249
     !levelHasRoomType(RoomType.BOSS) &&
     !onStageWithRandomBossCollectible() &&
     !onAscent()
@@ -512,7 +515,7 @@ function checkStage(
   }
 
   if (
-    babyItemsSet.has(CollectibleType.MORE_OPTIONS) && // 414
+    babyCollectiblesSet.has(CollectibleType.MORE_OPTIONS) && // 414
     (!levelHasRoomType(RoomType.TREASURE) ||
       onFirstFloor() ||
       onStage(LevelStage.BLUE_WOMB))
@@ -523,28 +526,28 @@ function checkStage(
   }
 
   if (
-    babyItemsSet.has(CollectibleType.SOL) && // 588
+    babyCollectiblesSet.has(CollectibleType.SOL) && // 588
     (!levelHasRoomType(RoomType.BOSS) || onStage(LevelStage.BLUE_WOMB))
   ) {
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.LUNA) && // 589
+    babyCollectiblesSet.has(CollectibleType.LUNA) && // 589
     !levelHasRoomType(RoomType.SECRET)
   ) {
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.VOODOO_HEAD) && // 599
+    babyCollectiblesSet.has(CollectibleType.VOODOO_HEAD) && // 599
     !levelHasRoomType(RoomType.CURSE)
   ) {
     return false;
   }
 
   if (
-    babyItemsSet.has(CollectibleType.VANISHING_TWIN) && // 697
+    babyCollectiblesSet.has(CollectibleType.VANISHING_TWIN) && // 697
     !levelHasRoomType(RoomType.BOSS) &&
     !onStageWithRandomBossCollectible() &&
     !onAscent()
@@ -564,8 +567,8 @@ function checkStage(
     baby.trinket === TrinketType.DEVILS_CROWN &&
     (!levelHasRoomType(RoomType.TREASURE) || onFirstFloor())
   ) {
-    // Players could be resetting for an item to start a speedrun and we do not want them to start
-    // with a Devil Room item.
+    // Players could be resetting for an collectible to start a speedrun and we do not want them to
+    // start with a Devil Room collectible.
     return false;
   }
 
@@ -588,17 +591,19 @@ function checkBabyClass(player: EntityPlayer, babyClass: Baby): boolean {
   return babyClass.isValid(player);
 }
 
-export function getBabyItemsSet(baby: BabyDescription): Set<CollectibleType> {
-  const babyItemsSet = new Set<CollectibleType>();
+export function getBabyCollectiblesSet(
+  baby: BabyDescription,
+): Set<CollectibleType> {
+  const babyCollectiblesSet = new Set<CollectibleType>();
   if (baby.collectible !== undefined) {
-    babyItemsSet.add(baby.collectible);
+    babyCollectiblesSet.add(baby.collectible);
   }
   if (baby.collectible2 !== undefined) {
-    babyItemsSet.add(baby.collectible2);
+    babyCollectiblesSet.add(baby.collectible2);
   }
   if (baby.collectible3 !== undefined) {
-    babyItemsSet.add(baby.collectible3);
+    babyCollectiblesSet.add(baby.collectible3);
   }
 
-  return babyItemsSet;
+  return babyCollectiblesSet;
 }

@@ -1,5 +1,4 @@
 TODO:
-- refactor "item" to "collectible"
 - make `pastBabies` custom challenge logic
 - refactor global variables
 - SaveDataManager

@@ -73,8 +73,8 @@ function getAndSetNewBabyInGlobals(player: EntityPlayer) {
     g.pastBabies.clear();
   }
 
-  // Get a random co-op baby based on the seed of the floor (but reroll the baby if they have any
-  // overlapping items).
+  // Get a random co-op baby based on the seed of the floor, but reroll the baby if the baby is not
+  // valid (e.g. if the player has any overlapping collectibles).
   let babyType: RandomBabyType;
   let numTries = 0;
   do {

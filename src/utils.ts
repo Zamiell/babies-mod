@@ -175,7 +175,7 @@ export function getRandomCollectibleTypeWithTag(
   return getRandomSetElement(foodCollectibleTypesSet);
 }
 
-export function giveItemAndRemoveFromPools(
+export function giveCollectibleAndRemoveFromPools(
   player: EntityPlayer,
   collectibleType: CollectibleType,
 ): void {

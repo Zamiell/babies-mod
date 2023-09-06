@@ -15,19 +15,19 @@ export function babyRemove(player: EntityPlayer, oldBabyCounters: int): void {
   }
   const { babyType, baby } = currentBaby;
 
-  // If we are on an item baby, remove the item.
+  // If we are on an collectible baby, remove the collectible.
   if (baby.collectible !== undefined) {
-    // If the item is in the Schoolbag, this will successfully remove it.
+    // If the collectible is in the Schoolbag, this will successfully remove it.
     player.RemoveCollectible(baby.collectible);
   }
   if (baby.collectible2 !== undefined) {
-    // If the item is in the Schoolbag, this will successfully remove it.
+    // If the collectible is in the Schoolbag, this will successfully remove it.
     player.RemoveCollectible(baby.collectible2);
   }
 
-  // If we are on a multiple item baby, remove the extra items.
+  // If we are on a multiple collectible baby, remove the extra collectibles.
   if (baby.collectible !== undefined && baby.collectibleNum !== undefined) {
-    const num = baby.collectibleNum - 1; // We already removed one item above
+    const num = baby.collectibleNum - 1; // We already removed one collectible above.
     for (let i = 0; i < num; i++) {
       player.RemoveCollectible(baby.collectible);
     }

@@ -1,6 +1,6 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 import { ModCallbackCustom, ReadonlySet } from "isaacscript-common";
-import { getBabyItemsSet } from "../babyCheckValid";
+import { getBabyCollectiblesSet } from "../babyCheckValid";
 import { softlockPreventionPostPEffectUpdateReordered } from "../features/softlockPrevention";
 import type { BabyDescription } from "../interfaces/BabyDescription";
 import { mod } from "../mod";
@@ -40,8 +40,9 @@ function main(player: EntityPlayer) {
 }
 
 /**
- * If this baby gives a mapping item, we cannot wait until the next floor to remove it because its
- * effect will have already been applied. So, we need to monitor for the trapdoor animation.
+ * If this baby gives a mapping collectible, we cannot wait until the next floor to remove it
+ * because its effect will have already been applied. So, we need to monitor for the trapdoor
+ * animation.
  */
 function checkPlayerGoingToNextFloor(
   player: EntityPlayer,
@@ -54,10 +55,10 @@ function checkPlayerGoingToNextFloor(
     return;
   }
 
-  const babyItemsSet = getBabyItemsSet(baby);
+  const babyCollectiblesSet = getBabyCollectiblesSet(baby);
 
   for (const collectibleType of MAPPING_COLLECTIBLE_TYPES) {
-    if (babyItemsSet.has(collectibleType)) {
+    if (babyCollectiblesSet.has(collectibleType)) {
       player.RemoveCollectible(collectibleType);
     }
   }

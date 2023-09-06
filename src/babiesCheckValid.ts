@@ -12,7 +12,7 @@ import { BABIES } from "./objects/babies";
 
 const SHOULD_LOG = false as boolean;
 
-const VALID_DUPLICATE_ITEMS = new ReadonlySet<CollectibleType>([
+const VALID_DUPLICATE_COLLECTIBLES = new ReadonlySet<CollectibleType>([
   CollectibleType.POOP, // 36
   CollectibleType.MOMS_KNIFE, // 114
   CollectibleType.BRIMSTONE, // 118
@@ -30,16 +30,16 @@ const VALID_DUPLICATE_ITEMS = new ReadonlySet<CollectibleType>([
 ]);
 
 export function babiesCheckValid(): void {
-  babiesCheckValidDuplicateName();
-  babiesCheckValidDuplicateItem();
-  babiesCheckValidDuplicateTrinket();
+  checkDuplicateNames();
+  checkDuplicateCollectibles();
+  checkDuplicateTrinkets();
 
   if (SHOULD_LOG) {
     logSpecificBabies();
   }
 }
 
-function babiesCheckValidDuplicateName() {
+function checkDuplicateNames() {
   const nameSet = new Set<string>();
 
   for (const [babyNum, baby] of Object.entries(BABIES)) {
@@ -51,11 +51,11 @@ function babiesCheckValidDuplicateName() {
   }
 }
 
-function babiesCheckValidDuplicateItem() {
+function checkDuplicateCollectibles() {
   for (const [baby1Num, baby1Raw] of Object.entries(BABIES)) {
     const baby1 = baby1Raw as BabyDescription;
 
-    // Babies with 1 item.
+    // Babies with 1 collectible.
     if (baby1.collectible !== undefined && baby1.collectible2 === undefined) {
       for (const [baby2Num, baby2Raw] of Object.entries(BABIES)) {
         const baby2 = baby2Raw as BabyDescription;
@@ -68,18 +68,18 @@ function babiesCheckValidDuplicateItem() {
           baby2.collectible !== undefined &&
           baby2.collectible2 === undefined &&
           baby2.collectible === baby1.collectible &&
-          !VALID_DUPLICATE_ITEMS.has(baby1.collectible)
+          !VALID_DUPLICATE_COLLECTIBLES.has(baby1.collectible)
         ) {
           logBabyInvalid(
             baby1,
             baby1Num,
-            `has a duplicate item: ${baby1.collectible}`,
+            `has a duplicate collectible: ${baby1.collectible}`,
           );
         }
       }
     }
 
-    // Babies with 2 items.
+    // Babies with 2 collectibles.
     if (baby1.collectible !== undefined && baby1.collectible2 !== undefined) {
       for (const [baby2Num, baby2Raw] of Object.entries(BABIES)) {
         const baby2 = baby2Raw as BabyDescription;
@@ -99,7 +99,7 @@ function babiesCheckValidDuplicateItem() {
           logBabyInvalid(
             baby1,
             baby1Num,
-            `has a duplicate pair of items: ${baby1.collectible} & ${baby1.collectible2}`,
+            `has a duplicate pair of collectibles: ${baby1.collectible} & ${baby1.collectible2}`,
           );
         }
       }
@@ -123,7 +123,7 @@ function babiesCheckValidDuplicateItem() {
   }
 }
 
-function babiesCheckValidDuplicateTrinket() {
+function checkDuplicateTrinkets() {
   const trinketSet = new Set<TrinketType>();
 
   for (const [i, baby] of Object.entries(BABIES)) {

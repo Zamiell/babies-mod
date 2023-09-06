@@ -16,7 +16,7 @@ import { PlayerTypeCustom } from "../enums/PlayerTypeCustom";
 import { g } from "../globals";
 import { mod } from "../mod";
 import { BABIES } from "../objects/babies";
-import { giveItemAndRemoveFromPools } from "../utils";
+import { giveCollectibleAndRemoveFromPools } from "../utils";
 
 const ALL_BABY_SEED_EFFECTS: readonly SeedEffect[] = (() => {
   const seedEffects: SeedEffect[] = [];
@@ -110,7 +110,7 @@ function postGameStartedRandomBaby() {
   // Random Baby always starts with the Schoolbag.
   const randomBabies = getPlayersOfType(PlayerTypeCustom.RANDOM_BABY);
   for (const randomBaby of randomBabies) {
-    giveItemAndRemoveFromPools(randomBaby, CollectibleType.SCHOOLBAG);
+    giveCollectibleAndRemoveFromPools(randomBaby, CollectibleType.SCHOOLBAG);
   }
 
   for (const collectibleType of BANNED_COLLECTIBLES_WITH_RANDOM_BABY) {
