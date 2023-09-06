@@ -7,8 +7,11 @@ import {
   CallbackCustom,
   DISTANCE_OF_GRID_TILE,
   ModCallbackCustom,
+  game,
   getRoomListIndex,
+  newRNG,
   onStage,
+  setSeed,
 } from "isaacscript-common";
 import { spawnRandomPickup } from "../../utils";
 import { Baby } from "../Baby";
@@ -19,6 +22,10 @@ interface PoopDescription {
 }
 
 const v = {
+  run: {
+    rng: newRNG(),
+  },
+
   level: {
     killedPoops: [] as PoopDescription[],
   },
@@ -31,6 +38,12 @@ export class AtePoopBaby extends Baby {
   /** There are almost no poops on The Chest. */
   override isValid(): boolean {
     return !onStage(LevelStage.DARK_ROOM_CHEST);
+  }
+
+  override onAdd(): void {
+    const level = game.GetLevel();
+    const seed = level.GetDungeonPlacementSeed();
+    setSeed(v.run.rng, seed);
   }
 
   @CallbackCustom(
@@ -61,7 +74,7 @@ export class AtePoopBaby extends Baby {
       return;
     }
 
-    spawnRandomPickup(gridEntity.Position);
+    spawnRandomPickup(v.run.rng, gridEntity.Position);
 
     // Keep track of it so that we don't spawn another pickup on the next frame.
     v.level.killedPoops.push({

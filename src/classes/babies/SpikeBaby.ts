@@ -15,8 +15,8 @@ import {
   isChest,
   onStage,
   removeEntities,
-  spawnCollectibleUnsafe,
 } from "isaacscript-common";
+import { mod } from "../../mod";
 import { Baby } from "../Baby";
 
 /** All chests are Spiked Chests + all chests have items. */
@@ -77,7 +77,7 @@ export class SpikeBaby extends Baby {
     );
     removeEntities(pickupsFromSpikedChest);
 
-    spawnCollectibleUnsafe(
+    mod.spawnCollectible(
       CollectibleType.NULL,
       pickup.Position,
       pickup.InitSeed,

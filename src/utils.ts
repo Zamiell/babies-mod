@@ -259,99 +259,80 @@ export function shouldTransformRoomType(roomType: RoomType): boolean {
 }
 
 export function spawnRandomPickup(
+  rng: RNG,
   position: Vector,
   velocity: Vector = VectorZero,
   noItems = false,
 ): void {
   // Spawn a random pickup.
   const pickupVariantChoice = noItems
-    ? getRandomInt(1, 9, g.run.rng) // Exclude trinkets and collectibles.
-    : getRandomInt(1, 11, g.run.rng);
+    ? getRandomInt(1, 9, rng) // Exclude trinkets and collectibles.
+    : getRandomInt(1, 11, rng);
 
   switch (pickupVariantChoice) {
     case 1: {
       // Random heart.
-      spawnHeart(HeartSubType.NULL, position, velocity, undefined, g.run.rng);
+      spawnHeart(HeartSubType.NULL, position, velocity, undefined, rng);
       break;
     }
 
     case 2: {
       // Random coin.
-      spawnCoin(CoinSubType.NULL, position, velocity, undefined, g.run.rng);
+      spawnCoin(CoinSubType.NULL, position, velocity, undefined, rng);
       break;
     }
 
     case 3: {
       // Random key.
-      spawnKey(KeySubType.NULL, position, velocity, undefined, g.run.rng);
+      spawnKey(KeySubType.NULL, position, velocity, undefined, rng);
       break;
     }
 
     case 4: {
       // Random bomb.
-      spawnPickup(
-        PickupVariant.BOMB,
-        0,
-        position,
-        velocity,
-        undefined,
-        g.run.rng,
-      );
+      spawnPickup(PickupVariant.BOMB, 0, position, velocity, undefined, rng);
       break;
     }
 
     case 5: {
       // Random chest.
-      spawnPickup(
-        PickupVariant.CHEST,
-        0,
-        position,
-        velocity,
-        undefined,
-        g.run.rng,
-      );
+      spawnPickup(PickupVariant.CHEST, 0, position, velocity, undefined, rng);
       break;
     }
 
     case 6: {
       // Random sack.
-      spawnSack(SackSubType.NULL, position, velocity, undefined, g.run.rng);
+      spawnSack(SackSubType.NULL, position, velocity, undefined, rng);
       break;
     }
 
     case 7: {
       // Random battery.
-      spawnBattery(
-        BatterySubType.NULL,
-        position,
-        velocity,
-        undefined,
-        g.run.rng,
-      );
+      spawnBattery(BatterySubType.NULL, position, velocity, undefined, rng);
       break;
     }
 
     case 8: {
       // Random pill.
-      spawnPill(PillColor.NULL, position, velocity, undefined, g.run.rng);
+      spawnPill(PillColor.NULL, position, velocity, undefined, rng);
       break;
     }
 
     case 9: {
       // Random card / rune.
-      spawnCard(CardType.NULL, position, velocity, undefined, g.run.rng);
+      spawnCard(CardType.NULL, position, velocity, undefined, rng);
       break;
     }
 
     case 10: {
       // Random trinket.
-      spawnTrinket(TrinketType.NULL, position, velocity, undefined, g.run.rng);
+      spawnTrinket(TrinketType.NULL, position, velocity, undefined, rng);
       break;
     }
 
     case 11: {
       // Random collectible.
-      mod.spawnCollectible(CollectibleType.NULL, position, g.run.rng);
+      mod.spawnCollectible(CollectibleType.NULL, position, rng);
       break;
     }
 
