@@ -4,6 +4,7 @@ import {
   ItemType,
   LevelStage,
   RoomType,
+  TearFlag,
   TrinketType,
 } from "isaac-typescript-definitions";
 import type { AnyFunction } from "isaacscript-common";
@@ -13,6 +14,7 @@ import {
   getEffectiveStage,
   hasAnyTrinket,
   hasCollectible,
+  hasFlag,
   levelHasRoomType,
   onAscent,
   onFirstFloor,
@@ -201,6 +203,13 @@ function checkCollectibles(
   // --------------------------
 
   if (
+    babyItemsSet.has(CollectibleType.CUPIDS_ARROW) && // 48
+    playerHasPiercing(player)
+  ) {
+    return false;
+  }
+
+  if (
     babyItemsSet.has(CollectibleType.DR_FETUS) && // 52
     hasCollectible(player, ...DR_FETUS_ANTI_SYNERGIES)
   ) {
@@ -238,6 +247,13 @@ function checkCollectibles(
   if (
     setHas(babyItemsSet, ...MOMS_KNIFE_ANTI_SYNERGIES) &&
     player.HasCollectible(CollectibleType.MOMS_KNIFE) // 114
+  ) {
+    return false;
+  }
+
+  if (
+    babyItemsSet.has(CollectibleType.OUIJA_BOARD) && // 115
+    playerHasSpectral(player)
   ) {
     return false;
   }
@@ -285,6 +301,14 @@ function checkCollectibles(
   }
 
   if (
+    babyItemsSet.has(CollectibleType.DEAD_ONION) && // 336
+    playerHasPiercing(player) &&
+    playerHasSpectral(player)
+  ) {
+    return false;
+  }
+
+  if (
     babyItemsSet.has(CollectibleType.TECH_X) && // 395
     hasCollectible(player, ...TECH_X_ANTI_SYNERGIES)
   ) {
@@ -294,6 +318,13 @@ function checkCollectibles(
   if (
     setHas(babyItemsSet, ...TECH_X_ANTI_SYNERGIES) &&
     player.HasCollectible(CollectibleType.TECH_X) // 395
+  ) {
+    return false;
+  }
+
+  if (
+    babyItemsSet.has(CollectibleType.EYE_OF_BELIAL) && // 462
+    playerHasPiercing(player)
   ) {
     return false;
   }
@@ -387,6 +418,14 @@ function checkTrinkets(player: EntityPlayer, baby: BabyDescription): boolean {
 
 function playerHasTearBuild(player: EntityPlayer): boolean {
   return !hasCollectible(player, ...COLLECTIBLES_THAT_REMOVE_TEARS);
+}
+
+function playerHasSpectral(player: EntityPlayer) {
+  return hasFlag(player.TearFlags, TearFlag.SPECTRAL);
+}
+
+function playerHasPiercing(player: EntityPlayer) {
+  return hasFlag(player.TearFlags, TearFlag.PIERCING);
 }
 
 function checkStage(baby: BabyDescription): boolean {
