@@ -56,13 +56,22 @@ export function babyCheckValid(
   }
 
   // Check for overlapping items.
-  if (baby.item !== undefined && player.HasCollectible(baby.item)) {
+  if (
+    baby.collectible !== undefined &&
+    player.HasCollectible(baby.collectible)
+  ) {
     return false;
   }
-  if (baby.item2 !== undefined && player.HasCollectible(baby.item2)) {
+  if (
+    baby.collectible2 !== undefined &&
+    player.HasCollectible(baby.collectible2)
+  ) {
     return false;
   }
-  if (baby.item3 !== undefined && player.HasCollectible(baby.item3)) {
+  if (
+    baby.collectible3 !== undefined &&
+    player.HasCollectible(baby.collectible3)
+  ) {
     return false;
   }
   if (baby.trinket !== undefined && player.HasTrinket(baby.trinket)) {
@@ -117,8 +126,8 @@ function checkActiveItem(player: EntityPlayer, baby: BabyDescription): boolean {
   const secondaryActiveItem = player.GetActiveItem(ActiveSlot.SECONDARY);
 
   if (
-    baby.item !== undefined &&
-    getCollectibleItemType(baby.item) === ItemType.ACTIVE &&
+    baby.collectible !== undefined &&
+    getCollectibleItemType(baby.collectible) === ItemType.ACTIVE &&
     activeItem !== CollectibleType.NULL
   ) {
     const hasSchoolbag = player.HasCollectible(CollectibleType.SCHOOLBAG);
@@ -581,14 +590,14 @@ function checkBabyClass(player: EntityPlayer, babyClass: Baby): boolean {
 
 export function getBabyItemsSet(baby: BabyDescription): Set<CollectibleType> {
   const babyItemsSet = new Set<CollectibleType>();
-  if (baby.item !== undefined) {
-    babyItemsSet.add(baby.item);
+  if (baby.collectible !== undefined) {
+    babyItemsSet.add(baby.collectible);
   }
-  if (baby.item2 !== undefined) {
-    babyItemsSet.add(baby.item2);
+  if (baby.collectible2 !== undefined) {
+    babyItemsSet.add(baby.collectible2);
   }
-  if (baby.item3 !== undefined) {
-    babyItemsSet.add(baby.item3);
+  if (baby.collectible3 !== undefined) {
+    babyItemsSet.add(baby.collectible3);
   }
 
   return babyItemsSet;

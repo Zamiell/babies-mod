@@ -16,20 +16,20 @@ export function babyRemove(player: EntityPlayer, oldBabyCounters: int): void {
   const { babyType, baby } = currentBaby;
 
   // If we are on an item baby, remove the item.
-  if (baby.item !== undefined) {
+  if (baby.collectible !== undefined) {
     // If the item is in the Schoolbag, this will successfully remove it.
-    player.RemoveCollectible(baby.item);
+    player.RemoveCollectible(baby.collectible);
   }
-  if (baby.item2 !== undefined) {
+  if (baby.collectible2 !== undefined) {
     // If the item is in the Schoolbag, this will successfully remove it.
-    player.RemoveCollectible(baby.item2);
+    player.RemoveCollectible(baby.collectible2);
   }
 
   // If we are on a multiple item baby, remove the extra items.
-  if (baby.item !== undefined && baby.itemNum !== undefined) {
+  if (baby.collectible !== undefined && baby.itemNum !== undefined) {
     const numItemsToRemove = baby.itemNum - 1; // We already removed one item above
     for (let i = 0; i < numItemsToRemove; i++) {
-      player.RemoveCollectible(baby.item);
+      player.RemoveCollectible(baby.collectible);
     }
   }
 
@@ -45,7 +45,7 @@ export function babyRemove(player: EntityPlayer, oldBabyCounters: int): void {
   }
 
   // Remove the Dead Eye multiplier.
-  if (baby.item === CollectibleType.DEAD_EYE) {
+  if (baby.collectible === CollectibleType.DEAD_EYE) {
     removeDeadEyeMultiplier(player);
   }
 

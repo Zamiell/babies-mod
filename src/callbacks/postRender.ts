@@ -163,18 +163,18 @@ function drawVersion() {
  * the floor.
  */
 function drawTempIconNextToActiveCollectible(baby: BabyDescription) {
-  if (baby.item === undefined) {
+  if (baby.collectible === undefined) {
     return;
   }
 
-  const itemType = getCollectibleItemType(baby.item);
+  const itemType = getCollectibleItemType(baby.collectible);
   if (itemType !== ItemType.ACTIVE) {
     return;
   }
 
   const player = Isaac.GetPlayer();
   const activeCollectibleType = player.GetActiveItem(ActiveSlot.PRIMARY);
-  if (activeCollectibleType !== baby.item) {
+  if (activeCollectibleType !== baby.collectible) {
     return;
   }
 

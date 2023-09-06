@@ -15,9 +15,9 @@ export interface BabyDescription {
   readonly description2?: string;
   readonly explosionImmunity?: boolean;
   readonly flight?: boolean;
-  readonly item?: CollectibleType;
-  readonly item2?: CollectibleType;
-  readonly item3?: CollectibleType;
+  readonly collectible?: CollectibleType;
+  readonly collectible2?: CollectibleType;
+  readonly collectible3?: CollectibleType;
   readonly itemNum?: int;
   readonly uncharged?: boolean;
   readonly trinket?: TrinketType;

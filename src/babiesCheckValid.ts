@@ -4,10 +4,13 @@ import {
   ReadonlySet,
   getCollectibleItemType,
   getCollectibleName,
+  getTrinketName,
   log,
 } from "isaacscript-common";
 import type { BabyDescription } from "./interfaces/BabyDescription";
 import { BABIES } from "./objects/babies";
+
+const SHOULD_LOG = false as boolean;
 
 const VALID_DUPLICATE_ITEMS = new ReadonlySet<CollectibleType>([
   CollectibleType.POOP, // 36
@@ -19,7 +22,6 @@ const VALID_DUPLICATE_ITEMS = new ReadonlySet<CollectibleType>([
   CollectibleType.SACRIFICIAL_DAGGER, // 172
   CollectibleType.ABEL, // 188
   CollectibleType.SAD_BOMBS, // 220
-  CollectibleType.FIRE_MIND, // 257
   CollectibleType.HOW_TO_JUMP, // 282
   CollectibleType.HOLY_MANTLE, // 313
   CollectibleType.WIZ, // 358
@@ -32,15 +34,17 @@ export function babiesCheckValid(): void {
   babiesCheckValidDuplicateItem();
   babiesCheckValidDuplicateTrinket();
 
-  logSpecificBabies();
+  if (SHOULD_LOG) {
+    logSpecificBabies();
+  }
 }
 
 function babiesCheckValidDuplicateName() {
   const nameSet = new Set<string>();
 
-  for (const [i, baby] of Object.entries(BABIES)) {
+  for (const [babyNum, baby] of Object.entries(BABIES)) {
     if (nameSet.has(baby.name)) {
-      logBabyInvalid(baby, i, `has a duplicate name: ${baby.name}`);
+      logBabyInvalid(baby, babyNum, `has a duplicate name: ${baby.name}`);
     } else {
       nameSet.add(baby.name);
     }
@@ -48,61 +52,73 @@ function babiesCheckValidDuplicateName() {
 }
 
 function babiesCheckValidDuplicateItem() {
-  for (const [i, baby] of Object.entries(BABIES)) {
+  for (const [baby1Num, baby1Raw] of Object.entries(BABIES)) {
+    const baby1 = baby1Raw as BabyDescription;
+
     // Babies with 1 item.
-    if ("item" in baby && !("item2" in baby)) {
-      for (const [j, baby2] of Object.entries(BABIES)) {
-        if (i === j) {
+    if (baby1.collectible !== undefined && baby1.collectible2 === undefined) {
+      for (const [baby2Num, baby2Raw] of Object.entries(BABIES)) {
+        const baby2 = baby2Raw as BabyDescription;
+
+        if (baby1Num === baby2Num) {
           continue;
         }
 
         if (
-          "item" in baby2 &&
-          !("item2" in baby2) &&
-          baby2.item === baby.item &&
-          !VALID_DUPLICATE_ITEMS.has(baby.item)
+          baby2.collectible !== undefined &&
+          baby2.collectible2 === undefined &&
+          baby2.collectible === baby1.collectible &&
+          !VALID_DUPLICATE_ITEMS.has(baby1.collectible)
         ) {
-          logBabyInvalid(baby, i, `has a duplicate item: ${baby.item}`);
+          logBabyInvalid(
+            baby1,
+            baby1Num,
+            `has a duplicate item: ${baby1.collectible}`,
+          );
         }
       }
     }
 
     // Babies with 2 items.
-    if ("item" in baby && "item2" in baby) {
-      for (const [j, baby2] of Object.entries(BABIES)) {
-        if (i === j) {
+    if (baby1.collectible !== undefined && baby1.collectible2 !== undefined) {
+      for (const [baby2Num, baby2Raw] of Object.entries(BABIES)) {
+        const baby2 = baby2Raw as BabyDescription;
+
+        if (baby1Num === baby2Num) {
           continue;
         }
 
         if (
-          "item" in baby2 &&
-          "item2" in baby2 &&
-          (baby2.item === baby.item || baby2.item2 === baby.item) &&
-          (baby2.item === baby.item2 || baby2.item2 === baby.item2)
+          baby2.collectible !== undefined &&
+          baby2.collectible2 !== undefined &&
+          (baby2.collectible === baby1.collectible ||
+            baby2.collectible2 === baby1.collectible) &&
+          (baby2.collectible === baby1.collectible2 ||
+            baby2.collectible2 === baby1.collectible2)
         ) {
           logBabyInvalid(
-            baby,
-            i,
-            `has a duplicate pair of items: ${baby.item} & ${baby.item2}`,
+            baby1,
+            baby1Num,
+            `has a duplicate pair of items: ${baby1.collectible} & ${baby1.collectible2}`,
           );
         }
       }
     }
 
     if (
-      "item2" in baby &&
-      getCollectibleItemType(baby.item2) === ItemType.ACTIVE &&
+      baby1.collectible2 !== undefined &&
+      getCollectibleItemType(baby1.collectible2) === ItemType.ACTIVE &&
       // Make an exception for a Book of Virtues combo.
-      baby.item !== CollectibleType.BOOK_OF_VIRTUES
+      baby1.collectible !== CollectibleType.BOOK_OF_VIRTUES
     ) {
-      logBabyInvalid(baby, i, "has an active item in the second slot.");
+      logBabyInvalid(baby1, baby1Num, "has an active item in the second slot.");
     }
 
     if (
-      "item3" in baby &&
-      getCollectibleItemType(baby.item3) === ItemType.ACTIVE
+      baby1.collectible3 !== undefined &&
+      getCollectibleItemType(baby1.collectible3) === ItemType.ACTIVE
     ) {
-      logBabyInvalid(baby, i, "has an active item in the third slot.");
+      logBabyInvalid(baby1, baby1Num, "has an active item in the third slot.");
     }
   }
 }
@@ -121,25 +137,45 @@ function babiesCheckValidDuplicateTrinket() {
   }
 }
 
-function logBabyInvalid(baby: BabyDescription, i: string, msg: string) {
-  log(`ERROR: ${baby.name} (#${i}) ${msg}`);
+function logBabyInvalid(baby: BabyDescription, babyNum: string, msg: string) {
+  log(`ERROR: ${baby.name} (#${babyNum}) ${msg}`);
 }
 
 /** Use this function to find babies that are uninteresting. */
 function logSpecificBabies() {
-  for (const [_i, baby] of Object.entries(BABIES)) {
+  log("Potentially boring babies with only a collectible:");
+
+  for (const [babyNum, babyRaw] of Object.entries(BABIES)) {
+    const baby = babyRaw as BabyDescription;
+
     if (
-      "item" in baby &&
-      !("class" in baby) &&
-      !("trinket" in baby) &&
-      !("item2" in baby) &&
-      !("itemNum" in baby)
+      baby.collectible !== undefined &&
+      baby.collectible2 === undefined &&
+      baby.itemNum === undefined &&
+      baby.trinket === undefined &&
+      baby.trinketNum === undefined &&
+      baby.class === undefined
     ) {
-      let collectibleName = getCollectibleName(baby.item);
-      if (collectibleName === "Unknown") {
-        collectibleName = `#${baby.item}`;
-      }
-      // log(`DEBUG: ${baby.name} (#${i}) - ${collectibleName}`);
+      const collectibleName = getCollectibleName(baby.collectible);
+      log(`- ${baby.name} (#${babyNum}) - Starts with ${collectibleName}`);
+    }
+  }
+
+  log("Potentially boring babies with only a trinket:");
+
+  for (const [babyNum, babyRaw] of Object.entries(BABIES)) {
+    const baby = babyRaw as BabyDescription;
+
+    if (
+      baby.collectible === undefined &&
+      baby.collectible2 === undefined &&
+      baby.itemNum === undefined &&
+      baby.trinket !== undefined &&
+      baby.trinketNum === undefined &&
+      baby.class === undefined
+    ) {
+      const trinketName = getTrinketName(baby.trinket);
+      log(`- ${baby.name} (#${babyNum}) - Starts with ${trinketName}`);
     }
   }
 }

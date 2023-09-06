@@ -44,11 +44,11 @@ export function babyAdd(player: EntityPlayer): void {
   g.run.drawIntro = true;
 
   // Check if this is an item baby.
-  if (baby.item !== undefined) {
+  if (baby.collectible !== undefined) {
     // Check to see if it is an active item.
-    if (getCollectibleItemType(baby.item) === ItemType.ACTIVE) {
+    if (getCollectibleItemType(baby.collectible) === ItemType.ACTIVE) {
       // Find out how many charges it should have By default, items are given with a maximum charge.
-      let itemCharges = getCollectibleMaxCharges(baby.item);
+      let itemCharges = getCollectibleMaxCharges(baby.collectible);
       if (baby.uncharged !== undefined) {
         itemCharges = 0;
       }
@@ -60,25 +60,25 @@ export function babyAdd(player: EntityPlayer): void {
       ) {
         // There is room in the Schoolbag for it, so put it there. (Getting new active items will
         // automatically put the existing active item inside the Schoolbag.)
-        player.AddCollectible(baby.item, itemCharges, false);
+        player.AddCollectible(baby.collectible, itemCharges, false);
         player.SwapActiveItems();
       } else {
         // We don't have a Schoolbag, so just give the new active item.
-        player.AddCollectible(baby.item, itemCharges, false);
+        player.AddCollectible(baby.collectible, itemCharges, false);
       }
     } else {
       // Give the passive item.
-      player.AddCollectible(baby.item, 0, false);
-      log(`Added the new baby passive item: ${baby.item}`);
+      player.AddCollectible(baby.collectible, 0, false);
+      log(`Added the new baby passive item: ${baby.collectible}`);
     }
 
-    removeCollectibleFromItemTracker(baby.item);
-    itemPool.RemoveCollectible(baby.item);
+    removeCollectibleFromItemTracker(baby.collectible);
+    itemPool.RemoveCollectible(baby.collectible);
   }
 
   // Check if this is a multiple item baby.
-  if (baby.item !== undefined && baby.itemNum !== undefined) {
-    const { item } = baby;
+  if (baby.collectible !== undefined && baby.itemNum !== undefined) {
+    const { collectible: item } = baby;
     const num = baby.itemNum - 1; // We already added the first item above.
     repeat(num, () => {
       player.AddCollectible(item, 0, false);
@@ -88,16 +88,16 @@ export function babyAdd(player: EntityPlayer): void {
 
   // Check if this is a baby that grants a second item. (This should always be a passive item; we
   // explicitly check for this on startup.)
-  if (baby.item2 !== undefined) {
-    giveItemAndRemoveFromPools(player, baby.item2);
-    removeCollectibleFromItemTracker(baby.item2);
+  if (baby.collectible2 !== undefined) {
+    giveItemAndRemoveFromPools(player, baby.collectible2);
+    removeCollectibleFromItemTracker(baby.collectible2);
   }
 
   // Check if this is a baby that grants a third item. (This should always be a passive item; we
   // explicitly check for this on startup.)
-  if (baby.item3 !== undefined) {
-    giveItemAndRemoveFromPools(player, baby.item3);
-    removeCollectibleFromItemTracker(baby.item3);
+  if (baby.collectible3 !== undefined) {
+    giveItemAndRemoveFromPools(player, baby.collectible3);
+    removeCollectibleFromItemTracker(baby.collectible3);
   }
 
   // Check if this is a trinket baby.
