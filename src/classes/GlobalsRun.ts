@@ -19,9 +19,6 @@ export class GlobalsRun {
   /** Initialized to 0 at the beginning of every floor. */
   babyCounters = 0;
 
-  /** Initialized to 0 at the beginning of every floor. */
-  babyFrame = 0;
-
   /** Initialized to null at the beginning of every floor. */
   babySprite: Sprite | null = null;
 

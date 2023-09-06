@@ -12,6 +12,7 @@ import {
   SeedEffect,
   TrinketType,
 } from "isaac-typescript-definitions";
+import { GAME_FRAMES_PER_SECOND } from "isaacscript-common";
 import * as bc from "../classes/babyClasses";
 import { CollectibleTypeCustom } from "../enums/CollectibleTypeCustom";
 import { RandomBabyType } from "../enums/RandomBabyType";
@@ -2433,7 +2434,7 @@ export const BABIES = {
     sprite: "281_baby_fangdemon.png",
     item: CollectibleType.MARKED,
     blindfolded: true,
-    num: 15, // Game frames between ticks
+    num: 15, // Amount of game frames in-between ticks
     requireNoEndFloors: true,
     softlockPreventionDestroyPoops: true, // Light beams cannot kill poops.
     class: bc.FangDemonBaby,
@@ -2630,7 +2631,7 @@ export const BABIES = {
     description: "Starts with Brown Nugget (improved)",
     sprite: "303_baby_pizza.png",
     item: CollectibleType.BROWN_NUGGET,
-    num: 3, // In game frames
+    num: 3, // Amount of game frames in-between Brown Nugget activations
     class: bc.PizzaBaby,
   },
 
@@ -3046,7 +3047,7 @@ export const BABIES = {
     description: "Starts with How to Jump; must jump often",
     sprite: "350_baby_rabbit.png",
     item: CollectibleType.HOW_TO_JUMP,
-    num: 45 * 2, // Amount of game frames between forced book uses
+    num: GAME_FRAMES_PER_SECOND * 3, // Amount of game frames between forced book uses
     class: bc.RabbitBaby,
   },
 
@@ -3366,8 +3367,8 @@ export const BABIES = {
     item2: CollectibleType.LOKIS_HORNS,
     flight: true,
     explosionImmunity: true,
-    num: 3, // In game frames
-    // This baby does not use the "blindfolded" property because it would remove knives.
+    num: 3, // Amount of game frames in-between rotations
+    // This baby does not use the "blindfolded" property because it would remove the knives.
     requireNoEndFloors: true,
     class: bc.ImpBaby,
   },
@@ -3438,7 +3439,7 @@ export const BABIES = {
     name: "Cowboy Baby",
     description: "Pickups shoot",
     sprite: "394_baby_cowboy.png",
-    num: 35, // Game frames in between shots
+    num: 35, // Amount of game frames in-between shots
     class: bc.CowboyBaby,
   },
 

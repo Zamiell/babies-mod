@@ -10,16 +10,23 @@ import {
   ModCallbackCustom,
   game,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
+
+const v = {
+  run: {
+    mustJumpOnFrame: 0,
+  },
+};
 
 /** Starts with How to Jump; must jump often. */
 export class RabbitBaby extends Baby {
+  v = v;
+
   override onAdd(): void {
     const gameFrameCount = game.GetFrameCount();
     const num = this.getAttribute("num");
 
-    g.run.babyFrame = gameFrameCount + num;
+    v.run.mustJumpOnFrame = gameFrameCount + num;
   }
 
   // 3
@@ -28,8 +35,7 @@ export class RabbitBaby extends Baby {
     const gameFrameCount = game.GetFrameCount();
     const num = this.getAttribute("num");
 
-    g.run.babyFrame = gameFrameCount + num;
-
+    v.run.mustJumpOnFrame = gameFrameCount + num;
     return undefined;
   }
 
@@ -38,7 +44,7 @@ export class RabbitBaby extends Baby {
   evaluateCacheSpeed(player: EntityPlayer): void {
     const gameFrameCount = game.GetFrameCount();
 
-    if (gameFrameCount >= g.run.babyFrame) {
+    if (gameFrameCount >= v.run.mustJumpOnFrame) {
       // Speed has a lower bound, so we cannot set it lower than this.
       player.MoveSpeed = MIN_PLAYER_SPEED_STAT;
     }

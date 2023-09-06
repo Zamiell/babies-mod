@@ -13,22 +13,22 @@ import {
   game,
   isShootAction,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
+
+const v = {
+  run: {
+    direction: Direction.LEFT,
+    nextRotationGameFrame: 0,
+  },
+};
 
 /** Blender + flight + explosion immunity + blindfolded. */
 export class ImpBaby extends Baby {
+  v = v;
+
   /** Epic Fetus overwrites Mom's Knife, which makes the baby not work properly. */
   override isValid(player: EntityPlayer): boolean {
     return !player.HasCollectible(CollectibleType.EPIC_FETUS);
-  }
-
-  override onAdd(): void {
-    const gameFrameCount = game.GetFrameCount();
-    const num = this.getAttribute("num");
-
-    g.run.babyCounters = Direction.LEFT;
-    g.run.babyFrame = gameFrameCount + num;
   }
 
   // 1
@@ -38,16 +38,15 @@ export class ImpBaby extends Baby {
     const num = this.getAttribute("num");
 
     // If we rotate the knives on every frame, then it spins too fast.
-    if (gameFrameCount < g.run.babyFrame) {
+    if (gameFrameCount < v.run.nextRotationGameFrame) {
       return;
     }
-
-    g.run.babyFrame += num;
+    v.run.nextRotationGameFrame += num;
 
     // Rotate through the four directions.
-    g.run.babyCounters++;
-    if (g.run.babyCounters > (Direction.DOWN as int)) {
-      g.run.babyCounters = Direction.LEFT;
+    v.run.direction++; // eslint-disable-line isaacscript/strict-enums
+    if (v.run.direction > Direction.DOWN) {
+      v.run.direction = Direction.LEFT;
     }
   }
 
@@ -61,13 +60,7 @@ export class ImpBaby extends Baby {
       return undefined;
     }
 
-    // The direction is stored in the "babyCounters" variable. It can have these values:
-    // - ButtonAction.SHOOT_LEFT (4)
-    // - ButtonAction.SHOOT_RIGHT (5)
-    // - ButtonAction.SHOOT_UP (6)
-    // - ButtonAction.SHOOT_DOWN (7)
-    const direction = g.run.babyCounters as Direction;
-    const shootAction = directionToShootAction(direction);
+    const shootAction = directionToShootAction(v.run.direction);
     if (shootAction === undefined) {
       return undefined;
     }

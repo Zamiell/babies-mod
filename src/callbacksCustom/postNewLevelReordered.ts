@@ -50,7 +50,6 @@ function setNewBaby(player: EntityPlayer) {
 
   // Reset baby-specific variables
   g.run.babyCounters = 0;
-  g.run.babyFrame = 0;
   g.run.babySprite = null;
 
   // Display text describing the new baby.

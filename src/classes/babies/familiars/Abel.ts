@@ -38,8 +38,8 @@ export class Abel extends Baby {
       return;
     }
 
-    const num = this.getAttribute("num");
     const player = Isaac.GetPlayer();
+    const num = this.getAttribute("num");
 
     // The baby effect only applies to the Nth missed tear.
     v.run.numMissedTears++;

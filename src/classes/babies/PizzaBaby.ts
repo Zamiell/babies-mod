@@ -6,21 +6,31 @@ import {
   game,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
+
+const NUM_BROWN_NUGGET_USES = 20;
+
+const v = {
+  room: {
+    brownNuggetsUsed: 0,
+    useBrownNuggetOnFrame: null as int | null,
+  },
+};
 
 /** Starts with Brown Nugget (improved). */
 export class PizzaBaby extends Baby {
+  v = v;
+
   // 23
   @Callback(ModCallback.PRE_USE_ITEM, CollectibleType.BROWN_NUGGET)
   preUseItemBrownNugget(): boolean | undefined {
     const gameFrameCount = game.GetFrameCount();
     const num = this.getAttribute("num");
 
-    // Mark to spawn more of them on subsequent frames.
-    if (g.run.babyCounters === 0) {
-      g.run.babyCounters = 1;
-      g.run.babyFrame = gameFrameCount + num;
+    // Mark to use more Brown Nuggets on future frames.
+    if (v.room.brownNuggetsUsed === 0) {
+      v.room.brownNuggetsUsed = 1;
+      v.room.useBrownNuggetOnFrame = gameFrameCount + num;
     }
 
     return undefined;
@@ -31,14 +41,19 @@ export class PizzaBaby extends Baby {
     const gameFrameCount = game.GetFrameCount();
     const num = this.getAttribute("num");
 
-    if (g.run.babyFrame !== 0 && gameFrameCount >= g.run.babyFrame) {
-      g.run.babyCounters++;
-      g.run.babyFrame = gameFrameCount + num;
+    if (
+      v.room.useBrownNuggetOnFrame !== null &&
+      gameFrameCount >= v.room.useBrownNuggetOnFrame
+    ) {
       useActiveItemTemp(player, CollectibleType.BROWN_NUGGET);
-      if (g.run.babyCounters === 19) {
-        // One is already spawned with the initial trigger.
-        g.run.babyCounters = 0;
-        g.run.babyFrame = 0;
+
+      v.room.brownNuggetsUsed++;
+      v.room.useBrownNuggetOnFrame = gameFrameCount + num;
+
+      // One fly is already spawned with the initial Brown Nugget activation.
+      if (v.room.brownNuggetsUsed === NUM_BROWN_NUGGET_USES - 1) {
+        v.room.brownNuggetsUsed = 0;
+        v.room.useBrownNuggetOnFrame = null;
       }
     }
   }

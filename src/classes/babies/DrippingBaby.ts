@@ -38,8 +38,8 @@ export class DrippingBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.POST_GRID_ENTITY_BROKEN)
   postGridEntityBroken(): void {
-    const num = this.getAttribute("num");
     const player = Isaac.GetPlayer();
+    const num = this.getAttribute("num");
 
     const chance = getRandom(v.run.rng);
     if (chance < num) {
