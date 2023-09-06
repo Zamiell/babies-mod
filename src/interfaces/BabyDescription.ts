@@ -21,6 +21,7 @@ export interface BabyDescription {
   readonly itemNum?: int;
   readonly uncharged?: boolean;
   readonly trinket?: TrinketType;
+  readonly trinketNum?: int;
   readonly goldenBomb?: boolean;
   readonly num?: int;
   readonly seed?: SeedEffect;

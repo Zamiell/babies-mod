@@ -1494,7 +1494,7 @@ export const BABIES = {
     trinket: TrinketType.BLIND_RAGE,
     // 60 frames is the normal amount of invulnerability frames. Each trinket doubles it. Thus, 4
     // trinkets gives 960 invulnerability frames (32 seconds).
-    num: 4,
+    trinketNum: 4,
   },
 
   // 171
@@ -2325,6 +2325,7 @@ export const BABIES = {
     sprite: "268_baby_squirrel.png",
     trinket: TrinketType.WALNUT,
     requireBombs: true,
+    num: 5, // The amount of collectibles to spawn.
     class: bc.SquirrelBaby,
   },
 
@@ -3005,7 +3006,7 @@ export const BABIES = {
     sprite: "345_baby_locust.png",
     blindfolded: true,
     trinket: TrinketType.APOLLYONS_BEST_FRIEND,
-    num: 20,
+    trinketNum: 20,
   },
 
   // 346
@@ -4102,7 +4103,7 @@ export const BABIES = {
     description: "Soundwave tears",
     sprite: "470_baby_headphone.png",
     trinket: TrinketType.FLAT_WORM,
-    num: 50,
+    trinketNum: 50,
   },
 
   // 471
@@ -5033,10 +5034,10 @@ export const BABIES = {
   [RandomBabyType.LITTLE_STEVEN]: {
     name: "Little Steven", // CollectibleType.LITTLE_STEVEN (100)
     description:
-      "Starts with 20 Ring Cap + golden bomb + blindfolded + explosion immunity",
+      "Starts with 20x Ring Cap + golden bomb + blindfolded + explosion immunity",
     sprite: "familiar_shooters_05_littlesteve.png",
     trinket: TrinketType.RING_CAP,
-    num: 20,
+    trinketNum: 20,
     goldenBomb: true,
     blindfolded: true,
     explosionImmunity: true,

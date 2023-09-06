@@ -78,11 +78,12 @@ export function babyAdd(player: EntityPlayer): void {
 
   // Check if this is a multiple item baby.
   if (baby.item !== undefined && baby.itemNum !== undefined) {
-    const numItemsToAdd = baby.itemNum - 1; // We already added the first item above
-    for (let i = 0; i < numItemsToAdd; i++) {
-      player.AddCollectible(baby.item, 0, false);
-      removeCollectibleFromItemTracker(baby.item);
-    }
+    const { item } = baby;
+    const num = baby.itemNum - 1; // We already added the first item above.
+    repeat(num, () => {
+      player.AddCollectible(item, 0, false);
+      removeCollectibleFromItemTracker(item);
+    });
   }
 
   // Check if this is a baby that grants a second item. (This should always be a passive item; we
@@ -102,7 +103,7 @@ export function babyAdd(player: EntityPlayer): void {
   // Check if this is a trinket baby.
   if (baby.trinket !== undefined) {
     const { trinket } = baby;
-    const num = baby.num ?? 1;
+    const num = baby.trinketNum ?? 1;
     repeat(num, () => {
       smeltTrinket(player, trinket);
     });

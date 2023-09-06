@@ -3,28 +3,39 @@ import {
   CallbackCustom,
   ModCallbackCustom,
   game,
+  newRNG,
   repeat,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { mod } from "../../mod";
+import { setInitialBabyRNG } from "../../utils";
 import { Baby } from "../Baby";
 
-/** This cannot be in a `num` property since it would grant that many walnuts. */
-const NUM_COLLECTIBLES = 5;
+const v = {
+  run: {
+    rng: newRNG(),
+  },
+};
 
 /** Starts with Walnut (improved). */
 export class SquirrelBaby extends Baby {
+  v = v;
+
+  override onAdd(): void {
+    setInitialBabyRNG(v.run.rng);
+  }
+
   @CallbackCustom(ModCallbackCustom.POST_TRINKET_BREAK, TrinketType.WALNUT)
   postTrinketBreakWalnut(player: EntityPlayer): void {
     const room = game.GetRoom();
+    const num = this.getAttribute("num");
 
-    repeat(NUM_COLLECTIBLES, () => {
+    repeat(num, () => {
       const position = room.FindFreePickupSpawnPosition(
         player.Position,
         1,
         true,
       );
-      mod.spawnCollectible(CollectibleType.NULL, position, g.run.rng);
+      mod.spawnCollectible(CollectibleType.NULL, position, v.run.rng);
     });
   }
 }
