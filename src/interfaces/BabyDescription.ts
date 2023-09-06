@@ -30,8 +30,6 @@ export interface BabyDescription {
   // Optional properties that specify selection restrictions.
   readonly requireTears?: boolean;
   readonly requireNoEndFloors?: boolean;
-  readonly requireNoPiercing?: boolean;
-  readonly requireNoSpectral?: boolean;
   readonly requireNumHits?: int;
 
   /** Requires that the player has at least 1 bomb. */

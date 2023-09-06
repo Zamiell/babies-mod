@@ -196,19 +196,18 @@ function checkCollectibles(
     return false;
   }
 
-  if (baby.requireNoPiercing === true && playerHasPiercing(player)) {
-    return false;
-  }
-
-  if (baby.requireNoSpectral === true && playerHasSpectral(player)) {
-    return false;
-  }
-
   const babyItemsSet = getBabyItemsSet(baby);
 
   // --------------------------
   // Array-based anti-synergies
   // --------------------------
+
+  if (
+    babyItemsSet.has(CollectibleType.CUPIDS_ARROW) && // 48
+    playerHasPiercing(player)
+  ) {
+    return false;
+  }
 
   if (
     babyItemsSet.has(CollectibleType.DR_FETUS) && // 52
@@ -248,6 +247,13 @@ function checkCollectibles(
   if (
     setHas(babyItemsSet, ...MOMS_KNIFE_ANTI_SYNERGIES) &&
     player.HasCollectible(CollectibleType.MOMS_KNIFE) // 114
+  ) {
+    return false;
+  }
+
+  if (
+    babyItemsSet.has(CollectibleType.OUIJA_BOARD) && // 115
+    playerHasSpectral(player)
   ) {
     return false;
   }
@@ -312,6 +318,13 @@ function checkCollectibles(
   if (
     setHas(babyItemsSet, ...TECH_X_ANTI_SYNERGIES) &&
     player.HasCollectible(CollectibleType.TECH_X) // 395
+  ) {
+    return false;
+  }
+
+  if (
+    babyItemsSet.has(CollectibleType.EYE_OF_BELIAL) && // 462
+    playerHasPiercing(player)
   ) {
     return false;
   }
