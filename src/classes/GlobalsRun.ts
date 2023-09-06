@@ -17,10 +17,6 @@ export class GlobalsRun {
   dealingExtraDamage = false;
   gettingCollectible = false;
 
-  // Baby-specific variables
-  /** Initialized to false at the beginning of every floor. */
-  babyBool = false;
-
   /** Initialized to 0 at the beginning of every floor. */
   babyCounters = 0;
 

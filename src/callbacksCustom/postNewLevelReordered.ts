@@ -49,7 +49,6 @@ function setNewBaby(player: EntityPlayer) {
   const oldBabyCounters = g.run.babyCounters;
 
   // Reset baby-specific variables
-  g.run.babyBool = false;
   g.run.babyCounters = 0;
   g.run.babyFrame = 0;
   g.run.babySprite = null;
