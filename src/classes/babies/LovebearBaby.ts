@@ -1,13 +1,8 @@
 import { LevelStage, SlotVariant } from "isaac-typescript-definitions";
-import {
-  VectorZero,
-  getEffectiveStage,
-  onStage,
-  spawnSlot,
-} from "isaacscript-common";
+import { getEffectiveStage, onStage, spawnSlot } from "isaacscript-common";
 import { Baby } from "../Baby";
 
-/** Starting rooms are Super-Arcades. */
+/** Starts in a super Arcade. */
 export class LovebearBaby extends Baby {
   /**
    * - The player won't have any resources to spend on slot machines on the first floor or second
@@ -27,38 +22,29 @@ export class LovebearBaby extends Baby {
     );
   }
 
-  override onAdd(player: EntityPlayer): void {
+  override onAdd(): void {
     // Top-left
-    spawnSlotHelper(SlotVariant.SLOT_MACHINE, 16, player);
-    spawnSlotHelper(SlotVariant.FORTUNE_TELLING_MACHINE, 18, player);
-    spawnSlotHelper(SlotVariant.BLOOD_DONATION_MACHINE, 20, player);
+    spawnSlot(SlotVariant.SLOT_MACHINE, 0, 16);
+    spawnSlot(SlotVariant.FORTUNE_TELLING_MACHINE, 0, 18);
+    spawnSlot(SlotVariant.BLOOD_DONATION_MACHINE, 0, 20);
 
     // Top-right
-    spawnSlotHelper(SlotVariant.BEGGAR, 24, player);
-    spawnSlotHelper(SlotVariant.SHELL_GAME, 27, player);
+    spawnSlot(SlotVariant.BEGGAR, 0, 24);
+    spawnSlot(SlotVariant.SHELL_GAME, 0, 27);
 
     // Middle-right
-    spawnSlotHelper(SlotVariant.BOMB_BUM, 54, player);
-    spawnSlotHelper(SlotVariant.KEY_MASTER, 56, player);
-    spawnSlotHelper(SlotVariant.BATTERY_BUM, 84, player);
-    spawnSlotHelper(SlotVariant.ROTTEN_BEGGAR, 86, player);
+    spawnSlot(SlotVariant.BOMB_BUM, 0, 54);
+    spawnSlot(SlotVariant.KEY_MASTER, 0, 56);
+    spawnSlot(SlotVariant.BATTERY_BUM, 0, 84);
+    spawnSlot(SlotVariant.ROTTEN_BEGGAR, 0, 86);
 
     // Bottom-left
-    spawnSlotHelper(SlotVariant.SHOP_RESTOCK_MACHINE, 106, player);
-    spawnSlotHelper(SlotVariant.CRANE_GAME, 108, player);
-    spawnSlotHelper(SlotVariant.CONFESSIONAL, 110, player);
+    spawnSlot(SlotVariant.SHOP_RESTOCK_MACHINE, 0, 106);
+    spawnSlot(SlotVariant.CRANE_GAME, 0, 108);
+    spawnSlot(SlotVariant.CONFESSIONAL, 0, 110);
 
     // Bottom-right
-    spawnSlotHelper(SlotVariant.DEVIL_BEGGAR, 114, player);
-    spawnSlotHelper(SlotVariant.HELL_GAME, 117, player);
+    spawnSlot(SlotVariant.DEVIL_BEGGAR, 0, 114);
+    spawnSlot(SlotVariant.HELL_GAME, 0, 117);
   }
-}
-
-/** Helper function to spawn a slot entity. */
-function spawnSlotHelper(
-  slotVariant: SlotVariant,
-  gridIndex: int,
-  player: EntityPlayer,
-) {
-  spawnSlot(slotVariant, 0, gridIndex, VectorZero, player);
 }

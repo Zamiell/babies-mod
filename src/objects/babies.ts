@@ -2301,7 +2301,7 @@ export const BABIES = {
   // 266
   [RandomBabyType.LOVEBEAR]: {
     name: "Lovebear Baby",
-    description: "Starting rooms are Super-Arcades",
+    description: "Starts in a super Arcade",
     sprite: "266_baby_lovebear.png",
     class: bc.LovebearBaby,
   },
@@ -4631,9 +4631,9 @@ export const BABIES = {
   // 533
   [RandomBabyType.THIRTEENTH]: {
     name: "Thirteenth Baby",
-    description: "Starts with Modeling Clay",
+    description: "Starts in a trinket shop",
     sprite: "533_baby_thirteenth.png",
-    trinket: TrinketType.MODELING_CLAY,
+    class: bc.ThirteenthBaby,
   },
 
   // 534

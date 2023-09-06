@@ -285,6 +285,7 @@ export { SuitBaby } from "./babies/SuitBaby";
 export { SuperGreedBaby } from "./babies/SuperGreedBaby";
 export { TVBaby } from "./babies/TVBaby";
 export { TanookiBaby } from "./babies/TanookiBaby";
+export { ThirteenthBaby } from "./babies/ThirteenthBaby";
 export { TiltBaby } from "./babies/TiltBaby";
 export { ToastBaby } from "./babies/ToastBaby";
 export { TongueBaby } from "./babies/TongueBaby";

@@ -24,7 +24,7 @@
   - Blisters Baby (#240) - Shot speed oscillates
   - Dark Baby 2 (#243) - Starts with E. Coli (improved)
   - Snail Baby (#244) - Glowing Hourglass effect on 2nd hit (per room)
-  - Lovebear Baby (#266) - Starting rooms are Super-Arcades
+  - Lovebear Baby (#266) - Starts in a super Arcade
   - Cupcake Baby (#321) - Starts with Voodoo Head + Flat File
   - Cyborg Baby (#343) - Sees numerical damage values and hitboxes
   - Dark Elf Baby (#378) - Starts with Bone Spurs + Polished Bone
@@ -32,7 +32,7 @@
   - Tired Baby (#443) - Starts with 10x Cube Baby + Ice Cube
   - Burning Baby (#467) - Starts with Vasculitis + A Lighter + 40 Luck
   - Tooth Baby (#478) - Spawns a random key on room clear
-  - Thirteenth Baby (#533) - Starts with Modeling Clay
+  - Thirteenth Baby (#533) - Starts in a trinket shop
   - Painful Baby (#570) - Enemies respawn when reentering a room
   - Doleful Baby (#572) - Starts with Soy Milk + booger tears
   - Cubic Baby (#573) - Starts with Brimstone Bombs + Scatter Bombs
