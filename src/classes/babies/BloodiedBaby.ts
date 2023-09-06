@@ -11,15 +11,28 @@ import {
   game,
   getDoors,
   levelHasRoomType,
+  newRNG,
   repeat,
   useCardTemp,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { mod } from "../../mod";
+import { setInitialBabyRNG } from "../../utils";
 import { Baby } from "../Baby";
+
+const v = {
+  run: {
+    rng: newRNG(),
+  },
+};
 
 /** Create red doors on hit + improved Ultra Secret Rooms. */
 export class BloodiedBaby extends Baby {
+  v = v;
+
+  override onAdd(): void {
+    setInitialBabyRNG(v.run.rng);
+  }
+
   override isValid(): boolean {
     return levelHasRoomType(RoomType.ULTRA_SECRET);
   }
@@ -73,7 +86,7 @@ export class BloodiedBaby extends Baby {
 
     repeat(num, () => {
       const position = room.FindFreePickupSpawnPosition(center, 1, true);
-      mod.spawnCollectible(CollectibleType.NULL, position, g.run.rng);
+      mod.spawnCollectible(CollectibleType.NULL, position, v.run.rng);
     });
   }
 }

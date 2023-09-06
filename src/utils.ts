@@ -5,6 +5,7 @@ import type {
 } from "isaac-typescript-definitions";
 import {
   BatterySubType,
+  BombSubType,
   CardType,
   CoinSubType,
   CollectibleType,
@@ -47,6 +48,7 @@ import {
   setSeed,
   sfxManager,
   spawnBattery,
+  spawnBombPickup,
   spawnCard,
   spawnCoin,
   spawnEffect,
@@ -298,7 +300,7 @@ export function spawnRandomPickup(
 
     case 4: {
       // Random bomb.
-      spawnPickup(PickupVariant.BOMB, 0, position, velocity, undefined, rng);
+      spawnBombPickup(BombSubType.NULL, position, velocity, undefined, rng);
       break;
     }
 

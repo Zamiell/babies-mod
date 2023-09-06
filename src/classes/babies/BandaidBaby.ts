@@ -3,13 +3,31 @@ import {
   ModCallback,
   RoomType,
 } from "isaac-typescript-definitions";
-import { Callback, game, getRandom, inRoomType } from "isaacscript-common";
-import { g } from "../../globals";
+import {
+  Callback,
+  game,
+  getRandom,
+  inRoomType,
+  newRNG,
+} from "isaacscript-common";
 import { mod } from "../../mod";
+import { setInitialBabyRNG } from "../../utils";
 import { Baby } from "../Baby";
+
+const v = {
+  run: {
+    rng: newRNG(),
+  },
+};
 
 /** 50% chance to spawn a random pedestal item on room clear. */
 export class BandaidBaby extends Baby {
+  v = v;
+
+  override onAdd(): void {
+    setInitialBabyRNG(v.run.rng);
+  }
+
   @Callback(ModCallback.PRE_SPAWN_CLEAR_AWARD)
   preSpawnClearAward(): boolean | undefined {
     const room = game.GetRoom();
@@ -20,7 +38,7 @@ export class BandaidBaby extends Baby {
       return undefined;
     }
 
-    const chance = getRandom(g.run.rng);
+    const chance = getRandom(v.run.rng);
     if (chance < 0.5) {
       const position = room.FindFreePickupSpawnPosition(
         player.Position,
