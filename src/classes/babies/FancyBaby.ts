@@ -1,16 +1,20 @@
+import type { CollectibleType } from "isaac-typescript-definitions";
 import {
+  EntityType,
   ItemType,
-  LevelStage,
   ModCallback,
   PickupVariant,
+  RoomType,
 } from "isaac-typescript-definitions";
 import type { PickingUpItemCollectible } from "isaacscript-common";
 import {
   Callback,
   CallbackCustom,
   ModCallbackCustom,
+  ReadonlyMap,
   assertDefined,
   dequeueItem,
+  doesEntityExist,
   game,
   getRoomGridIndexesForType,
   getRooms,
@@ -18,15 +22,115 @@ import {
   inStartingRoom,
   isEven,
   log,
-  onStage,
   teleport,
 } from "isaacscript-common";
 import { CollectibleTypeCustom } from "../../enums/CollectibleTypeCustom";
-import { TELEPORT_COLLECTIBLE_TYPE_TO_ROOM_TYPE_MAP } from "../../maps/teleportCollectibleTypeToRoomTypeMap";
-import { TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP } from "../../maps/teleportRoomTypeToItemAndPriceMap";
 import { mod } from "../../mod";
 import { isRerolledCollectibleBuggedHeart } from "../../utils";
 import { Baby } from "../Baby";
+
+enum TeleportPrice {
+  TEN = 10,
+  FIFTEEN = 15,
+  TWENTY = 20,
+}
+
+const TELEPORT_COLLECTIBLE_TYPE_TO_ROOM_TYPE_MAP = new ReadonlyMap<
+  CollectibleType,
+  RoomType
+>([
+  [CollectibleTypeCustom.SHOP_TELEPORT, RoomType.SHOP], // 2
+  [CollectibleTypeCustom.TREASURE_ROOM_TELEPORT, RoomType.TREASURE], // 4
+  [CollectibleTypeCustom.MINIBOSS_ROOM_TELEPORT, RoomType.MINI_BOSS], // 6
+  [CollectibleTypeCustom.ARCADE_TELEPORT, RoomType.ARCADE], // 9
+  [CollectibleTypeCustom.CURSE_ROOM_TELEPORT, RoomType.CURSE], // 10
+  [CollectibleTypeCustom.CHALLENGE_ROOM_TELEPORT, RoomType.CHALLENGE], // 11
+  [CollectibleTypeCustom.BOSS_CHALLENGE_ROOM_TELEPORT, RoomType.CHALLENGE], // 11
+  [CollectibleTypeCustom.LIBRARY_TELEPORT, RoomType.LIBRARY], // 12
+  [CollectibleTypeCustom.SACRIFICE_ROOM_TELEPORT, RoomType.SACRIFICE], // 13
+  [CollectibleTypeCustom.BEDROOM_CLEAN_TELEPORT, RoomType.CLEAN_BEDROOM], // 18
+  [CollectibleTypeCustom.BEDROOM_DIRTY_TELEPORT, RoomType.DIRTY_BEDROOM], // 19
+  [CollectibleTypeCustom.TREASURE_CHEST_ROOM_TELEPORT, RoomType.CHEST], // 20
+  [CollectibleTypeCustom.DICE_ROOM_TELEPORT, RoomType.DICE], // 21
+  [CollectibleTypeCustom.PLANETARIUM_TELEPORT, RoomType.PLANETARIUM], // 24
+]);
+
+const TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP = new ReadonlyMap<
+  RoomType,
+  readonly [CollectibleType, TeleportPrice]
+>([
+  // 2
+  [RoomType.SHOP, [CollectibleTypeCustom.SHOP_TELEPORT, TeleportPrice.TEN]],
+
+  // 4
+  [
+    RoomType.TREASURE,
+    [CollectibleTypeCustom.TREASURE_ROOM_TELEPORT, TeleportPrice.TEN],
+  ],
+
+  // 6
+  [
+    RoomType.MINI_BOSS,
+    [CollectibleTypeCustom.MINIBOSS_ROOM_TELEPORT, TeleportPrice.TEN],
+  ],
+
+  // 9
+  [RoomType.ARCADE, [CollectibleTypeCustom.ARCADE_TELEPORT, TeleportPrice.TEN]],
+
+  // 10
+  [
+    RoomType.CURSE,
+    [CollectibleTypeCustom.CURSE_ROOM_TELEPORT, TeleportPrice.TEN],
+  ],
+
+  // 11
+  [
+    RoomType.CHALLENGE,
+    [CollectibleTypeCustom.CHALLENGE_ROOM_TELEPORT, TeleportPrice.TEN],
+  ],
+
+  // 12
+  [
+    RoomType.LIBRARY,
+    [CollectibleTypeCustom.LIBRARY_TELEPORT, TeleportPrice.FIFTEEN],
+  ],
+
+  // 13
+  [
+    RoomType.SACRIFICE,
+    [CollectibleTypeCustom.SACRIFICE_ROOM_TELEPORT, TeleportPrice.TEN],
+  ],
+
+  // 18
+  [
+    RoomType.CLEAN_BEDROOM,
+    [CollectibleTypeCustom.BEDROOM_CLEAN_TELEPORT, TeleportPrice.TEN],
+  ],
+
+  // 19
+  [
+    RoomType.DIRTY_BEDROOM,
+    [CollectibleTypeCustom.BEDROOM_DIRTY_TELEPORT, TeleportPrice.TWENTY],
+  ],
+
+  // 20
+  [
+    RoomType.CHEST,
+    [CollectibleTypeCustom.TREASURE_CHEST_ROOM_TELEPORT, TeleportPrice.TEN],
+  ],
+
+  // 21
+  [
+    RoomType.DICE,
+    [CollectibleTypeCustom.DICE_ROOM_TELEPORT, TeleportPrice.TEN],
+  ],
+
+  // 24
+  [
+    RoomType.PLANETARIUM,
+    [CollectibleTypeCustom.PLANETARIUM_TELEPORT, TeleportPrice.TEN],
+  ],
+]);
 
 const COLLECTIBLE_POSITIONS = [
   [3, 1],
@@ -39,17 +143,18 @@ const COLLECTIBLE_POSITIONS = [
   [11, 5],
 ] as const;
 
+const CHEAPEST_TELEPORT_PRICE = TeleportPrice.TEN;
+
 /** Can purchase teleports to special rooms. */
 export class FancyBaby extends Baby {
+  /**
+   * We want to ensure that the starting room of the floor is clean (e.g. no Blue Womb, no The
+   * Chest, etc.)
+   */
   override isValid(player: EntityPlayer): boolean {
     const coins = player.GetNumCoins();
     return (
-      coins >= 10 &&
-      !onStage(
-        LevelStage.BLUE_WOMB, // 9
-        LevelStage.THE_VOID, // 12
-        LevelStage.HOME, // 13
-      )
+      coins >= CHEAPEST_TELEPORT_PRICE && !doesEntityExist(EntityType.PICKUP)
     );
   }
 

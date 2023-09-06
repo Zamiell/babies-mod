@@ -1,5 +1,9 @@
-import { LevelStage, SlotVariant } from "isaac-typescript-definitions";
-import { getEffectiveStage, onStage, spawnSlot } from "isaacscript-common";
+import { EntityType, SlotVariant } from "isaac-typescript-definitions";
+import {
+  doesEntityExist,
+  getEffectiveStage,
+  spawnSlot,
+} from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Starts in a super Arcade. */
@@ -13,12 +17,7 @@ export class LovebearBaby extends Baby {
   override isValid(): boolean {
     return (
       // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-      getEffectiveStage() > 2 &&
-      !onStage(
-        LevelStage.BLUE_WOMB, // 9
-        LevelStage.DARK_ROOM_CHEST, // 11
-        LevelStage.HOME, // 13
-      )
+      getEffectiveStage() > 2 && !doesEntityExist(EntityType.PICKUP)
     );
   }
 

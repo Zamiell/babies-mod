@@ -7,17 +7,30 @@ import {
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
+const v = {
+  room: {
+    homingTearPtrHashes: new Set<PtrHash>(),
+  },
+};
+
 /** Super homing tears. */
 export class SkinnyBaby extends Baby {
+  v = v;
+
   // 40
   @Callback(ModCallback.POST_TEAR_UPDATE)
   postTearUpdate(tear: EntityTear): void {
+    const ptrHash = GetPtrHash(tear);
+    if (!v.room.homingTearPtrHashes.has(ptrHash)) {
+      return;
+    }
+
     const player = getPlayerFromEntity(tear);
     if (player === undefined) {
       return;
     }
 
-    if (tear.SubType !== 1 || tear.FrameCount < 10) {
+    if (tear.FrameCount < 10) {
       return;
     }
 
@@ -42,6 +55,7 @@ export class SkinnyBaby extends Baby {
   // 61
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
-    tear.SubType = 1; // Mark that we shot this tear.
+    const ptrHash = GetPtrHash(tear);
+    v.room.homingTearPtrHashes.add(ptrHash);
   }
 }

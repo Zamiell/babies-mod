@@ -1526,7 +1526,7 @@ __metadata:
     "@types/node": ^20.5.9
     isaac-typescript-definitions: ^16.0.0
     isaacscript: ^3.10.1
-    isaacscript-common: ^33.2.0
+    isaacscript-common: ^33.3.0
     isaacscript-lint: ^5.8.5
     isaacscript-spell: ^1.2.41
     isaacscript-tsconfig: ^4.0.0
@@ -3711,12 +3711,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isaacscript-common@npm:^33.2.0":
-  version: 33.2.0
-  resolution: "isaacscript-common@npm:33.2.0"
+"isaacscript-common@npm:^33.3.0":
+  version: 33.3.0
+  resolution: "isaacscript-common@npm:33.3.0"
   dependencies:
     isaac-typescript-definitions: ^16.0.0
-  checksum: 64c2768cffa10f7fce6d63f7dc6498a1e5779f082a3004fb4c0e1b04891b2a20c936c6c17a28163fabe7ab655f6b6ebec221cf2416cd7ce129e094e8bd160eb8
+  checksum: 67e9190411e69f98cdedcdce2d95499601c91b4434f50571db462175dea6a51999f5fad0f5597433b8c2e738ddb93b9e2c46a1f5794b28e713457da696e66a92
   languageName: node
   linkType: hard
 

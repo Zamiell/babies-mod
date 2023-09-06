@@ -51,6 +51,7 @@ export class AstronautBaby extends Baby {
   // 61
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
-    tear.SubType = 1; // Mark that we shot this tear.
+    const ptrHash = GetPtrHash(tear);
+    v.room.blackHoleTearPtrHashes.add(ptrHash);
   }
 }
