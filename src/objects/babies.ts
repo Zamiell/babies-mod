@@ -1650,6 +1650,7 @@ export const BABIES = {
     name: "Spectral Baby",
     description: "Starts with Ouija Board",
     sprite: "189_baby_spectral.png",
+    requireNoSpectral: true,
     item: CollectibleType.OUIJA_BOARD,
   },
 
@@ -1804,6 +1805,7 @@ export const BABIES = {
     name: "Belial Baby 2",
     description: "Starts with Eye of Belial",
     sprite: "207_baby_belial.png",
+    requireNoPiercing: true,
     item: CollectibleType.EYE_OF_BELIAL,
   },
 
@@ -2505,6 +2507,7 @@ export const BABIES = {
     name: "Cupid Baby",
     description: "Starts with Cupid's Arrow",
     sprite: "289_baby_cupid.png",
+    requireNoPiercing: true,
     item: CollectibleType.CUPIDS_ARROW,
   },
 
@@ -4044,6 +4047,7 @@ export const BABIES = {
     name: "Arrowhead Baby",
     description: "Starts with Technology Zero + Cupid's Arrow",
     sprite: "464_baby_arrowhead.png",
+    requireNoPiercing: true,
     item: CollectibleType.TECHNOLOGY_ZERO,
     item2: CollectibleType.CUPIDS_ARROW,
   },

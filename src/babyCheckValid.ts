@@ -4,6 +4,7 @@ import {
   ItemType,
   LevelStage,
   RoomType,
+  TearFlag,
   TrinketType,
 } from "isaac-typescript-definitions";
 import type { AnyFunction } from "isaacscript-common";
@@ -13,6 +14,7 @@ import {
   getEffectiveStage,
   hasAnyTrinket,
   hasCollectible,
+  hasFlag,
   levelHasRoomType,
   onAscent,
   onFirstFloor,
@@ -194,6 +196,14 @@ function checkCollectibles(
     return false;
   }
 
+  if (baby.requireNoPiercing === true && playerHasPiercing(player)) {
+    return false;
+  }
+
+  if (baby.requireNoSpectral === true && playerHasSpectral(player)) {
+    return false;
+  }
+
   const babyItemsSet = getBabyItemsSet(baby);
 
   // --------------------------
@@ -280,6 +290,14 @@ function checkCollectibles(
   if (
     setHas(babyItemsSet, ...LUDOVICO_TECHNIQUE_ANTI_SYNERGIES) &&
     player.HasCollectible(CollectibleType.LUDOVICO_TECHNIQUE) // 329
+  ) {
+    return false;
+  }
+
+  if (
+    babyItemsSet.has(CollectibleType.DEAD_ONION) && // 336
+    playerHasPiercing(player) &&
+    playerHasSpectral(player)
   ) {
     return false;
   }
@@ -387,6 +405,14 @@ function checkTrinkets(player: EntityPlayer, baby: BabyDescription): boolean {
 
 function playerHasTearBuild(player: EntityPlayer): boolean {
   return !hasCollectible(player, ...COLLECTIBLES_THAT_REMOVE_TEARS);
+}
+
+function playerHasSpectral(player: EntityPlayer) {
+  return hasFlag(player.TearFlags, TearFlag.SPECTRAL);
+}
+
+function playerHasPiercing(player: EntityPlayer) {
+  return hasFlag(player.TearFlags, TearFlag.PIERCING);
 }
 
 function checkStage(baby: BabyDescription): boolean {
