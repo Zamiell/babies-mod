@@ -151,7 +151,7 @@ function logSpecificBabies() {
     if (
       baby.collectible !== undefined &&
       baby.collectible2 === undefined &&
-      baby.itemNum === undefined &&
+      baby.collectibleNum === undefined &&
       baby.trinket === undefined &&
       baby.trinketNum === undefined &&
       baby.class === undefined
@@ -169,7 +169,7 @@ function logSpecificBabies() {
     if (
       baby.collectible === undefined &&
       baby.collectible2 === undefined &&
-      baby.itemNum === undefined &&
+      baby.collectibleNum === undefined &&
       baby.trinket !== undefined &&
       baby.trinketNum === undefined &&
       baby.class === undefined

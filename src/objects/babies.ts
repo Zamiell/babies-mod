@@ -213,7 +213,7 @@ export const BABIES = {
     description: "Starts with 2x ???'s Only Friend + blindfolded",
     sprite: "022_baby_dead.png",
     collectible: CollectibleType.BLUE_BABYS_ONLY_FRIEND,
-    itemNum: 2,
+    collectibleNum: 2,
     blindfolded: true,
     softlockPreventionDestroyPoops: true, // ???'s Only Friend cannot kill poops
   },
@@ -240,7 +240,7 @@ export const BABIES = {
     description: "Starts with 20x GB Bug",
     sprite: "025_baby_glitch.png",
     collectible: CollectibleType.GB_BUG,
-    itemNum: 20,
+    collectibleNum: 20,
   },
 
   // 26
@@ -266,7 +266,7 @@ export const BABIES = {
     description: "Starts with 5x Distant Admiration",
     sprite: "028_baby_red.png",
     collectible: CollectibleType.DISTANT_ADMIRATION,
-    itemNum: 5,
+    collectibleNum: 5,
   },
 
   // 29
@@ -647,7 +647,7 @@ export const BABIES = {
     description: "Starts with 5x Little Chubby",
     sprite: "072_baby_worm.png",
     collectible: CollectibleType.LITTLE_CHUBBY,
-    itemNum: 5,
+    collectibleNum: 5,
   },
 
   // 73
@@ -736,7 +736,7 @@ export const BABIES = {
     description: "Starts with 20x Lil Gurdy",
     sprite: "082_baby_gurdy.png",
     collectible: CollectibleType.LIL_GURDY,
-    itemNum: 20,
+    collectibleNum: 20,
     class: bc.GurdyBaby,
   },
 
@@ -779,7 +779,7 @@ export const BABIES = {
     description: "Starts with 3x Lil Delirium",
     sprite: "087_baby_bloodsucker.png",
     collectible: CollectibleType.LIL_DELIRIUM,
-    itemNum: 3,
+    collectibleNum: 3,
   },
 
   // 88
@@ -885,7 +885,7 @@ export const BABIES = {
     description: "7-shot",
     sprite: "099_baby_makeup.png",
     collectible: CollectibleType.WIZ,
-    itemNum: 6,
+    collectibleNum: 6,
   },
 
   // 100
@@ -1040,7 +1040,7 @@ export const BABIES = {
     description2: "+ explosion immunity + blindfolded",
     sprite: "117_baby_axewound.png",
     collectible: CollectibleType.SACRIFICIAL_DAGGER,
-    itemNum: 2,
+    collectibleNum: 2,
     flight: true,
     explosionImmunity: true,
     blindfolded: true,
@@ -1118,7 +1118,7 @@ export const BABIES = {
     description: "Starts with 10x Jaw Bone",
     sprite: "126_baby_bigmouth.png",
     collectible: CollectibleType.JAW_BONE,
-    itemNum: 10,
+    collectibleNum: 10,
   },
 
   // 127
@@ -1186,7 +1186,7 @@ export const BABIES = {
     description: "Starts with 15x Sissy Longlegs",
     sprite: "134_baby_spiderlegs.png",
     collectible: CollectibleType.SISSY_LONGLEGS,
-    itemNum: 15,
+    collectibleNum: 15,
   },
 
   // 135
@@ -1276,7 +1276,7 @@ export const BABIES = {
     description: "Starts with 20x The Peeper",
     sprite: "145_baby_eyeless.png",
     collectible: CollectibleType.PEEPER,
-    itemNum: 20,
+    collectibleNum: 20,
   },
 
   // 146
@@ -1475,7 +1475,7 @@ export const BABIES = {
     description: "Starts with 3x Mystery Sack",
     sprite: "168_baby_ears.png",
     collectible: CollectibleType.MYSTERY_SACK,
-    itemNum: 3,
+    collectibleNum: 3,
   },
 
   // 169
@@ -1662,7 +1662,7 @@ export const BABIES = {
     description: "Starts with 3x Slipped Rib",
     sprite: "190_baby_redskeleton.png",
     collectible: CollectibleType.SLIPPED_RIB,
-    itemNum: 3,
+    collectibleNum: 3,
   },
 
   // 191
@@ -1687,7 +1687,7 @@ export const BABIES = {
     description: "Starts with 5x Big Chubby",
     sprite: "193_baby_newjammies.png",
     collectible: CollectibleType.BIG_CHUBBY,
-    itemNum: 5,
+    collectibleNum: 5,
   },
 
   // 194
@@ -1754,7 +1754,7 @@ export const BABIES = {
     description: "Starts with 15x Seraphim",
     sprite: "201_baby_good.png",
     collectible: CollectibleType.SERAPHIM,
-    itemNum: 15,
+    collectibleNum: 15,
   },
 
   // 202
@@ -1789,7 +1789,7 @@ export const BABIES = {
     description: "Starts with 20x Little Steven",
     sprite: "205_baby_steven.png",
     collectible: CollectibleType.LITTLE_STEVEN,
-    itemNum: 20,
+    collectibleNum: 20,
   },
 
   // 206
@@ -1816,7 +1816,7 @@ export const BABIES = {
     description: "Starts with 5x Lil Monstro",
     sprite: "208_baby_monstro.png",
     collectible: CollectibleType.LIL_MONSTRO,
-    itemNum: 5,
+    collectibleNum: 5,
   },
 
   // 209
@@ -1967,7 +1967,7 @@ export const BABIES = {
     description: "Starts with 15x Angry Fly",
     sprite: "226_baby_buckteeth.png",
     collectible: CollectibleType.ANGRY_FLY,
-    itemNum: 15,
+    collectibleNum: 15,
   },
 
   // 227
@@ -2071,7 +2071,7 @@ export const BABIES = {
     description: "Starts with 5x Fate's Reward",
     sprite: "238_baby_shark.png",
     collectible: CollectibleType.FATES_REWARD,
-    itemNum: 5,
+    collectibleNum: 5,
   },
 
   // 239
@@ -2130,7 +2130,7 @@ export const BABIES = {
     description: "Starts with 5x Forever Alone",
     sprite: "245_baby_blood.png",
     collectible: CollectibleType.FOREVER_ALONE,
-    itemNum: 5,
+    collectibleNum: 5,
   },
 
   // 246
@@ -2368,7 +2368,7 @@ export const BABIES = {
     description: "Starts with 5x Rotten Baby",
     sprite: "273_baby_chameleon.png",
     collectible: CollectibleType.ROTTEN_BABY,
-    itemNum: 5,
+    collectibleNum: 5,
   },
 
   // 274
@@ -2459,7 +2459,7 @@ export const BABIES = {
     description: "Starts with 5x Daddy Longlegs",
     sprite: "283_baby_arachnid.png",
     collectible: CollectibleType.DADDY_LONGLEGS,
-    itemNum: 5,
+    collectibleNum: 5,
   },
 
   // 284
@@ -2556,7 +2556,7 @@ export const BABIES = {
     description: "Starts with 3x Lil Chest",
     sprite: "294_baby_ranger.png",
     collectible: CollectibleType.LIL_CHEST,
-    itemNum: 3,
+    collectibleNum: 3,
   },
 
   // 295
@@ -2729,7 +2729,7 @@ export const BABIES = {
     description: "Starts with 10x Angelic Prism",
     sprite: "314_baby_disco.png",
     collectible: CollectibleType.ANGELIC_PRISM,
-    itemNum: 10,
+    collectibleNum: 10,
   },
 
   // 315
@@ -2823,7 +2823,7 @@ export const BABIES = {
     description: "Starts with 5x Acid Baby",
     sprite: "325_baby_coolgoblin.png",
     collectible: CollectibleType.ACID_BABY,
-    itemNum: 5,
+    collectibleNum: 5,
   },
 
   // 326
@@ -2832,7 +2832,7 @@ export const BABIES = {
     description: "Starts with 20x Robo-Baby 2.0 + blindfolded",
     sprite: "326_baby_geek.png",
     collectible: CollectibleType.ROBO_BABY_2,
-    itemNum: 20,
+    collectibleNum: 20,
     blindfolded: true,
     softlockPreventionDestroyPoops: true, // Robo-Baby 2.0 will not kill poops.
     class: bc.GeekBaby,
@@ -2844,7 +2844,7 @@ export const BABIES = {
     description: "Starts with 10x Gemini",
     sprite: "327_baby_longbeard.png",
     collectible: CollectibleType.GEMINI,
-    itemNum: 10,
+    collectibleNum: 10,
   },
 
   // 328
@@ -2899,7 +2899,7 @@ export const BABIES = {
     description: "Starts with 15x Buddy in a Box",
     sprite: "333_baby_homeless.png",
     collectible: CollectibleType.BUDDY_IN_A_BOX,
-    itemNum: 15,
+    collectibleNum: 15,
     class: bc.BuddyBaby,
   },
 
@@ -2909,7 +2909,7 @@ export const BABIES = {
     description: "Starts with 3x Sack of Sacks",
     sprite: "334_baby_lumberjack.png",
     collectible: CollectibleType.SACK_OF_SACKS,
-    itemNum: 3,
+    collectibleNum: 3,
   },
 
   // 335
@@ -3154,7 +3154,7 @@ export const BABIES = {
     description: "Starts with 15x Samson's Chains",
     sprite: "362_baby_cannonball.png",
     collectible: CollectibleType.SAMSONS_CHAINS,
-    itemNum: 15,
+    collectibleNum: 15,
   },
 
   // 363
@@ -3307,7 +3307,7 @@ export const BABIES = {
     description: "Starts with 5x Dry Baby",
     sprite: "379_baby_darkknight.png",
     collectible: CollectibleType.DRY_BABY,
-    itemNum: 5,
+    collectibleNum: 5,
   },
 
   // 380
@@ -3343,7 +3343,7 @@ export const BABIES = {
     description: "Starts with 10x Mom's Razor",
     sprite: "383_baby_elfprincess.png",
     collectible: CollectibleType.MOMS_RAZOR,
-    itemNum: 10,
+    collectibleNum: 10,
   },
 
   // 384
@@ -3383,7 +3383,7 @@ export const BABIES = {
     description: "Starts with 20x Leech",
     sprite: "387_baby_worm.png",
     collectible: CollectibleType.LEECH,
-    itemNum: 20,
+    collectibleNum: 20,
   },
 
   // 388
@@ -3522,7 +3522,7 @@ export const BABIES = {
     description: "Starts with 3x YO LISTEN (improved)",
     sprite: "403_baby_pixie.png",
     collectible: CollectibleType.YO_LISTEN,
-    itemNum: 3,
+    collectibleNum: 3,
     class: bc.PixieBaby,
   },
 
@@ -3709,7 +3709,7 @@ export const BABIES = {
     description: "Starts with 10x Finger",
     sprite: "425_baby_toga.png",
     collectible: CollectibleType.FINGER,
-    itemNum: 10,
+    collectibleNum: 10,
   },
 
   // 426
@@ -3718,7 +3718,7 @@ export const BABIES = {
     description: "Starts with 5x 7 Seals",
     sprite: "426_baby_knight.png",
     collectible: CollectibleType.SEVEN_SEALS,
-    itemNum: 5,
+    collectibleNum: 5,
   },
 
   // 427
@@ -3829,7 +3829,7 @@ export const BABIES = {
     description: "Starts with 20x Rainbow Baby",
     sprite: "439_baby_afro_rainbow.png",
     collectible: CollectibleType.RAINBOW_BABY,
-    itemNum: 20,
+    collectibleNum: 20,
   },
 
   // 440
@@ -3865,7 +3865,7 @@ export const BABIES = {
     description: "Starts with 10x Cube Baby + Ice Cube",
     sprite: "443_baby_tired.png",
     collectible: CollectibleType.CUBE_BABY,
-    itemNum: 10,
+    collectibleNum: 10,
     trinket: TrinketType.ICE_CUBE,
   },
 
@@ -3908,7 +3908,7 @@ export const BABIES = {
     description: "Starts with 3x Rune Bag",
     sprite: "448_baby_nurf.png",
     collectible: CollectibleType.RUNE_BAG,
-    itemNum: 3,
+    collectibleNum: 3,
   },
 
   // 449
@@ -4024,7 +4024,7 @@ export const BABIES = {
     description: "Starts with 5x Friend Zone",
     sprite: "461_baby_toast_boy.png",
     collectible: CollectibleType.FRIEND_ZONE,
-    itemNum: 5,
+    collectibleNum: 5,
   },
 
   // 462
@@ -4177,7 +4177,7 @@ export const BABIES = {
     description: "Starts with 10x Lil Haunt",
     sprite: "479_baby_haunt.png",
     collectible: CollectibleType.LIL_HAUNT,
-    itemNum: 10,
+    collectibleNum: 10,
   },
 
   // 480
@@ -4236,7 +4236,7 @@ export const BABIES = {
     description: "Starts with 20x Ghost Baby",
     sprite: "486_baby_crazyghost.png",
     collectible: CollectibleType.GHOST_BABY,
-    itemNum: 20,
+    collectibleNum: 20,
   },
 
   // 487
@@ -4331,7 +4331,7 @@ export const BABIES = {
     description: "Starts with 5x Lil Spewer",
     sprite: "497_baby_ichor.png",
     collectible: CollectibleType.LIL_SPEWER,
-    itemNum: 5,
+    collectibleNum: 5,
   },
 
   // 498
@@ -4374,7 +4374,7 @@ export const BABIES = {
     description: "Starts with 8x Bloodshot Eye",
     sprite: "502_baby_peeping.png",
     collectible: CollectibleType.BLOODSHOT_EYE,
-    itemNum: 8,
+    collectibleNum: 8,
   },
 
   // 503
@@ -4383,7 +4383,7 @@ export const BABIES = {
     description: "Starts with 3x Sworn Protector",
     sprite: "503_baby_penance.png",
     collectible: CollectibleType.SWORN_PROTECTOR,
-    itemNum: 3,
+    collectibleNum: 3,
   },
 
   // 504
@@ -4486,7 +4486,7 @@ export const BABIES = {
     description: "Starts with 3x Pretty Fly",
     sprite: "515_baby_halfspider.png",
     collectible: CollectibleType.HALO_OF_FLIES,
-    itemNum: 2,
+    collectibleNum: 2,
     class: bc.HalfSpiderBaby,
   },
 
@@ -4671,7 +4671,7 @@ export const BABIES = {
     description: "Starts with 5x Worm Friend",
     sprite: "537_baby_vessel.png",
     collectible: CollectibleType.WORM_FRIEND,
-    itemNum: 5,
+    collectibleNum: 5,
   },
 
   // 538
@@ -5018,7 +5018,7 @@ export const BABIES = {
     description: "Starts with Technology + 3x Robo-Baby",
     sprite: "familiar_shooters_06_robobaby.png",
     collectible: CollectibleType.ROBO_BABY,
-    itemNum: 3,
+    collectibleNum: 3,
     collectible2: CollectibleType.TECHNOLOGY,
   },
 

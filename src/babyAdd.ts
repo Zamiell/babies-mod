@@ -77,9 +77,9 @@ export function babyAdd(player: EntityPlayer): void {
   }
 
   // Check if this is a multiple item baby.
-  if (baby.collectible !== undefined && baby.itemNum !== undefined) {
+  if (baby.collectible !== undefined && baby.collectibleNum !== undefined) {
     const { collectible: item } = baby;
-    const num = baby.itemNum - 1; // We already added the first item above.
+    const num = baby.collectibleNum - 1; // We already added the first item above.
     repeat(num, () => {
       player.AddCollectible(item, 0, false);
       removeCollectibleFromItemTracker(item);

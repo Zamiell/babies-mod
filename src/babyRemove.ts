@@ -26,8 +26,8 @@ export function babyRemove(player: EntityPlayer, oldBabyCounters: int): void {
   }
 
   // If we are on a multiple item baby, remove the extra items.
-  if (baby.collectible !== undefined && baby.itemNum !== undefined) {
-    const numItemsToRemove = baby.itemNum - 1; // We already removed one item above
+  if (baby.collectible !== undefined && baby.collectibleNum !== undefined) {
+    const numItemsToRemove = baby.collectibleNum - 1; // We already removed one item above
     for (let i = 0; i < numItemsToRemove; i++) {
       player.RemoveCollectible(baby.collectible);
     }
