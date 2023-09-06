@@ -1,7 +1,7 @@
 import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
 import { isCharacter } from "isaacscript-common";
+import { PlayerTypeCustom } from "../enums/PlayerTypeCustom";
 import { mod } from "../mod";
-import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
 import { getCurrentBaby } from "../utilsBaby";
 
 export function init(): void {

@@ -2,8 +2,8 @@ import { CollectibleType } from "isaac-typescript-definitions";
 import { ModCallbackCustom, ReadonlySet } from "isaacscript-common";
 import { getBabyItemsSet } from "../babyCheckValid";
 import { softlockPreventionPostPEffectUpdateReordered } from "../features/softlockPrevention";
+import type { BabyDescription } from "../interfaces/BabyDescription";
 import { mod } from "../mod";
-import type { BabyDescription } from "../types/BabyDescription";
 import { isValidRandomBabyPlayer } from "../utils";
 import { getCurrentBaby } from "../utilsBaby";
 

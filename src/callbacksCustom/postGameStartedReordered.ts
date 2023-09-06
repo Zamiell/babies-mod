@@ -11,11 +11,11 @@ import {
   getPlayersOfType,
   log,
 } from "isaacscript-common";
+import { GlobalsRun } from "../classes/GlobalsRun";
+import { PlayerTypeCustom } from "../enums/PlayerTypeCustom";
 import { g } from "../globals";
 import { mod } from "../mod";
 import { BABIES } from "../objects/babies";
-import { GlobalsRun } from "../types/GlobalsRun";
-import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
 import { giveItemAndRemoveFromPools } from "../utils";
 
 const ALL_BABY_SEED_EFFECTS: readonly SeedEffect[] = (() => {

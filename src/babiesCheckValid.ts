@@ -6,8 +6,8 @@ import {
   getCollectibleName,
   log,
 } from "isaacscript-common";
+import type { BabyDescription } from "./interfaces/BabyDescription";
 import { BABIES } from "./objects/babies";
-import type { BabyDescription } from "./types/BabyDescription";
 
 const VALID_DUPLICATE_ITEMS = new ReadonlySet<CollectibleType>([
   CollectibleType.POOP, // 36

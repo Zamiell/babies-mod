@@ -11,8 +11,8 @@ import {
 } from "isaacscript-common";
 import type { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
+import type { BabyDescription } from "../interfaces/BabyDescription";
 import { mod } from "../mod";
-import type { BabyDescription } from "../types/BabyDescription";
 import { isValidRandomBabyPlayer } from "../utils";
 
 /**

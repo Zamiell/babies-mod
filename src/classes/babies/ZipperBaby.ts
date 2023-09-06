@@ -6,8 +6,13 @@ import {
   ModCallbackCustom,
   spawn,
 } from "isaacscript-common";
-import type { EntityDescription } from "../../types/EntityDescription";
 import { Baby } from "../Baby";
+
+interface EntityDescription {
+  type: EntityType;
+  variant: int;
+  subType: int;
+}
 
 /** Extra enemies spawn on hit. */
 export class ZipperBaby extends Baby {

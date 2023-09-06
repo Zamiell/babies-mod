@@ -1,4 +1,4 @@
-import { Globals } from "./types/Globals";
+import { Globals } from "./classes/Globals";
 
 export const g = new Globals();
 

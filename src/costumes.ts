@@ -2,11 +2,11 @@
 // Protector library to accomplish this.
 
 import type { NullItemID } from "isaac-typescript-definitions";
+import { NullItemIDCustom } from "./enums/NullItemIDCustom";
 import { RandomBabyType } from "./enums/RandomBabyType";
 import * as costumeProtector from "./lib/characterCostumeProtector";
 import { mod } from "./mod";
 import { BABIES } from "./objects/babies";
-import { NullItemIDCustom } from "./types/NullItemIDCustom";
 import { getCurrentBaby } from "./utilsBaby";
 
 const CUSTOM_PLAYER_ANM2 = "gfx/001.000_player_custom_baby.anm2";

@@ -37,9 +37,9 @@ import {
 } from "./constants";
 import type { RandomBabyType } from "./enums/RandomBabyType";
 import { g } from "./globals";
+import type { BabyDescription } from "./interfaces/BabyDescription";
 import { BABIES } from "./objects/babies";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
-import type { BabyDescription } from "./types/BabyDescription";
 
 export function babyCheckValid(
   player: EntityPlayer,

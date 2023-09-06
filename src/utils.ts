@@ -59,9 +59,9 @@ import {
 } from "isaacscript-common";
 import { ROOM_TYPES_TO_NOT_TRANSFORM } from "./constants";
 import { CollectibleTypeCustom } from "./enums/CollectibleTypeCustom";
+import { PlayerTypeCustom } from "./enums/PlayerTypeCustom";
 import { g } from "./globals";
 import { mod } from "./mod";
-import { PlayerTypeCustom } from "./types/PlayerTypeCustom";
 
 const BAD_MISSING_TEARS_COLLECTIBLE_TYPES = [
   CollectibleType.INNER_EYE, // 2

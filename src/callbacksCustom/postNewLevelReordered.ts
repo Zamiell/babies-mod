@@ -11,10 +11,10 @@ import {
 import { babyAdd } from "../babyAdd";
 import { babyCheckValid } from "../babyCheckValid";
 import { babyRemove } from "../babyRemove";
+import { PlayerTypeCustom } from "../enums/PlayerTypeCustom";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import { mod } from "../mod";
-import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
 import { getCurrentBaby } from "../utilsBaby";
 
 export function init(): void {

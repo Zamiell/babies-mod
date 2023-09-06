@@ -6,8 +6,8 @@ import {
   log,
   openAllDoors,
 } from "isaacscript-common";
+import type { BabyDescription } from "../interfaces/BabyDescription";
 import { mod } from "../mod";
-import type { BabyDescription } from "../types/BabyDescription";
 
 const v = {
   room: {

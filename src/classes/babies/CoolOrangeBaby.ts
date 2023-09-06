@@ -5,7 +5,7 @@ import {
   getEffects,
   spawnEffect,
 } from "isaacscript-common";
-import { EffectVariantCustom } from "../../types/EffectVariantCustom";
+import { EffectVariantCustom } from "../../enums/EffectVariantCustom";
 import { everyNSeconds } from "../../utils";
 import { Baby } from "../Baby";
 

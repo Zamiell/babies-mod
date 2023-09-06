@@ -21,10 +21,10 @@ import {
 import { MOD_NAME, VERSION } from "../constants";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
+import type { BabyDescription } from "../interfaces/BabyDescription";
 import { mod } from "../mod";
 import { newSprite } from "../sprite";
 import * as timer from "../timer";
-import type { BabyDescription } from "../types/BabyDescription";
 import { isRacingPlusEnabled } from "../utils";
 import { getCurrentBaby } from "../utilsBaby";
 

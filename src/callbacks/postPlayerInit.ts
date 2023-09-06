@@ -1,8 +1,8 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { isCharacter, isFirstPlayer } from "isaacscript-common";
 import { addPlayerToCostumeProtector } from "../costumes";
+import { PlayerTypeCustom } from "../enums/PlayerTypeCustom";
 import { mod } from "../mod";
-import { PlayerTypeCustom } from "../types/PlayerTypeCustom";
 
 export function init(): void {
   mod.AddCallback(ModCallback.POST_PLAYER_INIT, main);

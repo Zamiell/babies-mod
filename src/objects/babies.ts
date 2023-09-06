@@ -15,7 +15,7 @@ import {
 import * as bc from "../classes/babyClasses";
 import { CollectibleTypeCustom } from "../enums/CollectibleTypeCustom";
 import { RandomBabyType } from "../enums/RandomBabyType";
-import type { BabyDescription } from "../types/BabyDescription";
+import type { BabyDescription } from "../interfaces/BabyDescription";
 
 export const BABIES = {
   // 0
