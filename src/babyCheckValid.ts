@@ -4,7 +4,6 @@ import {
   ItemType,
   LevelStage,
   RoomType,
-  TearFlag,
   TrinketType,
 } from "isaac-typescript-definitions";
 import type { AnyFunction } from "isaacscript-common";
@@ -14,7 +13,8 @@ import {
   getEffectiveStage,
   hasAnyTrinket,
   hasCollectible,
-  hasFlag,
+  hasPiercing,
+  hasSpectral,
   levelHasRoomType,
   onAscent,
   onFirstFloor,
@@ -69,11 +69,13 @@ export function babyCheckValid(
     return false;
   }
 
+  const babyItemSet = getBabyItemsSet(baby);
+
   if (!checkActiveItem(player, baby)) {
     return false;
   }
 
-  if (!checkHealth(player, baby)) {
+  if (!checkHealth(player, baby, babyItemSet)) {
     return false;
   }
 
@@ -89,7 +91,7 @@ export function babyCheckValid(
     return false;
   }
 
-  if (!checkCollectibles(player, baby)) {
+  if (!checkCollectibles(player, baby, babyItemSet)) {
     return false;
   }
 
@@ -97,7 +99,7 @@ export function babyCheckValid(
     return false;
   }
 
-  if (!checkStage(baby)) {
+  if (!checkStage(baby, babyItemSet)) {
     return false;
   }
 
@@ -135,12 +137,15 @@ function checkActiveItem(player: EntityPlayer, baby: BabyDescription): boolean {
   return true;
 }
 
-function checkHealth(player: EntityPlayer, baby: BabyDescription): boolean {
+function checkHealth(
+  player: EntityPlayer,
+  baby: BabyDescription,
+  babyItemSet: Set<CollectibleType>,
+): boolean {
   const maxHearts = player.GetMaxHearts();
   const soulHearts = player.GetSoulHearts();
   const boneHearts = player.GetBoneHearts();
   const totalHealth = maxHearts + soulHearts + boneHearts;
-  const babyItemSet = getBabyItemsSet(baby);
 
   if (baby.requireNumHits !== undefined && totalHealth < baby.requireNumHits) {
     return false;
@@ -191,24 +196,93 @@ function checkKeys(player: EntityPlayer, baby: BabyDescription): boolean {
 function checkCollectibles(
   player: EntityPlayer,
   baby: BabyDescription,
+  babyItemsSet: Set<CollectibleType>,
 ): boolean {
   if (baby.requireTears === true && !playerHasTearBuild(player)) {
     return false;
   }
 
-  const babyItemsSet = getBabyItemsSet(baby);
-
-  // --------------------------
-  // Array-based anti-synergies
-  // --------------------------
+  if (!checkCollectibleAntiSynergyFromArray(player, babyItemsSet)) {
+    return false;
+  }
 
   if (
-    babyItemsSet.has(CollectibleType.CUPIDS_ARROW) && // 48
-    playerHasPiercing(player)
+    (babyItemsSet.has(CollectibleType.COMPASS) || // 21
+      babyItemsSet.has(CollectibleType.TREASURE_MAP) || // 54
+      babyItemsSet.has(CollectibleType.BLUE_MAP)) && // 246
+    player.HasCollectible(CollectibleType.MIND) // 333
   ) {
     return false;
   }
 
+  if (
+    babyItemsSet.has(CollectibleType.CUPIDS_ARROW) && // 48
+    hasPiercing(player)
+  ) {
+    return false;
+  }
+
+  // Monstro's Lung removes explosion immunity from Dr.Fetus + Ipecac bombs.
+  if (
+    babyItemsSet.has(CollectibleType.DR_FETUS) && // 52
+    babyItemsSet.has(CollectibleType.IPECAC) && // 149
+    player.HasCollectible(CollectibleType.MONSTROS_LUNG) // 229
+  ) {
+    return false;
+  }
+
+  if (
+    babyItemsSet.has(CollectibleType.OUIJA_BOARD) && // 115
+    hasSpectral(player)
+  ) {
+    return false;
+  }
+
+  if (
+    babyItemsSet.has(CollectibleType.MONSTROS_LUNG) && // 229
+    player.HasCollectible(CollectibleType.DR_FETUS) && // 52
+    player.HasCollectible(CollectibleType.IPECAC) // 149
+  ) {
+    return false;
+  }
+
+  if (
+    babyItemsSet.has(CollectibleType.ISAACS_TEARS) && // 323
+    player.HasCollectible(CollectibleType.IPECAC) // 149
+  ) {
+    return false;
+  }
+
+  if (
+    babyItemsSet.has(CollectibleType.DEAD_ONION) && // 336
+    hasPiercing(player) &&
+    hasSpectral(player)
+  ) {
+    return false;
+  }
+
+  if (
+    babyItemsSet.has(CollectibleType.EYE_OF_BELIAL) && // 462
+    hasPiercing(player)
+  ) {
+    return false;
+  }
+
+  if (
+    babyItemsSet.has(CollectibleType.SMELTER) && // 479
+    !hasAnyTrinket(player)
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
+/** Some collectible anti-synergies are hard-coded in arrays. */
+function checkCollectibleAntiSynergyFromArray(
+  player: EntityPlayer,
+  babyItemsSet: Set<CollectibleType>,
+): boolean {
   if (
     babyItemsSet.has(CollectibleType.DR_FETUS) && // 52
     hasCollectible(player, ...DR_FETUS_ANTI_SYNERGIES)
@@ -247,13 +321,6 @@ function checkCollectibles(
   if (
     setHas(babyItemsSet, ...MOMS_KNIFE_ANTI_SYNERGIES) &&
     player.HasCollectible(CollectibleType.MOMS_KNIFE) // 114
-  ) {
-    return false;
-  }
-
-  if (
-    babyItemsSet.has(CollectibleType.OUIJA_BOARD) && // 115
-    playerHasSpectral(player)
   ) {
     return false;
   }
@@ -301,14 +368,6 @@ function checkCollectibles(
   }
 
   if (
-    babyItemsSet.has(CollectibleType.DEAD_ONION) && // 336
-    playerHasPiercing(player) &&
-    playerHasSpectral(player)
-  ) {
-    return false;
-  }
-
-  if (
     babyItemsSet.has(CollectibleType.TECH_X) && // 395
     hasCollectible(player, ...TECH_X_ANTI_SYNERGIES)
   ) {
@@ -318,13 +377,6 @@ function checkCollectibles(
   if (
     setHas(babyItemsSet, ...TECH_X_ANTI_SYNERGIES) &&
     player.HasCollectible(CollectibleType.TECH_X) // 395
-  ) {
-    return false;
-  }
-
-  if (
-    babyItemsSet.has(CollectibleType.EYE_OF_BELIAL) && // 462
-    playerHasPiercing(player)
   ) {
     return false;
   }
@@ -357,50 +409,6 @@ function checkCollectibles(
     return false;
   }
 
-  // --------------------
-  // Other anti-synergies
-  // --------------------
-
-  if (
-    (babyItemsSet.has(CollectibleType.COMPASS) || // 21
-      babyItemsSet.has(CollectibleType.TREASURE_MAP) || // 54
-      babyItemsSet.has(CollectibleType.BLUE_MAP)) && // 246
-    player.HasCollectible(CollectibleType.MIND) // 333
-  ) {
-    return false;
-  }
-
-  // Monstro's Lung removes explosion immunity from Dr.Fetus + Ipecac bombs.
-  if (
-    babyItemsSet.has(CollectibleType.DR_FETUS) && // 52
-    babyItemsSet.has(CollectibleType.IPECAC) && // 149
-    player.HasCollectible(CollectibleType.MONSTROS_LUNG) // 229
-  ) {
-    return false;
-  }
-
-  if (
-    babyItemsSet.has(CollectibleType.MONSTROS_LUNG) && // 229
-    player.HasCollectible(CollectibleType.DR_FETUS) && // 52
-    player.HasCollectible(CollectibleType.IPECAC) // 149
-  ) {
-    return false;
-  }
-
-  if (
-    babyItemsSet.has(CollectibleType.ISAACS_TEARS) && // 323
-    player.HasCollectible(CollectibleType.IPECAC) // 149
-  ) {
-    return false;
-  }
-
-  if (
-    babyItemsSet.has(CollectibleType.SMELTER) && // 479
-    !hasAnyTrinket(player)
-  ) {
-    return false;
-  }
-
   return true;
 }
 
@@ -420,17 +428,11 @@ function playerHasTearBuild(player: EntityPlayer): boolean {
   return !hasCollectible(player, ...COLLECTIBLES_THAT_REMOVE_TEARS);
 }
 
-function playerHasSpectral(player: EntityPlayer) {
-  return hasFlag(player.TearFlags, TearFlag.SPECTRAL);
-}
-
-function playerHasPiercing(player: EntityPlayer) {
-  return hasFlag(player.TearFlags, TearFlag.PIERCING);
-}
-
-function checkStage(baby: BabyDescription): boolean {
+function checkStage(
+  baby: BabyDescription,
+  babyItemsSet: Set<CollectibleType>,
+): boolean {
   const effectiveStage = getEffectiveStage();
-  const babyItemsSet = getBabyItemsSet(baby);
 
   if (
     baby.requireNoEndFloors === true &&
