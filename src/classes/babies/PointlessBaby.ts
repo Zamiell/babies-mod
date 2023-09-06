@@ -36,7 +36,7 @@ export class PointlessBaby extends Baby {
 
     collectible.Remove();
     repeat(num, () => {
-      // We want to spawn the cards at an offset so that they don't appear on top of each other.
+      // Spawn the cards at an offset so that they do not appear on top of each other.
       const offset = RandomVector().mul(0.01);
       const position = collectible.Position.add(offset);
       spawnCard(CardType.NULL, position);

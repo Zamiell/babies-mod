@@ -41,7 +41,7 @@ export class OBaby extends Baby {
   }
 }
 
-/** We want to emulate a Lil Portal portal, which is a persistent portal to a specific room. */
+/** Emulate a Lil Portal portal, which is a persistent portal to a specific room. */
 function spawnPortal(player: EntityPlayer) {
   const portalSubType = getPortalSubType();
   spawnEffect(EffectVariant.PORTAL_TELEPORT, portalSubType, player.Position);

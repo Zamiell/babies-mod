@@ -150,10 +150,8 @@ const CHEAPEST_TELEPORT_PRICE = TeleportPrice.TEN;
 /** Can purchase teleports to special rooms. */
 export class FancyBaby extends Baby {
   /**
-   * Should only be valid if the floor has special rooms.
-   *
-   * Additionally, we want to ensure that the starting room of the floor is clean (e.g. no Blue
-   * Womb, no The Chest, etc.)
+   * - Should only be valid if the floor has special rooms.
+   * - Ensure that the starting room of the floor is clean (e.g. no Blue Womb, no The Chest, etc.)
    */
   override isValid(player: EntityPlayer): boolean {
     const coins = player.GetNumCoins();

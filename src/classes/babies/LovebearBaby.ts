@@ -11,8 +11,7 @@ export class LovebearBaby extends Baby {
   /**
    * - The player won't have any resources to spend on slot machines on the first floor or second
    *   floor.
-   * - We want to ensure that the starting room of the floor is clean (e.g. no Blue Womb, no The
-   *   Chest, etc.)
+   * - Ensure that the starting room of the floor is clean (e.g. no Blue Womb, no The Chest, etc.)
    */
   override isValid(): boolean {
     return (

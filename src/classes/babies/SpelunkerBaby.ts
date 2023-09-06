@@ -19,10 +19,8 @@ export class SpelunkerBaby extends Baby {
     const level = game.GetLevel();
     const previousRoomGridIndex = level.GetPreviousRoomIndex();
 
-    if (
-      // We want to be able to backtrack from a Black Market to a Crawlspace.
-      previousRoomGridIndex !== (GridRoom.BLACK_MARKET as int)
-    ) {
+    // We want to be able to backtrack from a Black Market to a Crawlspace.
+    if (previousRoomGridIndex !== (GridRoom.BLACK_MARKET as int)) {
       teleport(
         GridRoom.BLACK_MARKET,
         Direction.NO_DIRECTION,

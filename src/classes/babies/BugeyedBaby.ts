@@ -16,7 +16,7 @@ export class BugeyedBaby extends Baby {
       pickup.Remove();
 
       repeat(3, (i) => {
-        // We want to space out the spiders so that you can see each individual one.
+        // Space out the spiders so that the player can see each individual one.
         const spacing = 15 * i;
         const spacingVector = Vector(spacing, spacing);
         const position = pickup.Position.add(spacingVector);
