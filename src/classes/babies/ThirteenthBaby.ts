@@ -1,4 +1,8 @@
-import { LevelStage, TrinketType } from "isaac-typescript-definitions";
+import {
+  CollectibleType,
+  LevelStage,
+  TrinketType,
+} from "isaac-typescript-definitions";
 import { getEffectiveStage, onStage, spawnTrinket } from "isaacscript-common";
 import { Baby } from "../Baby";
 
@@ -9,8 +13,10 @@ export class ThirteenthBaby extends Baby {
    * - We want to ensure that the starting room of the floor is clean (e.g. no Blue Womb, no The
    *   Chest, etc.)
    */
-  override isValid(): boolean {
+  override isValid(player: EntityPlayer): boolean {
+    const coins = player.GetNumCoins();
     return (
+      coins >= 10 &&
       // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
       getEffectiveStage() > 2 &&
       !onStage(
@@ -21,27 +27,27 @@ export class ThirteenthBaby extends Baby {
     );
   }
 
-  override onAdd(): void {
+  override onAdd(player: EntityPlayer): void {
     // Top-left
-    spawnRandomTrinketForSale(32);
-    spawnRandomTrinketForSale(34);
+    spawnRandomTrinketForSale(32, player);
+    spawnRandomTrinketForSale(34, player);
 
     // Top-right
-    spawnRandomTrinketForSale(40);
-    spawnRandomTrinketForSale(42);
+    spawnRandomTrinketForSale(40, player);
+    spawnRandomTrinketForSale(42, player);
 
     // Bottom-left
-    spawnRandomTrinketForSale(92);
-    spawnRandomTrinketForSale(94);
+    spawnRandomTrinketForSale(92, player);
+    spawnRandomTrinketForSale(94, player);
 
     // Bottom-right
-    spawnRandomTrinketForSale(100);
-    spawnRandomTrinketForSale(102);
+    spawnRandomTrinketForSale(100, player);
+    spawnRandomTrinketForSale(102, player);
   }
 }
 
-function spawnRandomTrinketForSale(gridIndex: int) {
+function spawnRandomTrinketForSale(gridIndex: int, player: EntityPlayer) {
   const trinket = spawnTrinket(TrinketType.NULL, gridIndex);
-  trinket.Price = 10;
+  trinket.Price = player.HasCollectible(CollectibleType.STEAM_SALE) ? 5 : 10;
   trinket.AutoUpdatePrice = false;
 }
