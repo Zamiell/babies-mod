@@ -4,12 +4,23 @@ import {
   PillEffect,
 } from "isaac-typescript-definitions";
 import { Callback } from "isaacscript-common";
-import { g } from "../../../globals";
 import { isValidForMissingTearsEffect } from "../../../utils";
 import { Baby } from "../../Baby";
 
+const v = {
+  run: {
+    numMissedTears: 0,
+  },
+
+  room: {
+    playerTearPtrHashes: new Set<PtrHash>(),
+  },
+};
+
 /** Every Nth missed tear causes paralysis. */
 export class Abel extends Baby {
+  v = v;
+
   override isValid(player: EntityPlayer): boolean {
     return isValidForMissingTearsEffect(player);
   }
@@ -17,28 +28,33 @@ export class Abel extends Baby {
   // 40
   @Callback(ModCallback.POST_TEAR_UPDATE)
   postTearUpdate(tear: EntityTear): void {
-    const player = Isaac.GetPlayer();
-    const num = this.getAttribute("num");
+    const ptrHash = GetPtrHash(tear);
+    if (!v.room.playerTearPtrHashes.has(ptrHash)) {
+      return;
+    }
 
-    if (
-      tear.SubType === 1 &&
-      // Tears will not die if they hit an enemy, but they will die if they hit a wall or object.
-      tear.IsDead()
-    ) {
-      // The baby effect only applies to the Nth missed tear.
-      g.run.babyCounters++;
-      if (g.run.babyCounters === num) {
-        g.run.babyCounters = 0;
-        player.UsePill(PillEffect.PARALYSIS, PillColor.NULL);
-        // (We can't cancel the animation or it will cause a bug where the player cannot pick up
-        // pedestal items.)
-      }
+    // Tears will not die if they hit an enemy, but they will die if they hit a wall or object.
+    if (tear.IsDead()) {
+      return;
+    }
+
+    const num = this.getAttribute("num");
+    const player = Isaac.GetPlayer();
+
+    // The baby effect only applies to the Nth missed tear.
+    v.run.numMissedTears++;
+    if (v.run.numMissedTears === num) {
+      v.run.numMissedTears = 0;
+      player.UsePill(PillEffect.PARALYSIS, PillColor.NULL);
+      // (We can't cancel the animation or it will cause a bug where the player cannot pick up
+      // pedestal items.)
     }
   }
 
   // 61
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
-    tear.SubType = 1; // Mark that we shot this tear.
+    const ptrHash = GetPtrHash(tear);
+    v.room.playerTearPtrHashes.add(ptrHash);
   }
 }
