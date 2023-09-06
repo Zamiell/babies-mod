@@ -29,11 +29,17 @@ List of hard babies:
 - Noose Baby (#39) - Don't shoot when the timer reaches 0
 - Buddy Baby (#41) - Removes a heart container on hit
 - Eyebrows Baby (#89) - Starts with 5x Guppy's Hair Ball + blindfolded
+- Nosferatu Baby (#109) - Enemies have homing projectiles
+- Onion Baby (#224) - Projectiles have 2x speed
+- Zipper Baby (#225) - Extra enemies spawn on hit
 - Hare Baby (#267) - Takes damage when standing still
+- Eye Demon Baby (#280) - Enemies have Continuum projectiles
 - Vomit Baby (#341) - Must stand still every 10 seconds
+- Mean Mushroom Baby (#367) - Enemies projectiles freeze you
 - Orange Ghost Baby (#373) - Placed bombs are Mega Troll Bombs
 - Pink Princess Baby (#374) - Summons random stomps
 - Blue Pig Baby (#382) - Spawns a Mega Troll Bomb every 5 seconds
+- Blue Wrestler Baby (#388) - Enemies spawn projectiles upon death
 - Puncher Baby (#416) - Spawns a Golden Troll Bomb in every room
 - Driver Baby (#431) - Slippery movement
 - Funny Baby (#491) - Enemies spawn Troll Bombs on death

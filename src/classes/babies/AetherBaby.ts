@@ -1,10 +1,17 @@
 import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
 import { Callback, getPlayerFromEntity } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
+
+const v = {
+  run: {
+    rotationAngle: 0,
+  },
+};
 
 /** All direction tears. */
 export class AetherBaby extends Baby {
+  v = v;
+
   override isValid(player: EntityPlayer): boolean {
     return !player.HasCollectible(CollectibleType.IPECAC);
   }
@@ -17,12 +24,12 @@ export class AetherBaby extends Baby {
       return;
     }
 
-    g.run.babyCounters += 45;
-    if (g.run.babyCounters < 360) {
-      const velocity = tear.Velocity.Rotated(g.run.babyCounters);
+    v.run.rotationAngle += 45;
+    if (v.run.rotationAngle < 360) {
+      const velocity = tear.Velocity.Rotated(v.run.rotationAngle);
       player.FireTear(player.Position, velocity, false, true, false);
     } else {
-      g.run.babyCounters = 0;
+      v.run.rotationAngle = 0;
     }
   }
 }
