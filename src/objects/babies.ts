@@ -4789,7 +4789,7 @@ export const BABIES = {
     name: "Koala Baby",
     description: "Genesis effect after 6 hits",
     sprite: "552_baby_koala.png",
-    requireNumHits: 6,
+    num: 6,
     class: bc.KoalaBaby,
   },
 
