@@ -42,7 +42,7 @@ export const BABIES = {
     name: "Bloat Baby",
     description: "Syringe tears", // Euthanasia
     sprite: "002_baby_bloat.png",
-    num: 3,
+    num: 3, // The number of tears that are needed to produce a syringe tear.
     requireTears: true,
     class: bc.BloatBaby,
   },

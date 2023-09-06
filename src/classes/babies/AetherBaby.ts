@@ -16,7 +16,7 @@ export class AetherBaby extends Baby {
     return !player.HasCollectible(CollectibleType.IPECAC);
   }
 
-  /** Shoot 8 tears at a time. (We store the rotation angle inside the "babyCounters" variable.) */
+  /** Shoot 8 tears at a time. */
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
     const player = getPlayerFromEntity(tear);

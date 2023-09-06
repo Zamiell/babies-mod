@@ -39,7 +39,6 @@ export class BlackEyeBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {
-    // We use the "babyCounters" variable to track how many Leprocy familiars are in the room.
     const leprocyChunks = getFamiliars(FamiliarVariant.LEPROSY);
     if (leprocyChunks.length < v.run.numLeprosyChunks) {
       v.run.numLeprosyChunks--;
