@@ -14,7 +14,6 @@ import {
   hasCollectible,
   spawnEffect,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 const SOFTLOCK_COLLECTIBLE_TYPES = [
@@ -22,6 +21,13 @@ const SOFTLOCK_COLLECTIBLE_TYPES = [
   CollectibleType.EPIC_FETUS, // 168
   CollectibleType.MONSTROS_LUNG, // 229
   CollectibleType.TECH_X, // 395
+
+  // Crack the Sky does not cause a softlock, but we remove it since the beam effect would overlap.
+  CollectibleType.CRACK_THE_SKY, // 160
+
+  // White Pony does not cause a softlock, but we remove it since the beam effect would overlap.
+  CollectibleType.WHITE_PONY, // 181
+
   // Eye of the Occult does not cause a softlock, but we remove it since it changes the effect
   // variant of the target.
   CollectibleType.EYE_OF_THE_OCCULT, // 572
@@ -29,8 +35,20 @@ const SOFTLOCK_COLLECTIBLE_TYPES = [
 
 const TARGET_DAMAGE_RADIUS = 30;
 
+const v = {
+  run: {
+    dealingExtraDamage: false,
+  },
+
+  room: {
+    cooldownUntilFrame: 0,
+  },
+};
+
 /** Directed light beams */
 export class FangDemonBaby extends Baby {
+  v = v;
+
   override isValid(player: EntityPlayer): boolean {
     return !hasCollectible(player, ...SOFTLOCK_COLLECTIBLE_TYPES);
   }
@@ -57,7 +75,7 @@ export class FangDemonBaby extends Baby {
     source: EntityRef,
     countdownFrames: int,
   ): boolean | undefined {
-    if (g.run.dealingExtraDamage) {
+    if (v.run.dealingExtraDamage) {
       return undefined;
     }
 
@@ -67,14 +85,14 @@ export class FangDemonBaby extends Baby {
     ) {
       const player = Isaac.GetPlayer();
       const damage = player.Damage;
-      g.run.dealingExtraDamage = true;
+      v.run.dealingExtraDamage = true;
       entity.TakeDamage(
         damage,
         DamageFlagZero,
         EntityRef(player),
         countdownFrames,
       );
-      g.run.dealingExtraDamage = false;
+      v.run.dealingExtraDamage = false;
       return false;
     }
 
@@ -104,24 +122,29 @@ export class FangDemonBaby extends Baby {
       // spawned at the player instead.
       effect.Position = player.Position;
       effect.Visible = true;
-    } else if (gameFrameCount >= g.run.babyFrame) {
-      // Check to see if there is a nearby NPC.
-      const closeEntities = Isaac.FindInRadius(
+      return;
+    }
+
+    if (gameFrameCount < v.room.cooldownUntilFrame) {
+      return;
+    }
+
+    // Check to see if there is a nearby NPC.
+    const closeEntities = Isaac.FindInRadius(
+      effect.Position,
+      TARGET_DAMAGE_RADIUS,
+      EntityPartition.ENEMY,
+    );
+    if (closeEntities.length > 0) {
+      // Fire the beam.
+      spawnEffect(
+        EffectVariant.CRACK_THE_SKY,
+        0,
         effect.Position,
-        TARGET_DAMAGE_RADIUS,
-        EntityPartition.ENEMY,
+        VectorZero,
+        player,
       );
-      if (closeEntities.length > 0) {
-        // Fire the beam.
-        g.run.babyFrame = gameFrameCount + num;
-        spawnEffect(
-          EffectVariant.CRACK_THE_SKY,
-          0,
-          effect.Position,
-          VectorZero,
-          player,
-        );
-      }
+      v.room.cooldownUntilFrame = gameFrameCount + num;
     }
   }
 }
