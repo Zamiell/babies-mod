@@ -4,7 +4,7 @@ import {
   PillEffect,
 } from "isaac-typescript-definitions";
 import { Callback } from "isaacscript-common";
-import { isValidForMissingTearsEffect } from "../../../utils";
+import { isValidForMissedTearsEffect } from "../../../utils";
 import { Baby } from "../../Baby";
 
 const v = {
@@ -22,7 +22,7 @@ export class Abel extends Baby {
   v = v;
 
   override isValid(player: EntityPlayer): boolean {
-    return isValidForMissingTearsEffect(player);
+    return isValidForMissedTearsEffect(player);
   }
 
   // 40

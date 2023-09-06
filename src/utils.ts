@@ -198,7 +198,7 @@ export function isRerolledCollectibleBuggedHeart(
 }
 
 /** Piercing, multiple shots, and Flat Stone causes "missing" effects to mess up. */
-export function isValidForMissingTearsEffect(player: EntityPlayer): boolean {
+export function isValidForMissedTearsEffect(player: EntityPlayer): boolean {
   return (
     !hasCollectible(player, ...BAD_MISSING_TEARS_COLLECTIBLE_TYPES) &&
     !hasForm(player, ...BAD_MISSING_TEARS_TRANSFORMATIONS)
