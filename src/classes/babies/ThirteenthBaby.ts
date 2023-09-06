@@ -22,7 +22,7 @@ export class ThirteenthBaby extends Baby {
 
   override onAdd(player: EntityPlayer): void {
     const price = player.HasCollectible(CollectibleType.STEAM_SALE)
-      ? math.floor(
+      ? Math.floor(
           TRINKET_PRICE /
             (player.GetCollectibleNum(CollectibleType.STEAM_SALE) + 1),
         )

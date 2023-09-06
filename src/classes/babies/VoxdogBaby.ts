@@ -17,7 +17,7 @@ export class VoxdogBaby extends Baby {
   // 8
   @Callback(ModCallback.EVALUATE_CACHE, CacheFlag.FIRE_DELAY)
   evaluateCacheFireDelay(player: EntityPlayer): void {
-    player.MaxFireDelay = math.ceil(player.MaxFireDelay * 2);
+    player.MaxFireDelay = Math.ceil(player.MaxFireDelay * 2);
   }
 
   // 61

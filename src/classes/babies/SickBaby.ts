@@ -21,7 +21,7 @@ export class SickBaby extends Baby {
   // 8
   @Callback(ModCallback.EVALUATE_CACHE, CacheFlag.FIRE_DELAY)
   evaluateCacheFireDelay(player: EntityPlayer): void {
-    player.MaxFireDelay = math.ceil(player.MaxFireDelay * 3);
+    player.MaxFireDelay = Math.ceil(player.MaxFireDelay * 3);
   }
 
   // 61

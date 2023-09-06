@@ -24,7 +24,7 @@ export class HeroBaby extends Baby {
       if (cacheFlag === CacheFlag.DAMAGE) {
         player.Damage *= 3;
       } else if (cacheFlag === CacheFlag.FIRE_DELAY) {
-        player.MaxFireDelay = math.ceil(player.MaxFireDelay / 3);
+        player.MaxFireDelay = Math.ceil(player.MaxFireDelay / 3);
       }
     }
   }
