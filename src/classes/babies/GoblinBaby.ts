@@ -13,16 +13,23 @@ import {
   isRoomInsideGrid,
   isSelfDamage,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { mod } from "../../mod";
 import { Baby } from "../Baby";
 
+const v = {
+  level: {
+    playerTookDamage: false,
+  },
+};
+
 /** Extra item after boss if no damage taken on floor. */
 export class GoblinBaby extends Baby {
+  v = v;
+
   // 70
   @Callback(ModCallback.PRE_SPAWN_CLEAR_AWARD)
   preSpawnClearAward(): boolean | undefined {
-    if (g.run.babyBool) {
+    if (v.level.playerTookDamage) {
       return;
     }
 
@@ -54,8 +61,7 @@ export class GoblinBaby extends Baby {
       return undefined;
     }
 
-    g.run.babyBool = true;
-
+    v.level.playerTookDamage = true;
     return undefined;
   }
 }

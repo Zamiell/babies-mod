@@ -6,13 +6,20 @@ import {
   ModCallbackCustom,
   setEntityOpacity,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 const FADE_AMOUNT = 0.5;
 
+const v = {
+  run: {
+    isInvulnerable: false,
+  },
+};
+
 /** Invulnerability when standing still. */
 export class HelmetBaby extends Baby {
+  v = v;
+
   /** Make sure that the fade is removed (or else it will persist to the next character). */
   override onRemove(player: EntityPlayer): void {
     const color = player.GetColor();
@@ -23,7 +30,7 @@ export class HelmetBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(): boolean | undefined {
-    if (g.run.babyBool) {
+    if (v.run.isInvulnerable) {
       return false;
     }
 
@@ -52,13 +59,13 @@ export class HelmetBaby extends Baby {
 
     // Keep track of whether they are moving. Also, fade the character to indicate that they are
     // invulnerable.
-    if (!g.run.babyBool && noMovementInputsPressed) {
+    if (!v.run.isInvulnerable && noMovementInputsPressed) {
       // They stopped moving.
-      g.run.babyBool = true;
+      v.run.isInvulnerable = true;
       setEntityOpacity(player, FADE_AMOUNT);
-    } else if (g.run.babyBool && anyMovementInputPressed) {
+    } else if (v.run.isInvulnerable && anyMovementInputPressed) {
       // They started moving.
-      g.run.babyBool = false;
+      v.run.isInvulnerable = false;
       setEntityOpacity(player, 1);
     }
   }
