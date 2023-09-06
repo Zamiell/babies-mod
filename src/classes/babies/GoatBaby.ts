@@ -42,7 +42,7 @@ export class GoatBaby extends Baby {
   }
 
   override onRemove(player: EntityPlayer): void {
-    const num = this.getAttribute("num");
+    const num = this.getAttribute("requireNumHits");
 
     if (v.run.numHits >= num) {
       for (const collectibleType of GRANTED_COLLECTIBLE_TYPES) {

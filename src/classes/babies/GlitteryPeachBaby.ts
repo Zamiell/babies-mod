@@ -30,7 +30,7 @@ export class GlitteryPeachBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    const num = this.getAttribute("num");
+    const num = this.getAttribute("requireNumHits");
 
     v.run.numHits++;
     if (v.run.numHits === num) {

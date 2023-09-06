@@ -558,7 +558,7 @@ export const BABIES = {
     name: "Goat Baby",
     description: "Guaranteed Devil Room + Angel Room after 6 hits",
     sprite: "062_baby_goat.png",
-    num: 6,
+    requireNumHits: 6,
     class: bc.GoatBaby,
   },
 
@@ -706,7 +706,7 @@ export const BABIES = {
     name: "Lobotomy Baby",
     description: "Boss dies after 6 hits on floor",
     sprite: "079_baby_lobotomy.png",
-    num: 6,
+    requireNumHits: 6,
     class: bc.LobotomyBaby,
   },
 
@@ -957,6 +957,7 @@ export const BABIES = {
     name: "VVVVVV Baby",
     description: "Reverse Emperor card effect after 6 hits",
     sprite: "108_baby_vvvvvv.png",
+    requireNumHits: 6,
     class: bc.VVVVVVBaby,
   },
 
@@ -2800,7 +2801,7 @@ export const BABIES = {
     name: "Ballerina Baby",
     description: "Summons a Restock Machine after 6 hits",
     sprite: "323_baby_ballerina.png",
-    num: 6,
+    requireNumHits: 6,
     class: bc.BallerinaBaby,
   },
 
@@ -3813,7 +3814,7 @@ export const BABIES = {
     name: "Big Mouth Baby 2",
     description: "Mega Mush effect after 6 hits",
     sprite: "438_baby_bigmouth.png",
-    num: 6,
+    requireNumHits: 6,
     class: bc.BigMouthBaby2,
   },
 
@@ -3839,7 +3840,7 @@ export const BABIES = {
     name: "TV Baby",
     description: "Mega Blast effect after 6 hits",
     sprite: "441_baby_tv.png",
-    num: 6,
+    requireNumHits: 6,
     class: bc.TVBaby,
   },
 
@@ -4289,7 +4290,7 @@ export const BABIES = {
     name: "Glittery Peach Baby",
     description: "Teleports to the boss room after 6 hits",
     sprite: "493_baby_glitterypeach.png",
-    num: 6,
+    requireNumHits: 6,
     class: bc.GlitteryPeachBaby,
   },
 
@@ -4789,7 +4790,7 @@ export const BABIES = {
     name: "Koala Baby",
     description: "Genesis effect after 6 hits",
     sprite: "552_baby_koala.png",
-    num: 6,
+    requireNumHits: 6,
     class: bc.KoalaBaby,
   },
 
