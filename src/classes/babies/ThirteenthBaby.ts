@@ -28,13 +28,9 @@ export class ThirteenthBaby extends Baby {
         : TRINKET_PRICE;
 
     for (const gridIndex of TRINKET_GRID_INDEXES) {
-      spawnRandomTrinketForSale(gridIndex, price);
+      const trinket = spawnTrinket(TrinketType.NULL, gridIndex);
+      trinket.Price = price;
+      trinket.AutoUpdatePrice = false;
     }
   }
-}
-
-function spawnRandomTrinketForSale(gridIndex: int, price: int) {
-  const trinket = spawnTrinket(TrinketType.NULL, gridIndex);
-  trinket.Price = price;
-  trinket.AutoUpdatePrice = false;
 }
