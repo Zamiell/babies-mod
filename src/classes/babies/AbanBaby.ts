@@ -17,12 +17,19 @@ import {
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
-const DATA_KEY = "BabiesModRecovery";
+const v = {
+  room: {
+    fadingCoinPtrHashes: new Set<PtrHash>(),
+  },
+};
 
-/** +2 coins + Sonic-style health. */
+/** Sonic-style health. */
 export class AbanBaby extends Baby {
-  override onAdd(player: EntityPlayer): void {
-    player.AddCoins(2);
+  v = v;
+
+  override isValid(player: EntityPlayer): boolean {
+    const coins = player.GetNumCoins();
+    return coins > 0;
   }
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
@@ -46,15 +53,17 @@ export class AbanBaby extends Baby {
   // 35
   @Callback(ModCallback.POST_PICKUP_UPDATE, PickupVariant.COIN)
   postPickupUpdateCoin(pickup: EntityPickup): void {
+    const ptrHash = GetPtrHash(pickup);
+    if (!v.room.fadingCoinPtrHashes.has(ptrHash)) {
+      return;
+    }
+
     const player = Isaac.GetPlayer();
     const sprite = pickup.GetSprite();
     const collected = sprite.IsPlaying("Collect");
-    const data = pickup.GetData();
 
-    if (
-      collected || // Don't mess with coins anymore after we have picked them up.
-      data[DATA_KEY] === undefined // We only want to target manually spawned coins.
-    ) {
+    // Don't mess with coins anymore after we have picked them up.
+    if (collected) {
       return;
     }
 
@@ -98,7 +107,7 @@ function spawnFadingCoinExplodingFromPlayer(player: EntityPlayer) {
   // Make it fade away.
   coin.Timeout = 160; // 5.3 seconds
 
-  // We also want it to bounce off the player immediately upon spawning.
-  const data = coin.GetData();
-  data[DATA_KEY] = true;
+  // We also want it to bounce off the player immediately upon spawning, so we need to track it.
+  const ptrHash = GetPtrHash(coin);
+  v.room.fadingCoinPtrHashes.add(ptrHash);
 }

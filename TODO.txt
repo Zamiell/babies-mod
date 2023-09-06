@@ -3,7 +3,6 @@ TODO:
 - refactor global variables
 - SaveDataManager
 - refactor all SubType = 1
-- refactor all GetData
 
 Potential new effects:
 - Starts with Swallowed Penny + Piggy Bank + Strawman. If Strawman dies, you die (not obtainable after womb 1)

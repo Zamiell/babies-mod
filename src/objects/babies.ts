@@ -1545,7 +1545,7 @@ export const BABIES = {
   // 177
   [RandomBabyType.ABAN]: {
     name: "Aban Baby",
-    description: "+2 coins + Sonic-style health",
+    description: "Sonic-style health",
     sprite: "177_baby_aban.png",
     class: bc.AbanBaby,
   },

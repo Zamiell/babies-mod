@@ -183,7 +183,7 @@ There are 603 babies in total.
 | 174 | <img src="./images/174_baby_electris.png" alt="174_baby_electris.png"> | Electric Baby | Starts with Jacob's Ladder |
 | 175 | <img src="./images/175_baby_bloodhole.png" alt="175_baby_bloodhole.png"> | Blood Hole Baby | Starts with Proptosis |
 | 176 | <img src="./images/176_baby_transforming.png" alt="176_baby_transforming.png"> | Transforming Baby | Starts with Technology Zero |
-| 177 | <img src="./images/177_baby_aban.png" alt="177_baby_aban.png"> | Aban Baby | +2 coins + Sonic-style health |
+| 177 | <img src="./images/177_baby_aban.png" alt="177_baby_aban.png"> | Aban Baby | Sonic-style health |
 | 178 | <img src="./images/178_baby_bandagegirl.png" alt="178_baby_bandagegirl.png"> | Bandage Girl Baby | Starts with Cube of Meat + Ball of Bandages |
 | 179 | <img src="./images/179_baby_piecea.png" alt="179_baby_piecea.png"> | Piece A Baby | Can only move up + down + left + right |
 | 180 | <img src="./images/180_baby_pieceb.png" alt="180_baby_pieceb.png"> | Piece B Baby | Starts with Charging Station |
