@@ -3813,7 +3813,7 @@ export const BABIES = {
     name: "Big Mouth Baby 2",
     description: "Mega Mush effect after 6 hits",
     sprite: "438_baby_bigmouth.png",
-    requireNumHits: 6,
+    num: 6,
     class: bc.BigMouthBaby2,
   },
 

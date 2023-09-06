@@ -4,18 +4,25 @@ import {
   ModCallbackCustom,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
+
+const v = {
+  run: {
+    numHits: 0,
+  },
+};
 
 /** Mega Mush effect after 6 hits. */
 export class BigMouthBaby2 extends Baby {
+  v = v;
+
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    const numHits = this.getAttribute("requireNumHits");
+    const num = this.getAttribute("num");
 
-    g.run.babyCounters++;
-    if (g.run.babyCounters === numHits) {
-      g.run.babyCounters = 0;
+    v.run.numHits++;
+    if (v.run.numHits === num) {
+      v.run.numHits = 0;
       useActiveItemTemp(player, CollectibleType.MEGA_MUSH);
     }
 
