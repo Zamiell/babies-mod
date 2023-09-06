@@ -10,7 +10,8 @@ Potential new effects:
 - Reroll your active item on 2nd hit (per room) - check for Scapular
 - 8 trinkets are buyable (10c) in the starting room, you can only choose one
 - Starts with 3x Cain's other eye + Friendship Necklace (make exceptions with ipecac and Dr Fetus)
-- massive item shop for 50 cents
+- massive item shop for 50 cents (credit card, diplopia, crooked penny, exclude Quarter, A Dollar)
+- every 8th tear is a ghost from ghost bombs
 
 List of boring babies:
 - 3 Eyes Baby (#69) - Starts with Inner Eye - Slightly overlaps with Makeup Baby (#99) & Basic Spider Baby (#214) & So Many Eyes Baby (#375)
