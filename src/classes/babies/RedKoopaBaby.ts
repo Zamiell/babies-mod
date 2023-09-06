@@ -1,37 +1,39 @@
 import { ModCallback, TearFlag } from "isaac-typescript-definitions";
 import { Callback, GAME_FRAMES_PER_SECOND, addFlag } from "isaacscript-common";
-import type { TearData } from "../../types/TearData";
 import { Baby } from "../Baby";
+
+const v = {
+  room: {
+    shellTearHeights: new Map<PtrHash, float>(),
+  },
+};
 
 /** Shoots bouncy & homing red shells. */
 export class RedKoopaBaby extends Baby {
+  v = v;
+
   // 40
   @Callback(ModCallback.POST_TEAR_UPDATE)
   postTearUpdate(tear: EntityTear): void {
-    if (tear.SubType !== 1) {
+    const ptrHash = GetPtrHash(tear);
+    const height = v.room.shellTearHeights.get(ptrHash);
+    if (height === undefined) {
       return;
     }
 
     const num = this.getAttribute("num");
-
-    if (tear.FrameCount <= num * GAME_FRAMES_PER_SECOND) {
-      // The `POST_TEAR_UPDATE` callback will fire before the `POST_FIRE_TEAR` callback, so do
-      // nothing if we are in on the first frame.
-      const data = tear.GetData() as unknown as TearData;
-      if (data.BabiesModHeight === undefined) {
-        return;
-      }
-
-      // Continue to apply the initial tear conditions for the duration of the tear.
-      tear.Height = data.BabiesModHeight;
-
-      // However, we can't apply a static velocity or else the shells won't home.
-      tear.Velocity = tear.Velocity.Normalized();
-      tear.Velocity = tear.Velocity.mul(10);
-    } else {
+    if (tear.FrameCount >= num * GAME_FRAMES_PER_SECOND) {
       // The tear has lived long enough, so manually kill it.
       tear.Remove();
+      return;
     }
+
+    // Continue to apply the initial tear conditions for the duration of the tear.
+    tear.Height = height;
+
+    // However, we can't apply a static velocity or else the shells won't home.
+    tear.Velocity = tear.Velocity.Normalized();
+    tear.Velocity = tear.Velocity.mul(10);
   }
 
   // 61
@@ -48,11 +50,11 @@ export class RedKoopaBaby extends Baby {
       TearFlag.POP, // 1 << 56
     );
 
-    tear.Height = -5; // Make it lower to the ground.
-    tear.SubType = 1; // Mark it as a special tear so that we can keep it updated.
+    // Make it lower to the ground.
+    tear.Height = -5;
 
-    // Store the initial height. (Unlike Green Koopa Baby, we do not need to store the velocity.)
-    const data = tear.GetData() as unknown as TearData;
-    data.BabiesModHeight = tear.Height;
+    // Store the initial height.
+    const ptrHash = GetPtrHash(tear);
+    v.room.shellTearHeights.set(ptrHash, tear.Height);
   }
 }

@@ -65,7 +65,8 @@ export class BrotherBobby extends Baby {
   // 40
   @Callback(ModCallback.POST_TEAR_UPDATE)
   postTearUpdate(tear: EntityTear): void {
-    if (tear.SubType !== 1) {
+    const ptrHash = GetPtrHash(tear);
+    if (v.room.godheadTearPtrHash !== ptrHash) {
       return;
     }
 
@@ -99,7 +100,6 @@ export class BrotherBobby extends Baby {
       false,
     );
     godheadTear.TearFlags = bitFlags(TearFlag.GLOW);
-    godheadTear.SubType = 1;
     const sprite = godheadTear.GetSprite();
     sprite.Load("gfx/tear_blank.anm2", true);
     sprite.Play("RegularTear6", false);
