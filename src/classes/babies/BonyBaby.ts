@@ -1,21 +1,29 @@
-import { ModCallback } from "isaac-typescript-definitions";
-import { Callback, spawnBomb } from "isaacscript-common";
+import {
+  CallbackCustom,
+  ModCallbackCustom,
+  spawnBomb,
+} from "isaacscript-common";
 import { getRandomOffsetPosition } from "../../utils";
 import { Baby } from "../Baby";
 
-const DATA_KEY = "BabiesModDoubled";
+const v = {
+  room: {
+    duplicatedBombs: new Set<PtrHash>(),
+  },
+};
 
 /** All bombs are doubled. */
 export class BonyBaby extends Baby {
-  @Callback(ModCallback.POST_BOMB_UPDATE)
-  postBombUpdate(bomb: EntityBomb): void {
-    // Doubling on frame 0 does not work.
-    if (bomb.FrameCount !== 1) {
-      return;
-    }
+  v = v;
 
-    const data = bomb.GetData();
-    if (data[DATA_KEY] !== undefined) {
+  /**
+   * We duplicate enemies in the `POST_BOMB_INIT_LATE` callback instead of the `POST_BOMB_INIT`
+   * callback so that we have time to add their hashes to the set.
+   */
+  @CallbackCustom(ModCallbackCustom.POST_BOMB_INIT_LATE)
+  postBombInitLate(bomb: EntityBomb): void {
+    const ptrHash = GetPtrHash(bomb);
+    if (v.room.duplicatedBombs.has(ptrHash)) {
       return;
     }
 
@@ -32,12 +40,13 @@ export class BonyBaby extends Baby {
     doubledBomb.IsFetus = bomb.IsFetus;
     doubledBomb.ExplosionDamage = bomb.ExplosionDamage;
     doubledBomb.RadiusMultiplier = bomb.RadiusMultiplier;
-    const doubledBombData = doubledBomb.GetData();
-    doubledBombData[DATA_KEY] = true;
 
     // There is a bug where Dr. Fetus bombs that are doubled have twice as long of a cooldown.
     if (bomb.IsFetus) {
       doubledBomb.SetExplosionCountdown(28);
     }
+
+    const newPtrHash = GetPtrHash(doubledBomb);
+    v.room.duplicatedBombs.add(newPtrHash);
   }
 }
