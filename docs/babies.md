@@ -278,7 +278,7 @@ There are 603 babies in total.
 | 269 | <img src="./images/269_baby_tabby.png" alt="269_baby_tabby.png"> | Tabby Baby | Starts with Sol |
 | 270 | <img src="./images/270_baby_porcupine.png" alt="270_baby_porcupine.png"> | Porcupine Baby | Wait What? effect every 5 seconds |
 | 271 | <img src="./images/271_baby_puppy.png" alt="271_baby_puppy.png"> | Puppy Baby | Starts with Cricket's Head |
-| 272 | <img src="./images/272_baby_parrot.png" alt="272_baby_parrot.png"> | Parrot Baby | Starts with The Pony |
+| 272 | <img src="./images/272_baby_parrot.png" alt="272_baby_parrot.png"> | Parrot Baby | Starts with A Pony |
 | 273 | <img src="./images/273_baby_chameleon.png" alt="273_baby_chameleon.png"> | Chameleon Baby | Starts with 5x Rotten Baby |
 | 274 | <img src="./images/274_baby_boulder.png" alt="274_baby_boulder.png"> | Boulder Baby | Starts with Leo |
 | 275 | <img src="./images/275_baby_aqua.png" alt="275_baby_aqua.png"> | Aqua Baby | Starts with Taurus |
