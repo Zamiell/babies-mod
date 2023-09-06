@@ -21,12 +21,11 @@ export class ThirteenthBaby extends Baby {
   }
 
   override onAdd(player: EntityPlayer): void {
-    const price = player.HasCollectible(CollectibleType.STEAM_SALE)
-      ? Math.floor(
-          TRINKET_PRICE /
-            (player.GetCollectibleNum(CollectibleType.STEAM_SALE) + 1),
-        )
-      : TRINKET_PRICE;
+    const numSteamSales = player.GetCollectibleNum(CollectibleType.STEAM_SALE);
+    const price =
+      numSteamSales > 0
+        ? Math.floor(TRINKET_PRICE / (numSteamSales + 1))
+        : TRINKET_PRICE;
 
     for (const gridIndex of TRINKET_GRID_INDEXES) {
       spawnRandomTrinketForSale(gridIndex, price);
