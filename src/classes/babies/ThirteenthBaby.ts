@@ -32,7 +32,10 @@ export class ThirteenthBaby extends Baby {
 
   override onAdd(player: EntityPlayer): void {
     const price = player.HasCollectible(CollectibleType.STEAM_SALE)
-      ? TRINKET_PRICE / 2
+      ? math.floor(
+          TRINKET_PRICE /
+            (player.GetCollectibleNum(CollectibleType.STEAM_SALE) + 1),
+        )
       : TRINKET_PRICE;
 
     for (const gridIndex of TRINKET_GRID_INDEXES) {
