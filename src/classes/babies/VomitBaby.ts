@@ -1,31 +1,29 @@
 import { DamageFlagZero } from "isaac-typescript-definitions";
-import {
-  CallbackCustom,
-  game,
-  GAME_FRAMES_PER_SECOND,
-  ModCallbackCustom,
-} from "isaacscript-common";
+import { CallbackCustom, game, ModCallbackCustom } from "isaacscript-common";
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
-/** Must stand still every N seconds. */
-export class VomitBaby extends Baby {
-  override onAdd(): void {
-    const gameFrameCount = game.GetFrameCount();
-    const num = this.getAttribute("num");
+const v = {
+  run: {
+    timer: 0,
+  },
+};
 
-    g.run.babyCounters = gameFrameCount + num;
+/** Takes damage if moving when the timer reaches 0. */
+export class VomitBaby extends Baby {
+  v = v;
+
+  override onAdd(): void {
+    this.resetTimer();
   }
 
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {
     const gameFrameCount = game.GetFrameCount();
-    const num = this.getAttribute("num");
 
-    // Moving when the timer reaches 0 causes damage.
-    const remainingTime = g.run.babyCounters - gameFrameCount;
-    if (remainingTime <= 0) {
-      g.run.babyCounters = gameFrameCount + num * GAME_FRAMES_PER_SECOND; // Reset the timer
+    const remainingGameFrames = g.run.babyCounters - gameFrameCount;
+    if (remainingGameFrames <= 0) {
+      this.resetTimer();
 
       const cutoff = 0.2;
       if (
@@ -37,5 +35,12 @@ export class VomitBaby extends Baby {
         player.TakeDamage(1, DamageFlagZero, EntityRef(player), 0);
       }
     }
+  }
+
+  resetTimer(): void {
+    const gameFrameCount = game.GetFrameCount();
+    const num = this.getAttribute("num");
+
+    v.run.timer = gameFrameCount + num;
   }
 }

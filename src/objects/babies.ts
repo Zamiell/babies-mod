@@ -360,7 +360,7 @@ export const BABIES = {
   // 39
   [RandomBabyType.NOOSE]: {
     name: "Noose Baby",
-    description: "Takes damage when the timer reaches 0",
+    description: "Takes damage if shooting when the timer reaches 0",
     sprite: "039_baby_noose.png",
     num: 6 * GAME_FRAMES_PER_SECOND, // The duration of the timer in game frames.
     class: bc.NooseBaby,
@@ -2969,9 +2969,9 @@ export const BABIES = {
   // 341
   [RandomBabyType.VOMIT]: {
     name: "Vomit Baby",
-    description: "Must stand still every 10 seconds",
+    description: "Takes damage if moving when the timer reaches 0",
     sprite: "341_baby_vomit.png",
-    num: 10,
+    num: 10 * GAME_FRAMES_PER_SECOND, // The duration of the timer in game frames.
     class: bc.VomitBaby,
   },
 
@@ -3052,7 +3052,7 @@ export const BABIES = {
     description: "Starts with How to Jump; must jump often",
     sprite: "350_baby_rabbit.png",
     collectible: CollectibleType.HOW_TO_JUMP,
-    num: GAME_FRAMES_PER_SECOND * 3, // The amount of game frames between forced book uses.
+    num: 3 * GAME_FRAMES_PER_SECOND, // The amount of game frames between forced book uses.
     class: bc.RabbitBaby,
   },
 

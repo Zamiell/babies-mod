@@ -13,7 +13,7 @@ const v = {
   },
 };
 
-/** Takes damage when the timer reaches 0. */
+/** Takes damage if shooting when the timer reaches 0. */
 export class NooseBaby extends Baby {
   v = v;
 

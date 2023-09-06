@@ -45,7 +45,7 @@ There are 603 babies in total.
 | 36 | <img src="./images/036_baby_lil.png" alt="036_baby_lil.png"> | Lil Baby | Everything is tiny |
 | 37 | <img src="./images/037_baby_big.png" alt="037_baby_big.png"> | Big Baby | Everything is giant |
 | 38 | <img src="./images/038_baby_brown.png" alt="038_baby_brown.png"> | Brown Baby | Starts with Dirty Mind + Dingle Berry + spawns a poop per enemy killed |
-| 39 | <img src="./images/039_baby_noose.png" alt="039_baby_noose.png"> | Noose Baby | Takes damage when the timer reaches 0 |
+| 39 | <img src="./images/039_baby_noose.png" alt="039_baby_noose.png"> | Noose Baby | Takes damage if shooting when the timer reaches 0 |
 | 40 | <img src="./images/040_baby_hive.png" alt="040_baby_hive.png"> | Hive Baby | Starts with Hive Mind + max Blue Flies + max Blue Spiders |
 | 41 | <img src="./images/041_baby_buddy.png" alt="041_baby_buddy.png"> | Buddy Baby | Removes a heart container on hit |
 | 42 | <img src="./images/042_baby_colorful.png" alt="042_baby_colorful.png"> | Colorful Baby | Acid trip |
@@ -285,7 +285,7 @@ There are 603 babies in total.
 | 276 | <img src="./images/276_baby_gargoyle.png" alt="276_baby_gargoyle.png"> | Gargoyle Baby | Head of Krampus effect on hit |
 | 277 | <img src="./images/277_baby_spikydemon.png" alt="277_baby_spikydemon.png"> | Spiky Demon Baby | Starts with Dark Arts |
 | 278 | <img src="./images/278_baby_reddemon.png" alt="278_baby_reddemon.png"> | Red Demon Baby | Starts with Brimstone + Anti-Gravity |
-| 279 | <img src="./images/279_baby_orangedemon.png" alt="279_baby_orangedemon.png"> | Orange Demon Baby | Explosivo tears |
+| 279 | <img src="./images/279_baby_orangedemon.png" alt="279_baby_orangedemon.png"> | Orange Demon Baby | Explosivo tears (every 2nd tear) |
 | 280 | <img src="./images/280_baby_eyedemon.png" alt="280_baby_eyedemon.png"> | Eye Demon Baby | Enemies have Continuum projectiles |
 | 281 | <img src="./images/281_baby_fangdemon.png" alt="281_baby_fangdemon.png"> | Fang Demon Baby | Directed light beams |
 | 282 | <img src="./images/282_baby_ghost.png" alt="282_baby_ghost.png"> | Ghost Baby 2 | Constant Maw of the Void effect + flight + blindfolded |
@@ -347,7 +347,7 @@ There are 603 babies in total.
 | 338 | <img src="./images/338_baby_winghelmet.png" alt="338_baby_winghelmet.png"> | Wing Helmet Baby | Starts with The Ludovico Technique + The Parasite |
 | 339 | <img src="./images/339_baby_x.png" alt="339_baby_x.png"> | X Baby | Shoots 4 tears diagonally |
 | 340 | <img src="./images/340_baby_o.png" alt="340_baby_o.png"> | O Baby 2 | Spiral tears |
-| 341 | <img src="./images/341_baby_vomit.png" alt="341_baby_vomit.png"> | Vomit Baby | Must stand still every 10 seconds |
+| 341 | <img src="./images/341_baby_vomit.png" alt="341_baby_vomit.png"> | Vomit Baby | Takes damage if moving when the timer reaches 0 |
 | 342 | <img src="./images/342_baby_merman.png" alt="342_baby_merman.png"> | Merman Baby | Keys spawn as bombs |
 | 343 | <img src="./images/343_baby_cyborg.png" alt="343_baby_cyborg.png"> | Cyborg Baby | Sees numerical damage values and hitboxes |
 | 344 | <img src="./images/344_baby_barbarian.png" alt="344_baby_barbarian.png"> | Barbarian Baby | Mama Mega bombs |
