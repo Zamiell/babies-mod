@@ -46,8 +46,6 @@ function setNewBaby(player: EntityPlayer) {
     return;
   }
 
-  const oldBabyCounters = g.run.babyCounters;
-
   // Reset baby-specific variables
   g.run.babyCounters = 0;
   g.run.babySprite = null;
@@ -56,7 +54,7 @@ function setNewBaby(player: EntityPlayer) {
   g.run.showIntroFrame = gameFrameCount + 60; // 2 seconds
 
   // Set the new baby.
-  babyRemove(player, oldBabyCounters);
+  babyRemove(player);
   getAndSetNewBabyInGlobals(player);
   babyAdd(player);
 }

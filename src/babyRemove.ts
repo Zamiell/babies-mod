@@ -8,7 +8,7 @@ import {
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 import { getCurrentBaby } from "./utilsBaby";
 
-export function babyRemove(player: EntityPlayer, oldBabyCounters: int): void {
+export function babyRemove(player: EntityPlayer): void {
   const currentBaby = getCurrentBaby();
   if (currentBaby === undefined) {
     return;
@@ -63,6 +63,6 @@ export function babyRemove(player: EntityPlayer, oldBabyCounters: int): void {
   // Remove miscellaneous effects.
   const babyClass = BABY_CLASS_MAP.get(babyType);
   if (babyClass !== undefined) {
-    babyClass.onRemove(player, oldBabyCounters);
+    babyClass.onRemove(player);
   }
 }

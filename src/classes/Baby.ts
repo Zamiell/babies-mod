@@ -70,7 +70,7 @@ export class Baby extends ModFeature {
 
   /** Called from "babyRemove.ts". */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
-  onRemove(player: EntityPlayer, oldBabyCounters: int): void {}
+  onRemove(player: EntityPlayer): void {}
 
   /**
    * Helper method to register class variables with the save data manager. (This cannot be done in
