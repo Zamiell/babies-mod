@@ -1,9 +1,17 @@
 TODO:
-
+- make `pastBabies` custom challenge logic
 - refactor global variables
 - SaveDataManager
 - require Smelter for player to have a trinket
 - refactor all SubType = 1
+- refactor all GetData
+
+Potential new effects:
+- Starts with Swallowed Penny + Piggy Bank + Strawman. If Strawman dies, you die (not obtainable after womb 1)
+- Reroll your active item on 2nd hit (per room)
+- Reverse Temperance effect after 6 hits
+- 8 trinkets are buyable (10c) in the starting room, you can only choose one
+- Starts with 3x Cain's other eye + Friendship Necklace (make exceptions with ipecac and Dr Fetus)
 
 List of boring babies:
 - 3 Eyes Baby (#69) - Starts with Inner Eye - Slightly overlaps with Makeup Baby (#99) & Basic Spider Baby (#214) & So Many Eyes Baby (#375)
@@ -19,13 +27,6 @@ List of boring babies:
 - Beanie Baby (#465) - Starts with Smelter
 - Cursor Baby (#468) - Starts with Pause!
 - Thirteenth Baby (#533) - Starts with Modeling Clay
-
-Potential new effects :
-- Starts with Swallowed Penny + Piggy Bank + Strawman. If Strawman dies, you die (not obtainable after womb 1)
-- Reroll your active item on 2nd hit (per room)
-- Reverse Temperance effect after 6 hits
-- 8 trinkets are buyable (10c) in the starting room, you can only choose one
-- Starts with 3x Cain's other eye + Friendship Necklace (make exceptions with ipecac and Dr Fetus)
 
 List of hard babies:
 - Troll Baby (#6) - Spawns a Troll Bomb every 3 seconds

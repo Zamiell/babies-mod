@@ -11,6 +11,7 @@ import {
   MAPPING_COLLECTIBLES,
   getCollectibleItemType,
   getEffectiveStage,
+  hasAnyTrinket,
   hasCollectible,
   levelHasRoomType,
   onAscent,
@@ -66,7 +67,6 @@ export function babyCheckValid(
     return false;
   }
 
-  // If the player does not have a slot for an active item, do not give them an active item baby.
   if (!checkActiveItem(player, baby)) {
     return false;
   }
@@ -107,6 +107,7 @@ export function babyCheckValid(
   return true;
 }
 
+/** If the player does not have a slot for an active item, do not give them an active item baby. */
 function checkActiveItem(player: EntityPlayer, baby: BabyDescription): boolean {
   const activeItem = player.GetActiveItem();
   const secondaryActiveItem = player.GetActiveItem(ActiveSlot.SECONDARY);
@@ -189,7 +190,7 @@ function checkCollectibles(
   player: EntityPlayer,
   baby: BabyDescription,
 ): boolean {
-  if (baby.requireTears === true && !playerHasTears(player)) {
+  if (baby.requireTears === true && !playerHasTearBuild(player)) {
     return false;
   }
 
@@ -338,13 +339,6 @@ function checkCollectibles(
     return false;
   }
 
-  if (
-    babyItemsSet.has(CollectibleType.ISAACS_TEARS) && // 323
-    player.HasCollectible(CollectibleType.IPECAC) // 149
-  ) {
-    return false;
-  }
-
   // Monstro's Lung removes explosion immunity from Dr.Fetus + Ipecac bombs.
   if (
     babyItemsSet.has(CollectibleType.DR_FETUS) && // 52
@@ -362,14 +356,16 @@ function checkCollectibles(
     return false;
   }
 
-  return true;
-}
-
-function checkTrinkets(player: EntityPlayer, baby: BabyDescription): boolean {
   if (
-    baby.trinket !== undefined &&
-    TRINKETS_THAT_SYNERGIZE_WITH_TEARS.has(baby.trinket) &&
-    !playerHasTears(player)
+    babyItemsSet.has(CollectibleType.ISAACS_TEARS) && // 323
+    player.HasCollectible(CollectibleType.IPECAC) // 149
+  ) {
+    return false;
+  }
+
+  if (
+    babyItemsSet.has(CollectibleType.SMELTER) && // 479
+    !hasAnyTrinket(player)
   ) {
     return false;
   }
@@ -377,12 +373,20 @@ function checkTrinkets(player: EntityPlayer, baby: BabyDescription): boolean {
   return true;
 }
 
-function playerHasTears(player: EntityPlayer): boolean {
-  const hasCollectibleThatRemovesTears = hasCollectible(
-    player,
-    ...COLLECTIBLES_THAT_REMOVE_TEARS,
-  );
-  return !hasCollectibleThatRemovesTears;
+function checkTrinkets(player: EntityPlayer, baby: BabyDescription): boolean {
+  if (
+    baby.trinket !== undefined &&
+    TRINKETS_THAT_SYNERGIZE_WITH_TEARS.has(baby.trinket) &&
+    !playerHasTearBuild(player)
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
+function playerHasTearBuild(player: EntityPlayer): boolean {
+  return !hasCollectible(player, ...COLLECTIBLES_THAT_REMOVE_TEARS);
 }
 
 function checkStage(baby: BabyDescription): boolean {

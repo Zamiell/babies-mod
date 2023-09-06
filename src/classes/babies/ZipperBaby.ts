@@ -9,7 +9,7 @@ import {
 import { Baby } from "../Baby";
 
 interface EntityDescription {
-  type: EntityType;
+  entityType: EntityType;
   variant: int;
   subType: int;
 }
@@ -30,12 +30,12 @@ export class ZipperBaby extends Baby {
     const dupeEnemyDescription: EntityDescription =
       firstNonBoss === undefined
         ? {
-            type: EntityType.PORTAL,
+            entityType: EntityType.PORTAL,
             variant: 0,
             subType: 0,
           }
         : {
-            type: firstNonBoss.Type,
+            entityType: firstNonBoss.Type,
             variant: firstNonBoss.Variant,
             subType: firstNonBoss.SubType,
           };
@@ -43,7 +43,7 @@ export class ZipperBaby extends Baby {
     // Spawn a new enemy.
     const position = room.FindFreePickupSpawnPosition(player.Position, 1, true);
     spawn(
-      dupeEnemyDescription.type,
+      dupeEnemyDescription.entityType,
       dupeEnemyDescription.variant,
       dupeEnemyDescription.subType,
       position,
