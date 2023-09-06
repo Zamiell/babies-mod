@@ -272,7 +272,7 @@ There are 603 babies in total.
 | 263 | <img src="./images/263_baby_raccoon.png" alt="263_baby_raccoon.png"> | Raccoon Baby | Random rocks |
 | 264 | <img src="./images/264_baby_bear.png" alt="264_baby_bear.png"> | Bear Baby | Starts with Mystery Gift |
 | 265 | <img src="./images/265_baby_polarbear.png" alt="265_baby_polarbear.png"> | Polar Bear Baby | Starts with Lil Brimstone + Robo Baby + Baby Bender |
-| 266 | <img src="./images/266_baby_lovebear.png" alt="266_baby_lovebear.png"> | Lovebear Baby | Starting rooms are Super-Arcades |
+| 266 | <img src="./images/266_baby_lovebear.png" alt="266_baby_lovebear.png"> | Lovebear Baby | Starts in a super Arcade |
 | 267 | <img src="./images/267_baby_hare.png" alt="267_baby_hare.png"> | Hare Baby | Takes damage when standing still |
 | 268 | <img src="./images/268_baby_squirrel.png" alt="268_baby_squirrel.png"> | Squirrel Baby | Starts with Walnut (improved) |
 | 269 | <img src="./images/269_baby_tabby.png" alt="269_baby_tabby.png"> | Tabby Baby | Starts with Sol |
@@ -539,7 +539,7 @@ There are 603 babies in total.
 | 530 | <img src="./images/068_baby_hope.png" alt="068_baby_hope.png"> | Hope Baby | Starts with Found Soul |
 | 531 | <img src="./images/069_baby_solomon_a.png" alt="069_baby_solomon_a.png"> | Solomon's Baby A | Can't shoot right |
 | 532 | <img src="./images/070_baby_solomon_b.png" alt="070_baby_solomon_b.png"> | Solomon's Baby B | Can't shoot left |
-| 533 | <img src="./images/533_baby_thirteenth.png" alt="533_baby_thirteenth.png"> | Thirteenth Baby | Starts with Modeling Clay |
+| 533 | <img src="./images/533_baby_thirteenth.png" alt="533_baby_thirteenth.png"> | Thirteenth Baby | Starts in a trinket shop |
 | 534 | <img src="./images/534_baby_goldberry.png" alt="534_baby_goldberry.png"> | Berry Baby | Starts with Red Stew |
 | 535 | <img src="./images/535_baby_eyebat.png" alt="535_baby_eyebat.png"> | Eyebat Baby | Floors are reversed |
 | 536 | <img src="./images/536_baby_isyou.png" alt="536_baby_isyou.png"> | Baby Is You | Starts with Luna |
