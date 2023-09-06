@@ -1,18 +1,22 @@
-import { ModCallback, ProjectileFlag } from "isaac-typescript-definitions";
-import { Callback } from "isaacscript-common";
+import {
+  LevelStage,
+  ModCallback,
+  ProjectileFlag,
+} from "isaac-typescript-definitions";
+import { Callback, onStageOrHigher } from "isaacscript-common";
 import { Baby } from "../Baby";
-
-const DATA_KEY = "BabiesModModified";
 
 /** Enemies have Continuum projectiles. */
 export class EyeDemonBaby extends Baby {
-  @Callback(ModCallback.POST_PROJECTILE_UPDATE)
-  postProjectileUpdate(projectile: EntityProjectile): void {
-    const data = projectile.GetData();
-    if (data[DATA_KEY] === undefined) {
-      data[DATA_KEY] = true;
-      projectile.AddProjectileFlags(ProjectileFlag.CONTINUUM);
-      projectile.Height *= 2;
-    }
+  override isValid(): boolean {
+    // Having Continuum projectile speed for It Lives, Hush, Isaac, and Blue Baby would be too
+    // punishing.
+    return !onStageOrHigher(LevelStage.WOMB_2);
+  }
+
+  @Callback(ModCallback.POST_PROJECTILE_INIT)
+  postProjectileInit(projectile: EntityProjectile): void {
+    projectile.AddProjectileFlags(ProjectileFlag.CONTINUUM);
+    projectile.Height *= 2;
   }
 }
