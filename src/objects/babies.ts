@@ -360,9 +360,9 @@ export const BABIES = {
   // 39
   [RandomBabyType.NOOSE]: {
     name: "Noose Baby",
-    description: "Don't shoot when the timer reaches 0",
+    description: "Takes damage when the timer reaches 0",
     sprite: "039_baby_noose.png",
-    num: 6, // Duration of the timer in seconds
+    num: 6 * GAME_FRAMES_PER_SECOND, // The duration of the timer in game frames.
     class: bc.NooseBaby,
   },
 
@@ -2416,9 +2416,10 @@ export const BABIES = {
   // 279
   [RandomBabyType.ORANGE_DEMON]: {
     name: "Orange Demon Baby",
-    description: "Explosivo tears",
+    description: "Explosivo tears (every 2nd tear)",
     sprite: "279_baby_orangedemon.png",
     requireTears: true,
+    num: 2,
     class: bc.OrangeDemonBaby,
   },
 

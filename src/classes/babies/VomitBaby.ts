@@ -8,7 +8,7 @@ import {
 import { g } from "../../globals";
 import { Baby } from "../Baby";
 
-/** Must stand still every 10 seconds. */
+/** Must stand still every N seconds. */
 export class VomitBaby extends Baby {
   override onAdd(): void {
     const gameFrameCount = game.GetFrameCount();

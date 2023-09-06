@@ -5,14 +5,21 @@ import {
   ModCallbackCustom,
   repeat,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
+
+const v = {
+  run: {
+    pickupsTaken: 0,
+  },
+};
 
 /** +1 damage per pickup taken. */
 export class RobbermaskBaby extends Baby {
+  v = v;
+
   @Callback(ModCallback.EVALUATE_CACHE, CacheFlag.DAMAGE)
   evaluateCacheDamage(player: EntityPlayer): void {
-    repeat(g.run.babyCounters, () => {
+    repeat(v.run.pickupsTaken, () => {
       player.Damage++;
     });
   }
@@ -29,7 +36,7 @@ export class RobbermaskBaby extends Baby {
 }
 
 function incrementDamage(player: EntityPlayer) {
-  g.run.babyCounters++;
+  v.run.pickupsTaken++;
   player.AddCacheFlags(CacheFlag.DAMAGE);
   player.EvaluateItems();
 }

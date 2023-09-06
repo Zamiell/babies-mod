@@ -8,11 +8,18 @@ import {
   getPlayerFromEntity,
   removeAllMatchingEntities,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
+
+const v = {
+  run: {
+    numTearsFired: 0,
+  },
+};
 
 /** Shoots a Blue Spider every Nth tear. */
 export class SpiderBaby extends Baby {
+  v = v;
+
   override onRemove(): void {
     removeAllMatchingEntities(EntityType.FAMILIAR, FamiliarVariant.BLUE_SPIDER);
   }
@@ -26,9 +33,9 @@ export class SpiderBaby extends Baby {
       return;
     }
 
-    g.run.babyCounters++;
-    if (g.run.babyCounters === num) {
-      g.run.babyCounters = 0;
+    v.run.numTearsFired++;
+    if (v.run.numTearsFired === num) {
+      v.run.numTearsFired = 0;
 
       player.ThrowBlueSpider(player.Position, player.Position);
       tear.Remove();

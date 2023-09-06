@@ -4,17 +4,25 @@ import {
   TearVariant,
 } from "isaac-typescript-definitions";
 import { Callback, addFlag } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
-/** Explosivo tears. */
+const v = {
+  run: {
+    numTearsFired: 0,
+  },
+};
+
+/** Explosivo tears (every N tears). */
 export class OrangeDemonBaby extends Baby {
+  v = v;
+
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
-    // Only do every other tear to avoid softlocks.
-    g.run.babyCounters++;
-    if (g.run.babyCounters === 2) {
-      g.run.babyCounters = 0;
+    // We do not apply Explosivo tears to every tear in order to avoid softlocks.
+    v.run.numTearsFired++;
+    if (v.run.numTearsFired === 2) {
+      v.run.numTearsFired = 0;
+
       tear.ChangeVariant(TearVariant.EXPLOSIVO);
       tear.TearFlags = addFlag(tear.TearFlags, TearFlag.STICKY);
     }

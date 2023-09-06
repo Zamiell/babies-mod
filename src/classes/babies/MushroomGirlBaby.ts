@@ -4,11 +4,18 @@ import {
   ModCallback,
 } from "isaac-typescript-definitions";
 import { Callback, spawnBomb } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
-/** Every 8th tear is a bomb. */
+const v = {
+  run: {
+    numTearsFired: 0,
+  },
+};
+
+/** Every Nth tear is a bomb. */
 export class MushroomGirlBaby extends Baby {
+  v = v;
+
   override isValid(player: EntityPlayer): boolean {
     return !player.HasCollectible(CollectibleType.DR_FETUS);
   }
@@ -17,9 +24,9 @@ export class MushroomGirlBaby extends Baby {
   postFireTear(tear: EntityTear): void {
     const num = this.getAttribute("num");
 
-    g.run.babyCounters++;
-    if (g.run.babyCounters === num) {
-      g.run.babyCounters = 0;
+    v.run.numTearsFired++;
+    if (v.run.numTearsFired === num) {
+      v.run.numTearsFired = 0;
       tear.Remove();
       spawnBomb(
         BombVariant.NORMAL,

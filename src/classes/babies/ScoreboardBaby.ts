@@ -6,11 +6,18 @@ import {
   isSelfDamage,
   ModCallbackCustom,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
+
+const v = {
+  run: {
+    timer: null as int | null,
+  },
+};
 
 /** Dies 1 minute after getting hit. */
 export class ScoreboardBaby extends Baby {
+  v = v;
+
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(
     _player: EntityPlayer,
@@ -19,7 +26,7 @@ export class ScoreboardBaby extends Baby {
   ): boolean | undefined {
     const gameFrameCount = game.GetFrameCount();
 
-    if (g.run.babyCounters !== 0) {
+    if (v.run.timer !== null) {
       return;
     }
 
@@ -27,7 +34,7 @@ export class ScoreboardBaby extends Baby {
       return;
     }
 
-    g.run.babyCounters = gameFrameCount + GAME_FRAMES_PER_MINUTE;
+    v.run.timer = gameFrameCount + GAME_FRAMES_PER_MINUTE;
 
     return undefined;
   }
@@ -36,10 +43,10 @@ export class ScoreboardBaby extends Baby {
   postPEffectUpdateReordered(player: EntityPlayer): void {
     const gameFrameCount = game.GetFrameCount();
 
-    if (g.run.babyCounters !== 0) {
-      const remainingTime = g.run.babyCounters - gameFrameCount;
-      if (remainingTime <= 0) {
-        g.run.babyCounters = 0;
+    if (v.run.timer !== null) {
+      const remainingGameFrames = v.run.timer - gameFrameCount;
+      if (remainingGameFrames <= 0) {
+        v.run.timer = null;
         player.Kill();
       }
     }

@@ -8,7 +8,7 @@ There are 603 babies in total.
 | -- | ---------- | ---- | ----------- |
 | 0 | <img src="./images/000_baby_spider.png" alt="000_baby_spider.png"> | Spider Baby | Shoots a Blue Spider every 2nd tear |
 | 1 | <img src="./images/001_baby_love.png" alt="001_baby_love.png"> | Love Baby | Spawns a random heart on room clear |
-| 2 | <img src="./images/002_baby_bloat.png" alt="002_baby_bloat.png"> | Bloat Baby | Syringe tears |
+| 2 | <img src="./images/002_baby_bloat.png" alt="002_baby_bloat.png"> | Bloat Baby | Syringe tears (every 3rd tear) |
 | 3 | <img src="./images/003_baby_water.png" alt="003_baby_water.png"> | Water Baby | Starts with Isaac's Tears (improved) |
 | 4 | <img src="./images/004_baby_psy.png" alt="004_baby_psy.png"> | Psy Baby | Starts with Spoon Bender |
 | 5 | <img src="./images/005_baby_cursed.png" alt="005_baby_cursed.png"> | Cursed Baby | Starts with Cursed Eye |
@@ -45,7 +45,7 @@ There are 603 babies in total.
 | 36 | <img src="./images/036_baby_lil.png" alt="036_baby_lil.png"> | Lil Baby | Everything is tiny |
 | 37 | <img src="./images/037_baby_big.png" alt="037_baby_big.png"> | Big Baby | Everything is giant |
 | 38 | <img src="./images/038_baby_brown.png" alt="038_baby_brown.png"> | Brown Baby | Starts with Dirty Mind + Dingle Berry + spawns a poop per enemy killed |
-| 39 | <img src="./images/039_baby_noose.png" alt="039_baby_noose.png"> | Noose Baby | Don't shoot when the timer reaches 0 |
+| 39 | <img src="./images/039_baby_noose.png" alt="039_baby_noose.png"> | Noose Baby | Takes damage when the timer reaches 0 |
 | 40 | <img src="./images/040_baby_hive.png" alt="040_baby_hive.png"> | Hive Baby | Starts with Hive Mind + max Blue Flies + max Blue Spiders |
 | 41 | <img src="./images/041_baby_buddy.png" alt="041_baby_buddy.png"> | Buddy Baby | Removes a heart container on hit |
 | 42 | <img src="./images/042_baby_colorful.png" alt="042_baby_colorful.png"> | Colorful Baby | Acid trip |
@@ -171,7 +171,7 @@ There are 603 babies in total.
 | 162 | <img src="./images/162_baby_digital.png" alt="162_baby_digital.png"> | Digital Baby | B00B T00B |
 | 163 | <img src="./images/163_baby_helmet.png" alt="163_baby_helmet.png"> | Helmet Baby | Invulnerability when standing still |
 | 164 | <img src="./images/164_baby_blackeye.png" alt="164_baby_blackeye.png"> | Black Eye Baby | Starts with Leprosy, +5 damage on Leprosy breaking |
-| 165 | <img src="./images/165_baby_lights.png" alt="165_baby_lights.png"> | Lights Baby | Holy tears |
+| 165 | <img src="./images/165_baby_lights.png" alt="165_baby_lights.png"> | Lights Baby | Holy tears (every 3rd tear) |
 | 166 | <img src="./images/166_baby_spike.png" alt="166_baby_spike.png"> | Spike Baby | All chests are Spiked Chests + all chests have items |
 | 167 | <img src="./images/167_baby_worry.png" alt="167_baby_worry.png"> | Worry Baby | Touching items/pickups causes teleportation |
 | 168 | <img src="./images/168_baby_ears.png" alt="168_baby_ears.png"> | Ears Baby | Starts with 3x Mystery Sack |
