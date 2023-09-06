@@ -2,31 +2,15 @@ import { CollectibleType, LevelStage } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   ModCallbackCustom,
-  game,
   getPlayerFromEntity,
   getRandom,
-  newRNG,
   onStage,
   useActiveItemTemp,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
-const v = {
-  run: {
-    rng: newRNG(),
-  },
-};
-
-/** 50% chance for bombs to have the D6 effect. */
+/** N% chance for bombs to have the D6 effect. */
 export class BombBaby extends Baby {
-  v = v;
-
-  override onAdd(): void {
-    const seeds = game.GetSeeds();
-    const startSeed = seeds.GetStartSeed();
-    v.run.rng = newRNG(startSeed);
-  }
-
   /** There are no collectibles on Sheol/Cathedral. */
   override isValid(): boolean {
     return !onStage(LevelStage.SHEOL_CATHEDRAL);
@@ -39,8 +23,10 @@ export class BombBaby extends Baby {
       return;
     }
 
-    const d6chance = getRandom(v.run.rng);
-    if (d6chance <= 0.5) {
+    const d6chance = getRandom(bomb.InitSeed);
+    const num = this.getAttribute("num");
+
+    if (d6chance < num) {
       useActiveItemTemp(player, CollectibleType.D6);
     }
   }

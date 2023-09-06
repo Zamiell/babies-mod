@@ -4,7 +4,6 @@ import {
   isSlotMachine,
   ModCallbackCustom,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { mod } from "../../mod";
 import { Baby } from "../Baby";
 
@@ -16,6 +15,6 @@ export class GappyBaby extends Baby {
       return;
     }
 
-    mod.spawnCollectible(CollectibleType.NULL, slot.Position, g.run.rng);
+    mod.spawnCollectible(CollectibleType.NULL, slot.Position, slot.InitSeed);
   }
 }

@@ -1,11 +1,6 @@
 import { SlotVariant } from "isaac-typescript-definitions";
-import {
-  CallbackCustom,
-  game,
-  ModCallbackCustom,
-  newRNG,
-} from "isaacscript-common";
-import { spawnSlotHelper } from "../../utils";
+import { CallbackCustom, ModCallbackCustom, newRNG } from "isaacscript-common";
+import { setInitialBabyRNG, spawnSlotHelper } from "../../utils";
 import { Baby } from "../Baby";
 
 const v = {
@@ -19,9 +14,7 @@ export class IllusionBaby extends Baby {
   v = v;
 
   override onAdd(): void {
-    const seeds = game.GetSeeds();
-    const startSeed = seeds.GetStartSeed();
-    v.run.rng = newRNG(startSeed);
+    setInitialBabyRNG(v.run.rng);
   }
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)

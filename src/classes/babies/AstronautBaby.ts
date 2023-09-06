@@ -22,26 +22,27 @@ export class AstronautBaby extends Baby {
     source: EntityRef,
     _countdownFrames: int,
   ): boolean | undefined {
-    if (source.Entity === undefined) {
+    const tear = source.Entity;
+    if (tear === undefined) {
       return;
     }
 
-    const ptrHash = GetPtrHash(source.Entity);
+    const ptrHash = GetPtrHash(tear);
     if (!v.room.tearPtrHashes.has(ptrHash)) {
       return;
     }
 
-    const chance = getRandom(source.Entity.InitSeed);
+    const blackHoleChance = getRandom(tear.InitSeed);
     const num = this.getAttribute("num");
 
-    if (chance < num) {
+    if (blackHoleChance < num) {
       spawnEffect(
         EffectVariant.BLACK_HOLE,
         0,
         source.Position,
-        source.Entity.Velocity,
+        tear.Velocity,
         undefined,
-        source.Entity.InitSeed,
+        tear.InitSeed,
       );
     }
 

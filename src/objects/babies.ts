@@ -675,6 +675,7 @@ export const BABIES = {
     description: "50% chance for bombs to have the D6 effect",
     sprite: "075_baby_bomb.png",
     requireBombs: true,
+    num: 0.5,
     class: bc.BombBaby,
   },
 
@@ -784,8 +785,9 @@ export const BABIES = {
   // 88
   [RandomBabyType.BANDAID]: {
     name: "Bandaid Baby",
-    description: "50% chance to spawn a random pedestal item on room clear",
+    description: "33% chance to spawn a random pedestal item on room clear",
     sprite: "088_baby_bandaid.png",
+    num: 0.333,
     class: bc.BandaidBaby,
   },
 
@@ -2865,6 +2867,7 @@ export const BABIES = {
     name: "Tortoise Baby",
     description: "50% chance to ignore damage",
     sprite: "330_baby_tortoise.png",
+    num: 0.5,
     class: bc.TortoiseBaby,
   },
 

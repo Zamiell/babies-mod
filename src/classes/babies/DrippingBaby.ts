@@ -36,10 +36,11 @@ export class DrippingBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_GRID_ENTITY_BROKEN)
   postGridEntityBroken(): void {
     const player = Isaac.GetPlayer();
+
+    const teleportChance = getRandom(v.run.rng);
     const num = this.getAttribute("num");
 
-    const chance = getRandom(v.run.rng);
-    if (chance < num) {
+    if (teleportChance < num) {
       useActiveItemTemp(player, CollectibleType.TELEPORT);
     }
   }

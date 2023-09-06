@@ -11,7 +11,7 @@ import {
   newRNG,
   onStage,
 } from "isaacscript-common";
-import { setInitialBabyRNG, spawnRandomPickup } from "../../utils";
+import { spawnRandomPickup } from "../../utils";
 import { Baby } from "../Baby";
 
 interface PoopDescription {
@@ -20,10 +20,6 @@ interface PoopDescription {
 }
 
 const v = {
-  run: {
-    rng: newRNG(),
-  },
-
   level: {
     killedPoops: [] as PoopDescription[],
   },
@@ -36,10 +32,6 @@ export class AtePoopBaby extends Baby {
   /** There are almost no poops on The Chest. */
   override isValid(): boolean {
     return !onStage(LevelStage.DARK_ROOM_CHEST);
-  }
-
-  override onAdd(): void {
-    setInitialBabyRNG(v.run.rng);
   }
 
   @CallbackCustom(
@@ -70,7 +62,9 @@ export class AtePoopBaby extends Baby {
       return;
     }
 
-    spawnRandomPickup(v.run.rng, gridEntity.Position);
+    const gridEntityDesc = gridEntity.GetSaveState();
+    const rng = newRNG(gridEntityDesc.SpawnSeed);
+    spawnRandomPickup(rng, gridEntity.Position);
 
     // Keep track of it so that we don't spawn another pickup on the next frame.
     v.level.killedPoops.push({
