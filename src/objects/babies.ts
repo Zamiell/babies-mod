@@ -2631,7 +2631,7 @@ export const BABIES = {
     description: "Starts with Brown Nugget (improved)",
     sprite: "303_baby_pizza.png",
     item: CollectibleType.BROWN_NUGGET,
-    num: 3, // Amount of game frames in-between Brown Nugget activations
+    num: 20, // Amount of Brown Nugget activations
     class: bc.PizzaBaby,
   },
 

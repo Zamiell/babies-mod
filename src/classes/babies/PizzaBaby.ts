@@ -8,7 +8,7 @@ import {
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
-const NUM_BROWN_NUGGET_USES = 20;
+const GAME_FRAMES_BETWEEN_BROWN_NUGGET_USES = 3;
 
 const v = {
   room: {
@@ -21,16 +21,16 @@ const v = {
 export class PizzaBaby extends Baby {
   v = v;
 
-  // 23
-  @Callback(ModCallback.PRE_USE_ITEM, CollectibleType.BROWN_NUGGET)
-  preUseItemBrownNugget(): boolean | undefined {
+  // 3
+  @Callback(ModCallback.POST_USE_ITEM, CollectibleType.BROWN_NUGGET)
+  postUseItemBrownNugget(): boolean | undefined {
     const gameFrameCount = game.GetFrameCount();
-    const num = this.getAttribute("num");
 
     // Mark to use more Brown Nuggets on future frames.
     if (v.room.brownNuggetsUsed === 0) {
       v.room.brownNuggetsUsed = 1;
-      v.room.useBrownNuggetOnFrame = gameFrameCount + num;
+      v.room.useBrownNuggetOnFrame =
+        gameFrameCount + GAME_FRAMES_BETWEEN_BROWN_NUGGET_USES;
     }
 
     return undefined;
@@ -48,10 +48,10 @@ export class PizzaBaby extends Baby {
       useActiveItemTemp(player, CollectibleType.BROWN_NUGGET);
 
       v.room.brownNuggetsUsed++;
-      v.room.useBrownNuggetOnFrame = gameFrameCount + num;
+      v.room.useBrownNuggetOnFrame =
+        gameFrameCount + GAME_FRAMES_BETWEEN_BROWN_NUGGET_USES;
 
-      // One fly is already spawned with the initial Brown Nugget activation.
-      if (v.room.brownNuggetsUsed === NUM_BROWN_NUGGET_USES - 1) {
+      if (v.room.brownNuggetsUsed === num) {
         v.room.brownNuggetsUsed = 0;
         v.room.useBrownNuggetOnFrame = null;
       }
