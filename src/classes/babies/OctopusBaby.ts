@@ -26,16 +26,18 @@ export class OctopusBaby extends Baby {
     }
 
     const gameFrameCount = game.GetFrameCount();
-    if (gameFrameCount % GAME_FRAMES_BETWEEN_SPAWNING_CREEP === 0) {
-      const creep = spawnEffect(
-        EffectVariant.PLAYER_CREEP_BLACK,
-        0,
-        tear.Position,
-        VectorZero,
-        tear,
-      );
-      creep.Timeout = CREEP_TIMEOUT;
+    if (gameFrameCount % GAME_FRAMES_BETWEEN_SPAWNING_CREEP !== 0) {
+      return;
     }
+
+    const creep = spawnEffect(
+      EffectVariant.PLAYER_CREEP_BLACK,
+      0,
+      tear.Position,
+      VectorZero,
+      tear,
+    );
+    creep.Timeout = CREEP_TIMEOUT;
   }
 
   // 61
