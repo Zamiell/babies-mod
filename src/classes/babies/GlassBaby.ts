@@ -9,27 +9,35 @@ import {
   ModCallbackCustom,
   VectorZero,
   addFlag,
+  newReadonlyVector,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
-
-const DATA_KEY = "BabiesModRing";
 
 /** This is copied from Samael's Tech X ability. */
 const RING_RADIUS = 66;
 
-const RING_SPRITE_SCALE: Readonly<Vector> = Vector(0.5, 1);
+const RING_SPRITE_SCALE = newReadonlyVector(0.5, 1);
+
+const v = {
+  room: {
+    laserRingPtrHash: null as PtrHash | null,
+  },
+};
 
 /** Orbiting laser ring. */
 export class GlassBaby extends Baby {
+  v = v;
+
   @Callback(ModCallback.POST_LASER_UPDATE)
   postLaserUpdate(laser: EntityLaser): void {
-    const player = Isaac.GetPlayer();
-    const data = laser.GetData();
-
-    if (data[DATA_KEY] === true) {
-      // Keep the ring centered on the player.
-      laser.Position = player.Position;
+    const ptrHash = GetPtrHash(laser);
+    if (ptrHash !== v.room.laserRingPtrHash) {
+      return;
     }
+
+    // Keep the ring centered on the player.
+    const player = Isaac.GetPlayer();
+    laser.Position = player.Position;
   }
 
   /** Spawn a laser ring around the player. */
@@ -47,7 +55,7 @@ export class GlassBaby extends Baby {
     laser.TearFlags = addFlag(laser.TearFlags, TearFlag.CONTINUUM);
     laser.CollisionDamage *= 0.66;
 
-    const data = laser.GetData();
-    data[DATA_KEY] = true;
+    const ptrHash = GetPtrHash(laser);
+    v.room.laserRingPtrHash = ptrHash;
   }
 }
