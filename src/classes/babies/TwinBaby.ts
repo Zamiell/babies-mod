@@ -8,11 +8,18 @@ import {
   onStage,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
+
+const v = {
+  run: {
+    isTeleporting: false,
+  },
+};
 
 /** Uncontrollable Teleport 2.0. */
 export class TwinBaby extends Baby {
+  v = v;
+
   /**
    * If they mess up and go past the Boss Room on Womb 2, they can get the wrong path. It also makes
    * the player unable to go to Corpse after Alt Mom's Heart.
@@ -38,12 +45,11 @@ export class TwinBaby extends Baby {
       return;
     }
 
-    if (g.run.babyBool) {
-      // We teleported to this room.
-      g.run.babyBool = false;
+    if (v.run.isTeleporting) {
+      v.run.isTeleporting = false;
     } else {
       // We are entering a new room.
-      g.run.babyBool = true;
+      v.run.isTeleporting = true;
       useActiveItemTemp(player, CollectibleType.TELEPORT_2);
     }
   }

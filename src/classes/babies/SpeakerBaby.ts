@@ -1,10 +1,17 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { Callback, getPlayerFromEntity, repeat } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
+
+const v = {
+  room: {
+    xTearPtrHashes: new Set<PtrHash>(),
+  },
+};
 
 /** X splitting tears. */
 export class SpeakerBaby extends Baby {
+  v = v;
+
   // 40
   @Callback(ModCallback.POST_TEAR_UPDATE)
   postTearUpdate(tear: EntityTear): void {
@@ -13,35 +20,34 @@ export class SpeakerBaby extends Baby {
       return;
     }
 
-    if (tear.SubType !== 1 || tear.FrameCount < 20) {
+    const ptrHash = GetPtrHash(tear);
+    if (v.room.xTearPtrHashes.has(ptrHash)) {
       return;
     }
 
-    tear.Remove();
-
-    let rotation = 45;
-    repeat(4, () => {
-      rotation += 90;
-      const rotatedVelocity = tear.Velocity.Rotated(rotation);
-      g.run.babyBool = true;
-      const xTear = player.FireTear(
-        player.Position,
-        rotatedVelocity,
-        false,
-        true,
-        false,
-      );
-      g.run.babyBool = false;
-      xTear.Position = tear.Position;
-      xTear.Height = tear.Height;
-    });
-  }
-
-  // 61
-  @Callback(ModCallback.POST_FIRE_TEAR)
-  postFireTear(tear: EntityTear): void {
-    if (!g.run.babyBool) {
-      tear.SubType = 1; // Mark that we shot this tear.
+    if (tear.FrameCount >= 20) {
+      tear.Remove();
+      spawnXTears(player, tear);
     }
   }
+}
+
+function spawnXTears(player: EntityPlayer, tear: EntityTear) {
+  let rotation = 45;
+  repeat(4, () => {
+    rotation += 90;
+    const rotatedVelocity = tear.Velocity.Rotated(rotation);
+    const xTear = player.FireTear(
+      player.Position,
+      rotatedVelocity,
+      false,
+      true,
+      false,
+    );
+    xTear.Position = tear.Position;
+    xTear.Height = tear.Height;
+
+    const ptrHash = GetPtrHash(xTear);
+    v.room.xTearPtrHashes.add(ptrHash);
+  });
 }

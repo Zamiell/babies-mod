@@ -13,11 +13,20 @@ import {
   onStage,
   onStageOrHigher,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
+
+const ROOM_TYPES = [RoomType.DEFAULT, RoomType.MINI_BOSS] as const;
+
+const v = {
+  run: {
+    isFloorFullCleared: false,
+  },
+};
 
 /** Must full clear. */
 export class PubicBaby extends Baby {
+  v = v;
+
   /** Full clearing a final floor is too punishing. */
   override isValid(): boolean {
     return (
@@ -32,8 +41,7 @@ export class PubicBaby extends Baby {
     const roomClear = room.IsClear();
     const dimension = getDimension();
 
-    // Don't do anything if we already full cleared the floor.
-    if (g.run.babyBool) {
+    if (v.run.isFloorFullCleared) {
       return;
     }
 
@@ -47,9 +55,8 @@ export class PubicBaby extends Baby {
       return;
     }
 
-    const onlyCheckRoomTypes = [RoomType.DEFAULT, RoomType.MINI_BOSS];
-    if (isAllRoomsClear(onlyCheckRoomTypes)) {
-      g.run.babyBool = true;
+    if (isAllRoomsClear(ROOM_TYPES)) {
+      v.run.isFloorFullCleared = true;
       return;
     }
 
