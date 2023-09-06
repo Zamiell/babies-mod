@@ -4,14 +4,21 @@ import {
   getPlayerFromEntity,
   getRandomInt,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
+
+const v = {
+  run: {
+    shootingExtraTear: false,
+  },
+};
 
 /** Shoots extra tears with random velocity. */
 export class CockeyedBaby extends Baby {
+  v = v;
+
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
-    if (g.run.babyBool) {
+    if (v.run.shootingExtraTear) {
       return;
     }
 
@@ -24,8 +31,8 @@ export class CockeyedBaby extends Baby {
     const rng = tear.GetDropRNG();
     const rotation = getRandomInt(0, 359, rng);
     const velocity = tear.Velocity.Rotated(rotation);
-    g.run.babyBool = true;
+    v.run.shootingExtraTear = true;
     player.FireTear(player.Position, velocity, false, true, false);
-    g.run.babyBool = false;
+    v.run.shootingExtraTear = false;
   }
 }

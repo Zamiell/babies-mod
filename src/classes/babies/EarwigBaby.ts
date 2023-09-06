@@ -7,15 +7,25 @@ import {
   getAllRoomGridIndexes,
   getRandomArrayElement,
   hasCollectible,
+  newRNG,
   onFirstFloor,
   onStage,
+  setSeed,
   stopAllSoundEffects,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
+
+const v = {
+  run: {
+    explored: false,
+    rng: newRNG(),
+  },
+};
 
 /** N rooms are already explored. */
 export class EarwigBaby extends Baby {
+  v = v;
+
   /**
    * - If the player has mapping, this effect is largely useless (but having the Blue Map is okay).
    * - We don't want this baby on the first floor since it interferes with resetting.
@@ -37,6 +47,12 @@ export class EarwigBaby extends Baby {
     );
   }
 
+  override onAdd(): void {
+    const level = game.GetLevel();
+    const seed = level.GetDungeonPlacementSeed();
+    setSeed(v.run.rng, seed);
+  }
+
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {
     const level = game.GetLevel();
@@ -47,10 +63,10 @@ export class EarwigBaby extends Baby {
     const num = this.getAttribute("num");
 
     // We only want to explore once.
-    if (g.run.babyBool) {
+    if (v.run.explored) {
       return;
     }
-    g.run.babyBool = true;
+    v.run.explored = true;
 
     // Get N unique random indexes.
     const randomFloorGridIndexes: int[] = [];
@@ -58,7 +74,7 @@ export class EarwigBaby extends Baby {
       // Get a random room index on the floor.
       const randomFloorGridIndex = getRandomArrayElement(
         allRoomGridIndexes,
-        g.run.rng,
+        v.run.rng,
       );
 
       // Check to see if this is one of the indexes that we are already warping to.

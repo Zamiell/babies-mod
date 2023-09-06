@@ -28,6 +28,7 @@ List of boring babies:
 List of hard babies:
 - Troll Baby (#6) - Spawns a Troll Bomb every 3 seconds
 - Noose Baby (#39) - Don't shoot when the timer reaches 0
+- Buddy Baby (#41) - Removes a heart container on hit
 - Eyebrows Baby (#89) - Starts with 5x Guppy's Hair Ball + blindfolded
 - Hare Baby (#267) - Takes damage when standing still
 - Vomit Baby (#341) - Must stand still every 10 seconds
