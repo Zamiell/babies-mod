@@ -1,26 +1,17 @@
-import { EntityType, ModCallback } from "isaac-typescript-definitions";
-import { Callback, ReadonlySet } from "isaacscript-common";
+import { LevelStage, ModCallback } from "isaac-typescript-definitions";
+import { Callback, onStageOrHigher } from "isaacscript-common";
 import { Baby } from "../Baby";
-
-const DATA_KEY = "BabiesModSpedUp";
-
-const IMMUNE_ENTITY_TYPES = new ReadonlySet<EntityType>([
-  EntityType.MOMS_HEART, // 78
-  EntityType.ISAAC, // 102
-]);
 
 /** Projectiles have 2x speed. */
 export class OnionBaby extends Baby {
-  @Callback(ModCallback.POST_PROJECTILE_UPDATE)
-  postProjectileUpdate(projectile: EntityProjectile): void {
-    if (IMMUNE_ENTITY_TYPES.has(projectile.SpawnerType)) {
-      return;
-    }
+  override isValid(): boolean {
+    // Having faster projectile speed for It Lives, Hush, Isaac, and Blue Baby would be too
+    // punishing.
+    return !onStageOrHigher(LevelStage.WOMB_2);
+  }
 
-    const data = projectile.GetData();
-    if (data[DATA_KEY] === undefined) {
-      data[DATA_KEY] = true;
-      projectile.Velocity = projectile.Velocity.mul(2);
-    }
+  @Callback(ModCallback.POST_PROJECTILE_INIT)
+  postProjectileInit(projectile: EntityProjectile): void {
+    projectile.Velocity = projectile.Velocity.mul(2);
   }
 }
