@@ -2,13 +2,11 @@ TODO:
 - make `pastBabies` custom challenge logic
 - refactor global variables
 - SaveDataManager
-- refactor all "SubType = 1"
-- refactor all "SubType ==="
+- refactor all callbacks into features
 
 Potential new effects:
 - Starts with Swallowed Penny + Piggy Bank + Strawman. If Strawman dies, you die (not obtainable after womb 1)
 - Reroll your active item on 2nd hit (per room) - check for Scapular
-- 8 trinkets are buyable (10c) in the starting room, you can only choose one
 - Starts with 3x Cain's other eye + Friendship Necklace (make exceptions with ipecac and Dr Fetus)
 - massive item shop for 50 cents (credit card, diplopia, crooked penny, exclude Quarter, A Dollar)
 - every 8th tear is a ghost from ghost bombs

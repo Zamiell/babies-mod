@@ -5,7 +5,7 @@ import { Baby } from "../Baby";
 
 const v = {
   room: {
-    blackHoleTearPtrHashes: new Set<PtrHash>(),
+    tearPtrHashes: new Set<PtrHash>(),
   },
 };
 
@@ -27,7 +27,7 @@ export class AstronautBaby extends Baby {
     }
 
     const ptrHash = GetPtrHash(source.Entity);
-    if (!v.room.blackHoleTearPtrHashes.has(ptrHash)) {
+    if (!v.room.tearPtrHashes.has(ptrHash)) {
       return;
     }
 
@@ -52,6 +52,6 @@ export class AstronautBaby extends Baby {
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
     const ptrHash = GetPtrHash(tear);
-    v.room.blackHoleTearPtrHashes.add(ptrHash);
+    v.room.tearPtrHashes.add(ptrHash);
   }
 }

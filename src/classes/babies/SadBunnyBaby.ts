@@ -8,7 +8,7 @@ const v = {
   },
 
   room: {
-    playerTearPtrHashes: new Set<PtrHash>(),
+    tearPtrHashes: new Set<PtrHash>(),
   },
 };
 
@@ -28,7 +28,7 @@ export class SadBunnyBaby extends Baby {
   @Callback(ModCallback.POST_TEAR_UPDATE)
   postTearUpdate(tear: EntityTear): void {
     const ptrHash = GetPtrHash(tear);
-    if (!v.room.playerTearPtrHashes.has(ptrHash)) {
+    if (!v.room.tearPtrHashes.has(ptrHash)) {
       return;
     }
 
@@ -52,7 +52,7 @@ export class SadBunnyBaby extends Baby {
   @Callback(ModCallback.PRE_TEAR_COLLISION)
   preTearCollision(tear: EntityTear): boolean | undefined {
     const ptrHash = GetPtrHash(tear);
-    if (!v.room.playerTearPtrHashes.has(ptrHash)) {
+    if (!v.room.tearPtrHashes.has(ptrHash)) {
       return;
     }
 
@@ -72,6 +72,6 @@ export class SadBunnyBaby extends Baby {
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
     const ptrHash = GetPtrHash(tear);
-    v.room.playerTearPtrHashes.add(ptrHash);
+    v.room.tearPtrHashes.add(ptrHash);
   }
 }

@@ -4,7 +4,7 @@ import { Baby } from "../Baby";
 
 const v = {
   room: {
-    xTearPtrHashes: new Set<PtrHash>(),
+    tearPtrHashes: new Set<PtrHash>(),
   },
 };
 
@@ -21,7 +21,7 @@ export class SpeakerBaby extends Baby {
     }
 
     const ptrHash = GetPtrHash(tear);
-    if (v.room.xTearPtrHashes.has(ptrHash)) {
+    if (v.room.tearPtrHashes.has(ptrHash)) {
       return;
     }
 
@@ -48,6 +48,6 @@ function spawnXTears(player: EntityPlayer, tear: EntityTear) {
     xTear.Height = tear.Height;
 
     const ptrHash = GetPtrHash(xTear);
-    v.room.xTearPtrHashes.add(ptrHash);
+    v.room.tearPtrHashes.add(ptrHash);
   });
 }

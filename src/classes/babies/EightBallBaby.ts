@@ -2,17 +2,26 @@ import { ModCallback, TearFlag } from "isaac-typescript-definitions";
 import { Callback, addFlag, getPlayerFromEntity } from "isaacscript-common";
 import { Baby } from "../Baby";
 
+const v = {
+  room: {
+    tearsPtrHashes: new Set<PtrHash>(),
+  },
+};
+
 /** Orbiting tears. */
 export class EightBallBaby extends Baby {
+  v = v;
+
   // 40
   @Callback(ModCallback.POST_TEAR_UPDATE)
   postTearUpdate(tear: EntityTear): void {
-    const player = getPlayerFromEntity(tear);
-    if (player === undefined) {
+    const ptrHash = GetPtrHash(tear);
+    if (!v.room.tearsPtrHashes.has(ptrHash)) {
       return;
     }
 
-    if (tear.SubType !== 1) {
+    const player = getPlayerFromEntity(tear);
+    if (player === undefined) {
       return;
     }
 
@@ -38,9 +47,6 @@ export class EightBallBaby extends Baby {
   postFireTear(tear: EntityTear): void {
     const num = this.getAttribute("num");
 
-    // Mark that we shot this tear.
-    tear.SubType = 1;
-
     // We need to have spectral for this ability to work properly.
     tear.TearFlags = addFlag(tear.TearFlags, TearFlag.SPECTRAL);
 
@@ -48,5 +54,8 @@ export class EightBallBaby extends Baby {
     tear.Position = Vector(0, num * -1);
     tear.Velocity = Vector(num / 4, 0);
     tear.FallingSpeed = 0;
+
+    const ptrHash = GetPtrHash(tear);
+    v.room.tearsPtrHashes.add(ptrHash);
   }
 }

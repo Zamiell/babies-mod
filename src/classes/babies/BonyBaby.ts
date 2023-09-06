@@ -8,7 +8,7 @@ import { Baby } from "../Baby";
 
 const v = {
   room: {
-    duplicatedBombs: new Set<PtrHash>(),
+    duplicatedBombPtrHashes: new Set<PtrHash>(),
   },
 };
 
@@ -23,7 +23,7 @@ export class BonyBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_BOMB_INIT_LATE)
   postBombInitLate(bomb: EntityBomb): void {
     const ptrHash = GetPtrHash(bomb);
-    if (v.room.duplicatedBombs.has(ptrHash)) {
+    if (v.room.duplicatedBombPtrHashes.has(ptrHash)) {
       return;
     }
 
@@ -47,6 +47,6 @@ export class BonyBaby extends Baby {
     }
 
     const newPtrHash = GetPtrHash(doubledBomb);
-    v.room.duplicatedBombs.add(newPtrHash);
+    v.room.duplicatedBombPtrHashes.add(newPtrHash);
   }
 }
