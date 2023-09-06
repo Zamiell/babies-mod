@@ -2,14 +2,13 @@ import { EffectVariant, SoundEffect } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   ModCallbackCustom,
-  game,
   getRandomArrayElement,
   getRoomsInsideGrid,
   newRNG,
-  setSeed,
   sfxManager,
   spawnEffect,
 } from "isaacscript-common";
+import { setInitialBabyRNG } from "../../utils";
 import { Baby } from "../Baby";
 
 const v = {
@@ -24,9 +23,7 @@ export class OBaby extends Baby {
   v = v;
 
   override onAdd(): void {
-    const level = game.GetLevel();
-    const seed = level.GetDungeonPlacementSeed();
-    setSeed(v.run.rng, seed);
+    setInitialBabyRNG(v.run.rng);
   }
 
   @CallbackCustom(ModCallbackCustom.POST_PICKUP_COLLECT)

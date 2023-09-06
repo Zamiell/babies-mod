@@ -2,13 +2,12 @@ import { CollectibleType, LevelStage } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   ModCallbackCustom,
-  game,
   getRandom,
   newRNG,
   onStage,
-  setSeed,
   useActiveItemTemp,
 } from "isaacscript-common";
+import { setInitialBabyRNG } from "../../utils";
 import { Baby } from "../Baby";
 
 const v = {
@@ -31,9 +30,7 @@ export class DrippingBaby extends Baby {
   }
 
   override onAdd(): void {
-    const level = game.GetLevel();
-    const seed = level.GetDungeonPlacementSeed();
-    setSeed(v.run.rng, seed);
+    setInitialBabyRNG(v.run.rng);
   }
 
   @CallbackCustom(ModCallbackCustom.POST_GRID_ENTITY_BROKEN)

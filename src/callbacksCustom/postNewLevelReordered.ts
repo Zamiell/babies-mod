@@ -63,8 +63,8 @@ function setNewBaby(player: EntityPlayer) {
 
 function getAndSetNewBabyInGlobals(player: EntityPlayer) {
   const level = game.GetLevel();
-  const levelSeed = level.GetDungeonPlacementSeed();
-  const rng = newRNG(levelSeed);
+  const seed = level.GetDungeonPlacementSeed();
+  const rng = newRNG(seed);
 
   // It will become impossible to find a new baby if the list of past babies grows too large. (When
   // experimenting, it crashed upon reaching a size of 538, so reset it when it gets over 500 just

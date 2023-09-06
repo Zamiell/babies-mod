@@ -10,9 +10,9 @@ import {
   newRNG,
   onFirstFloor,
   onStage,
-  setSeed,
   stopAllSoundEffects,
 } from "isaacscript-common";
+import { setInitialBabyRNG } from "../../utils";
 import { Baby } from "../Baby";
 
 const v = {
@@ -48,9 +48,7 @@ export class EarwigBaby extends Baby {
   }
 
   override onAdd(): void {
-    const level = game.GetLevel();
-    const seed = level.GetDungeonPlacementSeed();
-    setSeed(v.run.rng, seed);
+    setInitialBabyRNG(v.run.rng);
   }
 
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)

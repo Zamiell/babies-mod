@@ -44,6 +44,7 @@ import {
   isPlayer,
   isRNG,
   removeEntities,
+  setSeed,
   sfxManager,
   spawnBattery,
   spawnCard,
@@ -237,6 +238,13 @@ export function removeAllFriendlyEntities(): void {
     entity.HasEntityFlags(EntityFlag.FRIENDLY),
   );
   removeEntities(friendlyEntities);
+}
+
+/** Upon granting a new baby, baby RNG objects are set to the current level seed. */
+export function setInitialBabyRNG(rng: RNG): void {
+  const level = game.GetLevel();
+  const seed = level.GetDungeonPlacementSeed();
+  setSeed(rng, seed);
 }
 
 export function setTearColor(tear: EntityTear, color: Color): void {

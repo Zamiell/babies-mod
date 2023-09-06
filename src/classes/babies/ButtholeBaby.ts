@@ -14,11 +14,10 @@ import {
   getRandomEnumValue,
   getRandomInt,
   newRNG,
-  setSeed,
   sfxManager,
   spawnWithSeed,
 } from "isaacscript-common";
-import { everyNSeconds } from "../../utils";
+import { everyNSeconds, setInitialBabyRNG } from "../../utils";
 import { Baby } from "../Baby";
 
 const NUM_POOP_ENTITY_VARIANTS = getEnumLength(PoopEntityVariant);
@@ -35,7 +34,7 @@ const POOP_GRID_ENTITY_VARIANTS_NOT_IN_POOP_ENTITY_VARIANTS = [
 
 const v = {
   run: {
-    poopRNG: newRNG(),
+    rng: newRNG(),
   },
 
   room: {
@@ -48,9 +47,7 @@ export class ButtholeBaby extends Baby {
   v = v;
 
   override onAdd(): void {
-    const level = game.GetLevel();
-    const seed = level.GetDungeonPlacementSeed();
-    setSeed(v.run.poopRNG, seed);
+    setInitialBabyRNG(v.run.rng);
   }
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
@@ -85,26 +82,23 @@ export function spawnRandomPoop(player: EntityPlayer): void {
   const poopRoll = getRandomInt(
     1,
     numNormalEntityPoops + numGridEntityPoops,
-    v.run.poopRNG,
+    v.run.rng,
   );
 
   // Depending on the type of poop selected, we might need to spawn an entity or a grid entity.
   if (poopRoll <= numNormalEntityPoops) {
-    const poopEntityVariant = getRandomEnumValue(
-      PoopEntityVariant,
-      v.run.poopRNG,
-    );
+    const poopEntityVariant = getRandomEnumValue(PoopEntityVariant, v.run.rng);
     spawnWithSeed(
       EntityType.POOP,
       poopEntityVariant,
       0,
       player.Position,
-      v.run.poopRNG,
+      v.run.rng,
     );
   } else {
     const poopGridEntityVariant = getRandomArrayElement(
       POOP_GRID_ENTITY_VARIANTS_NOT_IN_POOP_ENTITY_VARIANTS,
-      v.run.poopRNG,
+      v.run.rng,
     );
 
     // Red Poops will instantly damage the player, so we have to give them some invulnerability

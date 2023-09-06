@@ -1,11 +1,5 @@
-import {
-  CallbackCustom,
-  ModCallbackCustom,
-  game,
-  newRNG,
-  setSeed,
-} from "isaacscript-common";
-import { spawnRandomPickup } from "../../utils";
+import { CallbackCustom, ModCallbackCustom, newRNG } from "isaacscript-common";
+import { setInitialBabyRNG, spawnRandomPickup } from "../../utils";
 import { Baby } from "../Baby";
 
 const v = {
@@ -19,9 +13,7 @@ export class CyberBaby extends Baby {
   v = v;
 
   override onAdd(): void {
-    const level = game.GetLevel();
-    const seed = level.GetDungeonPlacementSeed();
-    setSeed(v.run.rng, seed);
+    setInitialBabyRNG(v.run.rng);
   }
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)

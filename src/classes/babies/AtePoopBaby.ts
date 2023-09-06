@@ -7,13 +7,11 @@ import {
   CallbackCustom,
   DISTANCE_OF_GRID_TILE,
   ModCallbackCustom,
-  game,
   getRoomListIndex,
   newRNG,
   onStage,
-  setSeed,
 } from "isaacscript-common";
-import { spawnRandomPickup } from "../../utils";
+import { setInitialBabyRNG, spawnRandomPickup } from "../../utils";
 import { Baby } from "../Baby";
 
 interface PoopDescription {
@@ -41,9 +39,7 @@ export class AtePoopBaby extends Baby {
   }
 
   override onAdd(): void {
-    const level = game.GetLevel();
-    const seed = level.GetDungeonPlacementSeed();
-    setSeed(v.run.rng, seed);
+    setInitialBabyRNG(v.run.rng);
   }
 
   @CallbackCustom(
