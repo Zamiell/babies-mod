@@ -8,7 +8,7 @@ const v = {
   },
 };
 
-/** Holy tears. */
+/** Holy tears (every Nth tear). */
 export class LightsBaby extends Baby {
   v = v;
 

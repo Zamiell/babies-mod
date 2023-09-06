@@ -12,7 +12,7 @@ const v = {
   },
 };
 
-/** Syringe tears */
+/** Syringe tears (every Nth tear). */
 export class BloatBaby extends Baby {
   v = v;
 

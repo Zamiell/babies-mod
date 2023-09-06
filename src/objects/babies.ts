@@ -40,7 +40,7 @@ export const BABIES = {
   // 2
   [RandomBabyType.BLOAT]: {
     name: "Bloat Baby",
-    description: "Syringe tears", // Euthanasia
+    description: "Syringe tears (every 3rd tear)", // Euthanasia
     sprite: "002_baby_bloat.png",
     num: 3, // The number of tears that are needed to produce a syringe tear.
     requireTears: true,
@@ -1446,7 +1446,7 @@ export const BABIES = {
   // 165
   [RandomBabyType.LIGHTS]: {
     name: "Lights Baby",
-    description: "Holy tears",
+    description: "Holy tears (every 3rd tear)",
     sprite: "165_baby_lights.png",
     num: 3, // The number of tears that are needed to produce a holy tear.
     requireTears: true,
