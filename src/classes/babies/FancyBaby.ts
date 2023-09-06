@@ -2,6 +2,7 @@ import type { CollectibleType } from "isaac-typescript-definitions";
 import {
   EntityType,
   ItemType,
+  LevelStage,
   ModCallback,
   PickupVariant,
   RoomType,
@@ -22,6 +23,7 @@ import {
   inStartingRoom,
   isEven,
   log,
+  onStageOrLower,
   teleport,
 } from "isaacscript-common";
 import { CollectibleTypeCustom } from "../../enums/CollectibleTypeCustom";
@@ -148,13 +150,17 @@ const CHEAPEST_TELEPORT_PRICE = TeleportPrice.TEN;
 /** Can purchase teleports to special rooms. */
 export class FancyBaby extends Baby {
   /**
-   * We want to ensure that the starting room of the floor is clean (e.g. no Blue Womb, no The
-   * Chest, etc.)
+   * Should only be valid if the floor has special rooms.
+   *
+   * Additionally, we want to ensure that the starting room of the floor is clean (e.g. no Blue
+   * Womb, no The Chest, etc.)
    */
   override isValid(player: EntityPlayer): boolean {
     const coins = player.GetNumCoins();
     return (
-      coins >= CHEAPEST_TELEPORT_PRICE && !doesEntityExist(EntityType.PICKUP)
+      coins >= CHEAPEST_TELEPORT_PRICE &&
+      onStageOrLower(LevelStage.SHEOL_CATHEDRAL) &&
+      !doesEntityExist(EntityType.PICKUP)
     );
   }
 

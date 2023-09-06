@@ -1,9 +1,17 @@
 import {
   CollectibleType,
   EntityType,
+  ModCallback,
+  PickupVariant,
   TrinketType,
 } from "isaac-typescript-definitions";
-import { doesEntityExist, spawnTrinket } from "isaacscript-common";
+import {
+  Callback,
+  doesEntityExist,
+  inStartingRoom,
+  spawnTrinket,
+} from "isaacscript-common";
+import { isRerolledCollectibleBuggedHeart } from "../../utils";
 import { Baby } from "../Baby";
 
 const TRINKET_PRICE = 10;
@@ -31,6 +39,15 @@ export class ThirteenthBaby extends Baby {
       const trinket = spawnTrinket(TrinketType.NULL, gridIndex);
       trinket.Price = price;
       trinket.AutoUpdatePrice = false;
+    }
+  }
+
+  /** Delete rerolled trinkets. */
+  // 35
+  @Callback(ModCallback.POST_PICKUP_UPDATE, PickupVariant.HEART)
+  postPickupUpdateHeart(pickup: EntityPickup): void {
+    if (isRerolledCollectibleBuggedHeart(pickup) && inStartingRoom()) {
+      pickup.Remove();
     }
   }
 }
