@@ -27,6 +27,7 @@
   - Lovebear Baby (#266) - Starts in a super Arcade
   - Cupcake Baby (#321) - Starts with Voodoo Head + Flat File
   - Cyborg Baby (#343) - Sees numerical damage values and hitboxes
+  - Mean Mushroom Baby (#367) - Enemies projectiles freeze you
   - Dark Elf Baby (#378) - Starts with Bone Spurs + Polished Bone
   - Puncher Baby (#416) - Spawns a Golden Troll Bomb in every room
   - Tired Baby (#443) - Starts with 10x Cube Baby + Ice Cube
