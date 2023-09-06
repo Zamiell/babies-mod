@@ -6,6 +6,9 @@ import {
 import { getEffectiveStage, onStage, spawnTrinket } from "isaacscript-common";
 import { Baby } from "../Baby";
 
+const TRINKET_PRICE = 10;
+const TRINKET_GRID_INDEXES = [32, 34, 40, 42, 92, 94, 100, 102] as const;
+
 /** Starts in a trinket shop. */
 export class ThirteenthBaby extends Baby {
   /**
@@ -16,7 +19,7 @@ export class ThirteenthBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
     const coins = player.GetNumCoins();
     return (
-      coins >= 10 &&
+      coins >= TRINKET_PRICE &&
       // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
       getEffectiveStage() > 2 &&
       !onStage(
@@ -28,26 +31,18 @@ export class ThirteenthBaby extends Baby {
   }
 
   override onAdd(player: EntityPlayer): void {
-    // Top-left
-    spawnRandomTrinketForSale(32, player);
-    spawnRandomTrinketForSale(34, player);
+    const price = player.HasCollectible(CollectibleType.STEAM_SALE)
+      ? TRINKET_PRICE / 2
+      : TRINKET_PRICE;
 
-    // Top-right
-    spawnRandomTrinketForSale(40, player);
-    spawnRandomTrinketForSale(42, player);
-
-    // Bottom-left
-    spawnRandomTrinketForSale(92, player);
-    spawnRandomTrinketForSale(94, player);
-
-    // Bottom-right
-    spawnRandomTrinketForSale(100, player);
-    spawnRandomTrinketForSale(102, player);
+    for (const gridIndex of TRINKET_GRID_INDEXES) {
+      spawnRandomTrinketForSale(gridIndex, price);
+    }
   }
 }
 
-function spawnRandomTrinketForSale(gridIndex: int, player: EntityPlayer) {
+function spawnRandomTrinketForSale(gridIndex: int, price: int) {
   const trinket = spawnTrinket(TrinketType.NULL, gridIndex);
-  trinket.Price = player.HasCollectible(CollectibleType.STEAM_SALE) ? 5 : 10;
+  trinket.Price = price;
   trinket.AutoUpdatePrice = false;
 }
