@@ -3544,6 +3544,7 @@ export const BABIES = {
     description: "Tears have a 5% chance to create a Black Hole effect",
     sprite: "406_baby_astronaut.png",
     requireTears: true,
+    num: 0.05,
     class: bc.AstronautBaby,
   },
 
