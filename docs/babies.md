@@ -326,7 +326,7 @@ There are 603 babies in total.
 | 317 | <img src="./images/317_baby_scary.png" alt="317_baby_scary.png"> | Scary Baby | Items cost hearts |
 | 318 | <img src="./images/318_baby_fireball.png" alt="318_baby_fireball.png"> | Fireball Baby | Explosion immunity + fire immunity |
 | 319 | <img src="./images/319_baby_maw.png" alt="319_baby_maw.png"> | Maw Baby | Starts with Maw of the Void |
-| 320 | <img src="./images/320_baby_exploding.png" alt="320_baby_exploding.png"> | Exploding Baby | Kamikaze effect upon touching a breakable obstacle |
+| 320 | <img src="./images/320_baby_exploding.png" alt="320_baby_exploding.png"> | Exploding Baby | Breakable obstacles explode on touch |
 | 321 | <img src="./images/321_baby_cupcake.png" alt="321_baby_cupcake.png"> | Cupcake Baby | Starts with Voodoo Head + Flat File |
 | 322 | <img src="./images/322_baby_skinless.png" alt="322_baby_skinless.png"> | Skinless Baby | 2x damage + takes 2x damage |
 | 323 | <img src="./images/323_baby_ballerina.png" alt="323_baby_ballerina.png"> | Ballerina Baby | Summons a Restock Machine after 6 hits |
@@ -373,7 +373,7 @@ There are 603 babies in total.
 | 364 | <img src="./images/364_baby_turtledragon.png" alt="364_baby_turtledragon.png"> | Turtle Dragon Baby | Fiery tears |
 | 365 | <img src="./images/365_baby_shellsuit.png" alt="365_baby_shellsuit.png"> | Shell Suit Baby | Starts with Burnt Penny |
 | 366 | <img src="./images/366_baby_fiery.png" alt="366_baby_fiery.png"> | Fiery Baby | Spawns a fire on hit |
-| 367 | <img src="./images/367_baby_meanmushroom.png" alt="367_baby_meanmushroom.png"> | Mean Mushroom Baby | Starts with 5x Sack of Pennies |
+| 367 | <img src="./images/367_baby_meanmushroom.png" alt="367_baby_meanmushroom.png"> | Mean Mushroom Baby | Enemies projectiles freeze you |
 | 368 | <img src="./images/368_baby_arcade.png" alt="368_baby_arcade.png"> | Arcade Baby | Razor blade tears |
 | 369 | <img src="./images/369_baby_scaredghost.png" alt="369_baby_scaredghost.png"> | Scared Ghost Baby | 2x speed |
 | 370 | <img src="./images/370_baby_blueghost.png" alt="370_baby_blueghost.png"> | Blue Ghost Baby | Max tear rate |

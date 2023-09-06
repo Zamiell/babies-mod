@@ -9,29 +9,51 @@ import {
   isGridEntityBroken,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 const KAMIKAZE_DISTANCE_THRESHOLD = DISTANCE_OF_GRID_TILE - 4;
 
-/** Kamikaze effect upon touching a breakable obstacle. */
+const v = {
+  run: {
+    temporarilyInvulnerable: false,
+  },
+
+  room: {
+    kamikazeCooldownUntilFrame: null as int | null,
+  },
+};
+
+/** Breakable obstacles explode on touch. */
 export class ExplodingBaby extends Baby {
+  v = v;
+
+  // 1
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
     const gameFrameCount = game.GetFrameCount();
 
     // Check to see if we need to reset the cooldown (after we used the Kamikaze effect upon
     // touching an obstacle).
-    if (g.run.babyFrame !== 0 && gameFrameCount >= g.run.babyFrame) {
-      g.run.babyFrame = 0;
+    if (
+      v.room.kamikazeCooldownUntilFrame !== null &&
+      gameFrameCount >= v.room.kamikazeCooldownUntilFrame
+    ) {
+      v.room.kamikazeCooldownUntilFrame = null;
     }
+  }
+
+  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
+  entityTakeDmgPlayer(): boolean | undefined {
+    if (v.run.temporarilyInvulnerable) {
+      return false;
+    }
+
+    return undefined;
   }
 
   @CallbackCustom(ModCallbackCustom.POST_GRID_ENTITY_UPDATE)
   postGridEntityUpdate(gridEntity: GridEntity): void {
-    // For this baby, we store the Kamikaze cooldown in the "babyFrame" variable. Do nothing if the
-    // Kamikaze effect is on cooldown.
-    if (g.run.babyFrame !== 0) {
+    if (v.room.kamikazeCooldownUntilFrame !== null) {
       return;
     }
 
@@ -54,9 +76,10 @@ export class ExplodingBaby extends Baby {
 
     const gameFrameCount = game.GetFrameCount();
 
-    g.run.invulnerable = true;
+    v.run.temporarilyInvulnerable = true;
     useActiveItemTemp(player, CollectibleType.KAMIKAZE);
-    g.run.invulnerable = false;
-    g.run.babyFrame = gameFrameCount + 10;
+    v.run.temporarilyInvulnerable = false;
+
+    v.room.kamikazeCooldownUntilFrame = gameFrameCount + 10;
   }
 }

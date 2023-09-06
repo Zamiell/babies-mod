@@ -1,6 +1,5 @@
 import { DamageFlag } from "isaac-typescript-definitions";
 import { hasFlag, isFirstPlayer, ModCallbackCustom } from "isaacscript-common";
-import { g } from "../globals";
 import { mod } from "../mod";
 import { getCurrentBaby } from "../utilsBaby";
 
@@ -24,11 +23,6 @@ function main(
     return undefined;
   }
   const { baby } = currentBaby;
-
-  // Check to see if the player is supposed to be temporarily invulnerable.
-  if (g.run.invulnerable) {
-    return false;
-  }
 
   // Check to see if this baby is immune to explosive damage.
   if (

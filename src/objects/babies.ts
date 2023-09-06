@@ -1922,7 +1922,7 @@ export const BABIES = {
     description: "Starts with Monstro's Tooth (improved)",
     sprite: "221_baby_drool.png",
     item: CollectibleType.MONSTROS_TOOTH,
-    num: 4, // Amount of Monstro's to summon
+    num: 4, // The amount of Monstros to summon.
     class: bc.DroolBaby,
   },
 
@@ -2773,7 +2773,7 @@ export const BABIES = {
   // 320
   [RandomBabyType.EXPLODING]: {
     name: "Exploding Baby",
-    description: "Kamikaze effect upon touching a breakable obstacle",
+    description: "Breakable obstacles explode on touch",
     sprite: "320_baby_exploding.png",
     explosionImmunity: true,
     class: bc.ExplodingBaby,
