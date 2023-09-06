@@ -558,7 +558,7 @@ export const BABIES = {
     name: "Goat Baby",
     description: "Guaranteed Devil Room + Angel Room after 6 hits",
     sprite: "062_baby_goat.png",
-    requireNumHits: 6,
+    num: 6,
     class: bc.GoatBaby,
   },
 

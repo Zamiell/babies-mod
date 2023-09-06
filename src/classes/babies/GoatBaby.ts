@@ -12,7 +12,6 @@ import {
   removeCollectibleFromItemTracker,
   sfxManager,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 const GRANTED_COLLECTIBLE_TYPES = [
@@ -20,8 +19,16 @@ const GRANTED_COLLECTIBLE_TYPES = [
   CollectibleType.DUALITY, // 498
 ] as const;
 
+const v = {
+  run: {
+    numHits: 0,
+  },
+};
+
 /** Guaranteed Devil Room + Angel Room after N hits. */
 export class GoatBaby extends Baby {
+  v = v;
+
   /**
    * Only valid for floors with Devil Rooms. Also, we are guaranteed a Devil Room on Basement 2, so
    * we don't want to have it there either.
@@ -35,18 +42,21 @@ export class GoatBaby extends Baby {
   }
 
   override onRemove(player: EntityPlayer): void {
-    for (const collectibleType of GRANTED_COLLECTIBLE_TYPES) {
-      player.RemoveCollectible(collectibleType);
+    const num = this.getAttribute("num");
+
+    if (v.run.numHits >= num) {
+      for (const collectibleType of GRANTED_COLLECTIBLE_TYPES) {
+        player.RemoveCollectible(collectibleType);
+      }
     }
   }
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmg(player: EntityPlayer): boolean | undefined {
-    const numHits = this.getAttribute("requireNumHits");
+    const num = this.getAttribute("num");
 
-    g.run.babyCounters++;
-    if (g.run.babyCounters >= numHits && !g.run.babyBool) {
-      g.run.babyBool = true;
+    v.run.numHits++;
+    if (v.run.numHits === num) {
       sfxManager.Play(SoundEffect.SATAN_GROW);
 
       for (const collectibleType of GRANTED_COLLECTIBLE_TYPES) {
