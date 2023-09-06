@@ -3190,10 +3190,9 @@ export const BABIES = {
   // 367
   [RandomBabyType.MEAN_MUSHROOM]: {
     name: "Mean Mushroom Baby",
-    description: "Starts with 5x Sack of Pennies",
+    description: "Enemies projectiles freeze you",
     sprite: "367_baby_meanmushroom.png",
-    item: CollectibleType.SACK_OF_PENNIES,
-    itemNum: 5,
+    class: bc.MeanMushroomBaby,
   },
 
   // 368

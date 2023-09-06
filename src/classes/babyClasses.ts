@@ -184,6 +184,7 @@ export { MagicCatBaby } from "./babies/MagicCatBaby";
 export { MagnetBaby } from "./babies/MagnetBaby";
 export { MaskedBaby } from "./babies/MaskedBaby";
 export { MasterCookBaby } from "./babies/MasterCookBaby";
+export { MeanMushroomBaby } from "./babies/MeanMushroomBaby";
 export { MeatBoyBaby } from "./babies/MeatBoyBaby";
 export { MedusaBaby } from "./babies/MedusaBaby";
 export { MermaidBaby } from "./babies/MermaidBaby";
