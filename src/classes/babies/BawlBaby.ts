@@ -7,7 +7,6 @@ import {
   getPlayerFromEntity,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { doesBigChestExist } from "../../utils";
 import { Baby } from "../Baby";
 
@@ -46,9 +45,7 @@ export class BawlBaby extends Baby {
 
     // Constant Isaac's Tears effect + blindfolded.
     if (gameFrameCount % 3 === 0) {
-      g.run.babyBool = true;
       useActiveItemTemp(player, CollectibleType.ISAACS_TEARS);
-      g.run.babyBool = false;
     }
   }
 }

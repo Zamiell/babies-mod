@@ -11,11 +11,18 @@ import {
   getPlayerFromEntity,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
+
+const v = {
+  room: {
+    removeSprinklerPoof: false,
+  },
+};
 
 /** Sprinkler tears. (We get tears equal to one Sprinkler in addition to the default tears.) */
 export class BlueBaby extends Baby {
+  v = v;
+
   /** Sprinkler does not work properly with Ludovico. */
   override isValid(player: EntityPlayer): boolean {
     return !player.HasCollectible(CollectibleType.LUDOVICO_TECHNIQUE);
@@ -36,8 +43,8 @@ export class BlueBaby extends Baby {
   // 54
   @Callback(ModCallback.POST_EFFECT_INIT, EffectVariant.POOF_1)
   postEffectInitPoof1(effect: EntityEffect): void {
-    if (g.run.babyBool) {
-      g.run.babyBool = false;
+    if (v.room.removeSprinklerPoof) {
+      v.room.removeSprinklerPoof = false;
       effect.Remove();
     }
   }
@@ -58,7 +65,7 @@ export class BlueBaby extends Baby {
   postNewRoomReordered(): void {
     const player = Isaac.GetPlayer();
 
-    g.run.babyBool = true;
+    v.room.removeSprinklerPoof = true;
     useActiveItemTemp(player, CollectibleType.SPRINKLER);
   }
 }
