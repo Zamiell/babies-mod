@@ -3839,7 +3839,7 @@ export const BABIES = {
     name: "TV Baby",
     description: "Mega Blast effect after 6 hits",
     sprite: "441_baby_tv.png",
-    requireNumHits: 6,
+    num: 6,
     class: bc.TVBaby,
   },
 
