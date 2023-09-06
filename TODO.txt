@@ -39,6 +39,7 @@ List of hard babies:
 - Puncher Baby (#416) - Spawns a Golden Troll Bomb in every room
 - Driver Baby (#431) - Slippery movement
 - Funny Baby (#491) - Enemies spawn Troll Bombs on death
+- Hooligan Baby (#514) - Double enemies
 - Painful Baby (#570) - Enemies respawn when reentering a room
 
 Bugs with Costume Protector:

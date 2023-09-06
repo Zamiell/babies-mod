@@ -13,13 +13,22 @@ import {
   bitFlags,
   getKnives,
 } from "isaacscript-common";
-import { g } from "../../../globals";
 import { Baby } from "../../Baby";
 
-const DATA_KEY = "BabiesModGodHeadTear";
+const v = {
+  run: {
+    dealingExtraDamage: false,
+  },
+
+  room: {
+    godheadTearPtrHash: null as PtrHash | null,
+  },
+};
 
 /** Slings Godhead aura (improved). */
 export class BrotherBobby extends Baby {
+  v = v;
+
   // 11
   @Callback(ModCallback.ENTITY_TAKE_DMG)
   entityTakeDmg(
@@ -29,7 +38,7 @@ export class BrotherBobby extends Baby {
     source: EntityRef,
     countdownFrames: int,
   ): boolean | undefined {
-    if (g.run.dealingExtraDamage) {
+    if (v.run.dealingExtraDamage) {
       return undefined;
     }
 
@@ -37,17 +46,17 @@ export class BrotherBobby extends Baby {
       return undefined;
     }
 
-    const data = source.Entity.GetData();
-    if (data[DATA_KEY] !== true) {
+    const ptrHash = GetPtrHash(source.Entity);
+    if (ptrHash !== v.room.godheadTearPtrHash) {
       return undefined;
     }
 
     const player = Isaac.GetPlayer();
     const damage = player.Damage;
 
-    g.run.dealingExtraDamage = true;
+    v.run.dealingExtraDamage = true;
     entity.TakeDamage(damage, damageFlags, EntityRef(player), countdownFrames);
-    g.run.dealingExtraDamage = false;
+    v.run.dealingExtraDamage = false;
 
     return false;
   }
@@ -95,7 +104,7 @@ export class BrotherBobby extends Baby {
     sprite.Load("gfx/tear_blank.anm2", true);
     sprite.Play("RegularTear6", false);
 
-    const data = godheadTear.GetData();
-    data[DATA_KEY] = true;
+    const ptrHash = GetPtrHash(godheadTear);
+    v.room.godheadTearPtrHash = ptrHash;
   }
 }
