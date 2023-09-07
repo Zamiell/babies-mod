@@ -13,7 +13,6 @@ import * as entityTakeDmgPlayer from "./callbacksCustom/entityTakeDmgPlayer";
 import * as postGameStartedReordered from "./callbacksCustom/postGameStartedReordered";
 import * as postNewLevelReordered from "./callbacksCustom/postNewLevelReordered";
 import * as postNewRoomReordered from "./callbacksCustom/postNewRoomReordered";
-import * as postPEffectUpdateReordered from "./callbacksCustom/postPEffectUpdateReordered";
 import * as postPlayerChangeType from "./callbacksCustom/postPlayerChangeType";
 import type { Baby } from "./classes/Baby";
 import { PseudoRoomClear } from "./classes/features/PseudoRoomClear";
@@ -67,7 +66,6 @@ function registerCallbacksCustom() {
   postGameStartedReordered.init();
   postNewLevelReordered.init();
   postNewRoomReordered.init();
-  postPEffectUpdateReordered.init();
   postPlayerChangeType.init();
 }
 
