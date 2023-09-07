@@ -6,7 +6,6 @@ import {
 } from "isaacscript-common";
 import { babiesCheckValid } from "./babiesCheckValid";
 import * as evaluateCache from "./callbacks/evaluateCache";
-import * as postRender from "./callbacks/postRender";
 import * as entityTakeDmgPlayer from "./callbacksCustom/entityTakeDmgPlayer";
 import * as postGameStartedReordered from "./callbacksCustom/postGameStartedReordered";
 import type { Baby } from "./classes/Baby";
@@ -17,6 +16,7 @@ import {
 } from "./classes/features/CostumeProtector";
 import { DrawBabyIntro } from "./classes/features/DrawBabyIntro";
 import { DrawBabyNumber } from "./classes/features/DrawBabyNumber";
+import { DrawTempIcon } from "./classes/features/DrawTempIcon";
 import { DrawVersion } from "./classes/features/DrawVersion";
 import { GetRandomCollectibleTypeFromPool } from "./classes/features/GetRandomCollectibleTypeFromPool";
 import { PseudoRoomClear } from "./classes/features/PseudoRoomClear";
@@ -36,6 +36,7 @@ const MOD_FEATURES = [
   CostumeProtector,
   DrawBabyIntro,
   DrawBabyNumber,
+  DrawTempIcon,
   DrawVersion,
   GetRandomCollectibleTypeFromPool,
   PseudoRoomClear,
@@ -72,7 +73,6 @@ function welcomeBanner() {
 }
 
 function registerCallbacksMain() {
-  postRender.init(); // 2
   evaluateCache.init(); // 8
 }
 
