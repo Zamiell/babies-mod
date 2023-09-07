@@ -7,7 +7,6 @@ export class GlobalsRun {
   drawIntro = false;
 
   // Temporary variables
-  showIntroFrame = 0;
   showVersionFrame = 0;
   gettingCollectible = false;
 }

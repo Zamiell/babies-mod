@@ -39,15 +39,10 @@ function main() {
 }
 
 function setNewBaby(player: EntityPlayer) {
-  const gameFrameCount = game.GetFrameCount();
-
   // Birthright has the effect of keeping the current baby for the remainder of the run.
   if (player.HasCollectible(CollectibleType.BIRTHRIGHT)) {
     return;
   }
-
-  // Display text describing the new baby.
-  g.run.showIntroFrame = gameFrameCount + 60; // 2 seconds
 
   // Set the new baby.
   babyRemove(player);

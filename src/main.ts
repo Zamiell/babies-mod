@@ -15,6 +15,7 @@ import * as postNewLevelReordered from "./callbacksCustom/postNewLevelReordered"
 import * as postNewRoomReordered from "./callbacksCustom/postNewRoomReordered";
 import * as postPlayerChangeType from "./callbacksCustom/postPlayerChangeType";
 import type { Baby } from "./classes/Baby";
+import { DrawBabyIntro } from "./classes/features/DrawBabyIntro";
 import { PseudoRoomClear } from "./classes/features/PseudoRoomClear";
 import { RemoveMappingBaby } from "./classes/features/RemoveMappingBaby";
 import { Shockwaves } from "./classes/features/Shockwaves";
@@ -28,6 +29,7 @@ import { BABIES } from "./objects/babies";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 
 const MOD_FEATURES = [
+  DrawBabyIntro,
   PseudoRoomClear,
   RemoveMappingBaby,
   Shockwaves,

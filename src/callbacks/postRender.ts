@@ -1,6 +1,5 @@
 import {
   ActiveSlot,
-  ButtonAction,
   ItemType,
   Keyboard,
   ModCallback,
@@ -15,7 +14,6 @@ import {
   getHeartsUIWidth,
   getScreenCenterPos,
   inRoomType,
-  isActionPressedOnAnyInput,
   isKeyboardPressed,
 } from "isaacscript-common";
 import { MOD_NAME, VERSION } from "../constants";
@@ -29,8 +27,7 @@ import { getCurrentBaby } from "../utilsBaby";
 
 const UI_HEARTS_RIGHT_SPACING = 55;
 const CLOCK_POSITION = Vector(30, 30);
-
-const clockSprite = newSprite("gfx/clock.anm2");
+const CLOCK_SPRITE = newSprite("gfx/clock.anm2");
 
 export function init(): void {
   mod.AddCallback(ModCallback.POST_RENDER, main);
@@ -45,50 +42,8 @@ function main() {
   }
   const { babyType, baby } = currentBaby;
 
-  drawBabyIntro(baby);
   drawBabyNumber(babyType);
   drawTempIconNextToActiveCollectible(baby);
-}
-
-/** Show what the current baby does in the intro room (or if the player presses the map button). */
-function drawBabyIntro(baby: BabyDescription) {
-  const gameFrameCount = game.GetFrameCount();
-
-  // Make the baby description persist on the screen after the player presses the map button.
-  if (isActionPressedOnAnyInput(ButtonAction.MAP)) {
-    g.run.showIntroFrame = gameFrameCount + 60; // 2 seconds
-  }
-
-  if (gameFrameCount > g.run.showIntroFrame) {
-    return;
-  }
-
-  const centerPos = getScreenCenterPos();
-  const scale = 1.75;
-
-  let text: string;
-  let x: number;
-  let y: number;
-
-  // Render the baby's name.
-  text = baby.name;
-  x = centerPos.X - 3 * scale * text.length;
-  y = centerPos.Y - 130;
-  Isaac.RenderScaledText(text, x, y, scale, scale, 2, 2, 2, 2);
-
-  // Render the baby's description.
-  text = baby.description;
-  x = centerPos.X - 3 * text.length;
-  y += 25;
-  Isaac.RenderText(text, x, y, 2, 2, 2, 2);
-
-  // The description might be really long and spill over onto a second line.
-  if (baby.description2 !== undefined) {
-    text = baby.description2;
-    x = centerPos.X - 3 * text.length;
-    y += 15;
-    Isaac.RenderText(text, x, y, 2, 2, 2, 2);
-  }
 }
 
 /** Draw the baby's number next to the heart count. */
@@ -178,5 +133,5 @@ function drawTempIconNextToActiveCollectible(baby: BabyDescription) {
 
   // The player has the item in their main active slot. Draw the icon in the bottom-right hand
   // corner.
-  clockSprite.Render(CLOCK_POSITION);
+  CLOCK_SPRITE.Render(CLOCK_POSITION);
 }
