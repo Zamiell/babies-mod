@@ -1395,11 +1395,10 @@ export const BABIES = {
   // 159
   [RandomBabyType.CRACKED_INFAMY]: {
     name: "Cracked Infamy Baby",
-    description: "Starts with Dr. Fetus + Remote Detonator",
+    description: "Every 8th tear is a ghost from Ghost Bombs",
     sprite: "159_baby_crackedinfamy.png",
-    // The active item has to be on the first item slot for validation purposes.
-    collectible: CollectibleType.REMOTE_DETONATOR,
-    collectible2: CollectibleType.DR_FETUS,
+    requireTears: true,
+    class: bc.CrackedInfamyBaby,
   },
 
   // 160
@@ -1646,9 +1645,11 @@ export const BABIES = {
   // 188
   [RandomBabyType.DR_FETUS]: {
     name: "Dr. Fetus Baby",
-    description: "Starts with Dr. Fetus",
+    description: "Starts with Dr. Fetus + Remote Detonator",
     sprite: "188_baby_drfetus.png",
-    collectible: CollectibleType.DR_FETUS,
+    // The active item has to be on the first item slot for validation purposes.
+    collectible: CollectibleType.REMOTE_DETONATOR,
+    collectible2: CollectibleType.DR_FETUS,
   },
 
   // 189
@@ -2429,7 +2430,7 @@ export const BABIES = {
   // 280
   [RandomBabyType.EYE_DEMON]: {
     name: "Eye Demon Baby",
-    description: "Enemies have Continuum projectiles",
+    description: "Enemies projectiles makes you lose money",
     sprite: "280_baby_eyedemon.png",
     class: bc.EyeDemonBaby,
   },
