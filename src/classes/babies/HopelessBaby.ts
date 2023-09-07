@@ -1,12 +1,16 @@
-import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
+import {
+  CollectibleType,
+  DamageFlag,
+  ModCallback,
+} from "isaac-typescript-definitions";
 import {
   Callback,
   CallbackCustom,
   ModCallbackCustom,
   getHUDOffsetVector,
+  hasFlag,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { newSprite } from "../../sprite";
 import {
   postNewRoomReorderedNoHealthUI,
@@ -14,21 +18,17 @@ import {
 } from "../../utils";
 import { Baby } from "../Baby";
 
+const KEY_SPRITE = newSprite("gfx/custom-health/key.anm2");
+
 /** +2 keys + keys are hearts. */
 export class HopelessBaby extends Baby {
   override onAdd(player: EntityPlayer): void {
     player.AddKeys(2);
-
-    g.run.babySprite = newSprite("gfx/custom-health/key.anm2");
   }
 
   // 2
   @Callback(ModCallback.POST_RENDER)
   postRender(): void {
-    if (g.run.babySprite === null) {
-      return;
-    }
-
     const player = Isaac.GetPlayer();
     const keys = player.GetNumKeys();
 
@@ -38,22 +38,27 @@ export class HopelessBaby extends Baby {
       const x = 65 + HUDOffsetVector.X;
       const y = 12;
       const position = Vector(x, y);
-      g.run.babySprite.Render(position);
+      KEY_SPRITE.Render(position);
       const text = `x${keys}`;
       Isaac.RenderText(text, x + 5, y, 2, 2, 2, 2);
     }
   }
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
-  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    if (g.run.dealingExtraDamage) {
+  entityTakeDmgPlayer(
+    player: EntityPlayer,
+    _amount: float,
+    damageFlags: BitFlags<DamageFlag>,
+    _source: EntityRef,
+    _countdownFrames: int,
+  ): boolean | undefined {
+    if (hasFlag(damageFlags, DamageFlag.FAKE)) {
       return undefined;
     }
 
-    g.run.dealingExtraDamage = true;
-    useActiveItemTemp(player, CollectibleType.DULL_RAZOR);
-    g.run.dealingExtraDamage = false;
     player.AddKeys(-1);
+    useActiveItemTemp(player, CollectibleType.DULL_RAZOR);
+
     return false;
   }
 
@@ -65,8 +70,6 @@ export class HopelessBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {
     const keys = player.GetNumKeys();
-
-    // Keys are hearts
     if (keys === 0) {
       player.Kill();
     }

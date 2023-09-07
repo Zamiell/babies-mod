@@ -1,12 +1,16 @@
-import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
+import {
+  CollectibleType,
+  DamageFlag,
+  ModCallback,
+} from "isaac-typescript-definitions";
 import {
   Callback,
   CallbackCustom,
   ModCallbackCustom,
   getHUDOffsetVector,
+  hasFlag,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { newSprite } from "../../sprite";
 import {
   postNewRoomReorderedNoHealthUI,
@@ -14,21 +18,17 @@ import {
 } from "../../utils";
 import { Baby } from "../Baby";
 
+const BOMB_SPRITE = newSprite("gfx/custom-health/bomb.anm2");
+
 /** +2 bombs + bombs are hearts. */
 export class MohawkBaby extends Baby {
   override onAdd(player: EntityPlayer): void {
     player.AddBombs(2);
-
-    g.run.babySprite = newSprite("gfx/custom-health/bomb.anm2");
   }
 
   // 2
   @Callback(ModCallback.POST_RENDER)
   postRender(): void {
-    if (g.run.babySprite === null) {
-      return;
-    }
-
     const player = Isaac.GetPlayer();
     const bombs = player.GetNumBombs();
 
@@ -38,22 +38,27 @@ export class MohawkBaby extends Baby {
       const x = 65 + HUDOffsetVector.X;
       const y = 12;
       const position = Vector(x, y);
-      g.run.babySprite.Render(position);
+      BOMB_SPRITE.Render(position);
       const text = `x${bombs}`;
       Isaac.RenderText(text, x + 5, y, 2, 2, 2, 2);
     }
   }
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
-  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    if (g.run.dealingExtraDamage) {
+  entityTakeDmgPlayer(
+    player: EntityPlayer,
+    _amount: float,
+    damageFlags: BitFlags<DamageFlag>,
+    _source: EntityRef,
+    _countdownFrames: int,
+  ): boolean | undefined {
+    if (hasFlag(damageFlags, DamageFlag.FAKE)) {
       return undefined;
     }
 
-    g.run.dealingExtraDamage = true;
-    useActiveItemTemp(player, CollectibleType.DULL_RAZOR);
-    g.run.dealingExtraDamage = false;
     player.AddBombs(-1);
+    useActiveItemTemp(player, CollectibleType.DULL_RAZOR);
+
     return false;
   }
 

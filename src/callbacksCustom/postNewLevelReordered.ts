@@ -46,9 +46,6 @@ function setNewBaby(player: EntityPlayer) {
     return;
   }
 
-  // Reset baby-specific variables
-  g.run.babySprite = null;
-
   // Display text describing the new baby.
   g.run.showIntroFrame = gameFrameCount + 60; // 2 seconds
 
