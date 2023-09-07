@@ -6,6 +6,7 @@ import { Baby } from "../Baby";
 /** Godhead aura + flight + blindfolded. */
 export class LanternBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
+    // Trisagion makes the aura disappear.
     return !player.HasCollectible(CollectibleType.TRISAGION);
   }
 

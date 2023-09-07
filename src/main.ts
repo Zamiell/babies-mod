@@ -61,6 +61,7 @@ export function main(): void {
   initModFeatures(mod, MOD_FEATURES);
   initBabyClassMap(); // This must be after all normal callback registration.
   enableExtraConsoleCommandsBabiesMod();
+  setGlobalVariable();
 }
 
 function welcomeBanner() {
@@ -91,4 +92,12 @@ function initBabyClassMap() {
       babyClassMap.set(babyType, babyClass);
     }
   }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+declare let BabiesModEnabled: boolean | undefined;
+
+/** We set a global variable to let other mods know that Babies Mod is active. */
+function setGlobalVariable() {
+  BabiesModEnabled = true;
 }

@@ -32,7 +32,7 @@ export function setDebugBaby(params: string, restart: boolean): void {
   const babyType = babyTypeNumber as RandomBabyType | undefined;
 
   setDebugBabyType(babyType);
-  print(`Set debug baby to be: ${babyTypeNumber}\n`);
+  print(`Set debug baby to be: ${babyTypeNumber}`);
 
   if (restart) {
     Isaac.ExecuteCommand("restart");

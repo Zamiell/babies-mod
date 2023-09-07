@@ -4784,7 +4784,9 @@ export const BABIES = {
     sprite: "550_baby_bullet.png",
     collectible: CollectibleType.ROCKET_IN_A_JAR,
     goldenBomb: true,
-    blindfolded: true,
+    // This baby will not work properly if we set `blindfolded` to true, so we must use custom
+    // logic.
+    class: bc.BulletBaby,
   },
 
   // 551

@@ -19,7 +19,7 @@ import { isGettingCollectible } from "./features/GetRandomCollectibleTypeFromPoo
  * The base class that each baby class extends from. This sets up the callback class methods to only
  * be fired if the relevant baby is active.
  */
-export class Baby extends ModFeature {
+export abstract class Baby extends ModFeature {
   babyType: RandomBabyType;
   babyDescription: BabyDescription;
 

@@ -3,7 +3,14 @@ import { ModCallbackCustom, ModFeature, ReadonlyMap } from "isaacscript-common";
 import { isValidRandomBabyPlayer } from "../utils";
 import { getBabyType } from "./features/babySelection/v";
 
-export class BabyModFeature extends ModFeature {
+/**
+ * The base class that each feature class in this mod extends from. This sets up the callback class
+ * methods to only be fired if a baby is active.
+ *
+ * Most of the code in this class is copied from the `Baby` class, since its functionality is
+ * similar.
+ */
+export abstract class BabyModFeature extends ModFeature {
   override shouldCallbackMethodsFire = <T extends boolean>(
     vanilla: T,
     modCallback: T extends true ? ModCallback : ModCallbackCustom,
