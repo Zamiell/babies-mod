@@ -12,9 +12,6 @@ export class GlobalsRun {
   dealingExtraDamage = false;
   gettingCollectible = false;
 
-  /** Initialized to 0 at the beginning of every floor. */
-  babyCounters = 0;
-
   /** Initialized to null at the beginning of every floor. */
   babySprite: Sprite | null = null;
 }

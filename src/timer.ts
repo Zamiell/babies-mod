@@ -1,8 +1,5 @@
 import { assertDefined, game, repeat } from "isaacscript-common";
-import { RandomBabyType } from "./enums/RandomBabyType";
-import { g } from "./globals";
 import { newSprite } from "./sprite";
-import { getCurrentBaby } from "./utilsBaby";
 
 const sprites = {
   clock: Sprite(),
@@ -11,23 +8,9 @@ const sprites = {
   digitMini: Sprite(),
 };
 
-export function display(): void {
-  const gameFrameCount = game.GetFrameCount();
-  const currentBaby = getCurrentBaby();
-  if (currentBaby === undefined) {
-    return;
-  }
-  const { babyType } = currentBaby;
-
-  let finishTime: int | undefined;
-  if (
-    babyType === RandomBabyType.NOOSE || // 39
-    babyType === RandomBabyType.VOMIT || // 341
-    babyType === RandomBabyType.SCOREBOARD // 474
-  ) {
-    finishTime = g.run.babyCounters;
-  }
-  if (finishTime === undefined || finishTime === 0) {
+/** Should be called from the `POST_RENDER` callback. */
+export function drawTimer(finishTime: int | null): void {
+  if (finishTime === null) {
     return;
   }
 
@@ -36,7 +19,8 @@ export function display(): void {
     loadSprites();
   }
 
-  // Find out how much time has passed since we got hit.
+  // Find out how much time has passed.
+  const gameFrameCount = game.GetFrameCount();
   const remainingFrames = finishTime - gameFrameCount;
   const remainingSeconds = remainingFrames / 30;
   const { hours, minute1, minute2, second1, second2, tenths } =

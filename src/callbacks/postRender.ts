@@ -24,7 +24,6 @@ import { g } from "../globals";
 import type { BabyDescription } from "../interfaces/BabyDescription";
 import { mod } from "../mod";
 import { newSprite } from "../sprite";
-import * as timer from "../timer";
 import { isRacingPlusEnabled } from "../utils";
 import { getCurrentBaby } from "../utilsBaby";
 
@@ -49,7 +48,6 @@ function main() {
   drawBabyIntro(baby);
   drawBabyNumber(babyType);
   drawTempIconNextToActiveCollectible(baby);
-  timer.display();
 }
 
 /** Show what the current baby does in the intro room (or if the player presses the map button). */

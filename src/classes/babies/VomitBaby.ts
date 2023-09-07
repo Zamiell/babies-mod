@@ -1,5 +1,11 @@
-import { DamageFlagZero } from "isaac-typescript-definitions";
-import { CallbackCustom, game, ModCallbackCustom } from "isaacscript-common";
+import { DamageFlagZero, ModCallback } from "isaac-typescript-definitions";
+import {
+  Callback,
+  CallbackCustom,
+  ModCallbackCustom,
+  game,
+} from "isaacscript-common";
+import { drawTimer } from "../../timer";
 import { Baby } from "../Baby";
 
 const v = {
@@ -14,6 +20,11 @@ export class VomitBaby extends Baby {
 
   override onAdd(): void {
     this.resetTimer();
+  }
+
+  @Callback(ModCallback.POST_RENDER)
+  postRender(): void {
+    drawTimer(v.run.timer);
   }
 
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)

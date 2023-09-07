@@ -1,11 +1,14 @@
 import type { DamageFlag } from "isaac-typescript-definitions";
+import { ModCallback } from "isaac-typescript-definitions";
 import {
+  Callback,
   CallbackCustom,
   game,
   GAME_FRAMES_PER_MINUTE,
   isSelfDamage,
   ModCallbackCustom,
 } from "isaacscript-common";
+import { drawTimer } from "../../timer";
 import { Baby } from "../Baby";
 
 const v = {
@@ -17,6 +20,11 @@ const v = {
 /** Dies 1 minute after getting hit. */
 export class ScoreboardBaby extends Baby {
   v = v;
+
+  @Callback(ModCallback.POST_RENDER)
+  postRender(): void {
+    drawTimer(v.run.timer);
+  }
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(

@@ -19,7 +19,6 @@ export class LilLoki extends Baby {
       return;
     }
 
-    // We store the rotation angle in the "babyCounters" variable.
     v.room.rotationAngle += 90;
     if (v.room.rotationAngle < 360) {
       const velocity = tear.Velocity.Rotated(v.room.rotationAngle);
