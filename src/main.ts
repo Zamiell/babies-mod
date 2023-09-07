@@ -1,4 +1,5 @@
 import {
+  initModFeatures,
   log,
   setLogFunctionsGlobal,
   setTracebackFunctionsGlobal,
@@ -6,7 +7,6 @@ import {
 import { babiesCheckValid } from "./babiesCheckValid";
 import * as evaluateCache from "./callbacks/evaluateCache";
 import * as executeCmd from "./callbacks/executeCmd";
-import * as postEntityKill from "./callbacks/postEntityKill";
 import * as postPlayerInit from "./callbacks/postPlayerInit";
 import * as postRender from "./callbacks/postRender";
 import * as entityTakeDmgPlayer from "./callbacksCustom/entityTakeDmgPlayer";
@@ -16,15 +16,17 @@ import * as postNewRoomReordered from "./callbacksCustom/postNewRoomReordered";
 import * as postPEffectUpdateReordered from "./callbacksCustom/postPEffectUpdateReordered";
 import * as postPlayerChangeType from "./callbacksCustom/postPlayerChangeType";
 import type { Baby } from "./classes/Baby";
+import { PseudoRoomClear } from "./classes/features/PseudoRoomClear";
 import { IS_DEV, MOD_NAME, VERSION } from "./constants";
 import { initCostumeProtector } from "./costumes";
 import type { RandomBabyType } from "./enums/RandomBabyType";
-import { pseudoRoomClearInit } from "./features/pseudoRoomClear";
 import { shockwavesInit } from "./features/shockwaves";
 import { softlockPreventionInit } from "./features/softlockPrevention";
 import { mod } from "./mod";
 import { BABIES } from "./objects/babies";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
+
+const MOD_FEATURES = [PseudoRoomClear] as const;
 
 export function main(): void {
   if (IS_DEV) {
@@ -56,7 +58,6 @@ function registerCallbacksMain() {
   evaluateCache.init(); // 8
   postPlayerInit.init(); // 9
   executeCmd.init(); // 22
-  postEntityKill.init(); // 68
 }
 
 function registerCallbacksCustom() {
@@ -69,7 +70,8 @@ function registerCallbacksCustom() {
 }
 
 function initFeatures() {
-  pseudoRoomClearInit();
+  initModFeatures(mod, MOD_FEATURES);
+
   shockwavesInit();
   softlockPreventionInit();
 }

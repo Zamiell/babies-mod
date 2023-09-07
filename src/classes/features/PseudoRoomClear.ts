@@ -1,16 +1,17 @@
 import type { DoorSlot } from "isaac-typescript-definitions";
-import { RoomType } from "isaac-typescript-definitions";
+import { ModCallback, RoomType } from "isaac-typescript-definitions";
 import {
+  Callback,
+  ReadonlySet,
   game,
   getDoors,
   getNPCs,
   isAliveExceptionNPC,
   isAllPressurePlatesPushed,
   log,
-  ReadonlySet,
 } from "isaacscript-common";
-import { RandomBabyType } from "../enums/RandomBabyType";
-import { mod } from "../mod";
+import { RandomBabyType } from "../../enums/RandomBabyType";
+import { BabyModFeature } from "../BabyModFeature";
 
 // Pseudo room clear should be disabled in certain room types.
 const ROOM_TYPE_BLACKLIST = new ReadonlySet<RoomType>([
@@ -36,22 +37,23 @@ const v = {
   },
 };
 
-export function pseudoRoomClearInit(): void {
-  mod.saveDataManager("pseudoRoomClear", v);
-}
+export class PseudoRoomClear extends BabyModFeature {
+  v = v;
 
-// ModCallback.POST_ENTITY_KILL (68)
-export function pseudoRoomClearPostEntityKill(entity: Entity): void {
-  // We only care if an actual enemy dies.
-  const npc = entity.ToNPC();
-  if (npc === undefined) {
-    return;
+  // 58
+  @Callback(ModCallback.POST_ENTITY_KILL)
+  postEntityKill(entity: Entity): void {
+    // We only care if an enemy dies.
+    const npc = entity.ToNPC();
+    if (npc === undefined) {
+      return;
+    }
+
+    const gameFrameCount = game.GetFrameCount();
+
+    // We don't want to clear the room too fast after an enemy dies.
+    v.room.clearDelayFrame = gameFrameCount + 1;
   }
-
-  const gameFrameCount = game.GetFrameCount();
-
-  // We don't want to clear the room too fast after an enemy dies.
-  v.room.clearDelayFrame = gameFrameCount + 1;
 }
 
 /**
@@ -60,7 +62,7 @@ export function pseudoRoomClearPostEntityKill(entity: Entity): void {
  * If the player leaves and re-enters an uncleared room, a normal door will stay locked. So, we need
  * to unlock all normal doors if the room is already clear.
  */
-// ModCallbackCustom.POST_POST_NEW_ROOM_REORDERED
+// ModCallbackCustom.POST_NEW_ROOM_REORDERED
 export function pseudoRoomClearPostNewRoomReordered(): void {
   const room = game.GetRoom();
   const roomClear = room.IsClear();
@@ -187,7 +189,7 @@ function areAnyNPCsAlive() {
   );
 }
 
-// This roughly emulates what happens when you normally clear a room.
+/** This roughly emulates what happens when you normally clear a room. */
 function pseudoClearRoom(player: EntityPlayer, babyType: RandomBabyType) {
   const room = game.GetRoom();
 

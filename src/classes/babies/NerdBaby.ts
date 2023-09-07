@@ -1,9 +1,9 @@
 import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
+import { Baby } from "../Baby";
 import {
   pseudoRoomClearPostNewRoomReordered,
   pseudoRoomClearPostPEffectUpdateReordered,
-} from "../../features/pseudoRoomClear";
-import { Baby } from "../Baby";
+} from "../features/PseudoRoomClear";
 
 /** Locked doors in uncleared rooms. */
 export class NerdBaby extends Baby {

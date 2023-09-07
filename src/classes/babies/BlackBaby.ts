@@ -1,6 +1,6 @@
 import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
-import { pseudoRoomClearPostPEffectUpdateReordered } from "../../features/pseudoRoomClear";
 import { Baby } from "../Baby";
+import { pseudoRoomClearPostPEffectUpdateReordered } from "../features/PseudoRoomClear";
 
 /** Curse Room doors in uncleared rooms. */
 export class BlackBaby extends Baby {
