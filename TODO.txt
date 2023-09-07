@@ -1,5 +1,4 @@
 TODO:
-- rocket in a jar does not work
 - make `pastBabies` custom challenge logic
 - SaveDataManager
 - refactor all callbacks into features

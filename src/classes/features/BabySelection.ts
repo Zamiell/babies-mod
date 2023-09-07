@@ -24,8 +24,26 @@ export class BabySelection extends ModFeature {
 
   @CallbackCustom(ModCallbackCustom.POST_GAME_STARTED_REORDERED, false)
   postGameStartedReorderedFalse(): void {
-    // TODO: challenge logic
-    v.persistent.pastBabies.clear();
+    if (this.shouldClearPastBabies()) {
+      v.persistent.pastBabies.clear();
+    }
+  }
+
+  /**
+   * In most cases, we clear the list of past babies at the beginning of every new run. The
+   * exception is during the Racing+ custom challenge. In that case, we only want to clear it on the
+   * first character.
+   */
+  shouldClearPastBabies(): boolean {
+    const challenge = Isaac.GetChallenge();
+    const season5 = Isaac.GetChallengeIdByName("R+7 Season 5 (Beta)");
+
+    if (challenge !== season5) {
+      return true;
+    }
+
+    // TODO
+    return false;
   }
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_LEVEL_REORDERED)

@@ -9,7 +9,7 @@ import { Baby } from "../Baby";
 
 const v = {
   room: {
-    numKamikazeEffectsToDo: 0,
+    numKamikazeEffects: 0,
   },
 };
 
@@ -21,7 +21,7 @@ export class WrappedBaby extends Baby {
   entityTakeDmgPlayer(): boolean | undefined {
     const num = this.getAttribute("num");
 
-    v.room.numKamikazeEffectsToDo = num;
+    v.room.numKamikazeEffects = num;
 
     return undefined;
   }
@@ -31,9 +31,9 @@ export class WrappedBaby extends Baby {
     const gameFrameCount = game.GetFrameCount();
 
     // If the explosions happen too fast, it looks buggy, so do it instead every 3 frames.
-    if (gameFrameCount % 3 === 0 && v.room.numKamikazeEffectsToDo > 0) {
+    if (gameFrameCount % 3 === 0 && v.room.numKamikazeEffects > 0) {
       // This should not cause any damage since the player will have invulnerability frames.
-      v.room.numKamikazeEffectsToDo--;
+      v.room.numKamikazeEffects--;
       useActiveItemTemp(player, CollectibleType.KAMIKAZE);
     }
   }
