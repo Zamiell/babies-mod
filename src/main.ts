@@ -12,11 +12,11 @@ import * as postRender from "./callbacks/postRender";
 import * as entityTakeDmgPlayer from "./callbacksCustom/entityTakeDmgPlayer";
 import * as postGameStartedReordered from "./callbacksCustom/postGameStartedReordered";
 import * as postNewLevelReordered from "./callbacksCustom/postNewLevelReordered";
-import * as postNewRoomReordered from "./callbacksCustom/postNewRoomReordered";
 import * as postPlayerChangeType from "./callbacksCustom/postPlayerChangeType";
 import type { Baby } from "./classes/Baby";
 import { DrawBabyIntro } from "./classes/features/DrawBabyIntro";
 import { DrawBabyNumber } from "./classes/features/DrawBabyNumber";
+import { DrawVersion } from "./classes/features/DrawVersion";
 import { PseudoRoomClear } from "./classes/features/PseudoRoomClear";
 import { RemoveMappingBaby } from "./classes/features/RemoveMappingBaby";
 import { Shockwaves } from "./classes/features/Shockwaves";
@@ -32,6 +32,7 @@ import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 const MOD_FEATURES = [
   DrawBabyIntro,
   DrawBabyNumber,
+  DrawVersion,
   PseudoRoomClear,
   RemoveMappingBaby,
   Shockwaves,
@@ -75,7 +76,6 @@ function registerCallbacksCustom() {
   entityTakeDmgPlayer.init();
   postGameStartedReordered.init();
   postNewLevelReordered.init();
-  postNewRoomReordered.init();
   postPlayerChangeType.init();
 }
 

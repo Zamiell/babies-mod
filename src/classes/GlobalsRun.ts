@@ -4,9 +4,7 @@ import type { RandomBabyType } from "../enums/RandomBabyType";
 export class GlobalsRun {
   // Tracking per run
   babyType: RandomBabyType | null = null;
-  drawIntro = false;
 
   // Temporary variables
-  showVersionFrame = 0;
   gettingCollectible = false;
 }

@@ -9,7 +9,7 @@ export class BabyModFeature extends ModFeature {
     modCallback: T extends true ? ModCallback : ModCallbackCustom,
     ...callbackArgs: unknown[]
   ): boolean => {
-    if (g.run.babyType !== null) {
+    if (g.run.babyType === null) {
       return false;
     }
 

@@ -15,6 +15,12 @@ import { BabyModFeature } from "../BabyModFeature";
 const v = {
   run: {
     showIntroUntilFrame: null as int | null,
+
+    /**
+     * Needed because the `POST_NEW_LEVEL_REORDERED` callback fires before the
+     * `POST_NEW_ROOM_REORDERED` callback.
+     */
+    setIntroFrame: null as int | null,
   },
 };
 
@@ -37,7 +43,7 @@ export class DrawBabyIntro extends BabyModFeature {
   /** Make the baby description persist on the screen after the player presses the map button. */
   checkMapInput(): void {
     if (isActionPressedOnAnyInput(ButtonAction.MAP)) {
-      this.setShowIntroFrame();
+      setShowIntroFrame();
     }
   }
 
@@ -78,13 +84,23 @@ export class DrawBabyIntro extends BabyModFeature {
     }
   }
 
-  @CallbackCustom(ModCallbackCustom.POST_NEW_LEVEL_REORDERED)
-  postNewLevelReordered(): void {
-    this.setShowIntroFrame();
-  }
-
-  setShowIntroFrame(): void {
+  /** Clear the intro text as soon as we enter another room. */
+  @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
+  postNewRoomReordered(): void {
     const gameFrameCount = game.GetFrameCount();
-    v.run.showIntroUntilFrame = gameFrameCount + 2 * GAME_FRAMES_PER_SECOND;
+
+    if (gameFrameCount !== v.run.setIntroFrame) {
+      v.run.showIntroUntilFrame = null;
+    }
   }
+}
+
+/**
+ * We do not call this in the `POST_NEW_LEVEL` callback because it would be superfluous if the
+ * player had Birthright.
+ */
+export function setShowIntroFrame(): void {
+  const gameFrameCount = game.GetFrameCount();
+  v.run.showIntroUntilFrame = gameFrameCount + 2 * GAME_FRAMES_PER_SECOND;
+  v.run.setIntroFrame = gameFrameCount;
 }

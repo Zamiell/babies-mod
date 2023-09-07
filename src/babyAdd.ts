@@ -20,8 +20,8 @@ import {
   setPlayerHealth,
   smeltTrinket,
 } from "isaacscript-common";
+import { setShowIntroFrame } from "./classes/features/DrawBabyIntro";
 import { setBabyANM2, updatePlayerWithCostumeProtector } from "./costumes";
-import { g } from "./globals";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 import { giveCollectibleAndRemoveFromPools } from "./utils";
 import { getCurrentBaby } from "./utilsBaby";
@@ -41,7 +41,7 @@ export function babyAdd(player: EntityPlayer): void {
   const { babyType, baby } = currentBaby;
 
   // Draw the kind of baby on the starting room.
-  g.run.drawIntro = true;
+  setShowIntroFrame();
 
   // Check if this is an collectible baby.
   if (baby.collectible !== undefined) {
