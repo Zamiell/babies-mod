@@ -28,10 +28,11 @@ const ALL_BABY_SEED_EFFECTS: readonly SeedEffect[] = (() => {
   return seedEffects;
 })();
 
-const REVIVAL_COLLECTIBLE_TYPES = [
+const CHANGE_CHARACTER_COLLECTIBLE_TYPES = [
   CollectibleType.ANKH, // 161
   CollectibleType.JUDAS_SHADOW, // 311
   CollectibleType.LAZARUS_RAGS, // 332
+  CollectibleType.CLICKER, // 482
 ] as const;
 
 const BANNED_COLLECTIBLES_WITH_RANDOM_BABY = [
@@ -41,19 +42,19 @@ const BANNED_COLLECTIBLES_WITH_RANDOM_BABY = [
   // Scissors will not display properly because Random Baby does not have a head.
   CollectibleType.SCISSORS, // 325
 
-  // Changing characters is banned on Random Baby.
-  CollectibleType.CLICKER, // 482
-  ...REVIVAL_COLLECTIBLE_TYPES,
+  ...CHANGE_CHARACTER_COLLECTIBLE_TYPES,
 ] as const;
 
-const REVIVAL_TRINKETS = [
+const CHANGE_CHARACTER_TRINKET_TYPES = [
   TrinketType.MISSING_POSTER, // 23
   TrinketType.MYSTERIOUS_PAPER, // 21
   TrinketType.BROKEN_ANKH, // 28
   TrinketType.ERROR, // 75
 ] as const;
 
-const BANNED_TRINKETS_WITH_RANDOM_BABY = [...REVIVAL_TRINKETS] as const;
+const BANNED_TRINKETS_WITH_RANDOM_BABY = [
+  ...CHANGE_CHARACTER_TRINKET_TYPES,
+] as const;
 
 export function init(): void {
   mod.AddCallbackCustom(

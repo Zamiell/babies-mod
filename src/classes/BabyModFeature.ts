@@ -73,6 +73,13 @@ const MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC = new ReadonlyMap<
   (...callbackArgs: unknown[]) => boolean
 >([
   [
+    ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER,
+    (...callbackArgs: unknown[]) => {
+      const player = callbackArgs[0] as EntityPlayer;
+      return isValidRandomBabyPlayer(player);
+    },
+  ],
+  [
     ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
     (...callbackArgs: unknown[]) => {
       const player = callbackArgs[0] as EntityPlayer;
