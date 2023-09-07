@@ -1526,7 +1526,7 @@ __metadata:
     "@types/node": ^20.5.9
     isaac-typescript-definitions: ^16.0.0
     isaacscript: ^3.10.1
-    isaacscript-common: ^33.4.0
+    isaacscript-common: ^33.4.1
     isaacscript-lint: ^5.8.5
     isaacscript-spell: ^1.2.41
     isaacscript-tsconfig: ^4.0.0
@@ -2574,8 +2574,8 @@ __metadata:
   linkType: hard
 
 "eslint-plugin-import@npm:eslint-plugin-i@latest":
-  version: 2.28.0-2
-  resolution: "eslint-plugin-i@npm:2.28.0-2"
+  version: 2.28.1
+  resolution: "eslint-plugin-i@npm:2.28.1"
   dependencies:
     debug: ^3.2.7
     doctrine: ^2.1.0
@@ -2588,7 +2588,7 @@ __metadata:
     semver: ^7.5.3
   peerDependencies:
     eslint: ^7.2.0 || ^8
-  checksum: 17c0887280e8d7f495702e267ac6928ed4c149934867f54f3df0bff15f8d3ab0e4d5c0f6ccf396840ae07f992e705177a0fa9fe15dea39391d3f62eb51273f02
+  checksum: 5ae90acdd318802c19212cb2db7372766ea1c2c2e50a745ce1f9afa2b0e1f417b51a2aa6ae0eb03db8d6592e88ccc3b742745031b84eaa81d41e8ed2cd9ffb2d
   languageName: node
   linkType: hard
 
@@ -3711,12 +3711,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isaacscript-common@npm:^33.4.0":
-  version: 33.4.0
-  resolution: "isaacscript-common@npm:33.4.0"
+"isaacscript-common@npm:^33.4.1":
+  version: 33.4.1
+  resolution: "isaacscript-common@npm:33.4.1"
   dependencies:
     isaac-typescript-definitions: ^16.0.0
-  checksum: 4c152a7d6fd0f79d8bcf2630140b5464c5d5d23230c30958f5372e8c4eaceb52ce8b3efdda07f5b4802e056feb363493b8c20cf85c306bc8fcf4066e4637aab0
+  checksum: 2639abe0c02fcc7edf54105814243435f381bfe3b11a2e7a7bda739f078dc19d1c64d8a179f2d58204b7fc5ed21b308788bc3bdc033d4b409a55b0b143af4628
   languageName: node
   linkType: hard
 
@@ -3831,11 +3831,11 @@ __metadata:
   linkType: hard
 
 "jiti@npm:^1.19.3":
-  version: 1.19.3
-  resolution: "jiti@npm:1.19.3"
+  version: 1.20.0
+  resolution: "jiti@npm:1.20.0"
   bin:
     jiti: bin/jiti.js
-  checksum: de3dacdfe30948d96b69712b04cc28127c17f43d5233a5aa069933e04ac4c9aaf265bef4cdf2b0c2a6f5af236a58aea9bfea83e8e289e2490802bdff7f99bff7
+  checksum: 7924062b5675142e3e272a27735be84b7bfc0a0eb73217fc2dcafa034f37c4f7b4b9ffc07dd98bcff0f739a8811ce1544db205ae7e97b1c86f0df92c65ce3c72
   languageName: node
   linkType: hard
 
@@ -4008,8 +4008,8 @@ __metadata:
   linkType: hard
 
 "knip@npm:^2.20.2":
-  version: 2.21.1
-  resolution: "knip@npm:2.21.1"
+  version: 2.22.0
+  resolution: "knip@npm:2.22.0"
   dependencies:
     "@ericcornelissen/bash-parser": ^0.5.2
     "@npmcli/map-workspaces": ^3.0.4
@@ -4030,7 +4030,7 @@ __metadata:
     zod-validation-error: ^1.5.0
   bin:
     knip: dist/cli.js
-  checksum: 9dc34e7d0914c73b285950a6111f71e7938a8903a1ca40ebec63458ae87ee430b2f6ae279371fd81c2b8468fba5de74e813e3d85716a5c64c70526b1df1b6345
+  checksum: e97a8f474f9ecaf904458605aa3823b996b2b3e62b21fd8d93bf65396bf0d01384034be8f4949fbb81498f70811a902495de3536143f1d1db7bcd80d0cdbd294
   languageName: node
   linkType: hard
 
@@ -5713,8 +5713,8 @@ __metadata:
   linkType: hard
 
 "tar@npm:^6.1.11, tar@npm:^6.1.2":
-  version: 6.1.15
-  resolution: "tar@npm:6.1.15"
+  version: 6.2.0
+  resolution: "tar@npm:6.2.0"
   dependencies:
     chownr: ^2.0.0
     fs-minipass: ^2.0.0
@@ -5722,7 +5722,7 @@ __metadata:
     minizlib: ^2.1.1
     mkdirp: ^1.0.3
     yallist: ^4.0.0
-  checksum: f23832fceeba7578bf31907aac744ae21e74a66f4a17a9e94507acf460e48f6db598c7023882db33bab75b80e027c21f276d405e4a0322d58f51c7088d428268
+  checksum: db4d9fe74a2082c3a5016630092c54c8375ff3b280186938cfd104f2e089c4fd9bad58688ef6be9cf186a889671bf355c7cda38f09bbf60604b281715ca57f5c
   languageName: node
   linkType: hard
 

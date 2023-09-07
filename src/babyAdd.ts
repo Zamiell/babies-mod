@@ -10,6 +10,7 @@ import {
   game,
   getCollectibleItemType,
   getCollectibleMaxCharges,
+  getCollectibleName,
   getPickups,
   getPlayerHealth,
   isChest,
@@ -70,7 +71,10 @@ export function babyAdd(player: EntityPlayer): void {
     } else {
       // Give the passive collectible.
       player.AddCollectible(baby.collectible, 0, false);
-      log(`Added the new baby passive collectible: ${baby.collectible}`);
+      const collectibleName = getCollectibleName(baby.collectible);
+      log(
+        `Added the new baby passive collectible: ${collectibleName} (#${baby.collectible})`,
+      );
     }
 
     removeCollectibleFromItemTracker(baby.collectible);

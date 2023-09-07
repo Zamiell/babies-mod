@@ -25,6 +25,7 @@ import { SoftlockPrevention } from "./classes/features/SoftlockPrevention";
 import { IS_DEV, MOD_NAME, VERSION } from "./constants";
 import { initCostumeProtector } from "./costumes";
 import type { RandomBabyType } from "./enums/RandomBabyType";
+import { enableExtraConsoleCommandsBabiesMod } from "./extraConsoleCommands";
 import type { BabyDescription } from "./interfaces/BabyDescription";
 import { mod } from "./mod";
 import { BABIES } from "./objects/babies";
@@ -57,6 +58,7 @@ export function main(): void {
   registerCallbacksCustom();
   initModFeatures(mod, MOD_FEATURES);
   initBabyClassMap(); // This must be after all normal callback registration.
+  enableExtraConsoleCommandsBabiesMod();
 }
 
 function welcomeBanner() {

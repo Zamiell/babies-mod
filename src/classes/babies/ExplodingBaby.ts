@@ -54,20 +54,20 @@ export class ExplodingBaby extends Baby {
       return;
     }
 
+    if (!isGridEntityBreakableByExplosion(gridEntity)) {
+      return;
+    }
+
+    if (isGridEntityBroken(gridEntity)) {
+      return;
+    }
+
     // Only trigger Kamikaze for grid entities that we are close enough to.
     const player = Isaac.GetPlayer();
     if (
       player.Position.Distance(gridEntity.Position) >
       KAMIKAZE_DISTANCE_THRESHOLD
     ) {
-      return;
-    }
-
-    if (!isGridEntityBreakableByExplosion(gridEntity)) {
-      return;
-    }
-
-    if (!isGridEntityBroken(gridEntity)) {
       return;
     }
 
