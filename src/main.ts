@@ -59,7 +59,7 @@ export function main(): void {
   initCostumeProtector();
   registerCallbacksCustom();
   initModFeatures(mod, MOD_FEATURES);
-  initBabyClassMap(); // This must be after all normal callback registration..
+  initBabyClassMap(); // This must be after all normal callback registration.
   enableExtraConsoleCommandsBabiesMod();
 }
 
