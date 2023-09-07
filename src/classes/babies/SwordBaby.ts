@@ -3,11 +3,25 @@ import {
   PlayerType,
   PlayerVariant,
 } from "isaac-typescript-definitions";
-import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
+import {
+  CallbackCustom,
+  ModCallbackCustom,
+  isChildPlayer,
+} from "isaacscript-common";
 import { Baby } from "../Baby";
+
+/** By default, the Strawman will be so big that he will cover up the baby. */
+const STRAWMAN_SIZE_MULTIPLIER = 0.75;
 
 /** Starts with Piggy Bank + Swallowed Penny + Strawman (Strawman can't die). */
 export class SwordBaby extends Baby {
+  @CallbackCustom(ModCallbackCustom.POST_PLAYER_INIT_LATE)
+  postPlayerInitLate(player: EntityPlayer): void {
+    if (isChildPlayer(player)) {
+      player.SpriteScale = player.SpriteScale.mul(STRAWMAN_SIZE_MULTIPLIER);
+    }
+  }
+
   @CallbackCustom(
     ModCallbackCustom.POST_ENTITY_KILL_FILTER,
     EntityType.PLAYER,
@@ -15,6 +29,7 @@ export class SwordBaby extends Baby {
     PlayerType.KEEPER,
   )
   postEntityKillKeeper(): void {
-    Isaac.DebugString("GETTING HERE");
+    const player = Isaac.GetPlayer();
+    player.Kill();
   }
 }
