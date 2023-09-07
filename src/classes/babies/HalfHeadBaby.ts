@@ -1,10 +1,17 @@
 import type { DamageFlag } from "isaac-typescript-definitions";
 import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
+
+const v = {
+  room: {
+    dealingExtraDamage: false,
+  },
+};
 
 /** Takes 2x damage. */
 export class HalfHeadBaby extends Baby {
+  v = v;
+
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(
     player: EntityPlayer,
@@ -13,13 +20,13 @@ export class HalfHeadBaby extends Baby {
     source: EntityRef,
     countdownFrames: int,
   ): boolean | undefined {
-    if (g.run.dealingExtraDamage) {
+    if (v.room.dealingExtraDamage) {
       return undefined;
     }
 
-    g.run.dealingExtraDamage = true;
+    v.room.dealingExtraDamage = true;
     player.TakeDamage(amount, damageFlags, source, countdownFrames);
-    g.run.dealingExtraDamage = false;
+    v.room.dealingExtraDamage = false;
 
     return undefined;
   }

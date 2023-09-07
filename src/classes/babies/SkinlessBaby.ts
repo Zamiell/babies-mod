@@ -5,11 +5,18 @@ import {
   CallbackCustom,
   ModCallbackCustom,
 } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
+
+const v = {
+  room: {
+    dealingExtraDamage: false,
+  },
+};
 
 /** 2x damage + takes 2x damage. */
 export class SkinlessBaby extends Baby {
+  v = v;
+
   @Callback(ModCallback.EVALUATE_CACHE, CacheFlag.DAMAGE)
   evaluateCacheDamage(player: EntityPlayer): void {
     player.Damage *= 2;
@@ -23,13 +30,13 @@ export class SkinlessBaby extends Baby {
     source: EntityRef,
     countdownFrames: int,
   ): boolean | undefined {
-    if (g.run.dealingExtraDamage) {
+    if (v.room.dealingExtraDamage) {
       return;
     }
 
-    g.run.dealingExtraDamage = true;
+    v.room.dealingExtraDamage = true;
     player.TakeDamage(amount, damageFlags, source, countdownFrames);
-    g.run.dealingExtraDamage = false;
+    v.room.dealingExtraDamage = false;
 
     return undefined;
   }

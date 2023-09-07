@@ -6,11 +6,18 @@ import {
   ModCallback,
 } from "isaac-typescript-definitions";
 import { Callback, getEffects } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
+
+const v = {
+  room: {
+    dealingExtraDamage: false,
+  },
+};
 
 /** Starts with Spear of Destiny (improved) + flight. */
 export class ElfBaby extends Baby {
+  v = v;
+
   // 2
   @Callback(ModCallback.POST_RENDER)
   postRender(): void {
@@ -43,7 +50,7 @@ export class ElfBaby extends Baby {
     source: EntityRef,
     countdownFrames: int,
   ): boolean | undefined {
-    if (g.run.dealingExtraDamage) {
+    if (v.room.dealingExtraDamage) {
       return undefined;
     }
 
@@ -53,14 +60,16 @@ export class ElfBaby extends Baby {
     ) {
       const player = Isaac.GetPlayer();
       const damage = player.Damage * 4;
-      g.run.dealingExtraDamage = true;
+
+      v.room.dealingExtraDamage = true;
       entity.TakeDamage(
         damage,
         DamageFlagZero,
         EntityRef(player),
         countdownFrames,
       );
-      g.run.dealingExtraDamage = false;
+      v.room.dealingExtraDamage = false;
+
       return false;
     }
 

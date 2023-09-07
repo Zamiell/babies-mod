@@ -4,6 +4,10 @@ import { Baby } from "../Baby";
 
 /** Giant cell effect on room clear. */
 export class HiveKingBaby extends Baby {
+  override isValid(player: EntityPlayer): boolean {
+    return !player.HasCollectible(CollectibleType.GIANT_CELL);
+  }
+
   @Callback(ModCallback.PRE_SPAWN_CLEAR_AWARD)
   preSpawnClearAward(): boolean | undefined {
     const player = Isaac.GetPlayer();

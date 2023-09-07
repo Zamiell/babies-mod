@@ -9,6 +9,5 @@ export class GlobalsRun {
   // Temporary variables
   showIntroFrame = 0;
   showVersionFrame = 0;
-  dealingExtraDamage = false;
   gettingCollectible = false;
 }

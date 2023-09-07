@@ -82,6 +82,7 @@ export class FangDemonBaby extends Baby {
     ) {
       const player = Isaac.GetPlayer();
       const damage = player.Damage;
+
       v.room.dealingExtraDamage = true;
       entity.TakeDamage(
         damage,
@@ -90,6 +91,7 @@ export class FangDemonBaby extends Baby {
         countdownFrames,
       );
       v.room.dealingExtraDamage = false;
+
       return false;
     }
 
