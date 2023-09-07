@@ -11,7 +11,6 @@ import {
   getPlayersOfType,
   log,
 } from "isaacscript-common";
-import { GlobalsRun } from "../classes/GlobalsRun";
 import { PlayerTypeCustom } from "../enums/PlayerTypeCustom";
 import { g } from "../globals";
 import { mod } from "../mod";
@@ -81,9 +80,6 @@ function main(isContinued: boolean) {
   if (isContinued) {
     return;
   }
-
-  // Reset variables
-  g.run = new GlobalsRun();
 
   // Also reset the list of past babies that have been chosen.
   g.pastBabies.clear();

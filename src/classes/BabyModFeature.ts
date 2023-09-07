@@ -1,7 +1,7 @@
 import type { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom, ModFeature, ReadonlyMap } from "isaacscript-common";
-import { g } from "../globals";
 import { isValidRandomBabyPlayer } from "../utils";
+import { getBabyType } from "./features/BabySelection";
 
 export class BabyModFeature extends ModFeature {
   override shouldCallbackMethodsFire = <T extends boolean>(
@@ -9,7 +9,7 @@ export class BabyModFeature extends ModFeature {
     modCallback: T extends true ? ModCallback : ModCallbackCustom,
     ...callbackArgs: unknown[]
   ): boolean => {
-    if (g.run.babyType === null) {
+    if (getBabyType() === undefined) {
       return false;
     }
 

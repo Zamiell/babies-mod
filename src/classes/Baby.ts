@@ -9,10 +9,10 @@ import {
   ReadonlyMap,
 } from "isaacscript-common";
 import type { RandomBabyType } from "../enums/RandomBabyType";
-import { g } from "../globals";
 import type { BabyDescription } from "../interfaces/BabyDescription";
 import { mod } from "../mod";
 import { getBabyPlayerFromEntity, isValidRandomBabyPlayer } from "../utils";
+import { getBabyType } from "./features/BabySelection";
 import { isGettingCollectible } from "./features/GetRandomCollectibleTypeFromPool";
 
 /**
@@ -28,7 +28,7 @@ export class Baby extends ModFeature {
     modCallback: T extends true ? ModCallback : ModCallbackCustom,
     ...callbackArgs: unknown[]
   ): boolean => {
-    if (g.run.babyType !== this.babyType) {
+    if (getBabyType() !== this.babyType) {
       return false;
     }
 
@@ -86,7 +86,7 @@ export class Baby extends ModFeature {
     mod.saveDataManager(
       className,
       babyClassWithV.v,
-      () => g.run.babyType === this.babyType,
+      () => getBabyType() === this.babyType,
     );
   }
 }

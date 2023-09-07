@@ -11,6 +11,7 @@ import {
 import { babyAdd } from "../babyAdd";
 import { babyCheckValid } from "../babyCheckValid";
 import { babyRemove } from "../babyRemove";
+import { setBabyType } from "../classes/features/BabySelection";
 import { PlayerTypeCustom } from "../enums/PlayerTypeCustom";
 import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
@@ -78,7 +79,7 @@ function getAndSetNewBabyInGlobals(player: EntityPlayer) {
   } while (!babyCheckValid(player, babyType));
 
   // Set the newly chosen baby type.
-  g.run.babyType = babyType;
+  setBabyType(babyType);
 
   // Keep track of the babies that we choose so that we can avoid giving duplicates on the same run.
   g.pastBabies.add(babyType);

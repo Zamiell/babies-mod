@@ -14,6 +14,7 @@ import * as postGameStartedReordered from "./callbacksCustom/postGameStartedReor
 import * as postNewLevelReordered from "./callbacksCustom/postNewLevelReordered";
 import * as postPlayerChangeType from "./callbacksCustom/postPlayerChangeType";
 import type { Baby } from "./classes/Baby";
+import { BabySelection } from "./classes/features/BabySelection";
 import { DrawBabyIntro } from "./classes/features/DrawBabyIntro";
 import { DrawBabyNumber } from "./classes/features/DrawBabyNumber";
 import { DrawVersion } from "./classes/features/DrawVersion";
@@ -31,6 +32,7 @@ import { BABIES } from "./objects/babies";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 
 const MOD_FEATURES = [
+  BabySelection,
   DrawBabyIntro,
   DrawBabyNumber,
   DrawVersion,

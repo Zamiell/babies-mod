@@ -56,10 +56,10 @@ import {
   spawnSlot,
   spawnTrinket,
 } from "isaacscript-common";
+import { getBabyType } from "./classes/features/BabySelection";
 import { ROOM_TYPES_TO_NOT_TRANSFORM } from "./constants";
 import { CollectibleTypeCustom } from "./enums/CollectibleTypeCustom";
 import { PlayerTypeCustom } from "./enums/PlayerTypeCustom";
-import { g } from "./globals";
 import { mod } from "./mod";
 
 const BAD_MISSING_TEARS_COLLECTIBLE_TYPES = [
@@ -214,7 +214,7 @@ export function isValidRandomBabyPlayer(player: EntityPlayer): boolean {
     // Currently, the mod does not support co-op. Many places in logic assume that the player is the
     // first character. This can be removed when all `Isaac.GetPlayer` method calls are removed.
     isFirstPlayer(player) &&
-    g.run.babyType !== null
+    getBabyType() !== undefined
   );
 }
 
