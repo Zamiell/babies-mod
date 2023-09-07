@@ -1,19 +1,10 @@
 import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
 import { Callback } from "isaacscript-common";
-import {
-  shockwavesPostUpdate,
-  startShockwaveLine,
-} from "../../features/shockwaves";
 import { Baby } from "../Baby";
+import { startShockwaveLine } from "../features/Shockwaves";
 
 /** Shockwave tears. */
 export class VoxdogBaby extends Baby {
-  // 1
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
-    shockwavesPostUpdate();
-  }
-
   // 8
   @Callback(ModCallback.EVALUATE_CACHE, CacheFlag.FIRE_DELAY)
   evaluateCacheFireDelay(player: EntityPlayer): void {

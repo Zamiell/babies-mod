@@ -1,15 +1,11 @@
-import { Direction, ModCallback } from "isaac-typescript-definitions";
+import { Direction } from "isaac-typescript-definitions";
 import {
-  Callback,
   CallbackCustom,
   ModCallbackCustom,
   directionToVector,
 } from "isaacscript-common";
-import {
-  shockwavesPostUpdate,
-  startShockwaveLine,
-} from "../../features/shockwaves";
 import { Baby } from "../Baby";
+import { startShockwaveLine } from "../features/Shockwaves";
 
 const SHOCKWAVE_BOMB_VELOCITY_MULTIPLIER = 30;
 
@@ -22,12 +18,6 @@ const SHOCKWAVE_BOMB_VELOCITIES = [
 
 /** Shockwave bombs. */
 export class SkullBaby extends Baby {
-  // 1
-  @Callback(ModCallback.POST_UPDATE)
-  postUpdate(): void {
-    shockwavesPostUpdate();
-  }
-
   @CallbackCustom(ModCallbackCustom.POST_BOMB_EXPLODED)
   postBombExploded(bomb: EntityBomb): void {
     for (const velocity of SHOCKWAVE_BOMB_VELOCITIES) {
