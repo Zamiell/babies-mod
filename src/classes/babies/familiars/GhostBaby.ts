@@ -5,8 +5,8 @@ import {
   ModCallback,
 } from "isaac-typescript-definitions";
 import { Callback, onEffectiveStage } from "isaacscript-common";
-import { getRandomCollectibleTypeFromPool } from "../../../utils";
 import { Baby } from "../../Baby";
+import { getRandomCollectibleTypeFromPool } from "../../features/GetRandomCollectibleTypeFromPool";
 
 /** All items from the shop pool. */
 export class GhostBaby extends Baby {

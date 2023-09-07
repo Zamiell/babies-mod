@@ -1,8 +1,8 @@
 import type { CollectibleType } from "isaac-typescript-definitions";
 import { ItemPoolType, ModCallback } from "isaac-typescript-definitions";
 import { Callback } from "isaacscript-common";
-import { getRandomCollectibleTypeFromPool } from "../../../utils";
 import { Baby } from "../../Baby";
+import { getRandomCollectibleTypeFromPool } from "../../features/GetRandomCollectibleTypeFromPool";
 
 /** All items from the Curse Room pool. */
 export class LittleGish extends Baby {

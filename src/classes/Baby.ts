@@ -13,6 +13,7 @@ import { g } from "../globals";
 import type { BabyDescription } from "../interfaces/BabyDescription";
 import { mod } from "../mod";
 import { getBabyPlayerFromEntity, isValidRandomBabyPlayer } from "../utils";
+import { isGettingCollectible } from "./features/GetRandomCollectibleTypeFromPool";
 
 /**
  * The base class that each baby class extends from. This sets up the callback class methods to only
@@ -173,7 +174,7 @@ const MOD_CALLBACK_TO_VALIDATION_FUNC = new ReadonlyMap<
   ],
 
   // 62
-  [ModCallback.PRE_GET_COLLECTIBLE, () => !g.run.gettingCollectible],
+  [ModCallback.PRE_GET_COLLECTIBLE, () => !isGettingCollectible()],
 
   // 68
   [

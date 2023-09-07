@@ -10,8 +10,8 @@ import {
   game,
   onStageWithNaturalDevilRoom,
 } from "isaacscript-common";
-import { getRandomCollectibleTypeFromPool } from "../../utils";
 import { Baby } from "../Baby";
+import { getRandomCollectibleTypeFromPool } from "../features/GetRandomCollectibleTypeFromPool";
 
 const ROOM_TYPE_TO_ITEM_POOL_TYPE_MAP = new ReadonlyMap<RoomType, ItemPoolType>(
   [

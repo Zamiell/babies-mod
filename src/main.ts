@@ -17,6 +17,7 @@ import type { Baby } from "./classes/Baby";
 import { DrawBabyIntro } from "./classes/features/DrawBabyIntro";
 import { DrawBabyNumber } from "./classes/features/DrawBabyNumber";
 import { DrawVersion } from "./classes/features/DrawVersion";
+import { GetRandomCollectibleTypeFromPool } from "./classes/features/GetRandomCollectibleTypeFromPool";
 import { PseudoRoomClear } from "./classes/features/PseudoRoomClear";
 import { RemoveMappingBaby } from "./classes/features/RemoveMappingBaby";
 import { Shockwaves } from "./classes/features/Shockwaves";
@@ -33,6 +34,7 @@ const MOD_FEATURES = [
   DrawBabyIntro,
   DrawBabyNumber,
   DrawVersion,
+  GetRandomCollectibleTypeFromPool,
   PseudoRoomClear,
   RemoveMappingBaby,
   Shockwaves,

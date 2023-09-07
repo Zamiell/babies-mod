@@ -24,11 +24,11 @@ import {
 } from "isaacscript-common";
 import { mod } from "../../mod";
 import {
-  getRandomCollectibleTypeFromPool,
   isRerolledCollectibleBuggedHeart,
   shouldTransformRoomType,
 } from "../../utils";
 import { Baby } from "../Baby";
+import { getRandomCollectibleTypeFromPool } from "../features/GetRandomCollectibleTypeFromPool";
 
 /** All special rooms are Devil Rooms. */
 export class SuitBaby extends Baby {

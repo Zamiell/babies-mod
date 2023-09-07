@@ -1,8 +1,4 @@
-import type {
-  ItemConfigTag,
-  ItemPoolType,
-  SlotVariant,
-} from "isaac-typescript-definitions";
+import type { ItemConfigTag, SlotVariant } from "isaac-typescript-definitions";
 import {
   BatterySubType,
   BombSubType,
@@ -44,7 +40,6 @@ import {
   isFirstPlayer,
   isHeart,
   isPlayer,
-  isRNG,
   removeEntities,
   setSeed,
   sfxManager,
@@ -168,20 +163,6 @@ export function getRandomOffsetPosition(
   }
 
   return Vector(position.X + offsetX, position.Y + offsetY);
-}
-
-export function getRandomCollectibleTypeFromPool(
-  itemPoolType: ItemPoolType,
-  seedOrRNG: Seed | RNG,
-): CollectibleType {
-  const itemPool = game.GetItemPool();
-  const seed = isRNG(seedOrRNG) ? seedOrRNG.Next() : seedOrRNG;
-
-  g.run.gettingCollectible = true;
-  const collectibleType = itemPool.GetCollectible(itemPoolType, true, seed);
-  g.run.gettingCollectible = false;
-
-  return collectibleType;
 }
 
 export function getRandomCollectibleTypeWithTag(
