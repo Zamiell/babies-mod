@@ -2716,7 +2716,7 @@ export const BABIES = {
   [RandomBabyType.SWORD]: {
     name: "Sword Baby",
     description:
-      "Starts with Piggy Bank + Swallowed Penny + Strawman (Strawman can't die)",
+      "Starts with Piggy Bank + Swallowed Penny + Strawman (Strawman must not die)",
     sprite: "312_baby_sword.png",
     collectible: CollectibleType.PIGGY_BANK,
     collectible2: CollectibleType.STRAWMAN,
