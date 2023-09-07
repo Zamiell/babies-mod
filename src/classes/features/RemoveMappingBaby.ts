@@ -6,8 +6,9 @@ import {
 } from "isaacscript-common";
 import { getBabyCollectiblesSet } from "../../babyCheckValid";
 import type { BabyDescription } from "../../interfaces/BabyDescription";
-import { getCurrentBaby } from "../../utilsBaby";
+import { BABIES } from "../../objects/babies";
 import { BabyModFeature } from "../BabyModFeature";
+import { getBabyType } from "./babySelection/v";
 
 const NEXT_FLOOR_PLAYER_ANIMATIONS = new ReadonlySet<string>([
   "Trapdoor",
@@ -25,13 +26,11 @@ const MAPPING_COLLECTIBLE_TYPES = [
 export class RemoveMappingBaby extends BabyModFeature {
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {
-    const currentBaby = getCurrentBaby();
-    if (currentBaby === undefined) {
-      return;
+    const babyType = getBabyType();
+    const baby = babyType === undefined ? undefined : BABIES[babyType];
+    if (baby !== undefined) {
+      this.checkPlayerGoingToNextFloor(player, baby);
     }
-    const { baby } = currentBaby;
-
-    this.checkPlayerGoingToNextFloor(player, baby);
   }
 
   /**

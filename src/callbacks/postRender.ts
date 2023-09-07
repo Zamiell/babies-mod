@@ -4,10 +4,11 @@ import {
   ModCallback,
 } from "isaac-typescript-definitions";
 import { getCollectibleItemType } from "isaacscript-common";
+import { getBabyType } from "../classes/features/babySelection/v";
 import type { BabyDescription } from "../interfaces/BabyDescription";
 import { mod } from "../mod";
+import { BABIES } from "../objects/babies";
 import { newSprite } from "../sprite";
-import { getCurrentBaby } from "../utilsBaby";
 
 const CLOCK_POSITION = Vector(30, 30);
 const CLOCK_SPRITE = newSprite("gfx/clock.anm2");
@@ -17,12 +18,12 @@ export function init(): void {
 }
 
 function main() {
-  const currentBaby = getCurrentBaby();
-  if (currentBaby === undefined) {
+  const babyType = getBabyType();
+  if (babyType === undefined) {
     return;
   }
-  const { baby } = currentBaby;
 
+  const baby = BABIES[babyType];
   drawTempIconNextToActiveCollectible(baby);
 }
 

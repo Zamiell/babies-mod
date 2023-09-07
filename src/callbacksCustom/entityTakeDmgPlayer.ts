@@ -1,7 +1,10 @@
 import { DamageFlag } from "isaac-typescript-definitions";
-import { hasFlag, isFirstPlayer, ModCallbackCustom } from "isaacscript-common";
+import { hasFlag, ModCallbackCustom } from "isaacscript-common";
+import { getBabyType } from "../classes/features/babySelection/v";
+import type { BabyDescription } from "../interfaces/BabyDescription";
 import { mod } from "../mod";
-import { getCurrentBaby } from "../utilsBaby";
+import { BABIES } from "../objects/babies";
+import { isValidRandomBabyPlayer } from "../utils";
 
 export function init(): void {
   mod.AddCallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER, main);
@@ -14,15 +17,16 @@ function main(
   _source: EntityRef,
   _countdownFrames: int,
 ): boolean | undefined {
-  if (!isFirstPlayer(player)) {
+  if (!isValidRandomBabyPlayer(player)) {
     return undefined;
   }
 
-  const currentBaby = getCurrentBaby();
-  if (currentBaby === undefined) {
+  const babyType = getBabyType();
+  if (babyType === undefined) {
     return undefined;
   }
-  const { baby } = currentBaby;
+
+  const baby = BABIES[babyType] as BabyDescription;
 
   // Check to see if this baby is immune to explosive damage.
   if (

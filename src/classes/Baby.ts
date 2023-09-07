@@ -12,7 +12,7 @@ import type { RandomBabyType } from "../enums/RandomBabyType";
 import type { BabyDescription } from "../interfaces/BabyDescription";
 import { mod } from "../mod";
 import { getBabyPlayerFromEntity, isValidRandomBabyPlayer } from "../utils";
-import { getBabyType } from "./features/BabySelection";
+import { getBabyType } from "./features/babySelection/v";
 import { isGettingCollectible } from "./features/GetRandomCollectibleTypeFromPool";
 
 /**

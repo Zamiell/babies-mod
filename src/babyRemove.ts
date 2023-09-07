@@ -5,15 +5,19 @@ import {
   repeat,
   setBlindfold,
 } from "isaacscript-common";
+import type { RandomBabyType } from "./enums/RandomBabyType";
+import type { BabyDescription } from "./interfaces/BabyDescription";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
-import { getCurrentBaby } from "./utilsBaby";
 
-export function babyRemove(player: EntityPlayer): void {
-  const currentBaby = getCurrentBaby();
-  if (currentBaby === undefined) {
+export function babyRemove(
+  player: EntityPlayer,
+  babyType: RandomBabyType | undefined,
+  baby: BabyDescription | undefined,
+): void {
+  // If this is the first baby of the run, we might not need to remove anything.
+  if (babyType === undefined || baby === undefined) {
     return;
   }
-  const { babyType, baby } = currentBaby;
 
   // If we are on an collectible baby, remove the collectible.
   if (baby.collectible !== undefined) {

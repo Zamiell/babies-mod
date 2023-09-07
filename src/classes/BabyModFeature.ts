@@ -1,7 +1,7 @@
 import type { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom, ModFeature, ReadonlyMap } from "isaacscript-common";
 import { isValidRandomBabyPlayer } from "../utils";
-import { getBabyType } from "./features/BabySelection";
+import { getBabyType } from "./features/babySelection/v";
 
 export class BabyModFeature extends ModFeature {
   override shouldCallbackMethodsFire = <T extends boolean>(

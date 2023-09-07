@@ -56,7 +56,7 @@ import {
   spawnSlot,
   spawnTrinket,
 } from "isaacscript-common";
-import { getBabyType } from "./classes/features/BabySelection";
+import { getBabyType } from "./classes/features/babySelection/v";
 import { ROOM_TYPES_TO_NOT_TRANSFORM } from "./constants";
 import { CollectibleTypeCustom } from "./enums/CollectibleTypeCustom";
 import { PlayerTypeCustom } from "./enums/PlayerTypeCustom";
@@ -210,10 +210,10 @@ export function isValidRandomBabyPlayer(player: EntityPlayer): boolean {
     // We validate that the `player` is a valid `EntityPlayer` object since we may be getting it in
     // a type-unsafe way in the `Baby.ts` file.
     isPlayer(player) &&
-    isCharacter(player, PlayerTypeCustom.RANDOM_BABY) &&
     // Currently, the mod does not support co-op. Many places in logic assume that the player is the
     // first character. This can be removed when all `Isaac.GetPlayer` method calls are removed.
     isFirstPlayer(player) &&
+    isCharacter(player, PlayerTypeCustom.RANDOM_BABY) &&
     getBabyType() !== undefined
   );
 }

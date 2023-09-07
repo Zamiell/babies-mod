@@ -1,19 +1,22 @@
 import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
 import { isCharacter } from "isaacscript-common";
+import { getBabyType } from "../classes/features/babySelection/v";
 import { PlayerTypeCustom } from "../enums/PlayerTypeCustom";
+import type { BabyDescription } from "../interfaces/BabyDescription";
 import { mod } from "../mod";
-import { getCurrentBaby } from "../utilsBaby";
+import { BABIES } from "../objects/babies";
 
 export function init(): void {
   mod.AddCallback(ModCallback.EVALUATE_CACHE, main);
 }
 
 function main(player: EntityPlayer, cacheFlag: CacheFlag) {
-  const currentBaby = getCurrentBaby();
-  if (currentBaby === undefined) {
+  const babyType = getBabyType();
+  const baby =
+    babyType === undefined ? undefined : (BABIES[babyType] as BabyDescription);
+  if (baby === undefined) {
     return;
   }
-  const { baby } = currentBaby;
 
   // Give the Random Baby character a flat +1 damage as a bonus, similar to Samael.
   if (

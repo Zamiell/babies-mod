@@ -1,5 +1,5 @@
+import { setDebugBabyType } from "./classes/features/babySelection/v";
 import { debugFunction, setDebugBaby } from "./debugFunction";
-import { g } from "./globals";
 import { mod } from "./mod";
 
 export function enableExtraConsoleCommandsBabiesMod(): void {
@@ -24,6 +24,6 @@ function babyDebug() {
 }
 
 function babyRandom() {
-  g.debugBabyNum = undefined;
+  setDebugBabyType(undefined);
   Isaac.ExecuteCommand("restart");
 }

@@ -9,8 +9,8 @@ import {
 } from "isaacscript-common";
 import { RandomBabyType } from "../../enums/RandomBabyType";
 import { isRacingPlusEnabled } from "../../utils";
-import { getCurrentBaby } from "../../utilsBaby";
 import { BabyModFeature } from "../BabyModFeature";
+import { getBabyType } from "./babySelection/v";
 
 const UI_HEARTS_RIGHT_SPACING = 55;
 
@@ -18,13 +18,10 @@ const UI_HEARTS_RIGHT_SPACING = 55;
 export class DrawBabyNumber extends BabyModFeature {
   @Callback(ModCallback.POST_RENDER)
   postRender(): void {
-    const currentBaby = getCurrentBaby();
-    if (currentBaby === undefined) {
-      return;
+    const babyType = getBabyType();
+    if (babyType !== undefined) {
+      this.draw(babyType);
     }
-    const { babyType } = currentBaby;
-
-    this.draw(babyType);
   }
 
   draw(babyType: RandomBabyType): void {

@@ -1,6 +1,7 @@
 import { log, setLogFunctionsGlobal } from "isaacscript-common";
+import { setDebugBabyType } from "./classes/features/babySelection/v";
 import { MAX_BABY_TYPE } from "./constants";
-import { g } from "./globals";
+import type { RandomBabyType } from "./enums/RandomBabyType";
 
 /** Associated with the "babydebug" command. */
 function debugCode() {
@@ -19,17 +20,19 @@ export function debugFunction(): void {
 
 export function setDebugBaby(params: string, restart: boolean): void {
   // Check to see if this is a valid baby number.
-  let babyNum = tonumber(params);
+  let babyTypeNumber = tonumber(params);
   if (
-    babyNum === undefined ||
-    babyNum < 0 ||
-    babyNum > (MAX_BABY_TYPE as int)
+    babyTypeNumber === undefined ||
+    babyTypeNumber < 0 ||
+    babyTypeNumber > (MAX_BABY_TYPE as int)
   ) {
-    babyNum = undefined;
+    babyTypeNumber = undefined;
   }
 
-  g.debugBabyNum = babyNum;
-  Isaac.ConsoleOutput(`Set debug baby to be: ${babyNum}\n`);
+  const babyType = babyTypeNumber as RandomBabyType | undefined;
+
+  setDebugBabyType(babyType);
+  print(`Set debug baby to be: ${babyTypeNumber}\n`);
 
   if (restart) {
     Isaac.ExecuteCommand("restart");

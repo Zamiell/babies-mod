@@ -39,19 +39,17 @@ import {
   TRINKETS_THAT_SYNERGIZE_WITH_TEARS,
 } from "./constants";
 import type { RandomBabyType } from "./enums/RandomBabyType";
-import { g } from "./globals";
 import type { BabyDescription } from "./interfaces/BabyDescription";
-import { BABIES } from "./objects/babies";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 
 export function babyCheckValid(
   player: EntityPlayer,
   babyType: RandomBabyType,
+  baby: BabyDescription,
+  pastBabies: Set<RandomBabyType>,
 ): boolean {
-  const baby = BABIES[babyType] as BabyDescription;
-
   // Check to see if we already got this baby in this run / multi-character custom challenge.
-  if (g.pastBabies.has(babyType)) {
+  if (pastBabies.has(babyType)) {
     return false;
   }
 

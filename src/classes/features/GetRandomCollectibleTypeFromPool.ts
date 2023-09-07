@@ -2,7 +2,8 @@ import type {
   CollectibleType,
   ItemPoolType,
 } from "isaac-typescript-definitions";
-import { ModFeature, game, isRNG } from "isaacscript-common";
+import { game, isRNG } from "isaacscript-common";
+import { BabyModFeature } from "../BabyModFeature";
 
 const v = {
   run: {
@@ -10,7 +11,7 @@ const v = {
   },
 };
 
-export class GetRandomCollectibleTypeFromPool extends ModFeature {
+export class GetRandomCollectibleTypeFromPool extends BabyModFeature {
   v = v;
 }
 

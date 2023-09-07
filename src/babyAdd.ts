@@ -21,13 +21,20 @@ import {
   setPlayerHealth,
   smeltTrinket,
 } from "isaacscript-common";
-import { setShowIntroFrame } from "./classes/features/DrawBabyIntro";
-import { setBabyANM2, updatePlayerWithCostumeProtector } from "./costumes";
+import {
+  setBabyANM2,
+  updatePlayerWithCostumeProtector,
+} from "./classes/features/CostumeProtector";
+import type { RandomBabyType } from "./enums/RandomBabyType";
+import type { BabyDescription } from "./interfaces/BabyDescription";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 import { giveCollectibleAndRemoveFromPools } from "./utils";
-import { getCurrentBaby } from "./utilsBaby";
 
-export function babyAdd(player: EntityPlayer): void {
+export function babyAdd(
+  player: EntityPlayer,
+  babyType: RandomBabyType,
+  baby: BabyDescription,
+): void {
   const itemPool = game.GetItemPool();
   const seeds = game.GetSeeds();
   const coins = player.GetNumCoins();
@@ -35,14 +42,6 @@ export function babyAdd(player: EntityPlayer): void {
   const keys = player.GetNumKeys();
   const secondaryActiveItem = player.GetActiveItem(ActiveSlot.SECONDARY);
   const playerHealth = getPlayerHealth(player);
-  const currentBaby = getCurrentBaby();
-  if (currentBaby === undefined) {
-    return;
-  }
-  const { babyType, baby } = currentBaby;
-
-  // Draw the kind of baby on the starting room.
-  setShowIntroFrame();
 
   // Check if this is an collectible baby.
   if (baby.collectible !== undefined) {
@@ -168,7 +167,7 @@ export function babyAdd(player: EntityPlayer): void {
   player.AddCacheFlags(CacheFlag.ALL);
   player.EvaluateItems();
 
-  updatePlayerWithCostumeProtector(player);
+  updatePlayerWithCostumeProtector(player, babyType, baby);
 
   log(
     `The Babies Mod - Applied baby: ${baby.name} (#${babyType}) - ${baby.description}`,

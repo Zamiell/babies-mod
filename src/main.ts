@@ -6,14 +6,15 @@ import {
 } from "isaacscript-common";
 import { babiesCheckValid } from "./babiesCheckValid";
 import * as evaluateCache from "./callbacks/evaluateCache";
-import * as postPlayerInit from "./callbacks/postPlayerInit";
 import * as postRender from "./callbacks/postRender";
 import * as entityTakeDmgPlayer from "./callbacksCustom/entityTakeDmgPlayer";
 import * as postGameStartedReordered from "./callbacksCustom/postGameStartedReordered";
-import * as postNewLevelReordered from "./callbacksCustom/postNewLevelReordered";
-import * as postPlayerChangeType from "./callbacksCustom/postPlayerChangeType";
 import type { Baby } from "./classes/Baby";
 import { BabySelection } from "./classes/features/BabySelection";
+import {
+  CostumeProtector,
+  initCostumeProtector,
+} from "./classes/features/CostumeProtector";
 import { DrawBabyIntro } from "./classes/features/DrawBabyIntro";
 import { DrawBabyNumber } from "./classes/features/DrawBabyNumber";
 import { DrawVersion } from "./classes/features/DrawVersion";
@@ -23,7 +24,6 @@ import { RemoveMappingBaby } from "./classes/features/RemoveMappingBaby";
 import { Shockwaves } from "./classes/features/Shockwaves";
 import { SoftlockPrevention } from "./classes/features/SoftlockPrevention";
 import { IS_DEV, MOD_NAME, VERSION } from "./constants";
-import { initCostumeProtector } from "./costumes";
 import type { RandomBabyType } from "./enums/RandomBabyType";
 import { enableExtraConsoleCommandsBabiesMod } from "./extraConsoleCommands";
 import type { BabyDescription } from "./interfaces/BabyDescription";
@@ -33,6 +33,7 @@ import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 
 const MOD_FEATURES = [
   BabySelection,
+  CostumeProtector,
   DrawBabyIntro,
   DrawBabyNumber,
   DrawVersion,
@@ -73,14 +74,11 @@ function welcomeBanner() {
 function registerCallbacksMain() {
   postRender.init(); // 2
   evaluateCache.init(); // 8
-  postPlayerInit.init(); // 9
 }
 
 function registerCallbacksCustom() {
   entityTakeDmgPlayer.init();
   postGameStartedReordered.init();
-  postNewLevelReordered.init();
-  postPlayerChangeType.init();
 }
 
 /**

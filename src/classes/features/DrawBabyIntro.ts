@@ -1,4 +1,8 @@
-import { ButtonAction, ModCallback } from "isaac-typescript-definitions";
+import {
+  ButtonAction,
+  CollectibleType,
+  ModCallback,
+} from "isaac-typescript-definitions";
 import {
   Callback,
   CallbackCustom,
@@ -9,8 +13,9 @@ import {
   isActionPressedOnAnyInput,
 } from "isaacscript-common";
 import type { BabyDescription } from "../../interfaces/BabyDescription";
-import { getCurrentBaby } from "../../utilsBaby";
+import { BABIES } from "../../objects/babies";
 import { BabyModFeature } from "../BabyModFeature";
+import { getBabyType } from "./babySelection/v";
 
 const v = {
   run: {
@@ -30,11 +35,12 @@ export class DrawBabyIntro extends BabyModFeature {
 
   @Callback(ModCallback.POST_RENDER)
   postRender(): void {
-    const currentBaby = getCurrentBaby();
-    if (currentBaby === undefined) {
+    const babyType = getBabyType();
+    if (babyType === undefined) {
       return;
     }
-    const { baby } = currentBaby;
+
+    const baby = BABIES[babyType];
 
     this.checkMapInput();
     this.draw(baby);
@@ -43,7 +49,7 @@ export class DrawBabyIntro extends BabyModFeature {
   /** Make the baby description persist on the screen after the player presses the map button. */
   checkMapInput(): void {
     if (isActionPressedOnAnyInput(ButtonAction.MAP)) {
-      setShowIntroFrame();
+      this.setShowIntroFrame();
     }
   }
 
@@ -84,6 +90,20 @@ export class DrawBabyIntro extends BabyModFeature {
     }
   }
 
+  /**
+   * We want to draw the baby intro text when we arrive at a new floor. But showing it if the player
+   * has Birthright would be superfluous, since they presumably already know what the effect is.
+   */
+  @CallbackCustom(ModCallbackCustom.POST_NEW_LEVEL_REORDERED)
+  postNewLevelReordered(): void {
+    const player = Isaac.GetPlayer();
+    if (player.HasCollectible(CollectibleType.BIRTHRIGHT)) {
+      return;
+    }
+
+    this.setShowIntroFrame();
+  }
+
   /** Clear the intro text as soon as we enter another room. */
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
@@ -93,14 +113,10 @@ export class DrawBabyIntro extends BabyModFeature {
       v.run.showIntroUntilFrame = null;
     }
   }
-}
 
-/**
- * We do not call this in the `POST_NEW_LEVEL` callback because it would be superfluous if the
- * player had Birthright.
- */
-export function setShowIntroFrame(): void {
-  const gameFrameCount = game.GetFrameCount();
-  v.run.showIntroUntilFrame = gameFrameCount + 2 * GAME_FRAMES_PER_SECOND;
-  v.run.setIntroFrame = gameFrameCount;
+  setShowIntroFrame(): void {
+    const gameFrameCount = game.GetFrameCount();
+    v.run.showIntroUntilFrame = gameFrameCount + 2 * GAME_FRAMES_PER_SECOND;
+    v.run.setIntroFrame = gameFrameCount;
+  }
 }

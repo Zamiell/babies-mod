@@ -9,8 +9,9 @@ import {
   openAllDoors,
 } from "isaacscript-common";
 import type { BabyDescription } from "../../interfaces/BabyDescription";
-import { getCurrentBaby } from "../../utilsBaby";
+import { BABIES } from "../../objects/babies";
 import { BabyModFeature } from "../BabyModFeature";
+import { getBabyType } from "./babySelection/v";
 
 const v = {
   room: {
@@ -24,11 +25,11 @@ export class SoftlockPrevention extends BabyModFeature {
 
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(): void {
-    const currentBaby = getCurrentBaby();
-    if (currentBaby === undefined) {
+    const babyType = getBabyType();
+    const baby = babyType === undefined ? undefined : BABIES[babyType];
+    if (baby === undefined) {
       return;
     }
-    const { baby } = currentBaby;
 
     this.checkSoftlockDestroyPoopsTNT(baby);
     this.checkSoftlockIsland(baby);
