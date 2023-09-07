@@ -21,6 +21,7 @@
   - Lipstick Baby (#105) - Range oscillates
   - VVVVVV Baby (#108) - Reverse Emperor card effect after 6 hits
   - Cracked Infamy Baby (#159) - Every 8th tear is a ghost from Ghost Bombs
+  - Dr. Fetus Baby (#188) - Starts with Dr. Fetus + Remote Detonator
   - Punkboy Baby (#233) - Starts with 3x Knife Piece 1 + 3x Knife Piece 2
   - Punkgirl Baby (#234) - Spawns a random coin on room clear
   - Blisters Baby (#240) - Shot speed oscillates

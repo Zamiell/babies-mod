@@ -11,14 +11,9 @@ import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 
 export function babyRemove(
   player: EntityPlayer,
-  babyType: RandomBabyType | undefined,
-  baby: BabyDescription | undefined,
+  babyType: RandomBabyType,
+  baby: BabyDescription,
 ): void {
-  // If this is the first baby of the run, we might not need to remove anything.
-  if (babyType === undefined || baby === undefined) {
-    return;
-  }
-
   // If we are on an collectible baby, remove the collectible.
   if (baby.collectible !== undefined) {
     // If the collectible is in the Schoolbag, this will successfully remove it.

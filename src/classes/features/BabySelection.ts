@@ -42,12 +42,11 @@ export class BabySelection extends ModFeature {
       return;
     }
 
-    const oldBabyType = v.run.babyType ?? undefined;
-    const oldBaby =
-      oldBabyType === undefined
-        ? undefined
-        : (BABIES[oldBabyType] as BabyDescription);
-    babyRemove(player, oldBabyType, oldBaby);
+    const oldBabyType = v.run.babyType;
+    if (oldBabyType !== null) {
+      const oldBaby = BABIES[oldBabyType];
+      babyRemove(player, oldBabyType, oldBaby);
+    }
 
     const { babyType, baby } = this.getNewRandomBaby(player);
     babyAdd(player, babyType, baby);

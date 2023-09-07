@@ -12,11 +12,11 @@ export function init(): void {
 
 function main(player: EntityPlayer, cacheFlag: CacheFlag) {
   const babyType = getBabyType();
-  const baby =
-    babyType === undefined ? undefined : (BABIES[babyType] as BabyDescription);
-  if (baby === undefined) {
+  if (babyType === undefined) {
     return;
   }
+
+  const baby = BABIES[babyType] as BabyDescription;
 
   // Give the Random Baby character a flat +1 damage as a bonus, similar to Samael.
   if (
