@@ -1,6 +1,5 @@
 import { DamageFlagZero } from "isaac-typescript-definitions";
 import { CallbackCustom, game, ModCallbackCustom } from "isaacscript-common";
-import { g } from "../../globals";
 import { Baby } from "../Baby";
 
 const v = {
@@ -21,7 +20,7 @@ export class VomitBaby extends Baby {
   postPEffectUpdateReordered(player: EntityPlayer): void {
     const gameFrameCount = game.GetFrameCount();
 
-    const remainingGameFrames = g.run.babyCounters - gameFrameCount;
+    const remainingGameFrames = v.run.timer - gameFrameCount;
     if (remainingGameFrames <= 0) {
       this.resetTimer();
 

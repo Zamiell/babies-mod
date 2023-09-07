@@ -3,7 +3,7 @@ import { Callback, getPlayerFromEntity } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 const v = {
-  run: {
+  room: {
     rotationAngle: 0,
   },
 };
@@ -24,12 +24,12 @@ export class AetherBaby extends Baby {
       return;
     }
 
-    v.run.rotationAngle += 45;
-    if (v.run.rotationAngle < 360) {
-      const velocity = tear.Velocity.Rotated(v.run.rotationAngle);
+    v.room.rotationAngle += 45;
+    if (v.room.rotationAngle < 360) {
+      const velocity = tear.Velocity.Rotated(v.room.rotationAngle);
       player.FireTear(player.Position, velocity, false, true, false);
     } else {
-      v.run.rotationAngle = 0;
+      v.room.rotationAngle = 0;
     }
   }
 }

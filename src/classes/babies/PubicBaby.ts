@@ -18,7 +18,7 @@ import { Baby } from "../Baby";
 const ROOM_TYPES = [RoomType.DEFAULT, RoomType.MINI_BOSS] as const;
 
 const v = {
-  run: {
+  level: {
     isFloorFullCleared: false,
   },
 };
@@ -41,7 +41,7 @@ export class PubicBaby extends Baby {
     const roomClear = room.IsClear();
     const dimension = getDimension();
 
-    if (v.run.isFloorFullCleared) {
+    if (v.level.isFloorFullCleared) {
       return;
     }
 
@@ -56,7 +56,7 @@ export class PubicBaby extends Baby {
     }
 
     if (isAllRoomsClear(ROOM_TYPES)) {
-      v.run.isFloorFullCleared = true;
+      v.level.isFloorFullCleared = true;
       return;
     }
 

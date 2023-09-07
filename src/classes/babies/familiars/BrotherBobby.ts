@@ -16,12 +16,9 @@ import {
 import { Baby } from "../../Baby";
 
 const v = {
-  run: {
-    dealingExtraDamage: false,
-  },
-
   room: {
     godheadTearPtrHash: null as PtrHash | null,
+    dealingExtraDamage: false,
   },
 };
 
@@ -38,7 +35,7 @@ export class BrotherBobby extends Baby {
     source: EntityRef,
     countdownFrames: int,
   ): boolean | undefined {
-    if (v.run.dealingExtraDamage) {
+    if (v.room.dealingExtraDamage) {
       return undefined;
     }
 
@@ -54,9 +51,9 @@ export class BrotherBobby extends Baby {
     const player = Isaac.GetPlayer();
     const damage = player.Damage;
 
-    v.run.dealingExtraDamage = true;
+    v.room.dealingExtraDamage = true;
     entity.TakeDamage(damage, damageFlags, EntityRef(player), countdownFrames);
-    v.run.dealingExtraDamage = false;
+    v.room.dealingExtraDamage = false;
 
     return false;
   }

@@ -7,7 +7,7 @@ import {
 import { Baby } from "../Baby";
 
 const v = {
-  run: {
+  room: {
     shootingExtraTear: false,
   },
 };
@@ -18,7 +18,7 @@ export class CockeyedBaby extends Baby {
 
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
-    if (v.run.shootingExtraTear) {
+    if (v.room.shootingExtraTear) {
       return;
     }
 
@@ -31,8 +31,8 @@ export class CockeyedBaby extends Baby {
     const rng = tear.GetDropRNG();
     const rotation = getRandomInt(0, 359, rng);
     const velocity = tear.Velocity.Rotated(rotation);
-    v.run.shootingExtraTear = true;
+    v.room.shootingExtraTear = true;
     player.FireTear(player.Position, velocity, false, true, false);
-    v.run.shootingExtraTear = false;
+    v.room.shootingExtraTear = false;
   }
 }

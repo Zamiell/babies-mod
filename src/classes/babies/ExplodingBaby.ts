@@ -14,12 +14,9 @@ import { Baby } from "../Baby";
 const KAMIKAZE_DISTANCE_THRESHOLD = DISTANCE_OF_GRID_TILE - 4;
 
 const v = {
-  run: {
-    temporarilyInvulnerable: false,
-  },
-
   room: {
     kamikazeCooldownUntilFrame: null as int | null,
+    temporarilyInvulnerable: false,
   },
 };
 
@@ -44,7 +41,7 @@ export class ExplodingBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(): boolean | undefined {
-    if (v.run.temporarilyInvulnerable) {
+    if (v.room.temporarilyInvulnerable) {
       return false;
     }
 
@@ -76,9 +73,9 @@ export class ExplodingBaby extends Baby {
 
     const gameFrameCount = game.GetFrameCount();
 
-    v.run.temporarilyInvulnerable = true;
+    v.room.temporarilyInvulnerable = true;
     useActiveItemTemp(player, CollectibleType.KAMIKAZE);
-    v.run.temporarilyInvulnerable = false;
+    v.room.temporarilyInvulnerable = false;
 
     v.room.kamikazeCooldownUntilFrame = gameFrameCount + 10;
   }

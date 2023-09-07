@@ -36,12 +36,9 @@ const SOFTLOCK_COLLECTIBLE_TYPES = [
 const TARGET_DAMAGE_RADIUS = 30;
 
 const v = {
-  run: {
-    dealingExtraDamage: false,
-  },
-
   room: {
     cooldownUntilFrame: 0,
+    dealingExtraDamage: false,
   },
 };
 
@@ -75,7 +72,7 @@ export class FangDemonBaby extends Baby {
     source: EntityRef,
     countdownFrames: int,
   ): boolean | undefined {
-    if (v.run.dealingExtraDamage) {
+    if (v.room.dealingExtraDamage) {
       return undefined;
     }
 
@@ -85,14 +82,14 @@ export class FangDemonBaby extends Baby {
     ) {
       const player = Isaac.GetPlayer();
       const damage = player.Damage;
-      v.run.dealingExtraDamage = true;
+      v.room.dealingExtraDamage = true;
       entity.TakeDamage(
         damage,
         DamageFlagZero,
         EntityRef(player),
         countdownFrames,
       );
-      v.run.dealingExtraDamage = false;
+      v.room.dealingExtraDamage = false;
       return false;
     }
 

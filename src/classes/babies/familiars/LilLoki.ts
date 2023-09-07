@@ -1,10 +1,17 @@
 import { ModCallback } from "isaac-typescript-definitions";
 import { Callback, getPlayerFromEntity } from "isaacscript-common";
-import { g } from "../../../globals";
 import { Baby } from "../../Baby";
+
+const v = {
+  room: {
+    rotationAngle: 0,
+  },
+};
 
 /** Cross tears. */
 export class LilLoki extends Baby {
+  v = v;
+
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
     const player = getPlayerFromEntity(tear);
@@ -13,12 +20,12 @@ export class LilLoki extends Baby {
     }
 
     // We store the rotation angle in the "babyCounters" variable.
-    g.run.babyCounters += 90;
-    if (g.run.babyCounters < 360) {
-      const velocity = tear.Velocity.Rotated(g.run.babyCounters);
+    v.room.rotationAngle += 90;
+    if (v.room.rotationAngle < 360) {
+      const velocity = tear.Velocity.Rotated(v.room.rotationAngle);
       player.FireTear(player.Position, velocity, false, true, false);
     } else {
-      g.run.babyCounters = 0;
+      v.room.rotationAngle = 0;
     }
   }
 }

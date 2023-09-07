@@ -17,8 +17,11 @@ import { Baby } from "../Baby";
 
 const v = {
   run: {
-    explored: false,
     rng: newRNG(),
+  },
+
+  level: {
+    explored: false,
   },
 };
 
@@ -61,10 +64,10 @@ export class EarwigBaby extends Baby {
     const num = this.getAttribute("num");
 
     // We only want to explore once.
-    if (v.run.explored) {
+    if (v.level.explored) {
       return;
     }
-    v.run.explored = true;
+    v.level.explored = true;
 
     // Get N unique random indexes.
     const randomFloorGridIndexes: int[] = [];

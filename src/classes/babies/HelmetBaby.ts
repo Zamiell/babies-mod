@@ -11,7 +11,7 @@ import { Baby } from "../Baby";
 const FADE_AMOUNT = 0.5;
 
 const v = {
-  run: {
+  room: {
     isInvulnerable: false,
   },
 };
@@ -30,7 +30,7 @@ export class HelmetBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(): boolean | undefined {
-    if (v.run.isInvulnerable) {
+    if (v.room.isInvulnerable) {
       return false;
     }
 
@@ -59,13 +59,13 @@ export class HelmetBaby extends Baby {
 
     // Keep track of whether they are moving. Also, fade the character to indicate that they are
     // invulnerable.
-    if (!v.run.isInvulnerable && noMovementInputsPressed) {
+    if (!v.room.isInvulnerable && noMovementInputsPressed) {
       // They stopped moving.
-      v.run.isInvulnerable = true;
+      v.room.isInvulnerable = true;
       setEntityOpacity(player, FADE_AMOUNT);
-    } else if (v.run.isInvulnerable && anyMovementInputPressed) {
+    } else if (v.room.isInvulnerable && anyMovementInputPressed) {
       // They started moving.
-      v.run.isInvulnerable = false;
+      v.room.isInvulnerable = false;
       setEntityOpacity(player, 1);
     }
   }
