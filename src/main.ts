@@ -5,11 +5,11 @@ import {
   setTracebackFunctionsGlobal,
 } from "isaacscript-common";
 import { babiesCheckValid } from "./babiesCheckValid";
-import * as evaluateCache from "./callbacks/evaluateCache";
 import * as entityTakeDmgPlayer from "./callbacksCustom/entityTakeDmgPlayer";
 import * as postGameStartedReordered from "./callbacksCustom/postGameStartedReordered";
 import type { Baby } from "./classes/Baby";
 import { BabySelection } from "./classes/features/BabySelection";
+import { BabyStats } from "./classes/features/BabyStats";
 import {
   CostumeProtector,
   initCostumeProtector,
@@ -33,6 +33,7 @@ import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 
 const MOD_FEATURES = [
   BabySelection,
+  BabyStats,
   CostumeProtector,
   DrawBabyIntro,
   DrawBabyNumber,
@@ -56,7 +57,6 @@ export function main(): void {
   babiesCheckValid();
 
   initCostumeProtector();
-  registerCallbacksMain();
   registerCallbacksCustom();
   initModFeatures(mod, MOD_FEATURES);
   initBabyClassMap(); // This must be after all normal callback registration.
@@ -70,10 +70,6 @@ function welcomeBanner() {
   log(welcomeTextBorder);
   log(`| ${welcomeText} |`);
   log(welcomeTextBorder);
-}
-
-function registerCallbacksMain() {
-  evaluateCache.init(); // 8
 }
 
 function registerCallbacksCustom() {

@@ -1,4 +1,4 @@
-import type { ModCallback } from "isaac-typescript-definitions";
+import { ModCallback } from "isaac-typescript-definitions";
 import { ModCallbackCustom, ModFeature, ReadonlyMap } from "isaacscript-common";
 import { isValidRandomBabyPlayer } from "../utils";
 import { getBabyType } from "./features/babySelection/v";
@@ -36,7 +36,15 @@ function shouldCallbackFireVanilla(
 const MOD_CALLBACK_TO_VALIDATION_FUNC = new ReadonlyMap<
   ModCallback,
   (...callbackArgs: unknown[]) => boolean
->([]);
+>([
+  [
+    ModCallback.EVALUATE_CACHE,
+    (...callbackArgs: unknown[]) => {
+      const player = callbackArgs[0] as EntityPlayer;
+      return isValidRandomBabyPlayer(player);
+    },
+  ],
+]);
 
 function shouldCallbackFireCustom(
   modCallbackNum: int,
