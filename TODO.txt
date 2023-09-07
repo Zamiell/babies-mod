@@ -1,8 +1,3 @@
-Potential new effects:
-- Starts with Swallowed Penny + Piggy Bank + Strawman. If Strawman dies, you die (not obtainable after womb 1)
-- Reroll your active item on 2nd hit (per room) - check for Scapular
-- massive item shop for 50 cents (credit card, diplopia, crooked penny, exclude Quarter, A Dollar)
-
 List of boring babies:
 - Bandage Girl Baby (#178) - Starts with Cube of Meat + Ball of Bandage - Slightly overlaps with Brownie Baby (#107)
 - Peeling Baby (#199) - Starts with Potato Peeler - Slightly overlaps with Meat Boy Baby (#210)
