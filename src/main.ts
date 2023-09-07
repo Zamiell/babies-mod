@@ -16,6 +16,7 @@ import * as postNewRoomReordered from "./callbacksCustom/postNewRoomReordered";
 import * as postPlayerChangeType from "./callbacksCustom/postPlayerChangeType";
 import type { Baby } from "./classes/Baby";
 import { PseudoRoomClear } from "./classes/features/PseudoRoomClear";
+import { RemoveMappingBaby } from "./classes/features/RemoveMappingBaby";
 import { Shockwaves } from "./classes/features/Shockwaves";
 import { SoftlockPrevention } from "./classes/features/SoftlockPrevention";
 import { IS_DEV, MOD_NAME, VERSION } from "./constants";
@@ -26,7 +27,12 @@ import { mod } from "./mod";
 import { BABIES } from "./objects/babies";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 
-const MOD_FEATURES = [PseudoRoomClear, Shockwaves, SoftlockPrevention] as const;
+const MOD_FEATURES = [
+  PseudoRoomClear,
+  RemoveMappingBaby,
+  Shockwaves,
+  SoftlockPrevention,
+] as const;
 
 export function main(): void {
   if (IS_DEV) {
