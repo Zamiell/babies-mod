@@ -13,7 +13,7 @@ import { Baby } from "../Baby";
 /** By default, the Strawman will be so big that he will cover up the baby. */
 const STRAWMAN_SIZE_MULTIPLIER = 0.75;
 
-/** Starts with Piggy Bank + Swallowed Penny + Strawman (Strawman can't die). */
+/** Starts with Piggy Bank + Swallowed Penny + Strawman (Strawman must not die). */
 export class SwordBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_PLAYER_INIT_LATE)
   postPlayerInitLate(player: EntityPlayer): void {
