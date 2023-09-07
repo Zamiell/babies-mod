@@ -12,6 +12,7 @@ import {
   log,
 } from "isaacscript-common";
 import { PlayerTypeCustom } from "../enums/PlayerTypeCustom";
+import type { BabyDescription } from "../interfaces/BabyDescription";
 import { mod } from "../mod";
 import { BABIES } from "../objects/babies";
 import { giveCollectibleAndRemoveFromPools } from "../utils";
@@ -19,8 +20,10 @@ import { giveCollectibleAndRemoveFromPools } from "../utils";
 const ALL_BABY_SEED_EFFECTS: readonly SeedEffect[] = (() => {
   const seedEffects: SeedEffect[] = [];
 
-  for (const baby of Object.values(BABIES)) {
-    if ("seed" in baby) {
+  for (const babyRaw of Object.values(BABIES)) {
+    const baby = babyRaw as BabyDescription;
+
+    if (baby.seed !== undefined) {
       seedEffects.push(baby.seed);
     }
   }
@@ -50,6 +53,8 @@ const CHANGE_CHARACTER_TRINKET_TYPES = [
   TrinketType.MYSTERIOUS_PAPER, // 21
   TrinketType.BROKEN_ANKH, // 28
   TrinketType.ERROR, // 75
+  // TrinketType.MODELING_CLAY (166) can never grant a revival collectible because no revival
+  // collectibles have a type of "summonable".
 ] as const;
 
 const BANNED_TRINKETS_WITH_RANDOM_BABY = [
@@ -100,7 +105,8 @@ function main(isContinued: boolean) {
 function postGameStartedRandomBaby() {
   const itemPool = game.GetItemPool();
 
-  // Random Baby always starts with the Schoolbag.
+  // Random Baby always starts with the Schoolbag so that the babies with active items have more of
+  // a chance to be selected.
   const randomBabies = getPlayersOfType(PlayerTypeCustom.RANDOM_BABY);
   for (const randomBaby of randomBabies) {
     giveCollectibleAndRemoveFromPools(randomBaby, CollectibleType.SCHOOLBAG);

@@ -126,8 +126,10 @@ function checkDuplicateCollectibles() {
 function checkDuplicateTrinkets() {
   const trinketSet = new Set<TrinketType>();
 
-  for (const [i, baby] of Object.entries(BABIES)) {
-    if ("trinket" in baby) {
+  for (const [i, babyRaw] of Object.entries(BABIES)) {
+    const baby = babyRaw as BabyDescription;
+
+    if (baby.trinket !== undefined) {
       if (trinketSet.has(baby.trinket)) {
         logBabyInvalid(baby, i, `has a duplicate trinket: ${baby.trinket}`);
       } else {
