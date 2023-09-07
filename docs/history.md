@@ -12,6 +12,7 @@
   - Dripping Baby (#45) - 10% chance to teleport from breaking rocks
   - Goat Head Baby (#53) - Starts with Goat Head + Number Magnet
   - Butthole Baby (#63) - Spawns a random poop every 5 seconds (including Repentance poop types)
+  - 3 Eyes Baby (#69) - Starts with 3x Cain's Other Eye + Friendship Necklace
   - Lowface Baby (#73) - Starts with Book of Virtues + Unicorn Stump
   - Derp Baby (#78) - Starts with Cursed Penny
   - Lobotomy Baby (#79) - Boss dies after 6 hits on floor

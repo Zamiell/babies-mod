@@ -75,7 +75,7 @@ There are 603 babies in total.
 | 66 | <img src="./images/066_baby_mustache.png" alt="066_baby_mustache.png"> | Mustache Baby | Boomerang tears |
 | 67 | <img src="./images/067_baby_spittle.png" alt="067_baby_spittle.png"> | Spittle Baby | Starts with Dead Onion |
 | 68 | <img src="./images/068_baby_brain.png" alt="068_baby_brain.png"> | Brain Baby | Starts with The Mind |
-| 69 | <img src="./images/069_baby_threeeyes.png" alt="069_baby_threeeyes.png"> | 3 Eyes Baby | Starts with The Inner Eye |
+| 69 | <img src="./images/069_baby_threeeyes.png" alt="069_baby_threeeyes.png"> | 3 Eyes Baby | Starts with 3x Cain's Other Eye + Friendship Necklace |
 | 70 | <img src="./images/070_baby_viridian.png" alt="070_baby_viridian.png"> | Viridian Baby | Starts with How to Jump |
 | 71 | <img src="./images/071_baby_blockhead.png" alt="071_baby_blockhead.png"> | Blockhead Baby | Starts with Dr. Fetus + Soy Milk + explosion immunity |
 | 72 | <img src="./images/072_baby_worm.png" alt="072_baby_worm.png"> | Worm Baby | Starts with 5x Little Chubby |

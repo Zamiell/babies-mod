@@ -3,14 +3,14 @@ import {
   CallbackCustom,
   ModCallbackCustom,
   game,
-  getStage,
+  onStageOrHigher,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Everything is sped up. */
 export class BreadmeatHoodiebreadBaby extends Baby {
   override isValid(): boolean {
-    return getStage() < LevelStage.WOMB_2;
+    return !onStageOrHigher(LevelStage.WOMB_2);
   }
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
