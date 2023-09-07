@@ -3,7 +3,7 @@
 <!-- cspell:ignore cantgirl,Finalkids,Hispa,Kaethela,lenamek,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy -->
 <!-- markdownlint-disable MD001 -->
 
-### _v1.7.0_ - September ?th, 2023 (Unreleased)
+### _v1.7.0_ - September 7th, 2023
 
 - Changed the following babies:
   - Crow Baby (#12) - Soul of Eve effect on hit
