@@ -618,9 +618,12 @@ export const BABIES = {
   // 69
   [RandomBabyType.THREE_EYES]: {
     name: "3 Eyes Baby",
-    description: "Starts with The Inner Eye",
+    description: "Starts with 3x Cain's Other Eye + Friendship Necklace",
     sprite: "069_baby_threeeyes.png",
-    collectible: CollectibleType.INNER_EYE,
+    collectible: CollectibleType.CAINS_OTHER_EYE,
+    collectibleNum: 3,
+    trinket: TrinketType.FRIENDSHIP_NECKLACE,
+    class: bc.N3EyesBaby,
   },
 
   // 70

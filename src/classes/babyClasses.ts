@@ -2,6 +2,7 @@
 // local variables.
 
 export { N2600Baby } from "./babies/2600Baby";
+export { N3EyesBaby } from "./babies/3EyesBaby";
 export { N404Baby } from "./babies/404Baby";
 export { AbanBaby } from "./babies/AbanBaby";
 export { AetherBaby } from "./babies/AetherBaby";
