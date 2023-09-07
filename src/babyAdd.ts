@@ -7,6 +7,7 @@ import {
 } from "isaac-typescript-definitions";
 import {
   VectorOne,
+  asCollectibleType,
   game,
   getCollectibleItemType,
   getCollectibleMaxCharges,
@@ -110,6 +111,9 @@ export function babyAdd(
     const num = baby.trinketNum ?? 1;
     repeat(num, () => {
       smeltTrinket(player, trinket);
+
+      const itemTrackerTrinketID = asCollectibleType(trinket + 2000);
+      removeCollectibleFromItemTracker(itemTrackerTrinketID);
     });
     itemPool.RemoveTrinket(baby.trinket);
   }

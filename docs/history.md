@@ -30,6 +30,7 @@
   - Snail Baby (#244) - Glowing Hourglass effect on 2nd hit (per room)
   - Lovebear Baby (#266) - Starts in a super Arcade
   - Eye Demon Baby (#280) - Enemies projectiles makes you lose money
+  - Sword Baby (#312) - Starts with Piggy Bank + Swallowed Penny + Strawman (Strawman can't die)
   - Cupcake Baby (#321) - Starts with Voodoo Head + Flat File
   - Cyborg Baby (#343) - Sees numerical damage values and hitboxes
   - Mean Mushroom Baby (#367) - Enemies projectiles freeze you

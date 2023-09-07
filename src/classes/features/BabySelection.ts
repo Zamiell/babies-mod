@@ -111,9 +111,7 @@ export class BabySelection extends ModFeature {
       baby = BABIES[babyType];
     } while (!babyCheckValid(player, babyType, baby, v.persistent.pastBabies));
 
-    log(
-      `Randomly chose baby: ${babyType} - ${baby.name} - ${baby.description}`,
-    );
+    log(`Chose baby: ${babyType} - ${baby.name} - ${baby.description}`);
     log(
       `Tries: ${numTries}, total past babies: ${v.persistent.pastBabies.size}`,
     );

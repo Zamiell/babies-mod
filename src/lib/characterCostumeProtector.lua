@@ -2,7 +2,9 @@
 -- https://github.com/Sanio46/character-costume-protector
 
 -- Modifications:
--- - Active item bug fix on line 895.
+-- - Better logging on line 66.
+-- - Active item bug fix on line 903.
+-- - Strawman bug fix on line 1108.
 
 --VERSION = "1.4.2"
 
@@ -62,7 +64,13 @@ local CallbacksTable = {
 ---------------------
 
 local function apiError(func, invalidVar, num, expectedType)
-	local err = "(CCP) Something went wrong in ccp:" .. func .. "!"
+	local err = (
+		"(CCP) Something went wrong in Character Costume Protector. "
+		.. "func: " .. tostring(func) .. ", "
+		.. "invalidVar: " .. tostring(invalidVar) .. ", "
+		.. "num: " .. tostring(num) .. ", "
+		.. "expectedType: " .. tostring(expectedType)
+	)
 
 	if expectedType ~= nil then
 		err = "Bad Argument #" ..
@@ -1098,6 +1106,10 @@ end
 
 function ccp:init(mod)
 	mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, function(_, player)
+		if player.Parent == nil then
+			return
+		end
+
 		ccp:removeAllPlayers(player)
 	end)
 

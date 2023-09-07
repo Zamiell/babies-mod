@@ -2715,9 +2715,13 @@ export const BABIES = {
   // 312
   [RandomBabyType.SWORD]: {
     name: "Sword Baby",
-    description: "Starts with Sacrificial Dagger",
+    description:
+      "Starts with Piggy Bank + Swallowed Penny + Strawman (Strawman can't die)",
     sprite: "312_baby_sword.png",
-    collectible: CollectibleType.SACRIFICIAL_DAGGER,
+    collectible: CollectibleType.PIGGY_BANK,
+    collectible2: CollectibleType.STRAWMAN,
+    trinket: TrinketType.SWALLOWED_PENNY,
+    class: bc.SwordBaby,
   },
 
   // 313
