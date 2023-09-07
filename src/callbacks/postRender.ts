@@ -3,29 +3,20 @@ import {
   ItemType,
   Keyboard,
   ModCallback,
-  RoomType,
 } from "isaac-typescript-definitions";
 import {
-  KColorDefault,
-  fonts,
   game,
   getCollectibleItemType,
-  getHUDOffsetVector,
-  getHeartsUIWidth,
   getScreenCenterPos,
-  inRoomType,
   isKeyboardPressed,
 } from "isaacscript-common";
 import { MOD_NAME, VERSION } from "../constants";
-import { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import type { BabyDescription } from "../interfaces/BabyDescription";
 import { mod } from "../mod";
 import { newSprite } from "../sprite";
-import { isRacingPlusEnabled } from "../utils";
 import { getCurrentBaby } from "../utilsBaby";
 
-const UI_HEARTS_RIGHT_SPACING = 55;
 const CLOCK_POSITION = Vector(30, 30);
 const CLOCK_SPRITE = newSprite("gfx/clock.anm2");
 
@@ -40,38 +31,9 @@ function main() {
   if (currentBaby === undefined) {
     return;
   }
-  const { babyType, baby } = currentBaby;
+  const { baby } = currentBaby;
 
-  drawBabyNumber(babyType);
   drawTempIconNextToActiveCollectible(baby);
-}
-
-/** Draw the baby's number next to the heart count. */
-function drawBabyNumber(babyType: RandomBabyType) {
-  const HUDOffsetVector = getHUDOffsetVector();
-  const heartsUIWidth = getHeartsUIWidth();
-
-  // Racing+ draws the number of sacrifices in the top left corner, which interferes with the baby
-  // number text.
-  if (isRacingPlusEnabled() && inRoomType(RoomType.SACRIFICE)) {
-    return;
-  }
-
-  const text = `#${babyType}`;
-
-  let x = HUDOffsetVector.X + heartsUIWidth + UI_HEARTS_RIGHT_SPACING;
-  if (
-    babyType === RandomBabyType.HOPELESS || // 125
-    babyType === RandomBabyType.MOHAWK // 138
-  ) {
-    // These babies draw text next to the hearts, so account for this so that the number text does
-    // not overlap.
-    x += 20;
-  }
-
-  const y = 10;
-
-  fonts.droid.DrawString(text, x, y, KColorDefault, 0, true);
 }
 
 function drawVersion() {
