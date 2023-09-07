@@ -1,8 +1,4 @@
-import {
-  CollectibleType,
-  SeedEffect,
-  TrinketType,
-} from "isaac-typescript-definitions";
+import { CollectibleType, TrinketType } from "isaac-typescript-definitions";
 import {
   ModCallbackCustom,
   anyPlayerIs,
@@ -12,24 +8,8 @@ import {
   log,
 } from "isaacscript-common";
 import { PlayerTypeCustom } from "../enums/PlayerTypeCustom";
-import type { BabyDescription } from "../interfaces/BabyDescription";
 import { mod } from "../mod";
-import { BABIES } from "../objects/babies";
 import { giveCollectibleAndRemoveFromPools } from "../utils";
-
-const ALL_BABY_SEED_EFFECTS: readonly SeedEffect[] = (() => {
-  const seedEffects: SeedEffect[] = [];
-
-  for (const babyRaw of Object.values(BABIES)) {
-    const baby = babyRaw as BabyDescription;
-
-    if (baby.seed !== undefined) {
-      seedEffects.push(baby.seed);
-    }
-  }
-
-  return seedEffects;
-})();
 
 const CHANGE_CHARACTER_COLLECTIBLE_TYPES = [
   CollectibleType.ANKH, // 161
@@ -84,17 +64,6 @@ function main(isContinued: boolean) {
   // Don't do anything if this is not a new run.
   if (isContinued) {
     return;
-  }
-
-  // Easter Eggs from babies are normally removed upon going to the next floor. We also have to
-  // check to see if they reset the game while on a baby with a custom Easter Egg effect.
-  for (const seed of ALL_BABY_SEED_EFFECTS) {
-    seeds.RemoveSeedEffect(seed);
-  }
-
-  // Also remove seeds that are turned on manually in the `POST_UPDATE` callback.
-  if (seeds.HasSeedEffect(SeedEffect.OLD_TV)) {
-    seeds.RemoveSeedEffect(SeedEffect.OLD_TV);
   }
 
   if (anyPlayerIs(PlayerTypeCustom.RANDOM_BABY)) {

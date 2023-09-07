@@ -21,6 +21,7 @@ import { ExplosionImmunity } from "./classes/features/ExplosionImmunity";
 import { GetRandomCollectibleTypeFromPool } from "./classes/features/GetRandomCollectibleTypeFromPool";
 import { PseudoRoomClear } from "./classes/features/PseudoRoomClear";
 import { RemoveMappingBaby } from "./classes/features/RemoveMappingBaby";
+import { RemoveSeeds } from "./classes/features/RemoveSeeds";
 import { Shockwaves } from "./classes/features/Shockwaves";
 import { SoftlockPrevention } from "./classes/features/SoftlockPrevention";
 import { IS_DEV, MOD_NAME, VERSION } from "./constants";
@@ -43,6 +44,7 @@ const MOD_FEATURES = [
   GetRandomCollectibleTypeFromPool,
   PseudoRoomClear,
   RemoveMappingBaby,
+  RemoveSeeds,
   Shockwaves,
   SoftlockPrevention,
 ] as const;
