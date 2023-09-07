@@ -6,7 +6,6 @@ import {
 } from "isaacscript-common";
 import { babiesCheckValid } from "./babiesCheckValid";
 import * as evaluateCache from "./callbacks/evaluateCache";
-import * as executeCmd from "./callbacks/executeCmd";
 import * as postPlayerInit from "./callbacks/postPlayerInit";
 import * as postRender from "./callbacks/postRender";
 import * as entityTakeDmgPlayer from "./callbacksCustom/entityTakeDmgPlayer";
@@ -73,7 +72,6 @@ function registerCallbacksMain() {
   postRender.init(); // 2
   evaluateCache.init(); // 8
   postPlayerInit.init(); // 9
-  executeCmd.init(); // 22
 }
 
 function registerCallbacksCustom() {

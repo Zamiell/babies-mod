@@ -1,4 +1,6 @@
 TODO:
+- make ISC commands work well with double mods
+- get documentation for Extra Console Commands working (and link there from the existing console commands page)
 - make `pastBabies` custom challenge logic
 - refactor global variables
 - SaveDataManager
