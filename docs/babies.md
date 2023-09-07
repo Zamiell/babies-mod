@@ -118,7 +118,7 @@ There are 603 babies in total.
 | 106 | <img src="./images/106_baby_aether.png" alt="106_baby_aether.png"> | Aether Baby | All direction tears |
 | 107 | <img src="./images/107_baby_brownie.png" alt="107_baby_brownie.png"> | Brownie Baby | Starts with Level 4 Meatboy + Level 4 Meatgirl |
 | 108 | <img src="./images/108_baby_vvvvvv.png" alt="108_baby_vvvvvv.png"> | VVVVVV Baby | Reverse Emperor card effect after 6 hits |
-| 109 | <img src="./images/109_baby_nosferatu.png" alt="109_baby_nosferatu.png"> | Nosferatu Baby | Enemies have homing projectiles |
+| 109 | <img src="./images/109_baby_nosferatu.png" alt="109_baby_nosferatu.png"> | Nosferatu Baby | Enemies have spectral projectiles |
 | 110 | <img src="./images/110_baby_pubic.png" alt="110_baby_pubic.png"> | Pubic Baby | Must full clear |
 | 111 | <img src="./images/111_baby_eyemouth.png" alt="111_baby_eyemouth.png"> | Eyemouth Baby | Shoots an extra tear every 3rd shot |
 | 112 | <img src="./images/112_baby_weirdo.png" alt="112_baby_weirdo.png"> | Weirdo Baby | Starts with The Ludovico Technique |
