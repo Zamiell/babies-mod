@@ -9,7 +9,6 @@ import {
   openAllDoors,
 } from "isaacscript-common";
 import type { BabyDescription } from "../../interfaces/BabyDescription";
-import { isValidRandomBabyPlayer } from "../../utils";
 import { getCurrentBaby } from "../../utilsBaby";
 import { BabyModFeature } from "../BabyModFeature";
 
@@ -24,11 +23,7 @@ export class SoftlockPrevention extends BabyModFeature {
   v = v;
 
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
-  postPEffectUpdateReordered(player: EntityPlayer): void {
-    if (!isValidRandomBabyPlayer(player)) {
-      return;
-    }
-
+  postPEffectUpdateReordered(): void {
     const currentBaby = getCurrentBaby();
     if (currentBaby === undefined) {
       return;

@@ -6,7 +6,6 @@ import {
 } from "isaacscript-common";
 import { getBabyCollectiblesSet } from "../../babyCheckValid";
 import type { BabyDescription } from "../../interfaces/BabyDescription";
-import { isValidRandomBabyPlayer } from "../../utils";
 import { getCurrentBaby } from "../../utilsBaby";
 import { BabyModFeature } from "../BabyModFeature";
 
@@ -26,10 +25,6 @@ const MAPPING_COLLECTIBLE_TYPES = [
 export class RemoveMappingBaby extends BabyModFeature {
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {
-    if (!isValidRandomBabyPlayer(player)) {
-      return;
-    }
-
     const currentBaby = getCurrentBaby();
     if (currentBaby === undefined) {
       return;
