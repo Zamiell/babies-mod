@@ -321,7 +321,7 @@ There are 603 babies in total.
 | 309 | <img src="./images/309_baby_xeyes.png" alt="309_baby_xeyes.png"> | X Eyed Baby | Starts with Marked |
 | 310 | <img src="./images/310_baby_stareyes.png" alt="310_baby_stareyes.png"> | Starry Eyed Baby | Spawns a Stars Card on hit |
 | 311 | <img src="./images/311_baby_surgeon.png" alt="311_baby_surgeon.png"> | Surgeon Baby | Starts with Ventricle Razor |
-| 312 | <img src="./images/312_baby_sword.png" alt="312_baby_sword.png"> | Sword Baby | Starts with Piggy Bank + Swallowed Penny + Strawman (Strawman can't die) |
+| 312 | <img src="./images/312_baby_sword.png" alt="312_baby_sword.png"> | Sword Baby | Starts with Piggy Bank + Swallowed Penny + Strawman (Strawman must not die) |
 | 313 | <img src="./images/313_baby_monk.png" alt="313_baby_monk.png"> | Monk Baby | Starts with Mom's Bracelet |
 | 314 | <img src="./images/314_baby_disco.png" alt="314_baby_disco.png"> | Disco Baby | Starts with 10x Angelic Prism |
 | 315 | <img src="./images/315_baby_puzzle.png" alt="315_baby_puzzle.png"> | Puzzle Baby | D6 effect on hit |

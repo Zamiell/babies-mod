@@ -1,5 +1,6 @@
 import {
   EntityType,
+  LevelStage,
   PlayerType,
   PlayerVariant,
 } from "isaac-typescript-definitions";
@@ -7,6 +8,7 @@ import {
   CallbackCustom,
   ModCallbackCustom,
   isChildPlayer,
+  onStageOrHigher,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
@@ -15,6 +17,11 @@ const STRAWMAN_SIZE_MULTIPLIER = 0.75;
 
 /** Starts with Piggy Bank + Swallowed Penny + Strawman (Strawman must not die). */
 export class SwordBaby extends Baby {
+  override isValid(): boolean {
+    // It would be too difficult on the later floors.
+    return !onStageOrHigher(LevelStage.WOMB_2);
+  }
+
   @CallbackCustom(ModCallbackCustom.POST_PLAYER_INIT_LATE)
   postPlayerInitLate(player: EntityPlayer): void {
     if (isChildPlayer(player)) {
