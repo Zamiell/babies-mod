@@ -3,6 +3,7 @@ import type {
   SeedEffect,
   TrinketType,
 } from "isaac-typescript-definitions";
+import type { RandomBabyType } from "../enums/RandomBabyType";
 
 export interface BabyDescription {
   // Mandatory properties
@@ -45,7 +46,10 @@ export interface BabyDescription {
   /**
    * The associated class that provides the logic for the baby, if any.
    *
-   * (We cannot specify the type as `typeof Baby` since that would cause a dependency cycle.)
+   * (We cannot specify the type as `Baby` since that would cause a dependency cycle.)
    */
-  readonly class?: unknown;
+  readonly class?: new (
+    babyType: RandomBabyType,
+    baby: BabyDescription,
+  ) => unknown;
 }

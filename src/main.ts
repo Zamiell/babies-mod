@@ -22,6 +22,7 @@ import { initCostumeProtector } from "./costumes";
 import type { RandomBabyType } from "./enums/RandomBabyType";
 import { shockwavesInit } from "./features/shockwaves";
 import { softlockPreventionInit } from "./features/softlockPrevention";
+import type { BabyDescription } from "./interfaces/BabyDescription";
 import { mod } from "./mod";
 import { BABIES } from "./objects/babies";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
@@ -81,12 +82,13 @@ function initFeatures() {
  * This is because we need to cache some API calls in order to prevent crashes.
  */
 function initBabyClassMap() {
-  for (const [babyTypeString, baby] of Object.entries(BABIES)) {
+  for (const [babyTypeString, babyRaw] of Object.entries(BABIES)) {
     const babyType = babyTypeString as unknown as RandomBabyType;
+    const baby = babyRaw as BabyDescription;
 
-    if ("class" in baby) {
+    if (baby.class !== undefined) {
       // eslint-disable-next-line new-cap
-      const babyClass = new baby.class(babyType, baby);
+      const babyClass = new baby.class(babyType, baby) as Baby;
       babyClass.init();
 
       const babyClassMap = BABY_CLASS_MAP as Map<RandomBabyType, Baby>;
