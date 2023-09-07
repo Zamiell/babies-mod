@@ -970,7 +970,7 @@ export const BABIES = {
   // 109
   [RandomBabyType.NOSFERATU]: {
     name: "Nosferatu Baby",
-    description: "Enemies have homing projectiles",
+    description: "Enemies have spectral projectiles",
     sprite: "109_baby_nosferatu.png",
     class: bc.NosferatuBaby,
   },
