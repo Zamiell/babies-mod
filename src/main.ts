@@ -59,7 +59,7 @@ export function main(): void {
   initCostumeProtector();
   registerCallbacksCustom();
   initModFeatures(mod, MOD_FEATURES);
-  initBabyClassMap(); // This must be after all normal callback registration.
+  initBabyClassMap(); // This must be after all normal callback registration..
   enableExtraConsoleCommandsBabiesMod();
 }
 
@@ -77,10 +77,6 @@ function registerCallbacksCustom() {
   postGameStartedReordered.init();
 }
 
-/**
- * We want to only instantiate the baby classes after the normal callbacks have been registered.
- * This is because we need to cache some API calls in order to prevent crashes.
- */
 function initBabyClassMap() {
   for (const [babyTypeString, babyRaw] of Object.entries(BABIES)) {
     const babyType = babyTypeString as unknown as RandomBabyType;
