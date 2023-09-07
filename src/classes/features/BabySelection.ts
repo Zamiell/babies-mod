@@ -18,6 +18,8 @@ import type { BabyDescription } from "../../interfaces/BabyDescription";
 import { BABIES } from "../../objects/babies";
 import { v } from "./babySelection/v";
 
+declare const RacingPlusIsOnFirstCharacter: (() => boolean) | undefined;
+
 /** This does not extend from `BabyModFeature` because that class uses this feature's variables. */
 export class BabySelection extends ModFeature {
   v = v;
@@ -42,8 +44,10 @@ export class BabySelection extends ModFeature {
       return true;
     }
 
-    // TODO
-    return false;
+    return (
+      RacingPlusIsOnFirstCharacter === undefined ||
+      RacingPlusIsOnFirstCharacter()
+    );
   }
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_LEVEL_REORDERED)
