@@ -1,6 +1,9 @@
 import { DamageFlagZero, ModCallback } from "isaac-typescript-definitions";
-import { Callback, getPlayerFromEntity } from "isaacscript-common";
-import { isValidForMissedTearsEffect } from "../../utils";
+import { Callback } from "isaacscript-common";
+import {
+  getBabyPlayerFromEntity,
+  isValidForMissedTearsEffect,
+} from "../../utils";
 import { Baby } from "../Baby";
 
 const v = {
@@ -29,7 +32,7 @@ export class CursedPillowBaby extends Baby {
       return;
     }
 
-    const player = getPlayerFromEntity(tear);
+    const player = getBabyPlayerFromEntity(tear);
     if (player === undefined) {
       return;
     }

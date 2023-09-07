@@ -4,10 +4,9 @@ import {
   CallbackCustom,
   ModCallbackCustom,
   game,
-  getPlayerFromEntity,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { doesBigChestExist } from "../../utils";
+import { doesBigChestExist, getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
 /** Constant Isaac's Tears effect + blindfolded. */
@@ -19,7 +18,7 @@ export class BawlBaby extends Baby {
   // 61
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
-    const player = getPlayerFromEntity(tear);
+    const player = getBabyPlayerFromEntity(tear);
     if (player === undefined) {
       return;
     }

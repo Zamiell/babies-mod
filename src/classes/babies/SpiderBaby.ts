@@ -3,11 +3,8 @@ import {
   FamiliarVariant,
   ModCallback,
 } from "isaac-typescript-definitions";
-import {
-  Callback,
-  getPlayerFromEntity,
-  removeAllMatchingEntities,
-} from "isaacscript-common";
+import { Callback, removeAllMatchingEntities } from "isaacscript-common";
+import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
 const v = {
@@ -28,7 +25,7 @@ export class SpiderBaby extends Baby {
   postFireTear(tear: EntityTear): void {
     const num = this.getAttribute("num");
 
-    const player = getPlayerFromEntity(tear);
+    const player = getBabyPlayerFromEntity(tear);
     if (player === undefined) {
       return;
     }

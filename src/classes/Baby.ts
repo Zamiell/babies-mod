@@ -3,7 +3,6 @@ import type { SaveData } from "isaacscript-common";
 import {
   assertDefined,
   game,
-  getPlayerFromEntity,
   getTSTLClassName,
   ModCallbackCustom,
   ModFeature,
@@ -13,7 +12,7 @@ import type { RandomBabyType } from "../enums/RandomBabyType";
 import { g } from "../globals";
 import type { BabyDescription } from "../interfaces/BabyDescription";
 import { mod } from "../mod";
-import { isValidRandomBabyPlayer } from "../utils";
+import { getBabyPlayerFromEntity, isValidRandomBabyPlayer } from "../utils";
 
 /**
  * The base class that each baby class extends from. This sets up the callback class methods to only
@@ -158,12 +157,8 @@ const MOD_CALLBACK_TO_VALIDATION_FUNC = new ReadonlyMap<
     ModCallback.PRE_TEAR_COLLISION,
     (...callbackArgs: unknown[]) => {
       const tear = callbackArgs[0] as EntityTear;
-      const player = getPlayerFromEntity(tear);
-      if (player === undefined) {
-        return false;
-      }
-
-      return isValidRandomBabyPlayer(player);
+      const player = getBabyPlayerFromEntity(tear);
+      return player !== undefined;
     },
   ],
 
@@ -172,12 +167,8 @@ const MOD_CALLBACK_TO_VALIDATION_FUNC = new ReadonlyMap<
     ModCallback.POST_FIRE_TEAR,
     (...callbackArgs: unknown[]) => {
       const tear = callbackArgs[0] as EntityTear;
-      const player = getPlayerFromEntity(tear);
-      if (player === undefined) {
-        return false;
-      }
-
-      return isValidRandomBabyPlayer(player);
+      const player = getBabyPlayerFromEntity(tear);
+      return player !== undefined;
     },
   ],
 
@@ -245,12 +236,8 @@ const MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC = new ReadonlyMap<
     ModCallbackCustom.POST_BOMB_EXPLODED,
     (...callbackArgs: unknown[]) => {
       const bomb = callbackArgs[0] as EntityBomb;
-      const player = getPlayerFromEntity(bomb);
-      if (player === undefined) {
-        return false;
-      }
-
-      return isValidRandomBabyPlayer(player);
+      const player = getBabyPlayerFromEntity(bomb);
+      return player !== undefined;
     },
   ],
 

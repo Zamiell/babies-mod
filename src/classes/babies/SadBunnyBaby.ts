@@ -1,5 +1,6 @@
 import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
-import { Callback, getPlayerFromEntity, repeat } from "isaacscript-common";
+import { Callback, repeat } from "isaacscript-common";
+import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
 const v = {
@@ -32,7 +33,7 @@ export class SadBunnyBaby extends Baby {
       return;
     }
 
-    const player = getPlayerFromEntity(tear);
+    const player = getBabyPlayerFromEntity(tear);
     if (player === undefined) {
       return;
     }
@@ -56,7 +57,7 @@ export class SadBunnyBaby extends Baby {
       return;
     }
 
-    const player = getPlayerFromEntity(tear);
+    const player = getBabyPlayerFromEntity(tear);
     if (player === undefined) {
       return undefined;
     }

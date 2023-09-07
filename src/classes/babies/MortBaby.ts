@@ -1,5 +1,6 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { Callback, getPlayerFromEntity } from "isaacscript-common";
+import { Callback } from "isaacscript-common";
+import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
 const v = {
@@ -20,7 +21,7 @@ export class MortBaby extends Baby {
       return;
     }
 
-    const player = getPlayerFromEntity(tear);
+    const player = getBabyPlayerFromEntity(tear);
     if (player === undefined) {
       return;
     }

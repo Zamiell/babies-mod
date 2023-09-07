@@ -1,7 +1,6 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 import { ModCallbackCustom, ReadonlySet } from "isaacscript-common";
 import { getBabyCollectiblesSet } from "../babyCheckValid";
-import { softlockPreventionPostPEffectUpdateReordered } from "../features/softlockPrevention";
 import type { BabyDescription } from "../interfaces/BabyDescription";
 import { mod } from "../mod";
 import { isValidRandomBabyPlayer } from "../utils";
@@ -35,7 +34,6 @@ function main(player: EntityPlayer) {
   }
   const { baby } = currentBaby;
 
-  softlockPreventionPostPEffectUpdateReordered(baby);
   checkPlayerGoingToNextFloor(player, baby);
 }
 

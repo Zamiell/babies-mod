@@ -1,5 +1,6 @@
 import { ModCallback, TearFlag } from "isaac-typescript-definitions";
-import { Callback, addFlag, getPlayerFromEntity } from "isaacscript-common";
+import { Callback, addFlag } from "isaacscript-common";
+import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
 const v = {
@@ -20,7 +21,7 @@ export class EightBallBaby extends Baby {
       return;
     }
 
-    const player = getPlayerFromEntity(tear);
+    const player = getBabyPlayerFromEntity(tear);
     if (player === undefined) {
       return;
     }

@@ -1,13 +1,17 @@
 import { GridEntityType } from "isaac-typescript-definitions";
 import {
+  CallbackCustom,
   game,
   GAME_FRAMES_PER_SECOND,
   getGridEntities,
   log,
+  ModCallbackCustom,
   openAllDoors,
 } from "isaacscript-common";
-import type { BabyDescription } from "../interfaces/BabyDescription";
-import { mod } from "../mod";
+import type { BabyDescription } from "../../interfaces/BabyDescription";
+import { isValidRandomBabyPlayer } from "../../utils";
+import { getCurrentBaby } from "../../utilsBaby";
+import { BabyModFeature } from "../BabyModFeature";
 
 const v = {
   room: {
@@ -16,15 +20,24 @@ const v = {
   },
 };
 
-export function softlockPreventionInit(): void {
-  mod.saveDataManager("softlockPrevention", v);
-}
+export class SoftlockPrevention extends BabyModFeature {
+  v = v;
 
-export function softlockPreventionPostPEffectUpdateReordered(
-  baby: BabyDescription,
-): void {
-  checkSoftlockDestroyPoopsTNT(baby);
-  checkSoftlockIsland(baby);
+  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
+  postPEffectUpdateReordered(player: EntityPlayer): void {
+    if (!isValidRandomBabyPlayer(player)) {
+      return;
+    }
+
+    const currentBaby = getCurrentBaby();
+    if (currentBaby === undefined) {
+      return;
+    }
+    const { baby } = currentBaby;
+
+    checkSoftlockDestroyPoopsTNT(baby);
+    checkSoftlockIsland(baby);
+  }
 }
 
 /**

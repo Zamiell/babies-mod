@@ -33,6 +33,7 @@ import {
   game,
   getCollectibleMaxCharges,
   getEntities,
+  getPlayerFromEntity,
   getRandomInt,
   getRandomSetElement,
   hasCollectible,
@@ -105,6 +106,21 @@ export function everyNSeconds(func: () => void, seconds: int): void {
   if (gameFrameMatchesSecondsCount) {
     func();
   }
+}
+
+export function getBabyPlayerFromEntity(
+  entity: Entity,
+): EntityPlayer | undefined {
+  const player = getPlayerFromEntity(entity);
+  if (player === undefined) {
+    return undefined;
+  }
+
+  if (!isValidRandomBabyPlayer(player)) {
+    return undefined;
+  }
+
+  return player;
 }
 
 export function getRandomOffsetPosition(

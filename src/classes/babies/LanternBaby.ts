@@ -1,5 +1,6 @@
 import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
-import { Callback, getPlayerFromEntity } from "isaacscript-common";
+import { Callback } from "isaacscript-common";
+import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
 /** Godhead aura + flight + blindfolded. */
@@ -10,7 +11,7 @@ export class LanternBaby extends Baby {
 
   @Callback(ModCallback.POST_TEAR_UPDATE)
   postTearUpdate(tear: EntityTear): void {
-    const player = getPlayerFromEntity(tear);
+    const player = getBabyPlayerFromEntity(tear);
     if (player === undefined) {
       return;
     }

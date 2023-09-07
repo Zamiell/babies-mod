@@ -8,10 +8,10 @@ import {
   CallbackCustom,
   ModCallbackCustom,
   game,
-  getPlayerFromEntity,
   sfxManager,
   useActiveItemTemp,
 } from "isaacscript-common";
+import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
 const v = {
@@ -47,7 +47,7 @@ export class ScreamBaby extends Baby {
   // 61
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
-    const player = getPlayerFromEntity(tear);
+    const player = getBabyPlayerFromEntity(tear);
     if (player === undefined) {
       return;
     }

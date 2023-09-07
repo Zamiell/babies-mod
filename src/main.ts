@@ -18,16 +18,16 @@ import * as postPlayerChangeType from "./callbacksCustom/postPlayerChangeType";
 import type { Baby } from "./classes/Baby";
 import { PseudoRoomClear } from "./classes/features/PseudoRoomClear";
 import { Shockwaves } from "./classes/features/Shockwaves";
+import { SoftlockPrevention } from "./classes/features/SoftlockPrevention";
 import { IS_DEV, MOD_NAME, VERSION } from "./constants";
 import { initCostumeProtector } from "./costumes";
 import type { RandomBabyType } from "./enums/RandomBabyType";
-import { softlockPreventionInit } from "./features/softlockPrevention";
 import type { BabyDescription } from "./interfaces/BabyDescription";
 import { mod } from "./mod";
 import { BABIES } from "./objects/babies";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 
-const MOD_FEATURES = [PseudoRoomClear, Shockwaves] as const;
+const MOD_FEATURES = [PseudoRoomClear, Shockwaves, SoftlockPrevention] as const;
 
 export function main(): void {
   if (IS_DEV) {
@@ -36,12 +36,13 @@ export function main(): void {
     mod.saveDataManagerSetGlobal();
   }
 
-  initCostumeProtector();
   welcomeBanner();
   babiesCheckValid();
+
+  initCostumeProtector();
   registerCallbacksMain();
   registerCallbacksCustom();
-  initFeatures();
+  initModFeatures(mod, MOD_FEATURES);
   initBabyClassMap(); // This must be after all normal callback registration.
 }
 
@@ -68,12 +69,6 @@ function registerCallbacksCustom() {
   postNewRoomReordered.init();
   postPEffectUpdateReordered.init();
   postPlayerChangeType.init();
-}
-
-function initFeatures() {
-  initModFeatures(mod, MOD_FEATURES);
-
-  softlockPreventionInit();
 }
 
 /**

@@ -2,13 +2,12 @@ import { CollectibleType, LevelStage } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   ModCallbackCustom,
-  getPlayerFromEntity,
   getRandom,
   newRNG,
   onStage,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { setInitialBabyRNG } from "../../utils";
+import { getBabyPlayerFromEntity, setInitialBabyRNG } from "../../utils";
 import { Baby } from "../Baby";
 
 const v = {
@@ -32,7 +31,7 @@ export class BombBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.POST_BOMB_EXPLODED)
   postBombExploded(bomb: EntityBomb): void {
-    const player = getPlayerFromEntity(bomb);
+    const player = getBabyPlayerFromEntity(bomb);
     if (player === undefined) {
       return;
     }

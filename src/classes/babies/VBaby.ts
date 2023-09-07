@@ -1,5 +1,6 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { Callback, getPlayerFromEntity } from "isaacscript-common";
+import { Callback } from "isaacscript-common";
+import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
 const RING_RADIUS = 5;
@@ -8,7 +9,7 @@ const RING_RADIUS = 5;
 export class VBaby extends Baby {
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
-    const player = getPlayerFromEntity(tear);
+    const player = getBabyPlayerFromEntity(tear);
     if (player === undefined) {
       return;
     }

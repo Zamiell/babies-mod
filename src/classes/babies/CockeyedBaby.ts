@@ -1,9 +1,6 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import {
-  Callback,
-  getPlayerFromEntity,
-  getRandomInt,
-} from "isaacscript-common";
+import { Callback, getRandomInt } from "isaacscript-common";
+import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
 const v = {
@@ -22,7 +19,7 @@ export class CockeyedBaby extends Baby {
       return;
     }
 
-    const player = getPlayerFromEntity(tear);
+    const player = getBabyPlayerFromEntity(tear);
     if (player === undefined) {
       return;
     }

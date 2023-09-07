@@ -1,6 +1,7 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { Callback, getPlayerFromEntity } from "isaacscript-common";
+import { Callback } from "isaacscript-common";
 import { mod } from "../../mod";
+import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
 const v = {
@@ -16,7 +17,7 @@ export class MernBaby extends Baby {
   // 61
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
-    const player = getPlayerFromEntity(tear);
+    const player = getBabyPlayerFromEntity(tear);
     if (player === undefined) {
       return;
     }
