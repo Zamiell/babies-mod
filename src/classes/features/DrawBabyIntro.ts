@@ -14,7 +14,7 @@ import { BabyModFeature } from "../BabyModFeature";
 
 const v = {
   run: {
-    showIntroFrame: 0,
+    showIntroUntilFrame: null as int | null,
   },
 };
 
@@ -43,7 +43,10 @@ export class DrawBabyIntro extends BabyModFeature {
 
   draw(baby: BabyDescription): void {
     const gameFrameCount = game.GetFrameCount();
-    if (gameFrameCount > v.run.showIntroFrame) {
+    if (
+      v.run.showIntroUntilFrame === null ||
+      gameFrameCount > v.run.showIntroUntilFrame
+    ) {
       return;
     }
 
@@ -82,6 +85,6 @@ export class DrawBabyIntro extends BabyModFeature {
 
   setShowIntroFrame(): void {
     const gameFrameCount = game.GetFrameCount();
-    v.run.showIntroFrame = gameFrameCount + GAME_FRAMES_PER_SECOND * 2;
+    v.run.showIntroUntilFrame = gameFrameCount + 2 * GAME_FRAMES_PER_SECOND;
   }
 }

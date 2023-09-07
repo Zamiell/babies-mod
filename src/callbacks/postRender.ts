@@ -1,17 +1,9 @@
 import {
   ActiveSlot,
   ItemType,
-  Keyboard,
   ModCallback,
 } from "isaac-typescript-definitions";
-import {
-  game,
-  getCollectibleItemType,
-  getScreenCenterPos,
-  isKeyboardPressed,
-} from "isaacscript-common";
-import { MOD_NAME, VERSION } from "../constants";
-import { g } from "../globals";
+import { getCollectibleItemType } from "isaacscript-common";
 import type { BabyDescription } from "../interfaces/BabyDescription";
 import { mod } from "../mod";
 import { newSprite } from "../sprite";
@@ -25,8 +17,6 @@ export function init(): void {
 }
 
 function main() {
-  drawVersion();
-
   const currentBaby = getCurrentBaby();
   if (currentBaby === undefined) {
     return;
@@ -34,43 +24,6 @@ function main() {
   const { baby } = currentBaby;
 
   drawTempIconNextToActiveCollectible(baby);
-}
-
-function drawVersion() {
-  const gameFrameCount = game.GetFrameCount();
-  const isPaused = game.IsPaused();
-
-  if (isPaused) {
-    return;
-  }
-
-  // Make the version persist for at least 2 seconds after the player presses "v".
-  if (isKeyboardPressed(Keyboard.V)) {
-    g.run.showVersionFrame = gameFrameCount + 60;
-  }
-
-  if (g.run.showVersionFrame === 0 || gameFrameCount > g.run.showVersionFrame) {
-    return;
-  }
-
-  const centerPos = getScreenCenterPos();
-  let text: string;
-  let scale: int;
-  let x: number;
-  let y: number;
-
-  // Render the version of the mod.
-  text = MOD_NAME;
-  scale = 1;
-  x = centerPos.X - 3 * scale * text.length;
-  y = centerPos.Y;
-  Isaac.RenderScaledText(text, x, y, scale, scale, 2, 2, 2, 2);
-
-  text = VERSION;
-  scale = 1;
-  x = centerPos.X - 3 * scale * text.length;
-  y = centerPos.Y + 15;
-  Isaac.RenderScaledText(text, x, y, scale, scale, 2, 2, 2, 2);
 }
 
 /**
