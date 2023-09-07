@@ -165,7 +165,7 @@ There are 603 babies in total.
 | 156 | <img src="./images/156_baby_puff.png" alt="156_baby_puff.png"> | Puff Baby | Mega Bean effect every 5 seconds |
 | 157 | <img src="./images/157_baby_attractive.png" alt="157_baby_attractive.png"> | Attractive Baby | All enemies are permanently charmed |
 | 158 | <img src="./images/158_baby_pretty.png" alt="158_baby_pretty.png"> | Pretty Baby | All special rooms are Angel shops |
-| 159 | <img src="./images/159_baby_crackedinfamy.png" alt="159_baby_crackedinfamy.png"> | Cracked Infamy Baby | Starts with Dr. Fetus + Remote Detonator |
+| 159 | <img src="./images/159_baby_crackedinfamy.png" alt="159_baby_crackedinfamy.png"> | Cracked Infamy Baby | Every 8th tear is a ghost from Ghost Bombs |
 | 160 | <img src="./images/160_baby_distended.png" alt="160_baby_distended.png"> | Distended Baby | Starts with Contagion |
 | 161 | <img src="./images/161_baby_mean.png" alt="161_baby_mean.png"> | Mean Baby | Starts with Epic Fetus |
 | 162 | <img src="./images/162_baby_digital.png" alt="162_baby_digital.png"> | Digital Baby | B00B T00B |
@@ -194,7 +194,7 @@ There are 603 babies in total.
 | 185 | <img src="./images/185_baby_web.png" alt="185_baby_web.png"> | Web Baby | Slowing tears |
 | 186 | <img src="./images/186_baby_faded.png" alt="186_baby_faded.png"> | Faded Baby | Random teleport on hit |
 | 187 | <img src="./images/187_baby_sick.png" alt="187_baby_sick.png"> | Sick Baby | Shoots explosive flies + flight |
-| 188 | <img src="./images/188_baby_drfetus.png" alt="188_baby_drfetus.png"> | Dr. Fetus Baby | Starts with Dr. Fetus |
+| 188 | <img src="./images/188_baby_drfetus.png" alt="188_baby_drfetus.png"> | Dr. Fetus Baby | Starts with Dr. Fetus + Remote Detonator |
 | 189 | <img src="./images/189_baby_spectral.png" alt="189_baby_spectral.png"> | Spectral Baby | Starts with Ouija Board |
 | 190 | <img src="./images/190_baby_redskeleton.png" alt="190_baby_redskeleton.png"> | Red Skeleton Baby | Starts with 3x Slipped Rib |
 | 191 | <img src="./images/191_baby_skeleton.png" alt="191_baby_skeleton.png"> | Skeleton Baby | Starts with Compound Fracture |
@@ -286,7 +286,7 @@ There are 603 babies in total.
 | 277 | <img src="./images/277_baby_spikydemon.png" alt="277_baby_spikydemon.png"> | Spiky Demon Baby | Starts with Dark Arts |
 | 278 | <img src="./images/278_baby_reddemon.png" alt="278_baby_reddemon.png"> | Red Demon Baby | Starts with Brimstone + Anti-Gravity |
 | 279 | <img src="./images/279_baby_orangedemon.png" alt="279_baby_orangedemon.png"> | Orange Demon Baby | Explosivo tears (every 2nd tear) |
-| 280 | <img src="./images/280_baby_eyedemon.png" alt="280_baby_eyedemon.png"> | Eye Demon Baby | Enemies have Continuum projectiles |
+| 280 | <img src="./images/280_baby_eyedemon.png" alt="280_baby_eyedemon.png"> | Eye Demon Baby | Enemies projectiles makes you lose money |
 | 281 | <img src="./images/281_baby_fangdemon.png" alt="281_baby_fangdemon.png"> | Fang Demon Baby | Directed light beams |
 | 282 | <img src="./images/282_baby_ghost.png" alt="282_baby_ghost.png"> | Ghost Baby 2 | Constant Maw of the Void effect + flight + blindfolded |
 | 283 | <img src="./images/283_baby_arachnid.png" alt="283_baby_arachnid.png"> | Arachnid Baby | Starts with 5x Daddy Longlegs |
