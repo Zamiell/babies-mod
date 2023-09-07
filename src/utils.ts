@@ -62,7 +62,7 @@ import { CollectibleTypeCustom } from "./enums/CollectibleTypeCustom";
 import { PlayerTypeCustom } from "./enums/PlayerTypeCustom";
 import { mod } from "./mod";
 
-const BAD_MISSING_TEARS_COLLECTIBLE_TYPES = [
+const BAD_MISSED_TEARS_COLLECTIBLE_TYPES = [
   CollectibleType.INNER_EYE, // 2
   CollectibleType.CUPIDS_ARROW, // 48
   CollectibleType.MOMS_EYE, // 55
@@ -81,7 +81,7 @@ const BAD_MISSING_TEARS_COLLECTIBLE_TYPES = [
   CollectibleType.FLAT_STONE, // 540
 ] as const;
 
-const BAD_MISSING_TEARS_TRANSFORMATIONS = [
+const BAD_MISSED_TEARS_TRANSFORMATIONS = [
   PlayerForm.CONJOINED, // 7
   PlayerForm.BOOKWORM, // 10
 ] as const;
@@ -200,8 +200,8 @@ export function isRerolledCollectibleBuggedHeart(
 /** Piercing, multiple shots, and Flat Stone causes "missing" effects to mess up. */
 export function isValidForMissedTearsEffect(player: EntityPlayer): boolean {
   return (
-    !hasCollectible(player, ...BAD_MISSING_TEARS_COLLECTIBLE_TYPES) &&
-    !hasForm(player, ...BAD_MISSING_TEARS_TRANSFORMATIONS)
+    !hasCollectible(player, ...BAD_MISSED_TEARS_COLLECTIBLE_TYPES) &&
+    !hasForm(player, ...BAD_MISSED_TEARS_TRANSFORMATIONS)
   );
 }
 

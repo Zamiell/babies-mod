@@ -5,9 +5,9 @@ import {
   setTracebackFunctionsGlobal,
 } from "isaacscript-common";
 import { babiesCheckValid } from "./babiesCheckValid";
-import * as postGameStartedReordered from "./callbacksCustom/postGameStartedReordered";
 import type { Baby } from "./classes/Baby";
 import { BabySelection } from "./classes/features/BabySelection";
+import { BabyStartingItems } from "./classes/features/BabyStartingItems";
 import { BabyStats } from "./classes/features/BabyStats";
 import {
   CostumeProtector,
@@ -34,6 +34,7 @@ import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 
 const MOD_FEATURES = [
   BabySelection,
+  BabyStartingItems,
   BabyStats,
   CostumeProtector,
   DrawBabyIntro,
@@ -60,7 +61,6 @@ export function main(): void {
   babiesCheckValid();
 
   initCostumeProtector();
-  registerCallbacksCustom();
   initModFeatures(mod, MOD_FEATURES);
   initBabyClassMap(); // This must be after all normal callback registration.
   enableExtraConsoleCommandsBabiesMod();
@@ -74,10 +74,6 @@ function welcomeBanner() {
   log(welcomeTextBorder);
   log(`| ${welcomeText} |`);
   log(welcomeTextBorder);
-}
-
-function registerCallbacksCustom() {
-  postGameStartedReordered.init();
 }
 
 function initBabyClassMap() {

@@ -1,7 +1,3 @@
-TODO:
-- SaveDataManager
-- refactor all callbacks into features
-
 Potential new effects:
 - Starts with Swallowed Penny + Piggy Bank + Strawman. If Strawman dies, you die (not obtainable after womb 1)
 - Reroll your active item on 2nd hit (per room) - check for Scapular
