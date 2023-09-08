@@ -11,7 +11,18 @@ export class SolomonsBabyB extends Baby {
     InputHook.IS_ACTION_PRESSED,
     ButtonAction.SHOOT_LEFT,
   )
-  inputActionPlayerIsActionPressedShootLeft(): number | boolean | undefined {
+  inputActionPlayerIsActionPressedShootLeft(): boolean | undefined {
     return false;
+  }
+
+  @CallbackCustom(
+    ModCallbackCustom.INPUT_ACTION_PLAYER,
+    undefined,
+    undefined,
+    InputHook.GET_ACTION_VALUE,
+    ButtonAction.SHOOT_LEFT,
+  )
+  inputActionPlayerGetActionValueShootLeft(): float | undefined {
+    return 0;
   }
 }

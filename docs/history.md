@@ -3,11 +3,16 @@
 <!-- cspell:ignore cantgirl,Finalkids,Hispa,Kaethela,lenamek,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy -->
 <!-- markdownlint-disable MD001 -->
 
-### _v1.7.1_ - September ?th, 2023
+### _v1.7.1_ - September 8th, 2023
 
-- Fixed the bug where Cracked Infamy Baby did not work properly. (Thanks SuperpaperChildy)
-- !Fixed the bug where Barbarian Baby did not work properly. (Thanks SuperpaperChildy)
-- Fixed the bug where Nuclear Baby did not work properly.
+- Fixed the bug where Random Baby was not properly starting with +1 damage.
+- Fixed the bug where Red Ghost Baby was not working properly. (Thanks SuperpaperChildy)
+- Fixed the bug where Barbarian Baby was not working properly. (Thanks SuperpaperChildy)
+- Fixed the bug where Cracked Infamy Baby was not working properly. (Thanks SuperpaperChildy)
+- Fixed the bug where Tusks Baby was not working properly. (Thanks SuperpaperChildy)
+- Fixed the bug where Skinless Baby was not working properly. (Thanks SuperpaperChildy)
+- Fixed the bug where Solomons Baby A and Solomons Baby 2 were not working properly. (Thanks SuperpaperChildy)
+- Fixed the bug where Nuclear Baby was not working properly.
 
 ### _v1.7.0_ - September 7th, 2023
 
