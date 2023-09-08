@@ -1397,6 +1397,7 @@ export const BABIES = {
     name: "Cracked Infamy Baby",
     description: "Every 8th tear is a ghost from Ghost Bombs",
     sprite: "159_baby_crackedinfamy.png",
+    num: 8,
     requireTears: true,
     class: bc.CrackedInfamyBaby,
   },

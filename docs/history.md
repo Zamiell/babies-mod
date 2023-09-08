@@ -3,6 +3,10 @@
 <!-- cspell:ignore cantgirl,Finalkids,Hispa,Kaethela,lenamek,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.7.1_ - September ?th, 2023
+
+- Fixed the bug where Cracked Infamy Baby didn't work. (Thanks SuperpaperChildy)
+
 ### _v1.7.0_ - September 7th, 2023
 
 - Changed the following babies:
