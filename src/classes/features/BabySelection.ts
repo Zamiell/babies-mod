@@ -71,10 +71,10 @@ export class BabySelection extends ModFeature {
     }
 
     const { babyType, baby } = this.getNewRandomBaby(player);
-    babyAdd(player, babyType, baby);
-
     v.run.babyType = babyType;
     v.persistent.pastBabies.add(babyType);
+
+    babyAdd(player, babyType, baby);
   }
 
   getNewRandomBaby(player: EntityPlayer): {

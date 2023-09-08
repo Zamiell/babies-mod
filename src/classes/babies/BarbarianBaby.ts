@@ -4,8 +4,8 @@ import { Baby } from "../Baby";
 /** Mama Mega bombs. */
 export class BarbarianBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_BOMB_EXPLODED)
-  postBombExploded(): void {
+  postBombExploded(bomb: EntityBomb): void {
     const room = game.GetRoom();
-    room.MamaMegaExplossion();
+    room.MamaMegaExplosion(bomb.Position);
   }
 }

@@ -5,7 +5,9 @@
 
 ### _v1.7.1_ - September ?th, 2023
 
-- Fixed the bug where Cracked Infamy Baby didn't work. (Thanks SuperpaperChildy)
+- Fixed the bug where Cracked Infamy Baby did not work properly. (Thanks SuperpaperChildy)
+- !Fixed the bug where Barbarian Baby did not work properly. (Thanks SuperpaperChildy)
+- Fixed the bug where Nuclear Baby did not work properly.
 
 ### _v1.7.0_ - September 7th, 2023
 
