@@ -70,6 +70,8 @@ export class BabySelection extends ModFeature {
       babyRemove(player, oldBabyType, oldBaby);
     }
 
+    // We must update the `v` variables before we add the baby so that e.g. the `EVALUATE_CACHE`
+    // callback works properly.
     const { babyType, baby } = this.getNewRandomBaby(player);
     v.run.babyType = babyType;
     v.persistent.pastBabies.add(babyType);
