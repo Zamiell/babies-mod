@@ -76,8 +76,11 @@ fi
 DOCS="$DIR/docs/babies.md"
 TMP_DOCS="/tmp/babies.md"
 cp "$DOCS" "$TMP_DOCS"
-npx tsx "$DIR/scripts/generateDocs.ts"
-diff "$DOCS" "$TMP_DOCS"
+bash "$DIR/scripts/generateDocs.sh"
+if ! diff "$DOCS" "$TMP_DOCS"; then
+  echo 'The Markdown documentation is not up to date. Please run the "generateDocs.sh" script and then commit the changes.'
+fi
+rm -f "$TMP_DOCS"
 
 # @template-customization-end
 

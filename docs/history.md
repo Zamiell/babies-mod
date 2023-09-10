@@ -1,9 +1,9 @@
 # The Babies Mod Version History
 
-<!-- cspell:ignore cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy -->
+<!-- cspell:ignore cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
-### _v1.7.2_ - September 10th, 2023
+### _v1.8.0_ - September 10th, 2023
 
 - If you use the [Rebirth Item Tracker](https://github.com/Rchardon/RebirthItemTracker), the baby name and description will be written to the "mod_text.txt" file, which is located next to "Rebirth Item Tracker.exe". You can use Open Broadcaster Software (OBS) to capture this text file in order to easily show the current baby to your live stream on Twitch/YouTube. (Thanks mgln)
 - Fixed the bug where babies with multiple trinkets would only got one removed on the next floor. (Thanks Monkeypot)
@@ -13,6 +13,8 @@
 - Fixed Wink Baby appearing on floors where it should not. (Thanks Gamonymous)
 - Fixed the bug where banned items were not properly removed form pools. (Thanks Gamonymous)
 - Fixed the bug where Zombie Baby would not work properly with Mom's Hands & Mom's Dead Hands. (Thanks Fallenfor)
+- Fixed the bug where using Glowing Hour Glass on the starting room of a new floor would not work properly. (Thanks Monkeypot)
+- Fixed the bug where the baby description would overlap with the streak text in certain situations. (Thanks Toooschi)
 
 ### _v1.7.1_ - September 8th, 2023
 

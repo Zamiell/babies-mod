@@ -120,6 +120,22 @@ function getBabyDescriptionsFromBabiesTS(): BabyDescriptionSimple[] {
       }
 
       currentBabyDescription.description = description;
+    } else if (trimmedLine.startsWith("description2: ")) {
+      const match = trimmedLine.match(/description2: "(.+)"/);
+      if (match === null) {
+        throw new Error(
+          `Failed to parse a description2 on line ${i + 1}: ${line}`,
+        );
+      }
+
+      const description = match[1];
+      if (description === undefined) {
+        throw new Error(
+          `Failed to parse a description2 on line ${i + 1}: ${line}`,
+        );
+      }
+
+      currentBabyDescription.description += ` ${description}`;
     } else if (trimmedLine.endsWith("description:")) {
       descriptionOnNextLine = true;
     } else if (trimmedLine.startsWith("sprite: ")) {

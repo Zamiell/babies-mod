@@ -126,7 +126,7 @@ There are 603 babies in total.
 | 114 | <img src="./images/114_baby_strangemouth.png" alt="114_baby_strangemouth.png"> | Strange Mouth Baby | Wiggle tears |
 | 115 | <img src="./images/115_baby_masked.png" alt="115_baby_masked.png"> | Masked Baby | Can't shoot while moving |
 | 116 | <img src="./images/116_baby_cyber.png" alt="116_baby_cyber.png"> | Cyber Baby | Spawns a random pickup on hit |
-| 117 | <img src="./images/117_baby_axewound.png" alt="117_baby_axewound.png"> | Axe Wound Baby | Starts with 2x Sacrificial Dagger + flight |
+| 117 | <img src="./images/117_baby_axewound.png" alt="117_baby_axewound.png"> | Axe Wound Baby | Starts with 2x Sacrificial Dagger + flight + explosion immunity + blindfolded |
 | 118 | <img src="./images/118_baby_statue.png" alt="118_baby_statue.png"> | Statue Baby 2 | Improved Secret Rooms |
 | 119 | <img src="./images/119_baby_grin.png" alt="119_baby_grin.png"> | Grin Baby | Starts with Godhead |
 | 120 | <img src="./images/120_baby_upset.png" alt="120_baby_upset.png"> | Upset Baby | Starts with Sad Bombs |
@@ -386,7 +386,7 @@ There are 603 babies in total.
 | 374 | <img src="./images/374_baby_pinkprincess.png" alt="374_baby_pinkprincess.png"> | Pink Princess Baby | Summons random stomps every 4 seconds |
 | 375 | <img src="./images/375_baby_yellowprincess.png" alt="375_baby_yellowprincess.png"> | Yellow Princess Baby | Starts with Ipecac + Trisagion + Flat Stone |
 | 376 | <img src="./images/376_baby_dino.png" alt="376_baby_dino.png"> | Dino Baby | Gains an explosive egg per enemy killed |
-| 377 | <img src="./images/377_baby_elf.png" alt="377_baby_elf.png"> | Elf Baby | Starts with Spear of Destiny (improved) + flight |
+| 377 | <img src="./images/377_baby_elf.png" alt="377_baby_elf.png"> | Elf Baby | Starts with Spear of Destiny (improved) + flight + explosion immunity + blindfolded |
 | 378 | <img src="./images/378_baby_darkelf.png" alt="378_baby_darkelf.png"> | Dark Elf Baby | Starts with Bone Spurs + Polished Bone |
 | 379 | <img src="./images/379_baby_darkknight.png" alt="379_baby_darkknight.png"> | Dark Knight Baby | Starts with 5x Dry Baby |
 | 380 | <img src="./images/380_baby_octopus.png" alt="380_baby_octopus.png"> | Octopus Baby | Black creep tears |

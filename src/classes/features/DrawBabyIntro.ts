@@ -14,6 +14,7 @@ import {
 } from "isaacscript-common";
 import type { BabyDescription } from "../../interfaces/BabyDescription";
 import { BABIES } from "../../objects/babies";
+import { isRacingPlusEnabled } from "../../utils";
 import { BabyModFeature } from "../BabyModFeature";
 import { getBabyType } from "./babySelection/v";
 
@@ -69,10 +70,17 @@ export class DrawBabyIntro extends BabyModFeature {
     let x: number;
     let y: number;
 
+    // We do not want the baby description to overlap with the level streak text. The Racing+ streak
+    // text is lower on the screen than the vanilla streak text.
+    const hasRacingPlusStreakText =
+      isRacingPlusEnabled() && VanillaStreakText !== true;
+    const yAdjustment = hasRacingPlusStreakText ? 130 : 80;
+    const startingY = centerPos.Y - yAdjustment;
+
     // Render the baby's name.
     text = baby.name;
     x = centerPos.X - 3 * scale * text.length;
-    y = centerPos.Y - 130;
+    y = startingY;
     Isaac.RenderScaledText(text, x, y, scale, scale, 2, 2, 2, 2);
 
     // Render the baby's description.

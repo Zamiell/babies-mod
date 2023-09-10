@@ -25,15 +25,16 @@ export const v = {
     /** Used for testing specific babies. */
     debugBabyType: null as RandomBabyType | null,
 
-    /**
-     * Prevent the bug where the player can use Glowing Hour Glass on the first room of a floor to
-     * reroll a new baby.
-     */
     __rewindWithGlowingHourGlass: true,
   },
 
   run: {
     babyType: null as RandomBabyType | null,
+    pastBabyType: null as RandomBabyType | null,
+    usedGlowingHourGlassInStartingRoom: false,
+
+    /** Needed so that we can implement mod-specific Glowing Hour Glass compatibility. */
+    __ignoreGlowingHourGlass: true,
   },
 };
 

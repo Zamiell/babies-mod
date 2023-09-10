@@ -1,9 +1,12 @@
-import { CollectibleType } from "isaac-typescript-definitions";
+import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
 import {
+  Callback,
   CallbackCustom,
   ModCallbackCustom,
   ModFeature,
+  game,
   getRandomEnumValue,
+  inStartingRoom,
   isCharacter,
   log,
   newRNG,
@@ -24,6 +27,21 @@ declare const RacingPlusIsOnFirstCharacter: (() => boolean) | undefined;
 /** This does not extend from `BabyModFeature` because that class uses this feature's variables. */
 export class BabySelection extends ModFeature {
   v = v;
+
+  /**
+   * Handle setting the baby when Glowing Hour Glass is used in the starting room of a new floor.
+   */
+  @Callback(ModCallback.POST_USE_ITEM, CollectibleType.GLOWING_HOUR_GLASS)
+  postUseItemGlowingHourGlass(): boolean | undefined {
+    const room = game.GetRoom();
+    const isFirstVisit = room.IsFirstVisit();
+
+    if (inStartingRoom() && isFirstVisit) {
+      v.run.usedGlowingHourGlassInStartingRoom = true;
+    }
+
+    return undefined;
+  }
 
   @CallbackCustom(ModCallbackCustom.POST_GAME_STARTED_REORDERED, false)
   postGameStartedReorderedFalse(): void {
@@ -73,9 +91,16 @@ export class BabySelection extends ModFeature {
 
     // We must update the `v` variables before we add the baby so that e.g. the `EVALUATE_CACHE`
     // callback works properly.
+    Isaac.DebugString(
+      `GETTING HERE - 111 ${v.run.babyType}, ${v.run.pastBabyType}`,
+    );
     const { babyType, baby } = this.getNewRandomBaby(player);
+    v.run.pastBabyType = v.run.babyType;
     v.run.babyType = babyType;
     v.persistent.pastBabies.add(babyType);
+    Isaac.DebugString(
+      `GETTING HERE - 222 ${v.run.babyType}, ${v.run.pastBabyType}`,
+    );
 
     // Write the baby description to a file to allow streamers to capture the text file in Open
     // Broadcaster Software (OBS) to show to the stream.
@@ -90,6 +115,21 @@ export class BabySelection extends ModFeature {
     babyType: RandomBabyType;
     baby: BabyDescription;
   } {
+    Isaac.DebugString(
+      `GETTING HERE ZZZ - usedGlowingHourGlassInStartingRoom: ${v.run.usedGlowingHourGlassInStartingRoom}, pastBabyType: ${v.run.pastBabyType}`,
+    );
+    if (
+      v.run.usedGlowingHourGlassInStartingRoom &&
+      v.run.pastBabyType !== null
+    ) {
+      v.run.usedGlowingHourGlassInStartingRoom = false;
+
+      return {
+        babyType: v.run.pastBabyType,
+        baby: BABIES[v.run.pastBabyType],
+      };
+    }
+
     const rng = newRNG();
     setInitialBabyRNG(rng);
     log(`Getting a random baby with seed: ${rng.GetSeed()}`);
