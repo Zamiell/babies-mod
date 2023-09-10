@@ -7,6 +7,7 @@
 
 - Fixed the bug where babies with multiple trinkets would only got one removed on the next floor. (Thanks Monkeypot)
 - Fixed the bug where the third collectible of a baby would not be removed (Thanks SuperpaperChildy & Fallenfor)
+- Fixed Berry baby not working (Thanks Jack)
 
 ### _v1.7.1_ - September 8th, 2023
 

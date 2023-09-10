@@ -69,8 +69,15 @@ export function babyAdd(
         player.AddCollectible(baby.collectible, collectibleCharges, false);
       }
     } else {
-      // Give the passive collectible.
-      player.AddCollectible(baby.collectible, 0, false);
+      // Give the passive collectible. Some passive items that are not part of a transformation set
+      // will not grant their effect if we set the third parameter of player.AddCollectible to
+      // false.
+      if (baby.collectible === CollectibleType.RED_STEW) {
+        player.AddCollectible(baby.collectible, 0, true);
+      } else {
+        player.AddCollectible(baby.collectible, 0, false);
+      }
+
       const collectibleName = getCollectibleName(baby.collectible);
       log(
         `Added the new baby passive collectible: ${collectibleName} (#${baby.collectible})`,
