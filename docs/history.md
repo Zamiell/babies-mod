@@ -1,11 +1,12 @@
 # The Babies Mod Version History
 
-<!-- cspell:ignore cantgirl,Finalkids,Hispa,Kaethela,lenamek,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy -->
+<!-- cspell:ignore cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy -->
 <!-- markdownlint-disable MD001 -->
 
 ### _v1.7.2_ - September 8th, 2023
 
 - Fixed the bug where babies with multiple trinkets would only got one removed on the next floor. (Thanks Monkeypot)
+- Fixed the bug where the third collectible of a baby would not be removed (Thanks SuperpaperChildy & Fallenfor)
 
 ### _v1.7.1_ - September 8th, 2023
 

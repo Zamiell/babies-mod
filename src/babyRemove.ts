@@ -19,9 +19,15 @@ export function babyRemove(
     // If the collectible is in the Schoolbag, this will successfully remove it.
     player.RemoveCollectible(baby.collectible);
   }
+
   if (baby.collectible2 !== undefined) {
     // If the collectible is in the Schoolbag, this will successfully remove it.
     player.RemoveCollectible(baby.collectible2);
+  }
+
+  if (baby.collectible3 !== undefined) {
+    // If the collectible is in the Schoolbag, this will successfully remove it.
+    player.RemoveCollectible(baby.collectible3);
   }
 
   // If we are on a multiple collectible baby, remove the extra collectibles.
