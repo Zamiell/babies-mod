@@ -98,6 +98,7 @@ export const MOMS_KNIFE_ANTI_SYNERGIES = [
   CollectibleType.CHOCOLATE_MILK, // 69
   CollectibleType.ANTI_GRAVITY, // 222
   CollectibleType.CURSED_EYE, // 316
+  CollectibleType.SOY_MILK, // 330
   CollectibleType.DEAD_EYE, // 373
   CollectibleType.KIDNEY_STONE, // 440
   CollectibleType.SINUS_INFECTION, // 459
@@ -176,6 +177,7 @@ export const TECH_X_ANTI_SYNERGIES = [
 export const SPIRIT_SWORD_ANTI_SYNERGIES = [
   CollectibleType.MONSTROS_LUNG, // 229
   CollectibleType.CURSED_EYE, // 316
+  CollectibleType.SOY_MILK, // 330
   CollectibleType.KIDNEY_STONE, // 440
   CollectibleType.TECHNOLOGY_ZERO, // 524
   CollectibleType.NEPTUNUS, // 597
