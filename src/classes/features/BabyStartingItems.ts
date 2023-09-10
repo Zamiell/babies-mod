@@ -55,7 +55,5 @@ export class BabyStartingItems extends ModFeature {
     for (const trinketType of BANNED_TRINKETS_WITH_RANDOM_BABY) {
       itemPool.RemoveTrinket(trinketType);
     }
-
-    Isaac.DebugString("GETTING HERE");
   }
 }

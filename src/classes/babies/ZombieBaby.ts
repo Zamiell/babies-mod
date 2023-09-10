@@ -24,8 +24,11 @@ const FRIEND_ENTITY_FLAGS = addFlag(
 
 const FADE_AMOUNT = 0.25;
 
+/** The effect is bugged with certain entities. */
 const EXCEPTION_ENTITY_TYPES = new ReadonlySet<EntityType>([
-  EntityType.MOVABLE_TNT,
+  EntityType.MOMS_HAND, // 213
+  EntityType.MOMS_DEAD_HAND, // 287
+  EntityType.MOVABLE_TNT, // 292
 ]);
 
 /** Brings back enemies from the dead. */
