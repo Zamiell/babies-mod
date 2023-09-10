@@ -129,7 +129,7 @@ export function babyAdd(
   setPlayerHealth(player, playerHealth);
 
   // Reset the coin/bomb/key count to the way it was before we added the items.
-  player.AddCoins(-99);
+  player.AddCoins(-999);
   player.AddCoins(coins);
   player.AddBombs(-99);
   player.AddBombs(bombs);
