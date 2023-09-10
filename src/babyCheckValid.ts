@@ -15,6 +15,7 @@ import {
   hasCollectible,
   hasPiercing,
   hasSpectral,
+  isActiveSlotEmpty,
   levelHasRoomType,
   onAscent,
   onFirstFloor,
@@ -281,6 +282,13 @@ function checkCollectibles(
   if (
     babyCollectiblesSet.has(CollectibleType.SMELTER) && // 479
     !hasAnyTrinket(player)
+  ) {
+    return false;
+  }
+
+  if (
+    baby.trinket === TrinketType.BUTTER && // 479
+    isActiveSlotEmpty(player)
   ) {
     return false;
   }
