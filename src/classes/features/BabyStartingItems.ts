@@ -1,12 +1,5 @@
 import { CollectibleType, TrinketType } from "isaac-typescript-definitions";
-import {
-  CallbackCustom,
-  ModCallbackCustom,
-  game,
-  isCharacter,
-} from "isaacscript-common";
-import { PlayerTypeCustom } from "../../enums/PlayerTypeCustom";
-import { giveCollectibleAndRemoveFromPools } from "../../utils";
+import { CallbackCustom, ModCallbackCustom, game } from "isaacscript-common";
 import { BabyModFeature } from "../BabyModFeature";
 
 const CHANGE_CHARACTER_COLLECTIBLE_TYPES = [
@@ -50,15 +43,6 @@ export class BabyStartingItems extends BabyModFeature {
 
     for (const trinketType of BANNED_TRINKETS_WITH_RANDOM_BABY) {
       itemPool.RemoveTrinket(trinketType);
-    }
-  }
-
-  @CallbackCustom(ModCallbackCustom.POST_PLAYER_INIT_FIRST)
-  postPlayerInitFirst(player: EntityPlayer): void {
-    // Random Baby always starts with the Schoolbag so that the babies with active items have more
-    // of a chance to be selected.
-    if (isCharacter(player, PlayerTypeCustom.RANDOM_BABY)) {
-      giveCollectibleAndRemoveFromPools(player, CollectibleType.SCHOOLBAG);
     }
   }
 }
