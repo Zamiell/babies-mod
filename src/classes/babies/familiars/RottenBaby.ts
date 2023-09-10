@@ -1,4 +1,5 @@
 import {
+  CollectibleType,
   EntityType,
   FamiliarVariant,
   ModCallback,
@@ -9,6 +10,11 @@ import { Baby } from "../../Baby";
 
 /** Shoots Blue Flies + flight. */
 export class RottenBaby extends Baby {
+  override isValid(player: EntityPlayer): boolean {
+    // The custom effect with C Section is a downgrade. (But Monstro's Lung is okay.)
+    return !player.HasCollectible(CollectibleType.C_SECTION);
+  }
+
   /** Remove all of the Blue Flies. */
   override onRemove(): void {
     removeAllMatchingEntities(EntityType.FAMILIAR, FamiliarVariant.BLUE_FLY);

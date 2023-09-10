@@ -1,4 +1,5 @@
 import {
+  CollectibleType,
   EntityType,
   FamiliarVariant,
   ModCallback,
@@ -16,6 +17,11 @@ const v = {
 /** Shoots a Blue Spider every Nth tear. */
 export class SpiderBaby extends Baby {
   v = v;
+
+  override isValid(player: EntityPlayer): boolean {
+    // The custom effect with C Section is a downgrade. (But Monstro's Lung is okay.)
+    return !player.HasCollectible(CollectibleType.C_SECTION);
+  }
 
   override onRemove(): void {
     removeAllMatchingEntities(EntityType.FAMILIAR, FamiliarVariant.BLUE_SPIDER);

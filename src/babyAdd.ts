@@ -70,7 +70,15 @@ export function babyAdd(
       }
     } else {
       // Give the passive collectible.
-      player.AddCollectible(baby.collectible, 0, false);
+      if (baby.collectible === CollectibleType.RED_STEW) {
+        // Some passive items that are not part of a transformation set
+        // will not grant their effect if we set the third parameter of the `Player.AddCollectible` method to
+        // false.
+        player.AddCollectible(baby.collectible, 0, true);
+      } else {
+        player.AddCollectible(baby.collectible, 0, false);
+      }
+
       const collectibleName = getCollectibleName(baby.collectible);
       log(
         `Added the new baby passive collectible: ${collectibleName} (#${baby.collectible})`,
@@ -122,7 +130,7 @@ export function babyAdd(
   setPlayerHealth(player, playerHealth);
 
   // Reset the coin/bomb/key count to the way it was before we added the items.
-  player.AddCoins(-99);
+  player.AddCoins(-999);
   player.AddCoins(coins);
   player.AddBombs(-99);
   player.AddBombs(bombs);
