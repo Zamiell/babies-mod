@@ -1,5 +1,7 @@
+import { Challenge } from "isaac-typescript-definitions";
 import { assertDefined, game, repeat } from "isaacscript-common";
 import { newSprite } from "./sprite";
+import { isRacingPlusEnabled } from "./utils";
 
 const sprites = {
   clock: Sprite(),
@@ -21,6 +23,7 @@ export function drawTimer(finishTime: int | null): void {
 
   // Find out how much time has passed.
   const gameFrameCount = game.GetFrameCount();
+  const challenge = Isaac.GetChallenge();
   const remainingFrames = finishTime - gameFrameCount;
   const remainingSeconds = remainingFrames / 30;
   const { hours, minute1, minute2, second1, second2, tenths } =
@@ -29,7 +32,13 @@ export function drawTimer(finishTime: int | null): void {
   const digitLength = 7.25;
   const hourAdjustment = 2;
   let hourAdjustment2 = 0;
-  let startingX = 65;
+  // To the right of the speed stat (or the "R+" icon if we are using Racing+ and not in a custom
+  // challenge).
+  let startingX = 55;
+  if (isRacingPlusEnabled() && challenge !== Challenge.NULL) {
+    // To the right of the "S5" sprite on the left side of the screen.
+    startingX = 83;
+  }
   const startingY = 79;
 
   const posClock = Vector(startingX + 34, startingY + 45);

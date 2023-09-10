@@ -91,16 +91,10 @@ export class BabySelection extends ModFeature {
 
     // We must update the `v` variables before we add the baby so that e.g. the `EVALUATE_CACHE`
     // callback works properly.
-    Isaac.DebugString(
-      `GETTING HERE - 111 ${v.run.babyType}, ${v.run.pastBabyType}`,
-    );
     const { babyType, baby } = this.getNewRandomBaby(player);
     v.run.pastBabyType = v.run.babyType;
     v.run.babyType = babyType;
     v.persistent.pastBabies.add(babyType);
-    Isaac.DebugString(
-      `GETTING HERE - 222 ${v.run.babyType}, ${v.run.pastBabyType}`,
-    );
 
     // Write the baby description to a file to allow streamers to capture the text file in Open
     // Broadcaster Software (OBS) to show to the stream.
@@ -115,9 +109,6 @@ export class BabySelection extends ModFeature {
     babyType: RandomBabyType;
     baby: BabyDescription;
   } {
-    Isaac.DebugString(
-      `GETTING HERE ZZZ - usedGlowingHourGlassInStartingRoom: ${v.run.usedGlowingHourGlassInStartingRoom}, pastBabyType: ${v.run.pastBabyType}`,
-    );
     if (
       v.run.usedGlowingHourGlassInStartingRoom &&
       v.run.pastBabyType !== null

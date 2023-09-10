@@ -15,6 +15,7 @@
 - Fixed the bug where Zombie Baby would not work properly with Mom's Hands & Mom's Dead Hands. (Thanks Fallenfor)
 - Fixed the bug where using Glowing Hour Glass on the starting room of a new floor would not work properly. (Thanks Monkeypot)
 - Fixed the bug where the baby description would overlap with the streak text in certain situations. (Thanks Toooschi)
+- Fixed the bug where the custom baby timer was incorrectly placed in certain situations. (Thanks Gamonymous)
 
 ### _v1.7.1_ - September 8th, 2023
 
