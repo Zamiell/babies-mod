@@ -1,6 +1,12 @@
 import { CollectibleType, TrinketType } from "isaac-typescript-definitions";
-import { CallbackCustom, ModCallbackCustom, game } from "isaacscript-common";
-import { BabyModFeature } from "../BabyModFeature";
+import {
+  CallbackCustom,
+  ModCallbackCustom,
+  ModFeature,
+  anyPlayerIs,
+  game,
+} from "isaacscript-common";
+import { PlayerTypeCustom } from "../../enums/PlayerTypeCustom";
 
 const CHANGE_CHARACTER_COLLECTIBLE_TYPES = [
   CollectibleType.ANKH, // 161
@@ -32,9 +38,14 @@ const BANNED_TRINKETS_WITH_RANDOM_BABY = [
   ...CHANGE_CHARACTER_TRINKET_TYPES,
 ] as const;
 
-export class BabyStartingItems extends BabyModFeature {
+/** This feature does not extend from `BabyModFeature` because we do not want any validation. */
+export class BabyStartingItems extends ModFeature {
   @CallbackCustom(ModCallbackCustom.POST_GAME_STARTED_REORDERED, false)
   postGameStartedReordered(): void {
+    if (!anyPlayerIs(PlayerTypeCustom.RANDOM_BABY)) {
+      return;
+    }
+
     const itemPool = game.GetItemPool();
 
     for (const collectibleType of BANNED_COLLECTIBLES_WITH_RANDOM_BABY) {
@@ -44,5 +55,7 @@ export class BabyStartingItems extends BabyModFeature {
     for (const trinketType of BANNED_TRINKETS_WITH_RANDOM_BABY) {
       itemPool.RemoveTrinket(trinketType);
     }
+
+    Isaac.DebugString("GETTING HERE");
   }
 }

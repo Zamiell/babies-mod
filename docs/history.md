@@ -11,6 +11,7 @@
 - Fixed the bug where Demon Baby was not working properly. (Thanks Fallenfor)
 - Fixed the bug where Berry Baby was not working properly. (Thanks Jack)
 - Fixed Wink Baby appearing on floors where it should not. (Thanks Gamonymous)
+- Fixed the bug where banned items were not properly removed form pools. (Thanks Gamonymous)
 
 ### _v1.7.1_ - September 8th, 2023
 
