@@ -16,7 +16,7 @@ import { Baby } from "../Baby";
 /** Shoots explosive flies + flight. */
 export class SickBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
-    // The custom effect with C Section is a straight-up downgrade. (But Monstro's Lung is okay.)
+    // The custom effect with C Section is a downgrade. (But Monstro's Lung is okay.)
     return !player.HasCollectible(CollectibleType.C_SECTION);
   }
 
