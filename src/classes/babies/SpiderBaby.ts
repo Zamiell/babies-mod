@@ -19,8 +19,7 @@ export class SpiderBaby extends Baby {
   v = v;
 
   override isValid(player: EntityPlayer): boolean {
-    // C Section reduces the tear rate for no additional tears unlike Monstro's lung. So the custom
-    // effect with C Section is a straight-up downgrade.
+    // The custom effect with C Section is a downgrade. (But Monstro's Lung is okay.)
     return !player.HasCollectible(CollectibleType.C_SECTION);
   }
 
