@@ -24,6 +24,12 @@ export const v = {
 
     /** Used for testing specific babies. */
     debugBabyType: null as RandomBabyType | null,
+
+    /**
+     * Prevent the bug where the player can use Glowing Hour Glass on the first room of a floor to
+     * reroll a new baby.
+     */
+    __rewindWithGlowingHourGlass: true,
   },
 
   run: {

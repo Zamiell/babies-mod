@@ -3,7 +3,6 @@ import {
   CallbackCustom,
   ModCallbackCustom,
   ModFeature,
-  game,
   getRandomEnumValue,
   isCharacter,
   log,
@@ -17,6 +16,7 @@ import { PlayerTypeCustom } from "../../enums/PlayerTypeCustom";
 import { RandomBabyType } from "../../enums/RandomBabyType";
 import type { BabyDescription } from "../../interfaces/BabyDescription";
 import { BABIES } from "../../objects/babies";
+import { setInitialBabyRNG } from "../../utils";
 import { v } from "./babySelection/v";
 
 declare const RacingPlusIsOnFirstCharacter: (() => boolean) | undefined;
@@ -90,9 +90,9 @@ export class BabySelection extends ModFeature {
     babyType: RandomBabyType;
     baby: BabyDescription;
   } {
-    const level = game.GetLevel();
-    const seed = level.GetDungeonPlacementSeed();
-    const rng = newRNG(seed);
+    const rng = newRNG();
+    setInitialBabyRNG(rng);
+    log(`Getting a random baby with seed: ${rng.GetSeed()}`);
 
     // It will become impossible to find a new baby if the list of past babies grows too large.
     // (When experimenting, it crashed upon reaching a size of 538, so reset it when it gets over
@@ -118,6 +118,9 @@ export class BabySelection extends ModFeature {
       numTries++;
       babyType = getRandomEnumValue(RandomBabyType, rng);
       baby = BABIES[babyType];
+      log(
+        `Checking to see if the following baby is valid: ${babyType} - ${baby.name} - ${baby.description}`,
+      );
     } while (!babyCheckValid(player, babyType, baby, v.persistent.pastBabies));
 
     log(`Chose baby: ${babyType} - ${baby.name} - ${baby.description}`);

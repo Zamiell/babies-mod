@@ -239,7 +239,7 @@ export function removeAllFriendlyEntities(): void {
   removeEntities(friendlyEntities);
 }
 
-/** Upon granting a new baby, baby RNG objects are set to the current level seed. */
+/** Upon granting a new baby, RNG objects are set to a seed based on the current floor. */
 export function setInitialBabyRNG(rng: RNG): void {
   const level = game.GetLevel();
   const seed = level.GetDungeonPlacementSeed();
