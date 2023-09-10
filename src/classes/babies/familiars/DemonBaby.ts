@@ -20,6 +20,7 @@ export class DemonBaby extends Baby {
       pickup.Price !== (PickupPrice.FREE as int)
     ) {
       pickup.Price = PickupPrice.FREE;
+      pickup.AutoUpdatePrice = false;
     }
   }
 }
