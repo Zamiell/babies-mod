@@ -546,7 +546,6 @@ function checkStage(
 
   if (
     babyCollectiblesSet.has(CollectibleType.VANISHING_TWIN) && // 697
-    !levelHasRoomType(RoomType.BOSS) &&
     !onStageWithRandomBossCollectible() &&
     !onAscent()
   ) {
