@@ -69,10 +69,11 @@ export function babyAdd(
         player.AddCollectible(baby.collectible, collectibleCharges, false);
       }
     } else {
-      // Give the passive collectible. Some passive items that are not part of a transformation set
-      // will not grant their effect if we set the third parameter of player.AddCollectible to
-      // false.
+      // Give the passive collectible.
       if (baby.collectible === CollectibleType.RED_STEW) {
+        // Some passive items that are not part of a transformation set
+        // will not grant their effect if we set the third parameter of the `Player.AddCollectible` method to
+        // false.
         player.AddCollectible(baby.collectible, 0, true);
       } else {
         player.AddCollectible(baby.collectible, 0, false);
