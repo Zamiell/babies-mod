@@ -8,6 +8,7 @@ import {
   isCharacter,
   log,
   newRNG,
+  rebirthItemTrackerWriteToFile,
 } from "isaacscript-common";
 import { babyAdd } from "../../babyAdd";
 import { babyCheckValid } from "../../babyCheckValid";
@@ -75,6 +76,12 @@ export class BabySelection extends ModFeature {
     const { babyType, baby } = this.getNewRandomBaby(player);
     v.run.babyType = babyType;
     v.persistent.pastBabies.add(babyType);
+
+    // Write the baby description to a file to allow streamers to capture the text file in Open
+    // Broadcaster Software (OBS) to show to the stream.
+    rebirthItemTrackerWriteToFile(
+      `${baby.name} (#${babyType}) - ${baby.description}`,
+    );
 
     babyAdd(player, babyType, baby);
   }

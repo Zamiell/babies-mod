@@ -14,6 +14,10 @@ This mod adds a new character called "Random Baby". When playing this character,
 
 A lot of the babies will make you quite powerful, which can remove the difficulty of a normal Isaac run. Instead, challenge yourself to beat the game as fast as possible! (This mod was deliberately designed for speedrunning and racing other people.)
 
+## Open Broadcaster Software (OBS) Integration
+
+If you use the [Rebirth Item Tracker](https://github.com/Rchardon/RebirthItemTracker), the baby name and description will be written to the "mod_text.txt" file, which is located next to "Rebirth Item Tracker.exe". You can use Open Broadcaster Software (OBS) to capture this text file in order to easily show the current baby to your live stream on Twitch/YouTube.
+
 ## Other Tidbits
 
 - In the vanilla game, there are 71 babies that grant special abilities (28 from Rebirth, 28 babies from Afterbirth, 4 from Afterbirth+, and 11 from Repentance). Of these, every single one was redesigned to be more interesting (except for Psy Baby & Sucky Baby).
