@@ -286,13 +286,6 @@ function checkCollectibles(
     return false;
   }
 
-  if (
-    baby.trinket === TrinketType.BUTTER && // 479
-    isActiveSlotEmpty(player)
-  ) {
-    return false;
-  }
-
   return true;
 }
 
@@ -435,6 +428,13 @@ function checkTrinkets(player: EntityPlayer, baby: BabyDescription): boolean {
     baby.trinket !== undefined &&
     TRINKETS_THAT_SYNERGIZE_WITH_TEARS.has(baby.trinket) &&
     !playerHasTearBuild(player)
+  ) {
+    return false;
+  }
+
+  if (
+    baby.trinket === TrinketType.BUTTER && // 479
+    isActiveSlotEmpty(player)
   ) {
     return false;
   }
