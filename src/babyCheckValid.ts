@@ -1,7 +1,6 @@
 import {
   ActiveSlot,
   CollectibleType,
-  ItemType,
   LevelStage,
   RoomType,
   TrinketType,
@@ -9,12 +8,12 @@ import {
 import type { AnyFunction } from "isaacscript-common";
 import {
   MAPPING_COLLECTIBLES,
-  getCollectibleItemType,
   getEffectiveStage,
   hasAnyTrinket,
   hasCollectible,
   hasPiercing,
   hasSpectral,
+  isActiveCollectible,
   isActiveSlotEmpty,
   levelHasRoomType,
   onAscent,
@@ -116,7 +115,7 @@ function checkCollectibles(
     return false;
   }
 
-  if (!checkActiveItem(player, baby)) {
+  if (!checkActiveItem(player, babyCollectiblesSet)) {
     return false;
   }
 
@@ -197,29 +196,29 @@ function checkCollectibles(
 }
 
 /** If the player does not have a slot for an active item, do not give them an active item baby. */
-function checkActiveItem(player: EntityPlayer, baby: BabyDescription): boolean {
-  const activeItem = player.GetActiveItem();
-  const secondaryActiveItem = player.GetActiveItem(ActiveSlot.SECONDARY);
-
-  if (
-    baby.collectible !== undefined &&
-    getCollectibleItemType(baby.collectible) === ItemType.ACTIVE &&
-    activeItem !== CollectibleType.NULL
-  ) {
-    const hasSchoolbag = player.HasCollectible(CollectibleType.SCHOOLBAG);
-    if (!hasSchoolbag) {
-      // Since the player already has an active item, there is no room for another active item.
-      return false;
-    }
-
-    const hasItemInSchoolbag = secondaryActiveItem !== CollectibleType.NULL;
-    if (hasItemInSchoolbag) {
-      // The player has both an active item and an item inside of the Schoolbag.
-      return false;
-    }
+function checkActiveItem(
+  player: EntityPlayer,
+  babyCollectiblesSet: Set<CollectibleType>,
+): boolean {
+  const babyActiveItems = [...babyCollectiblesSet].filter((collectibleType) =>
+    isActiveCollectible(collectibleType),
+  );
+  if (babyActiveItems.length === 0) {
+    return true;
   }
 
-  return true;
+  const activeItem = player.GetActiveItem(ActiveSlot.PRIMARY);
+  if (activeItem === CollectibleType.NULL) {
+    return true;
+  }
+
+  const secondaryActiveItem = player.GetActiveItem(ActiveSlot.SECONDARY);
+  const hasSchoolbag = player.HasCollectible(CollectibleType.SCHOOLBAG);
+  if (secondaryActiveItem === CollectibleType.NULL && hasSchoolbag) {
+    return true;
+  }
+
+  return false;
 }
 
 /** Some collectible anti-synergies are hard-coded in arrays. */

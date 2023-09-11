@@ -1,8 +1,7 @@
 import type { TrinketType } from "isaac-typescript-definitions";
-import { CollectibleType, ItemType } from "isaac-typescript-definitions";
+import { CollectibleType } from "isaac-typescript-definitions";
 import {
   ReadonlySet,
-  getCollectibleItemType,
   getCollectibleName,
   getTrinketName,
   log,
@@ -103,22 +102,6 @@ function checkDuplicateCollectibles() {
           );
         }
       }
-    }
-
-    if (
-      baby1.collectible2 !== undefined &&
-      getCollectibleItemType(baby1.collectible2) === ItemType.ACTIVE &&
-      // Make an exception for a Book of Virtues combo.
-      baby1.collectible !== CollectibleType.BOOK_OF_VIRTUES
-    ) {
-      logBabyInvalid(baby1, baby1Num, "has an active item in the second slot.");
-    }
-
-    if (
-      baby1.collectible3 !== undefined &&
-      getCollectibleItemType(baby1.collectible3) === ItemType.ACTIVE
-    ) {
-      logBabyInvalid(baby1, baby1Num, "has an active item in the third slot.");
     }
   }
 }
