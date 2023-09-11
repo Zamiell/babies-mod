@@ -34,7 +34,7 @@ export class Abel extends Baby {
     }
 
     // Tears will not die if they hit an enemy, but they will die if they hit a wall or object.
-    if (tear.IsDead()) {
+    if (!tear.IsDead()) {
       return;
     }
 
