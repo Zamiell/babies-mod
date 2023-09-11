@@ -1,5 +1,13 @@
-import { EntityType, ModCallback } from "isaac-typescript-definitions";
-import { Callback } from "isaacscript-common";
+import {
+  ClottyVariant,
+  EntityType,
+  ModCallback,
+} from "isaac-typescript-definitions";
+import {
+  Callback,
+  CallbackCustom,
+  ModCallbackCustom,
+} from "isaacscript-common";
 import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
@@ -23,6 +31,16 @@ export class TurtleDragonBaby extends Baby {
   /** Prevent softlocks with enemies that are immune to fires. */
   @Callback(ModCallback.POST_NPC_UPDATE, EntityType.FLAMING_HOPPER)
   postNPCUpdateFlamingHopper(npc: EntityNPC): void {
+    npc.Kill();
+  }
+
+  /** Prevent softlocks with enemies that are immune to fires. */
+  @CallbackCustom(
+    ModCallbackCustom.POST_NPC_UPDATE_FILTER,
+    EntityType.CLOTTY,
+    ClottyVariant.GRILLED_CLOTTY,
+  )
+  postNPCUpdateGrilledClotty(npc: EntityNPC): void {
     npc.Kill();
   }
 }

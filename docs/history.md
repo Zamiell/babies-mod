@@ -5,6 +5,8 @@
 
 ### _v1.8.1_ - September 11th, 2023 (Unreleased)
 
+- Fixed the bug where Turtle Dragon Baby would be softlocked under certain conditions. (Thanks Gamonymous)
+- Fixed the bug where Gold Baby would not work properly with certain floors.
 - Fixed the bug where babies would transformations would not be granted under certain conditions. (Thanks Monkeypot)
 
 ### _v1.8.0_ - September 10th, 2023
