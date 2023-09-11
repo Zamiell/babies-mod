@@ -1,21 +1,27 @@
-import { GridEntityType } from "isaac-typescript-definitions";
+import { EntityType } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
-  game,
   GAME_FRAMES_PER_SECOND,
-  getGridEntities,
-  log,
   ModCallbackCustom,
+  game,
+  getEntities,
+  log,
   openAllDoors,
+  removeGridEntity,
+  spawn,
 } from "isaacscript-common";
 import type { BabyDescription } from "../../interfaces/BabyDescription";
 import { BABIES } from "../../objects/babies";
 import { BabyModFeature } from "../BabyModFeature";
 import { getBabyType } from "./babySelection/v";
 
+const POOP_THRESHOLD_GAME_FRAMES = 15 * GAME_FRAMES_PER_SECOND;
+
+const ISLAND_THRESHOLD_GAME_FRAMES = 30 * GAME_FRAMES_PER_SECOND;
+
 const v = {
   room: {
-    destroyedGridEntities: false,
+    destroyedProblematicEntities: false,
     openedDoors: false,
   },
 };
@@ -47,30 +53,27 @@ export class SoftlockPrevention extends BabyModFeature {
       return;
     }
 
-    // Check to see if we already destroyed the grid entities in the room.
-    if (v.room.destroyedGridEntities) {
+    // Check to see if we already destroyed the problematic entities in the room.
+    if (v.room.destroyedProblematicEntities) {
       return;
     }
 
     // Check to see if they have been in the room long enough.
-    const secondsThreshold = 15;
-    if (roomFrameCount < secondsThreshold * GAME_FRAMES_PER_SECOND) {
+    if (roomFrameCount < POOP_THRESHOLD_GAME_FRAMES) {
       return;
     }
 
-    v.room.destroyedGridEntities = true;
+    v.room.destroyedProblematicEntities = true;
 
-    // Kill some grid entities in the room to prevent softlocks in some specific rooms. (Fireplaces
-    // will not cause softlocks since they are killable with The Candle.)
-    const gridEntities = getGridEntities(
-      GridEntityType.TNT, // 12
-      GridEntityType.POOP, // 14
-    );
-    for (const gridEntity of gridEntities) {
-      gridEntity.Destroy(true);
+    // Kill some entities in the room to prevent softlocks in some specific rooms.
+    const fireplaces = getEntities(EntityType.FIREPLACE); // 33
+    const poops = getEntities(EntityType.POOP); // 245
+    const tnts = getEntities(EntityType.MOVABLE_TNT); // 292
+    for (const entity of [...fireplaces, ...poops, ...tnts]) {
+      entity.Kill();
     }
 
-    log("Destroyed all poops & TNT barrels to prevent a softlock.");
+    log("Destroyed all fireplaces/poops/TNTs to prevent a softlock.");
   }
 
   /**
@@ -92,8 +95,7 @@ export class SoftlockPrevention extends BabyModFeature {
     }
 
     // Check to see if they have been in the room long enough.
-    const secondsThreshold = 30;
-    if (roomFrameCount < secondsThreshold * GAME_FRAMES_PER_SECOND) {
+    if (roomFrameCount < ISLAND_THRESHOLD_GAME_FRAMES) {
       return;
     }
 
@@ -102,5 +104,29 @@ export class SoftlockPrevention extends BabyModFeature {
     openAllDoors();
 
     log("Opened all doors to prevent a softlock.");
+  }
+
+  /** Poop entities are killable with directed light teams, while grid entity poops are not. */
+  @CallbackCustom(ModCallbackCustom.POST_POOP_UPDATE)
+  postPoopUpdate(poop: GridEntityPoop): void {
+    const babyType = getBabyType();
+    const baby: BabyDescription | undefined =
+      babyType === undefined ? undefined : BABIES[babyType];
+    if (baby !== undefined && baby.softlockPreventionDestroyPoops === true) {
+      removeGridEntity(poop, false);
+      spawn(EntityType.POOP, 0, 0, poop.Position);
+    }
+  }
+
+  /** Movable TNT is killable with directed light teams, while normal TNT is not. */
+  @CallbackCustom(ModCallbackCustom.POST_TNT_UPDATE)
+  postTNTUpdate(tnt: GridEntityTNT): void {
+    const babyType = getBabyType();
+    const baby: BabyDescription | undefined =
+      babyType === undefined ? undefined : BABIES[babyType];
+    if (baby !== undefined && baby.softlockPreventionDestroyPoops === true) {
+      removeGridEntity(tnt, false);
+      spawn(EntityType.MOVABLE_TNT, 0, 0, tnt.Position);
+    }
   }
 }

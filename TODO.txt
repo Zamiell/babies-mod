@@ -1,4 +1,5 @@
 TODO:
+- Abel is broken
 - change Adventure Baby
 - change SACRIFICIAL_ALTAR_COLLECTIBLE_TYPES
 
