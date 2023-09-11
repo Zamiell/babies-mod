@@ -66,7 +66,7 @@ There are 603 babies in total.
 | 54 | <img src="./images/054_baby_super greedbaby.png" alt="054_baby_super greedbaby.png"> | Super Greed Baby | Midas tears |
 | 55 | <img src="./images/055_baby_mort.png" alt="055_baby_mort.png"> | Mort Baby | Guppy tears |
 | 56 | <img src="./images/056_baby_apollyon.png" alt="056_baby_apollyon.png"> | Apollyon Baby | Black rune effect on hit |
-| 57 | <img src="./images/057_baby_boner.png" alt="057_baby_boner.png"> | Bone Baby | Starts with Brittle Bones |
+| 57 | <img src="./images/057_baby_boner.png" alt="057_baby_boner.png"> | Bone Baby | Reveals a random room on room clear |
 | 58 | <img src="./images/058_baby_bound.png" alt="058_baby_bound.png"> | Bound Baby | Monster Manual effect every 7 seconds |
 | 59 | <img src="./images/059_baby_bigeyes.png" alt="059_baby_bigeyes.png"> | Big Eyes Baby | Tears cause self-knockback |
 | 60 | <img src="./images/060_baby_sleep.png" alt="060_baby_sleep.png"> | Sleep Baby | Starts with Broken Modem |
@@ -224,7 +224,7 @@ There are 603 babies in total.
 | 212 | <img src="./images/212_baby_conjoined.png" alt="212_baby_conjoined.png"> | Conjoined Baby | Doors open on hit |
 | 213 | <img src="./images/213_baby_skinny.png" alt="213_baby_skinny.png"> | Skinny Baby | Super homing tears |
 | 214 | <img src="./images/214_baby_spider.png" alt="214_baby_spider.png"> | Basic Spider Baby | Starts with Mutant Spider |
-| 215 | <img src="./images/215_baby_shopkeeper.png" alt="215_baby_shopkeeper.png"> | Shopkeeper Baby | Items that cost coins are free |
+| 215 | <img src="./images/215_baby_shopkeeper.png" alt="215_baby_shopkeeper.png"> | Shopkeeper Baby | Items/pickups that cost coins are free |
 | 216 | <img src="./images/216_baby_fancy.png" alt="216_baby_fancy.png"> | Fancy Baby | Can purchase teleports to special rooms |
 | 217 | <img src="./images/217_baby_chubby.png" alt="217_baby_chubby.png"> | Chubby Baby | Starts with Technology Zero + Tiny Planet |
 | 218 | <img src="./images/218_baby_cyclops.png" alt="218_baby_cyclops.png"> | Cyclops Baby | Starts with Polyphemus |

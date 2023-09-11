@@ -77,8 +77,9 @@ DOCS="$DIR/docs/babies.md"
 TMP_DOCS="/tmp/babies.md"
 cp "$DOCS" "$TMP_DOCS"
 bash "$DIR/scripts/generateDocs.sh"
-if diff "$DOCS" "$TMP_DOCS"; then
+if ! cmp "$DOCS" "$TMP_DOCS" --silent; then
   echo 'The Markdown documentation is not up to date. Please run the "generateDocs.sh" script and then commit the changes.'
+  diff "$DOCS" "$TMP_DOCS"
   exit 1
 fi
 rm -f "$TMP_DOCS"
