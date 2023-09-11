@@ -28,6 +28,11 @@ const COLLECTIBLE_TYPES_THAT_CHANGE_MINIMAP = [
   CollectibleType.LUNA, // 589
 ] as const;
 
+const COLLECTIBLE_TYPES_THAT_AFFECT_FLOOR = [
+  CollectibleType.STAIRWAY,
+  ...COLLECTIBLE_TYPES_THAT_CHANGE_MINIMAP,
+] as const;
+
 export class DetectTrapdoorTouched extends BabyModFeature {
   v = v;
 
@@ -55,14 +60,13 @@ export class DetectTrapdoorTouched extends BabyModFeature {
   }
 
   /**
-   * If our current baby grants a mapping collectible, we cannot wait until the next floor to remove
-   * it because its effect will have already been applied. So, we need to monitor for the trapdoor
-   * animation.
+   * Certain collectibles apply as soon as the floor changes. Thus, if our current baby grants one
+   * of these, they need to be taken away before we actually get to the next floor.
    */
   removeMappingCollectibles(player: EntityPlayer, baby: BabyDescription): void {
     const babyCollectiblesSet = getBabyCollectiblesSet(baby);
 
-    for (const collectibleType of COLLECTIBLE_TYPES_THAT_CHANGE_MINIMAP) {
+    for (const collectibleType of COLLECTIBLE_TYPES_THAT_AFFECT_FLOOR) {
       if (babyCollectiblesSet.has(collectibleType)) {
         player.RemoveCollectible(collectibleType, undefined, undefined, false);
       }

@@ -1,5 +1,6 @@
 TODO:
 - change Adventure Baby
+- change SACRIFICIAL_ALTAR_COLLECTIBLE_TYPES
 - starts with The Stairway is bugged for both enter floor and exit floor
 
 TODO long-term:
