@@ -17,24 +17,24 @@ export function babyRemove(
   // If we are on an collectible baby, remove the collectible.
   if (baby.collectible !== undefined) {
     // If the collectible is in the Schoolbag, this will successfully remove it.
-    player.RemoveCollectible(baby.collectible);
+    player.RemoveCollectible(baby.collectible, undefined, undefined, false);
   }
 
   if (baby.collectible2 !== undefined) {
     // If the collectible is in the Schoolbag, this will successfully remove it.
-    player.RemoveCollectible(baby.collectible2);
+    player.RemoveCollectible(baby.collectible2, undefined, undefined, false);
   }
 
   if (baby.collectible3 !== undefined) {
     // If the collectible is in the Schoolbag, this will successfully remove it.
-    player.RemoveCollectible(baby.collectible3);
+    player.RemoveCollectible(baby.collectible3, undefined, undefined, false);
   }
 
   // If we are on a multiple collectible baby, remove the extra collectibles.
   if (baby.collectible !== undefined && baby.collectibleNum !== undefined) {
     const num = baby.collectibleNum - 1; // We already removed one collectible above.
     for (let i = 0; i < num; i++) {
-      player.RemoveCollectible(baby.collectible);
+      player.RemoveCollectible(baby.collectible, undefined, undefined, false);
     }
   }
 

@@ -53,7 +53,7 @@ export class RemoveMappingBaby extends BabyModFeature {
 
     for (const collectibleType of MAPPING_COLLECTIBLE_TYPES) {
       if (babyCollectiblesSet.has(collectibleType)) {
-        player.RemoveCollectible(collectibleType);
+        player.RemoveCollectible(collectibleType, undefined, undefined, false);
       }
     }
   }

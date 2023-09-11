@@ -3,25 +3,29 @@
 <!-- cspell:ignore cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.8.1_ - September 11th, 2023 (Unreleased)
+
+- Fixed the bug where babies would transformations would not be granted under certain conditions. (Thanks Monkeypot)
+
 ### _v1.8.0_ - September 10th, 2023
 
 - Changed the following babies:
   - Merman Baby (#342) - Spawns a Bulb on hit
   - Mermaid Baby (#395) - Starts with Athame + 30 luck
 - If you use the [Rebirth Item Tracker](https://github.com/Rchardon/RebirthItemTracker), the baby name and description will be written to the "mod_text.txt" file, which is located next to "Rebirth Item Tracker.exe". You can use Open Broadcaster Software (OBS) to capture this text file in order to easily show the current baby to your live stream on Twitch/YouTube. (Thanks mgln)
-- Fixed the bug where babies with multiple trinkets would only got one removed on the next floor. (Thanks Monkeypot)
-- Fixed the bug where the third collectible of a baby would not be removed. (Thanks SuperpaperChildy & Fallenfor)
 - Fixed the bug where Demon Baby was not working properly. (Thanks Fallenfor)
 - Fixed the bug where Berry Baby was not working properly. (Thanks Jack)
 - Fixed the bug where Wink Baby was appearing on floors where it should not have. (Thanks Gamonymous)
 - Fixed the bug where Zombie Baby would not work properly with Mom's Hands & Mom's Dead Hands. (Thanks Fallenfor)
+- Fixed the bug where Turtle Dragon Baby would softlock with rooms that contained Flaming Hoppers. (Thanks SuperpaperChildy)
+- Fixed the bug where Beanie Baby could be assigned if the player did not have a trinket. (Thanks Gamonymous)
+- Fixed the bug where Lazy Baby was not working properly. (Thanks Monkeypot)
+- Fixed the bug where babies with multiple trinkets would only got one removed on the next floor. (Thanks Monkeypot)
+- Fixed the bug where the third collectible of a baby would not be removed. (Thanks SuperpaperChildy & Fallenfor)
 - Fixed the bug where banned items were not properly removed form pools. (Thanks Gamonymous)
 - Fixed the bug where using Glowing Hour Glass on the starting room of a new floor would not work properly. (Thanks Monkeypot)
 - Fixed the bug where the baby description would overlap with the streak text in certain situations. (Thanks Toooschi)
 - Fixed the bug where the custom baby timer was incorrectly placed in certain situations. (Thanks Gamonymous)
-- Fixed the bug where Turtle Dragon Baby would softlock with rooms that contained Flaming Hoppers. (Thanks SuperpaperChildy)
-- Fixed the bug where Beanie Baby could be assigned if the player did not have a trinket. (Thanks Gamonymous)
-- Fixed the bug where Lazy Baby was not working properly. (Thanks Monkeypot)
 
 ### _v1.7.1_ - September 8th, 2023
 

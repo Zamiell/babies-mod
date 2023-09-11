@@ -8,6 +8,11 @@ export class HalfSpiderBaby extends Baby {
    * Flies, one fly remains.
    */
   override onRemove(player: EntityPlayer): void {
-    player.RemoveCollectible(CollectibleType.HALO_OF_FLIES);
+    player.RemoveCollectible(
+      CollectibleType.HALO_OF_FLIES,
+      undefined,
+      undefined,
+      false,
+    );
   }
 }
