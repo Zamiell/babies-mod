@@ -1,6 +1,6 @@
 # The Babies Mod Version History
 
-<!-- cspell:ignore cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
+<!-- cspell:ignore Adrayon,cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
 ### _v1.9.0_ - September 11th, 2023 (Unreleased)
@@ -9,6 +9,7 @@
   - Silly Baby (#516) - Sacrificial Altar effect after 6 hits
 - Fixed the bug where Turtle Dragon Baby would be softlocked under certain conditions. (Thanks Gamonymous)
 - Fixed the bug where Gold Baby would not work properly with certain floors.
+- Fixed the bug where Shopkeeper baby would not work properly with rerolled items. (Thanks Adrayon)
 - Fixed the bug where babies would transformations would not be granted under certain conditions. (Thanks Monkeypot)
 
 ### _v1.8.0_ - September 10th, 2023

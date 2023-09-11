@@ -11,6 +11,7 @@ import { Baby } from "../Baby";
 const SACRIFICIAL_ALTAR_COLLECTIBLE_TYPES = new ReadonlySet([
   CollectibleType.BROTHER_BOBBY, // 8
   CollectibleType.SISTER_MAGGY, // 67
+  // TODO
 ]);
 
 const v = {
