@@ -1135,9 +1135,9 @@ export const BABIES = {
   // 128
   [RandomBabyType.EARWIG]: {
     name: "Earwig Baby",
-    description: "3 rooms are already explored",
+    description: "3 rooms are visible",
     sprite: "128_baby_earwig.png",
-    num: 3, // The amount of rooms explored.
+    num: 3, // The amount of rooms visible.
     class: bc.EarwigBaby,
   },
 

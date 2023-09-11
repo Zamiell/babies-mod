@@ -5,6 +5,7 @@ import {
   CardType,
   CoinSubType,
   CollectibleType,
+  DisplayFlag,
   EffectVariant,
   EntityFlag,
   EntityType,
@@ -24,6 +25,7 @@ import {
 import {
   GAME_FRAMES_PER_SECOND,
   VectorZero,
+  addRoomDisplayFlag,
   asNumber,
   doesEntityExist,
   findFreePosition,
@@ -31,8 +33,10 @@ import {
   getCollectibleMaxCharges,
   getEntities,
   getPlayerFromEntity,
+  getRandomArrayElement,
   getRandomInt,
   getRandomSetElement,
+  getRoomsInsideGrid,
   hasCollectible,
   hasForm,
   inMinibossRoomOf,
@@ -41,6 +45,7 @@ import {
   isFirstPlayer,
   isHeart,
   isPlayer,
+  isRoomVisible,
   removeEntities,
   setSeed,
   sfxManager,
@@ -238,6 +243,19 @@ export function removeAllFriendlyEntities(): void {
     entity.HasEntityFlags(EntityFlag.FRIENDLY),
   );
   removeEntities(friendlyEntities);
+}
+
+export function revealRandomRoom(rng: RNG): void {
+  const roomsInsideGrid = getRoomsInsideGrid();
+  const nonVisibleRooms = roomsInsideGrid.filter(
+    (roomDescriptor) => !isRoomVisible(roomDescriptor),
+  );
+  if (nonVisibleRooms.length === 0) {
+    return;
+  }
+
+  const randomRoom = getRandomArrayElement(nonVisibleRooms, rng);
+  addRoomDisplayFlag(randomRoom.SafeGridIndex, DisplayFlag.VISIBLE);
 }
 
 /** Upon granting a new baby, RNG objects are set to a seed based on the current floor. */
