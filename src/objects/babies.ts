@@ -2337,7 +2337,7 @@ export const BABIES = {
   // 269
   [RandomBabyType.TABBY]: {
     name: "Tabby Baby",
-    description: "Starts with Sol",
+    description: "Starts with Sol", // Mapping baby
     sprite: "269_baby_tabby.png",
     collectible: CollectibleType.SOL,
   },

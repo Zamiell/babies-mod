@@ -1,6 +1,3 @@
-TODO:
-- change SACRIFICIAL_ALTAR_COLLECTIBLE_TYPES
-
 TODO long-term:
 - change "R+7 Season 5 (Beta)" upon release
 

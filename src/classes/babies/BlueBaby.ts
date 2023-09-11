@@ -8,8 +8,10 @@ import {
   Callback,
   CallbackCustom,
   ModCallbackCustom,
+  removeAllFamiliars,
   useActiveItemTemp,
 } from "isaacscript-common";
+import { mod } from "../../mod";
 import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
@@ -26,6 +28,16 @@ export class BlueBaby extends Baby {
   /** Sprinkler does not work properly with Ludovico. */
   override isValid(player: EntityPlayer): boolean {
     return !player.HasCollectible(CollectibleType.LUDOVICO_TECHNIQUE);
+  }
+
+  /**
+   * Because it takes a frame between using the active item and the familiar appearing, there is a
+   * bug where the sprinkler familiar will appear on the starting room of the next floor.
+   */
+  override onRemove(): void {
+    mod.runNextGameFrame(() => {
+      removeAllFamiliars(FamiliarVariant.SPRINKLER);
+    });
   }
 
   /**

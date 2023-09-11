@@ -3,6 +3,11 @@
 <!-- cspell:ignore Adrayon,cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.10.1_ - September 11th, 2023
+
+- Fixed the bug where Tabby Baby was not working properly. (Thanks Fallenfor)
+- Fixed the bug where Blue Baby was not working properly.
+
 ### _v1.10.0_ - September 11th, 2023
 
 - Changed the following babies:

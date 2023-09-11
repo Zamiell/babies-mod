@@ -5,6 +5,7 @@
 -- - Better logging on line 66.
 -- - Active item bug fix on line 903.
 -- - Strawman bug fix on line 1108.
+-- - Empty Vessel shield fix (TODO).
 
 --VERSION = "1.4.2"
 
