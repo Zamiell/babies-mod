@@ -9,6 +9,7 @@ import {
   GridEntityXMLType,
   HeartSubType,
   KeySubType,
+  LevelStage,
   ModCallback,
   PickupVariant,
   PillColor,
@@ -24,6 +25,8 @@ import {
   isGoldenTrinketType,
   isHorsePill,
   isPoopGridEntityType,
+  onRepentanceStage,
+  onStage,
   spawnBombWithSeed,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
@@ -36,6 +39,14 @@ import { Baby } from "../Baby";
  * by walking down from the starting room).
  */
 export class GoldBaby extends Baby {
+  override isValid(): boolean {
+    // Certain rooms are bugged with the `Room.TurnGold` method.
+    return (
+      !(onStage(LevelStage.WOMB_2) && onRepentanceStage()) &&
+      !onStage(LevelStage.HOME)
+    );
+  }
+
   override onAdd(player: EntityPlayer): void {
     player.AddGoldenHearts(12);
     player.AddGoldenBomb();
