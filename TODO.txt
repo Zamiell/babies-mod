@@ -4,10 +4,8 @@ TODO long-term:
 Potential new baby ideas:
 - Spawns a friendly Mom's Hand in every room
 - Spending bombs reduces keys
-- Reveals the floor layout after 6 hits
 
 List of babies to change:
-- Lowface Baby (#73) - Starts with Book of Virtues + Unicorn Stump
 - Twotone Baby (#346) - Dataminer effect on room enter
 - Adventure Baby (#482) - Starts with Moving Box
 

@@ -82,7 +82,7 @@ There are 603 babies in total.
 | 70 | <img src="./images/070_baby_viridian.png" alt="070_baby_viridian.png"> | Viridian Baby | Starts with How to Jump |
 | 71 | <img src="./images/071_baby_blockhead.png" alt="071_baby_blockhead.png"> | Blockhead Baby | Starts with Dr. Fetus + Soy Milk + explosion immunity |
 | 72 | <img src="./images/072_baby_worm.png" alt="072_baby_worm.png"> | Worm Baby | Starts with 5x Little Chubby |
-| 73 | <img src="./images/073_baby_lowface.png" alt="073_baby_lowface.png"> | Lowface Baby | Starts with Book of Virtues + Unicorn Stump |
+| 73 | <img src="./images/073_baby_lowface.png" alt="073_baby_lowface.png"> | Lowface Baby | Reveals the floor layout after 6 hits |
 | 74 | <img src="./images/074_baby_alienhominid.png" alt="074_baby_alienhominid.png"> | Alien Hominid Baby | Beam sword tears |
 | 75 | <img src="./images/075_baby_bomb.png" alt="075_baby_bomb.png"> | Bomb Baby | 50% chance for bombs to have the D6 effect |
 | 76 | <img src="./images/076_baby_video.png" alt="076_baby_video.png"> | Video Baby | Starts with Tech X |

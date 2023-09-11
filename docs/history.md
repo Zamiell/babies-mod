@@ -3,10 +3,13 @@
 <!-- cspell:ignore Adrayon,cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
-### _v1.10.1_ - September 11th, 2023
+### _v1.11.0_ - September 11th, 2023
 
+- Changed the following babies:
+  - Lowface Baby (#73) - Reveals the floor layout after 6 hits
 - Fixed the bug where Tabby Baby was not working properly. (Thanks Fallenfor)
 - Fixed the bug where Blue Baby was not working properly.
+- Fixed the bug where Empty Vessel would result in a bugged baby costume. (Thanks Gamonymous)
 
 ### _v1.10.0_ - September 11th, 2023
 
