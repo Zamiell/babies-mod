@@ -18,6 +18,7 @@
 - Fixed the bug where the custom baby timer was incorrectly placed in certain situations. (Thanks Gamonymous)
 - Fixed the bug where Turtle Dragon Baby would softlock with rooms that contained Flaming Hoppers. (Thanks SuperpaperChildy)
 - Fixed the bug where Beanie Baby could be assigned if the player did not have a trinket. (Thanks Gamonymous)
+- Fixed the bug where Lazy Baby was not working properly. (Thanks Monkeypot)
 
 ### _v1.7.1_ - September 8th, 2023
 
