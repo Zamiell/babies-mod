@@ -137,7 +137,7 @@ There are 603 babies in total.
 | 125 | <img src="./images/125_baby_hopeless.png" alt="125_baby_hopeless.png"> | Hopeless Baby | +2 keys + keys are hearts |
 | 126 | <img src="./images/126_baby_bigmouth.png" alt="126_baby_bigmouth.png"> | Big Mouth Baby | Starts with 10x Jaw Bone |
 | 127 | <img src="./images/127_baby_peeeyes.png" alt="127_baby_peeeyes.png"> | Pee Eyes Baby | Starts with Number One |
-| 128 | <img src="./images/128_baby_earwig.png" alt="128_baby_earwig.png"> | Earwig Baby | 3 rooms are already explored |
+| 128 | <img src="./images/128_baby_earwig.png" alt="128_baby_earwig.png"> | Earwig Baby | 3 rooms are visible |
 | 129 | <img src="./images/129_baby_ninkumpoop.png" alt="129_baby_ninkumpoop.png"> | Ninkumpoop Baby | All chests are Old Chests |
 | 130 | <img src="./images/130_baby_strangeshape.png" alt="130_baby_strangeshape.png"> | Strange Shape Baby | Pulsing tears |
 | 131 | <img src="./images/131_baby_bugeyed.png" alt="131_baby_bugeyed.png"> | Bugeyed Baby | Pickups turn into Blue Spiders |

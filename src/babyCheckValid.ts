@@ -26,6 +26,7 @@ import {
 } from "isaacscript-common";
 import type { Baby } from "./classes/Baby";
 import {
+  BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLES,
   BRIMSTONE_ANTI_SYNERGIES,
   COLLECTIBLES_THAT_REMOVE_TEARS,
   C_SECTION_ANTI_SYNERGIES,
@@ -112,6 +113,13 @@ function checkCollectibles(
   }
 
   if (baby.requireTears === true && !playerHasTearBuild(player)) {
+    return false;
+  }
+
+  if (
+    baby.blindfolded === true &&
+    !hasCollectible(player, ...BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLES)
+  ) {
     return false;
   }
 
