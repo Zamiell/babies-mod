@@ -355,7 +355,7 @@ There are 603 babies in total.
 | 343 | <img src="./images/343_baby_cyborg.png" alt="343_baby_cyborg.png"> | Cyborg Baby | Sees numerical damage values and hitboxes |
 | 344 | <img src="./images/344_baby_barbarian.png" alt="344_baby_barbarian.png"> | Barbarian Baby | Mama Mega bombs |
 | 345 | <img src="./images/345_baby_locust.png" alt="345_baby_locust.png"> | Locust Baby | Starts with 20 Abyss locusts + blindfolded |
-| 346 | <img src="./images/346_baby_twotone.png" alt="346_baby_twotone.png"> | Twotone Baby | Dataminer effect on room enter |
+| 346 | <img src="./images/346_baby_twotone.png" alt="346_baby_twotone.png"> | Twotone Baby | Spending bombs uses up keys first |
 | 347 | <img src="./images/347_baby_2600.png" alt="347_baby_2600.png"> | 2600 Baby | Friend Finder effect on room clear |
 | 348 | <img src="./images/348_baby_fourtone.png" alt="348_baby_fourtone.png"> | Fourtone Baby | Starts with The Candle + blindfolded + instant recharge |
 | 349 | <img src="./images/349_baby_grayscale.png" alt="349_baby_grayscale.png"> | Grayscale Baby | Delirious effect every 10 seconds |

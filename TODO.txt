@@ -3,11 +3,12 @@ TODO long-term:
 
 Potential new baby ideas:
 - Spawns a friendly Mom's Hand in every room
-- Spending bombs reduces keys
+- Walls Have Eyes (shoot tears from every wall for 20 seconds) - mustHaveTears, Ipecac, Fire Mind
+- Transmutation Machines are like Blood Donation Machines, except they re-roll any items in the room.
 
 List of babies to change:
-- Twotone Baby (#346) - Dataminer effect on room enter
 - Adventure Baby (#482) - Starts with Moving Box
+- Squirrel Baby (#268) - Starts with Walnut (improved)
 
 List of boring babies:
 - Bandage Girl Baby (#178) - Starts with Cube of Meat + Ball of Bandage - Slightly overlaps with Brownie Baby (#107)

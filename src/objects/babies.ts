@@ -3022,7 +3022,7 @@ export const BABIES = {
   // 346
   [RandomBabyType.TWOTONE]: {
     name: "Twotone Baby",
-    description: "Dataminer effect on room enter",
+    description: "Spending bombs uses up keys first",
     sprite: "346_baby_twotone.png",
     class: bc.TwotoneBaby,
   },
