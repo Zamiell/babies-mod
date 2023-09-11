@@ -54,29 +54,6 @@ export function babyCheckValid(
     return false;
   }
 
-  // Check for overlapping collectibles.
-  if (
-    baby.collectible !== undefined &&
-    player.HasCollectible(baby.collectible)
-  ) {
-    return false;
-  }
-  if (
-    baby.collectible2 !== undefined &&
-    player.HasCollectible(baby.collectible2)
-  ) {
-    return false;
-  }
-  if (
-    baby.collectible3 !== undefined &&
-    player.HasCollectible(baby.collectible3)
-  ) {
-    return false;
-  }
-  if (baby.trinket !== undefined && player.HasTrinket(baby.trinket)) {
-    return false;
-  }
-
   const babyCollectiblesSet = getBabyCollectiblesSet(baby);
 
   if (!checkActiveItem(player, baby)) {
@@ -209,6 +186,21 @@ function checkCollectibles(
   baby: BabyDescription,
   babyCollectiblesSet: Set<CollectibleType>,
 ): boolean {
+  // Check for overlapping collectibles.
+  for (const attribute of [
+    "collectible",
+    "collectible2",
+    "collectible3",
+  ] as const) {
+    const collectibleType = baby[attribute];
+    if (
+      collectibleType !== undefined &&
+      player.HasCollectible(collectibleType)
+    ) {
+      return false;
+    }
+  }
+
   if (baby.requireTears === true && !playerHasTearBuild(player)) {
     return false;
   }
@@ -424,6 +416,11 @@ function checkCollectibleAntiSynergyFromArray(
 }
 
 function checkTrinkets(player: EntityPlayer, baby: BabyDescription): boolean {
+  // Check for overlapping trinkets.
+  if (baby.trinket !== undefined && player.HasTrinket(baby.trinket)) {
+    return false;
+  }
+
   if (
     baby.trinket !== undefined &&
     TRINKETS_THAT_SYNERGIZE_WITH_TEARS.has(baby.trinket) &&
