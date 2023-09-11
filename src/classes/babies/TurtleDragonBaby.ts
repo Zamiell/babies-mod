@@ -1,4 +1,4 @@
-import { ModCallback } from "isaac-typescript-definitions";
+import { EntityType, ModCallback } from "isaac-typescript-definitions";
 import { Callback } from "isaacscript-common";
 import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
@@ -18,5 +18,11 @@ export class TurtleDragonBaby extends Baby {
     const normalizedVelocity = tear.Velocity.Normalized();
 
     player.ShootRedCandle(normalizedVelocity);
+  }
+
+  /** Prevent softlocks with enemies that are immune to fires. */
+  @Callback(ModCallback.POST_NPC_UPDATE, EntityType.FLAMING_HOPPER)
+  postNPCUpdateFlamingHopper(npc: EntityNPC): void {
+    npc.Kill();
   }
 }

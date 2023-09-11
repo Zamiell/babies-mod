@@ -16,6 +16,7 @@
 - Fixed the bug where using Glowing Hour Glass on the starting room of a new floor would not work properly. (Thanks Monkeypot)
 - Fixed the bug where the baby description would overlap with the streak text in certain situations. (Thanks Toooschi)
 - Fixed the bug where the custom baby timer was incorrectly placed in certain situations. (Thanks Gamonymous)
+- Fixed the bug where Turtle Dragon Baby would softlock with rooms that contained Flaming Hoppers. (Thanks SuperpaperChildy)
 
 ### _v1.7.1_ - September 8th, 2023
 
