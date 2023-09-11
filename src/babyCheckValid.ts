@@ -118,7 +118,7 @@ function checkCollectibles(
 
   if (
     baby.blindfolded === true &&
-    !hasCollectible(player, ...BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES)
+    hasCollectible(player, ...BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES)
   ) {
     return false;
   }
