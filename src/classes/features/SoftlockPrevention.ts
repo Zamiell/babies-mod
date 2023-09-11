@@ -16,7 +16,6 @@ import { BabyModFeature } from "../BabyModFeature";
 import { getBabyType } from "./babySelection/v";
 
 const POOP_THRESHOLD_GAME_FRAMES = 15 * GAME_FRAMES_PER_SECOND;
-
 const ISLAND_THRESHOLD_GAME_FRAMES = 30 * GAME_FRAMES_PER_SECOND;
 
 const v = {

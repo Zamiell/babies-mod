@@ -1,10 +1,16 @@
 TODO:
-- Abel is broken
-- change Adventure Baby
 - change SACRIFICIAL_ALTAR_COLLECTIBLE_TYPES
 
 TODO long-term:
 - change "R+7 Season 5 (Beta)" upon release
+
+New baby ideas:
+- ?
+
+List of babies to change:
+- Lowface Baby (#73) - Starts with Book of Virtues + Unicorn Stump
+- Twotone Baby (#346) - Dataminer effect on room enter
+- Adventure Baby (#482) - Starts with Moving Box
 
 List of boring babies:
 - Bandage Girl Baby (#178) - Starts with Cube of Meat + Ball of Bandage - Slightly overlaps with Brownie Baby (#107)
