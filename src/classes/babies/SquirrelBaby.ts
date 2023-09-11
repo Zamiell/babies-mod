@@ -1,41 +1,86 @@
-import { CollectibleType, TrinketType } from "isaac-typescript-definitions";
 import {
+  EntityFlag,
+  EntityType,
+  ModCallback,
+  SoundEffect,
+} from "isaac-typescript-definitions";
+import {
+  Callback,
   CallbackCustom,
   ModCallbackCustom,
+  VectorZero,
+  addFlag,
   game,
-  newRNG,
-  repeat,
+  getEntities,
+  removeEntities,
+  sfxManager,
+  spawn,
 } from "isaacscript-common";
 import { mod } from "../../mod";
-import { setInitialBabyRNG } from "../../utils";
 import { Baby } from "../Baby";
 
-const v = {
-  run: {
-    rng: newRNG(),
-  },
-};
+const MOMS_HAND_FLAGS = addFlag(
+  EntityFlag.CHARM, // 1 << 8
+  EntityFlag.FRIENDLY, // 1 << 29
+);
 
-/** Starts with Walnut (improved). */
+/** Spawns a friendly Mom's Hand in every room. */
 export class SquirrelBaby extends Baby {
-  v = v;
+  // 0, 213
+  @Callback(ModCallback.POST_NPC_UPDATE, EntityType.MOMS_HAND)
+  postNPCUpdate(npc: EntityNPC): void {
+    if (npc.SpawnerEntity === undefined) {
+      return;
+    }
 
-  override onAdd(): void {
-    setInitialBabyRNG(v.run.rng);
+    const player = Isaac.GetPlayer();
+    if (GetPtrHash(npc.SpawnerEntity) !== GetPtrHash(player)) {
+      return;
+    }
+
+    // We have to re-add the flags on every frame because it will lose the flags when it goes to the
+    // ceiling.
+    npc.AddEntityFlags(MOMS_HAND_FLAGS);
   }
 
-  @CallbackCustom(ModCallbackCustom.POST_TRINKET_BREAK, TrinketType.WALNUT)
-  postTrinketBreakWalnut(player: EntityPlayer): void {
-    const room = game.GetRoom();
-    const num = this.getAttribute("num");
+  @Callback(ModCallback.PRE_SPAWN_CLEAR_AWARD)
+  preSpawnClearAward(): boolean | undefined {
+    const momsHands = getEntities(EntityType.MOMS_HAND);
+    const player = Isaac.GetPlayer();
+    const ourHands = momsHands.filter(
+      (entity) =>
+        entity.SpawnerEntity !== undefined &&
+        GetPtrHash(entity.SpawnerEntity) === GetPtrHash(player),
+    );
+    removeEntities(ourHands);
 
-    repeat(num, () => {
-      const position = room.FindFreePickupSpawnPosition(
-        player.Position,
-        1,
-        true,
-      );
-      mod.spawnCollectible(CollectibleType.NULL, position, v.run.rng);
+    return undefined;
+  }
+
+  @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
+  postNewRoomReordered(): void {
+    const room = game.GetRoom();
+    const isClear = room.IsClear();
+    if (isClear) {
+      return;
+    }
+
+    const player = Isaac.GetPlayer();
+    const momsHand = spawn(
+      EntityType.MOMS_HAND,
+      0,
+      0,
+      player.Position,
+      VectorZero,
+      player,
+    );
+
+    // We apply the flags now to prevent Racing+ from playing the custom "Appear" animation.
+    momsHand.AddEntityFlags(MOMS_HAND_FLAGS);
+
+    // The laugh playing in every room is obnoxious.
+    mod.runNextRenderFrame(() => {
+      sfxManager.Stop(SoundEffect.MOM_VOX_EVIL_LAUGH);
     });
   }
 }

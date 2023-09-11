@@ -2326,11 +2326,8 @@ export const BABIES = {
   // 268
   [RandomBabyType.SQUIRREL]: {
     name: "Squirrel Baby",
-    description: "Starts with Walnut (improved)",
+    description: "Spawns a friendly Mom's Hand in every room",
     sprite: "268_baby_squirrel.png",
-    trinket: TrinketType.WALNUT,
-    requireBombs: true,
-    num: 5, // The amount of collectibles to spawn.
     class: bc.SquirrelBaby,
   },
 

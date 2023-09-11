@@ -7,6 +7,7 @@
 
 - Changed the following babies:
   - Lowface Baby (#73) - Reveals the floor layout after 6 hits
+  - Squirrel Baby (#268) - Spawns a friendly Mom's Hand in every room
   - Twotone Baby (#346) - Spending bombs uses up keys first
   - Adventure Baby (#482) - Walls have eyes + blindfolded
 - Fixed the bug where Tabby Baby was not working properly. (Thanks Fallenfor)
