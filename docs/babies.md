@@ -525,7 +525,7 @@ There are 603 babies in total.
 | 513 | <img src="./images/513_baby_workshop.png" alt="513_baby_workshop.png"> | Workshop Baby | Starts with Humbling Bundle |
 | 514 | <img src="./images/514_baby_hooligan.png" alt="514_baby_hooligan.png"> | Hooligan Baby | Double enemies |
 | 515 | <img src="./images/515_baby_halfspider.png" alt="515_baby_halfspider.png"> | Half Spider Baby | Starts with 3x Pretty Fly |
-| 516 | <img src="./images/516_baby_silly.png" alt="516_baby_silly.png"> | Silly Baby | Constant I'm Excited pill effect |
+| 516 | <img src="./images/516_baby_silly.png" alt="516_baby_silly.png"> | Silly Baby | Sacrificial Altar effect after 6 hits |
 | 517 | <img src="./images/517_baby_mastercook.png" alt="517_baby_mastercook.png"> | Master Cook Baby | Egg tears |
 | 518 | <img src="./images/518_baby_greenpepper.png" alt="518_baby_greenpepper.png"> | Green Pepper Baby | Starts with Abyss |
 | 519 | <img src="./images/519_baby_baggycap.png" alt="519_baby_baggycap.png"> | Baggy Cap Baby | Cannot bomb through rooms |
