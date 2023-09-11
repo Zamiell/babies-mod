@@ -2987,7 +2987,7 @@ export const BABIES = {
   // 342
   [RandomBabyType.MERMAN]: {
     name: "Merman Baby",
-    description: "Keys spawn as bombs",
+    description: "Spawns a Bulb on hit",
     sprite: "342_baby_merman.png",
     class: bc.MermanBaby,
   },

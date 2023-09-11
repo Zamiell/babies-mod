@@ -126,7 +126,7 @@ There are 603 babies in total.
 | 114 | <img src="./images/114_baby_strangemouth.png" alt="114_baby_strangemouth.png"> | Strange Mouth Baby | Wiggle tears |
 | 115 | <img src="./images/115_baby_masked.png" alt="115_baby_masked.png"> | Masked Baby | Can't shoot while moving |
 | 116 | <img src="./images/116_baby_cyber.png" alt="116_baby_cyber.png"> | Cyber Baby | Spawns a random pickup on hit |
-| 117 | <img src="./images/117_baby_axewound.png" alt="117_baby_axewound.png"> | Axe Wound Baby | Starts with 2x Sacrificial Dagger + flight + explosion immunity + blindfolded |
+| 117 | <img src="./images/117_baby_axewound.png" alt="117_baby_axewound.png"> | Axe Wound Baby | Starts with 2x Sacrificial Dagger + flight + explosion immunity + blindfolded z |
 | 118 | <img src="./images/118_baby_statue.png" alt="118_baby_statue.png"> | Statue Baby 2 | Improved Secret Rooms |
 | 119 | <img src="./images/119_baby_grin.png" alt="119_baby_grin.png"> | Grin Baby | Starts with Godhead |
 | 120 | <img src="./images/120_baby_upset.png" alt="120_baby_upset.png"> | Upset Baby | Starts with Sad Bombs |
@@ -351,7 +351,7 @@ There are 603 babies in total.
 | 339 | <img src="./images/339_baby_x.png" alt="339_baby_x.png"> | X Baby | Shoots 4 tears diagonally |
 | 340 | <img src="./images/340_baby_o.png" alt="340_baby_o.png"> | O Baby 2 | Spiral tears |
 | 341 | <img src="./images/341_baby_vomit.png" alt="341_baby_vomit.png"> | Vomit Baby | Takes damage if moving when the timer reaches 0 |
-| 342 | <img src="./images/342_baby_merman.png" alt="342_baby_merman.png"> | Merman Baby | Keys spawn as bombs |
+| 342 | <img src="./images/342_baby_merman.png" alt="342_baby_merman.png"> | Merman Baby | Spawns a Bulb on hit |
 | 343 | <img src="./images/343_baby_cyborg.png" alt="343_baby_cyborg.png"> | Cyborg Baby | Sees numerical damage values and hitboxes |
 | 344 | <img src="./images/344_baby_barbarian.png" alt="344_baby_barbarian.png"> | Barbarian Baby | Mama Mega bombs |
 | 345 | <img src="./images/345_baby_locust.png" alt="345_baby_locust.png"> | Locust Baby | Starts with 20 Abyss locusts + blindfolded |
@@ -404,7 +404,7 @@ There are 603 babies in total.
 | 392 | <img src="./images/392_baby_liberty.png" alt="392_baby_liberty.png"> | Liberty Baby | Starts with Azazel's Rage |
 | 393 | <img src="./images/393_baby_dreamknight.png" alt="393_baby_dreamknight.png"> | Dream Knight Baby | Starts with Super Bum |
 | 394 | <img src="./images/394_baby_cowboy.png" alt="394_baby_cowboy.png"> | Cowboy Baby | Pickups shoot |
-| 395 | <img src="./images/395_baby_mermaid.png" alt="395_baby_mermaid.png"> | Mermaid Baby | Bombs spawn as keys |
+| 395 | <img src="./images/395_baby_mermaid.png" alt="395_baby_mermaid.png"> | Mermaid Baby | Starts with Athame + 30 luck |
 | 396 | <img src="./images/396_baby_plague.png" alt="396_baby_plague.png"> | Plague Baby | Leaves a trail of creep |
 | 397 | <img src="./images/397_baby_spacesoldier.png" alt="397_baby_spacesoldier.png"> | Space Soldier Baby | Starts with Void |
 | 398 | <img src="./images/398_baby_darkspacesoldier.png" alt="398_baby_darkspacesoldier.png"> | Dark Space Soldier Baby | Chaos card tears (every 5th tear) |
@@ -476,7 +476,7 @@ There are 603 babies in total.
 | 464 | <img src="./images/464_baby_arrowhead.png" alt="464_baby_arrowhead.png"> | Arrowhead Baby | Starts with Technology Zero + Cupid's Arrow |
 | 465 | <img src="./images/465_baby_beanie.png" alt="465_baby_beanie.png"> | Beanie Baby | Starts with Smelter |
 | 466 | <img src="./images/466_baby_blindcursed.png" alt="466_baby_blindcursed.png"> | Blindcursed Baby | Invisible tears |
-| 467 | <img src="./images/467_baby_burning.png" alt="467_baby_burning.png"> | Burning Baby | Starts with Vasculitis + A Lighter + 40 Luck |
+| 467 | <img src="./images/467_baby_burning.png" alt="467_baby_burning.png"> | Burning Baby | Starts with Vasculitis + A Lighter + 40 luck |
 | 468 | <img src="./images/468_baby_cursor.png" alt="468_baby_cursor.png"> | Cursor Baby | Starts with Pause |
 | 469 | <img src="./images/469_baby_flybaby.png" alt="469_baby_flybaby.png"> | Fly Baby | Mass splitting tears |
 | 470 | <img src="./images/470_baby_headphone.png" alt="470_baby_headphone.png"> | Headphone Baby | Soundwave tears |
