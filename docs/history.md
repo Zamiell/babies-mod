@@ -3,6 +3,12 @@
 <!-- cspell:ignore Adrayon,cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.9.1_ - September 11th, 2023
+
+- Changed the following babies:
+  - Lucky Baby (#563) - Starts with The Stairway (improved)
+- !Fixed the bug where Lucky Baby would not work properly. (Thanks Gamonymous)
+
 ### _v1.9.0_ - September 11th, 2023
 
 - Changed the following babies:

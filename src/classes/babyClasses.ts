@@ -182,6 +182,7 @@ export { LoveBaby } from "./babies/LoveBaby";
 export { LoveEyeBaby } from "./babies/LoveEyeBaby";
 export { LovebearBaby } from "./babies/LovebearBaby";
 export { LowfaceBaby } from "./babies/LowfaceBaby";
+export { LuckyBaby } from "./babies/LuckyBaby";
 export { MagBaby } from "./babies/MagBaby";
 export { MagicCatBaby } from "./babies/MagicCatBaby";
 export { MagnetBaby } from "./babies/MagnetBaby";

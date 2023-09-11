@@ -4899,9 +4899,9 @@ export const BABIES = {
   // 563
   [RandomBabyType.LUCKY]: {
     name: "Lucky Baby",
-    description: "Starts with The Stairway",
+    description: "Starts with The Stairway (improved)",
     sprite: "563_baby_lucky.png",
-    collectible: CollectibleType.STAIRWAY,
+    class: bc.LuckyBaby,
   },
 
   // 564
