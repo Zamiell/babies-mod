@@ -4,11 +4,15 @@ import {
   ModCallbackCustom,
   ReadonlySet,
   hasCollectible,
+  hasTrinket,
   useActiveItemTemp,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
-// Don't include familiars that need conditions to appear (Dead Bird, Plum Flute, Umbilical Cord).
+/**
+ * We do not include familiars that need conditions to appear (e.g. Dead Bird, Plum Flute, Umbilical
+ * Cord).
+ */
 const SACRIFICIAL_ALTAR_COLLECTIBLE_TYPES = new ReadonlySet([
   CollectibleType.BROTHER_BOBBY, // 8
   CollectibleType.HALO_OF_FLIES, // 10
@@ -99,6 +103,12 @@ const SACRIFICIAL_ALTAR_COLLECTIBLE_TYPES = new ReadonlySet([
   CollectibleType.TWISTED_PAIR, // 698
 ]);
 
+const SACRIFICIAL_ALTAR_TRINKET_TYPES = new ReadonlySet([
+  TrinketType.ISAACS_HEAD, // 54
+  TrinketType.SOUL, // 57
+  TrinketType.APOLLYONS_BEST_FRIEND, // 186
+]);
+
 const v = {
   run: {
     numHits: 0,
@@ -112,9 +122,7 @@ export class SillyBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
     return (
       hasCollectible(player, ...SACRIFICIAL_ALTAR_COLLECTIBLE_TYPES) ||
-      player.HasTrinket(TrinketType.ISAACS_HEAD) ||
-      player.HasTrinket(TrinketType.SOUL) ||
-      player.HasTrinket(TrinketType.APOLLYONS_BEST_FRIEND)
+      hasTrinket(player, ...SACRIFICIAL_ALTAR_TRINKET_TYPES)
     );
   }
 
