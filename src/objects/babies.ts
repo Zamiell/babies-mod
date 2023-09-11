@@ -3460,9 +3460,9 @@ export const BABIES = {
   // 395
   [RandomBabyType.MERMAID]: {
     name: "Mermaid Baby",
-    description: "Bombs spawn as keys",
+    description: "Starts with Athame + 30 luck",
     sprite: "395_baby_mermaid.png",
-    class: bc.MermaidBaby,
+    collectible: CollectibleType.ATHAME,
   },
 
   // 396
@@ -4083,7 +4083,7 @@ export const BABIES = {
   // 467
   [RandomBabyType.BURNING]: {
     name: "Burning Baby",
-    description: "Starts with Vasculitis + A Lighter + 40 Luck",
+    description: "Starts with Vasculitis + A Lighter + 40 luck",
     sprite: "467_baby_burning.png",
     collectible: CollectibleType.VASCULITIS,
     trinket: TrinketType.LIGHTER,

@@ -5,6 +5,8 @@
 
 ### _v1.8.0_ - September 10th, 2023
 
+- Changed the following babies:
+  - Mermaid Baby (#395) - Starts with Athame + 30 luck
 - If you use the [Rebirth Item Tracker](https://github.com/Rchardon/RebirthItemTracker), the baby name and description will be written to the "mod_text.txt" file, which is located next to "Rebirth Item Tracker.exe". You can use Open Broadcaster Software (OBS) to capture this text file in order to easily show the current baby to your live stream on Twitch/YouTube. (Thanks mgln)
 - Fixed the bug where babies with multiple trinkets would only got one removed on the next floor. (Thanks Monkeypot)
 - Fixed the bug where the third collectible of a baby would not be removed. (Thanks SuperpaperChildy & Fallenfor)
@@ -65,7 +67,7 @@
   - Dark Elf Baby (#378) - Starts with Bone Spurs + Polished Bone
   - Puncher Baby (#416) - Spawns a Golden Troll Bomb in every room
   - Tired Baby (#443) - Starts with 10x Cube Baby + Ice Cube
-  - Burning Baby (#467) - Starts with Vasculitis + A Lighter + 40 Luck
+  - Burning Baby (#467) - Starts with Vasculitis + A Lighter + 40 luck
   - Tooth Baby (#478) - Spawns a random key on room clear
   - Thirteenth Baby (#533) - Starts in a trinket shop
   - Painful Baby (#570) - Enemies respawn when reentering a room
