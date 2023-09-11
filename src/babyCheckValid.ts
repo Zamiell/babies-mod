@@ -195,7 +195,13 @@ function checkCollectibles(
   return true;
 }
 
-/** If the player does not have a slot for an active item, do not give them an active item baby. */
+/**
+ * If the player does not have a slot for an active item, do not give them an active item baby.
+ *
+ * There are no babies that grant 2 or more active items. (Lowface Baby technically starts with Book
+ * of Virtues + Unicorn Stump, but only one active slot is needed for this combo.) Thus, this
+ * function only checks to see if there is one empty active slot available.
+ */
 function checkActiveItem(
   player: EntityPlayer,
   babyCollectiblesSet: Set<CollectibleType>,

@@ -215,7 +215,7 @@ export const BABIES = {
     collectible: CollectibleType.BLUE_BABYS_ONLY_FRIEND,
     collectibleNum: 2,
     blindfolded: true,
-    softlockPreventionDestroyPoops: true, // ???'s Only Friend cannot kill poops
+    softlockPreventionDestroyPoops: true, // ???'s Only Friend cannot kill poops.
   },
 
   // 23
@@ -2844,7 +2844,7 @@ export const BABIES = {
     collectible: CollectibleType.ROBO_BABY_2,
     collectibleNum: 20,
     blindfolded: true,
-    softlockPreventionDestroyPoops: true, // Robo-Baby 2.0 will not kill poops.
+    softlockPreventionDestroyPoops: true, // Robo-Baby 2.0 cannot kill poops.
     class: bc.GeekBaby,
   },
 
@@ -3042,7 +3042,7 @@ export const BABIES = {
     sprite: "348_baby_fourtone.png",
     collectible: CollectibleType.CANDLE,
     blindfolded: true,
-    softlockPreventionDestroyPoops: true, // The Candle cannot kill poops
+    softlockPreventionDestroyPoops: true, // The Candle cannot kill poops.
     class: bc.FourtoneBaby,
   },
 
@@ -3183,6 +3183,7 @@ export const BABIES = {
     description: "Fiery tears",
     sprite: "364_baby_turtledragon.png",
     requireTears: true,
+    softlockPreventionDestroyPoops: true, // Fires cannot kill poops.
     class: bc.TurtleDragonBaby,
   },
 

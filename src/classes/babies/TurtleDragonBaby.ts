@@ -13,6 +13,7 @@ import { Baby } from "../Baby";
 
 /** Fiery tears. */
 export class TurtleDragonBaby extends Baby {
+  // 61
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
     const player = getBabyPlayerFromEntity(tear);
@@ -29,12 +30,14 @@ export class TurtleDragonBaby extends Baby {
   }
 
   /** Prevent softlocks with enemies that are immune to fires. */
+  // 54.0
   @Callback(ModCallback.POST_NPC_UPDATE, EntityType.FLAMING_HOPPER)
   postNPCUpdateFlamingHopper(npc: EntityNPC): void {
     npc.Kill();
   }
 
   /** Prevent softlocks with enemies that are immune to fires. */
+  // 15.3
   @CallbackCustom(
     ModCallbackCustom.POST_NPC_UPDATE_FILTER,
     EntityType.CLOTTY,

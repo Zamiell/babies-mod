@@ -18,11 +18,14 @@ const NEXT_FLOOR_PLAYER_ANIMATIONS = new ReadonlySet<string>([
   "LightTravelCustom",
 ]);
 
-const MAPPING_COLLECTIBLE_TYPES = [
+const COLLECTIBLE_TYPES_THAT_CHANGE_MINIMAP = [
   CollectibleType.COMPASS, // 21
   CollectibleType.TREASURE_MAP, // 54
+  CollectibleType.SPELUNKER_HAT, // 91
   CollectibleType.BLUE_MAP, // 246
   CollectibleType.MIND, // 333
+  CollectibleType.SOL, // 588
+  CollectibleType.LUNA, // 589
 ] as const;
 
 export class DetectTrapdoorTouched extends BabyModFeature {
@@ -59,7 +62,7 @@ export class DetectTrapdoorTouched extends BabyModFeature {
   removeMappingCollectibles(player: EntityPlayer, baby: BabyDescription): void {
     const babyCollectiblesSet = getBabyCollectiblesSet(baby);
 
-    for (const collectibleType of MAPPING_COLLECTIBLE_TYPES) {
+    for (const collectibleType of COLLECTIBLE_TYPES_THAT_CHANGE_MINIMAP) {
       if (babyCollectiblesSet.has(collectibleType)) {
         player.RemoveCollectible(collectibleType, undefined, undefined, false);
       }
