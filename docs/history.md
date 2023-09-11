@@ -6,6 +6,7 @@
 ### _v1.8.0_ - September 10th, 2023
 
 - Changed the following babies:
+  - Merman Baby (#342) - Spawns a Bulb on hit
   - Mermaid Baby (#395) - Starts with Athame + 30 luck
 - If you use the [Rebirth Item Tracker](https://github.com/Rchardon/RebirthItemTracker), the baby name and description will be written to the "mod_text.txt" file, which is located next to "Rebirth Item Tracker.exe". You can use Open Broadcaster Software (OBS) to capture this text file in order to easily show the current baby to your live stream on Twitch/YouTube. (Thanks mgln)
 - Fixed the bug where babies with multiple trinkets would only got one removed on the next floor. (Thanks Monkeypot)
