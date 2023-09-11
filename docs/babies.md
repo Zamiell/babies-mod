@@ -224,7 +224,7 @@ There are 603 babies in total.
 | 212 | <img src="./images/212_baby_conjoined.png" alt="212_baby_conjoined.png"> | Conjoined Baby | Doors open on hit |
 | 213 | <img src="./images/213_baby_skinny.png" alt="213_baby_skinny.png"> | Skinny Baby | Super homing tears |
 | 214 | <img src="./images/214_baby_spider.png" alt="214_baby_spider.png"> | Basic Spider Baby | Starts with Mutant Spider |
-| 215 | <img src="./images/215_baby_shopkeeper.png" alt="215_baby_shopkeeper.png"> | Shopkeeper Baby | Free shop items |
+| 215 | <img src="./images/215_baby_shopkeeper.png" alt="215_baby_shopkeeper.png"> | Shopkeeper Baby | Items that cost coins are free |
 | 216 | <img src="./images/216_baby_fancy.png" alt="216_baby_fancy.png"> | Fancy Baby | Can purchase teleports to special rooms |
 | 217 | <img src="./images/217_baby_chubby.png" alt="217_baby_chubby.png"> | Chubby Baby | Starts with Technology Zero + Tiny Planet |
 | 218 | <img src="./images/218_baby_cyclops.png" alt="218_baby_cyclops.png"> | Cyclops Baby | Starts with Polyphemus |
@@ -572,7 +572,7 @@ There are 603 babies in total.
 | 560 | <img src="./images/560_baby_hex.png" alt="560_baby_hex.png"> | Hex Baby | Starts with Eye of the Occult |
 | 561 | <img src="./images/561_baby_singing.png" alt="561_baby_singing.png"> | Singing Baby | Starts with Astral Projection |
 | 562 | <img src="./images/562_baby_junk.png" alt="562_baby_junk.png"> | Junk Baby | Starts with Binge Eater |
-| 563 | <img src="./images/563_baby_lucky.png" alt="563_baby_lucky.png"> | Lucky Baby | Starts with The Stairway |
+| 563 | <img src="./images/563_baby_lucky.png" alt="563_baby_lucky.png"> | Lucky Baby | Starts with The Stairway (improved) |
 | 564 | <img src="./images/564_baby_finger.png" alt="564_baby_finger.png"> | Finger Baby 2 | Starts with Urn of Souls |
 | 565 | <img src="./images/565_baby_sucky.png" alt="565_baby_sucky.png"> | Sucky Baby 2 | Starts with Psy Fly |
 | 566 | <img src="./images/566_baby_doormimic.png" alt="566_baby_doormimic.png"> | Door Mimic Baby | Starts with Bot Fly |
