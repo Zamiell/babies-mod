@@ -3,7 +3,7 @@ import {
   PillColor,
   PillEffect,
 } from "isaac-typescript-definitions";
-import { Callback } from "isaacscript-common";
+import { Callback, isMissedTear } from "isaacscript-common";
 import { isValidForMissedTearsEffect } from "../../../utils";
 import { Baby } from "../../Baby";
 
@@ -33,8 +33,7 @@ export class Abel extends Baby {
       return;
     }
 
-    // Tears will not die if they hit an enemy, but they will die if they hit a wall or object.
-    if (!tear.IsDead()) {
+    if (!isMissedTear(tear)) {
       return;
     }
 

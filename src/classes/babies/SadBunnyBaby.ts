@@ -1,5 +1,5 @@
 import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
-import { Callback, repeat } from "isaacscript-common";
+import { Callback, isMissedTear, repeat } from "isaacscript-common";
 import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
@@ -38,8 +38,7 @@ export class SadBunnyBaby extends Baby {
       return;
     }
 
-    // Tears will not die if they hit an enemy, but they will die if they hit a wall or object.
-    if (!tear.IsDead()) {
+    if (!isMissedTear(tear)) {
       return;
     }
 

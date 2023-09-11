@@ -1,5 +1,5 @@
 import { DamageFlagZero, ModCallback } from "isaac-typescript-definitions";
-import { Callback } from "isaacscript-common";
+import { Callback, isMissedTear } from "isaacscript-common";
 import {
   getBabyPlayerFromEntity,
   isValidForMissedTearsEffect,
@@ -37,8 +37,7 @@ export class CursedPillowBaby extends Baby {
       return;
     }
 
-    // Tears will not die if they hit an enemy, but they will die if they hit a wall or object.
-    if (!tear.IsDead()) {
+    if (!isMissedTear(tear)) {
       return;
     }
 
