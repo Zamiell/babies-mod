@@ -56,7 +56,11 @@ export function babyCheckValid(
 
   const babyCollectiblesSet = getBabyCollectiblesSet(baby);
 
-  if (!checkActiveItem(player, baby)) {
+  if (!checkCollectibles(player, baby, babyCollectiblesSet)) {
+    return false;
+  }
+
+  if (!checkTrinkets(player, baby)) {
     return false;
   }
 
@@ -76,105 +80,12 @@ export function babyCheckValid(
     return false;
   }
 
-  if (!checkCollectibles(player, baby, babyCollectiblesSet)) {
-    return false;
-  }
-
-  if (!checkTrinkets(player, baby)) {
-    return false;
-  }
-
   if (!checkStage(baby, babyCollectiblesSet)) {
     return false;
   }
 
   const babyClass = BABY_CLASS_MAP.get(babyType);
   if (babyClass !== undefined && !checkBabyClass(player, babyClass)) {
-    return false;
-  }
-
-  return true;
-}
-
-/** If the player does not have a slot for an active item, do not give them an active item baby. */
-function checkActiveItem(player: EntityPlayer, baby: BabyDescription): boolean {
-  const activeItem = player.GetActiveItem();
-  const secondaryActiveItem = player.GetActiveItem(ActiveSlot.SECONDARY);
-
-  if (
-    baby.collectible !== undefined &&
-    getCollectibleItemType(baby.collectible) === ItemType.ACTIVE &&
-    activeItem !== CollectibleType.NULL
-  ) {
-    const hasSchoolbag = player.HasCollectible(CollectibleType.SCHOOLBAG);
-    if (!hasSchoolbag) {
-      // Since the player already has an active item, there is no room for another active item.
-      return false;
-    }
-
-    const hasItemInSchoolbag = secondaryActiveItem !== CollectibleType.NULL;
-    if (hasItemInSchoolbag) {
-      // The player has both an active item and an item inside of the Schoolbag.
-      return false;
-    }
-  }
-
-  return true;
-}
-
-function checkHealth(
-  player: EntityPlayer,
-  baby: BabyDescription,
-  babyCollectiblesSet: Set<CollectibleType>,
-): boolean {
-  const maxHearts = player.GetMaxHearts();
-  const soulHearts = player.GetSoulHearts();
-  const boneHearts = player.GetBoneHearts();
-  const totalHealth = maxHearts + soulHearts + boneHearts;
-
-  if (baby.requireNumHits !== undefined && totalHealth < baby.requireNumHits) {
-    return false;
-  }
-
-  if (
-    babyCollectiblesSet.has(CollectibleType.POTATO_PEELER) &&
-    maxHearts === 0
-  ) {
-    return false;
-  }
-
-  return true;
-}
-
-function checkCoins(player: EntityPlayer, baby: BabyDescription): boolean {
-  const coins = player.GetNumCoins();
-  const babyCollectiblesSet = getBabyCollectiblesSet(baby);
-
-  if (baby.requireCoins === true && coins === 0) {
-    return false;
-  }
-
-  if (babyCollectiblesSet.has(CollectibleType.DOLLAR) && coins >= 50) {
-    return false;
-  }
-
-  return true;
-}
-
-function checkBombs(player: EntityPlayer, baby: BabyDescription): boolean {
-  const bombs = player.GetNumBombs();
-
-  if (baby.requireBombs === true && bombs === 0) {
-    return false;
-  }
-
-  return true;
-}
-
-function checkKeys(player: EntityPlayer, baby: BabyDescription): boolean {
-  const keys = player.GetNumKeys();
-
-  if (baby.requireKeys === true && keys === 0) {
     return false;
   }
 
@@ -202,6 +113,10 @@ function checkCollectibles(
   }
 
   if (baby.requireTears === true && !playerHasTearBuild(player)) {
+    return false;
+  }
+
+  if (!checkActiveItem(player, baby)) {
     return false;
   }
 
@@ -276,6 +191,32 @@ function checkCollectibles(
     !hasAnyTrinket(player)
   ) {
     return false;
+  }
+
+  return true;
+}
+
+/** If the player does not have a slot for an active item, do not give them an active item baby. */
+function checkActiveItem(player: EntityPlayer, baby: BabyDescription): boolean {
+  const activeItem = player.GetActiveItem();
+  const secondaryActiveItem = player.GetActiveItem(ActiveSlot.SECONDARY);
+
+  if (
+    baby.collectible !== undefined &&
+    getCollectibleItemType(baby.collectible) === ItemType.ACTIVE &&
+    activeItem !== CollectibleType.NULL
+  ) {
+    const hasSchoolbag = player.HasCollectible(CollectibleType.SCHOOLBAG);
+    if (!hasSchoolbag) {
+      // Since the player already has an active item, there is no room for another active item.
+      return false;
+    }
+
+    const hasItemInSchoolbag = secondaryActiveItem !== CollectibleType.NULL;
+    if (hasItemInSchoolbag) {
+      // The player has both an active item and an item inside of the Schoolbag.
+      return false;
+    }
   }
 
   return true;
@@ -441,6 +382,65 @@ function checkTrinkets(player: EntityPlayer, baby: BabyDescription): boolean {
 
 function playerHasTearBuild(player: EntityPlayer): boolean {
   return !hasCollectible(player, ...COLLECTIBLES_THAT_REMOVE_TEARS);
+}
+
+function checkHealth(
+  player: EntityPlayer,
+  baby: BabyDescription,
+  babyCollectiblesSet: Set<CollectibleType>,
+): boolean {
+  const maxHearts = player.GetMaxHearts();
+  const soulHearts = player.GetSoulHearts();
+  const boneHearts = player.GetBoneHearts();
+  const totalHealth = maxHearts + soulHearts + boneHearts;
+
+  if (baby.requireNumHits !== undefined && totalHealth < baby.requireNumHits) {
+    return false;
+  }
+
+  if (
+    babyCollectiblesSet.has(CollectibleType.POTATO_PEELER) &&
+    maxHearts === 0
+  ) {
+    return false;
+  }
+
+  return true;
+}
+
+function checkCoins(player: EntityPlayer, baby: BabyDescription): boolean {
+  const coins = player.GetNumCoins();
+  const babyCollectiblesSet = getBabyCollectiblesSet(baby);
+
+  if (baby.requireCoins === true && coins === 0) {
+    return false;
+  }
+
+  if (babyCollectiblesSet.has(CollectibleType.DOLLAR) && coins >= 50) {
+    return false;
+  }
+
+  return true;
+}
+
+function checkBombs(player: EntityPlayer, baby: BabyDescription): boolean {
+  const bombs = player.GetNumBombs();
+
+  if (baby.requireBombs === true && bombs === 0) {
+    return false;
+  }
+
+  return true;
+}
+
+function checkKeys(player: EntityPlayer, baby: BabyDescription): boolean {
+  const keys = player.GetNumKeys();
+
+  if (baby.requireKeys === true && keys === 0) {
+    return false;
+  }
+
+  return true;
 }
 
 function checkStage(
