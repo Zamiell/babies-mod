@@ -55,5 +55,13 @@ export class BabyStartingItems extends ModFeature {
     for (const trinketType of BANNED_TRINKETS_WITH_RANDOM_BABY) {
       itemPool.RemoveTrinket(trinketType);
     }
+
+    // Racing+ has a custom version of Judas' Shadow.
+    const judasShadowPlaceholder = Isaac.GetItemIdByName(
+      "Judas' Shadow Placeholder",
+    ) as CollectibleType | -1;
+    if (judasShadowPlaceholder !== -1) {
+      itemPool.RemoveCollectible(judasShadowPlaceholder);
+    }
   }
 }
