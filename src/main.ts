@@ -13,6 +13,7 @@ import {
   CostumeProtector,
   initCostumeProtector,
 } from "./classes/features/CostumeProtector";
+import { DetectTrapdoorTouched } from "./classes/features/DetectTrapdoorTouched";
 import { DrawBabyIntro } from "./classes/features/DrawBabyIntro";
 import { DrawBabyNumber } from "./classes/features/DrawBabyNumber";
 import { DrawTempIcon } from "./classes/features/DrawTempIcon";
@@ -20,7 +21,6 @@ import { DrawVersion } from "./classes/features/DrawVersion";
 import { ExplosionImmunity } from "./classes/features/ExplosionImmunity";
 import { GetRandomCollectibleTypeFromPool } from "./classes/features/GetRandomCollectibleTypeFromPool";
 import { PseudoRoomClear } from "./classes/features/PseudoRoomClear";
-import { RemoveMappingBaby } from "./classes/features/RemoveMappingBaby";
 import { RemoveSeeds } from "./classes/features/RemoveSeeds";
 import { Shockwaves } from "./classes/features/Shockwaves";
 import { SoftlockPrevention } from "./classes/features/SoftlockPrevention";
@@ -37,6 +37,7 @@ const MOD_FEATURES = [
   BabyStartingItems,
   BabyStats,
   CostumeProtector,
+  DetectTrapdoorTouched,
   DrawBabyIntro,
   DrawBabyNumber,
   DrawTempIcon,
@@ -44,7 +45,6 @@ const MOD_FEATURES = [
   ExplosionImmunity,
   GetRandomCollectibleTypeFromPool,
   PseudoRoomClear,
-  RemoveMappingBaby,
   RemoveSeeds,
   Shockwaves,
   SoftlockPrevention,

@@ -9,11 +9,13 @@ import type { BabyDescription } from "../../interfaces/BabyDescription";
 import { BABIES } from "../../objects/babies";
 import { BabyModFeature } from "../BabyModFeature";
 import { getBabyType } from "./babySelection/v";
+import { v } from "./detectTrapdoorTouched/v";
 
 const NEXT_FLOOR_PLAYER_ANIMATIONS = new ReadonlySet<string>([
   "Trapdoor",
-  "Trapdoor2",
+  "TrapdoorCustom",
   "LightTravel",
+  "LightTravelCustom",
 ]);
 
 const MAPPING_COLLECTIBLE_TYPES = [
@@ -23,13 +25,29 @@ const MAPPING_COLLECTIBLE_TYPES = [
   CollectibleType.MIND, // 333
 ] as const;
 
-export class RemoveMappingBaby extends BabyModFeature {
+export class DetectTrapdoorTouched extends BabyModFeature {
+  v = v;
+
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {
     const babyType = getBabyType();
     const baby = babyType === undefined ? undefined : BABIES[babyType];
     if (baby !== undefined) {
-      this.checkPlayerGoingToNextFloor(player, baby);
+      this.checkBabyGoingToNextFloor(player, baby);
+    }
+  }
+
+  checkBabyGoingToNextFloor(player: EntityPlayer, baby: BabyDescription): void {
+    if (v.level.touchedTrapdoor) {
+      return;
+    }
+
+    const sprite = player.GetSprite();
+    const animation = sprite.GetAnimation();
+
+    if (NEXT_FLOOR_PLAYER_ANIMATIONS.has(animation)) {
+      v.level.touchedTrapdoor = true;
+      this.removeMappingCollectibles(player, baby);
     }
   }
 
@@ -38,17 +56,7 @@ export class RemoveMappingBaby extends BabyModFeature {
    * it because its effect will have already been applied. So, we need to monitor for the trapdoor
    * animation.
    */
-  checkPlayerGoingToNextFloor(
-    player: EntityPlayer,
-    baby: BabyDescription,
-  ): void {
-    const sprite = player.GetSprite();
-    const animation = sprite.GetAnimation();
-
-    if (NEXT_FLOOR_PLAYER_ANIMATIONS.has(animation)) {
-      return;
-    }
-
+  removeMappingCollectibles(player: EntityPlayer, baby: BabyDescription): void {
     const babyCollectiblesSet = getBabyCollectiblesSet(baby);
 
     for (const collectibleType of MAPPING_COLLECTIBLE_TYPES) {

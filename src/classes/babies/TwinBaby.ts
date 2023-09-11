@@ -9,6 +9,7 @@ import {
   useActiveItemTemp,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
+import { hasTouchedTrapdoor } from "../features/detectTrapdoorTouched/v";
 
 const v = {
   run: {
@@ -42,6 +43,12 @@ export class TwinBaby extends Baby {
 
     // We don't want to teleport away from the first room.
     if (inStartingRoom() && isFirstVisit) {
+      return;
+    }
+
+    // We don't want to teleport away if we are traveling to a new floor. (This is necessary to
+    // prevent crashes with the Racing+ fast-travel feature.)
+    if (hasTouchedTrapdoor()) {
       return;
     }
 
