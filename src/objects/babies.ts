@@ -1040,7 +1040,7 @@ export const BABIES = {
   [RandomBabyType.AXE_WOUND]: {
     name: "Axe Wound Baby",
     description: "Starts with 2x Sacrificial Dagger + flight",
-    description2: "+ explosion immunity + blindfolded z",
+    description2: "+ explosion immunity + blindfolded",
     sprite: "117_baby_axewound.png",
     collectible: CollectibleType.SACRIFICIAL_DAGGER,
     collectibleNum: 2,
@@ -3463,6 +3463,7 @@ export const BABIES = {
     description: "Starts with Athame + 30 luck",
     sprite: "395_baby_mermaid.png",
     collectible: CollectibleType.ATHAME,
+    class: bc.MermaidBaby,
   },
 
   // 396
