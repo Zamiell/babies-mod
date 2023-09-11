@@ -223,7 +223,7 @@ export const COLLECTIBLES_THAT_REMOVE_TEARS = [
   CollectibleType.BERSERK, // 704
 ] as const;
 
-export const BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLES = [
+export const BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES = [
   CollectibleType.MAW_OF_THE_VOID, //399
   CollectibleType.REVELATION, //643
   CollectibleType.MONTEZUMAS_REVENGE, //680

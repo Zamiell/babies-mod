@@ -11,8 +11,10 @@ import {
   ModCallbackCustom,
   directionToShootAction,
   game,
+  hasCollectible,
   isShootAction,
 } from "isaacscript-common";
+import { BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES } from "../../constants";
 import { Baby } from "../Baby";
 
 const v = {
@@ -26,9 +28,13 @@ const v = {
 export class ImpBaby extends Baby {
   v = v;
 
-  /** Epic Fetus overwrites Mom's Knife, which makes the baby not work properly. */
   override isValid(player: EntityPlayer): boolean {
-    return !player.HasCollectible(CollectibleType.EPIC_FETUS);
+    // Epic Fetus overwrites Mom's Knife, which makes the baby not work properly.
+    return !hasCollectible(
+      player,
+      CollectibleType.EPIC_FETUS,
+      ...BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES,
+    );
   }
 
   // 1

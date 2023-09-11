@@ -3,11 +3,8 @@ TODO long-term:
 
 Potential new baby ideas:
 - Spawns a friendly Mom's Hand in every room
-- Walls Have Eyes (shoot tears from every wall for 20 seconds) - mustHaveTears, Ipecac, Fire Mind
-- Transmutation Machines are like Blood Donation Machines, except they re-roll any items in the room.
 
 List of babies to change:
-- Adventure Baby (#482) - Starts with Moving Box
 - Squirrel Baby (#268) - Starts with Walnut (improved)
 
 List of boring babies:

@@ -4212,9 +4212,12 @@ export const BABIES = {
   // 482
   [RandomBabyType.ADVENTURE]: {
     name: "Adventure Baby",
-    description: "Starts with Moving Box",
+    description: "Walls have eyes + blindfolded",
     sprite: "482_baby_adventure.png",
-    collectible: CollectibleType.MOVING_BOX,
+    requireTears: true,
+    // This baby does not use the "blindfolded" property" because we capture tears in the
+    // `POST_FIRE_TEAR` callback.
+    class: bc.AdventureBaby,
   },
 
   // 483

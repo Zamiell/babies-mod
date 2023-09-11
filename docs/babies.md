@@ -491,7 +491,7 @@ There are 603 babies in total.
 | 479 | <img src="./images/479_baby_haunt.png" alt="479_baby_haunt.png"> | Haunt Baby | Starts with 10x Lil Haunt |
 | 480 | <img src="./images/480_baby_imp.png" alt="480_baby_imp.png"> | Imp Baby 2 | Acid tears |
 | 481 | <img src="./images/481_baby_32bit.png" alt="481_baby_32bit.png"> | 32bit Baby | No HUD |
-| 482 | <img src="./images/482_baby_adventure.png" alt="482_baby_adventure.png"> | Adventure Baby | Starts with Moving Box |
+| 482 | <img src="./images/482_baby_adventure.png" alt="482_baby_adventure.png"> | Adventure Baby | Walls have eyes + blindfolded |
 | 483 | <img src="./images/483_baby_bubbles.png" alt="483_baby_bubbles.png"> | Bubbles Baby | +1 damage per pill used |
 | 484 | <img src="./images/484_baby_bulb.png" alt="484_baby_bulb.png"> | Bulb Baby | Starts with Vibrant Bulb |
 | 485 | <img src="./images/485_baby_coolorange.png" alt="485_baby_coolorange.png"> | Cool Orange Baby | Summons random missiles |

@@ -1,5 +1,6 @@
 import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
-import { Callback } from "isaacscript-common";
+import { Callback, hasCollectible } from "isaacscript-common";
+import { BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES } from "../../constants";
 import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
@@ -7,7 +8,11 @@ import { Baby } from "../Baby";
 export class LanternBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
     // Trisagion makes the aura disappear.
-    return !player.HasCollectible(CollectibleType.TRISAGION);
+    return !hasCollectible(
+      player,
+      CollectibleType.TRISAGION,
+      ...BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES,
+    );
   }
 
   @Callback(ModCallback.POST_TEAR_UPDATE)

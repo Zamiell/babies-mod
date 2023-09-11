@@ -5,6 +5,7 @@ export { N2600Baby } from "./babies/2600Baby";
 export { N3EyesBaby } from "./babies/3EyesBaby";
 export { N404Baby } from "./babies/404Baby";
 export { AbanBaby } from "./babies/AbanBaby";
+export { AdventureBaby } from "./babies/AdventureBaby";
 export { AetherBaby } from "./babies/AetherBaby";
 export { AlienHominidBaby } from "./babies/AlienHominidBaby";
 export { ApollyonBaby } from "./babies/ApollyonBaby";

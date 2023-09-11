@@ -8,6 +8,7 @@
 - Changed the following babies:
   - Lowface Baby (#73) - Reveals the floor layout after 6 hits
   - Twotone Baby (#346) - Spending bombs uses up keys first
+  - Adventure Baby (#482) - Walls have eyes + blindfolded
 - Fixed the bug where Tabby Baby was not working properly. (Thanks Fallenfor)
 - Fixed the bug where Blue Baby was not working properly.
 - Fixed the bug where Empty Vessel would result in a bugged baby costume. (Thanks Gamonymous)
