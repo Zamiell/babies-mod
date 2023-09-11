@@ -4504,8 +4504,9 @@ export const BABIES = {
   // 516
   [RandomBabyType.SILLY]: {
     name: "Silly Baby",
-    description: "Constant I'm Excited pill effect",
+    description: "Sacrificial Altar effect after 6 hits",
     sprite: "516_baby_silly.png",
+    num: 6,
     class: bc.SillyBaby,
   },
 

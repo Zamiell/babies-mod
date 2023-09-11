@@ -1,23 +1,42 @@
-import { PillColor, PillEffect } from "isaac-typescript-definitions";
+import { CollectibleType } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   ModCallbackCustom,
-  inStartingRoom,
+  ReadonlySet,
+  hasCollectible,
+  useActiveItemTemp,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
-/** Constant I'm Excited pill effect. */
-export class SillyBaby extends Baby {
-  @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
-  postNewRoomReordered(): void {
-    const player = Isaac.GetPlayer();
+const SACRIFICIAL_ALTAR_COLLECTIBLE_TYPES = new ReadonlySet([
+  CollectibleType.BROTHER_BOBBY, // 8
+  CollectibleType.SISTER_MAGGY, // 67
+]);
 
-    // Checking for the starting room can prevent crashes when reseeding happens.
-    if (!inStartingRoom()) {
-      player.UsePill(PillEffect.IM_EXCITED, PillColor.NULL);
-      // If we try to cancel the animation now, it will bug out the player such that they will not
-      // be able to take pocket items or pedestal items. This still happens even if we cancel the
-      // animation in the `POST_UPDATE` callback, so don't bother canceling it.
+const v = {
+  run: {
+    numHits: 0,
+  },
+};
+
+/** Sacrificial Altar effect after 6 hits. */
+export class SillyBaby extends Baby {
+  v = v;
+
+  override isValid(player: EntityPlayer): boolean {
+    return hasCollectible(player, ...SACRIFICIAL_ALTAR_COLLECTIBLE_TYPES);
+  }
+
+  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
+  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
+    const num = this.getAttribute("requireNumHits");
+
+    v.run.numHits++;
+    if (v.run.numHits === num) {
+      v.run.numHits = 0;
+      useActiveItemTemp(player, CollectibleType.SACRIFICIAL_ALTAR);
     }
+
+    return undefined;
   }
 }
