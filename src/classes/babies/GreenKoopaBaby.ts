@@ -1,4 +1,8 @@
-import { ModCallback, TearFlag } from "isaac-typescript-definitions";
+import {
+  CollectibleType,
+  ModCallback,
+  TearFlag,
+} from "isaac-typescript-definitions";
 import { Callback, GAME_FRAMES_PER_SECOND, addFlag } from "isaacscript-common";
 import { Baby } from "../Baby";
 
@@ -16,6 +20,11 @@ const v = {
 /** Shoots bouncy green shells. */
 export class GreenKoopaBaby extends Baby {
   v = v;
+
+  override isValid(player: EntityPlayer): boolean {
+    // Some collectibles mess up the shells.
+    return !player.HasCollectible(CollectibleType.C_SECTION);
+  }
 
   // 40
   @Callback(ModCallback.POST_TEAR_UPDATE)
