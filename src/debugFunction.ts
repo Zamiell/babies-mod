@@ -1,4 +1,4 @@
-import { log, setLogFunctionsGlobal } from "isaacscript-common";
+import { asNumber, log, setLogFunctionsGlobal } from "isaacscript-common";
 import { setDebugBabyType } from "./classes/features/babySelection/v";
 import { MAX_BABY_TYPE } from "./constants";
 import type { RandomBabyType } from "./enums/RandomBabyType";
@@ -24,7 +24,7 @@ export function setDebugBaby(params: string, restart: boolean): void {
   if (
     babyTypeNumber === undefined ||
     babyTypeNumber < 0 ||
-    babyTypeNumber > (MAX_BABY_TYPE as int)
+    babyTypeNumber > asNumber(MAX_BABY_TYPE)
   ) {
     babyTypeNumber = undefined;
   }

@@ -74,7 +74,13 @@ export class CostumeProtector extends ModFeature {
  */
 export function setBabyANM2(player: EntityPlayer): void {
   const sprite = player.GetSprite();
-  sprite.Load(CUSTOM_PLAYER_ANM2, true);
+  const filename = sprite.GetFilename();
+
+  // We want to minimize the amount of `Sprite.Load` method calls because it causes Maw of the Void
+  // to be activated for some reason.
+  if (filename !== CUSTOM_PLAYER_ANM2) {
+    sprite.Load(CUSTOM_PLAYER_ANM2, true);
+  }
 }
 
 export function updatePlayerWithCostumeProtector(

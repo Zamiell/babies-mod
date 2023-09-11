@@ -7,7 +7,7 @@
 
 - Changed the following babies:
   - Lucky Baby (#563) - Starts with The Stairway (improved)
-- !Fixed the bug where Lucky Baby would not work properly. (Thanks Gamonymous)
+- Fixed the bug where charged items would be incorrectly triggered when going to a new floor. (Thanks Adrayon)
 
 ### _v1.9.0_ - September 11th, 2023
 

@@ -4,7 +4,7 @@ import {
   LevelStage,
   ModCallback,
 } from "isaac-typescript-definitions";
-import { Callback, game, onStage } from "isaacscript-common";
+import { Callback, asNumber, game, onStage } from "isaacscript-common";
 import { GRID_ENTITY_REPLACEMENT_EXCEPTIONS } from "../../constants";
 import { Baby } from "../Baby";
 
@@ -22,7 +22,7 @@ export class RedWrestlerBaby extends Baby {
     const room = game.GetRoom();
 
     // We only care about grid entities.
-    if ((entityTypeOrGridEntityXMLType as int) < 1000) {
+    if (asNumber(entityTypeOrGridEntityXMLType) < 1000) {
       return undefined;
     }
     const gridEntityXMLType =

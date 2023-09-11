@@ -9,6 +9,7 @@ import {
   DISTANCE_OF_GRID_TILE,
   ModCallbackCustom,
   ReadonlySet,
+  asNumber,
   game,
   onStage,
   onStageOrLower,
@@ -74,9 +75,9 @@ export class HooliganBaby extends Baby {
       v.room.duplicatedNPCs.has(ptrHash) ||
       BUGGY_ENTITY_TYPES_SET.has(npc.Type) ||
       (npc.Type === EntityType.GEMINI && // 79
-        npc.Variant >= (GeminiVariant.GEMINI_BABY as int)) ||
+        npc.Variant >= asNumber(GeminiVariant.GEMINI_BABY)) ||
       (npc.Type === EntityType.SWINGER && // 216
-        npc.Variant !== (SwingerVariant.SWINGER as int))
+        npc.Variant !== asNumber(SwingerVariant.SWINGER))
     );
   }
 

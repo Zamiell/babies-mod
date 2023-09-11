@@ -5,6 +5,7 @@ import {
 } from "isaac-typescript-definitions";
 import {
   Callback,
+  asNumber,
   getCollectibleDevilHeartPrice,
   isQuestCollectible,
 } from "isaacscript-common";
@@ -65,7 +66,7 @@ function updateCollectiblePrice(collectible: EntityPickupCollectible) {
 
   const player = Isaac.GetPlayer();
   const price = getCollectibleDevilHeartPrice(collectible.SubType, player);
-  if (collectible.Price !== (price as int)) {
+  if (collectible.Price !== asNumber(price)) {
     collectible.AutoUpdatePrice = false;
     collectible.Price = price;
   }

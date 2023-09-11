@@ -10,6 +10,7 @@ import {
   CallbackCustom,
   ModCallbackCustom,
   VectorZero,
+  asNumber,
   spawnEffect,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
@@ -27,7 +28,7 @@ export class DBaby extends Baby {
   ): boolean | undefined {
     if (
       source.Type === EntityType.EFFECT &&
-      source.Variant === (EffectVariant.PLAYER_CREEP_RED as int)
+      source.Variant === asNumber(EffectVariant.PLAYER_CREEP_RED)
     ) {
       // By default, player creep only deals 2 damage per tick, so increase the damage.
       const player = Isaac.GetPlayer();

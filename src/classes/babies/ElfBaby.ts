@@ -5,7 +5,7 @@ import {
   EntityType,
   ModCallback,
 } from "isaac-typescript-definitions";
-import { Callback, getEffects } from "isaacscript-common";
+import { Callback, asNumber, getEffects } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 const v = {
@@ -56,7 +56,7 @@ export class ElfBaby extends Baby {
 
     if (
       source.Type === EntityType.EFFECT &&
-      source.Variant === (EffectVariant.SPEAR_OF_DESTINY as int)
+      source.Variant === asNumber(EffectVariant.SPEAR_OF_DESTINY)
     ) {
       const player = Isaac.GetPlayer();
       const damage = player.Damage * 4;

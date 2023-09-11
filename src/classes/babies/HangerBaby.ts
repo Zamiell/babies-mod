@@ -4,7 +4,7 @@ import {
   ModCallback,
   ProjectileVariant,
 } from "isaac-typescript-definitions";
-import { Callback, game, spawnProjectile } from "isaacscript-common";
+import { Callback, asNumber, game, spawnProjectile } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Starts with Abel; Abel's tears hurt you. */
@@ -13,7 +13,7 @@ export class HangerBaby extends Baby {
   postTearInit(tear: EntityTear): void {
     if (
       tear.SpawnerType !== EntityType.FAMILIAR ||
-      tear.SpawnerVariant !== (FamiliarVariant.ABEL as int)
+      tear.SpawnerVariant !== asNumber(FamiliarVariant.ABEL)
     ) {
       return;
     }

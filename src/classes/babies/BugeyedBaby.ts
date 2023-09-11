@@ -1,5 +1,5 @@
 import { ModCallback, PickupPrice } from "isaac-typescript-definitions";
-import { Callback, repeat } from "isaacscript-common";
+import { Callback, asNumber, repeat } from "isaacscript-common";
 import { PICKUP_VARIANTS_IMMUNE_TO_BABY_EFFECTS } from "../../constants";
 import { Baby } from "../Baby";
 
@@ -11,7 +11,7 @@ export class BugeyedBaby extends Baby {
 
     if (
       !PICKUP_VARIANTS_IMMUNE_TO_BABY_EFFECTS.has(pickup.Variant) &&
-      pickup.Price === (PickupPrice.NULL as int) // We don't want it to affect shop items.
+      pickup.Price === asNumber(PickupPrice.NULL) // We don't want it to affect shop items.
     ) {
       pickup.Remove();
 

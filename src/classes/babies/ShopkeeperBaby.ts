@@ -3,7 +3,12 @@ import {
   PickupPrice,
   RoomType,
 } from "isaac-typescript-definitions";
-import { Callback, inRoomType, levelHasRoomType } from "isaacscript-common";
+import {
+  Callback,
+  asNumber,
+  inRoomType,
+  levelHasRoomType,
+} from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /**
@@ -29,8 +34,9 @@ export class ShopkeeperBaby extends Baby {
 
   makePickupFree(pickup: EntityPickup): void {
     if (
-      pickup.Price !== (PickupPrice.NULL as int) &&
-      pickup.Price !== (PickupPrice.FREE as int) &&
+      pickup.Price !== asNumber(PickupPrice.NULL) &&
+      pickup.Price !== asNumber(PickupPrice.YOUR_SOUL) &&
+      pickup.Price !== asNumber(PickupPrice.FREE) &&
       inRoomType(RoomType.SHOP, RoomType.ERROR)
     ) {
       pickup.Price = PickupPrice.FREE;

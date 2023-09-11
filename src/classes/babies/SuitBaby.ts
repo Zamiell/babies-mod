@@ -13,6 +13,7 @@ import {
   Callback,
   CallbackCustom,
   ModCallbackCustom,
+  asNumber,
   game,
   getCollectibleDevilHeartPrice,
   gridCoordinatesToWorldPosition,
@@ -56,7 +57,7 @@ export class SuitBaby extends Baby {
     // If the price is not correct, update it. (We have to check on every frame in case the health
     // situation changes.)
     const price = getCollectibleDevilHeartPrice(collectible.SubType, player);
-    if (collectible.Price !== (price as int)) {
+    if (collectible.Price !== asNumber(price)) {
       collectible.AutoUpdatePrice = false;
       collectible.Price = price;
     }

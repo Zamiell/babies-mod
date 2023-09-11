@@ -24,6 +24,7 @@ import {
 import {
   GAME_FRAMES_PER_SECOND,
   VectorZero,
+  asNumber,
   doesEntityExist,
   findFreePosition,
   game,
@@ -184,7 +185,7 @@ export function giveCollectibleAndRemoveFromPools(
 }
 
 export function isRacingPlusEnabled(): boolean {
-  return (CollectibleTypeCustom.CHECKPOINT as int) !== -1;
+  return asNumber(CollectibleTypeCustom.CHECKPOINT) !== -1;
 }
 
 export function isRerolledCollectibleBuggedHeart(

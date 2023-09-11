@@ -10,6 +10,7 @@ import {
 import {
   Callback,
   VectorZero,
+  asNumber,
   game,
   hasCollectible,
   spawnEffect,
@@ -78,7 +79,7 @@ export class FangDemonBaby extends Baby {
 
     if (
       source.Type === EntityType.EFFECT &&
-      source.Variant === (EffectVariant.CRACK_THE_SKY as int)
+      source.Variant === asNumber(EffectVariant.CRACK_THE_SKY)
     ) {
       const player = Isaac.GetPlayer();
       const damage = player.Damage;

@@ -7,6 +7,7 @@ import {
 import {
   CallbackCustom,
   ModCallbackCustom,
+  asNumber,
   game,
   teleport,
 } from "isaacscript-common";
@@ -20,7 +21,7 @@ export class SpelunkerBaby extends Baby {
     const previousRoomGridIndex = level.GetPreviousRoomIndex();
 
     // We want to be able to backtrack from a Black Market to a Crawlspace.
-    if (previousRoomGridIndex !== (GridRoom.BLACK_MARKET as int)) {
+    if (previousRoomGridIndex !== asNumber(GridRoom.BLACK_MARKET)) {
       teleport(
         GridRoom.BLACK_MARKET,
         Direction.NO_DIRECTION,
