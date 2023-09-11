@@ -11,7 +11,7 @@ import { RandomBabyType } from "./enums/RandomBabyType";
 export const MOD_NAME = "The Babies Mod";
 
 /** The version is updated automatically by IsaacScript. */
-export const VERSION = "1.7.1";
+export const VERSION = "1.8.0";
 
 export const IS_DEV = false as boolean;
 
