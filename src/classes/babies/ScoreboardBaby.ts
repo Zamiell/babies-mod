@@ -1,12 +1,13 @@
 import type { DamageFlag } from "isaac-typescript-definitions";
-import { ModCallback } from "isaac-typescript-definitions";
+import { LevelStage, ModCallback } from "isaac-typescript-definitions";
 import {
   Callback,
   CallbackCustom,
-  game,
   GAME_FRAMES_PER_MINUTE,
-  isSelfDamage,
   ModCallbackCustom,
+  game,
+  isSelfDamage,
+  onStageOrHigher,
 } from "isaacscript-common";
 import { drawTimer } from "../../timer";
 import { Baby } from "../Baby";
@@ -20,6 +21,11 @@ const v = {
 /** Dies 1 minute after getting hit. */
 export class ScoreboardBaby extends Baby {
   v = v;
+
+  override isValid(): boolean {
+    // It would be too difficult on the later floors.
+    return !onStageOrHigher(LevelStage.BLUE_WOMB);
+  }
 
   @Callback(ModCallback.POST_RENDER)
   postRender(): void {
