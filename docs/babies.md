@@ -277,7 +277,7 @@ There are 603 babies in total.
 | 265 | <img src="./images/265_baby_polarbear.png" alt="265_baby_polarbear.png"> | Polar Bear Baby | Starts with Lil Brimstone + Robo Baby + Baby Bender |
 | 266 | <img src="./images/266_baby_lovebear.png" alt="266_baby_lovebear.png"> | Lovebear Baby | Starts in a super Arcade |
 | 267 | <img src="./images/267_baby_hare.png" alt="267_baby_hare.png"> | Hare Baby | Takes damage when standing still |
-| 268 | <img src="./images/268_baby_squirrel.png" alt="268_baby_squirrel.png"> | Squirrel Baby | Starts with Walnut (improved) |
+| 268 | <img src="./images/268_baby_squirrel.png" alt="268_baby_squirrel.png"> | Squirrel Baby | Spawns a friendly Mom's Hand in every room |
 | 269 | <img src="./images/269_baby_tabby.png" alt="269_baby_tabby.png"> | Tabby Baby | Starts with Sol |
 | 270 | <img src="./images/270_baby_porcupine.png" alt="270_baby_porcupine.png"> | Porcupine Baby | Wait What? effect every 5 seconds |
 | 271 | <img src="./images/271_baby_puppy.png" alt="271_baby_puppy.png"> | Puppy Baby | Starts with Cricket's Head |
