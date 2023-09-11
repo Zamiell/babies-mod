@@ -42,6 +42,7 @@ export { BlueWrestlerBaby } from "./babies/BlueWrestlerBaby";
 export { BluebirdBaby } from "./babies/BluebirdBaby";
 export { BlurredBaby } from "./babies/BlurredBaby";
 export { BombBaby } from "./babies/BombBaby";
+export { BoneBaby } from "./babies/BoneBaby";
 export { BonyBaby } from "./babies/BonyBaby";
 export { BoundBaby } from "./babies/BoundBaby";
 export { BoxersBaby } from "./babies/BoxersBaby";

@@ -6,8 +6,10 @@
 ### _v1.9.1_ - September 11th, 2023
 
 - Changed the following babies:
+  - Bone Baby (#57) - Reveals a random room on room clear
   - Shopkeeper Baby (#215) - Items/pickups that cost coins are free
   - Lucky Baby (#563) - Starts with The Stairway (improved)
+- Fixed the bug where Demon Baby would not work properly with Keeper's Bargain. (Thanks Gamonymous)
 - Fixed the bug where charged items would be incorrectly triggered when going to a new floor. (Thanks Adrayon)
 
 ### _v1.9.0_ - September 11th, 2023

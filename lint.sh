@@ -79,6 +79,7 @@ cp "$DOCS" "$TMP_DOCS"
 bash "$DIR/scripts/generateDocs.sh"
 if diff "$DOCS" "$TMP_DOCS"; then
   echo 'The Markdown documentation is not up to date. Please run the "generateDocs.sh" script and then commit the changes.'
+  exit 1
 fi
 rm -f "$TMP_DOCS"
 

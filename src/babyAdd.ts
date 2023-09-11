@@ -6,6 +6,7 @@ import {
   PickupVariant,
 } from "isaac-typescript-definitions";
 import {
+  ReadonlySet,
   VectorOne,
   asCollectibleType,
   game,
@@ -30,6 +31,14 @@ import type { RandomBabyType } from "./enums/RandomBabyType";
 import type { BabyDescription } from "./interfaces/BabyDescription";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 import { giveCollectibleAndRemoveFromPools } from "./utils";
+
+/**
+ * Some passive items that are not part of a transformation set will not grant their effect if we
+ * set the third parameter of the `Player.AddCollectible` method to false.
+ */
+const FIRST_TIME_PICKING_UP_BUGGED_COLLECTIBLES = new ReadonlySet([
+  CollectibleType.RED_STEW, // 621
+]);
 
 export function babyAdd(
   player: EntityPlayer,
@@ -70,9 +79,7 @@ export function babyAdd(
       }
     } else {
       // Give the passive collectible.
-      if (baby.collectible === CollectibleType.RED_STEW) {
-        // Some passive items that are not part of a transformation set will not grant their effect
-        // if we set the third parameter of the `Player.AddCollectible` method to false.
+      if (FIRST_TIME_PICKING_UP_BUGGED_COLLECTIBLES.has(baby.collectible)) {
         player.AddCollectible(baby.collectible, 0, true);
       } else {
         player.AddCollectible(baby.collectible, 0, false);

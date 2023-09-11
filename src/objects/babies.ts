@@ -515,9 +515,9 @@ export const BABIES = {
   [RandomBabyType.BONE]: {
     // The achievement is called "Bone Baby" while the sprite filename is called "baby_boner".
     name: "Bone Baby",
-    description: "Starts with Brittle Bones",
+    description: "Reveals a random room on room clear",
     sprite: "057_baby_boner.png",
-    collectible: CollectibleType.BRITTLE_BONES,
+    class: bc.BoneBaby,
   },
 
   // 58
