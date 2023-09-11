@@ -372,6 +372,7 @@ export const BABIES = {
     description: "Starts with Hive Mind + max Blue Flies + max Blue Spiders",
     sprite: "040_baby_hive.png",
     collectible: CollectibleType.HIVE_MIND,
+    requireNoEndFloors: true,
     class: bc.HiveBaby,
   },
 

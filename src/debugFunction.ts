@@ -1,4 +1,3 @@
-import { CollectibleType } from "isaac-typescript-definitions";
 import { asNumber, log, setLogFunctionsGlobal } from "isaacscript-common";
 import { setDebugBabyType } from "./classes/features/babySelection/v";
 import { MAX_BABY_TYPE } from "./constants";
@@ -7,9 +6,6 @@ import type { RandomBabyType } from "./enums/RandomBabyType";
 /** Associated with the "babydebug" command. */
 function debugCode() {
   // Add code here.
-  const player = Isaac.GetPlayer();
-  const effects = player.GetEffects();
-  effects.AddCollectibleEffect(CollectibleType.EMPTY_VESSEL);
 }
 
 export function debugFunction(): void {

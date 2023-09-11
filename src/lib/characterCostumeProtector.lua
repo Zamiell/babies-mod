@@ -5,7 +5,7 @@
 -- - Better logging on line 66.
 -- - Active item bug fix on line 903.
 -- - Strawman bug fix on line 1108.
--- - Empty Vessel shield fix (TODO).
+-- - Empty Vessel shield fix on line 1116.
 
 --VERSION = "1.4.2"
 
@@ -935,6 +935,7 @@ function ccp:stopNewRoomCostumes(player)
 		and not playerItemCostumeWhitelist[playerType][CollectibleType.COLLECTIBLE_EMPTY_VESSEL] then
 		if player:GetHearts() == 0 then
 			table.insert(data.CCP.QueueCostumeRemove, CollectibleType.COLLECTIBLE_EMPTY_VESSEL)
+			Isaac.DebugString("GETTING HERE - data.CCP.QueueCostumeRemove: " .. tostring(data.CCP.QueueCostumeRemove))
 		end
 	end
 end
@@ -1094,9 +1095,14 @@ function ccp:delayInCostumeReset(player)
 
 	if data.CCP.QueueCostumeRemove and data.CCP.QueueCostumeRemove[1] ~= nil then
 		while #data.CCP.QueueCostumeRemove > 0 do
+			local isEmptyVessel = data.CCP.QueueCostumeRemove[1] == CollectibleType.COLLECTIBLE_EMPTY_VESSEL
 			local itemCostume = Isaac.GetItemConfig():GetCollectible(data.CCP.QueueCostumeRemove[1])
 			player:RemoveCostume(itemCostume)
 			table.remove(data.CCP.QueueCostumeRemove, 1)
+
+			if isEmptyVessel then
+				ccp:mainResetPlayerCostumes(player)
+			end
 		end
 	end
 end
