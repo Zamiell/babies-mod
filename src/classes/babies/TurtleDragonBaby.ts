@@ -12,9 +12,11 @@ export class TurtleDragonBaby extends Baby {
       return;
     }
 
-    // If we use the base tear's velocity, the fires have enormous speed and are hard to control.
     tear.Remove();
+
+    // If we use the base tear's velocity, the fires have enormous speed and are hard to control.
     const normalizedVelocity = tear.Velocity.Normalized();
+
     player.ShootRedCandle(normalizedVelocity);
   }
 }
