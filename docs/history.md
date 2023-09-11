@@ -23,8 +23,8 @@
 - Fixed the bug where Shopkeeper baby would not work properly with rerolled items. (Thanks Adrayon)
 - Fixed the bug where Twin Baby would crash the game under certain conditions. (Thanks Monkeypot)
 - Fixed the bug where Baby Is You would not work properly. (Thanks Fallenfor)
-- Fixed the bug where babies with active items would be incorrectly delete existing active items. (Thanks Fallenfor)
-- Fixed the bug where babies would transformations would not be granted under certain conditions. (Thanks Monkeypot)
+- Fixed the bug where babies with active items would incorrectly delete existing active items. (Thanks Fallenfor)
+- Fixed the bug where babies with transformations would not be granted under certain conditions. (Thanks Monkeypot)
 - Fixed the bug where babies that granted mapping items would not work properly under certain conditions.
 
 ### _v1.8.0_ - September 10th, 2023
@@ -42,7 +42,7 @@
 - Fixed the bug where Lazy Baby was not working properly. (Thanks Monkeypot)
 - Fixed the bug where babies with multiple trinkets would only got one removed on the next floor. (Thanks Monkeypot)
 - Fixed the bug where the third collectible of a baby would not be removed. (Thanks SuperpaperChildy & Fallenfor)
-- Fixed the bug where banned items were not properly removed form pools. (Thanks Gamonymous)
+- Fixed the bug where banned items were not properly removed from pools. (Thanks Gamonymous)
 - Fixed the bug where using Glowing Hour Glass on the starting room of a new floor would not work properly. (Thanks Monkeypot)
 - Fixed the bug where the baby description would overlap with the streak text in certain situations. (Thanks Toooschi)
 - Fixed the bug where the custom baby timer was incorrectly placed in certain situations. (Thanks Gamonymous)
