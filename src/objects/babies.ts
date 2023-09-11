@@ -1877,7 +1877,7 @@ export const BABIES = {
   // 215
   [RandomBabyType.SHOPKEEPER]: {
     name: "Shopkeeper Baby",
-    description: "Items that cost coins are free",
+    description: "Items/pickups that cost coins are free",
     sprite: "215_baby_shopkeeper.png",
     class: bc.ShopkeeperBaby,
   },

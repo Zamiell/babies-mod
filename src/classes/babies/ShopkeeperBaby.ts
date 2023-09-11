@@ -7,7 +7,7 @@ import { Callback, levelHasRoomType } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /**
- * Items that cost coins are free.
+ * Items/pickups that cost coins are free.
  *
  * We have to use both the `POST_PICKUP_INIT` and the `POST_PICKUP_UPDATE` callbacks because the
  * price of rerolled items is `PickupPrice.NULL` in `POST_PICKUP_INIT`.
