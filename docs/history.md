@@ -10,6 +10,7 @@
 - Fixed the bug where Lantern Baby was dealing extra damage under certain circumstances. (Thanks Gamonymous)
 - Fixed the bug where Headphone Baby's tears were too big. (Thanks Gamonymous)
 - Fixed the bug where Twin Baby would not work under certain circumstances. (Thanks Gamonymous)
+- Fixed the bug where the R U a Wizard pill would mess up the appearance of the baby.
 
 ### _v1.11.1_ - September 12th, 2023
 

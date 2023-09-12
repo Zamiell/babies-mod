@@ -2,10 +2,11 @@
 -- https://github.com/Sanio46/character-costume-protector
 
 -- Modifications:
--- - Better logging on line 66.
--- - Active item bug fix on line 903.
--- - Strawman bug fix on line 1108.
--- - Empty Vessel shield fix on line 1116.
+-- - Better logging on line 69.
+-- - Active item bug fix on line 905.
+-- - R U a Wizard fix on line 908.
+-- - Empty Vessel shield fix on line 1117.
+-- - Strawman bug fix on line 1130.
 
 --VERSION = "1.4.2"
 
@@ -904,6 +905,19 @@ function ccp:resetCostumeOnItem(
 	return nil
 end
 
+function ccp:resetCostumeOnPill(
+ pillEffect, player, useFlags
+)
+	local playerType = player:GetPlayerType()
+	local data = player:GetData()
+
+	if playerToProtect[playerType] and data.CCP then
+		if pillEffect == PillEffect.PILLEFFECT_WIZARD then
+			ccp:mainResetPlayerCostumes(player)
+		end
+	end
+end
+
 function ccp:resetOnCoopRevive(player)
 	local data = player:GetData()
 	if player:IsCoopGhost() and not data.CCP.WaitOnCoopRevive then
@@ -1170,6 +1184,8 @@ function ccp:init(mod)
 	end)
 
 	mod:AddCallback(ModCallbacks.MC_USE_ITEM, ccp.resetCostumeOnItem)
+
+	mod:AddCallback(ModCallbacks.MC_USE_PILL, ccp.resetCostumeOnPill)
 
 	if REPENTANCE then
 		mod:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, ccp.astralProjectionOnHit, EntityType.ENTITY_PLAYER)
