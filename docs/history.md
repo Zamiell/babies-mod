@@ -10,6 +10,7 @@
 - Fixed the bug where Suit Baby would not work properly with active items. (Thanks Gamonymous)
 - Fixed the bug where Sad Bunny Baby would fire tears too fast under certain conditions. (Thanks Fallenfor)
 - Fixed the bug where Hive King Baby would cause Isaac to grunt when a room was cleared.
+- Fixed the bug where Hare Baby could cause unavoidable damage under certain conditions. (Thanks Gamonymous)
 
 ### _v1.11.0_ - September 11th, 2023
 

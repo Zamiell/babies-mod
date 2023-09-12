@@ -57,7 +57,7 @@ export class ImpBaby extends Baby {
   }
 
   @CallbackCustom(ModCallbackCustom.INPUT_ACTION_PLAYER)
-  inputActionPlayerGetActionValue(
+  inputActionPlayer(
     _player: EntityPlayer,
     inputHook: InputHook,
     buttonAction: ButtonAction,
