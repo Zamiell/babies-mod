@@ -1311,7 +1311,6 @@ export const BABIES = {
     name: "Butterfly Baby",
     description: "Improved Super Secret Rooms (4 items)",
     sprite: "149_baby_butterfly.png",
-    num: 4, // The number of collectibles to spawn.
     class: bc.ButterflyBaby,
   },
 
@@ -2619,7 +2618,6 @@ export const BABIES = {
     description: "Create red doors on hit + improved Ultra Secret Rooms",
     description2: "(5 items)",
     sprite: "301_baby_bloodied.png",
-    num: 5, // Number of collectibles
     class: bc.BloodiedBaby,
   },
 
