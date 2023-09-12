@@ -1,4 +1,4 @@
-import { CollectibleType, RoomType } from "isaac-typescript-definitions";
+import { ItemPoolType, RoomType } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   ModCallbackCustom,
@@ -6,12 +6,19 @@ import {
   levelHasRoomType,
   newRNG,
   onFirstFloor,
-  repeat,
 } from "isaacscript-common";
 import { mod } from "../../mod";
 import { Baby } from "../Baby";
+import { getRandomCollectibleTypeFromPool } from "../features/GetRandomCollectibleTypeFromPool";
 
-/** Improved Super Secret Rooms. */
+const ITEM_POOL_TYPES = [
+  ItemPoolType.DEVIL,
+  ItemPoolType.ANGEL,
+  ItemPoolType.BOSS,
+  ItemPoolType.PLANETARIUM,
+] as const;
+
+/** Improved Super Secret Rooms (4 items). */
 export class ButterflyBaby extends Baby {
   override isValid(): boolean {
     // We do not want players to explicitly reset for this baby, so we exclude it from the first
@@ -34,11 +41,14 @@ export class ButterflyBaby extends Baby {
     const center = room.GetCenterPos();
     const seed = room.GetAwardSeed();
     const rng = newRNG(seed);
-    const num = this.getAttribute("num");
 
-    repeat(num, () => {
+    for (const itemPoolType of ITEM_POOL_TYPES) {
       const position = room.FindFreePickupSpawnPosition(center, 1, true);
-      mod.spawnCollectible(CollectibleType.NULL, position, rng);
-    });
+      const collectibleType = getRandomCollectibleTypeFromPool(
+        itemPoolType,
+        rng,
+      );
+      mod.spawnCollectible(collectibleType, position, rng);
+    }
   }
 }

@@ -3,6 +3,11 @@
 <!-- cspell:ignore Adrayon,cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.12.0_ - September 12th, 2023 (Unreleased)
+
+- Statue Baby 2, Butterfly Baby, and Bloodied Baby will now spawn items from different pools.
+- Statue Baby 2, Butterfly Baby, and Bloodied Baby will no longer appear on the first floor of a run.
+
 ### _v1.12.0_ - September 12th, 2023
 
 - You can now use [Mod Config Menu](https://steamcommunity.com/sharedfiles/filedetails/?id=2681875787) to configure whether the individual elements of the baby UI is drawn on the screen. (This is useful if you use Open Broadcaster Software to show the baby description to your live-stream.)

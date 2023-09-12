@@ -1054,7 +1054,6 @@ export const BABIES = {
     name: "Statue Baby 2",
     description: "Improved Secret Rooms (4 items)",
     sprite: "118_baby_statue.png",
-    num: 4, // Number of collectibles
     class: bc.StatueBaby2,
   },
 

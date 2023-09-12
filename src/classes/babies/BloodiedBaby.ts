@@ -2,6 +2,7 @@ import type { DoorState } from "isaac-typescript-definitions";
 import {
   CardType,
   CollectibleType,
+  ItemPoolType,
   RoomType,
 } from "isaac-typescript-definitions";
 import {
@@ -13,13 +14,21 @@ import {
   levelHasRoomType,
   newRNG,
   onFirstFloor,
-  repeat,
   useCardTemp,
 } from "isaacscript-common";
 import { mod } from "../../mod";
 import { Baby } from "../Baby";
+import { getRandomCollectibleTypeFromPool } from "../features/GetRandomCollectibleTypeFromPool";
 
-/** Create red doors on hit + improved Ultra Secret Rooms. */
+const ITEM_POOL_TYPES = [
+  ItemPoolType.DEVIL,
+  ItemPoolType.ANGEL,
+  ItemPoolType.BOSS,
+  ItemPoolType.PLANETARIUM,
+  ItemPoolType.ULTRA_SECRET,
+] as const;
+
+/** Create red doors on hit + improved Ultra Secret Rooms (5 items). */
 export class BloodiedBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
     // We do not want players to explicitly reset for this baby, so we exclude it from the first
@@ -79,11 +88,14 @@ export class BloodiedBaby extends Baby {
     const center = room.GetCenterPos();
     const seed = room.GetAwardSeed();
     const rng = newRNG(seed);
-    const num = this.getAttribute("num");
 
-    repeat(num, () => {
+    for (const itemPoolType of ITEM_POOL_TYPES) {
       const position = room.FindFreePickupSpawnPosition(center, 1, true);
-      mod.spawnCollectible(CollectibleType.NULL, position, rng);
-    });
+      const collectibleType = getRandomCollectibleTypeFromPool(
+        itemPoolType,
+        rng,
+      );
+      mod.spawnCollectible(collectibleType, position, rng);
+    }
   }
 }
