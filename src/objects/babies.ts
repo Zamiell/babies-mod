@@ -2542,6 +2542,7 @@ export const BABIES = {
     flight: true,
     // This baby does not use the "blindfolded" property because it would remove The Ludovico
     // Technique.
+    requireTears: true,
     class: bc.LanternBaby,
   },
 

@@ -5,10 +5,11 @@
 
 ### _v1.11.1_ - September 12th, 2023
 
-- Babies that have negative on hit effects will no longer trigger them from self-damage. (Thanks Toooschi)
+- Babies that have negative on-hit effects will no longer trigger them from self-damage. (Positive on-hit effects are unchanged.) (Thanks Toooschi)
 - Fixed the bug where Demon Baby would not work properly when rerolling items. (Thanks Gamonymous)
 - Fixed the bug where Suit Baby would not work properly with active items. (Thanks Gamonymous)
 - Fixed the bug where Sad Bunny Baby would fire tears too fast under certain conditions. (Thanks Fallenfor)
+- Fixed the bug where Hive King Baby would cause Isaac to grunt when a room was cleared.
 
 ### _v1.11.0_ - September 11th, 2023
 
