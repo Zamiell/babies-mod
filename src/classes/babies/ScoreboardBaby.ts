@@ -49,7 +49,6 @@ export class ScoreboardBaby extends Baby {
     }
 
     v.run.timer = gameFrameCount + GAME_FRAMES_PER_MINUTE;
-
     return undefined;
   }
 

@@ -11,7 +11,6 @@ export class GargoyleBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
     useActiveItemTemp(player, CollectibleType.HEAD_OF_KRAMPUS);
-
     return undefined;
   }
 }

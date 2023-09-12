@@ -11,7 +11,6 @@ export class CoatBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
     useActiveItemTemp(player, CollectibleType.DECK_OF_CARDS);
-
     return undefined;
   }
 }

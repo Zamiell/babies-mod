@@ -12,7 +12,6 @@ export class BlindingBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
     spawnCard(CardType.SUN, player.Position, VectorZero, player);
-
     return undefined;
   }
 }

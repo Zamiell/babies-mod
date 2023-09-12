@@ -10,7 +10,6 @@ export class FieryBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
     player.ShootRedCandle(VectorZero);
-
     return undefined;
   }
 }

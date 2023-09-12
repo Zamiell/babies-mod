@@ -16,7 +16,6 @@ export class MeatBoyBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
     useActiveItemTemp(player, CollectibleType.POTATO_PEELER);
-
     return undefined;
   }
 }

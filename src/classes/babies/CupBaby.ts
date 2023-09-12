@@ -23,7 +23,6 @@ export class CupBaby extends Baby {
     }
 
     useCardTemp(player, CardType.AGAINST_HUMANITY);
-
     return undefined;
   }
 }

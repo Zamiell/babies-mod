@@ -7,7 +7,6 @@ export class JammiesBaby extends Baby {
   @Callback(ModCallback.PRE_SPAWN_CLEAR_AWARD)
   preSpawnClearAward(): boolean | undefined {
     const player = Isaac.GetPlayer();
-
     addRoomClearCharge(player);
 
     return undefined;

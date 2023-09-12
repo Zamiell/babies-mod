@@ -20,7 +20,6 @@ export class WrappedBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(): boolean | undefined {
     const num = this.getAttribute("num");
-
     v.room.numKamikazeEffects = num;
 
     return undefined;

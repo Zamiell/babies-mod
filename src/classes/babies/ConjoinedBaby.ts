@@ -10,7 +10,6 @@ export class ConjoinedBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(): boolean | undefined {
     openAllDoors();
-
     return undefined;
   }
 }

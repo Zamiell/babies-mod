@@ -1,6 +1,5 @@
 TODO:
 - Change Bear Baby (#264) - Starts with Mystery Gift
-- look through all entityTakeDMGPlayer for self damage (e.g. curse rooms)
 
 TODO long-term:
 - change "R+7 Season 5 (Beta)" upon release

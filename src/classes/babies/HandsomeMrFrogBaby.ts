@@ -6,7 +6,6 @@ export class HandsomeMrFrogBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
     const num = this.getAttribute("num");
-
     player.AddBlueFlies(num, player.Position, undefined);
 
     return undefined;

@@ -11,7 +11,6 @@ export class BansheeBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
     useActiveItemTemp(player, CollectibleType.CRACK_THE_SKY);
-
     return undefined;
   }
 }

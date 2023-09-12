@@ -19,7 +19,6 @@ export class CyberBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
     spawnRandomPickup(v.run.rng, player.Position);
-
     return undefined;
   }
 }
