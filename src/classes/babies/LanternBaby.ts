@@ -1,4 +1,9 @@
-import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
+import {
+  CollectibleType,
+  EntityCollisionClass,
+  EntityGridCollisionClass,
+  ModCallback,
+} from "isaac-typescript-definitions";
 import { Callback, hasCollectible } from "isaacscript-common";
 import { BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES } from "../../constants";
 import { getBabyPlayerFromEntity } from "../../utils";
@@ -25,8 +30,12 @@ export class LanternBaby extends Baby {
     // Emulate having a Godhead aura.
     tear.Position = player.Position.add(Vector(0, 10));
 
-    // Clear the sprite for the Ludo tear.
+    // Clear the sprite for the Ludo tear to make it invisible.
     const sprite = tear.GetSprite();
     sprite.Reset();
+
+    // We also want the tear to be intangible.
+    tear.EntityCollisionClass = EntityCollisionClass.NONE;
+    tear.GridCollisionClass = EntityGridCollisionClass.NONE;
   }
 }
