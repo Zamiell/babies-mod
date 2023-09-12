@@ -26,6 +26,7 @@ import {
 } from "isaac-typescript-definitions";
 import {
   GAME_FRAMES_PER_SECOND,
+  ReadonlySet,
   VectorZero,
   addRoomDisplayFlag,
   asNumber,
@@ -94,6 +95,13 @@ const BAD_MISSED_TEARS_TRANSFORMATIONS = [
   PlayerForm.CONJOINED, // 7
   PlayerForm.BOOKWORM, // 10
 ] as const;
+
+const GOING_TO_NEXT_FLOOR_ANIMATIONS = new ReadonlySet<string>([
+  "Trapdoor",
+  "TrapdoorCustom",
+  "LightTravel",
+  "LightTravelCustom",
+]);
 
 /**
  * In certain situations, baby effects will prevent a player from entering a Big Chest. If this is
@@ -190,6 +198,13 @@ export function giveCollectibleAndRemoveFromPools(
   const maxCharges = getCollectibleMaxCharges(collectibleType);
   player.AddCollectible(collectibleType, maxCharges, false);
   itemPool.RemoveCollectible(collectibleType);
+}
+
+export function isPlayerGoingToNextFloor(player: EntityPlayer): boolean {
+  const sprite = player.GetSprite();
+  const animation = sprite.GetAnimation();
+
+  return GOING_TO_NEXT_FLOOR_ANIMATIONS.has(animation);
 }
 
 /**

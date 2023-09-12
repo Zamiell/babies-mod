@@ -6,6 +6,7 @@ import {
   isEntityMoving,
   ModCallbackCustom,
 } from "isaacscript-common";
+import { isPlayerGoingToNextFloor } from "../../utils";
 import { Baby } from "../Baby";
 
 const v = {
@@ -27,6 +28,10 @@ export class HareBaby extends Baby {
     // This effect should not apply in the starting room to give the player a chance to read the
     // description.
     if (inStartingRoom()) {
+      return;
+    }
+
+    if (isPlayerGoingToNextFloor(player)) {
       return;
     }
 

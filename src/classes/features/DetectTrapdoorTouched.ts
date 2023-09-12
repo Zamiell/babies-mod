@@ -1,22 +1,12 @@
 import { CollectibleType } from "isaac-typescript-definitions";
-import {
-  CallbackCustom,
-  ModCallbackCustom,
-  ReadonlySet,
-} from "isaacscript-common";
+import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
 import { getBabyCollectiblesSet } from "../../babyCheckValid";
 import type { BabyDescription } from "../../interfaces/BabyDescription";
 import { BABIES } from "../../objects/babies";
+import { isPlayerGoingToNextFloor } from "../../utils";
 import { BabyModFeature } from "../BabyModFeature";
 import { getBabyType } from "./babySelection/v";
 import { v } from "./detectTrapdoorTouched/v";
-
-const NEXT_FLOOR_PLAYER_ANIMATIONS = new ReadonlySet<string>([
-  "Trapdoor",
-  "TrapdoorCustom",
-  "LightTravel",
-  "LightTravelCustom",
-]);
 
 const COLLECTIBLE_TYPES_THAT_CHANGE_MINIMAP = [
   CollectibleType.COMPASS, // 21
@@ -50,10 +40,7 @@ export class DetectTrapdoorTouched extends BabyModFeature {
       return;
     }
 
-    const sprite = player.GetSprite();
-    const animation = sprite.GetAnimation();
-
-    if (NEXT_FLOOR_PLAYER_ANIMATIONS.has(animation)) {
+    if (isPlayerGoingToNextFloor(player)) {
       v.level.touchedTrapdoor = true;
       this.removeMappingCollectibles(player, baby);
     }
