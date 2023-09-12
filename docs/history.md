@@ -3,6 +3,10 @@
 <!-- cspell:ignore Adrayon,cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.11.1_ - September 12th, 2023
+
+- Fixed the bug where Demon Baby would not work properly when rerolling items. (Thanks Gamonymous)
+
 ### _v1.11.0_ - September 11th, 2023
 
 - Changed the following babies:
