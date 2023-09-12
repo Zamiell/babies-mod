@@ -3,6 +3,10 @@
 <!-- cspell:ignore Adrayon,cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.11.2_ - September 12th, 2023 (Unreleased)
+
+- When playing as Sword Baby, Strawman can no longer pick up items. (Thanks Adrayon)
+
 ### _v1.11.1_ - September 12th, 2023
 
 - Babies that have negative on-hit effects will no longer trigger them from self-damage. (Positive on-hit effects are unchanged.) (Thanks Toooschi)

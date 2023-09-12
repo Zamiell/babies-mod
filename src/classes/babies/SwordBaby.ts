@@ -1,10 +1,13 @@
 import {
   EntityType,
   LevelStage,
+  ModCallback,
+  PickupVariant,
   PlayerType,
   PlayerVariant,
 } from "isaac-typescript-definitions";
 import {
+  Callback,
   CallbackCustom,
   ModCallbackCustom,
   isChildPlayer,
@@ -20,6 +23,24 @@ export class SwordBaby extends Baby {
   override isValid(): boolean {
     // It would be too difficult on the later floors.
     return !onStageOrHigher(LevelStage.WOMB_2);
+  }
+
+  @Callback(ModCallback.PRE_PICKUP_COLLISION, PickupVariant.COLLECTIBLE)
+  prePickupCollisionCollectible(
+    _pickup: EntityPickup,
+    collider: Entity,
+    _low: boolean,
+  ): boolean | undefined {
+    const player = collider.ToPlayer();
+    if (player === undefined) {
+      return undefined;
+    }
+
+    if (isChildPlayer(player)) {
+      return false;
+    }
+
+    return undefined;
   }
 
   @CallbackCustom(ModCallbackCustom.POST_PLAYER_INIT_LATE)
