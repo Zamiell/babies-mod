@@ -5016,6 +5016,7 @@ export const BABIES = {
     description: "Slings Godhead aura (improved)",
     sprite: "familiar_shooters_01_brotherbobby.png",
     collectible: CollectibleType.MOMS_KNIFE,
+    softlockPreventionDestroyPoops: true,
     class: bc.BrotherBobby,
   },
 
