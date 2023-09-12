@@ -7,6 +7,7 @@
 
 - When playing as Sword Baby, Strawman can no longer pick up items. (Thanks Adrayon)
 - Fixed the bug where Lantern Baby was dealing extra damage under certain circumstances. (Thanks Gamonymous)
+- Fixed the bug where Headphone Baby's tears were too big. (Thanks Gamonymous)
 
 ### _v1.11.1_ - September 12th, 2023
 
