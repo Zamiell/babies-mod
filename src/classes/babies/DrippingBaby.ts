@@ -1,14 +1,27 @@
-import { CollectibleType, LevelStage } from "isaac-typescript-definitions";
+import {
+  BossID,
+  CollectibleType,
+  LevelStage,
+} from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   ModCallbackCustom,
   getRandom,
+  levelHasBossID,
   newRNG,
   onStage,
   useActiveItemTemp,
 } from "isaacscript-common";
 import { setInitialBabyRNG } from "../../utils";
 import { Baby } from "../Baby";
+
+const BOSSES_THAT_CAN_BREAK_ROCKS = [
+  BossID.BUMBINO,
+  BossID.THE_PILE,
+  BossID.TUFF_TWINS,
+  BossID.THE_SHELL,
+  BossID.HORNFEL,
+] as const;
 
 const v = {
   run: {
@@ -20,12 +33,14 @@ const v = {
 export class DrippingBaby extends Baby {
   v = v;
 
-  /** Only valid on floors with rocks. */
+  /** Only valid on floors with rocks. Not valid if the boss is Bumbino. */
   override isValid(): boolean {
-    return !onStage(
-      LevelStage.BLUE_WOMB,
-      LevelStage.DARK_ROOM_CHEST,
-      LevelStage.HOME,
+    return (
+      !onStage(
+        LevelStage.BLUE_WOMB,
+        LevelStage.DARK_ROOM_CHEST,
+        LevelStage.HOME,
+      ) && !levelHasBossID(...BOSSES_THAT_CAN_BREAK_ROCKS)
     );
   }
 
