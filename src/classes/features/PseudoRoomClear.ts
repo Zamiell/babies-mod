@@ -142,8 +142,8 @@ function initializeDoors(babyType: RandomBabyType) {
 
       // 351
       case RandomBabyType.MOUSE: {
+        door.SetLocked(true); // This has to come before setting the room type.
         door.SetRoomTypes(door.CurrentRoomType, RoomType.SHOP);
-        door.SetLocked(true);
         break;
       }
 
