@@ -33,7 +33,7 @@ const v = {
 export class DrippingBaby extends Baby {
   v = v;
 
-  /** Only valid on floors with rocks. Not valid if the boss is Bumbino. */
+  /** Only valid on floors with rocks. Not valid with certain problematic bosses. */
   override isValid(): boolean {
     return (
       !onStage(

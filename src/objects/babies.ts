@@ -349,8 +349,8 @@ export const BABIES = {
   // 38
   [RandomBabyType.BROWN]: {
     name: "Brown Baby",
-    description:
-      "Starts with Dirty Mind + Dingle Berry + spawns a poop per enemy killed",
+    description: "Starts with Dirty Mind + Dingle Berry",
+    description2: " + spawns a poop per enemy killed",
     sprite: "038_baby_brown.png",
     collectible: CollectibleType.DIRTY_MIND,
     trinket: TrinketType.DINGLE_BERRY,
@@ -2644,8 +2644,8 @@ export const BABIES = {
   // 304
   [RandomBabyType.HOTDOG]: {
     name: "Hotdog Baby",
-    description:
-      "Constant The Bean effect + flight + explosion immunity + blindfolded",
+    description: "Constant The Bean effect + flight",
+    description2: "+ explosion immunity + blindfolded",
     sprite: "304_baby_hotdog.png",
     flight: true,
     explosionImmunity: true,
@@ -5049,8 +5049,8 @@ export const BABIES = {
   // 580
   [RandomBabyType.LITTLE_STEVEN]: {
     name: "Little Steven", // CollectibleType.LITTLE_STEVEN (100)
-    description:
-      "Starts with 20x Ring Cap + golden bomb + blindfolded + explosion immunity",
+    description: "Starts with 20x Ring Cap + golden bomb",
+    description2: "+ blindfolded + explosion immunity",
     sprite: "familiar_shooters_05_littlesteve.png",
     trinket: TrinketType.RING_CAP,
     trinketNum: 20,

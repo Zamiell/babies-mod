@@ -39,7 +39,6 @@ function getBabyDescriptionsFromBabiesTS(): BabyDescriptionSimple[] {
 
   let currentBabyDescription: Partial<BabyDescriptionSimple> = {};
   let onBabiesObject = false;
-  let descriptionOnNextLine = false;
 
   for (const [i, line] of lines.entries()) {
     if (!onBabiesObject) {
@@ -47,26 +46,6 @@ function getBabyDescriptionsFromBabiesTS(): BabyDescriptionSimple[] {
         onBabiesObject = true;
       }
       continue;
-    }
-
-    if (descriptionOnNextLine) {
-      descriptionOnNextLine = false;
-
-      const match = line.match(/"(.+)",/);
-      if (match === null) {
-        throw new Error(
-          `Failed to parse a description on line ${i + 1}: ${line}`,
-        );
-      }
-
-      const description = match[1];
-      if (description === undefined) {
-        throw new Error(
-          `Failed to parse a description on line ${i + 1}: ${line}`,
-        );
-      }
-
-      currentBabyDescription.description = description;
     }
 
     if (line.startsWith("  // ") && !line.startsWith("  // ---")) {
@@ -136,8 +115,6 @@ function getBabyDescriptionsFromBabiesTS(): BabyDescriptionSimple[] {
       }
 
       currentBabyDescription.description += ` ${description}`;
-    } else if (trimmedLine.endsWith("description:")) {
-      descriptionOnNextLine = true;
     } else if (trimmedLine.startsWith("sprite: ")) {
       const match = trimmedLine.match(/sprite: "(.+)"/);
       if (match === null) {

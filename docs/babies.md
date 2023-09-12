@@ -513,7 +513,7 @@ There are 603 babies in total.
 | 501 | <img src="./images/501_baby_necro.png" alt="501_baby_necro.png"> | Necro Baby | Starts with Book of the Dead |
 | 502 | <img src="./images/502_baby_peeping.png" alt="502_baby_peeping.png"> | Peeping Baby | Starts with 8x Bloodshot Eye |
 | 503 | <img src="./images/503_baby_penance.png" alt="503_baby_penance.png"> | Penance Baby | Starts with 3x Sworn Protector |
-| 504 | <img src="./images/504_baby_psychic.png" alt="504_baby_psychic.png"> | Psychic Baby | Starts with Abel; tears come from Abel; 2x damage |
+| 504 | <img src="./images/504_baby_psychic.png" alt="504_baby_psychic.png"> | Psychic Baby | Starts with Abel; tears come from Abel; 2x damage (but not in big rooms) |
 | 505 | <img src="./images/505_baby_puppet.png" alt="505_baby_puppet.png"> | Puppet Baby | Starts with Salvation |
 | 506 | <img src="./images/506_baby_reaper.png" alt="506_baby_reaper.png"> | Reaper Baby | Spawns a random rune on hit |
 | 507 | <img src="./images/507_baby_roadkill.png" alt="507_baby_roadkill.png"> | Road Kill Baby | Starts with Pointy Rib x3 + blindfolded |
