@@ -5,6 +5,7 @@ import {
   game,
   levelHasRoomType,
   newRNG,
+  onFirstFloor,
   repeat,
 } from "isaacscript-common";
 import { mod } from "../../mod";
@@ -13,7 +14,9 @@ import { Baby } from "../Baby";
 /** Improved Secret Rooms. */
 export class StatueBaby2 extends Baby {
   override isValid(): boolean {
-    return levelHasRoomType(RoomType.SECRET);
+    // We do not want players to explicitly reset for this baby, so we exclude it from the first
+    // floor.
+    return levelHasRoomType(RoomType.SECRET) && !onFirstFloor();
   }
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED, RoomType.SECRET)

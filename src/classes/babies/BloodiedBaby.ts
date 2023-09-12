@@ -12,6 +12,7 @@ import {
   getDoors,
   levelHasRoomType,
   newRNG,
+  onFirstFloor,
   repeat,
   useCardTemp,
 } from "isaacscript-common";
@@ -21,9 +22,12 @@ import { Baby } from "../Baby";
 /** Create red doors on hit + improved Ultra Secret Rooms. */
 export class BloodiedBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
+    // We do not want players to explicitly reset for this baby, so we exclude it from the first
+    // floor.
     return (
       levelHasRoomType(RoomType.ULTRA_SECRET) &&
-      !player.HasCollectible(CollectibleType.RED_KEY)
+      !player.HasCollectible(CollectibleType.RED_KEY) &&
+      !onFirstFloor()
     );
   }
 
