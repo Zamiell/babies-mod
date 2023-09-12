@@ -2,12 +2,10 @@ import type { GridEntityXMLType } from "isaac-typescript-definitions";
 import {
   EntityType,
   FireplaceVariant,
-  GridEntityType,
   ItemPoolType,
   LevelStage,
   ModCallback,
   PickupVariant,
-  StatueVariant,
 } from "isaac-typescript-definitions";
 import {
   Callback,
@@ -17,7 +15,6 @@ import {
   gridCoordinatesToWorldPosition,
   newRNG,
   onStageOrLower,
-  spawnGridEntityWithVariant,
   spawnWithSeed,
 } from "isaacscript-common";
 import { mod } from "../../mod";
@@ -100,13 +97,8 @@ export class PrettyBaby extends Baby {
     collectible.AutoUpdatePrice = false;
     collectible.Price = 15;
 
-    // Spawn the Angel Statue.
-    const oneTileAboveCenterGridIndex = 52;
-    spawnGridEntityWithVariant(
-      GridEntityType.STATUE,
-      StatueVariant.ANGEL,
-      oneTileAboveCenterGridIndex,
-    );
+    // We deliberately do not spawn an Angel Statue because we do not want them to be able to farm a
+    // key piece.
 
     // Spawn the two fires.
     const firePositions = [
