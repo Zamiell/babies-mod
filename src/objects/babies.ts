@@ -1052,7 +1052,7 @@ export const BABIES = {
   // 118
   [RandomBabyType.STATUE_2]: {
     name: "Statue Baby 2",
-    description: "Improved Secret Rooms",
+    description: "Improved Secret Rooms (4 items)",
     sprite: "118_baby_statue.png",
     num: 4, // Number of collectibles
     class: bc.StatueBaby2,
@@ -1310,7 +1310,7 @@ export const BABIES = {
   // 149
   [RandomBabyType.BUTTERFLY]: {
     name: "Butterfly Baby",
-    description: "Improved Super Secret Rooms",
+    description: "Improved Super Secret Rooms (4 items)",
     sprite: "149_baby_butterfly.png",
     num: 4, // The number of collectibles to spawn.
     class: bc.ButterflyBaby,
@@ -2618,6 +2618,7 @@ export const BABIES = {
   [RandomBabyType.BLOODIED]: {
     name: "Bloodied Baby",
     description: "Create red doors on hit + improved Ultra Secret Rooms",
+    description2: "(5 items)",
     sprite: "301_baby_bloodied.png",
     num: 5, // Number of collectibles
     class: bc.BloodiedBaby,
