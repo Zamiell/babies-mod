@@ -18,6 +18,7 @@ import {
   levelHasRoomType,
   onAscent,
   onFirstFloor,
+  onRepentanceStage,
   onStage,
   onStageOrHigher,
   onStageWithNaturalDevilRoom,
@@ -196,6 +197,15 @@ function checkCollectibles(
   if (
     babyCollectiblesSet.has(CollectibleType.SMELTER) && // 479
     !hasAnyTrinket(player)
+  ) {
+    return false;
+  }
+
+  // Spindown Dice can be used on Knife Piece 1 to break the game.
+  if (
+    babyCollectiblesSet.has(CollectibleType.SPINDOWN_DICE) && // 723
+    onStage(LevelStage.BASEMENT_2) &&
+    onRepentanceStage()
   ) {
     return false;
   }
