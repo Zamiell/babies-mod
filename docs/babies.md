@@ -479,7 +479,7 @@ There are 603 babies in total.
 | 467 | <img src="./images/467_baby_burning.png" alt="467_baby_burning.png"> | Burning Baby | Starts with Vasculitis + A Lighter + 40 luck |
 | 468 | <img src="./images/468_baby_cursor.png" alt="468_baby_cursor.png"> | Cursor Baby | Starts with Pause |
 | 469 | <img src="./images/469_baby_flybaby.png" alt="469_baby_flybaby.png"> | Fly Baby | Mass splitting tears |
-| 470 | <img src="./images/470_baby_headphone.png" alt="470_baby_headphone.png"> | Headphone Baby | Soundwave tears |
+| 470 | <img src="./images/470_baby_headphone.png" alt="470_baby_headphone.png"> | Headphone Baby | Extremely flat tears |
 | 471 | <img src="./images/471_baby_knife.png" alt="471_baby_knife.png"> | Knife Baby | Starts with Mom's Knife |
 | 472 | <img src="./images/472_baby_mufflerscarf.png" alt="472_baby_mufflerscarf.png"> | Mufflerscarf Baby | All enemies get frozen on hit |
 | 473 | <img src="./images/473_baby_robbermask.png" alt="473_baby_robbermask.png"> | Robbermask Baby | +1 damage per pickup taken |

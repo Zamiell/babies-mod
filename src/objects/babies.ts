@@ -4110,10 +4110,10 @@ export const BABIES = {
   // 470
   [RandomBabyType.HEADPHONE]: {
     name: "Headphone Baby",
-    description: "Soundwave tears",
+    description: "Extremely flat tears",
     sprite: "470_baby_headphone.png",
     trinket: TrinketType.FLAT_WORM,
-    trinketNum: 50,
+    trinketNum: 30,
   },
 
   // 471
