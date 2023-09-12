@@ -6,6 +6,7 @@
 ### _v1.11.1_ - September 12th, 2023
 
 - Fixed the bug where Demon Baby would not work properly when rerolling items. (Thanks Gamonymous)
+- Fixed the bug where Suit Baby would not work properly with active items. (Thanks Gamonymous)
 
 ### _v1.11.0_ - September 11th, 2023
 

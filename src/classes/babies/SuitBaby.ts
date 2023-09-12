@@ -17,7 +17,6 @@ import {
   game,
   getCollectibleDevilHeartPrice,
   gridCoordinatesToWorldPosition,
-  isQuestCollectible,
   newRNG,
   onStageOrLower,
   spawnGridEntityWithVariant,
@@ -25,6 +24,7 @@ import {
 } from "isaacscript-common";
 import { mod } from "../../mod";
 import {
+  isPricedDevilRoomPoolCollectible,
   isRerolledCollectibleBuggedHeart,
   shouldTransformRoomType,
 } from "../../utils";
@@ -50,7 +50,7 @@ export class SuitBaby extends Baby {
       return;
     }
 
-    if (isQuestCollectible(collectible.SubType)) {
+    if (!isPricedDevilRoomPoolCollectible(collectible)) {
       return;
     }
 
@@ -58,7 +58,6 @@ export class SuitBaby extends Baby {
     // situation changes.)
     const price = getCollectibleDevilHeartPrice(collectible.SubType, player);
     if (collectible.Price !== asNumber(price)) {
-      collectible.AutoUpdatePrice = false;
       collectible.Price = price;
     }
   }

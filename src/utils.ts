@@ -10,9 +10,11 @@ import {
   EntityFlag,
   EntityType,
   HeartSubType,
+  ItemPoolType,
   KeySubType,
   LevelCurse,
   MinibossID,
+  PickupPrice,
   PickupVariant,
   PillColor,
   PlayerForm,
@@ -187,6 +189,29 @@ export function giveCollectibleAndRemoveFromPools(
   const maxCharges = getCollectibleMaxCharges(collectibleType);
   player.AddCollectible(collectibleType, maxCharges, false);
   itemPool.RemoveCollectible(collectibleType);
+}
+
+/**
+ * Detecting a priced Devil-Deal-style collectible is normally trivial because you can check for if
+ * the price is less than 0 and is not `PickupPrice.YOUR_SOUL` or `PickupPrice.FREE`. However, this
+ * does not work on Keeper, because all Devil-Deal-style collectibles cost money. Furthermore, this
+ * does not work on Tainted Keeper, because all collectibles cost money. It also fails with the
+ * Keeper's Bargain trinket for the same reason.
+ *
+ * This function is from Racing+.
+ */
+export function isPricedDevilRoomPoolCollectible(
+  collectible: EntityPickupCollectible,
+): boolean {
+  const itemPoolType = mod.getCollectibleItemPoolType(collectible);
+
+  return (
+    itemPoolType === ItemPoolType.DEVIL &&
+    collectible.Price !== PickupPrice.NULL &&
+    collectible.Price !== PickupPrice.YOUR_SOUL &&
+    collectible.Price !== PickupPrice.FREE &&
+    collectible.Price !== -10 // `PickupPriceCustom.PRICE_FREE_DEVIL_DEAL` from Racing+
+  );
 }
 
 export function isRacingPlusEnabled(): boolean {

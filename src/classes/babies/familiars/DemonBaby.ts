@@ -1,11 +1,10 @@
 import {
-  ItemPoolType,
   ModCallback,
   PickupPrice,
   PickupVariant,
 } from "isaac-typescript-definitions";
 import { Callback, onStageWithNaturalDevilRoom } from "isaacscript-common";
-import { mod } from "../../../mod";
+import { isPricedDevilRoomPoolCollectible } from "../../../utils";
 import { Baby } from "../../Baby";
 
 /**
@@ -32,32 +31,9 @@ export class DemonBaby extends Baby {
   checkSetPrice(pickup: EntityPickup): void {
     const collectible = pickup as EntityPickupCollectible;
 
-    if (this.isPricedDevilRoomPoolCollectible(collectible)) {
+    if (isPricedDevilRoomPoolCollectible(collectible)) {
       pickup.Price = PickupPrice.FREE;
       pickup.AutoUpdatePrice = false;
     }
-  }
-
-  /**
-   * Detecting a priced Devil-Deal-style collectible is normally trivial because you can check for
-   * if the price is less than 0 and is not `PickupPrice.YOUR_SOUL` or `PickupPrice.FREE`. However,
-   * this does not work on Keeper, because all Devil-Deal-style collectibles cost money.
-   * Furthermore, this does not work on Tainted Keeper, because all collectibles cost money. It also
-   * fails with the Keeper's Bargain trinket for the same reason.
-   *
-   * This function is from Racing+.
-   */
-  isPricedDevilRoomPoolCollectible(
-    collectible: EntityPickupCollectible,
-  ): boolean {
-    const itemPoolType = mod.getCollectibleItemPoolType(collectible);
-
-    return (
-      itemPoolType === ItemPoolType.DEVIL &&
-      collectible.Price !== PickupPrice.NULL &&
-      collectible.Price !== PickupPrice.YOUR_SOUL &&
-      collectible.Price !== PickupPrice.FREE &&
-      collectible.Price !== -10 // `PickupPriceCustom.PRICE_FREE_DEVIL_DEAL` from Racing+
-    );
   }
 }
