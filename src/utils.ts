@@ -201,10 +201,15 @@ export function giveCollectibleAndRemoveFromPools(
 }
 
 export function isPlayerGoingToNextFloor(player: EntityPlayer): boolean {
+  const room = game.GetRoom();
+  const roomFrameCount = room.GetFrameCount();
   const sprite = player.GetSprite();
   const animation = sprite.GetAnimation();
 
-  return GOING_TO_NEXT_FLOOR_ANIMATIONS.has(animation);
+  // When going to a new floor, the player's animation will be "TrapdoorCustom" in the starting room
+  // of the new floor for 7 frames. Thus, we have to wait for the room frame count to tick higher
+  // than that.
+  return roomFrameCount > 7 && GOING_TO_NEXT_FLOOR_ANIMATIONS.has(animation);
 }
 
 /**

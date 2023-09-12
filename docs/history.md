@@ -3,11 +3,13 @@
 <!-- cspell:ignore Adrayon,cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
-### _v1.11.2_ - September 12th, 2023 (Unreleased)
+### _v1.12.0_ - September 12th, 2023 (Unreleased)
 
+- You can now use [Mod Config Menu](https://steamcommunity.com/sharedfiles/filedetails/?id=2681875787) to configure whether the individual elements of the baby UI is drawn on the screen. (This is useful if you use Open Broadcaster Software (OBS) to show the baby description to your live-stream.)
 - When playing as Sword Baby, Strawman can no longer pick up items. (Thanks Adrayon)
 - Fixed the bug where Lantern Baby was dealing extra damage under certain circumstances. (Thanks Gamonymous)
 - Fixed the bug where Headphone Baby's tears were too big. (Thanks Gamonymous)
+- Fixed the bug where Twin Baby would not work under certain circumstances. (Thanks Gamonymous)
 
 ### _v1.11.1_ - September 12th, 2023
 
