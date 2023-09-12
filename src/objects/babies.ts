@@ -1052,7 +1052,8 @@ export const BABIES = {
   // 118
   [RandomBabyType.STATUE_2]: {
     name: "Statue Baby 2",
-    description: "Improved Secret Rooms (4 items)",
+    description: "Improved Secret Rooms",
+    description2: "(4 items + no rerolls)",
     sprite: "118_baby_statue.png",
     class: bc.StatueBaby2,
   },
@@ -1309,7 +1310,8 @@ export const BABIES = {
   // 149
   [RandomBabyType.BUTTERFLY]: {
     name: "Butterfly Baby",
-    description: "Improved Super Secret Rooms (4 items)",
+    description: "Improved Super Secret Rooms",
+    description2: "(4 items + no rerolls)",
     sprite: "149_baby_butterfly.png",
     class: bc.ButterflyBaby,
   },
