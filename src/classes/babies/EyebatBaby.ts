@@ -2,13 +2,16 @@ import {
   GridEntityType,
   LevelCurse,
   LevelStage,
+  ModCallback,
   RoomType,
 } from "isaac-typescript-definitions";
 import {
+  Callback,
   CallbackCustom,
   ModCallbackCustom,
   changeRoom,
   game,
+  getRepentanceDoor,
   getRoomGridIndexesForType,
   hasFlag,
   inRoomType,
@@ -19,6 +22,7 @@ import {
   onRepentanceStage,
   onStage,
   onStageOrLower,
+  removeDoor,
   removeGridEntity,
   spawnGridEntity,
 } from "isaacscript-common";
@@ -48,6 +52,16 @@ export class EyebatBaby extends Baby {
       !onAscent() &&
       !isGreedMode()
     );
+  }
+
+  /** Repentance doors would allow the player to potentially skip clearing the floor. */
+  // 1
+  @Callback(ModCallback.POST_UPDATE)
+  postUpdate(): void {
+    const repentanceDoor = getRepentanceDoor();
+    if (repentanceDoor !== undefined) {
+      removeDoor(repentanceDoor);
+    }
   }
 
   @CallbackCustom(
