@@ -23,7 +23,6 @@ export class OneToothBaby extends Baby {
     }
 
     spawnNPC(EntityType.BISHOP, 0, 0, player.Position);
-
     return undefined;
   }
 }

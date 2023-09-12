@@ -7,7 +7,6 @@ export class YellowBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
     player.UsePill(PillEffect.LEMON_PARTY, PillColor.NULL);
-
     return undefined;
   }
 }

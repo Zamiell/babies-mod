@@ -1,8 +1,10 @@
+import type { DamageFlag } from "isaac-typescript-definitions";
 import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
 import {
   Callback,
   CallbackCustom,
   ModCallbackCustom,
+  isSelfDamage,
   repeat,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
@@ -26,7 +28,17 @@ export class FairymanBaby extends Baby {
   }
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
-  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
+  entityTakeDmgPlayer(
+    player: EntityPlayer,
+    _amount: float,
+    damageFlags: BitFlags<DamageFlag>,
+    _source: EntityRef,
+    _countdownFrames: int,
+  ): boolean | undefined {
+    if (isSelfDamage(damageFlags)) {
+      return undefined;
+    }
+
     v.run.numHits++;
 
     player.AddCacheFlags(CacheFlag.DAMAGE);

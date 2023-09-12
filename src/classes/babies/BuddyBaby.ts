@@ -3,6 +3,7 @@ import {
   CallbackCustom,
   ModCallbackCustom,
   hasFlag,
+  isSelfDamage,
   useActiveItemTemp,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
@@ -18,7 +19,11 @@ export class BuddyBaby extends Baby {
     _countdownFrames: int,
   ): boolean | undefined {
     if (hasFlag(damageFlags, DamageFlag.FAKE)) {
-      return;
+      return undefined;
+    }
+
+    if (isSelfDamage(damageFlags)) {
+      return undefined;
     }
 
     const maxHearts = player.GetMaxHearts();

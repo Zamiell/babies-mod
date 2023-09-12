@@ -1,4 +1,9 @@
-import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
+import type { DamageFlag } from "isaac-typescript-definitions";
+import {
+  CallbackCustom,
+  ModCallbackCustom,
+  isSelfDamage,
+} from "isaacscript-common";
 import { mod } from "../../../mod";
 import { Baby } from "../../Baby";
 
@@ -13,7 +18,17 @@ export class SisterMaggy extends Baby {
   v = v;
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
-  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
+  entityTakeDmgPlayer(
+    player: EntityPlayer,
+    _amount: float,
+    damageFlags: BitFlags<DamageFlag>,
+    _source: EntityRef,
+    _countdownFrames: int,
+  ): boolean | undefined {
+    if (isSelfDamage(damageFlags)) {
+      return;
+    }
+
     const num = this.getAttribute("num");
 
     v.room.numHits++;

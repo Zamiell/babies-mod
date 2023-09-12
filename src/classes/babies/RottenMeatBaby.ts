@@ -1,7 +1,9 @@
+import type { DamageFlag } from "isaac-typescript-definitions";
 import { CardType, LevelStage } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   ModCallbackCustom,
+  isSelfDamage,
   onStage,
   useCardTemp,
 } from "isaacscript-common";
@@ -19,9 +21,18 @@ export class RottenMeatBaby extends Baby {
   }
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
-  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    useCardTemp(player, CardType.FOOL);
+  entityTakeDmgPlayer(
+    player: EntityPlayer,
+    _amount: float,
+    damageFlags: BitFlags<DamageFlag>,
+    _source: EntityRef,
+    _countdownFrames: int,
+  ): boolean | undefined {
+    if (isSelfDamage(damageFlags)) {
+      return undefined;
+    }
 
+    useCardTemp(player, CardType.FOOL);
     return undefined;
   }
 }

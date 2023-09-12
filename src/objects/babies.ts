@@ -350,7 +350,7 @@ export const BABIES = {
   [RandomBabyType.BROWN]: {
     name: "Brown Baby",
     description: "Starts with Dirty Mind + Dingle Berry",
-    description2: " + spawns a poop per enemy killed",
+    description2: "+ spawns a poop per enemy killed",
     sprite: "038_baby_brown.png",
     collectible: CollectibleType.DIRTY_MIND,
     trinket: TrinketType.DINGLE_BERRY,
@@ -3195,7 +3195,7 @@ export const BABIES = {
   // 366
   [RandomBabyType.FIERY]: {
     name: "Fiery Baby",
-    description: "Spawns a fire on hit",
+    description: "Spawns a friendly fire on hit",
     sprite: "366_baby_fiery.png",
     class: bc.FieryBaby,
   },

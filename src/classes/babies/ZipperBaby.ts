@@ -1,8 +1,10 @@
+import type { DamageFlag } from "isaac-typescript-definitions";
 import { EntityType } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   game,
   getNPCs,
+  isSelfDamage,
   ModCallbackCustom,
   spawn,
 } from "isaacscript-common";
@@ -17,7 +19,17 @@ interface EntityDescription {
 /** Extra enemies spawn on hit. */
 export class ZipperBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
-  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
+  entityTakeDmgPlayer(
+    player: EntityPlayer,
+    _amount: float,
+    damageFlags: BitFlags<DamageFlag>,
+    _source: EntityRef,
+    _countdownFrames: int,
+  ): boolean | undefined {
+    if (isSelfDamage(damageFlags)) {
+      return undefined;
+    }
+
     const room = game.GetRoom();
 
     // Find an existing enemy in the room.
