@@ -127,7 +127,7 @@ There are 603 babies in total.
 | 115 | <img src="./images/115_baby_masked.png" alt="115_baby_masked.png"> | Masked Baby | Can't shoot while moving |
 | 116 | <img src="./images/116_baby_cyber.png" alt="116_baby_cyber.png"> | Cyber Baby | Spawns a random pickup on hit |
 | 117 | <img src="./images/117_baby_axewound.png" alt="117_baby_axewound.png"> | Axe Wound Baby | Starts with 2x Sacrificial Dagger + flight + explosion immunity + blindfolded |
-| 118 | <img src="./images/118_baby_statue.png" alt="118_baby_statue.png"> | Statue Baby 2 | Improved Secret Rooms |
+| 118 | <img src="./images/118_baby_statue.png" alt="118_baby_statue.png"> | Statue Baby 2 | Improved Secret Rooms (4 items) |
 | 119 | <img src="./images/119_baby_grin.png" alt="119_baby_grin.png"> | Grin Baby | Starts with Godhead |
 | 120 | <img src="./images/120_baby_upset.png" alt="120_baby_upset.png"> | Upset Baby | Starts with Sad Bombs |
 | 121 | <img src="./images/121_baby_plastic.png" alt="121_baby_plastic.png"> | Plastic Baby | Starts with Rubber Cement |
@@ -158,7 +158,7 @@ There are 603 babies in total.
 | 146 | <img src="./images/146_baby_sloppy.png" alt="146_baby_sloppy.png"> | Sloppy Baby | Starts with Epic Fetus (improved) |
 | 147 | <img src="./images/147_baby_bluebird.png" alt="147_baby_bluebird.png"> | Bluebird Baby | Touching items/pickups causes paralysis |
 | 148 | <img src="./images/148_baby_fat.png" alt="148_baby_fat.png"> | Fat Baby | Necronomicon effect on hit |
-| 149 | <img src="./images/149_baby_butterfly.png" alt="149_baby_butterfly.png"> | Butterfly Baby | Improved Super Secret Rooms |
+| 149 | <img src="./images/149_baby_butterfly.png" alt="149_baby_butterfly.png"> | Butterfly Baby | Improved Super Secret Rooms (4 items) |
 | 150 | <img src="./images/150_baby_goggles.png" alt="150_baby_goggles.png"> | Goggles Baby | Starts with 20/20 |
 | 151 | <img src="./images/151_baby_apathetic.png" alt="151_baby_apathetic.png"> | Apathetic Baby | Starts with Diplopia |
 | 152 | <img src="./images/152_baby_cape.png" alt="152_baby_cape.png"> | Cape Baby | Spray tears |
@@ -310,7 +310,7 @@ There are 603 babies in total.
 | 298 | <img src="./images/298_baby_brunette.png" alt="298_baby_brunette.png"> | Brunette Baby | Starts with The Poop + Brown Cap |
 | 299 | <img src="./images/299_baby_blonde.png" alt="299_baby_blonde.png"> | Blonde Baby | Starts with Dad's Ring |
 | 300 | <img src="./images/300_baby_bluehair.png" alt="300_baby_bluehair.png"> | Blue Hair Baby | Starts with The Candle |
-| 301 | <img src="./images/301_baby_bloodied.png" alt="301_baby_bloodied.png"> | Bloodied Baby | Create red doors on hit + improved Ultra Secret Rooms |
+| 301 | <img src="./images/301_baby_bloodied.png" alt="301_baby_bloodied.png"> | Bloodied Baby | Create red doors on hit + improved Ultra Secret Rooms (5 items) |
 | 302 | <img src="./images/302_baby_cheese.png" alt="302_baby_cheese.png"> | Cheese Baby | The Bean + Gigante Bean |
 | 303 | <img src="./images/303_baby_pizza.png" alt="303_baby_pizza.png"> | Pizza Baby | Starts with Brown Nugget (improved) |
 | 304 | <img src="./images/304_baby_hotdog.png" alt="304_baby_hotdog.png"> | Hotdog Baby | Constant The Bean effect + flight + explosion immunity + blindfolded |
