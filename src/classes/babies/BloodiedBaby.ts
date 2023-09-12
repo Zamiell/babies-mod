@@ -20,8 +20,11 @@ import { Baby } from "../Baby";
 
 /** Create red doors on hit + improved Ultra Secret Rooms. */
 export class BloodiedBaby extends Baby {
-  override isValid(): boolean {
-    return levelHasRoomType(RoomType.ULTRA_SECRET);
+  override isValid(player: EntityPlayer): boolean {
+    return (
+      levelHasRoomType(RoomType.ULTRA_SECRET) &&
+      !player.HasCollectible(CollectibleType.RED_KEY)
+    );
   }
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)

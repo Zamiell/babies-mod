@@ -10,11 +10,13 @@ import { Baby } from "../Baby";
 /** Random teleport on hit. */
 export class FadedBaby extends Baby {
   /** Too punishing on Hush and Delirium. Teleports don't work in The Beast fight. */
-  override isValid(): boolean {
-    return !onStage(
-      LevelStage.BLUE_WOMB, // 9
-      LevelStage.THE_VOID, // 12
-      LevelStage.HOME, // 13
+  override isValid(player: EntityPlayer): boolean {
+    return (
+      !onStage(
+        LevelStage.BLUE_WOMB, // 9
+        LevelStage.THE_VOID, // 12
+        LevelStage.HOME, // 13
+      ) && !player.HasCollectible(CollectibleType.TELEPORT)
     );
   }
 

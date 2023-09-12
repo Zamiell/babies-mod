@@ -17,6 +17,10 @@ const v = {
 export class WrappedBaby extends Baby {
   v = v;
 
+  override isValid(player: EntityPlayer): boolean {
+    return !player.HasCollectible(CollectibleType.KAMIKAZE);
+  }
+
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(): boolean | undefined {
     const num = this.getAttribute("num");

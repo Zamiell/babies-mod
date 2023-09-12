@@ -1,3 +1,4 @@
+import { CollectibleType } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   GAME_FRAMES_PER_SECOND,
@@ -10,6 +11,10 @@ const FREEZE_SECONDS = 5;
 
 /** All enemies get frozen on hit. */
 export class MufflerscarfBaby extends Baby {
+  override isValid(player: EntityPlayer): boolean {
+    return !player.HasCollectible(CollectibleType.MOMS_BRA);
+  }
+
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
     for (const npc of getNPCs()) {

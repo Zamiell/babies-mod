@@ -10,7 +10,9 @@ import { Baby } from "../Baby";
 export class MeatBoyBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
     const maxHearts = player.GetMaxHearts();
-    return maxHearts > 0;
+    return (
+      maxHearts > 0 && !player.HasCollectible(CollectibleType.POTATO_PEELER)
+    );
   }
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)

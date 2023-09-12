@@ -8,6 +8,10 @@ import { Baby } from "../Baby";
 
 /** D7 effect on hit. */
 export class LostGreyBaby extends Baby {
+  override isValid(player: EntityPlayer): boolean {
+    return !player.HasCollectible(CollectibleType.D7);
+  }
+
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
     useActiveItemTemp(player, CollectibleType.D7);
