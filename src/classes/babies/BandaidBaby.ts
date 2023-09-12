@@ -1,16 +1,18 @@
+import { CollectibleType, RoomType } from "isaac-typescript-definitions";
 import {
-  CollectibleType,
-  ModCallback,
-  RoomType,
-} from "isaac-typescript-definitions";
-import { Callback, game, getRandom, inRoomType } from "isaacscript-common";
+  CallbackCustom,
+  ModCallbackCustom,
+  game,
+  getRandom,
+  inRoomType,
+} from "isaacscript-common";
 import { mod } from "../../mod";
 import { Baby } from "../Baby";
 
 /** N% chance to spawn a random pedestal item on room clear. */
 export class BandaidBaby extends Baby {
-  @Callback(ModCallback.PRE_SPAWN_CLEAR_AWARD)
-  preSpawnClearAward(): boolean | undefined {
+  @CallbackCustom(ModCallbackCustom.POST_ROOM_CLEAR_CHANGED, true)
+  postRoomClearChangedTrue(): boolean | undefined {
     const room = game.GetRoom();
     const roomSeed = room.GetSpawnSeed();
     const player = Isaac.GetPlayer();

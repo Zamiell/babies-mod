@@ -1,6 +1,7 @@
-import { HeartSubType, ModCallback } from "isaac-typescript-definitions";
+import { HeartSubType } from "isaac-typescript-definitions";
 import {
-  Callback,
+  CallbackCustom,
+  ModCallbackCustom,
   VectorZero,
   game,
   getRandomEnumValue,
@@ -10,8 +11,8 @@ import { Baby } from "../Baby";
 
 /** Spawns a random heart on room clear. */
 export class LoveBaby extends Baby {
-  @Callback(ModCallback.PRE_SPAWN_CLEAR_AWARD)
-  preSpawnClearAward(): boolean | undefined {
+  @CallbackCustom(ModCallbackCustom.POST_ROOM_CLEAR_CHANGED, true)
+  postRoomClearChangedTrue(): boolean | undefined {
     const room = game.GetRoom();
     const roomSeed = room.GetSpawnSeed();
     const player = Isaac.GetPlayer();

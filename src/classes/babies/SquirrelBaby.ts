@@ -43,20 +43,6 @@ export class SquirrelBaby extends Baby {
     npc.AddEntityFlags(MOMS_HAND_FLAGS);
   }
 
-  @Callback(ModCallback.PRE_SPAWN_CLEAR_AWARD)
-  preSpawnClearAward(): boolean | undefined {
-    const momsHands = getEntities(EntityType.MOMS_HAND);
-    const player = Isaac.GetPlayer();
-    const ourHands = momsHands.filter(
-      (entity) =>
-        entity.SpawnerEntity !== undefined &&
-        GetPtrHash(entity.SpawnerEntity) === GetPtrHash(player),
-    );
-    removeEntities(ourHands);
-
-    return undefined;
-  }
-
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
     const room = game.GetRoom();
@@ -82,5 +68,19 @@ export class SquirrelBaby extends Baby {
     mod.runNextRenderFrame(() => {
       sfxManager.Stop(SoundEffect.MOM_VOX_EVIL_LAUGH);
     });
+  }
+
+  @CallbackCustom(ModCallbackCustom.POST_ROOM_CLEAR_CHANGED, true)
+  postRoomClearChangedTrue(): boolean | undefined {
+    const momsHands = getEntities(EntityType.MOMS_HAND);
+    const player = Isaac.GetPlayer();
+    const ourHands = momsHands.filter(
+      (entity) =>
+        entity.SpawnerEntity !== undefined &&
+        GetPtrHash(entity.SpawnerEntity) === GetPtrHash(player),
+    );
+    removeEntities(ourHands);
+
+    return undefined;
   }
 }

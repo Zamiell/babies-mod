@@ -1,6 +1,7 @@
-import { KeySubType, ModCallback } from "isaac-typescript-definitions";
+import { KeySubType } from "isaac-typescript-definitions";
 import {
-  Callback,
+  CallbackCustom,
+  ModCallbackCustom,
   game,
   getRandomEnumValue,
   spawnKeyWithSeed,
@@ -9,8 +10,8 @@ import { Baby } from "../Baby";
 
 /** Spawns a random key on room clear. */
 export class ToothBaby extends Baby {
-  @Callback(ModCallback.PRE_SPAWN_CLEAR_AWARD)
-  preSpawnClearAward(): boolean | undefined {
+  @CallbackCustom(ModCallbackCustom.POST_ROOM_CLEAR_CHANGED, true)
+  postRoomClearChangedTrue(): boolean | undefined {
     const room = game.GetRoom();
     const roomSeed = room.GetSpawnSeed();
     const player = Isaac.GetPlayer();

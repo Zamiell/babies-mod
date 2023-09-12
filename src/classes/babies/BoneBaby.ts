@@ -1,9 +1,11 @@
+import { CollectibleType, LevelStage } from "isaac-typescript-definitions";
 import {
-  CollectibleType,
-  LevelStage,
-  ModCallback,
-} from "isaac-typescript-definitions";
-import { Callback, hasCollectible, newRNG, onStage } from "isaacscript-common";
+  CallbackCustom,
+  ModCallbackCustom,
+  hasCollectible,
+  newRNG,
+  onStage,
+} from "isaacscript-common";
 import { revealRandomRoom, setInitialBabyRNG } from "../../utils";
 import { Baby } from "../Baby";
 
@@ -41,8 +43,8 @@ export class BoneBaby extends Baby {
     setInitialBabyRNG(v.run.rng);
   }
 
-  @Callback(ModCallback.PRE_SPAWN_CLEAR_AWARD)
-  preSpawnClearAward(): boolean | undefined {
+  @CallbackCustom(ModCallbackCustom.POST_ROOM_CLEAR_CHANGED, true)
+  postRoomClearChangedTrue(): boolean | undefined {
     revealRandomRoom(v.run.rng);
     return undefined;
   }

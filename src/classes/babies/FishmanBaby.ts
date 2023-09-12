@@ -1,6 +1,7 @@
-import { BombSubType, ModCallback } from "isaac-typescript-definitions";
+import { BombSubType } from "isaac-typescript-definitions";
 import {
-  Callback,
+  CallbackCustom,
+  ModCallbackCustom,
   game,
   getRandomEnumValue,
   spawnBombPickupWithSeed,
@@ -9,8 +10,8 @@ import { Baby } from "../Baby";
 
 /** Spawns a random bomb on room clear. */
 export class FishmanBaby extends Baby {
-  @Callback(ModCallback.PRE_SPAWN_CLEAR_AWARD)
-  preSpawnClearAward(): boolean | undefined {
+  @CallbackCustom(ModCallbackCustom.POST_ROOM_CLEAR_CHANGED, true)
+  postRoomClearChangedTrue(): boolean | undefined {
     const room = game.GetRoom();
     const roomSeed = room.GetSpawnSeed();
     const player = Isaac.GetPlayer();

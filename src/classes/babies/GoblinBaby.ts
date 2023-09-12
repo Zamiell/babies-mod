@@ -1,11 +1,6 @@
 import type { DamageFlag } from "isaac-typescript-definitions";
+import { CollectibleType, RoomType } from "isaac-typescript-definitions";
 import {
-  CollectibleType,
-  ModCallback,
-  RoomType,
-} from "isaac-typescript-definitions";
-import {
-  Callback,
   CallbackCustom,
   ModCallbackCustom,
   findFreePosition,
@@ -26,9 +21,24 @@ const v = {
 export class GoblinBaby extends Baby {
   v = v;
 
-  // 70
-  @Callback(ModCallback.PRE_SPAWN_CLEAR_AWARD)
-  preSpawnClearAward(): boolean | undefined {
+  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
+  entityTakeDmgPlayer(
+    _player: EntityPlayer,
+    _amount: float,
+    damageFlags: BitFlags<DamageFlag>,
+    _source: EntityRef,
+    _countdownFrames: int,
+  ): boolean | undefined {
+    if (isSelfDamage(damageFlags)) {
+      return undefined;
+    }
+
+    v.level.playerTookDamage = true;
+    return undefined;
+  }
+
+  @CallbackCustom(ModCallbackCustom.POST_ROOM_CLEAR_CHANGED, true)
+  postRoomClearChangedTrue(): boolean | undefined {
     if (v.level.playerTookDamage) {
       return;
     }
@@ -46,22 +56,6 @@ export class GoblinBaby extends Baby {
     const position = findFreePosition(player.Position);
     mod.spawnCollectible(CollectibleType.NULL, position);
 
-    return undefined;
-  }
-
-  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
-  entityTakeDmgPlayer(
-    _player: EntityPlayer,
-    _amount: float,
-    damageFlags: BitFlags<DamageFlag>,
-    _source: EntityRef,
-    _countdownFrames: int,
-  ): boolean | undefined {
-    if (isSelfDamage(damageFlags)) {
-      return undefined;
-    }
-
-    v.level.playerTookDamage = true;
     return undefined;
   }
 }

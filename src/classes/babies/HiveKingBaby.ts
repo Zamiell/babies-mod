@@ -1,9 +1,10 @@
+import { CollectibleType, SoundEffect } from "isaac-typescript-definitions";
 import {
-  CollectibleType,
-  ModCallback,
-  SoundEffect,
-} from "isaac-typescript-definitions";
-import { Callback, sfxManager, useActiveItemTemp } from "isaacscript-common";
+  CallbackCustom,
+  ModCallbackCustom,
+  sfxManager,
+  useActiveItemTemp,
+} from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Giant cell effect on room clear. */
@@ -12,8 +13,8 @@ export class HiveKingBaby extends Baby {
     return !player.HasCollectible(CollectibleType.GIANT_CELL);
   }
 
-  @Callback(ModCallback.PRE_SPAWN_CLEAR_AWARD)
-  preSpawnClearAward(): boolean | undefined {
+  @CallbackCustom(ModCallbackCustom.POST_ROOM_CLEAR_CHANGED, true)
+  postRoomClearChangedTrue(): boolean | undefined {
     const player = Isaac.GetPlayer();
 
     let gaveGiantCell = false;
@@ -26,7 +27,6 @@ export class HiveKingBaby extends Baby {
 
     // The hurt sound effect is confusing, because we are not actually being damaged.
     sfxManager.Stop(SoundEffect.ISAAC_HURT_GRUNT);
-    Isaac.DebugString("GETTING HERE");
 
     if (gaveGiantCell) {
       player.RemoveCollectible(CollectibleType.GIANT_CELL);
