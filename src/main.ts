@@ -14,7 +14,7 @@ import {
   initCostumeProtector,
 } from "./classes/features/CostumeProtector";
 import { DetectTrapdoorTouched } from "./classes/features/DetectTrapdoorTouched";
-import { DrawBabyIntro } from "./classes/features/DrawBabyIntro";
+import { DrawBabyDescription } from "./classes/features/DrawBabyDescription";
 import { DrawBabyNumber } from "./classes/features/DrawBabyNumber";
 import { DrawTempIcon } from "./classes/features/DrawTempIcon";
 import { DrawVersion } from "./classes/features/DrawVersion";
@@ -29,6 +29,7 @@ import type { RandomBabyType } from "./enums/RandomBabyType";
 import { enableExtraConsoleCommandsBabiesMod } from "./extraConsoleCommands";
 import type { BabyDescription } from "./interfaces/BabyDescription";
 import { mod } from "./mod";
+import { initModConfigMenu } from "./modConfigMenu";
 import { BABIES } from "./objects/babies";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 
@@ -38,7 +39,7 @@ const MOD_FEATURES = [
   BabyStats,
   CostumeProtector,
   DetectTrapdoorTouched,
-  DrawBabyIntro,
+  DrawBabyDescription,
   DrawBabyNumber,
   DrawTempIcon,
   DrawVersion,
@@ -64,6 +65,7 @@ export function main(): void {
   initModFeatures(mod, MOD_FEATURES);
   initBabyClassMap(); // This must be after all normal callback registration.
   enableExtraConsoleCommandsBabiesMod();
+  initModConfigMenu();
 }
 
 function welcomeBanner() {

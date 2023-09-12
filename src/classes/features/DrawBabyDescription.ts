@@ -13,6 +13,7 @@ import {
   isActionPressedOnAnyInput,
 } from "isaacscript-common";
 import type { BabyDescription } from "../../interfaces/BabyDescription";
+import { config } from "../../modConfigMenu";
 import { BABIES } from "../../objects/babies";
 import { isRacingPlusEnabled } from "../../utils";
 import { BabyModFeature } from "../BabyModFeature";
@@ -20,18 +21,21 @@ import { getBabyType } from "./babySelection/v";
 
 const v = {
   run: {
-    showIntroUntilFrame: null as int | null,
+    showDescriptionUntilFrame: null as int | null,
 
     /**
      * Needed because the `POST_NEW_LEVEL_REORDERED` callback fires before the
      * `POST_NEW_ROOM_REORDERED` callback.
      */
-    setIntroFrame: null as int | null,
+    setDescriptionFrame: null as int | null,
   },
 };
 
-/** Show what the current baby does in the intro room (or if the player presses the map button). */
-export class DrawBabyIntro extends BabyModFeature {
+/**
+ * Show what the current baby does in the starting room of the floor (or if the player presses the
+ * map button).
+ */
+export class DrawBabyDescription extends BabyModFeature {
   v = v;
 
   @Callback(ModCallback.POST_RENDER)
@@ -49,16 +53,19 @@ export class DrawBabyIntro extends BabyModFeature {
 
   /** Make the baby description persist on the screen after the player presses the map button. */
   checkMapInput(): void {
-    if (isActionPressedOnAnyInput(ButtonAction.MAP)) {
-      this.setShowIntroFrame();
+    if (
+      config.showBabyDescriptionOnButtonPress &&
+      isActionPressedOnAnyInput(ButtonAction.MAP)
+    ) {
+      this.setShowDescriptionFrame();
     }
   }
 
   draw(baby: BabyDescription): void {
     const gameFrameCount = game.GetFrameCount();
     if (
-      v.run.showIntroUntilFrame === null ||
-      gameFrameCount > v.run.showIntroUntilFrame
+      v.run.showDescriptionUntilFrame === null ||
+      gameFrameCount > v.run.showDescriptionUntilFrame
     ) {
       return;
     }
@@ -98,33 +105,34 @@ export class DrawBabyIntro extends BabyModFeature {
     }
   }
 
-  /**
-   * We want to draw the baby intro text when we arrive at a new floor. But showing it if the player
-   * has Birthright would be superfluous, since they presumably already know what the effect is.
-   */
+  /** We want to draw the baby description text when we arrive at a new floor. */
   @CallbackCustom(ModCallbackCustom.POST_NEW_LEVEL_REORDERED)
   postNewLevelReordered(): void {
     const player = Isaac.GetPlayer();
-    if (player.HasCollectible(CollectibleType.BIRTHRIGHT)) {
-      return;
+    if (
+      config.showBabyDescriptionOnNewFloor &&
+      // Showing the description would be superfluous if the player has Birthright, since they
+      // presumably already know what the effect is.
+      !player.HasCollectible(CollectibleType.BIRTHRIGHT)
+    ) {
+      this.setShowDescriptionFrame();
     }
-
-    this.setShowIntroFrame();
   }
 
-  /** Clear the intro text as soon as we enter another room. */
+  /** Clear the description text as soon as we enter another room. */
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
     const gameFrameCount = game.GetFrameCount();
 
-    if (gameFrameCount !== v.run.setIntroFrame) {
-      v.run.showIntroUntilFrame = null;
+    if (gameFrameCount !== v.run.setDescriptionFrame) {
+      v.run.showDescriptionUntilFrame = null;
     }
   }
 
-  setShowIntroFrame(): void {
+  setShowDescriptionFrame(): void {
     const gameFrameCount = game.GetFrameCount();
-    v.run.showIntroUntilFrame = gameFrameCount + 2 * GAME_FRAMES_PER_SECOND;
-    v.run.setIntroFrame = gameFrameCount;
+    v.run.showDescriptionUntilFrame =
+      gameFrameCount + 2 * GAME_FRAMES_PER_SECOND;
+    v.run.setDescriptionFrame = gameFrameCount;
   }
 }

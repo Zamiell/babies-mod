@@ -4402,6 +4402,7 @@ export const BABIES = {
   [RandomBabyType.PSYCHIC]: {
     name: "Psychic Baby",
     description: "Starts with Abel; tears come from Abel; 2x damage",
+    description2: "(but not in big rooms)",
     sprite: "504_baby_psychic.png",
     collectible: CollectibleType.ABEL,
     requireTears: true,

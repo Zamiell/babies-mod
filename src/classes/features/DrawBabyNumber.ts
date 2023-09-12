@@ -1,13 +1,19 @@
-import { ModCallback, RoomType } from "isaac-typescript-definitions";
+import {
+  ModCallback,
+  RoomType,
+  SeedEffect,
+} from "isaac-typescript-definitions";
 import {
   Callback,
   KColorDefault,
   fonts,
+  game,
   getHUDOffsetVector,
   getHeartsUIWidth,
   inRoomType,
 } from "isaacscript-common";
 import { RandomBabyType } from "../../enums/RandomBabyType";
+import { config } from "../../modConfigMenu";
 import { isRacingPlusEnabled } from "../../utils";
 import { BabyModFeature } from "../BabyModFeature";
 import { getBabyType } from "./babySelection/v";
@@ -25,6 +31,21 @@ export class DrawBabyNumber extends BabyModFeature {
   }
 
   draw(babyType: RandomBabyType): void {
+    if (!config.showBabyNumber) {
+      return;
+    }
+
+    const hud = game.GetHUD();
+    if (!hud.IsVisible()) {
+      return;
+    }
+
+    // The `HUD.IsVisible` method does not take into account `SeedEffect.NO_HUD`.
+    const seeds = game.GetSeeds();
+    if (seeds.HasSeedEffect(SeedEffect.NO_HUD)) {
+      return;
+    }
+
     const HUDOffsetVector = getHUDOffsetVector();
     const heartsUIWidth = getHeartsUIWidth();
 
