@@ -19,7 +19,7 @@
     "isaacscript-lint": "^5.8.5",
     "isaacscript-spell": "^1.2.41",
     "isaacscript-tsconfig": "^4.0.0",
-    "tsx": "^3.12.8",
+    "tsx": "^3.12.9",
     "typescript": "^5.2.2",
     "typescript-to-lua": "^1.19.1"
   },
