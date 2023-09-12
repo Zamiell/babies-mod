@@ -75,6 +75,14 @@ export class EyebatBaby extends Baby {
   }
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
+  postNewRoomReorderedRepentanceDoorCheck(): void {
+    const repentanceDoor = getRepentanceDoor();
+    if (repentanceDoor !== undefined) {
+      removeDoor(repentanceDoor);
+    }
+  }
+
+  @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
     if (!inStartingRoom()) {
       return;
