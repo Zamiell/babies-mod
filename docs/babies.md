@@ -47,7 +47,7 @@ There are 603 babies in total.
 | 35 | <img src="./images/035_baby_green.png" alt="035_baby_green.png"> | Green Baby | Booger tears |
 | 36 | <img src="./images/036_baby_lil.png" alt="036_baby_lil.png"> | Lil Baby | Everything is tiny |
 | 37 | <img src="./images/037_baby_big.png" alt="037_baby_big.png"> | Big Baby | Everything is giant |
-| 38 | <img src="./images/038_baby_brown.png" alt="038_baby_brown.png"> | Brown Baby | Starts with Dirty Mind + Dingle Berry + spawns a poop per enemy killed |
+| 38 | <img src="./images/038_baby_brown.png" alt="038_baby_brown.png"> | Brown Baby | Starts with Dirty Mind + Dingle Berry  + spawns a poop per enemy killed |
 | 39 | <img src="./images/039_baby_noose.png" alt="039_baby_noose.png"> | Noose Baby | Takes damage if shooting when the timer reaches 0 |
 | 40 | <img src="./images/040_baby_hive.png" alt="040_baby_hive.png"> | Hive Baby | Starts with Hive Mind + max Blue Flies + max Blue Spiders |
 | 41 | <img src="./images/041_baby_buddy.png" alt="041_baby_buddy.png"> | Buddy Baby | Removes a heart container on hit |

@@ -58,7 +58,7 @@ export function initModConfigMenu(): void {
 }
 
 /** From Racing+. */
-export function deleteOldConfig(categoryName: string): void {
+function deleteOldConfig(categoryName: string) {
   if (ModConfigMenu === undefined) {
     return;
   }
@@ -106,6 +106,7 @@ function registerSubMenuConfig(
   }
 }
 
+/** From Racing+. */
 function getDisplayTextBoolean(
   configName: keyof Config,
   shortDescription: string,
