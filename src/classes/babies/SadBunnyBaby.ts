@@ -1,6 +1,9 @@
 import { CacheFlag, ModCallback } from "isaac-typescript-definitions";
 import { Callback, isMissedTear, repeat } from "isaacscript-common";
-import { getBabyPlayerFromEntity } from "../../utils";
+import {
+  getBabyPlayerFromEntity,
+  isValidForMissedTearsEffect,
+} from "../../utils";
 import { Baby } from "../Baby";
 
 const v = {
@@ -16,6 +19,10 @@ const v = {
 /** Accuracy increases tear rate. */
 export class SadBunnyBaby extends Baby {
   v = v;
+
+  override isValid(player: EntityPlayer): boolean {
+    return isValidForMissedTearsEffect(player);
+  }
 
   // 8
   @Callback(ModCallback.EVALUATE_CACHE, CacheFlag.FIRE_DELAY)

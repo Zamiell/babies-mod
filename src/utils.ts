@@ -87,6 +87,7 @@ const BAD_MISSED_TEARS_COLLECTIBLE_TYPES = [
   CollectibleType.LITTLE_HORN, // 503
   CollectibleType.TRISAGION, // 533
   CollectibleType.FLAT_STONE, // 540
+  CollectibleType.C_SECTION, // 678
 ] as const;
 
 const BAD_MISSED_TEARS_TRANSFORMATIONS = [
