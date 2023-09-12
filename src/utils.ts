@@ -1,4 +1,4 @@
-import type { ItemConfigTag, SlotVariant } from "isaac-typescript-definitions";
+import type { SlotVariant } from "isaac-typescript-definitions";
 import {
   BatterySubType,
   BombSubType,
@@ -38,7 +38,6 @@ import {
   getPlayerFromEntity,
   getRandomArrayElement,
   getRandomInt,
-  getRandomSetElement,
   getRoomsInsideGrid,
   hasCollectible,
   hasForm,
@@ -180,13 +179,6 @@ export function getRandomOffsetPosition(
   }
 
   return Vector(position.X + offsetX, position.Y + offsetY);
-}
-
-export function getRandomCollectibleTypeWithTag(
-  itemConfigTag: ItemConfigTag,
-): CollectibleType {
-  const foodCollectibleTypesSet = mod.getCollectiblesWithTag(itemConfigTag);
-  return getRandomSetElement(foodCollectibleTypesSet);
 }
 
 export function giveCollectibleAndRemoveFromPools(
