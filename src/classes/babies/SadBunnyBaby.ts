@@ -23,6 +23,9 @@ export class SadBunnyBaby extends Baby {
     repeat(v.run.numTearHits, () => {
       player.MaxFireDelay--;
     });
+
+    // Prevent the tears from getting too ridiculous, which looks buggy.
+    player.MaxFireDelay = Math.max(1, player.MaxFireDelay);
   }
 
   // 40

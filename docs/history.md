@@ -7,6 +7,7 @@
 
 - Fixed the bug where Demon Baby would not work properly when rerolling items. (Thanks Gamonymous)
 - Fixed the bug where Suit Baby would not work properly with active items. (Thanks Gamonymous)
+- Fixed the bug where Sad Bunny Baby would fire tears too fast under certain conditions. (Thanks Fallenfor)
 
 ### _v1.11.0_ - September 11th, 2023
 
