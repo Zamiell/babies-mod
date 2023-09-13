@@ -4068,9 +4068,9 @@ export const BABIES = {
   // 465
   [RandomBabyType.BEANIE]: {
     name: "Beanie Baby",
-    description: "Starts with Smelter",
+    description: "Starts with Spelunker Hat",
     sprite: "465_baby_beanie.png",
-    collectible: CollectibleType.SMELTER,
+    collectible: CollectibleType.SPELUNKER_HAT,
   },
 
   // 466

@@ -474,7 +474,7 @@ There are 603 babies in total.
 | 462 | <img src="./images/462_baby_voxdog.png" alt="462_baby_voxdog.png"> | Voxdog Baby | Shockwave tears |
 | 463 | <img src="./images/463_baby_404.png" alt="463_baby_404.png"> | 404 Baby | -1 coin/bomb/key on hit |
 | 464 | <img src="./images/464_baby_arrowhead.png" alt="464_baby_arrowhead.png"> | Arrowhead Baby | Starts with Technology Zero + Cupid's Arrow |
-| 465 | <img src="./images/465_baby_beanie.png" alt="465_baby_beanie.png"> | Beanie Baby | Starts with Smelter |
+| 465 | <img src="./images/465_baby_beanie.png" alt="465_baby_beanie.png"> | Beanie Baby | Starts with Spelunker Hat |
 | 466 | <img src="./images/466_baby_blindcursed.png" alt="466_baby_blindcursed.png"> | Blindcursed Baby | Invisible tears |
 | 467 | <img src="./images/467_baby_burning.png" alt="467_baby_burning.png"> | Burning Baby | Starts with Vasculitis + A Lighter + 40 luck |
 | 468 | <img src="./images/468_baby_cursor.png" alt="468_baby_cursor.png"> | Cursor Baby | Starts with Camo Undies |
