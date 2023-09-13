@@ -573,13 +573,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@esbuild-kit/esm-loader@npm:^2.6.1":
-  version: 2.6.1
-  resolution: "@esbuild-kit/esm-loader@npm:2.6.1"
+"@esbuild-kit/esm-loader@npm:^2.6.3":
+  version: 2.6.3
+  resolution: "@esbuild-kit/esm-loader@npm:2.6.3"
   dependencies:
     "@esbuild-kit/core-utils": ^3.3.0
     get-tsconfig: ^4.7.0
-  checksum: 3949288c68c8f4c963fd4a6c47662999f2a67275a04808272074c804789e77261908b0f212ee1e3b910d71cd4bb71a5665adac662caa61f0f58bb49886462492
+  checksum: 60264538da15d8ac0a43b0700fae9025ac2cca5b2b8d02bb182fd9911dad1a71efbd9e2e4c16d4ab3c8348b790891acb8accce24034b48c2a45b9c7da25d8cac
   languageName: node
   linkType: hard
 
@@ -1553,13 +1553,13 @@ __metadata:
     "@types/node": ^20.6.0
     isaac-typescript-definitions: ^16.1.0
     isaacscript: ^3.10.2
-    isaacscript-common: ^33.14.0
+    isaacscript-common: ^33.14.1
     isaacscript-lint: ^5.8.5
     isaacscript-spell: ^1.2.41
     isaacscript-tsconfig: ^4.0.0
-    tsx: ^3.12.9
+    tsx: ^3.12.10
     typescript: ^5.2.2
-    typescript-to-lua: ^1.19.1
+    typescript-to-lua: ^1.19.2
   languageName: unknown
   linkType: soft
 
@@ -3738,12 +3738,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isaacscript-common@npm:^33.14.0":
-  version: 33.14.0
-  resolution: "isaacscript-common@npm:33.14.0"
+"isaacscript-common@npm:^33.14.1":
+  version: 33.14.1
+  resolution: "isaacscript-common@npm:33.14.1"
   dependencies:
     isaac-typescript-definitions: ^16.1.0
-  checksum: 594f2bda8e5d256906db753f6ba81dd066e16ffb5e36e7b19d34e201a82078df9ae6fc7bd9d9b72c356894121cad179c72c2197e2f8763d41a9ef106331d33fa
+  checksum: 6ecec79952c72274c34263016b82b0f472aaca4cfda495c70ccaeb3f4dcfb28d2c84ece19a9ac8c47defb7a7332b197a806b4f5af075bbdc8a4182ba44d7412d
   languageName: node
   linkType: hard
 
@@ -5869,6 +5869,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tsx@npm:^3.12.10":
+  version: 3.12.10
+  resolution: "tsx@npm:3.12.10"
+  dependencies:
+    "@esbuild-kit/cjs-loader": ^2.4.2
+    "@esbuild-kit/core-utils": ^3.3.0
+    "@esbuild-kit/esm-loader": ^2.6.3
+    fsevents: ~2.3.2
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  bin:
+    tsx: dist/cli.js
+  checksum: 84fbbdbb90a05ecc764aee92fbe234b45939ccba34a08298fcec2bb9cb2ecb7676b21e676dd12681279490a7ac55bb81897ce503775cbcce0f76703eb282bb37
+  languageName: node
+  linkType: hard
+
 "tsx@npm:^3.12.7":
   version: 3.12.8
   resolution: "tsx@npm:3.12.8"
@@ -5883,23 +5900,6 @@ __metadata:
   bin:
     tsx: dist/cli.js
   checksum: b27575672693e648106c0230587b5d4d901f0c714517b173e6b220d9907971f465c46cccfbf59ef68dcc0cdf7b30867b0d08aa1995d28b9ed0a580afe0e22cec
-  languageName: node
-  linkType: hard
-
-"tsx@npm:^3.12.9":
-  version: 3.12.9
-  resolution: "tsx@npm:3.12.9"
-  dependencies:
-    "@esbuild-kit/cjs-loader": ^2.4.2
-    "@esbuild-kit/core-utils": ^3.3.0
-    "@esbuild-kit/esm-loader": ^2.6.1
-    fsevents: ~2.3.2
-  dependenciesMeta:
-    fsevents:
-      optional: true
-  bin:
-    tsx: dist/cli.js
-  checksum: cf9044300b15205a1e10879a5cc3a7ce9e666d2f4a23f58af270e315cba3566af4e22847ab7b82e6229b16d0bb70a477a5d812d81c3e24f45c14001cf25c1cc3
   languageName: node
   linkType: hard
 
@@ -5984,9 +5984,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript-to-lua@npm:^1.19.1":
-  version: 1.19.1
-  resolution: "typescript-to-lua@npm:1.19.1"
+"typescript-to-lua@npm:^1.19.2":
+  version: 1.19.2
+  resolution: "typescript-to-lua@npm:1.19.2"
   dependencies:
     "@typescript-to-lua/language-extensions": 1.19.0
     enhanced-resolve: ^5.8.2
@@ -5997,7 +5997,7 @@ __metadata:
     typescript: 5.2.2
   bin:
     tstl: dist/tstl.js
-  checksum: ce37dccc9f1e651ca3713150fec49a7e46f5a7217dcccb5fc06d96ea9242d45f1ff418214e3a4ef30c6b0befea71635d793a67a4bd0808f9317e0d76da786215
+  checksum: 7b7961ec4e0fad2b4e3a50d785cee82cb0e2dc91ce9cdf09b5a722247b4feeb928e225cf6b04e893235bf8e3659685445021623922e3afdbb3da7d099e9e98be
   languageName: node
   linkType: hard
 

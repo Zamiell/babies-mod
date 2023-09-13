@@ -1,6 +1,4 @@
 Change babies:
-- Glitch Baby (#25) - Starts with 20x GB Bug
-- Bear Baby (#264) - Starts with Mystery Gift
 - Cursor Baby (#468) - Starts with Pause (and put Pause on Bandage Girl Baby)
 
 TODO long-term:

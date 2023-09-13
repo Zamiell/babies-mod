@@ -5,6 +5,9 @@
 
 ### _v1.12.0_ - September 12th, 2023 (Unreleased)
 
+- Changed the following babies:
+  - Bear Baby (#264) - Starts with Holy Water + BFFS!
+  - Glitch Baby (#25) - Starts with Isaac's Heart + BFFS! + Mom's Heels
 - Statue Baby 2, Butterfly Baby, and Bloodied Baby will now spawn items from different pools.
 - Statue Baby 2, Butterfly Baby, and Bloodied Baby will no longer appear on the first floor of a run.
 

@@ -237,10 +237,11 @@ export const BABIES = {
   // 25
   [RandomBabyType.GLITCH]: {
     name: "Glitch Baby",
-    description: "Starts with 20x GB Bug",
+    description: "Starts with Isaac's Heart + BFFS! + Mom's Heels",
     sprite: "025_baby_glitch.png",
-    collectible: CollectibleType.GB_BUG,
-    collectibleNum: 20,
+    collectible: CollectibleType.ISAACS_HEART,
+    collectible2: CollectibleType.BFFS,
+    collectible3: CollectibleType.MOMS_HEELS,
   },
 
   // 26
@@ -2291,9 +2292,10 @@ export const BABIES = {
   // 264
   [RandomBabyType.BEAR]: {
     name: "Bear Baby",
-    description: "Starts with Mystery Gift",
+    description: "Starts with Holy Water + BFFS!",
     sprite: "264_baby_bear.png",
-    collectible: CollectibleType.MYSTERY_GIFT,
+    collectible: CollectibleType.HOLY_WATER,
+    collectible2: CollectibleType.BFFS,
   },
 
   // 265
