@@ -1870,9 +1870,9 @@ export const BABIES = {
   // 214
   [RandomBabyType.BASIC_SPIDER]: {
     name: "Basic Spider Baby",
-    description: "Starts with Mutant Spider",
+    description: "Starts with Breath of Life",
     sprite: "214_baby_spider.png",
-    collectible: CollectibleType.MUTANT_SPIDER,
+    collectible: CollectibleType.BREATH_OF_LIFE,
   },
 
   // 215
