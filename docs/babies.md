@@ -34,7 +34,7 @@ There are 603 babies in total.
 | 22 | <img src="./images/022_baby_dead.png" alt="022_baby_dead.png"> | Dead Baby | Starts with 2x ???'s Only Friend + blindfolded |
 | 23 | <img src="./images/023_baby_fighting.png" alt="023_baby_fighting.png"> | Fighting Baby | Starts with Bloody Lust |
 | 24 | <img src="./images/024_baby_0.png" alt="024_baby_0.png"> | -0- Baby | Invulnerability |
-| 25 | <img src="./images/025_baby_glitch.png" alt="025_baby_glitch.png"> | Glitch Baby | Starts with Isaac's Heart + BFFS! + Mom's Heels |
+| 25 | <img src="./images/025_baby_glitch.png" alt="025_baby_glitch.png"> | Glitch Baby | Starts with Isaac's Heart + BFFS! |
 | 26 | <img src="./images/026_baby_magnet.png" alt="026_baby_magnet.png"> | Magnet Baby | Magnetizing tears |
 | 27 | <img src="./images/027_baby_black.png" alt="027_baby_black.png"> | Black Baby | Curse Room doors in uncleared rooms |
 | 28 | <img src="./images/028_baby_red.png" alt="028_baby_red.png"> | Red Baby | Starts with 5x Distant Admiration |

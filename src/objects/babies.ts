@@ -237,11 +237,10 @@ export const BABIES = {
   // 25
   [RandomBabyType.GLITCH]: {
     name: "Glitch Baby",
-    description: "Starts with Isaac's Heart + BFFS! + Mom's Heels",
+    description: "Starts with Isaac's Heart + BFFS!",
     sprite: "025_baby_glitch.png",
     collectible: CollectibleType.ISAACS_HEART,
     collectible2: CollectibleType.BFFS,
-    collectible3: CollectibleType.MOMS_HEELS,
   },
 
   // 26

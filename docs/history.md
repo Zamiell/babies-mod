@@ -3,6 +3,11 @@
 <!-- cspell:ignore Adrayon,cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.14.0_ - September 14th, 2023 (Unreleased)
+
+- Changed the following babies:
+  - Glitch Baby (#25) - Starts with Isaac's Heart + BFFS!
+
 ### _v1.13.0_ - September 13th, 2023
 
 - Changed the following babies:
