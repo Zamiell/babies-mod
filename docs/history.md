@@ -7,6 +7,8 @@
 
 - Changed the following babies:
   - Glitch Baby (#25) - Starts with Isaac's Heart + BFFS!
+  - Bandage Girl Baby (#178) - Starts with Pause + Cube of Meat + Ball of Bandages
+  - Cursor Baby (#468) - Starts with Camo Undies
 
 ### _v1.13.0_ - September 13th, 2023
 

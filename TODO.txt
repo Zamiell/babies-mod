@@ -1,6 +1,3 @@
-Change babies:
-- Cursor Baby (#468) - Starts with Pause (and put Pause on Bandage Girl Baby)
-
 TODO long-term:
 - change "R+7 Season 5 (Beta)" upon release
 

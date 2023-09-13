@@ -187,7 +187,7 @@ There are 603 babies in total.
 | 175 | <img src="./images/175_baby_bloodhole.png" alt="175_baby_bloodhole.png"> | Blood Hole Baby | Starts with Proptosis |
 | 176 | <img src="./images/176_baby_transforming.png" alt="176_baby_transforming.png"> | Transforming Baby | Starts with Technology Zero |
 | 177 | <img src="./images/177_baby_aban.png" alt="177_baby_aban.png"> | Aban Baby | Sonic-style health |
-| 178 | <img src="./images/178_baby_bandagegirl.png" alt="178_baby_bandagegirl.png"> | Bandage Girl Baby | Starts with Cube of Meat + Ball of Bandages |
+| 178 | <img src="./images/178_baby_bandagegirl.png" alt="178_baby_bandagegirl.png"> | Bandage Girl Baby | Starts with Pause + Cube of Meat + Ball of Bandages |
 | 179 | <img src="./images/179_baby_piecea.png" alt="179_baby_piecea.png"> | Piece A Baby | Can only move up + down + left + right |
 | 180 | <img src="./images/180_baby_pieceb.png" alt="180_baby_pieceb.png"> | Piece B Baby | Starts with Charging Station |
 | 181 | <img src="./images/181_baby_spelunker.png" alt="181_baby_spelunker.png"> | Spelunker Baby | Starts with Stud Finder; Crawlspace --> Black Market |
@@ -477,7 +477,7 @@ There are 603 babies in total.
 | 465 | <img src="./images/465_baby_beanie.png" alt="465_baby_beanie.png"> | Beanie Baby | Starts with Smelter |
 | 466 | <img src="./images/466_baby_blindcursed.png" alt="466_baby_blindcursed.png"> | Blindcursed Baby | Invisible tears |
 | 467 | <img src="./images/467_baby_burning.png" alt="467_baby_burning.png"> | Burning Baby | Starts with Vasculitis + A Lighter + 40 luck |
-| 468 | <img src="./images/468_baby_cursor.png" alt="468_baby_cursor.png"> | Cursor Baby | Starts with Pause |
+| 468 | <img src="./images/468_baby_cursor.png" alt="468_baby_cursor.png"> | Cursor Baby | Starts with Camo Undies |
 | 469 | <img src="./images/469_baby_flybaby.png" alt="469_baby_flybaby.png"> | Fly Baby | Mass splitting tears |
 | 470 | <img src="./images/470_baby_headphone.png" alt="470_baby_headphone.png"> | Headphone Baby | Extremely flat tears |
 | 471 | <img src="./images/471_baby_knife.png" alt="471_baby_knife.png"> | Knife Baby | Starts with Mom's Knife |

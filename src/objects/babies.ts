@@ -1559,10 +1559,11 @@ export const BABIES = {
   // 178
   [RandomBabyType.BANDAGE_GIRL]: {
     name: "Bandage Girl Baby",
-    description: "Starts with Cube of Meat + Ball of Bandages",
+    description: "Starts with Pause + Cube of Meat + Ball of Bandages",
     sprite: "178_baby_bandagegirl.png",
-    collectible: CollectibleType.CUBE_OF_MEAT,
-    collectible2: CollectibleType.BALL_OF_BANDAGES,
+    collectible: CollectibleType.PAUSE,
+    collectible2: CollectibleType.CUBE_OF_MEAT,
+    collectible3: CollectibleType.BALL_OF_BANDAGES,
   },
 
   // 179
@@ -4094,9 +4095,9 @@ export const BABIES = {
   // 468
   [RandomBabyType.CURSOR]: {
     name: "Cursor Baby",
-    description: "Starts with Pause",
+    description: "Starts with Camo Undies",
     sprite: "468_baby_cursor.png",
-    collectible: CollectibleType.PAUSE,
+    collectible: CollectibleType.CAMO_UNDIES,
   },
 
   // 469
