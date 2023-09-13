@@ -34,7 +34,7 @@ There are 603 babies in total.
 | 22 | <img src="./images/022_baby_dead.png" alt="022_baby_dead.png"> | Dead Baby | Starts with 2x ???'s Only Friend + blindfolded |
 | 23 | <img src="./images/023_baby_fighting.png" alt="023_baby_fighting.png"> | Fighting Baby | Starts with Bloody Lust |
 | 24 | <img src="./images/024_baby_0.png" alt="024_baby_0.png"> | -0- Baby | Invulnerability |
-| 25 | <img src="./images/025_baby_glitch.png" alt="025_baby_glitch.png"> | Glitch Baby | Starts with 20x GB Bug |
+| 25 | <img src="./images/025_baby_glitch.png" alt="025_baby_glitch.png"> | Glitch Baby | Starts with Isaac's Heart + BFFS! + Mom's Heels |
 | 26 | <img src="./images/026_baby_magnet.png" alt="026_baby_magnet.png"> | Magnet Baby | Magnetizing tears |
 | 27 | <img src="./images/027_baby_black.png" alt="027_baby_black.png"> | Black Baby | Curse Room doors in uncleared rooms |
 | 28 | <img src="./images/028_baby_red.png" alt="028_baby_red.png"> | Red Baby | Starts with 5x Distant Admiration |
@@ -273,7 +273,7 @@ There are 603 babies in total.
 | 261 | <img src="./images/261_baby_viking.png" alt="261_baby_viking.png"> | Viking Baby | Secret Room --> Super Secret Room |
 | 262 | <img src="./images/262_baby_panda.png" alt="262_baby_panda.png"> | Panda Baby | Starts with The Poop (improved) |
 | 263 | <img src="./images/263_baby_raccoon.png" alt="263_baby_raccoon.png"> | Raccoon Baby | Random rocks |
-| 264 | <img src="./images/264_baby_bear.png" alt="264_baby_bear.png"> | Bear Baby | Starts with Mystery Gift |
+| 264 | <img src="./images/264_baby_bear.png" alt="264_baby_bear.png"> | Bear Baby | Starts with Holy Water + BFFS! |
 | 265 | <img src="./images/265_baby_polarbear.png" alt="265_baby_polarbear.png"> | Polar Bear Baby | Starts with Lil Brimstone + Robo Baby + Baby Bender |
 | 266 | <img src="./images/266_baby_lovebear.png" alt="266_baby_lovebear.png"> | Lovebear Baby | Starts in a super Arcade |
 | 267 | <img src="./images/267_baby_hare.png" alt="267_baby_hare.png"> | Hare Baby | Takes damage when standing still |
