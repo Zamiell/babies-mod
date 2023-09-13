@@ -28,7 +28,7 @@ const ITEM_POOL_TYPES = [
   ItemPoolType.PLANETARIUM,
 ] as const;
 
-/** Improved Secret Rooms (4 items). */
+/** Improved Secret Rooms (4 items + no rerolls). */
 export class StatueBaby2 extends Baby {
   override isValid(): boolean {
     // We do not want players to explicitly reset for this baby, so we exclude it from the first
