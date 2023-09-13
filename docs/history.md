@@ -3,6 +3,10 @@
 <!-- cspell:ignore Adrayon,cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.15.1_ - September 13th, 2023 (Unreleased)
+
+- Fixed the bug where Goat Baby was not working properly. (Thanks Toooschi)
+
 ### _v1.15.0_ - September 13th, 2023
 
 - Changed the following babies:
