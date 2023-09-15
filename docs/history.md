@@ -7,8 +7,9 @@
 
 - Changed the following babies:
   - Eyebrows Baby (#89) - Starts with 5x Guppy's Hair Ball + flight + explosion immunity + blindfolded
-- !Fixed the bug where Eyebrows Baby was not working properly. (Thanks sisuka)
-- Fixed the bug where Goat Baby was not working properly. (Thanks Toooschi)
+- Fixed the bug where Goat Baby (#62) was not working properly. (Thanks Toooschi)
+- Fixed the bug where Eyebrows Baby (#89) was not working properly. (Thanks sisuka)
+- Fixed the bug where the effect for Mushroom Girl Baby (#361) would work with Saturnus tears. (Thanks Fallenfor)
 
 ### _v1.15.0_ - September 13th, 2023
 
@@ -28,28 +29,28 @@
 - Changed the following babies:
   - Bear Baby (#264) - Starts with Holy Water + BFFS!
   - Glitch Baby (#25) - Starts with Isaac's Heart + BFFS! + Mom's Heels
-- Statue Baby 2, Butterfly Baby, and Bloodied Baby will now spawn items from different pools.
-- Statue Baby 2, Butterfly Baby, and Bloodied Baby will no longer appear on the first floor of a run.
+- Statue Baby 2 (#118), Butterfly Baby (#149), and Bloodied Baby (#301) will now spawn items from different pools.
+- Statue Baby 2 (#118), Butterfly Baby (#149), and Bloodied Baby (#301) will no longer appear on the first floor of a run.
 
 ### _v1.12.0_ - September 12th, 2023
 
 - You can now use [Mod Config Menu](https://steamcommunity.com/sharedfiles/filedetails/?id=2681875787) to configure whether the individual elements of the baby UI is drawn on the screen. (This is useful if you use Open Broadcaster Software to show the baby description to your live-stream.)
-- When playing as Sword Baby, Strawman can no longer pick up items. (Thanks Adrayon)
-- Fixed the bug where Lantern Baby was dealing extra damage under certain circumstances. (Thanks Gamonymous)
-- Fixed the bug where Headphone Baby's tears were too big. (Thanks Gamonymous)
-- Fixed the bug where Twin Baby would not work under certain circumstances. (Thanks Gamonymous)
+- When playing as Sword Baby (#312), Strawman can no longer pick up items. (Thanks Adrayon)
+- Fixed the bug where Twin Baby (#141) would not work under certain circumstances. (Thanks Gamonymous)
+- Fixed the bug where Lantern Baby (#292) was dealing extra damage under certain circumstances. (Thanks Gamonymous)
+- Fixed the bug where Mouse Baby (#351) doors would not work properly under certain circumstances. (Thanks Gamonymous)
+- Fixed the bug where Headphone Baby's (#470) tears were too big. (Thanks Gamonymous)
+- Fixed the bug where Eyebat Baby (#535) could skip a floor by going into a Repentance door. (Thanks Fallenfor)
 - Fixed the bug where the R U a Wizard pill would mess up the appearance of the baby.
-- Fixed the bug where Mouse Baby doors would not work properly under certain circumstances. (Thanks Gamonymous)
-- Fixed the bug where Eyebat Baby could skip a floor by going into a Repentance door. (Thanks Fallenfor)
 
 ### _v1.11.1_ - September 12th, 2023
 
 - Babies that have negative on-hit effects will no longer trigger them from self-damage. (Positive on-hit effects are unchanged.) (Thanks Toooschi)
-- Fixed the bug where Demon Baby would not work properly when rerolling items. (Thanks Gamonymous)
-- Fixed the bug where Suit Baby would not work properly with active items. (Thanks Gamonymous)
-- Fixed the bug where Sad Bunny Baby would fire tears too fast under certain conditions. (Thanks Fallenfor)
-- Fixed the bug where Hive King Baby would cause Isaac to grunt when a room was cleared.
-- Fixed the bug where Hare Baby could cause unavoidable damage under certain conditions. (Thanks Gamonymous)
+- Fixed the bug where Hare Baby (#267) could cause unavoidable damage under certain conditions. (Thanks Gamonymous)
+- Fixed the bug where Suit Baby (#287) would not work properly with active items. (Thanks Gamonymous)
+- Fixed the bug where Sad Bunny Baby (#459) would fire tears too fast under certain conditions. (Thanks Fallenfor)
+- Fixed the bug where Hive King Baby (#546) would cause Isaac to grunt when a room was cleared.
+- Fixed the bug where Demon Baby (#581) would not work properly when rerolling items. (Thanks Gamonymous)
 
 ### _v1.11.0_ - September 11th, 2023
 
@@ -58,8 +59,8 @@
   - Squirrel Baby (#268) - Spawns a friendly Mom's Hand in every room
   - Twotone Baby (#346) - Spending bombs uses up keys first
   - Adventure Baby (#482) - Walls have eyes + blindfolded
-- Fixed the bug where Tabby Baby was not working properly. (Thanks Fallenfor)
-- Fixed the bug where Blue Baby was not working properly.
+- Fixed the bug where Blue Baby (#30) was not working properly.
+- Fixed the bug where Tabby Baby (#269) was not working properly. (Thanks Fallenfor)
 - Fixed the bug where Empty Vessel would result in a bugged baby costume. (Thanks Gamonymous)
 
 ### _v1.10.0_ - September 11th, 2023
@@ -68,20 +69,20 @@
   - Bone Baby (#57) - Reveals a random room on room clear
   - Shopkeeper Baby (#215) - Items/pickups that cost coins are free
   - Lucky Baby (#563) - Starts with The Stairway (improved)
-- Fixed the bug where Demon Baby would not work properly with Keeper's Bargain. (Thanks Gamonymous)
-- Fixed the bug where Earwig Baby was not working properly. (Thanks Fallenfor)
-- Fixed the bug where Abel was not working properly.
+- Fixed the bug where Earwig Baby (#128) was not working properly. (Thanks Fallenfor)
+- Fixed the bug where Demon Baby (#581) would not work properly with Keeper's Bargain. (Thanks Gamonymous)
+- Fixed the bug where Abel (#585) was not working properly.
 - Fixed the bug where charged items would be incorrectly triggered when going to a new floor. (Thanks Adrayon)
 
 ### _v1.9.0_ - September 11th, 2023
 
 - Changed the following babies:
   - Silly Baby (#516) - Sacrificial Altar effect after 6 hits
-- Fixed the bug where Turtle Dragon Baby would be softlocked under certain conditions. (Thanks Gamonymous & Adrayon)
-- Fixed the bug where Gold Baby would not work properly with certain floors.
-- Fixed the bug where Shopkeeper baby would not work properly with rerolled items. (Thanks Adrayon)
-- Fixed the bug where Twin Baby would crash the game under certain conditions. (Thanks Monkeypot)
-- Fixed the bug where Baby Is You would not work properly. (Thanks Fallenfor)
+- Fixed the bug where Gold Baby (#15) would not work properly with certain floors.
+- Fixed the bug where Twin Baby (#141) would crash the game under certain conditions. (Thanks Monkeypot)
+- Fixed the bug where Shopkeeper Baby (#215) would not work properly with rerolled items. (Thanks Adrayon)
+- Fixed the bug where Turtle Dragon Baby (#364) would be softlocked under certain conditions. (Thanks Gamonymous & Adrayon)
+- Fixed the bug where Baby Is You (#536) would not work properly. (Thanks Fallenfor)
 - Fixed the bug where babies with active items would incorrectly delete existing active items. (Thanks Fallenfor)
 - Fixed the bug where babies with transformations would not be granted under certain conditions. (Thanks Monkeypot)
 - Fixed the bug where babies that granted mapping items would not work properly under certain conditions.
@@ -92,13 +93,13 @@
   - Merman Baby (#342) - Spawns a Bulb on hit
   - Mermaid Baby (#395) - Starts with Athame + 30 luck
 - If you use the [Rebirth Item Tracker](https://github.com/Rchardon/RebirthItemTracker), the baby name and description will be written to the "mod_text.txt" file, which is located next to "Rebirth Item Tracker.exe". You can use Open Broadcaster Software (OBS) to capture this text file in order to easily show the current baby to your live stream on Twitch/YouTube. (Thanks mgln)
-- Fixed the bug where Demon Baby was not working properly. (Thanks Fallenfor)
-- Fixed the bug where Berry Baby was not working properly. (Thanks Jack)
-- Fixed the bug where Wink Baby was appearing on floors where it should not have. (Thanks Gamonymous)
-- Fixed the bug where Zombie Baby would not work properly with Mom's Hands & Mom's Dead Hands. (Thanks Fallenfor)
-- Fixed the bug where Turtle Dragon Baby would softlock with rooms that contained Flaming Hoppers. (Thanks SuperpaperChildy)
-- Fixed the bug where Beanie Baby could be assigned if the player did not have a trinket. (Thanks Gamonymous)
-- Fixed the bug where Lazy Baby was not working properly. (Thanks Monkeypot)
+- Fixed the bug where Zombie Baby (#61) would not work properly with Mom's Hands & Mom's Dead Hands. (Thanks Fallenfor)
+- Fixed the bug where Wink Baby (#222) was appearing on floors where it should not have. (Thanks Gamonymous)
+- Fixed the bug where Turtle Dragon Baby (#364) would softlock with rooms that contained Flaming Hoppers. (Thanks SuperpaperChildy)
+- Fixed the bug where Beanie Baby (#465) could be assigned if the player did not have a trinket. (Thanks Gamonymous)
+- Fixed the bug where Lazy Baby (#499) was not working properly. (Thanks Monkeypot)
+- Fixed the bug where Berry Baby (#534) was not working properly. (Thanks Jack)
+- Fixed the bug where Demon Baby (#581) was not working properly. (Thanks Fallenfor)
 - Fixed the bug where babies with multiple trinkets would only got one removed on the next floor. (Thanks Monkeypot)
 - Fixed the bug where the third collectible of a baby would not be removed. (Thanks SuperpaperChildy & Fallenfor)
 - Fixed the bug where banned items were not properly removed from pools. (Thanks Gamonymous)
@@ -109,13 +110,13 @@
 ### _v1.7.1_ - September 8th, 2023
 
 - Fixed the bug where Random Baby was not properly starting with +1 damage.
-- Fixed the bug where Red Ghost Baby was not working properly. (Thanks SuperpaperChildy)
-- Fixed the bug where Barbarian Baby was not working properly. (Thanks SuperpaperChildy)
-- Fixed the bug where Cracked Infamy Baby was not working properly. (Thanks SuperpaperChildy)
-- Fixed the bug where Tusks Baby was not working properly. (Thanks SuperpaperChildy)
-- Fixed the bug where Skinless Baby was not working properly. (Thanks SuperpaperChildy)
-- Fixed the bug where Solomons Baby A and Solomons Baby 2 were not working properly. (Thanks SuperpaperChildy)
-- Fixed the bug where Nuclear Baby was not working properly.
+- Fixed the bug where Tusks Baby (#124) was not working properly. (Thanks SuperpaperChildy)
+- Fixed the bug where Cracked Infamy Baby (#159) was not working properly. (Thanks SuperpaperChildy)
+- Fixed the bug where Nuclear Baby (#251) was not working properly.
+- Fixed the bug where Skinless Baby (#322) was not working properly. (Thanks SuperpaperChildy)
+- Fixed the bug where Barbarian Baby (#344) was not working properly. (Thanks SuperpaperChildy)
+- Fixed the bug where Red Ghost Baby (369) was not working properly. (Thanks SuperpaperChildy)
+- Fixed the bug where Solomons Baby A (#531) and Solomons Baby 2 (#532) were not working properly. (Thanks SuperpaperChildy)
 
 ### _v1.7.0_ - September 7th, 2023
 
@@ -159,10 +160,10 @@
   - Cubic Baby (#573) - Starts with Brimstone Bombs + Scatter Bombs
   - Robo-Baby (#578) - Starts with Technology + 3x Robo-Baby
 - Thanks to Gamonymous for these new baby effects.
-- Fixed the bug where Spike Baby chests would not work properly. (Thanks SuperpaperChildy)
-- Fixed the bug where Spike Baby's ability would occur on The Chest / Dark Room. (Thanks SuperpaperChildy)
-- Fixed the bug where Shopkeeper baby would not work properly. (Thanks SuperpaperChildy)
-- Fixed the bug where Twitchy Baby would not work properly. (Thanks Gamonymous)
+- Fixed the bug where Spike Baby (#166) chests would not work properly. (Thanks SuperpaperChildy)
+- Fixed the bug where Spike Baby's (#166) ability would occur on The Chest / Dark Room. (Thanks SuperpaperChildy)
+- Fixed the bug where Shopkeeper baby (#215) would not work properly. (Thanks SuperpaperChildy)
+- Fixed the bug where Twitchy Baby (#511) would not work properly. (Thanks Gamonymous)
 
 ### _v1.6.2_ - February 4th, 2023
 
@@ -206,7 +207,7 @@
 
 ### _v1.5.2_ - August 14th, 2022
 
-- Fixed the bug where the Aban Baby coins would not properly be removed when leaving the room.
+- Fixed the bug where the Aban Baby (#177) coins would not properly be removed when leaving the room.
 
 ### _v1.5.0_ - July 26th, 2022
 
@@ -217,8 +218,8 @@
 ### _v1.4.10_ - February 18th, 2022
 
 - New baby: Esau Jr. Baby (#584) - Soul of Jacob and Esau effect on hit
-- Fixed the bug where Lil Brimstone was invisible.
-- Fixed the bug where the sprite for Boiled Baby was not working correctly.
+- Fixed the bug where Lil Brimstone (#588) was invisible.
+- Fixed the bug where the sprite for Boiled Baby (#595) was not working correctly.
 - Fixed the bug where baby sprites would not work correctly under certain conditions.
 - Fixed the bug where jumping into a Womb trapdoor would softlock the game under certain conditions.
 
@@ -431,19 +432,18 @@ Bug fixes:
 
 ### _v1.0.7_ - October 1st, 2020
 
-- Fixed the bug where Fang Demon Baby (#281) soft-locked with the knife. (Thanks Hispa)
 - Fixed the bug where Lost Baby (#10), Hopeless Baby (#125), and Mohawk Baby (#138) did not show Lost-style health. (Thanks Hispa)
-- Fixed the bug where some graphics would not be drawn correctly with Lost-style health.
-- Fixed the bug where Hooligan Baby (#514) caused a soft-lock on Satan. (Thanks Hispa)
-- Fixed the bug where D Baby (#101) did not correctly have improved creep.
 - Fixed the bug where Lost Baby (#10), Hopeless Baby (#125), Mohawk Baby (#138), Aban Baby (#177), and Scoreboard Baby (#474) would permanently die in seeded races. (Thanks caesar)
-- Fixed the incorrect description on Wrath Baby. (Thanks Gamonymous)
-- Fixed the bug where Worry Baby would not pick a pedestal item into the Schoolbag before teleporting. (Thanks lenamek)
+- Fixed the incorrect description on Wrath Baby (#19). (Thanks Gamonymous)
+- Fixed the bug where D Baby (#101) did not correctly have improved creep.
 - Fixed the bug with Black Eye Baby (#164) where his ability was not working correctly. (Thanks sisuka)
+- Fixed the bug where Worry Baby (#167) would not pick a pedestal item into the Schoolbag before teleporting. (Thanks lenamek)
+- Fixed the bug where Fang Demon Baby (#281) soft-locked with the knife. (Thanks Hispa)
+- Fixed the bug where Hooligan Baby (#514) caused a soft-lock on Satan. (Thanks Hispa)
+- Fixed the bug where some graphics would not be drawn correctly with Lost-style health.
 - Blindfolded babies will no longer be chosen if you have Tech.5. (Thanks ez_duke)
 - Belial Baby (#51) will no longer be chosen if you have Mega Blast. (Thanks lenamek)
 - Hare Baby (#267) will no longer damage you in the starting room of a floor. (Thanks Hispa)
-- Added a known bug for Scream Baby (#81). (Thanks Moucheron Quipet)
 
 ### _v1.0.5_ - February 21st, 2020
 
@@ -458,9 +458,9 @@ Bug fixes:
 ### _v1.0.0_ - May 5th, 2019
 
 - Babies now start with 3 red hearts outside of the Racing+ Season 5 custom challenge.
-- Bawl Baby tears will now scale with the player's damage. (damage / 2)
-- Road Kill Baby rib will now only deal 3x player's damage.
-- Elf Baby spear will now only deal 3x player's damage.
+- Bawl Baby (#231) tears will now scale with the player's damage. (damage / 2)
+- Elf Baby's (#377) spear will now only deal 3x player's damage.
+- Road Kill Baby's (#507) rib will now only deal 3x player's damage.
 - Fixed some miscellaneous bugs.
 
 ### _v0.1.28_ - November 11th, 2018
@@ -473,17 +473,18 @@ Bug fixes:
 - The damage multiplier for Random Baby is changed from 1.35 to 1.0 (i.e. the same as Isaac).
 - The Babies Mod no longer uses the "Stat API 2.0" library due to many unfixed bugs by the developer.
 - The following babies are nerfed:
-  - Bloat Baby (#2) - Syringe tears
-  - Lights Baby (#165) - Holy tears
-  - Arcade Baby (#368) - Razor blade tears
+  - Bloat Baby (#2) - Syringe tears (every 3rd tear)
+  - Lights Baby (#165) - Holy tears (every 3rd tear)
+  - Arcade Baby (#368) - Razor blade tears (every 3rd tear)
   - Dark Space Soldier Baby (#398) - Chaos card tears (every 5th tear)
   - Little Horn Baby (#429) - Void tears (every 5th tear)
-  - Tooth Head Baby (#442) - Tooth tears
+  - Tooth Head Baby (#442) - Tooth tears (every 3rd tear)
 - Fixed some miscellaneous bugs.
 
 ### _v0.1.12_ - November 4th, 2018
 
-- Spartan Baby (#329) has a new ability: Spawns a pedestal item after 6 hits.
+- Changed the following babies:
+  - Spartan Baby (#329) - Spawns a pedestal item after 6 hits
 - Did some minor balance changes.
 - Fixed some miscellaneous bugs.
 

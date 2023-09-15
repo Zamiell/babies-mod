@@ -3218,7 +3218,7 @@ export const BABIES = {
   // 368
   [RandomBabyType.ARCADE]: {
     name: "Arcade Baby",
-    description: "Razor blade tears",
+    description: "Razor blade tears (every 3rd tear)",
     sprite: "368_baby_arcade.png",
     num: 3,
     requireTears: true,
@@ -3868,7 +3868,7 @@ export const BABIES = {
   // 442
   [RandomBabyType.TOOTH_HEAD]: {
     name: "Tooth Head Baby",
-    description: "Tooth tears",
+    description: "Tooth tears (every 3rd tear)",
     sprite: "442_baby_tooth.png",
     num: 3,
     requireTears: true,

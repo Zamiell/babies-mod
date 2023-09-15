@@ -18,8 +18,8 @@ const v = {
 export class SpiderBaby extends Baby {
   v = v;
 
+  /** The custom effect with C Section is a downgrade. (But Monstro's Lung is okay.) */
   override isValid(player: EntityPlayer): boolean {
-    // The custom effect with C Section is a downgrade. (But Monstro's Lung is okay.)
     return !player.HasCollectible(CollectibleType.C_SECTION);
   }
 
