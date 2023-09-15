@@ -377,7 +377,7 @@ There are 603 babies in total.
 | 365 | <img src="./images/365_baby_shellsuit.png" alt="365_baby_shellsuit.png"> | Shell Suit Baby | Starts with Burnt Penny |
 | 366 | <img src="./images/366_baby_fiery.png" alt="366_baby_fiery.png"> | Fiery Baby | Spawns a friendly fire on hit |
 | 367 | <img src="./images/367_baby_meanmushroom.png" alt="367_baby_meanmushroom.png"> | Mean Mushroom Baby | Enemies projectiles freeze you |
-| 368 | <img src="./images/368_baby_arcade.png" alt="368_baby_arcade.png"> | Arcade Baby | Razor blade tears |
+| 368 | <img src="./images/368_baby_arcade.png" alt="368_baby_arcade.png"> | Arcade Baby | Razor blade tears (every 3rd tear) |
 | 369 | <img src="./images/369_baby_scaredghost.png" alt="369_baby_scaredghost.png"> | Scared Ghost Baby | 2x speed |
 | 370 | <img src="./images/370_baby_blueghost.png" alt="370_baby_blueghost.png"> | Blue Ghost Baby | Max tear rate |
 | 371 | <img src="./images/371_baby_redghost.png" alt="371_baby_redghost.png"> | Red Ghost Baby | +10 damage |
@@ -451,7 +451,7 @@ There are 603 babies in total.
 | 439 | <img src="./images/439_baby_afro_rainbow.png" alt="439_baby_afro_rainbow.png"> | Afro Rainbow Baby | Starts with 20x Rainbow Baby |
 | 440 | <img src="./images/440_baby_afro.png" alt="440_baby_afro.png"> | Afro Baby | Starts with D1 |
 | 441 | <img src="./images/441_baby_tv.png" alt="441_baby_tv.png"> | TV Baby | Mega Blast effect after 6 hits |
-| 442 | <img src="./images/442_baby_tooth.png" alt="442_baby_tooth.png"> | Tooth Head Baby | Tooth tears |
+| 442 | <img src="./images/442_baby_tooth.png" alt="442_baby_tooth.png"> | Tooth Head Baby | Tooth tears (every 3rd tear) |
 | 443 | <img src="./images/443_baby_tired.png" alt="443_baby_tired.png"> | Tired Baby | Starts with 10x Cube Baby + Ice Cube |
 | 444 | <img src="./images/444_baby_steroids.png" alt="444_baby_steroids.png"> | Steroids Baby | Forget Me Now on 2nd hit (per room) |
 | 445 | <img src="./images/445_baby_soap_monster.png" alt="445_baby_soap_monster.png"> | Soap Monster Baby | Starts with Butter |
