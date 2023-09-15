@@ -14,7 +14,7 @@ import {
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
-/** Starts with Abel; tears come from Abel; 2x damage. */
+/** Starts with Abel; tears come from Abel; 2x damage (but not in big rooms). */
 export class PsychicBaby extends Baby {
   // 8
   @Callback(ModCallback.EVALUATE_CACHE, CacheFlag.DAMAGE)
@@ -35,8 +35,9 @@ export class PsychicBaby extends Baby {
       return;
     }
 
-    // Disable the mechanic in any room that would grant 2 charges.
-    if (roomShape >= RoomShape.SHAPE_2x2) {
+    // Disable the mechanic in big rooms:
+    // https://clips.twitch.tv/ExquisiteLuckyStarlingBlargNaut--cC5k8Eemix8fHgt
+    if (roomShape >= RoomShape.SHAPE_1x2) {
       return;
     }
 

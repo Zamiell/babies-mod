@@ -7,11 +7,13 @@
 
 - Changed the following babies:
   - Eyebrows Baby (#89) - Starts with 5x Guppy's Hair Ball + flight + explosion immunity + blindfolded
+- The effect for Psychic Baby (#504) will now be disabled in rooms bigger than a 1x1. (Thanks Fallenfor)
 - Fixed the bug where Belial Baby (#51) would not work properly with Chocolate Milk. (Thanks Fallenfor)
 - Fixed the bug where Goat Baby (#62) was not working properly. (Thanks Toooschi)
 - Fixed the bug where Eyebrows Baby (#89) only had one Guppy's Hair ball instead of 5. (Thanks sisuka)
 - Fixed the bug where Attractive Baby (#157) would not work properly with Krampus. (Thanks Fallenfor)
 - Fixed the bug where the effect for Mushroom Girl Baby (#361) would work with Saturnus tears. (Thanks Fallenfor)
+- Fixed the bug where Lost Gray Baby (#525) would not work properly with Curse Rooms. (Thanks Fallenfor)
 
 ### _v1.15.0_ - September 13th, 2023
 
