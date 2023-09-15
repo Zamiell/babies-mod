@@ -19,6 +19,11 @@ export class WorryBaby extends Baby {
     this.queueFutureTeleport(player);
   }
 
+  @CallbackCustom(ModCallbackCustom.PRE_ITEM_PICKUP)
+  preItemPickup(player: EntityPlayer): void {
+    this.queueFutureTeleport(player);
+  }
+
   queueFutureTeleport(player: EntityPlayer): void {
     mod.runNextGameFrame(() => {
       useActiveItemTemp(player, CollectibleType.TELEPORT);

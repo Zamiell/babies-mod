@@ -3,7 +3,7 @@
 <!-- cspell:ignore Adrayon,cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
-### _v1.15.1_ - September 15th, 2023 (Unreleased)
+### _v1.16.0_ - September 15th, 2023 (Unreleased)
 
 - Babies that change item pools will no longer appear on the first or second floors of a run.
 - Changed the following babies:
@@ -15,6 +15,7 @@
   - Goat Baby (#62) - The effect now works properly. (Thanks Toooschi)
   - Eyebrows Baby (#89) - Now has the intended amount of Guppy's Hair balls. (Thanks sisuka)
   - Attractive Baby (#157) - Will now work properly with Krampus. (Thanks Fallenfor)
+  - Worry Baby (#167) - Now teleports after touching a pedestal item. (Thanks sisuka)
   - Mushroom Girl Baby (#361) - The effect with no longer work with Saturnus tears. (Thanks Fallenfor)
   - Lost Gray Baby (#525) - Will now work properly with Curse Rooms. (Thanks Fallenfor)
   - Double Baby (#527) - Will now have Flip properly removed. (Thanks sisuka)
