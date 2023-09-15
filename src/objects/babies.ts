@@ -2800,10 +2800,9 @@ export const BABIES = {
   // 321
   [RandomBabyType.CUPCAKE]: {
     name: "Cupcake Baby",
-    description: "Starts with Voodoo Head + Flat File",
+    description: "Starts with Anti-Gravity",
     sprite: "321_baby_cupcake.png",
-    collectible: CollectibleType.VOODOO_HEAD,
-    trinket: TrinketType.FLAT_FILE,
+    collectible: CollectibleType.ANTI_GRAVITY,
   },
 
   // 322
@@ -4867,9 +4866,9 @@ export const BABIES = {
   // 558
   [RandomBabyType.FINGER]: {
     name: "Finger Baby",
-    description: "All items from the Secret Room pool",
+    description: "Starts with The Intruder",
     sprite: "558_baby_finger.png",
-    allCollectiblesFromPool: ItemPoolType.SECRET,
+    collectible: CollectibleType.INTRUDER,
   },
 
   // 559

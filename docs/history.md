@@ -3,8 +3,11 @@
 <!-- cspell:ignore Adrayon,cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
-### _v1.16.0_ - September 15th, 2023 (Unreleased)
+### _v1.16.0_ - September 15th, 2023
 
+- The following babies have new effects:
+  - Cupcake Baby (#321) - "Starts with Voodoo Head + Flat File" --> "Starts with Anti-Gravity"
+  - Finger Baby (#558) - "All items from the Secret Room pool" --> "Starts with The Intruder"
 - Babies that change item pools will no longer appear on the first or second floors of a run.
 - Changed the following babies:
   - Eyebrows Baby (#89) - Now has explosion immunity. (Thanks sisuka)
