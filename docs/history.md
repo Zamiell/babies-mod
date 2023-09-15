@@ -5,6 +5,9 @@
 
 ### _v1.15.1_ - September 15th, 2023 (Unreleased)
 
+- Changed the following babies:
+  - Eyebrows Baby (#89) - Starts with 5x Guppy's Hair Ball + flight + explosion immunity + blindfolded
+- !Fixed the bug where Eyebrows Baby was not working properly. (Thanks sisuka)
 - Fixed the bug where Goat Baby was not working properly. (Thanks Toooschi)
 
 ### _v1.15.0_ - September 13th, 2023
