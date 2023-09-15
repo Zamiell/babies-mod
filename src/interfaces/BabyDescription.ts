@@ -1,5 +1,6 @@
 import type {
   CollectibleType,
+  ItemPoolType,
   SeedEffect,
   TrinketType,
 } from "isaac-typescript-definitions";
@@ -26,6 +27,7 @@ export interface BabyDescription {
   readonly goldenBomb?: boolean;
   readonly num?: int;
   readonly seed?: SeedEffect;
+  readonly allCollectiblesFromPool?: ItemPoolType;
   readonly softlockPreventionDestroyPoops?: boolean;
   readonly softlockPreventionIsland?: boolean;
 

@@ -6,7 +6,6 @@ List of boring babies:
 - Cupid Baby (#289) - Starts with Cupid's Arrow - Slightly overlaps with Belial Baby 2 (#207) & Arrowhead Baby (#464)
 - Nature Baby (#305) - Starts with Sprinkler - Slightly overlaps with Blue Baby (#30) & Mutated Fish Baby (#449)
 - Black Knight Baby (#427) - Starts with Black Hole - Slightly overlaps with Astronaut Baby (#406)
-- Beanie Baby (#465) - Starts with Smelter
 
 List of hard babies:
 - Troll Baby (#6) - Spawns a Troll Bomb every 3 seconds
@@ -16,6 +15,7 @@ List of hard babies:
 - Nosferatu Baby (#109) - Enemies have homing projectiles
 - Onion Baby (#224) - Projectiles have 2x speed
 - Zipper Baby (#225) - Extra enemies spawn on hit
+- Hanger Baby (#228) - Starts with Abel; Abel's tears hurt you
 - Hare Baby (#267) - Takes damage when standing still
 - Vomit Baby (#341) - Takes damage if moving when the timer reaches 0
 - Mean Mushroom Baby (#367) - Enemies projectiles freeze you

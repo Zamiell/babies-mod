@@ -9,6 +9,7 @@
 
 import {
   CollectibleType,
+  ItemPoolType,
   SeedEffect,
   TrinketType,
 } from "isaac-typescript-definitions";
@@ -4866,7 +4867,7 @@ export const BABIES = {
     name: "Finger Baby",
     description: "All items from the Secret Room pool",
     sprite: "558_baby_finger.png",
-    class: bc.FingerBaby,
+    allCollectiblesFromPool: ItemPoolType.SECRET,
   },
 
   // 559
@@ -4874,7 +4875,7 @@ export const BABIES = {
     name: "Bald Baby",
     description: "All items from the Boss Room pool",
     sprite: "559_baby_bald.png",
-    class: bc.BaldBaby,
+    allCollectiblesFromPool: ItemPoolType.BOSS,
   },
 
   // 560
@@ -5048,7 +5049,7 @@ export const BABIES = {
     name: "Little Gish", // CollectibleType.LITTLE_GISH (99)
     description: "All items from the Curse Room pool",
     sprite: "familiar_shooters_04_littlegish.png",
-    class: bc.LittleGish,
+    allCollectiblesFromPool: ItemPoolType.CURSE,
   },
 
   // 580
@@ -5077,7 +5078,7 @@ export const BABIES = {
     name: "Ghost Baby", // CollectibleType.GHOST_BABY (163)
     description: "All items from the shop pool",
     sprite: "familiar_shooters_09_ghostbaby.png",
-    class: bc.GhostBaby,
+    allCollectiblesFromPool: ItemPoolType.SHOP,
   },
 
   // 583
@@ -5139,7 +5140,7 @@ export const BABIES = {
     name: "Mongo Baby", // CollectibleType.MONGO_BABY (322)
     description: "All items from the Angel Room pool",
     sprite: "familiar_shooters_322_mongobaby.png",
-    class: bc.MongoBaby,
+    allCollectiblesFromPool: ItemPoolType.ANGEL,
   },
 
   // 590
@@ -5147,7 +5148,7 @@ export const BABIES = {
     name: "Incubus", // CollectibleType.INCUBUS (360)
     description: "All items from the Devil Room pool",
     sprite: "familiar_shooters_80_incubus.png",
-    class: bc.Incubus,
+    allCollectiblesFromPool: ItemPoolType.DEVIL,
   },
 
   // 591
@@ -5191,7 +5192,7 @@ export const BABIES = {
     description: "All items from the Ultra Secret Room pool",
     // We cannot use the vanilla sprite since it is unidirectional.
     sprite: "003.208_boilbaby_custom.png",
-    class: bc.BoiledBaby,
+    allCollectiblesFromPool: ItemPoolType.ULTRA_SECRET,
   },
 
   // 596

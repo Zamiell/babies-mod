@@ -6,6 +6,7 @@ import {
 } from "isaacscript-common";
 import { babiesCheckValid } from "./babiesCheckValid";
 import type { Baby } from "./classes/Baby";
+import { AllCollectiblesFromPool } from "./classes/features/AllCollectiblesFromPool";
 import { BabySelection } from "./classes/features/BabySelection";
 import { BabyStartingItems } from "./classes/features/BabyStartingItems";
 import { BabyStats } from "./classes/features/BabyStats";
@@ -34,6 +35,7 @@ import { BABIES } from "./objects/babies";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
 
 const MOD_FEATURES = [
+  AllCollectiblesFromPool,
   BabySelection,
   BabyStartingItems,
   BabyStats,

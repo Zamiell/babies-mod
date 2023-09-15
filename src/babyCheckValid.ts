@@ -17,6 +17,7 @@ import {
   isActiveSlotEmpty,
   levelHasRoomType,
   onAscent,
+  onEffectiveStage,
   onFirstFloor,
   onRepentanceStage,
   onStage,
@@ -475,6 +476,16 @@ function checkStage(
   if (
     baby.requireNoEndFloors === true &&
     onStageOrHigher(LevelStage.BLUE_WOMB)
+  ) {
+    return false;
+  }
+
+  // We don't want pool replacements to affect the player's first devil deal. Additionally, we do
+  // not want pool replacements to affect resetting for a starting item.
+  if (
+    baby.allCollectiblesFromPool !== undefined &&
+    (onEffectiveStage(LevelStage.BASEMENT_1) ||
+      onEffectiveStage(LevelStage.BASEMENT_2))
   ) {
     return false;
   }
