@@ -1,9 +1,8 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
-import { getBabyCollectiblesSet } from "../../babyCheckValid";
 import type { BabyDescription } from "../../interfaces/BabyDescription";
 import { BABIES } from "../../objects/babies";
-import { isPlayerGoingToNextFloor } from "../../utils";
+import { getBabyCollectiblesSet, isPlayerGoingToNextFloor } from "../../utils";
 import { BabyModFeature } from "../BabyModFeature";
 import { getBabyType } from "./babySelection/v";
 import { v } from "./detectTrapdoorTouched/v";

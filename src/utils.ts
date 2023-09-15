@@ -68,6 +68,7 @@ import { getBabyType } from "./classes/features/babySelection/v";
 import { ROOM_TYPES_TO_NOT_TRANSFORM } from "./constants";
 import { CollectibleTypeCustom } from "./enums/CollectibleTypeCustom";
 import { PlayerTypeCustom } from "./enums/PlayerTypeCustom";
+import type { BabyDescription } from "./interfaces/BabyDescription";
 import { mod } from "./mod";
 
 const BAD_MISSED_TEARS_COLLECTIBLE_TYPES = [
@@ -117,6 +118,23 @@ export function everyNSeconds(func: () => void, seconds: int): void {
   if (gameFrameMatchesSecondsCount) {
     func();
   }
+}
+
+export function getBabyCollectiblesSet(
+  baby: BabyDescription,
+): Set<CollectibleType> {
+  const babyCollectiblesSet = new Set<CollectibleType>();
+  if (baby.collectible !== undefined) {
+    babyCollectiblesSet.add(baby.collectible);
+  }
+  if (baby.collectible2 !== undefined) {
+    babyCollectiblesSet.add(baby.collectible2);
+  }
+  if (baby.collectible3 !== undefined) {
+    babyCollectiblesSet.add(baby.collectible3);
+  }
+
+  return babyCollectiblesSet;
 }
 
 /**

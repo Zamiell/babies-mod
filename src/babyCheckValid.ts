@@ -44,6 +44,7 @@ import {
 import type { RandomBabyType } from "./enums/RandomBabyType";
 import type { BabyDescription } from "./interfaces/BabyDescription";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
+import { getBabyCollectiblesSet } from "./utils";
 
 export function babyCheckValid(
   player: EntityPlayer,
@@ -625,21 +626,4 @@ function checkBabyClass(player: EntityPlayer, babyClass: Baby): boolean {
   }
 
   return babyClass.isValid(player);
-}
-
-export function getBabyCollectiblesSet(
-  baby: BabyDescription,
-): Set<CollectibleType> {
-  const babyCollectiblesSet = new Set<CollectibleType>();
-  if (baby.collectible !== undefined) {
-    babyCollectiblesSet.add(baby.collectible);
-  }
-  if (baby.collectible2 !== undefined) {
-    babyCollectiblesSet.add(baby.collectible2);
-  }
-  if (baby.collectible3 !== undefined) {
-    babyCollectiblesSet.add(baby.collectible3);
-  }
-
-  return babyCollectiblesSet;
 }
