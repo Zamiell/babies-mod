@@ -5050,18 +5050,20 @@ export const BABIES = {
   [RandomBabyType.LITTLE_GISH]: {
     name: "Little Gish", // CollectibleType.LITTLE_GISH (99)
     description: "All items from the Curse Room pool",
-    sprite: "familiar_shooters_04_littlegish.png",
+    // We cannot use the vanilla sprite since it does not follow the same direction format as all of
+    // the other sprites (for some reason).
+    sprite: "familiar_shooters_04_littlegish_custom.png",
     allCollectiblesFromPool: ItemPoolType.CURSE,
   },
 
   // 580
   [RandomBabyType.LITTLE_STEVEN]: {
     name: "Little Steven", // CollectibleType.LITTLE_STEVEN (100)
-    description: "Starts with 20x Ring Cap + golden bomb",
+    description: "Starts with 10x Ring Cap + golden bomb",
     description2: "+ blindfolded + explosion immunity",
     sprite: "familiar_shooters_05_littlesteve.png",
     trinket: TrinketType.RING_CAP,
-    trinketNum: 20,
+    trinketNum: 10,
     goldenBomb: true,
     blindfolded: true,
     explosionImmunity: true,

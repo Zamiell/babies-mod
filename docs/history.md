@@ -9,6 +9,7 @@
 - Changed the following babies:
   - Eyebrows Baby (#89) - Now has explosion immunity. (Thanks sisuka)
   - Psychic Baby (#504) - The effect is now disabled in rooms bigger than a 1x1. (Thanks Fallenfor)
+  - Little Steven (#580) - Now starts with 10x Ring Cap (instead of 20x).
 - Fixed bugs with the following babies:
   - Belial Baby (#51) - The effect now works properly with Chocolate Milk. (Thanks Fallenfor)
   - Goat Baby (#62) - The effect now works properly. (Thanks Toooschi)
@@ -18,6 +19,7 @@
   - Lost Gray Baby (#525) - Will now work properly with Curse Rooms. (Thanks Fallenfor)
   - Double Baby (#527) - Will now have Flip properly removed. (Thanks sisuka)
   - Lobotomy Baby (#79) - Will now work properly if the last hit is inside of a Boss Room.
+  - Little Gish (#579) - The sprite now displays correctly. (Thanks sisuka)
 
 ### _v1.15.0_ - September 13th, 2023
 
