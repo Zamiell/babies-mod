@@ -20,6 +20,7 @@
   - Double Baby (#527) - Will now have Flip properly removed. (Thanks sisuka)
   - Lobotomy Baby (#79) - Will now work properly if the last hit is inside of a Boss Room.
   - Little Gish (#579) - The sprite now displays correctly. (Thanks sisuka)
+  - Bullet Baby (#550) - The collection validation now works properly. (Thanks sisuka)
 
 ### _v1.15.0_ - September 13th, 2023
 

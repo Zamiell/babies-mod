@@ -36,9 +36,9 @@ const COLLECTIBLES_THAT_BREAK_THE_BLINDFOLD_MECHANIC = [
 
 /** Starts with Rocket in a Jar + golden bomb + blindfolded. */
 export class BulletBaby extends Baby {
+  /** Some collectibles prevent the custom blindfold mechanic from working properly. */
   override isValid(player: EntityPlayer): boolean {
-    // Some collectibles prevent the custom blindfold mechanic from working properly.
-    return hasCollectible(
+    return !hasCollectible(
       player,
       ...COLLECTIBLES_THAT_BREAK_THE_BLINDFOLD_MECHANIC,
     );
