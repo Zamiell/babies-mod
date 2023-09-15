@@ -803,6 +803,7 @@ export const BABIES = {
     num: 5,
     flight: true,
     blindfolded: true,
+    requireNoEndFloors: true,
   },
 
   // 90
