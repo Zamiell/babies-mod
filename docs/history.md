@@ -11,6 +11,7 @@
   - Psychic Baby (#504) - The effect is now disabled in rooms bigger than a 1x1. (Thanks Fallenfor)
   - Little Steven (#580) - Now starts with 10x Ring Cap (instead of 20x).
 - Fixed bugs with the following babies:
+  - Black Baby (#27) - Can no longer be assigned if the player has flight. (Thanks sisuka)
   - Belial Baby (#51) - The effect now works properly with Chocolate Milk. (Thanks Fallenfor)
   - Goat Baby (#62) - The effect now works properly. (Thanks Toooschi)
   - Eyebrows Baby (#89) - Now has the intended amount of Guppy's Hair balls. (Thanks sisuka)
