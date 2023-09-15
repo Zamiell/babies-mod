@@ -8,6 +8,7 @@ import {
   ModCallbackCustom,
   getBosses,
   inMegaSatanRoom,
+  inRoomType,
   levelHasRoomType,
   onStage,
   sfxManager,
@@ -43,6 +44,7 @@ export class LobotomyBaby extends Baby {
     if (v.run.numHits === num) {
       v.run.shouldAutoKillBoss = true;
       sfxManager.Play(SoundEffect.THUMBS_UP);
+      this.checkKillBoss();
     }
 
     return undefined;
@@ -50,11 +52,15 @@ export class LobotomyBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED, RoomType.BOSS)
   postNewRoomReorderedBoss(): void {
-    if (!v.run.shouldAutoKillBoss) {
-      return;
-    }
+    this.checkKillBoss();
+  }
 
-    if (inMegaSatanRoom()) {
+  checkKillBoss(): void {
+    if (
+      !v.run.shouldAutoKillBoss ||
+      !inRoomType(RoomType.BOSS) ||
+      inMegaSatanRoom()
+    ) {
       return;
     }
 
