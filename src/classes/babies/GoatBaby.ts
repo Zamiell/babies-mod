@@ -53,7 +53,7 @@ export class GoatBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmg(player: EntityPlayer): boolean | undefined {
-    const num = this.getAttribute("num");
+    const num = this.getAttribute("requireNumHits");
 
     v.run.numHits++;
     if (v.run.numHits === num) {
