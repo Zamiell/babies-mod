@@ -10,9 +10,15 @@ import { getRandomCollectibleTypeFromPool } from "../../features/GetRandomCollec
 
 /** All items from the shop pool. */
 export class GhostBaby extends Baby {
-  /** On stage 2, they will miss a Devil Deal, which is not fair. */
+  /**
+   * We don't want this to affect the player's first devil deal. Additionally, we do not want the
+   * mechanic to affect resetting for a starting item.
+   */
   override isValid(): boolean {
-    return !onEffectiveStage(LevelStage.BASEMENT_2);
+    return (
+      !onEffectiveStage(LevelStage.BASEMENT_1) &&
+      !onEffectiveStage(LevelStage.BASEMENT_2)
+    );
   }
 
   @Callback(ModCallback.PRE_GET_COLLECTIBLE)
