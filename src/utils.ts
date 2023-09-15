@@ -119,6 +119,9 @@ export function everyNSeconds(func: () => void, seconds: int): void {
   }
 }
 
+/**
+ * A combination of `getPlayerFromEntity` (from `isaacscript-common`) and `isValidRandomBabyPlayer`.
+ */
 export function getBabyPlayerFromEntity(
   entity: Entity,
 ): EntityPlayer | undefined {

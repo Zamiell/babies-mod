@@ -1,6 +1,5 @@
 import {
   CollectibleType,
-  EntityType,
   LaserVariant,
   ModCallback,
 } from "isaac-typescript-definitions";
@@ -10,14 +9,16 @@ import {
   hasCollectible,
 } from "isaacscript-common";
 import { AZAZEL_ANTI_SYNERGIES } from "../../constants";
+import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
 /** Starts with Azazel-style Brimstone + flight. */
 export class BelialBaby extends Baby {
-  /** The method to shorten the laser also affects Mega Blast. */
   override isValid(player: EntityPlayer): boolean {
     return (
-      !player.HasCollectible(CollectibleType.MEGA_BLAST) &&
+      // A max-charged Chocolate Milk + Brimstone shot will not be `LaserVariant.THICK_RED`, causing
+      // the check below to fail.
+      !player.HasCollectible(CollectibleType.CHOCOLATE_MILK) &&
       !hasCollectible(player, ...AZAZEL_ANTI_SYNERGIES)
     );
   }
@@ -25,10 +26,12 @@ export class BelialBaby extends Baby {
   // 47
   @Callback(ModCallback.POST_LASER_INIT)
   postLaserInit(laser: EntityLaser): void {
-    if (
-      laser.SpawnerType === EntityType.PLAYER &&
-      laser.Variant === LaserVariant.THICK_RED
-    ) {
+    const player = getBabyPlayerFromEntity(laser);
+    if (player === undefined) {
+      return;
+    }
+
+    if (laser.Variant === LaserVariant.THICK_RED) {
       // For simplicity and to make it more difficult, we hard-code the default Azazel distance
       // (instead of dynamically calculating it based on the player's range).
       laser.SetMaxDistance(AZAZEL_DEFAULT_BRIMSTONE_DISTANCE);

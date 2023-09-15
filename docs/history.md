@@ -7,8 +7,9 @@
 
 - Changed the following babies:
   - Eyebrows Baby (#89) - Starts with 5x Guppy's Hair Ball + flight + explosion immunity + blindfolded
+- Fixed the bug where Belial Baby (#51) would not work properly with Chocolate Milk. (Thanks Fallenfor)
 - Fixed the bug where Goat Baby (#62) was not working properly. (Thanks Toooschi)
-- Fixed the bug where Eyebrows Baby (#89) was not working properly. (Thanks sisuka)
+- Fixed the bug where Eyebrows Baby (#89) only had one Guppy's Hair ball instead of 5. (Thanks sisuka)
 - Fixed the bug where Attractive Baby (#157) would not work properly with Krampus. (Thanks Fallenfor)
 - Fixed the bug where the effect for Mushroom Girl Baby (#361) would work with Saturnus tears. (Thanks Fallenfor)
 
