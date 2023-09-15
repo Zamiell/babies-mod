@@ -588,8 +588,8 @@ There are 603 babies in total.
 | 576 | <img src="./images/familiar_shooters_01_brotherbobby.png" alt="familiar_shooters_01_brotherbobby.png"> | Brother Bobby | Slings Godhead aura (improved) |
 | 577 | <img src="./images/familiar_shooters_07_sistermaggie.png" alt="familiar_shooters_07_sistermaggie.png"> | Sister Maggy | Loses last item on 2nd hit (per room) |
 | 578 | <img src="./images/familiar_shooters_06_robobaby.png" alt="familiar_shooters_06_robobaby.png"> | Robo-Baby | Starts with Technology + 3x Robo-Baby |
-| 579 | <img src="./images/familiar_shooters_04_littlegish.png" alt="familiar_shooters_04_littlegish.png"> | Little Gish | All items from the Curse Room pool |
-| 580 | <img src="./images/familiar_shooters_05_littlesteve.png" alt="familiar_shooters_05_littlesteve.png"> | Little Steven | Starts with 20x Ring Cap + golden bomb + blindfolded + explosion immunity |
+| 579 | <img src="./images/familiar_shooters_04_littlegish_custom.png" alt="familiar_shooters_04_littlegish_custom.png"> | Little Gish | All items from the Curse Room pool |
+| 580 | <img src="./images/familiar_shooters_05_littlesteve.png" alt="familiar_shooters_05_littlesteve.png"> | Little Steven | Starts with 10x Ring Cap + golden bomb + blindfolded + explosion immunity |
 | 581 | <img src="./images/familiar_shooters_02_demonbaby.png" alt="familiar_shooters_02_demonbaby.png"> | Demon Baby | Free devil deals |
 | 582 | <img src="./images/familiar_shooters_09_ghostbaby.png" alt="familiar_shooters_09_ghostbaby.png"> | Ghost Baby | All items from the shop pool |
 | 583 | <img src="./images/familiar_shooters_10_harlequinbaby.png" alt="familiar_shooters_10_harlequinbaby.png"> | Harlequin Baby | Starts with The Wiz |
