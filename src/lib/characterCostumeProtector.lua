@@ -7,6 +7,7 @@
 -- - R U a Wizard fix on line 908.
 -- - Empty Vessel shield fix on line 1117.
 -- - Strawman bug fix on line 1130.
+-- - Export `MainResetPlayerCostumes` on line 1207.
 
 --VERSION = "1.4.2"
 
@@ -1193,6 +1194,9 @@ function ccp:init(mod)
 	end
 end
 
+-- Make the "mainResetPlayerCostumes" function global so that other mods can use it.
+CCPMainResetPlayerCostumes = ccp.mainResetPlayerCostumes;
+
 return {
 	Init = ccp.init,
 	AddPlayer = ccp.addPlayer,
@@ -1202,5 +1206,5 @@ return {
 	ItemCostumeWhitelist = ccp.itemCostumeWhitelist,
 	NullItemIDWhitelist = ccp.nullItemIDWhitelist,
 	TrinketCostumeWhitelist = ccp.trinketCostumeWhitelist,
-	AddCallback = ccp.addCallback
+	AddCallback = ccp.addCallback,
 }
