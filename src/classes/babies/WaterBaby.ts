@@ -28,8 +28,9 @@ export class WaterBaby extends Baby {
         false,
       );
 
-      // Increase the damage and make it look more impressive.
-      tear.CollisionDamage = player.Damage * 2;
+      // Increase the damage and make it look more impressive. (We retain the flat +5 damage bonus
+      // granted in the Repentance version of the item.)
+      tear.CollisionDamage = player.Damage * 2 + 5;
       tear.Scale = 2;
       tear.KnockbackMultiplier = 20;
     });
