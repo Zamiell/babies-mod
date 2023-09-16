@@ -1446,7 +1446,7 @@ export const BABIES = {
     description: "Starts with Leprosy, +5 damage on Leprosy breaking",
     sprite: "164_baby_blackeye.png",
     collectible: CollectibleType.LEPROSY,
-    num: 5,
+    num: 5, // The amount of damage to grant.
     class: bc.BlackEyeBaby,
   },
 
@@ -2892,7 +2892,7 @@ export const BABIES = {
     sprite: "331_baby_slicer.png",
     collectible: CollectibleType.SOY_MILK,
     collectible2: CollectibleType.PROPTOSIS,
-    num: 5, // Frames until it disappears
+    num: 5, // The frames until the tear disappears.
     class: bc.SlicerBaby,
   },
 
@@ -3592,7 +3592,7 @@ export const BABIES = {
     description: "Starts with Flock of Succubi",
     sprite: "409_baby_coolghost.png",
     collectible: CollectibleTypeCustom.FLOCK_OF_SUCCUBI,
-    num: 10,
+    num: 10, // The amount of Succubi to summon.
     class: bc.CoolGhostBaby,
   },
 
@@ -4437,7 +4437,7 @@ export const BABIES = {
     description: "Starts with Pointy Rib x3 + blindfolded",
     sprite: "507_baby_roadkill.png",
     collectible: CollectibleType.POINTY_RIB,
-    num: 3,
+    collectibleNum: 3,
     blindfolded: true,
   },
 

@@ -12,6 +12,7 @@
   - Gem Baby (#237) - The effect now works properly. (Thanks sisuka)
   - Dark Space Soldier Baby (#398) - Will no longer be chosen if you have C Section. (Thanks sisuka)
   - Tooth Head Baby (#442) - The effect no longer happens on every tear. (Thanks sisuka)
+  - Road Kill Baby (#507) - Will now have the correct amount of Pointy Ribs. (Thanks sisuka)
 
 ### _v1.16.0_ - September 15th, 2023
 
