@@ -163,10 +163,7 @@ function getMarkdownText(babyDescriptions: BabyDescriptionSimple[]): string {
 
     // We use an `img` tag instead of the Markdown image format because the former does not work
     // properly if the file name has a space in it.
-    const image =
-      sprite === "invisible_baby.png"
-        ? ""
-        : `<img src="${spriteURL}" alt="${sprite}">`;
+    const image = `<img src="${spriteURL}" alt="${sprite}">`;
 
     text += `| ${id} | ${image} | ${name} | ${description} |\n`;
   }

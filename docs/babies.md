@@ -611,4 +611,4 @@ There are 603 babies in total.
 | 599 | <img src="./images/familiar_esau_jr.png" alt="familiar_esau_jr.png"> | Esau Jr. Baby | Soul of Jacob and Esau effect on hit |
 | 600 | <img src="./images/familiar_gello_custom.png" alt="familiar_gello_custom.png"> | Gello | Starts with Gello |
 | 601 | <img src="./images/familiar_siren_shooter.png" alt="familiar_siren_shooter.png"> | Siren Shooter | Spawns a pedestal item after 6 hits |
-| 602 |  | Invisible Baby | Invisibility |
+| 602 | <img src="./images/invisible_baby.png" alt="invisible_baby.png"> | Invisible Baby | Invisibility |
