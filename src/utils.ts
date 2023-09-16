@@ -83,11 +83,13 @@ const BAD_MISSED_TEARS_COLLECTIBLE_TYPES = [
   CollectibleType.TWENTY_TWENTY, // 245
   CollectibleType.SAGITTARIUS, // 306
   CollectibleType.CURSED_EYE, // 316
+  CollectibleType.SOY_MILK, // 330
   CollectibleType.DEAD_ONION, // 336
   CollectibleType.EYE_OF_BELIAL, // 462
   CollectibleType.LITTLE_HORN, // 503
   CollectibleType.TRISAGION, // 533
   CollectibleType.FLAT_STONE, // 540
+  CollectibleType.ALMOND_MILK, // 561
   CollectibleType.C_SECTION, // 678
 ] as const;
 
