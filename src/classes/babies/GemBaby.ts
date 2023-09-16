@@ -16,12 +16,13 @@ export class GemBaby extends Baby {
     return levelHasRoomType(RoomType.SHOP);
   }
 
+  /** This callback will fire even if e.g. a single penny is spawned with `spawn 5.20.1`. */
   @CallbackCustom(
     ModCallbackCustom.POST_PICKUP_SELECTION_FILTER,
     PickupVariant.COIN,
     CoinSubType.PENNY,
   )
-  postPickupSelection(): [PickupVariant, int] | undefined {
+  postPickupSelectionPenny(): [PickupVariant, int] | undefined {
     return [PickupVariant.COIN, CoinSubType.NICKEL];
   }
 }

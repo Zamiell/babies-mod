@@ -3,6 +3,12 @@
 <!-- cspell:ignore Adrayon,cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.16.1_ - September 16th, 2023
+
+- Fixed bugs with the following babies:
+  - Gem Baby (#237) - The effect now works properly. (Thanks sisuka)
+  - Dark Space Soldier Baby (#398) - Will no longer be chosen if you have C Section. (Thanks sisuka)
+
 ### _v1.16.0_ - September 15th, 2023
 
 - The following babies have new effects:

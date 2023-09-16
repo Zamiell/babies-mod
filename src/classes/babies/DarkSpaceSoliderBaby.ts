@@ -3,8 +3,13 @@ import {
   ModCallback,
   TearVariant,
 } from "isaac-typescript-definitions";
-import { Callback } from "isaacscript-common";
+import { Callback, hasCollectible } from "isaacscript-common";
 import { Baby } from "../Baby";
+
+const CHAOS_CARD_ANTI_SYNERGIES = [
+  CollectibleType.IPECAC, // 149
+  CollectibleType.C_SECTION, // 678
+] as const;
 
 const v = {
   run: {
@@ -17,7 +22,7 @@ export class DarkSpaceSoldierBaby extends Baby {
   v = v;
 
   override isValid(player: EntityPlayer): boolean {
-    return !player.HasCollectible(CollectibleType.IPECAC);
+    return !hasCollectible(player, ...CHAOS_CARD_ANTI_SYNERGIES);
   }
 
   @Callback(ModCallback.POST_FIRE_TEAR)
