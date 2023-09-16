@@ -7,6 +7,7 @@
 
 - Fixed the bug where having Soy Milk or Almond Milk would not cause "missed tear" style babies to be skipped. (Thanks sisuka)
 - Fixed bugs with the following babies:
+  - Gappy Baby (#171) - Will no longer get free items in the shop. (Thanks sisuka)
   - Gem Baby (#237) - The effect now works properly. (Thanks sisuka)
   - Dark Space Soldier Baby (#398) - Will no longer be chosen if you have C Section. (Thanks sisuka)
 
