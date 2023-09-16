@@ -10,6 +10,7 @@
   - Gappy Baby (#171) - Will no longer get free items in the shop. (Thanks sisuka)
   - Gem Baby (#237) - The effect now works properly. (Thanks sisuka)
   - Dark Space Soldier Baby (#398) - Will no longer be chosen if you have C Section. (Thanks sisuka)
+  - Tooth Head Baby (#442) - The effect no longer happens on every tear.
 
 ### _v1.16.0_ - September 15th, 2023
 

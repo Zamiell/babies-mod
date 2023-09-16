@@ -3,8 +3,16 @@ import { Callback } from "isaacscript-common";
 import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
-/** Tooth tears. */
+const v = {
+  run: {
+    numTearsFired: 0,
+  },
+};
+
+/** Tooth tears (every Nth tear). */
 export class ToothHeadBaby extends Baby {
+  v = v;
+
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
     const player = getBabyPlayerFromEntity(tear);
@@ -12,8 +20,14 @@ export class ToothHeadBaby extends Baby {
       return;
     }
 
-    // Changing the variant does not actually increase the damage, only the appearance.
-    tear.ChangeVariant(TearVariant.TOOTH);
-    tear.CollisionDamage = player.Damage * 3.2;
+    const num = this.getAttribute("num");
+    v.run.numTearsFired++;
+    if (v.run.numTearsFired === num) {
+      v.run.numTearsFired = 0;
+
+      // Changing the variant does not actually increase the damage, only the appearance.
+      tear.ChangeVariant(TearVariant.TOOTH);
+      tear.CollisionDamage = player.Damage * 3.2;
+    }
   }
 }
