@@ -286,7 +286,7 @@ There are 603 babies in total.
 | 274 | <img src="./images/274_baby_boulder.png" alt="274_baby_boulder.png"> | Boulder Baby | Starts with Leo |
 | 275 | <img src="./images/275_baby_aqua.png" alt="275_baby_aqua.png"> | Aqua Baby | Starts with Taurus |
 | 276 | <img src="./images/276_baby_gargoyle.png" alt="276_baby_gargoyle.png"> | Gargoyle Baby | Head of Krampus effect on hit |
-| 277 | <img src="./images/277_baby_spikydemon.png" alt="277_baby_spikydemon.png"> | Spiky Demon Baby | Starts with Dark Arts |
+| 277 | <img src="./images/277_baby_spikydemon.png" alt="277_baby_spikydemon.png"> | Spiky Demon Baby | Starts with Dark Arts + Car Battery |
 | 278 | <img src="./images/278_baby_reddemon.png" alt="278_baby_reddemon.png"> | Red Demon Baby | Starts with Brimstone + Anti-Gravity |
 | 279 | <img src="./images/279_baby_orangedemon.png" alt="279_baby_orangedemon.png"> | Orange Demon Baby | Explosivo tears (every 2nd tear) |
 | 280 | <img src="./images/280_baby_eyedemon.png" alt="280_baby_eyedemon.png"> | Eye Demon Baby | Enemies projectiles makes you lose money |
@@ -330,7 +330,7 @@ There are 603 babies in total.
 | 318 | <img src="./images/318_baby_fireball.png" alt="318_baby_fireball.png"> | Fireball Baby | Explosion immunity + fire immunity |
 | 319 | <img src="./images/319_baby_maw.png" alt="319_baby_maw.png"> | Maw Baby | Starts with Maw of the Void |
 | 320 | <img src="./images/320_baby_exploding.png" alt="320_baby_exploding.png"> | Exploding Baby | Breakable obstacles explode on touch |
-| 321 | <img src="./images/321_baby_cupcake.png" alt="321_baby_cupcake.png"> | Cupcake Baby | Starts with Anti-Gravity |
+| 321 | <img src="./images/321_baby_cupcake.png" alt="321_baby_cupcake.png"> | Cupcake Baby | Starts with Tear Detonator + 9 Volt + Car Battery |
 | 322 | <img src="./images/322_baby_skinless.png" alt="322_baby_skinless.png"> | Skinless Baby | 2x damage + takes 2x damage |
 | 323 | <img src="./images/323_baby_ballerina.png" alt="323_baby_ballerina.png"> | Ballerina Baby | Summons a Restock Machine after 6 hits |
 | 324 | <img src="./images/324_baby_goblin.png" alt="324_baby_goblin.png"> | Goblin Baby | Extra item after boss if no damage taken on floor |
