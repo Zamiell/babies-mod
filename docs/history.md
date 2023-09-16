@@ -8,6 +8,8 @@
 - The following babies have new effects:
   - Spiky Demon Baby (#277) - "Starts with Dark Arts" --> "Starts with Dark Arts + Car Battery"
   - Cupcake Baby (#321) - "Starts with The Intruder" --> "Starts with Tear Detonator + 9 Volt + Car Battery"
+- coin health
+- spawns Swarm Spiders on death
 
 ### _v1.16.1_ - September 16th, 2023
 
