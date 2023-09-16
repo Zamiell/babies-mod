@@ -3,6 +3,12 @@
 <!-- cspell:ignore Adrayon,cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.17.0_ - September 17th, 2023 (Unreleased)
+
+- The following babies have new effects:
+  - Spiky Demon Baby (#277) - "Starts with Dark Arts" --> "Starts with Dark Arts + Car Battery"
+  - Cupcake Baby (#321) - "Starts with The Intruder" --> "Starts with Tear Detonator + 9 Volt + Car Battery"
+
 ### _v1.16.1_ - September 16th, 2023
 
 - Fixed the bug where having Soy Milk or Almond Milk would not cause "missed tear" style babies to be skipped. (Thanks sisuka)

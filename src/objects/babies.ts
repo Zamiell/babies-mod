@@ -2406,8 +2406,9 @@ export const BABIES = {
   // 277
   [RandomBabyType.SPIKY_DEMON]: {
     name: "Spiky Demon Baby",
-    description: "Starts with Dark Arts",
+    description: "Starts with Dark Arts + Car Battery",
     collectible: CollectibleType.DARK_ARTS,
+    collectible2: CollectibleType.CAR_BATTERY,
     sprite: "277_baby_spikydemon.png",
   },
 
@@ -2800,9 +2801,11 @@ export const BABIES = {
   // 321
   [RandomBabyType.CUPCAKE]: {
     name: "Cupcake Baby",
-    description: "Starts with Anti-Gravity",
+    description: "Starts with Tear Detonator + 9 Volt + Car Battery",
     sprite: "321_baby_cupcake.png",
-    collectible: CollectibleType.ANTI_GRAVITY,
+    collectible: CollectibleType.TEAR_DETONATOR,
+    collectible2: CollectibleType.NINE_VOLT,
+    collectible3: CollectibleType.CAR_BATTERY,
   },
 
   // 322
