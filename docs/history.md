@@ -13,6 +13,9 @@
   - Spiky Demon Baby (#277) - "Starts with Dark Arts" --> "Starts with Dark Arts + Car Battery"
   - Cupcake Baby (#321) - "Starts with Anti-Gravity" --> "Starts with Tear Detonator + 9 Volt + Car Battery"
   - Finger Baby (#558) - "Starts with The Intruder" --> "Spawns a teleporter every 5 seconds"
+- Fixed bugs with the following babies:
+  - Meat Boy Baby (#210) - Will no longer activate multiple Potato Peelers per hit. (Thanks Monkeypot)
+  - Bluebird Baby (#147) - Will no longer crash the game under certain circumstances. (Thanks sisuka)
 
 ### _v1.16.1_ - September 16th, 2023
 
