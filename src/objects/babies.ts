@@ -5183,7 +5183,7 @@ export const BABIES = {
     class: bc.Multidimensional,
   },
 
-  // 593
+  // 594
   [RandomBabyType.LIL_LOKI]: {
     name: "Lil Loki", // CollectibleType.LIL_LOKI (435)
     description: "Cross tears",
@@ -5192,7 +5192,7 @@ export const BABIES = {
     class: bc.LilLoki,
   },
 
-  // 594
+  // 595
   [RandomBabyType.LIL_MONSTRO]: {
     name: "Lil Monstro", // CollectibleType.LIL_MONSTRO (471)
     description: "Starts with Monstro's Lung",
@@ -5201,7 +5201,7 @@ export const BABIES = {
     collectible: CollectibleType.MONSTROS_LUNG,
   },
 
-  // 595
+  // 596
   [RandomBabyType.BOILED]: {
     name: "Boiled Baby", // CollectibleType.BOILED_BABY (607)
     description: "All items from the Ultra Secret Room pool",
@@ -5210,7 +5210,7 @@ export const BABIES = {
     allCollectiblesFromPool: ItemPoolType.ULTRA_SECRET,
   },
 
-  // 596
+  // 597
   [RandomBabyType.FREEZER]: {
     name: "Freezer Baby", // CollectibleType.FREEZER_BABY (608)
     description: "Ice tears",
@@ -5218,7 +5218,7 @@ export const BABIES = {
     class: bc.FreezerBaby,
   },
 
-  // 597
+  // 598
   [RandomBabyType.LIL_ABADDON]: {
     name: "Lil Abaddon", // CollectibleType.LIL_ABADDON (679)
     description: "Starts with Devil's Crown",
@@ -5228,7 +5228,7 @@ export const BABIES = {
     trinket: TrinketType.DEVILS_CROWN,
   },
 
-  // 598
+  // 599
   [RandomBabyType.TWISTED]: {
     name: "Twisted Baby", // CollectibleType.TWISTED_PAIR (698)
     description: "Spore tears",
@@ -5236,7 +5236,7 @@ export const BABIES = {
     class: bc.TwistedBaby,
   },
 
-  // 599
+  // 600
   [RandomBabyType.ESAU_JR]: {
     name: "Esau Jr. Baby", // CollectibleType.ESAU_JR (703)
     description: "Soul of Jacob and Esau effect on hit",
@@ -5244,7 +5244,7 @@ export const BABIES = {
     class: bc.EsauJrBaby,
   },
 
-  // 600
+  // 601
   [RandomBabyType.GELLO]: {
     name: "Gello", // CollectibleType.GELLO (728)
     description: "Starts with Gello",
@@ -5254,7 +5254,7 @@ export const BABIES = {
     collectible: CollectibleType.GELLO,
   },
 
-  // 601
+  // 602
   [RandomBabyType.SIREN_SHOOTER]: {
     name: "Siren Shooter",
     description: "Spawns a pedestal item after 6 hits",
@@ -5263,7 +5263,7 @@ export const BABIES = {
     class: bc.SirenShooter,
   },
 
-  // 602
+  // 603
   [RandomBabyType.INVISIBLE]: {
     name: "Invisible Baby",
     description: "Invisibility",
