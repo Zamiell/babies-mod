@@ -603,13 +603,13 @@ There are 604 babies in total.
 | 591 | <img src="./images/familiar_shooters_81_fatesreward.png" alt="familiar_shooters_81_fatesreward.png"> | Fate's Reward | Items cost money |
 | 592 | <img src="./images/familiars_shooters_92_seraphim.png" alt="familiars_shooters_92_seraphim.png"> | Seraphim | Censer aura |
 | 593 | <img src="./images/familiar_101_multidimensionalbaby.png" alt="familiar_101_multidimensionalbaby.png"> | Multidimensional Baby | Enemies spawn 3 Swarm Spiders on death |
-| 593 | <img src="./images/familiar_097_shooters_lilloki.png" alt="familiar_097_shooters_lilloki.png"> | Lil Loki | Cross tears |
-| 594 | <img src="./images/familiar_108_lilmonstro_custom.png" alt="familiar_108_lilmonstro_custom.png"> | Lil Monstro | Starts with Monstro's Lung |
-| 595 | <img src="./images/003.208_boilbaby_custom.png" alt="003.208_boilbaby_custom.png"> | Boiled Baby | All items from the Ultra Secret Room pool |
-| 596 | <img src="./images/003.209_freezerbaby.png" alt="003.209_freezerbaby.png"> | Freezer Baby | Ice tears |
-| 597 | <img src="./images/familiar_lil_abaddon_custom.png" alt="familiar_lil_abaddon_custom.png"> | Lil Abaddon | Starts with Devil's Crown |
-| 598 | <img src="./images/familiar_twisted_pair_custom.png" alt="familiar_twisted_pair_custom.png"> | Twisted Baby | Spore tears |
-| 599 | <img src="./images/familiar_esau_jr.png" alt="familiar_esau_jr.png"> | Esau Jr. Baby | Soul of Jacob and Esau effect on hit |
-| 600 | <img src="./images/familiar_gello_custom.png" alt="familiar_gello_custom.png"> | Gello | Starts with Gello |
-| 601 | <img src="./images/familiar_siren_shooter.png" alt="familiar_siren_shooter.png"> | Siren Shooter | Spawns a pedestal item after 6 hits |
-| 602 | <img src="./images/invisible_baby.png" alt="invisible_baby.png"> | Invisible Baby | Invisibility |
+| 594 | <img src="./images/familiar_097_shooters_lilloki.png" alt="familiar_097_shooters_lilloki.png"> | Lil Loki | Cross tears |
+| 595 | <img src="./images/familiar_108_lilmonstro_custom.png" alt="familiar_108_lilmonstro_custom.png"> | Lil Monstro | Starts with Monstro's Lung |
+| 596 | <img src="./images/003.208_boilbaby_custom.png" alt="003.208_boilbaby_custom.png"> | Boiled Baby | All items from the Ultra Secret Room pool |
+| 597 | <img src="./images/003.209_freezerbaby.png" alt="003.209_freezerbaby.png"> | Freezer Baby | Ice tears |
+| 598 | <img src="./images/familiar_lil_abaddon_custom.png" alt="familiar_lil_abaddon_custom.png"> | Lil Abaddon | Starts with Devil's Crown |
+| 599 | <img src="./images/familiar_twisted_pair_custom.png" alt="familiar_twisted_pair_custom.png"> | Twisted Baby | Spore tears |
+| 600 | <img src="./images/familiar_esau_jr.png" alt="familiar_esau_jr.png"> | Esau Jr. Baby | Soul of Jacob and Esau effect on hit |
+| 601 | <img src="./images/familiar_gello_custom.png" alt="familiar_gello_custom.png"> | Gello | Starts with Gello |
+| 602 | <img src="./images/familiar_siren_shooter.png" alt="familiar_siren_shooter.png"> | Siren Shooter | Spawns a pedestal item after 6 hits |
+| 603 | <img src="./images/invisible_baby.png" alt="invisible_baby.png"> | Invisible Baby | Invisibility |
