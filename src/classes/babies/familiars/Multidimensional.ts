@@ -1,4 +1,8 @@
-import { EntityType, ModCallback } from "isaac-typescript-definitions";
+import {
+  CollectibleType,
+  EntityType,
+  ModCallback,
+} from "isaac-typescript-definitions";
 import { Callback, VectorZero, repeat, spawn } from "isaacscript-common";
 import { Baby } from "../../Baby";
 
@@ -6,6 +10,11 @@ const SWARM_SPIDER_DISPLACEMENT_DISTANCE = 3;
 
 /** Enemies spawn N Swarm Spiders on death. */
 export class Multidimensional extends Baby {
+  override isValid(player: EntityPlayer): boolean {
+    // It would be visually confusing if the player had Multidimensional Baby.
+    return !player.HasCollectible(CollectibleType.MULTIDIMENSIONAL_BABY);
+  }
+
   @Callback(ModCallback.POST_ENTITY_KILL)
   postEntityKill(entity: Entity): void {
     const npc = entity.ToNPC();
