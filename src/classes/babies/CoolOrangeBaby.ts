@@ -1,10 +1,5 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import {
-  Callback,
-  GAME_FRAMES_PER_SECOND,
-  getEffects,
-  spawnEffect,
-} from "isaacscript-common";
+import { Callback, getEffects, spawnEffect } from "isaacscript-common";
 import { EffectVariantCustom } from "../../enums/EffectVariantCustom";
 import { everyNSeconds } from "../../utils";
 import { Baby } from "../Baby";
@@ -34,7 +29,7 @@ export class CoolOrangeBaby extends Baby {
   postEffectUpdateFetusBossTarget(effect: EntityEffect): void {
     const num = this.getAttribute("num");
 
-    if (effect.FrameCount === num * GAME_FRAMES_PER_SECOND) {
+    if (effect.FrameCount === num) {
       const rocket = spawnEffect(
         EffectVariantCustom.FETUS_BOSS_ROCKET,
         0,

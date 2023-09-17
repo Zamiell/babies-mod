@@ -5,7 +5,7 @@
 
 <!-- markdownlint-disable MD033 -->
 
-There are 603 babies in total.
+There are 604 babies in total.
 
 | ID | Appearance | Name | Description |
 | -- | ---------- | ---- | ----------- |
@@ -134,7 +134,7 @@ There are 603 babies in total.
 | 122 | <img src="./images/122_baby_monochrome.png" alt="122_baby_monochrome.png"> | Monochrome Baby | Starts with Dead Eye |
 | 123 | <img src="./images/123_baby_onetooth.png" alt="123_baby_onetooth.png"> | One Tooth Baby | Spawn a Bishop on hit |
 | 124 | <img src="./images/124_baby_tusks.png" alt="124_baby_tusks.png"> | Tusks Baby | 2x damage |
-| 125 | <img src="./images/125_baby_hopeless.png" alt="125_baby_hopeless.png"> | Hopeless Baby | +2 keys + keys are hearts |
+| 125 | <img src="./images/125_baby_hopeless.png" alt="125_baby_hopeless.png"> | Hopeless Baby | Keys are hearts |
 | 126 | <img src="./images/126_baby_bigmouth.png" alt="126_baby_bigmouth.png"> | Big Mouth Baby | Starts with 10x Jaw Bone |
 | 127 | <img src="./images/127_baby_peeeyes.png" alt="127_baby_peeeyes.png"> | Pee Eyes Baby | Starts with Number One |
 | 128 | <img src="./images/128_baby_earwig.png" alt="128_baby_earwig.png"> | Earwig Baby | 3 rooms are visible |
@@ -147,7 +147,7 @@ There are 603 babies in total.
 | 135 | <img src="./images/135_baby_smiling.png" alt="135_baby_smiling.png"> | Smiling Baby | Starts with Sacred Heart |
 | 136 | <img src="./images/136_baby_tears.png" alt="136_baby_tears.png"> | Tears Baby | Starts with Paschal Candle |
 | 137 | <img src="./images/137_baby_bowling.png" alt="137_baby_bowling.png"> | Bowling Baby | Starts with Flat Stone |
-| 138 | <img src="./images/138_baby_mohawk.png" alt="138_baby_mohawk.png"> | Mohawk Baby | +2 bombs + bombs are hearts |
+| 138 | <img src="./images/138_baby_mohawk.png" alt="138_baby_mohawk.png"> | Mohawk Baby | Bombs are hearts |
 | 139 | <img src="./images/139_baby_rottenmeat.png" alt="139_baby_rottenmeat.png"> | Rotten Meat Baby | Teleport to starting room on hit |
 | 140 | <img src="./images/140_baby_noarms.png" alt="140_baby_noarms.png"> | No Arms Baby | Pickups are bouncy |
 | 141 | <img src="./images/141_baby_twin2.png" alt="141_baby_twin2.png"> | Twin Baby | Uncontrollable Teleport 2.0 |
@@ -186,7 +186,7 @@ There are 603 babies in total.
 | 174 | <img src="./images/174_baby_electris.png" alt="174_baby_electris.png"> | Electric Baby | Starts with Jacob's Ladder |
 | 175 | <img src="./images/175_baby_bloodhole.png" alt="175_baby_bloodhole.png"> | Blood Hole Baby | Starts with Proptosis |
 | 176 | <img src="./images/176_baby_transforming.png" alt="176_baby_transforming.png"> | Transforming Baby | Starts with Technology Zero |
-| 177 | <img src="./images/177_baby_aban.png" alt="177_baby_aban.png"> | Aban Baby | Sonic-style health |
+| 177 | <img src="./images/177_baby_aban.png" alt="177_baby_aban.png"> | Aban Baby | Sonic the Hedgehog health |
 | 178 | <img src="./images/178_baby_bandagegirl.png" alt="178_baby_bandagegirl.png"> | Bandage Girl Baby | Starts with Pause + Cube of Meat + Ball of Bandages |
 | 179 | <img src="./images/179_baby_piecea.png" alt="179_baby_piecea.png"> | Piece A Baby | Can only move up + down + left + right |
 | 180 | <img src="./images/180_baby_pieceb.png" alt="180_baby_pieceb.png"> | Piece B Baby | Starts with Charging Station |
@@ -359,7 +359,7 @@ There are 603 babies in total.
 | 347 | <img src="./images/347_baby_2600.png" alt="347_baby_2600.png"> | 2600 Baby | Friend Finder effect on room clear |
 | 348 | <img src="./images/348_baby_fourtone.png" alt="348_baby_fourtone.png"> | Fourtone Baby | Starts with The Candle + blindfolded + instant recharge |
 | 349 | <img src="./images/349_baby_grayscale.png" alt="349_baby_grayscale.png"> | Grayscale Baby | Delirious effect every 10 seconds |
-| 350 | <img src="./images/350_baby_rabbit.png" alt="350_baby_rabbit.png"> | Rabbit Baby | Starts with How to Jump; must jump often |
+| 350 | <img src="./images/350_baby_rabbit.png" alt="350_baby_rabbit.png"> | Rabbit Baby | Starts with How to Jump; must jump every 3 seconds |
 | 351 | <img src="./images/351_baby_mouse.png" alt="351_baby_mouse.png"> | Mouse Baby | Coin doors in uncleared rooms |
 | 352 | <img src="./images/352_baby_critter.png" alt="352_baby_critter.png"> | Critter Baby | Starts with Infestation 2 |
 | 353 | <img src="./images/353_baby_bluerobot.png" alt="353_baby_bluerobot.png"> | Blue Robot Baby | Starts with Berserk |
@@ -602,6 +602,7 @@ There are 603 babies in total.
 | 590 | <img src="./images/familiar_shooters_80_incubus.png" alt="familiar_shooters_80_incubus.png"> | Incubus | All items from the Devil Room pool |
 | 591 | <img src="./images/familiar_shooters_81_fatesreward.png" alt="familiar_shooters_81_fatesreward.png"> | Fate's Reward | Items cost money |
 | 592 | <img src="./images/familiars_shooters_92_seraphim.png" alt="familiars_shooters_92_seraphim.png"> | Seraphim | Censer aura |
+| 593 | <img src="./images/familiar_101_multidimensionalbaby.png" alt="familiar_101_multidimensionalbaby.png"> | Multidimensional Baby | Enemies spawn 3 Swarm Spiders on death |
 | 593 | <img src="./images/familiar_097_shooters_lilloki.png" alt="familiar_097_shooters_lilloki.png"> | Lil Loki | Cross tears |
 | 594 | <img src="./images/familiar_108_lilmonstro_custom.png" alt="familiar_108_lilmonstro_custom.png"> | Lil Monstro | Starts with Monstro's Lung |
 | 595 | <img src="./images/003.208_boilbaby_custom.png" alt="003.208_boilbaby_custom.png"> | Boiled Baby | All items from the Ultra Secret Room pool |

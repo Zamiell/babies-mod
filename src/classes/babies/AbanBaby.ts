@@ -23,7 +23,7 @@ const v = {
   },
 };
 
-/** Sonic-style health. */
+/** Sonic the Hedgehog health. */
 export class AbanBaby extends Baby {
   v = v;
 

@@ -32,6 +32,7 @@ export function babiesCheckValid(): void {
   checkDuplicateNames();
   checkDuplicateCollectibles();
   checkDuplicateTrinkets();
+  checkDescriptions();
 
   if (SHOULD_LOG) {
     logSpecificBabies();
@@ -118,6 +119,16 @@ function checkDuplicateTrinkets() {
       } else {
         trinketSet.add(baby.trinket);
       }
+    }
+  }
+}
+
+function checkDescriptions() {
+  for (const [i, babyRaw] of Object.entries(BABIES)) {
+    const baby = babyRaw as BabyDescription;
+
+    if (baby.description.endsWith(".")) {
+      logBabyInvalid(baby, i, "has a description ending in a period.");
     }
   }
 }

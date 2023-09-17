@@ -20,10 +20,11 @@ import { Baby } from "../Baby";
 
 const KEY_SPRITE = newSprite("gfx/custom-health/key.anm2");
 
-/** +2 keys + keys are hearts. */
+/** Keys are hearts. */
 export class HopelessBaby extends Baby {
-  override onAdd(player: EntityPlayer): void {
-    player.AddKeys(2);
+  override isValid(player: EntityPlayer): boolean {
+    const keys = player.GetNumKeys();
+    return keys >= 2;
   }
 
   // 2

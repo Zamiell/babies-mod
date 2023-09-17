@@ -20,10 +20,11 @@ import { Baby } from "../Baby";
 
 const BOMB_SPRITE = newSprite("gfx/custom-health/bomb.anm2");
 
-/** +2 bombs + bombs are hearts. */
+/** Bombs are hearts. */
 export class MohawkBaby extends Baby {
-  override onAdd(player: EntityPlayer): void {
-    player.AddBombs(2);
+  override isValid(player: EntityPlayer): boolean {
+    const bombs = player.GetNumBombs();
+    return bombs >= 2;
   }
 
   // 2

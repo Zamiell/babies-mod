@@ -1,6 +1,16 @@
 import { CollectibleType } from "isaac-typescript-definitions";
-import { addCollectible, removeCollectible, repeat } from "isaacscript-common";
+import {
+  addCollectible,
+  removeCollectible,
+  removeCollectibleFromItemTracker,
+  repeat,
+} from "isaacscript-common";
 import { Baby } from "../Baby";
+
+const COLLECTIBLES = [
+  CollectibleType.KNIFE_PIECE_1,
+  CollectibleType.KNIFE_PIECE_2,
+] as const;
 
 /** Starts with Nx Knife Piece 1 + Nx Knife Piece 2. */
 export class PunkboyBaby extends Baby {
@@ -8,11 +18,8 @@ export class PunkboyBaby extends Baby {
     const num = this.getAttribute("num");
 
     repeat(num, () => {
-      addCollectible(
-        player,
-        CollectibleType.KNIFE_PIECE_1,
-        CollectibleType.KNIFE_PIECE_2,
-      );
+      addCollectible(player, ...COLLECTIBLES);
+      removeCollectibleFromItemTracker(...COLLECTIBLES);
     });
   }
 
@@ -20,11 +27,7 @@ export class PunkboyBaby extends Baby {
     const num = this.getAttribute("num");
 
     repeat(num, () => {
-      removeCollectible(
-        player,
-        CollectibleType.KNIFE_PIECE_1,
-        CollectibleType.KNIFE_PIECE_2,
-      );
+      removeCollectible(player, ...COLLECTIBLES);
     });
   }
 }

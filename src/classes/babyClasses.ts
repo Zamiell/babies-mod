@@ -333,6 +333,7 @@ export { FatesReward } from "./babies/familiars/FatesReward";
 export { FreezerBaby } from "./babies/familiars/FreezerBaby";
 export { InvisibleBaby } from "./babies/familiars/InvisibleBaby";
 export { LilLoki } from "./babies/familiars/LilLoki";
+export { Multidimensional } from "./babies/familiars/Multidimensional";
 export { RainbowBaby } from "./babies/familiars/RainbowBaby";
 export { RottenBaby } from "./babies/familiars/RottenBaby";
 export { Seraphim } from "./babies/familiars/Seraphim";

@@ -635,18 +635,19 @@ export enum RandomBabyType {
   INCUBUS = 590, // 360
   FATES_REWARD = 591, // 361
   SERAPHIM = 592, // 390
-  LIL_LOKI = 593, // 435
-  LIL_MONSTRO = 594, // 471
-  BOILED = 595, // 607
-  FREEZER = 596, // 608
-  LIL_ABADDON = 597, // 679
-  TWISTED = 598, // 698 (not called Twisted Pair because you only play as one baby)
-  ESAU_JR = 599, // 703 (granted after using the collectible five times)
-  GELLO = 600, // 728
-  SIREN_SHOOTER = 601, // Not associated with a collectible; it only appears on The Siren boss fight.
+  MULTIDIMENSIONAL = 593, // 431
+  LIL_LOKI = 594, // 435
+  LIL_MONSTRO = 595, // 471
+  BOILED = 596, // 607
+  FREEZER = 597, // 608
+  LIL_ABADDON = 598, // 679
+  TWISTED = 599, // 698 (not called Twisted Pair because you only play as one baby)
+  ESAU_JR = 600, // 703 (granted after using the collectible five times)
+  GELLO = 601, // 728
+  SIREN_SHOOTER = 602, // Not associated with a collectible; it only appears on The Siren boss fight.
 
   // Other
-  INVISIBLE = 602,
+  INVISIBLE = 603,
 }
 
 validateEnumContiguous("RandomBabyType", RandomBabyType);

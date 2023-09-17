@@ -1,5 +1,5 @@
-import { ModCallback, TearFlag } from "isaac-typescript-definitions";
-import { Callback, addFlag } from "isaacscript-common";
+import { Direction, ModCallback, TearFlag } from "isaac-typescript-definitions";
+import { Callback, addFlag, directionToVector } from "isaacscript-common";
 import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
@@ -28,10 +28,11 @@ export class EightBallBaby extends Baby {
 
     const num = this.getAttribute("num");
 
-    let positionMod = Vector(0, num * -1); // The tear starts directly above the player.
+    // The tear starts directly above the player.
+    const positionModifier = directionToVector(Direction.UP).mul(num);
     const degrees = tear.FrameCount * 8; // Tears rotate 4 degrees per frame.
-    positionMod = positionMod.Rotated(degrees);
-    tear.Position = player.Position.add(positionMod);
+    const positionModifierRotated = positionModifier.Rotated(degrees);
+    tear.Position = player.Position.add(positionModifierRotated);
 
     // We want the tear to be moving perpendicular to the line between the player and the tear.
     tear.Velocity = Vector(num / 4, 0);
@@ -52,7 +53,7 @@ export class EightBallBaby extends Baby {
     tear.TearFlags = addFlag(tear.TearFlags, TearFlag.SPECTRAL);
 
     // Start with the tears directly above the player and moving towards the right.
-    tear.Position = Vector(0, num * -1);
+    tear.Position = directionToVector(Direction.UP).mul(num);
     tear.Velocity = Vector(num / 4, 0);
     tear.FallingSpeed = 0;
 

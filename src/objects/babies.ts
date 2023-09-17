@@ -43,7 +43,7 @@ export const BABIES = {
     name: "Bloat Baby",
     description: "Syringe tears (every 3rd tear)", // Euthanasia
     sprite: "002_baby_bloat.png",
-    num: 3, // The number of tears that are needed to produce a syringe tear.
+    num: 3,
     requireTears: true,
     class: bc.BloatBaby,
   },
@@ -440,7 +440,7 @@ export const BABIES = {
     name: "Dark Baby",
     description: "Temporary blindness",
     sprite: "048_baby_dark.png",
-    num: 110,
+    num: 110, // The game frame duration of the fade.
     class: bc.DarkBaby,
   },
 
@@ -1114,7 +1114,7 @@ export const BABIES = {
   // 125
   [RandomBabyType.HOPELESS]: {
     name: "Hopeless Baby",
-    description: "+2 keys + keys are hearts",
+    description: "Keys are hearts",
     sprite: "125_baby_hopeless.png",
     class: bc.HopelessBaby,
   },
@@ -1141,7 +1141,7 @@ export const BABIES = {
     name: "Earwig Baby",
     description: "3 rooms are visible",
     sprite: "128_baby_earwig.png",
-    num: 3, // The amount of rooms visible.
+    num: 3,
     class: bc.EarwigBaby,
   },
 
@@ -1223,7 +1223,7 @@ export const BABIES = {
   // 138
   [RandomBabyType.MOHAWK]: {
     name: "Mohawk Baby",
-    description: "+2 bombs + bombs are hearts",
+    description: "Bombs are hearts",
     sprite: "138_baby_mohawk.png",
     class: bc.MohawkBaby,
   },
@@ -1350,7 +1350,7 @@ export const BABIES = {
     name: "Sorrow Baby",
     description: "Projectiles are reflected as bombs",
     sprite: "153_baby_sorrow.png",
-    num: 50,
+    num: 50, // The distance threshold upon which the projectiles are converted.
     class: bc.SorrowBaby,
   },
 
@@ -1446,7 +1446,7 @@ export const BABIES = {
     description: "Starts with Leprosy, +5 damage on Leprosy breaking",
     sprite: "164_baby_blackeye.png",
     collectible: CollectibleType.LEPROSY,
-    num: 5, // The amount of damage to grant.
+    num: 5,
     class: bc.BlackEyeBaby,
   },
 
@@ -1455,7 +1455,7 @@ export const BABIES = {
     name: "Lights Baby",
     description: "Holy tears (every 3rd tear)",
     sprite: "165_baby_lights.png",
-    num: 3, // The number of tears that are needed to produce a holy tear.
+    num: 3,
     requireTears: true,
     class: bc.LightsBaby,
   },
@@ -1555,7 +1555,7 @@ export const BABIES = {
   // 177
   [RandomBabyType.ABAN]: {
     name: "Aban Baby",
-    description: "Sonic-style health",
+    description: "Sonic the Hedgehog health",
     sprite: "177_baby_aban.png",
     class: bc.AbanBaby,
   },
@@ -1935,7 +1935,7 @@ export const BABIES = {
     description: "Starts with Monstro's Tooth (improved)",
     sprite: "221_baby_drool.png",
     collectible: CollectibleType.MONSTROS_TOOTH,
-    num: 4, // The amount of Monstro's Tooth activations
+    num: 4, // The amount of Monstro's Tooth activations.
     class: bc.DroolBaby,
   },
 
@@ -2149,7 +2149,7 @@ export const BABIES = {
     description: "Orbiting tears",
     sprite: "246_baby_8ball.png",
     requireTears: true,
-    num: 90,
+    num: 90, // The distance away from the player that the tears orbit.
     softlockPreventionIsland: true,
     class: bc.EightBallBaby,
   },
@@ -3064,10 +3064,10 @@ export const BABIES = {
   // 350
   [RandomBabyType.RABBIT]: {
     name: "Rabbit Baby",
-    description: "Starts with How to Jump; must jump often",
+    description: "Starts with How to Jump; must jump every 3 seconds",
     sprite: "350_baby_rabbit.png",
     collectible: CollectibleType.HOW_TO_JUMP,
-    num: 3 * GAME_FRAMES_PER_SECOND, // The amount of game frames between forced book uses.
+    num: 3 * GAME_FRAMES_PER_SECOND,
     class: bc.RabbitBaby,
   },
 
@@ -3408,7 +3408,7 @@ export const BABIES = {
     name: "Blue Wrestler Baby",
     description: "Enemies spawn projectiles upon death",
     sprite: "388_baby_bluewrestler.png",
-    num: 6,
+    num: 6, // The number of projectiles to spawn.
     class: bc.BlueWrestlerBaby,
   },
 
@@ -3986,7 +3986,7 @@ export const BABIES = {
     name: "Green Koopa Baby",
     description: "Shoots bouncy green shells",
     sprite: "455_baby_green_koopa.png",
-    num: 4, // Seconds that the shell stays active; must match Red Koopa Baby.
+    num: 4, // The seconds that the shell stays active; must match Red Koopa Baby.
     requireTears: true,
     class: bc.GreenKoopaBaby,
   },
@@ -4013,7 +4013,7 @@ export const BABIES = {
     name: "Red Koopa Baby",
     description: "Shoots bouncy & homing red shells",
     sprite: "458_baby_red_koopa.png",
-    num: 4, // Seconds that the shell stays active; must match Green Koopa Baby.
+    num: 4, // The seconds that the shell stays active; must match Green Koopa Baby.
     requireTears: true,
     class: bc.RedKoopaBaby,
   },
@@ -4247,7 +4247,7 @@ export const BABIES = {
     name: "Cool Orange Baby",
     description: "Summons random missiles",
     sprite: "485_baby_coolorange.png",
-    num: 1, // Seconds before a missile comes down on a spawned target.
+    num: GAME_FRAMES_PER_SECOND, // The game frames before a missile comes down on a spawned target.
     class: bc.CoolOrangeBaby,
   },
 
@@ -5172,6 +5172,15 @@ export const BABIES = {
     sprite: "familiars_shooters_92_seraphim.png",
     collectible: CollectibleType.CENSER,
     class: bc.Seraphim,
+  },
+
+  // 593
+  [RandomBabyType.MULTIDIMENSIONAL]: {
+    name: "Multidimensional Baby", // CollectibleType.MULTIDIMENSIONAL_BABY (431)
+    description: "Enemies spawn 3 Swarm Spiders on death",
+    sprite: "familiar_101_multidimensionalbaby.png",
+    num: 3, // The number of Swarm Spiders to spawn.
+    class: bc.Multidimensional,
   },
 
   // 593
