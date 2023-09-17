@@ -3,6 +3,14 @@
 <!-- cspell:ignore Adrayon,cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.18.0_ - September 17th, 2023
+
+- Changed the following babies:
+  - Lantern Baby (#292) - Now has explosion immunity. (Thanks sisuka)
+- Fixed bugs with the following babies:
+  - Libra Baby (#170) - The effect now works properly. (Thanks sisuka)
+  - Arcade Baby (#368) - The effect now works properly. (Thanks sisuka)
+
 ### _v1.17.0_ - September 16th, 2023
 
 - Added the following babies:

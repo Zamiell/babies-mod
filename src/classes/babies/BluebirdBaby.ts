@@ -1,12 +1,6 @@
 import type { PickingUpItem } from "isaacscript-common";
-import { CallbackCustom, ModCallbackCustom, game } from "isaacscript-common";
+import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
 import { Baby } from "../Baby";
-
-const v = {
-  run: {
-    paralyzedUntilGameFrame: null as int | null,
-  },
-};
 
 /**
  * Touching items/pickups causes paralysis.
@@ -15,8 +9,6 @@ const v = {
  * for Japanese players.
  */
 export class BluebirdBaby extends Baby {
-  v = v;
-
   @CallbackCustom(ModCallbackCustom.PRE_ITEM_PICKUP)
   preItemPickup(player: EntityPlayer, _pickingUpItem: PickingUpItem): void {
     this.setParalysis(player);
@@ -33,19 +25,9 @@ export class BluebirdBaby extends Baby {
   }
 
   setParalysis(player: EntityPlayer): void {
-    const gameFrameCount = game.GetFrameCount();
     const num = this.getAttribute("num");
 
-    v.run.paralyzedUntilGameFrame = gameFrameCount + num;
     player.AnimateSad();
-  }
-
-  @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
-  postPEffectUpdateReordered(player: EntityPlayer): void {
-    const gameFrameCount = game.GetFrameCount();
-    const paralyzed =
-      v.run.paralyzedUntilGameFrame !== null &&
-      v.run.paralyzedUntilGameFrame > gameFrameCount;
-    player.ControlsEnabled = !paralyzed;
+    player.AddControlsCooldown(num);
   }
 }

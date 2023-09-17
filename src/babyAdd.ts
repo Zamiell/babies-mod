@@ -40,6 +40,9 @@ const FIRST_TIME_PICKING_UP_BUGGED_COLLECTIBLES = new ReadonlySet([
   CollectibleType.RED_STEW, // 621
 ]);
 
+/** e.g. Swallowed Penny is ID 2001. */
+const REBIRTH_ITEM_TRACKER_TRINKET_MODIFIER = 2000;
+
 export function babyAdd(
   player: EntityPlayer,
   babyType: RandomBabyType,
@@ -126,7 +129,9 @@ export function babyAdd(
     repeat(num, () => {
       smeltTrinket(player, trinket);
 
-      const itemTrackerTrinketID = asCollectibleType(trinket + 2000);
+      const itemTrackerTrinketID = asCollectibleType(
+        trinket + REBIRTH_ITEM_TRACKER_TRINKET_MODIFIER,
+      );
       removeCollectibleFromItemTracker(itemTrackerTrinketID);
     });
     itemPool.RemoveTrinket(baby.trinket);

@@ -1497,12 +1497,16 @@ export const BABIES = {
   // 170
   [RandomBabyType.LIBRA]: {
     name: "Libra Baby",
-    description: "32 seconds of invulnerability on hit",
+    description: "30 seconds of invulnerability on hit",
     sprite: "170_baby_libra.png",
     trinket: TrinketType.BLIND_RAGE,
-    // 60 frames is the normal amount of invulnerability frames. Each trinket doubles it. Thus, 4
-    // trinkets gives 960 invulnerability frames (32 seconds).
-    trinketNum: 4,
+    // - Normally, there are 60 invulnerability render frames / 1 second. (This is detected from the
+    //   `EntityPlayer.GetDamageCooldown` method.)
+    // - 1 Blind Rage results in 120 invulnerability render frames / 2 seconds.
+    // - 2 Blind Rages results in 240 invulnerability render frames / 4 seconds.
+    // - 3 Blind Rages results in 360 invulnerability render frames / 6 seconds.
+    // - Thus, 15 Blind Rages results in 30 seconds of invulnerability.
+    trinketNum: 15,
   },
 
   // 171
@@ -2543,11 +2547,12 @@ export const BABIES = {
   // 292
   [RandomBabyType.LANTERN]: {
     name: "Lantern Baby",
-    description: "Godhead aura + flight + blindfolded",
+    description: "Godhead aura + flight + explosion immunity + blindfolded",
     sprite: "292_baby_lantern.png",
     collectible: CollectibleType.GODHEAD,
     collectible2: CollectibleType.LUDOVICO_TECHNIQUE,
     flight: true,
+    explosionImmunity: true,
     // This baby does not use the "blindfolded" property because it would remove The Ludovico
     // Technique.
     requireTears: true,

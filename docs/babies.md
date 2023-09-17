@@ -179,7 +179,7 @@ There are 604 babies in total.
 | 167 | <img src="./images/167_baby_worry.png" alt="167_baby_worry.png"> | Worry Baby | Touching items/pickups causes teleportation |
 | 168 | <img src="./images/168_baby_ears.png" alt="168_baby_ears.png"> | Ears Baby | Starts with 3x Mystery Sack |
 | 169 | <img src="./images/169_baby_funeral.png" alt="169_baby_funeral.png"> | Funeral Baby | Starts with Death's Touch |
-| 170 | <img src="./images/170_baby_libra.png" alt="170_baby_libra.png"> | Libra Baby | 32 seconds of invulnerability on hit |
+| 170 | <img src="./images/170_baby_libra.png" alt="170_baby_libra.png"> | Libra Baby | 30 seconds of invulnerability on hit |
 | 171 | <img src="./images/171_baby_gappy.png" alt="171_baby_gappy.png"> | Gappy Baby | Destroying machines gives items |
 | 172 | <img src="./images/172_baby_sunburn.png" alt="172_baby_sunburn.png"> | Sunburn Baby | Starts with Ghost Pepper |
 | 173 | <img src="./images/173_baby_atepoop.png" alt="173_baby_atepoop.png"> | Ate Poop Baby | Destroying poops spawns random pickups |
@@ -301,7 +301,7 @@ There are 604 babies in total.
 | 289 | <img src="./images/289_baby_cupid.png" alt="289_baby_cupid.png"> | Cupid Baby | Starts with Cupid's Arrow |
 | 290 | <img src="./images/290_baby_heart.png" alt="290_baby_heart.png"> | Heart Baby | Dull Razor effect every 5 seconds |
 | 291 | <img src="./images/291_baby_killer.png" alt="291_baby_killer.png"> | Killer Baby | +0.2 damage per enemy killed |
-| 292 | <img src="./images/292_baby_lantern.png" alt="292_baby_lantern.png"> | Lantern Baby | Godhead aura + flight + blindfolded |
+| 292 | <img src="./images/292_baby_lantern.png" alt="292_baby_lantern.png"> | Lantern Baby | Godhead aura + flight + explosion immunity + blindfolded |
 | 293 | <img src="./images/293_baby_banshee.png" alt="293_baby_banshee.png"> | Banshee Baby | Crack the Sky effect on hit |
 | 294 | <img src="./images/294_baby_ranger.png" alt="294_baby_ranger.png"> | Ranger Baby | Starts with 3x Lil Chest |
 | 295 | <img src="./images/295_baby_rider.png" alt="295_baby_rider.png"> | Rider Baby | Starts with A Pony + blindfolded |
