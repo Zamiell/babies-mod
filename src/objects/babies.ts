@@ -4218,7 +4218,7 @@ export const BABIES = {
   // 482
   [RandomBabyType.ADVENTURE]: {
     name: "Adventure Baby",
-    description: "Walls have eyes + blindfolded",
+    description: "Walls tears",
     sprite: "482_baby_adventure.png",
     requireTears: true,
     // This baby does not use the "blindfolded" property" because we capture tears in the

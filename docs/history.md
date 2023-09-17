@@ -11,7 +11,7 @@
   - Hopeless Baby (#125) - "+2 keys + keys are hearts" --> "Keys are hearts"
   - Mohawk Baby (#138) - "+2 bombs + bombs are hearts" --> "Bombs are hearts"
   - Spiky Demon Baby (#277) - "Starts with Dark Arts" --> "Starts with Dark Arts + Car Battery"
-  - Cupcake Baby (#321) - "Starts with The Anti-Gravity" --> "Starts with Tear Detonator + 9 Volt + Car Battery"
+  - Cupcake Baby (#321) - "Starts with Anti-Gravity" --> "Starts with Tear Detonator + 9 Volt + Car Battery"
 
 ### _v1.16.1_ - September 16th, 2023
 
