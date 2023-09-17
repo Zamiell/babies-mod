@@ -27,6 +27,7 @@ List of hard babies:
 - Driver Baby (#431) - Slippery movement
 - Funny Baby (#491) - Enemies spawn Troll Bombs on death
 - Hooligan Baby (#514) - Double enemies
+- Finger Baby (#558) - Spawns a teleporter every 5 seconds
 - Painful Baby (#570) - Enemies respawn when reentering a room
 
 Bugs with Costume Protector:

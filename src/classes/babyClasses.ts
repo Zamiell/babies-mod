@@ -113,6 +113,7 @@ export { FancyBaby } from "./babies/FancyBaby";
 export { FangDemonBaby } from "./babies/FangDemonBaby";
 export { FatBaby } from "./babies/FatBaby";
 export { FieryBaby } from "./babies/FieryBaby";
+export { FingerBaby } from "./babies/FingerBaby";
 export { FireballBaby } from "./babies/FireballBaby";
 export { FiremageBaby } from "./babies/FiremageBaby";
 export { FishmanBaby } from "./babies/FishmanBaby";

@@ -4869,9 +4869,10 @@ export const BABIES = {
   // 558
   [RandomBabyType.FINGER]: {
     name: "Finger Baby",
-    description: "Starts with The Intruder",
+    description: "Spawns a teleporter every 5 seconds",
     sprite: "558_baby_finger.png",
-    collectible: CollectibleType.INTRUDER,
+    num: 5,
+    class: bc.FingerBaby,
   },
 
   // 559

@@ -3,7 +3,7 @@
 <!-- cspell:ignore Adrayon,cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
-### _v1.17.0_ - September 17th, 2023 (Unreleased)
+### _v1.17.0_ - September 16th, 2023
 
 - Added the following babies:
   - Multidimensional Baby (#593) - Spawns 3 Swarm Spiders on death
@@ -12,6 +12,7 @@
   - Mohawk Baby (#138) - "+2 bombs + bombs are hearts" --> "Bombs are hearts"
   - Spiky Demon Baby (#277) - "Starts with Dark Arts" --> "Starts with Dark Arts + Car Battery"
   - Cupcake Baby (#321) - "Starts with Anti-Gravity" --> "Starts with Tear Detonator + 9 Volt + Car Battery"
+  - Finger Baby (#558) - "Starts with The Intruder" --> "Spawns a teleporter every 5 seconds"
 
 ### _v1.16.1_ - September 16th, 2023
 
