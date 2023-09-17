@@ -1298,8 +1298,9 @@ export const BABIES = {
   // 147
   [RandomBabyType.BLUEBIRD]: {
     name: "Bluebird Baby",
-    description: "Touching items/pickups causes paralysis",
+    description: "Touching items/pickups causes 2 seconds of paralysis",
     sprite: "147_baby_bluebird.png",
+    num: 2 * GAME_FRAMES_PER_SECOND,
     class: bc.BluebirdBaby,
   },
 

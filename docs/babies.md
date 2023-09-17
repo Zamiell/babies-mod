@@ -156,7 +156,7 @@ There are 604 babies in total.
 | 144 | <img src="./images/144_baby_camillojr.png" alt="144_baby_camillojr.png"> | Camillo Jr. Baby | Starts with Tech.5 |
 | 145 | <img src="./images/145_baby_eyeless.png" alt="145_baby_eyeless.png"> | Eyeless Baby | Starts with 20x The Peeper |
 | 146 | <img src="./images/146_baby_sloppy.png" alt="146_baby_sloppy.png"> | Sloppy Baby | Starts with Epic Fetus (improved) |
-| 147 | <img src="./images/147_baby_bluebird.png" alt="147_baby_bluebird.png"> | Bluebird Baby | Touching items/pickups causes paralysis |
+| 147 | <img src="./images/147_baby_bluebird.png" alt="147_baby_bluebird.png"> | Bluebird Baby | Touching items/pickups causes 2 seconds of paralysis |
 | 148 | <img src="./images/148_baby_fat.png" alt="148_baby_fat.png"> | Fat Baby | Necronomicon effect on hit |
 | 149 | <img src="./images/149_baby_butterfly.png" alt="149_baby_butterfly.png"> | Butterfly Baby | Improved Super Secret Rooms (4 items + no rerolls) |
 | 150 | <img src="./images/150_baby_goggles.png" alt="150_baby_goggles.png"> | Goggles Baby | Starts with 20/20 |
@@ -567,7 +567,7 @@ There are 604 babies in total.
 | 555 | <img src="./images/555_baby_kindaloveable.png" alt="555_baby_kindaloveable.png"> | Kinda Loveable Baby | Spawns a Lovers card on hit |
 | 556 | <img src="./images/556_baby_cursedroom.png" alt="556_baby_cursedroom.png"> | Cursed Room Baby | Starts with Holy Mantle + Curse of the Cursed |
 | 557 | <img src="./images/557_baby_proto.png" alt="557_baby_proto.png"> | Proto Baby | Starts with Brimstone + Haemolacria |
-| 558 | <img src="./images/558_baby_finger.png" alt="558_baby_finger.png"> | Finger Baby | Starts with The Intruder |
+| 558 | <img src="./images/558_baby_finger.png" alt="558_baby_finger.png"> | Finger Baby | Spawns a teleporter every 5 seconds |
 | 559 | <img src="./images/559_baby_bald.png" alt="559_baby_bald.png"> | Bald Baby | All items from the Boss Room pool |
 | 560 | <img src="./images/560_baby_hex.png" alt="560_baby_hex.png"> | Hex Baby | Starts with Eye of the Occult |
 | 561 | <img src="./images/561_baby_singing.png" alt="561_baby_singing.png"> | Singing Baby | Starts with Astral Projection |
