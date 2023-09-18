@@ -8,7 +8,7 @@ import { Baby } from "../Baby";
 
 const HORSE_PILL_MODIFIER = 2048;
 
-/** Starts with PhD + All pills are Horse pills. */
+/** Starts with PHD + All pills are horse pills. */
 export class NatureBaby extends Baby {
   // 79
   @CallbackCustom(
