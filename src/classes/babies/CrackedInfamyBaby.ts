@@ -1,8 +1,4 @@
-import {
-  CollectibleType,
-  EffectVariant,
-  ModCallback,
-} from "isaac-typescript-definitions";
+import { EffectVariant, ModCallback } from "isaac-typescript-definitions";
 import { Callback, spawnEffect } from "isaacscript-common";
 import { Baby } from "../Baby";
 
@@ -15,10 +11,6 @@ const v = {
 /** Every Nth tear is a ghost from Ghost Bombs. */
 export class CrackedInfamyBaby extends Baby {
   v = v;
-
-  override isValid(player: EntityPlayer): boolean {
-    return !player.HasCollectible(CollectibleType.DR_FETUS);
-  }
 
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {

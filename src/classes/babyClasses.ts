@@ -79,6 +79,7 @@ export { CrookedBaby } from "./babies/CrookedBaby";
 export { CrowBaby } from "./babies/CrowBaby";
 export { CryBaby } from "./babies/CryBaby";
 export { CupBaby } from "./babies/CupBaby";
+export { CupidBaby } from "./babies/CupidBaby";
 export { CursedPillowBaby } from "./babies/CursedPillowBaby";
 export { CursedRoomBaby } from "./babies/CursedRoomBaby";
 export { CuteBaby } from "./babies/CuteBaby";

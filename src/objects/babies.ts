@@ -2522,9 +2522,11 @@ export const BABIES = {
   // 289
   [RandomBabyType.CUPID]: {
     name: "Cupid Baby",
-    description: "Starts with Cupid's Arrow",
+    description: "Base Larynx effect every 8 tears",
     sprite: "289_baby_cupid.png",
-    collectible: CollectibleType.CUPIDS_ARROW,
+    requireTears: true,
+    num: 8,
+    class: bc.CupidBaby,
   },
 
   // 290
