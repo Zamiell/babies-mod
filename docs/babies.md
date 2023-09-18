@@ -298,7 +298,7 @@ There are 604 babies in total.
 | 286 | <img src="./images/286_baby_3d.png" alt="286_baby_3d.png"> | 3D Baby | Starts with My Reflection |
 | 287 | <img src="./images/287_baby_suit.png" alt="287_baby_suit.png"> | Suit Baby | All special rooms are Devil Rooms |
 | 288 | <img src="./images/288_baby_butt.png" alt="288_baby_butt.png"> | Butt Baby | Farts after shooting |
-| 289 | <img src="./images/289_baby_cupid.png" alt="289_baby_cupid.png"> | Cupid Baby | Starts with Cupid's Arrow |
+| 289 | <img src="./images/289_baby_cupid.png" alt="289_baby_cupid.png"> | Cupid Baby | Base Larynx effect every 8 tears |
 | 290 | <img src="./images/290_baby_heart.png" alt="290_baby_heart.png"> | Heart Baby | Dull Razor effect every 5 seconds |
 | 291 | <img src="./images/291_baby_killer.png" alt="291_baby_killer.png"> | Killer Baby | +0.2 damage per enemy killed |
 | 292 | <img src="./images/292_baby_lantern.png" alt="292_baby_lantern.png"> | Lantern Baby | Godhead aura + flight + explosion immunity + blindfolded |
@@ -602,7 +602,7 @@ There are 604 babies in total.
 | 590 | <img src="./images/familiar_shooters_80_incubus.png" alt="familiar_shooters_80_incubus.png"> | Incubus | All items from the Devil Room pool |
 | 591 | <img src="./images/familiar_shooters_81_fatesreward.png" alt="familiar_shooters_81_fatesreward.png"> | Fate's Reward | Items cost money |
 | 592 | <img src="./images/familiars_shooters_92_seraphim.png" alt="familiars_shooters_92_seraphim.png"> | Seraphim | Censer aura |
-| 593 | <img src="./images/familiar_101_multidimensionalbaby.png" alt="familiar_101_multidimensionalbaby.png"> | Multidimensional Baby | Enemies spawn 3 Swarm Spiders on death |
+| 593 | <img src="./images/familiar_101_multidimensionalbaby.png" alt="familiar_101_multidimensionalbaby.png"> | Multidimensional Baby | Enemies spawn 2 Swarm Spiders on death |
 | 594 | <img src="./images/familiar_097_shooters_lilloki.png" alt="familiar_097_shooters_lilloki.png"> | Lil Loki | Cross tears |
 | 595 | <img src="./images/familiar_108_lilmonstro_custom.png" alt="familiar_108_lilmonstro_custom.png"> | Lil Monstro | Starts with Monstro's Lung |
 | 596 | <img src="./images/003.208_boilbaby_custom.png" alt="003.208_boilbaby_custom.png"> | Boiled Baby | All items from the Ultra Secret Room pool |

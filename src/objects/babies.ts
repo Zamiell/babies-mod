@@ -43,8 +43,8 @@ export const BABIES = {
     name: "Bloat Baby",
     description: "Syringe tears (every 3rd tear)", // Euthanasia
     sprite: "002_baby_bloat.png",
-    num: 3,
     requireTears: true,
+    num: 3,
     class: bc.BloatBaby,
   },
 
@@ -1402,8 +1402,8 @@ export const BABIES = {
     name: "Cracked Infamy Baby",
     description: "Every 8th tear is a ghost from Ghost Bombs",
     sprite: "159_baby_crackedinfamy.png",
-    num: 8,
     requireTears: true,
+    num: 8,
     class: bc.CrackedInfamyBaby,
   },
 
@@ -1456,8 +1456,8 @@ export const BABIES = {
     name: "Lights Baby",
     description: "Holy tears (every 3rd tear)",
     sprite: "165_baby_lights.png",
-    num: 3,
     requireTears: true,
+    num: 3,
     class: bc.LightsBaby,
   },
 
@@ -3166,8 +3166,8 @@ export const BABIES = {
     name: "Mushroom Girl Baby",
     description: "Every 8th tear is a bomb",
     sprite: "361_baby_mushroomgirl.png",
-    num: 8,
     requireTears: true,
+    num: 8,
     class: bc.MushroomGirlBaby,
   },
 
@@ -3229,8 +3229,8 @@ export const BABIES = {
     name: "Arcade Baby",
     description: "Razor blade tears (every 3rd tear)",
     sprite: "368_baby_arcade.png",
-    num: 3,
     requireTears: true,
+    num: 3,
     class: bc.ArcadeBaby,
   },
 
@@ -3501,8 +3501,8 @@ export const BABIES = {
     name: "Dark Space Soldier Baby",
     description: "Chaos card tears (every 5th tear)",
     sprite: "398_baby_darkspacesoldier.png",
-    num: 5,
     requireTears: true,
+    num: 5,
     class: bc.DarkSpaceSoldierBaby,
   },
 
@@ -3767,8 +3767,8 @@ export const BABIES = {
     name: "Little Horn Baby",
     description: "Void tears (every 5th tear)",
     sprite: "429_baby_littlehorn.png",
-    num: 5,
     requireTears: true,
+    num: 5,
     class: bc.LittleHornBaby,
   },
 
@@ -3879,8 +3879,8 @@ export const BABIES = {
     name: "Tooth Head Baby",
     description: "Tooth tears (every 3rd tear)",
     sprite: "442_baby_tooth.png",
-    num: 3,
     requireTears: true,
+    num: 3,
     class: bc.ToothHeadBaby,
   },
 
@@ -3993,8 +3993,8 @@ export const BABIES = {
     name: "Green Koopa Baby",
     description: "Shoots bouncy green shells",
     sprite: "455_baby_green_koopa.png",
-    num: 4, // The seconds that the shell stays active; must match Red Koopa Baby.
     requireTears: true,
+    num: 4, // The seconds that the shell stays active; must match Red Koopa Baby.
     class: bc.GreenKoopaBaby,
   },
 
@@ -4020,8 +4020,8 @@ export const BABIES = {
     name: "Red Koopa Baby",
     description: "Shoots bouncy & homing red shells",
     sprite: "458_baby_red_koopa.png",
-    num: 4, // The seconds that the shell stays active; must match Green Koopa Baby.
     requireTears: true,
+    num: 4, // The seconds that the shell stays active; must match Green Koopa Baby.
     class: bc.RedKoopaBaby,
   },
 
@@ -4272,8 +4272,8 @@ export const BABIES = {
     name: "Cursed Pillow Baby",
     description: "Every 4th missed tear causes damage",
     sprite: "487_baby_cursedpillow.png",
-    num: 4,
     requireTears: true,
+    num: 4,
     class: bc.CursedPillowBaby,
   },
 
@@ -5116,8 +5116,8 @@ export const BABIES = {
     name: "Abel", // CollectibleType.ABEL (188)
     description: "Every 5th missed tear causes paralysis",
     sprite: "familiar_shooters_08_abel.png",
-    num: 5,
     requireTears: true,
+    num: 5,
     class: bc.Abel,
   },
 
