@@ -205,6 +205,7 @@ export { MufflerscarfBaby } from "./babies/MufflerscarfBaby";
 export { MushroomGirlBaby } from "./babies/MushroomGirlBaby";
 export { MustacheBaby } from "./babies/MustacheBaby";
 export { MutatedFishBaby } from "./babies/MutatedFishBaby";
+export { NatureBaby } from "./babies/NatureBaby";
 export { NerdBaby } from "./babies/NerdBaby";
 export { NiceBaby } from "./babies/NiceBaby";
 export { NinkumpoopBaby } from "./babies/NinkumpoopBaby";

@@ -7,6 +7,7 @@
 
 - The following babies have new effects:
   - Cupid Baby (#289) - "Starts with Cupid's Arrow" --> "Base Larynx effect every 8 tears"
+  - Nature Baby (#305) - "Starts with Sprinkler" --> "Starts with PhD + All pills are Horse pills"
   - Locust Baby (#345) - "Starts with 20 Abyss locusts + blindfolded" --> "Starts with 10 special Abyss locusts + blindfolded"
   - Multidimensional Baby (#593) - "Enemies spawn 3 Swarm Spiders on death" --> "Enemies spawn 2 Swarm Spiders on death"
 - Fixed the bug where having two or more Brimstones would cause cause an error. (Thanks mgln)
