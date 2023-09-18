@@ -5,6 +5,7 @@ import {
   repeat,
   setBlindfold,
 } from "isaacscript-common";
+import { COLLECTIBLE_TYPE_TO_COLLECTIBLE_TYPE_CUSTOM_MAP } from "./customCollectibles";
 import type { RandomBabyType } from "./enums/RandomBabyType";
 import type { BabyDescription } from "./interfaces/BabyDescription";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
@@ -41,20 +42,20 @@ export function babyRemove(
 
   // Some collectibles are modified by Racing+.
   const babyCollectiblesSet = getBabyCollectiblesSet(baby);
-  if (babyCollectiblesSet.has(CollectibleType.FLIP)) {
-    const flipCustom = Isaac.GetItemIdByName("Flip (Custom)") as
-      | CollectibleType
-      | -1;
-    if (flipCustom !== -1 && player.HasCollectible(flipCustom)) {
-      player.RemoveCollectible(flipCustom, undefined, undefined, false);
-    }
-  }
-  if (babyCollectiblesSet.has(CollectibleType.SOL)) {
-    const solCustom = Isaac.GetItemIdByName("Sol (Custom)") as
-      | CollectibleType
-      | -1;
-    if (solCustom !== -1 && player.HasCollectible(solCustom)) {
-      player.RemoveCollectible(solCustom, undefined, undefined, false);
+  for (const [
+    collectibleType,
+    collectibleTypeCustom,
+  ] of COLLECTIBLE_TYPE_TO_COLLECTIBLE_TYPE_CUSTOM_MAP) {
+    if (
+      babyCollectiblesSet.has(collectibleType) &&
+      player.HasCollectible(collectibleTypeCustom)
+    ) {
+      player.RemoveCollectible(
+        collectibleTypeCustom,
+        undefined,
+        undefined,
+        false,
+      );
     }
   }
 

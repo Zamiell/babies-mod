@@ -41,6 +41,7 @@ import {
   TECH_X_ANTI_SYNERGIES,
   TRINKETS_THAT_SYNERGIZE_WITH_TEARS,
 } from "./constants";
+import { COLLECTIBLE_TYPE_TO_COLLECTIBLE_TYPE_CUSTOM_MAP } from "./customCollectibles";
 import type { RandomBabyType } from "./enums/RandomBabyType";
 import type { BabyDescription } from "./interfaces/BabyDescription";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
@@ -101,15 +102,18 @@ function checkCollectibles(
   babyCollectiblesSet: Set<CollectibleType>,
 ): boolean {
   // Check for overlapping collectibles.
-  for (const attribute of [
-    "collectible",
-    "collectible2",
-    "collectible3",
-  ] as const) {
-    const collectibleType = baby[attribute];
+  if (hasCollectible(player, ...babyCollectiblesSet)) {
+    return false;
+  }
+
+  // Some collectibles are modified by Racing+.
+  for (const [
+    collectibleType,
+    collectibleTypeCustom,
+  ] of COLLECTIBLE_TYPE_TO_COLLECTIBLE_TYPE_CUSTOM_MAP) {
     if (
-      collectibleType !== undefined &&
-      player.HasCollectible(collectibleType)
+      babyCollectiblesSet.has(collectibleType) &&
+      player.HasCollectible(collectibleTypeCustom)
     ) {
       return false;
     }
