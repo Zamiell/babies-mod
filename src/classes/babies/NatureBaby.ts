@@ -1,5 +1,9 @@
 import { PickupVariant } from "isaac-typescript-definitions";
-import { CallbackCustom, ModCallbackCustom } from "isaacscript-common";
+import {
+  CallbackCustom,
+  ModCallbackCustom,
+  isHorsePill,
+} from "isaacscript-common";
 import { Baby } from "../Baby";
 
 const HORSE_PILL_MODIFIER = 2048;
@@ -14,6 +18,10 @@ export class NatureBaby extends Baby {
   postPickupInitPill(pickup: EntityPickup): [PickupVariant, int] | undefined {
     const pill = pickup as EntityPickupPill;
 
-    return [PickupVariant.PILL, pill.SubType + HORSE_PILL_MODIFIER];
+    if (!isHorsePill(pill.SubType)) {
+      return [PickupVariant.PILL, pill.SubType + HORSE_PILL_MODIFIER];
+    }
+
+    return undefined;
   }
 }
