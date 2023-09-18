@@ -3,6 +3,10 @@
 <!-- cspell:ignore Adrayon,cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.19.1_ - September 18th, 2023
+
+- Fixed the bug where the mod did not properly detect custom Racing+ items. (Thanks Adrayon)
+
 ### _v1.19.0_ - September 18th, 2023
 
 - The following babies have new effects:
