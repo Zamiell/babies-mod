@@ -5183,9 +5183,9 @@ export const BABIES = {
   // 593
   [RandomBabyType.MULTIDIMENSIONAL]: {
     name: "Multidimensional Baby", // CollectibleType.MULTIDIMENSIONAL_BABY (431)
-    description: "Enemies spawn 3 Swarm Spiders on death",
+    description: "Enemies spawn 2 Swarm Spiders on death",
     sprite: "familiar_101_multidimensionalbaby.png",
-    num: 3, // The number of Swarm Spiders to spawn.
+    num: 2,
     class: bc.Multidimensional,
   },
 

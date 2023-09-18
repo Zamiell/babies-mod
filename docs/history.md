@@ -7,6 +7,7 @@
 
 - The following babies have new effects:
   - Locust Baby (#345) - "Starts with 20 Abyss locusts + blindfolded" --> "Starts with 10 special Abyss locusts + blindfolded"
+  - Multidimensional Baby (#593) - "Enemies spawn 3 Swarm Spiders on death" --> "Enemies spawn 2 Swarm Spiders on death"
 
 ### _v1.18.0_ - September 17th, 2023
 
