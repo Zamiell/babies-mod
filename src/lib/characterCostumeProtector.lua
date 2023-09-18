@@ -3,6 +3,7 @@
 
 -- Modifications:
 -- - Better logging on line 69.
+-- - Double Brimstone fix on line 572.
 -- - Active item bug fix on line 905.
 -- - R U a Wizard fix on line 908.
 -- - Empty Vessel shield fix on line 1117.
@@ -569,7 +570,7 @@ local function addItemSpecificCostumes(player)
 		end
 
 		if player:GetCollectibleNum(CollectibleType.COLLECTIBLE_BRIMSTONE) >= 2 then
-			ccp:AddNullCostume(NullItemID.ID_BRIMSTONE2)
+			player:AddNullCostume(NullItemID.ID_BRIMSTONE2)
 		end
 
 		local ID_DOUBLE_GUPPYS_EYE = 125
