@@ -318,7 +318,7 @@ There are 604 babies in total.
 | 306 | <img src="./images/306_baby_borg.png" alt="306_baby_borg.png"> | Borg Baby | Starts with Teleport 2.0 |
 | 307 | <img src="./images/307_baby_corrupted.png" alt="307_baby_corrupted.png"> | Corrupted Baby | Touching items/pickups causes damage |
 | 308 | <img src="./images/308_baby_xmouth.png" alt="308_baby_xmouth.png"> | X Mouth Baby | Moving Box effect on hit |
-| 309 | <img src="./images/309_baby_xeyes.png" alt="309_baby_xeyes.png"> | X Eyed Baby | Starts with Marked |
+| 309 | <img src="./images/309_baby_xeyes.png" alt="309_baby_xeyes.png"> | X Eyed Baby | Starts with 3x Lil Brimstone + Marked |
 | 310 | <img src="./images/310_baby_stareyes.png" alt="310_baby_stareyes.png"> | Starry Eyed Baby | Spawns a Stars Card on hit |
 | 311 | <img src="./images/311_baby_surgeon.png" alt="311_baby_surgeon.png"> | Surgeon Baby | Starts with Ventricle Razor |
 | 312 | <img src="./images/312_baby_sword.png" alt="312_baby_sword.png"> | Sword Baby | Starts with Piggy Bank + Swallowed Penny + Strawman (Strawman must not die) |
@@ -441,7 +441,7 @@ There are 604 babies in total.
 | 429 | <img src="./images/429_baby_littlehorn.png" alt="429_baby_littlehorn.png"> | Little Horn Baby | Void tears (every 5th tear) |
 | 430 | <img src="./images/430_baby_folder.png" alt="430_baby_folder.png"> | Folder Baby | Swaps item/shop pools + devil/angel pools |
 | 431 | <img src="./images/431_baby_driver.png" alt="431_baby_driver.png"> | Driver Baby | Slippery movement |
-| 432 | <img src="./images/432_baby_dragon.png" alt="432_baby_dragon.png"> | Dragon Baby | Starts with Lil Brimstone |
+| 432 | <img src="./images/432_baby_dragon.png" alt="432_baby_dragon.png"> | Dragon Baby | Starts with Montezuma's Revenge + Playdough Cookie + My Reflection |
 | 433 | <img src="./images/433_baby_downwell.png" alt="433_baby_downwell.png"> | Downwell Baby | Starts with Eden's Soul |
 | 434 | <img src="./images/434_baby_cylinder.png" alt="434_baby_cylinder.png"> | Cylinder Baby | Tear size increases with distance |
 | 435 | <img src="./images/435_baby_cup.png" alt="435_baby_cup.png"> | Cup Baby | Card Against Humanity on hit |

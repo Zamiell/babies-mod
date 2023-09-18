@@ -2709,9 +2709,11 @@ export const BABIES = {
   // 309
   [RandomBabyType.X_EYED]: {
     name: "X Eyed Baby",
-    description: "Starts with Marked",
+    description: "Starts with 3x Lil Brimstone + Marked",
     sprite: "309_baby_xeyes.png",
-    collectible: CollectibleType.MARKED,
+    collectible: CollectibleType.LIL_BRIMSTONE,
+    collectibleNum: 3,
+    collectible2: CollectibleType.MARKED,
   },
 
   // 310
@@ -3796,9 +3798,12 @@ export const BABIES = {
   // 432
   [RandomBabyType.DRAGON]: {
     name: "Dragon Baby",
-    description: "Starts with Lil Brimstone",
+    description: "Starts with Montezuma's Revenge + Playdough Cookie",
+    description2: "+ My Reflection",
     sprite: "432_baby_dragon.png",
-    collectible: CollectibleType.LIL_BRIMSTONE,
+    collectible: CollectibleType.MONTEZUMAS_REVENGE,
+    collectible2: CollectibleType.PLAYDOUGH_COOKIE,
+    collectible3: CollectibleType.MY_REFLECTION,
   },
 
   // 433

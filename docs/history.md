@@ -3,6 +3,12 @@
 <!-- cspell:ignore Adrayon,cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.20.0_ - September 18th, 2023
+
+- The following babies have new effects:
+  - X Eyed Baby (#309) - "Starts with Marked" --> "Starts with 3x Lil Brimstone + Marked"
+  - Dragon Baby (#432) - "Starts with Lil Brimstone" --> "Starts with Montezuma's Revenge + Playdough Cookie + My Reflection"
+
 ### _v1.19.1_ - September 18th, 2023
 
 - Fixed the bug where the mod did not properly detect custom Racing+ items. (Thanks Adrayon)
