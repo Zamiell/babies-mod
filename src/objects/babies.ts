@@ -2673,9 +2673,10 @@ export const BABIES = {
   // 305
   [RandomBabyType.NATURE]: {
     name: "Nature Baby",
-    description: "Starts with Sprinkler",
+    description: "Starts with PhD + All pills are Horse pills",
     sprite: "305_baby_pear.png",
-    collectible: CollectibleType.SPRINKLER,
+    collectible: CollectibleType.PHD,
+    class: bc.NatureBaby,
   },
 
   // 306
