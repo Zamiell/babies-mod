@@ -2183,6 +2183,7 @@ export const BABIES = {
     name: "Love Eye Baby",
     description: "Falls in love with the first enemy killed",
     sprite: "249_baby_loveeye.png",
+    requireNoEndFloors: true,
     class: bc.LoveEyeBaby,
   },
 
