@@ -24,6 +24,6 @@ export class NatureBaby extends Baby {
       return [PickupVariant.PILL, pill.SubType + HORSE_PILL_MODIFIER];
     }
 
-    return undefined;
+    return pill.SubType;
   }
 }
