@@ -5,8 +5,8 @@
 
 ### _v1.19.0_ - September 18th, 2023
 
-- Changed the following babies:
-  - Locust Baby (#345) - Starts with 10 special Abyss locusts + blindfolded. (Thanks Gamonymous)
+- The following babies have new effects:
+  - Locust Baby (#345) - "Starts with 20 Abyss locusts + blindfolded" --> "Starts with 10 special Abyss locusts + blindfolded"
 
 ### _v1.18.0_ - September 17th, 2023
 

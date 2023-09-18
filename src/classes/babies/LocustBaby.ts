@@ -6,6 +6,13 @@ import {
 import { removeAllMatchingEntities, spawnFamiliar } from "isaacscript-common";
 import { Baby } from "../Baby";
 
+/**
+ * There are actually 13 special locusts instead of 10, but we remove Brimstone because it is only
+ * cosmetic, and we remove The Inner Eye & Mutant Spider because they are just multiple normal
+ * locusts.
+ *
+ * @see https://bindingofisaacrebirth.fandom.com/wiki/Abyss#Special_Locusts
+ */
 const SPECIAL_ABYSS_LOCUSTS = [
   CollectibleType.SPOON_BENDER, // 3
   CollectibleType.CRICKETS_HEAD, // 4
