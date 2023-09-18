@@ -211,7 +211,7 @@ There are 604 babies in total.
 | 199 | <img src="./images/199_baby_peeling.png" alt="199_baby_peeling.png"> | Peeling Baby | Starts with Potato Peeler |
 | 200 | <img src="./images/200_baby_smallface.png" alt="200_baby_smallface.png"> | Small Face Baby | My Little Unicorn effect on hit |
 | 201 | <img src="./images/201_baby_good.png" alt="201_baby_good.png"> | Good Baby | Starts with 15x Seraphim |
-| 202 | <img src="./images/202_baby_blindfold.png" alt="202_baby_blindfold.png"> | Blindfold Baby | Starts with Incubus + blindfolded |
+| 202 | <img src="./images/202_baby_blindfold.png" alt="202_baby_blindfold.png"> | Blindfold Baby | Starts with 2x Incubus + blindfolded |
 | 203 | <img src="./images/203_baby_pipe.png" alt="203_baby_pipe.png"> | Pipe Baby | Starts with Tractor Beam |
 | 204 | <img src="./images/204_baby_dented.png" alt="204_baby_dented.png"> | Dented Baby | Spawns a random key on hit |
 | 205 | <img src="./images/205_baby_steven.png" alt="205_baby_steven.png"> | Steven Baby | Starts with 20x Little Steven |
