@@ -53,7 +53,7 @@ There are 604 babies in total.
 | 41 | <img src="./images/041_baby_buddy.png" alt="041_baby_buddy.png"> | Buddy Baby | Removes a heart container on hit |
 | 42 | <img src="./images/042_baby_colorful.png" alt="042_baby_colorful.png"> | Colorful Baby | Acid trip |
 | 43 | <img src="./images/043_baby_whore.png" alt="043_baby_whore.png"> | Whore Baby | All enemies explode |
-| 44 | <img src="./images/044_baby_cracked.png" alt="044_baby_cracked.png"> | Cracked Baby | Starts with Cracked Dice |
+| 44 | <img src="./images/044_baby_cracked.png" alt="044_baby_cracked.png"> | Cracked Baby | Larynx effect every 8th tear |
 | 45 | <img src="./images/045_baby_dripping.png" alt="045_baby_dripping.png"> | Dripping Baby | 10% chance to teleport from breaking rocks |
 | 46 | <img src="./images/046_baby_blinding.png" alt="046_baby_blinding.png"> | Blinding Baby | Spawns a Sun Card on hit |
 | 47 | <img src="./images/047_baby_sucky.png" alt="047_baby_sucky.png"> | Sucky Baby | Succubus aura |
@@ -298,7 +298,7 @@ There are 604 babies in total.
 | 286 | <img src="./images/286_baby_3d.png" alt="286_baby_3d.png"> | 3D Baby | Starts with My Reflection |
 | 287 | <img src="./images/287_baby_suit.png" alt="287_baby_suit.png"> | Suit Baby | All special rooms are Devil Rooms |
 | 288 | <img src="./images/288_baby_butt.png" alt="288_baby_butt.png"> | Butt Baby | Farts after shooting |
-| 289 | <img src="./images/289_baby_cupid.png" alt="289_baby_cupid.png"> | Cupid Baby | Larynx effect every 8th tear |
+| 289 | <img src="./images/289_baby_cupid.png" alt="289_baby_cupid.png"> | Cupid Baby | Starts with Cupid's Arrow |
 | 290 | <img src="./images/290_baby_heart.png" alt="290_baby_heart.png"> | Heart Baby | Dull Razor effect every 5 seconds |
 | 291 | <img src="./images/291_baby_killer.png" alt="291_baby_killer.png"> | Killer Baby | +0.2 damage per enemy killed |
 | 292 | <img src="./images/292_baby_lantern.png" alt="292_baby_lantern.png"> | Lantern Baby | Godhead aura + flight + explosion immunity + blindfolded |
