@@ -404,9 +404,11 @@ export const BABIES = {
   // 44
   [RandomBabyType.CRACKED]: {
     name: "Cracked Baby",
-    description: "Starts with Cracked Dice",
+    description: "Larynx effect every 8th tear",
     sprite: "044_baby_cracked.png",
-    trinket: TrinketType.CRACKED_DICE,
+    requireTears: true,
+    num: 8,
+    class: bc.CrackedBaby,
   },
 
   // 45
@@ -2523,11 +2525,9 @@ export const BABIES = {
   // 289
   [RandomBabyType.CUPID]: {
     name: "Cupid Baby",
-    description: "Larynx effect every 8th tear",
+    description: "Starts with Cupid's Arrow",
     sprite: "289_baby_cupid.png",
-    requireTears: true,
-    num: 8,
-    class: bc.CupidBaby,
+    collectible: CollectibleType.CUPIDS_ARROW,
   },
 
   // 290

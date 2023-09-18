@@ -10,7 +10,7 @@ const v = {
 };
 
 /** Larynx effect every Nth tear. */
-export class CupidBaby extends Baby {
+export class CrackedBaby extends Baby {
   v = v;
 
   @Callback(ModCallback.POST_FIRE_TEAR)

@@ -7,7 +7,7 @@
 
 - The following babies have new effects:
   - Blindfold Baby (#202) - "Starts with Incubus + blindfolded" --> "Starts with 2x Incubus + blindfolded"
-  - Cupid Baby (#289) - "Starts with Cupid's Arrow" --> "Base Larynx effect every 8 tears"
+  - Cracked Baby (#289) - "Starts with Cracked Dice" --> "Base Larynx effect every 8 tears"
   - Nature Baby (#305) - "Starts with Sprinkler" --> "Starts with PHD + All pills are horse pills"
   - Locust Baby (#345) - "Starts with 20 Abyss locusts + blindfolded" --> "Starts with 10 special Abyss locusts + blindfolded"
   - Multidimensional Baby (#593) - "Enemies spawn 3 Swarm Spiders on death" --> "Enemies spawn 2 Swarm Spiders on death"
