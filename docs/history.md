@@ -8,6 +8,7 @@
 - Changed the following babies:
   - Cupid Baby (#289) - Base Larynx effect every 8 tears. (Thanks Gamonymous)
   - Locust Baby (#345) - Starts with 10 special Abyss locusts + blindfolded. (Thanks Gamonymous)
+  - Multidimensional Baby (#593) - "Enemies spawn 3 Swarm Spiders on death" --> "Enemies spawn 2 Swarm Spiders on death"
 
 ### _v1.18.0_ - September 17th, 2023
 
