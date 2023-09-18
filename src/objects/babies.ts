@@ -3024,11 +3024,10 @@ export const BABIES = {
   // 345
   [RandomBabyType.LOCUST]: {
     name: "Locust Baby",
-    description: "Starts with 20 Abyss locusts + blindfolded",
+    description: "Starts with 10 special Abyss locusts + blindfolded",
     sprite: "345_baby_locust.png",
     blindfolded: true,
-    trinket: TrinketType.APOLLYONS_BEST_FRIEND,
-    trinketNum: 20,
+    class: bc.LocustBaby,
   },
 
   // 346
