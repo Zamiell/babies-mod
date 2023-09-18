@@ -3,6 +3,11 @@
 <!-- cspell:ignore Adrayon,cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.19.0_ - September 18th, 2023
+
+- Changed the following babies:
+  - Locust Baby (#345) - Starts with 10 special Abyss locusts + blindfolded. (Thanks Gamonymous)
+
 ### _v1.18.0_ - September 17th, 2023
 
 - Changed the following babies:
