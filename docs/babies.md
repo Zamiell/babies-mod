@@ -298,7 +298,7 @@ There are 604 babies in total.
 | 286 | <img src="./images/286_baby_3d.png" alt="286_baby_3d.png"> | 3D Baby | Starts with My Reflection |
 | 287 | <img src="./images/287_baby_suit.png" alt="287_baby_suit.png"> | Suit Baby | All special rooms are Devil Rooms |
 | 288 | <img src="./images/288_baby_butt.png" alt="288_baby_butt.png"> | Butt Baby | Farts after shooting |
-| 289 | <img src="./images/289_baby_cupid.png" alt="289_baby_cupid.png"> | Cupid Baby | Base Larynx effect every 8 tears |
+| 289 | <img src="./images/289_baby_cupid.png" alt="289_baby_cupid.png"> | Cupid Baby | Larynx effect every 8th tear |
 | 290 | <img src="./images/290_baby_heart.png" alt="290_baby_heart.png"> | Heart Baby | Dull Razor effect every 5 seconds |
 | 291 | <img src="./images/291_baby_killer.png" alt="291_baby_killer.png"> | Killer Baby | +0.2 damage per enemy killed |
 | 292 | <img src="./images/292_baby_lantern.png" alt="292_baby_lantern.png"> | Lantern Baby | Godhead aura + flight + explosion immunity + blindfolded |

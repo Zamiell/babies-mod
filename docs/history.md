@@ -6,7 +6,7 @@
 ### _v1.19.0_ - September 18th, 2023
 
 - The following babies have new effects:
-  - Cupid Baby (#289) - "Starts with Cupid's Arrow" --> "Base Larynx effect every 8 tears" (Thanks Gamonymous)
+  - Cupid Baby (#289) - "Starts with Cupid's Arrow" --> "Base Larynx effect every 8 tears"
   - Locust Baby (#345) - "Starts with 20 Abyss locusts + blindfolded" --> "Starts with 10 special Abyss locusts + blindfolded"
   - Multidimensional Baby (#593) - "Enemies spawn 3 Swarm Spiders on death" --> "Enemies spawn 2 Swarm Spiders on death"
 

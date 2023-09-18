@@ -1,5 +1,6 @@
 import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
 import { Callback } from "isaacscript-common";
+import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
 const v = {
@@ -8,14 +9,18 @@ const v = {
   },
 };
 
-/** Base Larynx effect every 8 tears. */
+/** Larynx effect every Nth tear. */
 export class CupidBaby extends Baby {
   v = v;
 
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
+    const player = getBabyPlayerFromEntity(tear);
+    if (player === undefined) {
+      return;
+    }
+
     const num = this.getAttribute("num");
-    const player = Isaac.GetPlayer();
 
     v.run.numTearsFired++;
     if (v.run.numTearsFired === num) {

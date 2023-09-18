@@ -2522,7 +2522,7 @@ export const BABIES = {
   // 289
   [RandomBabyType.CUPID]: {
     name: "Cupid Baby",
-    description: "Base Larynx effect every 8 tears",
+    description: "Larynx effect every 8th tear",
     sprite: "289_baby_cupid.png",
     requireTears: true,
     num: 8,
