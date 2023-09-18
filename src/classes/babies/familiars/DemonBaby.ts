@@ -1,9 +1,14 @@
 import {
+  LevelStage,
   ModCallback,
   PickupPrice,
   PickupVariant,
 } from "isaac-typescript-definitions";
-import { Callback, onStageWithNaturalDevilRoom } from "isaacscript-common";
+import {
+  Callback,
+  onEffectiveStage,
+  onStageWithNaturalDevilRoom,
+} from "isaacscript-common";
 import { isPricedDevilRoomPoolCollectible } from "../../../utils";
 import { Baby } from "../../Baby";
 
@@ -15,7 +20,13 @@ import { Baby } from "../../Baby";
  */
 export class DemonBaby extends Baby {
   override isValid(): boolean {
-    return onStageWithNaturalDevilRoom();
+    /**
+     * We prevent the baby on Basement 2 so that the effect does not interfere with the Racing+ free
+     * devil deal mechanic.
+     */
+    return (
+      onStageWithNaturalDevilRoom() && !onEffectiveStage(LevelStage.BASEMENT_2)
+    );
   }
 
   @Callback(ModCallback.POST_PICKUP_INIT, PickupVariant.COLLECTIBLE)

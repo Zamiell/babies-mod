@@ -1,5 +1,5 @@
 import { RoomType } from "isaac-typescript-definitions";
-import { levelHasRoomType } from "isaacscript-common";
+import { levelHasRoomType, onFirstFloor } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 const v = {
@@ -12,8 +12,9 @@ const v = {
 export class RichBaby extends Baby {
   v = v;
 
+  /** We don't want this baby to interfere with resetting (since they could start a shop item). */
   override isValid(): boolean {
-    return levelHasRoomType(RoomType.SHOP);
+    return levelHasRoomType(RoomType.SHOP) && !onFirstFloor();
   }
 
   override onAdd(player: EntityPlayer): void {

@@ -14,6 +14,7 @@ import {
   game,
   gridCoordinatesToWorldPosition,
   newRNG,
+  onFirstFloor,
   onStageOrLower,
   spawnWithSeed,
 } from "isaacscript-common";
@@ -27,9 +28,12 @@ import { getRandomCollectibleTypeFromPool } from "../features/GetRandomCollectib
 
 /** All special rooms are Angel shops. */
 export class PrettyBaby extends Baby {
-  /** Should only be valid if the floor has special rooms. */
+  /**
+   * Should only be valid if the floor has special rooms. Additionally, we don't want this to
+   * interfere with resetting for an item.
+   */
   override isValid(): boolean {
-    return onStageOrLower(LevelStage.SHEOL_CATHEDRAL);
+    return onStageOrLower(LevelStage.SHEOL_CATHEDRAL) && !onFirstFloor();
   }
 
   /**

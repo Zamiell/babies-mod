@@ -3,7 +3,7 @@ import {
   PickupPrice,
   RoomType,
 } from "isaac-typescript-definitions";
-import { Callback, levelHasRoomType } from "isaacscript-common";
+import { Callback, levelHasRoomType, onFirstFloor } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /**
@@ -13,8 +13,9 @@ import { Baby } from "../Baby";
  * price of rerolled items is `PickupPrice.NULL` in `POST_PICKUP_INIT`.
  */
 export class ShopkeeperBaby extends Baby {
+  /** We don't want this baby to interfere with resetting (since they could start a shop item). */
   override isValid(): boolean {
-    return levelHasRoomType(RoomType.SHOP);
+    return levelHasRoomType(RoomType.SHOP) && !onFirstFloor();
   }
 
   @Callback(ModCallback.POST_PICKUP_INIT)

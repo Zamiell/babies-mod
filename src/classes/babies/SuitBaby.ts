@@ -18,6 +18,7 @@ import {
   getCollectibleDevilHeartPrice,
   gridCoordinatesToWorldPosition,
   newRNG,
+  onFirstFloor,
   onStageOrLower,
   spawnGridEntityWithVariant,
   spawnWithSeed,
@@ -33,9 +34,12 @@ import { getRandomCollectibleTypeFromPool } from "../features/GetRandomCollectib
 
 /** All special rooms are Devil Rooms. */
 export class SuitBaby extends Baby {
-  /** Should only be valid if the floor has special rooms. */
+  /**
+   * Should only be valid if the floor has special rooms. Additionally, we don't want this to
+   * interfere with resetting for an item.
+   */
   override isValid(): boolean {
-    return onStageOrLower(LevelStage.SHEOL_CATHEDRAL);
+    return onStageOrLower(LevelStage.SHEOL_CATHEDRAL) && !onFirstFloor();
   }
 
   // 35
