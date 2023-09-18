@@ -15,7 +15,9 @@ export class NatureBaby extends Baby {
     ModCallbackCustom.POST_PICKUP_SELECTION_FILTER,
     PickupVariant.PILL,
   )
-  postPickupInitPill(pickup: EntityPickup): [PickupVariant, int] | undefined {
+  postPickupSelectionPill(
+    pickup: EntityPickup,
+  ): [PickupVariant, int] | undefined {
     const pill = pickup as EntityPickupPill;
 
     if (!isHorsePill(pill.SubType)) {
