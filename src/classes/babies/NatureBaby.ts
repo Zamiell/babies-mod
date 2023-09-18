@@ -1,12 +1,12 @@
+import type { PillColor } from "isaac-typescript-definitions";
 import { PickupVariant } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   ModCallbackCustom,
+  getHorsePillColor,
   isHorsePill,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
-
-const HORSE_PILL_MODIFIER = 2048;
 
 /** Starts with PHD + All pills are horse pills. */
 export class NatureBaby extends Baby {
@@ -16,12 +16,15 @@ export class NatureBaby extends Baby {
     PickupVariant.PILL,
   )
   postPickupSelectionPill(
-    pickup: EntityPickup,
+    _pickup: EntityPickup,
+    _variant: PickupVariant,
+    subType: int,
   ): [PickupVariant, int] | undefined {
-    const pill = pickup as EntityPickupPill;
+    const pillColor = subType as PillColor;
 
-    if (!isHorsePill(pill.SubType)) {
-      return [PickupVariant.PILL, pill.SubType + HORSE_PILL_MODIFIER];
+    if (!isHorsePill(pillColor)) {
+      const horsePillColor = getHorsePillColor(pillColor);
+      return [PickupVariant.PILL, horsePillColor];
     }
 
     return undefined;
