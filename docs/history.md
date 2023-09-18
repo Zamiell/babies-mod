@@ -6,6 +6,7 @@
 ### _v1.19.0_ - September 18th, 2023
 
 - The following babies have new effects:
+  - Blindfold Baby (#202) - "Starts with Incubus + blindfolded" --> "Starts with 2x Incubus + blindfolded"
   - Cupid Baby (#289) - "Starts with Cupid's Arrow" --> "Base Larynx effect every 8 tears"
   - Nature Baby (#305) - "Starts with Sprinkler" --> "Starts with PHD + All pills are horse pills"
   - Locust Baby (#345) - "Starts with 20 Abyss locusts + blindfolded" --> "Starts with 10 special Abyss locusts + blindfolded"

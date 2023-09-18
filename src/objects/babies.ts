@@ -1775,9 +1775,10 @@ export const BABIES = {
   // 202
   [RandomBabyType.BLINDFOLD]: {
     name: "Blindfold Baby",
-    description: "Starts with Incubus + blindfolded",
+    description: "Starts with 2x Incubus + blindfolded",
     sprite: "202_baby_blindfold.png",
     collectible: CollectibleType.INCUBUS,
+    collectibleNum: 2,
     blindfolded: true,
     class: bc.BlindfoldBaby,
   },
