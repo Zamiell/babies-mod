@@ -25,6 +25,7 @@ import {
   isGoldenTrinketType,
   isHorsePill,
   isPoopGridEntityType,
+  onFirstFloor,
   onRepentanceStage,
   onStage,
   spawnBombWithSeed,
@@ -39,9 +40,13 @@ import { Baby } from "../Baby";
  * by walking down from the starting room).
  */
 export class GoldBaby extends Baby {
+  /**
+   * We don't want this baby to interfere with resetting (since they could start a shop item).
+   * Additionally, certain rooms are bugged with the `Room.TurnGold` method.
+   */
   override isValid(): boolean {
-    // Certain rooms are bugged with the `Room.TurnGold` method.
     return (
+      !onFirstFloor() &&
       !(onStage(LevelStage.WOMB_2) && onRepentanceStage()) &&
       !onStage(LevelStage.HOME)
     );
