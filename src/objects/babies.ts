@@ -2525,9 +2525,10 @@ export const BABIES = {
   // 289
   [RandomBabyType.CUPID]: {
     name: "Cupid Baby",
-    description: "Starts with Cupid's Arrow",
+    description: "Starts with Gilded Key + golden key",
     sprite: "289_baby_cupid.png",
-    collectible: CollectibleType.CUPIDS_ARROW,
+    trinket: TrinketType.GILDED_KEY,
+    goldenKey: true,
   },
 
   // 290

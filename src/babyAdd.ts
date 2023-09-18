@@ -156,9 +156,14 @@ export function babyAdd(
     setBabyANM2(player);
   }
 
-  // Some babies grant golden bombs.
+  // Some babies grant a golden bomb.
   if (baby.goldenBomb === true) {
     player.AddGoldenBomb();
+  }
+
+  // Some babies grant a golden key.
+  if (baby.goldenKey === true) {
+    player.AddGoldenKey();
   }
 
   // Some babies give Easter Eggs.

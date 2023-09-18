@@ -6,8 +6,9 @@
 ### _v1.19.0_ - September 18th, 2023
 
 - The following babies have new effects:
+  - Cracked Baby (#44) - "Starts with Cracked Dice" --> "Base Larynx effect every 8 tears"
   - Blindfold Baby (#202) - "Starts with Incubus + blindfolded" --> "Starts with 2x Incubus + blindfolded"
-  - Cracked Baby (#289) - "Starts with Cracked Dice" --> "Base Larynx effect every 8 tears"
+  - Cupid Baby (#289) - "Starts with Cupid's Arrow" --> "Starts with Gilded Key + golden key"
   - Nature Baby (#305) - "Starts with Sprinkler" --> "Starts with PHD + All pills are horse pills"
   - Locust Baby (#345) - "Starts with 20 Abyss locusts + blindfolded" --> "Starts with 10 special Abyss locusts + blindfolded"
   - Multidimensional Baby (#593) - "Enemies spawn 3 Swarm Spiders on death" --> "Enemies spawn 2 Swarm Spiders on death"

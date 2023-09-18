@@ -25,6 +25,7 @@ export interface BabyDescription {
   readonly trinket?: TrinketType;
   readonly trinketNum?: int;
   readonly goldenBomb?: boolean;
+  readonly goldenKey?: boolean;
   readonly num?: int;
   readonly seed?: SeedEffect;
   readonly allCollectiblesFromPool?: ItemPoolType;
