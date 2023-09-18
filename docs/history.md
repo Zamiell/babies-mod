@@ -6,6 +6,7 @@
 ### _v1.19.0_ - September 18th, 2023
 
 - Changed the following babies:
+  - Cupid Baby (#289) - Base Larynx effect every 8 tears. (Thanks Gamonymous)
   - Locust Baby (#345) - Starts with 10 special Abyss locusts + blindfolded. (Thanks Gamonymous)
 
 ### _v1.18.0_ - September 17th, 2023
