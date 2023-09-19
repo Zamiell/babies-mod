@@ -2,7 +2,6 @@ import { ModCallback } from "isaac-typescript-definitions";
 import type { SaveData } from "isaacscript-common";
 import {
   assertDefined,
-  game,
   getTSTLClassName,
   ModCallbackCustom,
   ModFeature,
@@ -183,17 +182,6 @@ const MOD_CALLBACK_TO_VALIDATION_FUNC = new ReadonlyMap<
       const entity = callbackArgs[0] as Entity;
       const npc = entity.ToNPC();
       return npc !== undefined;
-    },
-  ],
-
-  // 71
-  [
-    ModCallback.PRE_ROOM_ENTITY_SPAWN,
-    () => {
-      // We only care about replacing things when the room is first loading.
-      const room = game.GetRoom();
-      const roomFrameCount = room.GetFrameCount();
-      return roomFrameCount === -1;
     },
   ],
 ]);

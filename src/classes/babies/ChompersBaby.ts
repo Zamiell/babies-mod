@@ -4,7 +4,12 @@ import {
   LevelStage,
   ModCallback,
 } from "isaac-typescript-definitions";
-import { Callback, asNumber, game, onStage } from "isaacscript-common";
+import {
+  Callback,
+  game,
+  isGridEntityXMLType,
+  onStage,
+} from "isaacscript-common";
 import { GRID_ENTITY_REPLACEMENT_EXCEPTIONS } from "../../constants";
 import { Baby } from "../Baby";
 
@@ -20,21 +25,21 @@ export class ChompersBaby extends Baby {
     entityTypeOrGridEntityXMLType: EntityType | GridEntityXMLType,
   ): [EntityType | GridEntityXMLType, int, int] | undefined {
     const room = game.GetRoom();
-
-    // We only care about grid entities.
-    if (asNumber(entityTypeOrGridEntityXMLType) < 1000) {
+    if (!room.IsFirstVisit()) {
       return undefined;
     }
-    const gridEntityXMLType =
-      entityTypeOrGridEntityXMLType as GridEntityXMLType;
 
-    if (
-      room.IsFirstVisit() &&
-      !GRID_ENTITY_REPLACEMENT_EXCEPTIONS.has(gridEntityXMLType)
-    ) {
-      return [GridEntityXMLType.POOP_RED, 0, 0];
+    // We only convert grid entities.
+    if (!isGridEntityXMLType(entityTypeOrGridEntityXMLType)) {
+      return undefined;
     }
 
-    return undefined;
+    if (
+      !GRID_ENTITY_REPLACEMENT_EXCEPTIONS.has(entityTypeOrGridEntityXMLType)
+    ) {
+      return undefined;
+    }
+
+    return [GridEntityXMLType.POOP_RED, 0, 0];
   }
 }

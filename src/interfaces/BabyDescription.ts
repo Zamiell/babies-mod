@@ -29,7 +29,7 @@ export interface BabyDescription {
   readonly num?: int;
   readonly seed?: SeedEffect;
   readonly allCollectiblesFromPool?: ItemPoolType;
-  readonly softlockPreventionDestroyPoops?: boolean;
+  readonly softlockPreventionRemoveFires?: boolean;
   readonly softlockPreventionIsland?: boolean;
 
   // Optional properties that specify selection restrictions.

@@ -23,8 +23,9 @@ import {
   getGoldenTrinketType,
   isChest,
   isGoldenTrinketType,
+  isGridEntityXMLType,
   isHorsePill,
-  isPoopGridEntityType,
+  isPoopGridEntityXMLType,
   onFirstFloor,
   onRepentanceStage,
   onStage,
@@ -82,17 +83,13 @@ export class GoldBaby extends Baby {
     _gridIndex: int,
     _seed: Seed,
   ): [EntityType | GridEntityXMLType, int, int] | undefined {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    if (entityTypeOrGridEntityXMLType < 1000) {
+    if (!isGridEntityXMLType(entityTypeOrGridEntityXMLType)) {
       return undefined;
     }
 
-    const gridEntityXMLType =
-      entityTypeOrGridEntityXMLType as GridEntityXMLType;
-
     if (
-      isPoopGridEntityType(gridEntityXMLType) &&
-      gridEntityXMLType !== GridEntityXMLType.POOP_GOLDEN
+      isPoopGridEntityXMLType(entityTypeOrGridEntityXMLType) &&
+      entityTypeOrGridEntityXMLType !== GridEntityXMLType.POOP_GOLDEN
     ) {
       return [GridEntityXMLType.POOP_GOLDEN, 0, 0];
     }

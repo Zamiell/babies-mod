@@ -1,8 +1,8 @@
-import type { GridEntityXMLType } from "isaac-typescript-definitions";
 import {
   EntityType,
   FireplaceVariant,
   GridEntityType,
+  GridEntityXMLType,
   ItemPoolType,
   LevelStage,
   ModCallback,
@@ -104,7 +104,7 @@ export class SuitBaby extends Baby {
     const roomType = room.GetType();
 
     if (shouldTransformRoomType(roomType)) {
-      return [999, 0, 0]; // Equal to 1000.0, which is a blank effect, which is essentially nothing.
+      return [GridEntityXMLType.EFFECT, 0, 0];
     }
 
     return undefined;

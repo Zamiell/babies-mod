@@ -3,6 +3,11 @@
 <!-- cspell:ignore Adrayon,cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.20.0_ - September 19th, 2023
+
+- Fireplaces will now be automatically removed on blindfolded babies.
+- Fixed the bug where movable TNT would get duplicated on blindfolded babies. (Thanks sisuka)
+
 ### _v1.20.0_ - September 18th, 2023
 
 - The following babies have new effects:

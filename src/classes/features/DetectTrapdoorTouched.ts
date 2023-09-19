@@ -28,10 +28,12 @@ export class DetectTrapdoorTouched extends BabyModFeature {
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {
     const babyType = getBabyType();
-    const baby = babyType === undefined ? undefined : BABIES[babyType];
-    if (baby !== undefined) {
-      this.checkBabyGoingToNextFloor(player, baby);
+    if (babyType === undefined) {
+      return;
     }
+    const baby = BABIES[babyType];
+
+    this.checkBabyGoingToNextFloor(player, baby);
   }
 
   checkBabyGoingToNextFloor(player: EntityPlayer, baby: BabyDescription): void {

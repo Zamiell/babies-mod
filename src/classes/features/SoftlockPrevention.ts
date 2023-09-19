@@ -1,26 +1,28 @@
-import { EntityType } from "isaac-typescript-definitions";
 import {
+  EntityType,
+  GridEntityXMLType,
+  ModCallback,
+} from "isaac-typescript-definitions";
+import {
+  Callback,
   CallbackCustom,
   GAME_FRAMES_PER_SECOND,
   ModCallbackCustom,
   game,
-  getEntities,
+  isGridEntityXMLType,
+  isPoopGridEntityXMLType,
   log,
   openAllDoors,
-  removeGridEntity,
-  spawn,
 } from "isaacscript-common";
 import type { BabyDescription } from "../../interfaces/BabyDescription";
 import { BABIES } from "../../objects/babies";
 import { BabyModFeature } from "../BabyModFeature";
 import { getBabyType } from "./babySelection/v";
 
-const POOP_THRESHOLD_GAME_FRAMES = 15 * GAME_FRAMES_PER_SECOND;
 const ISLAND_THRESHOLD_GAME_FRAMES = 30 * GAME_FRAMES_PER_SECOND;
 
 const v = {
   room: {
-    destroyedProblematicEntities: false,
     openedDoors: false,
   },
 };
@@ -28,51 +30,21 @@ const v = {
 export class SoftlockPrevention extends BabyModFeature {
   v = v;
 
+  /** We remove all fireplaces so that they don't interfere. */
+  @Callback(ModCallback.POST_NPC_INIT, EntityType.FIREPLACE)
+  postNPCInitFireplace(npc: EntityNPC): void {
+    npc.Remove();
+  }
+
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(): void {
     const babyType = getBabyType();
-    const baby = babyType === undefined ? undefined : BABIES[babyType];
-    if (baby === undefined) {
+    if (babyType === undefined) {
       return;
     }
+    const baby = BABIES[babyType];
 
-    this.checkSoftlockDestroyPoopsTNT(baby);
     this.checkSoftlockIsland(baby);
-  }
-
-  /**
-   * On certain babies, destroy all poops and TNT barrels after a certain amount of time to prevent
-   * softlocks.
-   */
-  checkSoftlockDestroyPoopsTNT(baby: BabyDescription): void {
-    const room = game.GetRoom();
-    const roomFrameCount = room.GetFrameCount();
-
-    if (baby.softlockPreventionDestroyPoops !== true) {
-      return;
-    }
-
-    // Check to see if we already destroyed the problematic entities in the room.
-    if (v.room.destroyedProblematicEntities) {
-      return;
-    }
-
-    // Check to see if they have been in the room long enough.
-    if (roomFrameCount < POOP_THRESHOLD_GAME_FRAMES) {
-      return;
-    }
-
-    v.room.destroyedProblematicEntities = true;
-
-    // Kill some entities in the room to prevent softlocks in some specific rooms.
-    const fireplaces = getEntities(EntityType.FIREPLACE); // 33
-    const poops = getEntities(EntityType.POOP); // 245
-    const tnts = getEntities(EntityType.MOVABLE_TNT); // 292
-    for (const entity of [...fireplaces, ...poops, ...tnts]) {
-      entity.Kill();
-    }
-
-    log("Destroyed all fireplaces/poops/TNTs to prevent a softlock.");
   }
 
   /**
@@ -105,27 +77,40 @@ export class SoftlockPrevention extends BabyModFeature {
     log("Opened all doors to prevent a softlock.");
   }
 
-  /** Poop entities are killable with directed light teams, while grid entity poops are not. */
-  @CallbackCustom(ModCallbackCustom.POST_POOP_UPDATE)
-  postPoopUpdate(poop: GridEntityPoop): void {
-    const babyType = getBabyType();
-    const baby: BabyDescription | undefined =
-      babyType === undefined ? undefined : BABIES[babyType];
-    if (baby !== undefined && baby.softlockPreventionDestroyPoops === true) {
-      removeGridEntity(poop, false);
-      spawn(EntityType.POOP, 0, 0, poop.Position);
+  /**
+   * - Poop entities are killable with directed light teams, while grid entity poops are not.
+   * - Movable TNT is killable with directed light teams, while normal TNT is not.
+   */
+  @Callback(ModCallback.PRE_ROOM_ENTITY_SPAWN)
+  preRoomEntitySpawn(
+    entityTypeOrGridEntityXMLType: EntityType | GridEntityXMLType,
+    _variant: int,
+    _subType: int,
+    _gridIndex: int,
+    _seed: Seed,
+  ): [EntityType | GridEntityXMLType, int, int] | undefined {
+    if (!isGridEntityXMLType(entityTypeOrGridEntityXMLType)) {
+      return;
     }
-  }
 
-  /** Movable TNT is killable with directed light teams, while normal TNT is not. */
-  @CallbackCustom(ModCallbackCustom.POST_TNT_UPDATE)
-  postTNTUpdate(tnt: GridEntityTNT): void {
     const babyType = getBabyType();
-    const baby: BabyDescription | undefined =
-      babyType === undefined ? undefined : BABIES[babyType];
-    if (baby !== undefined && baby.softlockPreventionDestroyPoops === true) {
-      removeGridEntity(tnt, false);
-      spawn(EntityType.MOVABLE_TNT, 0, 0, tnt.Position);
+    if (babyType === undefined) {
+      return;
     }
+
+    const baby: BabyDescription = BABIES[babyType];
+    if (baby.softlockPreventionRemoveFires !== true) {
+      return;
+    }
+
+    if (entityTypeOrGridEntityXMLType === GridEntityXMLType.TNT) {
+      return [EntityType.MOVABLE_TNT, 0, 0];
+    }
+
+    if (isPoopGridEntityXMLType(entityTypeOrGridEntityXMLType)) {
+      return [EntityType.POOP, 0, 0];
+    }
+
+    return undefined;
   }
 }

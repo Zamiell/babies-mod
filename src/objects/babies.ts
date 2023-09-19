@@ -216,7 +216,7 @@ export const BABIES = {
     collectible: CollectibleType.BLUE_BABYS_ONLY_FRIEND,
     collectibleNum: 2,
     blindfolded: true,
-    softlockPreventionDestroyPoops: true, // ???'s Only Friend cannot kill poops.
+    softlockPreventionRemoveFires: true, // ???'s Only Friend cannot kill poops.
   },
 
   // 23
@@ -599,7 +599,7 @@ export const BABIES = {
     description: "Boomerang tears",
     sprite: "066_baby_mustache.png",
     requireTears: true,
-    softlockPreventionDestroyPoops: true, // Boomerangs cannot kill poops.
+    softlockPreventionRemoveFires: true, // Boomerangs cannot kill poops.
     class: bc.MustacheBaby,
   },
 
@@ -2458,7 +2458,7 @@ export const BABIES = {
     blindfolded: true,
     num: 15, // The amount of game frames in-between ticks.
     requireNoEndFloors: true,
-    softlockPreventionDestroyPoops: true, // Light beams cannot kill poops.
+    softlockPreventionRemoveFires: true, // Light beams cannot kill poops.
     class: bc.FangDemonBaby,
   },
 
@@ -2864,7 +2864,7 @@ export const BABIES = {
     collectible: CollectibleType.ROBO_BABY_2,
     collectibleNum: 20,
     blindfolded: true,
-    softlockPreventionDestroyPoops: true, // Robo-Baby 2.0 cannot kill poops.
+    softlockPreventionRemoveFires: true, // Robo-Baby 2.0 cannot kill poops.
     class: bc.GeekBaby,
   },
 
@@ -3061,7 +3061,7 @@ export const BABIES = {
     sprite: "348_baby_fourtone.png",
     collectible: CollectibleType.CANDLE,
     blindfolded: true,
-    softlockPreventionDestroyPoops: true, // The Candle cannot kill poops.
+    softlockPreventionRemoveFires: true, // The Candle cannot kill poops.
     class: bc.FourtoneBaby,
   },
 
@@ -3202,7 +3202,7 @@ export const BABIES = {
     description: "Fiery tears",
     sprite: "364_baby_turtledragon.png",
     requireTears: true,
-    softlockPreventionDestroyPoops: true, // Fires cannot kill poops.
+    softlockPreventionRemoveFires: true, // Fires cannot kill poops.
     class: bc.TurtleDragonBaby,
   },
 
@@ -5042,7 +5042,7 @@ export const BABIES = {
     description: "Slings Godhead aura (improved)",
     sprite: "familiar_shooters_01_brotherbobby.png",
     collectible: CollectibleType.MOMS_KNIFE,
-    softlockPreventionDestroyPoops: true,
+    softlockPreventionRemoveFires: true,
     class: bc.BrotherBobby,
   },
 
