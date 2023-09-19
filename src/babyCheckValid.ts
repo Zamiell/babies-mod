@@ -170,6 +170,15 @@ function checkCollectibles(
     return false;
   }
 
+  // Certain collectible combinations make the tear rate too low.
+  if (
+    babyCollectiblesSet.has(CollectibleType.BRIMSTONE) && // 118
+    babyCollectiblesSet.has(CollectibleType.HAEMOLACRIA) && // 531
+    player.HasCollectible(CollectibleType.C_SECTION)
+  ) {
+    return false;
+  }
+
   if (
     babyCollectiblesSet.has(CollectibleType.IPECAC) && // 149
     hasCollectible(
