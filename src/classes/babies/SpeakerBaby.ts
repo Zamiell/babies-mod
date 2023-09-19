@@ -1,4 +1,4 @@
-import { ModCallback } from "isaac-typescript-definitions";
+import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
 import { Callback, repeat } from "isaacscript-common";
 import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
@@ -12,6 +12,11 @@ const v = {
 /** X splitting tears. */
 export class SpeakerBaby extends Baby {
   v = v;
+
+  /** Certain collectibles make the baby too dangerous. */
+  override isValid(player: EntityPlayer): boolean {
+    return !player.HasCollectible(CollectibleType.IPECAC);
+  }
 
   // 40
   @Callback(ModCallback.POST_TEAR_UPDATE)
