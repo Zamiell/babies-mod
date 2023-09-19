@@ -8,7 +8,7 @@
 - Fireplaces will now be automatically removed on blindfolded babies.
 - Fixed the bug where movable TNT would get duplicated on blindfolded babies. (Thanks sisuka)
 - Fixed bugs with the following babies:
-  - Gold Baby (#15) - The gold hearts are now properly removed.
+  - Gold Baby (#15) - The gold hearts are now properly removed. (Thanks Gamonymous)
 
 ### _v1.20.0_ - September 18th, 2023
 
