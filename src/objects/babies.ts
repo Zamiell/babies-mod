@@ -5004,6 +5004,7 @@ export const BABIES = {
     description: "Starts with Soy Milk + booger tears",
     sprite: "572_baby_doleful.png",
     collectible: CollectibleType.SOY_MILK,
+    requireTears: true,
     class: bc.DolefulBaby,
   },
 
