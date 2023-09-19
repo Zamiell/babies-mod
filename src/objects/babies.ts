@@ -958,7 +958,7 @@ export const BABIES = {
   // 107
   [RandomBabyType.BROWNIE]: {
     name: "Brownie Baby",
-    description: "Starts with Level 4 Meatboy + Level 4 Meatgirl",
+    description: "Starts with level 4 Meatboy + level 4 Meatgirl",
     sprite: "107_baby_brownie.png",
     num: 4,
     class: bc.BrownieBaby,
@@ -3982,7 +3982,7 @@ export const BABIES = {
   // 453
   [RandomBabyType.GRAVEN]: {
     name: "Graven Baby",
-    description: "Starts with Level 4 Bumbo (improved)",
+    description: "Starts with level 4 Bumbo (improved)",
     sprite: "453_baby_graven.png",
     collectible: CollectibleType.BUMBO,
     class: bc.GravenBaby,
@@ -4851,9 +4851,9 @@ export const BABIES = {
   // 554
   [RandomBabyType.PENGUIN]: {
     name: "Penguin Baby",
-    description: "Starts with Blood Puppy",
+    description: "Starts with friendly Level 3 Blood Puppy",
     sprite: "554_baby_penguin.png",
-    collectible: CollectibleType.BLOOD_PUPPY,
+    class: bc.PenguinBaby,
   },
 
   // 555

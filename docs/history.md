@@ -8,6 +8,7 @@
 - The following babies have new effects:
   - X Eyed Baby (#309) - "Starts with Marked" --> "Starts with 3x Lil Brimstone + Marked"
   - Dragon Baby (#432) - "Starts with Lil Brimstone" --> "Starts with Montezuma's Revenge + Playdough Cookie + My Reflection"
+  - Penguin Baby (#554) - "Starts with Blood Puppy" --> "Starts with friendly level 3 Blood Puppy"
 
 ### _v1.19.1_ - September 18th, 2023
 

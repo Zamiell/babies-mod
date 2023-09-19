@@ -116,7 +116,7 @@ There are 604 babies in total.
 | 104 | <img src="./images/104_baby_dumb.png" alt="104_baby_dumb.png"> | Dumb Baby | Starts with No. 2 |
 | 105 | <img src="./images/105_baby_lipstick.png" alt="105_baby_lipstick.png"> | Lipstick Baby | Range oscillates |
 | 106 | <img src="./images/106_baby_aether.png" alt="106_baby_aether.png"> | Aether Baby | All direction tears |
-| 107 | <img src="./images/107_baby_brownie.png" alt="107_baby_brownie.png"> | Brownie Baby | Starts with Level 4 Meatboy + Level 4 Meatgirl |
+| 107 | <img src="./images/107_baby_brownie.png" alt="107_baby_brownie.png"> | Brownie Baby | Starts with level 4 Meatboy + level 4 Meatgirl |
 | 108 | <img src="./images/108_baby_vvvvvv.png" alt="108_baby_vvvvvv.png"> | VVVVVV Baby | Reverse Emperor card effect after 6 hits |
 | 109 | <img src="./images/109_baby_nosferatu.png" alt="109_baby_nosferatu.png"> | Nosferatu Baby | Enemies have spectral projectiles |
 | 110 | <img src="./images/110_baby_pubic.png" alt="110_baby_pubic.png"> | Pubic Baby | Must full clear |
@@ -462,7 +462,7 @@ There are 604 babies in total.
 | 450 | <img src="./images/450_baby_moth.png" alt="450_baby_moth.png"> | Moth Baby | Starts with Soy Milk + Ipecac |
 | 451 | <img src="./images/451_baby_buttface.png" alt="451_baby_buttface.png"> | Buttface Baby | Spawns a Black Poop per enemy killed |
 | 452 | <img src="./images/452_baby_flying_candle.png" alt="452_baby_flying_candle.png"> | Flying Candle Baby | Starts with Night Light |
-| 453 | <img src="./images/453_baby_graven.png" alt="453_baby_graven.png"> | Graven Baby | Starts with Level 4 Bumbo (improved) |
+| 453 | <img src="./images/453_baby_graven.png" alt="453_baby_graven.png"> | Graven Baby | Starts with level 4 Bumbo (improved) |
 | 454 | <img src="./images/454_baby_gizzy_chargeshot.png" alt="454_baby_gizzy_chargeshot.png"> | Gizzy Chargeshot Baby | Starts with Poke Go |
 | 455 | <img src="./images/455_baby_green_koopa.png" alt="455_baby_green_koopa.png"> | Green Koopa Baby | Shoots bouncy green shells |
 | 456 | <img src="./images/456_baby_handsome_mrfrog.png" alt="456_baby_handsome_mrfrog.png"> | Handsome Mr. Frog Baby | Spawns 20 Blue Flies on hit |
@@ -563,7 +563,7 @@ There are 604 babies in total.
 | 551 | <img src="./images/551_baby_purplehorse.png" alt="551_baby_purplehorse.png"> | Purple Horse Baby | Starts with Blessed Penny |
 | 552 | <img src="./images/552_baby_koala.png" alt="552_baby_koala.png"> | Koala Baby | Genesis effect after 6 hits |
 | 553 | <img src="./images/553_baby_cliffhanger.png" alt="553_baby_cliffhanger.png"> | Cliff Hanger Baby | Starts with Options? |
-| 554 | <img src="./images/554_baby_penguin.png" alt="554_baby_penguin.png"> | Penguin Baby | Starts with Blood Puppy |
+| 554 | <img src="./images/554_baby_penguin.png" alt="554_baby_penguin.png"> | Penguin Baby | Starts with friendly Level 3 Blood Puppy |
 | 555 | <img src="./images/555_baby_kindaloveable.png" alt="555_baby_kindaloveable.png"> | Kinda Loveable Baby | Spawns a Lovers card on hit |
 | 556 | <img src="./images/556_baby_cursedroom.png" alt="556_baby_cursedroom.png"> | Cursed Room Baby | Starts with Holy Mantle + Curse of the Cursed |
 | 557 | <img src="./images/557_baby_proto.png" alt="557_baby_proto.png"> | Proto Baby | Starts with Brimstone + Haemolacria |
