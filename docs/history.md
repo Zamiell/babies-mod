@@ -3,6 +3,13 @@
 <!-- cspell:ignore Adrayon,cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.20.3_ - September 19th, 2023
+
+- Lachryphagy is now defined as an anti-synergy with Ipecac. (Thanks Gamonymous)
+- Fixed the bug where the description for long babies would not show up properly in the Rebirth Item Tracker.
+- Fixed bugs with the following babies:
+  - Slicer Baby (#331) - Now has island softlock prevention.
+
 ### _v1.20.2_ - September 19th, 2023
 
 - Fixed bugs with the following babies:
