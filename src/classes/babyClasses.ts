@@ -222,6 +222,7 @@ export { OrangeDemonBaby } from "./babies/OrangeDemonBaby";
 export { OrangeGhostBaby } from "./babies/OrangeGhostBaby";
 export { OrangePigBaby } from "./babies/OrangePigBaby";
 export { PandaBaby } from "./babies/PandaBaby";
+export { PeelingBaby } from "./babies/PeelingBaby";
 export { PegasusBaby } from "./babies/PegasusBaby";
 export { PenguinBaby } from "./babies/PenguinBaby";
 export { PieceABaby } from "./babies/PieceABaby";

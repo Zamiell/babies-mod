@@ -1752,9 +1752,9 @@ export const BABIES = {
   // 199
   [RandomBabyType.PEELING]: {
     name: "Peeling Baby",
-    description: "Starts with Potato Peeler",
+    description: "Pinking Shears effect on hit",
     sprite: "199_baby_peeling.png",
-    collectible: CollectibleType.POTATO_PEELER,
+    class: bc.PeelingBaby,
   },
 
   // 200
