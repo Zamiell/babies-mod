@@ -29,7 +29,17 @@ export interface BabyDescription {
   readonly num?: int;
   readonly seed?: SeedEffect;
   readonly allCollectiblesFromPool?: ItemPoolType;
+
+  /**
+   * For some specific blindfolded babies. Fireplaces, poops, and TNT barrels can cause the player
+   * to get softlocked in these types of situations.
+   */
   readonly softlockPreventionRemoveFires?: boolean;
+
+  /**
+   * For babies that have limited range. Enemies on islands can cause the player to get softlocked
+   * in these types of situations.
+   */
   readonly softlockPreventionIsland?: boolean;
 
   // Optional properties that specify selection restrictions.
