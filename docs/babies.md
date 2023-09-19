@@ -208,7 +208,7 @@ There are 604 babies in total.
 | 196 | <img src="./images/196_baby_spooked.png" alt="196_baby_spooked.png"> | Spooked Baby | All enemies are permanently feared |
 | 197 | <img src="./images/197_baby_nice.png" alt="197_baby_nice.png"> | Nice Baby | Brimstone tears |
 | 198 | <img src="./images/198_baby_dots.png" alt="198_baby_dots.png"> | Dots Baby | Starts with Cricket's Body |
-| 199 | <img src="./images/199_baby_peeling.png" alt="199_baby_peeling.png"> | Peeling Baby | Starts with Potato Peeler |
+| 199 | <img src="./images/199_baby_peeling.png" alt="199_baby_peeling.png"> | Peeling Baby | Pinking Shears effect on hit |
 | 200 | <img src="./images/200_baby_smallface.png" alt="200_baby_smallface.png"> | Small Face Baby | My Little Unicorn effect on hit |
 | 201 | <img src="./images/201_baby_good.png" alt="201_baby_good.png"> | Good Baby | Starts with 15x Seraphim |
 | 202 | <img src="./images/202_baby_blindfold.png" alt="202_baby_blindfold.png"> | Blindfold Baby | Starts with 2x Incubus + blindfolded |
