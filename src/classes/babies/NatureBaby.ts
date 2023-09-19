@@ -3,6 +3,7 @@ import { PickupVariant } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   ModCallbackCustom,
+  game,
   getHorsePillColor,
   isHorsePill,
 } from "isaacscript-common";
@@ -21,6 +22,11 @@ export class NatureBaby extends Baby {
     subType: int,
   ): [PickupVariant, int] | undefined {
     const pillColor = subType as PillColor;
+
+    // For some reason, granting PHD to this baby does not make the pills identified for some
+    // reason.
+    const itemPool = game.GetItemPool();
+    itemPool.IdentifyPill(pillColor);
 
     if (!isHorsePill(pillColor)) {
       const horsePillColor = getHorsePillColor(pillColor);
