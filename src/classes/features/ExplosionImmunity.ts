@@ -18,8 +18,7 @@ export class ExplosionImmunity extends BabyModFeature {
     if (babyType === undefined) {
       return undefined;
     }
-
-    const baby = BABIES[babyType] as BabyDescription;
+    const baby: BabyDescription = BABIES[babyType];
 
     if (
       baby.explosionImmunity === true &&

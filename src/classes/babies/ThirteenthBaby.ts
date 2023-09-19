@@ -19,10 +19,14 @@ const TRINKET_GRID_INDEXES = [32, 34, 40, 42, 92, 94, 100, 102] as const;
 
 /** Starts in a trinket shop. */
 export class ThirteenthBaby extends Baby {
-  /** Ensure that the starting room of the floor is clean (e.g. no Blue Womb, no The Chest, etc.) */
   override isValid(player: EntityPlayer): boolean {
     const coins = player.GetNumCoins();
-    return coins >= TRINKET_PRICE && !doesEntityExist(EntityType.PICKUP);
+
+    return (
+      coins >= TRINKET_PRICE &&
+      // Ensure that the starting room of the floor is clean (e.g. no Blue Womb, no The Chest, etc.)
+      !doesEntityExist(EntityType.PICKUP)
+    );
   }
 
   override onAdd(player: EntityPlayer): void {

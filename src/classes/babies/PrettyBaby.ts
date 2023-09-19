@@ -5,7 +5,6 @@ import {
   ItemPoolType,
   LevelStage,
   ModCallback,
-  PickupVariant,
 } from "isaac-typescript-definitions";
 import {
   Callback,
@@ -19,12 +18,11 @@ import {
   spawnWithSeed,
 } from "isaacscript-common";
 import { mod } from "../../mod";
-import {
-  isRerolledCollectibleBuggedHeart,
-  shouldTransformRoomType,
-} from "../../utils";
+import { shouldTransformRoomType } from "../../utils";
 import { Baby } from "../Baby";
 import { getRandomCollectibleTypeFromPool } from "../features/GetRandomCollectibleTypeFromPool";
+
+const FIRE_GRID_INDEXES = [34, 40] as const;
 
 /** All special rooms are Angel shops. */
 export class PrettyBaby extends Baby {
@@ -34,37 +32,6 @@ export class PrettyBaby extends Baby {
    */
   override isValid(): boolean {
     return onStageOrLower(LevelStage.SHEOL_CATHEDRAL) && !onFirstFloor();
-  }
-
-  /**
-   * Rerolled collectibles turn into hearts, so delete the heart and manually create another
-   * pedestal item.
-   */
-  // 35
-  @Callback(ModCallback.POST_PICKUP_UPDATE, PickupVariant.HEART)
-  postPickupUpdateHeart(pickup: EntityPickup): void {
-    const room = game.GetRoom();
-    const roomType = room.GetType();
-
-    if (!shouldTransformRoomType(roomType)) {
-      return;
-    }
-
-    if (isRerolledCollectibleBuggedHeart(pickup)) {
-      pickup.Remove();
-
-      const collectibleType = getRandomCollectibleTypeFromPool(
-        ItemPoolType.ANGEL,
-        pickup.InitSeed,
-      );
-      const collectible = mod.spawnCollectible(
-        collectibleType,
-        pickup.Position,
-        pickup.InitSeed,
-      );
-      collectible.AutoUpdatePrice = false;
-      collectible.Price = 15;
-    }
   }
 
   // 71
@@ -104,19 +71,16 @@ export class PrettyBaby extends Baby {
     // We deliberately do not spawn an Angel Statue because we do not want them to be able to farm a
     // key piece.
 
-    // Spawn the two fires.
-    const firePositions = [
-      gridCoordinatesToWorldPosition(3, 1),
-      gridCoordinatesToWorldPosition(9, 1),
-    ];
-    for (const firePosition of firePositions) {
+    // Spawn the fires.
+    for (const gridIndex of FIRE_GRID_INDEXES) {
       spawnWithSeed(
         EntityType.FIREPLACE,
         FireplaceVariant.BLUE,
         0,
-        firePosition,
+        gridIndex,
         rng,
       );
+      Isaac.DebugString("GETTING HERE");
     }
   }
 }

@@ -28,8 +28,8 @@ export class AllCollectiblesFromPool extends BabyModFeature {
     if (babyType === undefined) {
       return undefined;
     }
+    const baby: BabyDescription = BABIES[babyType];
 
-    const baby = BABIES[babyType] as BabyDescription;
     if (baby.allCollectiblesFromPool === undefined) {
       return undefined;
     }

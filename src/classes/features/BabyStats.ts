@@ -13,7 +13,7 @@ export class BabyStats extends BabyModFeature {
       return;
     }
 
-    const baby = BABIES[babyType] as BabyDescription;
+    const baby: BabyDescription = BABIES[babyType];
 
     // Give the Random Baby character a flat +1 damage as a bonus, similar to Samael.
     if (cacheFlag === CacheFlag.DAMAGE) {

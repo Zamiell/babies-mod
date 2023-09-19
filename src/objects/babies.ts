@@ -2358,7 +2358,7 @@ export const BABIES = {
   // 270
   [RandomBabyType.PORCUPINE]: {
     name: "Porcupine Baby",
-    description: "Wait What? effect every 5 seconds",
+    description: "Wait What effect every 5 seconds",
     sprite: "270_baby_porcupine.png",
     num: 5,
     class: bc.PorcupineBaby,

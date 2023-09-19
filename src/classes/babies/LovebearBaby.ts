@@ -1,4 +1,8 @@
-import { EntityType, SlotVariant } from "isaac-typescript-definitions";
+import {
+  EntityType,
+  LevelStage,
+  SlotVariant,
+} from "isaac-typescript-definitions";
 import {
   doesEntityExist,
   getEffectiveStage,
@@ -8,15 +12,13 @@ import { Baby } from "../Baby";
 
 /** Starts in a super Arcade. */
 export class LovebearBaby extends Baby {
-  /**
-   * - The player won't have any resources to spend on slot machines on the first floor or second
-   *   floor.
-   * - Ensure that the starting room of the floor is clean (e.g. no Blue Womb, no The Chest, etc.)
-   */
   override isValid(): boolean {
     return (
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-      getEffectiveStage() > 2 && !doesEntityExist(EntityType.PICKUP)
+      // The player won't have any resources to spend on slot machines on the first floor or second
+      // floor.
+      getEffectiveStage() > LevelStage.BASEMENT_2 &&
+      // Ensure that the starting room of the floor is clean (e.g. no Blue Womb, no The Chest, etc.)
+      !doesEntityExist(EntityType.PICKUP)
     );
   }
 

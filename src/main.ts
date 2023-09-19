@@ -82,7 +82,7 @@ function welcomeBanner() {
 function initBabyClassMap() {
   for (const [babyTypeString, babyRaw] of Object.entries(BABIES)) {
     const babyType = babyTypeString as unknown as RandomBabyType;
-    const baby = babyRaw as BabyDescription;
+    const baby: BabyDescription = babyRaw;
 
     if (baby.class !== undefined) {
       // eslint-disable-next-line new-cap

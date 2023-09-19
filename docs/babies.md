@@ -225,7 +225,7 @@ There are 604 babies in total.
 | 213 | <img src="./images/213_baby_skinny.png" alt="213_baby_skinny.png"> | Skinny Baby | Super homing tears |
 | 214 | <img src="./images/214_baby_spider.png" alt="214_baby_spider.png"> | Basic Spider Baby | Starts with Breath of Life |
 | 215 | <img src="./images/215_baby_shopkeeper.png" alt="215_baby_shopkeeper.png"> | Shopkeeper Baby | Items/pickups that cost coins are free |
-| 216 | <img src="./images/216_baby_fancy.png" alt="216_baby_fancy.png"> | Fancy Baby | Can purchase teleports to special rooms |
+| 216 | <img src="./images/216_baby_fancy.png" alt="216_baby_fancy.png"> | Fancy Baby | Can purchase teleports to special rooms (no rerolls) |
 | 217 | <img src="./images/217_baby_chubby.png" alt="217_baby_chubby.png"> | Chubby Baby | Starts with Technology Zero + Tiny Planet |
 | 218 | <img src="./images/218_baby_cyclops.png" alt="218_baby_cyclops.png"> | Cyclops Baby | Starts with Polyphemus |
 | 219 | <img src="./images/219_baby_isaac.png" alt="219_baby_isaac.png"> | Isaac Baby | Starts with The Battery |
@@ -279,7 +279,7 @@ There are 604 babies in total.
 | 267 | <img src="./images/267_baby_hare.png" alt="267_baby_hare.png"> | Hare Baby | Takes damage when standing still |
 | 268 | <img src="./images/268_baby_squirrel.png" alt="268_baby_squirrel.png"> | Squirrel Baby | Spawns a friendly Mom's Hand in every room |
 | 269 | <img src="./images/269_baby_tabby.png" alt="269_baby_tabby.png"> | Tabby Baby | Starts with Sol |
-| 270 | <img src="./images/270_baby_porcupine.png" alt="270_baby_porcupine.png"> | Porcupine Baby | Wait What? effect every 5 seconds |
+| 270 | <img src="./images/270_baby_porcupine.png" alt="270_baby_porcupine.png"> | Porcupine Baby | Wait What effect every 5 seconds |
 | 271 | <img src="./images/271_baby_puppy.png" alt="271_baby_puppy.png"> | Puppy Baby | Starts with Cricket's Head |
 | 272 | <img src="./images/272_baby_parrot.png" alt="272_baby_parrot.png"> | Parrot Baby | Starts with A Pony |
 | 273 | <img src="./images/273_baby_chameleon.png" alt="273_baby_chameleon.png"> | Chameleon Baby | Starts with 5x Rotten Baby |

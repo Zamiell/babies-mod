@@ -27,8 +27,7 @@ export class DrawTempIcon extends BabyModFeature {
     if (babyType === undefined) {
       return;
     }
-
-    const baby = BABIES[babyType] as BabyDescription;
+    const baby: BabyDescription = BABIES[babyType];
 
     if (baby.collectible === undefined) {
       return;

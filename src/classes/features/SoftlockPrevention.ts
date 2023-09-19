@@ -33,6 +33,17 @@ export class SoftlockPrevention extends BabyModFeature {
   /** We remove all fireplaces so that they don't interfere. */
   @Callback(ModCallback.POST_NPC_INIT, EntityType.FIREPLACE)
   postNPCInitFireplace(npc: EntityNPC): void {
+    const babyType = getBabyType();
+    if (babyType === undefined) {
+      return;
+    }
+    const baby: BabyDescription = BABIES[babyType];
+
+    // Check to see if this baby needs the softlock prevention.
+    if (baby.softlockPreventionRemoveFires === undefined) {
+      return;
+    }
+
     npc.Remove();
   }
 
@@ -52,9 +63,6 @@ export class SoftlockPrevention extends BabyModFeature {
    * enemies.
    */
   checkSoftlockIsland(baby: BabyDescription): void {
-    const room = game.GetRoom();
-    const roomFrameCount = room.GetFrameCount();
-
     // Check to see if this baby needs the softlock prevention.
     if (baby.softlockPreventionIsland === undefined) {
       return;
@@ -66,6 +74,8 @@ export class SoftlockPrevention extends BabyModFeature {
     }
 
     // Check to see if they have been in the room long enough.
+    const room = game.GetRoom();
+    const roomFrameCount = room.GetFrameCount();
     if (roomFrameCount < ISLAND_THRESHOLD_GAME_FRAMES) {
       return;
     }

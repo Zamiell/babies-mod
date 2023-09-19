@@ -1,9 +1,6 @@
-import type {
-  ActiveSlot,
-  CollectibleType,
-  UseFlag,
-} from "isaac-typescript-definitions";
+import type { ActiveSlot, UseFlag } from "isaac-typescript-definitions";
 import {
+  CollectibleType,
   EntityType,
   ItemType,
   LevelStage,
@@ -152,16 +149,15 @@ const CHEAPEST_TELEPORT_PRICE = TeleportPrice.TEN;
 
 /** Can purchase teleports to special rooms (no rerolls). */
 export class FancyBaby extends Baby {
-  /**
-   * - Should only be valid if the floor has special rooms.
-   * - Ensure that the starting room of the floor is clean (e.g. no Blue Womb, no The Chest, etc.)
-   */
   override isValid(player: EntityPlayer): boolean {
     const coins = player.GetNumCoins();
 
     return (
+      !player.HasCollectible(CollectibleType.GLITCHED_CROWN) &&
       coins >= CHEAPEST_TELEPORT_PRICE &&
+      // Should only be valid if the floor has special rooms.
       onStageOrLower(LevelStage.SHEOL_CATHEDRAL) &&
+      // Ensure that the starting room of the floor is clean (e.g. no Blue Womb, no The Chest, etc.)
       !doesEntityExist(EntityType.PICKUP)
     );
   }

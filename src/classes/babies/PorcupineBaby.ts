@@ -7,8 +7,7 @@ import {
 import { everyNSeconds } from "../../utils";
 import { Baby } from "../Baby";
 
-// eslint-disable-next-line isaacscript/complete-sentences-jsdoc
-/** Wait What? effect every N seconds. */
+/** Wait What effect every N seconds. */
 export class PorcupineBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {
