@@ -13,6 +13,7 @@ import {
   VectorZero,
   bitFlags,
   getKnives,
+  hasCollectible,
 } from "isaacscript-common";
 import { Baby } from "../../Baby";
 
@@ -27,9 +28,14 @@ const v = {
 export class BrotherBobby extends Baby {
   v = v;
 
-  /** Certain collectibles override the effect. */
   override isValid(player: EntityPlayer): boolean {
-    return !player.HasCollectible(CollectibleType.C_SECTION);
+    return hasCollectible(
+      player,
+      // Certain collectibles override the effect.
+      CollectibleType.C_SECTION, // 678
+      // Certain collectibles do not properly synergize with the effect.
+      CollectibleType.TWISTED_PAIR, // 698
+    );
   }
 
   // 11
