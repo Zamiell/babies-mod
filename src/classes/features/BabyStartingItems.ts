@@ -15,6 +15,13 @@ const CHANGE_CHARACTER_COLLECTIBLE_TYPES = [
   CollectibleType.CLICKER, // 482
 ] as const;
 
+const REROLL_BUILD_COLLECTIBLE_TYPES = [
+  CollectibleType.D100, // 283
+  CollectibleType.D4, // 284
+  CollectibleType.D_INFINITY, // 489
+  CollectibleType.ESAU_JR, // 703
+] as const;
+
 const BANNED_COLLECTIBLES_WITH_RANDOM_BABY = [
   // Guillotine will not display properly because Random Baby does not have a head.
   CollectibleType.GUILLOTINE, // 206
@@ -23,6 +30,7 @@ const BANNED_COLLECTIBLES_WITH_RANDOM_BABY = [
   CollectibleType.SCISSORS, // 325
 
   ...CHANGE_CHARACTER_COLLECTIBLE_TYPES,
+  ...REROLL_BUILD_COLLECTIBLE_TYPES,
 ] as const;
 
 const CHANGE_CHARACTER_TRINKET_TYPES = [
@@ -34,8 +42,13 @@ const CHANGE_CHARACTER_TRINKET_TYPES = [
   // collectibles have a type of "summonable".
 ] as const;
 
+const REROLL_BUILD_TRINKET_TYPES = [
+  TrinketType.DICE_BAG, // 154
+] as const;
+
 const BANNED_TRINKETS_WITH_RANDOM_BABY = [
   ...CHANGE_CHARACTER_TRINKET_TYPES,
+  ...REROLL_BUILD_TRINKET_TYPES,
 ] as const;
 
 /** This feature does not extend from `BabyModFeature` because we do not want any validation. */
