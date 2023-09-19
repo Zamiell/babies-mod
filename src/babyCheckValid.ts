@@ -171,6 +171,17 @@ function checkCollectibles(
   }
 
   if (
+    babyCollectiblesSet.has(CollectibleType.IPECAC) && // 149
+    hasCollectible(
+      player,
+      CollectibleType.CRICKETS_BODY,
+      CollectibleType.COMPOUND_FRACTURE,
+    )
+  ) {
+    return false;
+  }
+
+  if (
     babyCollectiblesSet.has(CollectibleType.MONSTROS_LUNG) && // 229
     player.HasCollectible(CollectibleType.DR_FETUS) && // 52
     player.HasCollectible(CollectibleType.IPECAC) // 149
