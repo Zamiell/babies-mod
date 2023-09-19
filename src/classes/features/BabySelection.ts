@@ -98,8 +98,12 @@ export class BabySelection extends ModFeature {
 
     // Write the baby description to a file to allow streamers to capture the text file in Open
     // Broadcaster Software (OBS) to show to the stream.
+    const description =
+      baby.description2 === undefined
+        ? baby.description
+        : `${baby.description} ${baby.description2}`;
     rebirthItemTrackerWriteToFile(
-      `${baby.name} (#${babyType}) - ${baby.description}`,
+      `${baby.name} (#${babyType}) - ${description}`,
     );
 
     babyAdd(player, babyType, baby);
