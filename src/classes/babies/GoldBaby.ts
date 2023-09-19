@@ -54,9 +54,13 @@ export class GoldBaby extends Baby {
   }
 
   override onAdd(player: EntityPlayer): void {
-    player.AddGoldenHearts(12);
+    player.AddGoldenHearts(99);
     player.AddGoldenBomb();
     player.AddGoldenKey();
+  }
+
+  override onRemove(player: EntityPlayer): void {
+    player.AddGoldenHearts(-99);
   }
 
   // 34
