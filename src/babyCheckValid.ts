@@ -207,6 +207,13 @@ function checkCollectibles(
     return false;
   }
 
+  if (
+    babyCollectiblesSet.has(CollectibleType.LACHRYPHAGY) && // 532
+    player.HasCollectible(CollectibleType.IPECAC)
+  ) {
+    return false;
+  }
+
   // Spindown Dice can be used on Knife Piece 1 to break the game.
   if (
     babyCollectiblesSet.has(CollectibleType.SPINDOWN_DICE) && // 723
