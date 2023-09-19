@@ -12,6 +12,7 @@
   - Hooligan Baby (#514) - The effect no longer applies to bosses.
 - Fixed bugs with the following babies:
   - Nature Baby (#305) - Now properly reveals the pill effects. (Thanks Gamonymous)
+  - Scary Baby (#317) - Now works properly with Coupon. (Thanks Gamonymous)
   - Slicer Baby (#331) - Now has island softlock prevention.
 
 ### _v1.20.2_ - September 19th, 2023
