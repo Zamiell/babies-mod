@@ -2910,6 +2910,7 @@ export const BABIES = {
     collectible: CollectibleType.SOY_MILK,
     collectible2: CollectibleType.PROPTOSIS,
     num: 5, // The frames until the tear disappears.
+    softlockPreventionIsland: true,
     class: bc.SlicerBaby,
   },
 
