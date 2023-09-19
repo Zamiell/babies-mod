@@ -1,33 +1,21 @@
-import {
-  EntityType,
-  GeminiVariant,
-  LevelStage,
-  SwingerVariant,
-} from "isaac-typescript-definitions";
+import { EntityType, SwingerVariant } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   DISTANCE_OF_GRID_TILE,
   ModCallbackCustom,
   ReadonlySet,
-  asNumber,
   game,
-  onStage,
-  onStageOrLower,
   spawn,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
-/** Doubling certain enemies leads to bugs. */
+/** Doubling certain entities leads to bugs. */
 const BUGGY_ENTITY_TYPES_SET = new ReadonlySet<EntityType>([
   EntityType.SHOPKEEPER, // 17
-  EntityType.CHUB, // 28
   EntityType.FIREPLACE, // 33
   EntityType.GRIMACE, // 42
   EntityType.POKY, // 44
-  EntityType.MOM, // 45
-  EntityType.MOMS_HEART, // 78
   EntityType.ETERNAL_FLY, // 96
-  EntityType.ISAAC, // 102
   EntityType.CONSTANT_STONE_SHOOTER, // 202
   EntityType.BRIMSTONE_HEAD, // 203
   EntityType.WALL_HUGGER, // 218
@@ -35,6 +23,12 @@ const BUGGY_ENTITY_TYPES_SET = new ReadonlySet<EntityType>([
   EntityType.BROKEN_GAPING_MAW, // 236
   EntityType.SWARM, // 281
   EntityType.PITFALL, // 291
+]);
+
+/** Doubling certain entity + variant combinations leads to bugs. */
+const BUGGY_ENTITY_TYPE_VARIANT_SET = new ReadonlySet<string>([
+  `${EntityType.SWINGER}.${SwingerVariant.SWINGER_HEAD}`, // 216.1
+  `${EntityType.SWINGER}.${SwingerVariant.SWINGER_NECK}`, // 216.10
 ]);
 
 const v = {
@@ -46,15 +40,6 @@ const v = {
 /** Double enemies. */
 export class HooliganBaby extends Baby {
   v = v;
-
-  /**
-   * - Mom cannot be doubled, so don't give this baby on stage 6.
-   * - It Lives cannot be doubled, so don't give this baby on stage 8.
-   * - Furthermore, double enemies would be too hard on the final stages.
-   */
-  override isValid(): boolean {
-    return !onStage(LevelStage.DEPTHS_2) && onStageOrLower(LevelStage.WOMB_1);
-  }
 
   /**
    * We duplicate enemies in the `POST_NPC_INIT_LATE` callback instead of the `POST_NPC_INIT`
@@ -70,14 +55,13 @@ export class HooliganBaby extends Baby {
 
   shouldDuplicateNPC(npc: EntityNPC): boolean {
     const ptrHash = GetPtrHash(npc);
+    const entityTypeVariant = `${npc.Type}.${npc.Variant}`;
 
-    return !(
-      v.room.duplicatedNPCs.has(ptrHash) ||
-      BUGGY_ENTITY_TYPES_SET.has(npc.Type) ||
-      (npc.Type === EntityType.GEMINI && // 79
-        npc.Variant >= asNumber(GeminiVariant.GEMINI_BABY)) ||
-      (npc.Type === EntityType.SWINGER && // 216
-        npc.Variant !== asNumber(SwingerVariant.SWINGER))
+    return (
+      !v.room.duplicatedNPCs.has(ptrHash) &&
+      !npc.IsBoss() &&
+      !BUGGY_ENTITY_TYPES_SET.has(npc.Type) &&
+      !BUGGY_ENTITY_TYPE_VARIANT_SET.has(entityTypeVariant)
     );
   }
 

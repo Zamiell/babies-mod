@@ -5,6 +5,7 @@
 
 ### _v1.20.3_ - September 19th, 2023
 
+- D4, D100, D Infinity, Esau Jr, and Dice Bag are now removed from all pools when playing as Random Baby.
 - Lachryphagy is now defined as an anti-synergy with Ipecac. (Thanks Gamonymous)
 - Fixed the bug where the description for long babies would not show up properly in the Rebirth Item Tracker.
 - Fixed bugs with the following babies:

@@ -42,9 +42,13 @@ export interface BabyDescription {
    */
   readonly softlockPreventionIsland?: boolean;
 
-  // Optional properties that specify selection restrictions.
+  /** Requires that the player has a tear build (e.g. no Brimstone). */
   readonly requireTears?: boolean;
+
+  /** Requires that the player is on Womb 2 or lower. */
   readonly requireNoEndFloors?: boolean;
+
+  /** Requires that the player has enough health remaining to take N hits. */
   readonly requireNumHits?: int;
 
   /** Requires that the player has at least 1 bomb. */

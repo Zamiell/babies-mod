@@ -4516,6 +4516,7 @@ export const BABIES = {
     name: "Hooligan Baby",
     description: "Double enemies",
     sprite: "514_baby_hooligan.png",
+    requireNoEndFloors: true,
     class: bc.HooliganBaby,
   },
 
