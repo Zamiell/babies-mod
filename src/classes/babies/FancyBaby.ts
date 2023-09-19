@@ -1,10 +1,13 @@
-import type { CollectibleType } from "isaac-typescript-definitions";
+import type {
+  ActiveSlot,
+  CollectibleType,
+  UseFlag,
+} from "isaac-typescript-definitions";
 import {
   EntityType,
   ItemType,
   LevelStage,
   ModCallback,
-  PickupVariant,
   RoomType,
 } from "isaac-typescript-definitions";
 import type { PickingUpItemCollectible } from "isaacscript-common";
@@ -28,7 +31,7 @@ import {
 } from "isaacscript-common";
 import { CollectibleTypeCustom } from "../../enums/CollectibleTypeCustom";
 import { mod } from "../../mod";
-import { isRerolledCollectibleBuggedHeart } from "../../utils";
+import { isRerollCollectibleType } from "../../utils";
 import { Baby } from "../Baby";
 
 enum TeleportPrice {
@@ -147,7 +150,7 @@ const COLLECTIBLE_POSITIONS = [
 
 const CHEAPEST_TELEPORT_PRICE = TeleportPrice.TEN;
 
-/** Can purchase teleports to special rooms. */
+/** Can purchase teleports to special rooms (no rerolls). */
 export class FancyBaby extends Baby {
   /**
    * - Should only be valid if the floor has special rooms.
@@ -155,6 +158,7 @@ export class FancyBaby extends Baby {
    */
   override isValid(player: EntityPlayer): boolean {
     const coins = player.GetNumCoins();
+
     return (
       coins >= CHEAPEST_TELEPORT_PRICE &&
       onStageOrLower(LevelStage.SHEOL_CATHEDRAL) &&
@@ -162,13 +166,22 @@ export class FancyBaby extends Baby {
     );
   }
 
-  /** Delete the rerolled teleport collectibles. */
-  // 35
-  @Callback(ModCallback.POST_PICKUP_UPDATE, PickupVariant.HEART)
-  postPickupUpdateHeart(pickup: EntityPickup): void {
-    if (isRerolledCollectibleBuggedHeart(pickup) && inStartingRoom()) {
-      pickup.Remove();
+  // 23
+  @Callback(ModCallback.PRE_USE_ITEM)
+  preUseItem(
+    collectibleType: CollectibleType,
+    _rng: RNG,
+    player: EntityPlayer,
+    _useFlags: BitFlags<UseFlag>,
+    _activeSlot: ActiveSlot,
+    _customVarData: int,
+  ): boolean | undefined {
+    if (isRerollCollectibleType(collectibleType) && inStartingRoom()) {
+      player.AnimateSad();
+      return true;
     }
+
+    return undefined;
   }
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)

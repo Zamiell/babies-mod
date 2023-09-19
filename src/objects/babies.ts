@@ -1899,6 +1899,7 @@ export const BABIES = {
   [RandomBabyType.FANCY]: {
     name: "Fancy Baby",
     description: "Can purchase teleports to special rooms",
+    description2: "(no rerolls)",
     sprite: "216_baby_fancy.png",
     class: bc.FancyBaby,
   },

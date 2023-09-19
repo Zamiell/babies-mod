@@ -1,6 +1,9 @@
-import type { ActiveSlot, UseFlag } from "isaac-typescript-definitions";
-import {
+import type {
+  ActiveSlot,
   CollectibleType,
+  UseFlag,
+} from "isaac-typescript-definitions";
+import {
   ItemPoolType,
   ModCallback,
   RoomType,
@@ -16,6 +19,7 @@ import {
   onFirstFloor,
 } from "isaacscript-common";
 import { mod } from "../../mod";
+import { isRerollCollectibleType } from "../../utils";
 import { Baby } from "../Baby";
 import { getRandomCollectibleTypeFromPool } from "../features/GetRandomCollectibleTypeFromPool";
 
@@ -34,6 +38,27 @@ export class StatueBaby2 extends Baby {
     // We do not want players to explicitly reset for this baby, so we exclude it from the first
     // floor.
     return levelHasRoomType(BABY_ROOM_TYPE) && !onFirstFloor();
+  }
+
+  // 23
+  @Callback(ModCallback.PRE_USE_ITEM)
+  preUseItem(
+    collectibleType: CollectibleType,
+    _rng: RNG,
+    player: EntityPlayer,
+    _useFlags: BitFlags<UseFlag>,
+    _activeSlot: ActiveSlot,
+    _customVarData: int,
+  ): boolean | undefined {
+    if (
+      isRerollCollectibleType(collectibleType) &&
+      inRoomType(BABY_ROOM_TYPE)
+    ) {
+      player.AnimateSad();
+      return true;
+    }
+
+    return undefined;
   }
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED, BABY_ROOM_TYPE)
@@ -57,39 +82,5 @@ export class StatueBaby2 extends Baby {
       );
       mod.spawnCollectible(collectibleType, position, rng);
     }
-  }
-
-  @Callback(ModCallback.PRE_USE_ITEM, CollectibleType.D6)
-  preUseItemD6(
-    _collectibleType: CollectibleType,
-    _rng: RNG,
-    player: EntityPlayer,
-    _useFlags: BitFlags<UseFlag>,
-    _activeSlot: ActiveSlot,
-    _customVarData: int,
-  ): boolean | undefined {
-    if (inRoomType(BABY_ROOM_TYPE)) {
-      player.AnimateSad();
-      return true;
-    }
-
-    return undefined;
-  }
-
-  @Callback(ModCallback.PRE_USE_ITEM, CollectibleType.ETERNAL_D6)
-  preUseItemEternalD6(
-    _collectibleType: CollectibleType,
-    _rng: RNG,
-    player: EntityPlayer,
-    _useFlags: BitFlags<UseFlag>,
-    _activeSlot: ActiveSlot,
-    _customVarData: int,
-  ): boolean | undefined {
-    if (inRoomType(BABY_ROOM_TYPE)) {
-      player.AnimateSad();
-      return true;
-    }
-
-    return undefined;
   }
 }
