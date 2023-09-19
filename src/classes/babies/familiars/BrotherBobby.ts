@@ -1,5 +1,6 @@
 import type { DamageFlag } from "isaac-typescript-definitions";
 import {
+  CollectibleType,
   EntityCollisionClass,
   EntityGridCollisionClass,
   ModCallback,
@@ -25,6 +26,11 @@ const v = {
 /** Slings Godhead aura (improved). */
 export class BrotherBobby extends Baby {
   v = v;
+
+  /** Certain collectibles override the effect. */
+  override isValid(player: EntityPlayer): boolean {
+    return !player.HasCollectible(CollectibleType.C_SECTION);
+  }
 
   // 11
   @Callback(ModCallback.ENTITY_TAKE_DMG)
