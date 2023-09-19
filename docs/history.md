@@ -3,6 +3,11 @@
 <!-- cspell:ignore Adrayon,cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.20.2_ - September 19th, 2023
+
+- Fixed bugs with the following babies:
+  - 2600 Baby (#347) - Friendly enemies are now removed upon reaching the next floor. (Thanks Gamonymous)
+
 ### _v1.20.1_ - September 19th, 2023
 
 - Fireplaces will now be automatically removed on blindfolded babies.
