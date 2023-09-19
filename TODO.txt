@@ -2,6 +2,7 @@ TODO long-term:
 - change "R+7 Season 5 (Beta)" upon release
 
 List of boring babies:
+- Peeling Baby (#199) - Starts with Potato Peeler - Slightly overlaps with Meat Boy Baby (#210)
 - Black Knight Baby (#427) - Starts with Black Hole - Slightly overlaps with Astronaut Baby (#406)
 
 List of hard babies:

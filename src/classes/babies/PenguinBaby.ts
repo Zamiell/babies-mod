@@ -15,7 +15,7 @@ import {
 import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
-/** Starts with friendly Blood Puppy. */
+/** Starts with friendly level 3 Blood Puppy. */
 export class PenguinBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {

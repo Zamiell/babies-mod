@@ -4851,7 +4851,7 @@ export const BABIES = {
   // 554
   [RandomBabyType.PENGUIN]: {
     name: "Penguin Baby",
-    description: "Starts with friendly Level 3 Blood Puppy",
+    description: "Starts with friendly level 3 Blood Puppy",
     sprite: "554_baby_penguin.png",
     class: bc.PenguinBaby,
   },

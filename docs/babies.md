@@ -563,7 +563,7 @@ There are 604 babies in total.
 | 551 | <img src="./images/551_baby_purplehorse.png" alt="551_baby_purplehorse.png"> | Purple Horse Baby | Starts with Blessed Penny |
 | 552 | <img src="./images/552_baby_koala.png" alt="552_baby_koala.png"> | Koala Baby | Genesis effect after 6 hits |
 | 553 | <img src="./images/553_baby_cliffhanger.png" alt="553_baby_cliffhanger.png"> | Cliff Hanger Baby | Starts with Options? |
-| 554 | <img src="./images/554_baby_penguin.png" alt="554_baby_penguin.png"> | Penguin Baby | Starts with friendly Level 3 Blood Puppy |
+| 554 | <img src="./images/554_baby_penguin.png" alt="554_baby_penguin.png"> | Penguin Baby | Starts with friendly level 3 Blood Puppy |
 | 555 | <img src="./images/555_baby_kindaloveable.png" alt="555_baby_kindaloveable.png"> | Kinda Loveable Baby | Spawns a Lovers card on hit |
 | 556 | <img src="./images/556_baby_cursedroom.png" alt="556_baby_cursedroom.png"> | Cursed Room Baby | Starts with Holy Mantle + Curse of the Cursed |
 | 557 | <img src="./images/557_baby_proto.png" alt="557_baby_proto.png"> | Proto Baby | Starts with Brimstone + Haemolacria |
