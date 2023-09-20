@@ -19,7 +19,7 @@ import {
   onFirstFloor,
 } from "isaacscript-common";
 import { mod } from "../../mod";
-import { isRerollCollectibleType } from "../../utils";
+import { isCollectibleRerollCollectibleType } from "../../utils";
 import { Baby } from "../Baby";
 import { getRandomCollectibleTypeFromPool } from "../features/GetRandomCollectibleTypeFromPool";
 
@@ -51,7 +51,7 @@ export class StatueBaby2 extends Baby {
     _customVarData: int,
   ): boolean | undefined {
     if (
-      isRerollCollectibleType(collectibleType) &&
+      isCollectibleRerollCollectibleType(collectibleType) &&
       inRoomType(BABY_ROOM_TYPE)
     ) {
       player.AnimateSad();

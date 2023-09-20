@@ -28,7 +28,7 @@ import {
 } from "isaacscript-common";
 import { CollectibleTypeCustom } from "../../enums/CollectibleTypeCustom";
 import { mod } from "../../mod";
-import { isRerollCollectibleType } from "../../utils";
+import { isCollectibleRerollCollectibleType } from "../../utils";
 import { Baby } from "../Baby";
 
 enum TeleportPrice {
@@ -172,7 +172,10 @@ export class FancyBaby extends Baby {
     _activeSlot: ActiveSlot,
     _customVarData: int,
   ): boolean | undefined {
-    if (isRerollCollectibleType(collectibleType) && inStartingRoom()) {
+    if (
+      isCollectibleRerollCollectibleType(collectibleType) &&
+      inStartingRoom()
+    ) {
       player.AnimateSad();
       return true;
     }

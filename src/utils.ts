@@ -71,10 +71,14 @@ import { PlayerTypeCustom } from "./enums/PlayerTypeCustom";
 import type { BabyDescription } from "./interfaces/BabyDescription";
 import { mod } from "./mod";
 
-const REROLL_COLLECTIBLE_TYPES_SET = new ReadonlySet([
+const COLLECTIBLE_REROLL_COLLECTIBLE_TYPES_SET = new ReadonlySet([
   CollectibleType.D6, // 105
   CollectibleType.ETERNAL_D6, // 609
   CollectibleType.SPINDOWN_DICE, // 723
+]);
+
+const TRINKET_REROLL_COLLECTIBLE_TYPES_SET = new ReadonlySet([
+  CollectibleType.D20, // 105
 ]);
 
 const BAD_MISSED_TEARS_COLLECTIBLE_TYPES = [
@@ -221,10 +225,16 @@ export function giveCollectibleAndRemoveFromPools(
   itemPool.RemoveCollectible(collectibleType);
 }
 
-export function isRerollCollectibleType(
+export function isCollectibleRerollCollectibleType(
   collectibleType: CollectibleType,
 ): boolean {
-  return REROLL_COLLECTIBLE_TYPES_SET.has(collectibleType);
+  return COLLECTIBLE_REROLL_COLLECTIBLE_TYPES_SET.has(collectibleType);
+}
+
+export function isTrinketRerollCollectibleType(
+  collectibleType: CollectibleType,
+): boolean {
+  return TRINKET_REROLL_COLLECTIBLE_TYPES_SET.has(collectibleType);
 }
 
 export function isPlayerGoingToNextFloor(player: EntityPlayer): boolean {

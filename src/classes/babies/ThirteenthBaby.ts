@@ -1,8 +1,8 @@
+import type { ActiveSlot, UseFlag } from "isaac-typescript-definitions";
 import {
   CollectibleType,
   EntityType,
   ModCallback,
-  PickupVariant,
   TrinketType,
 } from "isaac-typescript-definitions";
 import {
@@ -11,7 +11,7 @@ import {
   inStartingRoom,
   spawnTrinket,
 } from "isaacscript-common";
-import { isRerolledCollectibleBuggedHeart } from "../../utils";
+import { isTrinketRerollCollectibleType } from "../../utils";
 import { Baby } from "../Baby";
 
 const TRINKET_PRICE = 10;
@@ -39,16 +39,29 @@ export class ThirteenthBaby extends Baby {
     for (const gridIndex of TRINKET_GRID_INDEXES) {
       const trinket = spawnTrinket(TrinketType.NULL, gridIndex);
       trinket.Price = price;
+      trinket.ShopItemId = -1;
+
+      // Since the trinket price is normally 5 cents and our chosen price is more than that, we need
+      // to disable automatic price updating.
       trinket.AutoUpdatePrice = false;
     }
   }
 
-  /** Delete rerolled trinkets. */
-  // 35
-  @Callback(ModCallback.POST_PICKUP_UPDATE, PickupVariant.HEART)
-  postPickupUpdateHeart(pickup: EntityPickup): void {
-    if (isRerolledCollectibleBuggedHeart(pickup) && inStartingRoom()) {
-      pickup.Remove();
+  // 23
+  @Callback(ModCallback.PRE_USE_ITEM)
+  preUseItem(
+    collectibleType: CollectibleType,
+    _rng: RNG,
+    player: EntityPlayer,
+    _useFlags: BitFlags<UseFlag>,
+    _activeSlot: ActiveSlot,
+    _customVarData: int,
+  ): boolean | undefined {
+    if (isTrinketRerollCollectibleType(collectibleType) && inStartingRoom()) {
+      player.AnimateSad();
+      return true;
     }
+
+    return undefined;
   }
 }
