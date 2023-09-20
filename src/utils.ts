@@ -72,6 +72,9 @@ import { mod } from "./mod";
 
 const COLLECTIBLE_REROLL_COLLECTIBLE_TYPES_SET = new ReadonlySet([
   CollectibleType.D6, // 105
+  // Moving Box is not technically a reroll but it allows players to move the collectibles and
+  // potentially reroll them later.
+  CollectibleType.MOVING_BOX, // 523
   CollectibleType.ETERNAL_D6, // 609
   CollectibleType.SPINDOWN_DICE, // 723
 ]);

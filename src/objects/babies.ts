@@ -3811,10 +3811,10 @@ export const BABIES = {
   // 433
   [RandomBabyType.DOWNWELL]: {
     name: "Downwell Baby",
-    description: "Starts with Eden's Soul",
+    description: "Improved shops",
+    description2: "(2 extra items for sale)",
     sprite: "433_baby_downwell.png",
-    collectible: CollectibleType.EDENS_SOUL,
-    uncharged: true,
+    class: bc.DownwellBaby,
   },
 
   // 434

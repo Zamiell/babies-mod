@@ -5,13 +5,16 @@
 
 ### _v1.20.3_ - September 19th, 2023
 
+- The following babies have new effects:
+  - Downwell Baby (#433) - "Starts with Eden's Soul (uncharged)" --> "Improved shops"
+- Changed the following babies:
+  - Hooligan Baby (#514) - The effect no longer applies to bosses.
 - D4, D100, D Infinity, Esau Jr, and Dice Bag are now removed from all pools when playing as Random Baby.
 - Lachryphagy is now defined as an anti-synergy with Ipecac. (Thanks Gamonymous)
 - Fixed the bug where the description for long babies would not show up properly in the Rebirth Item Tracker.
-- Changed the following babies:
-  - Hooligan Baby (#514) - The effect no longer applies to bosses.
+- Fixed the bug where Moving Box was not on the set of reroll items (for preventing rerolls). (Thanks Gamonymous)
 - Fixed bugs with the following babies:
-  - Aban Baby (#177) - Now properly hides the player's health.
+  - Aban Baby (#177) - Now properly hides the player's health. (Thanks Gamonymous)
   - Nature Baby (#305) - Now properly reveals the pill effects. (Thanks Gamonymous)
   - Scary Baby (#317) - Now works properly with Coupon. (Thanks Gamonymous)
   - Slicer Baby (#331) - Now has island softlock prevention.

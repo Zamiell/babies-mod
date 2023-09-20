@@ -94,6 +94,7 @@ export { DentedBaby } from "./babies/DentedBaby";
 export { DigitalBaby } from "./babies/DigitalBaby";
 export { DinoBaby } from "./babies/DinoBaby";
 export { DolefulBaby } from "./babies/DolefulBaby";
+export { DownwellBaby } from "./babies/DownwellBaby";
 export { DrippingBaby } from "./babies/DrippingBaby";
 export { DriverBaby } from "./babies/DriverBaby";
 export { DroolBaby } from "./babies/DroolBaby";
