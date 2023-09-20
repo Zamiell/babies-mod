@@ -1,6 +1,7 @@
 import {
   ActiveSlot,
   CollectibleType,
+  ItemType,
   LevelStage,
   RoomType,
   TrinketType,
@@ -8,6 +9,7 @@ import {
 import type { AnyFunction } from "isaacscript-common";
 import {
   MAPPING_COLLECTIBLES,
+  getCollectibleItemType,
   getEffectiveStage,
   hasAnyTrinket,
   hasCollectible,
@@ -127,6 +129,18 @@ function checkCollectibles(
   if (
     baby.blindfolded === true &&
     hasCollectible(player, ...BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES)
+  ) {
+    return false;
+  }
+
+  const babyCollectibles = [...babyCollectiblesSet.values()];
+  const babyGrantsFamiliar = babyCollectibles.some(
+    (collectibleType) =>
+      getCollectibleItemType(collectibleType) === ItemType.FAMILIAR,
+  );
+  if (
+    babyGrantsFamiliar &&
+    player.HasCollectible(CollectibleType.SACRIFICIAL_ALTAR)
   ) {
     return false;
   }
