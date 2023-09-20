@@ -30,7 +30,6 @@ export { BigTongueBaby } from "./babies/BigTongueBaby";
 export { BlackBaby } from "./babies/BlackBaby";
 export { BlackEyeBaby } from "./babies/BlackEyeBaby";
 export { BlindcursedBaby } from "./babies/BlindcursedBaby";
-export { BlindfoldBaby } from "./babies/BlindfoldBaby";
 export { BlindingBaby } from "./babies/BlindingBaby";
 export { BlistersBaby } from "./babies/BlistersBaby";
 export { BloatBaby } from "./babies/BloatBaby";

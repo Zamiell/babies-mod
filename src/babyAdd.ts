@@ -30,7 +30,10 @@ import {
 import type { RandomBabyType } from "./enums/RandomBabyType";
 import type { BabyDescription } from "./interfaces/BabyDescription";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
-import { giveCollectibleAndRemoveFromPools } from "./utils";
+import {
+  getBabyCollectiblesSet,
+  giveCollectibleAndRemoveFromPools,
+} from "./utils";
 
 /**
  * Some passive items that are not part of a transformation set will not grant their effect if we
@@ -120,6 +123,17 @@ export function babyAdd(
   if (baby.collectible3 !== undefined) {
     giveCollectibleAndRemoveFromPools(player, baby.collectible3);
     removeCollectibleFromItemTracker(baby.collectible3);
+  }
+
+  // If this baby grants a familiar, prevent the player from finding Sacrificial Altar.
+  const babyCollectiblesSet = getBabyCollectiblesSet(baby);
+  const babyCollectibles = [...babyCollectiblesSet.values()];
+  const babyGrantsFamiliar = babyCollectibles.some(
+    (collectibleType) =>
+      getCollectibleItemType(collectibleType) === ItemType.FAMILIAR,
+  );
+  if (babyGrantsFamiliar) {
+    itemPool.RemoveCollectible(CollectibleType.SACRIFICIAL_ALTAR);
   }
 
   // Check if this is a trinket baby.

@@ -1782,7 +1782,6 @@ export const BABIES = {
     collectible: CollectibleType.INCUBUS,
     collectibleNum: 2,
     blindfolded: true,
-    class: bc.BlindfoldBaby,
   },
 
   // 203
