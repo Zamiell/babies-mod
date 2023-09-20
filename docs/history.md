@@ -3,7 +3,7 @@
 <!-- cspell:ignore Adrayon,cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
-### _v1.20.3_ - September 19th, 2023
+### _v1.21.0_ - September 20th, 2023
 
 - The following babies have new effects:
   - Downwell Baby (#433) - "Starts with Eden's Soul (uncharged)" --> "Improved shops"
@@ -13,8 +13,10 @@
 - Lachryphagy is now defined as an anti-synergy with Ipecac. (Thanks Gamonymous)
 - Fixed the bug where the description for long babies would not show up properly in the Rebirth Item Tracker.
 - Fixed the bug where Moving Box was not on the set of reroll items (for preventing rerolls). (Thanks Gamonymous)
+- Fixed the bug where the baby number was not drawn correctly if the player had broken hearts. (Thanks Gamonymous)
 - Fixed bugs with the following babies:
   - Aban Baby (#177) - Now properly hides the player's health. (Thanks Gamonymous)
+  - Meat Boy Baby (#210 - Now properly works with self-damage. (Thanks Gamonymous)
   - Zipper Baby (#225) - Now properly works on the Dark Room. (Thanks Gamonymous)
   - Nature Baby (#305) - Now properly reveals the pill effects. (Thanks Gamonymous)
   - Scary Baby (#317) - Now works properly with Coupon. (Thanks Gamonymous)
