@@ -1,5 +1,10 @@
-import { SlotVariant } from "isaac-typescript-definitions";
-import { CallbackCustom, ModCallbackCustom, newRNG } from "isaacscript-common";
+import { LevelStage, SlotVariant } from "isaac-typescript-definitions";
+import {
+  CallbackCustom,
+  ModCallbackCustom,
+  getEffectiveStage,
+  newRNG,
+} from "isaacscript-common";
 import { setInitialBabyRNG, spawnSlotHelper } from "../../utils";
 import { Baby } from "../Baby";
 
@@ -12,6 +17,13 @@ const v = {
 /** Spawns a Crane Game on hit. */
 export class IllusionBaby extends Baby {
   v = v;
+
+  /**
+   * The player won't have any resources to spend on machines on the first floor or second floor.
+   */
+  override isValid(): boolean {
+    return getEffectiveStage() > LevelStage.BASEMENT_2;
+  }
 
   override onAdd(): void {
     setInitialBabyRNG(v.run.rng);

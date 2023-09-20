@@ -14,7 +14,7 @@ import { Baby } from "../Baby";
 export class LovebearBaby extends Baby {
   override isValid(): boolean {
     return (
-      // The player won't have any resources to spend on slot machines on the first floor or second
+      // The player won't have any resources to spend on machines on the first floor or second
       // floor.
       getEffectiveStage() > LevelStage.BASEMENT_2 &&
       // Ensure that the starting room of the floor is clean (e.g. no Blue Womb, no The Chest, etc.)
