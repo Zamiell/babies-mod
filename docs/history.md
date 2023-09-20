@@ -9,7 +9,7 @@
   - Downwell Baby (#433) - "Starts with Eden's Soul (uncharged)" --> "Improved shops"
 - Changed the following babies:
   - Hooligan Baby (#514) - The effect no longer applies to bosses.
-- D4, D100, D Infinity, Esau Jr, and Dice Bag are now removed from all pools when playing as Random Baby.
+- D4, D100, D Infinity, Esau Jr, Dice Bag, and 'M are now removed from all pools when playing as Random Baby.
 - Lachryphagy is now defined as an anti-synergy with Ipecac. (Thanks Gamonymous)
 - Fixed the bug where the description for long babies would not show up properly in the Rebirth Item Tracker.
 - Fixed the bug where Moving Box was not on the set of reroll items (for preventing rerolls). (Thanks Gamonymous)

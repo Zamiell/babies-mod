@@ -47,6 +47,9 @@ const REROLL_BUILD_TRINKET_TYPES = [
 ] as const;
 
 const BANNED_TRINKETS_WITH_RANDOM_BABY = [
+  // 'M allows changing temporary active items into permanent ones.
+  TrinketType.M,
+
   ...CHANGE_CHARACTER_TRINKET_TYPES,
   ...REROLL_BUILD_TRINKET_TYPES,
 ] as const;
