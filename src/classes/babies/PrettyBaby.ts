@@ -11,7 +11,6 @@ import {
   CallbackCustom,
   ModCallbackCustom,
   game,
-  gridCoordinatesToWorldPosition,
   newRNG,
   onFirstFloor,
   onStageOrLower,
@@ -22,6 +21,7 @@ import { shouldTransformRoomType } from "../../utils";
 import { Baby } from "../Baby";
 import { getRandomCollectibleTypeFromPool } from "../features/GetRandomCollectibleTypeFromPool";
 
+const COLLECTIBLE_GRID_INDEX = 82;
 const FIRE_GRID_INDEXES = [34, 40] as const;
 
 /** All special rooms are Angel shops. */
@@ -63,9 +63,11 @@ export class PrettyBaby extends Baby {
       ItemPoolType.ANGEL,
       rng,
     );
-    const position = gridCoordinatesToWorldPosition(6, 4);
-    const collectible = mod.spawnCollectible(collectibleType, position, rng);
-    collectible.AutoUpdatePrice = false;
+    const collectible = mod.spawnCollectible(
+      collectibleType,
+      COLLECTIBLE_GRID_INDEX,
+      rng,
+    );
     collectible.Price = 15;
     collectible.ShopItemId = -1;
 
@@ -81,7 +83,6 @@ export class PrettyBaby extends Baby {
         gridIndex,
         rng,
       );
-      Isaac.DebugString("GETTING HERE");
     }
   }
 }

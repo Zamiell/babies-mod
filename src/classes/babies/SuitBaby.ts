@@ -6,17 +6,14 @@ import {
   ItemPoolType,
   LevelStage,
   ModCallback,
-  PickupVariant,
   StatueVariant,
 } from "isaac-typescript-definitions";
 import {
   Callback,
   CallbackCustom,
   ModCallbackCustom,
-  asNumber,
   game,
   getCollectibleDevilHeartPrice,
-  gridCoordinatesToWorldPosition,
   newRNG,
   onFirstFloor,
   onStageOrLower,
@@ -24,13 +21,12 @@ import {
   spawnWithSeed,
 } from "isaacscript-common";
 import { mod } from "../../mod";
-import {
-  isPricedDevilRoomPoolCollectible,
-  isRerolledCollectibleBuggedHeart,
-  shouldTransformRoomType,
-} from "../../utils";
+import { shouldTransformRoomType } from "../../utils";
 import { Baby } from "../Baby";
 import { getRandomCollectibleTypeFromPool } from "../features/GetRandomCollectibleTypeFromPool";
+
+const COLLECTIBLE_GRID_INDEX = 82;
+const FIRE_GRID_INDEXES = [34, 40] as const;
 
 /** All special rooms are Devil Rooms. */
 export class SuitBaby extends Baby {
@@ -40,61 +36,6 @@ export class SuitBaby extends Baby {
    */
   override isValid(): boolean {
     return onStageOrLower(LevelStage.SHEOL_CATHEDRAL) && !onFirstFloor();
-  }
-
-  // 35
-  @Callback(ModCallback.POST_PICKUP_UPDATE, PickupVariant.COLLECTIBLE)
-  postPickupUpdateCollectible(pickup: EntityPickup): void {
-    const collectible = pickup as EntityPickupCollectible;
-    const room = game.GetRoom();
-    const roomType = room.GetType();
-    const player = Isaac.GetPlayer();
-
-    if (!shouldTransformRoomType(roomType)) {
-      return;
-    }
-
-    if (!isPricedDevilRoomPoolCollectible(collectible)) {
-      return;
-    }
-
-    // If the price is not correct, update it. (We have to check on every frame in case the health
-    // situation changes.)
-    const price = getCollectibleDevilHeartPrice(collectible.SubType, player);
-    if (collectible.Price !== asNumber(price)) {
-      collectible.Price = price;
-    }
-  }
-
-  /**
-   * Rerolled collectibles turn into hearts, so delete the heart and manually create another
-   * pedestal item.
-   */
-  // 35
-  @Callback(ModCallback.POST_PICKUP_UPDATE, PickupVariant.HEART)
-  postPickupUpdateHeart(pickup: EntityPickup): void {
-    const room = game.GetRoom();
-    const roomType = room.GetType();
-
-    if (!shouldTransformRoomType(roomType)) {
-      return;
-    }
-
-    if (isRerolledCollectibleBuggedHeart(pickup)) {
-      pickup.Remove();
-
-      const collectibleType = getRandomCollectibleTypeFromPool(
-        ItemPoolType.DEVIL,
-        pickup.InitSeed,
-      );
-      const collectible = mod.spawnCollectible(
-        collectibleType,
-        pickup.Position,
-        pickup.InitSeed,
-      );
-      collectible.AutoUpdatePrice = false;
-      collectible.Price = 15;
-    }
   }
 
   // 71
@@ -118,7 +59,6 @@ export class SuitBaby extends Baby {
     const roomSeed = room.GetSpawnSeed();
     const player = Isaac.GetPlayer();
 
-    // Ignore some special rooms.
     if (!isFirstVisit || !shouldTransformRoomType(roomType)) {
       return;
     }
@@ -128,10 +68,13 @@ export class SuitBaby extends Baby {
       ItemPoolType.DEVIL,
       rng,
     );
-    const position = gridCoordinatesToWorldPosition(6, 4);
-    const collectible = mod.spawnCollectible(collectibleType, position, rng);
-    collectible.AutoUpdatePrice = false;
+    const collectible = mod.spawnCollectible(
+      collectibleType,
+      COLLECTIBLE_GRID_INDEX,
+      rng,
+    );
     collectible.Price = getCollectibleDevilHeartPrice(collectibleType, player);
+    collectible.ShopItemId = -2;
 
     // Spawn the Devil Statue.
     const oneTileAboveCenterGridIndex = 52;
@@ -141,17 +84,13 @@ export class SuitBaby extends Baby {
       oneTileAboveCenterGridIndex,
     );
 
-    // Spawn the two fires.
-    const firePositions = [
-      gridCoordinatesToWorldPosition(3, 1),
-      gridCoordinatesToWorldPosition(9, 1),
-    ];
-    for (const firePosition of firePositions) {
+    // Spawn the fires.
+    for (const gridIndex of FIRE_GRID_INDEXES) {
       spawnWithSeed(
         EntityType.FIREPLACE,
         FireplaceVariant.NORMAL,
         0,
-        firePosition,
+        gridIndex,
         rng,
       );
     }
