@@ -212,6 +212,12 @@ export const TRINKETS_THAT_SYNERGIZE_WITH_TEARS = new ReadonlySet([
   TrinketType.SUPER_MAGNET, // 68
 ]);
 
+export const TRINKETS_THAT_OPERATE_ON_ACTIVE_ITEMS = new ReadonlySet([
+  TrinketType.VIBRANT_BULB, // 100
+  TrinketType.DIM_BULB, // 101
+  TrinketType.BUTTER, // 122
+]);
+
 export const COLLECTIBLES_THAT_REMOVE_TEARS = [
   CollectibleType.DR_FETUS, // 52
   CollectibleType.TECHNOLOGY, // 68

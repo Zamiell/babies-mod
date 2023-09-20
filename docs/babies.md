@@ -442,7 +442,7 @@ There are 604 babies in total.
 | 430 | <img src="./images/430_baby_folder.png" alt="430_baby_folder.png"> | Folder Baby | Swaps item/shop pools + devil/angel pools |
 | 431 | <img src="./images/431_baby_driver.png" alt="431_baby_driver.png"> | Driver Baby | Slippery movement |
 | 432 | <img src="./images/432_baby_dragon.png" alt="432_baby_dragon.png"> | Dragon Baby | Starts with Montezuma's Revenge + Playdough Cookie + My Reflection |
-| 433 | <img src="./images/433_baby_downwell.png" alt="433_baby_downwell.png"> | Downwell Baby | Starts with Eden's Soul |
+| 433 | <img src="./images/433_baby_downwell.png" alt="433_baby_downwell.png"> | Downwell Baby | Improved shops (2 extra items for sale) |
 | 434 | <img src="./images/434_baby_cylinder.png" alt="434_baby_cylinder.png"> | Cylinder Baby | Tear size increases with distance |
 | 435 | <img src="./images/435_baby_cup.png" alt="435_baby_cup.png"> | Cup Baby | Card Against Humanity on hit |
 | 436 | <img src="./images/436_baby_cave_robot.png" alt="436_baby_cave_robot.png"> | Cave Robot Baby | Starts with Hairpin |

@@ -15,6 +15,7 @@
 - Fixed the bug where Moving Box was not on the set of reroll items (for preventing rerolls). (Thanks Gamonymous)
 - Fixed bugs with the following babies:
   - Aban Baby (#177) - Now properly hides the player's health. (Thanks Gamonymous)
+  - Zipper Baby (#225) - Now properly works on the Dark Room. (Thanks Gamonymous)
   - Nature Baby (#305) - Now properly reveals the pill effects. (Thanks Gamonymous)
   - Scary Baby (#317) - Now works properly with Coupon. (Thanks Gamonymous)
   - Slicer Baby (#331) - Now has island softlock prevention.

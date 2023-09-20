@@ -1,11 +1,12 @@
 import type { DamageFlag } from "isaac-typescript-definitions";
-import { EntityType } from "isaac-typescript-definitions";
+import { EntityType, LeechVariant } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
+  ModCallbackCustom,
   game,
   getNPCs,
   isSelfDamage,
-  ModCallbackCustom,
+  onDarkRoom,
   spawn,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
@@ -38,21 +39,8 @@ export class ZipperBaby extends Baby {
       (npc) => !npc.IsBoss() && npc.IsVulnerableEnemy(),
     );
 
-    // If there were no non-boss enemies in the room, default to spawning a portal.
-    const dupeEnemyDescription: EntityDescription =
-      firstNonBoss === undefined
-        ? {
-            entityType: EntityType.PORTAL,
-            variant: 0,
-            subType: 0,
-          }
-        : {
-            entityType: firstNonBoss.Type,
-            variant: firstNonBoss.Variant,
-            subType: firstNonBoss.SubType,
-          };
-
     // Spawn a new enemy.
+    const dupeEnemyDescription = this.getDupeEntityDescription(firstNonBoss);
     const position = room.FindFreePickupSpawnPosition(player.Position, 1, true);
     spawn(
       dupeEnemyDescription.entityType,
@@ -62,5 +50,35 @@ export class ZipperBaby extends Baby {
     );
 
     return undefined;
+  }
+
+  /**
+   * If there were no non-boss enemies in the room, default to spawning a portal. (However, portals
+   * do not work properly on the Dark Room, so use a Kamikaze Leech in that case.
+   */
+  getDupeEntityDescription(
+    firstNonBoss: EntityNPC | undefined,
+  ): EntityDescription {
+    if (firstNonBoss !== undefined) {
+      return {
+        entityType: firstNonBoss.Type,
+        variant: firstNonBoss.Variant,
+        subType: firstNonBoss.SubType,
+      };
+    }
+
+    if (onDarkRoom()) {
+      return {
+        entityType: EntityType.LEECH,
+        variant: LeechVariant.KAMIKAZE_LEECH,
+        subType: 0,
+      };
+    }
+
+    return {
+      entityType: EntityType.PORTAL,
+      variant: 0,
+      subType: 0,
+    };
   }
 }

@@ -39,6 +39,7 @@ import {
   SPIRIT_SWORD_ANTI_SYNERGIES,
   TECHNOLOGY_ANTI_SYNERGIES,
   TECH_X_ANTI_SYNERGIES,
+  TRINKETS_THAT_OPERATE_ON_ACTIVE_ITEMS,
   TRINKETS_THAT_SYNERGIZE_WITH_TEARS,
 } from "./constants";
 import { COLLECTIBLE_TYPE_TO_COLLECTIBLE_TYPE_CUSTOM_MAP } from "./customCollectibles";
@@ -413,13 +414,16 @@ function checkCollectibleAntiSynergyFromArray(
 }
 
 function checkTrinkets(player: EntityPlayer, baby: BabyDescription): boolean {
+  if (baby.trinket === undefined) {
+    return true;
+  }
+
   // Check for overlapping trinkets.
-  if (baby.trinket !== undefined && player.HasTrinket(baby.trinket)) {
+  if (player.HasTrinket(baby.trinket)) {
     return false;
   }
 
   if (
-    baby.trinket !== undefined &&
     TRINKETS_THAT_SYNERGIZE_WITH_TEARS.has(baby.trinket) &&
     !playerHasTearBuild(player)
   ) {
@@ -427,7 +431,7 @@ function checkTrinkets(player: EntityPlayer, baby: BabyDescription): boolean {
   }
 
   if (
-    baby.trinket === TrinketType.BUTTER && // 479
+    TRINKETS_THAT_OPERATE_ON_ACTIVE_ITEMS.has(baby.trinket) &&
     isActiveSlotEmpty(player)
   ) {
     return false;
