@@ -563,8 +563,7 @@ function checkStage(
 
   if (
     babyCollectiblesSet.has(CollectibleType.UNDEFINED) &&
-    effectiveStage <= LevelStage.BASEMENT_2 &&
-    !onStage(LevelStage.WOMB_2)
+    (effectiveStage <= LevelStage.BASEMENT_2 || onStage(LevelStage.WOMB_2))
   ) {
     // - Undefined is not very useful on the first two floors.
     // - Players will generally not use Undefined on Womb 2 (since it can take you in the wrong
