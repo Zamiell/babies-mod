@@ -4,14 +4,18 @@ import {
   TearFlag,
   TearVariant,
 } from "isaac-typescript-definitions";
-import { Callback, addFlag } from "isaacscript-common";
+import { Callback, addFlag, hasCollectible } from "isaacscript-common";
 import { Baby } from "../Baby";
+
+export const BOOGER_TEAR_ANTI_SYNERGIES = [
+  CollectibleType.TRISAGION,
+  CollectibleType.DEAD_EYE,
+] as const;
 
 /** Booger tears. */
 export class GreenBaby extends Baby {
-  /** Certain collectibles do not work with the baby effect. */
   override isValid(player: EntityPlayer): boolean {
-    return !player.HasCollectible(CollectibleType.TRISAGION);
+    return !hasCollectible(player, ...BOOGER_TEAR_ANTI_SYNERGIES);
   }
 
   @Callback(ModCallback.POST_FIRE_TEAR)
