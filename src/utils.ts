@@ -45,7 +45,6 @@ import {
   inRoomType,
   isCharacter,
   isFirstPlayer,
-  isHeart,
   isPlayer,
   isRoomVisible,
   removeEntities,
@@ -274,16 +273,6 @@ export function isPricedDevilRoomPoolCollectible(
 
 export function isRacingPlusEnabled(): boolean {
   return asNumber(CollectibleTypeCustom.CHECKPOINT) !== -1;
-}
-
-export function isRerolledCollectibleBuggedHeart(
-  pickup: EntityPickup,
-): boolean {
-  return (
-    isHeart(pickup) &&
-    pickup.SubType === HeartSubType.FULL &&
-    pickup.Price === 99
-  );
 }
 
 /** Piercing, multiple shots, and Flat Stone causes "missing" effects to mess up. */
