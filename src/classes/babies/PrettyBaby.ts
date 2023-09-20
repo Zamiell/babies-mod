@@ -67,6 +67,7 @@ export class PrettyBaby extends Baby {
     const collectible = mod.spawnCollectible(collectibleType, position, rng);
     collectible.AutoUpdatePrice = false;
     collectible.Price = 15;
+    collectible.ShopItemId = -1;
 
     // We deliberately do not spawn an Angel Statue because we do not want them to be able to farm a
     // key piece.
