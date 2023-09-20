@@ -1977,6 +1977,7 @@ export const BABIES = {
     name: "Zipper Baby",
     description: "Extra enemies spawn on hit",
     sprite: "225_baby_zipper.png",
+    requireNoEndFloors: true,
     class: bc.ZipperBaby,
   },
 
