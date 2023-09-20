@@ -11,6 +11,7 @@
 - Changed the following babies:
   - Hooligan Baby (#514) - The effect no longer applies to bosses.
 - Fixed bugs with the following babies:
+  - Aban Baby (#177) - Now properly hides the player's health.
   - Nature Baby (#305) - Now properly reveals the pill effects. (Thanks Gamonymous)
   - Scary Baby (#317) - Now works properly with Coupon. (Thanks Gamonymous)
   - Slicer Baby (#331) - Now has island softlock prevention.

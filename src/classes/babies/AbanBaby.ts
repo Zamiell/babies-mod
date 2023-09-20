@@ -15,6 +15,7 @@ import {
   sfxManager,
   spawnCoin,
 } from "isaacscript-common";
+import { postNewRoomReorderedNoHealthUI } from "../../utils";
 import { Baby } from "../Baby";
 
 const v = {
@@ -30,24 +31,6 @@ export class AbanBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
     const coins = player.GetNumCoins();
     return coins > 0;
-  }
-
-  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
-  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    const coins = player.GetNumCoins();
-
-    if (coins === 0) {
-      player.Kill();
-      return;
-    }
-
-    player.AddCoins(-999);
-    repeat(coins, () => {
-      spawnFadingCoinExplodingFromPlayer(player);
-    });
-    sfxManager.Play(SoundEffect.GOLD_HEART);
-
-    return undefined;
   }
 
   // 35
@@ -94,20 +77,48 @@ export class AbanBaby extends Baby {
       }
     }
   }
-}
 
-function spawnFadingCoinExplodingFromPlayer(player: EntityPlayer) {
-  const randomPosition = Isaac.GetRandomPosition();
-  let velocity = player.Position.sub(randomPosition);
-  velocity = velocity.Normalized();
-  const multiplier = getRandomInt(4, 20);
-  velocity = velocity.mul(multiplier);
-  const coin = spawnCoin(CoinSubType.PENNY, player.Position, velocity, player);
+  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
+  entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
+    const coins = player.GetNumCoins();
 
-  // Make it fade away.
-  coin.Timeout = 160; // 5.3 seconds
+    if (coins === 0) {
+      player.Kill();
+      return;
+    }
 
-  // We also want it to bounce off the player immediately upon spawning, so we need to track it.
-  const ptrHash = GetPtrHash(coin);
-  v.room.fadingCoinPtrHashes.add(ptrHash);
+    player.AddCoins(-999);
+    repeat(coins, () => {
+      this.spawnFadingCoinExplodingFromPlayer(player);
+    });
+    sfxManager.Play(SoundEffect.GOLD_HEART);
+
+    return undefined;
+  }
+
+  spawnFadingCoinExplodingFromPlayer(player: EntityPlayer): void {
+    const randomPosition = Isaac.GetRandomPosition();
+    let velocity = player.Position.sub(randomPosition);
+    velocity = velocity.Normalized();
+    const multiplier = getRandomInt(4, 20);
+    velocity = velocity.mul(multiplier);
+    const coin = spawnCoin(
+      CoinSubType.PENNY,
+      player.Position,
+      velocity,
+      player,
+    );
+
+    // Make it fade away.
+    coin.Timeout = 160; // 5.3 seconds
+
+    // We also want it to bounce off the player immediately upon spawning, so we need to track it.
+    const ptrHash = GetPtrHash(coin);
+    v.room.fadingCoinPtrHashes.add(ptrHash);
+  }
+
+  @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
+  postNewRoomReordered(): void {
+    postNewRoomReorderedNoHealthUI();
+  }
 }

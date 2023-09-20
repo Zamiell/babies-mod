@@ -296,7 +296,7 @@ export function isValidRandomBabyPlayer(player: EntityPlayer): boolean {
   );
 }
 
-/** This is used for several babies. */
+/** This is used for babies that have special health mechanics. */
 export function postNewRoomReorderedNoHealthUI(): void {
   const level = game.GetLevel();
 
