@@ -5,7 +5,7 @@ import {
   ModCallbackCustom,
   game,
 } from "isaacscript-common";
-import { drawTimer } from "../../timer";
+import { timerDraw } from "../../timer";
 import { Baby } from "../Baby";
 
 const v = {
@@ -24,7 +24,7 @@ export class VomitBaby extends Baby {
 
   @Callback(ModCallback.POST_RENDER)
   postRender(): void {
-    drawTimer(v.run.timer);
+    timerDraw(v.run.timer);
   }
 
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)

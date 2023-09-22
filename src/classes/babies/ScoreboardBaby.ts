@@ -9,7 +9,7 @@ import {
   isSelfDamage,
   onStageOrHigher,
 } from "isaacscript-common";
-import { drawTimer } from "../../timer";
+import { timerDraw } from "../../timer";
 import { Baby } from "../Baby";
 
 const v = {
@@ -29,7 +29,7 @@ export class ScoreboardBaby extends Baby {
 
   @Callback(ModCallback.POST_RENDER)
   postRender(): void {
-    drawTimer(v.run.timer);
+    timerDraw(v.run.timer);
   }
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)

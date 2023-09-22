@@ -1,135 +1,123 @@
 import { Challenge } from "isaac-typescript-definitions";
-import { assertDefined, game, repeat } from "isaacscript-common";
+import { assertDefined, game, getHUDOffsetVector } from "isaacscript-common";
 import { newSprite } from "./sprite";
 import { isRacingPlusEnabled } from "./utils";
 
-const sprites = {
-  clock: Sprite(),
-  colons: [] as Sprite[], // colon between minutes & seconds, colon between hours & minutes
-  digits: [] as Sprite[], // minute1, minute2, second1, second2, hour
-  digitMini: Sprite(),
-};
+class TimerSprites {
+  clock = newSprite("gfx/timer/clock.anm2");
+
+  colons = {
+    afterMinutes: newSprite("gfx/timer/colon.anm2"),
+    afterHours: newSprite("gfx/timer/colon.anm2"),
+  };
+
+  digits = {
+    minute1: newSprite("gfx/timer/timer.anm2"),
+    minute2: newSprite("gfx/timer/timer.anm2"),
+    second1: newSprite("gfx/timer/timer.anm2"),
+    second2: newSprite("gfx/timer/timer.anm2"),
+    hour: newSprite("gfx/timer/timer.anm2"),
+  };
+
+  digitMini = newSprite("gfx/timer/timer_mini.anm2");
+}
+
+const DIGIT_LENGTH = 7.25;
+
+const sprites = new TimerSprites();
 
 /** Should be called from the `POST_RENDER` callback. */
-export function drawTimer(finishTime: int | null): void {
+export function timerDraw(finishTime: int | null): void {
+  const hud = game.GetHUD();
+  if (!hud.IsVisible()) {
+    return;
+  }
+
+  // We want the timer to be drawn when the game is paused so that players can continue to see the
+  // countdown if they tab out of the game.
+
   if (finishTime === null) {
     return;
   }
 
-  // Assume that if there are no elements in the digits array, then no sprites are loaded.
-  if (sprites.digits.length === 0) {
-    loadSprites();
-  }
-
-  // Find out how much time has passed.
-  const gameFrameCount = game.GetFrameCount();
   const challenge = Isaac.GetChallenge();
-  const remainingFrames = finishTime - gameFrameCount;
-  const remainingSeconds = remainingFrames / 30;
-  const { hours, minute1, minute2, second1, second2, tenths } =
-    convertSecondsToTimerValues(remainingSeconds);
 
-  const digitLength = 7.25;
-  const hourAdjustment = 2;
-  let hourAdjustment2 = 0;
-  // To the right of the speed stat (or the "R+" icon if we are using Racing+ and not in a custom
-  // challenge).
+  // Calculate the starting draw position. It will be either to the right of the speed stat or to
+  // the right of the "R+" icon if we are using Racing+ and not in a custom challenge.
   let startingX = 55;
   if (isRacingPlusEnabled() && challenge !== Challenge.NULL) {
     // To the right of the "S5" sprite on the left side of the screen.
     startingX = 83;
   }
-  const startingY = 79;
+  let startingY = 79;
 
-  const posClock = Vector(startingX + 34, startingY + 45);
-  sprites.clock.Render(posClock);
+  const HUDOffsetVector = getHUDOffsetVector();
+  startingX += HUDOffsetVector.X;
+  startingY += HUDOffsetVector.Y;
+
+  const hourAdjustment = 2;
+  let hourAdjustment2 = 0;
+
+  // Find out how much time has passed.
+  const gameFrameCount = game.GetFrameCount();
+  const remainingFrames = finishTime - gameFrameCount;
+  const remainingSeconds = remainingFrames / 30;
+
+  const { hours, minute1, minute2, second1, second2, tenths } =
+    convertSecondsToTimerValues(remainingSeconds);
+
+  const positionClock = Vector(startingX + 34, startingY + 45);
+  sprites.clock.Render(positionClock);
 
   if (hours > 0) {
     // The format of the time will be "#.##.##" (instead of "##.##", which is the default).
     hourAdjustment2 = 2;
-    startingX += digitLength + hourAdjustment;
-    const posHours = Vector(
-      startingX - digitLength - hourAdjustment,
+    startingX += DIGIT_LENGTH + hourAdjustment;
+    const positionHours = Vector(
+      startingX - DIGIT_LENGTH - hourAdjustment,
       startingY,
     );
-    const hoursDigitSprite = sprites.digits[4];
-    if (hoursDigitSprite !== undefined) {
-      hoursDigitSprite.SetFrame("Default", hours);
-      hoursDigitSprite.Render(posHours);
-    }
+    sprites.digits.hour.SetFrame("Default", hours);
+    sprites.digits.hour.Render(positionHours);
 
-    const posColon = Vector(startingX - digitLength + 7, startingY + 19);
-    const colonHoursSprite = sprites.colons[1];
-    if (colonHoursSprite !== undefined) {
-      colonHoursSprite.Render(posColon);
-    }
+    const positionColon = Vector(startingX - DIGIT_LENGTH + 7, startingY + 19);
+    sprites.colons.afterHours.Render(positionColon);
   }
 
-  const posMinute1 = Vector(startingX, startingY);
-  const minute1Sprite = sprites.digits[0];
-  if (minute1Sprite !== undefined) {
-    minute1Sprite.SetFrame("Default", minute1);
-    minute1Sprite.Render(posMinute1);
-  }
+  const positionMinute1 = Vector(startingX, startingY);
+  sprites.digits.minute1.SetFrame("Default", minute1);
+  sprites.digits.minute1.Render(positionMinute1);
 
-  const posMinute2 = Vector(startingX + digitLength, startingY);
-  const minute2Sprite = sprites.digits[1];
-  if (minute2Sprite !== undefined) {
-    minute2Sprite.SetFrame("Default", minute2);
-    minute2Sprite.Render(posMinute2);
-  }
+  const positionMinute2 = Vector(startingX + DIGIT_LENGTH, startingY);
+  sprites.digits.minute2.SetFrame("Default", minute2);
+  sprites.digits.minute2.Render(positionMinute2);
 
-  const posColon1 = Vector(startingX + digitLength + 10, startingY + 19);
-  const colonMinutesSprite = sprites.colons[0];
-  if (colonMinutesSprite !== undefined) {
-    colonMinutesSprite.Render(posColon1);
-  }
+  const positionColon1 = Vector(startingX + DIGIT_LENGTH + 10, startingY + 19);
+  sprites.colons.afterMinutes.Render(positionColon1);
 
-  const posSecond1 = Vector(startingX + digitLength + 11, startingY);
-  const second1Sprite = sprites.digits[2];
-  if (second1Sprite !== undefined) {
-    second1Sprite.SetFrame("Default", second1);
-    second1Sprite.Render(posSecond1);
-  }
+  const positionSecond1 = Vector(startingX + DIGIT_LENGTH + 11, startingY);
+  sprites.digits.second1.SetFrame("Default", second1);
+  sprites.digits.second1.Render(positionSecond1);
 
-  const posSecond2 = Vector(
-    startingX + digitLength + 11 + digitLength + 1 - hourAdjustment2,
+  const positionSecond2 = Vector(
+    startingX + DIGIT_LENGTH + 11 + DIGIT_LENGTH + 1 - hourAdjustment2,
     startingY,
   );
-  const second2Sprite = sprites.digits[3];
-  if (second2Sprite !== undefined) {
-    second2Sprite.SetFrame("Default", second2);
-    second2Sprite.Render(posSecond2);
-  }
+  sprites.digits.second2.SetFrame("Default", second2);
+  sprites.digits.second2.Render(positionSecond2);
 
-  const posTenths = Vector(
+  const positionTenths = Vector(
     startingX +
-      digitLength +
+      DIGIT_LENGTH +
       11 +
-      digitLength +
+      DIGIT_LENGTH +
       1 -
       hourAdjustment2 +
-      digitLength,
+      DIGIT_LENGTH,
     startingY + 1,
   );
   sprites.digitMini.SetFrame("Default", tenths);
-  sprites.digitMini.Render(posTenths);
-}
-
-function loadSprites() {
-  sprites.clock = newSprite("gfx/timer/clock.anm2");
-
-  repeat(2, () => {
-    const colonSprite = newSprite("gfx/timer/colon.anm2");
-    sprites.colons.push(colonSprite);
-  });
-
-  repeat(5, () => {
-    const digitSprite = newSprite("gfx/timer/timer.anm2");
-    sprites.digits.push(digitSprite);
-  });
-
-  sprites.digitMini = newSprite("gfx/timer/timerMini.anm2");
+  sprites.digitMini.Render(positionTenths);
 }
 
 function convertSecondsToTimerValues(totalSeconds: int): {
