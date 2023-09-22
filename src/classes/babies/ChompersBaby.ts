@@ -34,9 +34,7 @@ export class ChompersBaby extends Baby {
       return undefined;
     }
 
-    if (
-      !GRID_ENTITY_REPLACEMENT_EXCEPTIONS.has(entityTypeOrGridEntityXMLType)
-    ) {
+    if (GRID_ENTITY_REPLACEMENT_EXCEPTIONS.has(entityTypeOrGridEntityXMLType)) {
       return undefined;
     }
 

@@ -3,6 +3,13 @@
 <!-- cspell:ignore Adrayon,cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.22.0_ - September 20th, 2023
+
+- The `baby` and `baby2` commands now accept partial string matching for the baby's name (in addition to the old behavior of using the baby number).
+- Fixed bugs with the following babies:
+  - Chompers Baby (#143) - The effect now works properly. (Thanks sisuka)
+  - Red Wrestler Baby (#389) - The effect now works properly.
+
 ### _v1.21.0_ - September 20th, 2023
 
 - The following babies have new effects:

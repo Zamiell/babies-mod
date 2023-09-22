@@ -42,9 +42,9 @@ export function babiesCheckValid(): void {
 function checkDuplicateNames() {
   const nameSet = new Set<string>();
 
-  for (const [babyNum, baby] of Object.entries(BABIES)) {
+  for (const [babyType, baby] of Object.entries(BABIES)) {
     if (nameSet.has(baby.name)) {
-      logBabyInvalid(baby, babyNum, `has a duplicate name: ${baby.name}`);
+      logBabyInvalid(baby, babyType, `has a duplicate name: ${baby.name}`);
     } else {
       nameSet.add(baby.name);
     }
@@ -133,15 +133,15 @@ function checkDescriptions() {
   }
 }
 
-function logBabyInvalid(baby: BabyDescription, babyNum: string, msg: string) {
-  log(`ERROR: ${baby.name} (#${babyNum}) ${msg}`);
+function logBabyInvalid(baby: BabyDescription, babyType: string, msg: string) {
+  log(`ERROR: ${baby.name} (#${babyType}) ${msg}`);
 }
 
 /** Use this function to find babies that are uninteresting. */
 function logSpecificBabies() {
   log("Potentially boring babies with only a collectible:");
 
-  for (const [babyNum, babyRaw] of Object.entries(BABIES)) {
+  for (const [babyType, babyRaw] of Object.entries(BABIES)) {
     const baby = babyRaw as BabyDescription;
 
     if (
@@ -153,13 +153,13 @@ function logSpecificBabies() {
       baby.class === undefined
     ) {
       const collectibleName = getCollectibleName(baby.collectible);
-      log(`- ${baby.name} (#${babyNum}) - Starts with ${collectibleName}`);
+      log(`- ${baby.name} (#${babyType}) - Starts with ${collectibleName}`);
     }
   }
 
   log("Potentially boring babies with only a trinket:");
 
-  for (const [babyNum, babyRaw] of Object.entries(BABIES)) {
+  for (const [babyType, babyRaw] of Object.entries(BABIES)) {
     const baby = babyRaw as BabyDescription;
 
     if (
@@ -171,7 +171,7 @@ function logSpecificBabies() {
       baby.class === undefined
     ) {
       const trinketName = getTrinketName(baby.trinket);
-      log(`- ${baby.name} (#${babyNum}) - Starts with ${trinketName}`);
+      log(`- ${baby.name} (#${babyType}) - Starts with ${trinketName}`);
     }
   }
 }
