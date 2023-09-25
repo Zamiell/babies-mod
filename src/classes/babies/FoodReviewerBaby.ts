@@ -49,6 +49,6 @@ function getRandomCollectibleTypeWithTag(
   itemConfigTag: ItemConfigTag,
   rng: RNG,
 ): CollectibleType {
-  const foodCollectibleTypesSet = mod.getCollectiblesWithTag(itemConfigTag);
+  const foodCollectibleTypesSet = mod.getCollectibleTypesWithTag(itemConfigTag);
   return getRandomSetElement(foodCollectibleTypesSet, rng);
 }
