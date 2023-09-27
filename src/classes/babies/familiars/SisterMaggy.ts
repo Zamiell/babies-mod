@@ -34,7 +34,7 @@ export class SisterMaggy extends Baby {
     v.room.numHits++;
     if (v.room.numHits === num) {
       // Take away a collectible.
-      const collectibleType = mod.getPlayerLastPassiveCollectible(player);
+      const collectibleType = mod.getPlayerLastPassiveCollectibleType(player);
       if (collectibleType !== undefined) {
         player.RemoveCollectible(collectibleType);
         player.AnimateSad();
