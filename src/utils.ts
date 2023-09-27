@@ -29,7 +29,6 @@ import {
   ReadonlySet,
   VectorZero,
   addRoomDisplayFlag,
-  asNumber,
   doesEntityExist,
   findFreePosition,
   game,
@@ -65,7 +64,6 @@ import {
 } from "isaacscript-common";
 import { getBabyType } from "./classes/features/babySelection/v";
 import { ROOM_TYPES_TO_NOT_TRANSFORM } from "./constants";
-import { CollectibleTypeCustom } from "./enums/CollectibleTypeCustom";
 import { PlayerTypeCustom } from "./enums/PlayerTypeCustom";
 import type { BabyDescription } from "./interfaces/BabyDescription";
 import { mod } from "./mod";
@@ -207,9 +205,10 @@ export function getRandomOffsetPosition(
       break;
     }
 
-    // eslint-disable-next-line isaacscript/require-break
     default: {
-      error(`The offset direction was an unknown value of: ${offsetDirection}`);
+      return error(
+        `The offset direction was an unknown value of: ${offsetDirection}`,
+      );
     }
   }
 
@@ -275,7 +274,10 @@ export function isPricedDevilRoomPoolCollectible(
 }
 
 export function isRacingPlusEnabled(): boolean {
-  return asNumber(CollectibleTypeCustom.CHECKPOINT) !== -1;
+  const checkpoint = Isaac.GetItemIdByName("Checkpoint") as
+    | CollectibleType
+    | -1;
+  return checkpoint !== -1;
 }
 
 /** Piercing, multiple shots, and Flat Stone causes "missing" effects to mess up. */
@@ -437,9 +439,8 @@ export function spawnRandomPickup(
       break;
     }
 
-    // eslint-disable-next-line isaacscript/require-break
     default: {
-      error(
+      return error(
         `The pickup variant was an unknown value of: ${pickupVariantChoice}`,
       );
     }

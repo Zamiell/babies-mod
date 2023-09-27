@@ -21,9 +21,6 @@ export const CollectibleTypeCustom = {
   ),
   DICE_ROOM_TELEPORT: Isaac.GetItemIdByName("Dice Room Teleport"),
   PLANETARIUM_TELEPORT: Isaac.GetItemIdByName("Planetarium Teleport"),
-
-  // Racing+ items
-  CHECKPOINT: Isaac.GetItemIdByName("Checkpoint"),
 } as const;
 
 // We can't use the "validateCustomEnum" helper function because the `CHECKPOINT` value is expected
