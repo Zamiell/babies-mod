@@ -7,6 +7,8 @@
 
 - Fixed bugs with the following babies:
   - Spike Baby (#166) - Will no longer give a run-time error with Flat File. (Thanks elgirs)
+  - Solomon's Baby A (#531) - Will now work properly with auto-fire from Racing+. (Thanks TNTerminator)
+  - Solomon's Baby B (#532) - Will now work properly with auto-fire from Racing+. (Thanks TNTerminator)
 
 ### _v1.22.0_ - September 20th, 2023
 
