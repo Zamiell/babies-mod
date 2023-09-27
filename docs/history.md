@@ -1,7 +1,12 @@
 # The Babies Mod Version History
 
-<!-- cspell:ignore Adrayon,cantgirl,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
+<!-- cspell:ignore Adrayon,cantgirl,elgirs,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
+
+### _v1.22.1_ - September 27th, 2023
+
+- Fixed bugs with the following babies:
+  - Spike Baby (#166) - Will no longer give a run-time error with Flat File. (Thanks elgirs)
 
 ### _v1.22.0_ - September 20th, 2023
 

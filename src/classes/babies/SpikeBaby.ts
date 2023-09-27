@@ -12,6 +12,7 @@ import {
   CallbackCustom,
   ModCallbackCustom,
   getPickups,
+  hasTrinket,
   isChest,
   onStage,
   removeEntities,
@@ -19,11 +20,16 @@ import {
 import { mod } from "../../mod";
 import { Baby } from "../Baby";
 
+const ANTI_SYNERGY_TRINKETS = [
+  TrinketType.LEFT_HAND, // 61
+  TrinketType.FLAT_FILE, // 151
+] as const;
+
 /** All chests are Spiked Chests + all chests have items. */
 export class SpikeBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
     return (
-      !player.HasTrinket(TrinketType.LEFT_HAND) &&
+      !hasTrinket(player, ...ANTI_SYNERGY_TRINKETS) &&
       // We don't want this to interfere with the free items from the starting room in The Chest /
       // Dark Room.
       !onStage(LevelStage.DARK_ROOM_CHEST)
@@ -43,6 +49,12 @@ export class SpikeBaby extends Baby {
     // Chest, the four chests in the starting room will be replaced with Spike Chests before the
     // ability can be taken away.
     if (onStage(LevelStage.DARK_ROOM_CHEST)) {
+      return;
+    }
+
+    // Prevent infinite loops with Flat File.
+    const player = Isaac.GetPlayer();
+    if (player.HasTrinket(TrinketType.FLAT_FILE)) {
       return;
     }
 
