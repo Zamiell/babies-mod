@@ -17,9 +17,9 @@ import { Baby } from "../Baby";
 
 const BOSSES_THAT_CAN_BREAK_ROCKS = [
   BossID.BUMBINO,
-  BossID.THE_PILE,
+  BossID.PILE,
   BossID.TUFF_TWINS,
-  BossID.THE_SHELL,
+  BossID.SHELL,
   BossID.HORNFEL,
 ] as const;
 

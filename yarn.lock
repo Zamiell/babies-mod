@@ -1092,10 +1092,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20.7.0":
-  version: 20.7.0
-  resolution: "@types/node@npm:20.7.0"
-  checksum: 1b2919925c213f4d2039ada7a8354c998e144f7291db8d719ef58ea9924ab636c113690073b0ec3b82ba62907385f7e0f51e9d1583c1a818776daa5156d3a590
+"@types/node@npm:^20.7.1":
+  version: 20.7.1
+  resolution: "@types/node@npm:20.7.1"
+  checksum: 3140bd6c9130f1ed73a78ce7a1765ee43e155c1eea50eea45e18faeb31d11d97a84fffdc5e3a97582101d2f57d2652a50f510ede6c702780267bad74c822d56c
   languageName: node
   linkType: hard
 
@@ -1615,10 +1615,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "babies-mod@workspace:."
   dependencies:
-    "@types/node": ^20.7.0
-    isaac-typescript-definitions: ^18.0.0
+    "@types/node": ^20.7.1
+    isaac-typescript-definitions: ^21.0.0
     isaacscript: ^3.11.1
-    isaacscript-common: ^48.1.0
+    isaacscript-common: ^50.0.0
     isaacscript-lint: ^5.11.0
     isaacscript-spell: ^1.4.0
     isaacscript-tsconfig: ^4.0.0
@@ -3986,12 +3986,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isaac-typescript-definitions@npm:^18.0.0":
-  version: 18.0.0
-  resolution: "isaac-typescript-definitions@npm:18.0.0"
+"isaac-typescript-definitions@npm:^21.0.0":
+  version: 21.0.0
+  resolution: "isaac-typescript-definitions@npm:21.0.0"
   dependencies:
     lua-types: ^2.13.1
-  checksum: 67f0c54781ca43ed5cf6b1a117500dc99dece7df78f9006caeaefe7ffe327a04dcad825d3cef498f5d5b4a2e0d4c98ee1f60de84e4afb2ea9dd55c4b154a2bf3
+  checksum: b3eb1d872d56b351e58480a83c3ac35a4110b20ce465a6601e5e18c6802e8c4ed81801136d5e920209d71c075c18eb60062f12074e869d822f3fc7dd1a127bae
   languageName: node
   linkType: hard
 
@@ -4002,12 +4002,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isaacscript-common@npm:^48.1.0":
-  version: 48.1.0
-  resolution: "isaacscript-common@npm:48.1.0"
+"isaacscript-common@npm:^50.0.0":
+  version: 50.0.0
+  resolution: "isaacscript-common@npm:50.0.0"
   dependencies:
-    isaac-typescript-definitions: ^18.0.0
-  checksum: b48847dc2a378a9238a4af058f3b8feaedcd8759881a7047fd45bbea7df25234414eefd82821bbe1ba2f987d8ebf8c2ef2963e727007e0009a55316d50e1d2b4
+    isaac-typescript-definitions: ^21.0.0
+  checksum: 295532b632ad1ec8984c064176c58798c14ec55d811714812b67658273d996dbaf41643442b9371be18d9f93df2a1f5892a41a923f6b1327f6dc6d592d0467f8
   languageName: node
   linkType: hard
 

@@ -15,7 +15,7 @@ export class RottenMeatBaby extends Baby {
   override isValid(): boolean {
     return !onStage(
       LevelStage.BLUE_WOMB, // 9
-      LevelStage.THE_VOID, // 12
+      LevelStage.VOID, // 12
       LevelStage.HOME, // 13
     );
   }

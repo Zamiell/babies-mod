@@ -14,7 +14,7 @@ export class FadedBaby extends Baby {
     return (
       !onStage(
         LevelStage.BLUE_WOMB, // 9
-        LevelStage.THE_VOID, // 12
+        LevelStage.VOID, // 12
         LevelStage.HOME, // 13
       ) && !player.HasCollectible(CollectibleType.TELEPORT)
     );
