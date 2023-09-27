@@ -24,6 +24,10 @@ import { v } from "./babySelection/v";
 
 declare const RacingPlusIsOnFirstCharacter: (() => boolean) | undefined;
 
+/** We expose a global variable so that other mods can detect what the current baby is. */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+declare let BabiesModBabyType: RandomBabyType | undefined;
+
 /** This does not extend from `BabyModFeature` because that class uses this feature's variables. */
 export class BabySelection extends ModFeature {
   v = v;
@@ -95,6 +99,7 @@ export class BabySelection extends ModFeature {
     v.run.pastBabyType = v.run.babyType;
     v.run.babyType = babyType;
     v.persistent.pastBabies.add(babyType);
+    BabiesModBabyType = babyType;
 
     // Write the baby description to a file to allow streamers to capture the text file in Open
     // Broadcaster Software (OBS) to show to the stream.

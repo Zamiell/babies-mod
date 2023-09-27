@@ -4,6 +4,7 @@ import { Baby } from "../Baby";
 
 /** Can't shoot right. */
 export class SolomonsBabyA extends Baby {
+  // 0, 5
   @CallbackCustom(
     ModCallbackCustom.INPUT_ACTION_PLAYER,
     undefined,
@@ -15,6 +16,7 @@ export class SolomonsBabyA extends Baby {
     return false;
   }
 
+  // 2, 5
   @CallbackCustom(
     ModCallbackCustom.INPUT_ACTION_PLAYER,
     undefined,
