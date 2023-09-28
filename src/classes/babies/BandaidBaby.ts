@@ -5,12 +5,18 @@ import {
   game,
   getRandom,
   inRoomType,
+  onFirstFloor,
 } from "isaacscript-common";
 import { mod } from "../../mod";
 import { Baby } from "../Baby";
 
 /** N% chance to spawn a random pedestal item on room clear. */
 export class BandaidBaby extends Baby {
+  /** Too powerful for the first floor. */
+  override isValid(): boolean {
+    return !onFirstFloor();
+  }
+
   @CallbackCustom(ModCallbackCustom.POST_ROOM_CLEAR_CHANGED, true)
   postRoomClearChangedTrue(): boolean | undefined {
     const room = game.GetRoom();
