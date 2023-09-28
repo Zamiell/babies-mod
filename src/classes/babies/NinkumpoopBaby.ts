@@ -1,15 +1,12 @@
-import {
-  ModCallback,
-  PickupVariant,
-  TrinketType,
-} from "isaac-typescript-definitions";
-import { Callback, isChest, spawnPickup } from "isaacscript-common";
+import { ModCallback, PickupVariant } from "isaac-typescript-definitions";
+import { Callback, hasTrinket, isChest, spawnPickup } from "isaacscript-common";
+import { CHEST_ANTI_SYNERGY_TRINKET_TYPES } from "../../constants";
 import { Baby } from "../Baby";
 
 /** All chests are Old Chests. */
 export class NinkumpoopBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
-    return !player.HasTrinket(TrinketType.LEFT_HAND);
+    return !hasTrinket(player, ...CHEST_ANTI_SYNERGY_TRINKET_TYPES);
   }
 
   /**

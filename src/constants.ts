@@ -234,3 +234,8 @@ export const BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES = [
   CollectibleType.REVELATION, //643
   CollectibleType.MONTEZUMAS_REVENGE, //680
 ] as const;
+
+export const CHEST_ANTI_SYNERGY_TRINKET_TYPES = [
+  TrinketType.LEFT_HAND, // 61
+  TrinketType.GILDED_KEY, // 159
+] as const;
