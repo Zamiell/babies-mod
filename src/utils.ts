@@ -17,7 +17,6 @@ import {
   PickupPrice,
   PickupVariant,
   PillColor,
-  PlayerForm,
   PoofSubType,
   RoomType,
   SackSubType,
@@ -26,7 +25,6 @@ import {
 } from "isaac-typescript-definitions";
 import {
   GAME_FRAMES_PER_SECOND,
-  ReadonlySet,
   VectorZero,
   addRoomDisplayFlag,
   doesEntityExist,
@@ -63,57 +61,17 @@ import {
   spawnTrinket,
 } from "isaacscript-common";
 import { getBabyType } from "./classes/features/babySelection/v";
-import { ROOM_TYPES_TO_NOT_TRANSFORM } from "./constants";
+import {
+  BAD_MISSED_TEARS_COLLECTIBLE_TYPES,
+  BAD_MISSED_TEARS_TRANSFORMATIONS,
+  COLLECTIBLE_REROLL_COLLECTIBLE_TYPES_SET,
+  GOING_TO_NEXT_FLOOR_ANIMATIONS,
+  ROOM_TYPES_TO_NOT_TRANSFORM,
+  TRINKET_REROLL_COLLECTIBLE_TYPES_SET,
+} from "./constants";
 import { PlayerTypeCustom } from "./enums/PlayerTypeCustom";
 import type { BabyDescription } from "./interfaces/BabyDescription";
 import { mod } from "./mod";
-
-const COLLECTIBLE_REROLL_COLLECTIBLE_TYPES_SET = new ReadonlySet([
-  CollectibleType.D6, // 105
-  // Moving Box is not technically a reroll but it allows players to move the collectibles and
-  // potentially reroll them later.
-  CollectibleType.MOVING_BOX, // 523
-  CollectibleType.ETERNAL_D6, // 609
-  CollectibleType.SPINDOWN_DICE, // 723
-]);
-
-const TRINKET_REROLL_COLLECTIBLE_TYPES_SET = new ReadonlySet([
-  CollectibleType.D20, // 105
-]);
-
-const BAD_MISSED_TEARS_COLLECTIBLE_TYPES = [
-  CollectibleType.INNER_EYE, // 2
-  CollectibleType.CUPIDS_ARROW, // 48
-  CollectibleType.MOMS_EYE, // 55
-  CollectibleType.LOKIS_HORNS, // 87
-  CollectibleType.MUTANT_SPIDER, // 153
-  CollectibleType.POLYPHEMUS, // 169
-  CollectibleType.MONSTROS_LUNG, // 229
-  CollectibleType.DEATHS_TOUCH, // 237
-  CollectibleType.TWENTY_TWENTY, // 245
-  CollectibleType.SAGITTARIUS, // 306
-  CollectibleType.CURSED_EYE, // 316
-  CollectibleType.SOY_MILK, // 330
-  CollectibleType.DEAD_ONION, // 336
-  CollectibleType.EYE_OF_BELIAL, // 462
-  CollectibleType.LITTLE_HORN, // 503
-  CollectibleType.TRISAGION, // 533
-  CollectibleType.FLAT_STONE, // 540
-  CollectibleType.ALMOND_MILK, // 561
-  CollectibleType.C_SECTION, // 678
-] as const;
-
-const BAD_MISSED_TEARS_TRANSFORMATIONS = [
-  PlayerForm.CONJOINED, // 7
-  PlayerForm.BOOKWORM, // 10
-] as const;
-
-const GOING_TO_NEXT_FLOOR_ANIMATIONS = new ReadonlySet<string>([
-  "Trapdoor",
-  "TrapdoorCustom",
-  "LightTravel",
-  "LightTravelCustom",
-]);
 
 /**
  * In certain situations, baby effects will prevent a player from entering a Big Chest. If this is

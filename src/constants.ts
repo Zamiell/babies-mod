@@ -2,6 +2,7 @@ import {
   CollectibleType,
   GridEntityXMLType,
   PickupVariant,
+  PlayerForm,
   RoomType,
   TrinketType,
 } from "isaac-typescript-definitions";
@@ -239,3 +240,60 @@ export const CHEST_ANTI_SYNERGY_TRINKET_TYPES = [
   TrinketType.LEFT_HAND, // 61
   TrinketType.GILDED_KEY, // 159
 ] as const;
+
+export const COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS = [
+  CollectibleType.CHOCOLATE_MILK, // 69
+  CollectibleType.MOMS_KNIFE, // 114
+  CollectibleType.BRIMSTONE, // 118
+  CollectibleType.MONSTROS_LUNG, // 229
+  CollectibleType.CURSED_EYE, // 316
+  CollectibleType.TECH_X, // 395
+  CollectibleType.MAW_OF_THE_VOID, // 399
+] as const;
+
+export const COLLECTIBLE_REROLL_COLLECTIBLE_TYPES_SET = new ReadonlySet([
+  CollectibleType.D6, // 105
+  // Moving Box is not technically a reroll but it allows players to move the collectibles and
+  // potentially reroll them later.
+  CollectibleType.MOVING_BOX, // 523
+  CollectibleType.ETERNAL_D6, // 609
+  CollectibleType.SPINDOWN_DICE, // 723
+]);
+
+export const TRINKET_REROLL_COLLECTIBLE_TYPES_SET = new ReadonlySet([
+  CollectibleType.D20, // 105
+]);
+
+export const BAD_MISSED_TEARS_COLLECTIBLE_TYPES = [
+  CollectibleType.INNER_EYE, // 2
+  CollectibleType.CUPIDS_ARROW, // 48
+  CollectibleType.MOMS_EYE, // 55
+  CollectibleType.LOKIS_HORNS, // 87
+  CollectibleType.MUTANT_SPIDER, // 153
+  CollectibleType.POLYPHEMUS, // 169
+  CollectibleType.MONSTROS_LUNG, // 229
+  CollectibleType.DEATHS_TOUCH, // 237
+  CollectibleType.TWENTY_TWENTY, // 245
+  CollectibleType.SAGITTARIUS, // 306
+  CollectibleType.CURSED_EYE, // 316
+  CollectibleType.SOY_MILK, // 330
+  CollectibleType.DEAD_ONION, // 336
+  CollectibleType.EYE_OF_BELIAL, // 462
+  CollectibleType.LITTLE_HORN, // 503
+  CollectibleType.TRISAGION, // 533
+  CollectibleType.FLAT_STONE, // 540
+  CollectibleType.ALMOND_MILK, // 561
+  CollectibleType.C_SECTION, // 678
+] as const;
+
+export const BAD_MISSED_TEARS_TRANSFORMATIONS = [
+  PlayerForm.CONJOINED, // 7
+  PlayerForm.BOOKWORM, // 10
+] as const;
+
+export const GOING_TO_NEXT_FLOOR_ANIMATIONS = new ReadonlySet<string>([
+  "Trapdoor",
+  "TrapdoorCustom",
+  "LightTravel",
+  "LightTravelCustom",
+]);

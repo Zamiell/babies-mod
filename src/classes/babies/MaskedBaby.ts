@@ -1,22 +1,13 @@
 import type { ButtonAction } from "isaac-typescript-definitions";
-import { CollectibleType, InputHook } from "isaac-typescript-definitions";
+import { InputHook } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   ModCallbackCustom,
   hasCollectible,
   isShootAction,
 } from "isaacscript-common";
+import { COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS } from "../../constants";
 import { Baby } from "../Baby";
-
-const COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS = [
-  CollectibleType.CHOCOLATE_MILK, // 69
-  CollectibleType.MOMS_KNIFE, // 114
-  CollectibleType.BRIMSTONE, // 118
-  CollectibleType.MONSTROS_LUNG, // 229
-  CollectibleType.CURSED_EYE, // 316
-  CollectibleType.TECH_X, // 395
-  CollectibleType.MAW_OF_THE_VOID, // 399
-] as const;
 
 /** Can't shoot while moving. */
 export class MaskedBaby extends Baby {

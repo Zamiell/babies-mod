@@ -4,8 +4,10 @@ import {
   CallbackCustom,
   ModCallbackCustom,
   game,
+  hasCollectible,
   isShootActionPressed,
 } from "isaacscript-common";
+import { COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS } from "../../constants";
 import { timerDraw } from "../../timer";
 import { Baby } from "../Baby";
 
@@ -18,6 +20,13 @@ const v = {
 /** Takes damage if shooting when the timer reaches 0. */
 export class NooseBaby extends Baby {
   v = v;
+
+  override isValid(player: EntityPlayer): boolean {
+    return !hasCollectible(
+      player,
+      ...COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS,
+    );
+  }
 
   override onAdd(): void {
     this.resetTimer();
