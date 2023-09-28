@@ -3,6 +3,13 @@
 <!-- cspell:ignore Adrayon,cantgirl,elgirs,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.23.0_ - September 28th, 2023
+
+- The following babies have new effects:
+  - Dead Baby (#22) - "Starts with 2x ???'s Only Friend + blindfolded" --> "Starts with Kidney Stone"
+- Fixed bugs with the following babies:
+  - Attractive Baby (#157) - Will no longer softlock with enemies attached to walls. (Thanks Gamonymous)
+
 ### _v1.22.1_ - September 27th, 2023
 
 - Fixed bugs with the following babies:

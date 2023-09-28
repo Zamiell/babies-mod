@@ -213,10 +213,7 @@ export const BABIES = {
     name: "Dead Baby",
     description: "Starts with 2x ???'s Only Friend + blindfolded",
     sprite: "022_baby_dead.png",
-    collectible: CollectibleType.BLUE_BABYS_ONLY_FRIEND,
-    collectibleNum: 2,
-    blindfolded: true,
-    softlockPreventionRemoveFires: true, // ???'s Only Friend cannot kill poops.
+    collectible: CollectibleType.KIDNEY_STONE,
   },
 
   // 23
@@ -1387,7 +1384,7 @@ export const BABIES = {
     name: "Attractive Baby",
     description: "All enemies are permanently charmed",
     sprite: "157_baby_attractive.png",
-    seed: SeedEffect.ALWAYS_CHARMED,
+    // We cannot use `SeedEffect.ALWAYS_CHARMED` since it leads to softlocks with specific NPCs.
     class: bc.AttractiveBaby,
   },
 
