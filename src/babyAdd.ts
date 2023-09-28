@@ -17,6 +17,7 @@ import {
   getPlayerHealth,
   isChest,
   log,
+  removeAllKnives,
   removeCollectibleFromItemTracker,
   repeat,
   setBlindfold,
@@ -168,6 +169,13 @@ export function babyAdd(
 
     // Setting a blindfold changes the player type, which resets the ANM2 Manually set it back.
     setBabyANM2(player);
+
+    // With the blindfold on, Mom's Knife will not be able to shoot, but it will still be able to
+    // deal a lot of contact damage. Thus, remove it for now, and it will be automatically restored
+    // by the game when the player reaches the next floor. Note that this will not remove the knife
+    // granted from the Mom transformation, because that is restored on every frame. We do not care
+    // about that case because it does not do very much damage.
+    removeAllKnives();
   }
 
   // Some babies grant a golden bomb.

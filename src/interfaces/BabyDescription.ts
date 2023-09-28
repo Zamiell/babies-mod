@@ -13,6 +13,12 @@ export interface BabyDescription {
   readonly sprite: string;
 
   // Optional properties
+  /**
+   * The following babies are blindfolded but do not use this property:
+   * - Lantern Baby (#292)
+   * - Imp Baby (#386)
+   * - Bullet Baby (#550)
+   */
   readonly blindfolded?: boolean;
   readonly description2?: string;
   readonly explosionImmunity?: boolean;
