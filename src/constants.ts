@@ -231,9 +231,10 @@ export const COLLECTIBLES_THAT_REMOVE_TEARS = [
 ] as const;
 
 export const BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES = [
-  CollectibleType.MAW_OF_THE_VOID, //399
-  CollectibleType.REVELATION, //643
-  CollectibleType.MONTEZUMAS_REVENGE, //680
+  CollectibleType.MOMS_KNIFE, // 114
+  CollectibleType.MAW_OF_THE_VOID, // 399
+  CollectibleType.REVELATION, // 643
+  CollectibleType.MONTEZUMAS_REVENGE, // 680
 ] as const;
 
 export const CHEST_ANTI_SYNERGY_TRINKET_TYPES = [

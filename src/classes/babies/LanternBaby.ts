@@ -15,8 +15,8 @@ export class LanternBaby extends Baby {
     // Trisagion makes the aura disappear.
     return !hasCollectible(
       player,
-      CollectibleType.TRISAGION,
       ...BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES,
+      CollectibleType.TRISAGION,
     );
   }
 

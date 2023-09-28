@@ -4,13 +4,14 @@ import {
   ModCallbackCustom,
   hasCollectible,
 } from "isaacscript-common";
+import { BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES } from "../../constants";
 import { Baby } from "../Baby";
 
 const COLLECTIBLES_THAT_BREAK_THE_BLINDFOLD_MECHANIC = [
+  ...BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES,
   // - CollectibleType.DR_FETUS (52) does not break the mechanic.
   // - CollectibleType.TECHNOLOGY (68) does not break the mechanic.
   CollectibleType.CHOCOLATE_MILK, // 69
-  CollectibleType.MOMS_KNIFE, // 114
   // - CollectibleType.BRIMSTONE (118) does not break the mechanic.
   // - CollectibleType.NOTCHED_AXE (147) does not break the mechanic.
   CollectibleType.TECHNOLOGY_2, // 152
@@ -19,7 +20,6 @@ const COLLECTIBLES_THAT_BREAK_THE_BLINDFOLD_MECHANIC = [
   CollectibleType.CURSED_EYE, // 316
   CollectibleType.LUDOVICO_TECHNIQUE, // 329
   CollectibleType.TECH_X, // 395
-  CollectibleType.MAW_OF_THE_VOID, // 399
   // The blindfold will not prevent the big initial stone from Kidney Stone firing, but it does
   // prevent all of the smaller tears.
   CollectibleType.KIDNEY_STONE, // 440
@@ -28,9 +28,7 @@ const COLLECTIBLES_THAT_BREAK_THE_BLINDFOLD_MECHANIC = [
   // - CollectibleType.SPIRIT_SWORD (579) does not break the mechanic.
   // - CollectibleType.NEPTUNUS (597) does not break the mechanic. (The charge bar appears, but no
   //   tears are actually produced.)
-  CollectibleType.REVELATION, // 643
   CollectibleType.C_SECTION, // 678
-  CollectibleType.MONTEZUMAS_REVENGE, // 680
   // - CollectibleType.BERSERK (704) does not break the mechanic.
 ] as const;
 

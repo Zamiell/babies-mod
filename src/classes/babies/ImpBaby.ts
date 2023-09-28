@@ -32,8 +32,8 @@ export class ImpBaby extends Baby {
     // Epic Fetus overwrites Mom's Knife, which makes the baby not work properly.
     return !hasCollectible(
       player,
-      CollectibleType.EPIC_FETUS,
       ...BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES,
+      CollectibleType.EPIC_FETUS,
     );
   }
 
