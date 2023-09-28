@@ -13,9 +13,9 @@
   "type": "module",
   "dependencies": {
     "@types/node": "^20.7.1",
-    "isaac-typescript-definitions": "^21.0.1",
+    "isaac-typescript-definitions": "^21.0.2",
     "isaacscript": "^3.11.1",
-    "isaacscript-common": "^51.5.1",
+    "isaacscript-common": "^51.5.2",
     "isaacscript-lint": "^5.11.0",
     "isaacscript-spell": "^1.4.0",
     "isaacscript-tsconfig": "^4.0.0",
