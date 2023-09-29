@@ -9,9 +9,9 @@ import {
   ModCallbackCustom,
   getHUDOffsetVector,
   hasFlag,
+  newSprite,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { newSprite } from "../../sprite";
 import {
   postNewRoomReorderedNoHealthUI,
   shouldShowRealHeartsUIForDevilDeal,

@@ -1,6 +1,10 @@
 import { ModCallback } from "isaac-typescript-definitions";
-import { Callback, setSpriteOpacity, VectorZero } from "isaacscript-common";
-import { newSprite } from "../../sprite";
+import {
+  Callback,
+  newSprite,
+  setSpriteOpacity,
+  VectorZero,
+} from "isaacscript-common";
 import { Baby } from "../Baby";
 
 const v = {

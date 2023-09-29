@@ -1,6 +1,10 @@
 import { Challenge } from "isaac-typescript-definitions";
-import { assertDefined, game, getHUDOffsetVector } from "isaacscript-common";
-import { newSprite } from "./sprite";
+import {
+  assertDefined,
+  game,
+  getHUDOffsetVector,
+  newSprite,
+} from "isaacscript-common";
 import { isRacingPlusEnabled } from "./utils";
 
 class TimerSprites {
