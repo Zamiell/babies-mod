@@ -1,5 +1,6 @@
 import { ModCallback, ProjectileVariant } from "isaac-typescript-definitions";
 import { Callback, spawnProjectile } from "isaacscript-common";
+import { isValidForEnemyDeathEffect } from "../../utils";
 import { Baby } from "../Baby";
 
 interface MultiTearDescription {
@@ -47,6 +48,10 @@ export class BlueWrestlerBaby extends Baby {
   // 68
   @Callback(ModCallback.POST_ENTITY_KILL)
   postEntityKill(entity: Entity): void {
+    if (!isValidForEnemyDeathEffect(entity)) {
+      return;
+    }
+
     const ptrHash = GetPtrHash(entity);
     const num = this.getAttribute("num");
 

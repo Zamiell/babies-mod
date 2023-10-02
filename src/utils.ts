@@ -238,7 +238,12 @@ export function isRacingPlusEnabled(): boolean {
   return checkpoint !== -1;
 }
 
-/** Piercing, multiple shots, and Flat Stone causes "missing" effects to mess up. */
+export function isValidForEnemyDeathEffect(entity: Entity): boolean {
+  const npc = entity.ToNPC();
+  return npc !== undefined && npc.Type !== EntityType.PITFALL;
+}
+
+/** Piercing, multiple shots, Flat Stone, and other things cause "missing" effects to mess up. */
 export function isValidForMissedTearsEffect(player: EntityPlayer): boolean {
   return (
     !hasCollectible(player, ...BAD_MISSED_TEARS_COLLECTIBLE_TYPES) &&

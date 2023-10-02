@@ -1,28 +1,19 @@
-import {
-  CollectibleType,
-  EntityType,
-  ModCallback,
-} from "isaac-typescript-definitions";
+import { EntityType, ModCallback } from "isaac-typescript-definitions";
 import { Callback, VectorZero, repeat, spawn } from "isaacscript-common";
+import { isValidForEnemyDeathEffect } from "../../../utils";
 import { Baby } from "../../Baby";
 
 const SWARM_SPIDER_DISPLACEMENT_DISTANCE = 3;
 
 /** Enemies spawn N Swarm Spiders on death. */
 export class Multidimensional extends Baby {
-  override isValid(player: EntityPlayer): boolean {
-    // It would be visually confusing if the player had Multidimensional Baby.
-    return !player.HasCollectible(CollectibleType.MULTIDIMENSIONAL_BABY);
-  }
-
   @Callback(ModCallback.POST_ENTITY_KILL)
   postEntityKill(entity: Entity): void {
-    const npc = entity.ToNPC();
-    if (npc === undefined) {
+    if (!isValidForEnemyDeathEffect(entity)) {
       return;
     }
 
-    if (npc.Type === EntityType.SWARM_SPIDER) {
+    if (entity.Type === EntityType.SWARM_SPIDER) {
       return;
     }
 
@@ -33,7 +24,7 @@ export class Multidimensional extends Baby {
       const randomVector = RandomVector().mul(
         SWARM_SPIDER_DISPLACEMENT_DISTANCE,
       );
-      const position = npc.Position.add(randomVector);
+      const position = entity.Position.add(randomVector);
 
       spawn(
         EntityType.SWARM_SPIDER,
@@ -41,8 +32,8 @@ export class Multidimensional extends Baby {
         0,
         position,
         VectorZero,
-        npc,
-        npc.InitSeed,
+        entity,
+        entity.InitSeed,
       );
     });
   }
