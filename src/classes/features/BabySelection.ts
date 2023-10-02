@@ -61,7 +61,7 @@ export class BabySelection extends ModFeature {
    */
   shouldClearPastBabies(): boolean {
     const challenge = Isaac.GetChallenge();
-    const season5 = Isaac.GetChallengeIdByName("R+7 Season 5 (Beta)");
+    const season5 = Isaac.GetChallengeIdByName("R+7 Season 5");
 
     if (challenge !== season5) {
       return true;

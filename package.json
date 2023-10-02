@@ -12,16 +12,16 @@
   "license": "GPL-3.0",
   "type": "module",
   "dependencies": {
-    "@types/node": "^20.7.1",
-    "isaac-typescript-definitions": "^21.0.2",
+    "@types/node": "^20.8.0",
+    "isaac-typescript-definitions": "^21.1.0",
     "isaacscript": "^3.11.1",
-    "isaacscript-common": "^51.6.0",
-    "isaacscript-lint": "^5.11.0",
+    "isaacscript-common": "^51.10.0",
+    "isaacscript-lint": "^6.0.0",
     "isaacscript-spell": "^1.4.0",
     "isaacscript-tsconfig": "^4.0.0",
     "tsx": "^3.13.0",
     "typescript": "^5.2.2",
-    "typescript-to-lua": "^1.19.3"
+    "typescript-to-lua": "^1.20.0"
   },
   "packageManager": "yarn@3.6.3"
 }
