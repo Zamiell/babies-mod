@@ -4687,9 +4687,9 @@ export const BABIES = {
   // 534
   [RandomBabyType.BERRY]: {
     name: "Berry Baby",
-    description: "Starts with Red Stew",
+    description: "Starts with Backstabber",
     sprite: "534_baby_goldberry.png",
-    collectible: CollectibleType.RED_STEW,
+    collectible: CollectibleType.BACKSTABBER,
   },
 
   // 535
