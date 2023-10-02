@@ -33,6 +33,7 @@ import {
   BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES,
   BRIMSTONE_ANTI_SYNERGIES,
   COLLECTIBLES_THAT_REMOVE_TEARS,
+  COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS,
   C_SECTION_ANTI_SYNERGIES,
   DR_FETUS_ANTI_SYNERGIES,
   EPIC_FETUS_ANTI_SYNERGIES,
@@ -253,6 +254,13 @@ function checkCollectibles(
   if (
     babyCollectiblesSet.has(CollectibleType.SMELTER) && // 479
     !hasAnyTrinket(player)
+  ) {
+    return false;
+  }
+
+  if (
+    babyCollectiblesSet.has(CollectibleType.CAMO_UNDIES) && // 497
+    hasCollectible(player, ...COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS)
   ) {
     return false;
   }
