@@ -983,6 +983,7 @@ export const BABIES = {
     name: "Pubic Baby",
     description: "Must full clear",
     sprite: "110_baby_pubic.png",
+    requireNoEndFloors: true,
     class: bc.PubicBaby,
   },
 
