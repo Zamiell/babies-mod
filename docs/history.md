@@ -7,6 +7,7 @@
 
 - The following babies have new effects:
   - Elf Princess Baby (#383) - "Starts with 10x Mom's Razor" --> "Starts with 3x Mom's Razor"
+- !Fixed the bug where blindfolded babies would work with Incubus, Twisted Pair, Cain's Other Eye, and Fate's Reward.
 - Fixed the bug where I Found Pills would result in a bugged baby costume.
 
 ### _v1.23.0_ - September 28th, 2023

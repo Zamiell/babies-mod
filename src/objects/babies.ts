@@ -1551,9 +1551,11 @@ export const BABIES = {
   // 176
   [RandomBabyType.TRANSFORMING]: {
     name: "Transforming Baby",
-    description: "Starts with Technology Zero",
+    description: "Starts with Technology + 3x Robo-Baby",
     sprite: "176_baby_transforming.png",
-    collectible: CollectibleType.TECHNOLOGY_ZERO,
+    collectible: CollectibleType.ROBO_BABY,
+    collectibleNum: 3,
+    collectible2: CollectibleType.TECHNOLOGY,
   },
 
   // 177
@@ -5060,11 +5062,9 @@ export const BABIES = {
   // 578
   [RandomBabyType.ROBO]: {
     name: "Robo-Baby", // CollectibleType.ROBO_BABY (95)
-    description: "Starts with Technology + 3x Robo-Baby",
+    description: "Starts with Technology Zero",
     sprite: "familiar_shooters_06_robobaby.png",
-    collectible: CollectibleType.ROBO_BABY,
-    collectibleNum: 3,
-    collectible2: CollectibleType.TECHNOLOGY,
+    collectible: CollectibleType.TECHNOLOGY_ZERO,
   },
 
   // 579
