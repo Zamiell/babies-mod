@@ -211,7 +211,7 @@ export const BABIES = {
   // 22
   [RandomBabyType.DEAD]: {
     name: "Dead Baby",
-    description: "Starts with 2x ???'s Only Friend + blindfolded",
+    description: "Starts with Kidney Stone",
     sprite: "022_baby_dead.png",
     collectible: CollectibleType.KIDNEY_STONE,
   },
