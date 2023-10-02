@@ -213,10 +213,18 @@ function checkCollectibles(
     return false;
   }
 
+  // Monstro's Lung prevents easily bombing out of rooms on a Dr. Fetus + Ipecac build.
   if (
     babyCollectiblesSet.has(CollectibleType.MONSTROS_LUNG) && // 229
     player.HasCollectible(CollectibleType.DR_FETUS) && // 52
     player.HasCollectible(CollectibleType.IPECAC) // 149
+  ) {
+    return false;
+  }
+
+  if (
+    babyCollectiblesSet.has(CollectibleType.FIRE_MIND) && // 257
+    hasPiercing(player)
   ) {
     return false;
   }
@@ -267,7 +275,11 @@ function checkCollectibles(
 
   if (
     babyCollectiblesSet.has(CollectibleType.LACHRYPHAGY) && // 532
-    player.HasCollectible(CollectibleType.IPECAC)
+    hasCollectible(
+      player,
+      CollectibleType.IPECAC, // 149
+      CollectibleType.FIRE_MIND, // 257
+    )
   ) {
     return false;
   }
