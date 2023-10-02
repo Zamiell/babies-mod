@@ -3370,10 +3370,10 @@ export const BABIES = {
   // 383
   [RandomBabyType.ELF_PRINCESS]: {
     name: "Elf Princess Baby",
-    description: "Starts with 10x Mom's Razor",
+    description: "Starts with 3x Mom's Razor",
     sprite: "383_baby_elfprincess.png",
     collectible: CollectibleType.MOMS_RAZOR,
-    collectibleNum: 10,
+    collectibleNum: 3,
   },
 
   // 384
