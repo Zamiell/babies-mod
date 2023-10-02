@@ -198,9 +198,16 @@ function checkCollectibles(
     babyCollectiblesSet.has(CollectibleType.IPECAC) && // 149
     hasCollectible(
       player,
-      CollectibleType.CRICKETS_BODY,
-      CollectibleType.COMPOUND_FRACTURE,
+      CollectibleType.CRICKETS_BODY, // 224
+      CollectibleType.COMPOUND_FRACTURE, // 453
     )
+  ) {
+    return false;
+  }
+
+  if (
+    babyCollectiblesSet.has(CollectibleType.CRICKETS_BODY) && // 224
+    player.HasCollectible(CollectibleType.IPECAC)
   ) {
     return false;
   }
@@ -252,6 +259,13 @@ function checkCollectibles(
 
   if (
     babyCollectiblesSet.has(CollectibleType.LACHRYPHAGY) && // 532
+    player.HasCollectible(CollectibleType.IPECAC)
+  ) {
+    return false;
+  }
+
+  if (
+    babyCollectiblesSet.has(CollectibleType.COMPOUND_FRACTURE) && // 553
     player.HasCollectible(CollectibleType.IPECAC)
   ) {
     return false;
