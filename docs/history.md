@@ -5,7 +5,7 @@
 
 ### _v1.23.4_ - October 2nd, 2023
 
-- !Fixed the bug where I Found Pills would result in a bugged baby costume.
+- Fixed the bug where I Found Pills would result in a bugged baby costume.
 
 ### _v1.23.0_ - September 28th, 2023
 
