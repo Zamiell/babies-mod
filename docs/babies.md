@@ -543,7 +543,7 @@ There are 604 babies in total.
 | 531 | <img src="./images/069_baby_solomon_a.png" alt="069_baby_solomon_a.png"> | Solomon's Baby A | Can't shoot right |
 | 532 | <img src="./images/070_baby_solomon_b.png" alt="070_baby_solomon_b.png"> | Solomon's Baby B | Can't shoot left |
 | 533 | <img src="./images/533_baby_thirteenth.png" alt="533_baby_thirteenth.png"> | Thirteenth Baby | Starts in a trinket shop |
-| 534 | <img src="./images/534_baby_goldberry.png" alt="534_baby_goldberry.png"> | Berry Baby | Starts with Red Stew |
+| 534 | <img src="./images/534_baby_goldberry.png" alt="534_baby_goldberry.png"> | Berry Baby | Starts with Backstabber |
 | 535 | <img src="./images/535_baby_eyebat.png" alt="535_baby_eyebat.png"> | Eyebat Baby | Floors are reversed |
 | 536 | <img src="./images/536_baby_isyou.png" alt="536_baby_isyou.png"> | Baby Is You | Starts with Luna |
 | 537 | <img src="./images/537_baby_vessel.png" alt="537_baby_vessel.png"> | Vessel Baby | Starts with 5x Worm Friend |
