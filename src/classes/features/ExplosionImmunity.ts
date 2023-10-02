@@ -1,12 +1,23 @@
-import { DamageFlag } from "isaac-typescript-definitions";
-import { CallbackCustom, ModCallbackCustom, hasFlag } from "isaacscript-common";
+import { CallbackPriority, DamageFlag } from "isaac-typescript-definitions";
+import {
+  ModCallbackCustom,
+  PriorityCallbackCustom,
+  hasFlag,
+} from "isaacscript-common";
 import type { BabyDescription } from "../../interfaces/BabyDescription";
 import { BABIES } from "../../objects/babies";
 import { BabyModFeature } from "../BabyModFeature";
 import { getBabyType } from "./babySelection/v";
 
 export class ExplosionImmunity extends BabyModFeature {
-  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
+  /**
+   * This needs to have precedence over the Racing+ callbacks so that the player does not lose their
+   * free devil deal.
+   */
+  @PriorityCallbackCustom(
+    ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER,
+    CallbackPriority.EARLY,
+  )
   entityTakeDmgPlayer(
     _player: EntityPlayer,
     _amount: float,

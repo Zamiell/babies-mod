@@ -1,9 +1,10 @@
-import { ButtonAction } from "isaac-typescript-definitions";
+import { ButtonAction, CallbackPriority } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
+  ModCallbackCustom,
+  PriorityCallbackCustom,
   copyColor,
   isActionPressed,
-  ModCallbackCustom,
   setEntityOpacity,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
@@ -28,7 +29,14 @@ export class HelmetBaby extends Baby {
     player.SetColor(newColor, 0, 0, true, true);
   }
 
-  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
+  /**
+   * This needs to have precedence over the Racing+ callbacks so that the player does not lose their
+   * free devil deal.
+   */
+  @PriorityCallbackCustom(
+    ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER,
+    CallbackPriority.EARLY,
+  )
   entityTakeDmgPlayer(): boolean | undefined {
     if (v.room.isInvulnerable) {
       return false;

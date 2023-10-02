@@ -1,6 +1,7 @@
+import { CallbackPriority } from "isaac-typescript-definitions";
 import {
-  CallbackCustom,
   ModCallbackCustom,
+  PriorityCallbackCustom,
   onStageWithSecretExitToMausoleum,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
@@ -12,7 +13,14 @@ export class ZeroBaby extends Baby {
     return !onStageWithSecretExitToMausoleum();
   }
 
-  @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
+  /**
+   * This needs to have precedence over the Racing+ callbacks so that the player does not lose their
+   * free devil deal.
+   */
+  @PriorityCallbackCustom(
+    ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER,
+    CallbackPriority.EARLY,
+  )
   entityTakeDmgPlayer(): boolean | undefined {
     return false;
   }
