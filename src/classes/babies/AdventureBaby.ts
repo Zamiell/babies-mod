@@ -10,7 +10,10 @@ import {
   getGridEntities,
   hasCollectible,
 } from "isaacscript-common";
-import { BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES } from "../../constants";
+import {
+  BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES,
+  COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS,
+} from "../../constants";
 import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
@@ -36,6 +39,7 @@ export class AdventureBaby extends Baby {
       player,
       ...DANGEROUS_ANTI_SYNERGY_COLLECTIBLE_TYPES,
       ...BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES,
+      ...COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS,
     );
   }
 
