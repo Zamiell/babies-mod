@@ -270,6 +270,7 @@ export const BAD_MISSED_TEARS_COLLECTIBLE_TYPES = [
   CollectibleType.CUPIDS_ARROW, // 48
   CollectibleType.MOMS_EYE, // 55
   CollectibleType.LOKIS_HORNS, // 87
+  CollectibleType.IPECAC, // 149 (it is anti-synergy with bombing through rooms)
   CollectibleType.MUTANT_SPIDER, // 153
   CollectibleType.POLYPHEMUS, // 169
   CollectibleType.MONSTROS_LUNG, // 229
@@ -281,6 +282,7 @@ export const BAD_MISSED_TEARS_COLLECTIBLE_TYPES = [
   CollectibleType.DEAD_ONION, // 336
   CollectibleType.EYE_OF_BELIAL, // 462
   CollectibleType.LITTLE_HORN, // 503
+  CollectibleType.HAEMOLACRIA, // 531 (it is hard to aim properly with this)
   CollectibleType.TRISAGION, // 533
   CollectibleType.FLAT_STONE, // 540
   CollectibleType.ALMOND_MILK, // 561
