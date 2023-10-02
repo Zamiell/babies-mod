@@ -31,7 +31,7 @@ There are 604 babies in total.
 | 19 | <img src="./images/019_baby_wrath.png" alt="019_baby_wrath.png"> | Wrath Baby | Anarchist Cookbook effect every 7 seconds |
 | 20 | <img src="./images/020_baby_wrapped.png" alt="020_baby_wrapped.png"> | Wrapped Baby | 5x Kamikaze effect on hit |
 | 21 | <img src="./images/021_baby_begotten.png" alt="021_baby_begotten.png"> | Begotten Baby | Starts with Eve's Mascara |
-| 22 | <img src="./images/022_baby_dead.png" alt="022_baby_dead.png"> | Dead Baby | Starts with 2x ???'s Only Friend + blindfolded |
+| 22 | <img src="./images/022_baby_dead.png" alt="022_baby_dead.png"> | Dead Baby | Starts with Kidney Stone |
 | 23 | <img src="./images/023_baby_fighting.png" alt="023_baby_fighting.png"> | Fighting Baby | Starts with Bloody Lust |
 | 24 | <img src="./images/024_baby_0.png" alt="024_baby_0.png"> | -0- Baby | Invulnerability |
 | 25 | <img src="./images/025_baby_glitch.png" alt="025_baby_glitch.png"> | Glitch Baby | Starts with Isaac's Heart + BFFS! |
