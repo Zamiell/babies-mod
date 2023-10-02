@@ -185,7 +185,7 @@ There are 604 babies in total.
 | 173 | <img src="./images/173_baby_atepoop.png" alt="173_baby_atepoop.png"> | Ate Poop Baby | Destroying poops spawns random pickups |
 | 174 | <img src="./images/174_baby_electris.png" alt="174_baby_electris.png"> | Electric Baby | Starts with Jacob's Ladder |
 | 175 | <img src="./images/175_baby_bloodhole.png" alt="175_baby_bloodhole.png"> | Blood Hole Baby | Starts with Proptosis |
-| 176 | <img src="./images/176_baby_transforming.png" alt="176_baby_transforming.png"> | Transforming Baby | Starts with Technology Zero |
+| 176 | <img src="./images/176_baby_transforming.png" alt="176_baby_transforming.png"> | Transforming Baby | Starts with Technology + 3x Robo-Baby |
 | 177 | <img src="./images/177_baby_aban.png" alt="177_baby_aban.png"> | Aban Baby | Sonic the Hedgehog health |
 | 178 | <img src="./images/178_baby_bandagegirl.png" alt="178_baby_bandagegirl.png"> | Bandage Girl Baby | Starts with Pause + Cube of Meat + Ball of Bandages |
 | 179 | <img src="./images/179_baby_piecea.png" alt="179_baby_piecea.png"> | Piece A Baby | Can only move up + down + left + right |
@@ -587,7 +587,7 @@ There are 604 babies in total.
 | 575 | <img src="./images/490_baby_falling.png" alt="490_baby_falling.png"> | Falling Baby | Starts with Twisted Pair |
 | 576 | <img src="./images/familiar_shooters_01_brotherbobby.png" alt="familiar_shooters_01_brotherbobby.png"> | Brother Bobby | Slings Godhead aura (improved) |
 | 577 | <img src="./images/familiar_shooters_07_sistermaggie.png" alt="familiar_shooters_07_sistermaggie.png"> | Sister Maggy | Loses last item on 2nd hit (per room) |
-| 578 | <img src="./images/familiar_shooters_06_robobaby.png" alt="familiar_shooters_06_robobaby.png"> | Robo-Baby | Starts with Technology + 3x Robo-Baby |
+| 578 | <img src="./images/familiar_shooters_06_robobaby.png" alt="familiar_shooters_06_robobaby.png"> | Robo-Baby | Starts with Technology Zero |
 | 579 | <img src="./images/familiar_shooters_04_littlegish_custom.png" alt="familiar_shooters_04_littlegish_custom.png"> | Little Gish | All items from the Curse Room pool |
 | 580 | <img src="./images/familiar_shooters_05_littlesteve.png" alt="familiar_shooters_05_littlesteve.png"> | Little Steven | Starts with 10x Ring Cap + golden bomb + blindfolded + explosion immunity |
 | 581 | <img src="./images/familiar_shooters_02_demonbaby.png" alt="familiar_shooters_02_demonbaby.png"> | Demon Baby | Free devil deals |
