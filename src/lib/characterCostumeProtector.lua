@@ -2,13 +2,13 @@
 -- https://github.com/Sanio46/character-costume-protector
 
 -- Modifications:
--- - Better logging on line 69.
--- - Double Brimstone fix on line 572.
--- - Active item bug fix on line 905.
--- - R U a Wizard fix on line 908.
--- - Empty Vessel shield fix on line 1117.
--- - Strawman bug fix on line 1130.
--- - Export `MainResetPlayerCostumes` on line 1207.
+-- - Better logging on line 70.
+-- - Double Brimstone fix on line 573.
+-- - Active item bug fix on line 907.
+-- - I Found Pills + R U a Wizard fix on line 910.
+-- - Empty Vessel shield fix on line 1122.
+-- - Strawman bug fix on line 1135.
+-- - Global variable `CCPMainResetPlayerCostumes` on line 1203.
 
 --VERSION = "1.4.2"
 
@@ -914,7 +914,10 @@ function ccp:resetCostumeOnPill(
 	local data = player:GetData()
 
 	if playerToProtect[playerType] and data.CCP then
-		if pillEffect == PillEffect.PILLEFFECT_WIZARD then
+		if (
+			pillEffect == PillEffect.PILLEFFECT_I_FOUND_PILLS -- 6
+			or pillEffect == PillEffect.PILLEFFECT_WIZARD -- 27
+		) then
 			ccp:mainResetPlayerCostumes(player)
 		end
 	end
@@ -1129,6 +1132,7 @@ end
 
 function ccp:init(mod)
 	mod:AddCallback(ModCallbacks.MC_POST_PLAYER_INIT, function(_, player)
+		-- Ignore e.g. Strawman players.
 		if player.Parent == nil then
 			return
 		end

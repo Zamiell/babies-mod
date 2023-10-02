@@ -3,6 +3,10 @@
 <!-- cspell:ignore Adrayon,cantgirl,elgirs,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.23.4_ - October 2nd, 2023
+
+- !Fixed the bug where I Found Pills would result in a bugged baby costume.
+
 ### _v1.23.0_ - September 28th, 2023
 
 - The following babies have new effects:
