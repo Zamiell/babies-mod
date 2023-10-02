@@ -228,6 +228,14 @@ function checkCollectibles(
     return false;
   }
 
+  // Don't let the player duplicate a powerful collectible too early on in the run.
+  if (
+    babyCollectiblesSet.has(CollectibleType.DIPLOPIA) && // 347
+    !onEffectiveStage(LevelStage.BASEMENT_1, LevelStage.BASEMENT_2)
+  ) {
+    return false;
+  }
+
   if (
     babyCollectiblesSet.has(CollectibleType.EYE_OF_BELIAL) && // 462
     hasPiercing(player)
