@@ -1579,6 +1579,7 @@ export const BABIES = {
     name: "Piece A Baby",
     description: "Can only move up + down + left + right",
     sprite: "179_baby_piecea.png",
+    requireNoEndFloors: true,
     class: bc.PieceABaby,
   },
 
