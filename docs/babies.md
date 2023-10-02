@@ -392,7 +392,7 @@ There are 604 babies in total.
 | 380 | <img src="./images/380_baby_octopus.png" alt="380_baby_octopus.png"> | Octopus Baby | Black creep tears |
 | 381 | <img src="./images/381_baby_orangepig.png" alt="381_baby_orangepig.png"> | Orange Pig Baby | Double items |
 | 382 | <img src="./images/382_baby_bluepig.png" alt="382_baby_bluepig.png"> | Blue Pig Baby | Spawns a Mega Troll Bomb every 5 seconds |
-| 383 | <img src="./images/383_baby_elfprincess.png" alt="383_baby_elfprincess.png"> | Elf Princess Baby | Starts with 10x Mom's Razor |
+| 383 | <img src="./images/383_baby_elfprincess.png" alt="383_baby_elfprincess.png"> | Elf Princess Baby | Starts with 3x Mom's Razor |
 | 384 | <img src="./images/384_baby_fishman.png" alt="384_baby_fishman.png"> | Fishman Baby | Spawns a random bomb on room clear |
 | 385 | <img src="./images/385_baby_fairyman.png" alt="385_baby_fairyman.png"> | Fairyman Baby | -30% damage on hit |
 | 386 | <img src="./images/386_baby_imp.png" alt="386_baby_imp.png"> | Imp Baby | Blender + flight + explosion immunity + blindfolded |
