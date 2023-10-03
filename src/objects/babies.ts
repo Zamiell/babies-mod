@@ -79,6 +79,7 @@ export const BABIES = {
     description: "Spawns a Troll Bomb every 3 seconds",
     sprite: "006_baby_troll.png",
     num: 3,
+    requireNoEndFloors: true,
     class: bc.TrollBaby,
   },
 
@@ -361,6 +362,7 @@ export const BABIES = {
     description: "Takes damage if shooting when the timer reaches 0",
     sprite: "039_baby_noose.png",
     num: 6 * GAME_FRAMES_PER_SECOND, // The duration of the timer in game frames.
+    requireNoEndFloors: true,
     class: bc.NooseBaby,
   },
 
@@ -379,6 +381,7 @@ export const BABIES = {
     name: "Buddy Baby",
     description: "Removes a heart container on hit",
     sprite: "041_baby_buddy.png",
+    requireNoEndFloors: true,
     class: bc.BuddyBaby,
   },
 
@@ -1969,6 +1972,7 @@ export const BABIES = {
     name: "Onion Baby",
     description: "Projectiles have 2x speed",
     sprite: "224_baby_onion.png",
+    requireNoEndFloors: true,
     class: bc.OnionBaby,
   },
 
@@ -2004,6 +2008,7 @@ export const BABIES = {
     description: "Starts with Abel; Abel's tears hurt you",
     sprite: "228_baby_hanger.png",
     collectible: CollectibleType.ABEL,
+    requireNoEndFloors: true,
     class: bc.HangerBaby,
   },
 
@@ -2335,8 +2340,9 @@ export const BABIES = {
   [RandomBabyType.HARE]: {
     name: "Hare Baby",
     description: "Takes damage when standing still",
-    num: 15, // The amount of frames standing still before taking damage.
     sprite: "267_baby_hare.png",
+    requireNoEndFloors: true,
+    num: 15, // The amount of frames standing still before taking damage.
     class: bc.HareBaby,
   },
 
@@ -2743,6 +2749,7 @@ export const BABIES = {
     collectible: CollectibleType.PIGGY_BANK,
     collectible2: CollectibleType.STRAWMAN,
     trinket: TrinketType.SWALLOWED_PENNY,
+    requireNoEndFloors: true,
     class: bc.SwordBaby,
   },
 
@@ -3004,6 +3011,7 @@ export const BABIES = {
     description: "Takes damage if moving when the timer reaches 0",
     sprite: "341_baby_vomit.png",
     num: 10 * GAME_FRAMES_PER_SECOND, // The duration of the timer in game frames.
+    requireNoEndFloors: true,
     class: bc.VomitBaby,
   },
 
@@ -3230,6 +3238,7 @@ export const BABIES = {
     name: "Mean Mushroom Baby",
     description: "Enemies projectiles freeze you",
     sprite: "367_baby_meanmushroom.png",
+    requireNoEndFloors: true,
     class: bc.MeanMushroomBaby,
   },
 
@@ -3367,6 +3376,7 @@ export const BABIES = {
     description: "Spawns a Mega Troll Bomb every 5 seconds",
     sprite: "382_baby_bluepig.png",
     num: 5,
+    requireNoEndFloors: true,
     class: bc.BluePigBaby,
   },
 
@@ -3795,6 +3805,7 @@ export const BABIES = {
     description: "Slippery movement",
     sprite: "431_baby_driver.png",
     seed: SeedEffect.ICE_PHYSICS,
+    requireNoEndFloors: true,
     class: bc.DriverBaby,
   },
 
@@ -3848,6 +3859,7 @@ export const BABIES = {
     name: "Breadmeat Hoodiebread Baby",
     description: "Everything is sped up",
     sprite: "437_baby_breadmeat_hoodiebread.png",
+    requireNoEndFloors: true,
     class: bc.BreadmeatHoodiebreadBaby,
   },
 
@@ -4988,6 +5000,7 @@ export const BABIES = {
     name: "Painful Baby",
     description: "Enemies respawn when reentering a room",
     sprite: "570_baby_painful.png",
+    requireNoEndFloors: true,
     seed: SeedEffect.ENEMIES_RESPAWN,
   },
 

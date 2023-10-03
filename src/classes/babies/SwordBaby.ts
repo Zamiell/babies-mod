@@ -1,6 +1,5 @@
 import {
   EntityType,
-  LevelStage,
   ModCallback,
   PickupVariant,
   PlayerType,
@@ -11,7 +10,6 @@ import {
   CallbackCustom,
   ModCallbackCustom,
   isChildPlayer,
-  onStageOrHigher,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
@@ -20,11 +18,6 @@ const STRAWMAN_SIZE_MULTIPLIER = 0.75;
 
 /** Starts with Piggy Bank + Swallowed Penny + Strawman (Strawman must not die). */
 export class SwordBaby extends Baby {
-  override isValid(): boolean {
-    // It would be too difficult on the later floors.
-    return !onStageOrHigher(LevelStage.WOMB_2);
-  }
-
   @Callback(ModCallback.PRE_PICKUP_COLLISION, PickupVariant.COLLECTIBLE)
   prePickupCollisionCollectible(
     _pickup: EntityPickup,
