@@ -337,7 +337,8 @@ function checkCollectibles(
     return false;
   }
 
-  // Sacred Orb is too powerful for the first floor. There are no items on Sheol/Cathedral and Home.
+  // Sacred Orb is almost useless for the first floor. There are no items on Sheol/Cathedral and
+  // Home.
   if (
     babyCollectiblesSet.has(CollectibleType.SACRED_ORB) && // 689
     onEffectiveStage(
