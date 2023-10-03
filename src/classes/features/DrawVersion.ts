@@ -2,12 +2,12 @@ import { Keyboard, ModCallback } from "isaac-typescript-definitions";
 import {
   Callback,
   GAME_FRAMES_PER_SECOND,
+  ModFeature,
   game,
   getScreenCenterPos,
   isKeyboardPressed,
 } from "isaacscript-common";
 import { MOD_NAME, VERSION } from "../../constants";
-import { BabyModFeature } from "../BabyModFeature";
 
 const v = {
   run: {
@@ -15,7 +15,11 @@ const v = {
   },
 };
 
-export class DrawVersion extends BabyModFeature {
+/**
+ * We do not extend from `BabyModFeature` since we want to show the version on other characters than
+ * Random Baby.
+ */
+export class DrawVersion extends ModFeature {
   v = v;
 
   @Callback(ModCallback.POST_RENDER)

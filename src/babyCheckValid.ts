@@ -298,6 +298,14 @@ function checkCollectibles(
     return false;
   }
 
+  // Glitched Crown is too powerful for the first two floors.
+  if (
+    babyCollectiblesSet.has(CollectibleType.GLITCHED_CROWN) && // 689
+    onEffectiveStage(LevelStage.BASEMENT_1, LevelStage.BASEMENT_2)
+  ) {
+    return false;
+  }
+
   // Spindown Dice can be used on Knife Piece 1 to break the game.
   if (
     babyCollectiblesSet.has(CollectibleType.SPINDOWN_DICE) && // 723
