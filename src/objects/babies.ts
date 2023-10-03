@@ -2145,6 +2145,7 @@ export const BABIES = {
     name: "Snail Baby",
     description: "Glowing Hourglass on 2nd hit (per room)",
     sprite: "244_baby_snail.png",
+    requireNoEndFloors: true,
     num: 2,
     class: bc.SnailBaby,
   },
