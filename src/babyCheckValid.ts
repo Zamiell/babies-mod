@@ -352,8 +352,9 @@ function checkCollectibles(
 
   if (
     babyCollectiblesSet.has(CollectibleType.SPINDOWN_DICE) && // 723
-    // There are no collectibles on Sheol/Cathedral.
+    // There are no collectibles on Sheol/Cathedral and Home.
     (onStage(LevelStage.SHEOL_CATHEDRAL) ||
+      onStage(LevelStage.HOME) ||
       // Spindown Dice can be used on Knife Piece 1 to break the game.
       (onStage(LevelStage.BASEMENT_2) && onRepentanceStage()))
   ) {
