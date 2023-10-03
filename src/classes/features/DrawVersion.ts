@@ -1,17 +1,20 @@
 import { Keyboard, ModCallback } from "isaac-typescript-definitions";
 import {
   Callback,
-  GAME_FRAMES_PER_SECOND,
   ModFeature,
+  RENDER_FRAMES_PER_SECOND,
   game,
   getScreenCenterPos,
   isKeyboardPressed,
 } from "isaacscript-common";
 import { MOD_NAME, VERSION } from "../../constants";
 
+const SHOW_VERSION_HOTKEY = Keyboard.F1;
+const SECONDS_SHOWN = 2;
+
 const v = {
   run: {
-    showVersionUntilFrame: null as int | null,
+    showVersionUntilRenderFrame: null as int | null,
   },
 };
 
@@ -24,29 +27,38 @@ export class DrawVersion extends ModFeature {
 
   @Callback(ModCallback.POST_RENDER)
   postRender(): void {
-    const isPaused = game.IsPaused();
-    if (isPaused) {
+    const hud = game.GetHUD();
+
+    if (!hud.IsVisible()) {
       return;
     }
 
-    this.checkVInput();
-    this.draw();
+    if (ModConfigMenu !== undefined && ModConfigMenu.IsVisible) {
+      return;
+    }
+
+    // We do not have to check to see if the game is paused because the text will not be drawn on
+    // top of the pause menu.
+
+    this.checkInput();
+    this.checkDraw();
   }
 
-  /** Make the baby description persist on the screen after the player presses the "v" key. */
-  checkVInput(): void {
-    if (isKeyboardPressed(Keyboard.V)) {
-      const gameFrameCount = game.GetFrameCount();
-      v.run.showVersionUntilFrame = gameFrameCount + 2 * GAME_FRAMES_PER_SECOND;
+  /** Make the version persist on the screen after the player presses the hotkey. */
+  checkInput(): void {
+    if (isKeyboardPressed(SHOW_VERSION_HOTKEY)) {
+      const renderFrameCount = Isaac.GetFrameCount();
+      v.run.showVersionUntilRenderFrame =
+        renderFrameCount + SECONDS_SHOWN * RENDER_FRAMES_PER_SECOND;
     }
   }
 
-  draw(): void {
-    const gameFrameCount = game.GetFrameCount();
+  checkDraw(): void {
+    const renderFrameCount = Isaac.GetFrameCount();
 
     if (
-      v.run.showVersionUntilFrame === null ||
-      gameFrameCount > v.run.showVersionUntilFrame
+      v.run.showVersionUntilRenderFrame === null ||
+      renderFrameCount > v.run.showVersionUntilRenderFrame
     ) {
       return;
     }
