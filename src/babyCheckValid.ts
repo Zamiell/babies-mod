@@ -323,13 +323,27 @@ function checkCollectibles(
     return false;
   }
 
-  // Glitched Crown is too powerful for the first two floors. There are no items on Sheol/Cathedral.
+  // Glitched Crown is too powerful for the first two floors. There are no items on Sheol/Cathedral
+  // and Home.
   if (
     babyCollectiblesSet.has(CollectibleType.GLITCHED_CROWN) && // 689
     onEffectiveStage(
       LevelStage.BASEMENT_1,
       LevelStage.BASEMENT_2,
       LevelStage.SHEOL_CATHEDRAL,
+      LevelStage.HOME,
+    )
+  ) {
+    return false;
+  }
+
+  // Sacred Orb is too powerful for the first floor. There are no items on Sheol/Cathedral and Home.
+  if (
+    babyCollectiblesSet.has(CollectibleType.SACRED_ORB) && // 689
+    onEffectiveStage(
+      LevelStage.BASEMENT_1,
+      LevelStage.SHEOL_CATHEDRAL,
+      LevelStage.HOME,
     )
   ) {
     return false;
