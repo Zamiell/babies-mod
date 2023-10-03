@@ -11,8 +11,12 @@ import { Baby } from "../Baby";
 /** Spindown Dice effect on hit. */
 export class LostBlackBaby extends Baby {
   override isValid(): boolean {
-    // Spindown Dice can be used on Knife Piece 1 to break the game.
-    return !(onStage(LevelStage.BASEMENT_2) && onRepentanceStage());
+    return (
+      // There are no collectibles on Sheol/Cathedral.
+      !onStage(LevelStage.SHEOL_CATHEDRAL) &&
+      // Spindown Dice can be used on Knife Piece 1 to break the game.
+      !(onStage(LevelStage.BASEMENT_2) && onRepentanceStage())
+    );
   }
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)

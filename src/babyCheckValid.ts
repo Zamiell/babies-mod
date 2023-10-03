@@ -326,11 +326,12 @@ function checkCollectibles(
     return false;
   }
 
-  // Spindown Dice can be used on Knife Piece 1 to break the game.
   if (
     babyCollectiblesSet.has(CollectibleType.SPINDOWN_DICE) && // 723
-    onStage(LevelStage.BASEMENT_2) &&
-    onRepentanceStage()
+    // There are no collectibles on Sheol/Cathedral.
+    (onStage(LevelStage.SHEOL_CATHEDRAL) ||
+      // Spindown Dice can be used on Knife Piece 1 to break the game.
+      (onStage(LevelStage.BASEMENT_2) && onRepentanceStage()))
   ) {
     return false;
   }
