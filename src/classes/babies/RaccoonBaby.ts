@@ -1,14 +1,20 @@
-import { CollectibleType } from "isaac-typescript-definitions";
+import { CollectibleType, LevelStage } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
-  game,
   ModCallbackCustom,
+  game,
+  onStage,
   useActiveItemTemp,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Random rocks. */
 export class RaccoonBaby extends Baby {
+  /** There are no rocks on The Chest and Home. */
+  override isValid(): boolean {
+    return !onStage(LevelStage.DARK_ROOM_CHEST) && !onStage(LevelStage.HOME);
+  }
+
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {
     const room = game.GetRoom();

@@ -12,11 +12,17 @@ import { Baby } from "../Baby";
 /** Godhead aura + flight + blindfolded. */
 export class LanternBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
-    // Trisagion makes the aura disappear.
+    // Trisagion makes the aura disappear. Multi shot items make multiple auras which can hurt
+    // player's eyes.
     return !hasCollectible(
       player,
       ...BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES,
       CollectibleType.TRISAGION,
+      CollectibleType.TWENTY_TWENTY,
+      CollectibleType.INNER_EYE,
+      CollectibleType.MUTANT_SPIDER,
+      CollectibleType.MONSTROS_LUNG,
+      CollectibleType.SATURNUS,
     );
   }
 

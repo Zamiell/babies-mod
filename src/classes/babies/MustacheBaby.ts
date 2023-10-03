@@ -1,4 +1,5 @@
 import {
+  CollectibleType,
   DamageFlagZero,
   EffectVariant,
   EntityPartition,
@@ -11,6 +12,11 @@ const BOOMERANG_DISTANCE = 30;
 
 /** Boomerang tears. */
 export class MustacheBaby extends Baby {
+  /** Boomerangs remove Ipecac explosions. */
+  override isValid(player: EntityPlayer): boolean {
+    return !player.HasCollectible(CollectibleType.IPECAC);
+  }
+
   // 55
   @Callback(ModCallback.POST_EFFECT_UPDATE, EffectVariant.BOOMERANG)
   postEffectUpdateBoomerang(effect: EntityEffect): void {

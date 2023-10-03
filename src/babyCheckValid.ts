@@ -179,6 +179,15 @@ function checkCollectibles(
     return false;
   }
 
+  // Immaculate heart can cause unavoidable damage on this build.
+  if (
+    babyCollectiblesSet.has(CollectibleType.TRISAGION) && // 533
+    babyCollectiblesSet.has(CollectibleType.IPECAC) && // 149
+    player.HasCollectible(CollectibleType.IMMACULATE_HEART) // 573
+  ) {
+    return false;
+  }
+
   // There are no collectibles on Sheol/Cathedral.
   if (
     babyCollectiblesSet.has(CollectibleType.D6) && // 105
