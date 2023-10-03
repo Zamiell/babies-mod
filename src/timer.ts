@@ -67,8 +67,12 @@ export function timerDraw(finishTime: int | null): void {
   const remainingFrames = finishTime - gameFrameCount;
   const remainingSeconds = remainingFrames / 30;
 
-  const { hours, minute1, minute2, second1, second2, tenths } =
-    convertSecondsToTimerValues(remainingSeconds);
+  const timerValues = convertSecondsToTimerValues(remainingSeconds);
+  if (timerValues === undefined) {
+    return;
+  }
+
+  const { hours, minute1, minute2, second1, second2, tenths } = timerValues;
 
   const positionClock = Vector(x + 34, y + 45);
   sprites.clock.Render(positionClock);
@@ -115,14 +119,20 @@ export function timerDraw(finishTime: int | null): void {
   sprites.digitMini.Render(positionTenths);
 }
 
-function convertSecondsToTimerValues(totalSeconds: int): {
-  hours: int;
-  minute1: int;
-  minute2: int;
-  second1: int;
-  second2: int;
-  tenths: int;
-} {
+function convertSecondsToTimerValues(totalSeconds: int):
+  | {
+      hours: int;
+      minute1: int;
+      minute2: int;
+      second1: int;
+      second2: int;
+      tenths: int;
+    }
+  | undefined {
+  if (totalSeconds < 0) {
+    return undefined;
+  }
+
   // Calculate the hours digit.
   const hours = Math.floor(totalSeconds / 3600);
 

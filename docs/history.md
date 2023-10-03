@@ -3,6 +3,10 @@
 <!-- cspell:ignore Adrayon,cantgirl,elgirs,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.25.6_ - October 2nd, 2023
+
+- Fixed the bug where errors would occur if the timer went into negative values. (Thanks sisuka)
+
 ### _v1.25.5_ - October 2nd, 2023
 
 - The hotkey to show the version has been changed from "v" to "F1".
