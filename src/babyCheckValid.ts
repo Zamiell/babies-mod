@@ -179,6 +179,14 @@ function checkCollectibles(
     return false;
   }
 
+  // There are no collectibles on Sheol/Cathedral.
+  if (
+    babyCollectiblesSet.has(CollectibleType.D6) && // 105
+    onStage(LevelStage.SHEOL_CATHEDRAL)
+  ) {
+    return false;
+  }
+
   if (
     babyCollectiblesSet.has(CollectibleType.OUIJA_BOARD) && // 115
     hasSpectral(player)
@@ -287,6 +295,14 @@ function checkCollectibles(
   if (
     babyCollectiblesSet.has(CollectibleType.COMPOUND_FRACTURE) && // 553
     player.HasCollectible(CollectibleType.IPECAC)
+  ) {
+    return false;
+  }
+
+  // There are no collectibles on Sheol/Cathedral.
+  if (
+    babyCollectiblesSet.has(CollectibleType.ETERNAL_D6) && // 609
+    onStage(LevelStage.SHEOL_CATHEDRAL)
   ) {
     return false;
   }

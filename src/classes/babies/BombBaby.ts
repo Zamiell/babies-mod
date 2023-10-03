@@ -20,13 +20,13 @@ const v = {
 export class BombBaby extends Baby {
   v = v;
 
-  override onAdd(): void {
-    setInitialBabyRNG(v.run.rng);
-  }
-
   /** There are no collectibles on Sheol/Cathedral. */
   override isValid(): boolean {
     return !onStage(LevelStage.SHEOL_CATHEDRAL);
+  }
+
+  override onAdd(): void {
+    setInitialBabyRNG(v.run.rng);
   }
 
   @CallbackCustom(ModCallbackCustom.POST_BOMB_EXPLODED)
