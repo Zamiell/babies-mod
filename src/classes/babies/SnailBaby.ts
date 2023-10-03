@@ -16,6 +16,11 @@ const v = {
 export class SnailBaby extends Baby {
   v = v;
 
+  override isValid(player: EntityPlayer): boolean {
+    // Blood Oath will stab them on the first room and send them to the previous floor.
+    return !player.HasCollectible(CollectibleType.BLOOD_OATH);
+  }
+
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
     const num = this.getAttribute("num");
