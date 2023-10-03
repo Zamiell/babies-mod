@@ -3924,6 +3924,7 @@ export const BABIES = {
     name: "Steroids Baby",
     description: "Forget Me Now on 2nd hit (per room)",
     sprite: "444_baby_steroids.png",
+    requireNoEndFloors: true,
     num: 2,
     class: bc.SteroidsBaby,
   },
