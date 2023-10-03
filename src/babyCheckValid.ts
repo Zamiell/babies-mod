@@ -298,10 +298,14 @@ function checkCollectibles(
     return false;
   }
 
-  // Glitched Crown is too powerful for the first two floors.
+  // Glitched Crown is too powerful for the first two floors. There are no items on Sheol/Cathedral.
   if (
     babyCollectiblesSet.has(CollectibleType.GLITCHED_CROWN) && // 689
-    onEffectiveStage(LevelStage.BASEMENT_1, LevelStage.BASEMENT_2)
+    onEffectiveStage(
+      LevelStage.BASEMENT_1,
+      LevelStage.BASEMENT_2,
+      LevelStage.SHEOL_CATHEDRAL,
+    )
   ) {
     return false;
   }
