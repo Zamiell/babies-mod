@@ -1,5 +1,6 @@
 import {
   CollectibleType,
+  EntityType,
   GridEntityXMLType,
   PickupVariant,
   PlayerForm,
@@ -303,4 +304,13 @@ export const GOING_TO_NEXT_FLOOR_ANIMATIONS = new ReadonlySet<string>([
   "TrapdoorCustom",
   "LightTravel",
   "LightTravelCustom",
+]);
+
+/** From Racing+. */
+export const MULTI_SEGMENT_BOSSES = new ReadonlySet<EntityType>([
+  EntityType.LARRY_JR, // 19 (and The Hollow / Tuff Twins / The Shell)
+  EntityType.PIN, // 62 (and Scolex / Frail / Wormwood)
+  EntityType.GEMINI, // 79 (and Steven / Blighted Ovum)
+  EntityType.HEART_OF_INFAMY, // 98
+  EntityType.TURDLET, // 918
 ]);

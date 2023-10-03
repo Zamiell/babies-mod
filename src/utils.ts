@@ -66,6 +66,7 @@ import {
   BAD_MISSED_TEARS_TRANSFORMATIONS,
   COLLECTIBLE_REROLL_COLLECTIBLE_TYPES_SET,
   GOING_TO_NEXT_FLOOR_ANIMATIONS,
+  MULTI_SEGMENT_BOSSES,
   ROOM_TYPES_TO_NOT_TRANSFORM,
   TRINKET_REROLL_COLLECTIBLE_TYPES_SET,
 } from "./constants";
@@ -240,7 +241,12 @@ export function isRacingPlusEnabled(): boolean {
 
 export function isValidForEnemyDeathEffect(entity: Entity): boolean {
   const npc = entity.ToNPC();
-  return npc !== undefined && npc.Type !== EntityType.PITFALL;
+  return (
+    npc !== undefined &&
+    // Racing+ manually kills pitfalls to make them disappear faster.
+    npc.Type !== EntityType.PITFALL &&
+    !MULTI_SEGMENT_BOSSES.has(npc.Type)
+  );
 }
 
 /** Piercing, multiple shots, Flat Stone, and other things cause "missing" effects to mess up. */
