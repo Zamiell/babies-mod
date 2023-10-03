@@ -308,10 +308,10 @@ function checkCollectibles(
     return false;
   }
 
-  // There are no collectibles on Sheol/Cathedral.
+  // There are no collectibles on Sheol/Cathedral and Home.
   if (
     babyCollectiblesSet.has(CollectibleType.ETERNAL_D6) && // 609
-    onStage(LevelStage.SHEOL_CATHEDRAL)
+    onEffectiveStage(LevelStage.SHEOL_CATHEDRAL, LevelStage.HOME)
   ) {
     return false;
   }
@@ -326,13 +326,13 @@ function checkCollectibles(
   // Glitched Crown is too powerful for the first two floors. There are no items on Sheol/Cathedral
   // and Home.
   if (
-    babyCollectiblesSet.has(CollectibleType.GLITCHED_CROWN) && // 689
-    onEffectiveStage(
-      LevelStage.BASEMENT_1,
-      LevelStage.BASEMENT_2,
-      LevelStage.SHEOL_CATHEDRAL,
-      LevelStage.HOME,
-    )
+    (babyCollectiblesSet.has(CollectibleType.GLITCHED_CROWN) && // 689
+      onEffectiveStage(
+        LevelStage.BASEMENT_1,
+        LevelStage.SHEOL_CATHEDRAL,
+        LevelStage.HOME,
+      )) ||
+    onStage(LevelStage.BASEMENT_2)
   ) {
     return false;
   }
@@ -340,12 +340,9 @@ function checkCollectibles(
   // Sacred Orb is almost useless for the first floor. There are no items on Sheol/Cathedral and
   // Home.
   if (
-    babyCollectiblesSet.has(CollectibleType.SACRED_ORB) && // 689
-    onEffectiveStage(
-      LevelStage.BASEMENT_1,
-      LevelStage.SHEOL_CATHEDRAL,
-      LevelStage.HOME,
-    )
+    (babyCollectiblesSet.has(CollectibleType.SACRED_ORB) && // 691
+      onStage(LevelStage.BASEMENT_1)) ||
+    onEffectiveStage(LevelStage.SHEOL_CATHEDRAL, LevelStage.HOME)
   ) {
     return false;
   }
