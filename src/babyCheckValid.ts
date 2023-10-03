@@ -591,12 +591,15 @@ function checkStage(
     return false;
   }
 
-  // We don't want pool replacements to affect the player's first devil deal. Additionally, we do
-  // not want pool replacements to affect resetting for a starting item.
+  // We don't want pool replacements to affect resetting for a starting item or the player's first
+  // devil deal. Additionally, there are no collectibles on Sheol/Cathedral.
   if (
     baby.allCollectiblesFromPool !== undefined &&
-    (onEffectiveStage(LevelStage.BASEMENT_1) ||
-      onEffectiveStage(LevelStage.BASEMENT_2))
+    onEffectiveStage(
+      LevelStage.BASEMENT_1,
+      LevelStage.BASEMENT_2,
+      LevelStage.SHEOL_CATHEDRAL,
+    )
   ) {
     return false;
   }
