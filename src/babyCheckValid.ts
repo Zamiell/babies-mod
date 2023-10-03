@@ -601,10 +601,7 @@ function checkStage(
 ): boolean {
   const effectiveStage = getEffectiveStage();
 
-  if (
-    baby.requireNoEndFloors === true &&
-    onStageOrHigher(LevelStage.BLUE_WOMB)
-  ) {
+  if (baby.requireNoEndFloors === true && onStageOrHigher(LevelStage.WOMB_2)) {
     return false;
   }
 
