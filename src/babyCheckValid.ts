@@ -165,7 +165,11 @@ function checkCollectibles(
 
   if (
     babyCollectiblesSet.has(CollectibleType.CUPIDS_ARROW) && // 48
-    hasPiercing(player)
+    (hasPiercing(player) ||
+      // Somehow those collectibles are piercing but do not have the piercing tearFlag.
+      player.HasCollectible(CollectibleType.BRIMSTONE) ||
+      player.HasCollectible(CollectibleType.MOMS_KNIFE) ||
+      player.HasCollectible(CollectibleType.C_SECTION))
   ) {
     return false;
   }
@@ -179,11 +183,9 @@ function checkCollectibles(
     return false;
   }
 
-  // Immaculate heart can cause unavoidable damage on this build.
   if (
-    babyCollectiblesSet.has(CollectibleType.TRISAGION) && // 533
-    babyCollectiblesSet.has(CollectibleType.IPECAC) && // 149
-    player.HasCollectible(CollectibleType.IMMACULATE_HEART) // 573
+    babyCollectiblesSet.has(CollectibleType.DR_FETUS) && // 52
+    hasPiercing(player)
   ) {
     return false;
   }
@@ -198,7 +200,11 @@ function checkCollectibles(
 
   if (
     babyCollectiblesSet.has(CollectibleType.OUIJA_BOARD) && // 115
-    hasSpectral(player)
+    (hasSpectral(player) ||
+      // Somehow those collectibles are spectral but do not have the spectral tearFlag.
+      player.HasCollectible(CollectibleType.BRIMSTONE) ||
+      player.HasCollectible(CollectibleType.MOMS_KNIFE) ||
+      player.HasCollectible(CollectibleType.C_SECTION))
   ) {
     return false;
   }
@@ -255,8 +261,12 @@ function checkCollectibles(
 
   if (
     babyCollectiblesSet.has(CollectibleType.DEAD_ONION) && // 336
-    hasPiercing(player) &&
-    hasSpectral(player)
+    ((hasPiercing(player) && hasSpectral(player)) ||
+      // Somehow those collectibles are piercing and spectral but do not have the piercing or
+      // spectral tearFlag.
+      player.HasCollectible(CollectibleType.BRIMSTONE) ||
+      player.HasCollectible(CollectibleType.MOMS_KNIFE) ||
+      player.HasCollectible(CollectibleType.C_SECTION))
   ) {
     return false;
   }
@@ -271,7 +281,10 @@ function checkCollectibles(
 
   if (
     babyCollectiblesSet.has(CollectibleType.EYE_OF_BELIAL) && // 462
-    hasPiercing(player)
+    (hasPiercing(player) ||
+      // Somehow those collectibles are piercing but do not have the piercing tearFlag.
+      player.HasCollectible(CollectibleType.BRIMSTONE) ||
+      player.HasCollectible(CollectibleType.MOMS_KNIFE))
   ) {
     return false;
   }
@@ -297,6 +310,15 @@ function checkCollectibles(
       CollectibleType.IPECAC, // 149
       CollectibleType.FIRE_MIND, // 257
     )
+  ) {
+    return false;
+  }
+
+  // Immaculate heart can cause unavoidable damage on this build.
+  if (
+    babyCollectiblesSet.has(CollectibleType.TRISAGION) && // 533
+    babyCollectiblesSet.has(CollectibleType.IPECAC) && // 149
+    player.HasCollectible(CollectibleType.IMMACULATE_HEART) // 573
   ) {
     return false;
   }
