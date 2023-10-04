@@ -4,6 +4,7 @@ import {
   ModCallbackCustom,
   game,
   inStartingRoom,
+  onEffectiveStage,
   onRepentanceStage,
   onStage,
   useActiveItemTemp,
@@ -21,17 +22,18 @@ const v = {
 export class TwinBaby extends Baby {
   v = v;
 
-  /**
-   * If they mess up and go past the Boss Room on Womb 2, they can get the wrong path. It also makes
-   * the player unable to go to Corpse after Alt Mom's Heart.
-   */
   override isValid(): boolean {
     return (
+      // The first two floors are too easy to exploit for a Devil Room + I AM ERROR room.
+      !onEffectiveStage(LevelStage.BASEMENT_1, LevelStage.BASEMENT_2) &&
       !onStage(
+        // If they mess up and go past the Boss Room on Womb 2, they can get the wrong path.
         LevelStage.WOMB_2, // 8
         LevelStage.BLUE_WOMB, // 9
         LevelStage.HOME, // 13
-      ) && !(onStage(LevelStage.DEPTHS_2) && onRepentanceStage())
+        // It also makes the player unable to go to Corpse after Alt Mom's Heart.
+      ) &&
+      !(onStage(LevelStage.DEPTHS_2) && onRepentanceStage())
     );
   }
 
