@@ -22,7 +22,7 @@ A lot of the babies will make you quite powerful, which can remove the difficult
 
 ## Banned Collectibles & Trinkets
 
-When playing as Random Baby, several collectibles are removed from pools:
+When playing as Random Baby, several collectibles are removed:
 
 - Guillotine (#206) - Babies do not have a head, so it would not display properly.
 - D100 (#283) - Rerolling the build is not allowed.
