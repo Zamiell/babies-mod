@@ -19,9 +19,8 @@ export class N2600Baby extends Baby {
   }
 
   @CallbackCustom(ModCallbackCustom.POST_ROOM_CLEAR_CHANGED, true)
-  postRoomClearChangedTrue(): boolean | undefined {
+  postRoomClearChangedTrue(): void {
     const player = Isaac.GetPlayer();
     useActiveItemTemp(player, CollectibleType.FRIEND_FINDER);
-    return undefined;
   }
 }

@@ -44,8 +44,7 @@ export class BoneBaby extends Baby {
   }
 
   @CallbackCustom(ModCallbackCustom.POST_ROOM_CLEAR_CHANGED, true)
-  postRoomClearChangedTrue(): boolean | undefined {
+  postRoomClearChangedTrue(): void {
     revealRandomRoom(v.run.rng);
-    return undefined;
   }
 }

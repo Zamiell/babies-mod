@@ -18,7 +18,7 @@ export class BandaidBaby extends Baby {
   }
 
   @CallbackCustom(ModCallbackCustom.POST_ROOM_CLEAR_CHANGED, true)
-  postRoomClearChangedTrue(): boolean | undefined {
+  postRoomClearChangedTrue(): void {
     const room = game.GetRoom();
     const roomSeed = room.GetSpawnSeed();
     const player = Isaac.GetPlayer();
@@ -38,7 +38,5 @@ export class BandaidBaby extends Baby {
       );
       mod.spawnCollectible(CollectibleType.NULL, position, roomSeed);
     }
-
-    return undefined;
   }
 }

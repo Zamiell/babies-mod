@@ -71,7 +71,7 @@ export class SquirrelBaby extends Baby {
   }
 
   @CallbackCustom(ModCallbackCustom.POST_ROOM_CLEAR_CHANGED, true)
-  postRoomClearChangedTrue(): boolean | undefined {
+  postRoomClearChangedTrue(): void {
     const momsHands = getEntities(EntityType.MOMS_HAND);
     const player = Isaac.GetPlayer();
     const ourHands = momsHands.filter(
@@ -80,7 +80,5 @@ export class SquirrelBaby extends Baby {
         GetPtrHash(entity.SpawnerEntity) === GetPtrHash(player),
     );
     removeEntities(ourHands);
-
-    return undefined;
   }
 }

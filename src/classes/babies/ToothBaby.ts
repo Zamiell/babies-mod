@@ -11,7 +11,7 @@ import { Baby } from "../Baby";
 /** Spawns a random key on room clear. */
 export class ToothBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_ROOM_CLEAR_CHANGED, true)
-  postRoomClearChangedTrue(): boolean | undefined {
+  postRoomClearChangedTrue(): void {
     const room = game.GetRoom();
     const roomSeed = room.GetSpawnSeed();
     const player = Isaac.GetPlayer();
@@ -19,7 +19,5 @@ export class ToothBaby extends Baby {
       KeySubType.NULL,
     ]);
     spawnKeyWithSeed(randomKeySubType, player.Position, roomSeed);
-
-    return undefined;
   }
 }

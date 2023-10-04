@@ -1,9 +1,9 @@
-import { CollectibleType, SoundEffect } from "isaac-typescript-definitions";
+import { CollectibleType, FamiliarVariant } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   ModCallbackCustom,
-  sfxManager,
-  useActiveItemTemp,
+  removeAllFamiliars,
+  spawnFamiliar,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
@@ -13,25 +13,13 @@ export class HiveKingBaby extends Baby {
     return !player.HasCollectible(CollectibleType.GIANT_CELL);
   }
 
+  override onRemove(): void {
+    removeAllFamiliars(FamiliarVariant.MINISAAC);
+  }
+
   @CallbackCustom(ModCallbackCustom.POST_ROOM_CLEAR_CHANGED, true)
-  postRoomClearChangedTrue(): boolean | undefined {
+  postRoomClearChangedTrue(): void {
     const player = Isaac.GetPlayer();
-
-    let gaveGiantCell = false;
-    if (!player.HasCollectible(CollectibleType.GIANT_CELL)) {
-      player.AddCollectible(CollectibleType.GIANT_CELL, 0, false);
-      gaveGiantCell = true;
-    }
-
-    useActiveItemTemp(player, CollectibleType.DULL_RAZOR);
-
-    // The hurt sound effect is confusing, because we are not actually being damaged.
-    sfxManager.Stop(SoundEffect.ISAAC_HURT_GRUNT);
-
-    if (gaveGiantCell) {
-      player.RemoveCollectible(CollectibleType.GIANT_CELL);
-    }
-
-    return undefined;
+    spawnFamiliar(FamiliarVariant.MINISAAC, 0, player.Position);
   }
 }

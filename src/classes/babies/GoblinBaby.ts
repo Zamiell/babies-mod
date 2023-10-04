@@ -38,7 +38,7 @@ export class GoblinBaby extends Baby {
   }
 
   @CallbackCustom(ModCallbackCustom.POST_ROOM_CLEAR_CHANGED, true)
-  postRoomClearChangedTrue(): boolean | undefined {
+  postRoomClearChangedTrue(): void {
     if (v.level.playerTookDamage) {
       return;
     }
@@ -55,7 +55,5 @@ export class GoblinBaby extends Baby {
     const player = Isaac.GetPlayer();
     const position = findFreePosition(player.Position);
     mod.spawnCollectible(CollectibleType.NULL, position);
-
-    return undefined;
   }
 }

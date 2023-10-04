@@ -12,7 +12,7 @@ import { Baby } from "../Baby";
 /** Spawns a random heart on room clear. */
 export class LoveBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_ROOM_CLEAR_CHANGED, true)
-  postRoomClearChangedTrue(): boolean | undefined {
+  postRoomClearChangedTrue(): void {
     const room = game.GetRoom();
     const roomSeed = room.GetSpawnSeed();
     const player = Isaac.GetPlayer();
@@ -27,7 +27,5 @@ export class LoveBaby extends Baby {
       player,
       roomSeed,
     );
-
-    return undefined;
   }
 }
