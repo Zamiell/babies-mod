@@ -1,5 +1,6 @@
 import type { EntityType } from "isaac-typescript-definitions";
 import {
+  CollectibleType,
   GridEntityXMLType,
   LevelStage,
   ModCallback,
@@ -7,6 +8,7 @@ import {
 import {
   Callback,
   game,
+  hasCollectible,
   isGridEntityXMLType,
   onStage,
 } from "isaacscript-common";
@@ -15,9 +17,20 @@ import { Baby } from "../Baby";
 
 /** Everything is TNT. */
 export class RedWrestlerBaby extends Baby {
-  /** There are almost no grid entities on the final floor. */
-  override isValid(): boolean {
-    return !onStage(LevelStage.DARK_ROOM_CHEST);
+  /**
+   * There are almost no grid entities on the final floor. Pointy Rib, Mom's Knife and Finger can
+   * cause unavoidable damage.
+   */
+  override isValid(player: EntityPlayer): boolean {
+    return (
+      !onStage(LevelStage.DARK_ROOM_CHEST) &&
+      !hasCollectible(
+        player,
+        CollectibleType.MOMS_KNIFE,
+        CollectibleType.FINGER,
+        CollectibleType.POINTY_RIB,
+      )
+    );
   }
 
   @Callback(ModCallback.PRE_ROOM_ENTITY_SPAWN)

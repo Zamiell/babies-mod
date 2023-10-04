@@ -165,7 +165,11 @@ function checkCollectibles(
 
   if (
     babyCollectiblesSet.has(CollectibleType.CUPIDS_ARROW) && // 48
-    hasPiercing(player)
+    (hasPiercing(player) ||
+      // Somehow those collectibles are piercing but do not have the piercing tearFlag.
+      player.HasCollectible(CollectibleType.BRIMSTONE) ||
+      player.HasCollectible(CollectibleType.MOMS_KNIFE) ||
+      player.HasCollectible(CollectibleType.C_SECTION))
   ) {
     return false;
   }
@@ -175,6 +179,13 @@ function checkCollectibles(
     babyCollectiblesSet.has(CollectibleType.DR_FETUS) && // 52
     babyCollectiblesSet.has(CollectibleType.IPECAC) && // 149
     player.HasCollectible(CollectibleType.MONSTROS_LUNG) // 229
+  ) {
+    return false;
+  }
+
+  if (
+    babyCollectiblesSet.has(CollectibleType.DR_FETUS) && // 52
+    hasPiercing(player)
   ) {
     return false;
   }
@@ -189,7 +200,11 @@ function checkCollectibles(
 
   if (
     babyCollectiblesSet.has(CollectibleType.OUIJA_BOARD) && // 115
-    hasSpectral(player)
+    (hasSpectral(player) ||
+      // Somehow those collectibles are spectral but do not have the spectral tearFlag.
+      player.HasCollectible(CollectibleType.BRIMSTONE) ||
+      player.HasCollectible(CollectibleType.MOMS_KNIFE) ||
+      player.HasCollectible(CollectibleType.C_SECTION))
   ) {
     return false;
   }
@@ -246,8 +261,12 @@ function checkCollectibles(
 
   if (
     babyCollectiblesSet.has(CollectibleType.DEAD_ONION) && // 336
-    hasPiercing(player) &&
-    hasSpectral(player)
+    ((hasPiercing(player) && hasSpectral(player)) ||
+      // Somehow those collectibles are piercing and spectral but do not have the piercing or
+      // spectral tearFlag.
+      player.HasCollectible(CollectibleType.BRIMSTONE) ||
+      player.HasCollectible(CollectibleType.MOMS_KNIFE) ||
+      player.HasCollectible(CollectibleType.C_SECTION))
   ) {
     return false;
   }
@@ -262,7 +281,10 @@ function checkCollectibles(
 
   if (
     babyCollectiblesSet.has(CollectibleType.EYE_OF_BELIAL) && // 462
-    hasPiercing(player)
+    (hasPiercing(player) ||
+      // Somehow those collectibles are piercing but do not have the piercing tearFlag.
+      player.HasCollectible(CollectibleType.BRIMSTONE) ||
+      player.HasCollectible(CollectibleType.MOMS_KNIFE))
   ) {
     return false;
   }
@@ -292,6 +314,15 @@ function checkCollectibles(
     return false;
   }
 
+  // Immaculate heart can cause unavoidable damage on this build.
+  if (
+    babyCollectiblesSet.has(CollectibleType.TRISAGION) && // 533
+    babyCollectiblesSet.has(CollectibleType.IPECAC) && // 149
+    player.HasCollectible(CollectibleType.IMMACULATE_HEART) // 573
+  ) {
+    return false;
+  }
+
   if (
     babyCollectiblesSet.has(CollectibleType.COMPOUND_FRACTURE) && // 553
     player.HasCollectible(CollectibleType.IPECAC)
@@ -299,10 +330,10 @@ function checkCollectibles(
     return false;
   }
 
-  // There are no collectibles on Sheol/Cathedral.
+  // There are no collectibles on Sheol/Cathedral and Home.
   if (
     babyCollectiblesSet.has(CollectibleType.ETERNAL_D6) && // 609
-    onStage(LevelStage.SHEOL_CATHEDRAL)
+    onEffectiveStage(LevelStage.SHEOL_CATHEDRAL, LevelStage.HOME)
   ) {
     return false;
   }
@@ -314,22 +345,35 @@ function checkCollectibles(
     return false;
   }
 
-  // Glitched Crown is too powerful for the first two floors. There are no items on Sheol/Cathedral.
+  // Glitched Crown is too powerful for the first two floors. There are no items on Sheol/Cathedral
+  // and Home.
   if (
-    babyCollectiblesSet.has(CollectibleType.GLITCHED_CROWN) && // 689
-    onEffectiveStage(
-      LevelStage.BASEMENT_1,
-      LevelStage.BASEMENT_2,
-      LevelStage.SHEOL_CATHEDRAL,
-    )
+    (babyCollectiblesSet.has(CollectibleType.GLITCHED_CROWN) && // 689
+      onEffectiveStage(
+        LevelStage.BASEMENT_1,
+        LevelStage.SHEOL_CATHEDRAL,
+        LevelStage.HOME,
+      )) ||
+    onStage(LevelStage.BASEMENT_2)
+  ) {
+    return false;
+  }
+
+  // Sacred Orb is almost useless for the first floor. There are no items on Sheol/Cathedral and
+  // Home.
+  if (
+    (babyCollectiblesSet.has(CollectibleType.SACRED_ORB) && // 691
+      onStage(LevelStage.BASEMENT_1)) ||
+    onEffectiveStage(LevelStage.SHEOL_CATHEDRAL, LevelStage.HOME)
   ) {
     return false;
   }
 
   if (
     babyCollectiblesSet.has(CollectibleType.SPINDOWN_DICE) && // 723
-    // There are no collectibles on Sheol/Cathedral.
+    // There are no collectibles on Sheol/Cathedral and Home.
     (onStage(LevelStage.SHEOL_CATHEDRAL) ||
+      onStage(LevelStage.HOME) ||
       // Spindown Dice can be used on Knife Piece 1 to break the game.
       (onStage(LevelStage.BASEMENT_2) && onRepentanceStage()))
   ) {

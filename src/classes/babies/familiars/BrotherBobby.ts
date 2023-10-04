@@ -35,6 +35,11 @@ export class BrotherBobby extends Baby {
       CollectibleType.C_SECTION, // 678
       // Certain collectibles do not properly synergize with the effect.
       CollectibleType.TWISTED_PAIR, // 698
+      // This baby does not make more damage with multi shot items, resulting in a build nerf.
+      CollectibleType.TWENTY_TWENTY,
+      CollectibleType.INNER_EYE,
+      CollectibleType.MUTANT_SPIDER,
+      CollectibleType.MONSTROS_LUNG,
     );
   }
 

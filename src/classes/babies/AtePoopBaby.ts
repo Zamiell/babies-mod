@@ -29,9 +29,9 @@ const v = {
 export class AtePoopBaby extends Baby {
   v = v;
 
-  /** There are almost no poops on The Chest. */
+  /** There are almost no poops on The Chest and Home. */
   override isValid(): boolean {
-    return !onStage(LevelStage.DARK_ROOM_CHEST);
+    return !onStage(LevelStage.DARK_ROOM_CHEST) && !onStage(LevelStage.HOME);
   }
 
   @CallbackCustom(
