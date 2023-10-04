@@ -13,6 +13,7 @@ import {
   getEffectiveStage,
   hasAnyTrinket,
   hasCollectible,
+  hasHoming,
   hasPiercing,
   isActiveCollectible,
   isActiveSlotEmpty,
@@ -158,6 +159,13 @@ function checkCollectibles(
   }
 
   if (!checkCollectibleAntiSynergyFromArray(player, babyCollectiblesSet)) {
+    return false;
+  }
+
+  if (
+    babyCollectiblesSet.has(CollectibleType.SPOON_BENDER) && // 3
+    hasHoming(player)
+  ) {
     return false;
   }
 
