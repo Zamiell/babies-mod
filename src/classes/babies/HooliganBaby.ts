@@ -1,39 +1,12 @@
 import {
-  EntityFlag,
-  EntityType,
-  SwingerVariant,
-} from "isaac-typescript-definitions";
-import {
   CallbackCustom,
   DISTANCE_OF_GRID_TILE,
   ModCallbackCustom,
-  ReadonlySet,
   game,
   spawn,
 } from "isaacscript-common";
+import { shouldReplaceOrDuplicateNPC } from "../../utils";
 import { Baby } from "../Baby";
-
-/** Doubling certain entities leads to bugs. */
-const BUGGY_ENTITY_TYPES_SET = new ReadonlySet<EntityType>([
-  EntityType.SHOPKEEPER, // 17
-  EntityType.FIREPLACE, // 33
-  EntityType.GRIMACE, // 42
-  EntityType.POKY, // 44
-  EntityType.ETERNAL_FLY, // 96
-  EntityType.CONSTANT_STONE_SHOOTER, // 202
-  EntityType.BRIMSTONE_HEAD, // 203
-  EntityType.WALL_HUGGER, // 218
-  EntityType.GAPING_MAW, // 235
-  EntityType.BROKEN_GAPING_MAW, // 236
-  EntityType.SWARM, // 281
-  EntityType.PITFALL, // 291
-]);
-
-/** Doubling certain entity + variant combinations leads to bugs. */
-const BUGGY_ENTITY_TYPE_VARIANT_SET = new ReadonlySet<string>([
-  `${EntityType.SWINGER}.${SwingerVariant.SWINGER_HEAD}`, // 216.1
-  `${EntityType.SWINGER}.${SwingerVariant.SWINGER_NECK}`, // 216.10
-]);
 
 const v = {
   room: {
@@ -59,14 +32,9 @@ export class HooliganBaby extends Baby {
 
   shouldDuplicateNPC(npc: EntityNPC): boolean {
     const ptrHash = GetPtrHash(npc);
-    const entityTypeVariant = `${npc.Type}.${npc.Variant}`;
 
     return (
-      !v.room.duplicatedNPCs.has(ptrHash) &&
-      !npc.IsBoss() &&
-      !npc.HasEntityFlags(EntityFlag.FRIENDLY) &&
-      !BUGGY_ENTITY_TYPES_SET.has(npc.Type) &&
-      !BUGGY_ENTITY_TYPE_VARIANT_SET.has(entityTypeVariant)
+      !v.room.duplicatedNPCs.has(ptrHash) && shouldReplaceOrDuplicateNPC(npc)
     );
   }
 

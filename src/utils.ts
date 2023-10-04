@@ -68,6 +68,8 @@ import {
 import { getBabyType } from "./classes/features/babySelection/v";
 import {
   BAD_MISSED_TEARS_TRANSFORMATIONS,
+  BUGGY_REPLACING_OR_DOUBLING_ENTITY_TYPES_SET,
+  BUGGY_REPLACING_OR_DOUBLING_ENTITY_TYPE_VARIANT_SET,
   GOING_TO_NEXT_FLOOR_ANIMATIONS,
   MULTI_SEGMENT_BOSSES,
   ROOM_TYPES_TO_NOT_TRANSFORM,
@@ -356,6 +358,17 @@ export function setInitialBabyRNG(rng: RNG): void {
 
 export function setTearColor(tear: EntityTear, color: Color): void {
   tear.SetColor(color, 10_000, 10_000);
+}
+
+export function shouldReplaceOrDuplicateNPC(npc: EntityNPC): boolean {
+  const entityTypeVariant = `${npc.Type}.${npc.Variant}`;
+
+  return (
+    !npc.IsBoss() &&
+    !npc.HasEntityFlags(EntityFlag.FRIENDLY) &&
+    !BUGGY_REPLACING_OR_DOUBLING_ENTITY_TYPES_SET.has(npc.Type) &&
+    !BUGGY_REPLACING_OR_DOUBLING_ENTITY_TYPE_VARIANT_SET.has(entityTypeVariant)
+  );
 }
 
 export function shouldShowRealHeartsUIForDevilDeal(): boolean {

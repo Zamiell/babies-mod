@@ -4,6 +4,7 @@ import {
   PickupVariant,
   PlayerForm,
   RoomType,
+  SwingerVariant,
 } from "isaac-typescript-definitions";
 import { ReadonlySet, getHighestEnumValue } from "isaacscript-common";
 import { RandomBabyType } from "./enums/RandomBabyType";
@@ -78,3 +79,27 @@ export const MULTI_SEGMENT_BOSSES = new ReadonlySet<EntityType>([
   EntityType.HEART_OF_INFAMY, // 98
   EntityType.TURDLET, // 918
 ]);
+
+/** Doubling certain entities leads to bugs. */
+export const BUGGY_REPLACING_OR_DOUBLING_ENTITY_TYPES_SET =
+  new ReadonlySet<EntityType>([
+    EntityType.SHOPKEEPER, // 17
+    EntityType.FIREPLACE, // 33
+    EntityType.GRIMACE, // 42
+    EntityType.POKY, // 44
+    EntityType.ETERNAL_FLY, // 96
+    EntityType.CONSTANT_STONE_SHOOTER, // 202
+    EntityType.BRIMSTONE_HEAD, // 203
+    EntityType.WALL_HUGGER, // 218
+    EntityType.GAPING_MAW, // 235
+    EntityType.BROKEN_GAPING_MAW, // 236
+    EntityType.SWARM, // 281
+    EntityType.PITFALL, // 291
+  ]);
+
+/** Doubling certain entity + variant combinations leads to bugs. */
+export const BUGGY_REPLACING_OR_DOUBLING_ENTITY_TYPE_VARIANT_SET =
+  new ReadonlySet<string>([
+    `${EntityType.SWINGER}.${SwingerVariant.SWINGER_HEAD}`, // 216.1
+    `${EntityType.SWINGER}.${SwingerVariant.SWINGER_NECK}`, // 216.10
+  ]);

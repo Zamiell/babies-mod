@@ -7,11 +7,11 @@ import {
   Callback,
   CallbackCustom,
   ModCallbackCustom,
-  ReadonlySet,
   getNPCs,
   inRoomType,
   spawn,
 } from "isaacscript-common";
+import { shouldReplaceOrDuplicateNPC } from "../../utils";
 import { Baby } from "../Baby";
 
 interface NPCDescription {
@@ -19,11 +19,6 @@ interface NPCDescription {
   variant: int;
   subType: int;
 }
-
-const EXCEPTION_NPCS = new ReadonlySet<EntityType>([
-  EntityType.SHOPKEEPER, // 17
-  EntityType.FIREPLACE, // 33
-]);
 
 const v = {
   run: {
@@ -38,13 +33,18 @@ export class LoveEyeBaby extends Baby {
   // 68
   @Callback(ModCallback.POST_ENTITY_KILL)
   postEntityKill(entity: Entity): void {
-    // Only fall in love with NPCs.
-    const npc = entity.ToNPC();
-    if (npc === undefined) {
+    if (v.run.loveNPC !== null) {
       return;
     }
 
-    if (v.run.loveNPC !== null) {
+    // Certain entity types are exempt.
+    if (entity.Type === EntityType.PITFALL) {
+      return;
+    }
+
+    // Only fall in love with NPCs.
+    const npc = entity.ToNPC();
+    if (npc === undefined) {
       return;
     }
 
@@ -55,7 +55,12 @@ export class LoveEyeBaby extends Baby {
       subType: npc.SubType,
     };
 
-    replaceAllNPCsWith(npc.Type, npc.Variant, npc.SubType, npc.Index);
+    replaceAllNPCsWith(
+      v.run.loveNPC.entityType,
+      v.run.loveNPC.variant,
+      v.run.loveNPC.subType,
+      npc.Index,
+    );
   }
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
@@ -86,7 +91,7 @@ function replaceAllNPCsWith(
 ) {
   const npcs = getNPCs();
   const filteredNPCs = npcs.filter(
-    (npc) => !EXCEPTION_NPCS.has(npc.Type) && npc.Index !== exceptionIndex,
+    (npc) => shouldReplaceOrDuplicateNPC(npc) && npc.Index !== exceptionIndex,
   );
   for (const npc of filteredNPCs) {
     npc.Remove();
