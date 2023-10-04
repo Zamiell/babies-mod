@@ -15,9 +15,9 @@ import { Baby } from "../Baby";
 
 /** Everything is Red Poop. */
 export class ChompersBaby extends Baby {
-  /** There are almost no grid entities on the final floor. */
+  /** There are almost no grid entities on Dark Room, The Chest, and Home. */
   override isValid(): boolean {
-    return !onStage(LevelStage.DARK_ROOM_CHEST);
+    return !onStage(LevelStage.DARK_ROOM_CHEST, LevelStage.HOME);
   }
 
   @Callback(ModCallback.PRE_ROOM_ENTITY_SPAWN)

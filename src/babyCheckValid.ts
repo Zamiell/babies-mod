@@ -14,7 +14,6 @@ import {
   hasAnyTrinket,
   hasCollectible,
   hasPiercing,
-  hasSpectral,
   isActiveCollectible,
   isActiveSlotEmpty,
   levelHasRoomType,
@@ -37,19 +36,27 @@ import {
   C_SECTION_ANTI_SYNERGIES,
   DR_FETUS_ANTI_SYNERGIES,
   EPIC_FETUS_ANTI_SYNERGIES,
+  EXPLOSIVE_COLLECTIBLE_TYPES,
   LUDOVICO_TECHNIQUE_ANTI_SYNERGIES,
   MOMS_KNIFE_ANTI_SYNERGIES,
   SPIRIT_SWORD_ANTI_SYNERGIES,
   TECHNOLOGY_ANTI_SYNERGIES,
   TECH_X_ANTI_SYNERGIES,
+} from "./constantsCollectibleTypes";
+import {
   TRINKETS_THAT_OPERATE_ON_ACTIVE_ITEMS,
   TRINKETS_THAT_SYNERGIZE_WITH_TEARS,
-} from "./constants";
+} from "./constantsTrinketTypes";
 import { COLLECTIBLE_TYPE_TO_COLLECTIBLE_TYPE_CUSTOM_MAP } from "./customCollectibles";
 import type { RandomBabyType } from "./enums/RandomBabyType";
 import type { BabyDescription } from "./interfaces/BabyDescription";
 import { BABY_CLASS_MAP } from "./objects/babyClassMap";
-import { getBabyCollectiblesSet } from "./utils";
+import {
+  getBabyCollectiblesSet,
+  hasPiercingOrPiercingLikeEffect,
+  hasSpectralOrSpectralLikeEffect,
+  onStageWithCollectibles,
+} from "./utils";
 
 export function babyCheckValid(
   player: EntityPlayer,
@@ -165,11 +172,15 @@ function checkCollectibles(
 
   if (
     babyCollectiblesSet.has(CollectibleType.CUPIDS_ARROW) && // 48
-    (hasPiercing(player) ||
-      // Somehow those collectibles are piercing but do not have the piercing tearFlag.
-      player.HasCollectible(CollectibleType.BRIMSTONE) ||
-      player.HasCollectible(CollectibleType.MOMS_KNIFE) ||
-      player.HasCollectible(CollectibleType.C_SECTION))
+    hasPiercingOrPiercingLikeEffect(player)
+  ) {
+    return false;
+  }
+
+  // Dr. Fetus becomes more difficult to play with a piercing build.
+  if (
+    babyCollectiblesSet.has(CollectibleType.DR_FETUS) && // 52
+    hasPiercing(player)
   ) {
     return false;
   }
@@ -184,27 +195,15 @@ function checkCollectibles(
   }
 
   if (
-    babyCollectiblesSet.has(CollectibleType.DR_FETUS) && // 52
-    hasPiercing(player)
-  ) {
-    return false;
-  }
-
-  // There are no collectibles on Sheol/Cathedral.
-  if (
     babyCollectiblesSet.has(CollectibleType.D6) && // 105
-    onStage(LevelStage.SHEOL_CATHEDRAL)
+    !onStageWithCollectibles()
   ) {
     return false;
   }
 
   if (
     babyCollectiblesSet.has(CollectibleType.OUIJA_BOARD) && // 115
-    (hasSpectral(player) ||
-      // Somehow those collectibles are spectral but do not have the spectral tearFlag.
-      player.HasCollectible(CollectibleType.BRIMSTONE) ||
-      player.HasCollectible(CollectibleType.MOMS_KNIFE) ||
-      player.HasCollectible(CollectibleType.C_SECTION))
+    hasSpectralOrSpectralLikeEffect(player)
   ) {
     return false;
   }
@@ -225,6 +224,15 @@ function checkCollectibles(
       CollectibleType.CRICKETS_BODY, // 224
       CollectibleType.COMPOUND_FRACTURE, // 453
     )
+  ) {
+    return false;
+  }
+
+  // Immaculate Heart can cause unavoidable damage with the Ipecac + Trisagion synergy.
+  if (
+    babyCollectiblesSet.has(CollectibleType.IPECAC) && // 149
+    babyCollectiblesSet.has(CollectibleType.TRISAGION) && // 533
+    player.HasCollectible(CollectibleType.IMMACULATE_HEART) // 573
   ) {
     return false;
   }
@@ -261,12 +269,8 @@ function checkCollectibles(
 
   if (
     babyCollectiblesSet.has(CollectibleType.DEAD_ONION) && // 336
-    ((hasPiercing(player) && hasSpectral(player)) ||
-      // Somehow those collectibles are piercing and spectral but do not have the piercing or
-      // spectral tearFlag.
-      player.HasCollectible(CollectibleType.BRIMSTONE) ||
-      player.HasCollectible(CollectibleType.MOMS_KNIFE) ||
-      player.HasCollectible(CollectibleType.C_SECTION))
+    hasPiercingOrPiercingLikeEffect(player) &&
+    hasSpectralOrSpectralLikeEffect(player)
   ) {
     return false;
   }
@@ -281,10 +285,7 @@ function checkCollectibles(
 
   if (
     babyCollectiblesSet.has(CollectibleType.EYE_OF_BELIAL) && // 462
-    (hasPiercing(player) ||
-      // Somehow those collectibles are piercing but do not have the piercing tearFlag.
-      player.HasCollectible(CollectibleType.BRIMSTONE) ||
-      player.HasCollectible(CollectibleType.MOMS_KNIFE))
+    hasPiercingOrPiercingLikeEffect(player)
   ) {
     return false;
   }
@@ -305,20 +306,7 @@ function checkCollectibles(
 
   if (
     babyCollectiblesSet.has(CollectibleType.LACHRYPHAGY) && // 532
-    hasCollectible(
-      player,
-      CollectibleType.IPECAC, // 149
-      CollectibleType.FIRE_MIND, // 257
-    )
-  ) {
-    return false;
-  }
-
-  // Immaculate heart can cause unavoidable damage on this build.
-  if (
-    babyCollectiblesSet.has(CollectibleType.TRISAGION) && // 533
-    babyCollectiblesSet.has(CollectibleType.IPECAC) && // 149
-    player.HasCollectible(CollectibleType.IMMACULATE_HEART) // 573
+    hasCollectible(player, ...EXPLOSIVE_COLLECTIBLE_TYPES)
   ) {
     return false;
   }
@@ -330,10 +318,9 @@ function checkCollectibles(
     return false;
   }
 
-  // There are no collectibles on Sheol/Cathedral and Home.
   if (
     babyCollectiblesSet.has(CollectibleType.ETERNAL_D6) && // 609
-    onEffectiveStage(LevelStage.SHEOL_CATHEDRAL, LevelStage.HOME)
+    !onStageWithCollectibles()
   ) {
     return false;
   }
@@ -345,35 +332,26 @@ function checkCollectibles(
     return false;
   }
 
-  // Glitched Crown is too powerful for the first two floors. There are no items on Sheol/Cathedral
-  // and Home.
   if (
-    (babyCollectiblesSet.has(CollectibleType.GLITCHED_CROWN) && // 689
-      onEffectiveStage(
-        LevelStage.BASEMENT_1,
-        LevelStage.SHEOL_CATHEDRAL,
-        LevelStage.HOME,
-      )) ||
-    onStage(LevelStage.BASEMENT_2)
+    babyCollectiblesSet.has(CollectibleType.GLITCHED_CROWN) && // 689
+    // Glitched Crown is too powerful for the first two floors.
+    (onEffectiveStage(LevelStage.BASEMENT_1, LevelStage.BASEMENT_2) ||
+      !onStageWithCollectibles())
   ) {
     return false;
   }
 
-  // Sacred Orb is almost useless for the first floor. There are no items on Sheol/Cathedral and
-  // Home.
   if (
-    (babyCollectiblesSet.has(CollectibleType.SACRED_ORB) && // 691
-      onStage(LevelStage.BASEMENT_1)) ||
-    onEffectiveStage(LevelStage.SHEOL_CATHEDRAL, LevelStage.HOME)
+    babyCollectiblesSet.has(CollectibleType.SACRED_ORB) && // 691
+    // Sacred Orb is almost useless on the first floor.
+    (onFirstFloor() || !onStageWithCollectibles())
   ) {
     return false;
   }
 
   if (
     babyCollectiblesSet.has(CollectibleType.SPINDOWN_DICE) && // 723
-    // There are no collectibles on Sheol/Cathedral and Home.
-    (onStage(LevelStage.SHEOL_CATHEDRAL) ||
-      onStage(LevelStage.HOME) ||
+    (!onStageWithCollectibles() ||
       // Spindown Dice can be used on Knife Piece 1 to break the game.
       (onStage(LevelStage.BASEMENT_2) && onRepentanceStage()))
   ) {
@@ -649,15 +627,15 @@ function checkStage(
     return false;
   }
 
-  // We don't want pool replacements to affect resetting for a starting item or the player's first
-  // devil deal. Additionally, there are no collectibles on Sheol/Cathedral.
   if (
     baby.allCollectiblesFromPool !== undefined &&
-    onEffectiveStage(
+    (onEffectiveStage(
+      // We don't want pool replacements to affect resetting for a starting item.
       LevelStage.BASEMENT_1,
+      // We don't want pool replacements to affect resetting the player's first devil deal.
       LevelStage.BASEMENT_2,
-      LevelStage.SHEOL_CATHEDRAL,
-    )
+    ) ||
+      !onStageWithCollectibles())
   ) {
     return false;
   }

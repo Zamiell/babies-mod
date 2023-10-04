@@ -13,6 +13,7 @@ import {
   ItemPoolType,
   KeySubType,
   LevelCurse,
+  LevelStage,
   MinibossID,
   PickupPrice,
   PickupVariant,
@@ -38,12 +39,16 @@ import {
   getRoomsInsideGrid,
   hasCollectible,
   hasForm,
+  hasPiercing,
+  hasSpectral,
   inMinibossRoomOf,
   inRoomType,
   isCharacter,
   isFirstPlayer,
   isPlayer,
   isRoomVisible,
+  onStage,
+  onStageOrLower,
   removeEntities,
   setSeed,
   sfxManager,
@@ -62,14 +67,16 @@ import {
 } from "isaacscript-common";
 import { getBabyType } from "./classes/features/babySelection/v";
 import {
-  BAD_MISSED_TEARS_COLLECTIBLE_TYPES,
   BAD_MISSED_TEARS_TRANSFORMATIONS,
-  COLLECTIBLE_REROLL_COLLECTIBLE_TYPES_SET,
   GOING_TO_NEXT_FLOOR_ANIMATIONS,
   MULTI_SEGMENT_BOSSES,
   ROOM_TYPES_TO_NOT_TRANSFORM,
-  TRINKET_REROLL_COLLECTIBLE_TYPES_SET,
 } from "./constants";
+import {
+  BAD_MISSED_TEARS_COLLECTIBLE_TYPES,
+  COLLECTIBLE_REROLL_COLLECTIBLE_TYPES_SET,
+  TRINKET_REROLL_COLLECTIBLE_TYPES_SET,
+} from "./constantsCollectibleTypes";
 import { PlayerTypeCustom } from "./enums/PlayerTypeCustom";
 import type { BabyDescription } from "./interfaces/BabyDescription";
 import { mod } from "./mod";
@@ -185,6 +192,30 @@ export function giveCollectibleAndRemoveFromPools(
   itemPool.RemoveCollectible(collectibleType);
 }
 
+export function hasSpectralOrSpectralLikeEffect(player: EntityPlayer): boolean {
+  return (
+    hasSpectral(player) ||
+    hasCollectible(
+      player,
+      CollectibleType.MOMS_KNIFE, // 114
+      CollectibleType.BRIMSTONE, // 118
+      CollectibleType.C_SECTION, // 678
+    )
+  );
+}
+
+export function hasPiercingOrPiercingLikeEffect(player: EntityPlayer): boolean {
+  return (
+    hasPiercing(player) ||
+    hasCollectible(
+      player,
+      CollectibleType.MOMS_KNIFE, // 114
+      CollectibleType.BRIMSTONE, // 118
+      CollectibleType.C_SECTION, // 678
+    )
+  );
+}
+
 export function isCollectibleRerollCollectibleType(
   collectibleType: CollectibleType,
 ): boolean {
@@ -268,6 +299,18 @@ export function isValidRandomBabyPlayer(player: EntityPlayer): boolean {
     isCharacter(player, PlayerTypeCustom.RANDOM_BABY) &&
     getBabyType() !== undefined
   );
+}
+
+/**
+ * Sheol, Cathedral, and Home are stages where the player does not get any collectibles. (We do not
+ * count the collectible from Mom's Chest, since it is not very good most times.)
+ */
+export function onStageWithCollectibles(): boolean {
+  return !onStage(LevelStage.SHEOL_CATHEDRAL, LevelStage.HOME);
+}
+
+export function onStageWithSpecialRooms(): boolean {
+  return onStageOrLower(LevelStage.SHEOL_CATHEDRAL);
 }
 
 /** This is used for babies that have special health mechanics. */

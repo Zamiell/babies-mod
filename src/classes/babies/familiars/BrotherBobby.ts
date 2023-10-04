@@ -15,6 +15,7 @@ import {
   getKnives,
   hasCollectible,
 } from "isaacscript-common";
+import { MULTI_SHOT_COLLECTIBLE_TYPES } from "../../../constantsCollectibleTypes";
 import { Baby } from "../../Baby";
 
 const v = {
@@ -36,10 +37,7 @@ export class BrotherBobby extends Baby {
       // Certain collectibles do not properly synergize with the effect.
       CollectibleType.TWISTED_PAIR, // 698
       // This baby does not make more damage with multi shot items, resulting in a build nerf.
-      CollectibleType.TWENTY_TWENTY,
-      CollectibleType.INNER_EYE,
-      CollectibleType.MUTANT_SPIDER,
-      CollectibleType.MONSTROS_LUNG,
+      ...MULTI_SHOT_COLLECTIBLE_TYPES,
     );
   }
 

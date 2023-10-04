@@ -1,5 +1,6 @@
-import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
-import { Callback } from "isaacscript-common";
+import { ModCallback } from "isaac-typescript-definitions";
+import { Callback, hasCollectible } from "isaacscript-common";
+import { EXPLOSIVE_COLLECTIBLE_TYPES } from "../../constantsCollectibleTypes";
 import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
@@ -13,12 +14,8 @@ const v = {
 export class XBaby extends Baby {
   v = v;
 
-  /** Certain collectibles make the baby too dangerous. */
   override isValid(player: EntityPlayer): boolean {
-    return (
-      !player.HasCollectible(CollectibleType.IPECAC) &&
-      !player.HasCollectible(CollectibleType.FIRE_MIND)
-    );
+    return !hasCollectible(player, ...EXPLOSIVE_COLLECTIBLE_TYPES);
   }
 
   @Callback(ModCallback.POST_FIRE_TEAR)

@@ -10,9 +10,9 @@ import { Baby } from "../Baby";
 
 /** Random rocks. */
 export class RaccoonBaby extends Baby {
-  /** There are no rocks on The Chest and Home. */
+  /** There are no rocks on Dark Room, The Chest, and Home. */
   override isValid(): boolean {
-    return !onStage(LevelStage.DARK_ROOM_CHEST) && !onStage(LevelStage.HOME);
+    return !onStage(LevelStage.DARK_ROOM_CHEST, LevelStage.HOME);
   }
 
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)

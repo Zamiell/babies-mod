@@ -14,7 +14,7 @@ import {
   hasCollectible,
   isShootAction,
 } from "isaacscript-common";
-import { BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES } from "../../constants";
+import { BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES } from "../../constantsCollectibleTypes";
 import { Baby } from "../Baby";
 
 const v = {

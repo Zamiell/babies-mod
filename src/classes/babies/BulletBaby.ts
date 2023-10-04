@@ -4,7 +4,7 @@ import {
   ModCallbackCustom,
   hasCollectible,
 } from "isaacscript-common";
-import { BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES } from "../../constants";
+import { BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES } from "../../constantsCollectibleTypes";
 import { Baby } from "../Baby";
 
 const COLLECTIBLES_THAT_BREAK_THE_BLINDFOLD_MECHANIC = [

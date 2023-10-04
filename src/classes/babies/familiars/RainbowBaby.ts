@@ -1,6 +1,6 @@
 import { ModCallback, PickupVariant } from "isaac-typescript-definitions";
 import { Callback, hasTrinket, spawnPickupWithSeed } from "isaacscript-common";
-import { CHEST_ANTI_SYNERGY_TRINKET_TYPES } from "../../../constants";
+import { CHEST_ANTI_SYNERGY_TRINKET_TYPES } from "../../../constantsTrinketTypes";
 import { Baby } from "../../Baby";
 
 /** Chest per enemy killed. */

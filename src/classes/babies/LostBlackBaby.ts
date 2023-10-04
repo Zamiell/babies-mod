@@ -6,14 +6,14 @@ import {
   onStage,
   useActiveItemTemp,
 } from "isaacscript-common";
+import { onStageWithCollectibles } from "../../utils";
 import { Baby } from "../Baby";
 
 /** Spindown Dice effect on hit. */
 export class LostBlackBaby extends Baby {
   override isValid(): boolean {
     return (
-      // There are no collectibles on Sheol/Cathedral.
-      !onStage(LevelStage.SHEOL_CATHEDRAL) &&
+      onStageWithCollectibles() &&
       // Spindown Dice can be used on Knife Piece 1 to break the game.
       !(onStage(LevelStage.BASEMENT_2) && onRepentanceStage())
     );

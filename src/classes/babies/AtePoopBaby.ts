@@ -31,7 +31,7 @@ export class AtePoopBaby extends Baby {
 
   /** There are almost no poops on The Chest and Home. */
   override isValid(): boolean {
-    return !onStage(LevelStage.DARK_ROOM_CHEST) && !onStage(LevelStage.HOME);
+    return !onStage(LevelStage.DARK_ROOM_CHEST, LevelStage.HOME);
   }
 
   @CallbackCustom(

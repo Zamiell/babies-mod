@@ -1,5 +1,4 @@
 import {
-  CollectibleType,
   Direction,
   GridEntityType,
   ModCallback,
@@ -13,14 +12,10 @@ import {
 import {
   BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES,
   COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS,
-} from "../../constants";
+  EXPLOSIVE_COLLECTIBLE_TYPES,
+} from "../../constantsCollectibleTypes";
 import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
-
-const DANGEROUS_ANTI_SYNERGY_COLLECTIBLE_TYPES = [
-  CollectibleType.IPECAC, // 149
-  CollectibleType.FIRE_MIND, // 257
-] as const;
 
 const TEAR_ADJUSTMENT_DISTANCE = 15;
 
@@ -37,7 +32,7 @@ export class AdventureBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
     return !hasCollectible(
       player,
-      ...DANGEROUS_ANTI_SYNERGY_COLLECTIBLE_TYPES,
+      ...EXPLOSIVE_COLLECTIBLE_TYPES,
       ...BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES,
       ...COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS,
     );

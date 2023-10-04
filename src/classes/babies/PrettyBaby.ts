@@ -3,7 +3,6 @@ import {
   FireplaceVariant,
   GridEntityXMLType,
   ItemPoolType,
-  LevelStage,
   ModCallback,
 } from "isaac-typescript-definitions";
 import {
@@ -13,11 +12,10 @@ import {
   game,
   newRNG,
   onFirstFloor,
-  onStageOrLower,
   spawnWithSeed,
 } from "isaacscript-common";
 import { mod } from "../../mod";
-import { shouldTransformRoomType } from "../../utils";
+import { onStageWithSpecialRooms, shouldTransformRoomType } from "../../utils";
 import { Baby } from "../Baby";
 import { getRandomCollectibleTypeFromPool } from "../features/GetRandomCollectibleTypeFromPool";
 
@@ -26,12 +24,9 @@ const FIRE_GRID_INDEXES = [34, 40] as const;
 
 /** All special rooms are Angel shops. */
 export class PrettyBaby extends Baby {
-  /**
-   * Should only be valid if the floor has special rooms. Additionally, we don't want this to
-   * interfere with resetting for an item.
-   */
+  /** We don't want this to interfere with resetting for an item. */
   override isValid(): boolean {
-    return onStageOrLower(LevelStage.SHEOL_CATHEDRAL) && !onFirstFloor();
+    return onStageWithSpecialRooms() && !onFirstFloor();
   }
 
   // 71

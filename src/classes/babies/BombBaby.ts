@@ -1,13 +1,16 @@
-import { CollectibleType, LevelStage } from "isaac-typescript-definitions";
+import { CollectibleType } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   ModCallbackCustom,
   getRandom,
   newRNG,
-  onStage,
   useActiveItemTemp,
 } from "isaacscript-common";
-import { getBabyPlayerFromEntity, setInitialBabyRNG } from "../../utils";
+import {
+  getBabyPlayerFromEntity,
+  onStageWithCollectibles,
+  setInitialBabyRNG,
+} from "../../utils";
 import { Baby } from "../Baby";
 
 const v = {
@@ -20,9 +23,8 @@ const v = {
 export class BombBaby extends Baby {
   v = v;
 
-  /** There are no collectibles on Sheol/Cathedral. */
   override isValid(): boolean {
-    return !onStage(LevelStage.SHEOL_CATHEDRAL);
+    return onStageWithCollectibles();
   }
 
   override onAdd(): void {

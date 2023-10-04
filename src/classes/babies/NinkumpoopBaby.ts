@@ -1,6 +1,6 @@
 import { ModCallback, PickupVariant } from "isaac-typescript-definitions";
 import { Callback, hasTrinket, isChest, spawnPickup } from "isaacscript-common";
-import { CHEST_ANTI_SYNERGY_TRINKET_TYPES } from "../../constants";
+import { CHEST_ANTI_SYNERGY_TRINKET_TYPES } from "../../constantsTrinketTypes";
 import { Baby } from "../Baby";
 
 /** All chests are Old Chests. */

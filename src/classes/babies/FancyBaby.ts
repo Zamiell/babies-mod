@@ -3,7 +3,6 @@ import {
   CollectibleType,
   EntityType,
   ItemType,
-  LevelStage,
   ModCallback,
   RoomType,
 } from "isaac-typescript-definitions";
@@ -23,12 +22,14 @@ import {
   inStartingRoom,
   isEven,
   log,
-  onStageOrLower,
   teleport,
 } from "isaacscript-common";
 import { CollectibleTypeCustom } from "../../enums/CollectibleTypeCustom";
 import { mod } from "../../mod";
-import { isCollectibleRerollCollectibleType } from "../../utils";
+import {
+  isCollectibleRerollCollectibleType,
+  onStageWithSpecialRooms,
+} from "../../utils";
 import { Baby } from "../Baby";
 
 enum TeleportPrice {
@@ -155,8 +156,7 @@ export class FancyBaby extends Baby {
     return (
       !player.HasCollectible(CollectibleType.GLITCHED_CROWN) &&
       coins >= CHEAPEST_TELEPORT_PRICE &&
-      // Should only be valid if the floor has special rooms.
-      onStageOrLower(LevelStage.SHEOL_CATHEDRAL) &&
+      onStageWithSpecialRooms() &&
       // Ensure that the starting room of the floor is clean (e.g. no Blue Womb, no The Chest, etc.)
       !doesEntityExist(EntityType.PICKUP)
     );

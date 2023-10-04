@@ -5,24 +5,23 @@ import {
   ModCallback,
 } from "isaac-typescript-definitions";
 import { Callback, hasCollectible } from "isaacscript-common";
-import { BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES } from "../../constants";
+import {
+  BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES,
+  MULTI_SHOT_COLLECTIBLE_TYPES,
+} from "../../constantsCollectibleTypes";
 import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
 /** Godhead aura + flight + blindfolded. */
 export class LanternBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
-    // Trisagion makes the aura disappear. Multi shot items make multiple auras which can hurt
-    // player's eyes.
     return !hasCollectible(
       player,
       ...BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES,
+      // Trisagion makes the aura disappear.
       CollectibleType.TRISAGION,
-      CollectibleType.TWENTY_TWENTY,
-      CollectibleType.INNER_EYE,
-      CollectibleType.MUTANT_SPIDER,
-      CollectibleType.MONSTROS_LUNG,
-      CollectibleType.SATURNUS,
+      // Multi shot items make multiple auras which can hurt player's eyes.
+      ...MULTI_SHOT_COLLECTIBLE_TYPES,
     );
   }
 

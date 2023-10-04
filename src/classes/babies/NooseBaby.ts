@@ -7,7 +7,7 @@ import {
   hasCollectible,
   isShootActionPressed,
 } from "isaacscript-common";
-import { COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS } from "../../constants";
+import { COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS } from "../../constantsCollectibleTypes";
 import { timerDraw } from "../../timer";
 import { Baby } from "../Baby";
 

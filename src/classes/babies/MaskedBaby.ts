@@ -6,7 +6,7 @@ import {
   hasCollectible,
   isShootAction,
 } from "isaacscript-common";
-import { COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS } from "../../constants";
+import { COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS } from "../../constantsCollectibleTypes";
 import { Baby } from "../Baby";
 
 /** Can't shoot while moving. */

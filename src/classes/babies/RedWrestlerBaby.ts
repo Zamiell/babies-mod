@@ -15,20 +15,21 @@ import {
 import { GRID_ENTITY_REPLACEMENT_EXCEPTIONS } from "../../constants";
 import { Baby } from "../Baby";
 
+const COLLECTIBLE_TYPES_THAT_AUTOMATICALLY_EXPLODE_TNT = [
+  CollectibleType.MOMS_KNIFE, // 114
+  CollectibleType.FINGER, // 467
+  CollectibleType.POINTY_RIB, // 544
+] as const;
+
 /** Everything is TNT. */
 export class RedWrestlerBaby extends Baby {
-  /**
-   * There are almost no grid entities on the final floor. Pointy Rib, Mom's Knife and Finger can
-   * cause unavoidable damage.
-   */
   override isValid(player: EntityPlayer): boolean {
     return (
-      !onStage(LevelStage.DARK_ROOM_CHEST) &&
+      // There are almost no grid entities on Dark Room, The Chest, and Home.
+      !onStage(LevelStage.DARK_ROOM_CHEST, LevelStage.HOME) &&
       !hasCollectible(
         player,
-        CollectibleType.MOMS_KNIFE,
-        CollectibleType.FINGER,
-        CollectibleType.POINTY_RIB,
+        ...COLLECTIBLE_TYPES_THAT_AUTOMATICALLY_EXPLODE_TNT,
       )
     );
   }
