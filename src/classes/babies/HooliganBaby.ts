@@ -1,4 +1,8 @@
-import { EntityType, SwingerVariant } from "isaac-typescript-definitions";
+import {
+  EntityFlag,
+  EntityType,
+  SwingerVariant,
+} from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   DISTANCE_OF_GRID_TILE,
@@ -60,6 +64,7 @@ export class HooliganBaby extends Baby {
     return (
       !v.room.duplicatedNPCs.has(ptrHash) &&
       !npc.IsBoss() &&
+      !npc.HasEntityFlags(EntityFlag.FRIENDLY) &&
       !BUGGY_ENTITY_TYPES_SET.has(npc.Type) &&
       !BUGGY_ENTITY_TYPE_VARIANT_SET.has(entityTypeVariant)
     );
