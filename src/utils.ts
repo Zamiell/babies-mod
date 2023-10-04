@@ -364,6 +364,7 @@ export function shouldReplaceOrDuplicateNPC(npc: EntityNPC): boolean {
   const entityTypeVariant = `${npc.Type}.${npc.Variant}`;
 
   return (
+    npc.IsVulnerableEnemy() &&
     !npc.IsBoss() &&
     !npc.HasEntityFlags(EntityFlag.FRIENDLY) &&
     !BUGGY_REPLACING_OR_DOUBLING_ENTITY_TYPES_SET.has(npc.Type) &&

@@ -1,8 +1,5 @@
-import {
-  EntityType,
-  ModCallback,
-  RoomType,
-} from "isaac-typescript-definitions";
+import type { EntityType } from "isaac-typescript-definitions";
+import { ModCallback, RoomType } from "isaac-typescript-definitions";
 import {
   Callback,
   CallbackCustom,
@@ -37,14 +34,14 @@ export class LoveEyeBaby extends Baby {
       return;
     }
 
-    // Certain entity types are exempt.
-    if (entity.Type === EntityType.PITFALL) {
-      return;
-    }
-
     // Only fall in love with NPCs.
     const npc = entity.ToNPC();
     if (npc === undefined) {
+      return;
+    }
+
+    // Certain NPCs are exempt.
+    if (!shouldReplaceOrDuplicateNPC(npc)) {
       return;
     }
 

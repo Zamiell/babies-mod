@@ -3,6 +3,11 @@
 <!-- cspell:ignore Adrayon,cantgirl,elgirs,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.25.14_ - October 3rd, 2023
+
+- Fixed bugs with the following babies:
+  - Love Eye Baby (#249) - No longer replaces Swingers. (Thanks Gamonymous)
+
 ### _v1.25.14_ - October 2nd, 2023
 
 - Fixed the bug where errors would occur if the timer went into negative values. (Thanks sisuka)
