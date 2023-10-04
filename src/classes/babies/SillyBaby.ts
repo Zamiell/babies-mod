@@ -105,7 +105,7 @@ const SACRIFICIAL_ALTAR_COLLECTIBLE_TYPES = new ReadonlySet([
 
 const SACRIFICIAL_ALTAR_TRINKET_TYPES = new ReadonlySet([
   TrinketType.ISAACS_HEAD, // 54
-  TrinketType.SOUL, // 57
+  TrinketType.BLUE_BABYS_SOUL, // 57
   TrinketType.APOLLYONS_BEST_FRIEND, // 186
 ]);
 
