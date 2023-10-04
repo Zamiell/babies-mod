@@ -34,8 +34,8 @@ const BANNED_COLLECTIBLES_WITH_RANDOM_BABY = [
 ] as const;
 
 const CHANGE_CHARACTER_TRINKET_TYPES = [
-  TrinketType.MISSING_POSTER, // 23
   TrinketType.MYSTERIOUS_PAPER, // 21
+  TrinketType.MISSING_POSTER, // 23
   TrinketType.BROKEN_ANKH, // 28
   TrinketType.ERROR, // 75
   // TrinketType.MODELING_CLAY (166) can never grant a revival collectible because no revival
@@ -48,7 +48,7 @@ const REROLL_BUILD_TRINKET_TYPES = [
 
 const BANNED_TRINKETS_WITH_RANDOM_BABY = [
   // 'M allows changing temporary active items into permanent ones.
-  TrinketType.M,
+  TrinketType.M, // 138
 
   ...CHANGE_CHARACTER_TRINKET_TYPES,
   ...REROLL_BUILD_TRINKET_TYPES,
