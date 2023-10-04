@@ -1,39 +1,29 @@
-import { CollectibleType } from "isaac-typescript-definitions";
+import { BombVariant } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   ModCallbackCustom,
-  useActiveItemTemp,
+  spawnBomb,
 } from "isaacscript-common";
-import { mod } from "../../mod";
 import { Baby } from "../Baby";
 
-/** Touching items/pickups causes teleportation. */
+/** Touching items/pickups spawns Mega Troll Bombs. */
 export class WorryBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_PICKUP_COLLECT)
-  postPickupCollect(pickup: EntityPickup, player: EntityPlayer): void {
-    this.queueFutureTeleport(pickup, player);
+  postPickupCollect(pickup: EntityPickup, _player: EntityPlayer): void {
+    spawnMegaTrollBomb(pickup.Position);
   }
 
   @CallbackCustom(ModCallbackCustom.POST_PURCHASE)
-  postPurchase(player: EntityPlayer, pickup: EntityPickup): void {
-    this.queueFutureTeleport(pickup, player);
+  postPurchase(_player: EntityPlayer, pickup: EntityPickup): void {
+    spawnMegaTrollBomb(pickup.Position);
   }
 
   @CallbackCustom(ModCallbackCustom.PRE_ITEM_PICKUP)
   preItemPickup(player: EntityPlayer): void {
-    this.queueFutureTeleport(undefined, player);
+    spawnMegaTrollBomb(player.Position);
   }
+}
 
-  queueFutureTeleport(
-    pickup: EntityPickup | undefined,
-    player: EntityPlayer,
-  ): void {
-    if (pickup !== undefined && pickup.Touched) {
-      return;
-    }
-
-    mod.runNextGameFrame(() => {
-      useActiveItemTemp(player, CollectibleType.TELEPORT);
-    });
-  }
+function spawnMegaTrollBomb(position: Vector) {
+  spawnBomb(BombVariant.MEGA_TROLL, 0, position);
 }

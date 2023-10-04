@@ -1476,7 +1476,7 @@ export const BABIES = {
   // 167
   [RandomBabyType.WORRY]: {
     name: "Worry Baby",
-    description: "Touching items/pickups causes teleportation",
+    description: "Touching items/pickups spawns Mega Troll Bombs",
     sprite: "167_baby_worry.png",
     class: bc.WorryBaby,
   },

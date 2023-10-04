@@ -176,7 +176,7 @@ There are 604 babies in total.
 | 164 | <img src="./images/164_baby_blackeye.png" alt="164_baby_blackeye.png"> | Black Eye Baby | Starts with Leprosy, +5 damage on Leprosy breaking |
 | 165 | <img src="./images/165_baby_lights.png" alt="165_baby_lights.png"> | Lights Baby | Holy tears (every 3rd tear) |
 | 166 | <img src="./images/166_baby_spike.png" alt="166_baby_spike.png"> | Spike Baby | All chests are Spiked Chests + all chests have items |
-| 167 | <img src="./images/167_baby_worry.png" alt="167_baby_worry.png"> | Worry Baby | Touching items/pickups causes teleportation |
+| 167 | <img src="./images/167_baby_worry.png" alt="167_baby_worry.png"> | Worry Baby | Touching items/pickups spawns Mega Troll Bombs |
 | 168 | <img src="./images/168_baby_ears.png" alt="168_baby_ears.png"> | Ears Baby | Starts with 3x Mystery Sack |
 | 169 | <img src="./images/169_baby_funeral.png" alt="169_baby_funeral.png"> | Funeral Baby | Starts with Death's Touch |
 | 170 | <img src="./images/170_baby_libra.png" alt="170_baby_libra.png"> | Libra Baby | 30 seconds of invulnerability on hit |
