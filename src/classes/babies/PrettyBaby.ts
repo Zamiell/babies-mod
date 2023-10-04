@@ -36,7 +36,9 @@ export class PrettyBaby extends Baby {
 
   // 71
   @Callback(ModCallback.PRE_ROOM_ENTITY_SPAWN)
-  preRoomEntitySpawn(): [EntityType | GridEntityXMLType, int, int] | undefined {
+  preRoomEntitySpawn():
+    | [type: EntityType | GridEntityXMLType, variant: int, subType: int]
+    | undefined {
     const room = game.GetRoom();
     const roomType = room.GetType();
 

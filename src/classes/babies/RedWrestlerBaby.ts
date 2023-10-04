@@ -23,7 +23,13 @@ export class RedWrestlerBaby extends Baby {
   @Callback(ModCallback.PRE_ROOM_ENTITY_SPAWN)
   preRoomEntitySpawn(
     entityTypeOrGridEntityXMLType: EntityType | GridEntityXMLType,
-  ): [EntityType | GridEntityXMLType, int, int] | undefined {
+    _variant: int,
+    _subType: int,
+    _gridIndex: int,
+    _initSeed: Seed,
+  ):
+    | [type: EntityType | GridEntityXMLType, variant: int, subType: int]
+    | undefined {
     const room = game.GetRoom();
     if (!room.IsFirstVisit()) {
       return undefined;

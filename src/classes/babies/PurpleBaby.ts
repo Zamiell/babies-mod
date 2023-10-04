@@ -16,7 +16,9 @@ export class PurpleBaby extends Baby {
     _velocity: Vector,
     _spawner: Entity | undefined,
     initSeed: Seed,
-  ): [EntityType, int, int, int] | undefined {
+  ):
+    | [entityType: EntityType, variant: int, subType: int, initSeed: Seed]
+    | undefined {
     const fireplaceVariant = variant as FireplaceVariant;
 
     if (

@@ -85,8 +85,10 @@ export class GoldBaby extends Baby {
     _variant: int,
     _subType: int,
     _gridIndex: int,
-    _seed: Seed,
-  ): [EntityType | GridEntityXMLType, int, int] | undefined {
+    _initSeed: Seed,
+  ):
+    | [type: EntityType | GridEntityXMLType, variant: int, subType: int]
+    | undefined {
     if (!isGridEntityXMLType(entityTypeOrGridEntityXMLType)) {
       return undefined;
     }
