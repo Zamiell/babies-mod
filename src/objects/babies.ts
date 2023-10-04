@@ -442,6 +442,7 @@ export const BABIES = {
     name: "Dark Baby",
     description: "Temporary blindness",
     sprite: "048_baby_dark.png",
+    requireNoEndFloors: true,
     num: 110, // The game frame duration of the fade.
     class: bc.DarkBaby,
   },
