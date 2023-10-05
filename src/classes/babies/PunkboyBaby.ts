@@ -1,8 +1,8 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 import {
   addCollectible,
+  rebirthItemTrackerRemoveCollectible,
   removeCollectible,
-  removeCollectibleFromItemTracker,
   repeat,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
@@ -19,7 +19,7 @@ export class PunkboyBaby extends Baby {
 
     repeat(num, () => {
       addCollectible(player, ...COLLECTIBLES);
-      removeCollectibleFromItemTracker(...COLLECTIBLES);
+      rebirthItemTrackerRemoveCollectible(...COLLECTIBLES);
     });
   }
 

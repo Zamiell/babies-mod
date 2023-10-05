@@ -3,7 +3,7 @@ import {
   Callback,
   CallbackCustom,
   ModCallbackCustom,
-  removeCollectibleFromItemTracker,
+  rebirthItemTrackerRemoveCollectible,
   repeat,
 } from "isaacscript-common";
 import { CollectibleTypeCustom } from "../../enums/CollectibleTypeCustom";
@@ -30,7 +30,7 @@ export class CoolGhostBaby extends Baby {
 
     repeat(num, () => {
       player.AddCollectible(CollectibleType.SUCCUBUS, 0, false);
-      removeCollectibleFromItemTracker(CollectibleType.SUCCUBUS);
+      rebirthItemTrackerRemoveCollectible(CollectibleType.SUCCUBUS);
     });
 
     v.run.removeSuccubusCollectiblesOnNextRoom = true;

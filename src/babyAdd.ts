@@ -17,7 +17,7 @@ import {
   getPlayerHealth,
   isChest,
   log,
-  removeCollectibleFromItemTracker,
+  rebirthItemTrackerRemoveCollectible,
   repeat,
   setBlindfold,
   setPlayerHealth,
@@ -97,7 +97,7 @@ export function babyAdd(
       );
     }
 
-    removeCollectibleFromItemTracker(baby.collectible);
+    rebirthItemTrackerRemoveCollectible(baby.collectible);
     itemPool.RemoveCollectible(baby.collectible);
   }
 
@@ -107,7 +107,7 @@ export function babyAdd(
     const num = baby.collectibleNum - 1; // We already added the first collectible above.
     repeat(num, () => {
       player.AddCollectible(collectible, 0, false);
-      removeCollectibleFromItemTracker(collectible);
+      rebirthItemTrackerRemoveCollectible(collectible);
     });
   }
 
@@ -115,14 +115,14 @@ export function babyAdd(
   // collectible; we explicitly check for this on startup.)
   if (baby.collectible2 !== undefined) {
     giveCollectibleAndRemoveFromPools(player, baby.collectible2);
-    removeCollectibleFromItemTracker(baby.collectible2);
+    rebirthItemTrackerRemoveCollectible(baby.collectible2);
   }
 
   // Check if this is a baby that grants a third collectible. (This should always be a passive
   // collectible; we explicitly check for this on startup.)
   if (baby.collectible3 !== undefined) {
     giveCollectibleAndRemoveFromPools(player, baby.collectible3);
-    removeCollectibleFromItemTracker(baby.collectible3);
+    rebirthItemTrackerRemoveCollectible(baby.collectible3);
   }
 
   // If this baby grants a familiar, prevent the player from finding Sacrificial Altar.
@@ -146,7 +146,7 @@ export function babyAdd(
       const itemTrackerTrinketID = asCollectibleType(
         trinket + REBIRTH_ITEM_TRACKER_TRINKET_MODIFIER,
       );
-      removeCollectibleFromItemTracker(itemTrackerTrinketID);
+      rebirthItemTrackerRemoveCollectible(itemTrackerTrinketID);
     });
     itemPool.RemoveTrinket(baby.trinket);
   }

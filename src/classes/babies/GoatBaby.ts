@@ -9,7 +9,7 @@ import {
   hasCollectible,
   onEffectiveStage,
   onStageWithNaturalDevilRoom,
-  removeCollectibleFromItemTracker,
+  rebirthItemTrackerRemoveCollectible,
   sfxManager,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
@@ -61,7 +61,7 @@ export class GoatBaby extends Baby {
 
       for (const collectibleType of GRANTED_COLLECTIBLE_TYPES) {
         player.AddCollectible(collectibleType);
-        removeCollectibleFromItemTracker(collectibleType);
+        rebirthItemTrackerRemoveCollectible(collectibleType);
       }
     }
 
