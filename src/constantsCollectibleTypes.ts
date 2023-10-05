@@ -195,12 +195,14 @@ export const BAD_MISSED_TEARS_COLLECTIBLE_TYPES = [
   CollectibleType.CURSED_EYE, // 316
   CollectibleType.SOY_MILK, // 330
   CollectibleType.DEAD_ONION, // 336
+  CollectibleType.MAW_OF_THE_VOID, // 399
   CollectibleType.EYE_OF_BELIAL, // 462
   CollectibleType.LITTLE_HORN, // 503
   CollectibleType.HAEMOLACRIA, // 531 (it is hard to aim properly with this)
   CollectibleType.TRISAGION, // 533
   CollectibleType.FLAT_STONE, // 540
   CollectibleType.ALMOND_MILK, // 561
+  CollectibleType.REVELATION, // 643
   CollectibleType.C_SECTION, // 678
 ] as const;
 
