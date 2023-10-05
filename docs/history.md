@@ -3,6 +3,11 @@
 <!-- cspell:ignore Adrayon,cantgirl,elgirs,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.26.1_ - October 5th, 2023
+
+- Changed the following babies:
+  - Dark Baby (#48) - The fade has been changed from 110 game frames to 100 game frames.
+
 ### _v1.26.0_ - October 3rd, 2023
 
 - The following babies have new effects:
