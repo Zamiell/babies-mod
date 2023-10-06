@@ -1,13 +1,23 @@
 import { CollectibleType, EntityType } from "isaac-typescript-definitions";
-import { CallbackCustom, ModCallbackCustom, spawn } from "isaacscript-common";
+import {
+  CallbackCustom,
+  ModCallbackCustom,
+  hasCollectible,
+  spawn,
+} from "isaacscript-common";
 import { everyNSeconds } from "../../utils";
 import { Baby } from "../Baby";
+
+const ANTI_SYNERGY_COLLECTIBLES_WITH_FLIES = [
+  CollectibleType.IPECAC, // 149
+  CollectibleType.MONSTROS_LUNG, // 229
+] as const;
 
 /** Spawns a fly every N seconds. */
 export class CorgiBaby extends Baby {
   /** Certain collectibles make the baby too dangerous. */
   override isValid(player: EntityPlayer): boolean {
-    return !player.HasCollectible(CollectibleType.IPECAC);
+    return !hasCollectible(player, ...ANTI_SYNERGY_COLLECTIBLES_WITH_FLIES);
   }
 
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
