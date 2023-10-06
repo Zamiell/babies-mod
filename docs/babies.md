@@ -398,7 +398,7 @@ There are 604 babies in total.
 | 386 | <img src="./images/386_baby_imp.png" alt="386_baby_imp.png"> | Imp Baby | Blender + flight + explosion immunity + blindfolded |
 | 387 | <img src="./images/387_baby_worm.png" alt="387_baby_worm.png"> | Worm Baby 2 | Starts with 20x Leech |
 | 388 | <img src="./images/388_baby_bluewrestler.png" alt="388_baby_bluewrestler.png"> | Blue Wrestler Baby | Enemies spawn projectiles upon death |
-| 389 | <img src="./images/389_baby_redwrestler.png" alt="389_baby_redwrestler.png"> | Red Wrestler Baby | Everything is TNT |
+| 389 | <img src="./images/389_baby_redwrestler.png" alt="389_baby_redwrestler.png"> | Red Wrestler Baby | Everything is Movable TNT |
 | 390 | <img src="./images/390_baby_toast.png" alt="390_baby_toast.png"> | Toast Baby | Enemies leave a Red Candle fire upon death |
 | 391 | <img src="./images/391_baby_roboboy.png" alt="391_baby_roboboy.png"> | Roboboy Baby | Starts with Technology + A Lump of Coal |
 | 392 | <img src="./images/392_baby_liberty.png" alt="392_baby_liberty.png"> | Liberty Baby | Starts with Azazel's Rage |
