@@ -1,5 +1,10 @@
 import { GridEntityType, ModCallback } from "isaac-typescript-definitions";
-import { Callback, game, spawnGridEntity } from "isaacscript-common";
+import {
+  Callback,
+  game,
+  isGridIndexAdjacentToDoor,
+  spawnGridEntity,
+} from "isaacscript-common";
 import { everyNSeconds } from "../../utils";
 import { Baby } from "../Baby";
 
@@ -13,6 +18,12 @@ export class FingerBaby extends Baby {
     everyNSeconds(() => {
       const room = game.GetRoom();
       const player = Isaac.GetPlayer();
+      const gridIndex = room.GetGridIndex(player.Position);
+
+      if (isGridIndexAdjacentToDoor(gridIndex)) {
+        return;
+      }
+
       const gridEntity = room.GetGridEntityFromPos(player.Position);
       if (gridEntity === undefined) {
         spawnGridEntity(GridEntityType.TELEPORTER, player.Position);
