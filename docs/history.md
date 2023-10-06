@@ -6,15 +6,11 @@
 ### _v1.27.0_ - October 6th, 2023
 
 - The following babies have new effects:
+  - Dark Baby (#48) - The fade has been changed from 110 game frames to 100 game frames.
   - Red Wrestler Baby (#389) - "Everything is TNT" --> "Everything is Movable TNT"
 - Changed the following babies:
   - Finger Baby (#558) - No longer spawns teleporters next to a door. (Thanks sisuka)
 - Fixed the bug where the temporary icon would be drawn even if you had Birthright. (Thanks Po4ti)
-
-### _v1.26.1_ - October 5th, 2023
-
-- Changed the following babies:
-  - Dark Baby (#48) - The fade has been changed from 110 game frames to 100 game frames.
 
 ### _v1.26.0_ - October 3rd, 2023
 
