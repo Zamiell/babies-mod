@@ -9,6 +9,7 @@
   - Red Wrestler Baby (#389) - "Everything is TNT" --> "Everything is Movable TNT"
 - Changed the following babies:
   - Finger Baby (#558) - No longer spawns teleporters next to a door. (Thanks sisuka)
+- Fixed the bug where the temporary icon would be drawn even if you had Birthright. (Thanks Po4ti)
 
 ### _v1.26.1_ - October 5th, 2023
 

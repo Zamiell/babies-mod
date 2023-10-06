@@ -1,5 +1,6 @@
 import {
   ActiveSlot,
+  CollectibleType,
   ItemType,
   ModCallback,
 } from "isaac-typescript-definitions";
@@ -23,27 +24,37 @@ const CLOCK_SPRITE = newSprite("gfx/clock.anm2");
 export class DrawTempIcon extends BabyModFeature {
   @Callback(ModCallback.POST_RENDER)
   postRender(): void {
+    if (this.shouldDrawTempIcon()) {
+      CLOCK_SPRITE.Render(CLOCK_POSITION);
+    }
+  }
+
+  shouldDrawTempIcon(): boolean {
     const babyType = getBabyType();
     if (babyType === undefined) {
-      return;
+      return false;
     }
     const baby: BabyDescription = BABIES[babyType];
 
     if (baby.collectible === undefined) {
-      return;
+      return false;
     }
 
     const itemType = getCollectibleItemType(baby.collectible);
     if (itemType !== ItemType.ACTIVE) {
-      return;
+      return false;
     }
 
     const player = Isaac.GetPlayer();
     const activeCollectibleType = player.GetActiveItem(ActiveSlot.PRIMARY);
     if (activeCollectibleType !== baby.collectible) {
-      return;
+      return false;
     }
 
-    CLOCK_SPRITE.Render(CLOCK_POSITION);
+    if (player.HasCollectible(CollectibleType.BIRTHRIGHT)) {
+      return false;
+    }
+
+    return true;
   }
 }
