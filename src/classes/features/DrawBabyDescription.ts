@@ -11,7 +11,7 @@ import {
   game,
   getScreenCenterPos,
   isActionPressedOnAnyInput,
-  isBeforeGameFrame,
+  isAfterGameFrame,
   onGameFrame,
 } from "isaacscript-common";
 import type { BabyDescription } from "../../interfaces/BabyDescription";
@@ -68,7 +68,7 @@ export class DrawBabyDescription extends BabyModFeature {
   draw(baby: BabyDescription): void {
     if (
       v.run.showDescriptionUntilFrame === null ||
-      isBeforeGameFrame(v.run.showDescriptionUntilFrame)
+      isAfterGameFrame(v.run.showDescriptionUntilFrame)
     ) {
       return;
     }

@@ -3,6 +3,13 @@
 <!-- cspell:ignore Adrayon,cantgirl,elgirs,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.26.1_ - October 5th, 2023 (Unreleased)
+
+- The following babies have new effects:
+  - Red Wrestler Baby (#389) - "Everything is TNT" --> "Everything is Movable TNT"
+- Changed the following babies:
+  - Finger Baby (#558) - No longer spawns teleporters next to a door. (Thanks sisuka)
+
 ### _v1.26.1_ - October 5th, 2023
 
 - Changed the following babies:

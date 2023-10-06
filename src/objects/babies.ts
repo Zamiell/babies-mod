@@ -3443,7 +3443,7 @@ export const BABIES = {
   // 389
   [RandomBabyType.RED_WRESTLER]: {
     name: "Red Wrestler Baby",
-    description: "Everything is TNT",
+    description: "Everything is Movable TNT",
     sprite: "389_baby_redwrestler.png",
     class: bc.RedWrestlerBaby,
   },

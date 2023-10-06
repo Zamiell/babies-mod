@@ -1,7 +1,7 @@
-import type { EntityType } from "isaac-typescript-definitions";
+import type { GridEntityXMLType } from "isaac-typescript-definitions";
 import {
   CollectibleType,
-  GridEntityXMLType,
+  EntityType,
   LevelStage,
   ModCallback,
 } from "isaac-typescript-definitions";
@@ -58,6 +58,6 @@ export class RedWrestlerBaby extends Baby {
       return undefined;
     }
 
-    return [GridEntityXMLType.TNT, 0, 0];
+    return [EntityType.MOVABLE_TNT, 0, 0];
   }
 }
