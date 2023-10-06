@@ -8,7 +8,10 @@ import {
   getNPCs,
   isAliveExceptionNPC,
   isAllPressurePlatesPushed,
+  isBeforeRoomFrame,
   log,
+  onOrAfterGameFrame,
+  onRoomFrame,
 } from "isaacscript-common";
 import { RandomBabyType } from "../../enums/RandomBabyType";
 import { BabyModFeature } from "../BabyModFeature";
@@ -33,7 +36,7 @@ const v = {
   room: {
     pseudoClear: true,
     doorSlotsModified: [] as DoorSlot[],
-    clearDelayFrame: null as int | null,
+    clearDelayGameFrame: null as int | null,
   },
 };
 
@@ -52,7 +55,7 @@ export class PseudoRoomClear extends BabyModFeature {
     const gameFrameCount = game.GetFrameCount();
 
     // We don't want to clear the room too fast after an enemy dies.
-    v.room.clearDelayFrame = gameFrameCount + 1;
+    v.room.clearDelayGameFrame = gameFrameCount + 1;
   }
 }
 
@@ -89,7 +92,6 @@ export function pseudoRoomClearPostPEffectUpdateReordered(
 ): void {
   const room = game.GetRoom();
   const roomType = room.GetType();
-  const roomFrameCount = room.GetFrameCount();
   const roomClear = room.IsClear();
 
   if (ROOM_TYPE_BLACKLIST.has(roomType)) {
@@ -97,13 +99,13 @@ export function pseudoRoomClearPostPEffectUpdateReordered(
   }
 
   // We need to wait for the room to initialize before enabling the pseudo clear feature.
-  if (roomFrameCount < 1) {
+  if (isBeforeRoomFrame(1)) {
     return;
   }
 
   // Customize the doors and initiate the pseudo clear feature. (This does not work in the
   // `POST_NEW_ROOM` callback or on frame 0.)
-  if (roomFrameCount === 1 && !roomClear) {
+  if (onRoomFrame(1) && !roomClear) {
     initializeDoors(babyType);
     return;
   }
@@ -155,23 +157,18 @@ function initializeDoors(babyType: RandomBabyType) {
 }
 
 function checkPseudoClear(player: EntityPlayer, babyType: RandomBabyType) {
-  const gameFrameCount = game.GetFrameCount();
-
   // Don't do anything if the room is already cleared.
   if (v.room.pseudoClear) {
     return;
   }
 
   // If a frame has passed since an enemy died, reset the delay counter.
-  if (
-    v.room.clearDelayFrame !== null &&
-    gameFrameCount >= v.room.clearDelayFrame
-  ) {
-    v.room.clearDelayFrame = null;
+  if (onOrAfterGameFrame(v.room.clearDelayGameFrame)) {
+    v.room.clearDelayGameFrame = null;
   }
 
   if (
-    v.room.clearDelayFrame === null &&
+    v.room.clearDelayGameFrame === null &&
     !areAnyNPCsAlive() &&
     isAllPressurePlatesPushed()
   ) {

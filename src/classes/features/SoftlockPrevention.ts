@@ -9,6 +9,7 @@ import {
   GAME_FRAMES_PER_SECOND,
   ModCallbackCustom,
   game,
+  isBeforeRoomFrame,
   isGridEntityXMLType,
   isPoopGridEntityXMLType,
   log,
@@ -74,15 +75,15 @@ export class SoftlockPrevention extends BabyModFeature {
     }
 
     // Check to see if they have been in the room long enough.
-    const room = game.GetRoom();
-    const roomFrameCount = room.GetFrameCount();
-    if (roomFrameCount < ISLAND_THRESHOLD_GAME_FRAMES) {
+    if (isBeforeRoomFrame(ISLAND_THRESHOLD_GAME_FRAMES)) {
       return;
     }
 
     v.room.openedDoors = true;
-    room.SetClear(true);
     openAllDoors();
+
+    const room = game.GetRoom();
+    room.SetClear(true);
 
     log("Opened all doors to prevent a softlock.");
   }

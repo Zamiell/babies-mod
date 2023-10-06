@@ -10,8 +10,8 @@ import {
   CallbackCustom,
   ModCallbackCustom,
   directionToShootAction,
-  game,
   hasCollectible,
+  isBeforeGameFrame,
   isShootAction,
 } from "isaacscript-common";
 import { BLINDFOLDED_ANTI_SYNERGY_COLLECTIBLE_TYPES } from "../../constantsCollectibleTypes";
@@ -40,11 +40,10 @@ export class ImpBaby extends Baby {
   // 1
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
-    const gameFrameCount = game.GetFrameCount();
     const num = this.getAttribute("num");
 
     // If we rotate the knives on every frame, then it spins too fast.
-    if (gameFrameCount < v.run.nextRotationGameFrame) {
+    if (isBeforeGameFrame(v.run.nextRotationGameFrame)) {
       return;
     }
     v.run.nextRotationGameFrame += num;

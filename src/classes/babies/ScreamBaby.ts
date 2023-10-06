@@ -9,6 +9,7 @@ import {
   ModCallbackCustom,
   game,
   hasCollectible,
+  onOrBeforeGameFrame,
   sfxManager,
   useActiveItemTemp,
 } from "isaacscript-common";
@@ -77,12 +78,11 @@ export class ScreamBaby extends Baby {
       return;
     }
 
-    const gameFrameCount = game.GetFrameCount();
     const activeCharge = player.GetActiveCharge();
     const batteryCharge = player.GetBatteryCharge();
 
     if (
-      gameFrameCount <= v.run.frameShoopUsed + 1 &&
+      onOrBeforeGameFrame(v.run.frameShoopUsed + 1) &&
       (activeCharge !== v.run.activeItemCharge ||
         batteryCharge !== v.run.activeItemBatteryCharge)
     ) {

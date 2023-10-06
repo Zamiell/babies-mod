@@ -5,6 +5,7 @@ import {
   RENDER_FRAMES_PER_SECOND,
   game,
   getScreenCenterPos,
+  isBeforeRenderFrame,
   isKeyboardPressed,
 } from "isaacscript-common";
 import { MOD_NAME, VERSION } from "../../constants";
@@ -54,11 +55,9 @@ export class DrawVersion extends ModFeature {
   }
 
   checkDraw(): void {
-    const renderFrameCount = Isaac.GetFrameCount();
-
     if (
       v.run.showVersionUntilRenderFrame === null ||
-      renderFrameCount > v.run.showVersionUntilRenderFrame
+      isBeforeRenderFrame(v.run.showVersionUntilRenderFrame)
     ) {
       return;
     }

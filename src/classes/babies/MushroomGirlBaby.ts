@@ -3,7 +3,7 @@ import {
   CollectibleType,
   ModCallback,
 } from "isaac-typescript-definitions";
-import { Callback, game, spawnBomb } from "isaacscript-common";
+import { Callback, isBeforeRoomFrame, spawnBomb } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 const v = {
@@ -23,9 +23,7 @@ export class MushroomGirlBaby extends Baby {
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
     // We do not want this ability to be affected by Saturnus tears.
-    const room = game.GetRoom();
-    const roomFrameCount = room.GetFrameCount();
-    if (roomFrameCount < 1) {
+    if (isBeforeRoomFrame(1)) {
       return;
     }
 

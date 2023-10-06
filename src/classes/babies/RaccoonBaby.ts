@@ -3,6 +3,7 @@ import {
   CallbackCustom,
   ModCallbackCustom,
   game,
+  onRoomFrame,
   onStage,
   useActiveItemTemp,
 } from "isaacscript-common";
@@ -18,12 +19,11 @@ export class RaccoonBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {
     const room = game.GetRoom();
-    const roomFrameCount = room.GetFrameCount();
     const isFirstVisit = room.IsFirstVisit();
 
     // Reroll all of the rocks in the room. This does not work if we do it in the `POST_NEW_ROOM`
     // callback. This does not work if we do it on the 0th frame.
-    if (roomFrameCount === 1 && isFirstVisit) {
+    if (onRoomFrame(1) && isFirstVisit) {
       useActiveItemTemp(player, CollectibleType.D12);
     }
   }

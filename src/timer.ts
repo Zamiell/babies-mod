@@ -1,4 +1,5 @@
 import {
+  GAME_FRAMES_PER_SECOND,
   assertDefined,
   game,
   getHUDOffsetVector,
@@ -62,8 +63,8 @@ export function timerDraw(finishTime: int | null): void {
 
   // Find out how much time has passed.
   const gameFrameCount = game.GetFrameCount();
-  const remainingFrames = finishTime - gameFrameCount;
-  const remainingSeconds = remainingFrames / 30;
+  const remainingGameFrames = finishTime - gameFrameCount;
+  const remainingSeconds = remainingGameFrames / GAME_FRAMES_PER_SECOND;
 
   const timerValues = convertSecondsToTimerValues(remainingSeconds);
   if (timerValues === undefined) {

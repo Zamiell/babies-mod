@@ -4,14 +4,17 @@ import {
   CallbackCustom,
   ModCallbackCustom,
   game,
+  onOrAfterGameFrame,
   useActiveItemTemp,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
+const SUMMON_MONSTRO_DELAY_GAME_FRAMES = 15;
+
 const v = {
   room: {
     numMonstrosSummoned: 0,
-    useMonstrosToothOnFrame: null as int | null,
+    useMonstrosToothOnGameFrame: null as int | null,
   },
 };
 
@@ -28,10 +31,11 @@ export class DroolBaby extends Baby {
     v.room.numMonstrosSummoned++;
     if (v.room.numMonstrosSummoned === num) {
       v.room.numMonstrosSummoned = 0;
-      v.room.useMonstrosToothOnFrame = null;
+      v.room.useMonstrosToothOnGameFrame = null;
     } else {
       const gameFrameCount = game.GetFrameCount();
-      v.room.useMonstrosToothOnFrame = gameFrameCount + 15;
+      v.room.useMonstrosToothOnGameFrame =
+        gameFrameCount + SUMMON_MONSTRO_DELAY_GAME_FRAMES;
     }
 
     return undefined;
@@ -39,19 +43,15 @@ export class DroolBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {
-    const gameFrameCount = game.GetFrameCount();
     const room = game.GetRoom();
     const roomClear = room.IsClear();
 
-    if (
-      v.room.useMonstrosToothOnFrame !== null &&
-      gameFrameCount >= v.room.useMonstrosToothOnFrame
-    ) {
+    if (onOrAfterGameFrame(v.room.useMonstrosToothOnGameFrame)) {
       if (roomClear) {
         // The room might have been cleared since the initial Monstro's Tooth activation. If so,
         // cancel the remaining Monstro's.
         v.room.numMonstrosSummoned = 0;
-        v.room.useMonstrosToothOnFrame = null;
+        v.room.useMonstrosToothOnGameFrame = null;
       } else {
         useActiveItemTemp(player, CollectibleType.MONSTROS_TOOTH);
       }

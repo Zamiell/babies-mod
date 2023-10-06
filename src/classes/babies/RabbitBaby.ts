@@ -9,6 +9,7 @@ import {
   MIN_PLAYER_SPEED_STAT,
   ModCallbackCustom,
   game,
+  onOrAfterGameFrame,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
@@ -42,9 +43,7 @@ export class RabbitBaby extends Baby {
   // 8
   @Callback(ModCallback.EVALUATE_CACHE, CacheFlag.SPEED)
   evaluateCacheSpeed(player: EntityPlayer): void {
-    const gameFrameCount = game.GetFrameCount();
-
-    if (gameFrameCount >= v.run.mustJumpOnFrame) {
+    if (onOrAfterGameFrame(v.run.mustJumpOnFrame)) {
       // Speed has a lower bound, so we cannot set it lower than this.
       player.MoveSpeed = MIN_PLAYER_SPEED_STAT;
     }

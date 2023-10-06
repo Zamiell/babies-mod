@@ -3,6 +3,7 @@ import {
   DISTANCE_OF_GRID_TILE,
   ModCallbackCustom,
   game,
+  isAfterRoomFrame,
   spawn,
 } from "isaacscript-common";
 import { shouldReplaceOrDuplicateNPC } from "../../utils";
@@ -61,13 +62,6 @@ export class HooliganBaby extends Baby {
   /** Fix the bug where an enemy can sometimes spawn next to where the player spawns. */
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(): boolean | undefined {
-    const room = game.GetRoom();
-    const roomFrameCount = room.GetFrameCount();
-
-    if (roomFrameCount === 0) {
-      return false;
-    }
-
-    return undefined;
+    return isAfterRoomFrame(0) ? undefined : false;
   }
 }

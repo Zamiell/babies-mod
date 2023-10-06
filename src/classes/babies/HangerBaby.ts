@@ -4,7 +4,12 @@ import {
   ModCallback,
   ProjectileVariant,
 } from "isaac-typescript-definitions";
-import { Callback, asNumber, game, spawnProjectile } from "isaacscript-common";
+import {
+  Callback,
+  asNumber,
+  onOrAfterRoomFrame,
+  spawnProjectile,
+} from "isaacscript-common";
 import { Baby } from "../Baby";
 
 /** Starts with Abel; Abel's tears hurt you. */
@@ -18,12 +23,9 @@ export class HangerBaby extends Baby {
       return;
     }
 
-    const room = game.GetRoom();
-    const roomFrameCount = room.GetFrameCount();
-
     // Abel is spawned on top of the player when the player first enters a room. Don't shoot if this
     // is the case.
-    if (roomFrameCount >= 30) {
+    if (onOrAfterRoomFrame(30)) {
       spawnProjectile(
         ProjectileVariant.NORMAL,
         tear.SubType,

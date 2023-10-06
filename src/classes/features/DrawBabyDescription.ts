@@ -11,6 +11,8 @@ import {
   game,
   getScreenCenterPos,
   isActionPressedOnAnyInput,
+  isBeforeGameFrame,
+  onGameFrame,
 } from "isaacscript-common";
 import type { BabyDescription } from "../../interfaces/BabyDescription";
 import { config } from "../../modConfigMenu";
@@ -18,6 +20,8 @@ import { BABIES } from "../../objects/babies";
 import { isRacingPlusEnabled } from "../../utils";
 import { BabyModFeature } from "../BabyModFeature";
 import { getBabyType } from "./babySelection/v";
+
+const DESCRIPTION_GAME_FRAME_LENGTH = 2 * GAME_FRAMES_PER_SECOND;
 
 const v = {
   run: {
@@ -62,10 +66,9 @@ export class DrawBabyDescription extends BabyModFeature {
   }
 
   draw(baby: BabyDescription): void {
-    const gameFrameCount = game.GetFrameCount();
     if (
       v.run.showDescriptionUntilFrame === null ||
-      gameFrameCount > v.run.showDescriptionUntilFrame
+      isBeforeGameFrame(v.run.showDescriptionUntilFrame)
     ) {
       return;
     }
@@ -122,9 +125,7 @@ export class DrawBabyDescription extends BabyModFeature {
   /** Clear the description text as soon as we enter another room. */
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
-    const gameFrameCount = game.GetFrameCount();
-
-    if (gameFrameCount !== v.run.setDescriptionFrame) {
+    if (!onGameFrame(v.run.setDescriptionFrame)) {
       v.run.showDescriptionUntilFrame = null;
     }
   }
@@ -132,7 +133,7 @@ export class DrawBabyDescription extends BabyModFeature {
   setShowDescriptionFrame(): void {
     const gameFrameCount = game.GetFrameCount();
     v.run.showDescriptionUntilFrame =
-      gameFrameCount + 2 * GAME_FRAMES_PER_SECOND;
+      gameFrameCount + DESCRIPTION_GAME_FRAME_LENGTH;
     v.run.setDescriptionFrame = gameFrameCount;
   }
 }

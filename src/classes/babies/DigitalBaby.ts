@@ -1,5 +1,5 @@
 import { ModCallback, SeedEffect } from "isaac-typescript-definitions";
-import { Callback, game } from "isaacscript-common";
+import { Callback, game, onOrBeforeRoomFrame } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 const v = {
@@ -23,12 +23,10 @@ export class DigitalBaby extends Baby {
    */
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
-    const room = game.GetRoom();
-    const roomFrameCount = room.GetFrameCount();
-    const seeds = game.GetSeeds();
-
-    if (!v.run.appliedSeedEffect && roomFrameCount <= 1) {
+    if (!v.run.appliedSeedEffect && onOrBeforeRoomFrame(1)) {
       v.run.appliedSeedEffect = true;
+
+      const seeds = game.GetSeeds();
       seeds.AddSeedEffect(SeedEffect.OLD_TV);
     }
   }

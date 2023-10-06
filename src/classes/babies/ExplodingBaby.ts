@@ -7,15 +7,17 @@ import {
   game,
   isGridEntityBreakableByExplosion,
   isGridEntityBroken,
+  onOrAfterGameFrame,
   useActiveItemTemp,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
 const KAMIKAZE_DISTANCE_THRESHOLD = DISTANCE_OF_GRID_TILE - 4;
+const KAMIKAZE_DELAY_GAME_FRAMES = 10;
 
 const v = {
   room: {
-    kamikazeCooldownUntilFrame: null as int | null,
+    kamikazeCooldownUntilGameFrame: null as int | null,
     temporarilyInvulnerable: false,
   },
 };
@@ -27,15 +29,10 @@ export class ExplodingBaby extends Baby {
   // 1
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
-    const gameFrameCount = game.GetFrameCount();
-
     // Check to see if we need to reset the cooldown (after we used the Kamikaze effect upon
     // touching an obstacle).
-    if (
-      v.room.kamikazeCooldownUntilFrame !== null &&
-      gameFrameCount >= v.room.kamikazeCooldownUntilFrame
-    ) {
-      v.room.kamikazeCooldownUntilFrame = null;
+    if (onOrAfterGameFrame(v.room.kamikazeCooldownUntilGameFrame)) {
+      v.room.kamikazeCooldownUntilGameFrame = null;
     }
   }
 
@@ -50,7 +47,7 @@ export class ExplodingBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.POST_GRID_ENTITY_UPDATE)
   postGridEntityUpdate(gridEntity: GridEntity): void {
-    if (v.room.kamikazeCooldownUntilFrame !== null) {
+    if (v.room.kamikazeCooldownUntilGameFrame !== null) {
       return;
     }
 
@@ -77,6 +74,7 @@ export class ExplodingBaby extends Baby {
     useActiveItemTemp(player, CollectibleType.KAMIKAZE);
     v.room.temporarilyInvulnerable = false;
 
-    v.room.kamikazeCooldownUntilFrame = gameFrameCount + 10;
+    v.room.kamikazeCooldownUntilGameFrame =
+      gameFrameCount + KAMIKAZE_DELAY_GAME_FRAMES;
   }
 }

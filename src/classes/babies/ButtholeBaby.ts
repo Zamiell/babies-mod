@@ -13,6 +13,7 @@ import {
   getRandomArrayElement,
   getRandomEnumValue,
   getRandomInt,
+  isBeforeGameFrame,
   newRNG,
   sfxManager,
   spawnWithSeed,
@@ -33,13 +34,15 @@ const POOP_GRID_ENTITY_VARIANTS_NOT_IN_POOP_ENTITY_VARIANTS = [
   PoopGridEntityVariant.CHARMING, // 11
 ] as const;
 
+const NUM_RED_POOP_INVULNERABILITY_GAME_FRAMES = 25;
+
 const v = {
   run: {
     rng: newRNG(),
   },
 
   room: {
-    invulnerabilityUntilFrame: null as int | null,
+    invulnerabilityUntilGameFrame: null as int | null,
   },
 };
 
@@ -53,12 +56,7 @@ export class ButtholeBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(): boolean | undefined {
-    const gameFrameCount = game.GetFrameCount();
-
-    if (
-      v.room.invulnerabilityUntilFrame !== null &&
-      gameFrameCount < v.room.invulnerabilityUntilFrame
-    ) {
+    if (isBeforeGameFrame(v.room.invulnerabilityUntilGameFrame)) {
       return false;
     }
 
@@ -100,7 +98,8 @@ function spawnRandomPoop(position: Vector, rng: RNG) {
     // frames.
     if (poopGridEntityVariant === PoopGridEntityVariant.RED) {
       const gameFrameCount = game.GetFrameCount();
-      v.room.invulnerabilityUntilFrame = gameFrameCount + 25;
+      v.room.invulnerabilityUntilGameFrame =
+        gameFrameCount + NUM_RED_POOP_INVULNERABILITY_GAME_FRAMES;
     }
 
     Isaac.GridSpawn(GridEntityType.POOP, poopGridEntityVariant, position);

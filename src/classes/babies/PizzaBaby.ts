@@ -4,6 +4,7 @@ import {
   CallbackCustom,
   ModCallbackCustom,
   game,
+  onOrAfterGameFrame,
   useActiveItemTemp,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
@@ -41,10 +42,7 @@ export class PizzaBaby extends Baby {
     const gameFrameCount = game.GetFrameCount();
     const num = this.getAttribute("num");
 
-    if (
-      v.room.useBrownNuggetOnFrame !== null &&
-      gameFrameCount >= v.room.useBrownNuggetOnFrame
-    ) {
+    if (onOrAfterGameFrame(v.room.useBrownNuggetOnFrame)) {
       useActiveItemTemp(player, CollectibleType.BROWN_NUGGET);
 
       v.room.brownNuggetsUsed++;
