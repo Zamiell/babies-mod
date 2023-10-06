@@ -1,3 +1,4 @@
+import type { Challenge } from "isaac-typescript-definitions";
 import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
 import {
   Callback,
@@ -10,6 +11,7 @@ import {
   isCharacter,
   log,
   newRNG,
+  onChallenge,
   rebirthItemTrackerWriteToFile,
 } from "isaacscript-common";
 import { babyAdd } from "../../babyAdd";
@@ -49,7 +51,7 @@ export class BabySelection extends ModFeature {
 
   @CallbackCustom(ModCallbackCustom.POST_GAME_STARTED_REORDERED, false)
   postGameStartedReorderedFalse(): void {
-    if (this.shouldClearPastBabies()) {
+    if (this.shouldClearPastBabiesOnNewRun()) {
       v.persistent.pastBabies.clear();
     }
   }
@@ -59,18 +61,19 @@ export class BabySelection extends ModFeature {
    * exception is during the Racing+ custom challenge. In that case, we only want to clear it on the
    * first character.
    */
-  shouldClearPastBabies(): boolean {
-    const challenge = Isaac.GetChallenge();
-    const season5 = Isaac.GetChallengeIdByName("R+7 Season 5");
+  shouldClearPastBabiesOnNewRun(): boolean {
+    const season5 = Isaac.GetChallengeIdByName("R+7 Season 5") as
+      | Challenge
+      | -1;
 
-    if (challenge !== season5) {
-      return true;
+    if (season5 !== -1 && onChallenge(season5)) {
+      return (
+        RacingPlusIsOnFirstCharacter === undefined ||
+        RacingPlusIsOnFirstCharacter()
+      );
     }
 
-    return (
-      RacingPlusIsOnFirstCharacter === undefined ||
-      RacingPlusIsOnFirstCharacter()
-    );
+    return true;
   }
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_LEVEL_REORDERED)

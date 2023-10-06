@@ -1,9 +1,9 @@
-import { Challenge } from "isaac-typescript-definitions";
 import {
   assertDefined,
   game,
   getHUDOffsetVector,
   newSprite,
+  onAnyChallenge,
 } from "isaacscript-common";
 import { isRacingPlusEnabled } from "./utils";
 
@@ -44,12 +44,10 @@ export function timerDraw(finishTime: int | null): void {
     return;
   }
 
-  const challenge = Isaac.GetChallenge();
-
   // Calculate the starting draw position. It will be either to the right of the speed stat or to
   // the right of the "R+" icon if we are using Racing+ and not in a custom challenge.
   let x = 55;
-  if (isRacingPlusEnabled() && challenge !== Challenge.NULL) {
+  if (isRacingPlusEnabled() && onAnyChallenge()) {
     // To the right of the "S5" sprite on the left side of the screen.
     x = 83;
   }
