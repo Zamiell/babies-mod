@@ -3,6 +3,11 @@
 <!-- cspell:ignore Adrayon,cantgirl,elgirs,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.27.0_ - October 7th, 2023 (Unreleased)
+
+- The following babies have new effects:
+  - Road Kill Baby (#507) - "Starts with Pointy Rib x3 + blindfolded" --> "Starts with Pointy Rib x3 + flight + blindfolded"
+
 ### _v1.27.0_ - October 6th, 2023
 
 - The following babies have new effects:

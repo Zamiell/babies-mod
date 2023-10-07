@@ -516,7 +516,7 @@ There are 604 babies in total.
 | 504 | <img src="./images/504_baby_psychic.png" alt="504_baby_psychic.png"> | Psychic Baby | Starts with Abel; tears come from Abel; 2x damage (but not in big rooms) |
 | 505 | <img src="./images/505_baby_puppet.png" alt="505_baby_puppet.png"> | Puppet Baby | Starts with Salvation |
 | 506 | <img src="./images/506_baby_reaper.png" alt="506_baby_reaper.png"> | Reaper Baby | Spawns a random rune on hit |
-| 507 | <img src="./images/507_baby_roadkill.png" alt="507_baby_roadkill.png"> | Road Kill Baby | Starts with Pointy Rib x3 + blindfolded |
+| 507 | <img src="./images/507_baby_roadkill.png" alt="507_baby_roadkill.png"> | Road Kill Baby | Starts with Pointy Rib x3 + flight + blindfolded |
 | 508 | <img src="./images/508_baby_sausagelover.png" alt="508_baby_sausagelover.png"> | Sausage Lover Baby | Summons Monstro every 5 seconds |
 | 509 | <img src="./images/509_baby_scribble.png" alt="509_baby_scribble.png"> | Scribble Baby | Starts with Lead Pencil |
 | 510 | <img src="./images/510_baby_starplant.png" alt="510_baby_starplant.png"> | Star Plant Baby | Starts with Dim Bulb |

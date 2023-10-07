@@ -4471,10 +4471,11 @@ export const BABIES = {
   // 507
   [RandomBabyType.ROAD_KILL]: {
     name: "Road Kill Baby",
-    description: "Starts with Pointy Rib x3 + blindfolded",
+    description: "Starts with Pointy Rib x3 + flight + blindfolded",
     sprite: "507_baby_roadkill.png",
     collectible: CollectibleType.POINTY_RIB,
     collectibleNum: 3,
+    flight: true,
     blindfolded: true,
   },
 
