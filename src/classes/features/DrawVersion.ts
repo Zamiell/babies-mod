@@ -8,7 +8,8 @@ import {
   isBeforeRenderFrame,
   isKeyboardPressed,
 } from "isaacscript-common";
-import { MOD_NAME, VERSION } from "../../constants";
+import { version } from "../../../package.json";
+import { MOD_NAME } from "../../constants";
 
 const SHOW_VERSION_HOTKEY = Keyboard.F1;
 const SECONDS_SHOWN = 2;
@@ -75,7 +76,7 @@ export class DrawVersion extends ModFeature {
     y = centerPos.Y;
     Isaac.RenderScaledText(text, x, y, scale, scale, 2, 2, 2, 2);
 
-    text = VERSION;
+    text = version;
     scale = 1;
     x = centerPos.X - 3 * scale * text.length;
     y = centerPos.Y + 15;

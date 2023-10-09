@@ -4,6 +4,7 @@ import {
   setLogFunctionsGlobal,
   setTracebackFunctionsGlobal,
 } from "isaacscript-common";
+import { version } from "../package.json";
 import { babiesCheckValid } from "./babiesCheckValid";
 import type { Baby } from "./classes/Baby";
 import { AllCollectiblesFromPool } from "./classes/features/AllCollectiblesFromPool";
@@ -25,7 +26,7 @@ import { PseudoRoomClear } from "./classes/features/PseudoRoomClear";
 import { RemoveSeeds } from "./classes/features/RemoveSeeds";
 import { Shockwaves } from "./classes/features/Shockwaves";
 import { SoftlockPrevention } from "./classes/features/SoftlockPrevention";
-import { IS_DEV, MOD_NAME, VERSION } from "./constants";
+import { IS_DEV, MOD_NAME } from "./constants";
 import type { RandomBabyType } from "./enums/RandomBabyType";
 import { enableExtraConsoleCommandsBabiesMod } from "./extraConsoleCommands";
 import type { BabyDescription } from "./interfaces/BabyDescription";
@@ -71,7 +72,7 @@ export function main(): void {
 }
 
 function welcomeBanner() {
-  const welcomeText = `${MOD_NAME} ${VERSION} initialized.`;
+  const welcomeText = `${MOD_NAME} ${version} initialized.`;
   const hyphens = "-".repeat(welcomeText.length);
   const welcomeTextBorder = `+-${hyphens}-+`;
   log(welcomeTextBorder);
