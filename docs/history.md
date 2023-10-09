@@ -3,10 +3,14 @@
 <!-- cspell:ignore Adrayon,cantgirl,elgirs,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
-### _v1.27.0_ - October 7th, 2023 (Unreleased)
+### _v1.28.0_ - October 7th, 2023 (Unreleased)
 
+- !The documentation now shows babies that are exempt from end floors.
 - The following babies have new effects:
+  - Mean Mushroom Baby (#367) - "Enemy projectiles freeze you" --> "Is frozen on hit"
   - Road Kill Baby (#507) - "Starts with Pointy Rib x3 + blindfolded" --> "Starts with Pointy Rib x3 + flight + blindfolded"
+- Changed the following babies:
+  - Abel (#585) - Now has the same paralysis effect as Bluebird Baby.
 
 ### _v1.27.0_ - October 6th, 2023
 

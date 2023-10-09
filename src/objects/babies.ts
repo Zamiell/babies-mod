@@ -1055,6 +1055,7 @@ export const BABIES = {
     flight: true,
     explosionImmunity: true,
     blindfolded: true,
+    requireNoEndFloors: true,
   },
 
   // 118
@@ -3238,9 +3239,10 @@ export const BABIES = {
   // 367
   [RandomBabyType.MEAN_MUSHROOM]: {
     name: "Mean Mushroom Baby",
-    description: "Enemies projectiles freeze you",
+    description: "Is frozen on hit for 1.5 seconds",
     sprite: "367_baby_meanmushroom.png",
     requireNoEndFloors: true,
+    num: 1.5 * GAME_FRAMES_PER_SECOND, // The number of game frames to be frozen for.
     class: bc.MeanMushroomBaby,
   },
 
@@ -5143,7 +5145,7 @@ export const BABIES = {
   // 585
   [RandomBabyType.ABEL]: {
     name: "Abel", // CollectibleType.ABEL (188)
-    description: "Every 5th missed tear causes paralysis",
+    description: "Every 5th missed tear causes 2 seconds of paralysis",
     sprite: "familiar_shooters_08_abel.png",
     requireTears: true,
     num: 5,

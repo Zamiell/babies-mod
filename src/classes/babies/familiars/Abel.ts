@@ -1,11 +1,13 @@
+import { ModCallback } from "isaac-typescript-definitions";
 import {
-  ModCallback,
-  PillColor,
-  PillEffect,
-} from "isaac-typescript-definitions";
-import { Callback, isMissedTear } from "isaacscript-common";
+  Callback,
+  GAME_FRAMES_PER_SECOND,
+  isMissedTear,
+} from "isaacscript-common";
 import { isValidForMissedTearsEffect } from "../../../utils";
 import { Baby } from "../../Baby";
+
+const FREEZE_GAME_FRAMES = 2 * GAME_FRAMES_PER_SECOND;
 
 const v = {
   run: {
@@ -17,7 +19,7 @@ const v = {
   },
 };
 
-/** Every Nth missed tear causes paralysis. */
+/** Every Nth missed tear causes 2 seconds of paralysis. */
 export class Abel extends Baby {
   v = v;
 
@@ -44,9 +46,9 @@ export class Abel extends Baby {
     v.run.numMissedTears++;
     if (v.run.numMissedTears === num) {
       v.run.numMissedTears = 0;
-      player.UsePill(PillEffect.PARALYSIS, PillColor.NULL);
-      // (We can't cancel the animation or it will cause a bug where the player cannot pick up
-      // pedestal items.)
+
+      player.AnimateSad();
+      player.AddControlsCooldown(FREEZE_GAME_FRAMES);
     }
   }
 

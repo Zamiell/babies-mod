@@ -1092,10 +1092,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^20.8.2":
-  version: 20.8.2
-  resolution: "@types/node@npm:20.8.2"
-  checksum: 3da73e25d821bfcdb7de98589027e08bb4848e55408671c4a83ec0341e124b5313a0b20e1e4b4eff1168ea17a86f622ad73fcb04b761abd77496b9a27cbd5de5
+"@types/node@npm:^20.8.3":
+  version: 20.8.3
+  resolution: "@types/node@npm:20.8.3"
+  checksum: bfb88b341faeb19f8fd37306a3bf433721b876c6491d10fcb0b13fd26601fa36ee45113dd82b1e1c23e3c957dff5b99f81a16493cefa03abe797e41a2487a4f7
   languageName: node
   linkType: hard
 
@@ -1615,9 +1615,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "babies-mod@workspace:."
   dependencies:
-    "@types/node": ^20.8.2
+    "@types/node": ^20.8.3
     isaac-typescript-definitions: ^27.0.0
-    isaacscript: ^3.13.0
+    isaacscript: ^3.14.0
     isaacscript-common: ^61.0.0
     isaacscript-lint: ^6.0.0
     isaacscript-spell: ^1.6.0
@@ -4059,9 +4059,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isaacscript@npm:^3.13.0":
-  version: 3.13.0
-  resolution: "isaacscript@npm:3.13.0"
+"isaacscript@npm:^3.14.0":
+  version: 3.14.0
+  resolution: "isaacscript@npm:3.14.0"
   dependencies:
     ajv: ^8.12.0
     chalk: 4.1.2
@@ -4084,7 +4084,7 @@ __metadata:
     typescript: ">= 5.0.0"
   bin:
     isaacscript: src/main.js
-  checksum: e9f5ec988b1dae14c3a1a0f35f09483b8caabf9330032b6c7860b65ce8392e7469ba0c8f19ea04abc5cb01183b0d4d2d26354e66af348bb064440f0f81d59606
+  checksum: 4d84fd2e02f0741b933f1f6f9770d631a6d121588e9d6f15374a2cfdd2c6f2fdebb642a70025e3e3402f68178e26a6637ea8abc39d323e49ffb9e96467b88a72
   languageName: node
   linkType: hard
 
