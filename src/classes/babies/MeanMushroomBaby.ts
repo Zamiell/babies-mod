@@ -20,7 +20,8 @@ export class MeanMushroomBaby extends Baby {
       return;
     }
 
-    if (!player.AreControlsEnabled()) {
+    const controlsEnabled = player.AreControlsEnabled();
+    if (!controlsEnabled) {
       return;
     }
 

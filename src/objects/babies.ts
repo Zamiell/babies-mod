@@ -2410,7 +2410,7 @@ export const BABIES = {
   // 275
   [RandomBabyType.AQUA]: {
     name: "Aqua Baby",
-    description: "Starts with Taurus",
+    description: "Starts with Vade Retro",
     sprite: "275_baby_aqua.png",
     collectible: CollectibleType.TAURUS,
   },

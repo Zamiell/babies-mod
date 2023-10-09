@@ -284,7 +284,7 @@ There are 604 babies in total.
 | 272 | <img src="./images/272_baby_parrot.png" alt="272_baby_parrot.png"> | Parrot Baby | Starts with A Pony |
 | 273 | <img src="./images/273_baby_chameleon.png" alt="273_baby_chameleon.png"> | Chameleon Baby | Starts with 5x Rotten Baby |
 | 274 | <img src="./images/274_baby_boulder.png" alt="274_baby_boulder.png"> | Boulder Baby | Starts with Leo |
-| 275 | <img src="./images/275_baby_aqua.png" alt="275_baby_aqua.png"> | Aqua Baby | Starts with Taurus |
+| 275 | <img src="./images/275_baby_aqua.png" alt="275_baby_aqua.png"> | Aqua Baby | Starts with Vade Retro |
 | 276 | <img src="./images/276_baby_gargoyle.png" alt="276_baby_gargoyle.png"> | Gargoyle Baby | Head of Krampus effect on hit |
 | 277 | <img src="./images/277_baby_spikydemon.png" alt="277_baby_spikydemon.png"> | Spiky Demon Baby | Starts with Dark Arts + Car Battery |
 | 278 | <img src="./images/278_baby_reddemon.png" alt="278_baby_reddemon.png"> | Red Demon Baby | Starts with Brimstone + Anti-Gravity |
@@ -376,7 +376,7 @@ There are 604 babies in total.
 | 364 | <img src="./images/364_baby_turtledragon.png" alt="364_baby_turtledragon.png"> | Turtle Dragon Baby | Fiery tears |
 | 365 | <img src="./images/365_baby_shellsuit.png" alt="365_baby_shellsuit.png"> | Shell Suit Baby | Starts with Burnt Penny |
 | 366 | <img src="./images/366_baby_fiery.png" alt="366_baby_fiery.png"> | Fiery Baby | Spawns a friendly fire on hit |
-| 367 | <img src="./images/367_baby_meanmushroom.png" alt="367_baby_meanmushroom.png"> | Mean Mushroom Baby | Enemies projectiles freeze you |
+| 367 | <img src="./images/367_baby_meanmushroom.png" alt="367_baby_meanmushroom.png"> | Mean Mushroom Baby | Is frozen on hit for 1.5 seconds |
 | 368 | <img src="./images/368_baby_arcade.png" alt="368_baby_arcade.png"> | Arcade Baby | Razor blade tears (every 3rd tear) |
 | 369 | <img src="./images/369_baby_scaredghost.png" alt="369_baby_scaredghost.png"> | Scared Ghost Baby | 2x speed |
 | 370 | <img src="./images/370_baby_blueghost.png" alt="370_baby_blueghost.png"> | Blue Ghost Baby | Max tear rate |
@@ -594,7 +594,7 @@ There are 604 babies in total.
 | 582 | <img src="./images/familiar_shooters_09_ghostbaby.png" alt="familiar_shooters_09_ghostbaby.png"> | Ghost Baby | All items from the shop pool |
 | 583 | <img src="./images/familiar_shooters_10_harlequinbaby.png" alt="familiar_shooters_10_harlequinbaby.png"> | Harlequin Baby | Starts with The Wiz |
 | 584 | <img src="./images/familiar_shooters_11_rainbowbaby.png" alt="familiar_shooters_11_rainbowbaby.png"> | Rainbow Baby | Chest per enemy killed |
-| 585 | <img src="./images/familiar_shooters_08_abel.png" alt="familiar_shooters_08_abel.png"> | Abel | Every 5th missed tear causes paralysis |
+| 585 | <img src="./images/familiar_shooters_08_abel.png" alt="familiar_shooters_08_abel.png"> | Abel | Every 5th missed tear causes 2 seconds of paralysis |
 | 586 | <img src="./images/familiar_shooters_267_robobaby20.png" alt="familiar_shooters_267_robobaby20.png"> | Robo-Baby 2.0 | Starts with Undefined (uncharged) |
 | 587 | <img src="./images/familiar_shooters_268_rottenbaby.png" alt="familiar_shooters_268_rottenbaby.png"> | Rotten Baby | Shoots Blue Flies + flight |
 | 588 | <img src="./images/familiar_shooters_275_lilbrimstone_custom.png" alt="familiar_shooters_275_lilbrimstone_custom.png"> | Lil Brimstone | Starts with Brimstone |
