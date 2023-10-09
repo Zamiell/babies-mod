@@ -1,17 +1,10 @@
-import {
-  Dimension,
-  LevelStage,
-  ModCallback,
-  RoomType,
-} from "isaac-typescript-definitions";
+import { Dimension, ModCallback, RoomType } from "isaac-typescript-definitions";
 import {
   Callback,
   game,
   getDimension,
   getDoors,
   isAllRoomsClear,
-  onStage,
-  onStageOrHigher,
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
@@ -26,14 +19,6 @@ const v = {
 /** Must full clear. */
 export class PubicBaby extends Baby {
   v = v;
-
-  /** Full clearing a final floor is too punishing. */
-  override isValid(): boolean {
-    return (
-      !onStage(LevelStage.BLUE_WOMB) &&
-      !onStageOrHigher(LevelStage.DARK_ROOM_CHEST)
-    );
-  }
 
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
