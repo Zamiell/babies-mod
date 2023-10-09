@@ -13,11 +13,11 @@
   "type": "module",
   "dependencies": {
     "isaac-typescript-definitions": "^27.0.0",
-    "isaacscript-common": "^61.0.0"
+    "isaacscript-common": "^61.0.1"
   },
   "devDependencies": {
     "@types/node": "^20.8.3",
-    "isaacscript": "^3.14.0",
+    "isaacscript": "^3.14.1",
     "isaacscript-lint": "^6.0.0",
     "isaacscript-spell": "^1.6.0",
     "isaacscript-tsconfig": "^4.0.0",
