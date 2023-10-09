@@ -1238,6 +1238,7 @@ export const BABIES = {
     name: "Rotten Meat Baby",
     description: "Teleport to starting room on hit",
     sprite: "139_baby_rottenmeat.png",
+    requireNoEndFloors: true,
     class: bc.RottenMeatBaby,
   },
 
@@ -1648,6 +1649,7 @@ export const BABIES = {
     name: "Faded Baby",
     description: "Random teleport on hit",
     sprite: "186_baby_faded.png",
+    requireNoEndFloors: true,
     class: bc.FadedBaby,
   },
 
