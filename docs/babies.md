@@ -149,7 +149,7 @@ There are 604 babies in total.
 | 137 | <img src="./images/137_baby_bowling.png" alt="137_baby_bowling.png"> | Bowling Baby | Starts with Flat Stone | ✔️
 | 138 | <img src="./images/138_baby_mohawk.png" alt="138_baby_mohawk.png"> | Mohawk Baby | Bombs are hearts | ✔️
 | 139 | <img src="./images/139_baby_rottenmeat.png" alt="139_baby_rottenmeat.png"> | Rotten Meat Baby | Teleport to starting room on hit | ✔️
-| 140 | <img src="./images/140_baby_noarms.png" alt="140_baby_noarms.png"> | No Arms Baby | Pickups are bouncy | ✔️
+| 140 | <img src="./images/140_baby_noarms.png" alt="140_baby_noarms.png"> | No Arms Baby | Pickups are bouncy | ❌
 | 141 | <img src="./images/141_baby_twin2.png" alt="141_baby_twin2.png"> | Twin Baby | Uncontrollable Teleport 2.0 | ✔️
 | 142 | <img src="./images/142_baby_uglygirl.png" alt="142_baby_uglygirl.png"> | Ugly Girl Baby | Starts with Ipecac + Dr. Fetus | ✔️
 | 143 | <img src="./images/143_baby_chompers.png" alt="143_baby_chompers.png"> | Chompers Baby | Everything is Red Poop | ✔️
@@ -196,7 +196,7 @@ There are 604 babies in total.
 | 184 | <img src="./images/184_baby_don.png" alt="184_baby_don.png"> | Don Baby | Starts with Bob's Brain | ✔️
 | 185 | <img src="./images/185_baby_web.png" alt="185_baby_web.png"> | Web Baby | Slowing tears | ✔️
 | 186 | <img src="./images/186_baby_faded.png" alt="186_baby_faded.png"> | Faded Baby | Random teleport on hit | ✔️
-| 187 | <img src="./images/187_baby_sick.png" alt="187_baby_sick.png"> | Sick Baby | Shoots explosive flies + flight | ✔️
+| 187 | <img src="./images/187_baby_sick.png" alt="187_baby_sick.png"> | Sick Baby | Shoots explosive flies + flight | ❌
 | 188 | <img src="./images/188_baby_drfetus.png" alt="188_baby_drfetus.png"> | Dr. Fetus Baby | Starts with Dr. Fetus + Remote Detonator | ✔️
 | 189 | <img src="./images/189_baby_spectral.png" alt="189_baby_spectral.png"> | Spectral Baby | Starts with Ouija Board | ✔️
 | 190 | <img src="./images/190_baby_redskeleton.png" alt="190_baby_redskeleton.png"> | Red Skeleton Baby | Starts with 3x Slipped Rib | ✔️
