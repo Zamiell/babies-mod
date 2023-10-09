@@ -12,6 +12,8 @@
   - Road Kill Baby (#507) - "Starts with Pointy Rib x3 + blindfolded" --> "Starts with Pointy Rib x3 + flight + blindfolded"
 - Changed the following babies:
   - Abel (#585) - Now has the same paralysis effect as Bluebird Baby.
+- Fixed bugs with the following babies:
+  - Cool Ghost Baby (#409) - Will now properly remove the Succubi under certain conditions. (Thanks jack)
 
 ### _v1.27.0_ - October 6th, 2023
 

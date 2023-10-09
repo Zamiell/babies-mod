@@ -19,6 +19,14 @@ const v = {
 export class CoolGhostBaby extends Baby {
   v = v;
 
+  override onRemove(player: EntityPlayer): void {
+    const num = this.getAttribute("num");
+
+    repeat(num, () => {
+      player.RemoveCollectible(CollectibleType.SUCCUBUS);
+    });
+  }
+
   // 23
   @Callback(ModCallback.PRE_USE_ITEM, CollectibleTypeCustom.FLOCK_OF_SUCCUBI)
   preUseItemFlockOfSuccubi(
