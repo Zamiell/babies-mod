@@ -5,7 +5,7 @@
 
 ### _v1.28.0_ - October 9th, 2023
 
-- !The documentation now shows babies that are exempt from end floors.
+- The documentation now shows babies that are exempt from end floors.
 - Fixed the bug with various babies where detecting room clear would not work properly. (Thanks elgirs)
 - The following babies have new effects:
   - Aqua Baby (#275) - "Starts with Taurus" --> "Starts with Vade Retro"
