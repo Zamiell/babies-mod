@@ -51,7 +51,7 @@ export interface BabyDescription {
   /** Requires that the player has a tear build (e.g. no Brimstone). */
   readonly requireTears?: boolean;
 
-  /** Requires that the player is on Womb 2 or lower. */
+  /** Requires that the player is on Womb 1 or lower. */
   readonly requireNoEndFloors?: boolean;
 
   /** Requires that the player has enough health remaining to take N hits. */

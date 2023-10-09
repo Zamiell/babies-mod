@@ -7,8 +7,8 @@
 
 There are 604 babies in total.
 
-| ID | Appearance | Name | Description | Appears on End Floors
-| -- | ---------- | ---- | ----------- | ---------------------
+| ID | Appearance | Name | Description | Appears on Womb 2 & Beyond
+| --- | --- | --- | --- | ---
 | 0 | <img src="./images/000_baby_spider.png" alt="000_baby_spider.png"> | Spider Baby | Shoots a Blue Spider every 2nd tear | ✔️
 | 1 | <img src="./images/001_baby_love.png" alt="001_baby_love.png"> | Love Baby | Spawns a random heart on room clear | ✔️
 | 2 | <img src="./images/002_baby_bloat.png" alt="002_baby_bloat.png"> | Bloat Baby | Syringe tears (every 3rd tear) | ✔️
