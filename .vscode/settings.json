@@ -29,6 +29,7 @@
     "**/.yarn/": true,
     "**/dist/": true,
     "**/node_modules/": true,
+    "LICENSE": true,
     // @template-customization-start
     "docs/babies.md": true,
     // @template-customization-end
