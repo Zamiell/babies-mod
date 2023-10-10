@@ -53,7 +53,7 @@ const TELEPORT_COLLECTIBLE_TYPE_TO_ROOM_TYPE_MAP = new ReadonlyMap<
   [CollectibleTypeCustom.SACRIFICE_ROOM_TELEPORT, RoomType.SACRIFICE], // 13
   [CollectibleTypeCustom.BEDROOM_CLEAN_TELEPORT, RoomType.CLEAN_BEDROOM], // 18
   [CollectibleTypeCustom.BEDROOM_DIRTY_TELEPORT, RoomType.DIRTY_BEDROOM], // 19
-  [CollectibleTypeCustom.TREASURE_CHEST_ROOM_TELEPORT, RoomType.CHEST], // 20
+  [CollectibleTypeCustom.VAULT_TELEPORT, RoomType.VAULT], // 20
   [CollectibleTypeCustom.DICE_ROOM_TELEPORT, RoomType.DICE], // 21
   [CollectibleTypeCustom.PLANETARIUM_TELEPORT, RoomType.PLANETARIUM], // 24
 ]);
@@ -117,10 +117,7 @@ const TELEPORT_ROOM_TYPE_TO_ITEM_AND_PRICE_MAP = new ReadonlyMap<
   ],
 
   // 20
-  [
-    RoomType.CHEST,
-    [CollectibleTypeCustom.TREASURE_CHEST_ROOM_TELEPORT, TeleportPrice.TEN],
-  ],
+  [RoomType.VAULT, [CollectibleTypeCustom.VAULT_TELEPORT, TeleportPrice.TEN]],
 
   // 21
   [

@@ -16,9 +16,7 @@ export const CollectibleTypeCustom = {
   SACRIFICE_ROOM_TELEPORT: Isaac.GetItemIdByName("Sacrifice Room Teleport"),
   BEDROOM_CLEAN_TELEPORT: Isaac.GetItemIdByName("Bedroom (Clean) Teleport"),
   BEDROOM_DIRTY_TELEPORT: Isaac.GetItemIdByName("Bedroom (Dirty) Teleport"),
-  TREASURE_CHEST_ROOM_TELEPORT: Isaac.GetItemIdByName(
-    "Treasure Chest Room Teleport",
-  ),
+  VAULT_TELEPORT: Isaac.GetItemIdByName("Vault Teleport"),
   DICE_ROOM_TELEPORT: Isaac.GetItemIdByName("Dice Room Teleport"),
   PLANETARIUM_TELEPORT: Isaac.GetItemIdByName("Planetarium Teleport"),
 } as const;
