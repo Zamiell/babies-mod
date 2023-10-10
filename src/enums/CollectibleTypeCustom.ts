@@ -1,3 +1,5 @@
+import { validateCustomEnum } from "isaacscript-common";
+
 export const CollectibleTypeCustom = {
   CLOCKWORK_ASSEMBLY: Isaac.GetItemIdByName("Clockwork Assembly"),
   FLOCK_OF_SUCCUBI: Isaac.GetItemIdByName("Flock of Succubi"),
@@ -21,5 +23,4 @@ export const CollectibleTypeCustom = {
   PLANETARIUM_TELEPORT: Isaac.GetItemIdByName("Planetarium Teleport"),
 } as const;
 
-// We can't use the "validateCustomEnum" helper function because the `CHECKPOINT` value is expected
-// to be -1.
+validateCustomEnum("CollectibleTypeCustom", CollectibleTypeCustom);
