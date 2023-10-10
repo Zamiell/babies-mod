@@ -21,7 +21,7 @@ export class LazyBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
     // It would be unfair to randomly die.
-    const exceptions = [CardType.SUICIDE_KING, CardType.SOUL_LAZARUS];
+    const exceptions = [CardType.SUICIDE_KING, CardType.SOUL_OF_LAZARUS];
     const card = mod.getRandomCard(v.run.rng, exceptions);
 
     // We don't use the `useCardTemp` helper function because we want the random card name to appear

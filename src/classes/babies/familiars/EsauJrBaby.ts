@@ -10,7 +10,7 @@ import { Baby } from "../../Baby";
 export class EsauJrBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
-    useCardTemp(player, CardType.SOUL_JACOB);
+    useCardTemp(player, CardType.SOUL_OF_JACOB_AND_ESAU);
     return undefined;
   }
 }

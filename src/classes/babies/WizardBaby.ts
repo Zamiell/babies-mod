@@ -29,10 +29,10 @@ const FACE_UP_CARD_TYPES = new ReadonlySet([
   CardType.SUN, // 20
   CardType.JUDGEMENT, // 21
   CardType.WORLD, // 22
-  CardType.CLUBS_2, // 23
-  CardType.DIAMONDS_2, // 24
-  CardType.SPADES_2, // 25
-  CardType.HEARTS_2, // 26
+  CardType.TWO_OF_CLUBS, // 23
+  CardType.TWO_OF_DIAMONDS, // 24
+  CardType.TWO_OF_SPADES, // 25
+  CardType.TWO_OF_HEARTS, // 26
   CardType.ACE_OF_CLUBS, // 27
   CardType.ACE_OF_DIAMONDS, // 28
   CardType.ACE_OF_SPADES, // 29

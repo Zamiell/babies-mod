@@ -3,7 +3,6 @@ import {
   Callback,
   game,
   getDoors,
-  isGreedMode,
   onStage,
   onStageOrHigher,
 } from "isaacscript-common";
@@ -15,7 +14,7 @@ export class BaggyCapBaby extends Baby {
     return (
       !onStage(LevelStage.BLUE_WOMB) &&
       !onStageOrHigher(LevelStage.DARK_ROOM_CHEST) &&
-      !isGreedMode()
+      !game.IsGreedMode()
     );
   }
 

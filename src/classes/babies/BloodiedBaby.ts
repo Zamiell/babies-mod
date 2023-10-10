@@ -52,7 +52,7 @@ export class BloodiedBaby extends Baby {
       doorStateMap.set(door.TargetRoomIndex, door.State);
     }
 
-    useCardTemp(player, CardType.SOUL_CAIN);
+    useCardTemp(player, CardType.SOUL_OF_CAIN);
 
     if (roomClear) {
       return;

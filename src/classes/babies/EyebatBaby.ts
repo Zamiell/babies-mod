@@ -16,7 +16,6 @@ import {
   hasFlag,
   inRoomType,
   inStartingRoom,
-  isGreedMode,
   onAscent,
   onFirstFloor,
   onRepentanceStage,
@@ -50,7 +49,7 @@ export class EyebatBaby extends Baby {
       onStageOrLower(LevelStage.WOMB_1) &&
       !onRepentanceStage() &&
       !onAscent() &&
-      !isGreedMode()
+      !game.IsGreedMode()
     );
   }
 
