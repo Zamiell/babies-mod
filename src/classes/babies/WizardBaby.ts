@@ -93,8 +93,8 @@ const FACE_UP_CARD_TYPES = new ReadonlySet([
 
 /** Most cards are face up. */
 export class WizardBaby extends Baby {
-  @Callback(ModCallback.POST_PICKUP_INIT, PickupVariant.TAROT_CARD)
-  postPickupInitTarotCard(pickup: EntityPickup): void {
+  @Callback(ModCallback.POST_PICKUP_INIT, PickupVariant.CARD)
+  postPickupInitCard(pickup: EntityPickup): void {
     const card = pickup as EntityPickupCard;
 
     if (FACE_UP_CARD_TYPES.has(card.SubType)) {
