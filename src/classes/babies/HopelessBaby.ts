@@ -1,6 +1,7 @@
 import {
   CollectibleType,
   DamageFlag,
+  LevelStage,
   ModCallback,
 } from "isaac-typescript-definitions";
 import {
@@ -10,6 +11,7 @@ import {
   getHUDOffsetVector,
   hasFlag,
   newSprite,
+  onStage,
   useActiveItemTemp,
 } from "isaacscript-common";
 import {
@@ -24,7 +26,12 @@ const KEY_SPRITE = newSprite("gfx/custom-health/key.anm2");
 export class HopelessBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
     const keys = player.GetNumKeys();
-    return keys >= 2;
+    return (
+      keys >= 2 &&
+      // If a player is not paying attention, they can accidentally open the locked chests at the
+      // start of the floor and die.
+      !onStage(LevelStage.BLUE_WOMB, LevelStage.DARK_ROOM_CHEST)
+    );
   }
 
   // 2
