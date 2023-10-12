@@ -30,7 +30,7 @@
   <!-- 19 -->
   <passive name="Bedroom (Dirty) Teleport" description="You seek a trapdoor" gfx="teleports/bedroom_dirty.png" hidden="true" />
   <!-- 20 -->
-  <passive name="Vault Room Teleport" description="You seek chests" gfx="teleports/vault.png" hidden="true" />
+  <passive name="Vault Teleport" description="You seek chests" gfx="teleports/vault.png" hidden="true" />
   <!-- 21 -->
   <passive name="Dice Room Teleport" description="You seek randomness" gfx="teleports/dice_room.png" hidden="true" />
   <!-- 24 -->
