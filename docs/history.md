@@ -3,6 +3,11 @@
 <!-- cspell:ignore Adrayon,cantgirl,elgirs,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.28.1_ - October 12th, 2023
+
+- Fixed bugs with the following babies:
+  - Belial Baby (#51) - Will now properly work with Technology. (Thanks sisuka)
+
 ### _v1.28.0_ - October 9th, 2023
 
 - The documentation now shows babies that are exempt from end floors.

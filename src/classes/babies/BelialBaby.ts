@@ -44,7 +44,10 @@ export class BelialBaby extends Baby {
       return;
     }
 
-    if (laser.Variant === LaserVariant.THICK_RED) {
+    if (
+      laser.Variant === LaserVariant.THICK_RED ||
+      laser.Variant === LaserVariant.BRIMSTONE_TECHNOLOGY
+    ) {
       // For simplicity and to make it more difficult, we hard-code the default Azazel distance
       // (instead of dynamically calculating it based on the player's range).
       laser.SetMaxDistance(AZAZEL_DEFAULT_BRIMSTONE_DISTANCE);
