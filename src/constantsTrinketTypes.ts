@@ -13,6 +13,12 @@ export const TRINKETS_THAT_OPERATE_ON_ACTIVE_ITEMS = new ReadonlySet([
   TrinketType.BUTTER, // 122
 ]);
 
+export const TRINKETS_THAT_OPERATE_ON_ACTIVE_ITEMS_WITH_CHARGES =
+  new ReadonlySet([
+    TrinketType.VIBRANT_BULB, // 100
+    TrinketType.DIM_BULB, // 101
+  ]);
+
 export const CHEST_ANTI_SYNERGY_TRINKET_TYPES = [
   TrinketType.LEFT_HAND, // 61
   TrinketType.GILDED_KEY, // 159

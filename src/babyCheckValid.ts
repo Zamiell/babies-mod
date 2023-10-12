@@ -10,6 +10,7 @@ import type { AnyFunction } from "isaacscript-common";
 import {
   MAPPING_COLLECTIBLES,
   getCollectibleItemType,
+  getCollectibleMaxCharges,
   getEffectiveStage,
   hasAnyTrinket,
   hasCollectible,
@@ -46,6 +47,7 @@ import {
 } from "./constantsCollectibleTypes";
 import {
   TRINKETS_THAT_OPERATE_ON_ACTIVE_ITEMS,
+  TRINKETS_THAT_OPERATE_ON_ACTIVE_ITEMS_WITH_CHARGES,
   TRINKETS_THAT_SYNERGIZE_WITH_TEARS,
 } from "./constantsTrinketTypes";
 import { COLLECTIBLE_TYPE_TO_COLLECTIBLE_TYPE_CUSTOM_MAP } from "./customCollectibles";
@@ -557,6 +559,16 @@ function checkTrinkets(player: EntityPlayer, baby: BabyDescription): boolean {
     isActiveSlotEmpty(player)
   ) {
     return false;
+  }
+
+  if (TRINKETS_THAT_OPERATE_ON_ACTIVE_ITEMS_WITH_CHARGES.has(baby.trinket)) {
+    const activeItem = player.GetActiveItem();
+    if (activeItem !== CollectibleType.NULL) {
+      const maxCharges = getCollectibleMaxCharges(activeItem);
+      if (maxCharges === 0) {
+        return false;
+      }
+    }
   }
 
   return true;
