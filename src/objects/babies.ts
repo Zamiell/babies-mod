@@ -2414,7 +2414,7 @@ export const BABIES = {
     name: "Aqua Baby",
     description: "Starts with Vade Retro",
     sprite: "275_baby_aqua.png",
-    collectible: CollectibleType.TAURUS,
+    collectible: CollectibleType.VADE_RETRO,
   },
 
   // 276
