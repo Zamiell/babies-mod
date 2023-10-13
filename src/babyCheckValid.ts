@@ -219,13 +219,6 @@ function checkCollectibles(
   }
 
   if (
-    babyCollectiblesSet.has(CollectibleType.DEATHS_TOUCH) && // 237
-    player.HasCollectible(CollectibleType.HAEMOLACRIA)
-  ) {
-    return false;
-  }
-
-  if (
     babyCollectiblesSet.has(CollectibleType.FIRE_MIND) && // 257
     hasPiercing(player)
   ) {
@@ -299,7 +292,14 @@ function checkCollectibles(
 
   if (
     babyCollectiblesSet.has(CollectibleType.HAEMOLACRIA) && // 531
-    player.HasCollectible(CollectibleType.DEATHS_TOUCH)
+    hasCollectible(player, ...PIERCING_COLLECTIBLE_TYPES)
+  ) {
+    return false;
+  }
+
+  if (
+    setHas(babyCollectiblesSet, ...PIERCING_COLLECTIBLE_TYPES) &&
+    player.HasCollectible(CollectibleType.HAEMOLACRIA) // 531
   ) {
     return false;
   }
