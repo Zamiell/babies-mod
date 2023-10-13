@@ -1,5 +1,6 @@
-import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
-import { Callback, repeat } from "isaacscript-common";
+import { ModCallback } from "isaac-typescript-definitions";
+import { Callback, hasCollectible, repeat } from "isaacscript-common";
+import { EXPLOSIVE_COLLECTIBLE_TYPES } from "../../constantsCollectibleTypes";
 import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
@@ -15,7 +16,7 @@ export class SpeakerBaby extends Baby {
 
   /** Certain collectibles make the baby too dangerous. */
   override isValid(player: EntityPlayer): boolean {
-    return !player.HasCollectible(CollectibleType.IPECAC);
+    return !hasCollectible(player, ...EXPLOSIVE_COLLECTIBLE_TYPES);
   }
 
   // 40

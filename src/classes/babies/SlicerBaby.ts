@@ -1,13 +1,14 @@
-import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
-import { Callback, setSpriteOpacity } from "isaacscript-common";
+import { ModCallback } from "isaac-typescript-definitions";
+import { Callback, hasCollectible, setSpriteOpacity } from "isaacscript-common";
+import { EXPLOSIVE_COLLECTIBLE_TYPES } from "../../constantsCollectibleTypes";
 import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
 /** Slice tears. */
 export class SlicerBaby extends Baby {
-  /** Ipecac causes the tears to explode instantly, which causes unavoidable damage. */
+  /** Explosive tears are too dangerous for a low-range build. */
   override isValid(player: EntityPlayer): boolean {
-    return !player.HasCollectible(CollectibleType.IPECAC);
+    return !hasCollectible(player, ...EXPLOSIVE_COLLECTIBLE_TYPES);
   }
 
   // 40

@@ -1,5 +1,6 @@
-import { CollectibleType, ModCallback } from "isaac-typescript-definitions";
-import { Callback } from "isaacscript-common";
+import { ModCallback } from "isaac-typescript-definitions";
+import { Callback, hasCollectible } from "isaacscript-common";
+import { EXPLOSIVE_COLLECTIBLE_TYPES } from "../../constantsCollectibleTypes";
 import { getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
@@ -14,7 +15,7 @@ export class AetherBaby extends Baby {
   v = v;
 
   override isValid(player: EntityPlayer): boolean {
-    return !player.HasCollectible(CollectibleType.IPECAC);
+    return !hasCollectible(player, ...EXPLOSIVE_COLLECTIBLE_TYPES);
   }
 
   /** Shoot 8 tears at a time. */

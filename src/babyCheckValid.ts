@@ -195,15 +195,6 @@ function checkCollectibles(
     return false;
   }
 
-  // Monstro's Lung removes explosion immunity from Dr.Fetus + Ipecac bombs.
-  if (
-    babyCollectiblesSet.has(CollectibleType.DR_FETUS) && // 52
-    babyCollectiblesSet.has(CollectibleType.IPECAC) && // 149
-    player.HasCollectible(CollectibleType.MONSTROS_LUNG) // 229
-  ) {
-    return false;
-  }
-
   if (
     babyCollectiblesSet.has(CollectibleType.D6) && // 105
     !onStageWithCollectibles()
@@ -214,15 +205,6 @@ function checkCollectibles(
   if (
     babyCollectiblesSet.has(CollectibleType.OUIJA_BOARD) && // 115
     hasSpectralOrSpectralLikeEffect(player)
-  ) {
-    return false;
-  }
-
-  // Certain collectible combinations make the tear rate too low.
-  if (
-    babyCollectiblesSet.has(CollectibleType.BRIMSTONE) && // 118
-    babyCollectiblesSet.has(CollectibleType.HAEMOLACRIA) && // 531
-    player.HasCollectible(CollectibleType.C_SECTION)
   ) {
     return false;
   }
@@ -238,27 +220,9 @@ function checkCollectibles(
     return false;
   }
 
-  // Immaculate Heart can cause unavoidable damage with the Ipecac + Trisagion synergy.
-  if (
-    babyCollectiblesSet.has(CollectibleType.IPECAC) && // 149
-    babyCollectiblesSet.has(CollectibleType.TRISAGION) && // 533
-    player.HasCollectible(CollectibleType.IMMACULATE_HEART) // 573
-  ) {
-    return false;
-  }
-
   if (
     babyCollectiblesSet.has(CollectibleType.CRICKETS_BODY) && // 224
     player.HasCollectible(CollectibleType.IPECAC)
-  ) {
-    return false;
-  }
-
-  // Monstro's Lung prevents easily bombing out of rooms on a Dr. Fetus + Ipecac build.
-  if (
-    babyCollectiblesSet.has(CollectibleType.MONSTROS_LUNG) && // 229
-    player.HasCollectible(CollectibleType.DR_FETUS) && // 52
-    player.HasCollectible(CollectibleType.IPECAC) // 149
   ) {
     return false;
   }
@@ -272,7 +236,7 @@ function checkCollectibles(
 
   if (
     babyCollectiblesSet.has(CollectibleType.ISAACS_TEARS) && // 323
-    player.HasCollectible(CollectibleType.IPECAC) // 149
+    hasCollectible(player, ...EXPLOSIVE_COLLECTIBLE_TYPES)
   ) {
     return false;
   }
@@ -364,6 +328,59 @@ function checkCollectibles(
     (!onStageWithCollectibles() ||
       // Spindown Dice can be used on Knife Piece 1 to break the game.
       (onStage(LevelStage.BASEMENT_2) && onRepentanceStage()))
+  ) {
+    return false;
+  }
+
+  // -------------------------------------
+  // Synergies with 2 or more collectibles
+  // -------------------------------------
+
+  // Monstro's Lung removes explosion immunity from Dr.Fetus + Ipecac bombs, which also makes it
+  // harder to bomb out of rooms.
+  if (
+    babyCollectiblesSet.has(CollectibleType.DR_FETUS) && // 52
+    babyCollectiblesSet.has(CollectibleType.IPECAC) && // 149
+    player.HasCollectible(CollectibleType.MONSTROS_LUNG) // 229
+  ) {
+    return false;
+  }
+  if (
+    babyCollectiblesSet.has(CollectibleType.MONSTROS_LUNG) && // 229
+    player.HasCollectible(CollectibleType.DR_FETUS) && // 52
+    player.HasCollectible(CollectibleType.IPECAC) // 149
+  ) {
+    return false;
+  }
+
+  // Certain collectible combinations make the tear rate too low.
+  if (
+    babyCollectiblesSet.has(CollectibleType.BRIMSTONE) && // 118
+    babyCollectiblesSet.has(CollectibleType.HAEMOLACRIA) && // 531
+    player.HasCollectible(CollectibleType.C_SECTION)
+  ) {
+    return false;
+  }
+  if (
+    player.HasCollectible(CollectibleType.BRIMSTONE) && // 118
+    player.HasCollectible(CollectibleType.HAEMOLACRIA) && // 531
+    babyCollectiblesSet.has(CollectibleType.C_SECTION)
+  ) {
+    return false;
+  }
+
+  // Immaculate Heart can cause unavoidable damage with the Ipecac + Trisagion synergy.
+  if (
+    babyCollectiblesSet.has(CollectibleType.IPECAC) && // 149
+    babyCollectiblesSet.has(CollectibleType.TRISAGION) && // 533
+    player.HasCollectible(CollectibleType.IMMACULATE_HEART) // 573
+  ) {
+    return false;
+  }
+  if (
+    player.HasCollectible(CollectibleType.IPECAC) && // 149
+    player.HasCollectible(CollectibleType.TRISAGION) && // 533
+    babyCollectiblesSet.has(CollectibleType.IMMACULATE_HEART) // 573
   ) {
     return false;
   }

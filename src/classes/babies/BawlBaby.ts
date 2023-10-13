@@ -4,15 +4,17 @@ import {
   CallbackCustom,
   ModCallbackCustom,
   game,
+  hasCollectible,
   useActiveItemTemp,
 } from "isaacscript-common";
+import { EXPLOSIVE_COLLECTIBLE_TYPES } from "../../constantsCollectibleTypes";
 import { doesBigChestExist, getBabyPlayerFromEntity } from "../../utils";
 import { Baby } from "../Baby";
 
 /** Constant Isaac's Tears effect + blindfolded. */
 export class BawlBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
-    return !player.HasCollectible(CollectibleType.IPECAC);
+    return !hasCollectible(player, ...EXPLOSIVE_COLLECTIBLE_TYPES);
   }
 
   // 61
