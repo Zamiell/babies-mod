@@ -42,7 +42,10 @@ export class PizzaBaby extends Baby {
     const gameFrameCount = game.GetFrameCount();
     const num = this.getAttribute("num");
 
-    if (onOrAfterGameFrame(v.room.useBrownNuggetOnFrame)) {
+    if (
+      v.room.useBrownNuggetOnFrame !== null &&
+      onOrAfterGameFrame(v.room.useBrownNuggetOnFrame)
+    ) {
       useActiveItemTemp(player, CollectibleType.BROWN_NUGGET);
 
       v.room.brownNuggetsUsed++;

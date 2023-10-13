@@ -31,7 +31,10 @@ export class ExplodingBaby extends Baby {
   postUpdate(): void {
     // Check to see if we need to reset the cooldown (after we used the Kamikaze effect upon
     // touching an obstacle).
-    if (onOrAfterGameFrame(v.room.kamikazeCooldownUntilGameFrame)) {
+    if (
+      v.room.kamikazeCooldownUntilGameFrame !== null &&
+      onOrAfterGameFrame(v.room.kamikazeCooldownUntilGameFrame)
+    ) {
       v.room.kamikazeCooldownUntilGameFrame = null;
     }
   }

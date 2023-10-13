@@ -163,7 +163,10 @@ function checkPseudoClear(player: EntityPlayer, babyType: RandomBabyType) {
   }
 
   // If a frame has passed since an enemy died, reset the delay counter.
-  if (onOrAfterGameFrame(v.room.clearDelayGameFrame)) {
+  if (
+    v.room.clearDelayGameFrame !== null &&
+    onOrAfterGameFrame(v.room.clearDelayGameFrame)
+  ) {
     v.room.clearDelayGameFrame = null;
   }
 
