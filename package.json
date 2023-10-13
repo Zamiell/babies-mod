@@ -16,7 +16,7 @@
     "isaacscript-common": "^67.3.0"
   },
   "devDependencies": {
-    "@types/node": "^20.8.4",
+    "@types/node": "^20.8.5",
     "isaacscript": "^3.15.0",
     "isaacscript-lint": "^6.1.0",
     "isaacscript-spell": "^1.6.0",
