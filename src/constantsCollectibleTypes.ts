@@ -65,6 +65,12 @@ export const BRIMSTONE_ANTI_SYNERGIES = [
   CollectibleType.NEPTUNUS, // 597
 ] as const;
 
+/** CollectibleType.IPECAC (149) */
+export const IPECAC_ANTI_SYNERGIES = [
+  CollectibleType.CRICKETS_BODY, // 224
+  CollectibleType.COMPOUND_FRACTURE, // 453
+] as const;
+
 /** CollectibleType.EPIC_FETUS (168) */
 export const EPIC_FETUS_ANTI_SYNERGIES = [
   CollectibleType.CHOCOLATE_MILK, // 69

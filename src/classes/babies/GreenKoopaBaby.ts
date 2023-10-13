@@ -3,13 +3,23 @@ import {
   ModCallback,
   TearFlag,
 } from "isaac-typescript-definitions";
-import { Callback, GAME_FRAMES_PER_SECOND, addFlag } from "isaacscript-common";
+import {
+  Callback,
+  GAME_FRAMES_PER_SECOND,
+  addFlag,
+  hasCollectible,
+} from "isaacscript-common";
 import { Baby } from "../Baby";
 
 interface TearData {
   height: int;
   velocity: Vector;
 }
+
+export const SHELL_ANTI_SYNERGY_COLLECTIBLES = [
+  CollectibleType.IPECAC, // 149
+  CollectibleType.C_SECTION, // 678
+] as const;
 
 const v = {
   room: {
@@ -22,8 +32,7 @@ export class GreenKoopaBaby extends Baby {
   v = v;
 
   override isValid(player: EntityPlayer): boolean {
-    // Some collectibles mess up the shells.
-    return !player.HasCollectible(CollectibleType.C_SECTION);
+    return !hasCollectible(player, ...SHELL_ANTI_SYNERGY_COLLECTIBLES);
   }
 
   // 40

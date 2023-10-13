@@ -1,10 +1,12 @@
+import { ModCallback, TearFlag } from "isaac-typescript-definitions";
 import {
-  CollectibleType,
-  ModCallback,
-  TearFlag,
-} from "isaac-typescript-definitions";
-import { Callback, GAME_FRAMES_PER_SECOND, addFlag } from "isaacscript-common";
+  Callback,
+  GAME_FRAMES_PER_SECOND,
+  addFlag,
+  hasCollectible,
+} from "isaacscript-common";
 import { Baby } from "../Baby";
+import { SHELL_ANTI_SYNERGY_COLLECTIBLES } from "./GreenKoopaBaby";
 
 const v = {
   room: {
@@ -17,8 +19,7 @@ export class RedKoopaBaby extends Baby {
   v = v;
 
   override isValid(player: EntityPlayer): boolean {
-    // Some collectibles mess up the shells.
-    return !player.HasCollectible(CollectibleType.C_SECTION);
+    return !hasCollectible(player, ...SHELL_ANTI_SYNERGY_COLLECTIBLES);
   }
 
   // 40

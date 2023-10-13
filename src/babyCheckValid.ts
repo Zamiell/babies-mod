@@ -39,6 +39,7 @@ import {
   DR_FETUS_ANTI_SYNERGIES,
   EPIC_FETUS_ANTI_SYNERGIES,
   EXPLOSIVE_COLLECTIBLE_TYPES,
+  IPECAC_ANTI_SYNERGIES,
   LUDOVICO_TECHNIQUE_ANTI_SYNERGIES,
   MOMS_KNIFE_ANTI_SYNERGIES,
   SPIRIT_SWORD_ANTI_SYNERGIES,
@@ -196,6 +197,13 @@ function checkCollectibles(
   }
 
   if (
+    babyCollectiblesSet.has(CollectibleType.DR_FETUS) && // 52
+    player.HasCollectible(CollectibleType.CUBE_BABY)
+  ) {
+    return false;
+  }
+
+  if (
     babyCollectiblesSet.has(CollectibleType.D6) && // 105
     !onStageWithCollectibles()
   ) {
@@ -210,19 +218,8 @@ function checkCollectibles(
   }
 
   if (
-    babyCollectiblesSet.has(CollectibleType.IPECAC) && // 149
-    hasCollectible(
-      player,
-      CollectibleType.CRICKETS_BODY, // 224
-      CollectibleType.COMPOUND_FRACTURE, // 453
-    )
-  ) {
-    return false;
-  }
-
-  if (
-    babyCollectiblesSet.has(CollectibleType.CRICKETS_BODY) && // 224
-    player.HasCollectible(CollectibleType.IPECAC)
+    babyCollectiblesSet.has(CollectibleType.DEATHS_TOUCH) && // 237
+    player.HasCollectible(CollectibleType.HAEMOLACRIA)
   ) {
     return false;
   }
@@ -237,6 +234,13 @@ function checkCollectibles(
   if (
     babyCollectiblesSet.has(CollectibleType.ISAACS_TEARS) && // 323
     hasCollectible(player, ...EXPLOSIVE_COLLECTIBLE_TYPES)
+  ) {
+    return false;
+  }
+
+  if (
+    setHas(babyCollectiblesSet, ...EXPLOSIVE_COLLECTIBLE_TYPES) && // 323
+    player.HasCollectible(CollectibleType.ISAACS_TEARS)
   ) {
     return false;
   }
@@ -259,7 +263,7 @@ function checkCollectibles(
 
   if (
     babyCollectiblesSet.has(CollectibleType.DEAD_EYE) && // 373
-    !player.HasCollectible(CollectibleType.TRISAGION)
+    player.HasCollectible(CollectibleType.TRISAGION)
   ) {
     return false;
   }
@@ -286,6 +290,13 @@ function checkCollectibles(
   }
 
   if (
+    babyCollectiblesSet.has(CollectibleType.HAEMOLACRIA) && // 531
+    player.HasCollectible(CollectibleType.DEATHS_TOUCH)
+  ) {
+    return false;
+  }
+
+  if (
     babyCollectiblesSet.has(CollectibleType.LACHRYPHAGY) && // 532
     hasCollectible(player, ...EXPLOSIVE_COLLECTIBLE_TYPES)
   ) {
@@ -293,15 +304,15 @@ function checkCollectibles(
   }
 
   if (
-    babyCollectiblesSet.has(CollectibleType.TRISAGION) && // 533
-    !player.HasCollectible(CollectibleType.DEAD_EYE)
+    setHas(babyCollectiblesSet, ...EXPLOSIVE_COLLECTIBLE_TYPES) &&
+    player.HasCollectible(CollectibleType.LACHRYPHAGY) // 532
   ) {
     return false;
   }
 
   if (
-    babyCollectiblesSet.has(CollectibleType.COMPOUND_FRACTURE) && // 553
-    player.HasCollectible(CollectibleType.IPECAC)
+    babyCollectiblesSet.has(CollectibleType.TRISAGION) && // 533
+    player.HasCollectible(CollectibleType.DEAD_EYE)
   ) {
     return false;
   }
@@ -491,6 +502,20 @@ function checkCollectibleAntiSynergyFromArray(
   if (
     setHas(babyCollectiblesSet, ...BRIMSTONE_ANTI_SYNERGIES) &&
     player.HasCollectible(CollectibleType.BRIMSTONE) // 118
+  ) {
+    return false;
+  }
+
+  if (
+    babyCollectiblesSet.has(CollectibleType.IPECAC) && // 149
+    hasCollectible(player, ...IPECAC_ANTI_SYNERGIES)
+  ) {
+    return false;
+  }
+
+  if (
+    setHas(babyCollectiblesSet, ...IPECAC_ANTI_SYNERGIES) &&
+    player.HasCollectible(CollectibleType.IPECAC) // 149
   ) {
     return false;
   }
