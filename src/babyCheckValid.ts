@@ -258,6 +258,13 @@ function checkCollectibles(
   }
 
   if (
+    babyCollectiblesSet.has(CollectibleType.DEAD_EYE) && // 373
+    !player.HasCollectible(CollectibleType.TRISAGION)
+  ) {
+    return false;
+  }
+
+  if (
     babyCollectiblesSet.has(CollectibleType.EYE_OF_BELIAL) && // 462
     hasPiercingOrPiercingLikeEffect(player)
   ) {
@@ -281,6 +288,13 @@ function checkCollectibles(
   if (
     babyCollectiblesSet.has(CollectibleType.LACHRYPHAGY) && // 532
     hasCollectible(player, ...EXPLOSIVE_COLLECTIBLE_TYPES)
+  ) {
+    return false;
+  }
+
+  if (
+    babyCollectiblesSet.has(CollectibleType.TRISAGION) && // 533
+    !player.HasCollectible(CollectibleType.DEAD_EYE)
   ) {
     return false;
   }
@@ -339,9 +353,9 @@ function checkCollectibles(
   // Monstro's Lung removes explosion immunity from Dr.Fetus + Ipecac bombs, which also makes it
   // harder to bomb out of rooms.
   if (
+    player.HasCollectible(CollectibleType.MONSTROS_LUNG) && // 229
     babyCollectiblesSet.has(CollectibleType.DR_FETUS) && // 52
-    babyCollectiblesSet.has(CollectibleType.IPECAC) && // 149
-    player.HasCollectible(CollectibleType.MONSTROS_LUNG) // 229
+    babyCollectiblesSet.has(CollectibleType.IPECAC) // 149
   ) {
     return false;
   }
