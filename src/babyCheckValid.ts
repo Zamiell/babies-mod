@@ -42,6 +42,7 @@ import {
   IPECAC_ANTI_SYNERGIES,
   LUDOVICO_TECHNIQUE_ANTI_SYNERGIES,
   MOMS_KNIFE_ANTI_SYNERGIES,
+  PIERCING_COLLECTIBLE_TYPES,
   SPIRIT_SWORD_ANTI_SYNERGIES,
   TECHNOLOGY_ANTI_SYNERGIES,
   TECH_X_ANTI_SYNERGIES,
@@ -227,6 +228,13 @@ function checkCollectibles(
   if (
     babyCollectiblesSet.has(CollectibleType.FIRE_MIND) && // 257
     hasPiercing(player)
+  ) {
+    return false;
+  }
+
+  if (
+    setHas(babyCollectiblesSet, ...PIERCING_COLLECTIBLE_TYPES) &&
+    player.HasCollectible(CollectibleType.FIRE_MIND) // 257
   ) {
     return false;
   }

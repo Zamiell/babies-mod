@@ -224,3 +224,11 @@ export const MULTI_SHOT_COLLECTIBLE_TYPES = [
   CollectibleType.MONSTROS_LUNG, // 229
   CollectibleType.SATURNUS, // 595
 ] as const;
+
+export const PIERCING_COLLECTIBLE_TYPES = [
+  CollectibleType.CUPIDS_ARROW, // 48
+  CollectibleType.DEATHS_TOUCH, // 237
+  CollectibleType.SAGITTARIUS, // 306
+  CollectibleType.DEAD_ONION, // 336
+  CollectibleType.EYE_OF_BELIAL, // 462
+] as const;
