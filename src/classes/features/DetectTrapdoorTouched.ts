@@ -43,7 +43,10 @@ export class DetectTrapdoorTouched extends BabyModFeature {
 
     if (isPlayerGoingToNextFloor(player)) {
       v.level.touchedTrapdoor = true;
-      this.removeMappingCollectibles(player, baby);
+
+      if (!player.HasCollectible(CollectibleType.BIRTHRIGHT)) {
+        this.removeMappingCollectibles(player, baby);
+      }
     }
   }
 
