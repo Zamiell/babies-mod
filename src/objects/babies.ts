@@ -4557,7 +4557,7 @@ export const BABIES = {
     name: "Silly Baby",
     description: "Sacrificial Altar effect after 6 hits",
     sprite: "516_baby_silly.png",
-    num: 6,
+    requireNumHits: 6,
     class: bc.SillyBaby,
   },
 
@@ -5300,7 +5300,7 @@ export const BABIES = {
     name: "Siren Shooter",
     description: "Spawns a pedestal item after 6 hits",
     sprite: "familiar_siren_shooter.png",
-    num: 6,
+    requireNumHits: 6,
     class: bc.SirenShooter,
   },
 

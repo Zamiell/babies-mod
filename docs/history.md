@@ -7,6 +7,7 @@
 
 - Fixed bugs with the following babies:
   - Love Eye Baby (#249) - The effect will now work properly. (Thanks sisuka)
+  - Silly Baby (#516) - The effect will now work properly. (Thanks sisuka)
 
 ### _v1.28.3_ - October 12th, 2023
 
