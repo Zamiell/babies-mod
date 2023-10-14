@@ -1,5 +1,5 @@
 import type { ButtonAction } from "isaac-typescript-definitions";
-import { InputHook } from "isaac-typescript-definitions";
+import { CollectibleType, InputHook } from "isaac-typescript-definitions";
 import {
   CallbackCustom,
   ModCallbackCustom,
@@ -15,6 +15,7 @@ export class MaskedBaby extends Baby {
     return !hasCollectible(
       player,
       ...COLLECTIBLE_TYPES_THAT_GRANT_CHARGE_SHOTS,
+      CollectibleType.NEPTUNUS,
     );
   }
 
