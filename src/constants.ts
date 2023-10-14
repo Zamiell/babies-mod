@@ -92,6 +92,7 @@ export const BUGGY_REPLACING_OR_DOUBLING_ENTITY_TYPES_SET =
     EntityType.BROKEN_GAPING_MAW, // 236
     EntityType.SWARM, // 281
     EntityType.PITFALL, // 291
+    EntityType.MOVABLE_TNT, // 292
   ]);
 
 /** Doubling certain entity + variant combinations leads to bugs. */

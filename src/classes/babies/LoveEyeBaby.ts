@@ -19,7 +19,7 @@ interface NPCDescription {
 
 const v = {
   run: {
-    loveNPC: null as NPCDescription | null,
+    loveNPCDescription: null as NPCDescription | null,
   },
 };
 
@@ -30,7 +30,7 @@ export class LoveEyeBaby extends Baby {
   // 68
   @Callback(ModCallback.POST_ENTITY_KILL)
   postEntityKill(entity: Entity): void {
-    if (v.run.loveNPC !== null) {
+    if (v.run.loveNPCDescription !== null) {
       return;
     }
 
@@ -46,23 +46,23 @@ export class LoveEyeBaby extends Baby {
     }
 
     // Store the killed enemy.
-    v.run.loveNPC = {
+    v.run.loveNPCDescription = {
       entityType: npc.Type,
       variant: npc.Variant,
       subType: npc.SubType,
     };
 
     replaceAllNPCsWith(
-      v.run.loveNPC.entityType,
-      v.run.loveNPC.variant,
-      v.run.loveNPC.subType,
+      v.run.loveNPCDescription.entityType,
+      v.run.loveNPCDescription.variant,
+      v.run.loveNPCDescription.subType,
       npc.Index,
     );
   }
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)
   postNewRoomReordered(): void {
-    if (v.run.loveNPC === null) {
+    if (v.run.loveNPCDescription === null) {
       return;
     }
 
@@ -72,9 +72,9 @@ export class LoveEyeBaby extends Baby {
     }
 
     replaceAllNPCsWith(
-      v.run.loveNPC.entityType,
-      v.run.loveNPC.variant,
-      v.run.loveNPC.subType,
+      v.run.loveNPCDescription.entityType,
+      v.run.loveNPCDescription.variant,
+      v.run.loveNPCDescription.subType,
       undefined,
     );
   }
