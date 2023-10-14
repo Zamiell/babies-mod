@@ -35,7 +35,6 @@ export interface BabyDescription {
   readonly num?: int;
   readonly seed?: SeedEffect;
   readonly allCollectiblesFromPool?: ItemPoolType;
-  readonly onHitEffect?: boolean;
 
   /**
    * For some specific blindfolded babies. Fireplaces, poops, and TNT barrels can cause the player

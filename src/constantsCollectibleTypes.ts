@@ -97,8 +97,10 @@ export const LUDOVICO_TECHNIQUE_ANTI_SYNERGIES = [
   CollectibleType.CHOCOLATE_MILK, // 69
   CollectibleType.MOMS_KNIFE, // 114
   CollectibleType.EPIC_FETUS, // 168
+  CollectibleType.SACRED_HEART, // 182 (because of negative shot speed)
   CollectibleType.CURSED_EYE, // 316
   CollectibleType.TECH_X, // 395
+  CollectibleType.CROWN_OF_LIGHT, // 415 (because of negative shot speed)
   CollectibleType.KIDNEY_STONE, // 440
   CollectibleType.TECHNOLOGY_ZERO, // 524
   CollectibleType.HAEMOLACRIA, // 531
