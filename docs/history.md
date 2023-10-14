@@ -3,6 +3,10 @@
 <!-- cspell:ignore Adrayon,cantgirl,elgirs,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.28.3_ - October 13th, 2023
+
+- !Fixed the bug
+
 ### _v1.28.3_ - October 12th, 2023
 
 - Fixed the bug where Birthright did not work properly with babies that granted mapping. (Thanks Monkeypot)

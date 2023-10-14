@@ -42,6 +42,7 @@ import {
   IPECAC_ANTI_SYNERGIES,
   LUDOVICO_TECHNIQUE_ANTI_SYNERGIES,
   MOMS_KNIFE_ANTI_SYNERGIES,
+  ON_HIT_ANTI_SYNERGY_COLLECTIBLE_TYPES,
   PIERCING_COLLECTIBLE_TYPES,
   SPIRIT_SWORD_ANTI_SYNERGIES,
   TECHNOLOGY_ANTI_SYNERGIES,
@@ -162,7 +163,9 @@ function checkCollectibles(
     return false;
   }
 
-  if (!checkCollectibleAntiSynergyFromArray(player, babyCollectiblesSet)) {
+  if (
+    !checkCollectibleAntiSynergyFromArray(player, baby, babyCollectiblesSet)
+  ) {
     return false;
   }
 
@@ -456,6 +459,7 @@ function checkActiveItem(
 /** Some collectible anti-synergies are hard-coded in arrays. */
 function checkCollectibleAntiSynergyFromArray(
   player: EntityPlayer,
+  baby: BabyDescription,
   babyCollectiblesSet: Set<CollectibleType>,
 ): boolean {
   if (
@@ -594,6 +598,13 @@ function checkCollectibleAntiSynergyFromArray(
   if (
     setHas(babyCollectiblesSet, ...C_SECTION_ANTI_SYNERGIES) &&
     player.HasCollectible(CollectibleType.C_SECTION) // 678
+  ) {
+    return false;
+  }
+
+  if (
+    baby.description.includes("on hit") &&
+    hasCollectible(player, ...ON_HIT_ANTI_SYNERGY_COLLECTIBLE_TYPES)
   ) {
     return false;
   }

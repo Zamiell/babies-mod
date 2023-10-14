@@ -232,3 +232,9 @@ export const PIERCING_COLLECTIBLE_TYPES = [
   CollectibleType.DEAD_ONION, // 336
   CollectibleType.EYE_OF_BELIAL, // 462
 ] as const;
+
+export const ON_HIT_ANTI_SYNERGY_COLLECTIBLE_TYPES = [
+  CollectibleType.WHORE_OF_BABYLON, // 122
+  CollectibleType.CROWN_OF_LIGHT, // 415
+  CollectibleType.DARK_PRINCES_CROWN, // 442
+] as const;
