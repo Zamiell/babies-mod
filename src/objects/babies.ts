@@ -4259,6 +4259,7 @@ export const BABIES = {
     description: "Walls tears",
     sprite: "482_baby_adventure.png",
     requireTears: true,
+    softlockPreventionIsland: true, // In some rooms, it can be impossible to hit enemies.
     // This baby does not use the "blindfolded" property" because we capture tears in the
     // `POST_FIRE_TEAR` callback.
     class: bc.AdventureBaby,
