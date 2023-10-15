@@ -166,7 +166,7 @@ export function babyAdd(
   if (baby.blindfolded === true) {
     setBlindfold(player, true, false);
 
-    // Setting a blindfold changes the player type, which resets the ANM2 Manually set it back.
+    // Setting a blindfold changes the player type, which resets the ANM2. Manually set it back.
     setBabyANM2(player);
   }
 

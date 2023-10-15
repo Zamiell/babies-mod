@@ -3,6 +3,10 @@
 <!-- cspell:ignore Adrayon,cantgirl,elgirs,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.28.8_ - October 14th, 2023
+
+- Fixed the bug where blindfolded babies would become unblindfolded after reviving. (Thanks TNTerminator)
+
 ### _v1.28.7_ - October 14th, 2023
 
 - Fixed bugs with the following babies:

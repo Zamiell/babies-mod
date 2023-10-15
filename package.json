@@ -12,8 +12,8 @@
   "license": "GPL-3.0",
   "type": "module",
   "dependencies": {
-    "isaac-typescript-definitions": "^33.1.0",
-    "isaacscript-common": "^69.1.0"
+    "isaac-typescript-definitions": "^33.2.0",
+    "isaacscript-common": "^69.3.1"
   },
   "devDependencies": {
     "@types/node": "^20.8.6",
