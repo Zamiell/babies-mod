@@ -10,7 +10,8 @@ import { Baby } from "../../Baby";
 
 /** Shoots Blue Flies + flight. */
 export class RottenBaby extends Baby {
-  /** The custom effect with C Section is a downgrade. (But Monstro's Lung is okay.) */
+  // The custom effect with C Section is a downgrade (But Monstro's Lung is okay.). Flies are not
+  // granted the +40 damage from Ipecac, resulting in a DPS downgrade.
   override isValid(player: EntityPlayer): boolean {
     return (
       !player.HasCollectible(CollectibleType.C_SECTION) &&
