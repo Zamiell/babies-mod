@@ -39,7 +39,9 @@ export const TECHNOLOGY_ANTI_SYNERGIES = [
 /** CollectibleType.MOMS_KNIFE (114) */
 export const MOMS_KNIFE_ANTI_SYNERGIES = [
   CollectibleType.CHOCOLATE_MILK, // 69
+  CollectibleType.RUBBER_CEMENT, // 221
   CollectibleType.ANTI_GRAVITY, // 222
+  CollectibleType.CRICKETS_BODY, // 224
   CollectibleType.TINY_PLANET, // 233
   CollectibleType.CURSED_EYE, // 316
   CollectibleType.SOY_MILK, // 330
