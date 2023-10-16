@@ -229,6 +229,13 @@ function checkCollectibles(
   }
 
   if (
+    babyCollectiblesSet.has(CollectibleType.RUBBER_CEMENT) && // 221
+    player.HasCollectible(CollectibleType.MOMS_KNIFE) // 114
+  ) {
+    return false;
+  }
+
+  if (
     babyCollectiblesSet.has(CollectibleType.FIRE_MIND) && // 257
     hasPiercing(player)
   ) {
