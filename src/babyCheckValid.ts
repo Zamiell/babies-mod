@@ -237,6 +237,15 @@ function checkCollectibles(
     return false;
   }
 
+  // We don't include Cricket's Body in the Mom's Knife anti-synergies list because we want to have
+  // Mom's Knife when we have Cricket's Body.
+  if (
+    babyCollectiblesSet.has(CollectibleType.CRICKETS_BODY) && // 224
+    player.HasCollectible(CollectibleType.MOMS_KNIFE) // 114
+  ) {
+    return false;
+  }
+
   if (
     babyCollectiblesSet.has(CollectibleType.FIRE_MIND) && // 257
     hasPiercing(player)
