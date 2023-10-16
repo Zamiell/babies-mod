@@ -12,7 +12,10 @@ import { Baby } from "../../Baby";
 export class RottenBaby extends Baby {
   /** The custom effect with C Section is a downgrade. (But Monstro's Lung is okay.) */
   override isValid(player: EntityPlayer): boolean {
-    return !player.HasCollectible(CollectibleType.C_SECTION);
+    return (
+      !player.HasCollectible(CollectibleType.C_SECTION) &&
+      !player.HasCollectible(CollectibleType.IPECAC)
+    );
   }
 
   /** Remove all of the Blue Flies. */

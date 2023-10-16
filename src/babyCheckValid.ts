@@ -222,6 +222,13 @@ function checkCollectibles(
   }
 
   if (
+    setHas(babyCollectiblesSet, ...PIERCING_COLLECTIBLE_TYPES) &&
+    player.HasCollectible(CollectibleType.IPECAC) // 149
+  ) {
+    return false;
+  }
+
+  if (
     babyCollectiblesSet.has(CollectibleType.FIRE_MIND) && // 257
     hasPiercing(player)
   ) {
