@@ -228,6 +228,8 @@ function checkCollectibles(
     return false;
   }
 
+  // We don't include Rubber Cement in the Mom's Knife anti-synergies list because we want to have
+  // Mom's Knife when we have Rubber Cement.
   if (
     babyCollectiblesSet.has(CollectibleType.RUBBER_CEMENT) && // 221
     player.HasCollectible(CollectibleType.MOMS_KNIFE) // 114
