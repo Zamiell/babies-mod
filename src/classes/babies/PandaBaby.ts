@@ -12,7 +12,7 @@ import { Baby } from "../Baby";
 /** Starts with The Holy Poop. */
 export class PandaBaby extends Baby {
   @Callback(ModCallback.POST_USE_ITEM, CollectibleTypeCustom.HOLY_POOP)
-  preUseItemClockworkAssembly(
+  preUseItemHolyPoop(
     _collectibleType: CollectibleType,
     _rng: RNG,
     player: EntityPlayer,

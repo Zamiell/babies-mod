@@ -271,7 +271,7 @@ There are 604 babies in total.
 | 259 | <img src="./images/259_baby_king.png" alt="259_baby_king.png"> | King Baby | Starts with Crown of Light | ✔️
 | 260 | <img src="./images/260_baby_coat.png" alt="260_baby_coat.png"> | Coat Baby | Spawns a random card on hit | ✔️
 | 261 | <img src="./images/261_baby_viking.png" alt="261_baby_viking.png"> | Viking Baby | Secret Room --> Super Secret Room | ✔️
-| 262 | <img src="./images/262_baby_panda.png" alt="262_baby_panda.png"> | Panda Baby | Starts with The Poop (improved) | ✔️
+| 262 | <img src="./images/262_baby_panda.png" alt="262_baby_panda.png"> | Panda Baby | Starts with The Holy Poop | ✔️
 | 263 | <img src="./images/263_baby_raccoon.png" alt="263_baby_raccoon.png"> | Raccoon Baby | Random rocks | ✔️
 | 264 | <img src="./images/264_baby_bear.png" alt="264_baby_bear.png"> | Bear Baby | Starts with Holy Water + BFFS! | ✔️
 | 265 | <img src="./images/265_baby_polarbear.png" alt="265_baby_polarbear.png"> | Polar Bear Baby | Starts with Lil Brimstone + Robo Baby + Baby Bender | ✔️
