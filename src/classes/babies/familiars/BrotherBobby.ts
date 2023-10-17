@@ -30,7 +30,7 @@ export class BrotherBobby extends Baby {
   v = v;
 
   override isValid(player: EntityPlayer): boolean {
-    return hasCollectible(
+    return !hasCollectible(
       player,
       // Certain collectibles override the effect.
       CollectibleType.C_SECTION, // 678

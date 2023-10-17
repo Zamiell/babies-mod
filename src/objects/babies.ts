@@ -3440,6 +3440,7 @@ export const BABIES = {
     name: "Blue Wrestler Baby",
     description: "Enemies spawn projectiles upon death",
     sprite: "388_baby_bluewrestler.png",
+    requireNoEndFloors: true,
     num: 6, // The number of projectiles to spawn.
     class: bc.BlueWrestlerBaby,
   },

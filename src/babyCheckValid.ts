@@ -42,6 +42,7 @@ import {
   IPECAC_ANTI_SYNERGIES,
   LUDOVICO_TECHNIQUE_ANTI_SYNERGIES,
   MOMS_KNIFE_ANTI_SYNERGIES,
+  MULTI_SHOT_COLLECTIBLE_TYPES,
   ON_HIT_ANTI_SYNERGY_COLLECTIBLE_TYPES,
   PIERCING_COLLECTIBLE_TYPES,
   SPIRIT_SWORD_ANTI_SYNERGIES,
@@ -217,6 +218,27 @@ function checkCollectibles(
   if (
     babyCollectiblesSet.has(CollectibleType.OUIJA_BOARD) && // 115
     hasSpectralOrSpectralLikeEffect(player)
+  ) {
+    return false;
+  }
+
+  if (
+    setHas(babyCollectiblesSet, ...PIERCING_COLLECTIBLE_TYPES) &&
+    player.HasCollectible(CollectibleType.IPECAC) // 149
+  ) {
+    return false;
+  }
+
+  if (
+    babyCollectiblesSet.has(CollectibleType.MONSTROS_LUNG) && // 229
+    hasCollectible(player, ...MULTI_SHOT_COLLECTIBLE_TYPES)
+  ) {
+    return false;
+  }
+
+  if (
+    setHas(babyCollectiblesSet, ...MULTI_SHOT_COLLECTIBLE_TYPES) &&
+    player.HasCollectible(CollectibleType.MONSTROS_LUNG) // 229
   ) {
     return false;
   }
