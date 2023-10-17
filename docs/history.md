@@ -3,10 +3,11 @@
 <!-- cspell:ignore Adrayon,cantgirl,elgirs,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
-### _v1.29.0_ - October 17th, 2023
+### _v1.29.0_ - October 17th, 2023 (Unreleased)
 
 - The following babies have new effects:
   - Hive Baby (#40) - "Starts with Hive Mind + max Blue Flies + max Blue Spiders" --> "Starts with Technology 2 + Lachryphagy"
+  - Panda Baby (#262) - "Starts with The Poop (improved)" + "Starts with Holy Poop"
 - Fixed the bug where Brother Bobby would appear only with items that are anti-synergies.
 
 ### _v1.28.8_ - October 14th, 2023
