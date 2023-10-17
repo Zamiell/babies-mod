@@ -5,7 +5,11 @@ import {
   PoopGridEntityVariant,
   SoundEffect,
 } from "isaac-typescript-definitions";
-import { Callback, sfxManager } from "isaacscript-common";
+import {
+  Callback,
+  sfxManager,
+  spawnGridEntityWithVariant,
+} from "isaacscript-common";
 import { CollectibleTypeCustom } from "../../enums/CollectibleTypeCustom";
 import { Baby } from "../Baby";
 
@@ -17,13 +21,12 @@ export class PandaBaby extends Baby {
     _rng: RNG,
     player: EntityPlayer,
   ): boolean | undefined {
-    // Spawn White Poop next to the player.
-    Isaac.GridSpawn(
+    spawnGridEntityWithVariant(
       GridEntityType.POOP,
       PoopGridEntityVariant.WHITE,
       player.Position,
+      false,
     );
-
     sfxManager.Play(SoundEffect.FART);
 
     return true;

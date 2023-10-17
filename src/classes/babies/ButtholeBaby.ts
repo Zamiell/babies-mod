@@ -16,6 +16,7 @@ import {
   isBeforeGameFrame,
   newRNG,
   sfxManager,
+  spawnGridEntityWithVariant,
   spawnWithSeed,
 } from "isaacscript-common";
 import { everyNSeconds, setInitialBabyRNG } from "../../utils";
@@ -105,7 +106,12 @@ function spawnRandomPoop(position: Vector, rng: RNG) {
         gameFrameCount + NUM_RED_POOP_INVULNERABILITY_GAME_FRAMES;
     }
 
-    Isaac.GridSpawn(GridEntityType.POOP, poopGridEntityVariant, position);
+    spawnGridEntityWithVariant(
+      GridEntityType.POOP,
+      poopGridEntityVariant,
+      position,
+      false,
+    );
   }
 
   sfxManager.Play(SoundEffect.FART);
