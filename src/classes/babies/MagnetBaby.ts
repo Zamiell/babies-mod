@@ -13,7 +13,7 @@ export class MagnetBaby extends Baby {
     return (
       // Magnetizing tears cause Blue Baby and eternal flies to attract each other, resulting of
       // Blue Baby flying at very high speed around the room, causing unavoidable damage.
-      !onStage(LevelStage.DARK_ROOM_CHEST) && !onStage(LevelStage.BLUE_WOMB)
+      !onStage(LevelStage.DARK_ROOM_CHEST, LevelStage.BLUE_WOMB)
     );
   }
 
