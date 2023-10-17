@@ -1,17 +1,18 @@
+import type { CollectibleType } from "isaac-typescript-definitions";
 import {
-  CollectibleType,
   GridEntityType,
   ModCallback,
   PoopGridEntityVariant,
   SoundEffect,
 } from "isaac-typescript-definitions";
 import { Callback, sfxManager } from "isaacscript-common";
+import { CollectibleTypeCustom } from "../../enums/CollectibleTypeCustom";
 import { Baby } from "../Baby";
 
-/** Starts with The Poop (improved). */
+/** Starts with The Holy Poop. */
 export class PandaBaby extends Baby {
-  @Callback(ModCallback.PRE_USE_ITEM, CollectibleType.POOP)
-  preUseItemPoop(
+  @Callback(ModCallback.POST_USE_ITEM, CollectibleTypeCustom.HOLY_POOP)
+  preUseItemClockworkAssembly(
     _collectibleType: CollectibleType,
     _rng: RNG,
     player: EntityPlayer,
@@ -25,7 +26,6 @@ export class PandaBaby extends Baby {
 
     sfxManager.Play(SoundEffect.FART);
 
-    // Cancel the original effect.
     return true;
   }
 }

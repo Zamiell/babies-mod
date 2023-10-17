@@ -2,13 +2,14 @@
 <?xml-model href="https://wofsauge.github.io/isaac-xml-validator/xsd/items.xsd" ?>
 <items gfxroot="gfx/items/" version="1" deathanm2="gfx/death items.anm2">
   <!-- Extra active items -->
-  <active name="Clockwork Assembly" description="Restock your life" gfx="collectibles_clockwork_assembly.png" maxcharges="6" id="1" />
-  <active name="Flock of Succubi" description="Darkness reigns" gfx="collectibles_flock_of_succubi.png" maxcharges="6" id="2" />
-  <active name="Charging Station" description="Recharge your life" gfx="collectibles_charging_station.png" maxcharges="0" id="3" />
+  <active name="The Holy Poop" description="Plop!" gfx="collectibles_holy_poop.png" maxcharges="1" id="1" />
+  <active name="Clockwork Assembly" description="Restock your life" gfx="collectibles_clockwork_assembly.png" maxcharges="6" id="2" />
+  <active name="Flock of Succubi" description="Darkness reigns" gfx="collectibles_flock_of_succubi.png" maxcharges="6" id="3" />
+  <active name="Charging Station" description="Recharge your life" gfx="collectibles_charging_station.png" maxcharges="0" id="4" />
 
   <!-- Teleport items -->
   <!-- 2 -->
-  <passive name="Shop Teleport" description="You seek deals" gfx="teleports/shop.png" hidden="true" id="4" />
+  <passive name="Shop Teleport" description="You seek deals" gfx="teleports/shop.png" hidden="true" />
   <!-- 4 -->
   <passive name="Treasure Room Teleport" description="You seek treasure" gfx="teleports/treasure_room.png" hidden="true" />
   <!-- 6 -->

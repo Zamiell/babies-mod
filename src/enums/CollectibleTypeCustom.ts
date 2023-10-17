@@ -1,6 +1,7 @@
 import { validateCustomEnum } from "isaacscript-common";
 
 export const CollectibleTypeCustom = {
+  HOLY_POOP: Isaac.GetItemIdByName("The Holy Poop"),
   CLOCKWORK_ASSEMBLY: Isaac.GetItemIdByName("Clockwork Assembly"),
   FLOCK_OF_SUCCUBI: Isaac.GetItemIdByName("Flock of Succubi"),
   CHARGING_STATION: Isaac.GetItemIdByName("Charging Station"),

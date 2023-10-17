@@ -2299,9 +2299,9 @@ export const BABIES = {
   // 262
   [RandomBabyType.PANDA]: {
     name: "Panda Baby",
-    description: "Starts with The Poop (improved)",
+    description: "Starts with The Holy Poop",
     sprite: "262_baby_panda.png",
-    collectible: CollectibleType.POOP,
+    collectible: CollectibleTypeCustom.HOLY_POOP,
     class: bc.PandaBaby,
   },
 
