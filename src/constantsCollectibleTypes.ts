@@ -1,6 +1,27 @@
 import { CollectibleType } from "isaac-typescript-definitions";
 import { ReadonlySet } from "isaacscript-common";
 
+export const EXPLOSIVE_COLLECTIBLE_TYPES = [
+  CollectibleType.IPECAC, // 149
+  CollectibleType.FIRE_MIND, // 257
+] as const;
+
+export const MULTI_SHOT_COLLECTIBLE_TYPES = [
+  CollectibleType.INNER_EYE, // 2
+  CollectibleType.TWENTY_TWENTY, // 245
+  CollectibleType.MUTANT_SPIDER, // 153
+  CollectibleType.MONSTROS_LUNG, // 229
+  CollectibleType.SATURNUS, // 595
+] as const;
+
+export const PIERCING_COLLECTIBLE_TYPES = [
+  CollectibleType.CUPIDS_ARROW, // 48
+  CollectibleType.DEATHS_TOUCH, // 237
+  CollectibleType.SAGITTARIUS, // 306
+  CollectibleType.DEAD_ONION, // 336
+  CollectibleType.EYE_OF_BELIAL, // 462
+] as const;
+
 /** CollectibleType.DR_FETUS (52) */
 export const DR_FETUS_ANTI_SYNERGIES = [
   CollectibleType.NUMBER_ONE, // 6
@@ -72,6 +93,7 @@ export const BRIMSTONE_ANTI_SYNERGIES = [
 export const IPECAC_ANTI_SYNERGIES = [
   CollectibleType.CRICKETS_BODY, // 224
   CollectibleType.COMPOUND_FRACTURE, // 453
+  ...PIERCING_COLLECTIBLE_TYPES,
 ] as const;
 
 /** CollectibleType.EPIC_FETUS (168) */
@@ -215,27 +237,6 @@ export const BAD_MISSED_TEARS_COLLECTIBLE_TYPES = [
   CollectibleType.ALMOND_MILK, // 561
   CollectibleType.REVELATION, // 643
   CollectibleType.C_SECTION, // 678
-] as const;
-
-export const EXPLOSIVE_COLLECTIBLE_TYPES = [
-  CollectibleType.IPECAC, // 149
-  CollectibleType.FIRE_MIND, // 257
-] as const;
-
-export const MULTI_SHOT_COLLECTIBLE_TYPES = [
-  CollectibleType.INNER_EYE, // 2
-  CollectibleType.TWENTY_TWENTY, // 245
-  CollectibleType.MUTANT_SPIDER, // 153
-  CollectibleType.MONSTROS_LUNG, // 229
-  CollectibleType.SATURNUS, // 595
-] as const;
-
-export const PIERCING_COLLECTIBLE_TYPES = [
-  CollectibleType.CUPIDS_ARROW, // 48
-  CollectibleType.DEATHS_TOUCH, // 237
-  CollectibleType.SAGITTARIUS, // 306
-  CollectibleType.DEAD_ONION, // 336
-  CollectibleType.EYE_OF_BELIAL, // 462
 ] as const;
 
 export const ON_HIT_ANTI_SYNERGY_COLLECTIBLE_TYPES = [

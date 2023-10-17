@@ -16,12 +16,13 @@ import { Baby } from "../Baby";
 
 /** Shoots explosive flies + flight. */
 export class SickBaby extends Baby {
-  // The custom effect with C Section is a downgrade (But Monstro's Lung is okay.). Flies are not
-  // granted the +40 damage from Ipecac, resulting in a DPS downgrade.
   override isValid(player: EntityPlayer): boolean {
-    return hasCollectible(
+    /** We allow the Monstro's Lung synergy. */
+    return !hasCollectible(
       player,
+      // Flies are not granted the +40 damage from Ipecac, resulting in a DPS downgrade.
       CollectibleType.IPECAC,
+      // The custom effect with C Section is a downgrade.
       CollectibleType.C_SECTION,
     );
   }
