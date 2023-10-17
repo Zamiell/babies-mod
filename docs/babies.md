@@ -49,8 +49,8 @@ There are 604 babies in total.
 | 37 | <img src="./images/037_baby_big.png" alt="037_baby_big.png"> | Big Baby | Everything is giant | ✔️
 | 38 | <img src="./images/038_baby_brown.png" alt="038_baby_brown.png"> | Brown Baby | Starts with Dirty Mind + Dingle Berry + spawns a poop per enemy killed | ✔️
 | 39 | <img src="./images/039_baby_noose.png" alt="039_baby_noose.png"> | Noose Baby | Takes damage if shooting when the timer reaches 0 | ✔️
-| 40 | <img src="./images/040_baby_hive.png" alt="040_baby_hive.png"> | Hive Baby | Starts with Hive Mind + max Blue Flies + max Blue Spiders | ❌
-| 41 | <img src="./images/041_baby_buddy.png" alt="041_baby_buddy.png"> | Buddy Baby | Removes a heart container on hit | ❌
+| 40 | <img src="./images/040_baby_hive.png" alt="040_baby_hive.png"> | Hive Baby | Starts with Technology 2 + Lachryphagy | ❌
+| 41 | <img src="./images/041_baby_buddy.png" alt="041_baby_buddy.png"> | Buddy Baby | Removes a heart container on hit | ✔️
 | 42 | <img src="./images/042_baby_colorful.png" alt="042_baby_colorful.png"> | Colorful Baby | Acid trip | ❌
 | 43 | <img src="./images/043_baby_whore.png" alt="043_baby_whore.png"> | Whore Baby | All enemies explode | ✔️
 | 44 | <img src="./images/044_baby_cracked.png" alt="044_baby_cracked.png"> | Cracked Baby | Larynx effect every 8th tear | ✔️

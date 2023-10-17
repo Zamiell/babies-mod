@@ -369,11 +369,10 @@ export const BABIES = {
   // 40
   [RandomBabyType.HIVE]: {
     name: "Hive Baby",
-    description: "Starts with Hive Mind + max Blue Flies + max Blue Spiders",
+    description: "Starts with Technology 2 + Lachryphagy",
     sprite: "040_baby_hive.png",
-    collectible: CollectibleType.HIVE_MIND,
-    requireNoEndFloors: true,
-    class: bc.HiveBaby,
+    collectible: CollectibleType.TECHNOLOGY_2,
+    collectible2: CollectibleType.LACHRYPHAGY,
   },
 
   // 41

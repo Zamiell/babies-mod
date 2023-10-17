@@ -151,7 +151,6 @@ export { HareBaby } from "./babies/HareBaby";
 export { HeartBaby } from "./babies/HeartBaby";
 export { HelmetBaby } from "./babies/HelmetBaby";
 export { HeroBaby } from "./babies/HeroBaby";
-export { HiveBaby } from "./babies/HiveBaby";
 export { HiveKingBaby } from "./babies/HiveKingBaby";
 export { HooliganBaby } from "./babies/HooliganBaby";
 export { HopelessBaby } from "./babies/HopelessBaby";
