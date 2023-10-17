@@ -15,8 +15,8 @@ There are 604 babies in total.
 | 3 | <img src="./images/003_baby_water.png" alt="003_baby_water.png"> | Water Baby | Starts with Isaac's Tears (improved) | ✔️
 | 4 | <img src="./images/004_baby_psy.png" alt="004_baby_psy.png"> | Psy Baby | Starts with Spoon Bender | ✔️
 | 5 | <img src="./images/005_baby_cursed.png" alt="005_baby_cursed.png"> | Cursed Baby | Starts with Cursed Eye | ✔️
-| 6 | <img src="./images/006_baby_troll.png" alt="006_baby_troll.png"> | Troll Baby | Spawns a Troll Bomb every 3 seconds | ✔️
-| 7 | <img src="./images/007_baby_ybab.png" alt="007_baby_ybab.png"> | Ybab Baby | Starts with Analog Stick | ❌
+| 6 | <img src="./images/006_baby_troll.png" alt="006_baby_troll.png"> | Troll Baby | Spawns a Troll Bomb every 3 seconds | ❌
+| 7 | <img src="./images/007_baby_ybab.png" alt="007_baby_ybab.png"> | Ybab Baby | Starts with Analog Stick | ✔️
 | 8 | <img src="./images/008_baby_cockeyed.png" alt="008_baby_cockeyed.png"> | Cockeyed Baby | Shoots extra tears with random velocity | ✔️
 | 9 | <img src="./images/009_baby_host.png" alt="009_baby_host.png"> | Host Baby | Spawns 10 Blue Spiders on hit | ✔️
 | 10 | <img src="./images/010_baby_lost.png" alt="010_baby_lost.png"> | Lost Baby | Starts with Holy Mantle + Lost-style health | ✔️
@@ -48,17 +48,17 @@ There are 604 babies in total.
 | 36 | <img src="./images/036_baby_lil.png" alt="036_baby_lil.png"> | Lil Baby | Everything is tiny | ✔️
 | 37 | <img src="./images/037_baby_big.png" alt="037_baby_big.png"> | Big Baby | Everything is giant | ✔️
 | 38 | <img src="./images/038_baby_brown.png" alt="038_baby_brown.png"> | Brown Baby | Starts with Dirty Mind + Dingle Berry + spawns a poop per enemy killed | ✔️
-| 39 | <img src="./images/039_baby_noose.png" alt="039_baby_noose.png"> | Noose Baby | Takes damage if shooting when the timer reaches 0 | ✔️
-| 40 | <img src="./images/040_baby_hive.png" alt="040_baby_hive.png"> | Hive Baby | Starts with Technology 2 + Lachryphagy | ❌
-| 41 | <img src="./images/041_baby_buddy.png" alt="041_baby_buddy.png"> | Buddy Baby | Removes a heart container on hit | ✔️
-| 42 | <img src="./images/042_baby_colorful.png" alt="042_baby_colorful.png"> | Colorful Baby | Acid trip | ❌
+| 39 | <img src="./images/039_baby_noose.png" alt="039_baby_noose.png"> | Noose Baby | Takes damage if shooting when the timer reaches 0 | ❌
+| 40 | <img src="./images/040_baby_hive.png" alt="040_baby_hive.png"> | Hive Baby | Starts with Technology 2 + Lachryphagy | ✔️
+| 41 | <img src="./images/041_baby_buddy.png" alt="041_baby_buddy.png"> | Buddy Baby | Removes a heart container on hit | ❌
+| 42 | <img src="./images/042_baby_colorful.png" alt="042_baby_colorful.png"> | Colorful Baby | Acid trip | ✔️
 | 43 | <img src="./images/043_baby_whore.png" alt="043_baby_whore.png"> | Whore Baby | All enemies explode | ✔️
 | 44 | <img src="./images/044_baby_cracked.png" alt="044_baby_cracked.png"> | Cracked Baby | Larynx effect every 8th tear | ✔️
 | 45 | <img src="./images/045_baby_dripping.png" alt="045_baby_dripping.png"> | Dripping Baby | 10% chance to teleport from breaking rocks | ✔️
 | 46 | <img src="./images/046_baby_blinding.png" alt="046_baby_blinding.png"> | Blinding Baby | Spawns a Sun Card on hit | ✔️
 | 47 | <img src="./images/047_baby_sucky.png" alt="047_baby_sucky.png"> | Sucky Baby | Succubus aura | ✔️
-| 48 | <img src="./images/048_baby_dark.png" alt="048_baby_dark.png"> | Dark Baby | Temporary blindness | ✔️
-| 49 | <img src="./images/049_baby_picky.png" alt="049_baby_picky.png"> | Picky Baby | Starts with More Options | ❌
+| 48 | <img src="./images/048_baby_dark.png" alt="048_baby_dark.png"> | Dark Baby | Temporary blindness | ❌
+| 49 | <img src="./images/049_baby_picky.png" alt="049_baby_picky.png"> | Picky Baby | Starts with More Options | ✔️
 | 50 | <img src="./images/050_baby_revenge.png" alt="050_baby_revenge.png"> | Revenge Baby | Spawns a random heart on hit | ✔️
 | 51 | <img src="./images/051_baby_belial.png" alt="051_baby_belial.png"> | Belial Baby | Starts with Azazel-style Brimstone + flight | ✔️
 | 52 | <img src="./images/052_baby_sale.png" alt="052_baby_sale.png"> | Sale Baby | Starts with Steam Sale | ✔️
@@ -98,8 +98,8 @@ There are 604 babies in total.
 | 86 | <img src="./images/086_baby_statue.png" alt="086_baby_statue.png"> | Statue Baby | Starts with Duality | ✔️
 | 87 | <img src="./images/087_baby_bloodsucker.png" alt="087_baby_bloodsucker.png"> | Bloodsucker Baby | Starts with 3x Lil Delirium | ✔️
 | 88 | <img src="./images/088_baby_bandaid.png" alt="088_baby_bandaid.png"> | Bandaid Baby | 33% chance to spawn a random pedestal item on room clear | ✔️
-| 89 | <img src="./images/089_baby_eyebrows.png" alt="089_baby_eyebrows.png"> | Eyebrows Baby | Starts with 5x Guppy's Hair Ball + flight + explosion immunity + blindfolded | ✔️
-| 90 | <img src="./images/090_baby_nerd.png" alt="090_baby_nerd.png"> | Nerd Baby | Locked doors in uncleared rooms | ❌
+| 89 | <img src="./images/089_baby_eyebrows.png" alt="089_baby_eyebrows.png"> | Eyebrows Baby | Starts with 5x Guppy's Hair Ball + flight + explosion immunity + blindfolded | ❌
+| 90 | <img src="./images/090_baby_nerd.png" alt="090_baby_nerd.png"> | Nerd Baby | Locked doors in uncleared rooms | ✔️
 | 91 | <img src="./images/091_baby_boss.png" alt="091_baby_boss.png"> | Boss Baby | Starts with There's Options | ✔️
 | 92 | <img src="./images/092_baby_turd.png" alt="092_baby_turd.png"> | Turd Baby | Enemies fart on death | ✔️
 | 93 | <img src="./images/093_baby_o.png" alt="093_baby_o.png"> | O Baby | Spawns a portal on 6 pickups collected | ✔️
@@ -119,15 +119,15 @@ There are 604 babies in total.
 | 107 | <img src="./images/107_baby_brownie.png" alt="107_baby_brownie.png"> | Brownie Baby | Starts with level 4 Meatboy + level 4 Meatgirl | ✔️
 | 108 | <img src="./images/108_baby_vvvvvv.png" alt="108_baby_vvvvvv.png"> | VVVVVV Baby | Reverse Emperor card effect after 6 hits | ✔️
 | 109 | <img src="./images/109_baby_nosferatu.png" alt="109_baby_nosferatu.png"> | Nosferatu Baby | Enemies have spectral projectiles | ✔️
-| 110 | <img src="./images/110_baby_pubic.png" alt="110_baby_pubic.png"> | Pubic Baby | Must full clear | ✔️
-| 111 | <img src="./images/111_baby_eyemouth.png" alt="111_baby_eyemouth.png"> | Eyemouth Baby | Shoots an extra tear every 3rd shot | ❌
+| 110 | <img src="./images/110_baby_pubic.png" alt="110_baby_pubic.png"> | Pubic Baby | Must full clear | ❌
+| 111 | <img src="./images/111_baby_eyemouth.png" alt="111_baby_eyemouth.png"> | Eyemouth Baby | Shoots an extra tear every 3rd shot | ✔️
 | 112 | <img src="./images/112_baby_weirdo.png" alt="112_baby_weirdo.png"> | Weirdo Baby | Starts with The Ludovico Technique | ✔️
 | 113 | <img src="./images/113_baby_v.png" alt="113_baby_v.png"> | V Baby | Electric ring tears | ✔️
 | 114 | <img src="./images/114_baby_strangemouth.png" alt="114_baby_strangemouth.png"> | Strange Mouth Baby | Wiggle tears | ✔️
 | 115 | <img src="./images/115_baby_masked.png" alt="115_baby_masked.png"> | Masked Baby | Can't shoot while moving | ✔️
 | 116 | <img src="./images/116_baby_cyber.png" alt="116_baby_cyber.png"> | Cyber Baby | Spawns a random pickup on hit | ✔️
-| 117 | <img src="./images/117_baby_axewound.png" alt="117_baby_axewound.png"> | Axe Wound Baby | Starts with 2x Sacrificial Dagger + flight + explosion immunity + blindfolded | ✔️
-| 118 | <img src="./images/118_baby_statue.png" alt="118_baby_statue.png"> | Statue Baby 2 | Improved Secret Rooms (4 items + no rerolls) | ❌
+| 117 | <img src="./images/117_baby_axewound.png" alt="117_baby_axewound.png"> | Axe Wound Baby | Starts with 2x Sacrificial Dagger + flight + explosion immunity + blindfolded | ❌
+| 118 | <img src="./images/118_baby_statue.png" alt="118_baby_statue.png"> | Statue Baby 2 | Improved Secret Rooms (4 items + no rerolls) | ✔️
 | 119 | <img src="./images/119_baby_grin.png" alt="119_baby_grin.png"> | Grin Baby | Starts with Godhead | ✔️
 | 120 | <img src="./images/120_baby_upset.png" alt="120_baby_upset.png"> | Upset Baby | Starts with Sad Bombs | ✔️
 | 121 | <img src="./images/121_baby_plastic.png" alt="121_baby_plastic.png"> | Plastic Baby | Starts with Rubber Cement | ✔️
@@ -148,8 +148,8 @@ There are 604 babies in total.
 | 136 | <img src="./images/136_baby_tears.png" alt="136_baby_tears.png"> | Tears Baby | Starts with Paschal Candle | ✔️
 | 137 | <img src="./images/137_baby_bowling.png" alt="137_baby_bowling.png"> | Bowling Baby | Starts with Flat Stone | ✔️
 | 138 | <img src="./images/138_baby_mohawk.png" alt="138_baby_mohawk.png"> | Mohawk Baby | Bombs are hearts | ✔️
-| 139 | <img src="./images/139_baby_rottenmeat.png" alt="139_baby_rottenmeat.png"> | Rotten Meat Baby | Teleport to starting room on hit | ✔️
-| 140 | <img src="./images/140_baby_noarms.png" alt="140_baby_noarms.png"> | No Arms Baby | Pickups are bouncy | ❌
+| 139 | <img src="./images/139_baby_rottenmeat.png" alt="139_baby_rottenmeat.png"> | Rotten Meat Baby | Teleport to starting room on hit | ❌
+| 140 | <img src="./images/140_baby_noarms.png" alt="140_baby_noarms.png"> | No Arms Baby | Pickups are bouncy | ✔️
 | 141 | <img src="./images/141_baby_twin2.png" alt="141_baby_twin2.png"> | Twin Baby | Uncontrollable Teleport 2.0 | ✔️
 | 142 | <img src="./images/142_baby_uglygirl.png" alt="142_baby_uglygirl.png"> | Ugly Girl Baby | Starts with Ipecac + Dr. Fetus | ✔️
 | 143 | <img src="./images/143_baby_chompers.png" alt="143_baby_chompers.png"> | Chompers Baby | Everything is Red Poop | ✔️
@@ -188,15 +188,15 @@ There are 604 babies in total.
 | 176 | <img src="./images/176_baby_transforming.png" alt="176_baby_transforming.png"> | Transforming Baby | Starts with Technology + 3x Robo-Baby | ✔️
 | 177 | <img src="./images/177_baby_aban.png" alt="177_baby_aban.png"> | Aban Baby | Sonic the Hedgehog health | ✔️
 | 178 | <img src="./images/178_baby_bandagegirl.png" alt="178_baby_bandagegirl.png"> | Bandage Girl Baby | Starts with Pause + Cube of Meat + Ball of Bandages | ✔️
-| 179 | <img src="./images/179_baby_piecea.png" alt="179_baby_piecea.png"> | Piece A Baby | Can only move up + down + left + right | ✔️
-| 180 | <img src="./images/180_baby_pieceb.png" alt="180_baby_pieceb.png"> | Piece B Baby | Starts with Charging Station | ❌
+| 179 | <img src="./images/179_baby_piecea.png" alt="179_baby_piecea.png"> | Piece A Baby | Can only move up + down + left + right | ❌
+| 180 | <img src="./images/180_baby_pieceb.png" alt="180_baby_pieceb.png"> | Piece B Baby | Starts with Charging Station | ✔️
 | 181 | <img src="./images/181_baby_spelunker.png" alt="181_baby_spelunker.png"> | Spelunker Baby | Starts with Stud Finder; Crawlspace --> Black Market | ✔️
 | 182 | <img src="./images/182_baby_frog.png" alt="182_baby_frog.png"> | Frog Baby | Starts with Scorpio | ✔️
 | 183 | <img src="./images/183_baby_crook.png" alt="183_baby_crook.png"> | Crook Baby | Starts with Mr. ME | ✔️
 | 184 | <img src="./images/184_baby_don.png" alt="184_baby_don.png"> | Don Baby | Starts with Bob's Brain | ✔️
 | 185 | <img src="./images/185_baby_web.png" alt="185_baby_web.png"> | Web Baby | Slowing tears | ✔️
-| 186 | <img src="./images/186_baby_faded.png" alt="186_baby_faded.png"> | Faded Baby | Random teleport on hit | ✔️
-| 187 | <img src="./images/187_baby_sick.png" alt="187_baby_sick.png"> | Sick Baby | Shoots explosive flies + flight | ❌
+| 186 | <img src="./images/186_baby_faded.png" alt="186_baby_faded.png"> | Faded Baby | Random teleport on hit | ❌
+| 187 | <img src="./images/187_baby_sick.png" alt="187_baby_sick.png"> | Sick Baby | Shoots explosive flies + flight | ✔️
 | 188 | <img src="./images/188_baby_drfetus.png" alt="188_baby_drfetus.png"> | Dr. Fetus Baby | Starts with Dr. Fetus + Remote Detonator | ✔️
 | 189 | <img src="./images/189_baby_spectral.png" alt="189_baby_spectral.png"> | Spectral Baby | Starts with Ouija Board | ✔️
 | 190 | <img src="./images/190_baby_redskeleton.png" alt="190_baby_redskeleton.png"> | Red Skeleton Baby | Starts with 3x Slipped Rib | ✔️
@@ -233,12 +233,12 @@ There are 604 babies in total.
 | 221 | <img src="./images/221_baby_drool.png" alt="221_baby_drool.png"> | Drool Baby | Starts with Monstro's Tooth (improved) | ✔️
 | 222 | <img src="./images/222_baby_wink.png" alt="222_baby_wink.png"> | Wink Baby | Starts with Vanishing Twin | ✔️
 | 223 | <img src="./images/223_baby_pox.png" alt="223_baby_pox.png"> | Pox Baby | Starts with Toxic Shock | ✔️
-| 224 | <img src="./images/224_baby_onion.png" alt="224_baby_onion.png"> | Onion Baby | Projectiles have 2x speed | ✔️
+| 224 | <img src="./images/224_baby_onion.png" alt="224_baby_onion.png"> | Onion Baby | Projectiles have 2x speed | ❌
 | 225 | <img src="./images/225_baby_zipper.png" alt="225_baby_zipper.png"> | Zipper Baby | Extra enemies spawn on hit | ❌
-| 226 | <img src="./images/226_baby_buckteeth.png" alt="226_baby_buckteeth.png"> | Buckteeth Baby | Starts with 15x Angry Fly | ❌
+| 226 | <img src="./images/226_baby_buckteeth.png" alt="226_baby_buckteeth.png"> | Buckteeth Baby | Starts with 15x Angry Fly | ✔️
 | 227 | <img src="./images/227_baby_beard.png" alt="227_baby_beard.png"> | Beard Baby | Starts with Ocular Rift | ✔️
-| 228 | <img src="./images/228_baby_hanger.png" alt="228_baby_hanger.png"> | Hanger Baby | Starts with Abel; Abel's tears hurt you | ✔️
-| 229 | <img src="./images/229_baby_vampire.png" alt="229_baby_vampire.png"> | Vampire Baby | Starts with Contract From Below | ❌
+| 228 | <img src="./images/228_baby_hanger.png" alt="228_baby_hanger.png"> | Hanger Baby | Starts with Abel; Abel's tears hurt you | ❌
+| 229 | <img src="./images/229_baby_vampire.png" alt="229_baby_vampire.png"> | Vampire Baby | Starts with Contract From Below | ✔️
 | 230 | <img src="./images/230_baby_tilt.png" alt="230_baby_tilt.png"> | Tilt Baby | Right angled tears | ✔️
 | 231 | <img src="./images/231_baby_bawl.png" alt="231_baby_bawl.png"> | Bawl Baby | Constant Isaac's Tears effect + blindfolded | ✔️
 | 232 | <img src="./images/232_baby_lemon.png" alt="232_baby_lemon.png"> | Lemon Baby | Starts with Lemon Mishap (improved) | ✔️
@@ -248,18 +248,18 @@ There are 604 babies in total.
 | 236 | <img src="./images/236_baby_mask.png" alt="236_baby_mask.png"> | Mask Baby | All enemies are permanently confused | ✔️
 | 237 | <img src="./images/237_baby_gem.png" alt="237_baby_gem.png"> | Gem Baby | Pennies spawn as nickels | ✔️
 | 238 | <img src="./images/238_baby_shark.png" alt="238_baby_shark.png"> | Shark Baby | Starts with 5x Fate's Reward | ✔️
-| 239 | <img src="./images/239_baby_beret.png" alt="239_baby_beret.png"> | Beret Baby | All champions | ✔️
-| 240 | <img src="./images/240_baby_blisters.png" alt="240_baby_blisters.png"> | Blisters Baby | Shot speed oscillates | ❌
+| 239 | <img src="./images/239_baby_beret.png" alt="239_baby_beret.png"> | Beret Baby | All champions | ❌
+| 240 | <img src="./images/240_baby_blisters.png" alt="240_baby_blisters.png"> | Blisters Baby | Shot speed oscillates | ✔️
 | 241 | <img src="./images/241_baby_radioactive.png" alt="241_baby_radioactive.png"> | Radioactive Baby | Starts with Mysterious Liquid | ✔️
 | 242 | <img src="./images/242_baby_beast.png" alt="242_baby_beast.png"> | Beast Baby | Devolves enemies | ✔️
 | 243 | <img src="./images/243_baby_dark.png" alt="243_baby_dark.png"> | Dark Baby 2 | Starts with E. Coli (improved) | ✔️
-| 244 | <img src="./images/244_baby_snail.png" alt="244_baby_snail.png"> | Snail Baby | Glowing Hourglass on 2nd hit (per room) | ✔️
-| 245 | <img src="./images/245_baby_blood.png" alt="245_baby_blood.png"> | Blood Baby | Starts with 5x Forever Alone | ❌
+| 244 | <img src="./images/244_baby_snail.png" alt="244_baby_snail.png"> | Snail Baby | Glowing Hourglass on 2nd hit (per room) | ❌
+| 245 | <img src="./images/245_baby_blood.png" alt="245_baby_blood.png"> | Blood Baby | Starts with 5x Forever Alone | ✔️
 | 246 | <img src="./images/246_baby_8ball.png" alt="246_baby_8ball.png"> | 8 Ball Baby | Orbiting tears | ✔️
 | 247 | <img src="./images/247_baby_wisp.png" alt="247_baby_wisp.png"> | Wisp Baby | Starts with Crack the Sky | ✔️
 | 248 | <img src="./images/248_baby_cactus.png" alt="248_baby_cactus.png"> | Cactus Baby | Starts with Locust of Famine | ✔️
-| 249 | <img src="./images/249_baby_loveeye.png" alt="249_baby_loveeye.png"> | Love Eye Baby | Falls in love with the first enemy killed | ✔️
-| 250 | <img src="./images/250_baby_medusa.png" alt="250_baby_medusa.png"> | Medusa Baby | Coins refill bombs and keys when depleted | ❌
+| 249 | <img src="./images/249_baby_loveeye.png" alt="249_baby_loveeye.png"> | Love Eye Baby | Falls in love with the first enemy killed | ❌
+| 250 | <img src="./images/250_baby_medusa.png" alt="250_baby_medusa.png"> | Medusa Baby | Coins refill bombs and keys when depleted | ✔️
 | 251 | <img src="./images/251_baby_nuclear.png" alt="251_baby_nuclear.png"> | Nuclear Baby | Mama Mega effect on hit | ✔️
 | 252 | <img src="./images/252_baby_purple.png" alt="252_baby_purple.png"> | Purple Baby | Fires are holy | ✔️
 | 253 | <img src="./images/253_baby_wizard.png" alt="253_baby_wizard.png"> | Wizard Baby | Most cards are face up | ✔️
@@ -276,8 +276,8 @@ There are 604 babies in total.
 | 264 | <img src="./images/264_baby_bear.png" alt="264_baby_bear.png"> | Bear Baby | Starts with Holy Water + BFFS! | ✔️
 | 265 | <img src="./images/265_baby_polarbear.png" alt="265_baby_polarbear.png"> | Polar Bear Baby | Starts with Lil Brimstone + Robo Baby + Baby Bender | ✔️
 | 266 | <img src="./images/266_baby_lovebear.png" alt="266_baby_lovebear.png"> | Lovebear Baby | Starts in a super Arcade | ✔️
-| 267 | <img src="./images/267_baby_hare.png" alt="267_baby_hare.png"> | Hare Baby | Takes damage when standing still | ✔️
-| 268 | <img src="./images/268_baby_squirrel.png" alt="268_baby_squirrel.png"> | Squirrel Baby | Spawns a friendly Mom's Hand in every room | ❌
+| 267 | <img src="./images/267_baby_hare.png" alt="267_baby_hare.png"> | Hare Baby | Takes damage when standing still | ❌
+| 268 | <img src="./images/268_baby_squirrel.png" alt="268_baby_squirrel.png"> | Squirrel Baby | Spawns a friendly Mom's Hand in every room | ✔️
 | 269 | <img src="./images/269_baby_tabby.png" alt="269_baby_tabby.png"> | Tabby Baby | Starts with Sol | ✔️
 | 270 | <img src="./images/270_baby_porcupine.png" alt="270_baby_porcupine.png"> | Porcupine Baby | Wait What effect every 5 seconds | ✔️
 | 271 | <img src="./images/271_baby_puppy.png" alt="271_baby_puppy.png"> | Puppy Baby | Starts with Cricket's Head | ✔️
@@ -290,8 +290,8 @@ There are 604 babies in total.
 | 278 | <img src="./images/278_baby_reddemon.png" alt="278_baby_reddemon.png"> | Red Demon Baby | Starts with Brimstone + Anti-Gravity | ✔️
 | 279 | <img src="./images/279_baby_orangedemon.png" alt="279_baby_orangedemon.png"> | Orange Demon Baby | Explosivo tears (every 2nd tear) | ✔️
 | 280 | <img src="./images/280_baby_eyedemon.png" alt="280_baby_eyedemon.png"> | Eye Demon Baby | Enemies projectiles makes you lose money | ✔️
-| 281 | <img src="./images/281_baby_fangdemon.png" alt="281_baby_fangdemon.png"> | Fang Demon Baby | Directed light beams | ✔️
-| 282 | <img src="./images/282_baby_ghost.png" alt="282_baby_ghost.png"> | Ghost Baby 2 | Constant Maw of the Void effect + flight + blindfolded | ❌
+| 281 | <img src="./images/281_baby_fangdemon.png" alt="281_baby_fangdemon.png"> | Fang Demon Baby | Directed light beams | ❌
+| 282 | <img src="./images/282_baby_ghost.png" alt="282_baby_ghost.png"> | Ghost Baby 2 | Constant Maw of the Void effect + flight + blindfolded | ✔️
 | 283 | <img src="./images/283_baby_arachnid.png" alt="283_baby_arachnid.png"> | Arachnid Baby | Starts with 5x Daddy Longlegs | ✔️
 | 284 | <img src="./images/284_baby_bony.png" alt="284_baby_bony.png"> | Bony Baby | All bombs are doubled | ✔️
 | 285 | <img src="./images/285_baby_bigtongue.png" alt="285_baby_bigtongue.png"> | Big Tongue Baby | Flush effect on hit | ✔️
@@ -313,16 +313,16 @@ There are 604 babies in total.
 | 301 | <img src="./images/301_baby_bloodied.png" alt="301_baby_bloodied.png"> | Bloodied Baby | Create red doors on hit + improved Ultra Secret Rooms (5 items) | ✔️
 | 302 | <img src="./images/302_baby_cheese.png" alt="302_baby_cheese.png"> | Cheese Baby | The Bean + Gigante Bean | ✔️
 | 303 | <img src="./images/303_baby_pizza.png" alt="303_baby_pizza.png"> | Pizza Baby | Starts with Brown Nugget (improved) | ✔️
-| 304 | <img src="./images/304_baby_hotdog.png" alt="304_baby_hotdog.png"> | Hotdog Baby | Constant The Bean effect + flight + explosion immunity + blindfolded | ✔️
-| 305 | <img src="./images/305_baby_pear.png" alt="305_baby_pear.png"> | Nature Baby | Starts with PHD + All pills are horse pills | ❌
+| 304 | <img src="./images/304_baby_hotdog.png" alt="304_baby_hotdog.png"> | Hotdog Baby | Constant The Bean effect + flight + explosion immunity + blindfolded | ❌
+| 305 | <img src="./images/305_baby_pear.png" alt="305_baby_pear.png"> | Nature Baby | Starts with PHD + All pills are horse pills | ✔️
 | 306 | <img src="./images/306_baby_borg.png" alt="306_baby_borg.png"> | Borg Baby | Starts with Teleport 2.0 | ✔️
 | 307 | <img src="./images/307_baby_corrupted.png" alt="307_baby_corrupted.png"> | Corrupted Baby | Touching items/pickups causes damage | ✔️
 | 308 | <img src="./images/308_baby_xmouth.png" alt="308_baby_xmouth.png"> | X Mouth Baby | Moving Box effect on hit | ✔️
 | 309 | <img src="./images/309_baby_xeyes.png" alt="309_baby_xeyes.png"> | X Eyed Baby | Starts with 3x Lil Brimstone + Marked | ✔️
 | 310 | <img src="./images/310_baby_stareyes.png" alt="310_baby_stareyes.png"> | Starry Eyed Baby | Spawns a Stars Card on hit | ✔️
 | 311 | <img src="./images/311_baby_surgeon.png" alt="311_baby_surgeon.png"> | Surgeon Baby | Starts with Ventricle Razor | ✔️
-| 312 | <img src="./images/312_baby_sword.png" alt="312_baby_sword.png"> | Sword Baby | Starts with Piggy Bank + Swallowed Penny + Strawman (Strawman must not die) | ✔️
-| 313 | <img src="./images/313_baby_monk.png" alt="313_baby_monk.png"> | Monk Baby | Starts with Mom's Bracelet | ❌
+| 312 | <img src="./images/312_baby_sword.png" alt="312_baby_sword.png"> | Sword Baby | Starts with Piggy Bank + Swallowed Penny + Strawman (Strawman must not die) | ❌
+| 313 | <img src="./images/313_baby_monk.png" alt="313_baby_monk.png"> | Monk Baby | Starts with Mom's Bracelet | ✔️
 | 314 | <img src="./images/314_baby_disco.png" alt="314_baby_disco.png"> | Disco Baby | Starts with 10x Angelic Prism | ✔️
 | 315 | <img src="./images/315_baby_puzzle.png" alt="315_baby_puzzle.png"> | Puzzle Baby | D6 effect on hit | ✔️
 | 316 | <img src="./images/316_baby_speaker.png" alt="316_baby_speaker.png"> | Speaker Baby | X splitting tears | ✔️
@@ -350,8 +350,8 @@ There are 604 babies in total.
 | 338 | <img src="./images/338_baby_winghelmet.png" alt="338_baby_winghelmet.png"> | Wing Helmet Baby | Starts with The Ludovico Technique + The Parasite | ✔️
 | 339 | <img src="./images/339_baby_x.png" alt="339_baby_x.png"> | X Baby | Shoots 4 tears diagonally | ✔️
 | 340 | <img src="./images/340_baby_o.png" alt="340_baby_o.png"> | O Baby 2 | Spiral tears | ✔️
-| 341 | <img src="./images/341_baby_vomit.png" alt="341_baby_vomit.png"> | Vomit Baby | Takes damage if moving when the timer reaches 0 | ✔️
-| 342 | <img src="./images/342_baby_merman.png" alt="342_baby_merman.png"> | Merman Baby | Spawns a Bulb on hit | ❌
+| 341 | <img src="./images/341_baby_vomit.png" alt="341_baby_vomit.png"> | Vomit Baby | Takes damage if moving when the timer reaches 0 | ❌
+| 342 | <img src="./images/342_baby_merman.png" alt="342_baby_merman.png"> | Merman Baby | Spawns a Bulb on hit | ✔️
 | 343 | <img src="./images/343_baby_cyborg.png" alt="343_baby_cyborg.png"> | Cyborg Baby | Sees numerical damage values and hitboxes | ✔️
 | 344 | <img src="./images/344_baby_barbarian.png" alt="344_baby_barbarian.png"> | Barbarian Baby | Mama Mega bombs | ✔️
 | 345 | <img src="./images/345_baby_locust.png" alt="345_baby_locust.png"> | Locust Baby | Starts with 10 special Abyss locusts + blindfolded | ✔️
@@ -376,8 +376,8 @@ There are 604 babies in total.
 | 364 | <img src="./images/364_baby_turtledragon.png" alt="364_baby_turtledragon.png"> | Turtle Dragon Baby | Fiery tears | ✔️
 | 365 | <img src="./images/365_baby_shellsuit.png" alt="365_baby_shellsuit.png"> | Shell Suit Baby | Starts with Burnt Penny | ✔️
 | 366 | <img src="./images/366_baby_fiery.png" alt="366_baby_fiery.png"> | Fiery Baby | Spawns a friendly fire on hit | ✔️
-| 367 | <img src="./images/367_baby_meanmushroom.png" alt="367_baby_meanmushroom.png"> | Mean Mushroom Baby | Is frozen on hit for 1.5 seconds | ✔️
-| 368 | <img src="./images/368_baby_arcade.png" alt="368_baby_arcade.png"> | Arcade Baby | Razor blade tears (every 3rd tear) | ❌
+| 367 | <img src="./images/367_baby_meanmushroom.png" alt="367_baby_meanmushroom.png"> | Mean Mushroom Baby | Is frozen on hit for 1.5 seconds | ❌
+| 368 | <img src="./images/368_baby_arcade.png" alt="368_baby_arcade.png"> | Arcade Baby | Razor blade tears (every 3rd tear) | ✔️
 | 369 | <img src="./images/369_baby_scaredghost.png" alt="369_baby_scaredghost.png"> | Scared Ghost Baby | 2x speed | ✔️
 | 370 | <img src="./images/370_baby_blueghost.png" alt="370_baby_blueghost.png"> | Blue Ghost Baby | Max tear rate | ✔️
 | 371 | <img src="./images/371_baby_redghost.png" alt="371_baby_redghost.png"> | Red Ghost Baby | +10 damage | ✔️
@@ -391,14 +391,14 @@ There are 604 babies in total.
 | 379 | <img src="./images/379_baby_darkknight.png" alt="379_baby_darkknight.png"> | Dark Knight Baby | Starts with 5x Dry Baby | ✔️
 | 380 | <img src="./images/380_baby_octopus.png" alt="380_baby_octopus.png"> | Octopus Baby | Black creep tears | ✔️
 | 381 | <img src="./images/381_baby_orangepig.png" alt="381_baby_orangepig.png"> | Orange Pig Baby | Double items | ✔️
-| 382 | <img src="./images/382_baby_bluepig.png" alt="382_baby_bluepig.png"> | Blue Pig Baby | Spawns a Mega Troll Bomb every 5 seconds | ✔️
-| 383 | <img src="./images/383_baby_elfprincess.png" alt="383_baby_elfprincess.png"> | Elf Princess Baby | Starts with 3x Mom's Razor | ❌
+| 382 | <img src="./images/382_baby_bluepig.png" alt="382_baby_bluepig.png"> | Blue Pig Baby | Spawns a Mega Troll Bomb every 5 seconds | ❌
+| 383 | <img src="./images/383_baby_elfprincess.png" alt="383_baby_elfprincess.png"> | Elf Princess Baby | Starts with 3x Mom's Razor | ✔️
 | 384 | <img src="./images/384_baby_fishman.png" alt="384_baby_fishman.png"> | Fishman Baby | Spawns a random bomb on room clear | ✔️
 | 385 | <img src="./images/385_baby_fairyman.png" alt="385_baby_fairyman.png"> | Fairyman Baby | -30% damage on hit | ✔️
-| 386 | <img src="./images/386_baby_imp.png" alt="386_baby_imp.png"> | Imp Baby | Blender + flight + explosion immunity + blindfolded | ✔️
-| 387 | <img src="./images/387_baby_worm.png" alt="387_baby_worm.png"> | Worm Baby 2 | Starts with 20x Leech | ❌
-| 388 | <img src="./images/388_baby_bluewrestler.png" alt="388_baby_bluewrestler.png"> | Blue Wrestler Baby | Enemies spawn projectiles upon death | ✔️
-| 389 | <img src="./images/389_baby_redwrestler.png" alt="389_baby_redwrestler.png"> | Red Wrestler Baby | Everything is Movable TNT | ❌
+| 386 | <img src="./images/386_baby_imp.png" alt="386_baby_imp.png"> | Imp Baby | Blender + flight + explosion immunity + blindfolded | ❌
+| 387 | <img src="./images/387_baby_worm.png" alt="387_baby_worm.png"> | Worm Baby 2 | Starts with 20x Leech | ✔️
+| 388 | <img src="./images/388_baby_bluewrestler.png" alt="388_baby_bluewrestler.png"> | Blue Wrestler Baby | Enemies spawn projectiles upon death | ❌
+| 389 | <img src="./images/389_baby_redwrestler.png" alt="389_baby_redwrestler.png"> | Red Wrestler Baby | Everything is Movable TNT | ✔️
 | 390 | <img src="./images/390_baby_toast.png" alt="390_baby_toast.png"> | Toast Baby | Enemies leave a Red Candle fire upon death | ✔️
 | 391 | <img src="./images/391_baby_roboboy.png" alt="391_baby_roboboy.png"> | Roboboy Baby | Starts with Technology + A Lump of Coal | ✔️
 | 392 | <img src="./images/392_baby_liberty.png" alt="392_baby_liberty.png"> | Liberty Baby | Starts with Azazel's Rage | ✔️
@@ -440,21 +440,21 @@ There are 604 babies in total.
 | 428 | <img src="./images/428_baby_magiccat.png" alt="428_baby_magiccat.png"> | Magic Cat Baby | Giga Bomb effect on hit | ✔️
 | 429 | <img src="./images/429_baby_littlehorn.png" alt="429_baby_littlehorn.png"> | Little Horn Baby | Void tears (every 5th tear) | ✔️
 | 430 | <img src="./images/430_baby_folder.png" alt="430_baby_folder.png"> | Folder Baby | Swaps item/shop pools + devil/angel pools | ✔️
-| 431 | <img src="./images/431_baby_driver.png" alt="431_baby_driver.png"> | Driver Baby | Slippery movement | ✔️
-| 432 | <img src="./images/432_baby_dragon.png" alt="432_baby_dragon.png"> | Dragon Baby | Starts with Montezuma's Revenge + Playdough Cookie + My Reflection | ❌
+| 431 | <img src="./images/431_baby_driver.png" alt="431_baby_driver.png"> | Driver Baby | Slippery movement | ❌
+| 432 | <img src="./images/432_baby_dragon.png" alt="432_baby_dragon.png"> | Dragon Baby | Starts with Montezuma's Revenge + Playdough Cookie + My Reflection | ✔️
 | 433 | <img src="./images/433_baby_downwell.png" alt="433_baby_downwell.png"> | Downwell Baby | Improved shops (2 extra items for sale) | ✔️
 | 434 | <img src="./images/434_baby_cylinder.png" alt="434_baby_cylinder.png"> | Cylinder Baby | Tear size increases with distance | ✔️
 | 435 | <img src="./images/435_baby_cup.png" alt="435_baby_cup.png"> | Cup Baby | Card Against Humanity on hit | ✔️
 | 436 | <img src="./images/436_baby_cave_robot.png" alt="436_baby_cave_robot.png"> | Cave Robot Baby | Starts with Hairpin | ✔️
-| 437 | <img src="./images/437_baby_breadmeat_hoodiebread.png" alt="437_baby_breadmeat_hoodiebread.png"> | Breadmeat Hoodiebread Baby | Everything is sped up | ✔️
-| 438 | <img src="./images/438_baby_bigmouth.png" alt="438_baby_bigmouth.png"> | Big Mouth Baby 2 | Mega Mush effect after 6 hits | ❌
+| 437 | <img src="./images/437_baby_breadmeat_hoodiebread.png" alt="437_baby_breadmeat_hoodiebread.png"> | Breadmeat Hoodiebread Baby | Everything is sped up | ❌
+| 438 | <img src="./images/438_baby_bigmouth.png" alt="438_baby_bigmouth.png"> | Big Mouth Baby 2 | Mega Mush effect after 6 hits | ✔️
 | 439 | <img src="./images/439_baby_afro_rainbow.png" alt="439_baby_afro_rainbow.png"> | Afro Rainbow Baby | Starts with 20x Rainbow Baby | ✔️
 | 440 | <img src="./images/440_baby_afro.png" alt="440_baby_afro.png"> | Afro Baby | Starts with D1 | ✔️
 | 441 | <img src="./images/441_baby_tv.png" alt="441_baby_tv.png"> | TV Baby | Mega Blast effect after 6 hits | ✔️
 | 442 | <img src="./images/442_baby_tooth.png" alt="442_baby_tooth.png"> | Tooth Head Baby | Tooth tears (every 3rd tear) | ✔️
 | 443 | <img src="./images/443_baby_tired.png" alt="443_baby_tired.png"> | Tired Baby | Starts with 10x Cube Baby + Ice Cube | ✔️
-| 444 | <img src="./images/444_baby_steroids.png" alt="444_baby_steroids.png"> | Steroids Baby | Forget Me Now on 2nd hit (per room) | ✔️
-| 445 | <img src="./images/445_baby_soap_monster.png" alt="445_baby_soap_monster.png"> | Soap Monster Baby | Starts with Butter | ❌
+| 444 | <img src="./images/444_baby_steroids.png" alt="444_baby_steroids.png"> | Steroids Baby | Forget Me Now on 2nd hit (per room) | ❌
+| 445 | <img src="./images/445_baby_soap_monster.png" alt="445_baby_soap_monster.png"> | Soap Monster Baby | Starts with Butter | ✔️
 | 446 | <img src="./images/446_baby_rojen_whitefox.png" alt="446_baby_rojen_whitefox.png"> | Rojen Whitefox Baby | Shield on hit | ✔️
 | 447 | <img src="./images/447_baby_rocket.png" alt="447_baby_rocket.png"> | Rocket Baby | Starts with Super Magnet | ✔️
 | 448 | <img src="./images/448_baby_nurf.png" alt="448_baby_nurf.png"> | Nurf Baby | Starts with 3x Rune Bag | ✔️
@@ -523,8 +523,8 @@ There are 604 babies in total.
 | 511 | <img src="./images/511_baby_twitchy.png" alt="511_baby_twitchy.png"> | Twitchy Baby | Tear rate oscillates | ✔️
 | 512 | <img src="./images/512_baby_witch.png" alt="512_baby_witch.png"> | Witch Baby | Starts with Crystal Ball (uncharged) | ✔️
 | 513 | <img src="./images/513_baby_workshop.png" alt="513_baby_workshop.png"> | Workshop Baby | Starts with Humbling Bundle | ✔️
-| 514 | <img src="./images/514_baby_hooligan.png" alt="514_baby_hooligan.png"> | Hooligan Baby | Double enemies | ✔️
-| 515 | <img src="./images/515_baby_halfspider.png" alt="515_baby_halfspider.png"> | Half Spider Baby | Starts with 3x Pretty Fly | ❌
+| 514 | <img src="./images/514_baby_hooligan.png" alt="514_baby_hooligan.png"> | Hooligan Baby | Double enemies | ❌
+| 515 | <img src="./images/515_baby_halfspider.png" alt="515_baby_halfspider.png"> | Half Spider Baby | Starts with 3x Pretty Fly | ✔️
 | 516 | <img src="./images/516_baby_silly.png" alt="516_baby_silly.png"> | Silly Baby | Sacrificial Altar effect after 6 hits | ✔️
 | 517 | <img src="./images/517_baby_mastercook.png" alt="517_baby_mastercook.png"> | Master Cook Baby | Egg tears | ✔️
 | 518 | <img src="./images/518_baby_greenpepper.png" alt="518_baby_greenpepper.png"> | Green Pepper Baby | Starts with Abyss | ✔️
@@ -579,8 +579,8 @@ There are 604 babies in total.
 | 567 | <img src="./images/567_baby_kyuukyuu.png" alt="567_baby_kyuukyuu.png"> | Kyuukyuu Baby | Starts with Hungry Soul | ✔️
 | 568 | <img src="./images/568_baby_moonjelly.png" alt="568_baby_moonjelly.png"> | Moon Jelly Baby | Starts with Saturnus | ✔️
 | 569 | <img src="./images/569_baby_excelsior.png" alt="569_baby_excelsior.png"> | Excelsior Baby | Starts with Revelation | ✔️
-| 570 | <img src="./images/570_baby_painful.png" alt="570_baby_painful.png"> | Painful Baby | Enemies respawn when reentering a room | ✔️
-| 571 | <img src="./images/571_baby_pointless.png" alt="571_baby_pointless.png"> | Pointless Baby | Items are replaced with 6 cards | ❌
+| 570 | <img src="./images/570_baby_painful.png" alt="570_baby_painful.png"> | Painful Baby | Enemies respawn when reentering a room | ❌
+| 571 | <img src="./images/571_baby_pointless.png" alt="571_baby_pointless.png"> | Pointless Baby | Items are replaced with 6 cards | ✔️
 | 572 | <img src="./images/572_baby_doleful.png" alt="572_baby_doleful.png"> | Doleful Baby | Starts with Soy Milk + booger tears | ✔️
 | 573 | <img src="./images/573_baby_cubic.png" alt="573_baby_cubic.png"> | Cubic Baby | Starts with Brimstone Bombs + Scatter Bombs | ✔️
 | 574 | <img src="./images/574_baby_foodreviewer.png" alt="574_baby_foodreviewer.png"> | Food Reviewer Baby | All items are food items | ✔️

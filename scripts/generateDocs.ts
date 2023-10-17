@@ -129,8 +129,9 @@ function getBabyDescriptionsFromBabiesTS(): BabyDescriptionSimple[] {
       }
 
       currentBabyDescription.sprite = sprite;
-
-      // `sprite` is the final field.
+    } else if (trimmedLine.startsWith("requireNoEndFloors: true")) {
+      currentBabyDescription.requireNoEndFloors = true;
+    } else if (trimmedLine === "},") {
       const numKeys = Object.keys(currentBabyDescription).length;
       if (
         numKeys !== NUM_BABY_DESCRIPTION_SIMPLE_FIELDS &&
@@ -145,8 +146,6 @@ function getBabyDescriptionsFromBabiesTS(): BabyDescriptionSimple[] {
       }
       babyDescriptions.push(currentBabyDescription as BabyDescriptionSimple);
       currentBabyDescription = {};
-    } else if (trimmedLine.startsWith("requireNoEndFloors: true")) {
-      currentBabyDescription.requireNoEndFloors = true;
     }
   }
 
