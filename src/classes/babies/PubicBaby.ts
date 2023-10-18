@@ -8,7 +8,10 @@ import {
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
-const ROOM_TYPES = [RoomType.DEFAULT, RoomType.MINI_BOSS] as const;
+const ROOM_TYPES = [
+  RoomType.DEFAULT, // 1
+  RoomType.MINI_BOSS, // 6
+] as const;
 
 const v = {
   level: {
