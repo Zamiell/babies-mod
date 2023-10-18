@@ -3,7 +3,7 @@
 <!-- cspell:ignore Adrayon,cantgirl,elgirs,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
-### _v1.29.0_ - October 17th, 2023 (Unreleased)
+### _v1.29.0_ - October 18th, 2023
 
 - The following babies have new effects:
   - Hive Baby (#40) - "Starts with Hive Mind + max Blue Flies + max Blue Spiders" --> "Starts with Technology 2 + Lachryphagy"
