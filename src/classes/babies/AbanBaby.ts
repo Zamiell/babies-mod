@@ -100,7 +100,7 @@ export class AbanBaby extends Baby {
     const randomPosition = Isaac.GetRandomPosition();
     let velocity = player.Position.sub(randomPosition);
     velocity = velocity.Normalized();
-    const multiplier = getRandomInt(4, 20);
+    const multiplier = getRandomInt(4, 20, undefined);
     velocity = velocity.mul(multiplier);
     const coin = spawnCoin(
       CoinSubType.PENNY,

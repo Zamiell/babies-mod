@@ -13,7 +13,7 @@
   "type": "module",
   "dependencies": {
     "isaac-typescript-definitions": "^36.0.0",
-    "isaacscript-common": "^71.0.2"
+    "isaacscript-common": "^72.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.8.7",

@@ -4,6 +4,7 @@ import {
   ModCallbackCustom,
   game,
   levelHasRoomType,
+  newRNG,
 } from "isaacscript-common";
 import { mod } from "../../mod";
 import { Baby } from "../Baby";
@@ -25,8 +26,15 @@ export class DownwellBaby extends Baby {
       return;
     }
 
+    const seed = room.GetAwardSeed();
+    const rng = newRNG(seed);
+
     for (const gridIndex of COLLECTIBLE_GRID_INDEXES) {
-      const collectible = mod.spawnCollectible(CollectibleType.NULL, gridIndex);
+      const collectible = mod.spawnCollectible(
+        CollectibleType.NULL,
+        gridIndex,
+        rng,
+      );
       collectible.Price = 15; // It will be set to the correct price on the next frame.
       collectible.ShopItemId = -1;
     }

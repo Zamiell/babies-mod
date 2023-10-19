@@ -15,7 +15,7 @@ export class CapeBaby extends Baby {
   // 61
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
-    const angleModifier = getRandomFloat(0, 90) - 45;
+    const angleModifier = getRandomFloat(0, 90, undefined) - 45;
     tear.Velocity = tear.Velocity.Rotated(angleModifier);
     setTearColor(tear, FADED_YELLOW);
   }

@@ -4,6 +4,7 @@ import {
   CallbackCustom,
   ModCallbackCustom,
   findFreePosition,
+  game,
   inRoomType,
   isRoomInsideGrid,
   isSelfDamage,
@@ -54,6 +55,8 @@ export class GoblinBaby extends Baby {
 
     const player = Isaac.GetPlayer();
     const position = findFreePosition(player.Position);
-    mod.spawnCollectible(CollectibleType.NULL, position);
+    const room = game.GetRoom();
+    const seed = room.GetAwardSeed();
+    mod.spawnCollectible(CollectibleType.NULL, position, seed);
   }
 }
