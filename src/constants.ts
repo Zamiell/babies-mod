@@ -101,3 +101,6 @@ export const BUGGY_REPLACING_OR_DOUBLING_ENTITY_TYPE_VARIANT_SET =
     `${EntityType.SWINGER}.${SwingerVariant.SWINGER_HEAD}`, // 216.1
     `${EntityType.SWINGER}.${SwingerVariant.SWINGER_NECK}`, // 216.10
   ]);
+
+export const BUGGY_ENTITY_TYPES_WITH_GRID_ENTITIES_SET =
+  new ReadonlySet<EntityType>([EntityType.ISAAC]);

@@ -3,6 +3,12 @@
 <!-- cspell:ignore Adrayon,cantgirl,elgirs,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.29.1_ - October 24th, 2023
+
+- Fixed the bug where the game would crash under certain circumstances with the Isaac and Blue Baby bosses. (Thanks Monkeypot)
+- Fixed bugs with the following babies:
+  - Food Reviewer Baby (#574) - The sprite now has the correct left/right directions. (Thanks sisuka)
+
 ### _v1.29.0_ - October 18th, 2023
 
 - The following babies have new effects:
