@@ -54,7 +54,6 @@ export class CursedPillowBaby extends Baby {
     const num = this.getAttribute("num");
 
     v.run.numTearMisses++;
-    Isaac.DebugString(`GETTING HERE 2 - ${v.run.numTearMisses}`);
     if (v.run.numTearMisses === num) {
       v.run.numTearMisses = 0;
       player.TakeDamage(1, DamageFlagZero, EntityRef(player), 0);
