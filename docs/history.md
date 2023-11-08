@@ -9,6 +9,7 @@
   - Driver Baby (#431) - Will no longer soft-lock in Downpour or Dross. (Thanks sisuka)
   - Cursed Pillow Baby (#487) - Tears that hit a poop or a fireplace no longer count as being missed. (Thanks sisuka)
   - Abel (#585) - Tears that hit a poop or a fireplace no longer count as being missed.
+  - Fate's Reward (#591) - Krampus items will no longer cost hearts. (Thanks Gamonymous)
 
 ### _v1.29.1_ - October 24th, 2023
 

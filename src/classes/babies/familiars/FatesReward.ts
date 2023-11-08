@@ -5,11 +5,14 @@ import {
 } from "isaac-typescript-definitions";
 import {
   Callback,
+  getAdjustedPrice,
   isQuestCollectible,
   onEffectiveStage,
 } from "isaacscript-common";
 import { onStageWithCollectibles } from "../../../utils";
 import { Baby } from "../../Baby";
+
+const COLLECTIBLE_PRICE = 15;
 
 /** Items cost money. */
 export class FatesReward extends Baby {
@@ -17,7 +20,7 @@ export class FatesReward extends Baby {
     const coins = player.GetNumCoins();
 
     return (
-      coins >= 15 &&
+      coins >= COLLECTIBLE_PRICE &&
       !onEffectiveStage(
         // On stage 1, the player does not have 15 cents.
         LevelStage.BASEMENT_1, // 1
@@ -39,7 +42,11 @@ export class FatesReward extends Baby {
       return;
     }
 
-    pickup.Price = 15;
+    // If we do not specify this, Steam Sale will work properly, but Krampus collectibles will cost
+    // hearts instead of coins.
+    pickup.AutoUpdatePrice = false;
+
+    pickup.Price = getAdjustedPrice(COLLECTIBLE_PRICE);
     pickup.ShopItemId = -1;
   }
 }

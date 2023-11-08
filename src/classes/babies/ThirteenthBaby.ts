@@ -1,6 +1,9 @@
-import type { ActiveSlot, UseFlag } from "isaac-typescript-definitions";
-import {
+import type {
+  ActiveSlot,
   CollectibleType,
+  UseFlag,
+} from "isaac-typescript-definitions";
+import {
   EntityType,
   ModCallback,
   TrinketType,
@@ -8,6 +11,7 @@ import {
 import {
   Callback,
   doesEntityExist,
+  getAdjustedPrice,
   inStartingRoom,
   spawnTrinket,
 } from "isaacscript-common";
@@ -29,12 +33,8 @@ export class ThirteenthBaby extends Baby {
     );
   }
 
-  override onAdd(player: EntityPlayer): void {
-    const numSteamSales = player.GetCollectibleNum(CollectibleType.STEAM_SALE);
-    const price =
-      numSteamSales > 0
-        ? Math.floor(TRINKET_PRICE / (numSteamSales + 1))
-        : TRINKET_PRICE;
+  override onAdd(): void {
+    const price = getAdjustedPrice(TRINKET_PRICE);
 
     for (const gridIndex of TRINKET_GRID_INDEXES) {
       const trinket = spawnTrinket(TrinketType.NULL, gridIndex);
