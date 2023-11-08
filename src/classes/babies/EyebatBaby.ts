@@ -101,7 +101,7 @@ export class EyebatBaby extends Baby {
       }
     } else {
       const centerPos = room.GetCenterPos();
-      spawnGridEntity(GridEntityType.TRAPDOOR, centerPos);
+      spawnGridEntity(GridEntityType.TRAPDOOR, centerPos, false);
     }
   }
 }

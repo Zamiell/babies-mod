@@ -1,7 +1,13 @@
-import { ModCallback } from "isaac-typescript-definitions";
+import {
+  EntityType,
+  GridEntityType,
+  ModCallback,
+} from "isaac-typescript-definitions";
 import {
   Callback,
+  CallbackCustom,
   GAME_FRAMES_PER_SECOND,
+  ModCallbackCustom,
   isMissedTear,
 } from "isaacscript-common";
 import { isValidForMissedTearsEffect } from "../../../utils";
@@ -52,10 +58,37 @@ export class Abel extends Baby {
     }
   }
 
+  // 42
+  @Callback(ModCallback.PRE_TEAR_COLLISION)
+  preTearCollision(
+    tear: EntityTear,
+    collider: Entity,
+    _low: boolean,
+  ): boolean | undefined {
+    if (collider.Type !== EntityType.FIREPLACE) {
+      return undefined;
+    }
+
+    const ptrHash = GetPtrHash(tear);
+    v.room.tearPtrHashes.delete(ptrHash);
+    return undefined;
+  }
+
   // 61
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
     const ptrHash = GetPtrHash(tear);
     v.room.tearPtrHashes.add(ptrHash);
+  }
+
+  @CallbackCustom(
+    ModCallbackCustom.POST_GRID_ENTITY_COLLISION,
+    GridEntityType.POOP,
+    undefined,
+    EntityType.TEAR,
+  )
+  postGridEntityCollisionPoop(_gridEntity: GridEntity, entity: Entity): void {
+    const ptrHash = GetPtrHash(entity);
+    v.room.tearPtrHashes.delete(ptrHash);
   }
 }

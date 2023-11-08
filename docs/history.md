@@ -3,6 +3,12 @@
 <!-- cspell:ignore Adrayon,cantgirl,elgirs,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.29.2_ - November 8th, 2023
+
+- Fixed bugs with the following babies:
+  - Abel (#585) - Tears that hit a poop or a fireplace no longer count as being missed.
+  - Cursed Pillow Baby (#487) - Tears that hit a poop or a fireplace no longer count as being missed.
+
 ### _v1.29.1_ - October 24th, 2023
 
 - Fixed the bug where the game would crash under certain circumstances with the Isaac and Blue Baby bosses. (Thanks Monkeypot)
