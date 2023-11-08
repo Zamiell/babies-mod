@@ -14,9 +14,9 @@ import {
   levelHasRoomType,
   newRNG,
   onFirstFloor,
+  spawnCollectible,
   useCardTemp,
 } from "isaacscript-common";
-import { mod } from "../../mod";
 import { Baby } from "../Baby";
 import { getRandomCollectibleTypeFromPool } from "../features/GetRandomCollectibleTypeFromPool";
 
@@ -95,7 +95,7 @@ export class BloodiedBaby extends Baby {
         itemPoolType,
         rng,
       );
-      mod.spawnCollectible(collectibleType, position, rng);
+      spawnCollectible(collectibleType, position, rng);
     }
   }
 }

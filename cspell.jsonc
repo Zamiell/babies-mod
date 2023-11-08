@@ -21,7 +21,7 @@
     "node_modules/**",
     "package-lock.json",
     "pnpm-lock.yaml",
-    "yarn.lock"
+    "yarn.lock",
   ],
   "words": [
     "aban",
@@ -55,6 +55,7 @@
     "camillojr",
     "chargeshot",
     "choco",
+    "cloc",
     "coolghost",
     "coolgoblin",
     "coolorange",
@@ -154,6 +155,7 @@
     "pinkghost",
     "pinkprincess",
     "polarbear",
+    "Proto",
     "punkboy",
     "punkgirl",
     "purplehorse",
@@ -191,6 +193,7 @@
     "SUPERHOT",
     "superrobo",
     "tanooki",
+    "textsize",
     "threeeyes",
     "turtledragon",
     "twotone",
@@ -204,6 +207,6 @@
     "xeyes",
     "xmouth",
     "yellowplumber",
-    "yellowprincess"
-  ]
+    "yellowprincess",
+  ],
 }

@@ -22,10 +22,10 @@ import {
   inStartingRoom,
   isEven,
   log,
+  spawnCollectible,
   teleport,
 } from "isaacscript-common";
 import { CollectibleTypeCustom } from "../../enums/CollectibleTypeCustom";
-import { mod } from "../../mod";
 import {
   isCollectibleRerollCollectibleType,
   onStageWithSpecialRooms,
@@ -234,7 +234,7 @@ export class FancyBaby extends Baby {
       const [x, y] = xy;
       const position = gridCoordinatesToWorldPosition(x, y);
       // The teleport collectibles do not need a unique seed.
-      const collectible = mod.spawnCollectible(
+      const collectible = spawnCollectible(
         collectibleType,
         position,
         undefined,

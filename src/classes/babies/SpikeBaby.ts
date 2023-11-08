@@ -16,8 +16,8 @@ import {
   isChest,
   onStage,
   removeEntities,
+  spawnCollectible,
 } from "isaacscript-common";
-import { mod } from "../../mod";
 import { Baby } from "../Baby";
 
 const ANTI_SYNERGY_TRINKETS = [
@@ -89,10 +89,6 @@ export class SpikeBaby extends Baby {
     );
     removeEntities(pickupsFromSpikedChest);
 
-    mod.spawnCollectible(
-      CollectibleType.NULL,
-      pickup.Position,
-      pickup.InitSeed,
-    );
+    spawnCollectible(CollectibleType.NULL, pickup.Position, pickup.InitSeed);
   }
 }

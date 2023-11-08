@@ -8,8 +8,8 @@ import {
   inRoomType,
   isRoomInsideGrid,
   isSelfDamage,
+  spawnCollectible,
 } from "isaacscript-common";
-import { mod } from "../../mod";
 import { Baby } from "../Baby";
 
 const v = {
@@ -57,6 +57,6 @@ export class GoblinBaby extends Baby {
     const position = findFreePosition(player.Position);
     const room = game.GetRoom();
     const seed = room.GetAwardSeed();
-    mod.spawnCollectible(CollectibleType.NULL, position, seed);
+    spawnCollectible(CollectibleType.NULL, position, seed);
   }
 }

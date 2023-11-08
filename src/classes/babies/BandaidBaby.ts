@@ -6,8 +6,8 @@ import {
   getRandom,
   inRoomType,
   onFirstFloor,
+  spawnCollectible,
 } from "isaacscript-common";
-import { mod } from "../../mod";
 import { Baby } from "../Baby";
 
 /** N% chance to spawn a random pedestal item on room clear. */
@@ -36,7 +36,7 @@ export class BandaidBaby extends Baby {
         1,
         true,
       );
-      mod.spawnCollectible(CollectibleType.NULL, position, roomSeed);
+      spawnCollectible(CollectibleType.NULL, position, roomSeed);
     }
   }
 }

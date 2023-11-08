@@ -5,8 +5,8 @@ import {
   game,
   levelHasRoomType,
   newRNG,
+  spawnCollectible,
 } from "isaacscript-common";
-import { mod } from "../../mod";
 import { Baby } from "../Baby";
 
 const COLLECTIBLE_GRID_INDEXES = [48, 56] as const;
@@ -30,7 +30,7 @@ export class DownwellBaby extends Baby {
     const rng = newRNG(seed);
 
     for (const gridIndex of COLLECTIBLE_GRID_INDEXES) {
-      const collectible = mod.spawnCollectible(
+      const collectible = spawnCollectible(
         CollectibleType.NULL,
         gridIndex,
         rng,

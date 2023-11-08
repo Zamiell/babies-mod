@@ -56,6 +56,7 @@ import {
   spawnBombPickup,
   spawnCard,
   spawnCoin,
+  spawnCollectible,
   spawnEffect,
   spawnHeart,
   spawnKey,
@@ -462,7 +463,7 @@ export function spawnRandomPickup(
 
     case 11: {
       // Random collectible.
-      mod.spawnCollectible(CollectibleType.NULL, position, rng);
+      spawnCollectible(CollectibleType.NULL, position, rng);
       break;
     }
 

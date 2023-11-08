@@ -15,10 +15,10 @@ import {
   getCollectibleDevilHeartPrice,
   newRNG,
   onFirstFloor,
+  spawnCollectible,
   spawnGridEntityWithVariant,
   spawnWithSeed,
 } from "isaacscript-common";
-import { mod } from "../../mod";
 import { onStageWithSpecialRooms, shouldTransformRoomType } from "../../utils";
 import { Baby } from "../Baby";
 import { getRandomCollectibleTypeFromPool } from "../features/GetRandomCollectibleTypeFromPool";
@@ -65,7 +65,7 @@ export class SuitBaby extends Baby {
       ItemPoolType.DEVIL,
       rng,
     );
-    const collectible = mod.spawnCollectible(
+    const collectible = spawnCollectible(
       collectibleType,
       COLLECTIBLE_GRID_INDEX,
       rng,

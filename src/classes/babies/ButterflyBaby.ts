@@ -17,8 +17,8 @@ import {
   levelHasRoomType,
   newRNG,
   onFirstFloor,
+  spawnCollectible,
 } from "isaacscript-common";
-import { mod } from "../../mod";
 import { isCollectibleRerollCollectibleType } from "../../utils";
 import { Baby } from "../Baby";
 import { getRandomCollectibleTypeFromPool } from "../features/GetRandomCollectibleTypeFromPool";
@@ -80,7 +80,7 @@ export class ButterflyBaby extends Baby {
         itemPoolType,
         rng,
       );
-      mod.spawnCollectible(collectibleType, position, rng);
+      spawnCollectible(collectibleType, position, rng);
     }
   }
 }

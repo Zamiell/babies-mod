@@ -12,9 +12,9 @@ import {
   game,
   newRNG,
   onFirstFloor,
+  spawnCollectible,
   spawnWithSeed,
 } from "isaacscript-common";
-import { mod } from "../../mod";
 import { onStageWithSpecialRooms, shouldTransformRoomType } from "../../utils";
 import { Baby } from "../Baby";
 import { getRandomCollectibleTypeFromPool } from "../features/GetRandomCollectibleTypeFromPool";
@@ -60,7 +60,7 @@ export class PrettyBaby extends Baby {
       ItemPoolType.ANGEL,
       rng,
     );
-    const collectible = mod.spawnCollectible(
+    const collectible = spawnCollectible(
       collectibleType,
       COLLECTIBLE_GRID_INDEX,
       rng,

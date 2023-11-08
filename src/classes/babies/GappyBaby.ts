@@ -3,8 +3,8 @@ import {
   CallbackCustom,
   ModCallbackCustom,
   isSlotMachine,
+  spawnCollectible,
 } from "isaacscript-common";
-import { mod } from "../../mod";
 import { Baby } from "../Baby";
 
 /** Destroying machines gives items. */
@@ -21,6 +21,6 @@ export class GappyBaby extends Baby {
       return;
     }
 
-    mod.spawnCollectible(CollectibleType.NULL, slot.Position, slot.InitSeed);
+    spawnCollectible(CollectibleType.NULL, slot.Position, slot.InitSeed);
   }
 }

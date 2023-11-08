@@ -4,8 +4,8 @@ import {
   game,
   ModCallbackCustom,
   newRNG,
+  spawnCollectible,
 } from "isaacscript-common";
-import { mod } from "../../../mod";
 import { setInitialBabyRNG } from "../../../utils";
 import { Baby } from "../../Baby";
 
@@ -37,7 +37,7 @@ export class SirenShooter extends Baby {
         1,
         true,
       );
-      mod.spawnCollectible(CollectibleType.NULL, position, v.run.rng);
+      spawnCollectible(CollectibleType.NULL, position, v.run.rng);
     }
 
     return undefined;

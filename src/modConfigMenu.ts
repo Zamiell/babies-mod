@@ -1,3 +1,4 @@
+import { ModConfigMenuOptionType } from "isaac-typescript-definitions";
 import { mod } from "./mod";
 
 type ConfigDescription = readonly [

@@ -17,6 +17,7 @@ const config = {
 
   rules: {
     "isaacscript/no-throw": "off",
+    "n/no-unpublished-import": "off",
   },
 };
 

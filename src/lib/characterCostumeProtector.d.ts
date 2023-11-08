@@ -11,8 +11,10 @@ export function AddPlayer(
   additionalCostumeNullItemID?: NullItemID,
 ): void;
 
+// ts-prune-ignore-next-line
 export function RemoveAllPlayer(player: EntityPlayer): void;
 
+// ts-prune-ignore-next-line
 export function RemovePlayer(
   player: EntityPlayer,
   playerType: PlayerType,
