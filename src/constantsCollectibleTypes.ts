@@ -49,6 +49,7 @@ export const DR_FETUS_ANTI_SYNERGIES = [
 /** CollectibleType.TECHNOLOGY (68) */
 export const TECHNOLOGY_ANTI_SYNERGIES = [
   CollectibleType.DR_FETUS, // 52
+  CollectibleType.IPECAC, // 149
   CollectibleType.DEAD_EYE, // 373
   CollectibleType.EYE_OF_BELIAL, // 462
   CollectibleType.TECHNOLOGY_ZERO, // 524
