@@ -6,6 +6,7 @@
 ### _v1.29.2_ - November 8th, 2023
 
 - Fixed bugs with the following babies:
+  - !Red Wrestler Baby (#389) - Will no longer soft-lock with Wormwood. (Thanks Cyber_1)
   - Driver Baby (#431) - Will no longer soft-lock in Downpour or Dross. (Thanks sisuka)
   - Cursed Pillow Baby (#487) - Tears that hit a poop or a fireplace no longer count as being missed. (Thanks sisuka)
   - Abel (#585) - Tears that hit a poop or a fireplace no longer count as being missed.

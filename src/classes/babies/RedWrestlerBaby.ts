@@ -1,5 +1,6 @@
 import type { GridEntityXMLType } from "isaac-typescript-definitions";
 import {
+  BossID,
   CollectibleType,
   EntityType,
   LevelStage,
@@ -10,6 +11,7 @@ import {
   game,
   hasCollectible,
   isGridEntityXMLType,
+  levelHasBossID,
   onStage,
 } from "isaacscript-common";
 import { GRID_ENTITY_REPLACEMENT_EXCEPTIONS } from "../../constants";
@@ -30,7 +32,8 @@ export class RedWrestlerBaby extends Baby {
       !hasCollectible(
         player,
         ...COLLECTIBLE_TYPES_THAT_AUTOMATICALLY_EXPLODE_TNT,
-      )
+      ) &&
+      !levelHasBossID(BossID.WORMWOOD) // Wormwood needs pits to jump out of.
     );
   }
 
