@@ -2833,6 +2833,7 @@ export const BABIES = {
     collectible: CollectibleType.TEAR_DETONATOR,
     collectible2: CollectibleType.NINE_VOLT,
     collectible3: CollectibleType.CAR_BATTERY,
+    requireTears: true,
   },
 
   // 322
