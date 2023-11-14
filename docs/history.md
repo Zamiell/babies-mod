@@ -3,7 +3,7 @@
 <!-- cspell:ignore Adrayon,cantgirl,elgirs,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
-### _v1.29.3_ - November 14th, 2023
+### _v1.29.4_ - November 14th, 2023
 
 - Fixed bugs with the following babies:
   - Fang Demon Baby (#281) - It is no longer possible to get the baby if you have Spirit Sword. (Thanks Monkeypot)
