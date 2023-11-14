@@ -4530,9 +4530,9 @@ export const BABIES = {
   // 513
   [RandomBabyType.WORKSHOP]: {
     name: "Workshop Baby",
-    description: "Starts with Humbling Bundle",
+    description: "Starts with Humbleing Bundle",
     sprite: "513_baby_workshop.png",
-    collectible: CollectibleType.HUMBLING_BUNDLE,
+    collectible: CollectibleType.HUMBLEING_BUNDLE,
   },
 
   // 514
