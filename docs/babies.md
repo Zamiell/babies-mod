@@ -522,7 +522,7 @@ There are 604 babies in total.
 | 510 | <img src="./images/510_baby_starplant.png" alt="510_baby_starplant.png"> | Star Plant Baby | Starts with Dim Bulb | ✔️
 | 511 | <img src="./images/511_baby_twitchy.png" alt="511_baby_twitchy.png"> | Twitchy Baby | Tear rate oscillates | ✔️
 | 512 | <img src="./images/512_baby_witch.png" alt="512_baby_witch.png"> | Witch Baby | Starts with Crystal Ball (uncharged) | ✔️
-| 513 | <img src="./images/513_baby_workshop.png" alt="513_baby_workshop.png"> | Workshop Baby | Starts with Humbling Bundle | ✔️
+| 513 | <img src="./images/513_baby_workshop.png" alt="513_baby_workshop.png"> | Workshop Baby | Starts with Humbleing Bundle | ✔️
 | 514 | <img src="./images/514_baby_hooligan.png" alt="514_baby_hooligan.png"> | Hooligan Baby | Double enemies | ❌
 | 515 | <img src="./images/515_baby_halfspider.png" alt="515_baby_halfspider.png"> | Half Spider Baby | Starts with 3x Pretty Fly | ✔️
 | 516 | <img src="./images/516_baby_silly.png" alt="516_baby_silly.png"> | Silly Baby | Sacrificial Altar effect after 6 hits | ✔️

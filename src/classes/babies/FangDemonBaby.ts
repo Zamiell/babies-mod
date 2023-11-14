@@ -32,6 +32,8 @@ const SOFTLOCK_COLLECTIBLE_TYPES = [
   // Eye of the Occult does not cause a softlock, but we remove it since it changes the effect
   // variant of the target.
   CollectibleType.EYE_OF_THE_OCCULT, // 572
+
+  CollectibleType.SPIRIT_SWORD, // 579
 ] as const;
 
 const TARGET_DAMAGE_RADIUS = 30;
