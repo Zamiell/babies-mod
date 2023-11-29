@@ -40,6 +40,7 @@ await lintScript(async ({ packageRoot }) => {
 
     // Check for base file updates.
     $`npx isaacscript check --ignore lint.ts`,
+    // (We can't do a "@template-ignore-next-line" on the first line of this file.)
 
     checkDocs(packageRoot),
 
@@ -55,6 +56,8 @@ await lintScript(async ({ packageRoot }) => {
   await Promise.all(promises);
 });
 
+// @template-customization-start
+
 /** Check that the documentation is up to date. */
 async function checkDocs(projectRoot: string): Promise<void> {
   const babiesMDPath = path.join(projectRoot, "docs", "babies.md");
@@ -69,3 +72,5 @@ async function checkDocs(projectRoot: string): Promise<void> {
     exit(1);
   }
 }
+
+// @template-customization-end
