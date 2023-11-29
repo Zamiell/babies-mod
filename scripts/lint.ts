@@ -16,7 +16,7 @@ await lintScript(async ({ packageRoot }) => {
   promises.push(
     // Use Prettier to check formatting.
     // - "--log-level=warn" makes it only output errors.
-    $`npx prettier --log-level=warn --check .`,
+    $`prettier --log-level=warn --check .`,
 
     // Type-check the code using the TypeScript compiler.
     $`tsc --noEmit`,
@@ -27,19 +27,19 @@ await lintScript(async ({ packageRoot }) => {
 
     // Check for unused exports.
     // - "--error" makes it return an error code of 1 if unused exports are found.
-    $`npx ts-prune --error`,
+    $`ts-prune --error`,
 
     // Spell check every file using CSpell.
     // - "--no-progress" and "--no-summary" make it only output errors.
-    $`npx cspell --no-progress --no-summary .`,
+    $`cspell --no-progress --no-summary .`,
 
     // Check for unused CSpell words.
-    $`npx cspell-check-unused-words`,
+    $`cspell-check-unused-words`,
 
     // @template-customization-start
 
     // Check for base file updates.
-    $`npx isaacscript check --ignore lint.ts`,
+    $`isaacscript check --ignore lint.ts`,
     // (We can't do a "@template-ignore-next-line" on the first line of this file.)
 
     checkDocs(packageRoot),
