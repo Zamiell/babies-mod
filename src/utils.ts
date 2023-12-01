@@ -103,7 +103,7 @@ export function everyNSeconds(func: () => void, seconds: int): void {
 
 export function getBabyCollectiblesSet(
   baby: BabyDescription,
-): Set<CollectibleType> {
+): ReadonlySet<CollectibleType> {
   const babyCollectiblesSet = new Set<CollectibleType>();
   if (baby.collectible !== undefined) {
     babyCollectiblesSet.add(baby.collectible);

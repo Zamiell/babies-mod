@@ -117,7 +117,7 @@ export function babyCheckValid(
 function checkCollectibles(
   player: EntityPlayer,
   baby: BabyDescription,
-  babyCollectiblesSet: Set<CollectibleType>,
+  babyCollectiblesSet: ReadonlySet<CollectibleType>,
 ): boolean {
   // Check for overlapping collectibles.
   if (hasCollectible(player, ...babyCollectiblesSet)) {
@@ -589,7 +589,7 @@ function checkCollectibles(
  */
 function checkActiveItem(
   player: EntityPlayer,
-  babyCollectiblesSet: Set<CollectibleType>,
+  babyCollectiblesSet: ReadonlySet<CollectibleType>,
 ): boolean {
   const babyActiveItems = [...babyCollectiblesSet].filter((collectibleType) =>
     isActiveCollectible(collectibleType),
@@ -656,7 +656,7 @@ function playerHasTearBuild(player: EntityPlayer): boolean {
 function checkHealth(
   player: EntityPlayer,
   baby: BabyDescription,
-  babyCollectiblesSet: Set<CollectibleType>,
+  babyCollectiblesSet: ReadonlySet<CollectibleType>,
 ): boolean {
   const maxHearts = player.GetMaxHearts();
   const soulHearts = player.GetSoulHearts();
@@ -714,7 +714,7 @@ function checkKeys(player: EntityPlayer, baby: BabyDescription): boolean {
 
 function checkStage(
   baby: BabyDescription,
-  babyCollectiblesSet: Set<CollectibleType>,
+  babyCollectiblesSet: ReadonlySet<CollectibleType>,
 ): boolean {
   const effectiveStage = getEffectiveStage();
 
