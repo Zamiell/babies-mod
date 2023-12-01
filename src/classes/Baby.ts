@@ -25,7 +25,7 @@ export abstract class Baby extends ModFeature {
   override shouldCallbackMethodsFire = <T extends boolean>(
     vanilla: T,
     modCallback: T extends true ? ModCallback : ModCallbackCustom,
-    ...callbackArgs: unknown[]
+    ...callbackArgs: readonly unknown[]
   ): boolean => {
     if (getBabyType() !== this.babyType) {
       return false;
@@ -92,7 +92,7 @@ export abstract class Baby extends ModFeature {
 
 function shouldCallbackFireVanilla(
   modCallbackNum: int,
-  ...callbackArgs: unknown[]
+  ...callbackArgs: readonly unknown[]
 ): boolean {
   const modCallback = modCallbackNum as ModCallback;
   const validationFunc = MOD_CALLBACK_TO_VALIDATION_FUNC.get(modCallback);
@@ -105,12 +105,12 @@ function shouldCallbackFireVanilla(
 
 const MOD_CALLBACK_TO_VALIDATION_FUNC = new ReadonlyMap<
   ModCallback,
-  (...callbackArgs: unknown[]) => boolean
+  (...callbackArgs: readonly unknown[]) => boolean
 >([
   // 3
   [
     ModCallback.POST_USE_ITEM,
-    (...callbackArgs: unknown[]) => {
+    (...callbackArgs: readonly unknown[]) => {
       const player = callbackArgs[2] as EntityPlayer;
       return isValidRandomBabyPlayer(player);
     },
@@ -119,7 +119,7 @@ const MOD_CALLBACK_TO_VALIDATION_FUNC = new ReadonlyMap<
   // 5
   [
     ModCallback.POST_USE_CARD,
-    (...callbackArgs: unknown[]) => {
+    (...callbackArgs: readonly unknown[]) => {
       const player = callbackArgs[1] as EntityPlayer;
       return isValidRandomBabyPlayer(player);
     },
@@ -128,7 +128,7 @@ const MOD_CALLBACK_TO_VALIDATION_FUNC = new ReadonlyMap<
   // 8
   [
     ModCallback.EVALUATE_CACHE,
-    (...callbackArgs: unknown[]) => {
+    (...callbackArgs: readonly unknown[]) => {
       const player = callbackArgs[0] as EntityPlayer;
       return isValidRandomBabyPlayer(player);
     },
@@ -137,7 +137,7 @@ const MOD_CALLBACK_TO_VALIDATION_FUNC = new ReadonlyMap<
   // 10
   [
     ModCallback.POST_USE_PILL,
-    (...callbackArgs: unknown[]) => {
+    (...callbackArgs: readonly unknown[]) => {
       const player = callbackArgs[1] as EntityPlayer;
       return isValidRandomBabyPlayer(player);
     },
@@ -146,7 +146,7 @@ const MOD_CALLBACK_TO_VALIDATION_FUNC = new ReadonlyMap<
   // 23
   [
     ModCallback.PRE_USE_ITEM,
-    (...callbackArgs: unknown[]) => {
+    (...callbackArgs: readonly unknown[]) => {
       const player = callbackArgs[2] as EntityPlayer;
       return isValidRandomBabyPlayer(player);
     },
@@ -155,7 +155,7 @@ const MOD_CALLBACK_TO_VALIDATION_FUNC = new ReadonlyMap<
   // 42
   [
     ModCallback.PRE_TEAR_COLLISION,
-    (...callbackArgs: unknown[]) => {
+    (...callbackArgs: readonly unknown[]) => {
       const tear = callbackArgs[0] as EntityTear;
       const player = getBabyPlayerFromEntity(tear);
       return player !== undefined;
@@ -165,7 +165,7 @@ const MOD_CALLBACK_TO_VALIDATION_FUNC = new ReadonlyMap<
   // 61
   [
     ModCallback.POST_FIRE_TEAR,
-    (...callbackArgs: unknown[]) => {
+    (...callbackArgs: readonly unknown[]) => {
       const tear = callbackArgs[0] as EntityTear;
       const player = getBabyPlayerFromEntity(tear);
       return player !== undefined;
@@ -178,7 +178,7 @@ const MOD_CALLBACK_TO_VALIDATION_FUNC = new ReadonlyMap<
   // 68
   [
     ModCallback.POST_ENTITY_KILL,
-    (...callbackArgs: unknown[]) => {
+    (...callbackArgs: readonly unknown[]) => {
       const entity = callbackArgs[0] as Entity;
       const npc = entity.ToNPC();
       return npc !== undefined;
@@ -188,7 +188,7 @@ const MOD_CALLBACK_TO_VALIDATION_FUNC = new ReadonlyMap<
 
 function shouldCallbackFireCustom(
   modCallbackNum: int,
-  ...callbackArgs: unknown[]
+  ...callbackArgs: readonly unknown[]
 ): boolean {
   const modCallbackCustom = modCallbackNum as ModCallbackCustom;
 
@@ -203,11 +203,11 @@ function shouldCallbackFireCustom(
 
 const MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC = new ReadonlyMap<
   ModCallbackCustom,
-  (...callbackArgs: unknown[]) => boolean
+  (...callbackArgs: readonly unknown[]) => boolean
 >([
   [
     ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER,
-    (...callbackArgs: unknown[]) => {
+    (...callbackArgs: readonly unknown[]) => {
       const player = callbackArgs[0] as EntityPlayer;
       return isValidRandomBabyPlayer(player);
     },
@@ -215,7 +215,7 @@ const MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC = new ReadonlyMap<
 
   [
     ModCallbackCustom.INPUT_ACTION_PLAYER,
-    (...callbackArgs: unknown[]) => {
+    (...callbackArgs: readonly unknown[]) => {
       const player = callbackArgs[0] as EntityPlayer;
       return isValidRandomBabyPlayer(player);
     },
@@ -223,7 +223,7 @@ const MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC = new ReadonlyMap<
 
   [
     ModCallbackCustom.POST_BOMB_EXPLODED,
-    (...callbackArgs: unknown[]) => {
+    (...callbackArgs: readonly unknown[]) => {
       const bomb = callbackArgs[0] as EntityBomb;
       const player = getBabyPlayerFromEntity(bomb);
       return player !== undefined;
@@ -232,7 +232,7 @@ const MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC = new ReadonlyMap<
 
   [
     ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-    (...callbackArgs: unknown[]) => {
+    (...callbackArgs: readonly unknown[]) => {
       const player = callbackArgs[0] as EntityPlayer;
       return isValidRandomBabyPlayer(player);
     },
@@ -240,7 +240,7 @@ const MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC = new ReadonlyMap<
 
   [
     ModCallbackCustom.POST_PICKUP_COLLECT,
-    (...callbackArgs: unknown[]) => {
+    (...callbackArgs: readonly unknown[]) => {
       const player = callbackArgs[1] as EntityPlayer;
       return isValidRandomBabyPlayer(player);
     },

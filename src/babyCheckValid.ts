@@ -69,7 +69,7 @@ export function babyCheckValid(
   player: EntityPlayer,
   babyType: RandomBabyType,
   baby: BabyDescription,
-  pastBabies: Set<RandomBabyType>,
+  pastBabies: ReadonlySet<RandomBabyType>,
 ): boolean {
   // Check to see if we already got this baby in this run / multi-character custom challenge.
   if (pastBabies.has(babyType)) {

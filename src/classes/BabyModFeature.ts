@@ -14,7 +14,7 @@ export abstract class BabyModFeature extends ModFeature {
   override shouldCallbackMethodsFire = <T extends boolean>(
     vanilla: T,
     modCallback: T extends true ? ModCallback : ModCallbackCustom,
-    ...callbackArgs: unknown[]
+    ...callbackArgs: readonly unknown[]
   ): boolean => {
     if (getBabyType() === undefined) {
       return false;
@@ -29,7 +29,7 @@ export abstract class BabyModFeature extends ModFeature {
 
 function shouldCallbackFireVanilla(
   modCallbackNum: int,
-  ...callbackArgs: unknown[]
+  ...callbackArgs: readonly unknown[]
 ): boolean {
   const modCallback = modCallbackNum as ModCallback;
   const validationFunc = MOD_CALLBACK_TO_VALIDATION_FUNC.get(modCallback);
@@ -42,11 +42,11 @@ function shouldCallbackFireVanilla(
 
 const MOD_CALLBACK_TO_VALIDATION_FUNC = new ReadonlyMap<
   ModCallback,
-  (...callbackArgs: unknown[]) => boolean
+  (...callbackArgs: readonly unknown[]) => boolean
 >([
   [
     ModCallback.EVALUATE_CACHE,
-    (...callbackArgs: unknown[]) => {
+    (...callbackArgs: readonly unknown[]) => {
       const player = callbackArgs[0] as EntityPlayer;
       return isValidRandomBabyPlayer(player);
     },
@@ -55,7 +55,7 @@ const MOD_CALLBACK_TO_VALIDATION_FUNC = new ReadonlyMap<
 
 function shouldCallbackFireCustom(
   modCallbackNum: int,
-  ...callbackArgs: unknown[]
+  ...callbackArgs: readonly unknown[]
 ): boolean {
   const modCallbackCustom = modCallbackNum as ModCallbackCustom;
 
@@ -70,18 +70,18 @@ function shouldCallbackFireCustom(
 
 const MOD_CALLBACK_CUSTOM_TO_VALIDATION_FUNC = new ReadonlyMap<
   ModCallbackCustom,
-  (...callbackArgs: unknown[]) => boolean
+  (...callbackArgs: readonly unknown[]) => boolean
 >([
   [
     ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER,
-    (...callbackArgs: unknown[]) => {
+    (...callbackArgs: readonly unknown[]) => {
       const player = callbackArgs[0] as EntityPlayer;
       return isValidRandomBabyPlayer(player);
     },
   ],
   [
     ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED,
-    (...callbackArgs: unknown[]) => {
+    (...callbackArgs: readonly unknown[]) => {
       const player = callbackArgs[0] as EntityPlayer;
       return isValidRandomBabyPlayer(player);
     },
