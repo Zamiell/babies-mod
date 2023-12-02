@@ -103,17 +103,17 @@ export class SoftlockPrevention extends BabyModFeature {
     | [type: EntityType | GridEntityXMLType, variant: int, subType: int]
     | undefined {
     if (!isGridEntityXMLType(entityTypeOrGridEntityXMLType)) {
-      return;
+      return undefined;
     }
 
     const babyType = getBabyType();
     if (babyType === undefined) {
-      return;
+      return undefined;
     }
 
     const baby: BabyDescription = BABIES[babyType];
     if (baby.softlockPreventionRemoveFires !== true) {
-      return;
+      return undefined;
     }
 
     if (entityTypeOrGridEntityXMLType === GridEntityXMLType.TNT) {

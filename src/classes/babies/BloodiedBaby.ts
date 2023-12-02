@@ -55,7 +55,7 @@ export class BloodiedBaby extends Baby {
     useCardTemp(player, CardType.SOUL_OF_CAIN);
 
     if (roomClear) {
-      return;
+      return undefined;
     }
 
     // Soul of Cain will open all of the doors, but we only want to open the doors to the red rooms.

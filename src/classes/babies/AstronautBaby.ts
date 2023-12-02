@@ -24,12 +24,12 @@ export class AstronautBaby extends Baby {
   ): boolean | undefined {
     const tear = source.Entity;
     if (tear === undefined) {
-      return;
+      return undefined;
     }
 
     const ptrHash = GetPtrHash(tear);
     if (!v.room.tearPtrHashes.has(ptrHash)) {
-      return;
+      return undefined;
     }
 
     const blackHoleChance = getRandom(tear.InitSeed);

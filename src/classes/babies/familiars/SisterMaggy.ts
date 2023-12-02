@@ -26,7 +26,7 @@ export class SisterMaggy extends Baby {
     _countdownFrames: int,
   ): boolean | undefined {
     if (isSelfDamage(damageFlags)) {
-      return;
+      return undefined;
     }
 
     const num = this.getAttribute("num");

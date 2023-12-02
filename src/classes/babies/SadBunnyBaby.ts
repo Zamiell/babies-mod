@@ -63,7 +63,7 @@ export class SadBunnyBaby extends Baby {
   preTearCollision(tear: EntityTear): boolean | undefined {
     const ptrHash = GetPtrHash(tear);
     if (!v.room.tearPtrHashes.has(ptrHash)) {
-      return;
+      return undefined;
     }
 
     const player = getBabyPlayerFromEntity(tear);

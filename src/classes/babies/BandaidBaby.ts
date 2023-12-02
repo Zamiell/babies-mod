@@ -24,7 +24,7 @@ export class BandaidBaby extends Baby {
     const player = Isaac.GetPlayer();
 
     if (inRoomType(RoomType.BOSS)) {
-      return undefined;
+      return;
     }
 
     const collectibleChance = getRandom(roomSeed);

@@ -61,12 +61,12 @@ export class PenguinBaby extends Baby {
     _countdownFrames: int,
   ): boolean | undefined {
     if (source.Entity === undefined) {
-      return;
+      return undefined;
     }
 
     const player = getBabyPlayerFromEntity(source.Entity);
     if (player === undefined) {
-      return;
+      return undefined;
     }
 
     return false;

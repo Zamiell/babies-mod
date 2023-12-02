@@ -17,12 +17,12 @@ export class MeanMushroomBaby extends Baby {
     _countdownFrames: int,
   ): boolean | undefined {
     if (isSelfDamage(damageFlags)) {
-      return;
+      return undefined;
     }
 
     const controlsEnabled = player.AreControlsEnabled();
     if (!controlsEnabled) {
-      return;
+      return undefined;
     }
 
     const num = this.getAttribute("num");

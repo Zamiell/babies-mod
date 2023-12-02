@@ -84,7 +84,7 @@ export class AbanBaby extends Baby {
 
     if (coins === 0) {
       player.Kill();
-      return;
+      return undefined;
     }
 
     player.AddCoins(-999);

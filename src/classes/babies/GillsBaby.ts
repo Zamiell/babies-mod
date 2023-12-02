@@ -20,12 +20,12 @@ export class GillsBaby extends Baby {
   preTearCollision(tear: EntityTear, collider: Entity): boolean | undefined {
     const ptrHash = GetPtrHash(tear);
     if (!v.room.tearPtrHashes.has(ptrHash)) {
-      return;
+      return undefined;
     }
 
     const player = getBabyPlayerFromEntity(tear);
     if (player === undefined) {
-      return;
+      return undefined;
     }
 
     const creep = spawnEffect(

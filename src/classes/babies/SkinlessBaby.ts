@@ -31,7 +31,7 @@ export class SkinlessBaby extends Baby {
     countdownFrames: int,
   ): boolean | undefined {
     if (v.room.dealingExtraDamage) {
-      return;
+      return undefined;
     }
 
     v.room.dealingExtraDamage = true;

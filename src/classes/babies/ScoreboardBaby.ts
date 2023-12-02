@@ -41,11 +41,11 @@ export class ScoreboardBaby extends Baby {
     const gameFrameCount = game.GetFrameCount();
 
     if (v.run.timer !== null) {
-      return;
+      return undefined;
     }
 
     if (isSelfDamage(damageFlags)) {
-      return;
+      return undefined;
     }
 
     v.run.timer = gameFrameCount + GAME_FRAMES_PER_MINUTE;

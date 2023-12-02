@@ -394,7 +394,7 @@ export function spawnRandomPickup(
   position: Vector,
   velocity: Vector = VectorZero,
   noItems = false,
-): void {
+): undefined {
   // Spawn a random pickup.
   const pickupVariantChoice = noItems
     ? getRandomInt(1, 9, rng) // Exclude trinkets and collectibles.
@@ -404,67 +404,67 @@ export function spawnRandomPickup(
     case 1: {
       // Random heart.
       spawnHeart(HeartSubType.NULL, position, velocity, undefined, rng);
-      break;
+      return undefined;
     }
 
     case 2: {
       // Random coin.
       spawnCoin(CoinSubType.NULL, position, velocity, undefined, rng);
-      break;
+      return undefined;
     }
 
     case 3: {
       // Random key.
       spawnKey(KeySubType.NULL, position, velocity, undefined, rng);
-      break;
+      return undefined;
     }
 
     case 4: {
       // Random bomb.
       spawnBombPickup(BombSubType.NULL, position, velocity, undefined, rng);
-      break;
+      return undefined;
     }
 
     case 5: {
       // Random chest.
       spawnPickup(PickupVariant.CHEST, 0, position, velocity, undefined, rng);
-      break;
+      return undefined;
     }
 
     case 6: {
       // Random sack.
       spawnSack(SackSubType.NULL, position, velocity, undefined, rng);
-      break;
+      return undefined;
     }
 
     case 7: {
       // Random battery.
       spawnBattery(BatterySubType.NULL, position, velocity, undefined, rng);
-      break;
+      return undefined;
     }
 
     case 8: {
       // Random pill.
       spawnPill(PillColor.NULL, position, velocity, undefined, rng);
-      break;
+      return undefined;
     }
 
     case 9: {
       // Random card / rune.
       spawnCard(CardType.NULL, position, velocity, undefined, rng);
-      break;
+      return undefined;
     }
 
     case 10: {
       // Random trinket.
       spawnTrinket(TrinketType.NULL, position, velocity, undefined, rng);
-      break;
+      return undefined;
     }
 
     case 11: {
       // Random collectible.
       spawnCollectible(CollectibleType.NULL, position, rng);
-      break;
+      return undefined;
     }
 
     default: {

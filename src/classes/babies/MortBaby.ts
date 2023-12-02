@@ -18,12 +18,12 @@ export class MortBaby extends Baby {
   preTearCollision(tear: EntityTear): boolean | undefined {
     const ptrHash = GetPtrHash(tear);
     if (!v.room.tearPtrHashes.has(ptrHash)) {
-      return;
+      return undefined;
     }
 
     const player = getBabyPlayerFromEntity(tear);
     if (player === undefined) {
-      return;
+      return undefined;
     }
 
     player.AddBlueFlies(1, player.Position, undefined);
