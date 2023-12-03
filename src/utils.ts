@@ -5,6 +5,7 @@ import {
   CardType,
   CoinSubType,
   CollectibleType,
+  Direction,
   DisplayFlag,
   EffectVariant,
   EntityFlag,
@@ -28,6 +29,7 @@ import {
   GAME_FRAMES_PER_SECOND,
   VectorZero,
   addRoomDisplayFlag,
+  directionToVector,
   doesEntityExist,
   findFreePosition,
   game,
@@ -35,6 +37,7 @@ import {
   getEntities,
   getPlayerFromEntity,
   getRandomArrayElement,
+  getRandomEnumValue,
   getRandomInt,
   getRoomsInsideGrid,
   hasCollectible,
@@ -141,47 +144,13 @@ export function getRandomOffsetPosition(
   offsetSize: int,
   seed: Seed,
 ): Vector {
-  const offsetDirection = getRandomInt(1, 4, seed);
+  const randomDirection = getRandomEnumValue(Direction, seed, [
+    Direction.NO_DIRECTION,
+  ]);
+  const vector = directionToVector(randomDirection);
+  const offset = vector.mul(offsetSize);
 
-  let offsetX: int;
-  let offsetY: int;
-  switch (offsetDirection) {
-    // Bottom right
-    case 1: {
-      offsetX = offsetSize;
-      offsetY = offsetSize;
-      break;
-    }
-
-    // Top right
-    case 2: {
-      offsetX = offsetSize;
-      offsetY = offsetSize * -1;
-      break;
-    }
-
-    // Bottom left
-    case 3: {
-      offsetX = offsetSize * -1;
-      offsetY = offsetSize;
-      break;
-    }
-
-    // Top left
-    case 4: {
-      offsetX = offsetSize * -1;
-      offsetY = offsetSize * -1;
-      break;
-    }
-
-    default: {
-      return error(
-        `The offset direction was an unknown value of: ${offsetDirection}`,
-      );
-    }
-  }
-
-  return Vector(position.X + offsetX, position.Y + offsetY);
+  return position.add(offset);
 }
 
 export function giveCollectibleAndRemoveFromPools(
