@@ -143,7 +143,7 @@ export function getRandomOffsetPosition(
   position: Vector,
   offsetSize: int,
   seed: Seed,
-): Vector {
+): Readonly<Vector> {
   const randomDirection = getRandomEnumValue(Direction, seed, [
     Direction.NO_DIRECTION,
   ]);
