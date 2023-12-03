@@ -146,29 +146,29 @@ export function getRandomOffsetPosition(
   let offsetX: int;
   let offsetY: int;
   switch (offsetDirection) {
+    // Bottom right
     case 1: {
-      // Bottom right
       offsetX = offsetSize;
       offsetY = offsetSize;
       break;
     }
 
+    // Top right
     case 2: {
-      // Top right
       offsetX = offsetSize;
       offsetY = offsetSize * -1;
       break;
     }
 
+    // Bottom left
     case 3: {
-      // Bottom left
       offsetX = offsetSize * -1;
       offsetY = offsetSize;
       break;
     }
 
+    // Top left
     case 4: {
-      // Top left
       offsetX = offsetSize * -1;
       offsetY = offsetSize * -1;
       break;
@@ -394,77 +394,85 @@ export function spawnRandomPickup(
   position: Vector,
   velocity: Vector = VectorZero,
   noItems = false,
-): undefined {
+): EntityPickup {
   // Spawn a random pickup.
   const pickupVariantChoice = noItems
     ? getRandomInt(1, 9, rng) // Exclude trinkets and collectibles.
     : getRandomInt(1, 11, rng);
 
   switch (pickupVariantChoice) {
+    // Random heart.
     case 1: {
-      // Random heart.
-      spawnHeart(HeartSubType.NULL, position, velocity, undefined, rng);
-      return undefined;
+      return spawnHeart(HeartSubType.NULL, position, velocity, undefined, rng);
     }
 
+    // Random coin.
     case 2: {
-      // Random coin.
-      spawnCoin(CoinSubType.NULL, position, velocity, undefined, rng);
-      return undefined;
+      return spawnCoin(CoinSubType.NULL, position, velocity, undefined, rng);
     }
 
+    // Random key.
     case 3: {
-      // Random key.
-      spawnKey(KeySubType.NULL, position, velocity, undefined, rng);
-      return undefined;
+      return spawnKey(KeySubType.NULL, position, velocity, undefined, rng);
     }
 
+    // Random bomb.
     case 4: {
-      // Random bomb.
-      spawnBombPickup(BombSubType.NULL, position, velocity, undefined, rng);
-      return undefined;
+      return spawnBombPickup(
+        BombSubType.NULL,
+        position,
+        velocity,
+        undefined,
+        rng,
+      );
     }
 
+    // Random chest.
     case 5: {
-      // Random chest.
-      spawnPickup(PickupVariant.CHEST, 0, position, velocity, undefined, rng);
-      return undefined;
+      return spawnPickup(
+        PickupVariant.CHEST,
+        0,
+        position,
+        velocity,
+        undefined,
+        rng,
+      );
     }
 
+    // Random sack.
     case 6: {
-      // Random sack.
-      spawnSack(SackSubType.NULL, position, velocity, undefined, rng);
-      return undefined;
+      return spawnSack(SackSubType.NULL, position, velocity, undefined, rng);
     }
 
+    // Random battery.
     case 7: {
-      // Random battery.
-      spawnBattery(BatterySubType.NULL, position, velocity, undefined, rng);
-      return undefined;
+      return spawnBattery(
+        BatterySubType.NULL,
+        position,
+        velocity,
+        undefined,
+        rng,
+      );
     }
 
+    // Random pill.
     case 8: {
-      // Random pill.
-      spawnPill(PillColor.NULL, position, velocity, undefined, rng);
-      return undefined;
+      return spawnPill(PillColor.NULL, position, velocity, undefined, rng);
     }
 
+    // Random card / rune.
     case 9: {
-      // Random card / rune.
-      spawnCard(CardType.NULL, position, velocity, undefined, rng);
-      return undefined;
+      return spawnCard(CardType.NULL, position, velocity, undefined, rng);
     }
 
+    // Random trinket.
     case 10: {
-      // Random trinket.
-      spawnTrinket(TrinketType.NULL, position, velocity, undefined, rng);
-      return undefined;
+      return spawnTrinket(TrinketType.NULL, position, velocity, undefined, rng);
     }
 
+    // Random collectible.
     case 11: {
-      // Random collectible.
-      spawnCollectible(CollectibleType.NULL, position, rng);
-      return undefined;
+      return spawnCollectible(CollectibleType.NULL, position, rng);
     }
 
     default: {
