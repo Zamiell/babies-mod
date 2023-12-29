@@ -27,14 +27,14 @@
   "devDependencies": {
     "@types/node": "^20.10.5",
     "cloc": "^1.98.0-cloc",
-    "isaacscript": "^3.36.1",
+    "isaacscript": "^3.37.0",
     "isaacscript-common-node": "^3.0.0",
     "isaacscript-lint": "^6.13.0",
     "isaacscript-spell": "^1.13.0",
     "isaacscript-tsconfig": "^5.0.0",
     "tsx": "^4.7.0",
     "typescript": "^5.3.3",
-    "typescript-to-lua": "^1.22.0"
+    "typescript-to-lua": "^1.23.0"
   },
   "packageManager": "yarn@4.0.2"
 }
