@@ -4,11 +4,16 @@
   <name>The Babies Mod</name>
   <directory>babies_mod</directory>
   <id>1545273881</id>
-  <description>[h1][b]The Babies Mod[/b][/h1]
+  <description>
+    [h1][b]The Babies Mod[/b][/h1]
 
 In The Binding of Isaac: Rebirth, there are a ton of co-op babies. Even though most of the babies are only cosmetic and have no special abilities, a tremendous amount of work has gone into designing them, coding them, and creating all of the sprites. This is an area of the game that is unknown and unused by 99% of the Isaac player-base. It's time for that to change.
 
-[*] This mod adds a new character - &quot;Random Baby&quot;. When playing this character, on every floor, you will be assigned a random baby from the 600+ possibilities. Each baby has a unique item or ability.
+[*] This mod adds a new character -
+    &quot;
+    Random Baby
+    &quot;
+    . When playing this character, on every floor, you will be assigned a random baby from the 600+ possibilities. Each baby has a unique item or ability.
 [*] Some babies are very strong, while others are very weak. But they only last for a single floor.
 [*] The [url=https://github.com/Zamiell/babies-mod/blob/main/docs/babies.md]full list of babies is located on GitHub[/url].
 [*] Due to the random nature of the babies, this mod should provide fresh experiences time and time again.
@@ -16,7 +21,18 @@ In The Binding of Isaac: Rebirth, there are a ton of co-op babies. Even though m
 
 For patch notes, see [url=https://github.com/Zamiell/babies-mod/blob/main/docs/history.md]the version history on GitHub[/url].
 
-For technical support or general questions, please [b]do not post a comment here[/b]. Instead, post in the &quot;#b-general&quot; channel on the [url=https://discord.gg/JzbhWQb]Isaac racing &amp; speedrunning Discord server[/url]. To report bugs, please post in the &quot;#b-bugs&quot; channel.</description>
+For technical support or general questions, please [b]do not post a comment here[/b]. Instead, post in the
+    &quot;
+    #b-general
+    &quot;
+    channel on the [url=https://discord.gg/JzbhWQb]Isaac racing
+    &amp;
+    speedrunning Discord server[/url]. To report bugs, please post in the
+    &quot;
+    #b-bugs
+    &quot;
+    channel.
+  </description>
   <version>1.29.4</version>
   <visibility>Public</visibility>
   <tag id="Lua" />
