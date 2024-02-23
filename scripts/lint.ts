@@ -11,9 +11,7 @@ import {
 import path from "node:path";
 
 await lintScript(async ({ packageRoot }) => {
-  const promises: Array<Promise<unknown>> = [];
-
-  promises.push(
+  const promises = [
     // Use Prettier to check formatting.
     // - "--log-level=warn" makes it only output errors.
     $`prettier --log-level=warn --check .`,
@@ -45,7 +43,7 @@ await lintScript(async ({ packageRoot }) => {
     checkDocs(packageRoot),
 
     // @template-customization-end
-  );
+  ];
 
   if (commandExists("python")) {
     $s`pip install isaac-xml-validator --upgrade --quiet`;
