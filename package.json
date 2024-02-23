@@ -27,7 +27,7 @@
   "devDependencies": {
     "@types/node": "^20.11.20",
     "cloc": "^2.0.0-cloc",
-    "isaacscript": "^4.1.0",
+    "isaacscript": "^4.2.0",
     "isaacscript-common-node": "^3.0.1",
     "isaacscript-lint": "^6.20.0",
     "isaacscript-spell": "^1.14.0",

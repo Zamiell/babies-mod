@@ -1813,7 +1813,7 @@ __metadata:
     "@types/node": "npm:^20.11.20"
     cloc: "npm:^2.0.0-cloc"
     isaac-typescript-definitions: "npm:^41.0.0"
-    isaacscript: "npm:^4.1.0"
+    isaacscript: "npm:^4.2.0"
     isaacscript-common: "npm:^87.2.2"
     isaacscript-common-node: "npm:^3.0.1"
     isaacscript-lint: "npm:^6.20.0"
@@ -4400,9 +4400,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"isaacscript@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "isaacscript@npm:4.1.0"
+"isaacscript@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "isaacscript@npm:4.2.0"
   dependencies:
     "@commander-js/extra-typings": "npm:^12.0.0"
     "@zamiell/sync-directory": "npm:^6.0.5"
@@ -4427,7 +4427,7 @@ __metadata:
       optional: true
   bin:
     isaacscript: dist/main.js
-  checksum: 10c0/09610a64c3db1cdd2f4a3f1379d6a1074cca4a650666d064e2445f344342ea4405db08899cb8b445a9fecdbfdb4bc134e9dc4cd2d933ff712163c1797d1dae24
+  checksum: 10c0/c15d04b22bcfc833ef00b8ee0943f43d331d3254b5da971de55ceb042a31e5380a74a4e9a469b3390cb3caab6ac16d46a3420d98fdf5c0ba38d163839c66e9dc
   languageName: node
   linkType: hard
 
