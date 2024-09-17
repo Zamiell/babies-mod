@@ -10,8 +10,12 @@ import { Baby } from "../Baby";
  */
 export class BluebirdBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.PRE_ITEM_PICKUP)
-  preItemPickup(player: EntityPlayer, _pickingUpItem: PickingUpItem): void {
+  preItemPickup(
+    player: EntityPlayer,
+    _pickingUpItem: PickingUpItem,
+  ): boolean | undefined {
     this.setParalysis(player);
+    return undefined;
   }
 
   @CallbackCustom(ModCallbackCustom.POST_PICKUP_COLLECT)

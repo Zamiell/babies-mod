@@ -16,13 +16,18 @@ export class CorruptedBaby extends Baby {
   }
 
   @CallbackCustom(ModCallbackCustom.PRE_ITEM_PICKUP)
-  preItemPickup(player: EntityPlayer, pickingUpItem: PickingUpItem): void {
+  preItemPickup(
+    player: EntityPlayer,
+    pickingUpItem: PickingUpItem,
+  ): boolean | undefined {
     if (
       isPickingUpItemCollectible(pickingUpItem) &&
       !isQuestCollectible(pickingUpItem.subType)
     ) {
       playerDealSelfDamage(player);
     }
+
+    return undefined;
   }
 
   @CallbackCustom(ModCallbackCustom.POST_PURCHASE)

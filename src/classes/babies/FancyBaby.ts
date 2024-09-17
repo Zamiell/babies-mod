@@ -143,7 +143,7 @@ const COLLECTIBLE_POSITIONS = [
   [11, 5],
 ] as const;
 
-const CHEAPEST_TELEPORT_PRICE = TeleportPrice.TEN;
+const CHEAPEST_TELEPORT_PRICE: int = TeleportPrice.TEN;
 
 /** Can purchase teleports to special rooms (no rerolls). */
 export class FancyBaby extends Baby {
@@ -248,12 +248,12 @@ export class FancyBaby extends Baby {
   preItemPickupPassive(
     player: EntityPlayer,
     pickingUpItem: PickingUpItemCollectible,
-  ): void {
+  ): boolean | undefined {
     const teleportRoomType = TELEPORT_COLLECTIBLE_TYPE_TO_ROOM_TYPE_MAP.get(
       pickingUpItem.subType,
     );
     if (teleportRoomType === undefined) {
-      return;
+      return undefined;
     }
 
     dequeueItem(player);
@@ -263,5 +263,7 @@ export class FancyBaby extends Baby {
     if (firstRoomGridIndex !== undefined) {
       teleport(firstRoomGridIndex);
     }
+
+    return undefined;
   }
 }

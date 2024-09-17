@@ -1,6 +1,5 @@
 import fs from "node:fs";
 import path from "node:path";
-import url from "node:url";
 
 /** A simplified version of `BabyDescription`. */
 interface BabyDescriptionSimple {
@@ -14,9 +13,7 @@ interface BabyDescriptionSimple {
 const NUM_BABY_DESCRIPTION_SIMPLE_FIELDS = 4;
 const NUM_BABY_DESCRIPTION_SIMPLE_OPTIONAL_FIELDS = 1;
 
-const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
-
-const REPO_ROOT = path.join(__dirname, "..");
+const REPO_ROOT = path.join(import.meta.dirname, "..");
 const BABIES_TS_PATH = path.join(REPO_ROOT, "src", "objects", "babies.ts");
 const BABIES_MD_PATH = path.join(REPO_ROOT, "docs", "babies.md");
 
@@ -116,7 +113,11 @@ function getBabyDescriptionsFromBabiesTS(): readonly BabyDescriptionSimple[] {
         );
       }
 
-      currentBabyDescription.description += ` ${description}`;
+      if (currentBabyDescription.description === undefined) {
+        throw new Error("Failed to add the second line of a description.");
+      } else {
+        currentBabyDescription.description += ` ${description}`;
+      }
     } else if (trimmedLine.startsWith("sprite: ")) {
       const match = trimmedLine.match(/sprite: "(.+)"/);
       if (match === null) {

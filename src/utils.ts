@@ -228,8 +228,11 @@ export function isPricedDevilRoomPoolCollectible(
 
   return (
     itemPoolType === ItemPoolType.DEVIL &&
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     collectible.Price !== PickupPrice.NULL &&
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     collectible.Price !== PickupPrice.YOUR_SOUL &&
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
     collectible.Price !== PickupPrice.FREE &&
     collectible.Price !== -10 // `PickupPriceCustom.PRICE_FREE_DEVIL_DEAL` from Racing+
   );

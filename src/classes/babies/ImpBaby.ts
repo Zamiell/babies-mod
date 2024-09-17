@@ -49,7 +49,7 @@ export class ImpBaby extends Baby {
     v.run.nextRotationGameFrame += num;
 
     // Rotate through the four directions.
-    v.run.direction++; // eslint-disable-line isaacscript/strict-enums
+    v.run.direction++; // eslint-disable-line complete/strict-enums
     if (v.run.direction > Direction.DOWN) {
       v.run.direction = Direction.LEFT;
     }

@@ -19,8 +19,9 @@ export class WorryBaby extends Baby {
   }
 
   @CallbackCustom(ModCallbackCustom.PRE_ITEM_PICKUP)
-  preItemPickup(player: EntityPlayer): void {
+  preItemPickup(player: EntityPlayer): boolean | undefined {
     spawnMegaTrollBomb(player.Position);
+    return undefined;
   }
 }
 
