@@ -3,6 +3,11 @@
 <!-- cspell:ignore Adrayon,cantgirl,elgirs,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.29.5_ - September 17th, 2024
+
+- Fixed bugs with the following babies:
+  - Aban Baby (#177) - Will no longer be granted if you have Blood Oath. (Thanks InfamousLoL8)
+
 ### _v1.29.4_ - November 14th, 2023
 
 - Fixed bugs with the following babies:

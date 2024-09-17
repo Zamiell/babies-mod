@@ -1,5 +1,6 @@
 import {
   CoinSubType,
+  CollectibleType,
   EntityCollisionClass,
   ModCallback,
   PickupVariant,
@@ -30,7 +31,7 @@ export class AbanBaby extends Baby {
 
   override isValid(player: EntityPlayer): boolean {
     const coins = player.GetNumCoins();
-    return coins > 0;
+    return coins > 0 && !player.HasCollectible(CollectibleType.BLOOD_OATH);
   }
 
   // 35
