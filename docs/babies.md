@@ -314,7 +314,7 @@ There are 604 babies in total.
 | 302 | <img src="./images/302_baby_cheese.png" alt="302_baby_cheese.png"> | Cheese Baby | The Bean + Gigante Bean | ✔️
 | 303 | <img src="./images/303_baby_pizza.png" alt="303_baby_pizza.png"> | Pizza Baby | Starts with Brown Nugget (improved) | ✔️
 | 304 | <img src="./images/304_baby_hotdog.png" alt="304_baby_hotdog.png"> | Hotdog Baby | Constant The Bean effect + flight + explosion immunity + blindfolded | ❌
-| 305 | <img src="./images/305_baby_pear.png" alt="305_baby_pear.png"> | Nature Baby | Starts with PHD + All pills are horse pills | ✔️
+| 305 | <img src="./images/305_baby_pear.png" alt="305_baby_pear.png"> | Pear Baby | Starts with PHD + All pills are horse pills | ✔️
 | 306 | <img src="./images/306_baby_borg.png" alt="306_baby_borg.png"> | Borg Baby | Starts with Teleport 2.0 | ✔️
 | 307 | <img src="./images/307_baby_corrupted.png" alt="307_baby_corrupted.png"> | Corrupted Baby | Touching items/pickups causes damage | ✔️
 | 308 | <img src="./images/308_baby_xmouth.png" alt="308_baby_xmouth.png"> | X Mouth Baby | Moving Box effect on hit | ✔️

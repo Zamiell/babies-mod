@@ -10,7 +10,7 @@ import {
 import { Baby } from "../Baby";
 
 /** Starts with PHD + All pills are horse pills. */
-export class NatureBaby extends Baby {
+export class PearBaby extends Baby {
   // 79
   @CallbackCustom(
     ModCallbackCustom.POST_PICKUP_SELECTION_FILTER,
