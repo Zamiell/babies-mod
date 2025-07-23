@@ -138,7 +138,7 @@
 - Fixed the bug where the baby number was not drawn correctly if the player had broken hearts. (Thanks Gamonymous)
 - Fixed bugs with the following babies:
   - Aban Baby (#177) - Now properly hides the player's health. (Thanks Gamonymous)
-  - Meat Boy Baby (#210 - Now properly works with self-damage. (Thanks Gamonymous)
+  - Meat Boy Baby (#210) - Now properly works with self-damage. (Thanks Gamonymous)
   - Zipper Baby (#225) - Now properly works on the Dark Room. (Thanks Gamonymous)
   - Nature Baby (#305) - Now properly reveals the pill effects. (Thanks Gamonymous)
   - Scary Baby (#317) - Now works properly with Coupon. (Thanks Gamonymous)
