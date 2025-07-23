@@ -309,7 +309,7 @@ export enum RandomBabyType {
   CHEESE = 302,
   PIZZA = 303,
   HOTDOG = 304,
-  NATURE = 305,
+  PEAR = 305,
   BORG = 306,
   CORRUPTED = 307,
   X_MOUTH = 308,
