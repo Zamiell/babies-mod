@@ -57,7 +57,7 @@ await lintScript(async ({ packageRoot }) => {
 // @template-customization-start
 
 /** Check that the documentation is up to date. */
-async function checkDocs(projectRoot: string): Promise<void> {
+async function checkDocs(projectRoot: string) {
   const babiesMDPath = path.join(projectRoot, "docs", "babies.md");
   const oldBabiesMD = readFile(babiesMDPath);
   await $`tsx ./scripts/generateDocs.ts`;

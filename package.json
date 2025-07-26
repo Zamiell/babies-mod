@@ -22,18 +22,17 @@
   },
   "dependencies": {
     "isaac-typescript-definitions": "^42.2.0",
-    "isaacscript-common": "^87.5.0"
+    "isaacscript-common": "^87.5.1"
   },
   "devDependencies": {
-    "@types/node": "^22.5.5",
-    "cloc": "^2.2.0-cloc",
-    "isaacscript": "^5.0.6",
-    "isaacscript-common-node": "^4.1.1",
-    "isaacscript-lint": "^7.0.6",
-    "isaacscript-spell": "^1.15.2",
-    "isaacscript-tsconfig": "^7.0.1",
-    "tsx": "^4.19.1",
-    "typescript": "5.5.2",
-    "typescript-to-lua": "^1.26.2"
+    "@types/node": "24.1.0",
+    "isaacscript": "5.2.14",
+    "isaacscript-common-node": "4.1.1",
+    "isaacscript-lint": "7.2.0",
+    "isaacscript-spell": "1.15.2",
+    "isaacscript-tsconfig": "7.0.1",
+    "tsx": "4.20.3",
+    "typescript": "5.8.2",
+    "typescript-to-lua": "1.31.4"
   }
 }
