@@ -28,8 +28,8 @@ export class LobotomyBaby extends Baby {
 
   override isValid(): boolean {
     return (
-      levelHasRoomType(RoomType.BOSS) &&
-      !onStage(
+      levelHasRoomType(RoomType.BOSS)
+      && !onStage(
         LevelStage.BLUE_WOMB, // 9
         LevelStage.HOME, // 13
       )
@@ -57,9 +57,9 @@ export class LobotomyBaby extends Baby {
 
   checkKillBoss(): void {
     if (
-      !v.run.shouldAutoKillBoss ||
-      !inRoomType(RoomType.BOSS) ||
-      inMegaSatanRoom()
+      !v.run.shouldAutoKillBoss
+      || !inRoomType(RoomType.BOSS)
+      || inMegaSatanRoom()
     ) {
       return;
     }

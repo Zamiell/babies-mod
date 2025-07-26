@@ -45,8 +45,8 @@ export class AtePoopBaby extends Baby {
     // First, check to make sure that we have not already destroyed this poop.
     const matchingPoop = v.level.killedPoops.find(
       (poopDescription) =>
-        poopDescription.roomListIndex === roomListIndex &&
-        poopDescription.gridIndex === gridIndex,
+        poopDescription.roomListIndex === roomListIndex
+        && poopDescription.gridIndex === gridIndex,
     );
     if (matchingPoop !== undefined) {
       return;

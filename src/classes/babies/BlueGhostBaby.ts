@@ -10,9 +10,9 @@ import { Baby } from "../Baby";
 export class BlueGhostBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
     return (
-      !player.HasCollectible(CollectibleType.MOMS_KNIFE) &&
-      !player.HasCollectible(CollectibleType.EPIC_FETUS) &&
-      !player.HasCollectible(CollectibleType.SPIRIT_SWORD)
+      !player.HasCollectible(CollectibleType.MOMS_KNIFE)
+      && !player.HasCollectible(CollectibleType.EPIC_FETUS)
+      && !player.HasCollectible(CollectibleType.SPIRIT_SWORD)
     );
   }
 

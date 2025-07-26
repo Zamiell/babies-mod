@@ -27,9 +27,9 @@ export class ThirteenthBaby extends Baby {
     const coins = player.GetNumCoins();
 
     return (
-      coins >= TRINKET_PRICE &&
+      coins >= TRINKET_PRICE
       // Ensure that the starting room of the floor is clean (e.g. no Blue Womb, no The Chest, etc.)
-      !doesEntityExist(EntityType.PICKUP)
+      && !doesEntityExist(EntityType.PICKUP)
     );
   }
 

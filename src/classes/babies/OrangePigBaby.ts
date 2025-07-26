@@ -7,10 +7,10 @@ import { Baby } from "../Baby";
 export class OrangePigBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
     return (
-      onStageWithCollectibles() &&
+      onStageWithCollectibles()
       // The Damocles passive is granted but we also want to ensure that the player does not have
       // the Damocles active.
-      !player.HasCollectible(CollectibleType.DAMOCLES)
+      && !player.HasCollectible(CollectibleType.DAMOCLES)
     );
   }
 

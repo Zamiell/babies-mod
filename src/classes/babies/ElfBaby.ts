@@ -55,8 +55,8 @@ export class ElfBaby extends Baby {
     }
 
     if (
-      source.Type === EntityType.EFFECT &&
-      source.Variant === asNumber(EffectVariant.SPEAR_OF_DESTINY)
+      source.Type === EntityType.EFFECT
+      && source.Variant === asNumber(EffectVariant.SPEAR_OF_DESTINY)
     ) {
       const player = Isaac.GetPlayer();
       const damage = player.Damage * 4;

@@ -121,8 +121,8 @@ export class SillyBaby extends Baby {
 
   override isValid(player: EntityPlayer): boolean {
     return (
-      hasCollectible(player, ...SACRIFICIAL_ALTAR_COLLECTIBLE_TYPES) ||
-      hasTrinket(player, ...SACRIFICIAL_ALTAR_TRINKET_TYPES)
+      hasCollectible(player, ...SACRIFICIAL_ALTAR_COLLECTIBLE_TYPES)
+      || hasTrinket(player, ...SACRIFICIAL_ALTAR_TRINKET_TYPES)
     );
   }
 

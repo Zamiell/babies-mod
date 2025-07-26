@@ -12,9 +12,9 @@ import { Baby } from "../Baby";
 export class BaggyCapBaby extends Baby {
   override isValid(): boolean {
     return (
-      !onStage(LevelStage.BLUE_WOMB) &&
-      !onStageOrHigher(LevelStage.DARK_ROOM_CHEST) &&
-      !game.IsGreedMode()
+      !onStage(LevelStage.BLUE_WOMB)
+      && !onStageOrHigher(LevelStage.DARK_ROOM_CHEST)
+      && !game.IsGreedMode()
     );
   }
 

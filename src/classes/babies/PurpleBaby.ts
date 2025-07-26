@@ -22,8 +22,8 @@ export class PurpleBaby extends Baby {
     const fireplaceVariant = variant as FireplaceVariant;
 
     if (
-      fireplaceVariant !== FireplaceVariant.BLUE &&
-      fireplaceVariant !== FireplaceVariant.WHITE
+      fireplaceVariant !== FireplaceVariant.BLUE
+      && fireplaceVariant !== FireplaceVariant.WHITE
     ) {
       return [entityType, FireplaceVariant.BLUE, subType, initSeed];
     }

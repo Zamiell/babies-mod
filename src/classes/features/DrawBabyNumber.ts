@@ -59,8 +59,8 @@ export class DrawBabyNumber extends BabyModFeature {
 
     let x = HUDOffsetVector.X + heartsUIWidth + UI_HEARTS_RIGHT_SPACING;
     if (
-      babyType === RandomBabyType.HOPELESS || // 125
-      babyType === RandomBabyType.MOHAWK // 138
+      babyType === RandomBabyType.HOPELESS // 125
+      || babyType === RandomBabyType.MOHAWK // 138
     ) {
       // These babies draw text next to the hearts, so account for this so that the number text does
       // not overlap.

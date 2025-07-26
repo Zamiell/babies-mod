@@ -28,12 +28,12 @@ export class RedWrestlerBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
     return (
       // There are almost no grid entities on Dark Room, The Chest, and Home.
-      !onStage(LevelStage.DARK_ROOM_CHEST, LevelStage.HOME) &&
-      !hasCollectible(
+      !onStage(LevelStage.DARK_ROOM_CHEST, LevelStage.HOME)
+      && !hasCollectible(
         player,
         ...COLLECTIBLE_TYPES_THAT_AUTOMATICALLY_EXPLODE_TNT,
-      ) &&
-      !levelHasBossID(BossID.WORMWOOD) // Wormwood needs pits to jump out of.
+      )
+      && !levelHasBossID(BossID.WORMWOOD) // Wormwood needs pits to jump out of.
     );
   }
 

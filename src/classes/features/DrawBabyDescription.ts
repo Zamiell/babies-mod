@@ -58,8 +58,8 @@ export class DrawBabyDescription extends BabyModFeature {
   /** Make the baby description persist on the screen after the player presses the map button. */
   checkMapInput(): void {
     if (
-      config.showBabyDescriptionOnButtonPress &&
-      isActionPressedOnAnyInput(ButtonAction.MAP)
+      config.showBabyDescriptionOnButtonPress
+      && isActionPressedOnAnyInput(ButtonAction.MAP)
     ) {
       this.setShowDescriptionFrame();
     }
@@ -67,8 +67,8 @@ export class DrawBabyDescription extends BabyModFeature {
 
   draw(baby: BabyDescription): void {
     if (
-      v.run.showDescriptionUntilFrame === null ||
-      isAfterGameFrame(v.run.showDescriptionUntilFrame)
+      v.run.showDescriptionUntilFrame === null
+      || isAfterGameFrame(v.run.showDescriptionUntilFrame)
     ) {
       return;
     }
@@ -113,10 +113,10 @@ export class DrawBabyDescription extends BabyModFeature {
   postNewLevelReordered(): void {
     const player = Isaac.GetPlayer();
     if (
-      config.showBabyDescriptionOnNewFloor &&
+      config.showBabyDescriptionOnNewFloor
       // Showing the description would be superfluous if the player has Birthright, since they
       // presumably already know what the effect is.
-      !player.HasCollectible(CollectibleType.BIRTHRIGHT)
+      && !player.HasCollectible(CollectibleType.BIRTHRIGHT)
     ) {
       this.setShowDescriptionFrame();
     }

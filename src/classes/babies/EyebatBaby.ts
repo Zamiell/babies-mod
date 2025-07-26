@@ -47,18 +47,18 @@ export class EyebatBaby extends Baby {
     const level = game.GetLevel();
     const curses = level.GetCurses();
     const canMakeTrapdoor =
-      player.HasCollectible(CollectibleType.WE_NEED_TO_GO_DEEPER) ||
-      hasCard(player, CardType.RUNE_EHWAZ, CardType.RUNE_BLANK);
+      player.HasCollectible(CollectibleType.WE_NEED_TO_GO_DEEPER)
+      || hasCard(player, CardType.RUNE_EHWAZ, CardType.RUNE_BLANK);
 
     return (
-      !hasFlag(curses, LevelCurse.LABYRINTH) &&
-      !onFirstFloor() &&
-      !onStage(LevelStage.DEPTHS_2) &&
-      onStageOrLower(LevelStage.WOMB_1) &&
-      !onRepentanceStage() &&
-      !onAscent() &&
-      !game.IsGreedMode() &&
-      !canMakeTrapdoor
+      !hasFlag(curses, LevelCurse.LABYRINTH)
+      && !onFirstFloor()
+      && !onStage(LevelStage.DEPTHS_2)
+      && onStageOrLower(LevelStage.WOMB_1)
+      && !onRepentanceStage()
+      && !onAscent()
+      && !game.IsGreedMode()
+      && !canMakeTrapdoor
     );
   }
 

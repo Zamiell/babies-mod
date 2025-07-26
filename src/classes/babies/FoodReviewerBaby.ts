@@ -30,8 +30,8 @@ export class FoodReviewerBaby extends Baby {
    */
   override isValid(): boolean {
     return (
-      !onEffectiveStage(LevelStage.BASEMENT_1) &&
-      !onEffectiveStage(LevelStage.BASEMENT_2)
+      !onEffectiveStage(LevelStage.BASEMENT_1)
+      && !onEffectiveStage(LevelStage.BASEMENT_2)
     );
   }
 

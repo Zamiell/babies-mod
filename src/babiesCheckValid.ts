@@ -65,10 +65,10 @@ function checkDuplicateCollectibles() {
         }
 
         if (
-          baby2.collectible !== undefined &&
-          baby2.collectible2 === undefined &&
-          baby2.collectible === baby1.collectible &&
-          !VALID_DUPLICATE_COLLECTIBLES.has(baby1.collectible)
+          baby2.collectible !== undefined
+          && baby2.collectible2 === undefined
+          && baby2.collectible === baby1.collectible
+          && !VALID_DUPLICATE_COLLECTIBLES.has(baby1.collectible)
         ) {
           logBabyInvalid(
             baby1,
@@ -89,12 +89,12 @@ function checkDuplicateCollectibles() {
         }
 
         if (
-          baby2.collectible !== undefined &&
-          baby2.collectible2 !== undefined &&
-          (baby2.collectible === baby1.collectible ||
-            baby2.collectible2 === baby1.collectible) &&
-          (baby2.collectible === baby1.collectible2 ||
-            baby2.collectible2 === baby1.collectible2)
+          baby2.collectible !== undefined
+          && baby2.collectible2 !== undefined
+          && (baby2.collectible === baby1.collectible
+            || baby2.collectible2 === baby1.collectible)
+          && (baby2.collectible === baby1.collectible2
+            || baby2.collectible2 === baby1.collectible2)
         ) {
           logBabyInvalid(
             baby1,
@@ -145,12 +145,12 @@ function logSpecificBabies() {
     const baby = babyRaw as BabyDescription;
 
     if (
-      baby.collectible !== undefined &&
-      baby.collectible2 === undefined &&
-      baby.collectibleNum === undefined &&
-      baby.trinket === undefined &&
-      baby.trinketNum === undefined &&
-      baby.class === undefined
+      baby.collectible !== undefined
+      && baby.collectible2 === undefined
+      && baby.collectibleNum === undefined
+      && baby.trinket === undefined
+      && baby.trinketNum === undefined
+      && baby.class === undefined
     ) {
       const collectibleName = getCollectibleName(baby.collectible);
       log(`- ${baby.name} (#${babyType}) - Starts with ${collectibleName}`);
@@ -163,12 +163,12 @@ function logSpecificBabies() {
     const baby = babyRaw as BabyDescription;
 
     if (
-      baby.collectible === undefined &&
-      baby.collectible2 === undefined &&
-      baby.collectibleNum === undefined &&
-      baby.trinket !== undefined &&
-      baby.trinketNum === undefined &&
-      baby.class === undefined
+      baby.collectible === undefined
+      && baby.collectible2 === undefined
+      && baby.collectibleNum === undefined
+      && baby.trinket !== undefined
+      && baby.trinketNum === undefined
+      && baby.class === undefined
     ) {
       const trinketName = getTrinketName(baby.trinket);
       log(`- ${baby.name} (#${babyType}) - Starts with ${trinketName}`);

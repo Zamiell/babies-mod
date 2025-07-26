@@ -71,9 +71,9 @@ export class ScreamBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {
     if (
-      v.run.frameShoopUsed === null ||
-      v.run.activeItemCharge === null ||
-      v.run.activeItemBatteryCharge === null
+      v.run.frameShoopUsed === null
+      || v.run.activeItemCharge === null
+      || v.run.activeItemBatteryCharge === null
     ) {
       return;
     }
@@ -82,9 +82,9 @@ export class ScreamBaby extends Baby {
     const batteryCharge = player.GetBatteryCharge();
 
     if (
-      onOrBeforeGameFrame(v.run.frameShoopUsed + 1) &&
-      (activeCharge !== v.run.activeItemCharge ||
-        batteryCharge !== v.run.activeItemBatteryCharge)
+      onOrBeforeGameFrame(v.run.frameShoopUsed + 1)
+      && (activeCharge !== v.run.activeItemCharge
+        || batteryCharge !== v.run.activeItemBatteryCharge)
     ) {
       const totalCharge =
         v.run.activeItemCharge + v.run.activeItemBatteryCharge;

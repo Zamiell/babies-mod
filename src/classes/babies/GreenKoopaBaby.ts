@@ -54,10 +54,10 @@ export class GreenKoopaBaby extends Baby {
     // If the tear bounced, then we need to update the stored velocity to the new velocity.
     // (`EntityTear.Bounce` does not ever seem to go to true, so we can't use that.)
     if (
-      (tear.Velocity.X > 0 && tearData.velocity.X < 0) ||
-      (tear.Velocity.X < 0 && tearData.velocity.X > 0) ||
-      (tear.Velocity.Y > 0 && tearData.velocity.Y < 0) ||
-      (tear.Velocity.Y < 0 && tearData.velocity.Y > 0)
+      (tear.Velocity.X > 0 && tearData.velocity.X < 0)
+      || (tear.Velocity.X < 0 && tearData.velocity.X > 0)
+      || (tear.Velocity.Y > 0 && tearData.velocity.Y < 0)
+      || (tear.Velocity.Y < 0 && tearData.velocity.Y > 0)
     ) {
       tearData.velocity = tear.Velocity;
     }

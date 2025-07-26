@@ -13,9 +13,9 @@ import { Baby } from "../Baby";
 export class LostBlackBaby extends Baby {
   override isValid(): boolean {
     return (
-      onStageWithCollectibles() &&
+      onStageWithCollectibles()
       // Spindown Dice can be used on Knife Piece 1 to break the game.
-      !(onStage(LevelStage.BASEMENT_2) && onRepentanceStage())
+      && !(onStage(LevelStage.BASEMENT_2) && onRepentanceStage())
     );
   }
 

@@ -76,8 +76,8 @@ export class SquirrelBaby extends Baby {
     const player = Isaac.GetPlayer();
     const ourHands = momsHands.filter(
       (entity) =>
-        entity.SpawnerEntity !== undefined &&
-        GetPtrHash(entity.SpawnerEntity) === GetPtrHash(player),
+        entity.SpawnerEntity !== undefined
+        && GetPtrHash(entity.SpawnerEntity) === GetPtrHash(player),
     );
     removeEntities(ourHands);
   }

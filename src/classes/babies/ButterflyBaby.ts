@@ -51,8 +51,8 @@ export class ButterflyBaby extends Baby {
     _customVarData: int,
   ): boolean | undefined {
     if (
-      isCollectibleRerollCollectibleType(collectibleType) &&
-      inRoomType(BABY_ROOM_TYPE)
+      isCollectibleRerollCollectibleType(collectibleType)
+      && inRoomType(BABY_ROOM_TYPE)
     ) {
       player.AnimateSad();
       return true;

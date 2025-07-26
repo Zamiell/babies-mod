@@ -47,8 +47,8 @@ export function babyRemove(
     collectibleTypeCustom,
   ] of COLLECTIBLE_TYPE_TO_COLLECTIBLE_TYPE_CUSTOM_MAP) {
     if (
-      babyCollectiblesSet.has(collectibleType) &&
-      player.HasCollectible(collectibleTypeCustom)
+      babyCollectiblesSet.has(collectibleType)
+      && player.HasCollectible(collectibleTypeCustom)
     ) {
       player.RemoveCollectible(
         collectibleTypeCustom,

@@ -27,8 +27,8 @@ export class DBaby extends Baby {
     countdownFrames: int,
   ): boolean | undefined {
     if (
-      source.Type === EntityType.EFFECT &&
-      source.Variant === asNumber(EffectVariant.PLAYER_CREEP_RED)
+      source.Type === EntityType.EFFECT
+      && source.Variant === asNumber(EffectVariant.PLAYER_CREEP_RED)
     ) {
       // By default, player creep only deals 2 damage per tick, so increase the damage.
       const player = Isaac.GetPlayer();

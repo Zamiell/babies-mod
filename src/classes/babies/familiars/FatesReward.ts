@@ -20,16 +20,16 @@ export class FatesReward extends Baby {
     const coins = player.GetNumCoins();
 
     return (
-      coins >= COLLECTIBLE_PRICE &&
-      !onEffectiveStage(
+      coins >= COLLECTIBLE_PRICE
+      && !onEffectiveStage(
         // On stage 1, the player does not have 15 cents.
         LevelStage.BASEMENT_1, // 1
         // On stage 2, they will miss a Devil Deal, which is not fair.
         LevelStage.BASEMENT_2, // 2
         // On stage 11, it would be unfair to deny the four items.
         LevelStage.DARK_ROOM_CHEST, // 11
-      ) &&
-      onStageWithCollectibles()
+      )
+      && onStageWithCollectibles()
     );
   }
 

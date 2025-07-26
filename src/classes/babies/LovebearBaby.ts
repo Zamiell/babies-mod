@@ -16,9 +16,9 @@ export class LovebearBaby extends Baby {
     return (
       // The player won't have any resources to spend on machines on the first floor or second
       // floor.
-      getEffectiveStage() > LevelStage.BASEMENT_2 &&
+      getEffectiveStage() > LevelStage.BASEMENT_2
       // Ensure that the starting room of the floor is clean (e.g. no Blue Womb, no The Chest, etc.)
-      !doesEntityExist(EntityType.PICKUP)
+      && !doesEntityExist(EntityType.PICKUP)
     );
   }
 

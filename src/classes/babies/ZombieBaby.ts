@@ -51,8 +51,8 @@ export class ZombieBaby extends Baby {
   @Callback(ModCallback.POST_PROJECTILE_UPDATE)
   postProjectileUpdate(projectile: EntityProjectile): void {
     if (
-      projectile.Parent !== undefined &&
-      projectile.Parent.HasEntityFlags(EntityFlag.FRIENDLY)
+      projectile.Parent !== undefined
+      && projectile.Parent.HasEntityFlags(EntityFlag.FRIENDLY)
     ) {
       setEntityOpacity(projectile, FADE_AMOUNT);
     }
@@ -70,8 +70,8 @@ export class ZombieBaby extends Baby {
   @Callback(ModCallback.POST_LASER_UPDATE)
   postLaserUpdate(laser: EntityLaser): void {
     if (
-      laser.Parent !== undefined &&
-      laser.Parent.HasEntityFlags(EntityFlag.FRIENDLY)
+      laser.Parent !== undefined
+      && laser.Parent.HasEntityFlags(EntityFlag.FRIENDLY)
     ) {
       setEntityOpacity(laser, FADE_AMOUNT);
     }
@@ -81,9 +81,9 @@ export class ZombieBaby extends Baby {
   @Callback(ModCallback.POST_ENTITY_KILL)
   postEntityKill(entity: Entity): void {
     if (
-      !entity.IsBoss() &&
-      !entity.HasEntityFlags(EntityFlag.FRIENDLY) &&
-      !EXCEPTION_ENTITY_TYPES.has(entity.Type)
+      !entity.IsBoss()
+      && !entity.HasEntityFlags(EntityFlag.FRIENDLY)
+      && !EXCEPTION_ENTITY_TYPES.has(entity.Type)
     ) {
       const friend = spawnWithSeed(
         entity.Type,

@@ -166,8 +166,8 @@ export function giveCollectibleAndRemoveFromPools(
 
 export function hasSpectralOrSpectralLikeEffect(player: EntityPlayer): boolean {
   return (
-    hasSpectral(player) ||
-    hasCollectible(
+    hasSpectral(player)
+    || hasCollectible(
       player,
       CollectibleType.MOMS_KNIFE, // 114
       CollectibleType.BRIMSTONE, // 118
@@ -178,8 +178,8 @@ export function hasSpectralOrSpectralLikeEffect(player: EntityPlayer): boolean {
 
 export function hasPiercingOrPiercingLikeEffect(player: EntityPlayer): boolean {
   return (
-    hasPiercing(player) ||
-    hasCollectible(
+    hasPiercing(player)
+    || hasCollectible(
       player,
       CollectibleType.MOMS_KNIFE, // 114
       CollectibleType.BRIMSTONE, // 118
@@ -227,14 +227,14 @@ export function isPricedDevilRoomPoolCollectible(
   const itemPoolType = mod.getCollectibleItemPoolType(collectible);
 
   return (
-    itemPoolType === ItemPoolType.DEVIL &&
+    itemPoolType === ItemPoolType.DEVIL
     // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    collectible.Price !== PickupPrice.NULL &&
+    && collectible.Price !== PickupPrice.NULL
     // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    collectible.Price !== PickupPrice.YOUR_SOUL &&
+    && collectible.Price !== PickupPrice.YOUR_SOUL
     // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
-    collectible.Price !== PickupPrice.FREE &&
-    collectible.Price !== -10 // `PickupPriceCustom.PRICE_FREE_DEVIL_DEAL` from Racing+
+    && collectible.Price !== PickupPrice.FREE
+    && collectible.Price !== -10 // `PickupPriceCustom.PRICE_FREE_DEVIL_DEAL` from Racing+
   );
 }
 
@@ -248,18 +248,18 @@ export function isRacingPlusEnabled(): boolean {
 export function isValidForEnemyDeathEffect(entity: Entity): boolean {
   const npc = entity.ToNPC();
   return (
-    npc !== undefined &&
+    npc !== undefined
     // Racing+ manually kills pitfalls to make them disappear faster.
-    npc.Type !== EntityType.PITFALL &&
-    !MULTI_SEGMENT_BOSSES.has(npc.Type)
+    && npc.Type !== EntityType.PITFALL
+    && !MULTI_SEGMENT_BOSSES.has(npc.Type)
   );
 }
 
 /** Piercing, multiple shots, Flat Stone, and other things cause "missing" effects to mess up. */
 export function isValidForMissedTearsEffect(player: EntityPlayer): boolean {
   return (
-    !hasCollectible(player, ...BAD_MISSED_TEARS_COLLECTIBLE_TYPES) &&
-    !hasForm(player, ...BAD_MISSED_TEARS_TRANSFORMATIONS)
+    !hasCollectible(player, ...BAD_MISSED_TEARS_COLLECTIBLE_TYPES)
+    && !hasForm(player, ...BAD_MISSED_TEARS_TRANSFORMATIONS)
   );
 }
 
@@ -267,12 +267,12 @@ export function isValidRandomBabyPlayer(player: EntityPlayer): boolean {
   return (
     // We validate that the `player` is a valid `EntityPlayer` object since we may be getting it in
     // a type-unsafe way in the `Baby.ts` file.
-    isPlayer(player) &&
+    isPlayer(player)
     // Currently, the mod does not support co-op. Many places in logic assume that the player is the
     // first character. This can be removed when all `Isaac.GetPlayer` method calls are removed.
-    isFirstPlayer(player) &&
-    isCharacter(player, PlayerTypeCustom.RANDOM_BABY) &&
-    getBabyType() !== undefined
+    && isFirstPlayer(player)
+    && isCharacter(player, PlayerTypeCustom.RANDOM_BABY)
+    && getBabyType() !== undefined
   );
 }
 
@@ -339,10 +339,12 @@ export function shouldReplaceOrDuplicateNPC(npc: EntityNPC): boolean {
   return (
     // We cannot use the `EntityNPC.IsVulnerableEnemy` method because since the enemy is dead at
     // this point, the check will fail.
-    !npc.IsBoss() &&
-    !npc.HasEntityFlags(EntityFlag.FRIENDLY) &&
-    !BUGGY_REPLACING_OR_DOUBLING_ENTITY_TYPES_SET.has(npc.Type) &&
-    !BUGGY_REPLACING_OR_DOUBLING_ENTITY_TYPE_VARIANT_SET.has(entityTypeVariant)
+    !npc.IsBoss()
+    && !npc.HasEntityFlags(EntityFlag.FRIENDLY)
+    && !BUGGY_REPLACING_OR_DOUBLING_ENTITY_TYPES_SET.has(npc.Type)
+    && !BUGGY_REPLACING_OR_DOUBLING_ENTITY_TYPE_VARIANT_SET.has(
+      entityTypeVariant,
+    )
   );
 }
 

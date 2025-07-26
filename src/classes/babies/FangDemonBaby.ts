@@ -80,8 +80,8 @@ export class FangDemonBaby extends Baby {
     }
 
     if (
-      source.Type === EntityType.EFFECT &&
-      source.Variant === asNumber(EffectVariant.CRACK_THE_SKY)
+      source.Type === EntityType.EFFECT
+      && source.Variant === asNumber(EffectVariant.CRACK_THE_SKY)
     ) {
       const player = Isaac.GetPlayer();
       const damage = player.Damage;

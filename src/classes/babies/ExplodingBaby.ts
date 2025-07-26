@@ -32,8 +32,8 @@ export class ExplodingBaby extends Baby {
     // Check to see if we need to reset the cooldown (after we used the Kamikaze effect upon
     // touching an obstacle).
     if (
-      v.room.kamikazeCooldownUntilGameFrame !== null &&
-      onOrAfterGameFrame(v.room.kamikazeCooldownUntilGameFrame)
+      v.room.kamikazeCooldownUntilGameFrame !== null
+      && onOrAfterGameFrame(v.room.kamikazeCooldownUntilGameFrame)
     ) {
       v.room.kamikazeCooldownUntilGameFrame = null;
     }
@@ -65,8 +65,8 @@ export class ExplodingBaby extends Baby {
     // Only trigger Kamikaze for grid entities that we are close enough to.
     const player = Isaac.GetPlayer();
     if (
-      player.Position.Distance(gridEntity.Position) >
-      KAMIKAZE_DISTANCE_THRESHOLD
+      player.Position.Distance(gridEntity.Position)
+      > KAMIKAZE_DISTANCE_THRESHOLD
     ) {
       return;
     }

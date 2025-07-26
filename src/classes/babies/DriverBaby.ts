@@ -17,8 +17,8 @@ export class DriverBaby extends Baby {
   /** The water currents can cause a soft-lock. */
   override isValid(): boolean {
     const onDownpourOrDross =
-      onEffectiveStage(LevelStage.BASEMENT_1, LevelStage.BASEMENT_2) &&
-      onStageType(StageType.REPENTANCE, StageType.REPENTANCE_B);
+      onEffectiveStage(LevelStage.BASEMENT_1, LevelStage.BASEMENT_2)
+      && onStageType(StageType.REPENTANCE, StageType.REPENTANCE_B);
 
     return !onDownpourOrDross;
   }

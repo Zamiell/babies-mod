@@ -72,8 +72,8 @@ export function babyAdd(
 
       // Find out where to put it.
       if (
-        player.HasCollectible(CollectibleType.SCHOOLBAG) &&
-        secondaryActiveItem !== CollectibleType.NULL
+        player.HasCollectible(CollectibleType.SCHOOLBAG)
+        && secondaryActiveItem !== CollectibleType.NULL
       ) {
         // There is room in the Schoolbag for it, so put it there. (Getting new active items will
         // automatically put the existing active item inside the Schoolbag.)
@@ -188,9 +188,9 @@ export function babyAdd(
   // Don't grant extra pickups (from e.g. PHD)
   for (const pickup of getPickups()) {
     if (
-      pickup.FrameCount === 0 &&
-      pickup.Variant !== PickupVariant.COLLECTIBLE &&
-      !isChest(pickup)
+      pickup.FrameCount === 0
+      && pickup.Variant !== PickupVariant.COLLECTIBLE
+      && !isChest(pickup)
     ) {
       pickup.Remove();
     }

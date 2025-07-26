@@ -135,10 +135,10 @@ function getBabyDescriptionsFromBabiesTS(): readonly BabyDescriptionSimple[] {
     } else if (trimmedLine === "},") {
       const numKeys = Object.keys(currentBabyDescription).length;
       if (
-        numKeys !== NUM_BABY_DESCRIPTION_SIMPLE_FIELDS &&
-        numKeys !==
-          NUM_BABY_DESCRIPTION_SIMPLE_FIELDS +
-            NUM_BABY_DESCRIPTION_SIMPLE_OPTIONAL_FIELDS
+        numKeys !== NUM_BABY_DESCRIPTION_SIMPLE_FIELDS
+        && numKeys
+          !== NUM_BABY_DESCRIPTION_SIMPLE_FIELDS
+            + NUM_BABY_DESCRIPTION_SIMPLE_OPTIONAL_FIELDS
       ) {
         console.error("currentBabyDescription:", currentBabyDescription);
         throw new Error(

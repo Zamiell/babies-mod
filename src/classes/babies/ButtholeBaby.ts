@@ -58,8 +58,8 @@ export class ButtholeBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(): boolean | undefined {
     if (
-      v.room.invulnerabilityUntilGameFrame !== null &&
-      isBeforeGameFrame(v.room.invulnerabilityUntilGameFrame)
+      v.room.invulnerabilityUntilGameFrame !== null
+      && isBeforeGameFrame(v.room.invulnerabilityUntilGameFrame)
     ) {
       return false;
     }

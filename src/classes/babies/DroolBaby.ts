@@ -47,8 +47,8 @@ export class DroolBaby extends Baby {
     const roomClear = room.IsClear();
 
     if (
-      v.room.useMonstrosToothOnGameFrame !== null &&
-      onOrAfterGameFrame(v.room.useMonstrosToothOnGameFrame)
+      v.room.useMonstrosToothOnGameFrame !== null
+      && onOrAfterGameFrame(v.room.useMonstrosToothOnGameFrame)
     ) {
       if (roomClear) {
         // The room might have been cleared since the initial Monstro's Tooth activation. If so,

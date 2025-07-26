@@ -32,8 +32,8 @@ export class ExplosionImmunity extends BabyModFeature {
     const baby: BabyDescription = BABIES[babyType];
 
     if (
-      baby.explosionImmunity === true &&
-      hasFlag(damageFlags, DamageFlag.EXPLOSION)
+      baby.explosionImmunity === true
+      && hasFlag(damageFlags, DamageFlag.EXPLOSION)
     ) {
       return false;
     }

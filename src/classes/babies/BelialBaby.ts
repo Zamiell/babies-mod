@@ -31,8 +31,8 @@ export class BelialBaby extends Baby {
     return (
       // A max-charged Chocolate Milk + Brimstone shot will not be `LaserVariant.THICK_RED`, causing
       // the check below to fail.
-      !player.HasCollectible(CollectibleType.CHOCOLATE_MILK) &&
-      !hasCollectible(player, ...AZAZEL_ANTI_SYNERGIES)
+      !player.HasCollectible(CollectibleType.CHOCOLATE_MILK)
+      && !hasCollectible(player, ...AZAZEL_ANTI_SYNERGIES)
     );
   }
 
@@ -45,8 +45,8 @@ export class BelialBaby extends Baby {
     }
 
     if (
-      laser.Variant === LaserVariant.THICK_RED ||
-      laser.Variant === LaserVariant.BRIMSTONE_TECHNOLOGY
+      laser.Variant === LaserVariant.THICK_RED
+      || laser.Variant === LaserVariant.BRIMSTONE_TECHNOLOGY
     ) {
       // For simplicity and to make it more difficult, we hard-code the default Azazel distance
       // (instead of dynamically calculating it based on the player's range).

@@ -151,11 +151,11 @@ export class FancyBaby extends Baby {
     const coins = player.GetNumCoins();
 
     return (
-      !player.HasCollectible(CollectibleType.GLITCHED_CROWN) &&
-      coins >= CHEAPEST_TELEPORT_PRICE &&
-      onStageWithSpecialRooms() &&
+      !player.HasCollectible(CollectibleType.GLITCHED_CROWN)
+      && coins >= CHEAPEST_TELEPORT_PRICE
+      && onStageWithSpecialRooms()
       // Ensure that the starting room of the floor is clean (e.g. no Blue Womb, no The Chest, etc.)
-      !doesEntityExist(EntityType.PICKUP)
+      && !doesEntityExist(EntityType.PICKUP)
     );
   }
 
@@ -170,8 +170,8 @@ export class FancyBaby extends Baby {
     _customVarData: int,
   ): boolean | undefined {
     if (
-      isCollectibleRerollCollectibleType(collectibleType) &&
-      inStartingRoom()
+      isCollectibleRerollCollectibleType(collectibleType)
+      && inStartingRoom()
     ) {
       player.AnimateSad();
       return true;
@@ -213,8 +213,8 @@ export class FancyBaby extends Baby {
       const price = itemAndPrice[1];
 
       if (
-        collectibleType === CollectibleTypeCustom.CHALLENGE_ROOM_TELEPORT &&
-        isEven(stage)
+        collectibleType === CollectibleTypeCustom.CHALLENGE_ROOM_TELEPORT
+        && isEven(stage)
       ) {
         collectibleType = CollectibleTypeCustom.BOSS_CHALLENGE_ROOM_TELEPORT;
       }

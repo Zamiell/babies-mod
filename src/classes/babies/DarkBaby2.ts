@@ -23,11 +23,11 @@ export class DarkBaby2 extends Baby {
   ): boolean | undefined {
     const npc = collider.ToNPC();
     if (
-      npc === undefined ||
-      !npc.Exists() ||
-      !npc.IsVulnerableEnemy() ||
-      npc.IsDead() ||
-      npc.IsBoss()
+      npc === undefined
+      || !npc.Exists()
+      || !npc.IsVulnerableEnemy()
+      || npc.IsDead()
+      || npc.IsBoss()
     ) {
       return undefined;
     }

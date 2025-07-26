@@ -35,9 +35,9 @@ export class GoatBaby extends Baby {
    */
   override isValid(player: EntityPlayer): boolean {
     return (
-      !hasCollectible(player, ...GRANTED_COLLECTIBLE_TYPES) &&
-      onStageWithNaturalDevilRoom() &&
-      !onEffectiveStage(LevelStage.BASEMENT_2)
+      !hasCollectible(player, ...GRANTED_COLLECTIBLE_TYPES)
+      && onStageWithNaturalDevilRoom()
+      && !onEffectiveStage(LevelStage.BASEMENT_2)
     );
   }
 

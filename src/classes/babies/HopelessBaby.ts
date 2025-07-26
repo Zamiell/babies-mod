@@ -27,10 +27,10 @@ export class HopelessBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
     const keys = player.GetNumKeys();
     return (
-      keys >= 2 &&
+      keys >= 2
       // If a player is not paying attention, they can accidentally open the locked chests at the
       // start of the floor and die.
-      !onStage(LevelStage.BLUE_WOMB, LevelStage.DARK_ROOM_CHEST)
+      && !onStage(LevelStage.BLUE_WOMB, LevelStage.DARK_ROOM_CHEST)
     );
   }
 

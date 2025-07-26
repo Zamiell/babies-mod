@@ -17,8 +17,8 @@ export class HangerBaby extends Baby {
   @Callback(ModCallback.POST_TEAR_INIT)
   postTearInit(tear: EntityTear): void {
     if (
-      tear.SpawnerType !== EntityType.FAMILIAR ||
-      tear.SpawnerVariant !== asNumber(FamiliarVariant.ABEL)
+      tear.SpawnerType !== EntityType.FAMILIAR
+      || tear.SpawnerVariant !== asNumber(FamiliarVariant.ABEL)
     ) {
       return;
     }

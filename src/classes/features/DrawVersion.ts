@@ -57,8 +57,8 @@ export class DrawVersion extends ModFeature {
 
   checkDraw(): void {
     if (
-      v.run.showVersionUntilRenderFrame === null ||
-      isBeforeRenderFrame(v.run.showVersionUntilRenderFrame)
+      v.run.showVersionUntilRenderFrame === null
+      || isBeforeRenderFrame(v.run.showVersionUntilRenderFrame)
     ) {
       return;
     }

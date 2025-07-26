@@ -21,8 +21,8 @@ export class CorruptedBaby extends Baby {
     pickingUpItem: PickingUpItem,
   ): boolean | undefined {
     if (
-      isPickingUpItemCollectible(pickingUpItem) &&
-      !isQuestCollectible(pickingUpItem.subType)
+      isPickingUpItemCollectible(pickingUpItem)
+      && !isQuestCollectible(pickingUpItem.subType)
     ) {
       playerDealSelfDamage(player);
     }

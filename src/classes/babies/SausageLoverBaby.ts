@@ -17,9 +17,9 @@ export class SausageLoverBaby extends Baby {
     const roomClear = room.IsClear();
 
     if (
-      gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0 &&
+      gameFrameCount % (5 * GAME_FRAMES_PER_SECOND) === 0
       // Monstro will target you if there are no enemies in the room (and this is unavoidable).
-      !roomClear
+      && !roomClear
     ) {
       useActiveItemTemp(player, CollectibleType.MONSTROS_TOOTH);
     }

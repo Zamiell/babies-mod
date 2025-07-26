@@ -20,8 +20,8 @@ export class GlitteryPeachBaby extends Baby {
 
   override isValid(): boolean {
     return (
-      levelHasRoomType(RoomType.BOSS) &&
-      !onStage(
+      levelHasRoomType(RoomType.BOSS)
+      && !onStage(
         LevelStage.BLUE_WOMB, // 9
         LevelStage.HOME, // 13
       )

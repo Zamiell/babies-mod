@@ -34,9 +34,9 @@ export class BloodiedBaby extends Baby {
     // We do not want players to explicitly reset for this baby, so we exclude it from the first
     // floor.
     return (
-      levelHasRoomType(RoomType.ULTRA_SECRET) &&
-      !player.HasCollectible(CollectibleType.RED_KEY) &&
-      !onFirstFloor()
+      levelHasRoomType(RoomType.ULTRA_SECRET)
+      && !player.HasCollectible(CollectibleType.RED_KEY)
+      && !onFirstFloor()
     );
   }
 

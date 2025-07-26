@@ -11,9 +11,9 @@ export class GurdyBaby extends Baby {
     const lilGurdies = getFamiliars(FamiliarVariant.LIL_GURDY);
     for (const lilGurdy of lilGurdies) {
       if (
-        familiar.Position.Distance(lilGurdy.Position) <= 1 &&
+        familiar.Position.Distance(lilGurdy.Position) <= 1
         // Use the index as a priority of which familiar is forced to move away.
-        familiar.Index < lilGurdy.Index
+        && familiar.Index < lilGurdy.Index
       ) {
         lilGurdy.Position = getRandomOffsetPosition(
           lilGurdy.Position,

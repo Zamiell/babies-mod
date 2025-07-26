@@ -14,8 +14,8 @@ export class NoArmsBaby extends Baby {
     const player = Isaac.GetPlayer();
 
     if (
-      !PICKUP_VARIANTS_IMMUNE_TO_BABY_EFFECTS.has(pickup.Variant) &&
-      pickup.Price === asNumber(PickupPrice.NULL) // We don't want it to affect shop items.
+      !PICKUP_VARIANTS_IMMUNE_TO_BABY_EFFECTS.has(pickup.Variant)
+      && pickup.Price === asNumber(PickupPrice.NULL) // We don't want it to affect shop items.
     ) {
       // Make it impossible for the player to pick up this pickup.
       if (pickup.EntityCollisionClass !== EntityCollisionClass.NONE) {

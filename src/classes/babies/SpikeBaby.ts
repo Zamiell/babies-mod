@@ -29,10 +29,10 @@ const ANTI_SYNERGY_TRINKETS = [
 export class SpikeBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
     return (
-      !hasTrinket(player, ...ANTI_SYNERGY_TRINKETS) &&
+      !hasTrinket(player, ...ANTI_SYNERGY_TRINKETS)
       // We don't want this to interfere with the free items from the starting room in The Chest /
       // Dark Room.
-      !onStage(LevelStage.DARK_ROOM_CHEST)
+      && !onStage(LevelStage.DARK_ROOM_CHEST)
     );
   }
 

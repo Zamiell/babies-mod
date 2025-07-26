@@ -23,8 +23,8 @@ const BUGGED_TRANSFORMATIONS = [
 export class SloppyBaby extends Baby {
   override isValid(player: EntityPlayer): boolean {
     return (
-      !hasCollectible(player, ...BUGGED_COLLECTIBLE_TYPES) &&
-      !hasForm(player, ...BUGGED_TRANSFORMATIONS)
+      !hasCollectible(player, ...BUGGED_COLLECTIBLE_TYPES)
+      && !hasForm(player, ...BUGGED_TRANSFORMATIONS)
     );
   }
 
@@ -38,8 +38,8 @@ export class SloppyBaby extends Baby {
 
     // There is a bug where the target will disappear if you have multiple shots.
     if (
-      hasCollectible(player, ...BUGGED_COLLECTIBLE_TYPES) ||
-      hasForm(player, ...BUGGED_TRANSFORMATIONS)
+      hasCollectible(player, ...BUGGED_COLLECTIBLE_TYPES)
+      || hasForm(player, ...BUGGED_TRANSFORMATIONS)
     ) {
       return;
     }

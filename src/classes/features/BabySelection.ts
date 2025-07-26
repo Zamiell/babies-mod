@@ -68,8 +68,8 @@ export class BabySelection extends ModFeature {
 
     if (season5 !== -1 && onChallenge(season5)) {
       return (
-        RacingPlusIsOnFirstCharacter === undefined ||
-        RacingPlusIsOnFirstCharacter()
+        RacingPlusIsOnFirstCharacter === undefined
+        || RacingPlusIsOnFirstCharacter()
       );
     }
 
@@ -122,8 +122,8 @@ export class BabySelection extends ModFeature {
     baby: BabyDescription;
   } {
     if (
-      v.run.usedGlowingHourGlassInStartingRoom &&
-      v.run.pastBabyType !== null
+      v.run.usedGlowingHourGlassInStartingRoom
+      && v.run.pastBabyType !== null
     ) {
       v.run.usedGlowingHourGlassInStartingRoom = false;
 

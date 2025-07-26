@@ -14,10 +14,10 @@ export class RictusBaby extends Baby {
     const player = Isaac.GetPlayer();
 
     if (
-      !PICKUP_VARIANTS_IMMUNE_TO_BABY_EFFECTS.has(pickup.Variant) &&
-      !isScaredHeart(pickup) &&
-      pickup.Price === asNumber(PickupPrice.NULL) && // We don't want it to affect shop items.
-      pickup.Position.Distance(player.Position) <= 80
+      !PICKUP_VARIANTS_IMMUNE_TO_BABY_EFFECTS.has(pickup.Variant)
+      && !isScaredHeart(pickup)
+      && pickup.Price === asNumber(PickupPrice.NULL) // We don't want it to affect shop items.
+      && pickup.Position.Distance(player.Position) <= 80
     ) {
       pickup.Velocity = pickup.Position.sub(player.Position)
         .Normalized()

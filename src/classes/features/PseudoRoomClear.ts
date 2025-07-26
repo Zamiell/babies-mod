@@ -164,16 +164,16 @@ function checkPseudoClear(player: EntityPlayer, babyType: RandomBabyType) {
 
   // If a frame has passed since an enemy died, reset the delay counter.
   if (
-    v.room.clearDelayGameFrame !== null &&
-    onOrAfterGameFrame(v.room.clearDelayGameFrame)
+    v.room.clearDelayGameFrame !== null
+    && onOrAfterGameFrame(v.room.clearDelayGameFrame)
   ) {
     v.room.clearDelayGameFrame = null;
   }
 
   if (
-    v.room.clearDelayGameFrame === null &&
-    !areAnyNPCsAlive() &&
-    isAllPressurePlatesPushed()
+    v.room.clearDelayGameFrame === null
+    && !areAnyNPCsAlive()
+    && isAllPressurePlatesPushed()
   ) {
     pseudoClearRoom(player, babyType);
   }
@@ -183,9 +183,9 @@ function areAnyNPCsAlive() {
   const npcs = getNPCs();
   return npcs.some(
     (npc) =>
-      npc.CanShutDoors && // This is a battle NPC.
-      !npc.IsDead() &&
-      !isAliveExceptionNPC(npc),
+      npc.CanShutDoors // This is a battle NPC.
+      && !npc.IsDead()
+      && !isAliveExceptionNPC(npc),
   );
 }
 

@@ -12,8 +12,8 @@ export class CowboyBaby extends Baby {
     const num = this.getAttribute("num");
 
     if (
-      pickup.FrameCount % num === 0 &&
-      !collected // Don't shoot if we already picked it up.
+      pickup.FrameCount % num === 0
+      && !collected // Don't shoot if we already picked it up.
     ) {
       const velocity = player.Position.sub(pickup.Position).Normalized().mul(7);
       spawnProjectile(

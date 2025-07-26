@@ -37,10 +37,10 @@ export class VomitBaby extends Baby {
 
       const cutoff = 0.2;
       if (
-        player.Velocity.X > cutoff ||
-        player.Velocity.X < cutoff * -1 ||
-        player.Velocity.Y > cutoff ||
-        player.Velocity.Y < cutoff * -1
+        player.Velocity.X > cutoff
+        || player.Velocity.X < cutoff * -1
+        || player.Velocity.Y > cutoff
+        || player.Velocity.Y < cutoff * -1
       ) {
         player.TakeDamage(1, DamageFlagZero, EntityRef(player), 0);
       }

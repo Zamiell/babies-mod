@@ -50,8 +50,8 @@ export function setDebugBaby(params: string, restart: boolean): void {
       }
       babyType = match[1];
     } else if (
-      babyTypeNumber >= 0 ||
-      babyTypeNumber <= asNumber(MAX_BABY_TYPE)
+      babyTypeNumber >= 0
+      || babyTypeNumber <= asNumber(MAX_BABY_TYPE)
     ) {
       // They provided a (valid) number argument.
       babyType = babyTypeNumber as RandomBabyType;

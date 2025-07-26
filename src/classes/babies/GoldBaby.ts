@@ -47,9 +47,9 @@ export class GoldBaby extends Baby {
    */
   override isValid(): boolean {
     return (
-      !onFirstFloor() &&
-      !(onStage(LevelStage.WOMB_2) && onRepentanceStage()) &&
-      !onStage(LevelStage.HOME)
+      !onFirstFloor()
+      && !(onStage(LevelStage.WOMB_2) && onRepentanceStage())
+      && !onStage(LevelStage.HOME)
     );
   }
 
@@ -94,8 +94,8 @@ export class GoldBaby extends Baby {
     }
 
     if (
-      isPoopGridEntityXMLType(entityTypeOrGridEntityXMLType) &&
-      entityTypeOrGridEntityXMLType !== GridEntityXMLType.POOP_GOLDEN
+      isPoopGridEntityXMLType(entityTypeOrGridEntityXMLType)
+      && entityTypeOrGridEntityXMLType !== GridEntityXMLType.POOP_GOLDEN
     ) {
       return [GridEntityXMLType.POOP_GOLDEN, 0, 0];
     }

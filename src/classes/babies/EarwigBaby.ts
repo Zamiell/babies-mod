@@ -29,8 +29,8 @@ export class EarwigBaby extends Baby {
         CollectibleType.COMPASS, // 21
         CollectibleType.TREASURE_MAP, // 54
         CollectibleType.MIND, // 333
-      ) &&
-      !onStage(
+      )
+      && !onStage(
         LevelStage.BLUE_WOMB, // 9
         LevelStage.HOME, // 13
       )

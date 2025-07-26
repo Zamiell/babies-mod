@@ -11,9 +11,9 @@ export class GeekBaby extends Baby {
     const roboBabies = getFamiliars(FamiliarVariant.ROBO_BABY_2);
     for (const roboBaby of roboBabies) {
       if (
-        familiar.Position.Distance(roboBaby.Position) <= 1 &&
+        familiar.Position.Distance(roboBaby.Position) <= 1
         // Use the index as a priority of which Gurdy is forced to move away.
-        familiar.Index < roboBaby.Index
+        && familiar.Index < roboBaby.Index
       ) {
         roboBaby.Position = getRandomOffsetPosition(
           roboBaby.Position,
