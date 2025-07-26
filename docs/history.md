@@ -3,6 +3,10 @@
 <!-- cspell:ignore Adrayon,cantgirl,elgirs,Fallenfor,Finalkids,Hispa,Kaethela,lenamek,mgln,Moucheron,Quipet,Sanio,sisuka,SuperpaperChildy,Toooschi -->
 <!-- markdownlint-disable MD001 -->
 
+### _v1.29.6_ - July 26th, 2025
+
+- Fixed the bug where Pear Baby was incorrectly called Nature Baby. (Thanks Gamonymous)
+
 ### _v1.29.5_ - September 17th, 2024
 
 - Fixed bugs with the following babies:
