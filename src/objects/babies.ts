@@ -5050,14 +5050,6 @@ export const BABIES = {
     class: bc.FoodReviewerBaby,
   },
 
-  // TODO: Add in Repentance+
-  /// 575
-  /// [RandomBabyType.JONES]: {
-  ///   name: "Jones Baby",
-  ///   description: "???",
-  ///   sprite: "575_baby_jones.png",
-  /// },
-
   // -----------------------------------------------------------------------------------------------
 
   // 575
