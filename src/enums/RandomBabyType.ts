@@ -611,6 +611,9 @@ export enum RandomBabyType {
   CUBIC = 573,
   FOOD_REVIEWER = 574,
 
+  // TODO: Add in Repentance+
+  /// JONES = 575,
+
   /**
    * There are two sprites with the prefix of "490_" and this is the second one, so we assign it at
    * the end.
