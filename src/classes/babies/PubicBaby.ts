@@ -1,4 +1,9 @@
-import { Dimension, ModCallback, RoomType } from "isaac-typescript-definitions";
+import {
+  Dimension,
+  GameStateFlag,
+  ModCallback,
+  RoomType,
+} from "isaac-typescript-definitions";
 import {
   Callback,
   game,
@@ -22,6 +27,11 @@ const v = {
 /** Must full clear. */
 export class PubicBaby extends Baby {
   v = v;
+
+  override isValid(): boolean {
+    const onAscent = game.GetStateFlag(GameStateFlag.BACKWARDS_PATH);
+    return !onAscent;
+  }
 
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
