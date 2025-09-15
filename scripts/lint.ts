@@ -1,16 +1,15 @@
 import {
   $,
-  $s,
   commandExists,
   diff,
   echo,
   exit,
   lintScript,
   readFile,
-} from "isaacscript-common-node";
+} from "complete-node";
 import path from "node:path";
 
-await lintScript(async ({ packageRoot }) => {
+await lintScript(import.meta.dirname, async (packageRoot) => {
   const promises = [
     // Use TypeScript to type-check the code.
     $`tsc --noEmit`,
@@ -45,10 +44,10 @@ await lintScript(async ({ packageRoot }) => {
     // @template-customization-end
   ];
 
-  if (commandExists("python")) {
-    $s`pip install isaac-xml-validator --upgrade --quiet`;
-    // @template-ignore-next-line
-    promises.push($`isaac-xml-validator --quiet --ignore cutscenes.xml`);
+  const pythonExists = await commandExists("python");
+  if (pythonExists) {
+    await $`pip install isaac-xml-validator --upgrade --quiet`;
+    promises.push($`isaac-xml-validator --quiet`);
   }
 
   await Promise.all(promises);
@@ -59,9 +58,9 @@ await lintScript(async ({ packageRoot }) => {
 /** Check that the documentation is up to date. */
 async function checkDocs(projectRoot: string) {
   const babiesMDPath = path.join(projectRoot, "docs", "babies.md");
-  const oldBabiesMD = readFile(babiesMDPath);
+  const oldBabiesMD = await readFile(babiesMDPath);
   await $`tsx ./scripts/generateDocs.ts`;
-  const newBabiesMD = readFile(babiesMDPath);
+  const newBabiesMD = await readFile(babiesMDPath);
 
   if (oldBabiesMD !== newBabiesMD) {
     echo("The documentation is not up to date:");
