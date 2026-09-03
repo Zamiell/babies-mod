@@ -369,9 +369,8 @@ export function spawnRandomPickup(
   noItems = false,
 ): EntityPickup {
   // Spawn a random pickup.
-  const pickupVariantChoice = noItems
-    ? getRandomInt(1, 9, rng) // Exclude trinkets and collectibles.
-    : getRandomInt(1, 11, rng);
+  const maxPickupVariant = noItems ? 9 : 11; // Exclude trinkets and collectibles when needed.
+  const pickupVariantChoice = getRandomInt(1, maxPickupVariant, rng);
 
   switch (pickupVariantChoice) {
     // Random heart.
