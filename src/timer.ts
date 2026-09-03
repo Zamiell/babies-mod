@@ -47,11 +47,7 @@ export function timerDraw(finishTime: int | null): void {
 
   // Calculate the starting draw position. It will be either to the right of the speed stat or to
   // the right of the "R+" icon if we are using Racing+ and not in a custom challenge.
-  let x = 55;
-  if (isRacingPlusEnabled() && onAnyChallenge()) {
-    // To the right of the "S5" sprite on the left side of the screen.
-    x = 83;
-  }
+  let x = isRacingPlusEnabled() && onAnyChallenge() ? 83 : 55;
   let y = 79;
 
   const HUDOffsetVector = getHUDOffsetVector();

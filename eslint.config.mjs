@@ -53,7 +53,6 @@ export default defineConfig(
       "unicorn/prefer-boolean-return": "off",
       "unicorn/prefer-minimal-ternary": "off",
       "unicorn/prefer-simple-condition-first": "off",
-      "unicorn/prefer-ternary": "off",
 
       // @template-customization-end
     },
