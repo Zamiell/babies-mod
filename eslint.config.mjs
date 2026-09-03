@@ -51,7 +51,6 @@ export default defineConfig(
       "unicorn/no-top-level-assignment-in-function": "off",
       "unicorn/no-top-level-side-effects": "off",
       "unicorn/prefer-boolean-return": "off",
-      "unicorn/prefer-direct-iteration": "off",
       "unicorn/prefer-minimal-ternary": "off",
       "unicorn/prefer-simple-condition-first": "off",
       "unicorn/prefer-ternary": "off",

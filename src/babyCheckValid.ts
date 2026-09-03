@@ -148,7 +148,7 @@ function checkCollectibles(
     return false;
   }
 
-  const babyCollectibles = [...babyCollectiblesSet.values()];
+  const babyCollectibles = [...babyCollectiblesSet];
   const babyGrantsFamiliar = babyCollectibles.some(
     (collectibleType) =>
       getCollectibleItemType(collectibleType) === ItemType.FAMILIAR,

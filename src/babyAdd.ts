@@ -127,7 +127,7 @@ export function babyAdd(
 
   // If this baby grants a familiar, prevent the player from finding Sacrificial Altar.
   const babyCollectiblesSet = getBabyCollectiblesSet(baby);
-  const babyCollectibles = [...babyCollectiblesSet.values()];
+  const babyCollectibles = [...babyCollectiblesSet];
   const babyGrantsFamiliar = babyCollectibles.some(
     (collectibleType) =>
       getCollectibleItemType(collectibleType) === ItemType.FAMILIAR,
