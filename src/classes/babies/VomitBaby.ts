@@ -37,6 +37,7 @@ export class VomitBaby extends Baby {
 
       const cutoff = 0.2;
       if (
+        // eslint-disable-next-line unicorn/prefer-math-abs
         player.Velocity.X > cutoff
         || player.Velocity.X < -cutoff
         || player.Velocity.Y > cutoff
