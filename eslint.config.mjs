@@ -55,7 +55,6 @@ export default defineConfig(
       "unicorn/prefer-early-return": "off",
       "unicorn/prefer-math-abs": "off",
       "unicorn/prefer-minimal-ternary": "off",
-      "unicorn/prefer-number-coercion": "off",
       "unicorn/prefer-simple-condition-first": "off",
       "unicorn/prefer-ternary": "off",
 

@@ -1,3 +1,4 @@
+import { assertDefined, parseIntSafe } from "complete-common";
 import fs from "node:fs";
 import path from "node:path";
 
@@ -58,12 +59,11 @@ function getBabyDescriptionsFromBabiesTS(): readonly BabyDescriptionSimple[] {
         throw new Error(`Failed to parse a comment on line ${i + 1}: ${line}`);
       }
 
-      const id = Number.parseInt(idString, 10);
-      if (Number.isNaN(id)) {
-        throw new TypeError(
-          `Failed to convert a string to a number on line ${i + 1}: ${line}`,
-        );
-      }
+      const id = parseIntSafe(idString);
+      assertDefined(
+        id,
+        `Failed to convert a string to a number on line ${i + 1}: ${line}`,
+      );
 
       currentBabyDescription.id = id;
     }
