@@ -48,7 +48,6 @@ export default defineConfig(
       "regexp/require-unicode-sets-regexp": "off",
       "unicorn/no-declarations-before-early-exit": "off",
       "unicorn/no-top-level-assignment-in-function": "off",
-      "unicorn/no-top-level-side-effects": "off",
 
       // @template-customization-end
     },
@@ -60,6 +59,13 @@ export default defineConfig(
     files: ["scripts/*.ts"],
     rules: {
       "isaacscript/no-throw": "off",
+    },
+  },
+
+  {
+    files: ["src/enums/*.ts"],
+    rules: {
+      "unicorn/no-top-level-side-effects": "off",
     },
   },
 
