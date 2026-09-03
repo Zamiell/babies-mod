@@ -18,10 +18,12 @@ export class MufflerscarfBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.ENTITY_TAKE_DMG_PLAYER)
   entityTakeDmgPlayer(player: EntityPlayer): boolean | undefined {
     for (const npc of getNPCs()) {
-      if (npc.IsVulnerableEnemy()) {
-        const freezeFrames = FREEZE_SECONDS * GAME_FRAMES_PER_SECOND;
-        npc.AddFreeze(EntityRef(player), freezeFrames);
+      if (!npc.IsVulnerableEnemy()) {
+        continue;
       }
+
+      const freezeFrames = FREEZE_SECONDS * GAME_FRAMES_PER_SECOND;
+      npc.AddFreeze(EntityRef(player), freezeFrames);
     }
 
     return undefined;

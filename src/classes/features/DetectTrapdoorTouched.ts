@@ -58,16 +58,18 @@ export class DetectTrapdoorTouched extends BabyModFeature {
     const babyCollectiblesSet = getBabyCollectiblesSet(baby);
 
     for (const collectibleType of COLLECTIBLE_TYPES_THAT_AFFECT_FLOOR) {
-      if (babyCollectiblesSet.has(collectibleType)) {
-        player.RemoveCollectible(collectibleType, undefined, undefined, false);
+      if (!babyCollectiblesSet.has(collectibleType)) {
+        continue;
+      }
 
-        // Handle the special case of the Racing+ custom version of Sol.
-        if (collectibleType === CollectibleType.SOL) {
-          const solCustom = Isaac.GetItemIdByName("Sol (Custom)") as
-            CollectibleType | -1;
-          if (solCustom !== -1 && player.HasCollectible(solCustom)) {
-            player.RemoveCollectible(solCustom, undefined, undefined, false);
-          }
+      player.RemoveCollectible(collectibleType, undefined, undefined, false);
+
+      // Handle the special case of the Racing+ custom version of Sol.
+      if (collectibleType === CollectibleType.SOL) {
+        const solCustom = Isaac.GetItemIdByName("Sol (Custom)") as
+          CollectibleType | -1;
+        if (solCustom !== -1 && player.HasCollectible(solCustom)) {
+          player.RemoveCollectible(solCustom, undefined, undefined, false);
         }
       }
     }

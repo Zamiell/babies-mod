@@ -12,13 +12,15 @@ export class IsaacBaby extends Baby {
   override onRemove(player: EntityPlayer): void {
     for (const slot of [ActiveSlot.PRIMARY, ActiveSlot.SECONDARY]) {
       if (
-        player.GetActiveItem(slot) !== CollectibleType.NULL
-        && player.GetBatteryCharge(slot) > 0
+        player.GetActiveItem(slot) === CollectibleType.NULL
+        || !(player.GetBatteryCharge(slot) > 0)
       ) {
-        player.DischargeActiveItem();
-        player.FullCharge();
-        sfxManager.Stop(SoundEffect.BATTERY_CHARGE);
+        continue;
       }
+
+      player.DischargeActiveItem();
+      player.FullCharge();
+      sfxManager.Stop(SoundEffect.BATTERY_CHARGE);
     }
   }
 }
