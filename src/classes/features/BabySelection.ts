@@ -42,7 +42,7 @@ export class BabySelection extends ModFeature {
     const room = game.GetRoom();
     const isFirstVisit = room.IsFirstVisit();
 
-    if (inStartingRoom() && isFirstVisit) {
+    if (isFirstVisit && inStartingRoom()) {
       v.run.usedGlowingHourGlassInStartingRoom = true;
     }
 

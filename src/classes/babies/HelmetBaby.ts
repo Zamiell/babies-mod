@@ -67,11 +67,11 @@ export class HelmetBaby extends Baby {
 
     // Keep track of whether they are moving. Also, fade the character to indicate that they are
     // invulnerable.
-    if (!v.room.isInvulnerable && noMovementInputsPressed) {
+    if (noMovementInputsPressed && !v.room.isInvulnerable) {
       // They stopped moving.
       v.room.isInvulnerable = true;
       setEntityOpacity(player, FADE_AMOUNT);
-    } else if (v.room.isInvulnerable && anyMovementInputPressed) {
+    } else if (anyMovementInputPressed && v.room.isInvulnerable) {
       // They started moving.
       v.room.isInvulnerable = false;
       setEntityOpacity(player, 1);

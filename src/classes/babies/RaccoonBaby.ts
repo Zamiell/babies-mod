@@ -23,7 +23,7 @@ export class RaccoonBaby extends Baby {
 
     // Reroll all of the rocks in the room. This does not work if we do it in the `POST_NEW_ROOM`
     // callback. This does not work if we do it on the 0th frame.
-    if (onRoomFrame(1) && isFirstVisit) {
+    if (isFirstVisit && onRoomFrame(1)) {
       useActiveItemTemp(player, CollectibleType.D12);
     }
   }

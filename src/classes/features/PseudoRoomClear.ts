@@ -105,7 +105,7 @@ export function pseudoRoomClearPostPEffectUpdateReordered(
 
   // Customize the doors and initiate the pseudo clear feature. (This does not work in the
   // `POST_NEW_ROOM` callback or on frame 0.)
-  if (onRoomFrame(1) && !roomClear) {
+  if (!roomClear && onRoomFrame(1)) {
     initializeDoors(babyType);
     return;
   }

@@ -44,7 +44,7 @@ export class TwinBaby extends Baby {
     const player = Isaac.GetPlayer();
 
     // We don't want to teleport away from the first room.
-    if (inStartingRoom() && isFirstVisit) {
+    if (isFirstVisit && inStartingRoom()) {
       return;
     }
 

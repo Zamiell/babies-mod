@@ -187,7 +187,7 @@ export class FancyBaby extends Baby {
     const room = game.GetRoom();
     const isFirstVisit = room.IsFirstVisit();
 
-    if (!inStartingRoom() || !isFirstVisit) {
+    if (!isFirstVisit || !inStartingRoom()) {
       return;
     }
 

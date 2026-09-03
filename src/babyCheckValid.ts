@@ -605,7 +605,7 @@ function checkActiveItem(
 
   const secondaryActiveItem = player.GetActiveItem(ActiveSlot.SECONDARY);
   const hasSchoolbag = player.HasCollectible(CollectibleType.SCHOOLBAG);
-  if (secondaryActiveItem === CollectibleType.NULL && hasSchoolbag) {
+  if (hasSchoolbag && secondaryActiveItem === CollectibleType.NULL) {
     return true;
   }
 
@@ -668,8 +668,8 @@ function checkHealth(
   }
 
   if (
-    babyCollectiblesSet.has(CollectibleType.POTATO_PEELER)
-    && maxHearts === 0
+    maxHearts === 0
+    && babyCollectiblesSet.has(CollectibleType.POTATO_PEELER)
   ) {
     return false;
   }
@@ -681,7 +681,7 @@ function checkCoins(player: EntityPlayer, baby: BabyDescription): boolean {
   const coins = player.GetNumCoins();
   const babyCollectiblesSet = getBabyCollectiblesSet(baby);
 
-  if (baby.requireCoins === true && coins === 0) {
+  if (coins === 0 && baby.requireCoins === true) {
     return false;
   }
 
@@ -695,7 +695,7 @@ function checkCoins(player: EntityPlayer, baby: BabyDescription): boolean {
 function checkBombs(player: EntityPlayer, baby: BabyDescription): boolean {
   const bombs = player.GetNumBombs();
 
-  if (baby.requireBombs === true && bombs === 0) {
+  if (bombs === 0 && baby.requireBombs === true) {
     return false;
   }
 
@@ -705,7 +705,7 @@ function checkBombs(player: EntityPlayer, baby: BabyDescription): boolean {
 function checkKeys(player: EntityPlayer, baby: BabyDescription): boolean {
   const keys = player.GetNumKeys();
 
-  if (baby.requireKeys === true && keys === 0) {
+  if (keys === 0 && baby.requireKeys === true) {
     return false;
   }
 
