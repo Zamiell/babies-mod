@@ -38,7 +38,6 @@ export default defineConfig(
 
       // TODO
       "@typescript-eslint/no-unnecessary-type-assertion": "off",
-      "complete/consistent-object-braces": "off",
       "complete/require-ascii": "off",
       "complete/type-declaration-immutability": "off",
       "complete/prefer-path-resolve": "off",

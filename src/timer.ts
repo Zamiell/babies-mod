@@ -169,5 +169,12 @@ function convertSecondsToTimerValues(totalSeconds: int):
   const decimals = rawSeconds - Math.floor(rawSeconds);
   const tenths = Math.floor(decimals * 10);
 
-  return { hours, minute1, minute2, second1, second2, tenths };
+  return {
+    hours,
+    minute1,
+    minute2,
+    second1,
+    second2,
+    tenths,
+  };
 }
