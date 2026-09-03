@@ -101,6 +101,7 @@ export class BabySelection extends ModFeature {
     v.run.pastBabyType = v.run.babyType;
     v.run.babyType = babyType;
     v.persistent.pastBabies.add(babyType);
+    // eslint-disable-next-line unicorn/no-top-level-assignment-in-function
     BabiesModBabyType = babyType;
 
     // Write the baby description to a file to allow streamers to capture the text file in Open
