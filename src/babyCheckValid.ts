@@ -107,11 +107,7 @@ export function babyCheckValid(
   }
 
   const babyClass = BABY_CLASS_MAP.get(babyType);
-  if (babyClass !== undefined && !checkBabyClass(player, babyClass)) {
-    return false;
-  }
-
-  return true;
+  return babyClass === undefined || checkBabyClass(player, babyClass);
 }
 
 function checkCollectibles(
@@ -605,11 +601,7 @@ function checkActiveItem(
 
   const secondaryActiveItem = player.GetActiveItem(ActiveSlot.SECONDARY);
   const hasSchoolbag = player.HasCollectible(CollectibleType.SCHOOLBAG);
-  if (hasSchoolbag && secondaryActiveItem === CollectibleType.NULL) {
-    return true;
-  }
-
-  return false;
+  return hasSchoolbag && secondaryActiveItem === CollectibleType.NULL;
 }
 
 function checkTrinkets(player: EntityPlayer, baby: BabyDescription): boolean {
@@ -695,21 +687,13 @@ function checkCoins(player: EntityPlayer, baby: BabyDescription): boolean {
 function checkBombs(player: EntityPlayer, baby: BabyDescription): boolean {
   const bombs = player.GetNumBombs();
 
-  if (bombs === 0 && baby.requireBombs === true) {
-    return false;
-  }
-
-  return true;
+  return !(bombs === 0 && baby.requireBombs === true);
 }
 
 function checkKeys(player: EntityPlayer, baby: BabyDescription): boolean {
   const keys = player.GetNumKeys();
 
-  if (keys === 0 && baby.requireKeys === true) {
-    return false;
-  }
-
-  return true;
+  return !(keys === 0 && baby.requireKeys === true);
 }
 
 function checkStage(
