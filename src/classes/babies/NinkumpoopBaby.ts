@@ -16,16 +16,18 @@ export class NinkumpoopBaby extends Baby {
   // 34
   @Callback(ModCallback.POST_PICKUP_INIT)
   postPickupInit(pickup: EntityPickup): void {
-    if (isChest(pickup) && pickup.Variant !== PickupVariant.OLD_CHEST) {
-      pickup.Remove();
-      spawnPickup(
-        PickupVariant.OLD_CHEST,
-        0,
-        pickup.Position,
-        pickup.Velocity,
-        pickup.Parent,
-        pickup.InitSeed,
-      );
+    if (!isChest(pickup) || pickup.Variant === PickupVariant.OLD_CHEST) {
+      return;
     }
+
+    pickup.Remove();
+    spawnPickup(
+      PickupVariant.OLD_CHEST,
+      0,
+      pickup.Position,
+      pickup.Velocity,
+      pickup.Parent,
+      pickup.InitSeed,
+    );
   }
 }

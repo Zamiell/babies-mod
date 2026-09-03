@@ -20,17 +20,21 @@ export class ShopkeeperBaby extends Baby {
 
   @Callback(ModCallback.POST_PICKUP_INIT)
   postPickupInit(pickup: EntityPickup): void {
-    if (pickup.Price > 0) {
-      pickup.Price = PickupPrice.FREE;
-      pickup.AutoUpdatePrice = false;
+    if (!(pickup.Price > 0)) {
+      return;
     }
+
+    pickup.Price = PickupPrice.FREE;
+    pickup.AutoUpdatePrice = false;
   }
 
   @Callback(ModCallback.POST_PICKUP_UPDATE)
   postPickupUpdate(pickup: EntityPickup): void {
-    if (pickup.Price > 0) {
-      pickup.Price = PickupPrice.FREE;
-      pickup.AutoUpdatePrice = false;
+    if (!(pickup.Price > 0)) {
+      return;
     }
+
+    pickup.Price = PickupPrice.FREE;
+    pickup.AutoUpdatePrice = false;
   }
 }

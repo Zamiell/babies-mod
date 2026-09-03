@@ -81,23 +81,25 @@ export class ZombieBaby extends Baby {
   @Callback(ModCallback.POST_ENTITY_KILL)
   postEntityKill(entity: Entity): void {
     if (
-      !entity.IsBoss()
-      && !entity.HasEntityFlags(EntityFlag.FRIENDLY)
-      && !EXCEPTION_ENTITY_TYPES.has(entity.Type)
+      entity.IsBoss()
+      || entity.HasEntityFlags(EntityFlag.FRIENDLY)
+      || EXCEPTION_ENTITY_TYPES.has(entity.Type)
     ) {
-      const friend = spawnWithSeed(
-        entity.Type,
-        entity.Variant,
-        entity.SubType,
-        entity.Position,
-        entity.InitSeed,
-      );
-      friend.AddEntityFlags(FRIEND_ENTITY_FLAGS);
-
-      // Fade the entity so that it is easier to see everything. (This is also reapplied on every
-      // frame because enemies can be unfaded occasionally.)
-      setEntityOpacity(friend, FADE_AMOUNT);
+      return;
     }
+
+    const friend = spawnWithSeed(
+      entity.Type,
+      entity.Variant,
+      entity.SubType,
+      entity.Position,
+      entity.InitSeed,
+    );
+    friend.AddEntityFlags(FRIEND_ENTITY_FLAGS);
+
+    // Fade the entity so that it is easier to see everything. (This is also reapplied on every
+    // frame because enemies can be unfaded occasionally.)
+    setEntityOpacity(friend, FADE_AMOUNT);
   }
 
   @CallbackCustom(ModCallbackCustom.POST_NEW_ROOM_REORDERED)

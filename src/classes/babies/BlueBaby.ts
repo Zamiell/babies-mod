@@ -55,10 +55,12 @@ export class BlueBaby extends Baby {
   // 54
   @Callback(ModCallback.POST_EFFECT_INIT, EffectVariant.POOF_1)
   postEffectInitPoof1(effect: EntityEffect): void {
-    if (v.room.removeSprinklerPoof) {
-      v.room.removeSprinklerPoof = false;
-      effect.Remove();
+    if (!v.room.removeSprinklerPoof) {
+      return;
     }
+
+    v.room.removeSprinklerPoof = false;
+    effect.Remove();
   }
 
   /** Sprinkler tears need to originate at the player. */

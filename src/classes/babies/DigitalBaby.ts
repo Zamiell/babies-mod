@@ -23,11 +23,13 @@ export class DigitalBaby extends Baby {
    */
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
-    if (!v.run.appliedSeedEffect && onOrBeforeRoomFrame(1)) {
-      v.run.appliedSeedEffect = true;
-
-      const seeds = game.GetSeeds();
-      seeds.AddSeedEffect(SeedEffect.OLD_TV);
+    if (v.run.appliedSeedEffect || !onOrBeforeRoomFrame(1)) {
+      return;
     }
+
+    v.run.appliedSeedEffect = true;
+
+    const seeds = game.GetSeeds();
+    seeds.AddSeedEffect(SeedEffect.OLD_TV);
   }
 }

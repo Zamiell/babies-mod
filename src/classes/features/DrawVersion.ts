@@ -48,11 +48,13 @@ export class DrawVersion extends ModFeature {
 
   /** Make the version persist on the screen after the player presses the hotkey. */
   checkInput(): void {
-    if (isKeyboardPressed(SHOW_VERSION_HOTKEY)) {
-      const renderFrameCount = Isaac.GetFrameCount();
-      v.run.showVersionUntilRenderFrame =
-        renderFrameCount + SECONDS_SHOWN * RENDER_FRAMES_PER_SECOND;
+    if (!isKeyboardPressed(SHOW_VERSION_HOTKEY)) {
+      return;
     }
+
+    const renderFrameCount = Isaac.GetFrameCount();
+    v.run.showVersionUntilRenderFrame =
+      renderFrameCount + SECONDS_SHOWN * RENDER_FRAMES_PER_SECOND;
   }
 
   checkDraw(): void {

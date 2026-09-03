@@ -209,15 +209,17 @@ export class GoldBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.POST_BOMB_INIT_FILTER, BombVariant.TROLL)
   postBombInitTroll(bomb: EntityBomb): void {
-    if (bomb.Variant === BombVariant.TROLL) {
-      bomb.Remove();
-      spawnBombWithSeed(
-        BombVariant.GOLDEN_TROLL,
-        0,
-        bomb.Position,
-        bomb.InitSeed,
-      );
+    if (bomb.Variant !== BombVariant.TROLL) {
+      return;
     }
+
+    bomb.Remove();
+    spawnBombWithSeed(
+      BombVariant.GOLDEN_TROLL,
+      0,
+      bomb.Position,
+      bomb.InitSeed,
+    );
   }
 
   /**
