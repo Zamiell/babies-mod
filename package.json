@@ -24,7 +24,7 @@
     "isaacscript-common": "87.10.1"
   },
   "devDependencies": {
-    "complete-node": "18.1.0",
+    "complete-node": "18.1.2",
     "isaacscript": "6.0.9",
     "isaacscript-lint": "8.1.0",
     "isaacscript-spell": "1.15.2",

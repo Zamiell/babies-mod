@@ -1,12 +1,4 @@
-import {
-  $,
-  commandExists,
-  diff,
-  echo,
-  exit,
-  lintCommands,
-  readFile,
-} from "complete-node";
+import { $, commandExists, diff, lintCommands, readFile } from "complete-node";
 import path from "node:path";
 
 const PACKAGE_ROOT = path.resolve(import.meta.dirname, "..");
@@ -40,7 +32,7 @@ const commands = [
   "isaacscript check --ignore lint.ts",
 
   // eslint-disable-next-line unicorn/prefer-top-level-await
-  ["checkDocs", checkDocs(PACKAGE_ROOT)],
+  ["checkDocs", checkDocs(PACKAGE_ROOT)] as const,
 
   // @template-customization-end
 ];
@@ -63,10 +55,10 @@ async function checkDocs(projectRoot: string) {
   const newBabiesMD = await readFile(babiesMDPath);
 
   if (oldBabiesMD !== newBabiesMD) {
-    echo("The documentation is not up to date:");
+    console.log("The documentation is not up to date:");
     diff(oldBabiesMD, newBabiesMD);
-    echo();
-    exit(1);
+    console.log();
+    process.exit(1);
   }
 }
 
