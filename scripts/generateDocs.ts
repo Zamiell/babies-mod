@@ -3,6 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 /** A simplified version of `BabyDescription`. */
+// eslint-disable-next-line complete/type-declaration-immutability
 interface BabyDescriptionSimple {
   id: number;
   name: string;

@@ -12,9 +12,9 @@ import { shouldReplaceOrDuplicateNPC } from "../../utils";
 import { Baby } from "../Baby";
 
 interface NPCDescription {
-  entityType: EntityType;
-  variant: int;
-  subType: int;
+  readonly entityType: EntityType;
+  readonly variant: int;
+  readonly subType: int;
 }
 
 const v = {

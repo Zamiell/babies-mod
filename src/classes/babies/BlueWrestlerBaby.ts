@@ -3,8 +3,9 @@ import { Callback, spawnProjectile } from "isaacscript-common";
 import { isValidForEnemyDeathEffect } from "../../utils";
 import { Baby } from "../Baby";
 
+// eslint-disable-next-line complete/type-declaration-immutability
 interface MultiTearDescription {
-  readonly position: Vector;
+  readonly position: Readonly<Vector>;
   num: int;
 }
 

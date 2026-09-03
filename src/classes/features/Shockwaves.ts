@@ -15,10 +15,11 @@ import {
 } from "isaacscript-common";
 import { BabyModFeature } from "../BabyModFeature";
 
+// eslint-disable-next-line complete/type-declaration-immutability
 interface ShockwaveDescription {
-  gameFrameSpawned: int;
-  position: Vector;
-  velocity: Vector;
+  readonly gameFrameSpawned: int;
+  position: Readonly<Vector>;
+  readonly velocity: Readonly<Vector>;
 }
 
 const v = {

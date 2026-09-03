@@ -11,9 +11,10 @@ import {
 } from "isaacscript-common";
 import { Baby } from "../Baby";
 
+// eslint-disable-next-line complete/type-declaration-immutability
 interface TearData {
-  height: int;
-  velocity: Vector;
+  readonly height: int;
+  velocity: Readonly<Vector>;
 }
 
 export const SHELL_ANTI_SYNERGY_COLLECTIBLES = [

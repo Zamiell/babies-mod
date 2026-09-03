@@ -15,8 +15,8 @@ import { spawnRandomPickup } from "../../utils";
 import { Baby } from "../Baby";
 
 interface PoopDescription {
-  roomListIndex: int;
-  gridIndex: int;
+  readonly roomListIndex: int;
+  readonly gridIndex: int;
 }
 
 const v = {

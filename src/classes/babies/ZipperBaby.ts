@@ -11,9 +11,9 @@ import {
 import { Baby } from "../Baby";
 
 interface EntityDescription {
-  entityType: EntityType;
-  variant: int;
-  subType: int;
+  readonly entityType: EntityType;
+  readonly variant: int;
+  readonly subType: int;
 }
 
 /** Extra enemies spawn on hit. */
