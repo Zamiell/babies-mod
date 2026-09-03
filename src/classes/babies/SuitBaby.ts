@@ -53,13 +53,13 @@ export class SuitBaby extends Baby {
     const room = game.GetRoom();
     const roomType = room.GetType();
     const isFirstVisit = room.IsFirstVisit();
-    const roomSeed = room.GetSpawnSeed();
-    const player = Isaac.GetPlayer();
 
     if (!isFirstVisit || !shouldTransformRoomType(roomType)) {
       return;
     }
 
+    const roomSeed = room.GetSpawnSeed();
+    const player = Isaac.GetPlayer();
     const rng = newRNG(roomSeed);
     const collectibleType = getRandomCollectibleTypeFromPool(
       ItemPoolType.DEVIL,

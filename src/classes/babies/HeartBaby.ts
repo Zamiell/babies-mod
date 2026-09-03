@@ -13,12 +13,12 @@ import { Baby } from "../Baby";
 export class HeartBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {
-    const num = this.getAttribute("num");
-
     // Ignore the starting room.
     if (inStartingRoom()) {
       return;
     }
+
+    const num = this.getAttribute("num");
 
     everyNSeconds(() => {
       useActiveItemTemp(player, CollectibleType.DULL_RAZOR);

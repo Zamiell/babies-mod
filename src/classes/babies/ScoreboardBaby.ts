@@ -38,8 +38,6 @@ export class ScoreboardBaby extends Baby {
     _amount: float,
     damageFlags: BitFlags<DamageFlag>,
   ): boolean | undefined {
-    const gameFrameCount = game.GetFrameCount();
-
     if (v.run.timer !== null) {
       return undefined;
     }
@@ -48,6 +46,7 @@ export class ScoreboardBaby extends Baby {
       return undefined;
     }
 
+    const gameFrameCount = game.GetFrameCount();
     v.run.timer = gameFrameCount + GAME_FRAMES_PER_MINUTE;
     return undefined;
   }

@@ -54,9 +54,6 @@ export function timerDraw(finishTime: int | null): void {
   x += HUDOffsetVector.X;
   y += HUDOffsetVector.Y;
 
-  const hourAdjustment = 2;
-  let hourAdjustment2 = 0;
-
   // Find out how much time has passed.
   const gameFrameCount = game.GetFrameCount();
   const remainingGameFrames = finishTime - gameFrameCount;
@@ -66,6 +63,9 @@ export function timerDraw(finishTime: int | null): void {
   if (timerValues === undefined) {
     return;
   }
+
+  const hourAdjustment = 2;
+  let hourAdjustment2 = 0;
 
   const { hours, minute1, minute2, second1, second2, tenths } = timerValues;
 

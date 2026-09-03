@@ -115,9 +115,7 @@ export class FangDemonBaby extends Baby {
   // 55
   @Callback(ModCallback.POST_EFFECT_UPDATE, EffectVariant.TARGET)
   postEffectUpdateTarget(effect: EntityEffect): void {
-    const gameFrameCount = game.GetFrameCount();
     const player = Isaac.GetPlayer();
-    const num = this.getAttribute("num");
 
     if (effect.FrameCount === 1) {
       // By default, the Marked target spawns at the center of the room, and we want it to be
@@ -127,11 +125,14 @@ export class FangDemonBaby extends Baby {
       return;
     }
 
+    const gameFrameCount = game.GetFrameCount();
+
     if (gameFrameCount < v.room.cooldownUntilFrame) {
       return;
     }
 
     // Check to see if there is a nearby NPC.
+    const num = this.getAttribute("num");
     const closeEntities = Isaac.FindInRadius(
       effect.Position,
       TARGET_DAMAGE_RADIUS,

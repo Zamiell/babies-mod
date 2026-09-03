@@ -46,7 +46,6 @@ export default defineConfig(
       "regexp/prefer-regexp-exec": "off",
       "regexp/require-unicode-regexp": "off",
       "regexp/require-unicode-sets-regexp": "off",
-      "unicorn/no-declarations-before-early-exit": "off",
 
       // @template-customization-end
     },

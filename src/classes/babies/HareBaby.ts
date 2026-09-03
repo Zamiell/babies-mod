@@ -21,10 +21,6 @@ export class HareBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {
-    const sprite = player.GetSprite();
-    const num = this.getAttribute("num");
-    const framesBeforeTakingDamage = num;
-
     // This effect should not apply in the starting room to give the player a chance to read the
     // description.
     if (inStartingRoom()) {
@@ -35,11 +31,16 @@ export class HareBaby extends Baby {
       return;
     }
 
+    const sprite = player.GetSprite();
+
     if (isEntityMoving(player, 1)) {
       v.room.numFramesStandingStill = 0;
       sprite.Color = ColorDefault;
       return;
     }
+
+    const num = this.getAttribute("num");
+    const framesBeforeTakingDamage = num;
 
     v.room.numFramesStandingStill++;
     v.room.numFramesStandingStill = Math.min(

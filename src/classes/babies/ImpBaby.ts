@@ -40,12 +40,12 @@ export class ImpBaby extends Baby {
   // 1
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
-    const num = this.getAttribute("num");
-
     // If we rotate the knives on every frame, then it spins too fast.
     if (isBeforeGameFrame(v.run.nextRotationGameFrame)) {
       return;
     }
+
+    const num = this.getAttribute("num");
     v.run.nextRotationGameFrame += num;
 
     // Rotate through the four directions.

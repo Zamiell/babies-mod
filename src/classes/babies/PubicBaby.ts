@@ -35,18 +35,19 @@ export class PubicBaby extends Baby {
 
   @Callback(ModCallback.POST_UPDATE)
   postUpdate(): void {
-    const room = game.GetRoom();
-    const roomClear = room.IsClear();
-    const dimension = getDimension();
-
     if (v.level.isFloorFullCleared) {
       return;
     }
+
+    const room = game.GetRoom();
+    const roomClear = room.IsClear();
 
     // The doors are not open because the room is not yet cleared.
     if (!roomClear) {
       return;
     }
+
+    const dimension = getDimension();
 
     // Don't do anything if we are in an alternate dimension.
     if (dimension !== Dimension.MAIN) {

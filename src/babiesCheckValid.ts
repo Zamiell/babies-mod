@@ -58,11 +58,11 @@ function checkDuplicateCollectibles() {
     // Babies with 1 collectible.
     if (baby1.collectible !== undefined && baby1.collectible2 === undefined) {
       for (const [baby2Num, baby2Raw] of Object.entries(BABIES)) {
-        const baby2 = baby2Raw as BabyDescription;
-
         if (baby1Num === baby2Num) {
           continue;
         }
+
+        const baby2 = baby2Raw as BabyDescription;
 
         if (
           baby2.collectible !== undefined
@@ -82,11 +82,11 @@ function checkDuplicateCollectibles() {
     // Babies with 2 collectibles.
     if (baby1.collectible !== undefined && baby1.collectible2 !== undefined) {
       for (const [baby2Num, baby2Raw] of Object.entries(BABIES)) {
-        const baby2 = baby2Raw as BabyDescription;
-
         if (baby1Num === baby2Num) {
           continue;
         }
+
+        const baby2 = baby2Raw as BabyDescription;
 
         if (
           baby2.collectible !== undefined

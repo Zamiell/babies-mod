@@ -13,17 +13,18 @@ import { Baby } from "../Baby";
 export class HotdogBaby extends Baby {
   @CallbackCustom(ModCallbackCustom.POST_PEFFECT_UPDATE_REORDERED)
   postPEffectUpdateReordered(player: EntityPlayer): void {
-    const gameFrameCount = game.GetFrameCount();
-    const numHits = getPlayerNumHitsRemaining(player);
-
     if (doesBigChestExist()) {
       return;
     }
+
+    const numHits = getPlayerNumHitsRemaining(player);
 
     // Prevent dying animation softlocks.
     if (numHits === 0) {
       return;
     }
+
+    const gameFrameCount = game.GetFrameCount();
 
     // Constant The Bean effect + flight + explosion immunity + blindfolded.
     if (gameFrameCount % 3 === 0) {

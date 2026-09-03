@@ -700,8 +700,6 @@ function checkStage(
   baby: BabyDescription,
   babyCollectiblesSet: ReadonlySet<CollectibleType>,
 ): boolean {
-  const effectiveStage = getEffectiveStage();
-
   if (baby.requireNoEndFloors === true && onStageOrHigher(LevelStage.WOMB_2)) {
     return false;
   }
@@ -725,6 +723,8 @@ function checkStage(
   ) {
     return false;
   }
+
+  const effectiveStage = getEffectiveStage();
 
   if (
     babyCollectiblesSet.has(CollectibleType.WE_NEED_TO_GO_DEEPER)

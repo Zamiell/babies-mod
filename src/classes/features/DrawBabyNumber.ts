@@ -46,15 +46,14 @@ export class DrawBabyNumber extends BabyModFeature {
       return;
     }
 
-    const HUDOffsetVector = getHUDOffsetVector();
-    const heartsUIWidth = getHeartsUIWidth();
-
     // Racing+ draws the number of sacrifices in the top left corner, which interferes with the baby
     // number text.
     if (isRacingPlusEnabled() && inRoomType(RoomType.SACRIFICE)) {
       return;
     }
 
+    const HUDOffsetVector = getHUDOffsetVector();
+    const heartsUIWidth = getHeartsUIWidth();
     const text = `#${babyType}`;
 
     let x = HUDOffsetVector.X + heartsUIWidth + UI_HEARTS_RIGHT_SPACING;

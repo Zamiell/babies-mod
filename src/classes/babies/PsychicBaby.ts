@@ -28,13 +28,13 @@ export class PsychicBaby extends Baby {
   // 61
   @Callback(ModCallback.POST_FIRE_TEAR)
   postFireTear(tear: EntityTear): void {
-    const room = game.GetRoom();
-    const roomShape = room.GetRoomShape();
-
     // Disable the mechanic after a while to avoid softlocks.
     if (onOrAfterRoomFrame(SOFTLOCK_THRESHOLD_GAME_FRAME)) {
       return;
     }
+
+    const room = game.GetRoom();
+    const roomShape = room.GetRoomShape();
 
     // Disable the mechanic in big rooms:
     // https://clips.twitch.tv/ExquisiteLuckyStarlingBlargNaut--cC5k8Eemix8fHgt

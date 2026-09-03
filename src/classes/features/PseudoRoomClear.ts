@@ -92,7 +92,6 @@ export function pseudoRoomClearPostPEffectUpdateReordered(
 ): void {
   const room = game.GetRoom();
   const roomType = room.GetType();
-  const roomClear = room.IsClear();
 
   if (ROOM_TYPE_BLACKLIST.has(roomType)) {
     return;
@@ -102,6 +101,8 @@ export function pseudoRoomClearPostPEffectUpdateReordered(
   if (isBeforeRoomFrame(1)) {
     return;
   }
+
+  const roomClear = room.IsClear();
 
   // Customize the doors and initiate the pseudo clear feature. (This does not work in the
   // `POST_NEW_ROOM` callback or on frame 0.)

@@ -19,14 +19,13 @@ export class BandaidBaby extends Baby {
 
   @CallbackCustom(ModCallbackCustom.POST_ROOM_CLEAR_CHANGED, true)
   postRoomClearChangedTrue(): void {
-    const room = game.GetRoom();
-    const roomSeed = room.GetSpawnSeed();
-    const player = Isaac.GetPlayer();
-
     if (inRoomType(RoomType.BOSS)) {
       return;
     }
 
+    const room = game.GetRoom();
+    const roomSeed = room.GetSpawnSeed();
+    const player = Isaac.GetPlayer();
     const collectibleChance = getRandom(roomSeed);
     const num = this.getAttribute("num");
 

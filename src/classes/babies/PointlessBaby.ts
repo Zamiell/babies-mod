@@ -28,11 +28,12 @@ export class PointlessBaby extends Baby {
   @Callback(ModCallback.POST_PICKUP_INIT, PickupVariant.COLLECTIBLE)
   postPickupInitCollectible(pickup: EntityPickup): void {
     const collectible = pickup as EntityPickupCollectible;
-    const num = this.getAttribute("num");
 
     if (isQuestCollectible(collectible.SubType)) {
       return;
     }
+
+    const num = this.getAttribute("num");
 
     collectible.Remove();
     repeat(num, () => {

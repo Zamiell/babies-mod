@@ -41,7 +41,6 @@ export class TwinBaby extends Baby {
   postNewRoomReordered(): void {
     const room = game.GetRoom();
     const isFirstVisit = room.IsFirstVisit();
-    const player = Isaac.GetPlayer();
 
     // We don't want to teleport away from the first room.
     if (isFirstVisit && inStartingRoom()) {
@@ -53,6 +52,8 @@ export class TwinBaby extends Baby {
     if (hasTouchedTrapdoor()) {
       return;
     }
+
+    const player = Isaac.GetPlayer();
 
     if (v.run.isTeleporting) {
       v.run.isTeleporting = false;

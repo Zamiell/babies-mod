@@ -49,12 +49,12 @@ export class PrettyBaby extends Baby {
     const room = game.GetRoom();
     const roomType = room.GetType();
     const isFirstVisit = room.IsFirstVisit();
-    const roomSeed = room.GetSpawnSeed();
 
     if (!isFirstVisit || !shouldTransformRoomType(roomType)) {
       return;
     }
 
+    const roomSeed = room.GetSpawnSeed();
     const rng = newRNG(roomSeed);
     const collectibleType = getRandomCollectibleTypeFromPool(
       ItemPoolType.ANGEL,
