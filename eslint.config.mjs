@@ -58,7 +58,6 @@ export default defineConfig(
       "unicorn/prefer-number-coercion": "off",
       "unicorn/prefer-simple-condition-first": "off",
       "unicorn/prefer-ternary": "off",
-      "unicorn/prefer-unary-minus": "off",
 
       // @template-customization-end
     },
