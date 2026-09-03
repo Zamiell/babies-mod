@@ -37,7 +37,6 @@ export default defineConfig(
       ],
 
       // TODO
-      "@typescript-eslint/no-unnecessary-type-assertion": "off",
       "complete/type-declaration-immutability": "off",
 
       // @template-customization-end

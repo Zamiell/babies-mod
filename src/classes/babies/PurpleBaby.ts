@@ -19,6 +19,7 @@ export class PurpleBaby extends Baby {
   ):
     | [entityType: EntityType, variant: int, subType: int, initSeed: Seed]
     | undefined {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const fireplaceVariant = variant as FireplaceVariant;
 
     if (

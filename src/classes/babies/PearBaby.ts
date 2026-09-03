@@ -21,6 +21,7 @@ export class PearBaby extends Baby {
     _variant: PickupVariant,
     subType: int,
   ): [PickupVariant, int] | undefined {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const pillColor = subType as PillColor;
 
     // For some reason, granting PHD to this baby does not make the pills identified for some

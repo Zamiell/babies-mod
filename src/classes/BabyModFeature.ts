@@ -31,6 +31,7 @@ function shouldCallbackFireVanilla(
   modCallbackNum: int,
   ...callbackArgs: readonly unknown[]
 ): boolean {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   const modCallback = modCallbackNum as ModCallback;
   const validationFunc = MOD_CALLBACK_TO_VALIDATION_FUNC.get(modCallback);
   if (validationFunc === undefined) {
@@ -57,6 +58,7 @@ function shouldCallbackFireCustom(
   modCallbackNum: int,
   ...callbackArgs: readonly unknown[]
 ): boolean {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   const modCallbackCustom = modCallbackNum as ModCallbackCustom;
 
   const validationFunc =

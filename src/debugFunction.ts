@@ -54,6 +54,7 @@ export function setDebugBaby(params: string, restart: boolean): void {
       || babyTypeNumber <= asNumber(MAX_BABY_TYPE)
     ) {
       // They provided a (valid) number argument.
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
       babyType = babyTypeNumber as RandomBabyType;
     }
   }
