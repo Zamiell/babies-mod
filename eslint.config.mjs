@@ -41,10 +41,6 @@ export default defineConfig(
       "complete/require-ascii": "off",
       "complete/type-declaration-immutability": "off",
       "complete/prefer-path-resolve": "off",
-      "regexp/prefer-named-capture-group": "off",
-      "regexp/prefer-regexp-exec": "off",
-      "regexp/require-unicode-regexp": "off",
-      "regexp/require-unicode-sets-regexp": "off",
 
       // @template-customization-end
     },

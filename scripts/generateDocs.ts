@@ -49,12 +49,12 @@ function getBabyDescriptionsFromBabiesTS(): readonly BabyDescriptionSimple[] {
     }
 
     if (line.startsWith("  // ") && !line.startsWith("  // ---")) {
-      const match = line.match(/ {2}\/\/ (\d+)/);
+      const match = / {2}\/\/ (?<id>\d+)/v.exec(line);
       if (match === null) {
         throw new Error(`Failed to parse a comment on line ${i + 1}: ${line}`);
       }
 
-      const idString = match[1];
+      const idString = match.groups?.id;
       if (idString === undefined) {
         throw new Error(`Failed to parse a comment on line ${i + 1}: ${line}`);
       }
@@ -71,26 +71,26 @@ function getBabyDescriptionsFromBabiesTS(): readonly BabyDescriptionSimple[] {
     const trimmedLine = line.trim();
 
     if (trimmedLine.startsWith("name: ")) {
-      const match = trimmedLine.match(/name: "(.+)"/);
+      const match = /name: "(?<name>.+)"/v.exec(trimmedLine);
       if (match === null) {
         throw new Error(`Failed to parse a name on line ${i + 1}: ${line}`);
       }
 
-      const name = match[1];
+      const name = match.groups?.name;
       if (name === undefined) {
         throw new Error(`Failed to parse a name on line ${i + 1}: ${line}`);
       }
 
       currentBabyDescription.name = name;
     } else if (trimmedLine.startsWith("description: ")) {
-      const match = trimmedLine.match(/description: "(.+)"/);
+      const match = /description: "(?<description>.+)"/v.exec(trimmedLine);
       if (match === null) {
         throw new Error(
           `Failed to parse a description on line ${i + 1}: ${line}`,
         );
       }
 
-      const description = match[1];
+      const description = match.groups?.description;
       if (description === undefined) {
         throw new Error(
           `Failed to parse a description on line ${i + 1}: ${line}`,
@@ -99,14 +99,14 @@ function getBabyDescriptionsFromBabiesTS(): readonly BabyDescriptionSimple[] {
 
       currentBabyDescription.description = description;
     } else if (trimmedLine.startsWith("description2: ")) {
-      const match = trimmedLine.match(/description2: "(.+)"/);
+      const match = /description2: "(?<description>.+)"/v.exec(trimmedLine);
       if (match === null) {
         throw new Error(
           `Failed to parse a description2 on line ${i + 1}: ${line}`,
         );
       }
 
-      const description = match[1];
+      const description = match.groups?.description;
       if (description === undefined) {
         throw new Error(
           `Failed to parse a description2 on line ${i + 1}: ${line}`,
@@ -118,12 +118,12 @@ function getBabyDescriptionsFromBabiesTS(): readonly BabyDescriptionSimple[] {
       }
       currentBabyDescription.description += ` ${description}`;
     } else if (trimmedLine.startsWith("sprite: ")) {
-      const match = trimmedLine.match(/sprite: "(.+)"/);
+      const match = /sprite: "(?<sprite>.+)"/v.exec(trimmedLine);
       if (match === null) {
         throw new Error(`Failed to parse a sprite on line ${i + 1}: ${line}`);
       }
 
-      const sprite = match[1];
+      const sprite = match.groups?.sprite;
       if (sprite === undefined) {
         throw new Error(`Failed to parse a sprite on line ${i + 1}: ${line}`);
       }
