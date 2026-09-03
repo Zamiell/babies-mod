@@ -115,9 +115,8 @@ function getBabyDescriptionsFromBabiesTS(): readonly BabyDescriptionSimple[] {
 
       if (currentBabyDescription.description === undefined) {
         throw new Error("Failed to add the second line of a description.");
-      } else {
-        currentBabyDescription.description += ` ${description}`;
       }
+      currentBabyDescription.description += ` ${description}`;
     } else if (trimmedLine.startsWith("sprite: ")) {
       const match = trimmedLine.match(/sprite: "(.+)"/);
       if (match === null) {

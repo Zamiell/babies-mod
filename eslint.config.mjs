@@ -50,7 +50,6 @@ export default defineConfig(
       "unicorn/no-declarations-before-early-exit": "off",
       "unicorn/no-top-level-assignment-in-function": "off",
       "unicorn/no-top-level-side-effects": "off",
-      "unicorn/no-useless-else": "off",
       "unicorn/prefer-boolean-return": "off",
       "unicorn/prefer-continue": "off",
       "unicorn/prefer-direct-iteration": "off",
