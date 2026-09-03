@@ -148,7 +148,7 @@ export function babyAdd(
       );
       rebirthItemTrackerRemoveCollectible(itemTrackerTrinketID);
     });
-    itemPool.RemoveTrinket(baby.trinket);
+    itemPool.RemoveTrinket(trinket);
   }
 
   // Reset the player's health to the way it was before we added the items.
