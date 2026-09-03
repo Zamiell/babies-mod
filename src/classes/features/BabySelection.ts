@@ -63,8 +63,7 @@ export class BabySelection extends ModFeature {
    */
   shouldClearPastBabiesOnNewRun(): boolean {
     const season5 = Isaac.GetChallengeIdByName("R+7 Season 5") as
-      | Challenge
-      | -1;
+      Challenge | -1;
 
     if (season5 !== -1 && onChallenge(season5)) {
       return (

@@ -64,8 +64,7 @@ export class DetectTrapdoorTouched extends BabyModFeature {
         // Handle the special case of the Racing+ custom version of Sol.
         if (collectibleType === CollectibleType.SOL) {
           const solCustom = Isaac.GetItemIdByName("Sol (Custom)") as
-            | CollectibleType
-            | -1;
+            CollectibleType | -1;
           if (solCustom !== -1 && player.HasCollectible(solCustom)) {
             player.RemoveCollectible(solCustom, undefined, undefined, false);
           }
