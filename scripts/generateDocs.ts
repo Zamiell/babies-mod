@@ -14,7 +14,7 @@ interface BabyDescriptionSimple {
 const NUM_BABY_DESCRIPTION_SIMPLE_FIELDS = 4;
 const NUM_BABY_DESCRIPTION_SIMPLE_OPTIONAL_FIELDS = 1;
 
-const REPO_ROOT = path.join(import.meta.dirname, "..");
+const REPO_ROOT = path.resolve(import.meta.dirname, "..");
 const BABIES_TS_PATH = path.join(REPO_ROOT, "src", "objects", "babies.ts");
 const BABIES_MD_PATH = path.join(REPO_ROOT, "docs", "babies.md");
 
@@ -177,6 +177,7 @@ function getMarkdownText(
     // properly if the file name has a space in it.
     const image = `<img src="${spriteURL}" alt="${sprite}">`;
 
+    // eslint-disable-next-line complete/require-ascii
     const requireNoEndFloorsText = requireNoEndFloors ? "❌" : "✔️";
 
     text += `| ${id} | ${image} | ${name} | ${description} | ${requireNoEndFloorsText}\n`;
